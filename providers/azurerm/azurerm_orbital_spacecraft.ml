@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_orbital_spacecraft__links = {
+type links = {
   bandwidth_mhz : float prop;  (** bandwidth_mhz *)
   center_frequency_mhz : float prop;  (** center_frequency_mhz *)
   direction : string prop;  (** direction *)
@@ -12,16 +12,16 @@ type azurerm_orbital_spacecraft__links = {
   polarization : string prop;  (** polarization *)
 }
 [@@deriving yojson_of]
-(** azurerm_orbital_spacecraft__links *)
+(** links *)
 
-type azurerm_orbital_spacecraft__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_orbital_spacecraft__timeouts *)
+(** timeouts *)
 
 type azurerm_orbital_spacecraft = {
   id : string prop option; [@option]  (** id *)
@@ -32,11 +32,40 @@ type azurerm_orbital_spacecraft = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   title_line : string prop;  (** title_line *)
   two_line_elements : string prop list;  (** two_line_elements *)
-  links : azurerm_orbital_spacecraft__links list;
-  timeouts : azurerm_orbital_spacecraft__timeouts option;
+  links : links list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_orbital_spacecraft *)
+
+let links ~bandwidth_mhz ~center_frequency_mhz ~direction ~name
+    ~polarization () : links =
+  {
+    bandwidth_mhz;
+    center_frequency_mhz;
+    direction;
+    name;
+    polarization;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_orbital_spacecraft ?id ?tags ?timeouts ~location ~name
+    ~norad_id ~resource_group_name ~title_line ~two_line_elements
+    ~links () : azurerm_orbital_spacecraft =
+  {
+    id;
+    location;
+    name;
+    norad_id;
+    resource_group_name;
+    tags;
+    title_line;
+    two_line_elements;
+    links;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -49,26 +78,16 @@ type t = {
   two_line_elements : string list prop;
 }
 
-let azurerm_orbital_spacecraft ?id ?tags ?timeouts ~location ~name
-    ~norad_id ~resource_group_name ~title_line ~two_line_elements
-    ~links __resource_id =
+let register ?tf_module ?id ?tags ?timeouts ~location ~name ~norad_id
+    ~resource_group_name ~title_line ~two_line_elements ~links
+    __resource_id =
   let __resource_type = "azurerm_orbital_spacecraft" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       norad_id;
-       resource_group_name;
-       tags;
-       title_line;
-       two_line_elements;
-       links;
-       timeouts;
-     }
-      : azurerm_orbital_spacecraft)
+    azurerm_orbital_spacecraft ?id ?tags ?timeouts ~location ~name
+      ~norad_id ~resource_group_name ~title_line ~two_line_elements
+      ~links ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_orbital_spacecraft __resource);
   let __resource_attributes =
     ({

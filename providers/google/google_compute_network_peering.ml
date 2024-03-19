@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_network_peering__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_network_peering__timeouts *)
+(** timeouts *)
 
 type google_compute_network_peering = {
   export_custom_routes : bool prop option; [@option]
@@ -28,10 +28,30 @@ type google_compute_network_peering = {
       (** The peer network in the peering. The peer network may belong to a different project. *)
   stack_type : string prop option; [@option]
       (** Which IP version(s) of traffic and routes are allowed to be imported or exported between peer networks. The default value is IPV4_ONLY. Possible values: [IPV4_ONLY, IPV4_IPV6] *)
-  timeouts : google_compute_network_peering__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_network_peering *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_network_peering ?export_custom_routes
+    ?export_subnet_routes_with_public_ip ?id ?import_custom_routes
+    ?import_subnet_routes_with_public_ip ?stack_type ?timeouts ~name
+    ~network ~peer_network () : google_compute_network_peering =
+  {
+    export_custom_routes;
+    export_subnet_routes_with_public_ip;
+    id;
+    import_custom_routes;
+    import_subnet_routes_with_public_ip;
+    name;
+    network;
+    peer_network;
+    stack_type;
+    timeouts;
+  }
 
 type t = {
   export_custom_routes : bool prop;
@@ -47,27 +67,18 @@ type t = {
   state_details : string prop;
 }
 
-let google_compute_network_peering ?export_custom_routes
+let register ?tf_module ?export_custom_routes
     ?export_subnet_routes_with_public_ip ?id ?import_custom_routes
     ?import_subnet_routes_with_public_ip ?stack_type ?timeouts ~name
     ~network ~peer_network __resource_id =
   let __resource_type = "google_compute_network_peering" in
   let __resource =
-    ({
-       export_custom_routes;
-       export_subnet_routes_with_public_ip;
-       id;
-       import_custom_routes;
-       import_subnet_routes_with_public_ip;
-       name;
-       network;
-       peer_network;
-       stack_type;
-       timeouts;
-     }
-      : google_compute_network_peering)
+    google_compute_network_peering ?export_custom_routes
+      ?export_subnet_routes_with_public_ip ?id ?import_custom_routes
+      ?import_subnet_routes_with_public_ip ?stack_type ?timeouts
+      ~name ~network ~peer_network ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_peering __resource);
   let __resource_attributes =
     ({

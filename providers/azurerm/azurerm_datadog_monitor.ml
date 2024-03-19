@@ -4,46 +4,40 @@
 
 open! Tf.Prelude
 
-type azurerm_datadog_monitor__datadog_organization = {
+type datadog_organization = {
   api_key : string prop;  (** api_key *)
   application_key : string prop;  (** application_key *)
   enterprise_app_id : string prop option; [@option]
       (** enterprise_app_id *)
-  id : string prop;  (** id *)
   linking_auth_code : string prop option; [@option]
       (** linking_auth_code *)
   linking_client_id : string prop option; [@option]
       (** linking_client_id *)
-  name : string prop;  (** name *)
   redirect_uri : string prop option; [@option]  (** redirect_uri *)
 }
 [@@deriving yojson_of]
-(** azurerm_datadog_monitor__datadog_organization *)
+(** datadog_organization *)
 
-type azurerm_datadog_monitor__identity = {
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
-  type_ : string prop; [@key "type"]  (** type *)
-}
+type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
-(** azurerm_datadog_monitor__identity *)
+(** identity *)
 
-type azurerm_datadog_monitor__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_datadog_monitor__timeouts *)
+(** timeouts *)
 
-type azurerm_datadog_monitor__user = {
+type user = {
   email : string prop;  (** email *)
   name : string prop;  (** name *)
   phone_number : string prop option; [@option]  (** phone_number *)
 }
 [@@deriving yojson_of]
-(** azurerm_datadog_monitor__user *)
+(** user *)
 
 type azurerm_datadog_monitor = {
   id : string prop option; [@option]  (** id *)
@@ -54,14 +48,51 @@ type azurerm_datadog_monitor = {
   resource_group_name : string prop;  (** resource_group_name *)
   sku_name : string prop;  (** sku_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  datadog_organization :
-    azurerm_datadog_monitor__datadog_organization list;
-  identity : azurerm_datadog_monitor__identity list;
-  timeouts : azurerm_datadog_monitor__timeouts option;
-  user : azurerm_datadog_monitor__user list;
+  datadog_organization : datadog_organization list;
+  identity : identity list;
+  timeouts : timeouts option;
+  user : user list;
 }
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor *)
+
+let datadog_organization ?enterprise_app_id ?linking_auth_code
+    ?linking_client_id ?redirect_uri ~api_key ~application_key () :
+    datadog_organization =
+  {
+    api_key;
+    application_key;
+    enterprise_app_id;
+    linking_auth_code;
+    linking_client_id;
+    redirect_uri;
+  }
+
+let identity ~type_ () : identity = { type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let user ?phone_number ~email ~name () : user =
+  { email; name; phone_number }
+
+let azurerm_datadog_monitor ?id ?monitoring_enabled ?tags ?timeouts
+    ~location ~name ~resource_group_name ~sku_name
+    ~datadog_organization ~identity ~user () :
+    azurerm_datadog_monitor =
+  {
+    id;
+    location;
+    monitoring_enabled;
+    name;
+    resource_group_name;
+    sku_name;
+    tags;
+    datadog_organization;
+    identity;
+    timeouts;
+    user;
+  }
 
 type t = {
   id : string prop;
@@ -74,27 +105,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_datadog_monitor ?id ?monitoring_enabled ?tags ?timeouts
+let register ?tf_module ?id ?monitoring_enabled ?tags ?timeouts
     ~location ~name ~resource_group_name ~sku_name
     ~datadog_organization ~identity ~user __resource_id =
   let __resource_type = "azurerm_datadog_monitor" in
   let __resource =
-    ({
-       id;
-       location;
-       monitoring_enabled;
-       name;
-       resource_group_name;
-       sku_name;
-       tags;
-       datadog_organization;
-       identity;
-       timeouts;
-       user;
-     }
-      : azurerm_datadog_monitor)
+    azurerm_datadog_monitor ?id ?monitoring_enabled ?tags ?timeouts
+      ~location ~name ~resource_group_name ~sku_name
+      ~datadog_organization ~identity ~user ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_datadog_monitor __resource);
   let __resource_attributes =
     ({

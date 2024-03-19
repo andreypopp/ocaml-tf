@@ -14,6 +14,11 @@ type aws_iot_thing_group_membership = {
 [@@deriving yojson_of]
 (** aws_iot_thing_group_membership *)
 
+let aws_iot_thing_group_membership ?id ?override_dynamic_group
+    ~thing_group_name ~thing_name () : aws_iot_thing_group_membership
+    =
+  { id; override_dynamic_group; thing_group_name; thing_name }
+
 type t = {
   id : string prop;
   override_dynamic_group : bool prop;
@@ -21,14 +26,14 @@ type t = {
   thing_name : string prop;
 }
 
-let aws_iot_thing_group_membership ?id ?override_dynamic_group
-    ~thing_group_name ~thing_name __resource_id =
+let register ?tf_module ?id ?override_dynamic_group ~thing_group_name
+    ~thing_name __resource_id =
   let __resource_type = "aws_iot_thing_group_membership" in
   let __resource =
-    ({ id; override_dynamic_group; thing_group_name; thing_name }
-      : aws_iot_thing_group_membership)
+    aws_iot_thing_group_membership ?id ?override_dynamic_group
+      ~thing_group_name ~thing_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_thing_group_membership __resource);
   let __resource_attributes =
     ({

@@ -4,22 +4,28 @@
 
 open! Tf.Prelude
 
-type aws_account_region__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_account_region__timeouts *)
+(** timeouts *)
 
 type aws_account_region = {
   account_id : string prop option; [@option]  (** account_id *)
   enabled : bool prop;  (** enabled *)
   id : string prop option; [@option]  (** id *)
   region_name : string prop;  (** region_name *)
-  timeouts : aws_account_region__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_account_region *)
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_account_region ?account_id ?id ?timeouts ~enabled
+    ~region_name () : aws_account_region =
+  { account_id; enabled; id; region_name; timeouts }
 
 type t = {
   account_id : string prop;
@@ -29,14 +35,14 @@ type t = {
   region_name : string prop;
 }
 
-let aws_account_region ?account_id ?id ?timeouts ~enabled
+let register ?tf_module ?account_id ?id ?timeouts ~enabled
     ~region_name __resource_id =
   let __resource_type = "aws_account_region" in
   let __resource =
-    ({ account_id; enabled; id; region_name; timeouts }
-      : aws_account_region)
+    aws_account_region ?account_id ?id ?timeouts ~enabled
+      ~region_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_account_region __resource);
   let __resource_attributes =
     ({

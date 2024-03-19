@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_notebooks_instance__accelerator_config = {
+type accelerator_config = {
   core_count : float prop;
       (** Count of cores of this accelerator. *)
   type_ : string prop; [@key "type"]
@@ -15,7 +15,7 @@ type google_notebooks_instance__accelerator_config = {
 make sure that your configuration has enough vCPUs and memory to support the
 machineType you have selected. *)
 
-type google_notebooks_instance__container_image = {
+type container_image = {
   repository : string prop;
       (** The path to the container image repository.
 For example: gcr.io/{project_id}/{imageName} *)
@@ -25,7 +25,7 @@ For example: gcr.io/{project_id}/{imageName} *)
 [@@deriving yojson_of]
 (** Use a container image to start the notebook instance. *)
 
-type google_notebooks_instance__reservation_affinity = {
+type reservation_affinity = {
   consume_reservation_type : string prop;
       (** The type of Compute Reservation. Possible values: [NO_RESERVATION, ANY_RESERVATION, SPECIFIC_RESERVATION] *)
   key : string prop option; [@option]
@@ -36,7 +36,7 @@ type google_notebooks_instance__reservation_affinity = {
 [@@deriving yojson_of]
 (** Reservation Affinity for consuming Zonal reservation. *)
 
-type google_notebooks_instance__shielded_instance_config = {
+type shielded_instance_config = {
   enable_integrity_monitoring : bool prop option; [@option]
       (** Defines whether the instance has integrity monitoring enabled. Enables monitoring and attestation of the
 boot integrity of the instance. The attestation is performed against the integrity policy baseline.
@@ -55,15 +55,15 @@ Enabled by default. *)
 (** A set of Shielded Instance options. Check [Images using supported Shielded VM features]
 Not all combinations are valid *)
 
-type google_notebooks_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_notebooks_instance__timeouts *)
+(** timeouts *)
 
-type google_notebooks_instance__vm_image = {
+type vm_image = {
   image_family : string prop option; [@option]
       (** Use this VM image family to find the image; the newest image in this family will be used. *)
   image_name : string prop option; [@option]
@@ -162,18 +162,84 @@ Format: projects/{project_id}/regions/{region}/subnetworks/{subnetwork_id} *)
       (** The Compute Engine tags to add to instance. *)
   update_time : string prop option; [@option]
       (** Instance update time. *)
-  accelerator_config :
-    google_notebooks_instance__accelerator_config list;
-  container_image : google_notebooks_instance__container_image list;
-  reservation_affinity :
-    google_notebooks_instance__reservation_affinity list;
-  shielded_instance_config :
-    google_notebooks_instance__shielded_instance_config list;
-  timeouts : google_notebooks_instance__timeouts option;
-  vm_image : google_notebooks_instance__vm_image list;
+  accelerator_config : accelerator_config list;
+  container_image : container_image list;
+  reservation_affinity : reservation_affinity list;
+  shielded_instance_config : shielded_instance_config list;
+  timeouts : timeouts option;
+  vm_image : vm_image list;
 }
 [@@deriving yojson_of]
 (** google_notebooks_instance *)
+
+let accelerator_config ~core_count ~type_ () : accelerator_config =
+  { core_count; type_ }
+
+let container_image ?tag ~repository () : container_image =
+  { repository; tag }
+
+let reservation_affinity ?key ?values ~consume_reservation_type () :
+    reservation_affinity =
+  { consume_reservation_type; key; values }
+
+let shielded_instance_config ?enable_integrity_monitoring
+    ?enable_secure_boot ?enable_vtpm () : shielded_instance_config =
+  { enable_integrity_monitoring; enable_secure_boot; enable_vtpm }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vm_image ?image_family ?image_name ~project () : vm_image =
+  { image_family; image_name; project }
+
+let google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
+    ?create_time ?custom_gpu_driver_path ?data_disk_size_gb
+    ?data_disk_type ?desired_state ?disk_encryption ?id
+    ?install_gpu_driver ?instance_owners ?kms_key ?labels ?metadata
+    ?network ?nic_type ?no_proxy_access ?no_public_ip
+    ?no_remove_data_disk ?post_startup_script ?project
+    ?service_account ?service_account_scopes ?subnet ?tags
+    ?update_time ?timeouts ~location ~machine_type ~name
+    ~accelerator_config ~container_image ~reservation_affinity
+    ~shielded_instance_config ~vm_image () :
+    google_notebooks_instance =
+  {
+    boot_disk_size_gb;
+    boot_disk_type;
+    create_time;
+    custom_gpu_driver_path;
+    data_disk_size_gb;
+    data_disk_type;
+    desired_state;
+    disk_encryption;
+    id;
+    install_gpu_driver;
+    instance_owners;
+    kms_key;
+    labels;
+    location;
+    machine_type;
+    metadata;
+    name;
+    network;
+    nic_type;
+    no_proxy_access;
+    no_public_ip;
+    no_remove_data_disk;
+    post_startup_script;
+    project;
+    service_account;
+    service_account_scopes;
+    subnet;
+    tags;
+    update_time;
+    accelerator_config;
+    container_image;
+    reservation_affinity;
+    shielded_instance_config;
+    timeouts;
+    vm_image;
+  }
 
 type t = {
   boot_disk_size_gb : float prop;
@@ -211,7 +277,7 @@ type t = {
   update_time : string prop;
 }
 
-let google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
+let register ?tf_module ?boot_disk_size_gb ?boot_disk_type
     ?create_time ?custom_gpu_driver_path ?data_disk_size_gb
     ?data_disk_type ?desired_state ?disk_encryption ?id
     ?install_gpu_driver ?instance_owners ?kms_key ?labels ?metadata
@@ -223,46 +289,18 @@ let google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
     ~shielded_instance_config ~vm_image __resource_id =
   let __resource_type = "google_notebooks_instance" in
   let __resource =
-    ({
-       boot_disk_size_gb;
-       boot_disk_type;
-       create_time;
-       custom_gpu_driver_path;
-       data_disk_size_gb;
-       data_disk_type;
-       desired_state;
-       disk_encryption;
-       id;
-       install_gpu_driver;
-       instance_owners;
-       kms_key;
-       labels;
-       location;
-       machine_type;
-       metadata;
-       name;
-       network;
-       nic_type;
-       no_proxy_access;
-       no_public_ip;
-       no_remove_data_disk;
-       post_startup_script;
-       project;
-       service_account;
-       service_account_scopes;
-       subnet;
-       tags;
-       update_time;
-       accelerator_config;
-       container_image;
-       reservation_affinity;
-       shielded_instance_config;
-       timeouts;
-       vm_image;
-     }
-      : google_notebooks_instance)
+    google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
+      ?create_time ?custom_gpu_driver_path ?data_disk_size_gb
+      ?data_disk_type ?desired_state ?disk_encryption ?id
+      ?install_gpu_driver ?instance_owners ?kms_key ?labels ?metadata
+      ?network ?nic_type ?no_proxy_access ?no_public_ip
+      ?no_remove_data_disk ?post_startup_script ?project
+      ?service_account ?service_account_scopes ?subnet ?tags
+      ?update_time ?timeouts ~location ~machine_type ~name
+      ~accelerator_config ~container_image ~reservation_affinity
+      ~shielded_instance_config ~vm_image ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_notebooks_instance __resource);
   let __resource_attributes =
     ({

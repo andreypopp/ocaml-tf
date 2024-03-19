@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type digitalocean_database_connection_pool
+
+val digitalocean_database_connection_pool :
+  ?id:string prop ->
+  ?user:string prop ->
+  cluster_id:string prop ->
+  db_name:string prop ->
+  mode:string prop ->
+  name:string prop ->
+  size:float prop ->
+  unit ->
+  digitalocean_database_connection_pool
+
+val yojson_of_digitalocean_database_connection_pool :
+  digitalocean_database_connection_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_id : string prop;
@@ -20,7 +38,8 @@ type t = private {
   user : string prop;
 }
 
-val digitalocean_database_connection_pool :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?user:string prop ->
   cluster_id:string prop ->

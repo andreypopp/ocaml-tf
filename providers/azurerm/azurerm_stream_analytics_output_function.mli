@@ -2,8 +2,38 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_output_function__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_stream_analytics_output_function
+
+val azurerm_stream_analytics_output_function :
+  ?batch_max_count:float prop ->
+  ?batch_max_in_bytes:float prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  api_key:string prop ->
+  function_app:string prop ->
+  function_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  stream_analytics_job_name:string prop ->
+  unit ->
+  azurerm_stream_analytics_output_function
+
+val yojson_of_azurerm_stream_analytics_output_function :
+  azurerm_stream_analytics_output_function -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_key : string prop;
@@ -17,11 +47,12 @@ type t = private {
   stream_analytics_job_name : string prop;
 }
 
-val azurerm_stream_analytics_output_function :
+val register :
+  ?tf_module:tf_module ->
   ?batch_max_count:float prop ->
   ?batch_max_in_bytes:float prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_stream_analytics_output_function__timeouts ->
+  ?timeouts:timeouts ->
   api_key:string prop ->
   function_app:string prop ->
   function_name:string prop ->

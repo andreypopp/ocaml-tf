@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type digitalocean_spaces_bucket_cors_configuration__cors_rule
+(** RESOURCE SERIALIZATION *)
+
+type cors_rule
+
+val cors_rule :
+  ?allowed_headers:string prop list ->
+  ?expose_headers:string prop list ->
+  ?id:string prop ->
+  ?max_age_seconds:float prop ->
+  allowed_methods:string prop list ->
+  allowed_origins:string prop list ->
+  unit ->
+  cors_rule
+
 type digitalocean_spaces_bucket_cors_configuration
+
+val digitalocean_spaces_bucket_cors_configuration :
+  ?id:string prop ->
+  bucket:string prop ->
+  region:string prop ->
+  cors_rule:cors_rule list ->
+  unit ->
+  digitalocean_spaces_bucket_cors_configuration
+
+val yojson_of_digitalocean_spaces_bucket_cors_configuration :
+  digitalocean_spaces_bucket_cors_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket : string prop;
@@ -11,11 +37,11 @@ type t = private {
   region : string prop;
 }
 
-val digitalocean_spaces_bucket_cors_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   bucket:string prop ->
   region:string prop ->
-  cors_rule:
-    digitalocean_spaces_bucket_cors_configuration__cors_rule list ->
+  cors_rule:cors_rule list ->
   string ->
   t

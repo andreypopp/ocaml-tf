@@ -2,19 +2,85 @@
 
 open! Tf.Prelude
 
-type azurerm_media_streaming_endpoint__access_control__akamai_signature_header_authentication_key
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_media_streaming_endpoint__access_control__ip_allow
-type azurerm_media_streaming_endpoint__access_control
-type azurerm_media_streaming_endpoint__cross_site_access_policy
-type azurerm_media_streaming_endpoint__timeouts
-
-type azurerm_media_streaming_endpoint__sku = {
+type sku = {
   capacity : float prop;  (** capacity *)
   name : string prop;  (** name *)
 }
 
+type access_control__akamai_signature_header_authentication_key
+
+val access_control__akamai_signature_header_authentication_key :
+  ?base64_key:string prop ->
+  ?expiration:string prop ->
+  ?identifier:string prop ->
+  unit ->
+  access_control__akamai_signature_header_authentication_key
+
+type access_control__ip_allow
+
+val access_control__ip_allow :
+  ?address:string prop ->
+  ?name:string prop ->
+  ?subnet_prefix_length:float prop ->
+  unit ->
+  access_control__ip_allow
+
+type access_control
+
+val access_control :
+  akamai_signature_header_authentication_key:
+    access_control__akamai_signature_header_authentication_key list ->
+  ip_allow:access_control__ip_allow list ->
+  unit ->
+  access_control
+
+type cross_site_access_policy
+
+val cross_site_access_policy :
+  ?client_access_policy:string prop ->
+  ?cross_domain_policy:string prop ->
+  unit ->
+  cross_site_access_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_media_streaming_endpoint
+
+val azurerm_media_streaming_endpoint :
+  ?auto_start_enabled:bool prop ->
+  ?cdn_enabled:bool prop ->
+  ?cdn_profile:string prop ->
+  ?cdn_provider:string prop ->
+  ?custom_host_names:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?max_cache_age_seconds:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scale_units:float prop ->
+  access_control:access_control list ->
+  cross_site_access_policy:cross_site_access_policy list ->
+  unit ->
+  azurerm_media_streaming_endpoint
+
+val yojson_of_azurerm_media_streaming_endpoint :
+  azurerm_media_streaming_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_start_enabled : bool prop;
@@ -31,11 +97,12 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   scale_units : float prop;
-  sku : azurerm_media_streaming_endpoint__sku list prop;
+  sku : sku list prop;
   tags : (string * string) list prop;
 }
 
-val azurerm_media_streaming_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?auto_start_enabled:bool prop ->
   ?cdn_enabled:bool prop ->
   ?cdn_profile:string prop ->
@@ -45,15 +112,13 @@ val azurerm_media_streaming_endpoint :
   ?id:string prop ->
   ?max_cache_age_seconds:float prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_media_streaming_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scale_units:float prop ->
-  access_control:
-    azurerm_media_streaming_endpoint__access_control list ->
-  cross_site_access_policy:
-    azurerm_media_streaming_endpoint__cross_site_access_policy list ->
+  access_control:access_control list ->
+  cross_site_access_policy:cross_site_access_policy list ->
   string ->
   t

@@ -4,31 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_test_windows_virtual_machine__gallery_image_reference = {
+type gallery_image_reference = {
   offer : string prop;  (** offer *)
   publisher : string prop;  (** publisher *)
   sku : string prop;  (** sku *)
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_windows_virtual_machine__gallery_image_reference *)
+(** gallery_image_reference *)
 
-type azurerm_dev_test_windows_virtual_machine__inbound_nat_rule = {
+type inbound_nat_rule = {
   backend_port : float prop;  (** backend_port *)
-  frontend_port : float prop;  (** frontend_port *)
   protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_windows_virtual_machine__inbound_nat_rule *)
+(** inbound_nat_rule *)
 
-type azurerm_dev_test_windows_virtual_machine__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_windows_virtual_machine__timeouts *)
+(** timeouts *)
 
 type azurerm_dev_test_windows_virtual_machine = {
   allow_claim : bool prop option; [@option]  (** allow_claim *)
@@ -48,16 +47,49 @@ type azurerm_dev_test_windows_virtual_machine = {
   storage_type : string prop;  (** storage_type *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   username : string prop;  (** username *)
-  gallery_image_reference :
-    azurerm_dev_test_windows_virtual_machine__gallery_image_reference
-    list;
-  inbound_nat_rule :
-    azurerm_dev_test_windows_virtual_machine__inbound_nat_rule list;
-  timeouts :
-    azurerm_dev_test_windows_virtual_machine__timeouts option;
+  gallery_image_reference : gallery_image_reference list;
+  inbound_nat_rule : inbound_nat_rule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_windows_virtual_machine *)
+
+let gallery_image_reference ~offer ~publisher ~sku ~version () :
+    gallery_image_reference =
+  { offer; publisher; sku; version }
+
+let inbound_nat_rule ~backend_port ~protocol () : inbound_nat_rule =
+  { backend_port; protocol }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_dev_test_windows_virtual_machine ?allow_claim
+    ?disallow_public_ip_address ?id ?notes ?tags ?timeouts ~lab_name
+    ~lab_subnet_name ~lab_virtual_network_id ~location ~name
+    ~password ~resource_group_name ~size ~storage_type ~username
+    ~gallery_image_reference ~inbound_nat_rule () :
+    azurerm_dev_test_windows_virtual_machine =
+  {
+    allow_claim;
+    disallow_public_ip_address;
+    id;
+    lab_name;
+    lab_subnet_name;
+    lab_virtual_network_id;
+    location;
+    name;
+    notes;
+    password;
+    resource_group_name;
+    size;
+    storage_type;
+    tags;
+    username;
+    gallery_image_reference;
+    inbound_nat_rule;
+    timeouts;
+  }
 
 type t = {
   allow_claim : bool prop;
@@ -79,36 +111,20 @@ type t = {
   username : string prop;
 }
 
-let azurerm_dev_test_windows_virtual_machine ?allow_claim
-    ?disallow_public_ip_address ?id ?notes ?tags ?timeouts ~lab_name
-    ~lab_subnet_name ~lab_virtual_network_id ~location ~name
-    ~password ~resource_group_name ~size ~storage_type ~username
+let register ?tf_module ?allow_claim ?disallow_public_ip_address ?id
+    ?notes ?tags ?timeouts ~lab_name ~lab_subnet_name
+    ~lab_virtual_network_id ~location ~name ~password
+    ~resource_group_name ~size ~storage_type ~username
     ~gallery_image_reference ~inbound_nat_rule __resource_id =
   let __resource_type = "azurerm_dev_test_windows_virtual_machine" in
   let __resource =
-    ({
-       allow_claim;
-       disallow_public_ip_address;
-       id;
-       lab_name;
-       lab_subnet_name;
-       lab_virtual_network_id;
-       location;
-       name;
-       notes;
-       password;
-       resource_group_name;
-       size;
-       storage_type;
-       tags;
-       username;
-       gallery_image_reference;
-       inbound_nat_rule;
-       timeouts;
-     }
-      : azurerm_dev_test_windows_virtual_machine)
+    azurerm_dev_test_windows_virtual_machine ?allow_claim
+      ?disallow_public_ip_address ?id ?notes ?tags ?timeouts
+      ~lab_name ~lab_subnet_name ~lab_virtual_network_id ~location
+      ~name ~password ~resource_group_name ~size ~storage_type
+      ~username ~gallery_image_reference ~inbound_nat_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_test_windows_virtual_machine __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_active_directory_domain_service_replica_set__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_active_directory_domain_service_replica_set
+
+val azurerm_active_directory_domain_service_replica_set :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  domain_service_id:string prop ->
+  location:string prop ->
+  subnet_id:string prop ->
+  unit ->
+  azurerm_active_directory_domain_service_replica_set
+
+val yojson_of_azurerm_active_directory_domain_service_replica_set :
+  azurerm_active_directory_domain_service_replica_set -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   domain_controller_ip_addresses : string list prop;
@@ -15,10 +39,10 @@ type t = private {
   subnet_id : string prop;
 }
 
-val azurerm_active_directory_domain_service_replica_set :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_active_directory_domain_service_replica_set__timeouts ->
+  ?timeouts:timeouts ->
   domain_service_id:string prop ->
   location:string prop ->
   subnet_id:string prop ->

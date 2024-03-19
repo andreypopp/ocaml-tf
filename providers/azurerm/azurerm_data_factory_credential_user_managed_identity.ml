@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_credential_user_managed_identity__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_credential_user_managed_identity__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_credential_user_managed_identity = {
   annotations : string prop list option; [@option]
@@ -25,12 +25,27 @@ type azurerm_data_factory_credential_user_managed_identity = {
       (** The resource ID of the User Assigned Managed Identity *)
   name : string prop;
       (** The desired name of the credential resource *)
-  timeouts :
-    azurerm_data_factory_credential_user_managed_identity__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_credential_user_managed_identity *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_credential_user_managed_identity
+    ?annotations ?description ?id ?timeouts ~data_factory_id
+    ~identity_id ~name () :
+    azurerm_data_factory_credential_user_managed_identity =
+  {
+    annotations;
+    data_factory_id;
+    description;
+    id;
+    identity_id;
+    name;
+    timeouts;
+  }
 
 type t = {
   annotations : string list prop;
@@ -41,25 +56,17 @@ type t = {
   name : string prop;
 }
 
-let azurerm_data_factory_credential_user_managed_identity
-    ?annotations ?description ?id ?timeouts ~data_factory_id
-    ~identity_id ~name __resource_id =
+let register ?tf_module ?annotations ?description ?id ?timeouts
+    ~data_factory_id ~identity_id ~name __resource_id =
   let __resource_type =
     "azurerm_data_factory_credential_user_managed_identity"
   in
   let __resource =
-    ({
-       annotations;
-       data_factory_id;
-       description;
-       id;
-       identity_id;
-       name;
-       timeouts;
-     }
-      : azurerm_data_factory_credential_user_managed_identity)
+    azurerm_data_factory_credential_user_managed_identity
+      ?annotations ?description ?id ?timeouts ~data_factory_id
+      ~identity_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_credential_user_managed_identity
        __resource);
   let __resource_attributes =

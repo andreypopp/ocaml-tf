@@ -14,6 +14,10 @@ type google_billing_subaccount = {
 [@@deriving yojson_of]
 (** google_billing_subaccount *)
 
+let google_billing_subaccount ?deletion_policy ?id ~display_name
+    ~master_billing_account () : google_billing_subaccount =
+  { deletion_policy; display_name; id; master_billing_account }
+
 type t = {
   billing_account_id : string prop;
   deletion_policy : string prop;
@@ -24,14 +28,14 @@ type t = {
   open_ : bool prop;
 }
 
-let google_billing_subaccount ?deletion_policy ?id ~display_name
+let register ?tf_module ?deletion_policy ?id ~display_name
     ~master_billing_account __resource_id =
   let __resource_type = "google_billing_subaccount" in
   let __resource =
-    ({ deletion_policy; display_name; id; master_billing_account }
-      : google_billing_subaccount)
+    google_billing_subaccount ?deletion_policy ?id ~display_name
+      ~master_billing_account ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_billing_subaccount __resource);
   let __resource_attributes =
     ({

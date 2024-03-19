@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_database_migration_project__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_database_migration_project__timeouts *)
+(** timeouts *)
 
 type azurerm_database_migration_project = {
   id : string prop option; [@option]  (** id *)
@@ -22,10 +22,28 @@ type azurerm_database_migration_project = {
   source_platform : string prop;  (** source_platform *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   target_platform : string prop;  (** target_platform *)
-  timeouts : azurerm_database_migration_project__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_database_migration_project *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_database_migration_project ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~service_name ~source_platform
+    ~target_platform () : azurerm_database_migration_project =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    service_name;
+    source_platform;
+    tags;
+    target_platform;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -38,25 +56,16 @@ type t = {
   target_platform : string prop;
 }
 
-let azurerm_database_migration_project ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~service_name ~source_platform
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~service_name ~source_platform
     ~target_platform __resource_id =
   let __resource_type = "azurerm_database_migration_project" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       service_name;
-       source_platform;
-       tags;
-       target_platform;
-       timeouts;
-     }
-      : azurerm_database_migration_project)
+    azurerm_database_migration_project ?id ?tags ?timeouts ~location
+      ~name ~resource_group_name ~service_name ~source_platform
+      ~target_platform ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_database_migration_project __resource);
   let __resource_attributes =
     ({

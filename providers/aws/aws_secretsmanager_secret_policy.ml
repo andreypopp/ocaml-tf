@@ -14,6 +14,10 @@ type aws_secretsmanager_secret_policy = {
 [@@deriving yojson_of]
 (** aws_secretsmanager_secret_policy *)
 
+let aws_secretsmanager_secret_policy ?block_public_policy ?id ~policy
+    ~secret_arn () : aws_secretsmanager_secret_policy =
+  { block_public_policy; id; policy; secret_arn }
+
 type t = {
   block_public_policy : bool prop;
   id : string prop;
@@ -21,14 +25,14 @@ type t = {
   secret_arn : string prop;
 }
 
-let aws_secretsmanager_secret_policy ?block_public_policy ?id ~policy
-    ~secret_arn __resource_id =
+let register ?tf_module ?block_public_policy ?id ~policy ~secret_arn
+    __resource_id =
   let __resource_type = "aws_secretsmanager_secret_policy" in
   let __resource =
-    ({ block_public_policy; id; policy; secret_arn }
-      : aws_secretsmanager_secret_policy)
+    aws_secretsmanager_secret_policy ?block_public_policy ?id ~policy
+      ~secret_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_secretsmanager_secret_policy __resource);
   let __resource_attributes =
     ({

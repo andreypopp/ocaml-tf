@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type cloudflare_teams_location__networks
+(** RESOURCE SERIALIZATION *)
+
+type networks
+
+val networks : network:string prop -> unit -> networks
+
 type cloudflare_teams_location
+
+val cloudflare_teams_location :
+  ?client_default:bool prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  networks:networks list ->
+  unit ->
+  cloudflare_teams_location
+
+val yojson_of_cloudflare_teams_location :
+  cloudflare_teams_location -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -17,11 +36,12 @@ type t = private {
   policy_ids : string list prop;
 }
 
-val cloudflare_teams_location :
+val register :
+  ?tf_module:tf_module ->
   ?client_default:bool prop ->
   ?id:string prop ->
   account_id:string prop ->
   name:string prop ->
-  networks:cloudflare_teams_location__networks list ->
+  networks:networks list ->
   string ->
   t

@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_vpc_ipam_pool_cidr_allocation
+
+val aws_vpc_ipam_pool_cidr_allocation :
+  ?cidr:string prop ->
+  ?description:string prop ->
+  ?disallowed_cidrs:string prop list ->
+  ?id:string prop ->
+  ?netmask_length:float prop ->
+  ipam_pool_id:string prop ->
+  unit ->
+  aws_vpc_ipam_pool_cidr_allocation
+
+val yojson_of_aws_vpc_ipam_pool_cidr_allocation :
+  aws_vpc_ipam_pool_cidr_allocation -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cidr : string prop;
@@ -17,7 +34,8 @@ type t = private {
   resource_type : string prop;
 }
 
-val aws_vpc_ipam_pool_cidr_allocation :
+val register :
+  ?tf_module:tf_module ->
   ?cidr:string prop ->
   ?description:string prop ->
   ?disallowed_cidrs:string prop list ->

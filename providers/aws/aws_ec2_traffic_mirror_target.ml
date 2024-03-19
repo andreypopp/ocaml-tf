@@ -20,6 +20,20 @@ type aws_ec2_traffic_mirror_target = {
 [@@deriving yojson_of]
 (** aws_ec2_traffic_mirror_target *)
 
+let aws_ec2_traffic_mirror_target ?description
+    ?gateway_load_balancer_endpoint_id ?id ?network_interface_id
+    ?network_load_balancer_arn ?tags ?tags_all () :
+    aws_ec2_traffic_mirror_target =
+  {
+    description;
+    gateway_load_balancer_endpoint_id;
+    id;
+    network_interface_id;
+    network_load_balancer_arn;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -32,23 +46,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ec2_traffic_mirror_target ?description
+let register ?tf_module ?description
     ?gateway_load_balancer_endpoint_id ?id ?network_interface_id
     ?network_load_balancer_arn ?tags ?tags_all __resource_id =
   let __resource_type = "aws_ec2_traffic_mirror_target" in
   let __resource =
-    ({
-       description;
-       gateway_load_balancer_endpoint_id;
-       id;
-       network_interface_id;
-       network_load_balancer_arn;
-       tags;
-       tags_all;
-     }
-      : aws_ec2_traffic_mirror_target)
+    aws_ec2_traffic_mirror_target ?description
+      ?gateway_load_balancer_endpoint_id ?id ?network_interface_id
+      ?network_load_balancer_arn ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_traffic_mirror_target __resource);
   let __resource_attributes =
     ({

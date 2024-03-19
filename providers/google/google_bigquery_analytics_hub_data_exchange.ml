@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_bigquery_analytics_hub_data_exchange__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_analytics_hub_data_exchange__timeouts *)
+(** timeouts *)
 
 type google_bigquery_analytics_hub_data_exchange = {
   data_exchange_id : string prop;
@@ -29,11 +29,30 @@ type google_bigquery_analytics_hub_data_exchange = {
   primary_contact : string prop option; [@option]
       (** Email or URL of the primary point of contact of the data exchange. *)
   project : string prop option; [@option]  (** project *)
-  timeouts :
-    google_bigquery_analytics_hub_data_exchange__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_analytics_hub_data_exchange *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_bigquery_analytics_hub_data_exchange ?description
+    ?documentation ?icon ?id ?primary_contact ?project ?timeouts
+    ~data_exchange_id ~display_name ~location () :
+    google_bigquery_analytics_hub_data_exchange =
+  {
+    data_exchange_id;
+    description;
+    display_name;
+    documentation;
+    icon;
+    id;
+    location;
+    primary_contact;
+    project;
+    timeouts;
+  }
 
 type t = {
   data_exchange_id : string prop;
@@ -49,28 +68,18 @@ type t = {
   project : string prop;
 }
 
-let google_bigquery_analytics_hub_data_exchange ?description
-    ?documentation ?icon ?id ?primary_contact ?project ?timeouts
-    ~data_exchange_id ~display_name ~location __resource_id =
+let register ?tf_module ?description ?documentation ?icon ?id
+    ?primary_contact ?project ?timeouts ~data_exchange_id
+    ~display_name ~location __resource_id =
   let __resource_type =
     "google_bigquery_analytics_hub_data_exchange"
   in
   let __resource =
-    ({
-       data_exchange_id;
-       description;
-       display_name;
-       documentation;
-       icon;
-       id;
-       location;
-       primary_contact;
-       project;
-       timeouts;
-     }
-      : google_bigquery_analytics_hub_data_exchange)
+    google_bigquery_analytics_hub_data_exchange ?description
+      ?documentation ?icon ?id ?primary_contact ?project ?timeouts
+      ~data_exchange_id ~display_name ~location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_analytics_hub_data_exchange __resource);
   let __resource_attributes =
     ({

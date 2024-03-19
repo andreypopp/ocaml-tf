@@ -33,6 +33,30 @@ type aws_devicefarm_network_profile = {
 [@@deriving yojson_of]
 (** aws_devicefarm_network_profile *)
 
+let aws_devicefarm_network_profile ?description
+    ?downlink_bandwidth_bits ?downlink_delay_ms ?downlink_jitter_ms
+    ?downlink_loss_percent ?id ?tags ?tags_all ?type_
+    ?uplink_bandwidth_bits ?uplink_delay_ms ?uplink_jitter_ms
+    ?uplink_loss_percent ~name ~project_arn () :
+    aws_devicefarm_network_profile =
+  {
+    description;
+    downlink_bandwidth_bits;
+    downlink_delay_ms;
+    downlink_jitter_ms;
+    downlink_loss_percent;
+    id;
+    name;
+    project_arn;
+    tags;
+    tags_all;
+    type_;
+    uplink_bandwidth_bits;
+    uplink_delay_ms;
+    uplink_jitter_ms;
+    uplink_loss_percent;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -52,33 +76,20 @@ type t = {
   uplink_loss_percent : float prop;
 }
 
-let aws_devicefarm_network_profile ?description
-    ?downlink_bandwidth_bits ?downlink_delay_ms ?downlink_jitter_ms
-    ?downlink_loss_percent ?id ?tags ?tags_all ?type_
-    ?uplink_bandwidth_bits ?uplink_delay_ms ?uplink_jitter_ms
-    ?uplink_loss_percent ~name ~project_arn __resource_id =
+let register ?tf_module ?description ?downlink_bandwidth_bits
+    ?downlink_delay_ms ?downlink_jitter_ms ?downlink_loss_percent ?id
+    ?tags ?tags_all ?type_ ?uplink_bandwidth_bits ?uplink_delay_ms
+    ?uplink_jitter_ms ?uplink_loss_percent ~name ~project_arn
+    __resource_id =
   let __resource_type = "aws_devicefarm_network_profile" in
   let __resource =
-    ({
-       description;
-       downlink_bandwidth_bits;
-       downlink_delay_ms;
-       downlink_jitter_ms;
-       downlink_loss_percent;
-       id;
-       name;
-       project_arn;
-       tags;
-       tags_all;
-       type_;
-       uplink_bandwidth_bits;
-       uplink_delay_ms;
-       uplink_jitter_ms;
-       uplink_loss_percent;
-     }
-      : aws_devicefarm_network_profile)
+    aws_devicefarm_network_profile ?description
+      ?downlink_bandwidth_bits ?downlink_delay_ms ?downlink_jitter_ms
+      ?downlink_loss_percent ?id ?tags ?tags_all ?type_
+      ?uplink_bandwidth_bits ?uplink_delay_ms ?uplink_jitter_ms
+      ?uplink_loss_percent ~name ~project_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_devicefarm_network_profile __resource);
   let __resource_attributes =
     ({

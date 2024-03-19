@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_ssm_association__output_location = {
+type output_location = {
   s3_bucket_name : string prop;  (** s3_bucket_name *)
   s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
   s3_region : string prop option; [@option]  (** s3_region *)
 }
 [@@deriving yojson_of]
-(** aws_ssm_association__output_location *)
+(** output_location *)
 
-type aws_ssm_association__targets = {
+type targets = {
   key : string prop;  (** key *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_ssm_association__targets *)
+(** targets *)
 
 type aws_ssm_association = {
   apply_only_at_cron_interval : bool prop option; [@option]
@@ -44,11 +44,42 @@ type aws_ssm_association = {
       (** sync_compliance *)
   wait_for_success_timeout_seconds : float prop option; [@option]
       (** wait_for_success_timeout_seconds *)
-  output_location : aws_ssm_association__output_location list;
-  targets : aws_ssm_association__targets list;
+  output_location : output_location list;
+  targets : targets list;
 }
 [@@deriving yojson_of]
 (** aws_ssm_association *)
+
+let output_location ?s3_key_prefix ?s3_region ~s3_bucket_name () :
+    output_location =
+  { s3_bucket_name; s3_key_prefix; s3_region }
+
+let targets ~key ~values () : targets = { key; values }
+
+let aws_ssm_association ?apply_only_at_cron_interval
+    ?association_name ?automation_target_parameter_name
+    ?compliance_severity ?document_version ?id ?instance_id
+    ?max_concurrency ?max_errors ?parameters ?schedule_expression
+    ?sync_compliance ?wait_for_success_timeout_seconds ~name
+    ~output_location ~targets () : aws_ssm_association =
+  {
+    apply_only_at_cron_interval;
+    association_name;
+    automation_target_parameter_name;
+    compliance_severity;
+    document_version;
+    id;
+    instance_id;
+    max_concurrency;
+    max_errors;
+    name;
+    parameters;
+    schedule_expression;
+    sync_compliance;
+    wait_for_success_timeout_seconds;
+    output_location;
+    targets;
+  }
 
 type t = {
   apply_only_at_cron_interval : bool prop;
@@ -69,7 +100,7 @@ type t = {
   wait_for_success_timeout_seconds : float prop;
 }
 
-let aws_ssm_association ?apply_only_at_cron_interval
+let register ?tf_module ?apply_only_at_cron_interval
     ?association_name ?automation_target_parameter_name
     ?compliance_severity ?document_version ?id ?instance_id
     ?max_concurrency ?max_errors ?parameters ?schedule_expression
@@ -77,27 +108,14 @@ let aws_ssm_association ?apply_only_at_cron_interval
     ~output_location ~targets __resource_id =
   let __resource_type = "aws_ssm_association" in
   let __resource =
-    ({
-       apply_only_at_cron_interval;
-       association_name;
-       automation_target_parameter_name;
-       compliance_severity;
-       document_version;
-       id;
-       instance_id;
-       max_concurrency;
-       max_errors;
-       name;
-       parameters;
-       schedule_expression;
-       sync_compliance;
-       wait_for_success_timeout_seconds;
-       output_location;
-       targets;
-     }
-      : aws_ssm_association)
+    aws_ssm_association ?apply_only_at_cron_interval
+      ?association_name ?automation_target_parameter_name
+      ?compliance_severity ?document_version ?id ?instance_id
+      ?max_concurrency ?max_errors ?parameters ?schedule_expression
+      ?sync_compliance ?wait_for_success_timeout_seconds ~name
+      ~output_location ~targets ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_association __resource);
   let __resource_attributes =
     ({

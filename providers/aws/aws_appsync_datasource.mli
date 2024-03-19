@@ -2,22 +2,120 @@
 
 open! Tf.Prelude
 
-type aws_appsync_datasource__dynamodb_config__delta_sync_config
-type aws_appsync_datasource__dynamodb_config
-type aws_appsync_datasource__elasticsearch_config
-type aws_appsync_datasource__event_bridge_config
+(** RESOURCE SERIALIZATION *)
 
-type aws_appsync_datasource__http_config__authorization_config__aws_iam_config
+type dynamodb_config__delta_sync_config
 
-type aws_appsync_datasource__http_config__authorization_config
-type aws_appsync_datasource__http_config
-type aws_appsync_datasource__lambda_config
-type aws_appsync_datasource__opensearchservice_config
+val dynamodb_config__delta_sync_config :
+  ?base_table_ttl:float prop ->
+  ?delta_sync_table_ttl:float prop ->
+  delta_sync_table_name:string prop ->
+  unit ->
+  dynamodb_config__delta_sync_config
 
-type aws_appsync_datasource__relational_database_config__http_endpoint_config
+type dynamodb_config
 
-type aws_appsync_datasource__relational_database_config
+val dynamodb_config :
+  ?region:string prop ->
+  ?use_caller_credentials:bool prop ->
+  ?versioned:bool prop ->
+  table_name:string prop ->
+  delta_sync_config:dynamodb_config__delta_sync_config list ->
+  unit ->
+  dynamodb_config
+
+type elasticsearch_config
+
+val elasticsearch_config :
+  ?region:string prop ->
+  endpoint:string prop ->
+  unit ->
+  elasticsearch_config
+
+type event_bridge_config
+
+val event_bridge_config :
+  event_bus_arn:string prop -> unit -> event_bridge_config
+
+type http_config__authorization_config__aws_iam_config
+
+val http_config__authorization_config__aws_iam_config :
+  ?signing_region:string prop ->
+  ?signing_service_name:string prop ->
+  unit ->
+  http_config__authorization_config__aws_iam_config
+
+type http_config__authorization_config
+
+val http_config__authorization_config :
+  ?authorization_type:string prop ->
+  aws_iam_config:
+    http_config__authorization_config__aws_iam_config list ->
+  unit ->
+  http_config__authorization_config
+
+type http_config
+
+val http_config :
+  endpoint:string prop ->
+  authorization_config:http_config__authorization_config list ->
+  unit ->
+  http_config
+
+type lambda_config
+
+val lambda_config : function_arn:string prop -> unit -> lambda_config
+
+type opensearchservice_config
+
+val opensearchservice_config :
+  ?region:string prop ->
+  endpoint:string prop ->
+  unit ->
+  opensearchservice_config
+
+type relational_database_config__http_endpoint_config
+
+val relational_database_config__http_endpoint_config :
+  ?database_name:string prop ->
+  ?region:string prop ->
+  ?schema:string prop ->
+  aws_secret_store_arn:string prop ->
+  db_cluster_identifier:string prop ->
+  unit ->
+  relational_database_config__http_endpoint_config
+
+type relational_database_config
+
+val relational_database_config :
+  ?source_type:string prop ->
+  http_endpoint_config:
+    relational_database_config__http_endpoint_config list ->
+  unit ->
+  relational_database_config
+
 type aws_appsync_datasource
+
+val aws_appsync_datasource :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?service_role_arn:string prop ->
+  api_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  dynamodb_config:dynamodb_config list ->
+  elasticsearch_config:elasticsearch_config list ->
+  event_bridge_config:event_bridge_config list ->
+  http_config:http_config list ->
+  lambda_config:lambda_config list ->
+  opensearchservice_config:opensearchservice_config list ->
+  relational_database_config:relational_database_config list ->
+  unit ->
+  aws_appsync_datasource
+
+val yojson_of_aws_appsync_datasource : aws_appsync_datasource -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_id : string prop;
@@ -29,23 +127,20 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_appsync_datasource :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?service_role_arn:string prop ->
   api_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  dynamodb_config:aws_appsync_datasource__dynamodb_config list ->
-  elasticsearch_config:
-    aws_appsync_datasource__elasticsearch_config list ->
-  event_bridge_config:
-    aws_appsync_datasource__event_bridge_config list ->
-  http_config:aws_appsync_datasource__http_config list ->
-  lambda_config:aws_appsync_datasource__lambda_config list ->
-  opensearchservice_config:
-    aws_appsync_datasource__opensearchservice_config list ->
-  relational_database_config:
-    aws_appsync_datasource__relational_database_config list ->
+  dynamodb_config:dynamodb_config list ->
+  elasticsearch_config:elasticsearch_config list ->
+  event_bridge_config:event_bridge_config list ->
+  http_config:http_config list ->
+  lambda_config:lambda_config list ->
+  opensearchservice_config:opensearchservice_config list ->
+  relational_database_config:relational_database_config list ->
   string ->
   t

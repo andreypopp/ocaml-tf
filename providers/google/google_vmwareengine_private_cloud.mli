@@ -2,60 +2,107 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_private_cloud__management_cluster__node_type_configs
+(** RESOURCE SERIALIZATION *)
 
-type google_vmwareengine_private_cloud__management_cluster
-type google_vmwareengine_private_cloud__network_config
-type google_vmwareengine_private_cloud__timeouts
-
-type google_vmwareengine_private_cloud__hcx = {
+type hcx = {
   fqdn : string prop;  (** fqdn *)
   internal_ip : string prop;  (** internal_ip *)
   state : string prop;  (** state *)
   version : string prop;  (** version *)
 }
 
-type google_vmwareengine_private_cloud__nsx = {
+type nsx = {
   fqdn : string prop;  (** fqdn *)
   internal_ip : string prop;  (** internal_ip *)
   state : string prop;  (** state *)
   version : string prop;  (** version *)
 }
 
-type google_vmwareengine_private_cloud__vcenter = {
+type vcenter = {
   fqdn : string prop;  (** fqdn *)
   internal_ip : string prop;  (** internal_ip *)
   state : string prop;  (** state *)
   version : string prop;  (** version *)
 }
+
+type management_cluster__node_type_configs
+
+val management_cluster__node_type_configs :
+  ?custom_core_count:float prop ->
+  node_count:float prop ->
+  node_type_id:string prop ->
+  unit ->
+  management_cluster__node_type_configs
+
+type management_cluster
+
+val management_cluster :
+  cluster_id:string prop ->
+  node_type_configs:management_cluster__node_type_configs list ->
+  unit ->
+  management_cluster
+
+type network_config
+
+val network_config :
+  ?vmware_engine_network:string prop ->
+  management_cidr:string prop ->
+  unit ->
+  network_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type google_vmwareengine_private_cloud
-
-type t = private {
-  description : string prop;
-  hcx : google_vmwareengine_private_cloud__hcx list prop;
-  id : string prop;
-  location : string prop;
-  name : string prop;
-  nsx : google_vmwareengine_private_cloud__nsx list prop;
-  project : string prop;
-  state : string prop;
-  type_ : string prop;
-  uid : string prop;
-  vcenter : google_vmwareengine_private_cloud__vcenter list prop;
-}
 
 val google_vmwareengine_private_cloud :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
-  ?timeouts:google_vmwareengine_private_cloud__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  management_cluster:
-    google_vmwareengine_private_cloud__management_cluster list ->
-  network_config:
-    google_vmwareengine_private_cloud__network_config list ->
+  management_cluster:management_cluster list ->
+  network_config:network_config list ->
+  unit ->
+  google_vmwareengine_private_cloud
+
+val yojson_of_google_vmwareengine_private_cloud :
+  google_vmwareengine_private_cloud -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  description : string prop;
+  hcx : hcx list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  nsx : nsx list prop;
+  project : string prop;
+  state : string prop;
+  type_ : string prop;
+  uid : string prop;
+  vcenter : vcenter list prop;
+}
+
+val register :
+  ?tf_module:tf_module ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  management_cluster:management_cluster list ->
+  network_config:network_config list ->
   string ->
   t

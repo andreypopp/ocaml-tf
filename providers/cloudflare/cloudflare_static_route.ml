@@ -28,6 +28,21 @@ Transit or Magic WAN. Static routes are used to route traffic
 through GRE tunnels.
  *)
 
+let cloudflare_static_route ?account_id ?colo_names ?colo_regions
+    ?description ?id ?weight ~nexthop ~prefix ~priority () :
+    cloudflare_static_route =
+  {
+    account_id;
+    colo_names;
+    colo_regions;
+    description;
+    id;
+    nexthop;
+    prefix;
+    priority;
+    weight;
+  }
+
 type t = {
   account_id : string prop;
   colo_names : string list prop;
@@ -40,25 +55,15 @@ type t = {
   weight : float prop;
 }
 
-let cloudflare_static_route ?account_id ?colo_names ?colo_regions
+let register ?tf_module ?account_id ?colo_names ?colo_regions
     ?description ?id ?weight ~nexthop ~prefix ~priority __resource_id
     =
   let __resource_type = "cloudflare_static_route" in
   let __resource =
-    ({
-       account_id;
-       colo_names;
-       colo_regions;
-       description;
-       id;
-       nexthop;
-       prefix;
-       priority;
-       weight;
-     }
-      : cloudflare_static_route)
+    cloudflare_static_route ?account_id ?colo_names ?colo_regions
+      ?description ?id ?weight ~nexthop ~prefix ~priority ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_static_route __resource);
   let __resource_attributes =
     ({

@@ -12,22 +12,27 @@ type aws_redshift_snapshot_schedule_association = {
 [@@deriving yojson_of]
 (** aws_redshift_snapshot_schedule_association *)
 
+let aws_redshift_snapshot_schedule_association ?id
+    ~cluster_identifier ~schedule_identifier () :
+    aws_redshift_snapshot_schedule_association =
+  { cluster_identifier; id; schedule_identifier }
+
 type t = {
   cluster_identifier : string prop;
   id : string prop;
   schedule_identifier : string prop;
 }
 
-let aws_redshift_snapshot_schedule_association ?id
-    ~cluster_identifier ~schedule_identifier __resource_id =
+let register ?tf_module ?id ~cluster_identifier ~schedule_identifier
+    __resource_id =
   let __resource_type =
     "aws_redshift_snapshot_schedule_association"
   in
   let __resource =
-    ({ cluster_identifier; id; schedule_identifier }
-      : aws_redshift_snapshot_schedule_association)
+    aws_redshift_snapshot_schedule_association ?id
+      ~cluster_identifier ~schedule_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_snapshot_schedule_association __resource);
   let __resource_attributes =
     ({

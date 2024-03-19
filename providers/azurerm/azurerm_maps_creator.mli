@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_maps_creator__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_maps_creator
+
+val azurerm_maps_creator :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  maps_account_id:string prop ->
+  name:string prop ->
+  storage_units:float prop ->
+  unit ->
+  azurerm_maps_creator
+
+val yojson_of_azurerm_maps_creator : azurerm_maps_creator -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,10 +40,11 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_maps_creator :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_maps_creator__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   maps_account_id:string prop ->
   name:string prop ->

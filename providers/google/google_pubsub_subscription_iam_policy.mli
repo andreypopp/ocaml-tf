@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_pubsub_subscription_iam_policy
+
+val google_pubsub_subscription_iam_policy :
+  ?id:string prop ->
+  ?project:string prop ->
+  policy_data:string prop ->
+  subscription:string prop ->
+  unit ->
+  google_pubsub_subscription_iam_policy
+
+val yojson_of_google_pubsub_subscription_iam_policy :
+  google_pubsub_subscription_iam_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -12,7 +27,8 @@ type t = private {
   subscription : string prop;
 }
 
-val google_pubsub_subscription_iam_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   policy_data:string prop ->

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_ec2_transit_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_transit_gateway__timeouts *)
+(** timeouts *)
 
 type aws_ec2_transit_gateway = {
   amazon_side_asn : float prop option; [@option]
@@ -33,10 +33,34 @@ type aws_ec2_transit_gateway = {
       (** transit_gateway_cidr_blocks *)
   vpn_ecmp_support : string prop option; [@option]
       (** vpn_ecmp_support *)
-  timeouts : aws_ec2_transit_gateway__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_ec2_transit_gateway ?amazon_side_asn
+    ?auto_accept_shared_attachments ?default_route_table_association
+    ?default_route_table_propagation ?description ?dns_support ?id
+    ?multicast_support ?tags ?tags_all ?transit_gateway_cidr_blocks
+    ?vpn_ecmp_support ?timeouts () : aws_ec2_transit_gateway =
+  {
+    amazon_side_asn;
+    auto_accept_shared_attachments;
+    default_route_table_association;
+    default_route_table_propagation;
+    description;
+    dns_support;
+    id;
+    multicast_support;
+    tags;
+    tags_all;
+    transit_gateway_cidr_blocks;
+    vpn_ecmp_support;
+    timeouts;
+  }
 
 type t = {
   amazon_side_asn : float prop;
@@ -57,31 +81,21 @@ type t = {
   vpn_ecmp_support : string prop;
 }
 
-let aws_ec2_transit_gateway ?amazon_side_asn
+let register ?tf_module ?amazon_side_asn
     ?auto_accept_shared_attachments ?default_route_table_association
     ?default_route_table_propagation ?description ?dns_support ?id
     ?multicast_support ?tags ?tags_all ?transit_gateway_cidr_blocks
     ?vpn_ecmp_support ?timeouts __resource_id =
   let __resource_type = "aws_ec2_transit_gateway" in
   let __resource =
-    ({
-       amazon_side_asn;
-       auto_accept_shared_attachments;
-       default_route_table_association;
-       default_route_table_propagation;
-       description;
-       dns_support;
-       id;
-       multicast_support;
-       tags;
-       tags_all;
-       transit_gateway_cidr_blocks;
-       vpn_ecmp_support;
-       timeouts;
-     }
-      : aws_ec2_transit_gateway)
+    aws_ec2_transit_gateway ?amazon_side_asn
+      ?auto_accept_shared_attachments
+      ?default_route_table_association
+      ?default_route_table_propagation ?description ?dns_support ?id
+      ?multicast_support ?tags ?tags_all ?transit_gateway_cidr_blocks
+      ?vpn_ecmp_support ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway __resource);
   let __resource_attributes =
     ({

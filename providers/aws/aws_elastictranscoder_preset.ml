@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_elastictranscoder_preset__audio = {
+type audio = {
   audio_packing_mode : string prop option; [@option]
       (** audio_packing_mode *)
   bit_rate : string prop option; [@option]  (** bit_rate *)
@@ -13,18 +13,18 @@ type aws_elastictranscoder_preset__audio = {
   sample_rate : string prop option; [@option]  (** sample_rate *)
 }
 [@@deriving yojson_of]
-(** aws_elastictranscoder_preset__audio *)
+(** audio *)
 
-type aws_elastictranscoder_preset__audio_codec_options = {
+type audio_codec_options = {
   bit_depth : string prop option; [@option]  (** bit_depth *)
   bit_order : string prop option; [@option]  (** bit_order *)
   profile : string prop option; [@option]  (** profile *)
   signed : string prop option; [@option]  (** signed *)
 }
 [@@deriving yojson_of]
-(** aws_elastictranscoder_preset__audio_codec_options *)
+(** audio_codec_options *)
 
-type aws_elastictranscoder_preset__thumbnails = {
+type thumbnails = {
   aspect_ratio : string prop option; [@option]  (** aspect_ratio *)
   format : string prop option; [@option]  (** format *)
   interval : string prop option; [@option]  (** interval *)
@@ -36,9 +36,9 @@ type aws_elastictranscoder_preset__thumbnails = {
   sizing_policy : string prop option; [@option]  (** sizing_policy *)
 }
 [@@deriving yojson_of]
-(** aws_elastictranscoder_preset__thumbnails *)
+(** thumbnails *)
 
-type aws_elastictranscoder_preset__video = {
+type video = {
   aspect_ratio : string prop option; [@option]  (** aspect_ratio *)
   bit_rate : string prop option; [@option]  (** bit_rate *)
   codec : string prop option; [@option]  (** codec *)
@@ -58,9 +58,9 @@ type aws_elastictranscoder_preset__video = {
   sizing_policy : string prop option; [@option]  (** sizing_policy *)
 }
 [@@deriving yojson_of]
-(** aws_elastictranscoder_preset__video *)
+(** video *)
 
-type aws_elastictranscoder_preset__video_watermarks = {
+type video_watermarks = {
   horizontal_align : string prop option; [@option]
       (** horizontal_align *)
   horizontal_offset : string prop option; [@option]
@@ -77,7 +77,7 @@ type aws_elastictranscoder_preset__video_watermarks = {
       (** vertical_offset *)
 }
 [@@deriving yojson_of]
-(** aws_elastictranscoder_preset__video_watermarks *)
+(** video_watermarks *)
 
 type aws_elastictranscoder_preset = {
   container : string prop;  (** container *)
@@ -87,16 +87,89 @@ type aws_elastictranscoder_preset = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   video_codec_options : (string * string prop) list option; [@option]
       (** video_codec_options *)
-  audio : aws_elastictranscoder_preset__audio list;
-  audio_codec_options :
-    aws_elastictranscoder_preset__audio_codec_options list;
-  thumbnails : aws_elastictranscoder_preset__thumbnails list;
-  video : aws_elastictranscoder_preset__video list;
-  video_watermarks :
-    aws_elastictranscoder_preset__video_watermarks list;
+  audio : audio list;
+  audio_codec_options : audio_codec_options list;
+  thumbnails : thumbnails list;
+  video : video list;
+  video_watermarks : video_watermarks list;
 }
 [@@deriving yojson_of]
 (** aws_elastictranscoder_preset *)
+
+let audio ?audio_packing_mode ?bit_rate ?channels ?codec ?sample_rate
+    () : audio =
+  { audio_packing_mode; bit_rate; channels; codec; sample_rate }
+
+let audio_codec_options ?bit_depth ?bit_order ?profile ?signed () :
+    audio_codec_options =
+  { bit_depth; bit_order; profile; signed }
+
+let thumbnails ?aspect_ratio ?format ?interval ?max_height ?max_width
+    ?padding_policy ?resolution ?sizing_policy () : thumbnails =
+  {
+    aspect_ratio;
+    format;
+    interval;
+    max_height;
+    max_width;
+    padding_policy;
+    resolution;
+    sizing_policy;
+  }
+
+let video ?aspect_ratio ?bit_rate ?codec ?display_aspect_ratio
+    ?fixed_gop ?frame_rate ?keyframes_max_dist ?max_frame_rate
+    ?max_height ?max_width ?padding_policy ?resolution ?sizing_policy
+    () : video =
+  {
+    aspect_ratio;
+    bit_rate;
+    codec;
+    display_aspect_ratio;
+    fixed_gop;
+    frame_rate;
+    keyframes_max_dist;
+    max_frame_rate;
+    max_height;
+    max_width;
+    padding_policy;
+    resolution;
+    sizing_policy;
+  }
+
+let video_watermarks ?horizontal_align ?horizontal_offset ?id
+    ?max_height ?max_width ?opacity ?sizing_policy ?target
+    ?vertical_align ?vertical_offset () : video_watermarks =
+  {
+    horizontal_align;
+    horizontal_offset;
+    id;
+    max_height;
+    max_width;
+    opacity;
+    sizing_policy;
+    target;
+    vertical_align;
+    vertical_offset;
+  }
+
+let aws_elastictranscoder_preset ?description ?id ?name ?type_
+    ?video_codec_options ~container ~audio ~audio_codec_options
+    ~thumbnails ~video ~video_watermarks () :
+    aws_elastictranscoder_preset =
+  {
+    container;
+    description;
+    id;
+    name;
+    type_;
+    video_codec_options;
+    audio;
+    audio_codec_options;
+    thumbnails;
+    video;
+    video_watermarks;
+  }
 
 type t = {
   arn : string prop;
@@ -108,27 +181,16 @@ type t = {
   video_codec_options : (string * string) list prop;
 }
 
-let aws_elastictranscoder_preset ?description ?id ?name ?type_
+let register ?tf_module ?description ?id ?name ?type_
     ?video_codec_options ~container ~audio ~audio_codec_options
     ~thumbnails ~video ~video_watermarks __resource_id =
   let __resource_type = "aws_elastictranscoder_preset" in
   let __resource =
-    ({
-       container;
-       description;
-       id;
-       name;
-       type_;
-       video_codec_options;
-       audio;
-       audio_codec_options;
-       thumbnails;
-       video;
-       video_watermarks;
-     }
-      : aws_elastictranscoder_preset)
+    aws_elastictranscoder_preset ?description ?id ?name ?type_
+      ?video_codec_options ~container ~audio ~audio_codec_options
+      ~thumbnails ~video ~video_watermarks ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elastictranscoder_preset __resource);
   let __resource_attributes =
     ({

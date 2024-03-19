@@ -2,9 +2,45 @@
 
 open! Tf.Prelude
 
-type azurerm_logz_sub_account__timeouts
-type azurerm_logz_sub_account__user
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type user
+
+val user :
+  email:string prop ->
+  first_name:string prop ->
+  last_name:string prop ->
+  phone_number:string prop ->
+  unit ->
+  user
+
 type azurerm_logz_sub_account
+
+val azurerm_logz_sub_account :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  logz_monitor_id:string prop ->
+  name:string prop ->
+  user:user list ->
+  unit ->
+  azurerm_logz_sub_account
+
+val yojson_of_azurerm_logz_sub_account :
+  azurerm_logz_sub_account -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enabled : bool prop;
@@ -14,13 +50,14 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_logz_sub_account :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_logz_sub_account__timeouts ->
+  ?timeouts:timeouts ->
   logz_monitor_id:string prop ->
   name:string prop ->
-  user:azurerm_logz_sub_account__user list ->
+  user:user list ->
   string ->
   t

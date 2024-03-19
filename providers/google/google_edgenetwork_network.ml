@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_edgenetwork_network__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_edgenetwork_network__timeouts *)
+(** timeouts *)
 
 type google_edgenetwork_network = {
   description : string prop option; [@option]
@@ -26,10 +26,27 @@ type google_edgenetwork_network = {
   project : string prop option; [@option]  (** project *)
   zone : string prop;
       (** The name of the target Distributed Cloud Edge zone. *)
-  timeouts : google_edgenetwork_network__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_edgenetwork_network *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_edgenetwork_network ?description ?id ?labels ?mtu ?project
+    ?timeouts ~location ~network_id ~zone () :
+    google_edgenetwork_network =
+  {
+    description;
+    id;
+    labels;
+    location;
+    mtu;
+    network_id;
+    project;
+    zone;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -45,24 +62,14 @@ type t = {
   zone : string prop;
 }
 
-let google_edgenetwork_network ?description ?id ?labels ?mtu ?project
+let register ?tf_module ?description ?id ?labels ?mtu ?project
     ?timeouts ~location ~network_id ~zone __resource_id =
   let __resource_type = "google_edgenetwork_network" in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       location;
-       mtu;
-       network_id;
-       project;
-       zone;
-       timeouts;
-     }
-      : google_edgenetwork_network)
+    google_edgenetwork_network ?description ?id ?labels ?mtu ?project
+      ?timeouts ~location ~network_id ~zone ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_edgenetwork_network __resource);
   let __resource_attributes =
     ({

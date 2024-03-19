@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_healthcare_consent_store_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_healthcare_consent_store_iam_binding__condition *)
+(** condition *)
 
 type google_healthcare_consent_store_iam_binding = {
   consent_store_id : string prop;  (** consent_store_id *)
@@ -18,11 +18,18 @@ type google_healthcare_consent_store_iam_binding = {
   id : string prop option; [@option]  (** id *)
   members : string prop list;  (** members *)
   role : string prop;  (** role *)
-  condition :
-    google_healthcare_consent_store_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_healthcare_consent_store_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_healthcare_consent_store_iam_binding ?id ~consent_store_id
+    ~dataset ~members ~role ~condition () :
+    google_healthcare_consent_store_iam_binding =
+  { consent_store_id; dataset; id; members; role; condition }
 
 type t = {
   consent_store_id : string prop;
@@ -33,16 +40,16 @@ type t = {
   role : string prop;
 }
 
-let google_healthcare_consent_store_iam_binding ?id ~consent_store_id
-    ~dataset ~members ~role ~condition __resource_id =
+let register ?tf_module ?id ~consent_store_id ~dataset ~members ~role
+    ~condition __resource_id =
   let __resource_type =
     "google_healthcare_consent_store_iam_binding"
   in
   let __resource =
-    ({ consent_store_id; dataset; id; members; role; condition }
-      : google_healthcare_consent_store_iam_binding)
+    google_healthcare_consent_store_iam_binding ?id ~consent_store_id
+      ~dataset ~members ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_consent_store_iam_binding __resource);
   let __resource_attributes =
     ({

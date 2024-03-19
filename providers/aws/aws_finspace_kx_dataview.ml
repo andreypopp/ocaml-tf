@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_finspace_kx_dataview__segment_configurations = {
+type segment_configurations = {
   db_paths : string prop list;  (** db_paths *)
   volume_name : string prop;  (** volume_name *)
 }
 [@@deriving yojson_of]
-(** aws_finspace_kx_dataview__segment_configurations *)
+(** segment_configurations *)
 
-type aws_finspace_kx_dataview__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_finspace_kx_dataview__timeouts *)
+(** timeouts *)
 
 type aws_finspace_kx_dataview = {
   auto_update : bool prop;  (** auto_update *)
@@ -33,12 +33,38 @@ type aws_finspace_kx_dataview = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  segment_configurations :
-    aws_finspace_kx_dataview__segment_configurations list;
-  timeouts : aws_finspace_kx_dataview__timeouts option;
+  segment_configurations : segment_configurations list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_dataview *)
+
+let segment_configurations ~db_paths ~volume_name () :
+    segment_configurations =
+  { db_paths; volume_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
+    ?description ?id ?tags ?tags_all ?timeouts ~auto_update ~az_mode
+    ~database_name ~environment_id ~name ~segment_configurations () :
+    aws_finspace_kx_dataview =
+  {
+    auto_update;
+    availability_zone_id;
+    az_mode;
+    changeset_id;
+    database_name;
+    description;
+    environment_id;
+    id;
+    name;
+    tags;
+    tags_all;
+    segment_configurations;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -58,30 +84,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
+let register ?tf_module ?availability_zone_id ?changeset_id
     ?description ?id ?tags ?tags_all ?timeouts ~auto_update ~az_mode
     ~database_name ~environment_id ~name ~segment_configurations
     __resource_id =
   let __resource_type = "aws_finspace_kx_dataview" in
   let __resource =
-    ({
-       auto_update;
-       availability_zone_id;
-       az_mode;
-       changeset_id;
-       database_name;
-       description;
-       environment_id;
-       id;
-       name;
-       tags;
-       tags_all;
-       segment_configurations;
-       timeouts;
-     }
-      : aws_finspace_kx_dataview)
+    aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
+      ?description ?id ?tags ?tags_all ?timeouts ~auto_update
+      ~az_mode ~database_name ~environment_id ~name
+      ~segment_configurations ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_finspace_kx_dataview __resource);
   let __resource_attributes =
     ({

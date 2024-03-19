@@ -2,9 +2,29 @@
 
 open! Tf.Prelude
 
-type aws_securitylake_aws_log_source__source
+(** RESOURCE SERIALIZATION *)
+
+type source
+
+val source :
+  ?accounts:string prop list ->
+  ?source_version:string prop ->
+  regions:string prop list ->
+  source_name:string prop ->
+  unit ->
+  source
+
 type aws_securitylake_aws_log_source
-type t = private { id : string prop }
 
 val aws_securitylake_aws_log_source :
-  source:aws_securitylake_aws_log_source__source list -> string -> t
+  source:source list -> unit -> aws_securitylake_aws_log_source
+
+val yojson_of_aws_securitylake_aws_log_source :
+  aws_securitylake_aws_log_source -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop }
+
+val register :
+  ?tf_module:tf_module -> source:source list -> string -> t

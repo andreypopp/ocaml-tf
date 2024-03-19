@@ -17,6 +17,20 @@ type aws_cloudwatch_event_api_destination = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_api_destination *)
 
+let aws_cloudwatch_event_api_destination ?description ?id
+    ?invocation_rate_limit_per_second ~connection_arn ~http_method
+    ~invocation_endpoint ~name () :
+    aws_cloudwatch_event_api_destination =
+  {
+    connection_arn;
+    description;
+    http_method;
+    id;
+    invocation_endpoint;
+    invocation_rate_limit_per_second;
+    name;
+  }
+
 type t = {
   arn : string prop;
   connection_arn : string prop;
@@ -28,23 +42,16 @@ type t = {
   name : string prop;
 }
 
-let aws_cloudwatch_event_api_destination ?description ?id
+let register ?tf_module ?description ?id
     ?invocation_rate_limit_per_second ~connection_arn ~http_method
     ~invocation_endpoint ~name __resource_id =
   let __resource_type = "aws_cloudwatch_event_api_destination" in
   let __resource =
-    ({
-       connection_arn;
-       description;
-       http_method;
-       id;
-       invocation_endpoint;
-       invocation_rate_limit_per_second;
-       name;
-     }
-      : aws_cloudwatch_event_api_destination)
+    aws_cloudwatch_event_api_destination ?description ?id
+      ?invocation_rate_limit_per_second ~connection_arn ~http_method
+      ~invocation_endpoint ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_api_destination __resource);
   let __resource_attributes =
     ({

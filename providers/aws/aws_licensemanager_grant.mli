@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_licensemanager_grant
+
+val aws_licensemanager_grant :
+  ?id:string prop ->
+  allowed_operations:string prop list ->
+  license_arn:string prop ->
+  name:string prop ->
+  principal:string prop ->
+  unit ->
+  aws_licensemanager_grant
+
+val yojson_of_aws_licensemanager_grant :
+  aws_licensemanager_grant -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allowed_operations : string list prop;
@@ -17,7 +33,8 @@ type t = private {
   version : string prop;
 }
 
-val aws_licensemanager_grant :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   allowed_operations:string prop list ->
   license_arn:string prop ->

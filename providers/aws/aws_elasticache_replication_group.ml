@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type aws_elasticache_replication_group__log_delivery_configuration = {
+type log_delivery_configuration = {
   destination : string prop;  (** destination *)
   destination_type : string prop;  (** destination_type *)
   log_format : string prop;  (** log_format *)
   log_type : string prop;  (** log_type *)
 }
 [@@deriving yojson_of]
-(** aws_elasticache_replication_group__log_delivery_configuration *)
+(** log_delivery_configuration *)
 
-type aws_elasticache_replication_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_elasticache_replication_group__timeouts *)
+(** timeouts *)
 
 type aws_elasticache_replication_group = {
   apply_immediately : bool prop option; [@option]
@@ -86,13 +86,76 @@ type aws_elasticache_replication_group = {
       (** transit_encryption_enabled *)
   user_group_ids : string prop list option; [@option]
       (** user_group_ids *)
-  log_delivery_configuration :
-    aws_elasticache_replication_group__log_delivery_configuration
-    list;
-  timeouts : aws_elasticache_replication_group__timeouts option;
+  log_delivery_configuration : log_delivery_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_elasticache_replication_group *)
+
+let log_delivery_configuration ~destination ~destination_type
+    ~log_format ~log_type () : log_delivery_configuration =
+  { destination; destination_type; log_format; log_type }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_elasticache_replication_group ?apply_immediately
+    ?at_rest_encryption_enabled ?auth_token
+    ?auth_token_update_strategy ?auto_minor_version_upgrade
+    ?automatic_failover_enabled ?data_tiering_enabled ?description
+    ?engine ?engine_version ?final_snapshot_identifier
+    ?global_replication_group_id ?id ?ip_discovery ?kms_key_id
+    ?maintenance_window ?multi_az_enabled ?network_type ?node_type
+    ?notification_topic_arn ?num_cache_clusters ?num_node_groups
+    ?parameter_group_name ?port ?preferred_cache_cluster_azs
+    ?replicas_per_node_group ?security_group_ids
+    ?security_group_names ?snapshot_arns ?snapshot_name
+    ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
+    ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
+    ?timeouts ~replication_group_id ~log_delivery_configuration () :
+    aws_elasticache_replication_group =
+  {
+    apply_immediately;
+    at_rest_encryption_enabled;
+    auth_token;
+    auth_token_update_strategy;
+    auto_minor_version_upgrade;
+    automatic_failover_enabled;
+    data_tiering_enabled;
+    description;
+    engine;
+    engine_version;
+    final_snapshot_identifier;
+    global_replication_group_id;
+    id;
+    ip_discovery;
+    kms_key_id;
+    maintenance_window;
+    multi_az_enabled;
+    network_type;
+    node_type;
+    notification_topic_arn;
+    num_cache_clusters;
+    num_node_groups;
+    parameter_group_name;
+    port;
+    preferred_cache_cluster_azs;
+    replicas_per_node_group;
+    replication_group_id;
+    security_group_ids;
+    security_group_names;
+    snapshot_arns;
+    snapshot_name;
+    snapshot_retention_limit;
+    snapshot_window;
+    subnet_group_name;
+    tags;
+    tags_all;
+    transit_encryption_enabled;
+    user_group_ids;
+    log_delivery_configuration;
+    timeouts;
+  }
 
 type t = {
   apply_immediately : bool prop;
@@ -142,7 +205,7 @@ type t = {
   user_group_ids : string list prop;
 }
 
-let aws_elasticache_replication_group ?apply_immediately
+let register ?tf_module ?apply_immediately
     ?at_rest_encryption_enabled ?auth_token
     ?auth_token_update_strategy ?auto_minor_version_upgrade
     ?automatic_failover_enabled ?data_tiering_enabled ?description
@@ -159,51 +222,22 @@ let aws_elasticache_replication_group ?apply_immediately
     __resource_id =
   let __resource_type = "aws_elasticache_replication_group" in
   let __resource =
-    ({
-       apply_immediately;
-       at_rest_encryption_enabled;
-       auth_token;
-       auth_token_update_strategy;
-       auto_minor_version_upgrade;
-       automatic_failover_enabled;
-       data_tiering_enabled;
-       description;
-       engine;
-       engine_version;
-       final_snapshot_identifier;
-       global_replication_group_id;
-       id;
-       ip_discovery;
-       kms_key_id;
-       maintenance_window;
-       multi_az_enabled;
-       network_type;
-       node_type;
-       notification_topic_arn;
-       num_cache_clusters;
-       num_node_groups;
-       parameter_group_name;
-       port;
-       preferred_cache_cluster_azs;
-       replicas_per_node_group;
-       replication_group_id;
-       security_group_ids;
-       security_group_names;
-       snapshot_arns;
-       snapshot_name;
-       snapshot_retention_limit;
-       snapshot_window;
-       subnet_group_name;
-       tags;
-       tags_all;
-       transit_encryption_enabled;
-       user_group_ids;
-       log_delivery_configuration;
-       timeouts;
-     }
-      : aws_elasticache_replication_group)
+    aws_elasticache_replication_group ?apply_immediately
+      ?at_rest_encryption_enabled ?auth_token
+      ?auth_token_update_strategy ?auto_minor_version_upgrade
+      ?automatic_failover_enabled ?data_tiering_enabled ?description
+      ?engine ?engine_version ?final_snapshot_identifier
+      ?global_replication_group_id ?id ?ip_discovery ?kms_key_id
+      ?maintenance_window ?multi_az_enabled ?network_type ?node_type
+      ?notification_topic_arn ?num_cache_clusters ?num_node_groups
+      ?parameter_group_name ?port ?preferred_cache_cluster_azs
+      ?replicas_per_node_group ?security_group_ids
+      ?security_group_names ?snapshot_arns ?snapshot_name
+      ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
+      ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
+      ?timeouts ~replication_group_id ~log_delivery_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticache_replication_group __resource);
   let __resource_attributes =
     ({

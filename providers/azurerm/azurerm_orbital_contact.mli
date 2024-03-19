@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_orbital_contact__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_orbital_contact
+
+val azurerm_orbital_contact :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  contact_profile_id:string prop ->
+  ground_station_name:string prop ->
+  name:string prop ->
+  reservation_end_time:string prop ->
+  reservation_start_time:string prop ->
+  spacecraft_id:string prop ->
+  unit ->
+  azurerm_orbital_contact
+
+val yojson_of_azurerm_orbital_contact :
+  azurerm_orbital_contact -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   contact_profile_id : string prop;
@@ -15,9 +42,10 @@ type t = private {
   spacecraft_id : string prop;
 }
 
-val azurerm_orbital_contact :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_orbital_contact__timeouts ->
+  ?timeouts:timeouts ->
   contact_profile_id:string prop ->
   ground_station_name:string prop ->
   name:string prop ->

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_target_group__config__health_check__matcher = {
+type config__health_check__matcher = {
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_target_group__config__health_check__matcher *)
+(** config__health_check__matcher *)
 
-type aws_vpclattice_target_group__config__health_check = {
+type config__health_check = {
   enabled : bool prop option; [@option]  (** enabled *)
   health_check_interval_seconds : float prop option; [@option]
       (** health_check_interval_seconds *)
@@ -25,13 +25,12 @@ type aws_vpclattice_target_group__config__health_check = {
       (** protocol_version *)
   unhealthy_threshold_count : float prop option; [@option]
       (** unhealthy_threshold_count *)
-  matcher :
-    aws_vpclattice_target_group__config__health_check__matcher list;
+  matcher : config__health_check__matcher list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_target_group__config__health_check *)
+(** config__health_check *)
 
-type aws_vpclattice_target_group__config = {
+type config = {
   ip_address_type : string prop option; [@option]
       (** ip_address_type *)
   lambda_event_structure_version : string prop option; [@option]
@@ -42,19 +41,18 @@ type aws_vpclattice_target_group__config = {
       (** protocol_version *)
   vpc_identifier : string prop option; [@option]
       (** vpc_identifier *)
-  health_check :
-    aws_vpclattice_target_group__config__health_check list;
+  health_check : config__health_check list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_target_group__config *)
+(** config *)
 
-type aws_vpclattice_target_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_target_group__timeouts *)
+(** timeouts *)
 
 type aws_vpclattice_target_group = {
   id : string prop option; [@option]  (** id *)
@@ -63,11 +61,52 @@ type aws_vpclattice_target_group = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop; [@key "type"]  (** type *)
-  config : aws_vpclattice_target_group__config list;
-  timeouts : aws_vpclattice_target_group__timeouts option;
+  config : config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group *)
+
+let config__health_check__matcher ?value () :
+    config__health_check__matcher =
+  { value }
+
+let config__health_check ?enabled ?health_check_interval_seconds
+    ?health_check_timeout_seconds ?healthy_threshold_count ?path
+    ?port ?protocol ?protocol_version ?unhealthy_threshold_count
+    ~matcher () : config__health_check =
+  {
+    enabled;
+    health_check_interval_seconds;
+    health_check_timeout_seconds;
+    healthy_threshold_count;
+    path;
+    port;
+    protocol;
+    protocol_version;
+    unhealthy_threshold_count;
+    matcher;
+  }
+
+let config ?ip_address_type ?lambda_event_structure_version ?port
+    ?protocol ?protocol_version ?vpc_identifier ~health_check () :
+    config =
+  {
+    ip_address_type;
+    lambda_event_structure_version;
+    port;
+    protocol;
+    protocol_version;
+    vpc_identifier;
+    health_check;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpclattice_target_group ?id ?tags ?tags_all ?timeouts ~name
+    ~type_ ~config () : aws_vpclattice_target_group =
+  { id; name; tags; tags_all; type_; config; timeouts }
 
 type t = {
   arn : string prop;
@@ -79,14 +118,14 @@ type t = {
   type_ : string prop;
 }
 
-let aws_vpclattice_target_group ?id ?tags ?tags_all ?timeouts ~name
-    ~type_ ~config __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~name ~type_
+    ~config __resource_id =
   let __resource_type = "aws_vpclattice_target_group" in
   let __resource =
-    ({ id; name; tags; tags_all; type_; config; timeouts }
-      : aws_vpclattice_target_group)
+    aws_vpclattice_target_group ?id ?tags ?tags_all ?timeouts ~name
+      ~type_ ~config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_target_group __resource);
   let __resource_attributes =
     ({

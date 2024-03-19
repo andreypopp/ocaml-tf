@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_ebs_volume__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ebs_volume__timeouts *)
+(** timeouts *)
 
 type aws_ebs_volume = {
   availability_zone : string prop;  (** availability_zone *)
@@ -29,10 +29,35 @@ type aws_ebs_volume = {
       (** tags_all *)
   throughput : float prop option; [@option]  (** throughput *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  timeouts : aws_ebs_volume__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ebs_volume *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_ebs_volume ?encrypted ?final_snapshot ?id ?iops ?kms_key_id
+    ?multi_attach_enabled ?outpost_arn ?size ?snapshot_id ?tags
+    ?tags_all ?throughput ?type_ ?timeouts ~availability_zone () :
+    aws_ebs_volume =
+  {
+    availability_zone;
+    encrypted;
+    final_snapshot;
+    id;
+    iops;
+    kms_key_id;
+    multi_attach_enabled;
+    outpost_arn;
+    size;
+    snapshot_id;
+    tags;
+    tags_all;
+    throughput;
+    type_;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -52,32 +77,17 @@ type t = {
   type_ : string prop;
 }
 
-let aws_ebs_volume ?encrypted ?final_snapshot ?id ?iops ?kms_key_id
-    ?multi_attach_enabled ?outpost_arn ?size ?snapshot_id ?tags
-    ?tags_all ?throughput ?type_ ?timeouts ~availability_zone
+let register ?tf_module ?encrypted ?final_snapshot ?id ?iops
+    ?kms_key_id ?multi_attach_enabled ?outpost_arn ?size ?snapshot_id
+    ?tags ?tags_all ?throughput ?type_ ?timeouts ~availability_zone
     __resource_id =
   let __resource_type = "aws_ebs_volume" in
   let __resource =
-    ({
-       availability_zone;
-       encrypted;
-       final_snapshot;
-       id;
-       iops;
-       kms_key_id;
-       multi_attach_enabled;
-       outpost_arn;
-       size;
-       snapshot_id;
-       tags;
-       tags_all;
-       throughput;
-       type_;
-       timeouts;
-     }
-      : aws_ebs_volume)
+    aws_ebs_volume ?encrypted ?final_snapshot ?id ?iops ?kms_key_id
+      ?multi_attach_enabled ?outpost_arn ?size ?snapshot_id ?tags
+      ?tags_all ?throughput ?type_ ?timeouts ~availability_zone ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ebs_volume __resource);
   let __resource_attributes =
     ({

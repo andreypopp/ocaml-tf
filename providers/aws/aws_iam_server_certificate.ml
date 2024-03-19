@@ -20,6 +20,21 @@ type aws_iam_server_certificate = {
 [@@deriving yojson_of]
 (** aws_iam_server_certificate *)
 
+let aws_iam_server_certificate ?certificate_chain ?id ?name
+    ?name_prefix ?path ?tags ?tags_all ~certificate_body ~private_key
+    () : aws_iam_server_certificate =
+  {
+    certificate_body;
+    certificate_chain;
+    id;
+    name;
+    name_prefix;
+    path;
+    private_key;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   certificate_body : string prop;
@@ -35,25 +50,16 @@ type t = {
   upload_date : string prop;
 }
 
-let aws_iam_server_certificate ?certificate_chain ?id ?name
-    ?name_prefix ?path ?tags ?tags_all ~certificate_body ~private_key
+let register ?tf_module ?certificate_chain ?id ?name ?name_prefix
+    ?path ?tags ?tags_all ~certificate_body ~private_key
     __resource_id =
   let __resource_type = "aws_iam_server_certificate" in
   let __resource =
-    ({
-       certificate_body;
-       certificate_chain;
-       id;
-       name;
-       name_prefix;
-       path;
-       private_key;
-       tags;
-       tags_all;
-     }
-      : aws_iam_server_certificate)
+    aws_iam_server_certificate ?certificate_chain ?id ?name
+      ?name_prefix ?path ?tags ?tags_all ~certificate_body
+      ~private_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_server_certificate __resource);
   let __resource_attributes =
     ({

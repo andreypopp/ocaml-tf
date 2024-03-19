@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_smart_detector_alert_rule__action_group = {
+type action_group = {
   email_subject : string prop option; [@option]  (** email_subject *)
   ids : string prop list;  (** ids *)
   webhook_payload : string prop option; [@option]
       (** webhook_payload *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_smart_detector_alert_rule__action_group *)
+(** action_group *)
 
-type azurerm_monitor_smart_detector_alert_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_smart_detector_alert_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_monitor_smart_detector_alert_rule = {
   description : string prop option; [@option]  (** description *)
@@ -35,13 +35,39 @@ type azurerm_monitor_smart_detector_alert_rule = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   throttling_duration : string prop option; [@option]
       (** throttling_duration *)
-  action_group :
-    azurerm_monitor_smart_detector_alert_rule__action_group list;
-  timeouts :
-    azurerm_monitor_smart_detector_alert_rule__timeouts option;
+  action_group : action_group list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_smart_detector_alert_rule *)
+
+let action_group ?email_subject ?webhook_payload ~ids () :
+    action_group =
+  { email_subject; ids; webhook_payload }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_monitor_smart_detector_alert_rule ?description ?enabled
+    ?id ?tags ?throttling_duration ?timeouts ~detector_type
+    ~frequency ~name ~resource_group_name ~scope_resource_ids
+    ~severity ~action_group () :
+    azurerm_monitor_smart_detector_alert_rule =
+  {
+    description;
+    detector_type;
+    enabled;
+    frequency;
+    id;
+    name;
+    resource_group_name;
+    scope_resource_ids;
+    severity;
+    tags;
+    throttling_duration;
+    action_group;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -57,32 +83,20 @@ type t = {
   throttling_duration : string prop;
 }
 
-let azurerm_monitor_smart_detector_alert_rule ?description ?enabled
-    ?id ?tags ?throttling_duration ?timeouts ~detector_type
-    ~frequency ~name ~resource_group_name ~scope_resource_ids
-    ~severity ~action_group __resource_id =
+let register ?tf_module ?description ?enabled ?id ?tags
+    ?throttling_duration ?timeouts ~detector_type ~frequency ~name
+    ~resource_group_name ~scope_resource_ids ~severity ~action_group
+    __resource_id =
   let __resource_type =
     "azurerm_monitor_smart_detector_alert_rule"
   in
   let __resource =
-    ({
-       description;
-       detector_type;
-       enabled;
-       frequency;
-       id;
-       name;
-       resource_group_name;
-       scope_resource_ids;
-       severity;
-       tags;
-       throttling_duration;
-       action_group;
-       timeouts;
-     }
-      : azurerm_monitor_smart_detector_alert_rule)
+    azurerm_monitor_smart_detector_alert_rule ?description ?enabled
+      ?id ?tags ?throttling_duration ?timeouts ~detector_type
+      ~frequency ~name ~resource_group_name ~scope_resource_ids
+      ~severity ~action_group ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_smart_detector_alert_rule __resource);
   let __resource_attributes =
     ({

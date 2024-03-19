@@ -2,11 +2,60 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_workforce__cognito_config
-type aws_sagemaker_workforce__oidc_config
-type aws_sagemaker_workforce__source_ip_config
-type aws_sagemaker_workforce__workforce_vpc_config
+(** RESOURCE SERIALIZATION *)
+
+type cognito_config
+
+val cognito_config :
+  client_id:string prop ->
+  user_pool:string prop ->
+  unit ->
+  cognito_config
+
+type oidc_config
+
+val oidc_config :
+  authorization_endpoint:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  issuer:string prop ->
+  jwks_uri:string prop ->
+  logout_endpoint:string prop ->
+  token_endpoint:string prop ->
+  user_info_endpoint:string prop ->
+  unit ->
+  oidc_config
+
+type source_ip_config
+
+val source_ip_config :
+  cidrs:string prop list -> unit -> source_ip_config
+
+type workforce_vpc_config
+
+val workforce_vpc_config :
+  ?security_group_ids:string prop list ->
+  ?subnets:string prop list ->
+  ?vpc_id:string prop ->
+  unit ->
+  workforce_vpc_config
+
 type aws_sagemaker_workforce
+
+val aws_sagemaker_workforce :
+  ?id:string prop ->
+  workforce_name:string prop ->
+  cognito_config:cognito_config list ->
+  oidc_config:oidc_config list ->
+  source_ip_config:source_ip_config list ->
+  workforce_vpc_config:workforce_vpc_config list ->
+  unit ->
+  aws_sagemaker_workforce
+
+val yojson_of_aws_sagemaker_workforce :
+  aws_sagemaker_workforce -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,13 +64,13 @@ type t = private {
   workforce_name : string prop;
 }
 
-val aws_sagemaker_workforce :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   workforce_name:string prop ->
-  cognito_config:aws_sagemaker_workforce__cognito_config list ->
-  oidc_config:aws_sagemaker_workforce__oidc_config list ->
-  source_ip_config:aws_sagemaker_workforce__source_ip_config list ->
-  workforce_vpc_config:
-    aws_sagemaker_workforce__workforce_vpc_config list ->
+  cognito_config:cognito_config list ->
+  oidc_config:oidc_config list ->
+  source_ip_config:source_ip_config list ->
+  workforce_vpc_config:workforce_vpc_config list ->
   string ->
   t

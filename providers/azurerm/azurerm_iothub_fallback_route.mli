@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_fallback_route__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_iothub_fallback_route
+
+val azurerm_iothub_fallback_route :
+  ?condition:string prop ->
+  ?id:string prop ->
+  ?source:string prop ->
+  ?timeouts:timeouts ->
+  enabled:bool prop ->
+  endpoint_names:string prop list ->
+  iothub_name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_iothub_fallback_route
+
+val yojson_of_azurerm_iothub_fallback_route :
+  azurerm_iothub_fallback_route -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   condition : string prop;
@@ -15,11 +43,12 @@ type t = private {
   source : string prop;
 }
 
-val azurerm_iothub_fallback_route :
+val register :
+  ?tf_module:tf_module ->
   ?condition:string prop ->
   ?id:string prop ->
   ?source:string prop ->
-  ?timeouts:azurerm_iothub_fallback_route__timeouts ->
+  ?timeouts:timeouts ->
   enabled:bool prop ->
   endpoint_names:string prop list ->
   iothub_name:string prop ->

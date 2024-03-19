@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_recovery_services_vault__encryption = {
+type encryption = {
   infrastructure_encryption_enabled : bool prop;
       (** infrastructure_encryption_enabled *)
   key_id : string prop;  (** key_id *)
@@ -14,19 +14,17 @@ type azurerm_recovery_services_vault__encryption = {
       (** user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_recovery_services_vault__encryption *)
+(** encryption *)
 
-type azurerm_recovery_services_vault__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_recovery_services_vault__identity *)
+(** identity *)
 
-type azurerm_recovery_services_vault__monitoring = {
+type monitoring = {
   alerts_for_all_job_failures_enabled : bool prop option; [@option]
       (** alerts_for_all_job_failures_enabled *)
   alerts_for_critical_operation_failures_enabled : bool prop option;
@@ -34,16 +32,16 @@ type azurerm_recovery_services_vault__monitoring = {
       (** alerts_for_critical_operation_failures_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_recovery_services_vault__monitoring *)
+(** monitoring *)
 
-type azurerm_recovery_services_vault__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_recovery_services_vault__timeouts *)
+(** timeouts *)
 
 type azurerm_recovery_services_vault = {
   classic_vmware_replication_enabled : bool prop option; [@option]
@@ -63,13 +61,61 @@ type azurerm_recovery_services_vault = {
   storage_mode_type : string prop option; [@option]
       (** storage_mode_type *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  encryption : azurerm_recovery_services_vault__encryption list;
-  identity : azurerm_recovery_services_vault__identity list;
-  monitoring : azurerm_recovery_services_vault__monitoring list;
-  timeouts : azurerm_recovery_services_vault__timeouts option;
+  encryption : encryption list;
+  identity : identity list;
+  monitoring : monitoring list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_recovery_services_vault *)
+
+let encryption ?use_system_assigned_identity
+    ?user_assigned_identity_id ~infrastructure_encryption_enabled
+    ~key_id () : encryption =
+  {
+    infrastructure_encryption_enabled;
+    key_id;
+    use_system_assigned_identity;
+    user_assigned_identity_id;
+  }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let monitoring ?alerts_for_all_job_failures_enabled
+    ?alerts_for_critical_operation_failures_enabled () : monitoring =
+  {
+    alerts_for_all_job_failures_enabled;
+    alerts_for_critical_operation_failures_enabled;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_recovery_services_vault
+    ?classic_vmware_replication_enabled ?cross_region_restore_enabled
+    ?id ?immutability ?public_network_access_enabled
+    ?soft_delete_enabled ?storage_mode_type ?tags ?timeouts ~location
+    ~name ~resource_group_name ~sku ~encryption ~identity ~monitoring
+    () : azurerm_recovery_services_vault =
+  {
+    classic_vmware_replication_enabled;
+    cross_region_restore_enabled;
+    id;
+    immutability;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    sku;
+    soft_delete_enabled;
+    storage_mode_type;
+    tags;
+    encryption;
+    identity;
+    monitoring;
+    timeouts;
+  }
 
 type t = {
   classic_vmware_replication_enabled : bool prop;
@@ -86,35 +132,22 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_recovery_services_vault
-    ?classic_vmware_replication_enabled ?cross_region_restore_enabled
-    ?id ?immutability ?public_network_access_enabled
-    ?soft_delete_enabled ?storage_mode_type ?tags ?timeouts ~location
-    ~name ~resource_group_name ~sku ~encryption ~identity ~monitoring
+let register ?tf_module ?classic_vmware_replication_enabled
+    ?cross_region_restore_enabled ?id ?immutability
+    ?public_network_access_enabled ?soft_delete_enabled
+    ?storage_mode_type ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku ~encryption ~identity ~monitoring
     __resource_id =
   let __resource_type = "azurerm_recovery_services_vault" in
   let __resource =
-    ({
-       classic_vmware_replication_enabled;
-       cross_region_restore_enabled;
-       id;
-       immutability;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       sku;
-       soft_delete_enabled;
-       storage_mode_type;
-       tags;
-       encryption;
-       identity;
-       monitoring;
-       timeouts;
-     }
-      : azurerm_recovery_services_vault)
+    azurerm_recovery_services_vault
+      ?classic_vmware_replication_enabled
+      ?cross_region_restore_enabled ?id ?immutability
+      ?public_network_access_enabled ?soft_delete_enabled
+      ?storage_mode_type ?tags ?timeouts ~location ~name
+      ~resource_group_name ~sku ~encryption ~identity ~monitoring ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_recovery_services_vault __resource);
   let __resource_attributes =
     ({

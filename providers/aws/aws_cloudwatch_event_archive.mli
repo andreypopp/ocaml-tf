@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cloudwatch_event_archive
+
+val aws_cloudwatch_event_archive :
+  ?description:string prop ->
+  ?event_pattern:string prop ->
+  ?id:string prop ->
+  ?retention_days:float prop ->
+  event_source_arn:string prop ->
+  name:string prop ->
+  unit ->
+  aws_cloudwatch_event_archive
+
+val yojson_of_aws_cloudwatch_event_archive :
+  aws_cloudwatch_event_archive -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +31,8 @@ type t = private {
   retention_days : float prop;
 }
 
-val aws_cloudwatch_event_archive :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?event_pattern:string prop ->
   ?id:string prop ->

@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_palo_alto_local_rulestack_prefix_list__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_palo_alto_local_rulestack_prefix_list
+
+val azurerm_palo_alto_local_rulestack_prefix_list :
+  ?audit_comment:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  prefix_list:string prop list ->
+  rulestack_id:string prop ->
+  unit ->
+  azurerm_palo_alto_local_rulestack_prefix_list
+
+val yojson_of_azurerm_palo_alto_local_rulestack_prefix_list :
+  azurerm_palo_alto_local_rulestack_prefix_list -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   audit_comment : string prop;
@@ -14,11 +41,12 @@ type t = private {
   rulestack_id : string prop;
 }
 
-val azurerm_palo_alto_local_rulestack_prefix_list :
+val register :
+  ?tf_module:tf_module ->
   ?audit_comment:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_palo_alto_local_rulestack_prefix_list__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   prefix_list:string prop list ->
   rulestack_id:string prop ->

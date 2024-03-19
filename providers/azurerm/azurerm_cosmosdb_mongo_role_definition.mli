@@ -2,10 +2,50 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_mongo_role_definition__privilege__resource
-type azurerm_cosmosdb_mongo_role_definition__privilege
-type azurerm_cosmosdb_mongo_role_definition__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type privilege__resource
+
+val privilege__resource :
+  ?collection_name:string prop ->
+  ?db_name:string prop ->
+  unit ->
+  privilege__resource
+
+type privilege
+
+val privilege :
+  actions:string prop list ->
+  resource:privilege__resource list ->
+  unit ->
+  privilege
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_cosmosdb_mongo_role_definition
+
+val azurerm_cosmosdb_mongo_role_definition :
+  ?id:string prop ->
+  ?inherited_role_names:string prop list ->
+  ?timeouts:timeouts ->
+  cosmos_mongo_database_id:string prop ->
+  role_name:string prop ->
+  privilege:privilege list ->
+  unit ->
+  azurerm_cosmosdb_mongo_role_definition
+
+val yojson_of_azurerm_cosmosdb_mongo_role_definition :
+  azurerm_cosmosdb_mongo_role_definition -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cosmos_mongo_database_id : string prop;
@@ -14,12 +54,13 @@ type t = private {
   role_name : string prop;
 }
 
-val azurerm_cosmosdb_mongo_role_definition :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?inherited_role_names:string prop list ->
-  ?timeouts:azurerm_cosmosdb_mongo_role_definition__timeouts ->
+  ?timeouts:timeouts ->
   cosmos_mongo_database_id:string prop ->
   role_name:string prop ->
-  privilege:azurerm_cosmosdb_mongo_role_definition__privilege list ->
+  privilege:privilege list ->
   string ->
   t

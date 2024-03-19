@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_integration_service_environment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_integration_service_environment__timeouts *)
+(** timeouts *)
 
 type azurerm_integration_service_environment = {
   access_endpoint_type : string prop;  (** access_endpoint_type *)
@@ -23,10 +23,29 @@ type azurerm_integration_service_environment = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   virtual_network_subnet_ids : string prop list;
       (** virtual_network_subnet_ids *)
-  timeouts : azurerm_integration_service_environment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_integration_service_environment *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_integration_service_environment ?id ?sku_name ?tags
+    ?timeouts ~access_endpoint_type ~location ~name
+    ~resource_group_name ~virtual_network_subnet_ids () :
+    azurerm_integration_service_environment =
+  {
+    access_endpoint_type;
+    id;
+    location;
+    name;
+    resource_group_name;
+    sku_name;
+    tags;
+    virtual_network_subnet_ids;
+    timeouts;
+  }
 
 type t = {
   access_endpoint_type : string prop;
@@ -43,25 +62,16 @@ type t = {
   workflow_outbound_ip_addresses : string list prop;
 }
 
-let azurerm_integration_service_environment ?id ?sku_name ?tags
-    ?timeouts ~access_endpoint_type ~location ~name
-    ~resource_group_name ~virtual_network_subnet_ids __resource_id =
+let register ?tf_module ?id ?sku_name ?tags ?timeouts
+    ~access_endpoint_type ~location ~name ~resource_group_name
+    ~virtual_network_subnet_ids __resource_id =
   let __resource_type = "azurerm_integration_service_environment" in
   let __resource =
-    ({
-       access_endpoint_type;
-       id;
-       location;
-       name;
-       resource_group_name;
-       sku_name;
-       tags;
-       virtual_network_subnet_ids;
-       timeouts;
-     }
-      : azurerm_integration_service_environment)
+    azurerm_integration_service_environment ?id ?sku_name ?tags
+      ?timeouts ~access_endpoint_type ~location ~name
+      ~resource_group_name ~virtual_network_subnet_ids ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_integration_service_environment __resource);
   let __resource_attributes =
     ({

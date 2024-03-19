@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_db_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_db_snapshot__timeouts *)
+(** timeouts *)
 
 type aws_db_snapshot = {
   db_instance_identifier : string prop;
@@ -21,10 +21,25 @@ type aws_db_snapshot = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_db_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_snapshot *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_db_snapshot ?id ?shared_accounts ?tags ?tags_all ?timeouts
+    ~db_instance_identifier ~db_snapshot_identifier () :
+    aws_db_snapshot =
+  {
+    db_instance_identifier;
+    db_snapshot_identifier;
+    id;
+    shared_accounts;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   allocated_storage : float prop;
@@ -52,22 +67,15 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_db_snapshot ?id ?shared_accounts ?tags ?tags_all ?timeouts
-    ~db_instance_identifier ~db_snapshot_identifier __resource_id =
+let register ?tf_module ?id ?shared_accounts ?tags ?tags_all
+    ?timeouts ~db_instance_identifier ~db_snapshot_identifier
+    __resource_id =
   let __resource_type = "aws_db_snapshot" in
   let __resource =
-    ({
-       db_instance_identifier;
-       db_snapshot_identifier;
-       id;
-       shared_accounts;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_db_snapshot)
+    aws_db_snapshot ?id ?shared_accounts ?tags ?tags_all ?timeouts
+      ~db_instance_identifier ~db_snapshot_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_snapshot __resource);
   let __resource_attributes =
     ({

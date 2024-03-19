@@ -14,6 +14,11 @@ type google_artifact_registry_repository_iam_policy = {
 [@@deriving yojson_of]
 (** google_artifact_registry_repository_iam_policy *)
 
+let google_artifact_registry_repository_iam_policy ?id ?location
+    ?project ~policy_data ~repository () :
+    google_artifact_registry_repository_iam_policy =
+  { id; location; policy_data; project; repository }
+
 type t = {
   etag : string prop;
   id : string prop;
@@ -23,16 +28,16 @@ type t = {
   repository : string prop;
 }
 
-let google_artifact_registry_repository_iam_policy ?id ?location
-    ?project ~policy_data ~repository __resource_id =
+let register ?tf_module ?id ?location ?project ~policy_data
+    ~repository __resource_id =
   let __resource_type =
     "google_artifact_registry_repository_iam_policy"
   in
   let __resource =
-    ({ id; location; policy_data; project; repository }
-      : google_artifact_registry_repository_iam_policy)
+    google_artifact_registry_repository_iam_policy ?id ?location
+      ?project ~policy_data ~repository ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_artifact_registry_repository_iam_policy
        __resource);
   let __resource_attributes =

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_apigee_nat_address__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_apigee_nat_address__timeouts *)
+(** timeouts *)
 
 type google_apigee_nat_address = {
   id : string prop option; [@option]  (** id *)
@@ -17,10 +17,16 @@ type google_apigee_nat_address = {
       (** The Apigee instance associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/instances/{{instance_name}}'. *)
   name : string prop;  (** Resource ID of the NAT address. *)
-  timeouts : google_apigee_nat_address__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_nat_address *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_apigee_nat_address ?id ?timeouts ~instance_id ~name () :
+    google_apigee_nat_address =
+  { id; instance_id; name; timeouts }
 
 type t = {
   id : string prop;
@@ -30,13 +36,13 @@ type t = {
   state : string prop;
 }
 
-let google_apigee_nat_address ?id ?timeouts ~instance_id ~name
+let register ?tf_module ?id ?timeouts ~instance_id ~name
     __resource_id =
   let __resource_type = "google_apigee_nat_address" in
   let __resource =
-    ({ id; instance_id; name; timeouts } : google_apigee_nat_address)
+    google_apigee_nat_address ?id ?timeouts ~instance_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_nat_address __resource);
   let __resource_attributes =
     ({

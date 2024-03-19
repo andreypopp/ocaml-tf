@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_resource_management_private_link_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_resource_management_private_link_association
+
+val azurerm_resource_management_private_link_association :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?timeouts:timeouts ->
+  management_group_id:string prop ->
+  public_network_access_enabled:bool prop ->
+  resource_management_private_link_id:string prop ->
+  unit ->
+  azurerm_resource_management_private_link_association
+
+val yojson_of_azurerm_resource_management_private_link_association :
+  azurerm_resource_management_private_link_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,11 +39,11 @@ type t = private {
   tenant_id : string prop;
 }
 
-val azurerm_resource_management_private_link_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?timeouts:
-    azurerm_resource_management_private_link_association__timeouts ->
+  ?timeouts:timeouts ->
   management_group_id:string prop ->
   public_network_access_enabled:bool prop ->
   resource_management_private_link_id:string prop ->

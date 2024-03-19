@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_action_http__run_after = {
+type run_after = {
   action_name : string prop;  (** action_name *)
   action_result : string prop;  (** action_result *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_action_http__run_after *)
+(** run_after *)
 
-type azurerm_logic_app_action_http__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_action_http__timeouts *)
+(** timeouts *)
 
 type azurerm_logic_app_action_http = {
   body : string prop option; [@option]  (** body *)
@@ -31,11 +31,33 @@ type azurerm_logic_app_action_http = {
   queries : (string * string prop) list option; [@option]
       (** queries *)
   uri : string prop;  (** uri *)
-  run_after : azurerm_logic_app_action_http__run_after list;
-  timeouts : azurerm_logic_app_action_http__timeouts option;
+  run_after : run_after list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_action_http *)
+
+let run_after ~action_name ~action_result () : run_after =
+  { action_name; action_result }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logic_app_action_http ?body ?headers ?id ?queries
+    ?timeouts ~logic_app_id ~method_ ~name ~uri ~run_after () :
+    azurerm_logic_app_action_http =
+  {
+    body;
+    headers;
+    id;
+    logic_app_id;
+    method_;
+    name;
+    queries;
+    uri;
+    run_after;
+    timeouts;
+  }
 
 type t = {
   body : string prop;
@@ -48,26 +70,14 @@ type t = {
   uri : string prop;
 }
 
-let azurerm_logic_app_action_http ?body ?headers ?id ?queries
-    ?timeouts ~logic_app_id ~method_ ~name ~uri ~run_after
-    __resource_id =
+let register ?tf_module ?body ?headers ?id ?queries ?timeouts
+    ~logic_app_id ~method_ ~name ~uri ~run_after __resource_id =
   let __resource_type = "azurerm_logic_app_action_http" in
   let __resource =
-    ({
-       body;
-       headers;
-       id;
-       logic_app_id;
-       method_;
-       name;
-       queries;
-       uri;
-       run_after;
-       timeouts;
-     }
-      : azurerm_logic_app_action_http)
+    azurerm_logic_app_action_http ?body ?headers ?id ?queries
+      ?timeouts ~logic_app_id ~method_ ~name ~uri ~run_after ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_action_http __resource);
   let __resource_attributes =
     ({

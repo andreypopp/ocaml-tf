@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_connection__authentication = {
+type authentication = {
   certificate : string prop option; [@option]  (** certificate *)
   client_id : string prop option; [@option]  (** client_id *)
   name : string prop option; [@option]  (** name *)
@@ -15,22 +15,22 @@ type azurerm_app_service_connection__authentication = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_connection__authentication *)
+(** authentication *)
 
-type azurerm_app_service_connection__secret_store = {
+type secret_store = {
   key_vault_id : string prop;  (** key_vault_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_connection__secret_store *)
+(** secret_store *)
 
-type azurerm_app_service_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_connection__timeouts *)
+(** timeouts *)
 
 type azurerm_app_service_connection = {
   app_service_id : string prop;  (** app_service_id *)
@@ -39,13 +39,45 @@ type azurerm_app_service_connection = {
   name : string prop;  (** name *)
   target_resource_id : string prop;  (** target_resource_id *)
   vnet_solution : string prop option; [@option]  (** vnet_solution *)
-  authentication :
-    azurerm_app_service_connection__authentication list;
-  secret_store : azurerm_app_service_connection__secret_store list;
-  timeouts : azurerm_app_service_connection__timeouts option;
+  authentication : authentication list;
+  secret_store : secret_store list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_connection *)
+
+let authentication ?certificate ?client_id ?name ?principal_id
+    ?secret ?subscription_id ~type_ () : authentication =
+  {
+    certificate;
+    client_id;
+    name;
+    principal_id;
+    secret;
+    subscription_id;
+    type_;
+  }
+
+let secret_store ~key_vault_id () : secret_store = { key_vault_id }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_app_service_connection ?client_type ?id ?vnet_solution
+    ?timeouts ~app_service_id ~name ~target_resource_id
+    ~authentication ~secret_store () : azurerm_app_service_connection
+    =
+  {
+    app_service_id;
+    client_type;
+    id;
+    name;
+    target_resource_id;
+    vnet_solution;
+    authentication;
+    secret_store;
+    timeouts;
+  }
 
 type t = {
   app_service_id : string prop;
@@ -56,25 +88,16 @@ type t = {
   vnet_solution : string prop;
 }
 
-let azurerm_app_service_connection ?client_type ?id ?vnet_solution
-    ?timeouts ~app_service_id ~name ~target_resource_id
-    ~authentication ~secret_store __resource_id =
+let register ?tf_module ?client_type ?id ?vnet_solution ?timeouts
+    ~app_service_id ~name ~target_resource_id ~authentication
+    ~secret_store __resource_id =
   let __resource_type = "azurerm_app_service_connection" in
   let __resource =
-    ({
-       app_service_id;
-       client_type;
-       id;
-       name;
-       target_resource_id;
-       vnet_solution;
-       authentication;
-       secret_store;
-       timeouts;
-     }
-      : azurerm_app_service_connection)
+    azurerm_app_service_connection ?client_type ?id ?vnet_solution
+      ?timeouts ~app_service_id ~name ~target_resource_id
+      ~authentication ~secret_store ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_connection __resource);
   let __resource_attributes =
     ({

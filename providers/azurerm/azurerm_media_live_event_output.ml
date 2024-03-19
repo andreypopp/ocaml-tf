@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_media_live_event_output__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_live_event_output__timeouts *)
+(** timeouts *)
 
 type azurerm_media_live_event_output = {
   archive_window_duration : string prop;
@@ -27,10 +27,32 @@ type azurerm_media_live_event_output = {
       (** output_snap_time_in_seconds *)
   rewind_window_duration : string prop option; [@option]
       (** rewind_window_duration *)
-  timeouts : azurerm_media_live_event_output__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_media_live_event_output *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_media_live_event_output ?description
+    ?hls_fragments_per_ts_segment ?id ?manifest_name
+    ?output_snap_time_in_seconds ?rewind_window_duration ?timeouts
+    ~archive_window_duration ~asset_name ~live_event_id ~name () :
+    azurerm_media_live_event_output =
+  {
+    archive_window_duration;
+    asset_name;
+    description;
+    hls_fragments_per_ts_segment;
+    id;
+    live_event_id;
+    manifest_name;
+    name;
+    output_snap_time_in_seconds;
+    rewind_window_duration;
+    timeouts;
+  }
 
 type t = {
   archive_window_duration : string prop;
@@ -45,29 +67,18 @@ type t = {
   rewind_window_duration : string prop;
 }
 
-let azurerm_media_live_event_output ?description
-    ?hls_fragments_per_ts_segment ?id ?manifest_name
-    ?output_snap_time_in_seconds ?rewind_window_duration ?timeouts
-    ~archive_window_duration ~asset_name ~live_event_id ~name
-    __resource_id =
+let register ?tf_module ?description ?hls_fragments_per_ts_segment
+    ?id ?manifest_name ?output_snap_time_in_seconds
+    ?rewind_window_duration ?timeouts ~archive_window_duration
+    ~asset_name ~live_event_id ~name __resource_id =
   let __resource_type = "azurerm_media_live_event_output" in
   let __resource =
-    ({
-       archive_window_duration;
-       asset_name;
-       description;
-       hls_fragments_per_ts_segment;
-       id;
-       live_event_id;
-       manifest_name;
-       name;
-       output_snap_time_in_seconds;
-       rewind_window_duration;
-       timeouts;
-     }
-      : azurerm_media_live_event_output)
+    azurerm_media_live_event_output ?description
+      ?hls_fragments_per_ts_segment ?id ?manifest_name
+      ?output_snap_time_in_seconds ?rewind_window_duration ?timeouts
+      ~archive_window_duration ~asset_name ~live_event_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_live_event_output __resource);
   let __resource_attributes =
     ({

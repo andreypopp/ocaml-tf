@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_compute_network_peering_routes_config__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_network_peering_routes_config
+
+val google_compute_network_peering_routes_config :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  export_custom_routes:bool prop ->
+  import_custom_routes:bool prop ->
+  network:string prop ->
+  peering:string prop ->
+  unit ->
+  google_compute_network_peering_routes_config
+
+val yojson_of_google_compute_network_peering_routes_config :
+  google_compute_network_peering_routes_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   export_custom_routes : bool prop;
@@ -14,10 +40,11 @@ type t = private {
   project : string prop;
 }
 
-val google_compute_network_peering_routes_config :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_compute_network_peering_routes_config__timeouts ->
+  ?timeouts:timeouts ->
   export_custom_routes:bool prop ->
   import_custom_routes:bool prop ->
   network:string prop ->

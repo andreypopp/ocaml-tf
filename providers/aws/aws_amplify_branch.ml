@@ -39,6 +39,35 @@ type aws_amplify_branch = {
 [@@deriving yojson_of]
 (** aws_amplify_branch *)
 
+let aws_amplify_branch ?backend_environment_arn
+    ?basic_auth_credentials ?description ?display_name
+    ?enable_auto_build ?enable_basic_auth ?enable_notification
+    ?enable_performance_mode ?enable_pull_request_preview
+    ?environment_variables ?framework ?id
+    ?pull_request_environment_name ?stage ?tags ?tags_all ?ttl
+    ~app_id ~branch_name () : aws_amplify_branch =
+  {
+    app_id;
+    backend_environment_arn;
+    basic_auth_credentials;
+    branch_name;
+    description;
+    display_name;
+    enable_auto_build;
+    enable_basic_auth;
+    enable_notification;
+    enable_performance_mode;
+    enable_pull_request_preview;
+    environment_variables;
+    framework;
+    id;
+    pull_request_environment_name;
+    stage;
+    tags;
+    tags_all;
+    ttl;
+  }
+
 type t = {
   app_id : string prop;
   arn : string prop;
@@ -66,7 +95,7 @@ type t = {
   ttl : string prop;
 }
 
-let aws_amplify_branch ?backend_environment_arn
+let register ?tf_module ?backend_environment_arn
     ?basic_auth_credentials ?description ?display_name
     ?enable_auto_build ?enable_basic_auth ?enable_notification
     ?enable_performance_mode ?enable_pull_request_preview
@@ -75,30 +104,15 @@ let aws_amplify_branch ?backend_environment_arn
     ~app_id ~branch_name __resource_id =
   let __resource_type = "aws_amplify_branch" in
   let __resource =
-    ({
-       app_id;
-       backend_environment_arn;
-       basic_auth_credentials;
-       branch_name;
-       description;
-       display_name;
-       enable_auto_build;
-       enable_basic_auth;
-       enable_notification;
-       enable_performance_mode;
-       enable_pull_request_preview;
-       environment_variables;
-       framework;
-       id;
-       pull_request_environment_name;
-       stage;
-       tags;
-       tags_all;
-       ttl;
-     }
-      : aws_amplify_branch)
+    aws_amplify_branch ?backend_environment_arn
+      ?basic_auth_credentials ?description ?display_name
+      ?enable_auto_build ?enable_basic_auth ?enable_notification
+      ?enable_performance_mode ?enable_pull_request_preview
+      ?environment_variables ?framework ?id
+      ?pull_request_environment_name ?stage ?tags ?tags_all ?ttl
+      ~app_id ~branch_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_amplify_branch __resource);
   let __resource_attributes =
     ({

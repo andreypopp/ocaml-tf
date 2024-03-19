@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_address__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_address__timeouts *)
+(** timeouts *)
 
 type google_compute_address = {
   address : string prop option; [@option]
@@ -82,10 +82,36 @@ If it is not provided, the provider region is used. *)
 address is specified, it must be within the subnetwork's IP range.
 This field can only be used with INTERNAL type with
 GCE_ENDPOINT/DNS_RESOLVER purposes. *)
-  timeouts : google_compute_address__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_address *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_address ?address ?address_type ?description ?id
+    ?ip_version ?ipv6_endpoint_type ?labels ?network ?network_tier
+    ?prefix_length ?project ?purpose ?region ?subnetwork ?timeouts
+    ~name () : google_compute_address =
+  {
+    address;
+    address_type;
+    description;
+    id;
+    ip_version;
+    ipv6_endpoint_type;
+    labels;
+    name;
+    network;
+    network_tier;
+    prefix_length;
+    project;
+    purpose;
+    region;
+    subnetwork;
+    timeouts;
+  }
 
 type t = {
   address : string prop;
@@ -111,33 +137,18 @@ type t = {
   users : string list prop;
 }
 
-let google_compute_address ?address ?address_type ?description ?id
+let register ?tf_module ?address ?address_type ?description ?id
     ?ip_version ?ipv6_endpoint_type ?labels ?network ?network_tier
     ?prefix_length ?project ?purpose ?region ?subnetwork ?timeouts
     ~name __resource_id =
   let __resource_type = "google_compute_address" in
   let __resource =
-    ({
-       address;
-       address_type;
-       description;
-       id;
-       ip_version;
-       ipv6_endpoint_type;
-       labels;
-       name;
-       network;
-       network_tier;
-       prefix_length;
-       project;
-       purpose;
-       region;
-       subnetwork;
-       timeouts;
-     }
-      : google_compute_address)
+    google_compute_address ?address ?address_type ?description ?id
+      ?ip_version ?ipv6_endpoint_type ?labels ?network ?network_tier
+      ?prefix_length ?project ?purpose ?region ?subnetwork ?timeouts
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_address __resource);
   let __resource_attributes =
     ({

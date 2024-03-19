@@ -4,63 +4,62 @@
 
 open! Tf.Prelude
 
-type aws_eks_node_group__launch_template = {
+type launch_template = {
   id : string prop option; [@option]  (** id *)
   name : string prop option; [@option]  (** name *)
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_eks_node_group__launch_template *)
+(** launch_template *)
 
-type aws_eks_node_group__remote_access = {
+type remote_access = {
   ec2_ssh_key : string prop option; [@option]  (** ec2_ssh_key *)
   source_security_group_ids : string prop list option; [@option]
       (** source_security_group_ids *)
 }
 [@@deriving yojson_of]
-(** aws_eks_node_group__remote_access *)
+(** remote_access *)
 
-type aws_eks_node_group__scaling_config = {
+type scaling_config = {
   desired_size : float prop;  (** desired_size *)
   max_size : float prop;  (** max_size *)
   min_size : float prop;  (** min_size *)
 }
 [@@deriving yojson_of]
-(** aws_eks_node_group__scaling_config *)
+(** scaling_config *)
 
-type aws_eks_node_group__taint = {
+type taint = {
   effect : string prop;  (** effect *)
   key : string prop;  (** key *)
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_eks_node_group__taint *)
+(** taint *)
 
-type aws_eks_node_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_eks_node_group__timeouts *)
+(** timeouts *)
 
-type aws_eks_node_group__update_config = {
+type update_config = {
   max_unavailable : float prop option; [@option]
       (** max_unavailable *)
   max_unavailable_percentage : float prop option; [@option]
       (** max_unavailable_percentage *)
 }
 [@@deriving yojson_of]
-(** aws_eks_node_group__update_config *)
+(** update_config *)
 
-type aws_eks_node_group__resources__autoscaling_groups = {
+type resources__autoscaling_groups = {
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
-type aws_eks_node_group__resources = {
-  autoscaling_groups :
-    aws_eks_node_group__resources__autoscaling_groups list;
+type resources = {
+  autoscaling_groups : resources__autoscaling_groups list;
       (** autoscaling_groups *)
   remote_access_security_group_id : string prop;
       (** remote_access_security_group_id *)
@@ -91,15 +90,66 @@ type aws_eks_node_group = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   version : string prop option; [@option]  (** version *)
-  launch_template : aws_eks_node_group__launch_template list;
-  remote_access : aws_eks_node_group__remote_access list;
-  scaling_config : aws_eks_node_group__scaling_config list;
-  taint : aws_eks_node_group__taint list;
-  timeouts : aws_eks_node_group__timeouts option;
-  update_config : aws_eks_node_group__update_config list;
+  launch_template : launch_template list;
+  remote_access : remote_access list;
+  scaling_config : scaling_config list;
+  taint : taint list;
+  timeouts : timeouts option;
+  update_config : update_config list;
 }
 [@@deriving yojson_of]
 (** aws_eks_node_group *)
+
+let launch_template ?id ?name ~version () : launch_template =
+  { id; name; version }
+
+let remote_access ?ec2_ssh_key ?source_security_group_ids () :
+    remote_access =
+  { ec2_ssh_key; source_security_group_ids }
+
+let scaling_config ~desired_size ~max_size ~min_size () :
+    scaling_config =
+  { desired_size; max_size; min_size }
+
+let taint ?value ~effect ~key () : taint = { effect; key; value }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let update_config ?max_unavailable ?max_unavailable_percentage () :
+    update_config =
+  { max_unavailable; max_unavailable_percentage }
+
+let aws_eks_node_group ?ami_type ?capacity_type ?disk_size
+    ?force_update_version ?id ?instance_types ?labels
+    ?node_group_name ?node_group_name_prefix ?release_version ?tags
+    ?tags_all ?version ?timeouts ~cluster_name ~node_role_arn
+    ~subnet_ids ~launch_template ~remote_access ~scaling_config
+    ~taint ~update_config () : aws_eks_node_group =
+  {
+    ami_type;
+    capacity_type;
+    cluster_name;
+    disk_size;
+    force_update_version;
+    id;
+    instance_types;
+    labels;
+    node_group_name;
+    node_group_name_prefix;
+    node_role_arn;
+    release_version;
+    subnet_ids;
+    tags;
+    tags_all;
+    version;
+    launch_template;
+    remote_access;
+    scaling_config;
+    taint;
+    timeouts;
+    update_config;
+  }
 
 type t = {
   ami_type : string prop;
@@ -115,7 +165,7 @@ type t = {
   node_group_name_prefix : string prop;
   node_role_arn : string prop;
   release_version : string prop;
-  resources : aws_eks_node_group__resources list prop;
+  resources : resources list prop;
   status : string prop;
   subnet_ids : string list prop;
   tags : (string * string) list prop;
@@ -123,7 +173,7 @@ type t = {
   version : string prop;
 }
 
-let aws_eks_node_group ?ami_type ?capacity_type ?disk_size
+let register ?tf_module ?ami_type ?capacity_type ?disk_size
     ?force_update_version ?id ?instance_types ?labels
     ?node_group_name ?node_group_name_prefix ?release_version ?tags
     ?tags_all ?version ?timeouts ~cluster_name ~node_role_arn
@@ -131,33 +181,14 @@ let aws_eks_node_group ?ami_type ?capacity_type ?disk_size
     ~taint ~update_config __resource_id =
   let __resource_type = "aws_eks_node_group" in
   let __resource =
-    ({
-       ami_type;
-       capacity_type;
-       cluster_name;
-       disk_size;
-       force_update_version;
-       id;
-       instance_types;
-       labels;
-       node_group_name;
-       node_group_name_prefix;
-       node_role_arn;
-       release_version;
-       subnet_ids;
-       tags;
-       tags_all;
-       version;
-       launch_template;
-       remote_access;
-       scaling_config;
-       taint;
-       timeouts;
-       update_config;
-     }
-      : aws_eks_node_group)
+    aws_eks_node_group ?ami_type ?capacity_type ?disk_size
+      ?force_update_version ?id ?instance_types ?labels
+      ?node_group_name ?node_group_name_prefix ?release_version ?tags
+      ?tags_all ?version ?timeouts ~cluster_name ~node_role_arn
+      ~subnet_ids ~launch_template ~remote_access ~scaling_config
+      ~taint ~update_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_node_group __resource);
   let __resource_attributes =
     ({

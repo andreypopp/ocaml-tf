@@ -13,6 +13,10 @@ type aws_appsync_domain_name = {
 [@@deriving yojson_of]
 (** aws_appsync_domain_name *)
 
+let aws_appsync_domain_name ?description ?id ~certificate_arn
+    ~domain_name () : aws_appsync_domain_name =
+  { certificate_arn; description; domain_name; id }
+
 type t = {
   appsync_domain_name : string prop;
   certificate_arn : string prop;
@@ -22,14 +26,14 @@ type t = {
   id : string prop;
 }
 
-let aws_appsync_domain_name ?description ?id ~certificate_arn
+let register ?tf_module ?description ?id ~certificate_arn
     ~domain_name __resource_id =
   let __resource_type = "aws_appsync_domain_name" in
   let __resource =
-    ({ certificate_arn; description; domain_name; id }
-      : aws_appsync_domain_name)
+    aws_appsync_domain_name ?description ?id ~certificate_arn
+      ~domain_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_domain_name __resource);
   let __resource_attributes =
     ({

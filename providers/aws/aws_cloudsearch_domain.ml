@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_cloudsearch_domain__endpoint_options = {
+type endpoint_options = {
   enforce_https : bool prop option; [@option]  (** enforce_https *)
   tls_security_policy : string prop option; [@option]
       (** tls_security_policy *)
 }
 [@@deriving yojson_of]
-(** aws_cloudsearch_domain__endpoint_options *)
+(** endpoint_options *)
 
-type aws_cloudsearch_domain__index_field = {
+type index_field = {
   analysis_scheme : string prop option; [@option]
       (** analysis_scheme *)
   default_value : string prop option; [@option]  (** default_value *)
@@ -26,9 +26,9 @@ type aws_cloudsearch_domain__index_field = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_cloudsearch_domain__index_field *)
+(** index_field *)
 
-type aws_cloudsearch_domain__scaling_parameters = {
+type scaling_parameters = {
   desired_instance_type : string prop option; [@option]
       (** desired_instance_type *)
   desired_partition_count : float prop option; [@option]
@@ -37,28 +37,72 @@ type aws_cloudsearch_domain__scaling_parameters = {
       (** desired_replication_count *)
 }
 [@@deriving yojson_of]
-(** aws_cloudsearch_domain__scaling_parameters *)
+(** scaling_parameters *)
 
-type aws_cloudsearch_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_cloudsearch_domain__timeouts *)
+(** timeouts *)
 
 type aws_cloudsearch_domain = {
   id : string prop option; [@option]  (** id *)
   multi_az : bool prop option; [@option]  (** multi_az *)
   name : string prop;  (** name *)
-  endpoint_options : aws_cloudsearch_domain__endpoint_options list;
-  index_field : aws_cloudsearch_domain__index_field list;
-  scaling_parameters :
-    aws_cloudsearch_domain__scaling_parameters list;
-  timeouts : aws_cloudsearch_domain__timeouts option;
+  endpoint_options : endpoint_options list;
+  index_field : index_field list;
+  scaling_parameters : scaling_parameters list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_cloudsearch_domain *)
+
+let endpoint_options ?enforce_https ?tls_security_policy () :
+    endpoint_options =
+  { enforce_https; tls_security_policy }
+
+let index_field ?analysis_scheme ?default_value ?facet ?highlight
+    ?return ?search ?sort ?source_fields ~name ~type_ () :
+    index_field =
+  {
+    analysis_scheme;
+    default_value;
+    facet;
+    highlight;
+    name;
+    return;
+    search;
+    sort;
+    source_fields;
+    type_;
+  }
+
+let scaling_parameters ?desired_instance_type
+    ?desired_partition_count ?desired_replication_count () :
+    scaling_parameters =
+  {
+    desired_instance_type;
+    desired_partition_count;
+    desired_replication_count;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_cloudsearch_domain ?id ?multi_az ?timeouts ~name
+    ~endpoint_options ~index_field ~scaling_parameters () :
+    aws_cloudsearch_domain =
+  {
+    id;
+    multi_az;
+    name;
+    endpoint_options;
+    index_field;
+    scaling_parameters;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -70,23 +114,15 @@ type t = {
   search_service_endpoint : string prop;
 }
 
-let aws_cloudsearch_domain ?id ?multi_az ?timeouts ~name
+let register ?tf_module ?id ?multi_az ?timeouts ~name
     ~endpoint_options ~index_field ~scaling_parameters __resource_id
     =
   let __resource_type = "aws_cloudsearch_domain" in
   let __resource =
-    ({
-       id;
-       multi_az;
-       name;
-       endpoint_options;
-       index_field;
-       scaling_parameters;
-       timeouts;
-     }
-      : aws_cloudsearch_domain)
+    aws_cloudsearch_domain ?id ?multi_az ?timeouts ~name
+      ~endpoint_options ~index_field ~scaling_parameters ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudsearch_domain __resource);
   let __resource_attributes =
     ({

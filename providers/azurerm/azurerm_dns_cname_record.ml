@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_dns_cname_record__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_dns_cname_record__timeouts *)
+(** timeouts *)
 
 type azurerm_dns_cname_record = {
   id : string prop option; [@option]  (** id *)
@@ -23,10 +23,28 @@ type azurerm_dns_cname_record = {
       (** target_resource_id *)
   ttl : float prop;  (** ttl *)
   zone_name : string prop;  (** zone_name *)
-  timeouts : azurerm_dns_cname_record__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_dns_cname_record *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_dns_cname_record ?id ?record ?tags ?target_resource_id
+    ?timeouts ~name ~resource_group_name ~ttl ~zone_name () :
+    azurerm_dns_cname_record =
+  {
+    id;
+    name;
+    record;
+    resource_group_name;
+    tags;
+    target_resource_id;
+    ttl;
+    zone_name;
+    timeouts;
+  }
 
 type t = {
   fqdn : string prop;
@@ -40,25 +58,15 @@ type t = {
   zone_name : string prop;
 }
 
-let azurerm_dns_cname_record ?id ?record ?tags ?target_resource_id
+let register ?tf_module ?id ?record ?tags ?target_resource_id
     ?timeouts ~name ~resource_group_name ~ttl ~zone_name
     __resource_id =
   let __resource_type = "azurerm_dns_cname_record" in
   let __resource =
-    ({
-       id;
-       name;
-       record;
-       resource_group_name;
-       tags;
-       target_resource_id;
-       ttl;
-       zone_name;
-       timeouts;
-     }
-      : azurerm_dns_cname_record)
+    azurerm_dns_cname_record ?id ?record ?tags ?target_resource_id
+      ?timeouts ~name ~resource_group_name ~ttl ~zone_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dns_cname_record __resource);
   let __resource_attributes =
     ({

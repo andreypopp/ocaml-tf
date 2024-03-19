@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_static_site_custom_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_static_site_custom_domain__timeouts *)
+(** timeouts *)
 
 type azurerm_static_site_custom_domain = {
   domain_name : string prop;  (** domain_name *)
@@ -18,10 +18,18 @@ type azurerm_static_site_custom_domain = {
   static_site_id : string prop;  (** static_site_id *)
   validation_type : string prop option; [@option]
       (** validation_type *)
-  timeouts : azurerm_static_site_custom_domain__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_static_site_custom_domain *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_static_site_custom_domain ?id ?validation_type ?timeouts
+    ~domain_name ~static_site_id () :
+    azurerm_static_site_custom_domain =
+  { domain_name; id; static_site_id; validation_type; timeouts }
 
 type t = {
   domain_name : string prop;
@@ -31,14 +39,14 @@ type t = {
   validation_type : string prop;
 }
 
-let azurerm_static_site_custom_domain ?id ?validation_type ?timeouts
-    ~domain_name ~static_site_id __resource_id =
+let register ?tf_module ?id ?validation_type ?timeouts ~domain_name
+    ~static_site_id __resource_id =
   let __resource_type = "azurerm_static_site_custom_domain" in
   let __resource =
-    ({ domain_name; id; static_site_id; validation_type; timeouts }
-      : azurerm_static_site_custom_domain)
+    azurerm_static_site_custom_domain ?id ?validation_type ?timeouts
+      ~domain_name ~static_site_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_static_site_custom_domain __resource);
   let __resource_attributes =
     ({

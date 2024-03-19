@@ -12,6 +12,9 @@ type aws_iam_group = {
 [@@deriving yojson_of]
 (** aws_iam_group *)
 
+let aws_iam_group ?id ?path ~name () : aws_iam_group =
+  { id; name; path }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -20,10 +23,10 @@ type t = {
   unique_id : string prop;
 }
 
-let aws_iam_group ?id ?path ~name __resource_id =
+let register ?tf_module ?id ?path ~name __resource_id =
   let __resource_type = "aws_iam_group" in
-  let __resource = ({ id; name; path } : aws_iam_group) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_iam_group ?id ?path ~name () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_group __resource);
   let __resource_attributes =
     ({

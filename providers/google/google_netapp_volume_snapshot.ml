@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_netapp_volume_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_netapp_volume_snapshot__timeouts *)
+(** timeouts *)
 
 type google_netapp_volume_snapshot = {
   description : string prop option; [@option]
@@ -28,10 +28,27 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   project : string prop option; [@option]  (** project *)
   volume_name : string prop;
       (** The name of the volume to create the snapshot in. *)
-  timeouts : google_netapp_volume_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_volume_snapshot *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_netapp_volume_snapshot ?description ?id ?labels ?project
+    ?timeouts ~location ~name ~volume_name () :
+    google_netapp_volume_snapshot =
+  {
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    volume_name;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -46,23 +63,14 @@ type t = {
   volume_name : string prop;
 }
 
-let google_netapp_volume_snapshot ?description ?id ?labels ?project
-    ?timeouts ~location ~name ~volume_name __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~location ~name ~volume_name __resource_id =
   let __resource_type = "google_netapp_volume_snapshot" in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       volume_name;
-       timeouts;
-     }
-      : google_netapp_volume_snapshot)
+    google_netapp_volume_snapshot ?description ?id ?labels ?project
+      ?timeouts ~location ~name ~volume_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_volume_snapshot __resource);
   let __resource_attributes =
     ({

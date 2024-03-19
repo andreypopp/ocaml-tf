@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_document_ai_warehouse_location__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_document_ai_warehouse_location__timeouts *)
+(** timeouts *)
 
 type google_document_ai_warehouse_location = {
   access_control_mode : string prop;
@@ -29,10 +29,27 @@ encryption will be enforced. *)
       (** The location in which the instance is to be provisioned. It takes the form projects/{projectNumber}/locations/{location}. *)
   project_number : string prop;
       (** The unique identifier of the project. *)
-  timeouts : google_document_ai_warehouse_location__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_document_ai_warehouse_location *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_document_ai_warehouse_location
+    ?document_creator_default_role ?id ?kms_key ?timeouts
+    ~access_control_mode ~database_type ~location ~project_number ()
+    : google_document_ai_warehouse_location =
+  {
+    access_control_mode;
+    database_type;
+    document_creator_default_role;
+    id;
+    kms_key;
+    location;
+    project_number;
+    timeouts;
+  }
 
 type t = {
   access_control_mode : string prop;
@@ -44,25 +61,17 @@ type t = {
   project_number : string prop;
 }
 
-let google_document_ai_warehouse_location
-    ?document_creator_default_role ?id ?kms_key ?timeouts
-    ~access_control_mode ~database_type ~location ~project_number
-    __resource_id =
+let register ?tf_module ?document_creator_default_role ?id ?kms_key
+    ?timeouts ~access_control_mode ~database_type ~location
+    ~project_number __resource_id =
   let __resource_type = "google_document_ai_warehouse_location" in
   let __resource =
-    ({
-       access_control_mode;
-       database_type;
-       document_creator_default_role;
-       id;
-       kms_key;
-       location;
-       project_number;
-       timeouts;
-     }
-      : google_document_ai_warehouse_location)
+    google_document_ai_warehouse_location
+      ?document_creator_default_role ?id ?kms_key ?timeouts
+      ~access_control_mode ~database_type ~location ~project_number
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_document_ai_warehouse_location __resource);
   let __resource_attributes =
     ({

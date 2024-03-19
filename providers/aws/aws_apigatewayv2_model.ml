@@ -15,6 +15,10 @@ type aws_apigatewayv2_model = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_model *)
 
+let aws_apigatewayv2_model ?description ?id ~api_id ~content_type
+    ~name ~schema () : aws_apigatewayv2_model =
+  { api_id; content_type; description; id; name; schema }
+
 type t = {
   api_id : string prop;
   content_type : string prop;
@@ -24,14 +28,14 @@ type t = {
   schema : string prop;
 }
 
-let aws_apigatewayv2_model ?description ?id ~api_id ~content_type
-    ~name ~schema __resource_id =
+let register ?tf_module ?description ?id ~api_id ~content_type ~name
+    ~schema __resource_id =
   let __resource_type = "aws_apigatewayv2_model" in
   let __resource =
-    ({ api_id; content_type; description; id; name; schema }
-      : aws_apigatewayv2_model)
+    aws_apigatewayv2_model ?description ?id ~api_id ~content_type
+      ~name ~schema ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_model __resource);
   let __resource_attributes =
     ({

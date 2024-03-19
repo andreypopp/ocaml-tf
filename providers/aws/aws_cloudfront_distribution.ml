@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_cloudfront_distribution__custom_error_response = {
+type custom_error_response = {
   error_caching_min_ttl : float prop option; [@option]
       (** error_caching_min_ttl *)
   error_code : float prop;  (** error_code *)
@@ -13,44 +13,42 @@ type aws_cloudfront_distribution__custom_error_response = {
       (** response_page_path *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__custom_error_response *)
+(** custom_error_response *)
 
-type aws_cloudfront_distribution__default_cache_behavior__forwarded_values__cookies = {
+type default_cache_behavior__forwarded_values__cookies = {
   forward : string prop;  (** forward *)
   whitelisted_names : string prop list option; [@option]
       (** whitelisted_names *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__default_cache_behavior__forwarded_values__cookies *)
+(** default_cache_behavior__forwarded_values__cookies *)
 
-type aws_cloudfront_distribution__default_cache_behavior__forwarded_values = {
+type default_cache_behavior__forwarded_values = {
   headers : string prop list option; [@option]  (** headers *)
   query_string : bool prop;  (** query_string *)
   query_string_cache_keys : string prop list option; [@option]
       (** query_string_cache_keys *)
-  cookies :
-    aws_cloudfront_distribution__default_cache_behavior__forwarded_values__cookies
-    list;
+  cookies : default_cache_behavior__forwarded_values__cookies list;
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__default_cache_behavior__forwarded_values *)
+(** default_cache_behavior__forwarded_values *)
 
-type aws_cloudfront_distribution__default_cache_behavior__function_association = {
+type default_cache_behavior__function_association = {
   event_type : string prop;  (** event_type *)
   function_arn : string prop;  (** function_arn *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__default_cache_behavior__function_association *)
+(** default_cache_behavior__function_association *)
 
-type aws_cloudfront_distribution__default_cache_behavior__lambda_function_association = {
+type default_cache_behavior__lambda_function_association = {
   event_type : string prop;  (** event_type *)
   include_body : bool prop option; [@option]  (** include_body *)
   lambda_arn : string prop;  (** lambda_arn *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__default_cache_behavior__lambda_function_association *)
+(** default_cache_behavior__lambda_function_association *)
 
-type aws_cloudfront_distribution__default_cache_behavior = {
+type default_cache_behavior = {
   allowed_methods : string prop list;  (** allowed_methods *)
   cache_policy_id : string prop option; [@option]
       (** cache_policy_id *)
@@ -76,64 +74,58 @@ type aws_cloudfront_distribution__default_cache_behavior = {
       (** trusted_signers *)
   viewer_protocol_policy : string prop;
       (** viewer_protocol_policy *)
-  forwarded_values :
-    aws_cloudfront_distribution__default_cache_behavior__forwarded_values
-    list;
+  forwarded_values : default_cache_behavior__forwarded_values list;
   function_association :
-    aws_cloudfront_distribution__default_cache_behavior__function_association
-    list;
+    default_cache_behavior__function_association list;
   lambda_function_association :
-    aws_cloudfront_distribution__default_cache_behavior__lambda_function_association
-    list;
+    default_cache_behavior__lambda_function_association list;
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__default_cache_behavior *)
+(** default_cache_behavior *)
 
-type aws_cloudfront_distribution__logging_config = {
+type logging_config = {
   bucket : string prop;  (** bucket *)
   include_cookies : bool prop option; [@option]
       (** include_cookies *)
   prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__logging_config *)
+(** logging_config *)
 
-type aws_cloudfront_distribution__ordered_cache_behavior__forwarded_values__cookies = {
+type ordered_cache_behavior__forwarded_values__cookies = {
   forward : string prop;  (** forward *)
   whitelisted_names : string prop list option; [@option]
       (** whitelisted_names *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__ordered_cache_behavior__forwarded_values__cookies *)
+(** ordered_cache_behavior__forwarded_values__cookies *)
 
-type aws_cloudfront_distribution__ordered_cache_behavior__forwarded_values = {
+type ordered_cache_behavior__forwarded_values = {
   headers : string prop list option; [@option]  (** headers *)
   query_string : bool prop;  (** query_string *)
   query_string_cache_keys : string prop list option; [@option]
       (** query_string_cache_keys *)
-  cookies :
-    aws_cloudfront_distribution__ordered_cache_behavior__forwarded_values__cookies
-    list;
+  cookies : ordered_cache_behavior__forwarded_values__cookies list;
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__ordered_cache_behavior__forwarded_values *)
+(** ordered_cache_behavior__forwarded_values *)
 
-type aws_cloudfront_distribution__ordered_cache_behavior__function_association = {
+type ordered_cache_behavior__function_association = {
   event_type : string prop;  (** event_type *)
   function_arn : string prop;  (** function_arn *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__ordered_cache_behavior__function_association *)
+(** ordered_cache_behavior__function_association *)
 
-type aws_cloudfront_distribution__ordered_cache_behavior__lambda_function_association = {
+type ordered_cache_behavior__lambda_function_association = {
   event_type : string prop;  (** event_type *)
   include_body : bool prop option; [@option]  (** include_body *)
   lambda_arn : string prop;  (** lambda_arn *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__ordered_cache_behavior__lambda_function_association *)
+(** ordered_cache_behavior__lambda_function_association *)
 
-type aws_cloudfront_distribution__ordered_cache_behavior = {
+type ordered_cache_behavior = {
   allowed_methods : string prop list;  (** allowed_methods *)
   cache_policy_id : string prop option; [@option]
       (** cache_policy_id *)
@@ -160,27 +152,23 @@ type aws_cloudfront_distribution__ordered_cache_behavior = {
       (** trusted_signers *)
   viewer_protocol_policy : string prop;
       (** viewer_protocol_policy *)
-  forwarded_values :
-    aws_cloudfront_distribution__ordered_cache_behavior__forwarded_values
-    list;
+  forwarded_values : ordered_cache_behavior__forwarded_values list;
   function_association :
-    aws_cloudfront_distribution__ordered_cache_behavior__function_association
-    list;
+    ordered_cache_behavior__function_association list;
   lambda_function_association :
-    aws_cloudfront_distribution__ordered_cache_behavior__lambda_function_association
-    list;
+    ordered_cache_behavior__lambda_function_association list;
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__ordered_cache_behavior *)
+(** ordered_cache_behavior *)
 
-type aws_cloudfront_distribution__origin__custom_header = {
+type origin__custom_header = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__origin__custom_header *)
+(** origin__custom_header *)
 
-type aws_cloudfront_distribution__origin__custom_origin_config = {
+type origin__custom_origin_config = {
   http_port : float prop;  (** http_port *)
   https_port : float prop;  (** https_port *)
   origin_keepalive_timeout : float prop option; [@option]
@@ -193,23 +181,23 @@ type aws_cloudfront_distribution__origin__custom_origin_config = {
       (** origin_ssl_protocols *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__origin__custom_origin_config *)
+(** origin__custom_origin_config *)
 
-type aws_cloudfront_distribution__origin__origin_shield = {
+type origin__origin_shield = {
   enabled : bool prop;  (** enabled *)
   origin_shield_region : string prop option; [@option]
       (** origin_shield_region *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__origin__origin_shield *)
+(** origin__origin_shield *)
 
-type aws_cloudfront_distribution__origin__s3_origin_config = {
+type origin__s3_origin_config = {
   origin_access_identity : string prop;  (** origin_access_identity *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__origin__s3_origin_config *)
+(** origin__s3_origin_config *)
 
-type aws_cloudfront_distribution__origin = {
+type origin = {
   connection_attempts : float prop option; [@option]
       (** connection_attempts *)
   connection_timeout : float prop option; [@option]
@@ -219,54 +207,48 @@ type aws_cloudfront_distribution__origin = {
       (** origin_access_control_id *)
   origin_id : string prop;  (** origin_id *)
   origin_path : string prop option; [@option]  (** origin_path *)
-  custom_header :
-    aws_cloudfront_distribution__origin__custom_header list;
-  custom_origin_config :
-    aws_cloudfront_distribution__origin__custom_origin_config list;
-  origin_shield :
-    aws_cloudfront_distribution__origin__origin_shield list;
-  s3_origin_config :
-    aws_cloudfront_distribution__origin__s3_origin_config list;
+  custom_header : origin__custom_header list;
+  custom_origin_config : origin__custom_origin_config list;
+  origin_shield : origin__origin_shield list;
+  s3_origin_config : origin__s3_origin_config list;
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__origin *)
+(** origin *)
 
-type aws_cloudfront_distribution__origin_group__failover_criteria = {
+type origin_group__failover_criteria = {
   status_codes : float prop list;  (** status_codes *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__origin_group__failover_criteria *)
+(** origin_group__failover_criteria *)
 
-type aws_cloudfront_distribution__origin_group__member = {
+type origin_group__member = {
   origin_id : string prop;  (** origin_id *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__origin_group__member *)
+(** origin_group__member *)
 
-type aws_cloudfront_distribution__origin_group = {
+type origin_group = {
   origin_id : string prop;  (** origin_id *)
-  failover_criteria :
-    aws_cloudfront_distribution__origin_group__failover_criteria list;
-  member : aws_cloudfront_distribution__origin_group__member list;
+  failover_criteria : origin_group__failover_criteria list;
+  member : origin_group__member list;
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__origin_group *)
+(** origin_group *)
 
-type aws_cloudfront_distribution__restrictions__geo_restriction = {
+type restrictions__geo_restriction = {
   locations : string prop list option; [@option]  (** locations *)
   restriction_type : string prop;  (** restriction_type *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__restrictions__geo_restriction *)
+(** restrictions__geo_restriction *)
 
-type aws_cloudfront_distribution__restrictions = {
-  geo_restriction :
-    aws_cloudfront_distribution__restrictions__geo_restriction list;
+type restrictions = {
+  geo_restriction : restrictions__geo_restriction list;
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__restrictions *)
+(** restrictions *)
 
-type aws_cloudfront_distribution__viewer_certificate = {
+type viewer_certificate = {
   acm_certificate_arn : string prop option; [@option]
       (** acm_certificate_arn *)
   cloudfront_default_certificate : bool prop option; [@option]
@@ -279,31 +261,29 @@ type aws_cloudfront_distribution__viewer_certificate = {
       (** ssl_support_method *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_distribution__viewer_certificate *)
+(** viewer_certificate *)
 
-type aws_cloudfront_distribution__trusted_key_groups__items = {
+type trusted_key_groups__items = {
   key_group_id : string prop;  (** key_group_id *)
   key_pair_ids : string prop list;  (** key_pair_ids *)
 }
 [@@deriving yojson_of]
 
-type aws_cloudfront_distribution__trusted_key_groups = {
+type trusted_key_groups = {
   enabled : bool prop;  (** enabled *)
-  items : aws_cloudfront_distribution__trusted_key_groups__items list;
-      (** items *)
+  items : trusted_key_groups__items list;  (** items *)
 }
 [@@deriving yojson_of]
 
-type aws_cloudfront_distribution__trusted_signers__items = {
+type trusted_signers__items = {
   aws_account_number : string prop;  (** aws_account_number *)
   key_pair_ids : string prop list;  (** key_pair_ids *)
 }
 [@@deriving yojson_of]
 
-type aws_cloudfront_distribution__trusted_signers = {
+type trusted_signers = {
   enabled : bool prop;  (** enabled *)
-  items : aws_cloudfront_distribution__trusted_signers__items list;
-      (** items *)
+  items : trusted_signers__items list;  (** items *)
 }
 [@@deriving yojson_of]
 
@@ -329,21 +309,234 @@ type aws_cloudfront_distribution = {
   wait_for_deployment : bool prop option; [@option]
       (** wait_for_deployment *)
   web_acl_id : string prop option; [@option]  (** web_acl_id *)
-  custom_error_response :
-    aws_cloudfront_distribution__custom_error_response list;
-  default_cache_behavior :
-    aws_cloudfront_distribution__default_cache_behavior list;
-  logging_config : aws_cloudfront_distribution__logging_config list;
-  ordered_cache_behavior :
-    aws_cloudfront_distribution__ordered_cache_behavior list;
-  origin : aws_cloudfront_distribution__origin list;
-  origin_group : aws_cloudfront_distribution__origin_group list;
-  restrictions : aws_cloudfront_distribution__restrictions list;
-  viewer_certificate :
-    aws_cloudfront_distribution__viewer_certificate list;
+  custom_error_response : custom_error_response list;
+  default_cache_behavior : default_cache_behavior list;
+  logging_config : logging_config list;
+  ordered_cache_behavior : ordered_cache_behavior list;
+  origin : origin list;
+  origin_group : origin_group list;
+  restrictions : restrictions list;
+  viewer_certificate : viewer_certificate list;
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_distribution *)
+
+let custom_error_response ?error_caching_min_ttl ?response_code
+    ?response_page_path ~error_code () : custom_error_response =
+  {
+    error_caching_min_ttl;
+    error_code;
+    response_code;
+    response_page_path;
+  }
+
+let default_cache_behavior__forwarded_values__cookies
+    ?whitelisted_names ~forward () :
+    default_cache_behavior__forwarded_values__cookies =
+  { forward; whitelisted_names }
+
+let default_cache_behavior__forwarded_values ?headers
+    ?query_string_cache_keys ~query_string ~cookies () :
+    default_cache_behavior__forwarded_values =
+  { headers; query_string; query_string_cache_keys; cookies }
+
+let default_cache_behavior__function_association ~event_type
+    ~function_arn () : default_cache_behavior__function_association =
+  { event_type; function_arn }
+
+let default_cache_behavior__lambda_function_association ?include_body
+    ~event_type ~lambda_arn () :
+    default_cache_behavior__lambda_function_association =
+  { event_type; include_body; lambda_arn }
+
+let default_cache_behavior ?cache_policy_id ?compress ?default_ttl
+    ?field_level_encryption_id ?max_ttl ?min_ttl
+    ?origin_request_policy_id ?realtime_log_config_arn
+    ?response_headers_policy_id ?smooth_streaming ?trusted_key_groups
+    ?trusted_signers ~allowed_methods ~cached_methods
+    ~target_origin_id ~viewer_protocol_policy ~forwarded_values
+    ~function_association ~lambda_function_association () :
+    default_cache_behavior =
+  {
+    allowed_methods;
+    cache_policy_id;
+    cached_methods;
+    compress;
+    default_ttl;
+    field_level_encryption_id;
+    max_ttl;
+    min_ttl;
+    origin_request_policy_id;
+    realtime_log_config_arn;
+    response_headers_policy_id;
+    smooth_streaming;
+    target_origin_id;
+    trusted_key_groups;
+    trusted_signers;
+    viewer_protocol_policy;
+    forwarded_values;
+    function_association;
+    lambda_function_association;
+  }
+
+let logging_config ?include_cookies ?prefix ~bucket () :
+    logging_config =
+  { bucket; include_cookies; prefix }
+
+let ordered_cache_behavior__forwarded_values__cookies
+    ?whitelisted_names ~forward () :
+    ordered_cache_behavior__forwarded_values__cookies =
+  { forward; whitelisted_names }
+
+let ordered_cache_behavior__forwarded_values ?headers
+    ?query_string_cache_keys ~query_string ~cookies () :
+    ordered_cache_behavior__forwarded_values =
+  { headers; query_string; query_string_cache_keys; cookies }
+
+let ordered_cache_behavior__function_association ~event_type
+    ~function_arn () : ordered_cache_behavior__function_association =
+  { event_type; function_arn }
+
+let ordered_cache_behavior__lambda_function_association ?include_body
+    ~event_type ~lambda_arn () :
+    ordered_cache_behavior__lambda_function_association =
+  { event_type; include_body; lambda_arn }
+
+let ordered_cache_behavior ?cache_policy_id ?compress ?default_ttl
+    ?field_level_encryption_id ?max_ttl ?min_ttl
+    ?origin_request_policy_id ?realtime_log_config_arn
+    ?response_headers_policy_id ?smooth_streaming ?trusted_key_groups
+    ?trusted_signers ~allowed_methods ~cached_methods ~path_pattern
+    ~target_origin_id ~viewer_protocol_policy ~forwarded_values
+    ~function_association ~lambda_function_association () :
+    ordered_cache_behavior =
+  {
+    allowed_methods;
+    cache_policy_id;
+    cached_methods;
+    compress;
+    default_ttl;
+    field_level_encryption_id;
+    max_ttl;
+    min_ttl;
+    origin_request_policy_id;
+    path_pattern;
+    realtime_log_config_arn;
+    response_headers_policy_id;
+    smooth_streaming;
+    target_origin_id;
+    trusted_key_groups;
+    trusted_signers;
+    viewer_protocol_policy;
+    forwarded_values;
+    function_association;
+    lambda_function_association;
+  }
+
+let origin__custom_header ~name ~value () : origin__custom_header =
+  { name; value }
+
+let origin__custom_origin_config ?origin_keepalive_timeout
+    ?origin_read_timeout ~http_port ~https_port
+    ~origin_protocol_policy ~origin_ssl_protocols () :
+    origin__custom_origin_config =
+  {
+    http_port;
+    https_port;
+    origin_keepalive_timeout;
+    origin_protocol_policy;
+    origin_read_timeout;
+    origin_ssl_protocols;
+  }
+
+let origin__origin_shield ?origin_shield_region ~enabled () :
+    origin__origin_shield =
+  { enabled; origin_shield_region }
+
+let origin__s3_origin_config ~origin_access_identity () :
+    origin__s3_origin_config =
+  { origin_access_identity }
+
+let origin ?connection_attempts ?connection_timeout
+    ?origin_access_control_id ?origin_path ~domain_name ~origin_id
+    ~custom_header ~custom_origin_config ~origin_shield
+    ~s3_origin_config () : origin =
+  {
+    connection_attempts;
+    connection_timeout;
+    domain_name;
+    origin_access_control_id;
+    origin_id;
+    origin_path;
+    custom_header;
+    custom_origin_config;
+    origin_shield;
+    s3_origin_config;
+  }
+
+let origin_group__failover_criteria ~status_codes () :
+    origin_group__failover_criteria =
+  { status_codes }
+
+let origin_group__member ~origin_id () : origin_group__member =
+  { origin_id }
+
+let origin_group ~origin_id ~failover_criteria ~member () :
+    origin_group =
+  { origin_id; failover_criteria; member }
+
+let restrictions__geo_restriction ?locations ~restriction_type () :
+    restrictions__geo_restriction =
+  { locations; restriction_type }
+
+let restrictions ~geo_restriction () : restrictions =
+  { geo_restriction }
+
+let viewer_certificate ?acm_certificate_arn
+    ?cloudfront_default_certificate ?iam_certificate_id
+    ?minimum_protocol_version ?ssl_support_method () :
+    viewer_certificate =
+  {
+    acm_certificate_arn;
+    cloudfront_default_certificate;
+    iam_certificate_id;
+    minimum_protocol_version;
+    ssl_support_method;
+  }
+
+let aws_cloudfront_distribution ?aliases ?comment
+    ?continuous_deployment_policy_id ?default_root_object
+    ?http_version ?id ?is_ipv6_enabled ?price_class ?retain_on_delete
+    ?staging ?tags ?tags_all ?wait_for_deployment ?web_acl_id
+    ~enabled ~custom_error_response ~default_cache_behavior
+    ~logging_config ~ordered_cache_behavior ~origin ~origin_group
+    ~restrictions ~viewer_certificate () :
+    aws_cloudfront_distribution =
+  {
+    aliases;
+    comment;
+    continuous_deployment_policy_id;
+    default_root_object;
+    enabled;
+    http_version;
+    id;
+    is_ipv6_enabled;
+    price_class;
+    retain_on_delete;
+    staging;
+    tags;
+    tags_all;
+    wait_for_deployment;
+    web_acl_id;
+    custom_error_response;
+    default_cache_behavior;
+    logging_config;
+    ordered_cache_behavior;
+    origin;
+    origin_group;
+    restrictions;
+    viewer_certificate;
+  }
 
 type t = {
   aliases : string list prop;
@@ -367,15 +560,13 @@ type t = {
   status : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
-  trusted_key_groups :
-    aws_cloudfront_distribution__trusted_key_groups list prop;
-  trusted_signers :
-    aws_cloudfront_distribution__trusted_signers list prop;
+  trusted_key_groups : trusted_key_groups list prop;
+  trusted_signers : trusted_signers list prop;
   wait_for_deployment : bool prop;
   web_acl_id : string prop;
 }
 
-let aws_cloudfront_distribution ?aliases ?comment
+let register ?tf_module ?aliases ?comment
     ?continuous_deployment_policy_id ?default_root_object
     ?http_version ?id ?is_ipv6_enabled ?price_class ?retain_on_delete
     ?staging ?tags ?tags_all ?wait_for_deployment ?web_acl_id
@@ -384,34 +575,15 @@ let aws_cloudfront_distribution ?aliases ?comment
     ~restrictions ~viewer_certificate __resource_id =
   let __resource_type = "aws_cloudfront_distribution" in
   let __resource =
-    ({
-       aliases;
-       comment;
-       continuous_deployment_policy_id;
-       default_root_object;
-       enabled;
-       http_version;
-       id;
-       is_ipv6_enabled;
-       price_class;
-       retain_on_delete;
-       staging;
-       tags;
-       tags_all;
-       wait_for_deployment;
-       web_acl_id;
-       custom_error_response;
-       default_cache_behavior;
-       logging_config;
-       ordered_cache_behavior;
-       origin;
-       origin_group;
-       restrictions;
-       viewer_certificate;
-     }
-      : aws_cloudfront_distribution)
+    aws_cloudfront_distribution ?aliases ?comment
+      ?continuous_deployment_policy_id ?default_root_object
+      ?http_version ?id ?is_ipv6_enabled ?price_class
+      ?retain_on_delete ?staging ?tags ?tags_all ?wait_for_deployment
+      ?web_acl_id ~enabled ~custom_error_response
+      ~default_cache_behavior ~logging_config ~ordered_cache_behavior
+      ~origin ~origin_group ~restrictions ~viewer_certificate ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_distribution __resource);
   let __resource_attributes =
     ({

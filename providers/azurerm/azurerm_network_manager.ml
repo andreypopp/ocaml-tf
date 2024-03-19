@@ -4,25 +4,25 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager__scope = {
+type scope = {
   management_group_ids : string prop list option; [@option]
       (** management_group_ids *)
   subscription_ids : string prop list option; [@option]
       (** subscription_ids *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager__scope *)
+(** scope *)
 
-type azurerm_network_manager__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager__timeouts *)
+(** timeouts *)
 
-type azurerm_network_manager__cross_tenant_scopes = {
+type cross_tenant_scopes = {
   management_groups : string prop list;  (** management_groups *)
   subscriptions : string prop list;  (** subscriptions *)
   tenant_id : string prop;  (** tenant_id *)
@@ -37,15 +37,35 @@ type azurerm_network_manager = {
   resource_group_name : string prop;  (** resource_group_name *)
   scope_accesses : string prop list;  (** scope_accesses *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  scope : azurerm_network_manager__scope list;
-  timeouts : azurerm_network_manager__timeouts option;
+  scope : scope list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager *)
 
+let scope ?management_group_ids ?subscription_ids () : scope =
+  { management_group_ids; subscription_ids }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_manager ?description ?id ?tags ?timeouts
+    ~location ~name ~resource_group_name ~scope_accesses ~scope () :
+    azurerm_network_manager =
+  {
+    description;
+    id;
+    location;
+    name;
+    resource_group_name;
+    scope_accesses;
+    tags;
+    scope;
+    timeouts;
+  }
+
 type t = {
-  cross_tenant_scopes :
-    azurerm_network_manager__cross_tenant_scopes list prop;
+  cross_tenant_scopes : cross_tenant_scopes list prop;
   description : string prop;
   id : string prop;
   location : string prop;
@@ -55,25 +75,14 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_network_manager ?description ?id ?tags ?timeouts
-    ~location ~name ~resource_group_name ~scope_accesses ~scope
-    __resource_id =
+let register ?tf_module ?description ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~scope_accesses ~scope __resource_id =
   let __resource_type = "azurerm_network_manager" in
   let __resource =
-    ({
-       description;
-       id;
-       location;
-       name;
-       resource_group_name;
-       scope_accesses;
-       tags;
-       scope;
-       timeouts;
-     }
-      : azurerm_network_manager)
+    azurerm_network_manager ?description ?id ?tags ?timeouts
+      ~location ~name ~resource_group_name ~scope_accesses ~scope ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager __resource);
   let __resource_attributes =
     ({

@@ -2,11 +2,63 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_dps__ip_filter_rule
-type azurerm_iothub_dps__linked_hub
-type azurerm_iothub_dps__sku
-type azurerm_iothub_dps__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type ip_filter_rule
+
+val ip_filter_rule :
+  ?target:string prop ->
+  action:string prop ->
+  ip_mask:string prop ->
+  name:string prop ->
+  unit ->
+  ip_filter_rule
+
+type linked_hub
+
+val linked_hub :
+  ?allocation_weight:float prop ->
+  ?apply_allocation_policy:bool prop ->
+  connection_string:string prop ->
+  location:string prop ->
+  unit ->
+  linked_hub
+
+type sku
+
+val sku : capacity:float prop -> name:string prop -> unit -> sku
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_iothub_dps
+
+val azurerm_iothub_dps :
+  ?allocation_policy:string prop ->
+  ?data_residency_enabled:bool prop ->
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  ip_filter_rule:ip_filter_rule list ->
+  linked_hub:linked_hub list ->
+  sku:sku list ->
+  unit ->
+  azurerm_iothub_dps
+
+val yojson_of_azurerm_iothub_dps : azurerm_iothub_dps -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allocation_policy : string prop;
@@ -22,18 +74,19 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_iothub_dps :
+val register :
+  ?tf_module:tf_module ->
   ?allocation_policy:string prop ->
   ?data_residency_enabled:bool prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_iothub_dps__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  ip_filter_rule:azurerm_iothub_dps__ip_filter_rule list ->
-  linked_hub:azurerm_iothub_dps__linked_hub list ->
-  sku:azurerm_iothub_dps__sku list ->
+  ip_filter_rule:ip_filter_rule list ->
+  linked_hub:linked_hub list ->
+  sku:sku list ->
   string ->
   t

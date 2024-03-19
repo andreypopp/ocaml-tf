@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_batch_job__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_batch_job__timeouts *)
+(** timeouts *)
 
 type azurerm_batch_job = {
   batch_pool_id : string prop;  (** batch_pool_id *)
@@ -24,10 +24,27 @@ type azurerm_batch_job = {
   priority : float prop option; [@option]  (** priority *)
   task_retry_maximum : float prop option; [@option]
       (** task_retry_maximum *)
-  timeouts : azurerm_batch_job__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_batch_job *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_batch_job ?common_environment_properties ?display_name
+    ?id ?priority ?task_retry_maximum ?timeouts ~batch_pool_id ~name
+    () : azurerm_batch_job =
+  {
+    batch_pool_id;
+    common_environment_properties;
+    display_name;
+    id;
+    name;
+    priority;
+    task_retry_maximum;
+    timeouts;
+  }
 
 type t = {
   batch_pool_id : string prop;
@@ -39,24 +56,16 @@ type t = {
   task_retry_maximum : float prop;
 }
 
-let azurerm_batch_job ?common_environment_properties ?display_name
+let register ?tf_module ?common_environment_properties ?display_name
     ?id ?priority ?task_retry_maximum ?timeouts ~batch_pool_id ~name
     __resource_id =
   let __resource_type = "azurerm_batch_job" in
   let __resource =
-    ({
-       batch_pool_id;
-       common_environment_properties;
-       display_name;
-       id;
-       name;
-       priority;
-       task_retry_maximum;
-       timeouts;
-     }
-      : azurerm_batch_job)
+    azurerm_batch_job ?common_environment_properties ?display_name
+      ?id ?priority ?task_retry_maximum ?timeouts ~batch_pool_id
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_batch_job __resource);
   let __resource_attributes =
     ({

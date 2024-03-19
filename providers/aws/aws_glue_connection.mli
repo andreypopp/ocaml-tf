@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_glue_connection__physical_connection_requirements
+(** RESOURCE SERIALIZATION *)
+
+type physical_connection_requirements
+
+val physical_connection_requirements :
+  ?availability_zone:string prop ->
+  ?security_group_id_list:string prop list ->
+  ?subnet_id:string prop ->
+  unit ->
+  physical_connection_requirements
+
 type aws_glue_connection
+
+val aws_glue_connection :
+  ?catalog_id:string prop ->
+  ?connection_properties:(string * string prop) list ->
+  ?connection_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?match_criteria:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  physical_connection_requirements:
+    physical_connection_requirements list ->
+  unit ->
+  aws_glue_connection
+
+val yojson_of_aws_glue_connection : aws_glue_connection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,7 +47,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_glue_connection :
+val register :
+  ?tf_module:tf_module ->
   ?catalog_id:string prop ->
   ?connection_properties:(string * string prop) list ->
   ?connection_type:string prop ->
@@ -29,6 +59,6 @@ val aws_glue_connection :
   ?tags_all:(string * string prop) list ->
   name:string prop ->
   physical_connection_requirements:
-    aws_glue_connection__physical_connection_requirements list ->
+    physical_connection_requirements list ->
   string ->
   t

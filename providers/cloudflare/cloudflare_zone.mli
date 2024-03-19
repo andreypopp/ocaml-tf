@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_zone
+
+val cloudflare_zone :
+  ?id:string prop ->
+  ?jump_start:bool prop ->
+  ?paused:bool prop ->
+  ?plan:string prop ->
+  ?type_:string prop ->
+  account_id:string prop ->
+  zone:string prop ->
+  unit ->
+  cloudflare_zone
+
+val yojson_of_cloudflare_zone : cloudflare_zone -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -19,7 +36,8 @@ type t = private {
   zone : string prop;
 }
 
-val cloudflare_zone :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?jump_start:bool prop ->
   ?paused:bool prop ->

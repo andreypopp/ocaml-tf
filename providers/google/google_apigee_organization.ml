@@ -4,26 +4,24 @@
 
 open! Tf.Prelude
 
-type google_apigee_organization__properties__property = {
+type properties__property = {
   name : string prop option; [@option]  (** Name of the property. *)
   value : string prop option; [@option]  (** Value of the property. *)
 }
 [@@deriving yojson_of]
 (** List of all properties in the object. *)
 
-type google_apigee_organization__properties = {
-  property : google_apigee_organization__properties__property list;
-}
+type properties = { property : properties__property list }
 [@@deriving yojson_of]
 (** Properties defined in the Apigee organization profile. *)
 
-type google_apigee_organization__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_apigee_organization__timeouts *)
+(** timeouts *)
 
 type google_apigee_organization = {
   analytics_region : string prop option; [@option]
@@ -60,11 +58,40 @@ If not specified, a Google-Managed encryption key will be used.
 Valid only when 'RuntimeType' is CLOUD. For example: 'projects/foo/locations/us/keyRings/bar/cryptoKeys/baz'. *)
   runtime_type : string prop option; [@option]
       (** Runtime type of the Apigee organization based on the Apigee subscription purchased. Default value: CLOUD Possible values: [CLOUD, HYBRID] *)
-  properties : google_apigee_organization__properties list;
-  timeouts : google_apigee_organization__timeouts option;
+  properties : properties list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_organization *)
+
+let properties__property ?name ?value () : properties__property =
+  { name; value }
+
+let properties ~property () : properties = { property }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_apigee_organization ?analytics_region ?authorized_network
+    ?billing_type ?description ?disable_vpc_peering ?display_name ?id
+    ?retention ?runtime_database_encryption_key_name ?runtime_type
+    ?timeouts ~project_id ~properties () : google_apigee_organization
+    =
+  {
+    analytics_region;
+    authorized_network;
+    billing_type;
+    description;
+    disable_vpc_peering;
+    display_name;
+    id;
+    project_id;
+    retention;
+    runtime_database_encryption_key_name;
+    runtime_type;
+    properties;
+    timeouts;
+  }
 
 type t = {
   analytics_region : string prop;
@@ -84,30 +111,18 @@ type t = {
   subscription_type : string prop;
 }
 
-let google_apigee_organization ?analytics_region ?authorized_network
+let register ?tf_module ?analytics_region ?authorized_network
     ?billing_type ?description ?disable_vpc_peering ?display_name ?id
     ?retention ?runtime_database_encryption_key_name ?runtime_type
     ?timeouts ~project_id ~properties __resource_id =
   let __resource_type = "google_apigee_organization" in
   let __resource =
-    ({
-       analytics_region;
-       authorized_network;
-       billing_type;
-       description;
-       disable_vpc_peering;
-       display_name;
-       id;
-       project_id;
-       retention;
-       runtime_database_encryption_key_name;
-       runtime_type;
-       properties;
-       timeouts;
-     }
-      : google_apigee_organization)
+    google_apigee_organization ?analytics_region ?authorized_network
+      ?billing_type ?description ?disable_vpc_peering ?display_name
+      ?id ?retention ?runtime_database_encryption_key_name
+      ?runtime_type ?timeouts ~project_id ~properties ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_organization __resource);
   let __resource_attributes =
     ({

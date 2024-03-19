@@ -2,18 +2,142 @@
 
 open! Tf.Prelude
 
-type aws_finspace_kx_cluster__auto_scaling_configuration
-type aws_finspace_kx_cluster__cache_storage_configurations
-type aws_finspace_kx_cluster__capacity_configuration
-type aws_finspace_kx_cluster__code
-type aws_finspace_kx_cluster__database__cache_configurations
-type aws_finspace_kx_cluster__database
-type aws_finspace_kx_cluster__savedown_storage_configuration
-type aws_finspace_kx_cluster__scaling_group_configuration
-type aws_finspace_kx_cluster__tickerplant_log_configuration
-type aws_finspace_kx_cluster__timeouts
-type aws_finspace_kx_cluster__vpc_configuration
+(** RESOURCE SERIALIZATION *)
+
+type auto_scaling_configuration
+
+val auto_scaling_configuration :
+  auto_scaling_metric:string prop ->
+  max_node_count:float prop ->
+  metric_target:float prop ->
+  min_node_count:float prop ->
+  scale_in_cooldown_seconds:float prop ->
+  scale_out_cooldown_seconds:float prop ->
+  unit ->
+  auto_scaling_configuration
+
+type cache_storage_configurations
+
+val cache_storage_configurations :
+  size:float prop ->
+  type_:string prop ->
+  unit ->
+  cache_storage_configurations
+
+type capacity_configuration
+
+val capacity_configuration :
+  node_count:float prop ->
+  node_type:string prop ->
+  unit ->
+  capacity_configuration
+
+type code
+
+val code :
+  ?s3_object_version:string prop ->
+  s3_bucket:string prop ->
+  s3_key:string prop ->
+  unit ->
+  code
+
+type database__cache_configurations
+
+val database__cache_configurations :
+  ?db_paths:string prop list ->
+  cache_type:string prop ->
+  unit ->
+  database__cache_configurations
+
+type database
+
+val database :
+  ?changeset_id:string prop ->
+  ?dataview_name:string prop ->
+  database_name:string prop ->
+  cache_configurations:database__cache_configurations list ->
+  unit ->
+  database
+
+type savedown_storage_configuration
+
+val savedown_storage_configuration :
+  ?size:float prop ->
+  ?type_:string prop ->
+  ?volume_name:string prop ->
+  unit ->
+  savedown_storage_configuration
+
+type scaling_group_configuration
+
+val scaling_group_configuration :
+  ?cpu:float prop ->
+  ?memory_limit:float prop ->
+  memory_reservation:float prop ->
+  node_count:float prop ->
+  scaling_group_name:string prop ->
+  unit ->
+  scaling_group_configuration
+
+type tickerplant_log_configuration
+
+val tickerplant_log_configuration :
+  tickerplant_log_volumes:string prop list ->
+  unit ->
+  tickerplant_log_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type vpc_configuration
+
+val vpc_configuration :
+  ip_address_type:string prop ->
+  security_group_ids:string prop list ->
+  subnet_ids:string prop list ->
+  vpc_id:string prop ->
+  unit ->
+  vpc_configuration
+
 type aws_finspace_kx_cluster
+
+val aws_finspace_kx_cluster :
+  ?availability_zone_id:string prop ->
+  ?command_line_arguments:(string * string prop) list ->
+  ?description:string prop ->
+  ?execution_role:string prop ->
+  ?id:string prop ->
+  ?initialization_script:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  az_mode:string prop ->
+  environment_id:string prop ->
+  name:string prop ->
+  release_label:string prop ->
+  type_:string prop ->
+  auto_scaling_configuration:auto_scaling_configuration list ->
+  cache_storage_configurations:cache_storage_configurations list ->
+  capacity_configuration:capacity_configuration list ->
+  code:code list ->
+  database:database list ->
+  savedown_storage_configuration:savedown_storage_configuration list ->
+  scaling_group_configuration:scaling_group_configuration list ->
+  tickerplant_log_configuration:tickerplant_log_configuration list ->
+  vpc_configuration:vpc_configuration list ->
+  unit ->
+  aws_finspace_kx_cluster
+
+val yojson_of_aws_finspace_kx_cluster :
+  aws_finspace_kx_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -36,7 +160,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_finspace_kx_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?availability_zone_id:string prop ->
   ?command_line_arguments:(string * string prop) list ->
   ?description:string prop ->
@@ -45,26 +170,20 @@ val aws_finspace_kx_cluster :
   ?initialization_script:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_finspace_kx_cluster__timeouts ->
+  ?timeouts:timeouts ->
   az_mode:string prop ->
   environment_id:string prop ->
   name:string prop ->
   release_label:string prop ->
   type_:string prop ->
-  auto_scaling_configuration:
-    aws_finspace_kx_cluster__auto_scaling_configuration list ->
-  cache_storage_configurations:
-    aws_finspace_kx_cluster__cache_storage_configurations list ->
-  capacity_configuration:
-    aws_finspace_kx_cluster__capacity_configuration list ->
-  code:aws_finspace_kx_cluster__code list ->
-  database:aws_finspace_kx_cluster__database list ->
-  savedown_storage_configuration:
-    aws_finspace_kx_cluster__savedown_storage_configuration list ->
-  scaling_group_configuration:
-    aws_finspace_kx_cluster__scaling_group_configuration list ->
-  tickerplant_log_configuration:
-    aws_finspace_kx_cluster__tickerplant_log_configuration list ->
-  vpc_configuration:aws_finspace_kx_cluster__vpc_configuration list ->
+  auto_scaling_configuration:auto_scaling_configuration list ->
+  cache_storage_configurations:cache_storage_configurations list ->
+  capacity_configuration:capacity_configuration list ->
+  code:code list ->
+  database:database list ->
+  savedown_storage_configuration:savedown_storage_configuration list ->
+  scaling_group_configuration:scaling_group_configuration list ->
+  tickerplant_log_configuration:tickerplant_log_configuration list ->
+  vpc_configuration:vpc_configuration list ->
   string ->
   t

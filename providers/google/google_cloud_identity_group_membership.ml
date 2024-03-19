@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloud_identity_group_membership__preferred_member_key = {
+type preferred_member_key = {
   id : string prop;
       (** The ID of the entity.
 
@@ -28,7 +28,7 @@ and must be in the form of 'identitysources/{identity_source_id}'. *)
 [@@deriving yojson_of]
 (** EntityKey of the member. *)
 
-type google_cloud_identity_group_membership__roles__expiry_detail = {
+type roles__expiry_detail = {
   expire_time : string prop;
       (** The time at which the MembershipRole will expire.
 
@@ -41,35 +41,49 @@ Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
 (** The MembershipRole expiry details, only supported for MEMBER role.
 Other roles cannot be accompanied with MEMBER role having expiry. *)
 
-type google_cloud_identity_group_membership__roles = {
+type roles = {
   name : string prop;
       (** The name of the MembershipRole. Must be one of OWNER, MANAGER, MEMBER. Possible values: [OWNER, MANAGER, MEMBER] *)
-  expiry_detail :
-    google_cloud_identity_group_membership__roles__expiry_detail list;
+  expiry_detail : roles__expiry_detail list;
 }
 [@@deriving yojson_of]
 (** The MembershipRoles that apply to the Membership.
 Must not contain duplicate MembershipRoles with the same name. *)
 
-type google_cloud_identity_group_membership__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloud_identity_group_membership__timeouts *)
+(** timeouts *)
 
 type google_cloud_identity_group_membership = {
   group : string prop;
       (** The name of the Group to create this membership in. *)
   id : string prop option; [@option]  (** id *)
-  preferred_member_key :
-    google_cloud_identity_group_membership__preferred_member_key list;
-  roles : google_cloud_identity_group_membership__roles list;
-  timeouts : google_cloud_identity_group_membership__timeouts option;
+  preferred_member_key : preferred_member_key list;
+  roles : roles list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloud_identity_group_membership *)
+
+let preferred_member_key ?namespace ~id () : preferred_member_key =
+  { id; namespace }
+
+let roles__expiry_detail ~expire_time () : roles__expiry_detail =
+  { expire_time }
+
+let roles ~name ~expiry_detail () : roles = { name; expiry_detail }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_cloud_identity_group_membership ?id ?timeouts ~group
+    ~preferred_member_key ~roles () :
+    google_cloud_identity_group_membership =
+  { group; id; preferred_member_key; roles; timeouts }
 
 type t = {
   create_time : string prop;
@@ -80,14 +94,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_cloud_identity_group_membership ?id ?timeouts ~group
-    ~preferred_member_key ~roles __resource_id =
+let register ?tf_module ?id ?timeouts ~group ~preferred_member_key
+    ~roles __resource_id =
   let __resource_type = "google_cloud_identity_group_membership" in
   let __resource =
-    ({ group; id; preferred_member_key; roles; timeouts }
-      : google_cloud_identity_group_membership)
+    google_cloud_identity_group_membership ?id ?timeouts ~group
+      ~preferred_member_key ~roles ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_identity_group_membership __resource);
   let __resource_attributes =
     ({

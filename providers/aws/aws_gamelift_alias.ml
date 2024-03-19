@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_gamelift_alias__routing_strategy = {
+type routing_strategy = {
   fleet_id : string prop option; [@option]  (** fleet_id *)
   message : string prop option; [@option]  (** message *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_gamelift_alias__routing_strategy *)
+(** routing_strategy *)
 
 type aws_gamelift_alias = {
   description : string prop option; [@option]  (** description *)
@@ -19,10 +19,18 @@ type aws_gamelift_alias = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  routing_strategy : aws_gamelift_alias__routing_strategy list;
+  routing_strategy : routing_strategy list;
 }
 [@@deriving yojson_of]
 (** aws_gamelift_alias *)
+
+let routing_strategy ?fleet_id ?message ~type_ () : routing_strategy
+    =
+  { fleet_id; message; type_ }
+
+let aws_gamelift_alias ?description ?id ?tags ?tags_all ~name
+    ~routing_strategy () : aws_gamelift_alias =
+  { description; id; name; tags; tags_all; routing_strategy }
 
 type t = {
   arn : string prop;
@@ -33,14 +41,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_gamelift_alias ?description ?id ?tags ?tags_all ~name
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
     ~routing_strategy __resource_id =
   let __resource_type = "aws_gamelift_alias" in
   let __resource =
-    ({ description; id; name; tags; tags_all; routing_strategy }
-      : aws_gamelift_alias)
+    aws_gamelift_alias ?description ?id ?tags ?tags_all ~name
+      ~routing_strategy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_alias __resource);
   let __resource_attributes =
     ({

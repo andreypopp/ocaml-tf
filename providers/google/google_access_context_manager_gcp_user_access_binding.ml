@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_access_context_manager_gcp_user_access_binding__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_access_context_manager_gcp_user_access_binding__timeouts *)
+(** timeouts *)
 
 type google_access_context_manager_gcp_user_access_binding = {
   access_levels : string prop list;
@@ -20,12 +20,18 @@ type google_access_context_manager_gcp_user_access_binding = {
   id : string prop option; [@option]  (** id *)
   organization_id : string prop;
       (** Required. ID of the parent organization. *)
-  timeouts :
-    google_access_context_manager_gcp_user_access_binding__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_gcp_user_access_binding *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_access_context_manager_gcp_user_access_binding ?id
+    ?timeouts ~access_levels ~group_key ~organization_id () :
+    google_access_context_manager_gcp_user_access_binding =
+  { access_levels; group_key; id; organization_id; timeouts }
 
 type t = {
   access_levels : string list prop;
@@ -35,17 +41,16 @@ type t = {
   organization_id : string prop;
 }
 
-let google_access_context_manager_gcp_user_access_binding ?id
-    ?timeouts ~access_levels ~group_key ~organization_id
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~access_levels ~group_key
+    ~organization_id __resource_id =
   let __resource_type =
     "google_access_context_manager_gcp_user_access_binding"
   in
   let __resource =
-    ({ access_levels; group_key; id; organization_id; timeouts }
-      : google_access_context_manager_gcp_user_access_binding)
+    google_access_context_manager_gcp_user_access_binding ?id
+      ?timeouts ~access_levels ~group_key ~organization_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_gcp_user_access_binding
        __resource);
   let __resource_attributes =

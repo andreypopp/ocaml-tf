@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault_access_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_key_vault_access_policy__timeouts *)
+(** timeouts *)
 
 type azurerm_key_vault_access_policy = {
   application_id : string prop option; [@option]
@@ -28,10 +28,30 @@ type azurerm_key_vault_access_policy = {
   storage_permissions : string prop list option; [@option]
       (** storage_permissions *)
   tenant_id : string prop;  (** tenant_id *)
-  timeouts : azurerm_key_vault_access_policy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_access_policy *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_key_vault_access_policy ?application_id
+    ?certificate_permissions ?id ?key_permissions ?secret_permissions
+    ?storage_permissions ?timeouts ~key_vault_id ~object_id
+    ~tenant_id () : azurerm_key_vault_access_policy =
+  {
+    application_id;
+    certificate_permissions;
+    id;
+    key_permissions;
+    key_vault_id;
+    object_id;
+    secret_permissions;
+    storage_permissions;
+    tenant_id;
+    timeouts;
+  }
 
 type t = {
   application_id : string prop;
@@ -45,27 +65,17 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_key_vault_access_policy ?application_id
-    ?certificate_permissions ?id ?key_permissions ?secret_permissions
-    ?storage_permissions ?timeouts ~key_vault_id ~object_id
-    ~tenant_id __resource_id =
+let register ?tf_module ?application_id ?certificate_permissions ?id
+    ?key_permissions ?secret_permissions ?storage_permissions
+    ?timeouts ~key_vault_id ~object_id ~tenant_id __resource_id =
   let __resource_type = "azurerm_key_vault_access_policy" in
   let __resource =
-    ({
-       application_id;
-       certificate_permissions;
-       id;
-       key_permissions;
-       key_vault_id;
-       object_id;
-       secret_permissions;
-       storage_permissions;
-       tenant_id;
-       timeouts;
-     }
-      : azurerm_key_vault_access_policy)
+    azurerm_key_vault_access_policy ?application_id
+      ?certificate_permissions ?id ?key_permissions
+      ?secret_permissions ?storage_permissions ?timeouts
+      ~key_vault_id ~object_id ~tenant_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_access_policy __resource);
   let __resource_attributes =
     ({

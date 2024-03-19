@@ -4,32 +4,32 @@
 
 open! Tf.Prelude
 
-type azurerm_logz_monitor__plan = {
+type plan = {
   billing_cycle : string prop;  (** billing_cycle *)
   effective_date : string prop;  (** effective_date *)
   plan_id : string prop option; [@option]  (** plan_id *)
   usage_type : string prop;  (** usage_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_logz_monitor__plan *)
+(** plan *)
 
-type azurerm_logz_monitor__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logz_monitor__timeouts *)
+(** timeouts *)
 
-type azurerm_logz_monitor__user = {
+type user = {
   email : string prop;  (** email *)
   first_name : string prop;  (** first_name *)
   last_name : string prop;  (** last_name *)
   phone_number : string prop;  (** phone_number *)
 }
 [@@deriving yojson_of]
-(** azurerm_logz_monitor__user *)
+(** user *)
 
 type azurerm_logz_monitor = {
   company_name : string prop option; [@option]  (** company_name *)
@@ -41,12 +41,39 @@ type azurerm_logz_monitor = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  plan : azurerm_logz_monitor__plan list;
-  timeouts : azurerm_logz_monitor__timeouts option;
-  user : azurerm_logz_monitor__user list;
+  plan : plan list;
+  timeouts : timeouts option;
+  user : user list;
 }
 [@@deriving yojson_of]
 (** azurerm_logz_monitor *)
+
+let plan ?plan_id ~billing_cycle ~effective_date ~usage_type () :
+    plan =
+  { billing_cycle; effective_date; plan_id; usage_type }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let user ~email ~first_name ~last_name ~phone_number () : user =
+  { email; first_name; last_name; phone_number }
+
+let azurerm_logz_monitor ?company_name ?enabled ?enterprise_app_id
+    ?id ?tags ?timeouts ~location ~name ~resource_group_name ~plan
+    ~user () : azurerm_logz_monitor =
+  {
+    company_name;
+    enabled;
+    enterprise_app_id;
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    plan;
+    timeouts;
+    user;
+  }
 
 type t = {
   company_name : string prop;
@@ -61,27 +88,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_logz_monitor ?company_name ?enabled ?enterprise_app_id
-    ?id ?tags ?timeouts ~location ~name ~resource_group_name ~plan
-    ~user __resource_id =
+let register ?tf_module ?company_name ?enabled ?enterprise_app_id ?id
+    ?tags ?timeouts ~location ~name ~resource_group_name ~plan ~user
+    __resource_id =
   let __resource_type = "azurerm_logz_monitor" in
   let __resource =
-    ({
-       company_name;
-       enabled;
-       enterprise_app_id;
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       plan;
-       timeouts;
-       user;
-     }
-      : azurerm_logz_monitor)
+    azurerm_logz_monitor ?company_name ?enabled ?enterprise_app_id
+      ?id ?tags ?timeouts ~location ~name ~resource_group_name ~plan
+      ~user ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logz_monitor __resource);
   let __resource_attributes =
     ({

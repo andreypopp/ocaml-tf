@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_chimesdkvoice_sip_media_application__endpoints
+(** RESOURCE SERIALIZATION *)
+
+type endpoints
+
+val endpoints : lambda_arn:string prop -> unit -> endpoints
+
 type aws_chimesdkvoice_sip_media_application
+
+val aws_chimesdkvoice_sip_media_application :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  aws_region:string prop ->
+  name:string prop ->
+  endpoints:endpoints list ->
+  unit ->
+  aws_chimesdkvoice_sip_media_application
+
+val yojson_of_aws_chimesdkvoice_sip_media_application :
+  aws_chimesdkvoice_sip_media_application -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,12 +34,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_chimesdkvoice_sip_media_application :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   aws_region:string prop ->
   name:string prop ->
-  endpoints:aws_chimesdkvoice_sip_media_application__endpoints list ->
+  endpoints:endpoints list ->
   string ->
   t

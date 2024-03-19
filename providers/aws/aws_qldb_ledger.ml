@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_qldb_ledger__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_qldb_ledger__timeouts *)
+(** timeouts *)
 
 type aws_qldb_ledger = {
   deletion_protection : bool prop option; [@option]
@@ -21,10 +21,25 @@ type aws_qldb_ledger = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_qldb_ledger__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_qldb_ledger *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_qldb_ledger ?deletion_protection ?id ?kms_key ?name ?tags
+    ?tags_all ?timeouts ~permissions_mode () : aws_qldb_ledger =
+  {
+    deletion_protection;
+    id;
+    kms_key;
+    name;
+    permissions_mode;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -37,23 +52,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_qldb_ledger ?deletion_protection ?id ?kms_key ?name ?tags
+let register ?tf_module ?deletion_protection ?id ?kms_key ?name ?tags
     ?tags_all ?timeouts ~permissions_mode __resource_id =
   let __resource_type = "aws_qldb_ledger" in
   let __resource =
-    ({
-       deletion_protection;
-       id;
-       kms_key;
-       name;
-       permissions_mode;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_qldb_ledger)
+    aws_qldb_ledger ?deletion_protection ?id ?kms_key ?name ?tags
+      ?tags_all ?timeouts ~permissions_mode ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_qldb_ledger __resource);
   let __resource_attributes =
     ({

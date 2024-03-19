@@ -15,6 +15,11 @@ type aws_ec2_transit_gateway_peering_attachment_accepter = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_peering_attachment_accepter *)
 
+let aws_ec2_transit_gateway_peering_attachment_accepter ?id ?tags
+    ?tags_all ~transit_gateway_attachment_id () :
+    aws_ec2_transit_gateway_peering_attachment_accepter =
+  { id; tags; tags_all; transit_gateway_attachment_id }
+
 type t = {
   id : string prop;
   peer_account_id : string prop;
@@ -26,16 +31,16 @@ type t = {
   transit_gateway_id : string prop;
 }
 
-let aws_ec2_transit_gateway_peering_attachment_accepter ?id ?tags
-    ?tags_all ~transit_gateway_attachment_id __resource_id =
+let register ?tf_module ?id ?tags ?tags_all
+    ~transit_gateway_attachment_id __resource_id =
   let __resource_type =
     "aws_ec2_transit_gateway_peering_attachment_accepter"
   in
   let __resource =
-    ({ id; tags; tags_all; transit_gateway_attachment_id }
-      : aws_ec2_transit_gateway_peering_attachment_accepter)
+    aws_ec2_transit_gateway_peering_attachment_accepter ?id ?tags
+      ?tags_all ~transit_gateway_attachment_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_peering_attachment_accepter
        __resource);
   let __resource_attributes =

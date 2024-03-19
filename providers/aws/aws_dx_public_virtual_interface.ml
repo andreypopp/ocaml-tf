@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_dx_public_virtual_interface__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_dx_public_virtual_interface__timeouts *)
+(** timeouts *)
 
 type aws_dx_public_virtual_interface = {
   address_family : string prop;  (** address_family *)
@@ -28,10 +28,32 @@ type aws_dx_public_virtual_interface = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   vlan : float prop;  (** vlan *)
-  timeouts : aws_dx_public_virtual_interface__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dx_public_virtual_interface *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_dx_public_virtual_interface ?amazon_address ?bgp_auth_key
+    ?customer_address ?id ?tags ?tags_all ?timeouts ~address_family
+    ~bgp_asn ~connection_id ~name ~route_filter_prefixes ~vlan () :
+    aws_dx_public_virtual_interface =
+  {
+    address_family;
+    amazon_address;
+    bgp_asn;
+    bgp_auth_key;
+    connection_id;
+    customer_address;
+    id;
+    name;
+    route_filter_prefixes;
+    tags;
+    tags_all;
+    vlan;
+    timeouts;
+  }
 
 type t = {
   address_family : string prop;
@@ -51,30 +73,17 @@ type t = {
   vlan : float prop;
 }
 
-let aws_dx_public_virtual_interface ?amazon_address ?bgp_auth_key
+let register ?tf_module ?amazon_address ?bgp_auth_key
     ?customer_address ?id ?tags ?tags_all ?timeouts ~address_family
     ~bgp_asn ~connection_id ~name ~route_filter_prefixes ~vlan
     __resource_id =
   let __resource_type = "aws_dx_public_virtual_interface" in
   let __resource =
-    ({
-       address_family;
-       amazon_address;
-       bgp_asn;
-       bgp_auth_key;
-       connection_id;
-       customer_address;
-       id;
-       name;
-       route_filter_prefixes;
-       tags;
-       tags_all;
-       vlan;
-       timeouts;
-     }
-      : aws_dx_public_virtual_interface)
+    aws_dx_public_virtual_interface ?amazon_address ?bgp_auth_key
+      ?customer_address ?id ?tags ?tags_all ?timeouts ~address_family
+      ~bgp_asn ~connection_id ~name ~route_filter_prefixes ~vlan ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_public_virtual_interface __resource);
   let __resource_attributes =
     ({

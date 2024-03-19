@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_test_lab__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_dev_test_lab
+
+val azurerm_dev_test_lab :
+  ?id:string prop ->
+  ?storage_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_dev_test_lab
+
+val yojson_of_azurerm_dev_test_lab : azurerm_dev_test_lab -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   artifacts_storage_account_id : string prop;
@@ -20,11 +46,12 @@ type t = private {
   unique_identifier : string prop;
 }
 
-val azurerm_dev_test_lab :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?storage_type:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_dev_test_lab__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_access_context_manager_ingress_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_access_context_manager_ingress_policy__timeouts *)
+(** timeouts *)
 
 type google_access_context_manager_ingress_policy = {
   id : string prop option; [@option]  (** id *)
@@ -17,11 +17,17 @@ type google_access_context_manager_ingress_policy = {
       (** The name of the Service Perimeter to add this resource to. *)
   resource : string prop;
       (** A GCP resource that is inside of the service perimeter. *)
-  timeouts :
-    google_access_context_manager_ingress_policy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_ingress_policy *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_access_context_manager_ingress_policy ?id ?timeouts
+    ~ingress_policy_name ~resource () :
+    google_access_context_manager_ingress_policy =
+  { id; ingress_policy_name; resource; timeouts }
 
 type t = {
   id : string prop;
@@ -29,16 +35,16 @@ type t = {
   resource : string prop;
 }
 
-let google_access_context_manager_ingress_policy ?id ?timeouts
-    ~ingress_policy_name ~resource __resource_id =
+let register ?tf_module ?id ?timeouts ~ingress_policy_name ~resource
+    __resource_id =
   let __resource_type =
     "google_access_context_manager_ingress_policy"
   in
   let __resource =
-    ({ id; ingress_policy_name; resource; timeouts }
-      : google_access_context_manager_ingress_policy)
+    google_access_context_manager_ingress_policy ?id ?timeouts
+      ~ingress_policy_name ~resource ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_ingress_policy
        __resource);
   let __resource_attributes =

@@ -25,6 +25,26 @@ type aws_imagebuilder_component = {
 [@@deriving yojson_of]
 (** aws_imagebuilder_component *)
 
+let aws_imagebuilder_component ?change_description ?data ?description
+    ?id ?kms_key_id ?skip_destroy ?supported_os_versions ?tags
+    ?tags_all ?uri ~name ~platform ~version () :
+    aws_imagebuilder_component =
+  {
+    change_description;
+    data;
+    description;
+    id;
+    kms_key_id;
+    name;
+    platform;
+    skip_destroy;
+    supported_os_versions;
+    tags;
+    tags_all;
+    uri;
+    version;
+  }
+
 type t = {
   arn : string prop;
   change_description : string prop;
@@ -46,29 +66,16 @@ type t = {
   version : string prop;
 }
 
-let aws_imagebuilder_component ?change_description ?data ?description
-    ?id ?kms_key_id ?skip_destroy ?supported_os_versions ?tags
-    ?tags_all ?uri ~name ~platform ~version __resource_id =
+let register ?tf_module ?change_description ?data ?description ?id
+    ?kms_key_id ?skip_destroy ?supported_os_versions ?tags ?tags_all
+    ?uri ~name ~platform ~version __resource_id =
   let __resource_type = "aws_imagebuilder_component" in
   let __resource =
-    ({
-       change_description;
-       data;
-       description;
-       id;
-       kms_key_id;
-       name;
-       platform;
-       skip_destroy;
-       supported_os_versions;
-       tags;
-       tags_all;
-       uri;
-       version;
-     }
-      : aws_imagebuilder_component)
+    aws_imagebuilder_component ?change_description ?data ?description
+      ?id ?kms_key_id ?skip_destroy ?supported_os_versions ?tags
+      ?tags_all ?uri ~name ~platform ~version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_component __resource);
   let __resource_attributes =
     ({

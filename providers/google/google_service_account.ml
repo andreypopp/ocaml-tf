@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type google_service_account__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** google_service_account__timeouts *)
+(** timeouts *)
 
 type google_service_account = {
   account_id : string prop;
@@ -24,10 +24,26 @@ type google_service_account = {
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]
       (** The ID of the project that the service account will be created in. Defaults to the provider project configuration. *)
-  timeouts : google_service_account__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_service_account *)
+
+let timeouts ?create () : timeouts = { create }
+
+let google_service_account ?create_ignore_already_exists ?description
+    ?disabled ?display_name ?id ?project ?timeouts ~account_id () :
+    google_service_account =
+  {
+    account_id;
+    create_ignore_already_exists;
+    description;
+    disabled;
+    display_name;
+    id;
+    project;
+    timeouts;
+  }
 
 type t = {
   account_id : string prop;
@@ -43,24 +59,15 @@ type t = {
   unique_id : string prop;
 }
 
-let google_service_account ?create_ignore_already_exists ?description
+let register ?tf_module ?create_ignore_already_exists ?description
     ?disabled ?display_name ?id ?project ?timeouts ~account_id
     __resource_id =
   let __resource_type = "google_service_account" in
   let __resource =
-    ({
-       account_id;
-       create_ignore_already_exists;
-       description;
-       disabled;
-       display_name;
-       id;
-       project;
-       timeouts;
-     }
-      : google_service_account)
+    google_service_account ?create_ignore_already_exists ?description
+      ?disabled ?display_name ?id ?project ?timeouts ~account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_service_account __resource);
   let __resource_attributes =
     ({

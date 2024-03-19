@@ -21,6 +21,10 @@ type cloudflare_mtls_certificate = {
 (** Provides a Cloudflare mTLS certificate resource. These certificates may be used with mTLS enabled Cloudflare services.
  *)
 
+let cloudflare_mtls_certificate ?id ?name ?private_key ~account_id
+    ~ca ~certificates () : cloudflare_mtls_certificate =
+  { account_id; ca; certificates; id; name; private_key }
+
 type t = {
   account_id : string prop;
   ca : bool prop;
@@ -35,14 +39,14 @@ type t = {
   uploaded_on : string prop;
 }
 
-let cloudflare_mtls_certificate ?id ?name ?private_key ~account_id
-    ~ca ~certificates __resource_id =
+let register ?tf_module ?id ?name ?private_key ~account_id ~ca
+    ~certificates __resource_id =
   let __resource_type = "cloudflare_mtls_certificate" in
   let __resource =
-    ({ account_id; ca; certificates; id; name; private_key }
-      : cloudflare_mtls_certificate)
+    cloudflare_mtls_certificate ?id ?name ?private_key ~account_id
+      ~ca ~certificates ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_mtls_certificate __resource);
   let __resource_attributes =
     ({

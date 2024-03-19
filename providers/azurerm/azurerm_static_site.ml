@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_static_site__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_static_site__identity *)
+(** identity *)
 
-type azurerm_static_site__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_static_site__timeouts *)
+(** timeouts *)
 
 type azurerm_static_site = {
   app_settings : (string * string prop) list option; [@option]
@@ -33,11 +31,33 @@ type azurerm_static_site = {
   sku_size : string prop option; [@option]  (** sku_size *)
   sku_tier : string prop option; [@option]  (** sku_tier *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity : azurerm_static_site__identity list;
-  timeouts : azurerm_static_site__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_static_site *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_static_site ?app_settings ?id ?sku_size ?sku_tier ?tags
+    ?timeouts ~location ~name ~resource_group_name ~identity () :
+    azurerm_static_site =
+  {
+    app_settings;
+    id;
+    location;
+    name;
+    resource_group_name;
+    sku_size;
+    sku_tier;
+    tags;
+    identity;
+    timeouts;
+  }
 
 type t = {
   api_key : string prop;
@@ -52,26 +72,15 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_static_site ?app_settings ?id ?sku_size ?sku_tier ?tags
+let register ?tf_module ?app_settings ?id ?sku_size ?sku_tier ?tags
     ?timeouts ~location ~name ~resource_group_name ~identity
     __resource_id =
   let __resource_type = "azurerm_static_site" in
   let __resource =
-    ({
-       app_settings;
-       id;
-       location;
-       name;
-       resource_group_name;
-       sku_size;
-       sku_tier;
-       tags;
-       identity;
-       timeouts;
-     }
-      : azurerm_static_site)
+    azurerm_static_site ?app_settings ?id ?sku_size ?sku_tier ?tags
+      ?timeouts ~location ~name ~resource_group_name ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_static_site __resource);
   let __resource_attributes =
     ({

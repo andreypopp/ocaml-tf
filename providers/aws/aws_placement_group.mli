@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_placement_group
+
+val aws_placement_group :
+  ?id:string prop ->
+  ?partition_count:float prop ->
+  ?spread_level:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  strategy:string prop ->
+  unit ->
+  aws_placement_group
+
+val yojson_of_aws_placement_group : aws_placement_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,7 +33,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_placement_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?partition_count:float prop ->
   ?spread_level:string prop ->

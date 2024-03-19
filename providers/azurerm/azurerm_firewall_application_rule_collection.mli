@@ -2,10 +2,54 @@
 
 open! Tf.Prelude
 
-type azurerm_firewall_application_rule_collection__rule__protocol
-type azurerm_firewall_application_rule_collection__rule
-type azurerm_firewall_application_rule_collection__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type rule__protocol
+
+val rule__protocol :
+  port:float prop -> type_:string prop -> unit -> rule__protocol
+
+type rule
+
+val rule :
+  ?description:string prop ->
+  ?fqdn_tags:string prop list ->
+  ?source_addresses:string prop list ->
+  ?source_ip_groups:string prop list ->
+  ?target_fqdns:string prop list ->
+  name:string prop ->
+  protocol:rule__protocol list ->
+  unit ->
+  rule
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_firewall_application_rule_collection
+
+val azurerm_firewall_application_rule_collection :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  action:string prop ->
+  azure_firewall_name:string prop ->
+  name:string prop ->
+  priority:float prop ->
+  resource_group_name:string prop ->
+  rule:rule list ->
+  unit ->
+  azurerm_firewall_application_rule_collection
+
+val yojson_of_azurerm_firewall_application_rule_collection :
+  azurerm_firewall_application_rule_collection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   action : string prop;
@@ -16,14 +60,15 @@ type t = private {
   resource_group_name : string prop;
 }
 
-val azurerm_firewall_application_rule_collection :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_firewall_application_rule_collection__timeouts ->
+  ?timeouts:timeouts ->
   action:string prop ->
   azure_firewall_name:string prop ->
   name:string prop ->
   priority:float prop ->
   resource_group_name:string prop ->
-  rule:azurerm_firewall_application_rule_collection__rule list ->
+  rule:rule list ->
   string ->
   t

@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_total_tls
+
+val cloudflare_total_tls :
+  ?certificate_authority:string prop ->
+  ?id:string prop ->
+  enabled:bool prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_total_tls
+
+val yojson_of_cloudflare_total_tls : cloudflare_total_tls -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate_authority : string prop;
@@ -11,7 +25,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_total_tls :
+val register :
+  ?tf_module:tf_module ->
   ?certificate_authority:string prop ->
   ?id:string prop ->
   enabled:bool prop ->

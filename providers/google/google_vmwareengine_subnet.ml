@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_subnet__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vmwareengine_subnet__timeouts *)
+(** timeouts *)
 
-type google_vmwareengine_subnet__dhcp_address_ranges = {
+type dhcp_address_ranges = {
   first_address : string prop;  (** first_address *)
   last_address : string prop;  (** last_address *)
 }
@@ -29,15 +29,21 @@ where n ranges from 1 to 5. *)
       (** The resource name of the private cloud to create a new subnet in.
 Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
 For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
-  timeouts : google_vmwareengine_subnet__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_subnet *)
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vmwareengine_subnet ?id ?timeouts ~ip_cidr_range ~name
+    ~parent () : google_vmwareengine_subnet =
+  { id; ip_cidr_range; name; parent; timeouts }
+
 type t = {
   create_time : string prop;
-  dhcp_address_ranges :
-    google_vmwareengine_subnet__dhcp_address_ranges list prop;
+  dhcp_address_ranges : dhcp_address_ranges list prop;
   gateway_id : string prop;
   gateway_ip : string prop;
   id : string prop;
@@ -52,14 +58,14 @@ type t = {
   vlan_id : float prop;
 }
 
-let google_vmwareengine_subnet ?id ?timeouts ~ip_cidr_range ~name
-    ~parent __resource_id =
+let register ?tf_module ?id ?timeouts ~ip_cidr_range ~name ~parent
+    __resource_id =
   let __resource_type = "google_vmwareengine_subnet" in
   let __resource =
-    ({ id; ip_cidr_range; name; parent; timeouts }
-      : google_vmwareengine_subnet)
+    google_vmwareengine_subnet ?id ?timeouts ~ip_cidr_range ~name
+      ~parent ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_subnet __resource);
   let __resource_attributes =
     ({

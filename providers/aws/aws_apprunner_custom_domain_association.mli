@@ -2,7 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_apprunner_custom_domain_association__certificate_validation_records = {
+(** RESOURCE SERIALIZATION *)
+
+type certificate_validation_records = {
   name : string prop;  (** name *)
   status : string prop;  (** status *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -11,11 +13,22 @@ type aws_apprunner_custom_domain_association__certificate_validation_records = {
 
 type aws_apprunner_custom_domain_association
 
+val aws_apprunner_custom_domain_association :
+  ?enable_www_subdomain:bool prop ->
+  ?id:string prop ->
+  domain_name:string prop ->
+  service_arn:string prop ->
+  unit ->
+  aws_apprunner_custom_domain_association
+
+val yojson_of_aws_apprunner_custom_domain_association :
+  aws_apprunner_custom_domain_association -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   certificate_validation_records :
-    aws_apprunner_custom_domain_association__certificate_validation_records
-    list
-    prop;
+    certificate_validation_records list prop;
   dns_target : string prop;
   domain_name : string prop;
   enable_www_subdomain : bool prop;
@@ -24,7 +37,8 @@ type t = private {
   status : string prop;
 }
 
-val aws_apprunner_custom_domain_association :
+val register :
+  ?tf_module:tf_module ->
   ?enable_www_subdomain:bool prop ->
   ?id:string prop ->
   domain_name:string prop ->

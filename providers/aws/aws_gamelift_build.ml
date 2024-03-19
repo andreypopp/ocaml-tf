@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_gamelift_build__storage_location = {
+type storage_location = {
   bucket : string prop;  (** bucket *)
   key : string prop;  (** key *)
   object_version : string prop option; [@option]
@@ -12,7 +12,7 @@ type aws_gamelift_build__storage_location = {
   role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
-(** aws_gamelift_build__storage_location *)
+(** storage_location *)
 
 type aws_gamelift_build = {
   id : string prop option; [@option]  (** id *)
@@ -22,10 +22,26 @@ type aws_gamelift_build = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   version : string prop option; [@option]  (** version *)
-  storage_location : aws_gamelift_build__storage_location list;
+  storage_location : storage_location list;
 }
 [@@deriving yojson_of]
 (** aws_gamelift_build *)
+
+let storage_location ?object_version ~bucket ~key ~role_arn () :
+    storage_location =
+  { bucket; key; object_version; role_arn }
+
+let aws_gamelift_build ?id ?tags ?tags_all ?version ~name
+    ~operating_system ~storage_location () : aws_gamelift_build =
+  {
+    id;
+    name;
+    operating_system;
+    tags;
+    tags_all;
+    version;
+    storage_location;
+  }
 
 type t = {
   arn : string prop;
@@ -37,22 +53,14 @@ type t = {
   version : string prop;
 }
 
-let aws_gamelift_build ?id ?tags ?tags_all ?version ~name
+let register ?tf_module ?id ?tags ?tags_all ?version ~name
     ~operating_system ~storage_location __resource_id =
   let __resource_type = "aws_gamelift_build" in
   let __resource =
-    ({
-       id;
-       name;
-       operating_system;
-       tags;
-       tags_all;
-       version;
-       storage_location;
-     }
-      : aws_gamelift_build)
+    aws_gamelift_build ?id ?tags ?tags_all ?version ~name
+      ~operating_system ~storage_location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_build __resource);
   let __resource_attributes =
     ({

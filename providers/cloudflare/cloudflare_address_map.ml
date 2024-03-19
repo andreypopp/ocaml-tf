@@ -4,15 +4,11 @@
 
 open! Tf.Prelude
 
-type cloudflare_address_map__ips = {
-  ip : string prop;  (** An IPv4 or IPv6 address. *)
-}
+type ips = { ip : string prop  (** An IPv4 or IPv6 address. *) }
 [@@deriving yojson_of]
 (** The set of IPs on the Address Map. *)
 
-type cloudflare_address_map__memberships = {
-  can_delete : bool prop;
-      (** Controls whether the membership can be deleted via the API or not. *)
+type memberships = {
   identifier : string prop;
       (** Identifier of the account or zone. *)
   kind : string prop;  (** The type of the membership. *)
@@ -30,13 +26,30 @@ type cloudflare_address_map = {
   enabled : bool prop;
       (** Whether the Address Map is enabled or not. *)
   id : string prop option; [@option]  (** id *)
-  ips : cloudflare_address_map__ips list;
-  memberships : cloudflare_address_map__memberships list;
+  ips : ips list;
+  memberships : memberships list;
 }
 [@@deriving yojson_of]
 (** Provides the ability to manage IP addresses that can be used by DNS records when
 they are proxied through Cloudflare.
  *)
+
+let ips ~ip () : ips = { ip }
+
+let memberships ~identifier ~kind () : memberships =
+  { identifier; kind }
+
+let cloudflare_address_map ?default_sni ?description ?id ~account_id
+    ~enabled ~ips ~memberships () : cloudflare_address_map =
+  {
+    account_id;
+    default_sni;
+    description;
+    enabled;
+    id;
+    ips;
+    memberships;
+  }
 
 type t = {
   account_id : string prop;
@@ -48,22 +61,14 @@ type t = {
   id : string prop;
 }
 
-let cloudflare_address_map ?default_sni ?description ?id ~account_id
+let register ?tf_module ?default_sni ?description ?id ~account_id
     ~enabled ~ips ~memberships __resource_id =
   let __resource_type = "cloudflare_address_map" in
   let __resource =
-    ({
-       account_id;
-       default_sni;
-       description;
-       enabled;
-       id;
-       ips;
-       memberships;
-     }
-      : cloudflare_address_map)
+    cloudflare_address_map ?default_sni ?description ?id ~account_id
+      ~enabled ~ips ~memberships ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_address_map __resource);
   let __resource_attributes =
     ({

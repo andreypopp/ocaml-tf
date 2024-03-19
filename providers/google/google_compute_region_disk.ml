@@ -4,22 +4,19 @@
 
 open! Tf.Prelude
 
-type google_compute_region_disk__async_primary_disk = {
+type async_primary_disk = {
   disk : string prop;
       (** Primary disk for asynchronous disk replication. *)
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_compute_region_disk__disk_encryption_key = {
+type disk_encryption_key = {
   kms_key_name : string prop option; [@option]
       (** The name of the encryption key that is stored in Google Cloud KMS. *)
   raw_key : string prop option; [@option]
       (** Specifies a 256-bit customer-supplied encryption key, encoded in
 RFC 4648 base64 to either encrypt or decrypt this resource. *)
-  sha256 : string prop;
-      (** The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
-encryption key that protects this resource. *)
 }
 [@@deriving yojson_of]
 (** Encrypts the disk using a customer-supplied encryption key.
@@ -35,7 +32,7 @@ If you do not provide an encryption key when creating the disk, then
 the disk will be encrypted using an automatically generated key and
 you do not need to provide a key to use the disk later. *)
 
-type google_compute_region_disk__guest_os_features = {
+type guest_os_features = {
   type_ : string prop; [@key "type"]
       (** The type of supported feature. Read [Enabling guest operating system features](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#guest-os-features) to see a list of available options. Possible values: [MULTI_IP_SUBNET, SECURE_BOOT, SEV_CAPABLE, UEFI_COMPATIBLE, VIRTIO_SCSI_MULTIQUEUE, WINDOWS, GVNIC, SEV_LIVE_MIGRATABLE, SEV_SNP_CAPABLE, SUSPEND_RESUME_COMPATIBLE, TDX_CAPABLE] *)
 }
@@ -43,26 +40,23 @@ type google_compute_region_disk__guest_os_features = {
 (** A list of features to enable on the guest operating system.
 Applicable only for bootable disks. *)
 
-type google_compute_region_disk__source_snapshot_encryption_key = {
+type source_snapshot_encryption_key = {
   raw_key : string prop option; [@option]
       (** Specifies a 256-bit customer-supplied encryption key, encoded in
 RFC 4648 base64 to either encrypt or decrypt this resource. *)
-  sha256 : string prop;
-      (** The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
-encryption key that protects this resource. *)
 }
 [@@deriving yojson_of]
 (** The customer-supplied encryption key of the source snapshot. Required
 if the source snapshot is protected by a customer-supplied encryption
 key. *)
 
-type google_compute_region_disk__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_disk__timeouts *)
+(** timeouts *)
 
 type google_compute_region_disk = {
   description : string prop option; [@option]
@@ -127,18 +121,56 @@ For example, the following are valid values:
   type_ : string prop option; [@option] [@key "type"]
       (** URL of the disk type resource describing which disk type to use to
 create the disk. Provide this when creating the disk. *)
-  async_primary_disk :
-    google_compute_region_disk__async_primary_disk list;
-  disk_encryption_key :
-    google_compute_region_disk__disk_encryption_key list;
-  guest_os_features :
-    google_compute_region_disk__guest_os_features list;
+  async_primary_disk : async_primary_disk list;
+  disk_encryption_key : disk_encryption_key list;
+  guest_os_features : guest_os_features list;
   source_snapshot_encryption_key :
-    google_compute_region_disk__source_snapshot_encryption_key list;
-  timeouts : google_compute_region_disk__timeouts option;
+    source_snapshot_encryption_key list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_disk *)
+
+let async_primary_disk ~disk () : async_primary_disk = { disk }
+
+let disk_encryption_key ?kms_key_name ?raw_key () :
+    disk_encryption_key =
+  { kms_key_name; raw_key }
+
+let guest_os_features ~type_ () : guest_os_features = { type_ }
+
+let source_snapshot_encryption_key ?raw_key () :
+    source_snapshot_encryption_key =
+  { raw_key }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_region_disk ?description ?id ?labels ?licenses
+    ?physical_block_size_bytes ?project ?region ?size ?snapshot
+    ?source_disk ?type_ ?timeouts ~name ~replica_zones
+    ~async_primary_disk ~disk_encryption_key ~guest_os_features
+    ~source_snapshot_encryption_key () : google_compute_region_disk =
+  {
+    description;
+    id;
+    labels;
+    licenses;
+    name;
+    physical_block_size_bytes;
+    project;
+    region;
+    replica_zones;
+    size;
+    snapshot;
+    source_disk;
+    type_;
+    async_primary_disk;
+    disk_encryption_key;
+    guest_os_features;
+    source_snapshot_encryption_key;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -166,36 +198,20 @@ type t = {
   users : string list prop;
 }
 
-let google_compute_region_disk ?description ?id ?labels ?licenses
+let register ?tf_module ?description ?id ?labels ?licenses
     ?physical_block_size_bytes ?project ?region ?size ?snapshot
     ?source_disk ?type_ ?timeouts ~name ~replica_zones
     ~async_primary_disk ~disk_encryption_key ~guest_os_features
     ~source_snapshot_encryption_key __resource_id =
   let __resource_type = "google_compute_region_disk" in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       licenses;
-       name;
-       physical_block_size_bytes;
-       project;
-       region;
-       replica_zones;
-       size;
-       snapshot;
-       source_disk;
-       type_;
-       async_primary_disk;
-       disk_encryption_key;
-       guest_os_features;
-       source_snapshot_encryption_key;
-       timeouts;
-     }
-      : google_compute_region_disk)
+    google_compute_region_disk ?description ?id ?labels ?licenses
+      ?physical_block_size_bytes ?project ?region ?size ?snapshot
+      ?source_disk ?type_ ?timeouts ~name ~replica_zones
+      ~async_primary_disk ~disk_encryption_key ~guest_os_features
+      ~source_snapshot_encryption_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_disk __resource);
   let __resource_attributes =
     ({

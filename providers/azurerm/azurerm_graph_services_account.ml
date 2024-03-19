@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_graph_services_account__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_graph_services_account__timeouts *)
+(** timeouts *)
 
 type azurerm_graph_services_account = {
   application_id : string prop;  (** application_id *)
@@ -19,10 +19,18 @@ type azurerm_graph_services_account = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_graph_services_account__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_graph_services_account *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_graph_services_account ?id ?tags ?timeouts
+    ~application_id ~name ~resource_group_name () :
+    azurerm_graph_services_account =
+  { application_id; id; name; resource_group_name; tags; timeouts }
 
 type t = {
   application_id : string prop;
@@ -33,21 +41,14 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_graph_services_account ?id ?tags ?timeouts
-    ~application_id ~name ~resource_group_name __resource_id =
+let register ?tf_module ?id ?tags ?timeouts ~application_id ~name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_graph_services_account" in
   let __resource =
-    ({
-       application_id;
-       id;
-       name;
-       resource_group_name;
-       tags;
-       timeouts;
-     }
-      : azurerm_graph_services_account)
+    azurerm_graph_services_account ?id ?tags ?timeouts
+      ~application_id ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_graph_services_account __resource);
   let __resource_attributes =
     ({

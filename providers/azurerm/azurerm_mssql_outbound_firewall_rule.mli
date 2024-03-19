@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_outbound_firewall_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mssql_outbound_firewall_rule
+
+val azurerm_mssql_outbound_firewall_rule :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  server_id:string prop ->
+  unit ->
+  azurerm_mssql_outbound_firewall_rule
+
+val yojson_of_azurerm_mssql_outbound_firewall_rule :
+  azurerm_mssql_outbound_firewall_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,9 +34,10 @@ type t = private {
   server_id : string prop;
 }
 
-val azurerm_mssql_outbound_firewall_rule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_mssql_outbound_firewall_rule__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   server_id:string prop ->
   string ->

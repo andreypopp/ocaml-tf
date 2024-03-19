@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_firestore_field__index_config__indexes = {
+type index_config__indexes = {
   array_config : string prop option; [@option]
       (** Indicates that this field supports operations on arrayValues. Only one of 'order' and 'arrayConfig' can
 be specified. Possible values: [CONTAINS] *)
@@ -19,29 +19,22 @@ collections with the same id. Default value: COLLECTION Possible values: [COLLEC
 [@@deriving yojson_of]
 (** The indexes to configure on the field. Order or array contains must be specified. *)
 
-type google_firestore_field__index_config = {
-  indexes : google_firestore_field__index_config__indexes list;
-}
+type index_config = { indexes : index_config__indexes list }
 [@@deriving yojson_of]
 (** The single field index configuration for this field.
 Creating an index configuration for this field will override any inherited configuration with the
 indexes specified. Configuring the index configuration with an empty block disables all indexes on
 the field. *)
 
-type google_firestore_field__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_firestore_field__timeouts *)
+(** timeouts *)
 
-type google_firestore_field__ttl_config = {
-  state : string prop;
-      (** The state of TTL (time-to-live) configuration for documents that have this Field set. *)
-}
-[@@deriving yojson_of]
-(** The TTL configuration for this Field. If set to an empty block (i.e. 'ttl_config {}'), a TTL policy is configured based on the field. If unset, a TTL policy is not configured (or will be disabled upon updating the resource). *)
+type ttl_config = unit [@@deriving yojson_of]
 
 type google_firestore_field = {
   collection : string prop;
@@ -51,12 +44,37 @@ type google_firestore_field = {
   field : string prop;  (** The id of the field to configure. *)
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]  (** project *)
-  index_config : google_firestore_field__index_config list;
-  timeouts : google_firestore_field__timeouts option;
-  ttl_config : google_firestore_field__ttl_config list;
+  index_config : index_config list;
+  timeouts : timeouts option;
+  ttl_config : ttl_config list;
 }
 [@@deriving yojson_of]
 (** google_firestore_field *)
+
+let index_config__indexes ?array_config ?order ?query_scope () :
+    index_config__indexes =
+  { array_config; order; query_scope }
+
+let index_config ~indexes () : index_config = { indexes }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let ttl_config () = ()
+
+let google_firestore_field ?database ?id ?project ?timeouts
+    ~collection ~field ~index_config ~ttl_config () :
+    google_firestore_field =
+  {
+    collection;
+    database;
+    field;
+    id;
+    project;
+    index_config;
+    timeouts;
+    ttl_config;
+  }
 
 type t = {
   collection : string prop;
@@ -67,23 +85,14 @@ type t = {
   project : string prop;
 }
 
-let google_firestore_field ?database ?id ?project ?timeouts
-    ~collection ~field ~index_config ~ttl_config __resource_id =
+let register ?tf_module ?database ?id ?project ?timeouts ~collection
+    ~field ~index_config ~ttl_config __resource_id =
   let __resource_type = "google_firestore_field" in
   let __resource =
-    ({
-       collection;
-       database;
-       field;
-       id;
-       project;
-       index_config;
-       timeouts;
-       ttl_config;
-     }
-      : google_firestore_field)
+    google_firestore_field ?database ?id ?project ?timeouts
+      ~collection ~field ~index_config ~ttl_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_field __resource);
   let __resource_attributes =
     ({

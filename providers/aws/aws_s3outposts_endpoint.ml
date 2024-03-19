@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_s3outposts_endpoint__network_interfaces = {
+type network_interfaces = {
   network_interface_id : string prop;  (** network_interface_id *)
 }
 [@@deriving yojson_of]
@@ -21,6 +21,18 @@ type aws_s3outposts_endpoint = {
 [@@deriving yojson_of]
 (** aws_s3outposts_endpoint *)
 
+let aws_s3outposts_endpoint ?access_type ?customer_owned_ipv4_pool
+    ?id ~outpost_id ~security_group_id ~subnet_id () :
+    aws_s3outposts_endpoint =
+  {
+    access_type;
+    customer_owned_ipv4_pool;
+    id;
+    outpost_id;
+    security_group_id;
+    subnet_id;
+  }
+
 type t = {
   access_type : string prop;
   arn : string prop;
@@ -28,28 +40,20 @@ type t = {
   creation_time : string prop;
   customer_owned_ipv4_pool : string prop;
   id : string prop;
-  network_interfaces :
-    aws_s3outposts_endpoint__network_interfaces list prop;
+  network_interfaces : network_interfaces list prop;
   outpost_id : string prop;
   security_group_id : string prop;
   subnet_id : string prop;
 }
 
-let aws_s3outposts_endpoint ?access_type ?customer_owned_ipv4_pool
-    ?id ~outpost_id ~security_group_id ~subnet_id __resource_id =
+let register ?tf_module ?access_type ?customer_owned_ipv4_pool ?id
+    ~outpost_id ~security_group_id ~subnet_id __resource_id =
   let __resource_type = "aws_s3outposts_endpoint" in
   let __resource =
-    ({
-       access_type;
-       customer_owned_ipv4_pool;
-       id;
-       outpost_id;
-       security_group_id;
-       subnet_id;
-     }
-      : aws_s3outposts_endpoint)
+    aws_s3outposts_endpoint ?access_type ?customer_owned_ipv4_pool
+      ?id ~outpost_id ~security_group_id ~subnet_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3outposts_endpoint __resource);
   let __resource_attributes =
     ({

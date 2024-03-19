@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_connect_instance__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_connect_instance
+
+val aws_connect_instance :
+  ?auto_resolve_best_voices_enabled:bool prop ->
+  ?contact_flow_logs_enabled:bool prop ->
+  ?contact_lens_enabled:bool prop ->
+  ?directory_id:string prop ->
+  ?early_media_enabled:bool prop ->
+  ?id:string prop ->
+  ?instance_alias:string prop ->
+  ?multi_party_conference_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  identity_management_type:string prop ->
+  inbound_calls_enabled:bool prop ->
+  outbound_calls_enabled:bool prop ->
+  unit ->
+  aws_connect_instance
+
+val yojson_of_aws_connect_instance : aws_connect_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -23,7 +49,8 @@ type t = private {
   status : string prop;
 }
 
-val aws_connect_instance :
+val register :
+  ?tf_module:tf_module ->
   ?auto_resolve_best_voices_enabled:bool prop ->
   ?contact_flow_logs_enabled:bool prop ->
   ?contact_lens_enabled:bool prop ->
@@ -32,7 +59,7 @@ val aws_connect_instance :
   ?id:string prop ->
   ?instance_alias:string prop ->
   ?multi_party_conference_enabled:bool prop ->
-  ?timeouts:aws_connect_instance__timeouts ->
+  ?timeouts:timeouts ->
   identity_management_type:string prop ->
   inbound_calls_enabled:bool prop ->
   outbound_calls_enabled:bool prop ->

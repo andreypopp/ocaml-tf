@@ -16,6 +16,10 @@ type aws_lightsail_disk = {
 [@@deriving yojson_of]
 (** aws_lightsail_disk *)
 
+let aws_lightsail_disk ?id ?tags ?tags_all ~availability_zone ~name
+    ~size_in_gb () : aws_lightsail_disk =
+  { availability_zone; id; name; size_in_gb; tags; tags_all }
+
 type t = {
   arn : string prop;
   availability_zone : string prop;
@@ -28,14 +32,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_lightsail_disk ?id ?tags ?tags_all ~availability_zone ~name
+let register ?tf_module ?id ?tags ?tags_all ~availability_zone ~name
     ~size_in_gb __resource_id =
   let __resource_type = "aws_lightsail_disk" in
   let __resource =
-    ({ availability_zone; id; name; size_in_gb; tags; tags_all }
-      : aws_lightsail_disk)
+    aws_lightsail_disk ?id ?tags ?tags_all ~availability_zone ~name
+      ~size_in_gb ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_disk __resource);
   let __resource_attributes =
     ({

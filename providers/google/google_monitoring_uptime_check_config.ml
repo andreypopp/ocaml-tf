@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_monitoring_uptime_check_config__content_matchers__json_path_matcher = {
+type content_matchers__json_path_matcher = {
   json_matcher : string prop option; [@option]
       (** Options to perform JSONPath content matching. Default value: EXACT_MATCH Possible values: [EXACT_MATCH, REGEX_MATCH] *)
   json_path : string prop;
@@ -13,19 +13,17 @@ type google_monitoring_uptime_check_config__content_matchers__json_path_matcher 
 [@@deriving yojson_of]
 (** Information needed to perform a JSONPath content match. Used for 'ContentMatcherOption::MATCHES_JSON_PATH' and 'ContentMatcherOption::NOT_MATCHES_JSON_PATH'. *)
 
-type google_monitoring_uptime_check_config__content_matchers = {
+type content_matchers = {
   content : string prop;
       (** String or regex content to match (max 1024 bytes) *)
   matcher : string prop option; [@option]
       (** The type of content matcher that will be applied to the server output, compared to the content string when the check is run. Default value: CONTAINS_STRING Possible values: [CONTAINS_STRING, NOT_CONTAINS_STRING, MATCHES_REGEX, NOT_MATCHES_REGEX, MATCHES_JSON_PATH, NOT_MATCHES_JSON_PATH] *)
-  json_path_matcher :
-    google_monitoring_uptime_check_config__content_matchers__json_path_matcher
-    list;
+  json_path_matcher : content_matchers__json_path_matcher list;
 }
 [@@deriving yojson_of]
 (** The expected content on the page the check is run against. Currently, only the first entry in the list is supported, and other entries will be ignored. The server will look for an exact match of the string in the page response's content. This field is optional and should only be specified if a content match is required. *)
 
-type google_monitoring_uptime_check_config__http_check__accepted_response_status_codes = {
+type http_check__accepted_response_status_codes = {
   status_class : string prop option; [@option]
       (** A class of status codes to accept. Possible values: [STATUS_CLASS_1XX, STATUS_CLASS_2XX, STATUS_CLASS_3XX, STATUS_CLASS_4XX, STATUS_CLASS_5XX, STATUS_CLASS_ANY] *)
   status_value : float prop option; [@option]
@@ -34,21 +32,21 @@ type google_monitoring_uptime_check_config__http_check__accepted_response_status
 [@@deriving yojson_of]
 (** If present, the check will only pass if the HTTP response status code is in this set of status codes. If empty, the HTTP status code will only pass if the HTTP status code is 200-299. *)
 
-type google_monitoring_uptime_check_config__http_check__auth_info = {
+type http_check__auth_info = {
   password : string prop;  (** The password to authenticate. *)
   username : string prop;  (** The username to authenticate. *)
 }
 [@@deriving yojson_of]
 (** The authentication information. Optional when creating an HTTP check; defaults to empty. *)
 
-type google_monitoring_uptime_check_config__http_check__ping_config = {
+type http_check__ping_config = {
   pings_count : float prop;
       (** Number of ICMP pings. A maximum of 3 ICMP pings is currently supported. *)
 }
 [@@deriving yojson_of]
 (** Contains information needed to add pings to an HTTP check. *)
 
-type google_monitoring_uptime_check_config__http_check = {
+type http_check = {
   body : string prop option; [@option]
       (** The request body associated with the HTTP POST request. If 'content_type' is 'URL_ENCODED', the body passed in must be URL-encoded. Users can provide a 'Content-Length' header via the 'headers' field or the API will do so. If the 'request_method' is 'GET' and 'body' is not empty, the API will return an error. The maximum byte size is 1 megabyte. Note - As with all bytes fields JSON representations are base64 encoded. e.g. 'foo=bar' in URL-encoded form is 'foo%3Dbar' and in base64 encoding is 'Zm9vJTI1M0RiYXI='. *)
   content_type : string prop option; [@option]
@@ -70,18 +68,14 @@ type google_monitoring_uptime_check_config__http_check = {
   validate_ssl : bool prop option; [@option]
       (** Boolean specifying whether to include SSL certificate validation as a part of the Uptime check. Only applies to checks where 'monitored_resource' is set to 'uptime_url'. If 'use_ssl' is 'false', setting 'validate_ssl' to 'true' has no effect. *)
   accepted_response_status_codes :
-    google_monitoring_uptime_check_config__http_check__accepted_response_status_codes
-    list;
-  auth_info :
-    google_monitoring_uptime_check_config__http_check__auth_info list;
-  ping_config :
-    google_monitoring_uptime_check_config__http_check__ping_config
-    list;
+    http_check__accepted_response_status_codes list;
+  auth_info : http_check__auth_info list;
+  ping_config : http_check__ping_config list;
 }
 [@@deriving yojson_of]
 (** Contains information needed to make an HTTP or HTTPS check. *)
 
-type google_monitoring_uptime_check_config__monitored_resource = {
+type monitored_resource = {
   labels : (string * string prop) list;
       (** Values for all of the labels listed in the associated monitored resource descriptor. For example, Compute Engine VM instances use the labels 'project_id', 'instance_id', and 'zone'. *)
   type_ : string prop; [@key "type"]
@@ -100,7 +94,7 @@ uptime checks:
 * 'servicedirectory_service'
 * 'uptime_url' *)
 
-type google_monitoring_uptime_check_config__resource_group = {
+type resource_group = {
   group_id : string prop option; [@option]
       (** The group of resources being monitored. Should be the 'name' of a group *)
   resource_type : string prop option; [@option]
@@ -109,45 +103,41 @@ type google_monitoring_uptime_check_config__resource_group = {
 [@@deriving yojson_of]
 (** The group resource associated with the configuration. *)
 
-type google_monitoring_uptime_check_config__synthetic_monitor__cloud_function_v2 = {
+type synthetic_monitor__cloud_function_v2 = {
   name : string prop;
       (** The fully qualified name of the cloud function resource. *)
 }
 [@@deriving yojson_of]
 (** Target a Synthetic Monitor GCFv2 Instance *)
 
-type google_monitoring_uptime_check_config__synthetic_monitor = {
-  cloud_function_v2 :
-    google_monitoring_uptime_check_config__synthetic_monitor__cloud_function_v2
-    list;
+type synthetic_monitor = {
+  cloud_function_v2 : synthetic_monitor__cloud_function_v2 list;
 }
 [@@deriving yojson_of]
 (** A Synthetic Monitor deployed to a Cloud Functions V2 instance. *)
 
-type google_monitoring_uptime_check_config__tcp_check__ping_config = {
+type tcp_check__ping_config = {
   pings_count : float prop;
       (** Number of ICMP pings. A maximum of 3 ICMP pings is currently supported. *)
 }
 [@@deriving yojson_of]
 (** Contains information needed to add pings to a TCP check. *)
 
-type google_monitoring_uptime_check_config__tcp_check = {
+type tcp_check = {
   port : float prop;
       (** The port to the page to run the check against. Will be combined with host (specified within the 'monitored_resource') to construct the full URL. *)
-  ping_config :
-    google_monitoring_uptime_check_config__tcp_check__ping_config
-    list;
+  ping_config : tcp_check__ping_config list;
 }
 [@@deriving yojson_of]
 (** Contains information needed to make a TCP check. *)
 
-type google_monitoring_uptime_check_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_monitoring_uptime_check_config__timeouts *)
+(** timeouts *)
 
 type google_monitoring_uptime_check_config = {
   checker_type : string prop option; [@option]
@@ -164,21 +154,101 @@ type google_monitoring_uptime_check_config = {
       (** The maximum amount of time to wait for the request to complete (must be between 1 and 60 seconds). [See the accepted formats]( https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.Duration) *)
   user_labels : (string * string prop) list option; [@option]
       (** User-supplied key/value data to be used for organizing and identifying the 'UptimeCheckConfig' objects. The field can contain up to 64 entries. Each key and value is limited to 63 Unicode characters or 128 bytes, whichever is smaller. Labels and values can contain only lowercase letters, numerals, underscores, and dashes. Keys must begin with a letter. *)
-  content_matchers :
-    google_monitoring_uptime_check_config__content_matchers list;
-  http_check :
-    google_monitoring_uptime_check_config__http_check list;
-  monitored_resource :
-    google_monitoring_uptime_check_config__monitored_resource list;
-  resource_group :
-    google_monitoring_uptime_check_config__resource_group list;
-  synthetic_monitor :
-    google_monitoring_uptime_check_config__synthetic_monitor list;
-  tcp_check : google_monitoring_uptime_check_config__tcp_check list;
-  timeouts : google_monitoring_uptime_check_config__timeouts option;
+  content_matchers : content_matchers list;
+  http_check : http_check list;
+  monitored_resource : monitored_resource list;
+  resource_group : resource_group list;
+  synthetic_monitor : synthetic_monitor list;
+  tcp_check : tcp_check list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_monitoring_uptime_check_config *)
+
+let content_matchers__json_path_matcher ?json_matcher ~json_path () :
+    content_matchers__json_path_matcher =
+  { json_matcher; json_path }
+
+let content_matchers ?matcher ~content ~json_path_matcher () :
+    content_matchers =
+  { content; matcher; json_path_matcher }
+
+let http_check__accepted_response_status_codes ?status_class
+    ?status_value () : http_check__accepted_response_status_codes =
+  { status_class; status_value }
+
+let http_check__auth_info ~password ~username () :
+    http_check__auth_info =
+  { password; username }
+
+let http_check__ping_config ~pings_count () : http_check__ping_config
+    =
+  { pings_count }
+
+let http_check ?body ?content_type ?custom_content_type ?headers
+    ?mask_headers ?path ?port ?request_method ?use_ssl ?validate_ssl
+    ~accepted_response_status_codes ~auth_info ~ping_config () :
+    http_check =
+  {
+    body;
+    content_type;
+    custom_content_type;
+    headers;
+    mask_headers;
+    path;
+    port;
+    request_method;
+    use_ssl;
+    validate_ssl;
+    accepted_response_status_codes;
+    auth_info;
+    ping_config;
+  }
+
+let monitored_resource ~labels ~type_ () : monitored_resource =
+  { labels; type_ }
+
+let resource_group ?group_id ?resource_type () : resource_group =
+  { group_id; resource_type }
+
+let synthetic_monitor__cloud_function_v2 ~name () :
+    synthetic_monitor__cloud_function_v2 =
+  { name }
+
+let synthetic_monitor ~cloud_function_v2 () : synthetic_monitor =
+  { cloud_function_v2 }
+
+let tcp_check__ping_config ~pings_count () : tcp_check__ping_config =
+  { pings_count }
+
+let tcp_check ~port ~ping_config () : tcp_check =
+  { port; ping_config }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_monitoring_uptime_check_config ?checker_type ?id ?period
+    ?project ?selected_regions ?user_labels ?timeouts ~display_name
+    ~timeout ~content_matchers ~http_check ~monitored_resource
+    ~resource_group ~synthetic_monitor ~tcp_check () :
+    google_monitoring_uptime_check_config =
+  {
+    checker_type;
+    display_name;
+    id;
+    period;
+    project;
+    selected_regions;
+    timeout;
+    user_labels;
+    content_matchers;
+    http_check;
+    monitored_resource;
+    resource_group;
+    synthetic_monitor;
+    tcp_check;
+    timeouts;
+  }
 
 type t = {
   checker_type : string prop;
@@ -193,32 +263,18 @@ type t = {
   user_labels : (string * string) list prop;
 }
 
-let google_monitoring_uptime_check_config ?checker_type ?id ?period
-    ?project ?selected_regions ?user_labels ?timeouts ~display_name
-    ~timeout ~content_matchers ~http_check ~monitored_resource
-    ~resource_group ~synthetic_monitor ~tcp_check __resource_id =
+let register ?tf_module ?checker_type ?id ?period ?project
+    ?selected_regions ?user_labels ?timeouts ~display_name ~timeout
+    ~content_matchers ~http_check ~monitored_resource ~resource_group
+    ~synthetic_monitor ~tcp_check __resource_id =
   let __resource_type = "google_monitoring_uptime_check_config" in
   let __resource =
-    ({
-       checker_type;
-       display_name;
-       id;
-       period;
-       project;
-       selected_regions;
-       timeout;
-       user_labels;
-       content_matchers;
-       http_check;
-       monitored_resource;
-       resource_group;
-       synthetic_monitor;
-       tcp_check;
-       timeouts;
-     }
-      : google_monitoring_uptime_check_config)
+    google_monitoring_uptime_check_config ?checker_type ?id ?period
+      ?project ?selected_regions ?user_labels ?timeouts ~display_name
+      ~timeout ~content_matchers ~http_check ~monitored_resource
+      ~resource_group ~synthetic_monitor ~tcp_check ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_uptime_check_config __resource);
   let __resource_attributes =
     ({

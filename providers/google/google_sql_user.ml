@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_sql_user__password_policy__status = {
+type password_policy__status = {
   locked : bool prop;  (** locked *)
   password_expiration_time : string prop;
       (** password_expiration_time *)
 }
 [@@deriving yojson_of]
 
-type google_sql_user__password_policy = {
+type password_policy = {
   allowed_failed_attempts : float prop option; [@option]
       (** Number of failed attempts allowed before the user get locked. *)
   enable_failed_attempts_check : bool prop option; [@option]
@@ -20,21 +20,19 @@ type google_sql_user__password_policy = {
       (** If true, the user must specify the current password before changing the password. This flag is supported only for MySQL. *)
   password_expiration_duration : string prop option; [@option]
       (** Password expiration duration with one week grace period. *)
-  status : google_sql_user__password_policy__status list;
-      (** status *)
 }
 [@@deriving yojson_of]
-(** google_sql_user__password_policy *)
+(** password_policy *)
 
-type google_sql_user__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_sql_user__timeouts *)
+(** timeouts *)
 
-type google_sql_user__sql_server_user_details = {
+type sql_server_user_details = {
   disabled : bool prop;  (** disabled *)
   server_roles : string prop list;  (** server_roles *)
 }
@@ -60,11 +58,40 @@ type google_sql_user = {
   type_ : string prop option; [@option] [@key "type"]
       (** The user type. It determines the method to authenticate the user during login.
                 The default is the database's built-in user type. Flags include BUILT_IN, CLOUD_IAM_USER, CLOUD_IAM_GROUP or CLOUD_IAM_SERVICE_ACCOUNT. *)
-  password_policy : google_sql_user__password_policy list;
-  timeouts : google_sql_user__timeouts option;
+  password_policy : password_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_sql_user *)
+
+let password_policy ?allowed_failed_attempts
+    ?enable_failed_attempts_check ?enable_password_verification
+    ?password_expiration_duration () : password_policy =
+  {
+    allowed_failed_attempts;
+    enable_failed_attempts_check;
+    enable_password_verification;
+    password_expiration_duration;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_sql_user ?deletion_policy ?host ?id ?password ?project
+    ?type_ ?timeouts ~instance ~name ~password_policy () :
+    google_sql_user =
+  {
+    deletion_policy;
+    host;
+    id;
+    instance;
+    name;
+    password;
+    project;
+    type_;
+    password_policy;
+    timeouts;
+  }
 
 type t = {
   deletion_policy : string prop;
@@ -74,30 +101,18 @@ type t = {
   name : string prop;
   password : string prop;
   project : string prop;
-  sql_server_user_details :
-    google_sql_user__sql_server_user_details list prop;
+  sql_server_user_details : sql_server_user_details list prop;
   type_ : string prop;
 }
 
-let google_sql_user ?deletion_policy ?host ?id ?password ?project
+let register ?tf_module ?deletion_policy ?host ?id ?password ?project
     ?type_ ?timeouts ~instance ~name ~password_policy __resource_id =
   let __resource_type = "google_sql_user" in
   let __resource =
-    ({
-       deletion_policy;
-       host;
-       id;
-       instance;
-       name;
-       password;
-       project;
-       type_;
-       password_policy;
-       timeouts;
-     }
-      : google_sql_user)
+    google_sql_user ?deletion_policy ?host ?id ?password ?project
+      ?type_ ?timeouts ~instance ~name ~password_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_user __resource);
   let __resource_attributes =
     ({

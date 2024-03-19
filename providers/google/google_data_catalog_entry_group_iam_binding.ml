@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_entry_group_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_data_catalog_entry_group_iam_binding__condition *)
+(** condition *)
 
 type google_data_catalog_entry_group_iam_binding = {
   entry_group : string prop;  (** entry_group *)
@@ -19,11 +19,18 @@ type google_data_catalog_entry_group_iam_binding = {
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]  (** region *)
   role : string prop;  (** role *)
-  condition :
-    google_data_catalog_entry_group_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_data_catalog_entry_group_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_data_catalog_entry_group_iam_binding ?id ?project ?region
+    ~entry_group ~members ~role ~condition () :
+    google_data_catalog_entry_group_iam_binding =
+  { entry_group; id; members; project; region; role; condition }
 
 type t = {
   entry_group : string prop;
@@ -35,16 +42,16 @@ type t = {
   role : string prop;
 }
 
-let google_data_catalog_entry_group_iam_binding ?id ?project ?region
-    ~entry_group ~members ~role ~condition __resource_id =
+let register ?tf_module ?id ?project ?region ~entry_group ~members
+    ~role ~condition __resource_id =
   let __resource_type =
     "google_data_catalog_entry_group_iam_binding"
   in
   let __resource =
-    ({ entry_group; id; members; project; region; role; condition }
-      : google_data_catalog_entry_group_iam_binding)
+    google_data_catalog_entry_group_iam_binding ?id ?project ?region
+      ~entry_group ~members ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_entry_group_iam_binding __resource);
   let __resource_attributes =
     ({

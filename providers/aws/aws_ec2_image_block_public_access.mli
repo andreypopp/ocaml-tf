@@ -2,13 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_ec2_image_block_public_access__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?update:string prop -> unit -> timeouts
+
 type aws_ec2_image_block_public_access
-type t = private { id : string prop; state : string prop }
 
 val aws_ec2_image_block_public_access :
   ?id:string prop ->
-  ?timeouts:aws_ec2_image_block_public_access__timeouts ->
+  ?timeouts:timeouts ->
+  state:string prop ->
+  unit ->
+  aws_ec2_image_block_public_access
+
+val yojson_of_aws_ec2_image_block_public_access :
+  aws_ec2_image_block_public_access -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; state : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
   state:string prop ->
   string ->
   t

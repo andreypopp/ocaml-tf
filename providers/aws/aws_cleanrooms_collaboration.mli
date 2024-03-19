@@ -2,10 +2,56 @@
 
 open! Tf.Prelude
 
-type aws_cleanrooms_collaboration__data_encryption_metadata
-type aws_cleanrooms_collaboration__member
-type aws_cleanrooms_collaboration__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type data_encryption_metadata
+
+val data_encryption_metadata :
+  allow_clear_text:bool prop ->
+  allow_duplicates:bool prop ->
+  allow_joins_on_columns_with_different_names:bool prop ->
+  preserve_nulls:bool prop ->
+  unit ->
+  data_encryption_metadata
+
+type member
+
+val member :
+  account_id:string prop ->
+  display_name:string prop ->
+  member_abilities:string prop list ->
+  unit ->
+  member
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_cleanrooms_collaboration
+
+val aws_cleanrooms_collaboration :
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  creator_display_name:string prop ->
+  creator_member_abilities:string prop list ->
+  description:string prop ->
+  name:string prop ->
+  query_log_status:string prop ->
+  data_encryption_metadata:data_encryption_metadata list ->
+  member:member list ->
+  unit ->
+  aws_cleanrooms_collaboration
+
+val yojson_of_aws_cleanrooms_collaboration :
+  aws_cleanrooms_collaboration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,17 +67,17 @@ type t = private {
   update_time : string prop;
 }
 
-val aws_cleanrooms_collaboration :
+val register :
+  ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_cleanrooms_collaboration__timeouts ->
+  ?timeouts:timeouts ->
   creator_display_name:string prop ->
   creator_member_abilities:string prop list ->
   description:string prop ->
   name:string prop ->
   query_log_status:string prop ->
-  data_encryption_metadata:
-    aws_cleanrooms_collaboration__data_encryption_metadata list ->
-  member:aws_cleanrooms_collaboration__member list ->
+  data_encryption_metadata:data_encryption_metadata list ->
+  member:member list ->
   string ->
   t

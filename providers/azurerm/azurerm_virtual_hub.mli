@@ -2,9 +2,47 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_hub__route
-type azurerm_virtual_hub__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type route
+
+val route :
+  address_prefixes:string prop list ->
+  next_hop_ip_address:string prop ->
+  unit ->
+  route
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_virtual_hub
+
+val azurerm_virtual_hub :
+  ?address_prefix:string prop ->
+  ?hub_routing_preference:string prop ->
+  ?id:string prop ->
+  ?sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?virtual_router_auto_scale_min_capacity:float prop ->
+  ?virtual_wan_id:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  route:route list ->
+  unit ->
+  azurerm_virtual_hub
+
+val yojson_of_azurerm_virtual_hub : azurerm_virtual_hub -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   address_prefix : string prop;
@@ -22,7 +60,8 @@ type t = private {
   virtual_wan_id : string prop;
 }
 
-val azurerm_virtual_hub :
+val register :
+  ?tf_module:tf_module ->
   ?address_prefix:string prop ->
   ?hub_routing_preference:string prop ->
   ?id:string prop ->
@@ -30,10 +69,10 @@ val azurerm_virtual_hub :
   ?tags:(string * string prop) list ->
   ?virtual_router_auto_scale_min_capacity:float prop ->
   ?virtual_wan_id:string prop ->
-  ?timeouts:azurerm_virtual_hub__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  route:azurerm_virtual_hub__route list ->
+  route:route list ->
   string ->
   t

@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__custom_connector__error_handling_config = {
+type destination_flow_config__destination_connector_properties__custom_connector__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__custom_connector__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__custom_connector__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__custom_connector = {
+type destination_flow_config__destination_connector_properties__custom_connector = {
   custom_properties : (string * string prop) list option; [@option]
       (** custom_properties *)
   entity_name : string prop;  (** entity_name *)
@@ -22,397 +22,396 @@ type aws_appflow_flow__destination_flow_config__destination_connector_properties
   write_operation_type : string prop option; [@option]
       (** write_operation_type *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__custom_connector__error_handling_config
+    destination_flow_config__destination_connector_properties__custom_connector__error_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__custom_connector *)
+(** destination_flow_config__destination_connector_properties__custom_connector *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__customer_profiles = {
+type destination_flow_config__destination_connector_properties__customer_profiles = {
   domain_name : string prop;  (** domain_name *)
   object_type_name : string prop option; [@option]
       (** object_type_name *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__customer_profiles *)
+(** destination_flow_config__destination_connector_properties__customer_profiles *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__event_bridge__error_handling_config = {
+type destination_flow_config__destination_connector_properties__event_bridge__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__event_bridge__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__event_bridge__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__event_bridge = {
+type destination_flow_config__destination_connector_properties__event_bridge = {
   object_ : string prop; [@key "object"]  (** object *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__event_bridge__error_handling_config
+    destination_flow_config__destination_connector_properties__event_bridge__error_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__event_bridge *)
+(** destination_flow_config__destination_connector_properties__event_bridge *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__honeycode__error_handling_config = {
+type destination_flow_config__destination_connector_properties__honeycode__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__honeycode__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__honeycode__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__honeycode = {
+type destination_flow_config__destination_connector_properties__honeycode = {
   object_ : string prop; [@key "object"]  (** object *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__honeycode__error_handling_config
+    destination_flow_config__destination_connector_properties__honeycode__error_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__honeycode *)
+(** destination_flow_config__destination_connector_properties__honeycode *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__lookout_metrics =
+type destination_flow_config__destination_connector_properties__lookout_metrics =
   unit
 [@@deriving yojson_of]
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__marketo__error_handling_config = {
+type destination_flow_config__destination_connector_properties__marketo__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__marketo__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__marketo__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__marketo = {
+type destination_flow_config__destination_connector_properties__marketo = {
   object_ : string prop; [@key "object"]  (** object *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__marketo__error_handling_config
+    destination_flow_config__destination_connector_properties__marketo__error_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__marketo *)
+(** destination_flow_config__destination_connector_properties__marketo *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__redshift__error_handling_config = {
+type destination_flow_config__destination_connector_properties__redshift__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__redshift__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__redshift__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__redshift = {
+type destination_flow_config__destination_connector_properties__redshift = {
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   intermediate_bucket_name : string prop;
       (** intermediate_bucket_name *)
   object_ : string prop; [@key "object"]  (** object *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__redshift__error_handling_config
+    destination_flow_config__destination_connector_properties__redshift__error_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__redshift *)
+(** destination_flow_config__destination_connector_properties__redshift *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config = {
+type destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config = {
   aggregation_type : string prop option; [@option]
       (** aggregation_type *)
   target_file_size : float prop option; [@option]
       (** target_file_size *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config *)
+(** destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config = {
+type destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config = {
   prefix_format : string prop option; [@option]  (** prefix_format *)
   prefix_type : string prop option; [@option]  (** prefix_type *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config *)
+(** destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config = {
+type destination_flow_config__destination_connector_properties__s3__s3_output_format_config = {
   file_type : string prop option; [@option]  (** file_type *)
   preserve_source_data_typing : bool prop option; [@option]
       (** preserve_source_data_typing *)
   aggregation_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config
+    destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config
     list;
   prefix_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config
+    destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config *)
+(** destination_flow_config__destination_connector_properties__s3__s3_output_format_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__s3 = {
+type destination_flow_config__destination_connector_properties__s3 = {
   bucket_name : string prop;  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   s3_output_format_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__s3__s3_output_format_config
+    destination_flow_config__destination_connector_properties__s3__s3_output_format_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__s3 *)
+(** destination_flow_config__destination_connector_properties__s3 *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__salesforce__error_handling_config = {
+type destination_flow_config__destination_connector_properties__salesforce__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__salesforce__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__salesforce__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__salesforce = {
+type destination_flow_config__destination_connector_properties__salesforce = {
   id_field_names : string prop list option; [@option]
       (** id_field_names *)
   object_ : string prop; [@key "object"]  (** object *)
   write_operation_type : string prop option; [@option]
       (** write_operation_type *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__salesforce__error_handling_config
+    destination_flow_config__destination_connector_properties__salesforce__error_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__salesforce *)
+(** destination_flow_config__destination_connector_properties__salesforce *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data__error_handling_config = {
+type destination_flow_config__destination_connector_properties__sapo_data__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__sapo_data__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config = {
+type destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config *)
+(** destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data = {
+type destination_flow_config__destination_connector_properties__sapo_data = {
   id_field_names : string prop list option; [@option]
       (** id_field_names *)
   object_path : string prop;  (** object_path *)
   write_operation_type : string prop option; [@option]
       (** write_operation_type *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data__error_handling_config
+    destination_flow_config__destination_connector_properties__sapo_data__error_handling_config
     list;
   success_response_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config
+    destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data *)
+(** destination_flow_config__destination_connector_properties__sapo_data *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__snowflake__error_handling_config = {
+type destination_flow_config__destination_connector_properties__snowflake__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__snowflake__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__snowflake__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__snowflake = {
+type destination_flow_config__destination_connector_properties__snowflake = {
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   intermediate_bucket_name : string prop;
       (** intermediate_bucket_name *)
   object_ : string prop; [@key "object"]  (** object *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__snowflake__error_handling_config
+    destination_flow_config__destination_connector_properties__snowflake__error_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__snowflake *)
+(** destination_flow_config__destination_connector_properties__snowflake *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config = {
+type destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config = {
   aggregation_type : string prop option; [@option]
       (** aggregation_type *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config *)
+(** destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config = {
+type destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config = {
   prefix_format : string prop option; [@option]  (** prefix_format *)
   prefix_type : string prop;  (** prefix_type *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config *)
+(** destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config = {
+type destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config = {
   file_type : string prop option; [@option]  (** file_type *)
   aggregation_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config
+    destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config
     list;
   prefix_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config
+    destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config *)
+(** destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver = {
+type destination_flow_config__destination_connector_properties__upsolver = {
   bucket_name : string prop;  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   s3_output_format_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config
+    destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver *)
+(** destination_flow_config__destination_connector_properties__upsolver *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__zendesk__error_handling_config = {
+type destination_flow_config__destination_connector_properties__zendesk__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   fail_on_first_destination_error : bool prop option; [@option]
       (** fail_on_first_destination_error *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__zendesk__error_handling_config *)
+(** destination_flow_config__destination_connector_properties__zendesk__error_handling_config *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties__zendesk = {
+type destination_flow_config__destination_connector_properties__zendesk = {
   id_field_names : string prop list option; [@option]
       (** id_field_names *)
   object_ : string prop; [@key "object"]  (** object *)
   write_operation_type : string prop option; [@option]
       (** write_operation_type *)
   error_handling_config :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__zendesk__error_handling_config
+    destination_flow_config__destination_connector_properties__zendesk__error_handling_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties__zendesk *)
+(** destination_flow_config__destination_connector_properties__zendesk *)
 
-type aws_appflow_flow__destination_flow_config__destination_connector_properties = {
+type destination_flow_config__destination_connector_properties = {
   custom_connector :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__custom_connector
+    destination_flow_config__destination_connector_properties__custom_connector
     list;
   customer_profiles :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__customer_profiles
+    destination_flow_config__destination_connector_properties__customer_profiles
     list;
   event_bridge :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__event_bridge
+    destination_flow_config__destination_connector_properties__event_bridge
     list;
   honeycode :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__honeycode
+    destination_flow_config__destination_connector_properties__honeycode
     list;
   lookout_metrics :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__lookout_metrics
+    destination_flow_config__destination_connector_properties__lookout_metrics
     list;
   marketo :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__marketo
+    destination_flow_config__destination_connector_properties__marketo
     list;
   redshift :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__redshift
+    destination_flow_config__destination_connector_properties__redshift
     list;
   s3 :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__s3
+    destination_flow_config__destination_connector_properties__s3
     list;
   salesforce :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__salesforce
+    destination_flow_config__destination_connector_properties__salesforce
     list;
   sapo_data :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__sapo_data
+    destination_flow_config__destination_connector_properties__sapo_data
     list;
   snowflake :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__snowflake
+    destination_flow_config__destination_connector_properties__snowflake
     list;
   upsolver :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__upsolver
+    destination_flow_config__destination_connector_properties__upsolver
     list;
   zendesk :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties__zendesk
+    destination_flow_config__destination_connector_properties__zendesk
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config__destination_connector_properties *)
+(** destination_flow_config__destination_connector_properties *)
 
-type aws_appflow_flow__destination_flow_config = {
+type destination_flow_config = {
   api_version : string prop option; [@option]  (** api_version *)
   connector_profile_name : string prop option; [@option]
       (** connector_profile_name *)
   connector_type : string prop;  (** connector_type *)
   destination_connector_properties :
-    aws_appflow_flow__destination_flow_config__destination_connector_properties
-    list;
+    destination_flow_config__destination_connector_properties list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__destination_flow_config *)
+(** destination_flow_config *)
 
-type aws_appflow_flow__source_flow_config__incremental_pull_config = {
+type source_flow_config__incremental_pull_config = {
   datetime_type_field_name : string prop option; [@option]
       (** datetime_type_field_name *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__incremental_pull_config *)
+(** source_flow_config__incremental_pull_config *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__amplitude = {
+type source_flow_config__source_connector_properties__amplitude = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__amplitude *)
+(** source_flow_config__source_connector_properties__amplitude *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__custom_connector = {
+type source_flow_config__source_connector_properties__custom_connector = {
   custom_properties : (string * string prop) list option; [@option]
       (** custom_properties *)
   entity_name : string prop;  (** entity_name *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__custom_connector *)
+(** source_flow_config__source_connector_properties__custom_connector *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__datadog = {
+type source_flow_config__source_connector_properties__datadog = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__datadog *)
+(** source_flow_config__source_connector_properties__datadog *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__dynatrace = {
+type source_flow_config__source_connector_properties__dynatrace = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__dynatrace *)
+(** source_flow_config__source_connector_properties__dynatrace *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__google_analytics = {
+type source_flow_config__source_connector_properties__google_analytics = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__google_analytics *)
+(** source_flow_config__source_connector_properties__google_analytics *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__infor_nexus = {
+type source_flow_config__source_connector_properties__infor_nexus = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__infor_nexus *)
+(** source_flow_config__source_connector_properties__infor_nexus *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__marketo = {
+type source_flow_config__source_connector_properties__marketo = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__marketo *)
+(** source_flow_config__source_connector_properties__marketo *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__s3__s3_input_format_config = {
+type source_flow_config__source_connector_properties__s3__s3_input_format_config = {
   s3_input_file_type : string prop option; [@option]
       (** s3_input_file_type *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__s3__s3_input_format_config *)
+(** source_flow_config__source_connector_properties__s3__s3_input_format_config *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__s3 = {
+type source_flow_config__source_connector_properties__s3 = {
   bucket_name : string prop;  (** bucket_name *)
   bucket_prefix : string prop;  (** bucket_prefix *)
   s3_input_format_config :
-    aws_appflow_flow__source_flow_config__source_connector_properties__s3__s3_input_format_config
+    source_flow_config__source_connector_properties__s3__s3_input_format_config
     list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__s3 *)
+(** source_flow_config__source_connector_properties__s3 *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__salesforce = {
+type source_flow_config__source_connector_properties__salesforce = {
   enable_dynamic_field_update : bool prop option; [@option]
       (** enable_dynamic_field_update *)
   include_deleted_records : bool prop option; [@option]
@@ -420,39 +419,39 @@ type aws_appflow_flow__source_flow_config__source_connector_properties__salesfor
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__salesforce *)
+(** source_flow_config__source_connector_properties__salesforce *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__sapo_data = {
+type source_flow_config__source_connector_properties__sapo_data = {
   object_path : string prop;  (** object_path *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__sapo_data *)
+(** source_flow_config__source_connector_properties__sapo_data *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__service_now = {
+type source_flow_config__source_connector_properties__service_now = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__service_now *)
+(** source_flow_config__source_connector_properties__service_now *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__singular = {
+type source_flow_config__source_connector_properties__singular = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__singular *)
+(** source_flow_config__source_connector_properties__singular *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__slack = {
+type source_flow_config__source_connector_properties__slack = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__slack *)
+(** source_flow_config__source_connector_properties__slack *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__trendmicro = {
+type source_flow_config__source_connector_properties__trendmicro = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__trendmicro *)
+(** source_flow_config__source_connector_properties__trendmicro *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__veeva = {
+type source_flow_config__source_connector_properties__veeva = {
   document_type : string prop option; [@option]  (** document_type *)
   include_all_versions : bool prop option; [@option]
       (** include_all_versions *)
@@ -463,83 +462,66 @@ type aws_appflow_flow__source_flow_config__source_connector_properties__veeva = 
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__veeva *)
+(** source_flow_config__source_connector_properties__veeva *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties__zendesk = {
+type source_flow_config__source_connector_properties__zendesk = {
   object_ : string prop; [@key "object"]  (** object *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties__zendesk *)
+(** source_flow_config__source_connector_properties__zendesk *)
 
-type aws_appflow_flow__source_flow_config__source_connector_properties = {
+type source_flow_config__source_connector_properties = {
   amplitude :
-    aws_appflow_flow__source_flow_config__source_connector_properties__amplitude
-    list;
+    source_flow_config__source_connector_properties__amplitude list;
   custom_connector :
-    aws_appflow_flow__source_flow_config__source_connector_properties__custom_connector
+    source_flow_config__source_connector_properties__custom_connector
     list;
   datadog :
-    aws_appflow_flow__source_flow_config__source_connector_properties__datadog
-    list;
+    source_flow_config__source_connector_properties__datadog list;
   dynatrace :
-    aws_appflow_flow__source_flow_config__source_connector_properties__dynatrace
-    list;
+    source_flow_config__source_connector_properties__dynatrace list;
   google_analytics :
-    aws_appflow_flow__source_flow_config__source_connector_properties__google_analytics
+    source_flow_config__source_connector_properties__google_analytics
     list;
   infor_nexus :
-    aws_appflow_flow__source_flow_config__source_connector_properties__infor_nexus
-    list;
+    source_flow_config__source_connector_properties__infor_nexus list;
   marketo :
-    aws_appflow_flow__source_flow_config__source_connector_properties__marketo
-    list;
-  s3 :
-    aws_appflow_flow__source_flow_config__source_connector_properties__s3
-    list;
+    source_flow_config__source_connector_properties__marketo list;
+  s3 : source_flow_config__source_connector_properties__s3 list;
   salesforce :
-    aws_appflow_flow__source_flow_config__source_connector_properties__salesforce
-    list;
+    source_flow_config__source_connector_properties__salesforce list;
   sapo_data :
-    aws_appflow_flow__source_flow_config__source_connector_properties__sapo_data
-    list;
+    source_flow_config__source_connector_properties__sapo_data list;
   service_now :
-    aws_appflow_flow__source_flow_config__source_connector_properties__service_now
-    list;
+    source_flow_config__source_connector_properties__service_now list;
   singular :
-    aws_appflow_flow__source_flow_config__source_connector_properties__singular
-    list;
+    source_flow_config__source_connector_properties__singular list;
   slack :
-    aws_appflow_flow__source_flow_config__source_connector_properties__slack
-    list;
+    source_flow_config__source_connector_properties__slack list;
   trendmicro :
-    aws_appflow_flow__source_flow_config__source_connector_properties__trendmicro
-    list;
+    source_flow_config__source_connector_properties__trendmicro list;
   veeva :
-    aws_appflow_flow__source_flow_config__source_connector_properties__veeva
-    list;
+    source_flow_config__source_connector_properties__veeva list;
   zendesk :
-    aws_appflow_flow__source_flow_config__source_connector_properties__zendesk
-    list;
+    source_flow_config__source_connector_properties__zendesk list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config__source_connector_properties *)
+(** source_flow_config__source_connector_properties *)
 
-type aws_appflow_flow__source_flow_config = {
+type source_flow_config = {
   api_version : string prop option; [@option]  (** api_version *)
   connector_profile_name : string prop option; [@option]
       (** connector_profile_name *)
   connector_type : string prop;  (** connector_type *)
   incremental_pull_config :
-    aws_appflow_flow__source_flow_config__incremental_pull_config
-    list;
+    source_flow_config__incremental_pull_config list;
   source_connector_properties :
-    aws_appflow_flow__source_flow_config__source_connector_properties
-    list;
+    source_flow_config__source_connector_properties list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__source_flow_config *)
+(** source_flow_config *)
 
-type aws_appflow_flow__task__connector_operator = {
+type task__connector_operator = {
   amplitude : string prop option; [@option]  (** amplitude *)
   custom_connector : string prop option; [@option]
       (** custom_connector *)
@@ -560,9 +542,9 @@ type aws_appflow_flow__task__connector_operator = {
   zendesk : string prop option; [@option]  (** zendesk *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__task__connector_operator *)
+(** task__connector_operator *)
 
-type aws_appflow_flow__task = {
+type task = {
   destination_field : string prop option; [@option]
       (** destination_field *)
   source_fields : string prop list option; [@option]
@@ -570,13 +552,12 @@ type aws_appflow_flow__task = {
   task_properties : (string * string prop) list option; [@option]
       (** task_properties *)
   task_type : string prop;  (** task_type *)
-  connector_operator :
-    aws_appflow_flow__task__connector_operator list;
+  connector_operator : task__connector_operator list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__task *)
+(** task *)
 
-type aws_appflow_flow__trigger_config__trigger_properties__scheduled = {
+type trigger_config__trigger_properties__scheduled = {
   data_pull_mode : string prop option; [@option]
       (** data_pull_mode *)
   first_execution_from : string prop option; [@option]
@@ -591,23 +572,20 @@ type aws_appflow_flow__trigger_config__trigger_properties__scheduled = {
   timezone : string prop option; [@option]  (** timezone *)
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__trigger_config__trigger_properties__scheduled *)
+(** trigger_config__trigger_properties__scheduled *)
 
-type aws_appflow_flow__trigger_config__trigger_properties = {
-  scheduled :
-    aws_appflow_flow__trigger_config__trigger_properties__scheduled
-    list;
+type trigger_config__trigger_properties = {
+  scheduled : trigger_config__trigger_properties__scheduled list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__trigger_config__trigger_properties *)
+(** trigger_config__trigger_properties *)
 
-type aws_appflow_flow__trigger_config = {
+type trigger_config = {
   trigger_type : string prop;  (** trigger_type *)
-  trigger_properties :
-    aws_appflow_flow__trigger_config__trigger_properties list;
+  trigger_properties : trigger_config__trigger_properties list;
 }
 [@@deriving yojson_of]
-(** aws_appflow_flow__trigger_config *)
+(** trigger_config *)
 
 type aws_appflow_flow = {
   description : string prop option; [@option]  (** description *)
@@ -617,14 +595,461 @@ type aws_appflow_flow = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  destination_flow_config :
-    aws_appflow_flow__destination_flow_config list;
-  source_flow_config : aws_appflow_flow__source_flow_config list;
-  task : aws_appflow_flow__task list;
-  trigger_config : aws_appflow_flow__trigger_config list;
+  destination_flow_config : destination_flow_config list;
+  source_flow_config : source_flow_config list;
+  task : task list;
+  trigger_config : trigger_config list;
 }
 [@@deriving yojson_of]
 (** aws_appflow_flow *)
+
+let destination_flow_config__destination_connector_properties__custom_connector__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__custom_connector__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__custom_connector
+    ?custom_properties ?id_field_names ?write_operation_type
+    ~entity_name ~error_handling_config () :
+    destination_flow_config__destination_connector_properties__custom_connector
+    =
+  {
+    custom_properties;
+    entity_name;
+    id_field_names;
+    write_operation_type;
+    error_handling_config;
+  }
+
+let destination_flow_config__destination_connector_properties__customer_profiles
+    ?object_type_name ~domain_name () :
+    destination_flow_config__destination_connector_properties__customer_profiles
+    =
+  { domain_name; object_type_name }
+
+let destination_flow_config__destination_connector_properties__event_bridge__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__event_bridge__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__event_bridge
+    ~object_ ~error_handling_config () :
+    destination_flow_config__destination_connector_properties__event_bridge
+    =
+  { object_; error_handling_config }
+
+let destination_flow_config__destination_connector_properties__honeycode__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__honeycode__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__honeycode
+    ~object_ ~error_handling_config () :
+    destination_flow_config__destination_connector_properties__honeycode
+    =
+  { object_; error_handling_config }
+
+let destination_flow_config__destination_connector_properties__lookout_metrics
+    () =
+  ()
+
+let destination_flow_config__destination_connector_properties__marketo__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__marketo__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__marketo
+    ~object_ ~error_handling_config () :
+    destination_flow_config__destination_connector_properties__marketo
+    =
+  { object_; error_handling_config }
+
+let destination_flow_config__destination_connector_properties__redshift__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__redshift__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__redshift
+    ?bucket_prefix ~intermediate_bucket_name ~object_
+    ~error_handling_config () :
+    destination_flow_config__destination_connector_properties__redshift
+    =
+  {
+    bucket_prefix;
+    intermediate_bucket_name;
+    object_;
+    error_handling_config;
+  }
+
+let destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config
+    ?aggregation_type ?target_file_size () :
+    destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config
+    =
+  { aggregation_type; target_file_size }
+
+let destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config
+    ?prefix_format ?prefix_type () :
+    destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config
+    =
+  { prefix_format; prefix_type }
+
+let destination_flow_config__destination_connector_properties__s3__s3_output_format_config
+    ?file_type ?preserve_source_data_typing ~aggregation_config
+    ~prefix_config () :
+    destination_flow_config__destination_connector_properties__s3__s3_output_format_config
+    =
+  {
+    file_type;
+    preserve_source_data_typing;
+    aggregation_config;
+    prefix_config;
+  }
+
+let destination_flow_config__destination_connector_properties__s3
+    ?bucket_prefix ~bucket_name ~s3_output_format_config () :
+    destination_flow_config__destination_connector_properties__s3 =
+  { bucket_name; bucket_prefix; s3_output_format_config }
+
+let destination_flow_config__destination_connector_properties__salesforce__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__salesforce__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__salesforce
+    ?id_field_names ?write_operation_type ~object_
+    ~error_handling_config () :
+    destination_flow_config__destination_connector_properties__salesforce
+    =
+  {
+    id_field_names;
+    object_;
+    write_operation_type;
+    error_handling_config;
+  }
+
+let destination_flow_config__destination_connector_properties__sapo_data__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__sapo_data__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config
+    ?bucket_name ?bucket_prefix () :
+    destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config
+    =
+  { bucket_name; bucket_prefix }
+
+let destination_flow_config__destination_connector_properties__sapo_data
+    ?id_field_names ?write_operation_type ~object_path
+    ~error_handling_config ~success_response_handling_config () :
+    destination_flow_config__destination_connector_properties__sapo_data
+    =
+  {
+    id_field_names;
+    object_path;
+    write_operation_type;
+    error_handling_config;
+    success_response_handling_config;
+  }
+
+let destination_flow_config__destination_connector_properties__snowflake__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__snowflake__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__snowflake
+    ?bucket_prefix ~intermediate_bucket_name ~object_
+    ~error_handling_config () :
+    destination_flow_config__destination_connector_properties__snowflake
+    =
+  {
+    bucket_prefix;
+    intermediate_bucket_name;
+    object_;
+    error_handling_config;
+  }
+
+let destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config
+    ?aggregation_type () :
+    destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config
+    =
+  { aggregation_type }
+
+let destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config
+    ?prefix_format ~prefix_type () :
+    destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config
+    =
+  { prefix_format; prefix_type }
+
+let destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config
+    ?file_type ~aggregation_config ~prefix_config () :
+    destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config
+    =
+  { file_type; aggregation_config; prefix_config }
+
+let destination_flow_config__destination_connector_properties__upsolver
+    ?bucket_prefix ~bucket_name ~s3_output_format_config () :
+    destination_flow_config__destination_connector_properties__upsolver
+    =
+  { bucket_name; bucket_prefix; s3_output_format_config }
+
+let destination_flow_config__destination_connector_properties__zendesk__error_handling_config
+    ?bucket_name ?bucket_prefix ?fail_on_first_destination_error () :
+    destination_flow_config__destination_connector_properties__zendesk__error_handling_config
+    =
+  { bucket_name; bucket_prefix; fail_on_first_destination_error }
+
+let destination_flow_config__destination_connector_properties__zendesk
+    ?id_field_names ?write_operation_type ~object_
+    ~error_handling_config () :
+    destination_flow_config__destination_connector_properties__zendesk
+    =
+  {
+    id_field_names;
+    object_;
+    write_operation_type;
+    error_handling_config;
+  }
+
+let destination_flow_config__destination_connector_properties
+    ~custom_connector ~customer_profiles ~event_bridge ~honeycode
+    ~lookout_metrics ~marketo ~redshift ~s3 ~salesforce ~sapo_data
+    ~snowflake ~upsolver ~zendesk () :
+    destination_flow_config__destination_connector_properties =
+  {
+    custom_connector;
+    customer_profiles;
+    event_bridge;
+    honeycode;
+    lookout_metrics;
+    marketo;
+    redshift;
+    s3;
+    salesforce;
+    sapo_data;
+    snowflake;
+    upsolver;
+    zendesk;
+  }
+
+let destination_flow_config ?api_version ?connector_profile_name
+    ~connector_type ~destination_connector_properties () :
+    destination_flow_config =
+  {
+    api_version;
+    connector_profile_name;
+    connector_type;
+    destination_connector_properties;
+  }
+
+let source_flow_config__incremental_pull_config
+    ?datetime_type_field_name () :
+    source_flow_config__incremental_pull_config =
+  { datetime_type_field_name }
+
+let source_flow_config__source_connector_properties__amplitude
+    ~object_ () :
+    source_flow_config__source_connector_properties__amplitude =
+  { object_ }
+
+let source_flow_config__source_connector_properties__custom_connector
+    ?custom_properties ~entity_name () :
+    source_flow_config__source_connector_properties__custom_connector
+    =
+  { custom_properties; entity_name }
+
+let source_flow_config__source_connector_properties__datadog ~object_
+    () : source_flow_config__source_connector_properties__datadog =
+  { object_ }
+
+let source_flow_config__source_connector_properties__dynatrace
+    ~object_ () :
+    source_flow_config__source_connector_properties__dynatrace =
+  { object_ }
+
+let source_flow_config__source_connector_properties__google_analytics
+    ~object_ () :
+    source_flow_config__source_connector_properties__google_analytics
+    =
+  { object_ }
+
+let source_flow_config__source_connector_properties__infor_nexus
+    ~object_ () :
+    source_flow_config__source_connector_properties__infor_nexus =
+  { object_ }
+
+let source_flow_config__source_connector_properties__marketo ~object_
+    () : source_flow_config__source_connector_properties__marketo =
+  { object_ }
+
+let source_flow_config__source_connector_properties__s3__s3_input_format_config
+    ?s3_input_file_type () :
+    source_flow_config__source_connector_properties__s3__s3_input_format_config
+    =
+  { s3_input_file_type }
+
+let source_flow_config__source_connector_properties__s3 ~bucket_name
+    ~bucket_prefix ~s3_input_format_config () :
+    source_flow_config__source_connector_properties__s3 =
+  { bucket_name; bucket_prefix; s3_input_format_config }
+
+let source_flow_config__source_connector_properties__salesforce
+    ?enable_dynamic_field_update ?include_deleted_records ~object_ ()
+    : source_flow_config__source_connector_properties__salesforce =
+  { enable_dynamic_field_update; include_deleted_records; object_ }
+
+let source_flow_config__source_connector_properties__sapo_data
+    ~object_path () :
+    source_flow_config__source_connector_properties__sapo_data =
+  { object_path }
+
+let source_flow_config__source_connector_properties__service_now
+    ~object_ () :
+    source_flow_config__source_connector_properties__service_now =
+  { object_ }
+
+let source_flow_config__source_connector_properties__singular
+    ~object_ () :
+    source_flow_config__source_connector_properties__singular =
+  { object_ }
+
+let source_flow_config__source_connector_properties__slack ~object_
+    () : source_flow_config__source_connector_properties__slack =
+  { object_ }
+
+let source_flow_config__source_connector_properties__trendmicro
+    ~object_ () :
+    source_flow_config__source_connector_properties__trendmicro =
+  { object_ }
+
+let source_flow_config__source_connector_properties__veeva
+    ?document_type ?include_all_versions ?include_renditions
+    ?include_source_files ~object_ () :
+    source_flow_config__source_connector_properties__veeva =
+  {
+    document_type;
+    include_all_versions;
+    include_renditions;
+    include_source_files;
+    object_;
+  }
+
+let source_flow_config__source_connector_properties__zendesk ~object_
+    () : source_flow_config__source_connector_properties__zendesk =
+  { object_ }
+
+let source_flow_config__source_connector_properties ~amplitude
+    ~custom_connector ~datadog ~dynatrace ~google_analytics
+    ~infor_nexus ~marketo ~s3 ~salesforce ~sapo_data ~service_now
+    ~singular ~slack ~trendmicro ~veeva ~zendesk () :
+    source_flow_config__source_connector_properties =
+  {
+    amplitude;
+    custom_connector;
+    datadog;
+    dynatrace;
+    google_analytics;
+    infor_nexus;
+    marketo;
+    s3;
+    salesforce;
+    sapo_data;
+    service_now;
+    singular;
+    slack;
+    trendmicro;
+    veeva;
+    zendesk;
+  }
+
+let source_flow_config ?api_version ?connector_profile_name
+    ~connector_type ~incremental_pull_config
+    ~source_connector_properties () : source_flow_config =
+  {
+    api_version;
+    connector_profile_name;
+    connector_type;
+    incremental_pull_config;
+    source_connector_properties;
+  }
+
+let task__connector_operator ?amplitude ?custom_connector ?datadog
+    ?dynatrace ?google_analytics ?infor_nexus ?marketo ?s3
+    ?salesforce ?sapo_data ?service_now ?singular ?slack ?trendmicro
+    ?veeva ?zendesk () : task__connector_operator =
+  {
+    amplitude;
+    custom_connector;
+    datadog;
+    dynatrace;
+    google_analytics;
+    infor_nexus;
+    marketo;
+    s3;
+    salesforce;
+    sapo_data;
+    service_now;
+    singular;
+    slack;
+    trendmicro;
+    veeva;
+    zendesk;
+  }
+
+let task ?destination_field ?source_fields ?task_properties
+    ~task_type ~connector_operator () : task =
+  {
+    destination_field;
+    source_fields;
+    task_properties;
+    task_type;
+    connector_operator;
+  }
+
+let trigger_config__trigger_properties__scheduled ?data_pull_mode
+    ?first_execution_from ?schedule_end_time ?schedule_offset
+    ?schedule_start_time ?timezone ~schedule_expression () :
+    trigger_config__trigger_properties__scheduled =
+  {
+    data_pull_mode;
+    first_execution_from;
+    schedule_end_time;
+    schedule_expression;
+    schedule_offset;
+    schedule_start_time;
+    timezone;
+  }
+
+let trigger_config__trigger_properties ~scheduled () :
+    trigger_config__trigger_properties =
+  { scheduled }
+
+let trigger_config ~trigger_type ~trigger_properties () :
+    trigger_config =
+  { trigger_type; trigger_properties }
+
+let aws_appflow_flow ?description ?id ?kms_arn ?tags ?tags_all ~name
+    ~destination_flow_config ~source_flow_config ~task
+    ~trigger_config () : aws_appflow_flow =
+  {
+    description;
+    id;
+    kms_arn;
+    name;
+    tags;
+    tags_all;
+    destination_flow_config;
+    source_flow_config;
+    task;
+    trigger_config;
+  }
 
 type t = {
   arn : string prop;
@@ -637,26 +1062,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appflow_flow ?description ?id ?kms_arn ?tags ?tags_all ~name
-    ~destination_flow_config ~source_flow_config ~task
+let register ?tf_module ?description ?id ?kms_arn ?tags ?tags_all
+    ~name ~destination_flow_config ~source_flow_config ~task
     ~trigger_config __resource_id =
   let __resource_type = "aws_appflow_flow" in
   let __resource =
-    ({
-       description;
-       id;
-       kms_arn;
-       name;
-       tags;
-       tags_all;
-       destination_flow_config;
-       source_flow_config;
-       task;
-       trigger_config;
-     }
-      : aws_appflow_flow)
+    aws_appflow_flow ?description ?id ?kms_arn ?tags ?tags_all ~name
+      ~destination_flow_config ~source_flow_config ~task
+      ~trigger_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appflow_flow __resource);
   let __resource_attributes =
     ({

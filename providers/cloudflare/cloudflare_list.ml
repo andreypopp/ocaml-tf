@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type cloudflare_list__item__value__hostname = {
+type item__value__hostname = {
   url_hostname : string prop;
       (** The FQDN to match on. Wildcard sub-domain matching is allowed. Eg. *.abc.com. *)
 }
 [@@deriving yojson_of]
-(** cloudflare_list__item__value__hostname *)
+(** item__value__hostname *)
 
-type cloudflare_list__item__value__redirect = {
+type item__value__redirect = {
   include_subdomains : string prop option; [@option]
       (** Whether the redirect also matches subdomains of the source url. Available values: `disabled`, `enabled`. *)
   preserve_path_suffix : string prop option; [@option]
@@ -26,24 +26,24 @@ type cloudflare_list__item__value__redirect = {
   target_url : string prop;  (** The target url of the redirect. *)
 }
 [@@deriving yojson_of]
-(** cloudflare_list__item__value__redirect *)
+(** item__value__redirect *)
 
-type cloudflare_list__item__value = {
+type item__value = {
   asn : float prop option; [@option]  (** asn *)
   ip : string prop option; [@option]  (** ip *)
-  hostname : cloudflare_list__item__value__hostname list;
-  redirect : cloudflare_list__item__value__redirect list;
+  hostname : item__value__hostname list;
+  redirect : item__value__redirect list;
 }
 [@@deriving yojson_of]
-(** cloudflare_list__item__value *)
+(** item__value *)
 
-type cloudflare_list__item = {
+type item = {
   comment : string prop option; [@option]
       (** An optional comment for the item. *)
-  value : cloudflare_list__item__value list;
+  value : item__value list;
 }
 [@@deriving yojson_of]
-(** cloudflare_list__item *)
+(** item *)
 
 type cloudflare_list = {
   account_id : string prop;
@@ -55,12 +55,37 @@ type cloudflare_list = {
       (** The type of items the list will contain. Available values: `ip`, `redirect`, `hostname`, `asn`. **Modifying this attribute will force creation of a new resource.** *)
   name : string prop;
       (** The name of the list. **Modifying this attribute will force creation of a new resource.** *)
-  item : cloudflare_list__item list;
+  item : item list;
 }
 [@@deriving yojson_of]
 (** Provides Lists (IPs, Redirects, Hostname, ASNs) to be used in Edge
 Rules Engine across all zones within the same account.
  *)
+
+let item__value__hostname ~url_hostname () : item__value__hostname =
+  { url_hostname }
+
+let item__value__redirect ?include_subdomains ?preserve_path_suffix
+    ?preserve_query_string ?status_code ?subpath_matching ~source_url
+    ~target_url () : item__value__redirect =
+  {
+    include_subdomains;
+    preserve_path_suffix;
+    preserve_query_string;
+    source_url;
+    status_code;
+    subpath_matching;
+    target_url;
+  }
+
+let item__value ?asn ?ip ~hostname ~redirect () : item__value =
+  { asn; ip; hostname; redirect }
+
+let item ?comment ~value () : item = { comment; value }
+
+let cloudflare_list ?description ?id ~account_id ~kind ~name ~item ()
+    : cloudflare_list =
+  { account_id; description; id; kind; name; item }
 
 type t = {
   account_id : string prop;
@@ -70,14 +95,13 @@ type t = {
   name : string prop;
 }
 
-let cloudflare_list ?description ?id ~account_id ~kind ~name ~item
-    __resource_id =
+let register ?tf_module ?description ?id ~account_id ~kind ~name
+    ~item __resource_id =
   let __resource_type = "cloudflare_list" in
   let __resource =
-    ({ account_id; description; id; kind; name; item }
-      : cloudflare_list)
+    cloudflare_list ?description ?id ~account_id ~kind ~name ~item ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_list __resource);
   let __resource_attributes =
     ({

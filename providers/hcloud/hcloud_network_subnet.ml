@@ -15,6 +15,10 @@ type hcloud_network_subnet = {
 [@@deriving yojson_of]
 (** hcloud_network_subnet *)
 
+let hcloud_network_subnet ?id ?vswitch_id ~ip_range ~network_id
+    ~network_zone ~type_ () : hcloud_network_subnet =
+  { id; ip_range; network_id; network_zone; type_; vswitch_id }
+
 type t = {
   gateway : string prop;
   id : string prop;
@@ -25,14 +29,14 @@ type t = {
   vswitch_id : float prop;
 }
 
-let hcloud_network_subnet ?id ?vswitch_id ~ip_range ~network_id
+let register ?tf_module ?id ?vswitch_id ~ip_range ~network_id
     ~network_zone ~type_ __resource_id =
   let __resource_type = "hcloud_network_subnet" in
   let __resource =
-    ({ id; ip_range; network_id; network_zone; type_; vswitch_id }
-      : hcloud_network_subnet)
+    hcloud_network_subnet ?id ?vswitch_id ~ip_range ~network_id
+      ~network_zone ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_network_subnet __resource);
   let __resource_attributes =
     ({

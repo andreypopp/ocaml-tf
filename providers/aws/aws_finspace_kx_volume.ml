@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type aws_finspace_kx_volume__nas1_configuration = {
+type nas1_configuration = {
   size : float prop;  (** size *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_finspace_kx_volume__nas1_configuration *)
+(** nas1_configuration *)
 
-type aws_finspace_kx_volume__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_finspace_kx_volume__timeouts *)
+(** timeouts *)
 
-type aws_finspace_kx_volume__attached_clusters = {
+type attached_clusters = {
   cluster_name : string prop;  (** cluster_name *)
   cluster_status : string prop;  (** cluster_status *)
   cluster_type : string prop;  (** cluster_type *)
@@ -37,17 +37,38 @@ type aws_finspace_kx_volume = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop; [@key "type"]  (** type *)
-  nas1_configuration :
-    aws_finspace_kx_volume__nas1_configuration list;
-  timeouts : aws_finspace_kx_volume__timeouts option;
+  nas1_configuration : nas1_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_volume *)
 
+let nas1_configuration ~size ~type_ () : nas1_configuration =
+  { size; type_ }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_finspace_kx_volume ?description ?id ?tags ?tags_all ?timeouts
+    ~availability_zones ~az_mode ~environment_id ~name ~type_
+    ~nas1_configuration () : aws_finspace_kx_volume =
+  {
+    availability_zones;
+    az_mode;
+    description;
+    environment_id;
+    id;
+    name;
+    tags;
+    tags_all;
+    type_;
+    nas1_configuration;
+    timeouts;
+  }
+
 type t = {
   arn : string prop;
-  attached_clusters :
-    aws_finspace_kx_volume__attached_clusters list prop;
+  attached_clusters : attached_clusters list prop;
   availability_zones : string list prop;
   az_mode : string prop;
   created_timestamp : string prop;
@@ -63,27 +84,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_finspace_kx_volume ?description ?id ?tags ?tags_all ?timeouts
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
     ~availability_zones ~az_mode ~environment_id ~name ~type_
     ~nas1_configuration __resource_id =
   let __resource_type = "aws_finspace_kx_volume" in
   let __resource =
-    ({
-       availability_zones;
-       az_mode;
-       description;
-       environment_id;
-       id;
-       name;
-       tags;
-       tags_all;
-       type_;
-       nas1_configuration;
-       timeouts;
-     }
-      : aws_finspace_kx_volume)
+    aws_finspace_kx_volume ?description ?id ?tags ?tags_all ?timeouts
+      ~availability_zones ~az_mode ~environment_id ~name ~type_
+      ~nas1_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_finspace_kx_volume __resource);
   let __resource_attributes =
     ({

@@ -18,6 +18,19 @@ type aws_dms_replication_subnet_group = {
 [@@deriving yojson_of]
 (** aws_dms_replication_subnet_group *)
 
+let aws_dms_replication_subnet_group ?id ?tags ?tags_all
+    ~replication_subnet_group_description
+    ~replication_subnet_group_id ~subnet_ids () :
+    aws_dms_replication_subnet_group =
+  {
+    id;
+    replication_subnet_group_description;
+    replication_subnet_group_id;
+    subnet_ids;
+    tags;
+    tags_all;
+  }
+
 type t = {
   id : string prop;
   replication_subnet_group_arn : string prop;
@@ -29,22 +42,16 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_dms_replication_subnet_group ?id ?tags ?tags_all
+let register ?tf_module ?id ?tags ?tags_all
     ~replication_subnet_group_description
     ~replication_subnet_group_id ~subnet_ids __resource_id =
   let __resource_type = "aws_dms_replication_subnet_group" in
   let __resource =
-    ({
-       id;
-       replication_subnet_group_description;
-       replication_subnet_group_id;
-       subnet_ids;
-       tags;
-       tags_all;
-     }
-      : aws_dms_replication_subnet_group)
+    aws_dms_replication_subnet_group ?id ?tags ?tags_all
+      ~replication_subnet_group_description
+      ~replication_subnet_group_id ~subnet_ids ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dms_replication_subnet_group __resource);
   let __resource_attributes =
     ({

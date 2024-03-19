@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_hostname_tls_setting_ciphers
+
+val cloudflare_hostname_tls_setting_ciphers :
+  ?id:string prop ->
+  ?ports:float prop list ->
+  hostname:string prop ->
+  value:string prop list ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_hostname_tls_setting_ciphers
+
+val yojson_of_cloudflare_hostname_tls_setting_ciphers :
+  cloudflare_hostname_tls_setting_ciphers -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created_at : string prop;
@@ -14,7 +30,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_hostname_tls_setting_ciphers :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ports:float prop list ->
   hostname:string prop ->

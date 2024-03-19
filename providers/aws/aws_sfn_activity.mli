@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_sfn_activity
+
+val aws_sfn_activity :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  aws_sfn_activity
+
+val yojson_of_aws_sfn_activity : aws_sfn_activity -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_date : string prop;
@@ -12,7 +26,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_sfn_activity :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

@@ -15,6 +15,18 @@ type aws_cloudwatch_event_archive = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_archive *)
 
+let aws_cloudwatch_event_archive ?description ?event_pattern ?id
+    ?retention_days ~event_source_arn ~name () :
+    aws_cloudwatch_event_archive =
+  {
+    description;
+    event_pattern;
+    event_source_arn;
+    id;
+    name;
+    retention_days;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -25,21 +37,14 @@ type t = {
   retention_days : float prop;
 }
 
-let aws_cloudwatch_event_archive ?description ?event_pattern ?id
+let register ?tf_module ?description ?event_pattern ?id
     ?retention_days ~event_source_arn ~name __resource_id =
   let __resource_type = "aws_cloudwatch_event_archive" in
   let __resource =
-    ({
-       description;
-       event_pattern;
-       event_source_arn;
-       id;
-       name;
-       retention_days;
-     }
-      : aws_cloudwatch_event_archive)
+    aws_cloudwatch_event_archive ?description ?event_pattern ?id
+      ?retention_days ~event_source_arn ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_archive __resource);
   let __resource_attributes =
     ({

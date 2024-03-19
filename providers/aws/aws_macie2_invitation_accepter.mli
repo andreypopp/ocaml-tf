@@ -2,8 +2,25 @@
 
 open! Tf.Prelude
 
-type aws_macie2_invitation_accepter__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_macie2_invitation_accepter
+
+val aws_macie2_invitation_accepter :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  administrator_account_id:string prop ->
+  unit ->
+  aws_macie2_invitation_accepter
+
+val yojson_of_aws_macie2_invitation_accepter :
+  aws_macie2_invitation_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   administrator_account_id : string prop;
@@ -11,9 +28,10 @@ type t = private {
   invitation_id : string prop;
 }
 
-val aws_macie2_invitation_accepter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_macie2_invitation_accepter__timeouts ->
+  ?timeouts:timeouts ->
   administrator_account_id:string prop ->
   string ->
   t

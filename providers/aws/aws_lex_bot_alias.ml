@@ -4,31 +4,29 @@
 
 open! Tf.Prelude
 
-type aws_lex_bot_alias__conversation_logs__log_settings = {
+type conversation_logs__log_settings = {
   destination : string prop;  (** destination *)
   kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
   log_type : string prop;  (** log_type *)
   resource_arn : string prop;  (** resource_arn *)
-  resource_prefix : string prop;  (** resource_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_lex_bot_alias__conversation_logs__log_settings *)
+(** conversation_logs__log_settings *)
 
-type aws_lex_bot_alias__conversation_logs = {
+type conversation_logs = {
   iam_role_arn : string prop;  (** iam_role_arn *)
-  log_settings :
-    aws_lex_bot_alias__conversation_logs__log_settings list;
+  log_settings : conversation_logs__log_settings list;
 }
 [@@deriving yojson_of]
-(** aws_lex_bot_alias__conversation_logs *)
+(** conversation_logs *)
 
-type aws_lex_bot_alias__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lex_bot_alias__timeouts *)
+(** timeouts *)
 
 type aws_lex_bot_alias = {
   bot_name : string prop;  (** bot_name *)
@@ -36,11 +34,34 @@ type aws_lex_bot_alias = {
   description : string prop option; [@option]  (** description *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  conversation_logs : aws_lex_bot_alias__conversation_logs list;
-  timeouts : aws_lex_bot_alias__timeouts option;
+  conversation_logs : conversation_logs list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lex_bot_alias *)
+
+let conversation_logs__log_settings ?kms_key_arn ~destination
+    ~log_type ~resource_arn () : conversation_logs__log_settings =
+  { destination; kms_key_arn; log_type; resource_arn }
+
+let conversation_logs ~iam_role_arn ~log_settings () :
+    conversation_logs =
+  { iam_role_arn; log_settings }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
+    ~bot_version ~name ~conversation_logs () : aws_lex_bot_alias =
+  {
+    bot_name;
+    bot_version;
+    description;
+    id;
+    name;
+    conversation_logs;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -54,22 +75,14 @@ type t = {
   name : string prop;
 }
 
-let aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
+let register ?tf_module ?description ?id ?timeouts ~bot_name
     ~bot_version ~name ~conversation_logs __resource_id =
   let __resource_type = "aws_lex_bot_alias" in
   let __resource =
-    ({
-       bot_name;
-       bot_version;
-       description;
-       id;
-       name;
-       conversation_logs;
-       timeouts;
-     }
-      : aws_lex_bot_alias)
+    aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
+      ~bot_version ~name ~conversation_logs ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lex_bot_alias __resource);
   let __resource_attributes =
     ({

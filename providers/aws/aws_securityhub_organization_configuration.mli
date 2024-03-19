@@ -2,10 +2,39 @@
 
 open! Tf.Prelude
 
-type aws_securityhub_organization_configuration__organization_configuration
+(** RESOURCE SERIALIZATION *)
 
-type aws_securityhub_organization_configuration__timeouts
+type organization_configuration
+
+val organization_configuration :
+  configuration_type:string prop ->
+  unit ->
+  organization_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_securityhub_organization_configuration
+
+val aws_securityhub_organization_configuration :
+  ?auto_enable_standards:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  auto_enable:bool prop ->
+  organization_configuration:organization_configuration list ->
+  unit ->
+  aws_securityhub_organization_configuration
+
+val yojson_of_aws_securityhub_organization_configuration :
+  aws_securityhub_organization_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_enable : bool prop;
@@ -13,13 +42,12 @@ type t = private {
   id : string prop;
 }
 
-val aws_securityhub_organization_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?auto_enable_standards:string prop ->
   ?id:string prop ->
-  ?timeouts:aws_securityhub_organization_configuration__timeouts ->
+  ?timeouts:timeouts ->
   auto_enable:bool prop ->
-  organization_configuration:
-    aws_securityhub_organization_configuration__organization_configuration
-    list ->
+  organization_configuration:organization_configuration list ->
   string ->
   t

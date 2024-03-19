@@ -12,6 +12,10 @@ type aws_licensemanager_grant_accepter = {
 [@@deriving yojson_of]
 (** aws_licensemanager_grant_accepter *)
 
+let aws_licensemanager_grant_accepter ?id ~grant_arn () :
+    aws_licensemanager_grant_accepter =
+  { grant_arn; id }
+
 type t = {
   allowed_operations : string list prop;
   grant_arn : string prop;
@@ -25,12 +29,12 @@ type t = {
   version : string prop;
 }
 
-let aws_licensemanager_grant_accepter ?id ~grant_arn __resource_id =
+let register ?tf_module ?id ~grant_arn __resource_id =
   let __resource_type = "aws_licensemanager_grant_accepter" in
   let __resource =
-    ({ grant_arn; id } : aws_licensemanager_grant_accepter)
+    aws_licensemanager_grant_accepter ?id ~grant_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_licensemanager_grant_accepter __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_certificate__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_app_service_certificate
+
+val azurerm_app_service_certificate :
+  ?app_service_plan_id:string prop ->
+  ?id:string prop ->
+  ?key_vault_id:string prop ->
+  ?key_vault_secret_id:string prop ->
+  ?password:string prop ->
+  ?pfx_blob:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_app_service_certificate
+
+val yojson_of_azurerm_app_service_certificate :
+  azurerm_app_service_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_service_plan_id : string prop;
@@ -26,7 +57,8 @@ type t = private {
   thumbprint : string prop;
 }
 
-val azurerm_app_service_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?app_service_plan_id:string prop ->
   ?id:string prop ->
   ?key_vault_id:string prop ->
@@ -34,7 +66,7 @@ val azurerm_app_service_certificate :
   ?password:string prop ->
   ?pfx_blob:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_app_service_certificate__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

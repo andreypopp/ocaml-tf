@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_storage_object_access_control__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_storage_object_access_control__timeouts *)
+(** timeouts *)
 
-type google_storage_object_access_control__project_team = {
+type project_team = {
   project_number : string prop;  (** project_number *)
   team : string prop;  (** team *)
 }
@@ -35,10 +35,18 @@ type google_storage_object_access_control = {
       (** The name of the object to apply the access control to. *)
   role : string prop;
       (** The access permission for the entity. Possible values: [OWNER, READER] *)
-  timeouts : google_storage_object_access_control__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_storage_object_access_control *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_storage_object_access_control ?id ?timeouts ~bucket
+    ~entity ~object_ ~role () : google_storage_object_access_control
+    =
+  { bucket; entity; id; object_; role; timeouts }
 
 type t = {
   bucket : string prop;
@@ -49,19 +57,18 @@ type t = {
   generation : float prop;
   id : string prop;
   object_ : string prop;
-  project_team :
-    google_storage_object_access_control__project_team list prop;
+  project_team : project_team list prop;
   role : string prop;
 }
 
-let google_storage_object_access_control ?id ?timeouts ~bucket
-    ~entity ~object_ ~role __resource_id =
+let register ?tf_module ?id ?timeouts ~bucket ~entity ~object_ ~role
+    __resource_id =
   let __resource_type = "google_storage_object_access_control" in
   let __resource =
-    ({ bucket; entity; id; object_; role; timeouts }
-      : google_storage_object_access_control)
+    google_storage_object_access_control ?id ?timeouts ~bucket
+      ~entity ~object_ ~role ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_object_access_control __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_endpoint_eventhub__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_endpoint_eventhub__timeouts *)
+(** timeouts *)
 
 type azurerm_iothub_endpoint_eventhub = {
   authentication_type : string prop option; [@option]
@@ -25,10 +25,30 @@ type azurerm_iothub_endpoint_eventhub = {
   iothub_id : string prop;  (** iothub_id *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts : azurerm_iothub_endpoint_eventhub__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_endpoint_eventhub *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iothub_endpoint_eventhub ?authentication_type
+    ?connection_string ?endpoint_uri ?entity_path ?id ?identity_id
+    ?timeouts ~iothub_id ~name ~resource_group_name () :
+    azurerm_iothub_endpoint_eventhub =
+  {
+    authentication_type;
+    connection_string;
+    endpoint_uri;
+    entity_path;
+    id;
+    identity_id;
+    iothub_id;
+    name;
+    resource_group_name;
+    timeouts;
+  }
 
 type t = {
   authentication_type : string prop;
@@ -42,26 +62,16 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_iothub_endpoint_eventhub ?authentication_type
-    ?connection_string ?endpoint_uri ?entity_path ?id ?identity_id
-    ?timeouts ~iothub_id ~name ~resource_group_name __resource_id =
+let register ?tf_module ?authentication_type ?connection_string
+    ?endpoint_uri ?entity_path ?id ?identity_id ?timeouts ~iothub_id
+    ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_iothub_endpoint_eventhub" in
   let __resource =
-    ({
-       authentication_type;
-       connection_string;
-       endpoint_uri;
-       entity_path;
-       id;
-       identity_id;
-       iothub_id;
-       name;
-       resource_group_name;
-       timeouts;
-     }
-      : azurerm_iothub_endpoint_eventhub)
+    azurerm_iothub_endpoint_eventhub ?authentication_type
+      ?connection_string ?endpoint_uri ?entity_path ?id ?identity_id
+      ?timeouts ~iothub_id ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_endpoint_eventhub __resource);
   let __resource_attributes =
     ({

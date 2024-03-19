@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_vpc_endpoint_security_group_association
+
+val aws_vpc_endpoint_security_group_association :
+  ?id:string prop ->
+  ?replace_default_association:bool prop ->
+  security_group_id:string prop ->
+  vpc_endpoint_id:string prop ->
+  unit ->
+  aws_vpc_endpoint_security_group_association
+
+val yojson_of_aws_vpc_endpoint_security_group_association :
+  aws_vpc_endpoint_security_group_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,7 +26,8 @@ type t = private {
   vpc_endpoint_id : string prop;
 }
 
-val aws_vpc_endpoint_security_group_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?replace_default_association:bool prop ->
   security_group_id:string prop ->

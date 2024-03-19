@@ -16,6 +16,10 @@ type aws_apigatewayv2_vpc_link = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_vpc_link *)
 
+let aws_apigatewayv2_vpc_link ?id ?tags ?tags_all ~name
+    ~security_group_ids ~subnet_ids () : aws_apigatewayv2_vpc_link =
+  { id; name; security_group_ids; subnet_ids; tags; tags_all }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -26,14 +30,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_apigatewayv2_vpc_link ?id ?tags ?tags_all ~name
-    ~security_group_ids ~subnet_ids __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~name ~security_group_ids
+    ~subnet_ids __resource_id =
   let __resource_type = "aws_apigatewayv2_vpc_link" in
   let __resource =
-    ({ id; name; security_group_ids; subnet_ids; tags; tags_all }
-      : aws_apigatewayv2_vpc_link)
+    aws_apigatewayv2_vpc_link ?id ?tags ?tags_all ~name
+      ~security_group_ids ~subnet_ids ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_vpc_link __resource);
   let __resource_attributes =
     ({

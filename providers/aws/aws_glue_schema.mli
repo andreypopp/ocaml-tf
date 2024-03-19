@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_glue_schema
+
+val aws_glue_schema :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?registry_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  compatibility:string prop ->
+  data_format:string prop ->
+  schema_definition:string prop ->
+  schema_name:string prop ->
+  unit ->
+  aws_glue_schema
+
+val yojson_of_aws_glue_schema : aws_glue_schema -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,7 +40,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_glue_schema :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?registry_arn:string prop ->

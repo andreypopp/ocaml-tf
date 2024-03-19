@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_glacier_vault__notification = {
+type notification = {
   events : string prop list;  (** events *)
   sns_topic : string prop;  (** sns_topic *)
 }
 [@@deriving yojson_of]
-(** aws_glacier_vault__notification *)
+(** notification *)
 
 type aws_glacier_vault = {
   access_policy : string prop option; [@option]  (** access_policy *)
@@ -18,10 +18,17 @@ type aws_glacier_vault = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  notification : aws_glacier_vault__notification list;
+  notification : notification list;
 }
 [@@deriving yojson_of]
 (** aws_glacier_vault *)
+
+let notification ~events ~sns_topic () : notification =
+  { events; sns_topic }
+
+let aws_glacier_vault ?access_policy ?id ?tags ?tags_all ~name
+    ~notification () : aws_glacier_vault =
+  { access_policy; id; name; tags; tags_all; notification }
 
 type t = {
   access_policy : string prop;
@@ -33,14 +40,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_glacier_vault ?access_policy ?id ?tags ?tags_all ~name
+let register ?tf_module ?access_policy ?id ?tags ?tags_all ~name
     ~notification __resource_id =
   let __resource_type = "aws_glacier_vault" in
   let __resource =
-    ({ access_policy; id; name; tags; tags_all; notification }
-      : aws_glacier_vault)
+    aws_glacier_vault ?access_policy ?id ?tags ?tags_all ~name
+      ~notification ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glacier_vault __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dataproc_autoscaling_policy__basic_algorithm__yarn_config = {
+type basic_algorithm__yarn_config = {
   graceful_decommission_timeout : string prop;
       (** Timeout for YARN graceful decommissioning of Node Managers. Specifies the
 duration to wait for jobs to complete before forcefully removing workers
@@ -45,20 +45,18 @@ Bounds: [0.0, 1.0]. Default: 0.0. *)
 [@@deriving yojson_of]
 (** YARN autoscaling configuration. *)
 
-type google_dataproc_autoscaling_policy__basic_algorithm = {
+type basic_algorithm = {
   cooldown_period : string prop option; [@option]
       (** Duration between scaling events. A scaling period starts after the
 update operation from the previous event has completed.
 
 Bounds: [2m, 1d]. Default: 2m. *)
-  yarn_config :
-    google_dataproc_autoscaling_policy__basic_algorithm__yarn_config
-    list;
+  yarn_config : basic_algorithm__yarn_config list;
 }
 [@@deriving yojson_of]
 (** Basic algorithm for autoscaling. *)
 
-type google_dataproc_autoscaling_policy__secondary_worker_config = {
+type secondary_worker_config = {
   max_instances : float prop option; [@option]
       (** Maximum number of instances for this group. Note that by default, clusters will not use
 secondary workers. Required for secondary workers if the minimum secondary instances is set.
@@ -84,15 +82,15 @@ only on primary workers, the cluster will use primary workers only and no second
 [@@deriving yojson_of]
 (** Describes how the autoscaler will operate for secondary workers. *)
 
-type google_dataproc_autoscaling_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dataproc_autoscaling_policy__timeouts *)
+(** timeouts *)
 
-type google_dataproc_autoscaling_policy__worker_config = {
+type worker_config = {
   max_instances : float prop;
       (** Maximum number of instances for this group. *)
   min_instances : float prop option; [@option]
@@ -126,16 +124,54 @@ The default value is 'global'. *)
 and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between
 3 and 50 characters. *)
   project : string prop option; [@option]  (** project *)
-  basic_algorithm :
-    google_dataproc_autoscaling_policy__basic_algorithm list;
-  secondary_worker_config :
-    google_dataproc_autoscaling_policy__secondary_worker_config list;
-  timeouts : google_dataproc_autoscaling_policy__timeouts option;
-  worker_config :
-    google_dataproc_autoscaling_policy__worker_config list;
+  basic_algorithm : basic_algorithm list;
+  secondary_worker_config : secondary_worker_config list;
+  timeouts : timeouts option;
+  worker_config : worker_config list;
 }
 [@@deriving yojson_of]
 (** google_dataproc_autoscaling_policy *)
+
+let basic_algorithm__yarn_config ?scale_down_min_worker_fraction
+    ?scale_up_min_worker_fraction ~graceful_decommission_timeout
+    ~scale_down_factor ~scale_up_factor () :
+    basic_algorithm__yarn_config =
+  {
+    graceful_decommission_timeout;
+    scale_down_factor;
+    scale_down_min_worker_fraction;
+    scale_up_factor;
+    scale_up_min_worker_fraction;
+  }
+
+let basic_algorithm ?cooldown_period ~yarn_config () :
+    basic_algorithm =
+  { cooldown_period; yarn_config }
+
+let secondary_worker_config ?max_instances ?min_instances ?weight ()
+    : secondary_worker_config =
+  { max_instances; min_instances; weight }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let worker_config ?min_instances ?weight ~max_instances () :
+    worker_config =
+  { max_instances; min_instances; weight }
+
+let google_dataproc_autoscaling_policy ?id ?location ?project
+    ?timeouts ~policy_id ~basic_algorithm ~secondary_worker_config
+    ~worker_config () : google_dataproc_autoscaling_policy =
+  {
+    id;
+    location;
+    policy_id;
+    project;
+    basic_algorithm;
+    secondary_worker_config;
+    timeouts;
+    worker_config;
+  }
 
 type t = {
   id : string prop;
@@ -145,24 +181,16 @@ type t = {
   project : string prop;
 }
 
-let google_dataproc_autoscaling_policy ?id ?location ?project
-    ?timeouts ~policy_id ~basic_algorithm ~secondary_worker_config
-    ~worker_config __resource_id =
+let register ?tf_module ?id ?location ?project ?timeouts ~policy_id
+    ~basic_algorithm ~secondary_worker_config ~worker_config
+    __resource_id =
   let __resource_type = "google_dataproc_autoscaling_policy" in
   let __resource =
-    ({
-       id;
-       location;
-       policy_id;
-       project;
-       basic_algorithm;
-       secondary_worker_config;
-       timeouts;
-       worker_config;
-     }
-      : google_dataproc_autoscaling_policy)
+    google_dataproc_autoscaling_policy ?id ?location ?project
+      ?timeouts ~policy_id ~basic_algorithm ~secondary_worker_config
+      ~worker_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_autoscaling_policy __resource);
   let __resource_attributes =
     ({

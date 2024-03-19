@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_location_tracker_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_location_tracker_association
+
+val aws_location_tracker_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  consumer_arn:string prop ->
+  tracker_name:string prop ->
+  unit ->
+  aws_location_tracker_association
+
+val yojson_of_aws_location_tracker_association :
+  aws_location_tracker_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   consumer_arn : string prop;
@@ -11,9 +30,10 @@ type t = private {
   tracker_name : string prop;
 }
 
-val aws_location_tracker_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_location_tracker_association__timeouts ->
+  ?timeouts:timeouts ->
   consumer_arn:string prop ->
   tracker_name:string prop ->
   string ->

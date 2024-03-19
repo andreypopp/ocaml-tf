@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type google_edgenetwork_network__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_edgenetwork_network
+
+val google_edgenetwork_network :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?mtu:float prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  network_id:string prop ->
+  zone:string prop ->
+  unit ->
+  google_edgenetwork_network
+
+val yojson_of_google_edgenetwork_network :
+  google_edgenetwork_network -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -19,13 +43,14 @@ type t = private {
   zone : string prop;
 }
 
-val google_edgenetwork_network :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?mtu:float prop ->
   ?project:string prop ->
-  ?timeouts:google_edgenetwork_network__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   network_id:string prop ->
   zone:string prop ->

@@ -4,20 +4,18 @@
 
 open! Tf.Prelude
 
-type aws_codeartifact_repository__external_connections = {
+type external_connections = {
   external_connection_name : string prop;
       (** external_connection_name *)
-  package_format : string prop;  (** package_format *)
-  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
-(** aws_codeartifact_repository__external_connections *)
+(** external_connections *)
 
-type aws_codeartifact_repository__upstream = {
+type upstream = {
   repository_name : string prop;  (** repository_name *)
 }
 [@@deriving yojson_of]
-(** aws_codeartifact_repository__upstream *)
+(** upstream *)
 
 type aws_codeartifact_repository = {
   description : string prop option; [@option]  (** description *)
@@ -28,12 +26,32 @@ type aws_codeartifact_repository = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  external_connections :
-    aws_codeartifact_repository__external_connections list;
-  upstream : aws_codeartifact_repository__upstream list;
+  external_connections : external_connections list;
+  upstream : upstream list;
 }
 [@@deriving yojson_of]
 (** aws_codeartifact_repository *)
+
+let external_connections ~external_connection_name () :
+    external_connections =
+  { external_connection_name }
+
+let upstream ~repository_name () : upstream = { repository_name }
+
+let aws_codeartifact_repository ?description ?domain_owner ?id ?tags
+    ?tags_all ~domain ~repository ~external_connections ~upstream ()
+    : aws_codeartifact_repository =
+  {
+    description;
+    domain;
+    domain_owner;
+    id;
+    repository;
+    tags;
+    tags_all;
+    external_connections;
+    upstream;
+  }
 
 type t = {
   administrator_account : string prop;
@@ -47,25 +65,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_codeartifact_repository ?description ?domain_owner ?id ?tags
+let register ?tf_module ?description ?domain_owner ?id ?tags
     ?tags_all ~domain ~repository ~external_connections ~upstream
     __resource_id =
   let __resource_type = "aws_codeartifact_repository" in
   let __resource =
-    ({
-       description;
-       domain;
-       domain_owner;
-       id;
-       repository;
-       tags;
-       tags_all;
-       external_connections;
-       upstream;
-     }
-      : aws_codeartifact_repository)
+    aws_codeartifact_repository ?description ?domain_owner ?id ?tags
+      ?tags_all ~domain ~repository ~external_connections ~upstream
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codeartifact_repository __resource);
   let __resource_attributes =
     ({

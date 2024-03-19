@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_tag_template__fields__type__enum_type__allowed_values = {
+type fields__type__enum_type__allowed_values = {
   display_name : string prop;
       (** The display name of the enum value. *)
 }
@@ -15,26 +15,23 @@ enum values can only be added to the list of allowed values. Deletion
 and renaming of enum values are not supported.
 Can have up to 500 allowed values. *)
 
-type google_data_catalog_tag_template__fields__type__enum_type = {
-  allowed_values :
-    google_data_catalog_tag_template__fields__type__enum_type__allowed_values
-    list;
+type fields__type__enum_type = {
+  allowed_values : fields__type__enum_type__allowed_values list;
 }
 [@@deriving yojson_of]
 (** Represents an enum type.
  Exactly one of 'primitive_type' or 'enum_type' must be set *)
 
-type google_data_catalog_tag_template__fields__type = {
+type fields__type = {
   primitive_type : string prop option; [@option]
       (** Represents primitive types - string, bool etc.
  Exactly one of 'primitive_type' or 'enum_type' must be set Possible values: [DOUBLE, STRING, BOOL, TIMESTAMP] *)
-  enum_type :
-    google_data_catalog_tag_template__fields__type__enum_type list;
+  enum_type : fields__type__enum_type list;
 }
 [@@deriving yojson_of]
 (** The type of value this tag field can contain. *)
 
-type google_data_catalog_tag_template__fields = {
+type fields = {
   description : string prop option; [@option]
       (** A description for this field. *)
   display_name : string prop option; [@option]
@@ -42,24 +39,22 @@ type google_data_catalog_tag_template__fields = {
   field_id : string prop;  (** field_id *)
   is_required : bool prop option; [@option]
       (** Whether this is a required field. Defaults to false. *)
-  name : string prop;
-      (** The resource name of the tag template field in URL format. Example: projects/{project_id}/locations/{location}/tagTemplates/{tagTemplateId}/fields/{field} *)
   order : float prop option; [@option]
       (** The order of this field with respect to other fields in this tag template.
 A higher value indicates a more important field. The value can be negative.
 Multiple fields can have the same order, and field orders within a tag do not have to be sequential. *)
-  type_ : google_data_catalog_tag_template__fields__type list;
+  type_ : fields__type list;
 }
 [@@deriving yojson_of]
 (** Set of tag template field IDs and the settings for the field. This set is an exhaustive list of the allowed fields. This set must contain at least one field and at most 500 fields. The change of field_id will be resulting in re-creating of field. The change of primitive_type will be resulting in re-creating of field, however if the field is a required, you cannot update it. *)
 
-type google_data_catalog_tag_template__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_data_catalog_tag_template__timeouts *)
+(** timeouts *)
 
 type google_data_catalog_tag_template = {
   display_name : string prop option; [@option]
@@ -72,11 +67,43 @@ type google_data_catalog_tag_template = {
       (** Template location region. *)
   tag_template_id : string prop;
       (** The id of the tag template to create. *)
-  fields : google_data_catalog_tag_template__fields list;
-  timeouts : google_data_catalog_tag_template__timeouts option;
+  fields : fields list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_data_catalog_tag_template *)
+
+let fields__type__enum_type__allowed_values ~display_name () :
+    fields__type__enum_type__allowed_values =
+  { display_name }
+
+let fields__type__enum_type ~allowed_values () :
+    fields__type__enum_type =
+  { allowed_values }
+
+let fields__type ?primitive_type ~enum_type () : fields__type =
+  { primitive_type; enum_type }
+
+let fields ?description ?display_name ?is_required ?order ~field_id
+    ~type_ () : fields =
+  { description; display_name; field_id; is_required; order; type_ }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_data_catalog_tag_template ?display_name ?force_delete ?id
+    ?project ?region ?timeouts ~tag_template_id ~fields () :
+    google_data_catalog_tag_template =
+  {
+    display_name;
+    force_delete;
+    id;
+    project;
+    region;
+    tag_template_id;
+    fields;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -88,24 +115,14 @@ type t = {
   tag_template_id : string prop;
 }
 
-let google_data_catalog_tag_template ?display_name ?force_delete ?id
-    ?project ?region ?timeouts ~tag_template_id ~fields __resource_id
-    =
+let register ?tf_module ?display_name ?force_delete ?id ?project
+    ?region ?timeouts ~tag_template_id ~fields __resource_id =
   let __resource_type = "google_data_catalog_tag_template" in
   let __resource =
-    ({
-       display_name;
-       force_delete;
-       id;
-       project;
-       region;
-       tag_template_id;
-       fields;
-       timeouts;
-     }
-      : google_data_catalog_tag_template)
+    google_data_catalog_tag_template ?display_name ?force_delete ?id
+      ?project ?region ?timeouts ~tag_template_id ~fields ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_tag_template __resource);
   let __resource_attributes =
     ({

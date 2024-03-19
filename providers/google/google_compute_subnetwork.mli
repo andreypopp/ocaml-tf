@@ -2,15 +2,60 @@
 
 open! Tf.Prelude
 
-type google_compute_subnetwork__log_config
-type google_compute_subnetwork__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_compute_subnetwork__secondary_ip_range = {
+type secondary_ip_range = {
   ip_cidr_range : string prop;  (** ip_cidr_range *)
   range_name : string prop;  (** range_name *)
 }
 
+type log_config
+
+val log_config :
+  ?aggregation_interval:string prop ->
+  ?filter_expr:string prop ->
+  ?flow_sampling:float prop ->
+  ?metadata:string prop ->
+  ?metadata_fields:string prop list ->
+  unit ->
+  log_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_subnetwork
+
+val google_compute_subnetwork :
+  ?description:string prop ->
+  ?external_ipv6_prefix:string prop ->
+  ?id:string prop ->
+  ?ipv6_access_type:string prop ->
+  ?private_ip_google_access:bool prop ->
+  ?private_ipv6_google_access:string prop ->
+  ?project:string prop ->
+  ?purpose:string prop ->
+  ?region:string prop ->
+  ?role:string prop ->
+  ?secondary_ip_range:secondary_ip_range list ->
+  ?stack_type:string prop ->
+  ?timeouts:timeouts ->
+  ip_cidr_range:string prop ->
+  name:string prop ->
+  network:string prop ->
+  log_config:log_config list ->
+  unit ->
+  google_compute_subnetwork
+
+val yojson_of_google_compute_subnetwork :
+  google_compute_subnetwork -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_timestamp : string prop;
@@ -31,13 +76,13 @@ type t = private {
   purpose : string prop;
   region : string prop;
   role : string prop;
-  secondary_ip_range :
-    google_compute_subnetwork__secondary_ip_range list prop;
+  secondary_ip_range : secondary_ip_range list prop;
   self_link : string prop;
   stack_type : string prop;
 }
 
-val google_compute_subnetwork :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?external_ipv6_prefix:string prop ->
   ?id:string prop ->
@@ -48,13 +93,12 @@ val google_compute_subnetwork :
   ?purpose:string prop ->
   ?region:string prop ->
   ?role:string prop ->
-  ?secondary_ip_range:
-    google_compute_subnetwork__secondary_ip_range list ->
+  ?secondary_ip_range:secondary_ip_range list ->
   ?stack_type:string prop ->
-  ?timeouts:google_compute_subnetwork__timeouts ->
+  ?timeouts:timeouts ->
   ip_cidr_range:string prop ->
   name:string prop ->
   network:string prop ->
-  log_config:google_compute_subnetwork__log_config list ->
+  log_config:log_config list ->
   string ->
   t

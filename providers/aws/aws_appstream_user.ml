@@ -17,6 +17,19 @@ type aws_appstream_user = {
 [@@deriving yojson_of]
 (** aws_appstream_user *)
 
+let aws_appstream_user ?enabled ?first_name ?id ?last_name
+    ?send_email_notification ~authentication_type ~user_name () :
+    aws_appstream_user =
+  {
+    authentication_type;
+    enabled;
+    first_name;
+    id;
+    last_name;
+    send_email_notification;
+    user_name;
+  }
+
 type t = {
   arn : string prop;
   authentication_type : string prop;
@@ -29,23 +42,15 @@ type t = {
   user_name : string prop;
 }
 
-let aws_appstream_user ?enabled ?first_name ?id ?last_name
+let register ?tf_module ?enabled ?first_name ?id ?last_name
     ?send_email_notification ~authentication_type ~user_name
     __resource_id =
   let __resource_type = "aws_appstream_user" in
   let __resource =
-    ({
-       authentication_type;
-       enabled;
-       first_name;
-       id;
-       last_name;
-       send_email_notification;
-       user_name;
-     }
-      : aws_appstream_user)
+    aws_appstream_user ?enabled ?first_name ?id ?last_name
+      ?send_email_notification ~authentication_type ~user_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_user __resource);
   let __resource_attributes =
     ({

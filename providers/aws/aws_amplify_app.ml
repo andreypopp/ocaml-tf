@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_amplify_app__auto_branch_creation_config = {
+type auto_branch_creation_config = {
   basic_auth_credentials : string prop option; [@option]
       (** basic_auth_credentials *)
   build_spec : string prop option; [@option]  (** build_spec *)
@@ -25,18 +25,18 @@ type aws_amplify_app__auto_branch_creation_config = {
   stage : string prop option; [@option]  (** stage *)
 }
 [@@deriving yojson_of]
-(** aws_amplify_app__auto_branch_creation_config *)
+(** auto_branch_creation_config *)
 
-type aws_amplify_app__custom_rule = {
+type custom_rule = {
   condition : string prop option; [@option]  (** condition *)
   source : string prop;  (** source *)
   status : string prop option; [@option]  (** status *)
   target : string prop;  (** target *)
 }
 [@@deriving yojson_of]
-(** aws_amplify_app__custom_rule *)
+(** custom_rule *)
 
-type aws_amplify_app__production_branch = {
+type production_branch = {
   branch_name : string prop;  (** branch_name *)
   last_deploy_time : string prop;  (** last_deploy_time *)
   status : string prop;  (** status *)
@@ -75,12 +75,63 @@ type aws_amplify_app = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  auto_branch_creation_config :
-    aws_amplify_app__auto_branch_creation_config list;
-  custom_rule : aws_amplify_app__custom_rule list;
+  auto_branch_creation_config : auto_branch_creation_config list;
+  custom_rule : custom_rule list;
 }
 [@@deriving yojson_of]
 (** aws_amplify_app *)
+
+let auto_branch_creation_config ?basic_auth_credentials ?build_spec
+    ?enable_auto_build ?enable_basic_auth ?enable_performance_mode
+    ?enable_pull_request_preview ?environment_variables ?framework
+    ?pull_request_environment_name ?stage () :
+    auto_branch_creation_config =
+  {
+    basic_auth_credentials;
+    build_spec;
+    enable_auto_build;
+    enable_basic_auth;
+    enable_performance_mode;
+    enable_pull_request_preview;
+    environment_variables;
+    framework;
+    pull_request_environment_name;
+    stage;
+  }
+
+let custom_rule ?condition ?status ~source ~target () : custom_rule =
+  { condition; source; status; target }
+
+let aws_amplify_app ?access_token ?auto_branch_creation_patterns
+    ?basic_auth_credentials ?build_spec ?custom_headers ?description
+    ?enable_auto_branch_creation ?enable_basic_auth
+    ?enable_branch_auto_build ?enable_branch_auto_deletion
+    ?environment_variables ?iam_service_role_arn ?id ?oauth_token
+    ?platform ?repository ?tags ?tags_all ~name
+    ~auto_branch_creation_config ~custom_rule () : aws_amplify_app =
+  {
+    access_token;
+    auto_branch_creation_patterns;
+    basic_auth_credentials;
+    build_spec;
+    custom_headers;
+    description;
+    enable_auto_branch_creation;
+    enable_basic_auth;
+    enable_branch_auto_build;
+    enable_branch_auto_deletion;
+    environment_variables;
+    iam_service_role_arn;
+    id;
+    name;
+    oauth_token;
+    platform;
+    repository;
+    tags;
+    tags_all;
+    auto_branch_creation_config;
+    custom_rule;
+  }
 
 type t = {
   access_token : string prop;
@@ -101,13 +152,13 @@ type t = {
   name : string prop;
   oauth_token : string prop;
   platform : string prop;
-  production_branch : aws_amplify_app__production_branch list prop;
+  production_branch : production_branch list prop;
   repository : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
 }
 
-let aws_amplify_app ?access_token ?auto_branch_creation_patterns
+let register ?tf_module ?access_token ?auto_branch_creation_patterns
     ?basic_auth_credentials ?build_spec ?custom_headers ?description
     ?enable_auto_branch_creation ?enable_basic_auth
     ?enable_branch_auto_build ?enable_branch_auto_deletion
@@ -116,32 +167,15 @@ let aws_amplify_app ?access_token ?auto_branch_creation_patterns
     ~auto_branch_creation_config ~custom_rule __resource_id =
   let __resource_type = "aws_amplify_app" in
   let __resource =
-    ({
-       access_token;
-       auto_branch_creation_patterns;
-       basic_auth_credentials;
-       build_spec;
-       custom_headers;
-       description;
-       enable_auto_branch_creation;
-       enable_basic_auth;
-       enable_branch_auto_build;
-       enable_branch_auto_deletion;
-       environment_variables;
-       iam_service_role_arn;
-       id;
-       name;
-       oauth_token;
-       platform;
-       repository;
-       tags;
-       tags_all;
-       auto_branch_creation_config;
-       custom_rule;
-     }
-      : aws_amplify_app)
+    aws_amplify_app ?access_token ?auto_branch_creation_patterns
+      ?basic_auth_credentials ?build_spec ?custom_headers
+      ?description ?enable_auto_branch_creation ?enable_basic_auth
+      ?enable_branch_auto_build ?enable_branch_auto_deletion
+      ?environment_variables ?iam_service_role_arn ?id ?oauth_token
+      ?platform ?repository ?tags ?tags_all ~name
+      ~auto_branch_creation_config ~custom_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_amplify_app __resource);
   let __resource_attributes =
     ({

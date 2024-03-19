@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_pim_eligible_role_assignment__schedule__expiration = {
+type schedule__expiration = {
   duration_days : float prop option; [@option]
       (** The duration of the assignment in days. *)
   duration_hours : float prop option; [@option]
@@ -13,31 +13,30 @@ type azurerm_pim_eligible_role_assignment__schedule__expiration = {
       (** The end date time of the assignment. *)
 }
 [@@deriving yojson_of]
-(** azurerm_pim_eligible_role_assignment__schedule__expiration *)
+(** schedule__expiration *)
 
-type azurerm_pim_eligible_role_assignment__schedule = {
+type schedule = {
   start_date_time : string prop option; [@option]
       (** The start date time. *)
-  expiration :
-    azurerm_pim_eligible_role_assignment__schedule__expiration list;
+  expiration : schedule__expiration list;
 }
 [@@deriving yojson_of]
 (** The schedule details of this eligible role assignment. *)
 
-type azurerm_pim_eligible_role_assignment__ticket = {
+type ticket = {
   number : string prop option; [@option]  (** The ticket number. *)
   system : string prop option; [@option]  (** The ticket system. *)
 }
 [@@deriving yojson_of]
 (** Ticket details relating to the assignment. *)
 
-type azurerm_pim_eligible_role_assignment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_pim_eligible_role_assignment__timeouts *)
+(** timeouts *)
 
 type azurerm_pim_eligible_role_assignment = {
   id : string prop option; [@option]  (** id *)
@@ -46,12 +45,38 @@ type azurerm_pim_eligible_role_assignment = {
   principal_id : string prop;  (** The principal id. *)
   role_definition_id : string prop;  (** The role definition id. *)
   scope : string prop;  (** The scope. *)
-  schedule : azurerm_pim_eligible_role_assignment__schedule list;
-  ticket : azurerm_pim_eligible_role_assignment__ticket list;
-  timeouts : azurerm_pim_eligible_role_assignment__timeouts option;
+  schedule : schedule list;
+  ticket : ticket list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_pim_eligible_role_assignment *)
+
+let schedule__expiration ?duration_days ?duration_hours
+    ?end_date_time () : schedule__expiration =
+  { duration_days; duration_hours; end_date_time }
+
+let schedule ?start_date_time ~expiration () : schedule =
+  { start_date_time; expiration }
+
+let ticket ?number ?system () : ticket = { number; system }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_pim_eligible_role_assignment ?id ?justification ?timeouts
+    ~principal_id ~role_definition_id ~scope ~schedule ~ticket () :
+    azurerm_pim_eligible_role_assignment =
+  {
+    id;
+    justification;
+    principal_id;
+    role_definition_id;
+    scope;
+    schedule;
+    ticket;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -62,24 +87,14 @@ type t = {
   scope : string prop;
 }
 
-let azurerm_pim_eligible_role_assignment ?id ?justification ?timeouts
-    ~principal_id ~role_definition_id ~scope ~schedule ~ticket
-    __resource_id =
+let register ?tf_module ?id ?justification ?timeouts ~principal_id
+    ~role_definition_id ~scope ~schedule ~ticket __resource_id =
   let __resource_type = "azurerm_pim_eligible_role_assignment" in
   let __resource =
-    ({
-       id;
-       justification;
-       principal_id;
-       role_definition_id;
-       scope;
-       schedule;
-       ticket;
-       timeouts;
-     }
-      : azurerm_pim_eligible_role_assignment)
+    azurerm_pim_eligible_role_assignment ?id ?justification ?timeouts
+      ~principal_id ~role_definition_id ~scope ~schedule ~ticket ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_pim_eligible_role_assignment __resource);
   let __resource_attributes =
     ({

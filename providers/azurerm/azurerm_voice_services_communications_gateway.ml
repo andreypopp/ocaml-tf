@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_voice_services_communications_gateway__service_location = {
+type service_location = {
   allowed_media_source_address_prefixes : string prop list option;
       [@option]
       (** allowed_media_source_address_prefixes *)
@@ -18,16 +18,16 @@ type azurerm_voice_services_communications_gateway__service_location = {
   operator_addresses : string prop list;  (** operator_addresses *)
 }
 [@@deriving yojson_of]
-(** azurerm_voice_services_communications_gateway__service_location *)
+(** service_location *)
 
-type azurerm_voice_services_communications_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_voice_services_communications_gateway__timeouts *)
+(** timeouts *)
 
 type azurerm_voice_services_communications_gateway = {
   api_bridge : string prop option; [@option]  (** api_bridge *)
@@ -50,14 +50,50 @@ type azurerm_voice_services_communications_gateway = {
   platforms : string prop list;  (** platforms *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  service_location :
-    azurerm_voice_services_communications_gateway__service_location
-    list;
-  timeouts :
-    azurerm_voice_services_communications_gateway__timeouts option;
+  service_location : service_location list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_voice_services_communications_gateway *)
+
+let service_location ?allowed_media_source_address_prefixes
+    ?allowed_signaling_source_address_prefixes ?esrp_addresses
+    ~location ~operator_addresses () : service_location =
+  {
+    allowed_media_source_address_prefixes;
+    allowed_signaling_source_address_prefixes;
+    esrp_addresses;
+    location;
+    operator_addresses;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_voice_services_communications_gateway ?api_bridge
+    ?auto_generated_domain_name_label_scope ?emergency_dial_strings
+    ?id ?microsoft_teams_voicemail_pilot_number ?on_prem_mcp_enabled
+    ?tags ?timeouts ~codecs ~connectivity ~e911_type ~location ~name
+    ~platforms ~resource_group_name ~service_location () :
+    azurerm_voice_services_communications_gateway =
+  {
+    api_bridge;
+    auto_generated_domain_name_label_scope;
+    codecs;
+    connectivity;
+    e911_type;
+    emergency_dial_strings;
+    id;
+    location;
+    microsoft_teams_voicemail_pilot_number;
+    name;
+    on_prem_mcp_enabled;
+    platforms;
+    resource_group_name;
+    tags;
+    service_location;
+    timeouts;
+  }
 
 type t = {
   api_bridge : string prop;
@@ -76,7 +112,7 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_voice_services_communications_gateway ?api_bridge
+let register ?tf_module ?api_bridge
     ?auto_generated_domain_name_label_scope ?emergency_dial_strings
     ?id ?microsoft_teams_voicemail_pilot_number ?on_prem_mcp_enabled
     ?tags ?timeouts ~codecs ~connectivity ~e911_type ~location ~name
@@ -85,27 +121,14 @@ let azurerm_voice_services_communications_gateway ?api_bridge
     "azurerm_voice_services_communications_gateway"
   in
   let __resource =
-    ({
-       api_bridge;
-       auto_generated_domain_name_label_scope;
-       codecs;
-       connectivity;
-       e911_type;
-       emergency_dial_strings;
-       id;
-       location;
-       microsoft_teams_voicemail_pilot_number;
-       name;
-       on_prem_mcp_enabled;
-       platforms;
-       resource_group_name;
-       tags;
-       service_location;
-       timeouts;
-     }
-      : azurerm_voice_services_communications_gateway)
+    azurerm_voice_services_communications_gateway ?api_bridge
+      ?auto_generated_domain_name_label_scope ?emergency_dial_strings
+      ?id ?microsoft_teams_voicemail_pilot_number
+      ?on_prem_mcp_enabled ?tags ?timeouts ~codecs ~connectivity
+      ~e911_type ~location ~name ~platforms ~resource_group_name
+      ~service_location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_voice_services_communications_gateway
        __resource);
   let __resource_attributes =

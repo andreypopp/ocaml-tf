@@ -2,36 +2,9 @@
 
 open! Tf.Prelude
 
-type google_cloud_run_v2_job__binary_authorization
+(** RESOURCE SERIALIZATION *)
 
-type google_cloud_run_v2_job__template__template__containers__env__value_source__secret_key_ref
-
-type google_cloud_run_v2_job__template__template__containers__env__value_source
-
-type google_cloud_run_v2_job__template__template__containers__env
-type google_cloud_run_v2_job__template__template__containers__ports
-
-type google_cloud_run_v2_job__template__template__containers__resources
-
-type google_cloud_run_v2_job__template__template__containers__volume_mounts
-
-type google_cloud_run_v2_job__template__template__containers
-
-type google_cloud_run_v2_job__template__template__volumes__cloud_sql_instance
-
-type google_cloud_run_v2_job__template__template__volumes__secret__items
-
-type google_cloud_run_v2_job__template__template__volumes__secret
-type google_cloud_run_v2_job__template__template__volumes
-
-type google_cloud_run_v2_job__template__template__vpc_access__network_interfaces
-
-type google_cloud_run_v2_job__template__template__vpc_access
-type google_cloud_run_v2_job__template__template
-type google_cloud_run_v2_job__template
-type google_cloud_run_v2_job__timeouts
-
-type google_cloud_run_v2_job__conditions = {
+type conditions = {
   execution_reason : string prop;  (** execution_reason *)
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
@@ -42,13 +15,13 @@ type google_cloud_run_v2_job__conditions = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-type google_cloud_run_v2_job__latest_created_execution = {
+type latest_created_execution = {
   completion_time : string prop;  (** completion_time *)
   create_time : string prop;  (** create_time *)
   name : string prop;  (** name *)
 }
 
-type google_cloud_run_v2_job__terminal_condition = {
+type terminal_condition = {
   execution_reason : string prop;  (** execution_reason *)
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
@@ -59,13 +32,194 @@ type google_cloud_run_v2_job__terminal_condition = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+type binary_authorization
+
+val binary_authorization :
+  ?breakglass_justification:string prop ->
+  ?use_default:bool prop ->
+  unit ->
+  binary_authorization
+
+type template__template__containers__env__value_source__secret_key_ref
+
+val template__template__containers__env__value_source__secret_key_ref :
+  secret:string prop ->
+  version:string prop ->
+  unit ->
+  template__template__containers__env__value_source__secret_key_ref
+
+type template__template__containers__env__value_source
+
+val template__template__containers__env__value_source :
+  secret_key_ref:
+    template__template__containers__env__value_source__secret_key_ref
+    list ->
+  unit ->
+  template__template__containers__env__value_source
+
+type template__template__containers__env
+
+val template__template__containers__env :
+  ?value:string prop ->
+  name:string prop ->
+  value_source:template__template__containers__env__value_source list ->
+  unit ->
+  template__template__containers__env
+
+type template__template__containers__ports
+
+val template__template__containers__ports :
+  ?container_port:float prop ->
+  ?name:string prop ->
+  unit ->
+  template__template__containers__ports
+
+type template__template__containers__resources
+
+val template__template__containers__resources :
+  ?limits:(string * string prop) list ->
+  unit ->
+  template__template__containers__resources
+
+type template__template__containers__volume_mounts
+
+val template__template__containers__volume_mounts :
+  mount_path:string prop ->
+  name:string prop ->
+  unit ->
+  template__template__containers__volume_mounts
+
+type template__template__containers
+
+val template__template__containers :
+  ?args:string prop list ->
+  ?command:string prop list ->
+  ?name:string prop ->
+  ?working_dir:string prop ->
+  image:string prop ->
+  env:template__template__containers__env list ->
+  ports:template__template__containers__ports list ->
+  resources:template__template__containers__resources list ->
+  volume_mounts:template__template__containers__volume_mounts list ->
+  unit ->
+  template__template__containers
+
+type template__template__volumes__cloud_sql_instance
+
+val template__template__volumes__cloud_sql_instance :
+  ?instances:string prop list ->
+  unit ->
+  template__template__volumes__cloud_sql_instance
+
+type template__template__volumes__secret__items
+
+val template__template__volumes__secret__items :
+  ?mode:float prop ->
+  path:string prop ->
+  version:string prop ->
+  unit ->
+  template__template__volumes__secret__items
+
+type template__template__volumes__secret
+
+val template__template__volumes__secret :
+  ?default_mode:float prop ->
+  secret:string prop ->
+  items:template__template__volumes__secret__items list ->
+  unit ->
+  template__template__volumes__secret
+
+type template__template__volumes
+
+val template__template__volumes :
+  name:string prop ->
+  cloud_sql_instance:
+    template__template__volumes__cloud_sql_instance list ->
+  secret:template__template__volumes__secret list ->
+  unit ->
+  template__template__volumes
+
+type template__template__vpc_access__network_interfaces
+
+val template__template__vpc_access__network_interfaces :
+  ?network:string prop ->
+  ?subnetwork:string prop ->
+  ?tags:string prop list ->
+  unit ->
+  template__template__vpc_access__network_interfaces
+
+type template__template__vpc_access
+
+val template__template__vpc_access :
+  ?connector:string prop ->
+  ?egress:string prop ->
+  network_interfaces:
+    template__template__vpc_access__network_interfaces list ->
+  unit ->
+  template__template__vpc_access
+
+type template__template
+
+val template__template :
+  ?encryption_key:string prop ->
+  ?execution_environment:string prop ->
+  ?max_retries:float prop ->
+  ?service_account:string prop ->
+  ?timeout:string prop ->
+  containers:template__template__containers list ->
+  volumes:template__template__volumes list ->
+  vpc_access:template__template__vpc_access list ->
+  unit ->
+  template__template
+
+type template
+
+val template :
+  ?annotations:(string * string prop) list ->
+  ?labels:(string * string prop) list ->
+  ?parallelism:float prop ->
+  ?task_count:float prop ->
+  template:template__template list ->
+  unit ->
+  template
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_cloud_run_v2_job
+
+val google_cloud_run_v2_job :
+  ?annotations:(string * string prop) list ->
+  ?client:string prop ->
+  ?client_version:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?launch_stage:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  binary_authorization:binary_authorization list ->
+  template:template list ->
+  unit ->
+  google_cloud_run_v2_job
+
+val yojson_of_google_cloud_run_v2_job :
+  google_cloud_run_v2_job -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   annotations : (string * string) list prop;
   client : string prop;
   client_version : string prop;
-  conditions : google_cloud_run_v2_job__conditions list prop;
+  conditions : conditions list prop;
   create_time : string prop;
   creator : string prop;
   delete_time : string prop;
@@ -78,22 +232,21 @@ type t = private {
   id : string prop;
   labels : (string * string) list prop;
   last_modifier : string prop;
-  latest_created_execution :
-    google_cloud_run_v2_job__latest_created_execution list prop;
+  latest_created_execution : latest_created_execution list prop;
   launch_stage : string prop;
   location : string prop;
   name : string prop;
   observed_generation : string prop;
   project : string prop;
   reconciling : bool prop;
-  terminal_condition :
-    google_cloud_run_v2_job__terminal_condition list prop;
+  terminal_condition : terminal_condition list prop;
   terraform_labels : (string * string) list prop;
   uid : string prop;
   update_time : string prop;
 }
 
-val google_cloud_run_v2_job :
+val register :
+  ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?client:string prop ->
   ?client_version:string prop ->
@@ -101,11 +254,10 @@ val google_cloud_run_v2_job :
   ?labels:(string * string prop) list ->
   ?launch_stage:string prop ->
   ?project:string prop ->
-  ?timeouts:google_cloud_run_v2_job__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:
-    google_cloud_run_v2_job__binary_authorization list ->
-  template:google_cloud_run_v2_job__template list ->
+  binary_authorization:binary_authorization list ->
+  template:template list ->
   string ->
   t

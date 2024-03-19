@@ -4,35 +4,34 @@
 
 open! Tf.Prelude
 
-type azurerm_elastic_cloud_elasticsearch__logs__filtering_tag = {
+type logs__filtering_tag = {
   action : string prop;  (** action *)
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_elastic_cloud_elasticsearch__logs__filtering_tag *)
+(** logs__filtering_tag *)
 
-type azurerm_elastic_cloud_elasticsearch__logs = {
+type logs = {
   send_activity_logs : bool prop option; [@option]
       (** send_activity_logs *)
   send_azuread_logs : bool prop option; [@option]
       (** send_azuread_logs *)
   send_subscription_logs : bool prop option; [@option]
       (** send_subscription_logs *)
-  filtering_tag :
-    azurerm_elastic_cloud_elasticsearch__logs__filtering_tag list;
+  filtering_tag : logs__filtering_tag list;
 }
 [@@deriving yojson_of]
-(** azurerm_elastic_cloud_elasticsearch__logs *)
+(** logs *)
 
-type azurerm_elastic_cloud_elasticsearch__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_elastic_cloud_elasticsearch__timeouts *)
+(** timeouts *)
 
 type azurerm_elastic_cloud_elasticsearch = {
   elastic_cloud_email_address : string prop;
@@ -45,11 +44,44 @@ type azurerm_elastic_cloud_elasticsearch = {
   resource_group_name : string prop;  (** resource_group_name *)
   sku_name : string prop;  (** sku_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  logs : azurerm_elastic_cloud_elasticsearch__logs list;
-  timeouts : azurerm_elastic_cloud_elasticsearch__timeouts option;
+  logs : logs list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_cloud_elasticsearch *)
+
+let logs__filtering_tag ~action ~name ~value () : logs__filtering_tag
+    =
+  { action; name; value }
+
+let logs ?send_activity_logs ?send_azuread_logs
+    ?send_subscription_logs ~filtering_tag () : logs =
+  {
+    send_activity_logs;
+    send_azuread_logs;
+    send_subscription_logs;
+    filtering_tag;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_elastic_cloud_elasticsearch ?id ?monitoring_enabled ?tags
+    ?timeouts ~elastic_cloud_email_address ~location ~name
+    ~resource_group_name ~sku_name ~logs () :
+    azurerm_elastic_cloud_elasticsearch =
+  {
+    elastic_cloud_email_address;
+    id;
+    location;
+    monitoring_enabled;
+    name;
+    resource_group_name;
+    sku_name;
+    tags;
+    logs;
+    timeouts;
+  }
 
 type t = {
   elastic_cloud_deployment_id : string prop;
@@ -68,26 +100,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_elastic_cloud_elasticsearch ?id ?monitoring_enabled ?tags
-    ?timeouts ~elastic_cloud_email_address ~location ~name
-    ~resource_group_name ~sku_name ~logs __resource_id =
+let register ?tf_module ?id ?monitoring_enabled ?tags ?timeouts
+    ~elastic_cloud_email_address ~location ~name ~resource_group_name
+    ~sku_name ~logs __resource_id =
   let __resource_type = "azurerm_elastic_cloud_elasticsearch" in
   let __resource =
-    ({
-       elastic_cloud_email_address;
-       id;
-       location;
-       monitoring_enabled;
-       name;
-       resource_group_name;
-       sku_name;
-       tags;
-       logs;
-       timeouts;
-     }
-      : azurerm_elastic_cloud_elasticsearch)
+    azurerm_elastic_cloud_elasticsearch ?id ?monitoring_enabled ?tags
+      ?timeouts ~elastic_cloud_email_address ~location ~name
+      ~resource_group_name ~sku_name ~logs ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_elastic_cloud_elasticsearch __resource);
   let __resource_attributes =
     ({

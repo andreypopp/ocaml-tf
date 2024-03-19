@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_db_snapshot_copy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_db_snapshot_copy__timeouts *)
+(** timeouts *)
 
 type aws_db_snapshot_copy = {
   copy_tags : bool prop option; [@option]  (** copy_tags *)
@@ -28,10 +28,32 @@ type aws_db_snapshot_copy = {
       (** target_custom_availability_zone *)
   target_db_snapshot_identifier : string prop;
       (** target_db_snapshot_identifier *)
-  timeouts : aws_db_snapshot_copy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_snapshot_copy *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_db_snapshot_copy ?copy_tags ?destination_region ?id
+    ?kms_key_id ?option_group_name ?presigned_url ?tags ?tags_all
+    ?target_custom_availability_zone ?timeouts
+    ~source_db_snapshot_identifier ~target_db_snapshot_identifier ()
+    : aws_db_snapshot_copy =
+  {
+    copy_tags;
+    destination_region;
+    id;
+    kms_key_id;
+    option_group_name;
+    presigned_url;
+    source_db_snapshot_identifier;
+    tags;
+    tags_all;
+    target_custom_availability_zone;
+    target_db_snapshot_identifier;
+    timeouts;
+  }
 
 type t = {
   allocated_storage : float prop;
@@ -60,30 +82,20 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_db_snapshot_copy ?copy_tags ?destination_region ?id
+let register ?tf_module ?copy_tags ?destination_region ?id
     ?kms_key_id ?option_group_name ?presigned_url ?tags ?tags_all
     ?target_custom_availability_zone ?timeouts
     ~source_db_snapshot_identifier ~target_db_snapshot_identifier
     __resource_id =
   let __resource_type = "aws_db_snapshot_copy" in
   let __resource =
-    ({
-       copy_tags;
-       destination_region;
-       id;
-       kms_key_id;
-       option_group_name;
-       presigned_url;
-       source_db_snapshot_identifier;
-       tags;
-       tags_all;
-       target_custom_availability_zone;
-       target_db_snapshot_identifier;
-       timeouts;
-     }
-      : aws_db_snapshot_copy)
+    aws_db_snapshot_copy ?copy_tags ?destination_region ?id
+      ?kms_key_id ?option_group_name ?presigned_url ?tags ?tags_all
+      ?target_custom_availability_zone ?timeouts
+      ~source_db_snapshot_identifier ~target_db_snapshot_identifier
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_snapshot_copy __resource);
   let __resource_attributes =
     ({

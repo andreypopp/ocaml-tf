@@ -4,18 +4,17 @@
 
 open! Tf.Prelude
 
-type google_firestore_backup_schedule__daily_recurrence = unit
-[@@deriving yojson_of]
+type daily_recurrence = unit [@@deriving yojson_of]
 
-type google_firestore_backup_schedule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_firestore_backup_schedule__timeouts *)
+(** timeouts *)
 
-type google_firestore_backup_schedule__weekly_recurrence = {
+type weekly_recurrence = {
   day : string prop option; [@option]
       (** The day of week to run. Possible values: [DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
 }
@@ -32,14 +31,32 @@ type google_firestore_backup_schedule = {
 A duration in seconds with up to nine fractional digits, ending with 's'. Example: 3.5s.
 
 For a daily backup recurrence, set this to a value up to 7 days. If you set a weekly backup recurrence, set this to a value up to 14 weeks. *)
-  daily_recurrence :
-    google_firestore_backup_schedule__daily_recurrence list;
-  timeouts : google_firestore_backup_schedule__timeouts option;
-  weekly_recurrence :
-    google_firestore_backup_schedule__weekly_recurrence list;
+  daily_recurrence : daily_recurrence list;
+  timeouts : timeouts option;
+  weekly_recurrence : weekly_recurrence list;
 }
 [@@deriving yojson_of]
 (** google_firestore_backup_schedule *)
+
+let daily_recurrence () = ()
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let weekly_recurrence ?day () : weekly_recurrence = { day }
+
+let google_firestore_backup_schedule ?database ?id ?project ?timeouts
+    ~retention ~daily_recurrence ~weekly_recurrence () :
+    google_firestore_backup_schedule =
+  {
+    database;
+    id;
+    project;
+    retention;
+    daily_recurrence;
+    timeouts;
+    weekly_recurrence;
+  }
 
 type t = {
   database : string prop;
@@ -49,22 +66,14 @@ type t = {
   retention : string prop;
 }
 
-let google_firestore_backup_schedule ?database ?id ?project ?timeouts
-    ~retention ~daily_recurrence ~weekly_recurrence __resource_id =
+let register ?tf_module ?database ?id ?project ?timeouts ~retention
+    ~daily_recurrence ~weekly_recurrence __resource_id =
   let __resource_type = "google_firestore_backup_schedule" in
   let __resource =
-    ({
-       database;
-       id;
-       project;
-       retention;
-       daily_recurrence;
-       timeouts;
-       weekly_recurrence;
-     }
-      : google_firestore_backup_schedule)
+    google_firestore_backup_schedule ?database ?id ?project ?timeouts
+      ~retention ~daily_recurrence ~weekly_recurrence ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_backup_schedule __resource);
   let __resource_attributes =
     ({

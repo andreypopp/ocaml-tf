@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_s3_access_point__public_access_block_configuration = {
+type public_access_block_configuration = {
   block_public_acls : bool prop option; [@option]
       (** block_public_acls *)
   block_public_policy : bool prop option; [@option]
@@ -15,13 +15,11 @@ type aws_s3_access_point__public_access_block_configuration = {
       (** restrict_public_buckets *)
 }
 [@@deriving yojson_of]
-(** aws_s3_access_point__public_access_block_configuration *)
+(** public_access_block_configuration *)
 
-type aws_s3_access_point__vpc_configuration = {
-  vpc_id : string prop;  (** vpc_id *)
-}
+type vpc_configuration = { vpc_id : string prop  (** vpc_id *) }
 [@@deriving yojson_of]
-(** aws_s3_access_point__vpc_configuration *)
+(** vpc_configuration *)
 
 type aws_s3_access_point = {
   account_id : string prop option; [@option]  (** account_id *)
@@ -32,11 +30,37 @@ type aws_s3_access_point = {
   name : string prop;  (** name *)
   policy : string prop option; [@option]  (** policy *)
   public_access_block_configuration :
-    aws_s3_access_point__public_access_block_configuration list;
-  vpc_configuration : aws_s3_access_point__vpc_configuration list;
+    public_access_block_configuration list;
+  vpc_configuration : vpc_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_s3_access_point *)
+
+let public_access_block_configuration ?block_public_acls
+    ?block_public_policy ?ignore_public_acls ?restrict_public_buckets
+    () : public_access_block_configuration =
+  {
+    block_public_acls;
+    block_public_policy;
+    ignore_public_acls;
+    restrict_public_buckets;
+  }
+
+let vpc_configuration ~vpc_id () : vpc_configuration = { vpc_id }
+
+let aws_s3_access_point ?account_id ?bucket_account_id ?id ?policy
+    ~bucket ~name ~public_access_block_configuration
+    ~vpc_configuration () : aws_s3_access_point =
+  {
+    account_id;
+    bucket;
+    bucket_account_id;
+    id;
+    name;
+    policy;
+    public_access_block_configuration;
+    vpc_configuration;
+  }
 
 type t = {
   account_id : string prop;
@@ -53,24 +77,16 @@ type t = {
   policy : string prop;
 }
 
-let aws_s3_access_point ?account_id ?bucket_account_id ?id ?policy
+let register ?tf_module ?account_id ?bucket_account_id ?id ?policy
     ~bucket ~name ~public_access_block_configuration
     ~vpc_configuration __resource_id =
   let __resource_type = "aws_s3_access_point" in
   let __resource =
-    ({
-       account_id;
-       bucket;
-       bucket_account_id;
-       id;
-       name;
-       policy;
-       public_access_block_configuration;
-       vpc_configuration;
-     }
-      : aws_s3_access_point)
+    aws_s3_access_point ?account_id ?bucket_account_id ?id ?policy
+      ~bucket ~name ~public_access_block_configuration
+      ~vpc_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_access_point __resource);
   let __resource_attributes =
     ({

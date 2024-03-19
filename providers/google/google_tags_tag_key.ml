@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_tags_tag_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_tags_tag_key__timeouts *)
+(** timeouts *)
 
 type google_tags_tag_key = {
   description : string prop option; [@option]
@@ -30,10 +30,25 @@ Purpose data corresponds to the policy system that the tag is intended for. For 
       (** Input only. The user friendly name for a TagKey. The short name should be unique for TagKeys within the same tag namespace.
 
 The short name must be 1-63 characters, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_), dots (.), and alphanumerics between. *)
-  timeouts : google_tags_tag_key__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_tags_tag_key *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_tags_tag_key ?description ?id ?purpose ?purpose_data
+    ?timeouts ~parent ~short_name () : google_tags_tag_key =
+  {
+    description;
+    id;
+    parent;
+    purpose;
+    purpose_data;
+    short_name;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -48,22 +63,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_tags_tag_key ?description ?id ?purpose ?purpose_data
+let register ?tf_module ?description ?id ?purpose ?purpose_data
     ?timeouts ~parent ~short_name __resource_id =
   let __resource_type = "google_tags_tag_key" in
   let __resource =
-    ({
-       description;
-       id;
-       parent;
-       purpose;
-       purpose_data;
-       short_name;
-       timeouts;
-     }
-      : google_tags_tag_key)
+    google_tags_tag_key ?description ?id ?purpose ?purpose_data
+      ?timeouts ~parent ~short_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_key __resource);
   let __resource_attributes =
     ({

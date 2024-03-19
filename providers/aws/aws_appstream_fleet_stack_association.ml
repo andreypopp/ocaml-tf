@@ -12,20 +12,23 @@ type aws_appstream_fleet_stack_association = {
 [@@deriving yojson_of]
 (** aws_appstream_fleet_stack_association *)
 
+let aws_appstream_fleet_stack_association ?id ~fleet_name ~stack_name
+    () : aws_appstream_fleet_stack_association =
+  { fleet_name; id; stack_name }
+
 type t = {
   fleet_name : string prop;
   id : string prop;
   stack_name : string prop;
 }
 
-let aws_appstream_fleet_stack_association ?id ~fleet_name ~stack_name
-    __resource_id =
+let register ?tf_module ?id ~fleet_name ~stack_name __resource_id =
   let __resource_type = "aws_appstream_fleet_stack_association" in
   let __resource =
-    ({ fleet_name; id; stack_name }
-      : aws_appstream_fleet_stack_association)
+    aws_appstream_fleet_stack_association ?id ~fleet_name ~stack_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_fleet_stack_association __resource);
   let __resource_attributes =
     ({

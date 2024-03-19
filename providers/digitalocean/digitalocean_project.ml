@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type digitalocean_project__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** digitalocean_project__timeouts *)
+(** timeouts *)
 
 type digitalocean_project = {
   description : string prop option; [@option]
@@ -23,10 +23,25 @@ type digitalocean_project = {
       (** the purpose of the project *)
   resources : string prop list option; [@option]
       (** the resources associated with the project *)
-  timeouts : digitalocean_project__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** digitalocean_project *)
+
+let timeouts ?delete () : timeouts = { delete }
+
+let digitalocean_project ?description ?environment ?id ?is_default
+    ?purpose ?resources ?timeouts ~name () : digitalocean_project =
+  {
+    description;
+    environment;
+    id;
+    is_default;
+    name;
+    purpose;
+    resources;
+    timeouts;
+  }
 
 type t = {
   created_at : string prop;
@@ -42,23 +57,14 @@ type t = {
   updated_at : string prop;
 }
 
-let digitalocean_project ?description ?environment ?id ?is_default
+let register ?tf_module ?description ?environment ?id ?is_default
     ?purpose ?resources ?timeouts ~name __resource_id =
   let __resource_type = "digitalocean_project" in
   let __resource =
-    ({
-       description;
-       environment;
-       id;
-       is_default;
-       name;
-       purpose;
-       resources;
-       timeouts;
-     }
-      : digitalocean_project)
+    digitalocean_project ?description ?environment ?id ?is_default
+      ?purpose ?resources ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_project __resource);
   let __resource_attributes =
     ({

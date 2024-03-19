@@ -2,11 +2,55 @@
 
 open! Tf.Prelude
 
-type azurerm_dedicated_hardware_security_module__management_network_profile
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_dedicated_hardware_security_module__network_profile
-type azurerm_dedicated_hardware_security_module__timeouts
+type management_network_profile
+
+val management_network_profile :
+  network_interface_private_ip_addresses:string prop list ->
+  subnet_id:string prop ->
+  unit ->
+  management_network_profile
+
+type network_profile
+
+val network_profile :
+  network_interface_private_ip_addresses:string prop list ->
+  subnet_id:string prop ->
+  unit ->
+  network_profile
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_dedicated_hardware_security_module
+
+val azurerm_dedicated_hardware_security_module :
+  ?id:string prop ->
+  ?stamp_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  management_network_profile:management_network_profile list ->
+  network_profile:network_profile list ->
+  unit ->
+  azurerm_dedicated_hardware_security_module
+
+val yojson_of_azurerm_dedicated_hardware_security_module :
+  azurerm_dedicated_hardware_security_module -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -19,20 +63,18 @@ type t = private {
   zones : string list prop;
 }
 
-val azurerm_dedicated_hardware_security_module :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?stamp_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
-  ?timeouts:azurerm_dedicated_hardware_security_module__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  management_network_profile:
-    azurerm_dedicated_hardware_security_module__management_network_profile
-    list ->
-  network_profile:
-    azurerm_dedicated_hardware_security_module__network_profile list ->
+  management_network_profile:management_network_profile list ->
+  network_profile:network_profile list ->
   string ->
   t

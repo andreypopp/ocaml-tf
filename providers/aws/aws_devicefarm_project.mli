@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_devicefarm_project
+
+val aws_devicefarm_project :
+  ?default_job_timeout_minutes:float prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  aws_devicefarm_project
+
+val yojson_of_aws_devicefarm_project : aws_devicefarm_project -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +28,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_devicefarm_project :
+val register :
+  ?tf_module:tf_module ->
   ?default_job_timeout_minutes:float prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

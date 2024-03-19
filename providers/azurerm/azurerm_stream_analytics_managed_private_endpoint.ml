@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_managed_private_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_managed_private_endpoint__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_managed_private_endpoint = {
   id : string prop option; [@option]  (** id *)
@@ -20,12 +20,27 @@ type azurerm_stream_analytics_managed_private_endpoint = {
       (** stream_analytics_cluster_name *)
   subresource_name : string prop;  (** subresource_name *)
   target_resource_id : string prop;  (** target_resource_id *)
-  timeouts :
-    azurerm_stream_analytics_managed_private_endpoint__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_managed_private_endpoint *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_stream_analytics_managed_private_endpoint ?id ?timeouts
+    ~name ~resource_group_name ~stream_analytics_cluster_name
+    ~subresource_name ~target_resource_id () :
+    azurerm_stream_analytics_managed_private_endpoint =
+  {
+    id;
+    name;
+    resource_group_name;
+    stream_analytics_cluster_name;
+    subresource_name;
+    target_resource_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -36,25 +51,18 @@ type t = {
   target_resource_id : string prop;
 }
 
-let azurerm_stream_analytics_managed_private_endpoint ?id ?timeouts
-    ~name ~resource_group_name ~stream_analytics_cluster_name
-    ~subresource_name ~target_resource_id __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~resource_group_name
+    ~stream_analytics_cluster_name ~subresource_name
+    ~target_resource_id __resource_id =
   let __resource_type =
     "azurerm_stream_analytics_managed_private_endpoint"
   in
   let __resource =
-    ({
-       id;
-       name;
-       resource_group_name;
-       stream_analytics_cluster_name;
-       subresource_name;
-       target_resource_id;
-       timeouts;
-     }
-      : azurerm_stream_analytics_managed_private_endpoint)
+    azurerm_stream_analytics_managed_private_endpoint ?id ?timeouts
+      ~name ~resource_group_name ~stream_analytics_cluster_name
+      ~subresource_name ~target_resource_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_managed_private_endpoint
        __resource);
   let __resource_attributes =

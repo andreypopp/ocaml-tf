@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_kms_grant__constraints = {
+type constraints = {
   encryption_context_equals : (string * string prop) list option;
       [@option]
       (** encryption_context_equals *)
@@ -13,7 +13,7 @@ type aws_kms_grant__constraints = {
       (** encryption_context_subset *)
 }
 [@@deriving yojson_of]
-(** aws_kms_grant__constraints *)
+(** constraints *)
 
 type aws_kms_grant = {
   grant_creation_tokens : string prop list option; [@option]
@@ -27,10 +27,29 @@ type aws_kms_grant = {
       (** retire_on_delete *)
   retiring_principal : string prop option; [@option]
       (** retiring_principal *)
-  constraints : aws_kms_grant__constraints list;
+  constraints : constraints list;
 }
 [@@deriving yojson_of]
 (** aws_kms_grant *)
+
+let constraints ?encryption_context_equals ?encryption_context_subset
+    () : constraints =
+  { encryption_context_equals; encryption_context_subset }
+
+let aws_kms_grant ?grant_creation_tokens ?id ?name ?retire_on_delete
+    ?retiring_principal ~grantee_principal ~key_id ~operations
+    ~constraints () : aws_kms_grant =
+  {
+    grant_creation_tokens;
+    grantee_principal;
+    id;
+    key_id;
+    name;
+    operations;
+    retire_on_delete;
+    retiring_principal;
+    constraints;
+  }
 
 type t = {
   grant_creation_tokens : string list prop;
@@ -45,25 +64,16 @@ type t = {
   retiring_principal : string prop;
 }
 
-let aws_kms_grant ?grant_creation_tokens ?id ?name ?retire_on_delete
-    ?retiring_principal ~grantee_principal ~key_id ~operations
-    ~constraints __resource_id =
+let register ?tf_module ?grant_creation_tokens ?id ?name
+    ?retire_on_delete ?retiring_principal ~grantee_principal ~key_id
+    ~operations ~constraints __resource_id =
   let __resource_type = "aws_kms_grant" in
   let __resource =
-    ({
-       grant_creation_tokens;
-       grantee_principal;
-       id;
-       key_id;
-       name;
-       operations;
-       retire_on_delete;
-       retiring_principal;
-       constraints;
-     }
-      : aws_kms_grant)
+    aws_kms_grant ?grant_creation_tokens ?id ?name ?retire_on_delete
+      ?retiring_principal ~grantee_principal ~key_id ~operations
+      ~constraints ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kms_grant __resource);
   let __resource_attributes =
     ({

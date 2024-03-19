@@ -16,6 +16,10 @@ type aws_redshift_snapshot_copy_grant = {
 [@@deriving yojson_of]
 (** aws_redshift_snapshot_copy_grant *)
 
+let aws_redshift_snapshot_copy_grant ?id ?kms_key_id ?tags ?tags_all
+    ~snapshot_copy_grant_name () : aws_redshift_snapshot_copy_grant =
+  { id; kms_key_id; snapshot_copy_grant_name; tags; tags_all }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -25,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_redshift_snapshot_copy_grant ?id ?kms_key_id ?tags ?tags_all
+let register ?tf_module ?id ?kms_key_id ?tags ?tags_all
     ~snapshot_copy_grant_name __resource_id =
   let __resource_type = "aws_redshift_snapshot_copy_grant" in
   let __resource =
-    ({ id; kms_key_id; snapshot_copy_grant_name; tags; tags_all }
-      : aws_redshift_snapshot_copy_grant)
+    aws_redshift_snapshot_copy_grant ?id ?kms_key_id ?tags ?tags_all
+      ~snapshot_copy_grant_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_snapshot_copy_grant __resource);
   let __resource_attributes =
     ({

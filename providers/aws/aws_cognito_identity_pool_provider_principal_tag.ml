@@ -16,6 +16,18 @@ type aws_cognito_identity_pool_provider_principal_tag = {
 [@@deriving yojson_of]
 (** aws_cognito_identity_pool_provider_principal_tag *)
 
+let aws_cognito_identity_pool_provider_principal_tag ?id
+    ?principal_tags ?use_defaults ~identity_pool_id
+    ~identity_provider_name () :
+    aws_cognito_identity_pool_provider_principal_tag =
+  {
+    id;
+    identity_pool_id;
+    identity_provider_name;
+    principal_tags;
+    use_defaults;
+  }
+
 type t = {
   id : string prop;
   identity_pool_id : string prop;
@@ -24,23 +36,17 @@ type t = {
   use_defaults : bool prop;
 }
 
-let aws_cognito_identity_pool_provider_principal_tag ?id
-    ?principal_tags ?use_defaults ~identity_pool_id
-    ~identity_provider_name __resource_id =
+let register ?tf_module ?id ?principal_tags ?use_defaults
+    ~identity_pool_id ~identity_provider_name __resource_id =
   let __resource_type =
     "aws_cognito_identity_pool_provider_principal_tag"
   in
   let __resource =
-    ({
-       id;
-       identity_pool_id;
-       identity_provider_name;
-       principal_tags;
-       use_defaults;
-     }
-      : aws_cognito_identity_pool_provider_principal_tag)
+    aws_cognito_identity_pool_provider_principal_tag ?id
+      ?principal_tags ?use_defaults ~identity_pool_id
+      ~identity_provider_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_identity_pool_provider_principal_tag
        __resource);
   let __resource_attributes =

@@ -2,404 +2,2152 @@
 
 open! Tf.Prelude
 
-type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations__transforms__all_info_types
+(** RESOURCE SERIALIZATION *)
+
+type deidentify_config__image_transformations__transforms__all_info_types
+
+val deidentify_config__image_transformations__transforms__all_info_types :
+  unit ->
+  deidentify_config__image_transformations__transforms__all_info_types
+
+type deidentify_config__image_transformations__transforms__all_text
+
+val deidentify_config__image_transformations__transforms__all_text :
+  unit ->
+  deidentify_config__image_transformations__transforms__all_text
+
+type deidentify_config__image_transformations__transforms__redaction_color
+
+val deidentify_config__image_transformations__transforms__redaction_color :
+  ?blue:float prop ->
+  ?green:float prop ->
+  ?red:float prop ->
+  unit ->
+  deidentify_config__image_transformations__transforms__redaction_color
+
+type deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
+
+val deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
+
+type deidentify_config__image_transformations__transforms__selected_info_types__info_types
+
+val deidentify_config__image_transformations__transforms__selected_info_types__info_types :
+  ?version:string prop ->
+  name:string prop ->
+  sensitivity_score:
+    deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__image_transformations__transforms__selected_info_types__info_types
+
+type deidentify_config__image_transformations__transforms__selected_info_types
+
+val deidentify_config__image_transformations__transforms__selected_info_types :
+  info_types:
+    deidentify_config__image_transformations__transforms__selected_info_types__info_types
+    list ->
+  unit ->
+  deidentify_config__image_transformations__transforms__selected_info_types
+
+type deidentify_config__image_transformations__transforms
+
+val deidentify_config__image_transformations__transforms :
+  all_info_types:
+    deidentify_config__image_transformations__transforms__all_info_types
+    list ->
+  all_text:
+    deidentify_config__image_transformations__transforms__all_text
+    list ->
+  redaction_color:
+    deidentify_config__image_transformations__transforms__redaction_color
+    list ->
+  selected_info_types:
+    deidentify_config__image_transformations__transforms__selected_info_types
+    list ->
+  unit ->
+  deidentify_config__image_transformations__transforms
+
+type deidentify_config__image_transformations
+
+val deidentify_config__image_transformations :
+  transforms:
+    deidentify_config__image_transformations__transforms list ->
+  unit ->
+  deidentify_config__image_transformations
+
+type deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
+
+val deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
+
+type deidentify_config__info_type_transformations__transformations__info_types
+
+val deidentify_config__info_type_transformations__transformations__info_types :
+  ?version:string prop ->
+  name:string prop ->
+  sensitivity_score:
+    deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__info_types
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max :
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+    list ->
+  time_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min :
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+    list ->
+  time_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value :
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+    list ->
+  time_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets :
+  max:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+    list ->
+  min:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+    list ->
+  replacement_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config :
+  buckets:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore :
+  ?characters_to_skip:string prop ->
+  ?common_characters_to_ignore:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config :
+  ?masking_character:string prop ->
+  ?number_to_mask:float prop ->
+  ?reverse_order:bool prop ->
+  characters_to_ignore:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context :
+  ?name:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type :
+  ?name:string prop ->
+  ?version:string prop ->
+  sensitivity_score:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config :
+  context:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+    list ->
+  crypto_key:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+    list ->
+  surrogate_info_type:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config :
+  crypto_key:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context :
+  ?name:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type :
+  ?name:string prop ->
+  ?version:string prop ->
+  sensitivity_score:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config :
+  ?common_alphabet:string prop ->
+  ?custom_alphabet:string prop ->
+  ?radix:float prop ->
+  context:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+    list ->
+  crypto_key:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+    list ->
+  surrogate_info_type:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context :
+  name:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config :
+  lower_bound_days:float prop ->
+  upper_bound_days:float prop ->
+  context:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+    list ->
+  crypto_key:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound :
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound :
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config :
+  bucket_size:float prop ->
+  lower_bound:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+    list ->
+  upper_bound:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config :
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:float prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+    list ->
+  time_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config :
+  new_value:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list :
+  words:string prop list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config :
+  word_list:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config :
+  ?part_to_extract:string prop ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
+
+type deidentify_config__info_type_transformations__transformations__primitive_transformation
+
+val deidentify_config__info_type_transformations__transformations__primitive_transformation :
+  ?replace_with_info_type_config:bool prop ->
+  bucketing_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
+    list ->
+  character_mask_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
+    list ->
+  crypto_deterministic_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+    list ->
+  crypto_hash_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+    list ->
+  crypto_replace_ffx_fpe_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+    list ->
+  date_shift_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
+    list ->
+  fixed_size_bucketing_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+    list ->
+  redact_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
+    list ->
+  replace_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
+    list ->
+  replace_dictionary_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+    list ->
+  time_part_config:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations__primitive_transformation
+
+type deidentify_config__info_type_transformations__transformations
+
+val deidentify_config__info_type_transformations__transformations :
+  info_types:
+    deidentify_config__info_type_transformations__transformations__info_types
+    list ->
+  primitive_transformation:
+    deidentify_config__info_type_transformations__transformations__primitive_transformation
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations__transformations
+
+type deidentify_config__info_type_transformations
+
+val deidentify_config__info_type_transformations :
+  transformations:
+    deidentify_config__info_type_transformations__transformations
+    list ->
+  unit ->
+  deidentify_config__info_type_transformations
+
+type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
+
+val deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field :
+  ?name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
+
+type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
+
+val deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
+
+type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
+
+val deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
+
+type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
+
+val deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
+
+type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
+
+val deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions :
+  operator:string prop ->
+  field:
+    deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
+    list ->
+  value:
+    deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
+
+type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
+
+val deidentify_config__record_transformations__field_transformations__condition__expressions__conditions :
+  conditions:
+    deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
+
+type deidentify_config__record_transformations__field_transformations__condition__expressions
+
+val deidentify_config__record_transformations__field_transformations__condition__expressions :
+  ?logical_operator:string prop ->
+  conditions:
+    deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__condition__expressions
+
+type deidentify_config__record_transformations__field_transformations__condition
+
+val deidentify_config__record_transformations__field_transformations__condition :
+  expressions:
+    deidentify_config__record_transformations__field_transformations__condition__expressions
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__condition
+
+type deidentify_config__record_transformations__field_transformations__fields
+
+val deidentify_config__record_transformations__field_transformations__fields :
+  ?name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__fields
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types :
+  ?version:string prop ->
+  name:string prop ->
+  sensitivity_score:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max :
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min :
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value :
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets :
+  max:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+    list ->
+  min:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+    list ->
+  replacement_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config :
+  buckets:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore :
+  ?characters_to_skip:string prop ->
+  ?common_characters_to_ignore:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config :
+  ?masking_character:string prop ->
+  ?number_to_mask:float prop ->
+  ?reverse_order:bool prop ->
+  characters_to_ignore:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type :
+  ?version:string prop ->
+  name:string prop ->
+  sensitivity_score:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config :
+  context:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+    list ->
+  crypto_key:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+    list ->
+  surrogate_info_type:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config :
+  crypto_key:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type :
+  ?version:string prop ->
+  name:string prop ->
+  sensitivity_score:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config :
+  ?common_alphabet:string prop ->
+  ?custom_alphabet:string prop ->
+  ?radix:float prop ->
+  context:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+    list ->
+  crypto_key:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+    list ->
+  surrogate_info_type:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config :
+  lower_bound_days:float prop ->
+  upper_bound_days:float prop ->
+  context:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+    list ->
+  crypto_key:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound :
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound :
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config :
+  bucket_size:float prop ->
+  lower_bound:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+    list ->
+  upper_bound:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config :
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config :
+  new_value:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list :
+  words:string prop list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config :
+  word_list:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config :
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config :
+  part_to_extract:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation :
+  bucketing_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
+    list ->
+  character_mask_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
+    list ->
+  crypto_deterministic_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+    list ->
+  crypto_hash_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+    list ->
+  crypto_replace_ffx_fpe_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+    list ->
+  date_shift_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
+    list ->
+  fixed_size_bucketing_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+    list ->
+  redact_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
+    list ->
+  replace_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
+    list ->
+  replace_dictionary_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+    list ->
+  replace_with_info_type_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
+    list ->
+  time_part_config:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations :
+  info_types:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
+    list ->
+  primitive_transformation:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
+
+type deidentify_config__record_transformations__field_transformations__info_type_transformations
+
+val deidentify_config__record_transformations__field_transformations__info_type_transformations :
+  transformations:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__info_type_transformations
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets :
+  max:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
+    list ->
+  min:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
+    list ->
+  replacement_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config :
+  buckets:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore :
+  ?characters_to_skip:string prop ->
+  ?common_characters_to_ignore:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config :
+  ?masking_character:string prop ->
+  ?number_to_mask:float prop ->
+  ?reverse_order:bool prop ->
+  characters_to_ignore:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context :
+  ?name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type :
+  ?name:string prop ->
+  ?version:string prop ->
+  sensitivity_score:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config :
+  context:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
+    list ->
+  crypto_key:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+    list ->
+  surrogate_info_type:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config :
+  crypto_key:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context :
+  ?name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score :
+  score:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type :
+  ?name:string prop ->
+  ?version:string prop ->
+  sensitivity_score:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config :
+  ?common_alphabet:string prop ->
+  ?custom_alphabet:string prop ->
+  ?radix:float prop ->
+  context:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+    list ->
+  crypto_key:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+    list ->
+  surrogate_info_type:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context :
+  ?name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped :
+  crypto_key_name:string prop ->
+  wrapped_key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient :
+  name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped :
+  key:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key :
+  kms_wrapped:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+    list ->
+  transient:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
+    list ->
+  unwrapped:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config :
+  lower_bound_days:float prop ->
+  upper_bound_days:float prop ->
+  context:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
+    list ->
+  crypto_key:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config :
+  bucket_size:float prop ->
+  lower_bound:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+    list ->
+  upper_bound:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config :
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config :
+  new_value:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list :
+  words:string prop list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config :
+  word_list:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config :
+  ?part_to_extract:string prop ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
+
+type deidentify_config__record_transformations__field_transformations__primitive_transformation
+
+val deidentify_config__record_transformations__field_transformations__primitive_transformation :
+  bucketing_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
+    list ->
+  character_mask_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
+    list ->
+  crypto_deterministic_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
+    list ->
+  crypto_hash_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
+    list ->
+  crypto_replace_ffx_fpe_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+    list ->
+  date_shift_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
+    list ->
+  fixed_size_bucketing_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
+    list ->
+  redact_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
+    list ->
+  replace_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
+    list ->
+  replace_dictionary_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
+    list ->
+  time_part_config:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations__primitive_transformation
+
+type deidentify_config__record_transformations__field_transformations
+
+val deidentify_config__record_transformations__field_transformations :
+  condition:
+    deidentify_config__record_transformations__field_transformations__condition
+    list ->
+  fields:
+    deidentify_config__record_transformations__field_transformations__fields
+    list ->
+  info_type_transformations:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations
+    list ->
+  primitive_transformation:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation
+    list ->
+  unit ->
+  deidentify_config__record_transformations__field_transformations
+
+type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
+
+val deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field :
+  ?name:string prop ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
+
+type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
+
+val deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
+
+type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
+
+val deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
+
+type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
+
+val deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value :
+  ?boolean_value:bool prop ->
+  ?day_of_week_value:string prop ->
+  ?float_value:float prop ->
+  ?integer_value:string prop ->
+  ?string_value:string prop ->
+  ?timestamp_value:string prop ->
+  date_value:
+    deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
+    list ->
+  time_value:
+    deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
+
+type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
+
+val deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions :
+  operator:string prop ->
+  field:
+    deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
+    list ->
+  value:
+    deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
+    list ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
+
+type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
+
+val deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions :
+  conditions:
+    deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
+    list ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
+
+type deidentify_config__record_transformations__record_suppressions__condition__expressions
+
+val deidentify_config__record_transformations__record_suppressions__condition__expressions :
+  ?logical_operator:string prop ->
+  conditions:
+    deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
+    list ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions__condition__expressions
+
+type deidentify_config__record_transformations__record_suppressions__condition
+
+val deidentify_config__record_transformations__record_suppressions__condition :
+  expressions:
+    deidentify_config__record_transformations__record_suppressions__condition__expressions
+    list ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions__condition
+
+type deidentify_config__record_transformations__record_suppressions
+
+val deidentify_config__record_transformations__record_suppressions :
+  condition:
+    deidentify_config__record_transformations__record_suppressions__condition
+    list ->
+  unit ->
+  deidentify_config__record_transformations__record_suppressions
+
+type deidentify_config__record_transformations
+
+val deidentify_config__record_transformations :
+  field_transformations:
+    deidentify_config__record_transformations__field_transformations
+    list ->
+  record_suppressions:
+    deidentify_config__record_transformations__record_suppressions
+    list ->
+  unit ->
+  deidentify_config__record_transformations
+
+type deidentify_config
+
+val deidentify_config :
+  image_transformations:deidentify_config__image_transformations list ->
+  info_type_transformations:
+    deidentify_config__info_type_transformations list ->
+  record_transformations:
+    deidentify_config__record_transformations list ->
+  unit ->
+  deidentify_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
-type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations__transforms__all_text
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations__transforms__redaction_color
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations__transforms__selected_info_types__info_types
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations__transforms__selected_info_types
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations__transforms
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__info_types
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations__primitive_transformation
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations__transformations
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__info_type_transformations
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__condition__expressions
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__condition
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__fields
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__info_type_transformations
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations__primitive_transformation
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__field_transformations
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions__condition__expressions
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions__condition
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations__record_suppressions
-
-type google_data_loss_prevention_deidentify_template__deidentify_config__record_transformations
-
-type google_data_loss_prevention_deidentify_template__deidentify_config
-
-type google_data_loss_prevention_deidentify_template__timeouts
 type google_data_loss_prevention_deidentify_template
+
+val google_data_loss_prevention_deidentify_template :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?template_id:string prop ->
+  ?timeouts:timeouts ->
+  parent:string prop ->
+  deidentify_config:deidentify_config list ->
+  unit ->
+  google_data_loss_prevention_deidentify_template
+
+val yojson_of_google_data_loss_prevention_deidentify_template :
+  google_data_loss_prevention_deidentify_template -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -412,15 +2160,14 @@ type t = private {
   update_time : string prop;
 }
 
-val google_data_loss_prevention_deidentify_template :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?template_id:string prop ->
-  ?timeouts:google_data_loss_prevention_deidentify_template__timeouts ->
+  ?timeouts:timeouts ->
   parent:string prop ->
-  deidentify_config:
-    google_data_loss_prevention_deidentify_template__deidentify_config
-    list ->
+  deidentify_config:deidentify_config list ->
   string ->
   t

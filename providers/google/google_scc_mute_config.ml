@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_scc_mute_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_scc_mute_config__timeouts *)
+(** timeouts *)
 
 type google_scc_mute_config = {
   description : string prop option; [@option]
@@ -28,10 +28,17 @@ project = Y scope, it might not match any findings. *)
       (** Resource name of the new mute configs's parent. Its format is
 organizations/[organization_id], folders/[folder_id], or
 projects/[project_id]. *)
-  timeouts : google_scc_mute_config__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_scc_mute_config *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_scc_mute_config ?description ?id ?timeouts ~filter
+    ~mute_config_id ~parent () : google_scc_mute_config =
+  { description; filter; id; mute_config_id; parent; timeouts }
 
 type t = {
   create_time : string prop;
@@ -45,14 +52,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_scc_mute_config ?description ?id ?timeouts ~filter
+let register ?tf_module ?description ?id ?timeouts ~filter
     ~mute_config_id ~parent __resource_id =
   let __resource_type = "google_scc_mute_config" in
   let __resource =
-    ({ description; filter; id; mute_config_id; parent; timeouts }
-      : google_scc_mute_config)
+    google_scc_mute_config ?description ?id ?timeouts ~filter
+      ~mute_config_id ~parent ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_mute_config __resource);
   let __resource_attributes =
     ({

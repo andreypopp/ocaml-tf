@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_filestore_backup__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_filestore_backup__timeouts *)
+(** timeouts *)
 
 type google_filestore_backup = {
   description : string prop option; [@option]
@@ -38,10 +38,28 @@ character, which cannot be a dash. *)
       (** Name of the file share in the source Cloud Filestore instance that the backup is created from. *)
   source_instance : string prop;
       (** The resource name of the source Cloud Filestore instance, in the format projects/{projectId}/locations/{locationId}/instances/{instanceId}, used to create this backup. *)
-  timeouts : google_filestore_backup__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_filestore_backup *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_filestore_backup ?description ?id ?labels ?project
+    ?timeouts ~location ~name ~source_file_share ~source_instance ()
+    : google_filestore_backup =
+  {
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    source_file_share;
+    source_instance;
+    timeouts;
+  }
 
 type t = {
   capacity_gb : string prop;
@@ -63,25 +81,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_filestore_backup ?description ?id ?labels ?project
-    ?timeouts ~location ~name ~source_file_share ~source_instance
-    __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~location ~name ~source_file_share ~source_instance __resource_id
+    =
   let __resource_type = "google_filestore_backup" in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       source_file_share;
-       source_instance;
-       timeouts;
-     }
-      : google_filestore_backup)
+    google_filestore_backup ?description ?id ?labels ?project
+      ?timeouts ~location ~name ~source_file_share ~source_instance
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_filestore_backup __resource);
   let __resource_attributes =
     ({

@@ -16,6 +16,18 @@ type aws_cloudfront_origin_access_control = {
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_access_control *)
 
+let aws_cloudfront_origin_access_control ?description ?id ~name
+    ~origin_access_control_origin_type ~signing_behavior
+    ~signing_protocol () : aws_cloudfront_origin_access_control =
+  {
+    description;
+    id;
+    name;
+    origin_access_control_origin_type;
+    signing_behavior;
+    signing_protocol;
+  }
+
 type t = {
   description : string prop;
   etag : string prop;
@@ -26,22 +38,16 @@ type t = {
   signing_protocol : string prop;
 }
 
-let aws_cloudfront_origin_access_control ?description ?id ~name
+let register ?tf_module ?description ?id ~name
     ~origin_access_control_origin_type ~signing_behavior
     ~signing_protocol __resource_id =
   let __resource_type = "aws_cloudfront_origin_access_control" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       origin_access_control_origin_type;
-       signing_behavior;
-       signing_protocol;
-     }
-      : aws_cloudfront_origin_access_control)
+    aws_cloudfront_origin_access_control ?description ?id ~name
+      ~origin_access_control_origin_type ~signing_behavior
+      ~signing_protocol ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_origin_access_control __resource);
   let __resource_attributes =
     ({

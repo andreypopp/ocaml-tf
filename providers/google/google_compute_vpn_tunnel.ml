@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_vpn_tunnel__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_vpn_tunnel__timeouts *)
+(** timeouts *)
 
 type google_compute_vpn_tunnel = {
   description : string prop option; [@option]
@@ -71,10 +71,41 @@ This must be used if a High Availability VPN gateway resource is created.
 This field must reference a 'google_compute_ha_vpn_gateway' resource. *)
   vpn_gateway_interface : float prop option; [@option]
       (** The interface ID of the VPN gateway with which this VPN tunnel is associated. *)
-  timeouts : google_compute_vpn_tunnel__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_vpn_tunnel *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
+    ?local_traffic_selector ?peer_external_gateway
+    ?peer_external_gateway_interface ?peer_gcp_gateway ?peer_ip
+    ?project ?region ?remote_traffic_selector ?router
+    ?target_vpn_gateway ?vpn_gateway ?vpn_gateway_interface ?timeouts
+    ~name ~shared_secret () : google_compute_vpn_tunnel =
+  {
+    description;
+    id;
+    ike_version;
+    labels;
+    local_traffic_selector;
+    name;
+    peer_external_gateway;
+    peer_external_gateway_interface;
+    peer_gcp_gateway;
+    peer_ip;
+    project;
+    region;
+    remote_traffic_selector;
+    router;
+    shared_secret;
+    target_vpn_gateway;
+    vpn_gateway;
+    vpn_gateway_interface;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -105,7 +136,7 @@ type t = {
   vpn_gateway_interface : float prop;
 }
 
-let google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
+let register ?tf_module ?description ?id ?ike_version ?labels
     ?local_traffic_selector ?peer_external_gateway
     ?peer_external_gateway_interface ?peer_gcp_gateway ?peer_ip
     ?project ?region ?remote_traffic_selector ?router
@@ -113,30 +144,14 @@ let google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
     ~name ~shared_secret __resource_id =
   let __resource_type = "google_compute_vpn_tunnel" in
   let __resource =
-    ({
-       description;
-       id;
-       ike_version;
-       labels;
-       local_traffic_selector;
-       name;
-       peer_external_gateway;
-       peer_external_gateway_interface;
-       peer_gcp_gateway;
-       peer_ip;
-       project;
-       region;
-       remote_traffic_selector;
-       router;
-       shared_secret;
-       target_vpn_gateway;
-       vpn_gateway;
-       vpn_gateway_interface;
-       timeouts;
-     }
-      : google_compute_vpn_tunnel)
+    google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
+      ?local_traffic_selector ?peer_external_gateway
+      ?peer_external_gateway_interface ?peer_gcp_gateway ?peer_ip
+      ?project ?region ?remote_traffic_selector ?router
+      ?target_vpn_gateway ?vpn_gateway ?vpn_gateway_interface
+      ?timeouts ~name ~shared_secret ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_vpn_tunnel __resource);
   let __resource_attributes =
     ({

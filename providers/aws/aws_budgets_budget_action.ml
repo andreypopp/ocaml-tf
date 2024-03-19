@@ -4,62 +4,59 @@
 
 open! Tf.Prelude
 
-type aws_budgets_budget_action__action_threshold = {
+type action_threshold = {
   action_threshold_type : string prop;  (** action_threshold_type *)
   action_threshold_value : float prop;  (** action_threshold_value *)
 }
 [@@deriving yojson_of]
-(** aws_budgets_budget_action__action_threshold *)
+(** action_threshold *)
 
-type aws_budgets_budget_action__definition__iam_action_definition = {
+type definition__iam_action_definition = {
   groups : string prop list option; [@option]  (** groups *)
   policy_arn : string prop;  (** policy_arn *)
   roles : string prop list option; [@option]  (** roles *)
   users : string prop list option; [@option]  (** users *)
 }
 [@@deriving yojson_of]
-(** aws_budgets_budget_action__definition__iam_action_definition *)
+(** definition__iam_action_definition *)
 
-type aws_budgets_budget_action__definition__scp_action_definition = {
+type definition__scp_action_definition = {
   policy_id : string prop;  (** policy_id *)
   target_ids : string prop list;  (** target_ids *)
 }
 [@@deriving yojson_of]
-(** aws_budgets_budget_action__definition__scp_action_definition *)
+(** definition__scp_action_definition *)
 
-type aws_budgets_budget_action__definition__ssm_action_definition = {
+type definition__ssm_action_definition = {
   action_sub_type : string prop;  (** action_sub_type *)
   instance_ids : string prop list;  (** instance_ids *)
   region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
-(** aws_budgets_budget_action__definition__ssm_action_definition *)
+(** definition__ssm_action_definition *)
 
-type aws_budgets_budget_action__definition = {
-  iam_action_definition :
-    aws_budgets_budget_action__definition__iam_action_definition list;
-  scp_action_definition :
-    aws_budgets_budget_action__definition__scp_action_definition list;
-  ssm_action_definition :
-    aws_budgets_budget_action__definition__ssm_action_definition list;
+type definition = {
+  iam_action_definition : definition__iam_action_definition list;
+  scp_action_definition : definition__scp_action_definition list;
+  ssm_action_definition : definition__ssm_action_definition list;
 }
 [@@deriving yojson_of]
-(** aws_budgets_budget_action__definition *)
+(** definition *)
 
-type aws_budgets_budget_action__subscriber = {
+type subscriber = {
   address : string prop;  (** address *)
   subscription_type : string prop;  (** subscription_type *)
 }
 [@@deriving yojson_of]
-(** aws_budgets_budget_action__subscriber *)
+(** subscriber *)
 
-type aws_budgets_budget_action__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_budgets_budget_action__timeouts *)
+(** timeouts *)
 
 type aws_budgets_budget_action = {
   account_id : string prop option; [@option]  (** account_id *)
@@ -69,14 +66,61 @@ type aws_budgets_budget_action = {
   execution_role_arn : string prop;  (** execution_role_arn *)
   id : string prop option; [@option]  (** id *)
   notification_type : string prop;  (** notification_type *)
-  action_threshold :
-    aws_budgets_budget_action__action_threshold list;
-  definition : aws_budgets_budget_action__definition list;
-  subscriber : aws_budgets_budget_action__subscriber list;
-  timeouts : aws_budgets_budget_action__timeouts option;
+  action_threshold : action_threshold list;
+  definition : definition list;
+  subscriber : subscriber list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_budgets_budget_action *)
+
+let action_threshold ~action_threshold_type ~action_threshold_value
+    () : action_threshold =
+  { action_threshold_type; action_threshold_value }
+
+let definition__iam_action_definition ?groups ?roles ?users
+    ~policy_arn () : definition__iam_action_definition =
+  { groups; policy_arn; roles; users }
+
+let definition__scp_action_definition ~policy_id ~target_ids () :
+    definition__scp_action_definition =
+  { policy_id; target_ids }
+
+let definition__ssm_action_definition ~action_sub_type ~instance_ids
+    ~region () : definition__ssm_action_definition =
+  { action_sub_type; instance_ids; region }
+
+let definition ~iam_action_definition ~scp_action_definition
+    ~ssm_action_definition () : definition =
+  {
+    iam_action_definition;
+    scp_action_definition;
+    ssm_action_definition;
+  }
+
+let subscriber ~address ~subscription_type () : subscriber =
+  { address; subscription_type }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
+    ~approval_model ~budget_name ~execution_role_arn
+    ~notification_type ~action_threshold ~definition ~subscriber () :
+    aws_budgets_budget_action =
+  {
+    account_id;
+    action_type;
+    approval_model;
+    budget_name;
+    execution_role_arn;
+    id;
+    notification_type;
+    action_threshold;
+    definition;
+    subscriber;
+    timeouts;
+  }
 
 type t = {
   account_id : string prop;
@@ -91,28 +135,17 @@ type t = {
   status : string prop;
 }
 
-let aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
+let register ?tf_module ?account_id ?id ?timeouts ~action_type
     ~approval_model ~budget_name ~execution_role_arn
     ~notification_type ~action_threshold ~definition ~subscriber
     __resource_id =
   let __resource_type = "aws_budgets_budget_action" in
   let __resource =
-    ({
-       account_id;
-       action_type;
-       approval_model;
-       budget_name;
-       execution_role_arn;
-       id;
-       notification_type;
-       action_threshold;
-       definition;
-       subscriber;
-       timeouts;
-     }
-      : aws_budgets_budget_action)
+    aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
+      ~approval_model ~budget_name ~execution_role_arn
+      ~notification_type ~action_threshold ~definition ~subscriber ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_budgets_budget_action __resource);
   let __resource_attributes =
     ({

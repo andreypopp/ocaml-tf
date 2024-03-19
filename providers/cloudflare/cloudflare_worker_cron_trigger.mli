@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_worker_cron_trigger
+
+val cloudflare_worker_cron_trigger :
+  ?id:string prop ->
+  account_id:string prop ->
+  schedules:string prop list ->
+  script_name:string prop ->
+  unit ->
+  cloudflare_worker_cron_trigger
+
+val yojson_of_cloudflare_worker_cron_trigger :
+  cloudflare_worker_cron_trigger -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -11,7 +26,8 @@ type t = private {
   script_name : string prop;
 }
 
-val cloudflare_worker_cron_trigger :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   account_id:string prop ->
   schedules:string prop list ->

@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_healthcare_service__authentication_configuration = {
+type authentication_configuration = {
   audience : string prop option; [@option]  (** audience *)
   authority : string prop option; [@option]  (** authority *)
   smart_proxy_enabled : bool prop option; [@option]
       (** smart_proxy_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_service__authentication_configuration *)
+(** authentication_configuration *)
 
-type azurerm_healthcare_service__cors_configuration = {
+type cors_configuration = {
   allow_credentials : bool prop option; [@option]
       (** allow_credentials *)
   allowed_headers : string prop list option; [@option]
@@ -26,16 +26,16 @@ type azurerm_healthcare_service__cors_configuration = {
       (** max_age_in_seconds *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_service__cors_configuration *)
+(** cors_configuration *)
 
-type azurerm_healthcare_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_service__timeouts *)
+(** timeouts *)
 
 type azurerm_healthcare_service = {
   access_policy_object_ids : string prop list option; [@option]
@@ -53,14 +53,51 @@ type azurerm_healthcare_service = {
       (** public_network_access_enabled *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  authentication_configuration :
-    azurerm_healthcare_service__authentication_configuration list;
-  cors_configuration :
-    azurerm_healthcare_service__cors_configuration list;
-  timeouts : azurerm_healthcare_service__timeouts option;
+  authentication_configuration : authentication_configuration list;
+  cors_configuration : cors_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_service *)
+
+let authentication_configuration ?audience ?authority
+    ?smart_proxy_enabled () : authentication_configuration =
+  { audience; authority; smart_proxy_enabled }
+
+let cors_configuration ?allow_credentials ?allowed_headers
+    ?allowed_methods ?allowed_origins ?max_age_in_seconds () :
+    cors_configuration =
+  {
+    allow_credentials;
+    allowed_headers;
+    allowed_methods;
+    allowed_origins;
+    max_age_in_seconds;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_healthcare_service ?access_policy_object_ids
+    ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
+    ?kind ?public_network_access_enabled ?tags ?timeouts ~location
+    ~name ~resource_group_name ~authentication_configuration
+    ~cors_configuration () : azurerm_healthcare_service =
+  {
+    access_policy_object_ids;
+    cosmosdb_key_vault_key_versionless_id;
+    cosmosdb_throughput;
+    id;
+    kind;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    tags;
+    authentication_configuration;
+    cors_configuration;
+    timeouts;
+  }
 
 type t = {
   access_policy_object_ids : string list prop;
@@ -75,31 +112,20 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_healthcare_service ?access_policy_object_ids
+let register ?tf_module ?access_policy_object_ids
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
     ?kind ?public_network_access_enabled ?tags ?timeouts ~location
     ~name ~resource_group_name ~authentication_configuration
     ~cors_configuration __resource_id =
   let __resource_type = "azurerm_healthcare_service" in
   let __resource =
-    ({
-       access_policy_object_ids;
-       cosmosdb_key_vault_key_versionless_id;
-       cosmosdb_throughput;
-       id;
-       kind;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       tags;
-       authentication_configuration;
-       cors_configuration;
-       timeouts;
-     }
-      : azurerm_healthcare_service)
+    azurerm_healthcare_service ?access_policy_object_ids
+      ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
+      ?kind ?public_network_access_enabled ?tags ?timeouts ~location
+      ~name ~resource_group_name ~authentication_configuration
+      ~cors_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_healthcare_service __resource);
   let __resource_attributes =
     ({

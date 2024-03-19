@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_securityhub_invite_accepter
+
+val aws_securityhub_invite_accepter :
+  ?id:string prop ->
+  master_id:string prop ->
+  unit ->
+  aws_securityhub_invite_accepter
+
+val yojson_of_aws_securityhub_invite_accepter :
+  aws_securityhub_invite_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,5 +23,9 @@ type t = private {
   master_id : string prop;
 }
 
-val aws_securityhub_invite_accepter :
-  ?id:string prop -> master_id:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  master_id:string prop ->
+  string ->
+  t

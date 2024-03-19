@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_bigquery_reservation_assignment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_reservation_assignment__timeouts *)
+(** timeouts *)
 
 type google_bigquery_reservation_assignment = {
   assignee : string prop;
@@ -22,10 +22,25 @@ type google_bigquery_reservation_assignment = {
   project : string prop option; [@option]
       (** The project for the resource *)
   reservation : string prop;  (** The reservation for the resource *)
-  timeouts : google_bigquery_reservation_assignment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_reservation_assignment *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_bigquery_reservation_assignment ?id ?location ?project
+    ?timeouts ~assignee ~job_type ~reservation () :
+    google_bigquery_reservation_assignment =
+  {
+    assignee;
+    id;
+    job_type;
+    location;
+    project;
+    reservation;
+    timeouts;
+  }
 
 type t = {
   assignee : string prop;
@@ -38,22 +53,14 @@ type t = {
   state : string prop;
 }
 
-let google_bigquery_reservation_assignment ?id ?location ?project
-    ?timeouts ~assignee ~job_type ~reservation __resource_id =
+let register ?tf_module ?id ?location ?project ?timeouts ~assignee
+    ~job_type ~reservation __resource_id =
   let __resource_type = "google_bigquery_reservation_assignment" in
   let __resource =
-    ({
-       assignee;
-       id;
-       job_type;
-       location;
-       project;
-       reservation;
-       timeouts;
-     }
-      : google_bigquery_reservation_assignment)
+    google_bigquery_reservation_assignment ?id ?location ?project
+      ?timeouts ~assignee ~job_type ~reservation ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_reservation_assignment __resource);
   let __resource_attributes =
     ({

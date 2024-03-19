@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_integration_account_map__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_logic_app_integration_account_map
+
+val azurerm_logic_app_integration_account_map :
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  content:string prop ->
+  integration_account_name:string prop ->
+  map_type:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_logic_app_integration_account_map
+
+val yojson_of_azurerm_logic_app_integration_account_map :
+  azurerm_logic_app_integration_account_map -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   content : string prop;
@@ -15,10 +43,11 @@ type t = private {
   resource_group_name : string prop;
 }
 
-val azurerm_logic_app_integration_account_map :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
-  ?timeouts:azurerm_logic_app_integration_account_map__timeouts ->
+  ?timeouts:timeouts ->
   content:string prop ->
   integration_account_name:string prop ->
   map_type:string prop ->

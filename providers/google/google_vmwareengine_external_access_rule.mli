@@ -2,10 +2,55 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_external_access_rule__destination_ip_ranges
-type google_vmwareengine_external_access_rule__source_ip_ranges
-type google_vmwareengine_external_access_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type destination_ip_ranges
+
+val destination_ip_ranges :
+  ?external_address:string prop ->
+  ?ip_address_range:string prop ->
+  unit ->
+  destination_ip_ranges
+
+type source_ip_ranges
+
+val source_ip_ranges :
+  ?ip_address:string prop ->
+  ?ip_address_range:string prop ->
+  unit ->
+  source_ip_ranges
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vmwareengine_external_access_rule
+
+val google_vmwareengine_external_access_rule :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  action:string prop ->
+  destination_ports:string prop list ->
+  ip_protocol:string prop ->
+  name:string prop ->
+  parent:string prop ->
+  priority:float prop ->
+  source_ports:string prop list ->
+  destination_ip_ranges:destination_ip_ranges list ->
+  source_ip_ranges:source_ip_ranges list ->
+  unit ->
+  google_vmwareengine_external_access_rule
+
+val yojson_of_google_vmwareengine_external_access_rule :
+  google_vmwareengine_external_access_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   action : string prop;
@@ -23,10 +68,11 @@ type t = private {
   update_time : string prop;
 }
 
-val google_vmwareengine_external_access_rule :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:google_vmwareengine_external_access_rule__timeouts ->
+  ?timeouts:timeouts ->
   action:string prop ->
   destination_ports:string prop list ->
   ip_protocol:string prop ->
@@ -34,10 +80,7 @@ val google_vmwareengine_external_access_rule :
   parent:string prop ->
   priority:float prop ->
   source_ports:string prop list ->
-  destination_ip_ranges:
-    google_vmwareengine_external_access_rule__destination_ip_ranges
-    list ->
-  source_ip_ranges:
-    google_vmwareengine_external_access_rule__source_ip_ranges list ->
+  destination_ip_ranges:destination_ip_ranges list ->
+  source_ip_ranges:source_ip_ranges list ->
   string ->
   t

@@ -14,6 +14,10 @@ type cloudflare_zone_dnssec = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare resource to create and modify zone DNSSEC settings. *)
 
+let cloudflare_zone_dnssec ?id ?modified_on ~zone_id () :
+    cloudflare_zone_dnssec =
+  { id; modified_on; zone_id }
+
 type t = {
   algorithm : string prop;
   digest : string prop;
@@ -30,12 +34,12 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_zone_dnssec ?id ?modified_on ~zone_id __resource_id =
+let register ?tf_module ?id ?modified_on ~zone_id __resource_id =
   let __resource_type = "cloudflare_zone_dnssec" in
   let __resource =
-    ({ id; modified_on; zone_id } : cloudflare_zone_dnssec)
+    cloudflare_zone_dnssec ?id ?modified_on ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_dnssec __resource);
   let __resource_attributes =
     ({

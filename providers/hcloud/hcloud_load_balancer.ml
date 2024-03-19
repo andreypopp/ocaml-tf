@@ -4,19 +4,19 @@
 
 open! Tf.Prelude
 
-type hcloud_load_balancer__algorithm = {
+type algorithm = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** hcloud_load_balancer__algorithm *)
+(** algorithm *)
 
-type hcloud_load_balancer__target = {
+type target = {
   server_id : float prop option; [@option]  (** server_id *)
   type_ : string prop; [@key "type"]  (** type *)
   use_private_ip : bool prop option; [@option]  (** use_private_ip *)
 }
 [@@deriving yojson_of]
-(** hcloud_load_balancer__target *)
+(** target *)
 
 type hcloud_load_balancer = {
   delete_protection : bool prop option; [@option]
@@ -28,11 +28,31 @@ type hcloud_load_balancer = {
   location : string prop option; [@option]  (** location *)
   name : string prop;  (** name *)
   network_zone : string prop option; [@option]  (** network_zone *)
-  algorithm : hcloud_load_balancer__algorithm list;
-  target : hcloud_load_balancer__target list;
+  algorithm : algorithm list;
+  target : target list;
 }
 [@@deriving yojson_of]
 (** hcloud_load_balancer *)
+
+let algorithm ?type_ () : algorithm = { type_ }
+
+let target ?server_id ?use_private_ip ~type_ () : target =
+  { server_id; type_; use_private_ip }
+
+let hcloud_load_balancer ?delete_protection ?id ?labels ?location
+    ?network_zone ~load_balancer_type ~name ~algorithm ~target () :
+    hcloud_load_balancer =
+  {
+    delete_protection;
+    id;
+    labels;
+    load_balancer_type;
+    location;
+    name;
+    network_zone;
+    algorithm;
+    target;
+  }
 
 type t = {
   delete_protection : bool prop;
@@ -48,25 +68,15 @@ type t = {
   network_zone : string prop;
 }
 
-let hcloud_load_balancer ?delete_protection ?id ?labels ?location
+let register ?tf_module ?delete_protection ?id ?labels ?location
     ?network_zone ~load_balancer_type ~name ~algorithm ~target
     __resource_id =
   let __resource_type = "hcloud_load_balancer" in
   let __resource =
-    ({
-       delete_protection;
-       id;
-       labels;
-       load_balancer_type;
-       location;
-       name;
-       network_zone;
-       algorithm;
-       target;
-     }
-      : hcloud_load_balancer)
+    hcloud_load_balancer ?delete_protection ?id ?labels ?location
+      ?network_zone ~load_balancer_type ~name ~algorithm ~target ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_load_balancer __resource);
   let __resource_attributes =
     ({

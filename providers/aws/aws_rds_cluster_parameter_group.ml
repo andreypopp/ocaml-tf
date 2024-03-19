@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_rds_cluster_parameter_group__parameter = {
+type parameter = {
   apply_method : string prop option; [@option]  (** apply_method *)
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_rds_cluster_parameter_group__parameter *)
+(** parameter *)
 
 type aws_rds_cluster_parameter_group = {
   description : string prop option; [@option]  (** description *)
@@ -21,10 +21,27 @@ type aws_rds_cluster_parameter_group = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  parameter : aws_rds_cluster_parameter_group__parameter list;
+  parameter : parameter list;
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster_parameter_group *)
+
+let parameter ?apply_method ~name ~value () : parameter =
+  { apply_method; name; value }
+
+let aws_rds_cluster_parameter_group ?description ?id ?name
+    ?name_prefix ?tags ?tags_all ~family ~parameter () :
+    aws_rds_cluster_parameter_group =
+  {
+    description;
+    family;
+    id;
+    name;
+    name_prefix;
+    tags;
+    tags_all;
+    parameter;
+  }
 
 type t = {
   arn : string prop;
@@ -37,23 +54,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_rds_cluster_parameter_group ?description ?id ?name
-    ?name_prefix ?tags ?tags_all ~family ~parameter __resource_id =
+let register ?tf_module ?description ?id ?name ?name_prefix ?tags
+    ?tags_all ~family ~parameter __resource_id =
   let __resource_type = "aws_rds_cluster_parameter_group" in
   let __resource =
-    ({
-       description;
-       family;
-       id;
-       name;
-       name_prefix;
-       tags;
-       tags_all;
-       parameter;
-     }
-      : aws_rds_cluster_parameter_group)
+    aws_rds_cluster_parameter_group ?description ?id ?name
+      ?name_prefix ?tags ?tags_all ~family ~parameter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rds_cluster_parameter_group __resource);
   let __resource_attributes =
     ({

@@ -2,10 +2,50 @@
 
 open! Tf.Prelude
 
-type google_biglake_table__hive_options__storage_descriptor
-type google_biglake_table__hive_options
-type google_biglake_table__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type hive_options__storage_descriptor
+
+val hive_options__storage_descriptor :
+  ?input_format:string prop ->
+  ?location_uri:string prop ->
+  ?output_format:string prop ->
+  unit ->
+  hive_options__storage_descriptor
+
+type hive_options
+
+val hive_options :
+  ?parameters:(string * string prop) list ->
+  ?table_type:string prop ->
+  storage_descriptor:hive_options__storage_descriptor list ->
+  unit ->
+  hive_options
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_biglake_table
+
+val google_biglake_table :
+  ?database:string prop ->
+  ?id:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  hive_options:hive_options list ->
+  unit ->
+  google_biglake_table
+
+val yojson_of_google_biglake_table : google_biglake_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -19,12 +59,13 @@ type t = private {
   update_time : string prop;
 }
 
-val google_biglake_table :
+val register :
+  ?tf_module:tf_module ->
   ?database:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
-  ?timeouts:google_biglake_table__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  hive_options:google_biglake_table__hive_options list ->
+  hive_options:hive_options list ->
   string ->
   t

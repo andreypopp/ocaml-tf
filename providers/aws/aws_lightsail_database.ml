@@ -36,6 +36,33 @@ type aws_lightsail_database = {
 [@@deriving yojson_of]
 (** aws_lightsail_database *)
 
+let aws_lightsail_database ?apply_immediately ?availability_zone
+    ?backup_retention_enabled ?final_snapshot_name ?id
+    ?preferred_backup_window ?preferred_maintenance_window
+    ?publicly_accessible ?skip_final_snapshot ?tags ?tags_all
+    ~blueprint_id ~bundle_id ~master_database_name ~master_password
+    ~master_username ~relational_database_name () :
+    aws_lightsail_database =
+  {
+    apply_immediately;
+    availability_zone;
+    backup_retention_enabled;
+    blueprint_id;
+    bundle_id;
+    final_snapshot_name;
+    id;
+    master_database_name;
+    master_password;
+    master_username;
+    preferred_backup_window;
+    preferred_maintenance_window;
+    publicly_accessible;
+    relational_database_name;
+    skip_final_snapshot;
+    tags;
+    tags_all;
+  }
+
 type t = {
   apply_immediately : bool prop;
   arn : string prop;
@@ -68,7 +95,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_lightsail_database ?apply_immediately ?availability_zone
+let register ?tf_module ?apply_immediately ?availability_zone
     ?backup_retention_enabled ?final_snapshot_name ?id
     ?preferred_backup_window ?preferred_maintenance_window
     ?publicly_accessible ?skip_final_snapshot ?tags ?tags_all
@@ -76,28 +103,14 @@ let aws_lightsail_database ?apply_immediately ?availability_zone
     ~master_username ~relational_database_name __resource_id =
   let __resource_type = "aws_lightsail_database" in
   let __resource =
-    ({
-       apply_immediately;
-       availability_zone;
-       backup_retention_enabled;
-       blueprint_id;
-       bundle_id;
-       final_snapshot_name;
-       id;
-       master_database_name;
-       master_password;
-       master_username;
-       preferred_backup_window;
-       preferred_maintenance_window;
-       publicly_accessible;
-       relational_database_name;
-       skip_final_snapshot;
-       tags;
-       tags_all;
-     }
-      : aws_lightsail_database)
+    aws_lightsail_database ?apply_immediately ?availability_zone
+      ?backup_retention_enabled ?final_snapshot_name ?id
+      ?preferred_backup_window ?preferred_maintenance_window
+      ?publicly_accessible ?skip_final_snapshot ?tags ?tags_all
+      ~blueprint_id ~bundle_id ~master_database_name ~master_password
+      ~master_username ~relational_database_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_database __resource);
   let __resource_attributes =
     ({

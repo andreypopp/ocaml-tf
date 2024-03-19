@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_elb__access_logs = {
+type access_logs = {
   bucket : string prop;  (** bucket *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   enabled : bool prop option; [@option]  (** enabled *)
   interval : float prop option; [@option]  (** interval *)
 }
 [@@deriving yojson_of]
-(** aws_elb__access_logs *)
+(** access_logs *)
 
-type aws_elb__health_check = {
+type health_check = {
   healthy_threshold : float prop;  (** healthy_threshold *)
   interval : float prop;  (** interval *)
   target : string prop;  (** target *)
@@ -21,9 +21,9 @@ type aws_elb__health_check = {
   unhealthy_threshold : float prop;  (** unhealthy_threshold *)
 }
 [@@deriving yojson_of]
-(** aws_elb__health_check *)
+(** health_check *)
 
-type aws_elb__listener = {
+type listener = {
   instance_port : float prop;  (** instance_port *)
   instance_protocol : string prop;  (** instance_protocol *)
   lb_port : float prop;  (** lb_port *)
@@ -32,14 +32,14 @@ type aws_elb__listener = {
       (** ssl_certificate_id *)
 }
 [@@deriving yojson_of]
-(** aws_elb__listener *)
+(** listener *)
 
-type aws_elb__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_elb__timeouts *)
+(** timeouts *)
 
 type aws_elb = {
   availability_zones : string prop list option; [@option]
@@ -66,13 +66,68 @@ type aws_elb = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  access_logs : aws_elb__access_logs list;
-  health_check : aws_elb__health_check list;
-  listener : aws_elb__listener list;
-  timeouts : aws_elb__timeouts option;
+  access_logs : access_logs list;
+  health_check : health_check list;
+  listener : listener list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_elb *)
+
+let access_logs ?bucket_prefix ?enabled ?interval ~bucket () :
+    access_logs =
+  { bucket; bucket_prefix; enabled; interval }
+
+let health_check ~healthy_threshold ~interval ~target ~timeout
+    ~unhealthy_threshold () : health_check =
+  {
+    healthy_threshold;
+    interval;
+    target;
+    timeout;
+    unhealthy_threshold;
+  }
+
+let listener ?ssl_certificate_id ~instance_port ~instance_protocol
+    ~lb_port ~lb_protocol () : listener =
+  {
+    instance_port;
+    instance_protocol;
+    lb_port;
+    lb_protocol;
+    ssl_certificate_id;
+  }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_elb ?availability_zones ?connection_draining
+    ?connection_draining_timeout ?cross_zone_load_balancing
+    ?desync_mitigation_mode ?id ?idle_timeout ?instances ?internal
+    ?name ?name_prefix ?security_groups ?source_security_group
+    ?subnets ?tags ?tags_all ?timeouts ~access_logs ~health_check
+    ~listener () : aws_elb =
+  {
+    availability_zones;
+    connection_draining;
+    connection_draining_timeout;
+    cross_zone_load_balancing;
+    desync_mitigation_mode;
+    id;
+    idle_timeout;
+    instances;
+    internal;
+    name;
+    name_prefix;
+    security_groups;
+    source_security_group;
+    subnets;
+    tags;
+    tags_all;
+    access_logs;
+    health_check;
+    listener;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -97,7 +152,7 @@ type t = {
   zone_id : string prop;
 }
 
-let aws_elb ?availability_zones ?connection_draining
+let register ?tf_module ?availability_zones ?connection_draining
     ?connection_draining_timeout ?cross_zone_load_balancing
     ?desync_mitigation_mode ?id ?idle_timeout ?instances ?internal
     ?name ?name_prefix ?security_groups ?source_security_group
@@ -105,31 +160,14 @@ let aws_elb ?availability_zones ?connection_draining
     ~listener __resource_id =
   let __resource_type = "aws_elb" in
   let __resource =
-    ({
-       availability_zones;
-       connection_draining;
-       connection_draining_timeout;
-       cross_zone_load_balancing;
-       desync_mitigation_mode;
-       id;
-       idle_timeout;
-       instances;
-       internal;
-       name;
-       name_prefix;
-       security_groups;
-       source_security_group;
-       subnets;
-       tags;
-       tags_all;
-       access_logs;
-       health_check;
-       listener;
-       timeouts;
-     }
-      : aws_elb)
+    aws_elb ?availability_zones ?connection_draining
+      ?connection_draining_timeout ?cross_zone_load_balancing
+      ?desync_mitigation_mode ?id ?idle_timeout ?instances ?internal
+      ?name ?name_prefix ?security_groups ?source_security_group
+      ?subnets ?tags ?tags_all ?timeouts ~access_logs ~health_check
+      ~listener ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elb __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_postgresql_firewall_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_cosmosdb_postgresql_firewall_rule
+
+val azurerm_cosmosdb_postgresql_firewall_rule :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cluster_id:string prop ->
+  end_ip_address:string prop ->
+  name:string prop ->
+  start_ip_address:string prop ->
+  unit ->
+  azurerm_cosmosdb_postgresql_firewall_rule
+
+val yojson_of_azurerm_cosmosdb_postgresql_firewall_rule :
+  azurerm_cosmosdb_postgresql_firewall_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_id : string prop;
@@ -13,9 +39,10 @@ type t = private {
   start_ip_address : string prop;
 }
 
-val azurerm_cosmosdb_postgresql_firewall_rule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_cosmosdb_postgresql_firewall_rule__timeouts ->
+  ?timeouts:timeouts ->
   cluster_id:string prop ->
   end_ip_address:string prop ->
   name:string prop ->

@@ -11,12 +11,15 @@ type aws_ses_email_identity = {
 [@@deriving yojson_of]
 (** aws_ses_email_identity *)
 
+let aws_ses_email_identity ?id ~email () : aws_ses_email_identity =
+  { email; id }
+
 type t = { arn : string prop; email : string prop; id : string prop }
 
-let aws_ses_email_identity ?id ~email __resource_id =
+let register ?tf_module ?id ~email __resource_id =
   let __resource_type = "aws_ses_email_identity" in
-  let __resource = ({ email; id } : aws_ses_email_identity) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_ses_email_identity ?id ~email () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_email_identity __resource);
   let __resource_attributes =
     ({

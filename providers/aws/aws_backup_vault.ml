@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_backup_vault__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_backup_vault__timeouts *)
+(** timeouts *)
 
 type aws_backup_vault = {
   force_destroy : bool prop option; [@option]  (** force_destroy *)
@@ -18,10 +18,16 @@ type aws_backup_vault = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_backup_vault__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_backup_vault *)
+
+let timeouts ?delete () : timeouts = { delete }
+
+let aws_backup_vault ?force_destroy ?id ?kms_key_arn ?tags ?tags_all
+    ?timeouts ~name () : aws_backup_vault =
+  { force_destroy; id; kms_key_arn; name; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -34,22 +40,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_backup_vault ?force_destroy ?id ?kms_key_arn ?tags ?tags_all
-    ?timeouts ~name __resource_id =
+let register ?tf_module ?force_destroy ?id ?kms_key_arn ?tags
+    ?tags_all ?timeouts ~name __resource_id =
   let __resource_type = "aws_backup_vault" in
   let __resource =
-    ({
-       force_destroy;
-       id;
-       kms_key_arn;
-       name;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_backup_vault)
+    aws_backup_vault ?force_destroy ?id ?kms_key_arn ?tags ?tags_all
+      ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_vault __resource);
   let __resource_attributes =
     ({

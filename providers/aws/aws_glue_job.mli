@@ -2,10 +2,57 @@
 
 open! Tf.Prelude
 
-type aws_glue_job__command
-type aws_glue_job__execution_property
-type aws_glue_job__notification_property
+(** RESOURCE SERIALIZATION *)
+
+type command
+
+val command :
+  ?name:string prop ->
+  ?python_version:string prop ->
+  ?runtime:string prop ->
+  script_location:string prop ->
+  unit ->
+  command
+
+type execution_property
+
+val execution_property :
+  ?max_concurrent_runs:float prop -> unit -> execution_property
+
+type notification_property
+
+val notification_property :
+  ?notify_delay_after:float prop -> unit -> notification_property
+
 type aws_glue_job
+
+val aws_glue_job :
+  ?connections:string prop list ->
+  ?default_arguments:(string * string prop) list ->
+  ?description:string prop ->
+  ?execution_class:string prop ->
+  ?glue_version:string prop ->
+  ?id:string prop ->
+  ?max_capacity:float prop ->
+  ?max_retries:float prop ->
+  ?non_overridable_arguments:(string * string prop) list ->
+  ?number_of_workers:float prop ->
+  ?security_configuration:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeout:float prop ->
+  ?worker_type:string prop ->
+  name:string prop ->
+  role_arn:string prop ->
+  command:command list ->
+  execution_property:execution_property list ->
+  notification_property:notification_property list ->
+  unit ->
+  aws_glue_job
+
+val yojson_of_aws_glue_job : aws_glue_job -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -28,7 +75,8 @@ type t = private {
   worker_type : string prop;
 }
 
-val aws_glue_job :
+val register :
+  ?tf_module:tf_module ->
   ?connections:string prop list ->
   ?default_arguments:(string * string prop) list ->
   ?description:string prop ->
@@ -46,8 +94,8 @@ val aws_glue_job :
   ?worker_type:string prop ->
   name:string prop ->
   role_arn:string prop ->
-  command:aws_glue_job__command list ->
-  execution_property:aws_glue_job__execution_property list ->
-  notification_property:aws_glue_job__notification_property list ->
+  command:command list ->
+  execution_property:execution_property list ->
+  notification_property:notification_property list ->
   string ->
   t

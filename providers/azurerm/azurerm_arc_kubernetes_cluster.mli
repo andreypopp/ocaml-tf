@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type azurerm_arc_kubernetes_cluster__identity
-type azurerm_arc_kubernetes_cluster__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_arc_kubernetes_cluster
+
+val azurerm_arc_kubernetes_cluster :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  agent_public_key_certificate:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_arc_kubernetes_cluster
+
+val yojson_of_azurerm_arc_kubernetes_cluster :
+  azurerm_arc_kubernetes_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   agent_public_key_certificate : string prop;
@@ -22,14 +53,15 @@ type t = private {
   total_node_count : float prop;
 }
 
-val azurerm_arc_kubernetes_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_arc_kubernetes_cluster__timeouts ->
+  ?timeouts:timeouts ->
   agent_public_key_certificate:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_arc_kubernetes_cluster__identity list ->
+  identity:identity list ->
   string ->
   t

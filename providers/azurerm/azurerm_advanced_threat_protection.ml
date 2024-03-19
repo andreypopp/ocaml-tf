@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_advanced_threat_protection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_advanced_threat_protection__timeouts *)
+(** timeouts *)
 
 type azurerm_advanced_threat_protection = {
   enabled : bool prop;  (** enabled *)
   id : string prop option; [@option]  (** id *)
   target_resource_id : string prop;  (** target_resource_id *)
-  timeouts : azurerm_advanced_threat_protection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_advanced_threat_protection *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_advanced_threat_protection ?id ?timeouts ~enabled
+    ~target_resource_id () : azurerm_advanced_threat_protection =
+  { enabled; id; target_resource_id; timeouts }
 
 type t = {
   enabled : bool prop;
@@ -28,14 +35,14 @@ type t = {
   target_resource_id : string prop;
 }
 
-let azurerm_advanced_threat_protection ?id ?timeouts ~enabled
-    ~target_resource_id __resource_id =
+let register ?tf_module ?id ?timeouts ~enabled ~target_resource_id
+    __resource_id =
   let __resource_type = "azurerm_advanced_threat_protection" in
   let __resource =
-    ({ enabled; id; target_resource_id; timeouts }
-      : azurerm_advanced_threat_protection)
+    azurerm_advanced_threat_protection ?id ?timeouts ~enabled
+      ~target_resource_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_advanced_threat_protection __resource);
   let __resource_attributes =
     ({

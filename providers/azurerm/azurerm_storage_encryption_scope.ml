@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_encryption_scope__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_encryption_scope__timeouts *)
+(** timeouts *)
 
 type azurerm_storage_encryption_scope = {
   id : string prop option; [@option]  (** id *)
@@ -22,10 +22,27 @@ type azurerm_storage_encryption_scope = {
   name : string prop;  (** name *)
   source : string prop;  (** source *)
   storage_account_id : string prop;  (** storage_account_id *)
-  timeouts : azurerm_storage_encryption_scope__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_encryption_scope *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_storage_encryption_scope ?id
+    ?infrastructure_encryption_required ?key_vault_key_id ?timeouts
+    ~name ~source ~storage_account_id () :
+    azurerm_storage_encryption_scope =
+  {
+    id;
+    infrastructure_encryption_required;
+    key_vault_key_id;
+    name;
+    source;
+    storage_account_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -36,23 +53,16 @@ type t = {
   storage_account_id : string prop;
 }
 
-let azurerm_storage_encryption_scope ?id
-    ?infrastructure_encryption_required ?key_vault_key_id ?timeouts
-    ~name ~source ~storage_account_id __resource_id =
+let register ?tf_module ?id ?infrastructure_encryption_required
+    ?key_vault_key_id ?timeouts ~name ~source ~storage_account_id
+    __resource_id =
   let __resource_type = "azurerm_storage_encryption_scope" in
   let __resource =
-    ({
-       id;
-       infrastructure_encryption_required;
-       key_vault_key_id;
-       name;
-       source;
-       storage_account_id;
-       timeouts;
-     }
-      : azurerm_storage_encryption_scope)
+    azurerm_storage_encryption_scope ?id
+      ?infrastructure_encryption_required ?key_vault_key_id ?timeouts
+      ~name ~source ~storage_account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_encryption_scope __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_privateca_certificate_authority__config__subject_config__subject = {
+type config__subject_config__subject = {
   common_name : string prop;
       (** The common name of the distinguished name. *)
   country_code : string prop option; [@option]
@@ -25,7 +25,7 @@ type google_privateca_certificate_authority__config__subject_config__subject = {
 [@@deriving yojson_of]
 (** Contains distinguished name fields such as the location and organization. *)
 
-type google_privateca_certificate_authority__config__subject_config__subject_alt_name = {
+type config__subject_config__subject_alt_name = {
   dns_names : string prop list option; [@option]
       (** Contains only valid, fully-qualified host names. *)
   email_addresses : string prop list option; [@option]
@@ -38,38 +38,33 @@ type google_privateca_certificate_authority__config__subject_config__subject_alt
 [@@deriving yojson_of]
 (** The subject alternative name fields. *)
 
-type google_privateca_certificate_authority__config__subject_config = {
-  subject :
-    google_privateca_certificate_authority__config__subject_config__subject
-    list;
-  subject_alt_name :
-    google_privateca_certificate_authority__config__subject_config__subject_alt_name
-    list;
+type config__subject_config = {
+  subject : config__subject_config__subject list;
+  subject_alt_name : config__subject_config__subject_alt_name list;
 }
 [@@deriving yojson_of]
 (** Specifies some of the values in a certificate that are related to the subject. *)
 
-type google_privateca_certificate_authority__config__x509_config__additional_extensions__object_id = {
+type config__x509_config__additional_extensions__object_id = {
   object_id_path : float prop list;
       (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
 [@@deriving yojson_of]
 (** Describes values that are relevant in a CA certificate. *)
 
-type google_privateca_certificate_authority__config__x509_config__additional_extensions = {
+type config__x509_config__additional_extensions = {
   critical : bool prop;
       (** Indicates whether or not this extension is critical (i.e., if the client does not know how to
 handle this extension, the client should consider this to be an error). *)
   value : string prop;
       (** The value of this X.509 extension. A base64-encoded string. *)
   object_id :
-    google_privateca_certificate_authority__config__x509_config__additional_extensions__object_id
-    list;
+    config__x509_config__additional_extensions__object_id list;
 }
 [@@deriving yojson_of]
 (** Specifies an X.509 extension, which may be used in different parts of X.509 objects like certificates, CSRs, and CRLs. *)
 
-type google_privateca_certificate_authority__config__x509_config__ca_options = {
+type config__x509_config__ca_options = {
   is_ca : bool prop;
       (** When true, the CA in Basic Constraints extension will be set to true. *)
   max_issuer_path_length : float prop option; [@option]
@@ -87,7 +82,7 @@ the max path length will be omitted from the CA certificate. *)
 [@@deriving yojson_of]
 (** Describes values that are relevant in a CA certificate. *)
 
-type google_privateca_certificate_authority__config__x509_config__key_usage__base_key_usage = {
+type config__x509_config__key_usage__base_key_usage = {
   cert_sign : bool prop option; [@option]
       (** The key may be used to sign certificates. *)
   content_commitment : bool prop option; [@option]
@@ -110,7 +105,7 @@ type google_privateca_certificate_authority__config__x509_config__key_usage__bas
 [@@deriving yojson_of]
 (** Describes high-level ways in which a key may be used. *)
 
-type google_privateca_certificate_authority__config__x509_config__key_usage__extended_key_usage = {
+type config__x509_config__key_usage__extended_key_usage = {
   client_auth : bool prop option; [@option]
       (** Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially described as TLS WWW client authentication, though regularly used for non-WWW TLS. *)
   code_signing : bool prop option; [@option]
@@ -127,28 +122,25 @@ type google_privateca_certificate_authority__config__x509_config__key_usage__ext
 [@@deriving yojson_of]
 (** Describes high-level ways in which a key may be used. *)
 
-type google_privateca_certificate_authority__config__x509_config__key_usage__unknown_extended_key_usages = {
+type config__x509_config__key_usage__unknown_extended_key_usages = {
   object_id_path : float prop list;
       (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
 [@@deriving yojson_of]
 (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 
-type google_privateca_certificate_authority__config__x509_config__key_usage = {
+type config__x509_config__key_usage = {
   base_key_usage :
-    google_privateca_certificate_authority__config__x509_config__key_usage__base_key_usage
-    list;
+    config__x509_config__key_usage__base_key_usage list;
   extended_key_usage :
-    google_privateca_certificate_authority__config__x509_config__key_usage__extended_key_usage
-    list;
+    config__x509_config__key_usage__extended_key_usage list;
   unknown_extended_key_usages :
-    google_privateca_certificate_authority__config__x509_config__key_usage__unknown_extended_key_usages
-    list;
+    config__x509_config__key_usage__unknown_extended_key_usages list;
 }
 [@@deriving yojson_of]
 (** Indicates the intended use for keys that correspond to a certificate. *)
 
-type google_privateca_certificate_authority__config__x509_config__name_constraints = {
+type config__x509_config__name_constraints = {
   critical : bool prop;
       (** Indicates whether or not the name constraints are marked critical. *)
   excluded_dns_names : string prop list option; [@option]
@@ -195,47 +187,35 @@ leading period (like '.example.com') *)
 [@@deriving yojson_of]
 (** Describes the X.509 name constraints extension. *)
 
-type google_privateca_certificate_authority__config__x509_config__policy_ids = {
+type config__x509_config__policy_ids = {
   object_id_path : float prop list;
       (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
 [@@deriving yojson_of]
 (** Describes the X.509 certificate policy object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4. *)
 
-type google_privateca_certificate_authority__config__x509_config = {
+type config__x509_config = {
   aia_ocsp_servers : string prop list option; [@option]
       (** Describes Online Certificate Status Protocol (OCSP) endpoint addresses that appear in the
 Authority Information Access extension in the certificate. *)
   additional_extensions :
-    google_privateca_certificate_authority__config__x509_config__additional_extensions
-    list;
-  ca_options :
-    google_privateca_certificate_authority__config__x509_config__ca_options
-    list;
-  key_usage :
-    google_privateca_certificate_authority__config__x509_config__key_usage
-    list;
-  name_constraints :
-    google_privateca_certificate_authority__config__x509_config__name_constraints
-    list;
-  policy_ids :
-    google_privateca_certificate_authority__config__x509_config__policy_ids
-    list;
+    config__x509_config__additional_extensions list;
+  ca_options : config__x509_config__ca_options list;
+  key_usage : config__x509_config__key_usage list;
+  name_constraints : config__x509_config__name_constraints list;
+  policy_ids : config__x509_config__policy_ids list;
 }
 [@@deriving yojson_of]
 (** Describes how some of the technical X.509 fields in a certificate should be populated. *)
 
-type google_privateca_certificate_authority__config = {
-  subject_config :
-    google_privateca_certificate_authority__config__subject_config
-    list;
-  x509_config :
-    google_privateca_certificate_authority__config__x509_config list;
+type config = {
+  subject_config : config__subject_config list;
+  x509_config : config__x509_config list;
 }
 [@@deriving yojson_of]
 (** The config used to create a self-signed X.509 certificate or CSR. *)
 
-type google_privateca_certificate_authority__key_spec = {
+type key_spec = {
   algorithm : string prop option; [@option]
       (** The algorithm to use for creating a managed Cloud KMS key for a for a simplified
 experience. All managed keys will be have their ProtectionLevel as HSM. Possible values: [SIGN_HASH_ALGORITHM_UNSPECIFIED, RSA_PSS_2048_SHA256, RSA_PSS_3072_SHA256, RSA_PSS_4096_SHA256, RSA_PKCS1_2048_SHA256, RSA_PKCS1_3072_SHA256, RSA_PKCS1_4096_SHA256, EC_P256_SHA256, EC_P384_SHA384] *)
@@ -248,7 +228,7 @@ experience. All managed keys will be have their ProtectionLevel as HSM. Possible
 is a self-signed CertificateAuthority, this key is also used to sign the self-signed CA
 certificate. Otherwise, it is used to sign a CSR. *)
 
-type google_privateca_certificate_authority__subordinate_config__pem_issuer_chain = {
+type subordinate_config__pem_issuer_chain = {
   pem_certificates : string prop list option; [@option]
       (** Expected to be in leaf-to-root order according to RFC 5246. *)
 }
@@ -256,29 +236,27 @@ type google_privateca_certificate_authority__subordinate_config__pem_issuer_chai
 (** Contains the PEM certificate chain for the issuers of this CertificateAuthority,
 but not pem certificate for this CA itself. *)
 
-type google_privateca_certificate_authority__subordinate_config = {
+type subordinate_config = {
   certificate_authority : string prop option; [@option]
       (** This can refer to a CertificateAuthority that was used to create a
 subordinate CertificateAuthority. This field is used for information
 and usability purposes only. The resource name is in the format
 'projects/*/locations/*/caPools/*/certificateAuthorities/*'. *)
-  pem_issuer_chain :
-    google_privateca_certificate_authority__subordinate_config__pem_issuer_chain
-    list;
+  pem_issuer_chain : subordinate_config__pem_issuer_chain list;
 }
 [@@deriving yojson_of]
 (** If this is a subordinate CertificateAuthority, this field will be set
 with the subordinate configuration, which describes its issuers. *)
 
-type google_privateca_certificate_authority__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_privateca_certificate_authority__timeouts *)
+(** timeouts *)
 
-type google_privateca_certificate_authority__access_urls = {
+type access_urls = {
   ca_certificate_access_url : string prop;
       (** ca_certificate_access_url *)
   crl_access_urls : string prop list;  (** crl_access_urls *)
@@ -335,18 +313,175 @@ Use with care. Defaults to 'false'. *)
 
 ~> **Note:** For 'SUBORDINATE' Certificate Authorities, they need to
 be activated before they can issue certificates. Default value: SELF_SIGNED Possible values: [SELF_SIGNED, SUBORDINATE] *)
-  config : google_privateca_certificate_authority__config list;
-  key_spec : google_privateca_certificate_authority__key_spec list;
-  subordinate_config :
-    google_privateca_certificate_authority__subordinate_config list;
-  timeouts : google_privateca_certificate_authority__timeouts option;
+  config : config list;
+  key_spec : key_spec list;
+  subordinate_config : subordinate_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_privateca_certificate_authority *)
 
+let config__subject_config__subject ?country_code ?locality
+    ?organizational_unit ?postal_code ?province ?street_address
+    ~common_name ~organization () : config__subject_config__subject =
+  {
+    common_name;
+    country_code;
+    locality;
+    organization;
+    organizational_unit;
+    postal_code;
+    province;
+    street_address;
+  }
+
+let config__subject_config__subject_alt_name ?dns_names
+    ?email_addresses ?ip_addresses ?uris () :
+    config__subject_config__subject_alt_name =
+  { dns_names; email_addresses; ip_addresses; uris }
+
+let config__subject_config ~subject ~subject_alt_name () :
+    config__subject_config =
+  { subject; subject_alt_name }
+
+let config__x509_config__additional_extensions__object_id
+    ~object_id_path () :
+    config__x509_config__additional_extensions__object_id =
+  { object_id_path }
+
+let config__x509_config__additional_extensions ~critical ~value
+    ~object_id () : config__x509_config__additional_extensions =
+  { critical; value; object_id }
+
+let config__x509_config__ca_options ?max_issuer_path_length ?non_ca
+    ?zero_max_issuer_path_length ~is_ca () :
+    config__x509_config__ca_options =
+  {
+    is_ca;
+    max_issuer_path_length;
+    non_ca;
+    zero_max_issuer_path_length;
+  }
+
+let config__x509_config__key_usage__base_key_usage ?cert_sign
+    ?content_commitment ?crl_sign ?data_encipherment ?decipher_only
+    ?digital_signature ?encipher_only ?key_agreement
+    ?key_encipherment () :
+    config__x509_config__key_usage__base_key_usage =
+  {
+    cert_sign;
+    content_commitment;
+    crl_sign;
+    data_encipherment;
+    decipher_only;
+    digital_signature;
+    encipher_only;
+    key_agreement;
+    key_encipherment;
+  }
+
+let config__x509_config__key_usage__extended_key_usage ?client_auth
+    ?code_signing ?email_protection ?ocsp_signing ?server_auth
+    ?time_stamping () :
+    config__x509_config__key_usage__extended_key_usage =
+  {
+    client_auth;
+    code_signing;
+    email_protection;
+    ocsp_signing;
+    server_auth;
+    time_stamping;
+  }
+
+let config__x509_config__key_usage__unknown_extended_key_usages
+    ~object_id_path () :
+    config__x509_config__key_usage__unknown_extended_key_usages =
+  { object_id_path }
+
+let config__x509_config__key_usage ~base_key_usage
+    ~extended_key_usage ~unknown_extended_key_usages () :
+    config__x509_config__key_usage =
+  { base_key_usage; extended_key_usage; unknown_extended_key_usages }
+
+let config__x509_config__name_constraints ?excluded_dns_names
+    ?excluded_email_addresses ?excluded_ip_ranges ?excluded_uris
+    ?permitted_dns_names ?permitted_email_addresses
+    ?permitted_ip_ranges ?permitted_uris ~critical () :
+    config__x509_config__name_constraints =
+  {
+    critical;
+    excluded_dns_names;
+    excluded_email_addresses;
+    excluded_ip_ranges;
+    excluded_uris;
+    permitted_dns_names;
+    permitted_email_addresses;
+    permitted_ip_ranges;
+    permitted_uris;
+  }
+
+let config__x509_config__policy_ids ~object_id_path () :
+    config__x509_config__policy_ids =
+  { object_id_path }
+
+let config__x509_config ?aia_ocsp_servers ~additional_extensions
+    ~ca_options ~key_usage ~name_constraints ~policy_ids () :
+    config__x509_config =
+  {
+    aia_ocsp_servers;
+    additional_extensions;
+    ca_options;
+    key_usage;
+    name_constraints;
+    policy_ids;
+  }
+
+let config ~subject_config ~x509_config () : config =
+  { subject_config; x509_config }
+
+let key_spec ?algorithm ?cloud_kms_key_version () : key_spec =
+  { algorithm; cloud_kms_key_version }
+
+let subordinate_config__pem_issuer_chain ?pem_certificates () :
+    subordinate_config__pem_issuer_chain =
+  { pem_certificates }
+
+let subordinate_config ?certificate_authority ~pem_issuer_chain () :
+    subordinate_config =
+  { certificate_authority; pem_issuer_chain }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_privateca_certificate_authority ?deletion_protection
+    ?desired_state ?gcs_bucket ?id
+    ?ignore_active_certificates_on_deletion ?labels ?lifetime
+    ?pem_ca_certificate ?project ?skip_grace_period ?type_ ?timeouts
+    ~certificate_authority_id ~location ~pool ~config ~key_spec
+    ~subordinate_config () : google_privateca_certificate_authority =
+  {
+    certificate_authority_id;
+    deletion_protection;
+    desired_state;
+    gcs_bucket;
+    id;
+    ignore_active_certificates_on_deletion;
+    labels;
+    lifetime;
+    location;
+    pem_ca_certificate;
+    pool;
+    project;
+    skip_grace_period;
+    type_;
+    config;
+    key_spec;
+    subordinate_config;
+    timeouts;
+  }
+
 type t = {
-  access_urls :
-    google_privateca_certificate_authority__access_urls list prop;
+  access_urls : access_urls list prop;
   certificate_authority_id : string prop;
   create_time : string prop;
   deletion_protection : bool prop;
@@ -370,37 +505,21 @@ type t = {
   update_time : string prop;
 }
 
-let google_privateca_certificate_authority ?deletion_protection
-    ?desired_state ?gcs_bucket ?id
-    ?ignore_active_certificates_on_deletion ?labels ?lifetime
-    ?pem_ca_certificate ?project ?skip_grace_period ?type_ ?timeouts
-    ~certificate_authority_id ~location ~pool ~config ~key_spec
-    ~subordinate_config __resource_id =
+let register ?tf_module ?deletion_protection ?desired_state
+    ?gcs_bucket ?id ?ignore_active_certificates_on_deletion ?labels
+    ?lifetime ?pem_ca_certificate ?project ?skip_grace_period ?type_
+    ?timeouts ~certificate_authority_id ~location ~pool ~config
+    ~key_spec ~subordinate_config __resource_id =
   let __resource_type = "google_privateca_certificate_authority" in
   let __resource =
-    ({
-       certificate_authority_id;
-       deletion_protection;
-       desired_state;
-       gcs_bucket;
-       id;
-       ignore_active_certificates_on_deletion;
-       labels;
-       lifetime;
-       location;
-       pem_ca_certificate;
-       pool;
-       project;
-       skip_grace_period;
-       type_;
-       config;
-       key_spec;
-       subordinate_config;
-       timeouts;
-     }
-      : google_privateca_certificate_authority)
+    google_privateca_certificate_authority ?deletion_protection
+      ?desired_state ?gcs_bucket ?id
+      ?ignore_active_certificates_on_deletion ?labels ?lifetime
+      ?pem_ca_certificate ?project ?skip_grace_period ?type_
+      ?timeouts ~certificate_authority_id ~location ~pool ~config
+      ~key_spec ~subordinate_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_privateca_certificate_authority __resource);
   let __resource_attributes =
     ({

@@ -4,24 +4,23 @@
 
 open! Tf.Prelude
 
-type aws_codepipeline__artifact_store__encryption_key = {
+type artifact_store__encryption_key = {
   id : string prop;  (** id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__artifact_store__encryption_key *)
+(** artifact_store__encryption_key *)
 
-type aws_codepipeline__artifact_store = {
+type artifact_store = {
   location : string prop;  (** location *)
   region : string prop option; [@option]  (** region *)
   type_ : string prop; [@key "type"]  (** type *)
-  encryption_key :
-    aws_codepipeline__artifact_store__encryption_key list;
+  encryption_key : artifact_store__encryption_key list;
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__artifact_store *)
+(** artifact_store *)
 
-type aws_codepipeline__stage__action = {
+type stage__action = {
   category : string prop;  (** category *)
   configuration : (string * string prop) list option; [@option]
       (** configuration *)
@@ -39,98 +38,89 @@ type aws_codepipeline__stage__action = {
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__stage__action *)
+(** stage__action *)
 
-type aws_codepipeline__stage = {
+type stage = {
   name : string prop;  (** name *)
-  action : aws_codepipeline__stage__action list;
+  action : stage__action list;
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__stage *)
+(** stage *)
 
-type aws_codepipeline__trigger__git_configuration__pull_request__branches = {
+type trigger__git_configuration__pull_request__branches = {
   excludes : string prop list option; [@option]  (** excludes *)
   includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger__git_configuration__pull_request__branches *)
+(** trigger__git_configuration__pull_request__branches *)
 
-type aws_codepipeline__trigger__git_configuration__pull_request__file_paths = {
+type trigger__git_configuration__pull_request__file_paths = {
   excludes : string prop list option; [@option]  (** excludes *)
   includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger__git_configuration__pull_request__file_paths *)
+(** trigger__git_configuration__pull_request__file_paths *)
 
-type aws_codepipeline__trigger__git_configuration__pull_request = {
+type trigger__git_configuration__pull_request = {
   events : string prop list option; [@option]  (** events *)
-  branches :
-    aws_codepipeline__trigger__git_configuration__pull_request__branches
-    list;
+  branches : trigger__git_configuration__pull_request__branches list;
   file_paths :
-    aws_codepipeline__trigger__git_configuration__pull_request__file_paths
-    list;
+    trigger__git_configuration__pull_request__file_paths list;
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger__git_configuration__pull_request *)
+(** trigger__git_configuration__pull_request *)
 
-type aws_codepipeline__trigger__git_configuration__push__branches = {
+type trigger__git_configuration__push__branches = {
   excludes : string prop list option; [@option]  (** excludes *)
   includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger__git_configuration__push__branches *)
+(** trigger__git_configuration__push__branches *)
 
-type aws_codepipeline__trigger__git_configuration__push__file_paths = {
+type trigger__git_configuration__push__file_paths = {
   excludes : string prop list option; [@option]  (** excludes *)
   includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger__git_configuration__push__file_paths *)
+(** trigger__git_configuration__push__file_paths *)
 
-type aws_codepipeline__trigger__git_configuration__push__tags = {
+type trigger__git_configuration__push__tags = {
   excludes : string prop list option; [@option]  (** excludes *)
   includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger__git_configuration__push__tags *)
+(** trigger__git_configuration__push__tags *)
 
-type aws_codepipeline__trigger__git_configuration__push = {
-  branches :
-    aws_codepipeline__trigger__git_configuration__push__branches list;
-  file_paths :
-    aws_codepipeline__trigger__git_configuration__push__file_paths
-    list;
-  tags :
-    aws_codepipeline__trigger__git_configuration__push__tags list;
+type trigger__git_configuration__push = {
+  branches : trigger__git_configuration__push__branches list;
+  file_paths : trigger__git_configuration__push__file_paths list;
+  tags : trigger__git_configuration__push__tags list;
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger__git_configuration__push *)
+(** trigger__git_configuration__push *)
 
-type aws_codepipeline__trigger__git_configuration = {
+type trigger__git_configuration = {
   source_action_name : string prop;  (** source_action_name *)
-  pull_request :
-    aws_codepipeline__trigger__git_configuration__pull_request list;
-  push : aws_codepipeline__trigger__git_configuration__push list;
+  pull_request : trigger__git_configuration__pull_request list;
+  push : trigger__git_configuration__push list;
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger__git_configuration *)
+(** trigger__git_configuration *)
 
-type aws_codepipeline__trigger = {
+type trigger = {
   provider_type : string prop;  (** provider_type *)
-  git_configuration :
-    aws_codepipeline__trigger__git_configuration list;
+  git_configuration : trigger__git_configuration list;
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__trigger *)
+(** trigger *)
 
-type aws_codepipeline__variable = {
+type variable = {
   default_value : string prop option; [@option]  (** default_value *)
   description : string prop option; [@option]  (** description *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline__variable *)
+(** variable *)
 
 type aws_codepipeline = {
   execution_mode : string prop option; [@option]
@@ -142,13 +132,98 @@ type aws_codepipeline = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  artifact_store : aws_codepipeline__artifact_store list;
-  stage : aws_codepipeline__stage list;
-  trigger : aws_codepipeline__trigger list;
-  variable : aws_codepipeline__variable list;
+  artifact_store : artifact_store list;
+  stage : stage list;
+  trigger : trigger list;
+  variable : variable list;
 }
 [@@deriving yojson_of]
 (** aws_codepipeline *)
+
+let artifact_store__encryption_key ~id ~type_ () :
+    artifact_store__encryption_key =
+  { id; type_ }
+
+let artifact_store ?region ~location ~type_ ~encryption_key () :
+    artifact_store =
+  { location; region; type_; encryption_key }
+
+let stage__action ?configuration ?input_artifacts ?namespace
+    ?output_artifacts ?region ?role_arn ?run_order ~category ~name
+    ~owner ~provider ~version () : stage__action =
+  {
+    category;
+    configuration;
+    input_artifacts;
+    name;
+    namespace;
+    output_artifacts;
+    owner;
+    provider;
+    region;
+    role_arn;
+    run_order;
+    version;
+  }
+
+let stage ~name ~action () : stage = { name; action }
+
+let trigger__git_configuration__pull_request__branches ?excludes
+    ?includes () : trigger__git_configuration__pull_request__branches
+    =
+  { excludes; includes }
+
+let trigger__git_configuration__pull_request__file_paths ?excludes
+    ?includes () :
+    trigger__git_configuration__pull_request__file_paths =
+  { excludes; includes }
+
+let trigger__git_configuration__pull_request ?events ~branches
+    ~file_paths () : trigger__git_configuration__pull_request =
+  { events; branches; file_paths }
+
+let trigger__git_configuration__push__branches ?excludes ?includes ()
+    : trigger__git_configuration__push__branches =
+  { excludes; includes }
+
+let trigger__git_configuration__push__file_paths ?excludes ?includes
+    () : trigger__git_configuration__push__file_paths =
+  { excludes; includes }
+
+let trigger__git_configuration__push__tags ?excludes ?includes () :
+    trigger__git_configuration__push__tags =
+  { excludes; includes }
+
+let trigger__git_configuration__push ~branches ~file_paths ~tags () :
+    trigger__git_configuration__push =
+  { branches; file_paths; tags }
+
+let trigger__git_configuration ~source_action_name ~pull_request
+    ~push () : trigger__git_configuration =
+  { source_action_name; pull_request; push }
+
+let trigger ~provider_type ~git_configuration () : trigger =
+  { provider_type; git_configuration }
+
+let variable ?default_value ?description ~name () : variable =
+  { default_value; description; name }
+
+let aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
+    ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
+    ~variable () : aws_codepipeline =
+  {
+    execution_mode;
+    id;
+    name;
+    pipeline_type;
+    role_arn;
+    tags;
+    tags_all;
+    artifact_store;
+    stage;
+    trigger;
+    variable;
+  }
 
 type t = {
   arn : string prop;
@@ -161,27 +236,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
+let register ?tf_module ?execution_mode ?id ?pipeline_type ?tags
     ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
     ~variable __resource_id =
   let __resource_type = "aws_codepipeline" in
   let __resource =
-    ({
-       execution_mode;
-       id;
-       name;
-       pipeline_type;
-       role_arn;
-       tags;
-       tags_all;
-       artifact_store;
-       stage;
-       trigger;
-       variable;
-     }
-      : aws_codepipeline)
+    aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
+      ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
+      ~variable ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codepipeline __resource);
   let __resource_attributes =
     ({

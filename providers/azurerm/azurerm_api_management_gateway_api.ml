@@ -4,22 +4,29 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_gateway_api__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_gateway_api__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_gateway_api = {
   api_id : string prop;  (** api_id *)
   gateway_id : string prop;  (** gateway_id *)
   id : string prop option; [@option]  (** id *)
-  timeouts : azurerm_api_management_gateway_api__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway_api *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_api_management_gateway_api ?id ?timeouts ~api_id
+    ~gateway_id () : azurerm_api_management_gateway_api =
+  { api_id; gateway_id; id; timeouts }
 
 type t = {
   api_id : string prop;
@@ -27,14 +34,14 @@ type t = {
   id : string prop;
 }
 
-let azurerm_api_management_gateway_api ?id ?timeouts ~api_id
-    ~gateway_id __resource_id =
+let register ?tf_module ?id ?timeouts ~api_id ~gateway_id
+    __resource_id =
   let __resource_type = "azurerm_api_management_gateway_api" in
   let __resource =
-    ({ api_id; gateway_id; id; timeouts }
-      : azurerm_api_management_gateway_api)
+    azurerm_api_management_gateway_api ?id ?timeouts ~api_id
+      ~gateway_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_gateway_api __resource);
   let __resource_attributes =
     ({

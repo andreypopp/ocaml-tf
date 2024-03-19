@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_devicefarm_upload
+
+val aws_devicefarm_upload :
+  ?content_type:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  project_arn:string prop ->
+  type_:string prop ->
+  unit ->
+  aws_devicefarm_upload
+
+val yojson_of_aws_devicefarm_upload : aws_devicefarm_upload -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,7 +31,8 @@ type t = private {
   url : string prop;
 }
 
-val aws_devicefarm_upload :
+val register :
+  ?tf_module:tf_module ->
   ?content_type:string prop ->
   ?id:string prop ->
   name:string prop ->

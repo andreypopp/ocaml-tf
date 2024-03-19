@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type kubernetes_endpoint_slice_v1__endpoint__condition = {
+type endpoint__condition = {
   ready : bool prop option; [@option]
       (** ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. *)
   serving : bool prop option; [@option]
@@ -15,7 +15,7 @@ type kubernetes_endpoint_slice_v1__endpoint__condition = {
 [@@deriving yojson_of]
 (** condition contains information about the current status of the endpoint. *)
 
-type kubernetes_endpoint_slice_v1__endpoint__target_ref = {
+type endpoint__target_ref = {
   field_path : string prop option; [@option]
       (** If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. *)
   name : string prop;  (** Name of the referent. *)
@@ -29,7 +29,7 @@ type kubernetes_endpoint_slice_v1__endpoint__target_ref = {
 [@@deriving yojson_of]
 (** targetRef is a reference to a Kubernetes object that represents this endpoint. *)
 
-type kubernetes_endpoint_slice_v1__endpoint = {
+type endpoint = {
   addresses : string prop list;
       (** addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. *)
   hostname : string prop option; [@option]
@@ -38,35 +38,28 @@ type kubernetes_endpoint_slice_v1__endpoint = {
       (** nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. *)
   zone : string prop option; [@option]
       (** zone is the name of the Zone this endpoint exists in. *)
-  condition : kubernetes_endpoint_slice_v1__endpoint__condition list;
-  target_ref :
-    kubernetes_endpoint_slice_v1__endpoint__target_ref list;
+  condition : endpoint__condition list;
+  target_ref : endpoint__target_ref list;
 }
 [@@deriving yojson_of]
 (** endpoint is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints. *)
 
-type kubernetes_endpoint_slice_v1__metadata = {
+type metadata = {
   annotations : (string * string prop) list option; [@option]
       (** An unstructured key value map stored with the endpoint_slice that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
       (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
-  generation : float prop;
-      (** A sequence number representing a specific generation of the desired state. *)
   labels : (string * string prop) list option; [@option]
       (** Map of string keys and values that can be used to organize and categorize (scope and select) the endpoint_slice. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
       (** Name of the endpoint_slice, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
       (** Namespace defines the space within which name of the endpoint_slice must be unique. *)
-  resource_version : string prop;
-      (** An opaque value that represents the internal version of this endpoint_slice that can be used by clients to determine when endpoint_slice has changed. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency *)
-  uid : string prop;
-      (** The unique in time and space value for this endpoint_slice. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids *)
 }
 [@@deriving yojson_of]
 (** Standard endpoint_slice's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
 
-type kubernetes_endpoint_slice_v1__port = {
+type port = {
   app_protocol : string prop;
       (** The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. *)
   name : string prop option; [@option]
@@ -83,23 +76,46 @@ type kubernetes_endpoint_slice_v1 = {
   address_type : string prop;
       (** address_type specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. *)
   id : string prop option; [@option]  (** id *)
-  endpoint : kubernetes_endpoint_slice_v1__endpoint list;
-  metadata : kubernetes_endpoint_slice_v1__metadata list;
-  port : kubernetes_endpoint_slice_v1__port list;
+  endpoint : endpoint list;
+  metadata : metadata list;
+  port : port list;
 }
 [@@deriving yojson_of]
 (** kubernetes_endpoint_slice_v1 *)
 
-type t = { address_type : string prop; id : string prop }
+let endpoint__condition ?ready ?serving ?terminating () :
+    endpoint__condition =
+  { ready; serving; terminating }
+
+let endpoint__target_ref ?field_path ?namespace ?resource_version
+    ?uid ~name () : endpoint__target_ref =
+  { field_path; name; namespace; resource_version; uid }
+
+let endpoint ?hostname ?node_name ?zone ~addresses ~condition
+    ~target_ref () : endpoint =
+  { addresses; hostname; node_name; zone; condition; target_ref }
+
+let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
+    : metadata =
+  { annotations; generate_name; labels; name; namespace }
+
+let port ?name ?protocol ~app_protocol ~port () : port =
+  { app_protocol; name; port; protocol }
 
 let kubernetes_endpoint_slice_v1 ?id ~address_type ~endpoint
-    ~metadata ~port __resource_id =
+    ~metadata ~port () : kubernetes_endpoint_slice_v1 =
+  { address_type; id; endpoint; metadata; port }
+
+type t = { address_type : string prop; id : string prop }
+
+let register ?tf_module ?id ~address_type ~endpoint ~metadata ~port
+    __resource_id =
   let __resource_type = "kubernetes_endpoint_slice_v1" in
   let __resource =
-    ({ address_type; id; endpoint; metadata; port }
-      : kubernetes_endpoint_slice_v1)
+    kubernetes_endpoint_slice_v1 ?id ~address_type ~endpoint
+      ~metadata ~port ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_endpoint_slice_v1 __resource);
   let __resource_attributes =
     ({

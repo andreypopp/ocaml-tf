@@ -2,14 +2,58 @@
 
 open! Tf.Prelude
 
-type aws_medialive_multiplex_program__multiplex_program_settings__service_descriptor
+(** RESOURCE SERIALIZATION *)
 
-type aws_medialive_multiplex_program__multiplex_program_settings__video_settings__statmux_settings
+type multiplex_program_settings__service_descriptor
 
-type aws_medialive_multiplex_program__multiplex_program_settings__video_settings
+val multiplex_program_settings__service_descriptor :
+  provider_name:string prop ->
+  service_name:string prop ->
+  unit ->
+  multiplex_program_settings__service_descriptor
 
-type aws_medialive_multiplex_program__multiplex_program_settings
+type multiplex_program_settings__video_settings__statmux_settings
+
+val multiplex_program_settings__video_settings__statmux_settings :
+  ?maximum_bitrate:float prop ->
+  ?minimum_bitrate:float prop ->
+  ?priority:float prop ->
+  unit ->
+  multiplex_program_settings__video_settings__statmux_settings
+
+type multiplex_program_settings__video_settings
+
+val multiplex_program_settings__video_settings :
+  ?constant_bitrate:float prop ->
+  statmux_settings:
+    multiplex_program_settings__video_settings__statmux_settings list ->
+  unit ->
+  multiplex_program_settings__video_settings
+
+type multiplex_program_settings
+
+val multiplex_program_settings :
+  preferred_channel_pipeline:string prop ->
+  program_number:float prop ->
+  service_descriptor:
+    multiplex_program_settings__service_descriptor list ->
+  video_settings:multiplex_program_settings__video_settings list ->
+  unit ->
+  multiplex_program_settings
+
 type aws_medialive_multiplex_program
+
+val aws_medialive_multiplex_program :
+  multiplex_id:string prop ->
+  program_name:string prop ->
+  multiplex_program_settings:multiplex_program_settings list ->
+  unit ->
+  aws_medialive_multiplex_program
+
+val yojson_of_aws_medialive_multiplex_program :
+  aws_medialive_multiplex_program -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -17,10 +61,10 @@ type t = private {
   program_name : string prop;
 }
 
-val aws_medialive_multiplex_program :
+val register :
+  ?tf_module:tf_module ->
   multiplex_id:string prop ->
   program_name:string prop ->
-  multiplex_program_settings:
-    aws_medialive_multiplex_program__multiplex_program_settings list ->
+  multiplex_program_settings:multiplex_program_settings list ->
   string ->
   t

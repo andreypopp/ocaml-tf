@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_dynamodb_table_replica__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table_replica__timeouts *)
+(** timeouts *)
 
 type aws_dynamodb_table_replica = {
   global_table_arn : string prop;  (** global_table_arn *)
@@ -23,10 +23,27 @@ type aws_dynamodb_table_replica = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_dynamodb_table_replica__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_table_replica *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_dynamodb_table_replica ?id ?kms_key_arn
+    ?point_in_time_recovery ?table_class_override ?tags ?tags_all
+    ?timeouts ~global_table_arn () : aws_dynamodb_table_replica =
+  {
+    global_table_arn;
+    id;
+    kms_key_arn;
+    point_in_time_recovery;
+    table_class_override;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -39,24 +56,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_dynamodb_table_replica ?id ?kms_key_arn
-    ?point_in_time_recovery ?table_class_override ?tags ?tags_all
-    ?timeouts ~global_table_arn __resource_id =
+let register ?tf_module ?id ?kms_key_arn ?point_in_time_recovery
+    ?table_class_override ?tags ?tags_all ?timeouts ~global_table_arn
+    __resource_id =
   let __resource_type = "aws_dynamodb_table_replica" in
   let __resource =
-    ({
-       global_table_arn;
-       id;
-       kms_key_arn;
-       point_in_time_recovery;
-       table_class_override;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_dynamodb_table_replica)
+    aws_dynamodb_table_replica ?id ?kms_key_arn
+      ?point_in_time_recovery ?table_class_override ?tags ?tags_all
+      ?timeouts ~global_table_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_table_replica __resource);
   let __resource_attributes =
     ({

@@ -4,23 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_synapse_spark__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_synapse_spark__identity *)
+(** identity *)
 
-type azurerm_machine_learning_synapse_spark__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_synapse_spark__timeouts *)
+(** timeouts *)
 
 type azurerm_machine_learning_synapse_spark = {
   description : string prop option; [@option]  (** description *)
@@ -33,11 +31,34 @@ type azurerm_machine_learning_synapse_spark = {
   name : string prop;  (** name *)
   synapse_spark_pool_id : string prop;  (** synapse_spark_pool_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity : azurerm_machine_learning_synapse_spark__identity list;
-  timeouts : azurerm_machine_learning_synapse_spark__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_synapse_spark *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_machine_learning_synapse_spark ?description ?id
+    ?local_auth_enabled ?tags ?timeouts ~location
+    ~machine_learning_workspace_id ~name ~synapse_spark_pool_id
+    ~identity () : azurerm_machine_learning_synapse_spark =
+  {
+    description;
+    id;
+    local_auth_enabled;
+    location;
+    machine_learning_workspace_id;
+    name;
+    synapse_spark_pool_id;
+    tags;
+    identity;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -50,27 +71,17 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_machine_learning_synapse_spark ?description ?id
-    ?local_auth_enabled ?tags ?timeouts ~location
-    ~machine_learning_workspace_id ~name ~synapse_spark_pool_id
-    ~identity __resource_id =
+let register ?tf_module ?description ?id ?local_auth_enabled ?tags
+    ?timeouts ~location ~machine_learning_workspace_id ~name
+    ~synapse_spark_pool_id ~identity __resource_id =
   let __resource_type = "azurerm_machine_learning_synapse_spark" in
   let __resource =
-    ({
-       description;
-       id;
-       local_auth_enabled;
-       location;
-       machine_learning_workspace_id;
-       name;
-       synapse_spark_pool_id;
-       tags;
-       identity;
-       timeouts;
-     }
-      : azurerm_machine_learning_synapse_spark)
+    azurerm_machine_learning_synapse_spark ?description ?id
+      ?local_auth_enabled ?tags ?timeouts ~location
+      ~machine_learning_workspace_id ~name ~synapse_spark_pool_id
+      ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_machine_learning_synapse_spark __resource);
   let __resource_attributes =
     ({

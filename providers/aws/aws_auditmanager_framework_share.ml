@@ -13,6 +13,11 @@ type aws_auditmanager_framework_share = {
 [@@deriving yojson_of]
 (** aws_auditmanager_framework_share *)
 
+let aws_auditmanager_framework_share ?comment ~destination_account
+    ~destination_region ~framework_id () :
+    aws_auditmanager_framework_share =
+  { comment; destination_account; destination_region; framework_id }
+
 type t = {
   comment : string prop;
   destination_account : string prop;
@@ -22,19 +27,14 @@ type t = {
   status : string prop;
 }
 
-let aws_auditmanager_framework_share ?comment ~destination_account
+let register ?tf_module ?comment ~destination_account
     ~destination_region ~framework_id __resource_id =
   let __resource_type = "aws_auditmanager_framework_share" in
   let __resource =
-    ({
-       comment;
-       destination_account;
-       destination_region;
-       framework_id;
-     }
-      : aws_auditmanager_framework_share)
+    aws_auditmanager_framework_share ?comment ~destination_account
+      ~destination_region ~framework_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_auditmanager_framework_share __resource);
   let __resource_attributes =
     ({

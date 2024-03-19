@@ -2,7 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_organizations_organizational_unit__accounts = {
+(** RESOURCE SERIALIZATION *)
+
+type accounts = {
   arn : string prop;  (** arn *)
   email : string prop;  (** email *)
   id : string prop;  (** id *)
@@ -11,9 +13,22 @@ type aws_organizations_organizational_unit__accounts = {
 
 type aws_organizations_organizational_unit
 
+val aws_organizations_organizational_unit :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  parent_id:string prop ->
+  unit ->
+  aws_organizations_organizational_unit
+
+val yojson_of_aws_organizations_organizational_unit :
+  aws_organizations_organizational_unit -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  accounts :
-    aws_organizations_organizational_unit__accounts list prop;
+  accounts : accounts list prop;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -22,7 +37,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_organizations_organizational_unit :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

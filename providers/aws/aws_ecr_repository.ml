@@ -4,25 +4,25 @@
 
 open! Tf.Prelude
 
-type aws_ecr_repository__encryption_configuration = {
+type encryption_configuration = {
   encryption_type : string prop option; [@option]
       (** encryption_type *)
   kms_key : string prop option; [@option]  (** kms_key *)
 }
 [@@deriving yojson_of]
-(** aws_ecr_repository__encryption_configuration *)
+(** encryption_configuration *)
 
-type aws_ecr_repository__image_scanning_configuration = {
+type image_scanning_configuration = {
   scan_on_push : bool prop;  (** scan_on_push *)
 }
 [@@deriving yojson_of]
-(** aws_ecr_repository__image_scanning_configuration *)
+(** image_scanning_configuration *)
 
-type aws_ecr_repository__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ecr_repository__timeouts *)
+(** timeouts *)
 
 type aws_ecr_repository = {
   force_delete : bool prop option; [@option]  (** force_delete *)
@@ -33,14 +33,37 @@ type aws_ecr_repository = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  encryption_configuration :
-    aws_ecr_repository__encryption_configuration list;
-  image_scanning_configuration :
-    aws_ecr_repository__image_scanning_configuration list;
-  timeouts : aws_ecr_repository__timeouts option;
+  encryption_configuration : encryption_configuration list;
+  image_scanning_configuration : image_scanning_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ecr_repository *)
+
+let encryption_configuration ?encryption_type ?kms_key () :
+    encryption_configuration =
+  { encryption_type; kms_key }
+
+let image_scanning_configuration ~scan_on_push () :
+    image_scanning_configuration =
+  { scan_on_push }
+
+let timeouts ?delete () : timeouts = { delete }
+
+let aws_ecr_repository ?force_delete ?id ?image_tag_mutability ?tags
+    ?tags_all ?timeouts ~name ~encryption_configuration
+    ~image_scanning_configuration () : aws_ecr_repository =
+  {
+    force_delete;
+    id;
+    image_tag_mutability;
+    name;
+    tags;
+    tags_all;
+    encryption_configuration;
+    image_scanning_configuration;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -54,25 +77,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ecr_repository ?force_delete ?id ?image_tag_mutability ?tags
+let register ?tf_module ?force_delete ?id ?image_tag_mutability ?tags
     ?tags_all ?timeouts ~name ~encryption_configuration
     ~image_scanning_configuration __resource_id =
   let __resource_type = "aws_ecr_repository" in
   let __resource =
-    ({
-       force_delete;
-       id;
-       image_tag_mutability;
-       name;
-       tags;
-       tags_all;
-       encryption_configuration;
-       image_scanning_configuration;
-       timeouts;
-     }
-      : aws_ecr_repository)
+    aws_ecr_repository ?force_delete ?id ?image_tag_mutability ?tags
+      ?tags_all ?timeouts ~name ~encryption_configuration
+      ~image_scanning_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecr_repository __resource);
   let __resource_attributes =
     ({

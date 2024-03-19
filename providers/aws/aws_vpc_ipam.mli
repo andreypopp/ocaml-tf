@@ -2,9 +2,38 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipam__operating_regions
-type aws_vpc_ipam__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type operating_regions
+
+val operating_regions :
+  region_name:string prop -> unit -> operating_regions
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_vpc_ipam
+
+val aws_vpc_ipam :
+  ?cascade:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  operating_regions:operating_regions list ->
+  unit ->
+  aws_vpc_ipam
+
+val yojson_of_aws_vpc_ipam : aws_vpc_ipam -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -20,13 +49,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_vpc_ipam :
+val register :
+  ?tf_module:tf_module ->
   ?cascade:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_vpc_ipam__timeouts ->
-  operating_regions:aws_vpc_ipam__operating_regions list ->
+  ?timeouts:timeouts ->
+  operating_regions:operating_regions list ->
   string ->
   t

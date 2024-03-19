@@ -4,41 +4,39 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_account_local_user__permission_scope__permissions = {
+type permission_scope__permissions = {
   create : bool prop option; [@option]  (** create *)
   delete : bool prop option; [@option]  (** delete *)
-  list : bool prop option; [@option]  (** list *)
+  list_ : bool prop option; [@option] [@key "list"]  (** list *)
   read : bool prop option; [@option]  (** read *)
   write : bool prop option; [@option]  (** write *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_account_local_user__permission_scope__permissions *)
+(** permission_scope__permissions *)
 
-type azurerm_storage_account_local_user__permission_scope = {
+type permission_scope = {
   resource_name : string prop;  (** resource_name *)
   service : string prop;  (** service *)
-  permissions :
-    azurerm_storage_account_local_user__permission_scope__permissions
-    list;
+  permissions : permission_scope__permissions list;
 }
 [@@deriving yojson_of]
-(** azurerm_storage_account_local_user__permission_scope *)
+(** permission_scope *)
 
-type azurerm_storage_account_local_user__ssh_authorized_key = {
+type ssh_authorized_key = {
   description : string prop option; [@option]  (** description *)
   key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_account_local_user__ssh_authorized_key *)
+(** ssh_authorized_key *)
 
-type azurerm_storage_account_local_user__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_account_local_user__timeouts *)
+(** timeouts *)
 
 type azurerm_storage_account_local_user = {
   home_directory : string prop option; [@option]
@@ -50,14 +48,42 @@ type azurerm_storage_account_local_user = {
   ssh_password_enabled : bool prop option; [@option]
       (** ssh_password_enabled *)
   storage_account_id : string prop;  (** storage_account_id *)
-  permission_scope :
-    azurerm_storage_account_local_user__permission_scope list;
-  ssh_authorized_key :
-    azurerm_storage_account_local_user__ssh_authorized_key list;
-  timeouts : azurerm_storage_account_local_user__timeouts option;
+  permission_scope : permission_scope list;
+  ssh_authorized_key : ssh_authorized_key list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_account_local_user *)
+
+let permission_scope__permissions ?create ?delete ?list_ ?read ?write
+    () : permission_scope__permissions =
+  { create; delete; list_; read; write }
+
+let permission_scope ~resource_name ~service ~permissions () :
+    permission_scope =
+  { resource_name; service; permissions }
+
+let ssh_authorized_key ?description ~key () : ssh_authorized_key =
+  { description; key }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_storage_account_local_user ?home_directory ?id
+    ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
+    ~storage_account_id ~permission_scope ~ssh_authorized_key () :
+    azurerm_storage_account_local_user =
+  {
+    home_directory;
+    id;
+    name;
+    ssh_key_enabled;
+    ssh_password_enabled;
+    storage_account_id;
+    permission_scope;
+    ssh_authorized_key;
+    timeouts;
+  }
 
 type t = {
   home_directory : string prop;
@@ -70,26 +96,16 @@ type t = {
   storage_account_id : string prop;
 }
 
-let azurerm_storage_account_local_user ?home_directory ?id
-    ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
-    ~storage_account_id ~permission_scope ~ssh_authorized_key
-    __resource_id =
+let register ?tf_module ?home_directory ?id ?ssh_key_enabled
+    ?ssh_password_enabled ?timeouts ~name ~storage_account_id
+    ~permission_scope ~ssh_authorized_key __resource_id =
   let __resource_type = "azurerm_storage_account_local_user" in
   let __resource =
-    ({
-       home_directory;
-       id;
-       name;
-       ssh_key_enabled;
-       ssh_password_enabled;
-       storage_account_id;
-       permission_scope;
-       ssh_authorized_key;
-       timeouts;
-     }
-      : azurerm_storage_account_local_user)
+    azurerm_storage_account_local_user ?home_directory ?id
+      ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
+      ~storage_account_id ~permission_scope ~ssh_authorized_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_account_local_user __resource);
   let __resource_attributes =
     ({

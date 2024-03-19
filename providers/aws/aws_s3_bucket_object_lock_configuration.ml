@@ -4,21 +4,17 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_object_lock_configuration__rule__default_retention = {
+type rule__default_retention = {
   days : float prop option; [@option]  (** days *)
   mode : string prop option; [@option]  (** mode *)
   years : float prop option; [@option]  (** years *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_object_lock_configuration__rule__default_retention *)
+(** rule__default_retention *)
 
-type aws_s3_bucket_object_lock_configuration__rule = {
-  default_retention :
-    aws_s3_bucket_object_lock_configuration__rule__default_retention
-    list;
-}
+type rule = { default_retention : rule__default_retention list }
 [@@deriving yojson_of]
-(** aws_s3_bucket_object_lock_configuration__rule *)
+(** rule *)
 
 type aws_s3_bucket_object_lock_configuration = {
   bucket : string prop;  (** bucket *)
@@ -28,10 +24,28 @@ type aws_s3_bucket_object_lock_configuration = {
   object_lock_enabled : string prop option; [@option]
       (** object_lock_enabled *)
   token : string prop option; [@option]  (** token *)
-  rule : aws_s3_bucket_object_lock_configuration__rule list;
+  rule : rule list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_object_lock_configuration *)
+
+let rule__default_retention ?days ?mode ?years () :
+    rule__default_retention =
+  { days; mode; years }
+
+let rule ~default_retention () : rule = { default_retention }
+
+let aws_s3_bucket_object_lock_configuration ?expected_bucket_owner
+    ?id ?object_lock_enabled ?token ~bucket ~rule () :
+    aws_s3_bucket_object_lock_configuration =
+  {
+    bucket;
+    expected_bucket_owner;
+    id;
+    object_lock_enabled;
+    token;
+    rule;
+  }
 
 type t = {
   bucket : string prop;
@@ -41,21 +55,14 @@ type t = {
   token : string prop;
 }
 
-let aws_s3_bucket_object_lock_configuration ?expected_bucket_owner
-    ?id ?object_lock_enabled ?token ~bucket ~rule __resource_id =
+let register ?tf_module ?expected_bucket_owner ?id
+    ?object_lock_enabled ?token ~bucket ~rule __resource_id =
   let __resource_type = "aws_s3_bucket_object_lock_configuration" in
   let __resource =
-    ({
-       bucket;
-       expected_bucket_owner;
-       id;
-       object_lock_enabled;
-       token;
-       rule;
-     }
-      : aws_s3_bucket_object_lock_configuration)
+    aws_s3_bucket_object_lock_configuration ?expected_bucket_owner
+      ?id ?object_lock_enabled ?token ~bucket ~rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_object_lock_configuration __resource);
   let __resource_attributes =
     ({

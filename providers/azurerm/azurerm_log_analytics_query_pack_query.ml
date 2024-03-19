@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_query_pack_query__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_log_analytics_query_pack_query__timeouts *)
+(** timeouts *)
 
 type azurerm_log_analytics_query_pack_query = {
   additional_settings_json : string prop option; [@option]
@@ -27,10 +27,32 @@ type azurerm_log_analytics_query_pack_query = {
       (** resource_types *)
   solutions : string prop list option; [@option]  (** solutions *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_log_analytics_query_pack_query__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_query_pack_query *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_log_analytics_query_pack_query ?additional_settings_json
+    ?categories ?description ?id ?name ?resource_types ?solutions
+    ?tags ?timeouts ~body ~display_name ~query_pack_id () :
+    azurerm_log_analytics_query_pack_query =
+  {
+    additional_settings_json;
+    body;
+    categories;
+    description;
+    display_name;
+    id;
+    name;
+    query_pack_id;
+    resource_types;
+    solutions;
+    tags;
+    timeouts;
+  }
 
 type t = {
   additional_settings_json : string prop;
@@ -46,29 +68,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_log_analytics_query_pack_query ?additional_settings_json
-    ?categories ?description ?id ?name ?resource_types ?solutions
-    ?tags ?timeouts ~body ~display_name ~query_pack_id __resource_id
-    =
+let register ?tf_module ?additional_settings_json ?categories
+    ?description ?id ?name ?resource_types ?solutions ?tags ?timeouts
+    ~body ~display_name ~query_pack_id __resource_id =
   let __resource_type = "azurerm_log_analytics_query_pack_query" in
   let __resource =
-    ({
-       additional_settings_json;
-       body;
-       categories;
-       description;
-       display_name;
-       id;
-       name;
-       query_pack_id;
-       resource_types;
-       solutions;
-       tags;
-       timeouts;
-     }
-      : azurerm_log_analytics_query_pack_query)
+    azurerm_log_analytics_query_pack_query ?additional_settings_json
+      ?categories ?description ?id ?name ?resource_types ?solutions
+      ?tags ?timeouts ~body ~display_name ~query_pack_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_query_pack_query __resource);
   let __resource_attributes =
     ({

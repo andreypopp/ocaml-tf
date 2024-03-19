@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_clouddeploy_custom_target_type_iam_member__condition
+(** RESOURCE SERIALIZATION *)
+
+type condition
+
+val condition :
+  ?description:string prop ->
+  expression:string prop ->
+  title:string prop ->
+  unit ->
+  condition
+
 type google_clouddeploy_custom_target_type_iam_member
+
+val google_clouddeploy_custom_target_type_iam_member :
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  member:string prop ->
+  name:string prop ->
+  role:string prop ->
+  condition:condition list ->
+  unit ->
+  google_clouddeploy_custom_target_type_iam_member
+
+val yojson_of_google_clouddeploy_custom_target_type_iam_member :
+  google_clouddeploy_custom_target_type_iam_member -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -15,14 +41,14 @@ type t = private {
   role : string prop;
 }
 
-val google_clouddeploy_custom_target_type_iam_member :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
   member:string prop ->
   name:string prop ->
   role:string prop ->
-  condition:
-    google_clouddeploy_custom_target_type_iam_member__condition list ->
+  condition:condition list ->
   string ->
   t

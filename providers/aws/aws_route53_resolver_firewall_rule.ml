@@ -25,6 +25,23 @@ type aws_route53_resolver_firewall_rule = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_firewall_rule *)
 
+let aws_route53_resolver_firewall_rule ?block_override_dns_type
+    ?block_override_domain ?block_override_ttl ?block_response ?id
+    ~action ~firewall_domain_list_id ~firewall_rule_group_id ~name
+    ~priority () : aws_route53_resolver_firewall_rule =
+  {
+    action;
+    block_override_dns_type;
+    block_override_domain;
+    block_override_ttl;
+    block_response;
+    firewall_domain_list_id;
+    firewall_rule_group_id;
+    id;
+    name;
+    priority;
+  }
+
 type t = {
   action : string prop;
   block_override_dns_type : string prop;
@@ -38,27 +55,18 @@ type t = {
   priority : float prop;
 }
 
-let aws_route53_resolver_firewall_rule ?block_override_dns_type
+let register ?tf_module ?block_override_dns_type
     ?block_override_domain ?block_override_ttl ?block_response ?id
     ~action ~firewall_domain_list_id ~firewall_rule_group_id ~name
     ~priority __resource_id =
   let __resource_type = "aws_route53_resolver_firewall_rule" in
   let __resource =
-    ({
-       action;
-       block_override_dns_type;
-       block_override_domain;
-       block_override_ttl;
-       block_response;
-       firewall_domain_list_id;
-       firewall_rule_group_id;
-       id;
-       name;
-       priority;
-     }
-      : aws_route53_resolver_firewall_rule)
+    aws_route53_resolver_firewall_rule ?block_override_dns_type
+      ?block_override_domain ?block_override_ttl ?block_response ?id
+      ~action ~firewall_domain_list_id ~firewall_rule_group_id ~name
+      ~priority ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_firewall_rule __resource);
   let __resource_attributes =
     ({

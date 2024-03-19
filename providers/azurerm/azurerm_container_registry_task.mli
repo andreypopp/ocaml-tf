@@ -2,21 +2,175 @@
 
 open! Tf.Prelude
 
-type azurerm_container_registry_task__agent_setting
-type azurerm_container_registry_task__base_image_trigger
-type azurerm_container_registry_task__docker_step
-type azurerm_container_registry_task__encoded_step
-type azurerm_container_registry_task__file_step
-type azurerm_container_registry_task__identity
-type azurerm_container_registry_task__platform
-type azurerm_container_registry_task__registry_credential__custom
-type azurerm_container_registry_task__registry_credential__source
-type azurerm_container_registry_task__registry_credential
-type azurerm_container_registry_task__source_trigger__authentication
-type azurerm_container_registry_task__source_trigger
-type azurerm_container_registry_task__timeouts
-type azurerm_container_registry_task__timer_trigger
+(** RESOURCE SERIALIZATION *)
+
+type agent_setting
+
+val agent_setting : cpu:float prop -> unit -> agent_setting
+
+type base_image_trigger
+
+val base_image_trigger :
+  ?enabled:bool prop ->
+  ?update_trigger_endpoint:string prop ->
+  ?update_trigger_payload_type:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  unit ->
+  base_image_trigger
+
+type docker_step
+
+val docker_step :
+  ?arguments:(string * string prop) list ->
+  ?cache_enabled:bool prop ->
+  ?image_names:string prop list ->
+  ?push_enabled:bool prop ->
+  ?secret_arguments:(string * string prop) list ->
+  ?target:string prop ->
+  context_access_token:string prop ->
+  context_path:string prop ->
+  dockerfile_path:string prop ->
+  unit ->
+  docker_step
+
+type encoded_step
+
+val encoded_step :
+  ?context_access_token:string prop ->
+  ?context_path:string prop ->
+  ?secret_values:(string * string prop) list ->
+  ?value_content:string prop ->
+  ?values:(string * string prop) list ->
+  task_content:string prop ->
+  unit ->
+  encoded_step
+
+type file_step
+
+val file_step :
+  ?context_access_token:string prop ->
+  ?context_path:string prop ->
+  ?secret_values:(string * string prop) list ->
+  ?value_file_path:string prop ->
+  ?values:(string * string prop) list ->
+  task_file_path:string prop ->
+  unit ->
+  file_step
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type platform
+
+val platform :
+  ?architecture:string prop ->
+  ?variant:string prop ->
+  os:string prop ->
+  unit ->
+  platform
+
+type registry_credential__custom
+
+val registry_credential__custom :
+  ?identity:string prop ->
+  ?password:string prop ->
+  ?username:string prop ->
+  login_server:string prop ->
+  unit ->
+  registry_credential__custom
+
+type registry_credential__source
+
+val registry_credential__source :
+  login_mode:string prop -> unit -> registry_credential__source
+
+type registry_credential
+
+val registry_credential :
+  custom:registry_credential__custom list ->
+  source:registry_credential__source list ->
+  unit ->
+  registry_credential
+
+type source_trigger__authentication
+
+val source_trigger__authentication :
+  ?expire_in_seconds:float prop ->
+  ?refresh_token:string prop ->
+  ?scope:string prop ->
+  token:string prop ->
+  token_type:string prop ->
+  unit ->
+  source_trigger__authentication
+
+type source_trigger
+
+val source_trigger :
+  ?branch:string prop ->
+  ?enabled:bool prop ->
+  events:string prop list ->
+  name:string prop ->
+  repository_url:string prop ->
+  source_type:string prop ->
+  authentication:source_trigger__authentication list ->
+  unit ->
+  source_trigger
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type timer_trigger
+
+val timer_trigger :
+  ?enabled:bool prop ->
+  name:string prop ->
+  schedule:string prop ->
+  unit ->
+  timer_trigger
+
 type azurerm_container_registry_task
+
+val azurerm_container_registry_task :
+  ?agent_pool_name:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?is_system_task:bool prop ->
+  ?log_template:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeout_in_seconds:float prop ->
+  ?timeouts:timeouts ->
+  container_registry_id:string prop ->
+  name:string prop ->
+  agent_setting:agent_setting list ->
+  base_image_trigger:base_image_trigger list ->
+  docker_step:docker_step list ->
+  encoded_step:encoded_step list ->
+  file_step:file_step list ->
+  identity:identity list ->
+  platform:platform list ->
+  registry_credential:registry_credential list ->
+  source_trigger:source_trigger list ->
+  timer_trigger:timer_trigger list ->
+  unit ->
+  azurerm_container_registry_task
+
+val yojson_of_azurerm_container_registry_task :
+  azurerm_container_registry_task -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   agent_pool_name : string prop;
@@ -30,7 +184,8 @@ type t = private {
   timeout_in_seconds : float prop;
 }
 
-val azurerm_container_registry_task :
+val register :
+  ?tf_module:tf_module ->
   ?agent_pool_name:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -38,20 +193,18 @@ val azurerm_container_registry_task :
   ?log_template:string prop ->
   ?tags:(string * string prop) list ->
   ?timeout_in_seconds:float prop ->
-  ?timeouts:azurerm_container_registry_task__timeouts ->
+  ?timeouts:timeouts ->
   container_registry_id:string prop ->
   name:string prop ->
-  agent_setting:azurerm_container_registry_task__agent_setting list ->
-  base_image_trigger:
-    azurerm_container_registry_task__base_image_trigger list ->
-  docker_step:azurerm_container_registry_task__docker_step list ->
-  encoded_step:azurerm_container_registry_task__encoded_step list ->
-  file_step:azurerm_container_registry_task__file_step list ->
-  identity:azurerm_container_registry_task__identity list ->
-  platform:azurerm_container_registry_task__platform list ->
-  registry_credential:
-    azurerm_container_registry_task__registry_credential list ->
-  source_trigger:azurerm_container_registry_task__source_trigger list ->
-  timer_trigger:azurerm_container_registry_task__timer_trigger list ->
+  agent_setting:agent_setting list ->
+  base_image_trigger:base_image_trigger list ->
+  docker_step:docker_step list ->
+  encoded_step:encoded_step list ->
+  file_step:file_step list ->
+  identity:identity list ->
+  platform:platform list ->
+  registry_credential:registry_credential list ->
+  source_trigger:source_trigger list ->
+  timer_trigger:timer_trigger list ->
   string ->
   t

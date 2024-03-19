@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_bigtable_instance__cluster__autoscaling_config = {
+type cluster__autoscaling_config = {
   cpu_target : float prop;
       (** The target CPU utilization for autoscaling. Value must be between 10 and 80. *)
   max_nodes : float prop;
@@ -17,31 +17,29 @@ type google_bigtable_instance__cluster__autoscaling_config = {
 [@@deriving yojson_of]
 (** A list of Autoscaling configurations. Only one element is used and allowed. *)
 
-type google_bigtable_instance__cluster = {
+type cluster = {
   cluster_id : string prop;
       (** The ID of the Cloud Bigtable cluster. Must be 6-30 characters and must only contain hyphens, lowercase letters and numbers. *)
   kms_key_name : string prop option; [@option]
       (** Describes the Cloud KMS encryption key that will be used to protect the destination Bigtable cluster. The requirements for this key are: 1) The Cloud Bigtable service account associated with the project that contains this cluster must be granted the cloudkms.cryptoKeyEncrypterDecrypter role on the CMEK key. 2) Only regional keys can be used and the region of the CMEK key must match the region of the cluster. 3) All clusters within an instance must use the same CMEK key. Values are of the form projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key} *)
   num_nodes : float prop option; [@option]
       (** The number of nodes in the cluster. If no value is set, Cloud Bigtable automatically allocates nodes based on your data footprint and optimized for 50% storage utilization. *)
-  state : string prop;  (** The state of the cluster *)
   storage_type : string prop option; [@option]
       (** The storage type to use. One of SSD or HDD. Defaults to SSD. *)
   zone : string prop option; [@option]
       (** The zone to create the Cloud Bigtable cluster in. Each cluster must have a different zone in the same region. Zones that support Bigtable instances are noted on the Cloud Bigtable locations page. *)
-  autoscaling_config :
-    google_bigtable_instance__cluster__autoscaling_config list;
+  autoscaling_config : cluster__autoscaling_config list;
 }
 [@@deriving yojson_of]
 (** A block of cluster configuration options. This can be specified at least once. *)
 
-type google_bigtable_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigtable_instance__timeouts *)
+(** timeouts *)
 
 type google_bigtable_instance = {
   deletion_protection : bool prop option; [@option]
@@ -60,11 +58,44 @@ type google_bigtable_instance = {
       (** The name (also called Instance Id in the Cloud Console) of the Cloud Bigtable instance. Must be 6-33 characters and must only contain hyphens, lowercase letters and numbers. *)
   project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
-  cluster : google_bigtable_instance__cluster list;
-  timeouts : google_bigtable_instance__timeouts option;
+  cluster : cluster list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigtable_instance *)
+
+let cluster__autoscaling_config ?storage_target ~cpu_target
+    ~max_nodes ~min_nodes () : cluster__autoscaling_config =
+  { cpu_target; max_nodes; min_nodes; storage_target }
+
+let cluster ?kms_key_name ?num_nodes ?storage_type ?zone ~cluster_id
+    ~autoscaling_config () : cluster =
+  {
+    cluster_id;
+    kms_key_name;
+    num_nodes;
+    storage_type;
+    zone;
+    autoscaling_config;
+  }
+
+let timeouts ?create ?read ?update () : timeouts =
+  { create; read; update }
+
+let google_bigtable_instance ?deletion_protection ?display_name ?id
+    ?instance_type ?labels ?project ?timeouts ~name ~cluster () :
+    google_bigtable_instance =
+  {
+    deletion_protection;
+    display_name;
+    id;
+    instance_type;
+    labels;
+    name;
+    project;
+    cluster;
+    timeouts;
+  }
 
 type t = {
   deletion_protection : bool prop;
@@ -78,25 +109,15 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_bigtable_instance ?deletion_protection ?display_name ?id
+let register ?tf_module ?deletion_protection ?display_name ?id
     ?instance_type ?labels ?project ?timeouts ~name ~cluster
     __resource_id =
   let __resource_type = "google_bigtable_instance" in
   let __resource =
-    ({
-       deletion_protection;
-       display_name;
-       id;
-       instance_type;
-       labels;
-       name;
-       project;
-       cluster;
-       timeouts;
-     }
-      : google_bigtable_instance)
+    google_bigtable_instance ?deletion_protection ?display_name ?id
+      ?instance_type ?labels ?project ?timeouts ~name ~cluster ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigtable_instance __resource);
   let __resource_attributes =
     ({

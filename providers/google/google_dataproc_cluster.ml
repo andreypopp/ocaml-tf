@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_dataproc_cluster__cluster_config__autoscaling_config = {
+type cluster_config__autoscaling_config = {
   policy_uri : string prop;
       (** The autoscaling policy used by the cluster. *)
 }
 [@@deriving yojson_of]
 (** The autoscaling policy config associated with the cluster. *)
 
-type google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators = {
+type cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators = {
   accelerator_count : float prop;
       (** The number of the accelerator cards of this type exposed to this instance. Often restricted to one of 1, 2, 4, or 8. *)
   accelerator_type : string prop;
@@ -20,7 +20,7 @@ type google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group_
 [@@deriving yojson_of]
 (** The Compute Engine accelerator (GPU) configuration for these instances. Can be specified multiple times. *)
 
-type google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config = {
+type cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
       (** Size of the primary disk attached to each node, specified in GB. The primary disk contains the boot volume and system libraries, and the smallest allowed disk size is 10GB. GCP will default to a predetermined computed value if not set (currently 500GB). Note: If SSDs are not attached, it also contains the HDFS data blocks and Hadoop working directories. *)
   boot_disk_type : string prop option; [@option]
@@ -31,9 +31,7 @@ type google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group_
 [@@deriving yojson_of]
 (** Disk Config *)
 
-type google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group__node_group_config = {
-  instance_names : string prop list;
-      (** List of auxiliary node group instance names which have been assigned to the cluster. *)
+type cluster_config__auxiliary_node_groups__node_group__node_group_config = {
   machine_type : string prop option; [@option]
       (** The name of a Google Compute Engine machine type to create for the master *)
   min_cpu_platform : string prop option; [@option]
@@ -41,36 +39,33 @@ type google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group_
   num_instances : float prop option; [@option]
       (** Specifies the number of auxiliary nodes to create. If not specified, GCP will default to a predetermined computed value. *)
   accelerators :
-    google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
+    cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
     list;
   disk_config :
-    google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
+    cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
     list;
 }
 [@@deriving yojson_of]
 (** The node group instance group configuration. *)
 
-type google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group = {
-  name : string prop;  (** The Node group resource name. *)
+type cluster_config__auxiliary_node_groups__node_group = {
   roles : string prop list;  (** Node group roles. *)
   node_group_config :
-    google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group__node_group_config
+    cluster_config__auxiliary_node_groups__node_group__node_group_config
     list;
 }
 [@@deriving yojson_of]
 (** Node group configuration. *)
 
-type google_dataproc_cluster__cluster_config__auxiliary_node_groups = {
+type cluster_config__auxiliary_node_groups = {
   node_group_id : string prop option; [@option]
       (** A node group ID. Generated if not specified. The ID must contain only letters (a-z, A-Z), numbers (0-9), underscores (_), and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of from 3 to 33 characters. *)
-  node_group :
-    google_dataproc_cluster__cluster_config__auxiliary_node_groups__node_group
-    list;
+  node_group : cluster_config__auxiliary_node_groups__node_group list;
 }
 [@@deriving yojson_of]
 (** The node group settings. *)
 
-type google_dataproc_cluster__cluster_config__dataproc_metric_config__metrics = {
+type cluster_config__dataproc_metric_config__metrics = {
   metric_overrides : string prop list option; [@option]
       (** Specify one or more [available OSS metrics] (https://cloud.google.com/dataproc/docs/guides/monitoring#available_oss_metrics) to collect. *)
   metric_source : string prop;
@@ -79,38 +74,34 @@ type google_dataproc_cluster__cluster_config__dataproc_metric_config__metrics = 
 [@@deriving yojson_of]
 (** Metrics sources to enable. *)
 
-type google_dataproc_cluster__cluster_config__dataproc_metric_config = {
-  metrics :
-    google_dataproc_cluster__cluster_config__dataproc_metric_config__metrics
-    list;
+type cluster_config__dataproc_metric_config = {
+  metrics : cluster_config__dataproc_metric_config__metrics list;
 }
 [@@deriving yojson_of]
 (** The config for Dataproc metrics. *)
 
-type google_dataproc_cluster__cluster_config__encryption_config = {
+type cluster_config__encryption_config = {
   kms_key_name : string prop;
       (** The Cloud KMS key name to use for PD disk encryption for all instances in the cluster. *)
 }
 [@@deriving yojson_of]
 (** The Customer managed encryption keys settings for the cluster. *)
 
-type google_dataproc_cluster__cluster_config__endpoint_config = {
+type cluster_config__endpoint_config = {
   enable_http_port_access : bool prop;
       (** The flag to enable http access to specific ports on the cluster from external sources (aka Component Gateway). Defaults to false. *)
-  http_ports : (string * string prop) list;
-      (** The map of port descriptions to URLs. Will only be populated if enable_http_port_access is true. *)
 }
 [@@deriving yojson_of]
 (** The config settings for port access on the cluster. Structure defined below. *)
 
-type google_dataproc_cluster__cluster_config__gce_cluster_config__node_group_affinity = {
+type cluster_config__gce_cluster_config__node_group_affinity = {
   node_group_uri : string prop;
       (** The URI of a sole-tenant that the cluster will be created on. *)
 }
 [@@deriving yojson_of]
 (** Node Group Affinity for sole-tenant clusters. *)
 
-type google_dataproc_cluster__cluster_config__gce_cluster_config__reservation_affinity = {
+type cluster_config__gce_cluster_config__reservation_affinity = {
   consume_reservation_type : string prop option; [@option]
       (** Type of reservation to consume. *)
   key : string prop option; [@option]
@@ -121,7 +112,7 @@ type google_dataproc_cluster__cluster_config__gce_cluster_config__reservation_af
 [@@deriving yojson_of]
 (** Reservation Affinity for consuming Zonal reservation. *)
 
-type google_dataproc_cluster__cluster_config__gce_cluster_config__shielded_instance_config = {
+type cluster_config__gce_cluster_config__shielded_instance_config = {
   enable_integrity_monitoring : bool prop option; [@option]
       (** Defines whether instances have integrity monitoring enabled. *)
   enable_secure_boot : bool prop option; [@option]
@@ -132,7 +123,7 @@ type google_dataproc_cluster__cluster_config__gce_cluster_config__shielded_insta
 [@@deriving yojson_of]
 (** Shielded Instance Config for clusters using Compute Engine Shielded VMs. *)
 
-type google_dataproc_cluster__cluster_config__gce_cluster_config = {
+type cluster_config__gce_cluster_config = {
   internal_ip_only : bool prop option; [@option]
       (** By default, clusters are not restricted to internal IP addresses, and will have ephemeral external IP addresses assigned to each instance. If set to true, all instances in the cluster will only have internal IP addresses. Note: Private Google Access (also known as privateIpGoogleAccess) must be enabled on the subnetwork that the cluster will be launched in. *)
   metadata : (string * string prop) list option; [@option]
@@ -150,19 +141,16 @@ type google_dataproc_cluster__cluster_config__gce_cluster_config = {
   zone : string prop option; [@option]
       (** The GCP zone where your data is stored and used (i.e. where the master and the worker nodes will be created in). If region is set to 'global' (default) then zone is mandatory, otherwise GCP is able to make use of Auto Zone Placement to determine this automatically for you. Note: This setting additionally determines and restricts which computing resources are available for use with other configs such as cluster_config.master_config.machine_type and cluster_config.worker_config.machine_type. *)
   node_group_affinity :
-    google_dataproc_cluster__cluster_config__gce_cluster_config__node_group_affinity
-    list;
+    cluster_config__gce_cluster_config__node_group_affinity list;
   reservation_affinity :
-    google_dataproc_cluster__cluster_config__gce_cluster_config__reservation_affinity
-    list;
+    cluster_config__gce_cluster_config__reservation_affinity list;
   shielded_instance_config :
-    google_dataproc_cluster__cluster_config__gce_cluster_config__shielded_instance_config
-    list;
+    cluster_config__gce_cluster_config__shielded_instance_config list;
 }
 [@@deriving yojson_of]
 (** Common config settings for resources of Google Compute Engine cluster instances, applicable to all instances in the cluster. *)
 
-type google_dataproc_cluster__cluster_config__initialization_action = {
+type cluster_config__initialization_action = {
   script : string prop;
       (** The script to be executed during initialization of the cluster. The script must be a GCS file with a gs:// prefix. *)
   timeout_sec : float prop option; [@option]
@@ -171,18 +159,16 @@ type google_dataproc_cluster__cluster_config__initialization_action = {
 [@@deriving yojson_of]
 (** Commands to execute on each node after config is completed. You can specify multiple versions of these. *)
 
-type google_dataproc_cluster__cluster_config__lifecycle_config = {
+type cluster_config__lifecycle_config = {
   auto_delete_time : string prop option; [@option]
       (** The time when cluster will be auto-deleted. A timestamp in RFC3339 UTC Zulu format, accurate to nanoseconds. Example: 2014-10-02T15:01:23.045123456Z. *)
   idle_delete_ttl : string prop option; [@option]
       (** The duration to keep the cluster alive while idling (no jobs running). After this TTL, the cluster will be deleted. Valid range: [10m, 14d]. *)
-  idle_start_time : string prop;
-      (** Time when the cluster became idle (most recent job finished) and became eligible for deletion due to idleness. *)
 }
 [@@deriving yojson_of]
 (** The settings for auto deletion cluster schedule. *)
 
-type google_dataproc_cluster__cluster_config__master_config__accelerators = {
+type cluster_config__master_config__accelerators = {
   accelerator_count : float prop;
       (** The number of the accelerator cards of this type exposed to this instance. Often restricted to one of 1, 2, 4, or 8. *)
   accelerator_type : string prop;
@@ -191,7 +177,7 @@ type google_dataproc_cluster__cluster_config__master_config__accelerators = {
 [@@deriving yojson_of]
 (** The Compute Engine accelerator (GPU) configuration for these instances. Can be specified multiple times. *)
 
-type google_dataproc_cluster__cluster_config__master_config__disk_config = {
+type cluster_config__master_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
       (** Size of the primary disk attached to each node, specified in GB. The primary disk contains the boot volume and system libraries, and the smallest allowed disk size is 10GB. GCP will default to a predetermined computed value if not set (currently 500GB). Note: If SSDs are not attached, it also contains the HDFS data blocks and Hadoop working directories. *)
   boot_disk_type : string prop option; [@option]
@@ -202,35 +188,29 @@ type google_dataproc_cluster__cluster_config__master_config__disk_config = {
 [@@deriving yojson_of]
 (** Disk Config *)
 
-type google_dataproc_cluster__cluster_config__master_config = {
+type cluster_config__master_config = {
   image_uri : string prop option; [@option]
       (** The URI for the image to use for this master *)
-  instance_names : string prop list;
-      (** List of master instance names which have been assigned to the cluster. *)
   machine_type : string prop option; [@option]
       (** The name of a Google Compute Engine machine type to create for the master *)
   min_cpu_platform : string prop option; [@option]
       (** The name of a minimum generation of CPU family for the master. If not specified, GCP will default to a predetermined computed value for each zone. *)
   num_instances : float prop option; [@option]
       (** Specifies the number of master nodes to create. If not specified, GCP will default to a predetermined computed value. *)
-  accelerators :
-    google_dataproc_cluster__cluster_config__master_config__accelerators
-    list;
-  disk_config :
-    google_dataproc_cluster__cluster_config__master_config__disk_config
-    list;
+  accelerators : cluster_config__master_config__accelerators list;
+  disk_config : cluster_config__master_config__disk_config list;
 }
 [@@deriving yojson_of]
 (** The Compute Engine config settings for the cluster's master instance. *)
 
-type google_dataproc_cluster__cluster_config__metastore_config = {
+type cluster_config__metastore_config = {
   dataproc_metastore_service : string prop;
       (** Resource name of an existing Dataproc Metastore service. *)
 }
 [@@deriving yojson_of]
 (** Specifies a Metastore configuration. *)
 
-type google_dataproc_cluster__cluster_config__preemptible_worker_config__disk_config = {
+type cluster_config__preemptible_worker_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
       (** Size of the primary disk attached to each preemptible worker node, specified in GB. The smallest allowed disk size is 10GB. GCP will default to a predetermined computed value if not set (currently 500GB). Note: If SSDs are not attached, it also contains the HDFS data blocks and Hadoop working directories. *)
   boot_disk_type : string prop option; [@option]
@@ -241,7 +221,7 @@ type google_dataproc_cluster__cluster_config__preemptible_worker_config__disk_co
 [@@deriving yojson_of]
 (** Disk Config *)
 
-type google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list = {
+type cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list = {
   machine_types : string prop list option; [@option]
       (** Full machine-type names, e.g. n1-standard-16. *)
   rank : float prop option; [@option]
@@ -250,42 +230,35 @@ type google_dataproc_cluster__cluster_config__preemptible_worker_config__instanc
 [@@deriving yojson_of]
 (** List of instance selection options that the group will use when creating new VMs. *)
 
-type google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results = {
+type cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results = {
   machine_type : string prop;  (** machine_type *)
   vm_count : float prop;  (** vm_count *)
 }
 [@@deriving yojson_of]
 
-type google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy = {
-  instance_selection_results :
-    google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results
-    list;
-      (** A list of instance selection results in the group. *)
+type cluster_config__preemptible_worker_config__instance_flexibility_policy = {
   instance_selection_list :
-    google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
+    cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
     list;
 }
 [@@deriving yojson_of]
 (** Instance flexibility Policy allowing a mixture of VM shapes and provisioning models. *)
 
-type google_dataproc_cluster__cluster_config__preemptible_worker_config = {
-  instance_names : string prop list;
-      (** List of preemptible instance names which have been assigned to the cluster. *)
+type cluster_config__preemptible_worker_config = {
   num_instances : float prop option; [@option]
       (** Specifies the number of preemptible nodes to create. Defaults to 0. *)
   preemptibility : string prop option; [@option]
       (** Specifies the preemptibility of the secondary nodes. Defaults to PREEMPTIBLE. *)
   disk_config :
-    google_dataproc_cluster__cluster_config__preemptible_worker_config__disk_config
-    list;
+    cluster_config__preemptible_worker_config__disk_config list;
   instance_flexibility_policy :
-    google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy
+    cluster_config__preemptible_worker_config__instance_flexibility_policy
     list;
 }
 [@@deriving yojson_of]
 (** The Google Compute Engine config settings for the additional (aka preemptible) instances in a cluster. *)
 
-type google_dataproc_cluster__cluster_config__security_config__kerberos_config = {
+type cluster_config__security_config__kerberos_config = {
   cross_realm_trust_admin_server : string prop option; [@option]
       (** The admin server (IP or hostname) for the remote trusted realm in a cross realm trust relationship. *)
   cross_realm_trust_kdc : string prop option; [@option]
@@ -324,28 +297,25 @@ by Dataproc *)
 [@@deriving yojson_of]
 (** Kerberos related configuration *)
 
-type google_dataproc_cluster__cluster_config__security_config = {
+type cluster_config__security_config = {
   kerberos_config :
-    google_dataproc_cluster__cluster_config__security_config__kerberos_config
-    list;
+    cluster_config__security_config__kerberos_config list;
 }
 [@@deriving yojson_of]
 (** Security related configuration. *)
 
-type google_dataproc_cluster__cluster_config__software_config = {
+type cluster_config__software_config = {
   image_version : string prop option; [@option]
       (** The Cloud Dataproc image version to use for the cluster - this controls the sets of software versions installed onto the nodes when you create clusters. If not specified, defaults to the latest version. *)
   optional_components : string prop list option; [@option]
       (** The set of optional components to activate on the cluster. *)
   override_properties : (string * string prop) list option; [@option]
       (** A list of override and additional properties (key/value pairs) used to modify various aspects of the common configuration files used when creating a cluster. *)
-  properties : (string * string prop) list;
-      (** A list of the properties used to set the daemon config files. This will include any values supplied by the user via cluster_config.software_config.override_properties *)
 }
 [@@deriving yojson_of]
 (** The config settings for software inside the cluster. *)
 
-type google_dataproc_cluster__cluster_config__worker_config__accelerators = {
+type cluster_config__worker_config__accelerators = {
   accelerator_count : float prop;
       (** The number of the accelerator cards of this type exposed to this instance. Often restricted to one of 1, 2, 4, or 8. *)
   accelerator_type : string prop;
@@ -354,7 +324,7 @@ type google_dataproc_cluster__cluster_config__worker_config__accelerators = {
 [@@deriving yojson_of]
 (** The Compute Engine accelerator (GPU) configuration for these instances. Can be specified multiple times. *)
 
-type google_dataproc_cluster__cluster_config__worker_config__disk_config = {
+type cluster_config__worker_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
       (** Size of the primary disk attached to each node, specified in GB. The primary disk contains the boot volume and system libraries, and the smallest allowed disk size is 10GB. GCP will default to a predetermined computed value if not set (currently 500GB). Note: If SSDs are not attached, it also contains the HDFS data blocks and Hadoop working directories. *)
   boot_disk_type : string prop option; [@option]
@@ -365,11 +335,9 @@ type google_dataproc_cluster__cluster_config__worker_config__disk_config = {
 [@@deriving yojson_of]
 (** Disk Config *)
 
-type google_dataproc_cluster__cluster_config__worker_config = {
+type cluster_config__worker_config = {
   image_uri : string prop option; [@option]
       (** The URI for the image to use for this master/worker *)
-  instance_names : string prop list;
-      (** List of master/worker instance names which have been assigned to the cluster. *)
   machine_type : string prop option; [@option]
       (** The name of a Google Compute Engine machine type to create for the master/worker *)
   min_cpu_platform : string prop option; [@option]
@@ -378,93 +346,71 @@ type google_dataproc_cluster__cluster_config__worker_config = {
       (** The minimum number of primary worker instances to create. *)
   num_instances : float prop option; [@option]
       (** Specifies the number of worker nodes to create. If not specified, GCP will default to a predetermined computed value. *)
-  accelerators :
-    google_dataproc_cluster__cluster_config__worker_config__accelerators
-    list;
-  disk_config :
-    google_dataproc_cluster__cluster_config__worker_config__disk_config
-    list;
+  accelerators : cluster_config__worker_config__accelerators list;
+  disk_config : cluster_config__worker_config__disk_config list;
 }
 [@@deriving yojson_of]
 (** The Compute Engine config settings for the cluster's worker instances. *)
 
-type google_dataproc_cluster__cluster_config = {
-  bucket : string prop;
-      (**  The name of the cloud storage bucket ultimately used to house the staging data for the cluster. If staging_bucket is specified, it will contain this value, otherwise it will be the auto generated name. *)
+type cluster_config = {
   staging_bucket : string prop option; [@option]
       (** The Cloud Storage staging bucket used to stage files, such as Hadoop jars, between client machines and the cluster. Note: If you don't explicitly specify a staging_bucket then GCP will auto create / assign one for you. However, you are not guaranteed an auto generated bucket which is solely dedicated to your cluster; it may be shared with other clusters in the same region/zone also choosing to use the auto generation option. *)
   temp_bucket : string prop option; [@option]
       (** The Cloud Storage temp bucket used to store ephemeral cluster and jobs data, such as Spark and MapReduce history files. Note: If you don't explicitly specify a temp_bucket then GCP will auto create / assign one for you. *)
-  autoscaling_config :
-    google_dataproc_cluster__cluster_config__autoscaling_config list;
-  auxiliary_node_groups :
-    google_dataproc_cluster__cluster_config__auxiliary_node_groups
-    list;
+  autoscaling_config : cluster_config__autoscaling_config list;
+  auxiliary_node_groups : cluster_config__auxiliary_node_groups list;
   dataproc_metric_config :
-    google_dataproc_cluster__cluster_config__dataproc_metric_config
-    list;
-  encryption_config :
-    google_dataproc_cluster__cluster_config__encryption_config list;
-  endpoint_config :
-    google_dataproc_cluster__cluster_config__endpoint_config list;
-  gce_cluster_config :
-    google_dataproc_cluster__cluster_config__gce_cluster_config list;
-  initialization_action :
-    google_dataproc_cluster__cluster_config__initialization_action
-    list;
-  lifecycle_config :
-    google_dataproc_cluster__cluster_config__lifecycle_config list;
-  master_config :
-    google_dataproc_cluster__cluster_config__master_config list;
-  metastore_config :
-    google_dataproc_cluster__cluster_config__metastore_config list;
+    cluster_config__dataproc_metric_config list;
+  encryption_config : cluster_config__encryption_config list;
+  endpoint_config : cluster_config__endpoint_config list;
+  gce_cluster_config : cluster_config__gce_cluster_config list;
+  initialization_action : cluster_config__initialization_action list;
+  lifecycle_config : cluster_config__lifecycle_config list;
+  master_config : cluster_config__master_config list;
+  metastore_config : cluster_config__metastore_config list;
   preemptible_worker_config :
-    google_dataproc_cluster__cluster_config__preemptible_worker_config
-    list;
-  security_config :
-    google_dataproc_cluster__cluster_config__security_config list;
-  software_config :
-    google_dataproc_cluster__cluster_config__software_config list;
-  worker_config :
-    google_dataproc_cluster__cluster_config__worker_config list;
+    cluster_config__preemptible_worker_config list;
+  security_config : cluster_config__security_config list;
+  software_config : cluster_config__software_config list;
+  worker_config : cluster_config__worker_config list;
 }
 [@@deriving yojson_of]
 (** Allows you to configure various aspects of the cluster. *)
 
-type google_dataproc_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dataproc_cluster__timeouts *)
+(** timeouts *)
 
-type google_dataproc_cluster__virtual_cluster_config__auxiliary_services_config__metastore_config = {
+type virtual_cluster_config__auxiliary_services_config__metastore_config = {
   dataproc_metastore_service : string prop option; [@option]
       (** The Hive Metastore configuration for this workload. *)
 }
 [@@deriving yojson_of]
 (** The Hive Metastore configuration for this workload. *)
 
-type google_dataproc_cluster__virtual_cluster_config__auxiliary_services_config__spark_history_server_config = {
+type virtual_cluster_config__auxiliary_services_config__spark_history_server_config = {
   dataproc_cluster : string prop option; [@option]
       (** Resource name of an existing Dataproc Cluster to act as a Spark History Server for the workload. *)
 }
 [@@deriving yojson_of]
 (** The Spark History Server configuration for the workload. *)
 
-type google_dataproc_cluster__virtual_cluster_config__auxiliary_services_config = {
+type virtual_cluster_config__auxiliary_services_config = {
   metastore_config :
-    google_dataproc_cluster__virtual_cluster_config__auxiliary_services_config__metastore_config
+    virtual_cluster_config__auxiliary_services_config__metastore_config
     list;
   spark_history_server_config :
-    google_dataproc_cluster__virtual_cluster_config__auxiliary_services_config__spark_history_server_config
+    virtual_cluster_config__auxiliary_services_config__spark_history_server_config
     list;
 }
 [@@deriving yojson_of]
 (** Auxiliary services configuration for a Cluster. *)
 
-type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling = {
+type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling = {
   max_node_count : float prop option; [@option]
       (** The maximum number of nodes in the node pool. Must be >= minNodeCount, and must be > 0. *)
   min_node_count : float prop option; [@option]
@@ -473,7 +419,7 @@ type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config_
 [@@deriving yojson_of]
 (** The autoscaler configuration for this node pool. The autoscaler is enabled only when a valid configuration is present. *)
 
-type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config = {
+type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config = {
   local_ssd_count : float prop option; [@option]
       (** The minimum number of nodes in the node pool. Must be >= 0 and <= maxNodeCount. *)
   machine_type : string prop option; [@option]
@@ -488,42 +434,42 @@ type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config_
 [@@deriving yojson_of]
 (** The node pool configuration. *)
 
-type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config = {
+type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config = {
   locations : string prop list;
       (** The list of Compute Engine zones where node pool nodes associated with a Dataproc on GKE virtual cluster will be located. *)
   autoscaling :
-    google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
     list;
   config :
-    google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
     list;
 }
 [@@deriving yojson_of]
 (** Input only. The configuration for the GKE node pool. *)
 
-type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target = {
+type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target = {
   node_pool : string prop;
       (** The target GKE node pool. Format: 'projects/{project}/locations/{location}/clusters/{cluster}/nodePools/{nodePool}' *)
   roles : string prop list;
       (** The roles associated with the GKE node pool. *)
   node_pool_config :
-    google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
     list;
 }
 [@@deriving yojson_of]
 (** GKE node pools where workloads will be scheduled. At least one node pool must be assigned the DEFAULT GkeNodePoolTarget.Role. If a GkeNodePoolTarget is not specified, Dataproc constructs a DEFAULT GkeNodePoolTarget. *)
 
-type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config = {
+type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config = {
   gke_cluster_target : string prop option; [@option]
       (** A target GKE cluster to deploy to. It must be in the same project and region as the Dataproc cluster (the GKE cluster can be zonal or regional). Format: 'projects/{project}/locations/{location}/clusters/{cluster_id}' *)
   node_pool_target :
-    google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
     list;
 }
 [@@deriving yojson_of]
 (** The configuration for running the Dataproc cluster on GKE. *)
 
-type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config = {
+type virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config = {
   component_version : (string * string prop) list;
       (** The components that should be installed in this Dataproc cluster. The key must be a string from the KubernetesComponent enumeration. The value is the version of the software to be installed. *)
   properties : (string * string prop) list option; [@option]
@@ -532,28 +478,26 @@ type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config_
 [@@deriving yojson_of]
 (** The software configuration for this Dataproc cluster running on Kubernetes. *)
 
-type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config = {
+type virtual_cluster_config__kubernetes_cluster_config = {
   kubernetes_namespace : string prop option; [@option]
       (** A namespace within the Kubernetes cluster to deploy into. If this namespace does not exist, it is created. If it exists, Dataproc verifies that another Dataproc VirtualCluster is not installed into it. If not specified, the name of the Dataproc Cluster is used. *)
   gke_cluster_config :
-    google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
     list;
   kubernetes_software_config :
-    google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
+    virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
     list;
 }
 [@@deriving yojson_of]
 (** The configuration for running the Dataproc cluster on Kubernetes. *)
 
-type google_dataproc_cluster__virtual_cluster_config = {
+type virtual_cluster_config = {
   staging_bucket : string prop option; [@option]
       (** A Cloud Storage bucket used to stage job dependencies, config files, and job driver console output. If you do not specify a staging bucket, Cloud Dataproc will determine a Cloud Storage location (US, ASIA, or EU) for your cluster's staging bucket according to the Compute Engine zone where your cluster is deployed, and then create and manage this project-level, per-location bucket. *)
   auxiliary_services_config :
-    google_dataproc_cluster__virtual_cluster_config__auxiliary_services_config
-    list;
+    virtual_cluster_config__auxiliary_services_config list;
   kubernetes_cluster_config :
-    google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config
-    list;
+    virtual_cluster_config__kubernetes_cluster_config list;
 }
 [@@deriving yojson_of]
 (** The virtual cluster config is used when creating a Dataproc cluster that does not directly control the underlying compute resources, for example, when creating a Dataproc-on-GKE cluster. Dataproc may set default values, and values may change when clusters are updated. Exactly one of config or virtualClusterConfig must be specified. *)
@@ -573,13 +517,341 @@ type google_dataproc_cluster = {
       (** The ID of the project in which the cluster will exist. If it is not provided, the provider project is used. *)
   region : string prop option; [@option]
       (** The region in which the cluster and associated nodes will be created in. Defaults to global. *)
-  cluster_config : google_dataproc_cluster__cluster_config list;
-  timeouts : google_dataproc_cluster__timeouts option;
-  virtual_cluster_config :
-    google_dataproc_cluster__virtual_cluster_config list;
+  cluster_config : cluster_config list;
+  timeouts : timeouts option;
+  virtual_cluster_config : virtual_cluster_config list;
 }
 [@@deriving yojson_of]
 (** google_dataproc_cluster *)
+
+let cluster_config__autoscaling_config ~policy_uri () :
+    cluster_config__autoscaling_config =
+  { policy_uri }
+
+let cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
+    ~accelerator_count ~accelerator_type () :
+    cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
+    =
+  { accelerator_count; accelerator_type }
+
+let cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
+    ?boot_disk_size_gb ?boot_disk_type ?num_local_ssds () :
+    cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
+    =
+  { boot_disk_size_gb; boot_disk_type; num_local_ssds }
+
+let cluster_config__auxiliary_node_groups__node_group__node_group_config
+    ?machine_type ?min_cpu_platform ?num_instances ~accelerators
+    ~disk_config () :
+    cluster_config__auxiliary_node_groups__node_group__node_group_config
+    =
+  {
+    machine_type;
+    min_cpu_platform;
+    num_instances;
+    accelerators;
+    disk_config;
+  }
+
+let cluster_config__auxiliary_node_groups__node_group ~roles
+    ~node_group_config () :
+    cluster_config__auxiliary_node_groups__node_group =
+  { roles; node_group_config }
+
+let cluster_config__auxiliary_node_groups ?node_group_id ~node_group
+    () : cluster_config__auxiliary_node_groups =
+  { node_group_id; node_group }
+
+let cluster_config__dataproc_metric_config__metrics ?metric_overrides
+    ~metric_source () :
+    cluster_config__dataproc_metric_config__metrics =
+  { metric_overrides; metric_source }
+
+let cluster_config__dataproc_metric_config ~metrics () :
+    cluster_config__dataproc_metric_config =
+  { metrics }
+
+let cluster_config__encryption_config ~kms_key_name () :
+    cluster_config__encryption_config =
+  { kms_key_name }
+
+let cluster_config__endpoint_config ~enable_http_port_access () :
+    cluster_config__endpoint_config =
+  { enable_http_port_access }
+
+let cluster_config__gce_cluster_config__node_group_affinity
+    ~node_group_uri () :
+    cluster_config__gce_cluster_config__node_group_affinity =
+  { node_group_uri }
+
+let cluster_config__gce_cluster_config__reservation_affinity
+    ?consume_reservation_type ?key ?values () :
+    cluster_config__gce_cluster_config__reservation_affinity =
+  { consume_reservation_type; key; values }
+
+let cluster_config__gce_cluster_config__shielded_instance_config
+    ?enable_integrity_monitoring ?enable_secure_boot ?enable_vtpm ()
+    : cluster_config__gce_cluster_config__shielded_instance_config =
+  { enable_integrity_monitoring; enable_secure_boot; enable_vtpm }
+
+let cluster_config__gce_cluster_config ?internal_ip_only ?metadata
+    ?network ?service_account ?service_account_scopes ?subnetwork
+    ?tags ?zone ~node_group_affinity ~reservation_affinity
+    ~shielded_instance_config () : cluster_config__gce_cluster_config
+    =
+  {
+    internal_ip_only;
+    metadata;
+    network;
+    service_account;
+    service_account_scopes;
+    subnetwork;
+    tags;
+    zone;
+    node_group_affinity;
+    reservation_affinity;
+    shielded_instance_config;
+  }
+
+let cluster_config__initialization_action ?timeout_sec ~script () :
+    cluster_config__initialization_action =
+  { script; timeout_sec }
+
+let cluster_config__lifecycle_config ?auto_delete_time
+    ?idle_delete_ttl () : cluster_config__lifecycle_config =
+  { auto_delete_time; idle_delete_ttl }
+
+let cluster_config__master_config__accelerators ~accelerator_count
+    ~accelerator_type () :
+    cluster_config__master_config__accelerators =
+  { accelerator_count; accelerator_type }
+
+let cluster_config__master_config__disk_config ?boot_disk_size_gb
+    ?boot_disk_type ?num_local_ssds () :
+    cluster_config__master_config__disk_config =
+  { boot_disk_size_gb; boot_disk_type; num_local_ssds }
+
+let cluster_config__master_config ?image_uri ?machine_type
+    ?min_cpu_platform ?num_instances ~accelerators ~disk_config () :
+    cluster_config__master_config =
+  {
+    image_uri;
+    machine_type;
+    min_cpu_platform;
+    num_instances;
+    accelerators;
+    disk_config;
+  }
+
+let cluster_config__metastore_config ~dataproc_metastore_service () :
+    cluster_config__metastore_config =
+  { dataproc_metastore_service }
+
+let cluster_config__preemptible_worker_config__disk_config
+    ?boot_disk_size_gb ?boot_disk_type ?num_local_ssds () :
+    cluster_config__preemptible_worker_config__disk_config =
+  { boot_disk_size_gb; boot_disk_type; num_local_ssds }
+
+let cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
+    ?machine_types ?rank () :
+    cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
+    =
+  { machine_types; rank }
+
+let cluster_config__preemptible_worker_config__instance_flexibility_policy
+    ~instance_selection_list () :
+    cluster_config__preemptible_worker_config__instance_flexibility_policy
+    =
+  { instance_selection_list }
+
+let cluster_config__preemptible_worker_config ?num_instances
+    ?preemptibility ~disk_config ~instance_flexibility_policy () :
+    cluster_config__preemptible_worker_config =
+  {
+    num_instances;
+    preemptibility;
+    disk_config;
+    instance_flexibility_policy;
+  }
+
+let cluster_config__security_config__kerberos_config
+    ?cross_realm_trust_admin_server ?cross_realm_trust_kdc
+    ?cross_realm_trust_realm ?cross_realm_trust_shared_password_uri
+    ?enable_kerberos ?kdc_db_key_uri ?key_password_uri
+    ?keystore_password_uri ?keystore_uri ?realm ?tgt_lifetime_hours
+    ?truststore_password_uri ?truststore_uri ~kms_key_uri
+    ~root_principal_password_uri () :
+    cluster_config__security_config__kerberos_config =
+  {
+    cross_realm_trust_admin_server;
+    cross_realm_trust_kdc;
+    cross_realm_trust_realm;
+    cross_realm_trust_shared_password_uri;
+    enable_kerberos;
+    kdc_db_key_uri;
+    key_password_uri;
+    keystore_password_uri;
+    keystore_uri;
+    kms_key_uri;
+    realm;
+    root_principal_password_uri;
+    tgt_lifetime_hours;
+    truststore_password_uri;
+    truststore_uri;
+  }
+
+let cluster_config__security_config ~kerberos_config () :
+    cluster_config__security_config =
+  { kerberos_config }
+
+let cluster_config__software_config ?image_version
+    ?optional_components ?override_properties () :
+    cluster_config__software_config =
+  { image_version; optional_components; override_properties }
+
+let cluster_config__worker_config__accelerators ~accelerator_count
+    ~accelerator_type () :
+    cluster_config__worker_config__accelerators =
+  { accelerator_count; accelerator_type }
+
+let cluster_config__worker_config__disk_config ?boot_disk_size_gb
+    ?boot_disk_type ?num_local_ssds () :
+    cluster_config__worker_config__disk_config =
+  { boot_disk_size_gb; boot_disk_type; num_local_ssds }
+
+let cluster_config__worker_config ?image_uri ?machine_type
+    ?min_cpu_platform ?min_num_instances ?num_instances ~accelerators
+    ~disk_config () : cluster_config__worker_config =
+  {
+    image_uri;
+    machine_type;
+    min_cpu_platform;
+    min_num_instances;
+    num_instances;
+    accelerators;
+    disk_config;
+  }
+
+let cluster_config ?staging_bucket ?temp_bucket ~autoscaling_config
+    ~auxiliary_node_groups ~dataproc_metric_config ~encryption_config
+    ~endpoint_config ~gce_cluster_config ~initialization_action
+    ~lifecycle_config ~master_config ~metastore_config
+    ~preemptible_worker_config ~security_config ~software_config
+    ~worker_config () : cluster_config =
+  {
+    staging_bucket;
+    temp_bucket;
+    autoscaling_config;
+    auxiliary_node_groups;
+    dataproc_metric_config;
+    encryption_config;
+    endpoint_config;
+    gce_cluster_config;
+    initialization_action;
+    lifecycle_config;
+    master_config;
+    metastore_config;
+    preemptible_worker_config;
+    security_config;
+    software_config;
+    worker_config;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let virtual_cluster_config__auxiliary_services_config__metastore_config
+    ?dataproc_metastore_service () :
+    virtual_cluster_config__auxiliary_services_config__metastore_config
+    =
+  { dataproc_metastore_service }
+
+let virtual_cluster_config__auxiliary_services_config__spark_history_server_config
+    ?dataproc_cluster () :
+    virtual_cluster_config__auxiliary_services_config__spark_history_server_config
+    =
+  { dataproc_cluster }
+
+let virtual_cluster_config__auxiliary_services_config
+    ~metastore_config ~spark_history_server_config () :
+    virtual_cluster_config__auxiliary_services_config =
+  { metastore_config; spark_history_server_config }
+
+let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
+    ?max_node_count ?min_node_count () :
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
+    =
+  { max_node_count; min_node_count }
+
+let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
+    ?local_ssd_count ?machine_type ?min_cpu_platform ?preemptible
+    ?spot () :
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
+    =
+  {
+    local_ssd_count;
+    machine_type;
+    min_cpu_platform;
+    preemptible;
+    spot;
+  }
+
+let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
+    ~locations ~autoscaling ~config () :
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
+    =
+  { locations; autoscaling; config }
+
+let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
+    ~node_pool ~roles ~node_pool_config () :
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
+    =
+  { node_pool; roles; node_pool_config }
+
+let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
+    ?gke_cluster_target ~node_pool_target () :
+    virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
+    =
+  { gke_cluster_target; node_pool_target }
+
+let virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
+    ?properties ~component_version () :
+    virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
+    =
+  { component_version; properties }
+
+let virtual_cluster_config__kubernetes_cluster_config
+    ?kubernetes_namespace ~gke_cluster_config
+    ~kubernetes_software_config () :
+    virtual_cluster_config__kubernetes_cluster_config =
+  {
+    kubernetes_namespace;
+    gke_cluster_config;
+    kubernetes_software_config;
+  }
+
+let virtual_cluster_config ?staging_bucket ~auxiliary_services_config
+    ~kubernetes_cluster_config () : virtual_cluster_config =
+  {
+    staging_bucket;
+    auxiliary_services_config;
+    kubernetes_cluster_config;
+  }
+
+let google_dataproc_cluster ?graceful_decommission_timeout ?id
+    ?labels ?project ?region ?timeouts ~name ~cluster_config
+    ~virtual_cluster_config () : google_dataproc_cluster =
+  {
+    graceful_decommission_timeout;
+    id;
+    labels;
+    name;
+    project;
+    region;
+    cluster_config;
+    timeouts;
+    virtual_cluster_config;
+  }
 
 type t = {
   effective_labels : (string * string) list prop;
@@ -592,25 +864,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_dataproc_cluster ?graceful_decommission_timeout ?id
-    ?labels ?project ?region ?timeouts ~name ~cluster_config
+let register ?tf_module ?graceful_decommission_timeout ?id ?labels
+    ?project ?region ?timeouts ~name ~cluster_config
     ~virtual_cluster_config __resource_id =
   let __resource_type = "google_dataproc_cluster" in
   let __resource =
-    ({
-       graceful_decommission_timeout;
-       id;
-       labels;
-       name;
-       project;
-       region;
-       cluster_config;
-       timeouts;
-       virtual_cluster_config;
-     }
-      : google_dataproc_cluster)
+    google_dataproc_cluster ?graceful_decommission_timeout ?id
+      ?labels ?project ?region ?timeouts ~name ~cluster_config
+      ~virtual_cluster_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_cluster __resource);
   let __resource_attributes =
     ({

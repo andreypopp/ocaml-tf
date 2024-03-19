@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_sql_database__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_sql_database
+
+val google_sql_database :
+  ?charset:string prop ->
+  ?collation:string prop ->
+  ?deletion_policy:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  instance:string prop ->
+  name:string prop ->
+  unit ->
+  google_sql_database
+
+val yojson_of_google_sql_database : google_sql_database -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   charset : string prop;
@@ -16,13 +42,14 @@ type t = private {
   self_link : string prop;
 }
 
-val google_sql_database :
+val register :
+  ?tf_module:tf_module ->
   ?charset:string prop ->
   ?collation:string prop ->
   ?deletion_policy:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_sql_database__timeouts ->
+  ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
   string ->

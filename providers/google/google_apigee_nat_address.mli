@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type google_apigee_nat_address__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_apigee_nat_address
+
+val google_apigee_nat_address :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  instance_id:string prop ->
+  name:string prop ->
+  unit ->
+  google_apigee_nat_address
+
+val yojson_of_google_apigee_nat_address :
+  google_apigee_nat_address -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,9 +32,10 @@ type t = private {
   state : string prop;
 }
 
-val google_apigee_nat_address :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:google_apigee_nat_address__timeouts ->
+  ?timeouts:timeouts ->
   instance_id:string prop ->
   name:string prop ->
   string ->

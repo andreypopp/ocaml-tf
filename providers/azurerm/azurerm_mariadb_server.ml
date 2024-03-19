@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_mariadb_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mariadb_server__timeouts *)
+(** timeouts *)
 
 type azurerm_mariadb_server = {
   administrator_login : string prop option; [@option]
@@ -43,10 +43,44 @@ type azurerm_mariadb_server = {
   storage_mb : float prop option; [@option]  (** storage_mb *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   version : string prop;  (** version *)
-  timeouts : azurerm_mariadb_server__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mariadb_server *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mariadb_server ?administrator_login
+    ?administrator_login_password ?auto_grow_enabled
+    ?backup_retention_days ?create_mode ?creation_source_server_id
+    ?geo_redundant_backup_enabled ?id ?public_network_access_enabled
+    ?restore_point_in_time ?ssl_minimal_tls_version_enforced
+    ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
+    ~sku_name ~ssl_enforcement_enabled ~version () :
+    azurerm_mariadb_server =
+  {
+    administrator_login;
+    administrator_login_password;
+    auto_grow_enabled;
+    backup_retention_days;
+    create_mode;
+    creation_source_server_id;
+    geo_redundant_backup_enabled;
+    id;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    restore_point_in_time;
+    sku_name;
+    ssl_enforcement_enabled;
+    ssl_minimal_tls_version_enforced;
+    storage_mb;
+    tags;
+    version;
+    timeouts;
+  }
 
 type t = {
   administrator_login : string prop;
@@ -71,7 +105,7 @@ type t = {
   version : string prop;
 }
 
-let azurerm_mariadb_server ?administrator_login
+let register ?tf_module ?administrator_login
     ?administrator_login_password ?auto_grow_enabled
     ?backup_retention_days ?create_mode ?creation_source_server_id
     ?geo_redundant_backup_enabled ?id ?public_network_access_enabled
@@ -80,31 +114,16 @@ let azurerm_mariadb_server ?administrator_login
     ~sku_name ~ssl_enforcement_enabled ~version __resource_id =
   let __resource_type = "azurerm_mariadb_server" in
   let __resource =
-    ({
-       administrator_login;
-       administrator_login_password;
-       auto_grow_enabled;
-       backup_retention_days;
-       create_mode;
-       creation_source_server_id;
-       geo_redundant_backup_enabled;
-       id;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       restore_point_in_time;
-       sku_name;
-       ssl_enforcement_enabled;
-       ssl_minimal_tls_version_enforced;
-       storage_mb;
-       tags;
-       version;
-       timeouts;
-     }
-      : azurerm_mariadb_server)
+    azurerm_mariadb_server ?administrator_login
+      ?administrator_login_password ?auto_grow_enabled
+      ?backup_retention_days ?create_mode ?creation_source_server_id
+      ?geo_redundant_backup_enabled ?id
+      ?public_network_access_enabled ?restore_point_in_time
+      ?ssl_minimal_tls_version_enforced ?storage_mb ?tags ?timeouts
+      ~location ~name ~resource_group_name ~sku_name
+      ~ssl_enforcement_enabled ~version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mariadb_server __resource);
   let __resource_attributes =
     ({

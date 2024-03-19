@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_s3__s3_config = {
+type s3_config = {
   bucket_access_role_arn : string prop;  (** bucket_access_role_arn *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_s3__s3_config *)
+(** s3_config *)
 
 type aws_datasync_location_s3 = {
   agent_arns : string prop list option; [@option]  (** agent_arns *)
@@ -20,10 +20,27 @@ type aws_datasync_location_s3 = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  s3_config : aws_datasync_location_s3__s3_config list;
+  s3_config : s3_config list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_s3 *)
+
+let s3_config ~bucket_access_role_arn () : s3_config =
+  { bucket_access_role_arn }
+
+let aws_datasync_location_s3 ?agent_arns ?id ?s3_storage_class ?tags
+    ?tags_all ~s3_bucket_arn ~subdirectory ~s3_config () :
+    aws_datasync_location_s3 =
+  {
+    agent_arns;
+    id;
+    s3_bucket_arn;
+    s3_storage_class;
+    subdirectory;
+    tags;
+    tags_all;
+    s3_config;
+  }
 
 type t = {
   agent_arns : string list prop;
@@ -37,23 +54,14 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_s3 ?agent_arns ?id ?s3_storage_class ?tags
+let register ?tf_module ?agent_arns ?id ?s3_storage_class ?tags
     ?tags_all ~s3_bucket_arn ~subdirectory ~s3_config __resource_id =
   let __resource_type = "aws_datasync_location_s3" in
   let __resource =
-    ({
-       agent_arns;
-       id;
-       s3_bucket_arn;
-       s3_storage_class;
-       subdirectory;
-       tags;
-       tags_all;
-       s3_config;
-     }
-      : aws_datasync_location_s3)
+    aws_datasync_location_s3 ?agent_arns ?id ?s3_storage_class ?tags
+      ?tags_all ~s3_bucket_arn ~subdirectory ~s3_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_s3 __resource);
   let __resource_attributes =
     ({

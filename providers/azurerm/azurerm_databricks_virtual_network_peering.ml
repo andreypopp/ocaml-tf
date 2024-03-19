@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_databricks_virtual_network_peering__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_databricks_virtual_network_peering__timeouts *)
+(** timeouts *)
 
 type azurerm_databricks_virtual_network_peering = {
   allow_forwarded_traffic : bool prop option; [@option]
@@ -30,11 +30,33 @@ type azurerm_databricks_virtual_network_peering = {
   use_remote_gateways : bool prop option; [@option]
       (** use_remote_gateways *)
   workspace_id : string prop;  (** workspace_id *)
-  timeouts :
-    azurerm_databricks_virtual_network_peering__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_databricks_virtual_network_peering *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_databricks_virtual_network_peering
+    ?allow_forwarded_traffic ?allow_gateway_transit
+    ?allow_virtual_network_access ?id ?use_remote_gateways ?timeouts
+    ~name ~remote_address_space_prefixes ~remote_virtual_network_id
+    ~resource_group_name ~workspace_id () :
+    azurerm_databricks_virtual_network_peering =
+  {
+    allow_forwarded_traffic;
+    allow_gateway_transit;
+    allow_virtual_network_access;
+    id;
+    name;
+    remote_address_space_prefixes;
+    remote_virtual_network_id;
+    resource_group_name;
+    use_remote_gateways;
+    workspace_id;
+    timeouts;
+  }
 
 type t = {
   address_space_prefixes : string list prop;
@@ -51,31 +73,23 @@ type t = {
   workspace_id : string prop;
 }
 
-let azurerm_databricks_virtual_network_peering
-    ?allow_forwarded_traffic ?allow_gateway_transit
-    ?allow_virtual_network_access ?id ?use_remote_gateways ?timeouts
-    ~name ~remote_address_space_prefixes ~remote_virtual_network_id
+let register ?tf_module ?allow_forwarded_traffic
+    ?allow_gateway_transit ?allow_virtual_network_access ?id
+    ?use_remote_gateways ?timeouts ~name
+    ~remote_address_space_prefixes ~remote_virtual_network_id
     ~resource_group_name ~workspace_id __resource_id =
   let __resource_type =
     "azurerm_databricks_virtual_network_peering"
   in
   let __resource =
-    ({
-       allow_forwarded_traffic;
-       allow_gateway_transit;
-       allow_virtual_network_access;
-       id;
-       name;
-       remote_address_space_prefixes;
-       remote_virtual_network_id;
-       resource_group_name;
-       use_remote_gateways;
-       workspace_id;
-       timeouts;
-     }
-      : azurerm_databricks_virtual_network_peering)
+    azurerm_databricks_virtual_network_peering
+      ?allow_forwarded_traffic ?allow_gateway_transit
+      ?allow_virtual_network_access ?id ?use_remote_gateways
+      ?timeouts ~name ~remote_address_space_prefixes
+      ~remote_virtual_network_id ~resource_group_name ~workspace_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_databricks_virtual_network_peering __resource);
   let __resource_attributes =
     ({

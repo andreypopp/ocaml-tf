@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_identity_platform_oauth_idp_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_identity_platform_oauth_idp_config__timeouts *)
+(** timeouts *)
 
 type google_identity_platform_oauth_idp_config = {
   client_id : string prop;  (** The client id of an OAuth client. *)
@@ -25,11 +25,28 @@ type google_identity_platform_oauth_idp_config = {
   name : string prop;
       (** The name of the OauthIdpConfig. Must start with 'oidc.'. *)
   project : string prop option; [@option]  (** project *)
-  timeouts :
-    google_identity_platform_oauth_idp_config__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_identity_platform_oauth_idp_config *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_identity_platform_oauth_idp_config ?client_secret
+    ?display_name ?enabled ?id ?project ?timeouts ~client_id ~issuer
+    ~name () : google_identity_platform_oauth_idp_config =
+  {
+    client_id;
+    client_secret;
+    display_name;
+    enabled;
+    id;
+    issuer;
+    name;
+    project;
+    timeouts;
+  }
 
 type t = {
   client_id : string prop;
@@ -42,27 +59,17 @@ type t = {
   project : string prop;
 }
 
-let google_identity_platform_oauth_idp_config ?client_secret
-    ?display_name ?enabled ?id ?project ?timeouts ~client_id ~issuer
-    ~name __resource_id =
+let register ?tf_module ?client_secret ?display_name ?enabled ?id
+    ?project ?timeouts ~client_id ~issuer ~name __resource_id =
   let __resource_type =
     "google_identity_platform_oauth_idp_config"
   in
   let __resource =
-    ({
-       client_id;
-       client_secret;
-       display_name;
-       enabled;
-       id;
-       issuer;
-       name;
-       project;
-       timeouts;
-     }
-      : google_identity_platform_oauth_idp_config)
+    google_identity_platform_oauth_idp_config ?client_secret
+      ?display_name ?enabled ?id ?project ?timeouts ~client_id
+      ~issuer ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_oauth_idp_config __resource);
   let __resource_attributes =
     ({

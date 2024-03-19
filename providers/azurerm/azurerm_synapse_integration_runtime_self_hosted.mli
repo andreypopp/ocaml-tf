@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_synapse_integration_runtime_self_hosted__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_synapse_integration_runtime_self_hosted
+
+val azurerm_synapse_integration_runtime_self_hosted :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  synapse_workspace_id:string prop ->
+  unit ->
+  azurerm_synapse_integration_runtime_self_hosted
+
+val yojson_of_azurerm_synapse_integration_runtime_self_hosted :
+  azurerm_synapse_integration_runtime_self_hosted -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   authorization_key_primary : string prop;
@@ -14,10 +39,11 @@ type t = private {
   synapse_workspace_id : string prop;
 }
 
-val azurerm_synapse_integration_runtime_self_hosted :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_synapse_integration_runtime_self_hosted__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   synapse_workspace_id:string prop ->
   string ->

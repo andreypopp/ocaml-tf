@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_flow_log__destination_options = {
+type destination_options = {
   file_format : string prop option; [@option]  (** file_format *)
   hive_compatible_partitions : bool prop option; [@option]
       (** hive_compatible_partitions *)
@@ -12,7 +12,7 @@ type aws_flow_log__destination_options = {
       (** per_hour_partition *)
 }
 [@@deriving yojson_of]
-(** aws_flow_log__destination_options *)
+(** destination_options *)
 
 type aws_flow_log = {
   deliver_cross_account_role : string prop option; [@option]
@@ -39,10 +39,40 @@ type aws_flow_log = {
   transit_gateway_id : string prop option; [@option]
       (** transit_gateway_id *)
   vpc_id : string prop option; [@option]  (** vpc_id *)
-  destination_options : aws_flow_log__destination_options list;
+  destination_options : destination_options list;
 }
 [@@deriving yojson_of]
 (** aws_flow_log *)
+
+let destination_options ?file_format ?hive_compatible_partitions
+    ?per_hour_partition () : destination_options =
+  { file_format; hive_compatible_partitions; per_hour_partition }
+
+let aws_flow_log ?deliver_cross_account_role ?eni_id ?iam_role_arn
+    ?id ?log_destination ?log_destination_type ?log_format
+    ?log_group_name ?max_aggregation_interval ?subnet_id ?tags
+    ?tags_all ?traffic_type ?transit_gateway_attachment_id
+    ?transit_gateway_id ?vpc_id ~destination_options () :
+    aws_flow_log =
+  {
+    deliver_cross_account_role;
+    eni_id;
+    iam_role_arn;
+    id;
+    log_destination;
+    log_destination_type;
+    log_format;
+    log_group_name;
+    max_aggregation_interval;
+    subnet_id;
+    tags;
+    tags_all;
+    traffic_type;
+    transit_gateway_attachment_id;
+    transit_gateway_id;
+    vpc_id;
+    destination_options;
+  }
 
 type t = {
   arn : string prop;
@@ -64,35 +94,20 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_flow_log ?deliver_cross_account_role ?eni_id ?iam_role_arn
-    ?id ?log_destination ?log_destination_type ?log_format
-    ?log_group_name ?max_aggregation_interval ?subnet_id ?tags
-    ?tags_all ?traffic_type ?transit_gateway_attachment_id
+let register ?tf_module ?deliver_cross_account_role ?eni_id
+    ?iam_role_arn ?id ?log_destination ?log_destination_type
+    ?log_format ?log_group_name ?max_aggregation_interval ?subnet_id
+    ?tags ?tags_all ?traffic_type ?transit_gateway_attachment_id
     ?transit_gateway_id ?vpc_id ~destination_options __resource_id =
   let __resource_type = "aws_flow_log" in
   let __resource =
-    ({
-       deliver_cross_account_role;
-       eni_id;
-       iam_role_arn;
-       id;
-       log_destination;
-       log_destination_type;
-       log_format;
-       log_group_name;
-       max_aggregation_interval;
-       subnet_id;
-       tags;
-       tags_all;
-       traffic_type;
-       transit_gateway_attachment_id;
-       transit_gateway_id;
-       vpc_id;
-       destination_options;
-     }
-      : aws_flow_log)
+    aws_flow_log ?deliver_cross_account_role ?eni_id ?iam_role_arn
+      ?id ?log_destination ?log_destination_type ?log_format
+      ?log_group_name ?max_aggregation_interval ?subnet_id ?tags
+      ?tags_all ?traffic_type ?transit_gateway_attachment_id
+      ?transit_gateway_id ?vpc_id ~destination_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_flow_log __resource);
   let __resource_attributes =
     ({

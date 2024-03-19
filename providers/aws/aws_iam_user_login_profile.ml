@@ -16,6 +16,11 @@ type aws_iam_user_login_profile = {
 [@@deriving yojson_of]
 (** aws_iam_user_login_profile *)
 
+let aws_iam_user_login_profile ?id ?password_length
+    ?password_reset_required ?pgp_key ~user () :
+    aws_iam_user_login_profile =
+  { id; password_length; password_reset_required; pgp_key; user }
+
 type t = {
   encrypted_password : string prop;
   id : string prop;
@@ -27,14 +32,14 @@ type t = {
   user : string prop;
 }
 
-let aws_iam_user_login_profile ?id ?password_length
-    ?password_reset_required ?pgp_key ~user __resource_id =
+let register ?tf_module ?id ?password_length ?password_reset_required
+    ?pgp_key ~user __resource_id =
   let __resource_type = "aws_iam_user_login_profile" in
   let __resource =
-    ({ id; password_length; password_reset_required; pgp_key; user }
-      : aws_iam_user_login_profile)
+    aws_iam_user_login_profile ?id ?password_length
+      ?password_reset_required ?pgp_key ~user ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_user_login_profile __resource);
   let __resource_attributes =
     ({

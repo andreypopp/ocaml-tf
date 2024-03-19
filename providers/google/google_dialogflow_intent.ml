@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_intent__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_intent__timeouts *)
+(** timeouts *)
 
-type google_dialogflow_intent__followup_intent_info = {
+type followup_intent_info = {
   followup_intent_name : string prop;  (** followup_intent_name *)
   parent_followup_intent_name : string prop;
       (** parent_followup_intent_name *)
@@ -58,18 +58,42 @@ Format: projects/<Project ID>/agent/intents/<Intent ID>. *)
 * WEBHOOK_STATE_ENABLED: Webhook is enabled in the agent and in the intent.
 * WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING: Webhook is enabled in the agent and in the intent. Also, each slot
 filling prompt is forwarded to the webhook. Possible values: [WEBHOOK_STATE_ENABLED, WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING] *)
-  timeouts : google_dialogflow_intent__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_intent *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_intent ?action ?default_response_platforms
+    ?events ?id ?input_context_names ?is_fallback ?ml_disabled
+    ?parent_followup_intent_name ?priority ?project ?reset_contexts
+    ?webhook_state ?timeouts ~display_name () :
+    google_dialogflow_intent =
+  {
+    action;
+    default_response_platforms;
+    display_name;
+    events;
+    id;
+    input_context_names;
+    is_fallback;
+    ml_disabled;
+    parent_followup_intent_name;
+    priority;
+    project;
+    reset_contexts;
+    webhook_state;
+    timeouts;
+  }
 
 type t = {
   action : string prop;
   default_response_platforms : string list prop;
   display_name : string prop;
   events : string list prop;
-  followup_intent_info :
-    google_dialogflow_intent__followup_intent_info list prop;
+  followup_intent_info : followup_intent_info list prop;
   id : string prop;
   input_context_names : string list prop;
   is_fallback : bool prop;
@@ -83,31 +107,18 @@ type t = {
   webhook_state : string prop;
 }
 
-let google_dialogflow_intent ?action ?default_response_platforms
-    ?events ?id ?input_context_names ?is_fallback ?ml_disabled
+let register ?tf_module ?action ?default_response_platforms ?events
+    ?id ?input_context_names ?is_fallback ?ml_disabled
     ?parent_followup_intent_name ?priority ?project ?reset_contexts
     ?webhook_state ?timeouts ~display_name __resource_id =
   let __resource_type = "google_dialogflow_intent" in
   let __resource =
-    ({
-       action;
-       default_response_platforms;
-       display_name;
-       events;
-       id;
-       input_context_names;
-       is_fallback;
-       ml_disabled;
-       parent_followup_intent_name;
-       priority;
-       project;
-       reset_contexts;
-       webhook_state;
-       timeouts;
-     }
-      : google_dialogflow_intent)
+    google_dialogflow_intent ?action ?default_response_platforms
+      ?events ?id ?input_context_names ?is_fallback ?ml_disabled
+      ?parent_followup_intent_name ?priority ?project ?reset_contexts
+      ?webhook_state ?timeouts ~display_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_intent __resource);
   let __resource_attributes =
     ({

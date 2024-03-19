@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type aws_batch_scheduling_policy__fair_share_policy__share_distribution = {
+type fair_share_policy__share_distribution = {
   share_identifier : string prop;  (** share_identifier *)
   weight_factor : float prop option; [@option]  (** weight_factor *)
 }
 [@@deriving yojson_of]
-(** aws_batch_scheduling_policy__fair_share_policy__share_distribution *)
+(** fair_share_policy__share_distribution *)
 
-type aws_batch_scheduling_policy__fair_share_policy = {
+type fair_share_policy = {
   compute_reservation : float prop option; [@option]
       (** compute_reservation *)
   share_decay_seconds : float prop option; [@option]
       (** share_decay_seconds *)
-  share_distribution :
-    aws_batch_scheduling_policy__fair_share_policy__share_distribution
-    list;
+  share_distribution : fair_share_policy__share_distribution list;
 }
 [@@deriving yojson_of]
-(** aws_batch_scheduling_policy__fair_share_policy *)
+(** fair_share_policy *)
 
 type aws_batch_scheduling_policy = {
   id : string prop option; [@option]  (** id *)
@@ -29,11 +27,22 @@ type aws_batch_scheduling_policy = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  fair_share_policy :
-    aws_batch_scheduling_policy__fair_share_policy list;
+  fair_share_policy : fair_share_policy list;
 }
 [@@deriving yojson_of]
 (** aws_batch_scheduling_policy *)
+
+let fair_share_policy__share_distribution ?weight_factor
+    ~share_identifier () : fair_share_policy__share_distribution =
+  { share_identifier; weight_factor }
+
+let fair_share_policy ?compute_reservation ?share_decay_seconds
+    ~share_distribution () : fair_share_policy =
+  { compute_reservation; share_decay_seconds; share_distribution }
+
+let aws_batch_scheduling_policy ?id ?tags ?tags_all ~name
+    ~fair_share_policy () : aws_batch_scheduling_policy =
+  { id; name; tags; tags_all; fair_share_policy }
 
 type t = {
   arn : string prop;
@@ -43,14 +52,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_batch_scheduling_policy ?id ?tags ?tags_all ~name
-    ~fair_share_policy __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~name ~fair_share_policy
+    __resource_id =
   let __resource_type = "aws_batch_scheduling_policy" in
   let __resource =
-    ({ id; name; tags; tags_all; fair_share_policy }
-      : aws_batch_scheduling_policy)
+    aws_batch_scheduling_policy ?id ?tags ?tags_all ~name
+      ~fair_share_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_batch_scheduling_policy __resource);
   let __resource_attributes =
     ({

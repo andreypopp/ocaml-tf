@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type cloudflare_teams_rule__rule_settings__audit_ssh = {
+type rule_settings__audit_ssh = {
   command_logging : bool prop;  (** Log all SSH commands. *)
 }
 [@@deriving yojson_of]
 (** Settings for auditing SSH usage. *)
 
-type cloudflare_teams_rule__rule_settings__biso_admin_controls = {
+type rule_settings__biso_admin_controls = {
   disable_copy_paste : bool prop option; [@option]
       (** Disable copy-paste. *)
   disable_download : bool prop option; [@option]
@@ -24,7 +24,7 @@ type cloudflare_teams_rule__rule_settings__biso_admin_controls = {
 [@@deriving yojson_of]
 (** Configure how browser isolation behaves. *)
 
-type cloudflare_teams_rule__rule_settings__check_session = {
+type rule_settings__check_session = {
   duration : string prop;
       (** Configure how fresh the session needs to be to be considered valid. *)
   enforce : bool prop;
@@ -33,7 +33,7 @@ type cloudflare_teams_rule__rule_settings__check_session = {
 [@@deriving yojson_of]
 (** Configure how session check behaves. *)
 
-type cloudflare_teams_rule__rule_settings__egress = {
+type rule_settings__egress = {
   ipv4 : string prop;  (** The IPv4 address to be used for egress. *)
   ipv4_fallback : string prop option; [@option]
       (** The IPv4 address to be used for egress in the event of an error egressing with the primary IPv4. Can be '0.0.0.0' to indicate local egreass via Warp IPs. *)
@@ -42,14 +42,14 @@ type cloudflare_teams_rule__rule_settings__egress = {
 [@@deriving yojson_of]
 (** Configure how Proxy traffic egresses. Can be set for rules with Egress action and Egress filter. Can be omitted to indicate local egress via Warp IPs. *)
 
-type cloudflare_teams_rule__rule_settings__l4override = {
+type rule_settings__l4override = {
   ip : string prop;  (** Override IP to forward traffic to. *)
   port : float prop;  (** Override Port to forward traffic to. *)
 }
 [@@deriving yojson_of]
 (** Settings to forward layer 4 traffic. *)
 
-type cloudflare_teams_rule__rule_settings__notification_settings = {
+type rule_settings__notification_settings = {
   enabled : bool prop option; [@option]
       (** Enable notification settings. *)
   message : string prop option; [@option]
@@ -60,21 +60,21 @@ type cloudflare_teams_rule__rule_settings__notification_settings = {
 [@@deriving yojson_of]
 (** Notification settings on a block rule. *)
 
-type cloudflare_teams_rule__rule_settings__payload_log = {
+type rule_settings__payload_log = {
   enabled : bool prop;
       (** Enable or disable DLP Payload Logging for this rule. *)
 }
 [@@deriving yojson_of]
 (** Configure DLP Payload Logging settings for this rule. *)
 
-type cloudflare_teams_rule__rule_settings__untrusted_cert = {
+type rule_settings__untrusted_cert = {
   action : string prop option; [@option]
       (** Action to be taken when the SSL certificate of upstream is invalid. Available values: `pass_through`, `block`, `error`. *)
 }
 [@@deriving yojson_of]
 (** Configure untrusted certificate settings for this rule. *)
 
-type cloudflare_teams_rule__rule_settings = {
+type rule_settings = {
   add_headers : (string * string prop) list option; [@option]
       (** Add custom headers to allowed requests in the form of key-value pairs. *)
   allow_child_bypass : bool prop option; [@option]
@@ -93,19 +93,14 @@ type cloudflare_teams_rule__rule_settings = {
       (** The host to override matching DNS queries with. *)
   override_ips : string prop list option; [@option]
       (** The IPs to override matching DNS queries with. *)
-  audit_ssh : cloudflare_teams_rule__rule_settings__audit_ssh list;
-  biso_admin_controls :
-    cloudflare_teams_rule__rule_settings__biso_admin_controls list;
-  check_session :
-    cloudflare_teams_rule__rule_settings__check_session list;
-  egress : cloudflare_teams_rule__rule_settings__egress list;
-  l4override : cloudflare_teams_rule__rule_settings__l4override list;
-  notification_settings :
-    cloudflare_teams_rule__rule_settings__notification_settings list;
-  payload_log :
-    cloudflare_teams_rule__rule_settings__payload_log list;
-  untrusted_cert :
-    cloudflare_teams_rule__rule_settings__untrusted_cert list;
+  audit_ssh : rule_settings__audit_ssh list;
+  biso_admin_controls : rule_settings__biso_admin_controls list;
+  check_session : rule_settings__check_session list;
+  egress : rule_settings__egress list;
+  l4override : rule_settings__l4override list;
+  notification_settings : rule_settings__notification_settings list;
+  payload_log : rule_settings__payload_log list;
+  untrusted_cert : rule_settings__untrusted_cert list;
 }
 [@@deriving yojson_of]
 (** Additional rule settings. *)
@@ -131,10 +126,93 @@ type cloudflare_teams_rule = {
       (** The evaluation precedence of the teams rule. *)
   traffic : string prop option; [@option]
       (** The wirefilter expression to be used for traffic matching. *)
-  rule_settings : cloudflare_teams_rule__rule_settings list;
+  rule_settings : rule_settings list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Teams rule resource. Teams rules comprise secure web gateway policies. *)
+
+let rule_settings__audit_ssh ~command_logging () :
+    rule_settings__audit_ssh =
+  { command_logging }
+
+let rule_settings__biso_admin_controls ?disable_copy_paste
+    ?disable_download ?disable_keyboard ?disable_printing
+    ?disable_upload () : rule_settings__biso_admin_controls =
+  {
+    disable_copy_paste;
+    disable_download;
+    disable_keyboard;
+    disable_printing;
+    disable_upload;
+  }
+
+let rule_settings__check_session ~duration ~enforce () :
+    rule_settings__check_session =
+  { duration; enforce }
+
+let rule_settings__egress ?ipv4_fallback ~ipv4 ~ipv6 () :
+    rule_settings__egress =
+  { ipv4; ipv4_fallback; ipv6 }
+
+let rule_settings__l4override ~ip ~port () :
+    rule_settings__l4override =
+  { ip; port }
+
+let rule_settings__notification_settings ?enabled ?message
+    ?support_url () : rule_settings__notification_settings =
+  { enabled; message; support_url }
+
+let rule_settings__payload_log ~enabled () :
+    rule_settings__payload_log =
+  { enabled }
+
+let rule_settings__untrusted_cert ?action () :
+    rule_settings__untrusted_cert =
+  { action }
+
+let rule_settings ?add_headers ?allow_child_bypass
+    ?block_page_enabled ?block_page_reason ?bypass_parent_rule
+    ?insecure_disable_dnssec_validation ?ip_categories ?override_host
+    ?override_ips ~audit_ssh ~biso_admin_controls ~check_session
+    ~egress ~l4override ~notification_settings ~payload_log
+    ~untrusted_cert () : rule_settings =
+  {
+    add_headers;
+    allow_child_bypass;
+    block_page_enabled;
+    block_page_reason;
+    bypass_parent_rule;
+    insecure_disable_dnssec_validation;
+    ip_categories;
+    override_host;
+    override_ips;
+    audit_ssh;
+    biso_admin_controls;
+    check_session;
+    egress;
+    l4override;
+    notification_settings;
+    payload_log;
+    untrusted_cert;
+  }
+
+let cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
+    ?identity ?traffic ~account_id ~action ~description ~name
+    ~precedence ~rule_settings () : cloudflare_teams_rule =
+  {
+    account_id;
+    action;
+    description;
+    device_posture;
+    enabled;
+    filters;
+    id;
+    identity;
+    name;
+    precedence;
+    traffic;
+    rule_settings;
+  }
 
 type t = {
   account_id : string prop;
@@ -151,28 +229,16 @@ type t = {
   version : float prop;
 }
 
-let cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
+let register ?tf_module ?device_posture ?enabled ?filters ?id
     ?identity ?traffic ~account_id ~action ~description ~name
     ~precedence ~rule_settings __resource_id =
   let __resource_type = "cloudflare_teams_rule" in
   let __resource =
-    ({
-       account_id;
-       action;
-       description;
-       device_posture;
-       enabled;
-       filters;
-       id;
-       identity;
-       name;
-       precedence;
-       traffic;
-       rule_settings;
-     }
-      : cloudflare_teams_rule)
+    cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
+      ?identity ?traffic ~account_id ~action ~description ~name
+      ~precedence ~rule_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_rule __resource);
   let __resource_attributes =
     ({

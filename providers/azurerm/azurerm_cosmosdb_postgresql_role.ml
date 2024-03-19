@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_postgresql_role__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_postgresql_role__timeouts *)
+(** timeouts *)
 
 type azurerm_cosmosdb_postgresql_role = {
   cluster_id : string prop;  (** cluster_id *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   password : string prop;  (** password *)
-  timeouts : azurerm_cosmosdb_postgresql_role__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_postgresql_role *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_cosmosdb_postgresql_role ?id ?timeouts ~cluster_id ~name
+    ~password () : azurerm_cosmosdb_postgresql_role =
+  { cluster_id; id; name; password; timeouts }
 
 type t = {
   cluster_id : string prop;
@@ -29,14 +36,14 @@ type t = {
   password : string prop;
 }
 
-let azurerm_cosmosdb_postgresql_role ?id ?timeouts ~cluster_id ~name
-    ~password __resource_id =
+let register ?tf_module ?id ?timeouts ~cluster_id ~name ~password
+    __resource_id =
   let __resource_type = "azurerm_cosmosdb_postgresql_role" in
   let __resource =
-    ({ cluster_id; id; name; password; timeouts }
-      : azurerm_cosmosdb_postgresql_role)
+    azurerm_cosmosdb_postgresql_role ?id ?timeouts ~cluster_id ~name
+      ~password ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_postgresql_role __resource);
   let __resource_attributes =
     ({

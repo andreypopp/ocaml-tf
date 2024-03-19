@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_workspace_table__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_log_analytics_workspace_table
+
+val azurerm_log_analytics_workspace_table :
+  ?id:string prop ->
+  ?plan:string prop ->
+  ?retention_in_days:float prop ->
+  ?total_retention_in_days:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  workspace_id:string prop ->
+  unit ->
+  azurerm_log_analytics_workspace_table
+
+val yojson_of_azurerm_log_analytics_workspace_table :
+  azurerm_log_analytics_workspace_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,12 +41,13 @@ type t = private {
   workspace_id : string prop;
 }
 
-val azurerm_log_analytics_workspace_table :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?plan:string prop ->
   ?retention_in_days:float prop ->
   ?total_retention_in_days:float prop ->
-  ?timeouts:azurerm_log_analytics_workspace_table__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   workspace_id:string prop ->
   string ->

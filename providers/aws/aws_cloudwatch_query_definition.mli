@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cloudwatch_query_definition
+
+val aws_cloudwatch_query_definition :
+  ?id:string prop ->
+  ?log_group_names:string prop list ->
+  name:string prop ->
+  query_string:string prop ->
+  unit ->
+  aws_cloudwatch_query_definition
+
+val yojson_of_aws_cloudwatch_query_definition :
+  aws_cloudwatch_query_definition -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,7 +27,8 @@ type t = private {
   query_string : string prop;
 }
 
-val aws_cloudwatch_query_definition :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?log_group_names:string prop list ->
   name:string prop ->

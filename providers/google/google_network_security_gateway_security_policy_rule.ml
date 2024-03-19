@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_network_security_gateway_security_policy_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_security_gateway_security_policy_rule__timeouts *)
+(** timeouts *)
 
 type google_network_security_gateway_security_policy_rule = {
   application_matcher : string prop option; [@option]
@@ -36,12 +36,35 @@ rule should match the pattern: (^a-z?$). *)
   tls_inspection_enabled : bool prop option; [@option]
       (** Flag to enable TLS inspection of traffic matching on. Can only be true if the
 parent GatewaySecurityPolicy references a TLSInspectionConfig. *)
-  timeouts :
-    google_network_security_gateway_security_policy_rule__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_security_gateway_security_policy_rule *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_security_gateway_security_policy_rule
+    ?application_matcher ?description ?id ?project
+    ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
+    ~gateway_security_policy ~location ~name ~priority
+    ~session_matcher () :
+    google_network_security_gateway_security_policy_rule =
+  {
+    application_matcher;
+    basic_profile;
+    description;
+    enabled;
+    gateway_security_policy;
+    id;
+    location;
+    name;
+    priority;
+    project;
+    session_matcher;
+    tls_inspection_enabled;
+    timeouts;
+  }
 
 type t = {
   application_matcher : string prop;
@@ -61,33 +84,21 @@ type t = {
   update_time : string prop;
 }
 
-let google_network_security_gateway_security_policy_rule
-    ?application_matcher ?description ?id ?project
-    ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
-    ~gateway_security_policy ~location ~name ~priority
+let register ?tf_module ?application_matcher ?description ?id
+    ?project ?tls_inspection_enabled ?timeouts ~basic_profile
+    ~enabled ~gateway_security_policy ~location ~name ~priority
     ~session_matcher __resource_id =
   let __resource_type =
     "google_network_security_gateway_security_policy_rule"
   in
   let __resource =
-    ({
-       application_matcher;
-       basic_profile;
-       description;
-       enabled;
-       gateway_security_policy;
-       id;
-       location;
-       name;
-       priority;
-       project;
-       session_matcher;
-       tls_inspection_enabled;
-       timeouts;
-     }
-      : google_network_security_gateway_security_policy_rule)
+    google_network_security_gateway_security_policy_rule
+      ?application_matcher ?description ?id ?project
+      ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
+      ~gateway_security_policy ~location ~name ~priority
+      ~session_matcher ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_security_gateway_security_policy_rule
        __resource);
   let __resource_attributes =

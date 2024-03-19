@@ -2,9 +2,43 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_vpc_attachment__options
-type aws_networkmanager_vpc_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type options
+
+val options :
+  ?appliance_mode_support:bool prop ->
+  ?ipv6_support:bool prop ->
+  unit ->
+  options
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_networkmanager_vpc_attachment
+
+val aws_networkmanager_vpc_attachment :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  core_network_id:string prop ->
+  subnet_arns:string prop list ->
+  vpc_arn:string prop ->
+  options:options list ->
+  unit ->
+  aws_networkmanager_vpc_attachment
+
+val yojson_of_aws_networkmanager_vpc_attachment :
+  aws_networkmanager_vpc_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -24,14 +58,15 @@ type t = private {
   vpc_arn : string prop;
 }
 
-val aws_networkmanager_vpc_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_networkmanager_vpc_attachment__timeouts ->
+  ?timeouts:timeouts ->
   core_network_id:string prop ->
   subnet_arns:string prop list ->
   vpc_arn:string prop ->
-  options:aws_networkmanager_vpc_attachment__options list ->
+  options:options list ->
   string ->
   t

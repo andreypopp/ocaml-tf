@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_vpn_server_configuration_policy_group__policy = {
+type policy = {
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_vpn_server_configuration_policy_group__policy *)
+(** policy *)
 
-type azurerm_vpn_server_configuration_policy_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_vpn_server_configuration_policy_group__timeouts *)
+(** timeouts *)
 
 type azurerm_vpn_server_configuration_policy_group = {
   id : string prop option; [@option]  (** id *)
@@ -28,13 +28,29 @@ type azurerm_vpn_server_configuration_policy_group = {
   priority : float prop option; [@option]  (** priority *)
   vpn_server_configuration_id : string prop;
       (** vpn_server_configuration_id *)
-  policy :
-    azurerm_vpn_server_configuration_policy_group__policy list;
-  timeouts :
-    azurerm_vpn_server_configuration_policy_group__timeouts option;
+  policy : policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_server_configuration_policy_group *)
+
+let policy ~name ~type_ ~value () : policy = { name; type_; value }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_vpn_server_configuration_policy_group ?id ?is_default
+    ?priority ?timeouts ~name ~vpn_server_configuration_id ~policy ()
+    : azurerm_vpn_server_configuration_policy_group =
+  {
+    id;
+    is_default;
+    name;
+    priority;
+    vpn_server_configuration_id;
+    policy;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -44,25 +60,17 @@ type t = {
   vpn_server_configuration_id : string prop;
 }
 
-let azurerm_vpn_server_configuration_policy_group ?id ?is_default
-    ?priority ?timeouts ~name ~vpn_server_configuration_id ~policy
-    __resource_id =
+let register ?tf_module ?id ?is_default ?priority ?timeouts ~name
+    ~vpn_server_configuration_id ~policy __resource_id =
   let __resource_type =
     "azurerm_vpn_server_configuration_policy_group"
   in
   let __resource =
-    ({
-       id;
-       is_default;
-       name;
-       priority;
-       vpn_server_configuration_id;
-       policy;
-       timeouts;
-     }
-      : azurerm_vpn_server_configuration_policy_group)
+    azurerm_vpn_server_configuration_policy_group ?id ?is_default
+      ?priority ?timeouts ~name ~vpn_server_configuration_id ~policy
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vpn_server_configuration_policy_group
        __resource);
   let __resource_attributes =

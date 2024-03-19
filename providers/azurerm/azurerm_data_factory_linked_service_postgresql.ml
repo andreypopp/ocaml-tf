@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_postgresql__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_postgresql__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_postgresql = {
   additional_properties : (string * string prop) list option;
@@ -28,11 +28,31 @@ type azurerm_data_factory_linked_service_postgresql = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  timeouts :
-    azurerm_data_factory_linked_service_postgresql__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_postgresql *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_postgresql
+    ?additional_properties ?annotations ?description ?id
+    ?integration_runtime_name ?parameters ?timeouts
+    ~connection_string ~data_factory_id ~name () :
+    azurerm_data_factory_linked_service_postgresql =
+  {
+    additional_properties;
+    annotations;
+    connection_string;
+    data_factory_id;
+    description;
+    id;
+    integration_runtime_name;
+    name;
+    parameters;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -46,29 +66,19 @@ type t = {
   parameters : (string * string) list prop;
 }
 
-let azurerm_data_factory_linked_service_postgresql
-    ?additional_properties ?annotations ?description ?id
-    ?integration_runtime_name ?parameters ?timeouts
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?id ?integration_runtime_name ?parameters ?timeouts
     ~connection_string ~data_factory_id ~name __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_postgresql"
   in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       connection_string;
-       data_factory_id;
-       description;
-       id;
-       integration_runtime_name;
-       name;
-       parameters;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_postgresql)
+    azurerm_data_factory_linked_service_postgresql
+      ?additional_properties ?annotations ?description ?id
+      ?integration_runtime_name ?parameters ?timeouts
+      ~connection_string ~data_factory_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_postgresql
        __resource);
   let __resource_attributes =

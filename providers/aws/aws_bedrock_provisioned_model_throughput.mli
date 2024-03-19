@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_bedrock_provisioned_model_throughput__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_bedrock_provisioned_model_throughput
+
+val aws_bedrock_provisioned_model_throughput :
+  ?commitment_duration:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  model_arn:string prop ->
+  model_units:float prop ->
+  provisioned_model_name:string prop ->
+  unit ->
+  aws_bedrock_provisioned_model_throughput
+
+val yojson_of_aws_bedrock_provisioned_model_throughput :
+  aws_bedrock_provisioned_model_throughput -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   commitment_duration : string prop;
@@ -16,10 +36,11 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_bedrock_provisioned_model_throughput :
+val register :
+  ?tf_module:tf_module ->
   ?commitment_duration:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_bedrock_provisioned_model_throughput__timeouts ->
+  ?timeouts:timeouts ->
   model_arn:string prop ->
   model_units:float prop ->
   provisioned_model_name:string prop ->

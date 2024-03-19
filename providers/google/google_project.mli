@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type google_project__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_project
+
+val google_project :
+  ?auto_create_network:bool prop ->
+  ?billing_account:string prop ->
+  ?folder_id:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?org_id:string prop ->
+  ?skip_delete:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  project_id:string prop ->
+  unit ->
+  google_project
+
+val yojson_of_google_project : google_project -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_create_network : bool prop;
@@ -20,7 +49,8 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_project :
+val register :
+  ?tf_module:tf_module ->
   ?auto_create_network:bool prop ->
   ?billing_account:string prop ->
   ?folder_id:string prop ->
@@ -28,7 +58,7 @@ val google_project :
   ?labels:(string * string prop) list ->
   ?org_id:string prop ->
   ?skip_delete:bool prop ->
-  ?timeouts:google_project__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   project_id:string prop ->
   string ->

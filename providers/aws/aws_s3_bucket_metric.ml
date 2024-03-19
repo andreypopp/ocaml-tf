@@ -4,22 +4,29 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_metric__filter = {
+type filter = {
   access_point : string prop option; [@option]  (** access_point *)
   prefix : string prop option; [@option]  (** prefix *)
   tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_metric__filter *)
+(** filter *)
 
 type aws_s3_bucket_metric = {
   bucket : string prop;  (** bucket *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  filter : aws_s3_bucket_metric__filter list;
+  filter : filter list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_metric *)
+
+let filter ?access_point ?prefix ?tags () : filter =
+  { access_point; prefix; tags }
+
+let aws_s3_bucket_metric ?id ~bucket ~name ~filter () :
+    aws_s3_bucket_metric =
+  { bucket; id; name; filter }
 
 type t = {
   bucket : string prop;
@@ -27,12 +34,12 @@ type t = {
   name : string prop;
 }
 
-let aws_s3_bucket_metric ?id ~bucket ~name ~filter __resource_id =
+let register ?tf_module ?id ~bucket ~name ~filter __resource_id =
   let __resource_type = "aws_s3_bucket_metric" in
   let __resource =
-    ({ bucket; id; name; filter } : aws_s3_bucket_metric)
+    aws_s3_bucket_metric ?id ~bucket ~name ~filter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_metric __resource);
   let __resource_attributes =
     ({

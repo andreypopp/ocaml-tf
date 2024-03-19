@@ -4,42 +4,41 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_dps__ip_filter_rule = {
+type ip_filter_rule = {
   action : string prop;  (** action *)
   ip_mask : string prop;  (** ip_mask *)
   name : string prop;  (** name *)
   target : string prop option; [@option]  (** target *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_dps__ip_filter_rule *)
+(** ip_filter_rule *)
 
-type azurerm_iothub_dps__linked_hub = {
+type linked_hub = {
   allocation_weight : float prop option; [@option]
       (** allocation_weight *)
   apply_allocation_policy : bool prop option; [@option]
       (** apply_allocation_policy *)
   connection_string : string prop;  (** connection_string *)
-  hostname : string prop;  (** hostname *)
   location : string prop;  (** location *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_dps__linked_hub *)
+(** linked_hub *)
 
-type azurerm_iothub_dps__sku = {
+type sku = {
   capacity : float prop;  (** capacity *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_dps__sku *)
+(** sku *)
 
-type azurerm_iothub_dps__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_dps__timeouts *)
+(** timeouts *)
 
 type azurerm_iothub_dps = {
   allocation_policy : string prop option; [@option]
@@ -53,13 +52,50 @@ type azurerm_iothub_dps = {
       (** public_network_access_enabled *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  ip_filter_rule : azurerm_iothub_dps__ip_filter_rule list;
-  linked_hub : azurerm_iothub_dps__linked_hub list;
-  sku : azurerm_iothub_dps__sku list;
-  timeouts : azurerm_iothub_dps__timeouts option;
+  ip_filter_rule : ip_filter_rule list;
+  linked_hub : linked_hub list;
+  sku : sku list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_dps *)
+
+let ip_filter_rule ?target ~action ~ip_mask ~name () : ip_filter_rule
+    =
+  { action; ip_mask; name; target }
+
+let linked_hub ?allocation_weight ?apply_allocation_policy
+    ~connection_string ~location () : linked_hub =
+  {
+    allocation_weight;
+    apply_allocation_policy;
+    connection_string;
+    location;
+  }
+
+let sku ~capacity ~name () : sku = { capacity; name }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iothub_dps ?allocation_policy ?data_residency_enabled ?id
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~resource_group_name ~ip_filter_rule ~linked_hub ~sku () :
+    azurerm_iothub_dps =
+  {
+    allocation_policy;
+    data_residency_enabled;
+    id;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    tags;
+    ip_filter_rule;
+    linked_hub;
+    sku;
+    timeouts;
+  }
 
 type t = {
   allocation_policy : string prop;
@@ -75,29 +111,17 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_iothub_dps ?allocation_policy ?data_residency_enabled ?id
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~ip_filter_rule ~linked_hub ~sku
+let register ?tf_module ?allocation_policy ?data_residency_enabled
+    ?id ?public_network_access_enabled ?tags ?timeouts ~location
+    ~name ~resource_group_name ~ip_filter_rule ~linked_hub ~sku
     __resource_id =
   let __resource_type = "azurerm_iothub_dps" in
   let __resource =
-    ({
-       allocation_policy;
-       data_residency_enabled;
-       id;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       tags;
-       ip_filter_rule;
-       linked_hub;
-       sku;
-       timeouts;
-     }
-      : azurerm_iothub_dps)
+    azurerm_iothub_dps ?allocation_policy ?data_residency_enabled ?id
+      ?public_network_access_enabled ?tags ?timeouts ~location ~name
+      ~resource_group_name ~ip_filter_rule ~linked_hub ~sku ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_dps __resource);
   let __resource_attributes =
     ({

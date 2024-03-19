@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_directory_service_shared_directory_accepter__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_directory_service_shared_directory_accepter
+
+val aws_directory_service_shared_directory_accepter :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  shared_directory_id:string prop ->
+  unit ->
+  aws_directory_service_shared_directory_accepter
+
+val yojson_of_aws_directory_service_shared_directory_accepter :
+  aws_directory_service_shared_directory_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,9 +32,10 @@ type t = private {
   shared_directory_id : string prop;
 }
 
-val aws_directory_service_shared_directory_accepter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_directory_service_shared_directory_accepter__timeouts ->
+  ?timeouts:timeouts ->
   shared_directory_id:string prop ->
   string ->
   t

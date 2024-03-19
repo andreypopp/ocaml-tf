@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_glue_user_defined_function__resource_uris
+(** RESOURCE SERIALIZATION *)
+
+type resource_uris
+
+val resource_uris :
+  resource_type:string prop ->
+  uri:string prop ->
+  unit ->
+  resource_uris
+
 type aws_glue_user_defined_function
+
+val aws_glue_user_defined_function :
+  ?catalog_id:string prop ->
+  ?id:string prop ->
+  class_name:string prop ->
+  database_name:string prop ->
+  name:string prop ->
+  owner_name:string prop ->
+  owner_type:string prop ->
+  resource_uris:resource_uris list ->
+  unit ->
+  aws_glue_user_defined_function
+
+val yojson_of_aws_glue_user_defined_function :
+  aws_glue_user_defined_function -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +43,8 @@ type t = private {
   owner_type : string prop;
 }
 
-val aws_glue_user_defined_function :
+val register :
+  ?tf_module:tf_module ->
   ?catalog_id:string prop ->
   ?id:string prop ->
   class_name:string prop ->
@@ -25,6 +52,6 @@ val aws_glue_user_defined_function :
   name:string prop ->
   owner_name:string prop ->
   owner_type:string prop ->
-  resource_uris:aws_glue_user_defined_function__resource_uris list ->
+  resource_uris:resource_uris list ->
   string ->
   t

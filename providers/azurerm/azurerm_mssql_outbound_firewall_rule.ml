@@ -4,22 +4,29 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_outbound_firewall_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_outbound_firewall_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_outbound_firewall_rule = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   server_id : string prop;  (** server_id *)
-  timeouts : azurerm_mssql_outbound_firewall_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_outbound_firewall_rule *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_mssql_outbound_firewall_rule ?id ?timeouts ~name
+    ~server_id () : azurerm_mssql_outbound_firewall_rule =
+  { id; name; server_id; timeouts }
 
 type t = {
   id : string prop;
@@ -27,14 +34,14 @@ type t = {
   server_id : string prop;
 }
 
-let azurerm_mssql_outbound_firewall_rule ?id ?timeouts ~name
-    ~server_id __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~server_id __resource_id
+    =
   let __resource_type = "azurerm_mssql_outbound_firewall_rule" in
   let __resource =
-    ({ id; name; server_id; timeouts }
-      : azurerm_mssql_outbound_firewall_rule)
+    azurerm_mssql_outbound_firewall_rule ?id ?timeouts ~name
+      ~server_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_outbound_firewall_rule __resource);
   let __resource_attributes =
     ({

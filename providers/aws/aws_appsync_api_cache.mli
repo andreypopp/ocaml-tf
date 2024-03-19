@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_appsync_api_cache
+
+val aws_appsync_api_cache :
+  ?at_rest_encryption_enabled:bool prop ->
+  ?id:string prop ->
+  ?transit_encryption_enabled:bool prop ->
+  api_caching_behavior:string prop ->
+  api_id:string prop ->
+  ttl:float prop ->
+  type_:string prop ->
+  unit ->
+  aws_appsync_api_cache
+
+val yojson_of_aws_appsync_api_cache : aws_appsync_api_cache -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_caching_behavior : string prop;
@@ -14,7 +31,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_appsync_api_cache :
+val register :
+  ?tf_module:tf_module ->
   ?at_rest_encryption_enabled:bool prop ->
   ?id:string prop ->
   ?transit_encryption_enabled:bool prop ->

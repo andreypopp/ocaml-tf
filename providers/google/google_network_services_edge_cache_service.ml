@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_network_services_edge_cache_service__log_config = {
+type log_config = {
   enable : bool prop option; [@option]
       (** Specifies whether to enable logging for traffic served by this service. *)
   sample_rate : float prop option; [@option]
@@ -15,7 +15,7 @@ This field can only be specified if logging is enabled for this service. *)
 [@@deriving yojson_of]
 (** Specifies the logging options for the traffic served by this service. If logging is enabled, logs will be exported to Cloud Logging. *)
 
-type google_network_services_edge_cache_service__routing__host_rule = {
+type routing__host_rule = {
   description : string prop option; [@option]
       (** A human-readable description of the hostRule. *)
   hosts : string prop list;
@@ -43,7 +43,7 @@ When multiple hosts are specified, hosts are matched in the following priority:
 [@@deriving yojson_of]
 (** The list of hostRules to match against. These rules define which hostnames the EdgeCacheService will match against, and which route configurations apply. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action__request_header_to_add = {
+type routing__path_matcher__route_rule__header_action__request_header_to_add = {
   header_name : string prop;  (** The name of the header to add. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop option; [@option]
@@ -52,13 +52,13 @@ type google_network_services_edge_cache_service__routing__path_matcher__route_ru
 [@@deriving yojson_of]
 (** Describes a header to add. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action__request_header_to_remove = {
+type routing__path_matcher__route_rule__header_action__request_header_to_remove = {
   header_name : string prop;  (** The name of the header to remove. *)
 }
 [@@deriving yojson_of]
 (** A list of header names for headers that need to be removed from the request prior to forwarding the request to the origin. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action__response_header_to_add = {
+type routing__path_matcher__route_rule__header_action__response_header_to_add = {
   header_name : string prop;  (** The name of the header to add. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop option; [@option]
@@ -69,7 +69,7 @@ type google_network_services_edge_cache_service__routing__path_matcher__route_ru
 
 Response headers are only sent to the client, and do not have an effect on the cache serving the response. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action__response_header_to_remove = {
+type routing__path_matcher__route_rule__header_action__response_header_to_remove = {
   header_name : string prop;
       (** Headers to remove from the response prior to sending it back to the client.
 
@@ -78,24 +78,24 @@ Response headers are only sent to the client, and do not have an effect on the c
 [@@deriving yojson_of]
 (** A list of header names for headers that need to be removed from the request prior to forwarding the request to the origin. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action = {
+type routing__path_matcher__route_rule__header_action = {
   request_header_to_add :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action__request_header_to_add
+    routing__path_matcher__route_rule__header_action__request_header_to_add
     list;
   request_header_to_remove :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action__request_header_to_remove
+    routing__path_matcher__route_rule__header_action__request_header_to_remove
     list;
   response_header_to_add :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action__response_header_to_add
+    routing__path_matcher__route_rule__header_action__response_header_to_add
     list;
   response_header_to_remove :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action__response_header_to_remove
+    routing__path_matcher__route_rule__header_action__response_header_to_remove
     list;
 }
 [@@deriving yojson_of]
 (** The header actions, including adding & removing headers, for requests that match this route. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__match_rule__header_match = {
+type routing__path_matcher__route_rule__match_rule__header_match = {
   exact_match : string prop option; [@option]
       (** The value of the header should exactly match contents of exactMatch. *)
   header_name : string prop;  (** The header name to match on. *)
@@ -112,7 +112,7 @@ If set to true, the headerMatch is considered a match if the match criteria abov
 [@@deriving yojson_of]
 (** Specifies a list of header match criteria, all of which must match corresponding headers in the request. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__match_rule__query_parameter_match = {
+type routing__path_matcher__route_rule__match_rule__query_parameter_match = {
   exact_match : string prop option; [@option]
       (** The queryParameterMatch matches if the value of the parameter exactly matches the contents of exactMatch. *)
   name : string prop;
@@ -123,7 +123,7 @@ type google_network_services_edge_cache_service__routing__path_matcher__route_ru
 [@@deriving yojson_of]
 (** Specifies a list of query parameter match criteria, all of which must match corresponding query parameters in the request. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__match_rule = {
+type routing__path_matcher__route_rule__match_rule = {
   full_path_match : string prop option; [@option]
       (** For satisfying the matchRule condition, the path of the request must exactly match the value specified in fullPathMatch after removing any query parameters and anchor that may be part of the original URL. *)
   ignore_case : bool prop option; [@option]
@@ -141,17 +141,16 @@ captures in total. *)
   prefix_match : string prop option; [@option]
       (** For satisfying the matchRule condition, the request's path must begin with the specified prefixMatch. prefixMatch must begin with a /. *)
   header_match :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__match_rule__header_match
-    list;
+    routing__path_matcher__route_rule__match_rule__header_match list;
   query_parameter_match :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__match_rule__query_parameter_match
+    routing__path_matcher__route_rule__match_rule__query_parameter_match
     list;
 }
 [@@deriving yojson_of]
 (** The list of criteria for matching attributes of a request to this routeRule. This list has OR semantics: the request matches this routeRule when any of the matchRules are satisfied. However predicates
 within a given matchRule have AND semantics. All predicates within a matchRule must match for the request to match the rule. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures = {
+type routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures = {
   actions : string prop list;
       (** The actions to take to add signatures to responses. Possible values: [GENERATE_COOKIE, GENERATE_TOKEN_HLS_COOKIELESS, PROPAGATE_TOKEN_HLS_COOKIELESS] *)
   copied_parameters : string prop list option; [@option]
@@ -207,7 +206,7 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 
 This field may only be specified when signedRequestMode is set to REQUIRE_TOKENS. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy = {
+type routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy = {
   exclude_host : bool prop option; [@option]
       (** If true, requests to different hosts will be cached separately.
 
@@ -253,7 +252,7 @@ Either specify includedQueryParameters or excludedQueryParameters, not both. '&'
 [@@deriving yojson_of]
 (** Defines the request parameters that contribute to the cache key. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options = {
+type routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options = {
   allowed_signature_algorithms : string prop list option; [@option]
       (** The allowed signature algorithms to use.
 
@@ -272,7 +271,7 @@ Defaults to 'edge-cache-token'. *)
 
 signedTokenOptions may only be specified when signedRequestMode is REQUIRE_TOKENS. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cdn_policy = {
+type routing__path_matcher__route_rule__route_action__cdn_policy = {
   cache_mode : string prop option; [@option]
       (** Cache modes allow users to control the behaviour of the cache, what content it should cache automatically, whether to respect origin headers, or whether to unconditionally cache all responses.
 
@@ -356,19 +355,19 @@ You must also set a signedRequestKeyset to enable signed requests.
 
 When set to REQUIRE_SIGNATURES, all matching requests will have their signature validated. Requests that were not signed with the corresponding private key, or that are otherwise invalid (expired, do not match the signature, IP address, or header) will be rejected with a HTTP 403 and (if enabled) logged. Possible values: [DISABLED, REQUIRE_SIGNATURES, REQUIRE_TOKENS] *)
   add_signatures :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
+    routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
     list;
   cache_key_policy :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
+    routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
     list;
   signed_token_options :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
+    routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
     list;
 }
 [@@deriving yojson_of]
 (** The policy to use for defining caching and signed request behaviour for requests that match this route. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cors_policy = {
+type routing__path_matcher__route_rule__route_action__cors_policy = {
   allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the actual request can include user credentials.
 
@@ -397,7 +396,7 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 [@@deriving yojson_of]
 (** CORSPolicy defines Cross-Origin-Resource-Sharing configuration, including which CORS response headers will be set. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__url_rewrite = {
+type routing__path_matcher__route_rule__route_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected origin, the request's host header is replaced with contents of hostRewrite. *)
   path_prefix_rewrite : string prop option; [@option]
@@ -421,21 +420,18 @@ specified. *)
 [@@deriving yojson_of]
 (** The URL rewrite configuration for requests that match this route. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action = {
+type routing__path_matcher__route_rule__route_action = {
   cdn_policy :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cdn_policy
-    list;
+    routing__path_matcher__route_rule__route_action__cdn_policy list;
   cors_policy :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__cors_policy
-    list;
+    routing__path_matcher__route_rule__route_action__cors_policy list;
   url_rewrite :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action__url_rewrite
-    list;
+    routing__path_matcher__route_rule__route_action__url_rewrite list;
 }
 [@@deriving yojson_of]
 (** In response to a matching path, the routeAction performs advanced routing actions like URL rewrites, header transformations, etc. prior to forwarding the request to the selected origin. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule__url_redirect = {
+type routing__path_matcher__route_rule__url_redirect = {
   host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one that was supplied in the request. *)
   https_redirect : bool prop option; [@option]
@@ -468,7 +464,7 @@ The supported values are:
 [@@deriving yojson_of]
 (** The URL redirect configuration for requests that match this route. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher__route_rule = {
+type routing__path_matcher__route_rule = {
   description : string prop option; [@option]
       (** A human-readable description of the routeRule. *)
   origin : string prop option; [@option]
@@ -483,51 +479,39 @@ You cannot configure two or more routeRules with the same priority. Priority for
 Priority numbers can have gaps, which enable you to add or remove rules in the future without affecting the rest of the rules. For example, 1, 2, 3, 4, 5, 9, 12, 16 is a valid series of priority numbers
 to which you could add rules numbered from 6 to 8, 10 to 11, and 13 to 15 in the future without any impact on existing rules. *)
   header_action :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__header_action
-    list;
-  match_rule :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__match_rule
-    list;
+    routing__path_matcher__route_rule__header_action list;
+  match_rule : routing__path_matcher__route_rule__match_rule list;
   route_action :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__route_action
-    list;
-  url_redirect :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule__url_redirect
-    list;
+    routing__path_matcher__route_rule__route_action list;
+  url_redirect : routing__path_matcher__route_rule__url_redirect list;
 }
 [@@deriving yojson_of]
 (** The routeRules to match against. routeRules support advanced routing behaviour, and can match on paths, headers and query parameters, as well as status codes and HTTP methods. *)
 
-type google_network_services_edge_cache_service__routing__path_matcher = {
+type routing__path_matcher = {
   description : string prop option; [@option]
       (** A human-readable description of the resource. *)
   name : string prop;
       (** The name to which this PathMatcher is referred by the HostRule. *)
-  route_rule :
-    google_network_services_edge_cache_service__routing__path_matcher__route_rule
-    list;
+  route_rule : routing__path_matcher__route_rule list;
 }
 [@@deriving yojson_of]
 (** The list of pathMatchers referenced via name by hostRules. PathMatcher is used to match the path portion of the URL when a HostRule matches the URL's host portion. *)
 
-type google_network_services_edge_cache_service__routing = {
-  host_rule :
-    google_network_services_edge_cache_service__routing__host_rule
-    list;
-  path_matcher :
-    google_network_services_edge_cache_service__routing__path_matcher
-    list;
+type routing = {
+  host_rule : routing__host_rule list;
+  path_matcher : routing__path_matcher list;
 }
 [@@deriving yojson_of]
 (** Defines how requests are routed, modified, cached and/or which origin content is filled from. *)
 
-type google_network_services_edge_cache_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_services_edge_cache_service__timeouts *)
+(** timeouts *)
 
 type google_network_services_edge_cache_service = {
   description : string prop option; [@option]
@@ -566,14 +550,224 @@ You must have at least one (1) edgeSslCertificate specified to enable this. *)
       (** URL of the SslPolicy resource that will be associated with the EdgeCacheService.
 
 If not set, the EdgeCacheService has no SSL policy configured, and will default to the COMPATIBLE policy. *)
-  log_config :
-    google_network_services_edge_cache_service__log_config list;
-  routing : google_network_services_edge_cache_service__routing list;
-  timeouts :
-    google_network_services_edge_cache_service__timeouts option;
+  log_config : log_config list;
+  routing : routing list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_services_edge_cache_service *)
+
+let log_config ?enable ?sample_rate () : log_config =
+  { enable; sample_rate }
+
+let routing__host_rule ?description ~hosts ~path_matcher () :
+    routing__host_rule =
+  { description; hosts; path_matcher }
+
+let routing__path_matcher__route_rule__header_action__request_header_to_add
+    ?replace ~header_name ~header_value () :
+    routing__path_matcher__route_rule__header_action__request_header_to_add
+    =
+  { header_name; header_value; replace }
+
+let routing__path_matcher__route_rule__header_action__request_header_to_remove
+    ~header_name () :
+    routing__path_matcher__route_rule__header_action__request_header_to_remove
+    =
+  { header_name }
+
+let routing__path_matcher__route_rule__header_action__response_header_to_add
+    ?replace ~header_name ~header_value () :
+    routing__path_matcher__route_rule__header_action__response_header_to_add
+    =
+  { header_name; header_value; replace }
+
+let routing__path_matcher__route_rule__header_action__response_header_to_remove
+    ~header_name () :
+    routing__path_matcher__route_rule__header_action__response_header_to_remove
+    =
+  { header_name }
+
+let routing__path_matcher__route_rule__header_action
+    ~request_header_to_add ~request_header_to_remove
+    ~response_header_to_add ~response_header_to_remove () :
+    routing__path_matcher__route_rule__header_action =
+  {
+    request_header_to_add;
+    request_header_to_remove;
+    response_header_to_add;
+    response_header_to_remove;
+  }
+
+let routing__path_matcher__route_rule__match_rule__header_match
+    ?exact_match ?invert_match ?prefix_match ?present_match
+    ?suffix_match ~header_name () :
+    routing__path_matcher__route_rule__match_rule__header_match =
+  {
+    exact_match;
+    header_name;
+    invert_match;
+    prefix_match;
+    present_match;
+    suffix_match;
+  }
+
+let routing__path_matcher__route_rule__match_rule__query_parameter_match
+    ?exact_match ?present_match ~name () :
+    routing__path_matcher__route_rule__match_rule__query_parameter_match
+    =
+  { exact_match; name; present_match }
+
+let routing__path_matcher__route_rule__match_rule ?full_path_match
+    ?ignore_case ?path_template_match ?prefix_match ~header_match
+    ~query_parameter_match () :
+    routing__path_matcher__route_rule__match_rule =
+  {
+    full_path_match;
+    ignore_case;
+    path_template_match;
+    prefix_match;
+    header_match;
+    query_parameter_match;
+  }
+
+let routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
+    ?copied_parameters ?keyset ?token_query_parameter ?token_ttl
+    ~actions () :
+    routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
+    =
+  {
+    actions;
+    copied_parameters;
+    keyset;
+    token_query_parameter;
+    token_ttl;
+  }
+
+let routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
+    ?exclude_host ?exclude_query_string ?excluded_query_parameters
+    ?include_protocol ?included_cookie_names ?included_header_names
+    ?included_query_parameters () :
+    routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
+    =
+  {
+    exclude_host;
+    exclude_query_string;
+    excluded_query_parameters;
+    include_protocol;
+    included_cookie_names;
+    included_header_names;
+    included_query_parameters;
+  }
+
+let routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
+    ?allowed_signature_algorithms ?token_query_parameter () :
+    routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
+    =
+  { allowed_signature_algorithms; token_query_parameter }
+
+let routing__path_matcher__route_rule__route_action__cdn_policy
+    ?cache_mode ?client_ttl ?default_ttl ?max_ttl ?negative_caching
+    ?negative_caching_policy ?signed_request_keyset
+    ?signed_request_maximum_expiration_ttl ?signed_request_mode
+    ~add_signatures ~cache_key_policy ~signed_token_options () :
+    routing__path_matcher__route_rule__route_action__cdn_policy =
+  {
+    cache_mode;
+    client_ttl;
+    default_ttl;
+    max_ttl;
+    negative_caching;
+    negative_caching_policy;
+    signed_request_keyset;
+    signed_request_maximum_expiration_ttl;
+    signed_request_mode;
+    add_signatures;
+    cache_key_policy;
+    signed_token_options;
+  }
+
+let routing__path_matcher__route_rule__route_action__cors_policy
+    ?allow_credentials ?allow_headers ?allow_methods ?allow_origins
+    ?disabled ?expose_headers ~max_age () :
+    routing__path_matcher__route_rule__route_action__cors_policy =
+  {
+    allow_credentials;
+    allow_headers;
+    allow_methods;
+    allow_origins;
+    disabled;
+    expose_headers;
+    max_age;
+  }
+
+let routing__path_matcher__route_rule__route_action__url_rewrite
+    ?host_rewrite ?path_prefix_rewrite ?path_template_rewrite () :
+    routing__path_matcher__route_rule__route_action__url_rewrite =
+  { host_rewrite; path_prefix_rewrite; path_template_rewrite }
+
+let routing__path_matcher__route_rule__route_action ~cdn_policy
+    ~cors_policy ~url_rewrite () :
+    routing__path_matcher__route_rule__route_action =
+  { cdn_policy; cors_policy; url_rewrite }
+
+let routing__path_matcher__route_rule__url_redirect ?host_redirect
+    ?https_redirect ?path_redirect ?prefix_redirect
+    ?redirect_response_code ?strip_query () :
+    routing__path_matcher__route_rule__url_redirect =
+  {
+    host_redirect;
+    https_redirect;
+    path_redirect;
+    prefix_redirect;
+    redirect_response_code;
+    strip_query;
+  }
+
+let routing__path_matcher__route_rule ?description ?origin ~priority
+    ~header_action ~match_rule ~route_action ~url_redirect () :
+    routing__path_matcher__route_rule =
+  {
+    description;
+    origin;
+    priority;
+    header_action;
+    match_rule;
+    route_action;
+    url_redirect;
+  }
+
+let routing__path_matcher ?description ~name ~route_rule () :
+    routing__path_matcher =
+  { description; name; route_rule }
+
+let routing ~host_rule ~path_matcher () : routing =
+  { host_rule; path_matcher }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_services_edge_cache_service ?description
+    ?disable_http2 ?disable_quic ?edge_security_policy
+    ?edge_ssl_certificates ?id ?labels ?project ?require_tls
+    ?ssl_policy ?timeouts ~name ~log_config ~routing () :
+    google_network_services_edge_cache_service =
+  {
+    description;
+    disable_http2;
+    disable_quic;
+    edge_security_policy;
+    edge_ssl_certificates;
+    id;
+    labels;
+    name;
+    project;
+    require_tls;
+    ssl_policy;
+    log_config;
+    routing;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -593,33 +787,20 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_network_services_edge_cache_service ?description
-    ?disable_http2 ?disable_quic ?edge_security_policy
-    ?edge_ssl_certificates ?id ?labels ?project ?require_tls
-    ?ssl_policy ?timeouts ~name ~log_config ~routing __resource_id =
+let register ?tf_module ?description ?disable_http2 ?disable_quic
+    ?edge_security_policy ?edge_ssl_certificates ?id ?labels ?project
+    ?require_tls ?ssl_policy ?timeouts ~name ~log_config ~routing
+    __resource_id =
   let __resource_type =
     "google_network_services_edge_cache_service"
   in
   let __resource =
-    ({
-       description;
-       disable_http2;
-       disable_quic;
-       edge_security_policy;
-       edge_ssl_certificates;
-       id;
-       labels;
-       name;
-       project;
-       require_tls;
-       ssl_policy;
-       log_config;
-       routing;
-       timeouts;
-     }
-      : google_network_services_edge_cache_service)
+    google_network_services_edge_cache_service ?description
+      ?disable_http2 ?disable_quic ?edge_security_policy
+      ?edge_ssl_certificates ?id ?labels ?project ?require_tls
+      ?ssl_policy ?timeouts ~name ~log_config ~routing ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_services_edge_cache_service __resource);
   let __resource_attributes =
     ({

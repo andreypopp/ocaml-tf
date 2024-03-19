@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_relay_hybrid_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_relay_hybrid_connection__timeouts *)
+(** timeouts *)
 
 type azurerm_relay_hybrid_connection = {
   id : string prop option; [@option]  (** id *)
@@ -21,10 +21,27 @@ type azurerm_relay_hybrid_connection = {
       (** requires_client_authorization *)
   resource_group_name : string prop;  (** resource_group_name *)
   user_metadata : string prop option; [@option]  (** user_metadata *)
-  timeouts : azurerm_relay_hybrid_connection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_relay_hybrid_connection *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_relay_hybrid_connection ?id
+    ?requires_client_authorization ?user_metadata ?timeouts ~name
+    ~relay_namespace_name ~resource_group_name () :
+    azurerm_relay_hybrid_connection =
+  {
+    id;
+    name;
+    relay_namespace_name;
+    requires_client_authorization;
+    resource_group_name;
+    user_metadata;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -35,23 +52,16 @@ type t = {
   user_metadata : string prop;
 }
 
-let azurerm_relay_hybrid_connection ?id
-    ?requires_client_authorization ?user_metadata ?timeouts ~name
-    ~relay_namespace_name ~resource_group_name __resource_id =
+let register ?tf_module ?id ?requires_client_authorization
+    ?user_metadata ?timeouts ~name ~relay_namespace_name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_relay_hybrid_connection" in
   let __resource =
-    ({
-       id;
-       name;
-       relay_namespace_name;
-       requires_client_authorization;
-       resource_group_name;
-       user_metadata;
-       timeouts;
-     }
-      : azurerm_relay_hybrid_connection)
+    azurerm_relay_hybrid_connection ?id
+      ?requires_client_authorization ?user_metadata ?timeouts ~name
+      ~relay_namespace_name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_relay_hybrid_connection __resource);
   let __resource_attributes =
     ({

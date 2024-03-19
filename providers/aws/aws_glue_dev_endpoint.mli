@@ -2,7 +2,34 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_glue_dev_endpoint
+
+val aws_glue_dev_endpoint :
+  ?arguments:(string * string prop) list ->
+  ?extra_jars_s3_path:string prop ->
+  ?extra_python_libs_s3_path:string prop ->
+  ?glue_version:string prop ->
+  ?id:string prop ->
+  ?number_of_nodes:float prop ->
+  ?number_of_workers:float prop ->
+  ?public_key:string prop ->
+  ?public_keys:string prop list ->
+  ?security_configuration:string prop ->
+  ?security_group_ids:string prop list ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?worker_type:string prop ->
+  name:string prop ->
+  role_arn:string prop ->
+  unit ->
+  aws_glue_dev_endpoint
+
+val yojson_of_aws_glue_dev_endpoint : aws_glue_dev_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arguments : (string * string) list prop;
@@ -33,7 +60,8 @@ type t = private {
   zeppelin_remote_spark_interpreter_port : float prop;
 }
 
-val aws_glue_dev_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?arguments:(string * string prop) list ->
   ?extra_jars_s3_path:string prop ->
   ?extra_python_libs_s3_path:string prop ->

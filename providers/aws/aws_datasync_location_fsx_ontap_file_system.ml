@@ -4,45 +4,39 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_fsx_ontap_file_system__protocol__nfs__mount_options = {
+type protocol__nfs__mount_options = {
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_fsx_ontap_file_system__protocol__nfs__mount_options *)
+(** protocol__nfs__mount_options *)
 
-type aws_datasync_location_fsx_ontap_file_system__protocol__nfs = {
-  mount_options :
-    aws_datasync_location_fsx_ontap_file_system__protocol__nfs__mount_options
-    list;
+type protocol__nfs = {
+  mount_options : protocol__nfs__mount_options list;
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_fsx_ontap_file_system__protocol__nfs *)
+(** protocol__nfs *)
 
-type aws_datasync_location_fsx_ontap_file_system__protocol__smb__mount_options = {
+type protocol__smb__mount_options = {
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_fsx_ontap_file_system__protocol__smb__mount_options *)
+(** protocol__smb__mount_options *)
 
-type aws_datasync_location_fsx_ontap_file_system__protocol__smb = {
+type protocol__smb = {
   domain : string prop option; [@option]  (** domain *)
   password : string prop;  (** password *)
   user : string prop;  (** user *)
-  mount_options :
-    aws_datasync_location_fsx_ontap_file_system__protocol__smb__mount_options
-    list;
+  mount_options : protocol__smb__mount_options list;
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_fsx_ontap_file_system__protocol__smb *)
+(** protocol__smb *)
 
-type aws_datasync_location_fsx_ontap_file_system__protocol = {
-  nfs :
-    aws_datasync_location_fsx_ontap_file_system__protocol__nfs list;
-  smb :
-    aws_datasync_location_fsx_ontap_file_system__protocol__smb list;
+type protocol = {
+  nfs : protocol__nfs list;
+  smb : protocol__smb list;
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_fsx_ontap_file_system__protocol *)
+(** protocol *)
 
 type aws_datasync_location_fsx_ontap_file_system = {
   id : string prop option; [@option]  (** id *)
@@ -53,11 +47,40 @@ type aws_datasync_location_fsx_ontap_file_system = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  protocol :
-    aws_datasync_location_fsx_ontap_file_system__protocol list;
+  protocol : protocol list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_fsx_ontap_file_system *)
+
+let protocol__nfs__mount_options ?version () :
+    protocol__nfs__mount_options =
+  { version }
+
+let protocol__nfs ~mount_options () : protocol__nfs =
+  { mount_options }
+
+let protocol__smb__mount_options ?version () :
+    protocol__smb__mount_options =
+  { version }
+
+let protocol__smb ?domain ~password ~user ~mount_options () :
+    protocol__smb =
+  { domain; password; user; mount_options }
+
+let protocol ~nfs ~smb () : protocol = { nfs; smb }
+
+let aws_datasync_location_fsx_ontap_file_system ?id ?subdirectory
+    ?tags ?tags_all ~security_group_arns ~storage_virtual_machine_arn
+    ~protocol () : aws_datasync_location_fsx_ontap_file_system =
+  {
+    id;
+    security_group_arns;
+    storage_virtual_machine_arn;
+    subdirectory;
+    tags;
+    tags_all;
+    protocol;
+  }
 
 type t = {
   arn : string prop;
@@ -72,25 +95,18 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_fsx_ontap_file_system ?id ?subdirectory
-    ?tags ?tags_all ~security_group_arns ~storage_virtual_machine_arn
-    ~protocol __resource_id =
+let register ?tf_module ?id ?subdirectory ?tags ?tags_all
+    ~security_group_arns ~storage_virtual_machine_arn ~protocol
+    __resource_id =
   let __resource_type =
     "aws_datasync_location_fsx_ontap_file_system"
   in
   let __resource =
-    ({
-       id;
-       security_group_arns;
-       storage_virtual_machine_arn;
-       subdirectory;
-       tags;
-       tags_all;
-       protocol;
-     }
-      : aws_datasync_location_fsx_ontap_file_system)
+    aws_datasync_location_fsx_ontap_file_system ?id ?subdirectory
+      ?tags ?tags_all ~security_group_arns
+      ~storage_virtual_machine_arn ~protocol ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_fsx_ontap_file_system __resource);
   let __resource_attributes =
     ({

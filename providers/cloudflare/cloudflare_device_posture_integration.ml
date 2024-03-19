@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_device_posture_integration__config = {
+type config = {
   access_client_id : string prop option; [@option]
       (** The Access client ID to be used as the `Cf-Access-Client-ID` header when making a request to the `api_url`. *)
   access_client_secret : string prop option; [@option]
@@ -35,13 +35,31 @@ type cloudflare_device_posture_integration = {
   name : string prop;  (** Name of the device posture integration. *)
   type_ : string prop; [@key "type"]
       (** The device posture integration type. Available values: `workspace_one`, `uptycs`, `crowdstrike_s2s`, `intune`, `kolide`, `sentinelone_s2s`, `tanium_s2s`. *)
-  config : cloudflare_device_posture_integration__config list;
+  config : config list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Device Posture Integration resource. Device
 posture integrations configure third-party data providers for device
 posture rules.
  *)
+
+let config ?access_client_id ?access_client_secret ?api_url ?auth_url
+    ?client_id ?client_key ?client_secret ?customer_id () : config =
+  {
+    access_client_id;
+    access_client_secret;
+    api_url;
+    auth_url;
+    client_id;
+    client_key;
+    client_secret;
+    customer_id;
+  }
+
+let cloudflare_device_posture_integration ?id ?identifier ?interval
+    ~account_id ~name ~type_ ~config () :
+    cloudflare_device_posture_integration =
+  { account_id; id; identifier; interval; name; type_; config }
 
 type t = {
   account_id : string prop;
@@ -52,14 +70,14 @@ type t = {
   type_ : string prop;
 }
 
-let cloudflare_device_posture_integration ?id ?identifier ?interval
-    ~account_id ~name ~type_ ~config __resource_id =
+let register ?tf_module ?id ?identifier ?interval ~account_id ~name
+    ~type_ ~config __resource_id =
   let __resource_type = "cloudflare_device_posture_integration" in
   let __resource =
-    ({ account_id; id; identifier; interval; name; type_; config }
-      : cloudflare_device_posture_integration)
+    cloudflare_device_posture_integration ?id ?identifier ?interval
+      ~account_id ~name ~type_ ~config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_posture_integration __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_secretsmanager_secret_rotation__rotation_rules
+(** RESOURCE SERIALIZATION *)
+
+type rotation_rules
+
+val rotation_rules :
+  ?automatically_after_days:float prop ->
+  ?duration:string prop ->
+  ?schedule_expression:string prop ->
+  unit ->
+  rotation_rules
+
 type aws_secretsmanager_secret_rotation
+
+val aws_secretsmanager_secret_rotation :
+  ?id:string prop ->
+  ?rotate_immediately:bool prop ->
+  ?rotation_lambda_arn:string prop ->
+  secret_id:string prop ->
+  rotation_rules:rotation_rules list ->
+  unit ->
+  aws_secretsmanager_secret_rotation
+
+val yojson_of_aws_secretsmanager_secret_rotation :
+  aws_secretsmanager_secret_rotation -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,12 +37,12 @@ type t = private {
   secret_id : string prop;
 }
 
-val aws_secretsmanager_secret_rotation :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?rotate_immediately:bool prop ->
   ?rotation_lambda_arn:string prop ->
   secret_id:string prop ->
-  rotation_rules:
-    aws_secretsmanager_secret_rotation__rotation_rules list ->
+  rotation_rules:rotation_rules list ->
   string ->
   t

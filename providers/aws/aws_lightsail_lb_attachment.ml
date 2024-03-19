@@ -12,19 +12,22 @@ type aws_lightsail_lb_attachment = {
 [@@deriving yojson_of]
 (** aws_lightsail_lb_attachment *)
 
+let aws_lightsail_lb_attachment ?id ~instance_name ~lb_name () :
+    aws_lightsail_lb_attachment =
+  { id; instance_name; lb_name }
+
 type t = {
   id : string prop;
   instance_name : string prop;
   lb_name : string prop;
 }
 
-let aws_lightsail_lb_attachment ?id ~instance_name ~lb_name
-    __resource_id =
+let register ?tf_module ?id ~instance_name ~lb_name __resource_id =
   let __resource_type = "aws_lightsail_lb_attachment" in
   let __resource =
-    ({ id; instance_name; lb_name } : aws_lightsail_lb_attachment)
+    aws_lightsail_lb_attachment ?id ~instance_name ~lb_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_lb_attachment __resource);
   let __resource_attributes =
     ({

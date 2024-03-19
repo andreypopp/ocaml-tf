@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_fsx_openzfs_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_fsx_openzfs_snapshot
+
+val aws_fsx_openzfs_snapshot :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  volume_id:string prop ->
+  unit ->
+  aws_fsx_openzfs_snapshot
+
+val yojson_of_aws_fsx_openzfs_snapshot :
+  aws_fsx_openzfs_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,11 +41,12 @@ type t = private {
   volume_id : string prop;
 }
 
-val aws_fsx_openzfs_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_fsx_openzfs_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   volume_id:string prop ->
   string ->

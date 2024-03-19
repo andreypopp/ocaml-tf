@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_bigquery_dataset_iam_policy
+
+val google_bigquery_dataset_iam_policy :
+  ?id:string prop ->
+  ?project:string prop ->
+  dataset_id:string prop ->
+  policy_data:string prop ->
+  unit ->
+  google_bigquery_dataset_iam_policy
+
+val yojson_of_google_bigquery_dataset_iam_policy :
+  google_bigquery_dataset_iam_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dataset_id : string prop;
@@ -12,7 +27,8 @@ type t = private {
   project : string prop;
 }
 
-val google_bigquery_dataset_iam_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   dataset_id:string prop ->

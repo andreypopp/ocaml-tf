@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_biglake_database__hive_options = {
+type hive_options = {
   location_uri : string prop option; [@option]
       (** Cloud Storage folder URI where the database data is stored, starting with gs://. *)
   parameters : (string * string prop) list option; [@option]
@@ -15,24 +15,34 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
 [@@deriving yojson_of]
 (** Options of a Hive database. *)
 
-type google_biglake_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_biglake_database__timeouts *)
+(** timeouts *)
 
 type google_biglake_database = {
   catalog : string prop;  (** The parent catalog. *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** The name of the database. *)
   type_ : string prop; [@key "type"]  (** The database type. *)
-  hive_options : google_biglake_database__hive_options list;
-  timeouts : google_biglake_database__timeouts option;
+  hive_options : hive_options list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_biglake_database *)
+
+let hive_options ?location_uri ?parameters () : hive_options =
+  { location_uri; parameters }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_biglake_database ?id ?timeouts ~catalog ~name ~type_
+    ~hive_options () : google_biglake_database =
+  { catalog; id; name; type_; hive_options; timeouts }
 
 type t = {
   catalog : string prop;
@@ -45,14 +55,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_biglake_database ?id ?timeouts ~catalog ~name ~type_
+let register ?tf_module ?id ?timeouts ~catalog ~name ~type_
     ~hive_options __resource_id =
   let __resource_type = "google_biglake_database" in
   let __resource =
-    ({ catalog; id; name; type_; hive_options; timeouts }
-      : google_biglake_database)
+    google_biglake_database ?id ?timeouts ~catalog ~name ~type_
+      ~hive_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_biglake_database __resource);
   let __resource_attributes =
     ({

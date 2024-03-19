@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_federated_identity_credential__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_federated_identity_credential__timeouts *)
+(** timeouts *)
 
 type azurerm_federated_identity_credential = {
   audience : string prop list;  (** audience *)
@@ -21,10 +21,27 @@ type azurerm_federated_identity_credential = {
   parent_id : string prop;  (** parent_id *)
   resource_group_name : string prop;  (** resource_group_name *)
   subject : string prop;  (** subject *)
-  timeouts : azurerm_federated_identity_credential__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_federated_identity_credential *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_federated_identity_credential ?id ?timeouts ~audience
+    ~issuer ~name ~parent_id ~resource_group_name ~subject () :
+    azurerm_federated_identity_credential =
+  {
+    audience;
+    id;
+    issuer;
+    name;
+    parent_id;
+    resource_group_name;
+    subject;
+    timeouts;
+  }
 
 type t = {
   audience : string list prop;
@@ -36,24 +53,14 @@ type t = {
   subject : string prop;
 }
 
-let azurerm_federated_identity_credential ?id ?timeouts ~audience
-    ~issuer ~name ~parent_id ~resource_group_name ~subject
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~audience ~issuer ~name
+    ~parent_id ~resource_group_name ~subject __resource_id =
   let __resource_type = "azurerm_federated_identity_credential" in
   let __resource =
-    ({
-       audience;
-       id;
-       issuer;
-       name;
-       parent_id;
-       resource_group_name;
-       subject;
-       timeouts;
-     }
-      : azurerm_federated_identity_credential)
+    azurerm_federated_identity_credential ?id ?timeouts ~audience
+      ~issuer ~name ~parent_id ~resource_group_name ~subject ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_federated_identity_credential __resource);
   let __resource_attributes =
     ({

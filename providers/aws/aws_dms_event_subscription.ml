@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_dms_event_subscription__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_dms_event_subscription__timeouts *)
+(** timeouts *)
 
 type aws_dms_event_subscription = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -23,10 +23,29 @@ type aws_dms_event_subscription = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_dms_event_subscription__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dms_event_subscription *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_dms_event_subscription ?enabled ?id ?source_ids ?tags
+    ?tags_all ?timeouts ~event_categories ~name ~sns_topic_arn
+    ~source_type () : aws_dms_event_subscription =
+  {
+    enabled;
+    event_categories;
+    id;
+    name;
+    sns_topic_arn;
+    source_ids;
+    source_type;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -41,26 +60,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_dms_event_subscription ?enabled ?id ?source_ids ?tags
-    ?tags_all ?timeouts ~event_categories ~name ~sns_topic_arn
-    ~source_type __resource_id =
+let register ?tf_module ?enabled ?id ?source_ids ?tags ?tags_all
+    ?timeouts ~event_categories ~name ~sns_topic_arn ~source_type
+    __resource_id =
   let __resource_type = "aws_dms_event_subscription" in
   let __resource =
-    ({
-       enabled;
-       event_categories;
-       id;
-       name;
-       sns_topic_arn;
-       source_ids;
-       source_type;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_dms_event_subscription)
+    aws_dms_event_subscription ?enabled ?id ?source_ids ?tags
+      ?tags_all ?timeouts ~event_categories ~name ~sns_topic_arn
+      ~source_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dms_event_subscription __resource);
   let __resource_attributes =
     ({

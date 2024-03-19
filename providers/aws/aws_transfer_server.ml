@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_transfer_server__endpoint_details = {
+type endpoint_details = {
   address_allocation_ids : string prop list option; [@option]
       (** address_allocation_ids *)
   security_group_ids : string prop list option; [@option]
@@ -15,9 +15,9 @@ type aws_transfer_server__endpoint_details = {
   vpc_id : string prop option; [@option]  (** vpc_id *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_server__endpoint_details *)
+(** endpoint_details *)
 
-type aws_transfer_server__protocol_details = {
+type protocol_details = {
   as2_transports : string prop list option; [@option]
       (** as2_transports *)
   passive_ip : string prop option; [@option]  (** passive_ip *)
@@ -27,29 +27,28 @@ type aws_transfer_server__protocol_details = {
       (** tls_session_resumption_mode *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_server__protocol_details *)
+(** protocol_details *)
 
-type aws_transfer_server__workflow_details__on_partial_upload = {
+type workflow_details__on_partial_upload = {
   execution_role : string prop;  (** execution_role *)
   workflow_id : string prop;  (** workflow_id *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_server__workflow_details__on_partial_upload *)
+(** workflow_details__on_partial_upload *)
 
-type aws_transfer_server__workflow_details__on_upload = {
+type workflow_details__on_upload = {
   execution_role : string prop;  (** execution_role *)
   workflow_id : string prop;  (** workflow_id *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_server__workflow_details__on_upload *)
+(** workflow_details__on_upload *)
 
-type aws_transfer_server__workflow_details = {
-  on_partial_upload :
-    aws_transfer_server__workflow_details__on_partial_upload list;
-  on_upload : aws_transfer_server__workflow_details__on_upload list;
+type workflow_details = {
+  on_partial_upload : workflow_details__on_partial_upload list;
+  on_upload : workflow_details__on_upload list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_server__workflow_details *)
+(** workflow_details *)
 
 type aws_transfer_server = {
   certificate : string prop option; [@option]  (** certificate *)
@@ -79,12 +78,76 @@ type aws_transfer_server = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   url : string prop option; [@option]  (** url *)
-  endpoint_details : aws_transfer_server__endpoint_details list;
-  protocol_details : aws_transfer_server__protocol_details list;
-  workflow_details : aws_transfer_server__workflow_details list;
+  endpoint_details : endpoint_details list;
+  protocol_details : protocol_details list;
+  workflow_details : workflow_details list;
 }
 [@@deriving yojson_of]
 (** aws_transfer_server *)
+
+let endpoint_details ?address_allocation_ids ?security_group_ids
+    ?subnet_ids ?vpc_endpoint_id ?vpc_id () : endpoint_details =
+  {
+    address_allocation_ids;
+    security_group_ids;
+    subnet_ids;
+    vpc_endpoint_id;
+    vpc_id;
+  }
+
+let protocol_details ?as2_transports ?passive_ip ?set_stat_option
+    ?tls_session_resumption_mode () : protocol_details =
+  {
+    as2_transports;
+    passive_ip;
+    set_stat_option;
+    tls_session_resumption_mode;
+  }
+
+let workflow_details__on_partial_upload ~execution_role ~workflow_id
+    () : workflow_details__on_partial_upload =
+  { execution_role; workflow_id }
+
+let workflow_details__on_upload ~execution_role ~workflow_id () :
+    workflow_details__on_upload =
+  { execution_role; workflow_id }
+
+let workflow_details ~on_partial_upload ~on_upload () :
+    workflow_details =
+  { on_partial_upload; on_upload }
+
+let aws_transfer_server ?certificate ?directory_id ?domain
+    ?endpoint_type ?force_destroy ?function_ ?host_key ?id
+    ?identity_provider_type ?invocation_role ?logging_role
+    ?post_authentication_login_banner
+    ?pre_authentication_login_banner ?protocols ?security_policy_name
+    ?structured_log_destinations ?tags ?tags_all ?url
+    ~endpoint_details ~protocol_details ~workflow_details () :
+    aws_transfer_server =
+  {
+    certificate;
+    directory_id;
+    domain;
+    endpoint_type;
+    force_destroy;
+    function_;
+    host_key;
+    id;
+    identity_provider_type;
+    invocation_role;
+    logging_role;
+    post_authentication_login_banner;
+    pre_authentication_login_banner;
+    protocols;
+    security_policy_name;
+    structured_log_destinations;
+    tags;
+    tags_all;
+    url;
+    endpoint_details;
+    protocol_details;
+    workflow_details;
+  }
 
 type t = {
   arn : string prop;
@@ -111,7 +174,7 @@ type t = {
   url : string prop;
 }
 
-let aws_transfer_server ?certificate ?directory_id ?domain
+let register ?tf_module ?certificate ?directory_id ?domain
     ?endpoint_type ?force_destroy ?function_ ?host_key ?id
     ?identity_provider_type ?invocation_role ?logging_role
     ?post_authentication_login_banner
@@ -121,33 +184,16 @@ let aws_transfer_server ?certificate ?directory_id ?domain
     __resource_id =
   let __resource_type = "aws_transfer_server" in
   let __resource =
-    ({
-       certificate;
-       directory_id;
-       domain;
-       endpoint_type;
-       force_destroy;
-       function_;
-       host_key;
-       id;
-       identity_provider_type;
-       invocation_role;
-       logging_role;
-       post_authentication_login_banner;
-       pre_authentication_login_banner;
-       protocols;
-       security_policy_name;
-       structured_log_destinations;
-       tags;
-       tags_all;
-       url;
-       endpoint_details;
-       protocol_details;
-       workflow_details;
-     }
-      : aws_transfer_server)
+    aws_transfer_server ?certificate ?directory_id ?domain
+      ?endpoint_type ?force_destroy ?function_ ?host_key ?id
+      ?identity_provider_type ?invocation_role ?logging_role
+      ?post_authentication_login_banner
+      ?pre_authentication_login_banner ?protocols
+      ?security_policy_name ?structured_log_destinations ?tags
+      ?tags_all ?url ~endpoint_details ~protocol_details
+      ~workflow_details ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_server __resource);
   let __resource_attributes =
     ({

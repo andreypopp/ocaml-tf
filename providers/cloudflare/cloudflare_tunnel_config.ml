@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_tunnel_config__config__ingress_rule__origin_request__access = {
+type config__ingress_rule__origin_request__access = {
   aud_tag : string prop list option; [@option]
       (** Audience tags of the access rule. *)
   required : bool prop option; [@option]
@@ -15,7 +15,7 @@ type cloudflare_tunnel_config__config__ingress_rule__origin_request__access = {
 [@@deriving yojson_of]
 (** Access rules for the ingress service. *)
 
-type cloudflare_tunnel_config__config__ingress_rule__origin_request__ip_rules = {
+type config__ingress_rule__origin_request__ip_rules = {
   allow : bool prop option; [@option]
       (** Whether to allow the IP prefix. *)
   ports : float prop list option; [@option]
@@ -25,7 +25,7 @@ type cloudflare_tunnel_config__config__ingress_rule__origin_request__ip_rules = 
 [@@deriving yojson_of]
 (** IP rules for the proxy service. *)
 
-type cloudflare_tunnel_config__config__ingress_rule__origin_request = {
+type config__ingress_rule__origin_request = {
   bastion_mode : bool prop option; [@option]
       (** Runs as jump host. *)
   ca_pool : string prop option; [@option]
@@ -58,31 +58,25 @@ type cloudflare_tunnel_config__config__ingress_rule__origin_request = {
       (** The timeout after which a TCP keepalive packet is sent on a connection between Tunnel and the origin server. Defaults to `30s`. *)
   tls_timeout : string prop option; [@option]
       (** Timeout for completing a TLS handshake to your origin server, if you have chosen to connect Tunnel to an HTTPS server. Defaults to `10s`. *)
-  access :
-    cloudflare_tunnel_config__config__ingress_rule__origin_request__access
-    list;
-  ip_rules :
-    cloudflare_tunnel_config__config__ingress_rule__origin_request__ip_rules
-    list;
+  access : config__ingress_rule__origin_request__access list;
+  ip_rules : config__ingress_rule__origin_request__ip_rules list;
 }
 [@@deriving yojson_of]
-(** cloudflare_tunnel_config__config__ingress_rule__origin_request *)
+(** config__ingress_rule__origin_request *)
 
-type cloudflare_tunnel_config__config__ingress_rule = {
+type config__ingress_rule = {
   hostname : string prop option; [@option]
       (** Hostname to match the incoming request with. If the hostname matches, the request will be sent to the service. *)
   path : string prop option; [@option]
       (** Path of the incoming request. If the path matches, the request will be sent to the local service. *)
   service : string prop;
       (** Name of the service to which the request will be sent. *)
-  origin_request :
-    cloudflare_tunnel_config__config__ingress_rule__origin_request
-    list;
+  origin_request : config__ingress_rule__origin_request list;
 }
 [@@deriving yojson_of]
 (** Each incoming request received by cloudflared causes cloudflared to send a request to a local service. This section configures the rules that determine which requests are sent to which local services. [Read more](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-guide/local/local-management/ingress/). *)
 
-type cloudflare_tunnel_config__config__origin_request__access = {
+type config__origin_request__access = {
   aud_tag : string prop list option; [@option]
       (** Audience tags of the access rule. *)
   required : bool prop option; [@option]
@@ -93,7 +87,7 @@ type cloudflare_tunnel_config__config__origin_request__access = {
 [@@deriving yojson_of]
 (** Access rules for the ingress service. *)
 
-type cloudflare_tunnel_config__config__origin_request__ip_rules = {
+type config__origin_request__ip_rules = {
   allow : bool prop option; [@option]
       (** Whether to allow the IP prefix. *)
   ports : float prop list option; [@option]
@@ -103,7 +97,7 @@ type cloudflare_tunnel_config__config__origin_request__ip_rules = {
 [@@deriving yojson_of]
 (** IP rules for the proxy service. *)
 
-type cloudflare_tunnel_config__config__origin_request = {
+type config__origin_request = {
   bastion_mode : bool prop option; [@option]
       (** Runs as jump host. *)
   ca_pool : string prop option; [@option]
@@ -136,26 +130,23 @@ type cloudflare_tunnel_config__config__origin_request = {
       (** The timeout after which a TCP keepalive packet is sent on a connection between Tunnel and the origin server. Defaults to `30s`. *)
   tls_timeout : string prop option; [@option]
       (** Timeout for completing a TLS handshake to your origin server, if you have chosen to connect Tunnel to an HTTPS server. Defaults to `10s`. *)
-  access :
-    cloudflare_tunnel_config__config__origin_request__access list;
-  ip_rules :
-    cloudflare_tunnel_config__config__origin_request__ip_rules list;
+  access : config__origin_request__access list;
+  ip_rules : config__origin_request__ip_rules list;
 }
 [@@deriving yojson_of]
-(** cloudflare_tunnel_config__config__origin_request *)
+(** config__origin_request *)
 
-type cloudflare_tunnel_config__config__warp_routing = {
+type config__warp_routing = {
   enabled : bool prop option; [@option]
       (** Whether WARP routing is enabled. *)
 }
 [@@deriving yojson_of]
 (** If you're exposing a [private network](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/private-net/), you need to add the `warp-routing` key and set it to `true`. *)
 
-type cloudflare_tunnel_config__config = {
-  ingress_rule : cloudflare_tunnel_config__config__ingress_rule list;
-  origin_request :
-    cloudflare_tunnel_config__config__origin_request list;
-  warp_routing : cloudflare_tunnel_config__config__warp_routing list;
+type config = {
+  ingress_rule : config__ingress_rule list;
+  origin_request : config__origin_request list;
+  warp_routing : config__warp_routing list;
 }
 [@@deriving yojson_of]
 (** Configuration block for Tunnel Configuration. *)
@@ -166,11 +157,96 @@ type cloudflare_tunnel_config = {
   id : string prop option; [@option]  (** id *)
   tunnel_id : string prop;
       (** Identifier of the Tunnel to target for this configuration. *)
-  config : cloudflare_tunnel_config__config list;
+  config : config list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Tunnel configuration resource.
  *)
+
+let config__ingress_rule__origin_request__access ?aud_tag ?required
+    ?team_name () : config__ingress_rule__origin_request__access =
+  { aud_tag; required; team_name }
+
+let config__ingress_rule__origin_request__ip_rules ?allow ?ports
+    ?prefix () : config__ingress_rule__origin_request__ip_rules =
+  { allow; ports; prefix }
+
+let config__ingress_rule__origin_request ?bastion_mode ?ca_pool
+    ?connect_timeout ?disable_chunked_encoding ?http2_origin
+    ?http_host_header ?keep_alive_connections ?keep_alive_timeout
+    ?no_happy_eyeballs ?no_tls_verify ?origin_server_name
+    ?proxy_address ?proxy_port ?proxy_type ?tcp_keep_alive
+    ?tls_timeout ~access ~ip_rules () :
+    config__ingress_rule__origin_request =
+  {
+    bastion_mode;
+    ca_pool;
+    connect_timeout;
+    disable_chunked_encoding;
+    http2_origin;
+    http_host_header;
+    keep_alive_connections;
+    keep_alive_timeout;
+    no_happy_eyeballs;
+    no_tls_verify;
+    origin_server_name;
+    proxy_address;
+    proxy_port;
+    proxy_type;
+    tcp_keep_alive;
+    tls_timeout;
+    access;
+    ip_rules;
+  }
+
+let config__ingress_rule ?hostname ?path ~service ~origin_request ()
+    : config__ingress_rule =
+  { hostname; path; service; origin_request }
+
+let config__origin_request__access ?aud_tag ?required ?team_name () :
+    config__origin_request__access =
+  { aud_tag; required; team_name }
+
+let config__origin_request__ip_rules ?allow ?ports ?prefix () :
+    config__origin_request__ip_rules =
+  { allow; ports; prefix }
+
+let config__origin_request ?bastion_mode ?ca_pool ?connect_timeout
+    ?disable_chunked_encoding ?http2_origin ?http_host_header
+    ?keep_alive_connections ?keep_alive_timeout ?no_happy_eyeballs
+    ?no_tls_verify ?origin_server_name ?proxy_address ?proxy_port
+    ?proxy_type ?tcp_keep_alive ?tls_timeout ~access ~ip_rules () :
+    config__origin_request =
+  {
+    bastion_mode;
+    ca_pool;
+    connect_timeout;
+    disable_chunked_encoding;
+    http2_origin;
+    http_host_header;
+    keep_alive_connections;
+    keep_alive_timeout;
+    no_happy_eyeballs;
+    no_tls_verify;
+    origin_server_name;
+    proxy_address;
+    proxy_port;
+    proxy_type;
+    tcp_keep_alive;
+    tls_timeout;
+    access;
+    ip_rules;
+  }
+
+let config__warp_routing ?enabled () : config__warp_routing =
+  { enabled }
+
+let config ~ingress_rule ~origin_request ~warp_routing () : config =
+  { ingress_rule; origin_request; warp_routing }
+
+let cloudflare_tunnel_config ?id ~account_id ~tunnel_id ~config () :
+    cloudflare_tunnel_config =
+  { account_id; id; tunnel_id; config }
 
 type t = {
   account_id : string prop;
@@ -178,14 +254,13 @@ type t = {
   tunnel_id : string prop;
 }
 
-let cloudflare_tunnel_config ?id ~account_id ~tunnel_id ~config
+let register ?tf_module ?id ~account_id ~tunnel_id ~config
     __resource_id =
   let __resource_type = "cloudflare_tunnel_config" in
   let __resource =
-    ({ account_id; id; tunnel_id; config }
-      : cloudflare_tunnel_config)
+    cloudflare_tunnel_config ?id ~account_id ~tunnel_id ~config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_tunnel_config __resource);
   let __resource_attributes =
     ({

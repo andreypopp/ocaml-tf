@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_servicequotas_template
+
+val aws_servicequotas_template :
+  quota_code:string prop ->
+  region:string prop ->
+  service_code:string prop ->
+  value:float prop ->
+  unit ->
+  aws_servicequotas_template
+
+val yojson_of_aws_servicequotas_template :
+  aws_servicequotas_template -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   global_quota : bool prop;
@@ -16,7 +31,8 @@ type t = private {
   value : float prop;
 }
 
-val aws_servicequotas_template :
+val register :
+  ?tf_module:tf_module ->
   quota_code:string prop ->
   region:string prop ->
   service_code:string prop ->

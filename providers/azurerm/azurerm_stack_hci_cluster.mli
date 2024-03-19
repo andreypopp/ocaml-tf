@@ -2,9 +2,42 @@
 
 open! Tf.Prelude
 
-type azurerm_stack_hci_cluster__identity
-type azurerm_stack_hci_cluster__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_stack_hci_cluster
+
+val azurerm_stack_hci_cluster :
+  ?automanage_configuration_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tenant_id:string prop ->
+  ?timeouts:timeouts ->
+  client_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_stack_hci_cluster
+
+val yojson_of_azurerm_stack_hci_cluster :
+  azurerm_stack_hci_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   automanage_configuration_id : string prop;
@@ -20,16 +53,17 @@ type t = private {
   tenant_id : string prop;
 }
 
-val azurerm_stack_hci_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?automanage_configuration_id:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tenant_id:string prop ->
-  ?timeouts:azurerm_stack_hci_cluster__timeouts ->
+  ?timeouts:timeouts ->
   client_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_stack_hci_cluster__identity list ->
+  identity:identity list ->
   string ->
   t

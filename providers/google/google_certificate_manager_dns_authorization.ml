@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_dns_authorization__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_certificate_manager_dns_authorization__timeouts *)
+(** timeouts *)
 
-type google_certificate_manager_dns_authorization__dns_resource_record = {
+type dns_resource_record = {
   data : string prop;  (** data *)
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -48,18 +48,32 @@ FIXED_RECORD DNS authorization uses DNS-01 validation method
 PER_PROJECT_RECORD DNS authorization allows for independent management
 of Google-managed certificates with DNS authorization across multiple
 projects. Possible values: [FIXED_RECORD, PER_PROJECT_RECORD] *)
-  timeouts :
-    google_certificate_manager_dns_authorization__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_dns_authorization *)
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_certificate_manager_dns_authorization ?description ?id
+    ?labels ?location ?project ?type_ ?timeouts ~domain ~name () :
+    google_certificate_manager_dns_authorization =
+  {
+    description;
+    domain;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    type_;
+    timeouts;
+  }
+
 type t = {
   description : string prop;
-  dns_resource_record :
-    google_certificate_manager_dns_authorization__dns_resource_record
-    list
-    prop;
+  dns_resource_record : dns_resource_record list prop;
   domain : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -71,27 +85,16 @@ type t = {
   type_ : string prop;
 }
 
-let google_certificate_manager_dns_authorization ?description ?id
-    ?labels ?location ?project ?type_ ?timeouts ~domain ~name
-    __resource_id =
+let register ?tf_module ?description ?id ?labels ?location ?project
+    ?type_ ?timeouts ~domain ~name __resource_id =
   let __resource_type =
     "google_certificate_manager_dns_authorization"
   in
   let __resource =
-    ({
-       description;
-       domain;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       type_;
-       timeouts;
-     }
-      : google_certificate_manager_dns_authorization)
+    google_certificate_manager_dns_authorization ?description ?id
+      ?labels ?location ?project ?type_ ?timeouts ~domain ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_dns_authorization
        __resource);
   let __resource_attributes =

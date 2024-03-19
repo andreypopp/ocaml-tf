@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_network_peering__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_peering__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_network_peering = {
   allow_forwarded_traffic : bool prop option; [@option]
@@ -30,10 +30,32 @@ type azurerm_virtual_network_peering = {
   use_remote_gateways : bool prop option; [@option]
       (** use_remote_gateways *)
   virtual_network_name : string prop;  (** virtual_network_name *)
-  timeouts : azurerm_virtual_network_peering__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_network_peering *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_network_peering ?allow_forwarded_traffic
+    ?allow_gateway_transit ?allow_virtual_network_access ?id
+    ?triggers ?use_remote_gateways ?timeouts ~name
+    ~remote_virtual_network_id ~resource_group_name
+    ~virtual_network_name () : azurerm_virtual_network_peering =
+  {
+    allow_forwarded_traffic;
+    allow_gateway_transit;
+    allow_virtual_network_access;
+    id;
+    name;
+    remote_virtual_network_id;
+    resource_group_name;
+    triggers;
+    use_remote_gateways;
+    virtual_network_name;
+    timeouts;
+  }
 
 type t = {
   allow_forwarded_traffic : bool prop;
@@ -48,29 +70,20 @@ type t = {
   virtual_network_name : string prop;
 }
 
-let azurerm_virtual_network_peering ?allow_forwarded_traffic
+let register ?tf_module ?allow_forwarded_traffic
     ?allow_gateway_transit ?allow_virtual_network_access ?id
     ?triggers ?use_remote_gateways ?timeouts ~name
     ~remote_virtual_network_id ~resource_group_name
     ~virtual_network_name __resource_id =
   let __resource_type = "azurerm_virtual_network_peering" in
   let __resource =
-    ({
-       allow_forwarded_traffic;
-       allow_gateway_transit;
-       allow_virtual_network_access;
-       id;
-       name;
-       remote_virtual_network_id;
-       resource_group_name;
-       triggers;
-       use_remote_gateways;
-       virtual_network_name;
-       timeouts;
-     }
-      : azurerm_virtual_network_peering)
+    azurerm_virtual_network_peering ?allow_forwarded_traffic
+      ?allow_gateway_transit ?allow_virtual_network_access ?id
+      ?triggers ?use_remote_gateways ?timeouts ~name
+      ~remote_virtual_network_id ~resource_group_name
+      ~virtual_network_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_peering __resource);
   let __resource_attributes =
     ({

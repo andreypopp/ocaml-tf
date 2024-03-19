@@ -13,6 +13,10 @@ type aws_detective_graph = {
 [@@deriving yojson_of]
 (** aws_detective_graph *)
 
+let aws_detective_graph ?id ?tags ?tags_all () : aws_detective_graph
+    =
+  { id; tags; tags_all }
+
 type t = {
   created_time : string prop;
   graph_arn : string prop;
@@ -21,10 +25,10 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_detective_graph ?id ?tags ?tags_all __resource_id =
+let register ?tf_module ?id ?tags ?tags_all __resource_id =
   let __resource_type = "aws_detective_graph" in
-  let __resource = ({ id; tags; tags_all } : aws_detective_graph) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_detective_graph ?id ?tags ?tags_all () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_detective_graph __resource);
   let __resource_attributes =
     ({

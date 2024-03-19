@@ -11,22 +11,27 @@ type aws_ssoadmin_application_assignment_configuration = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_application_assignment_configuration *)
 
+let aws_ssoadmin_application_assignment_configuration
+    ~application_arn ~assignment_required () :
+    aws_ssoadmin_application_assignment_configuration =
+  { application_arn; assignment_required }
+
 type t = {
   application_arn : string prop;
   assignment_required : bool prop;
   id : string prop;
 }
 
-let aws_ssoadmin_application_assignment_configuration
-    ~application_arn ~assignment_required __resource_id =
+let register ?tf_module ~application_arn ~assignment_required
+    __resource_id =
   let __resource_type =
     "aws_ssoadmin_application_assignment_configuration"
   in
   let __resource =
-    ({ application_arn; assignment_required }
-      : aws_ssoadmin_application_assignment_configuration)
+    aws_ssoadmin_application_assignment_configuration
+      ~application_arn ~assignment_required ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssoadmin_application_assignment_configuration
        __resource);
   let __resource_attributes =

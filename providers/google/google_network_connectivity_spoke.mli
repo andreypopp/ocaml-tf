@@ -2,16 +2,81 @@
 
 open! Tf.Prelude
 
-type google_network_connectivity_spoke__linked_interconnect_attachments
+(** RESOURCE SERIALIZATION *)
 
-type google_network_connectivity_spoke__linked_router_appliance_instances__instances
+type linked_interconnect_attachments
 
-type google_network_connectivity_spoke__linked_router_appliance_instances
+val linked_interconnect_attachments :
+  site_to_site_data_transfer:bool prop ->
+  uris:string prop list ->
+  unit ->
+  linked_interconnect_attachments
 
-type google_network_connectivity_spoke__linked_vpc_network
-type google_network_connectivity_spoke__linked_vpn_tunnels
-type google_network_connectivity_spoke__timeouts
+type linked_router_appliance_instances__instances
+
+val linked_router_appliance_instances__instances :
+  ?ip_address:string prop ->
+  ?virtual_machine:string prop ->
+  unit ->
+  linked_router_appliance_instances__instances
+
+type linked_router_appliance_instances
+
+val linked_router_appliance_instances :
+  site_to_site_data_transfer:bool prop ->
+  instances:linked_router_appliance_instances__instances list ->
+  unit ->
+  linked_router_appliance_instances
+
+type linked_vpc_network
+
+val linked_vpc_network :
+  ?exclude_export_ranges:string prop list ->
+  uri:string prop ->
+  unit ->
+  linked_vpc_network
+
+type linked_vpn_tunnels
+
+val linked_vpn_tunnels :
+  site_to_site_data_transfer:bool prop ->
+  uris:string prop list ->
+  unit ->
+  linked_vpn_tunnels
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_network_connectivity_spoke
+
+val google_network_connectivity_spoke :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  hub:string prop ->
+  location:string prop ->
+  name:string prop ->
+  linked_interconnect_attachments:
+    linked_interconnect_attachments list ->
+  linked_router_appliance_instances:
+    linked_router_appliance_instances list ->
+  linked_vpc_network:linked_vpc_network list ->
+  linked_vpn_tunnels:linked_vpn_tunnels list ->
+  unit ->
+  google_network_connectivity_spoke
+
+val yojson_of_google_network_connectivity_spoke :
+  google_network_connectivity_spoke -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -29,24 +94,21 @@ type t = private {
   update_time : string prop;
 }
 
-val google_network_connectivity_spoke :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_network_connectivity_spoke__timeouts ->
+  ?timeouts:timeouts ->
   hub:string prop ->
   location:string prop ->
   name:string prop ->
   linked_interconnect_attachments:
-    google_network_connectivity_spoke__linked_interconnect_attachments
-    list ->
+    linked_interconnect_attachments list ->
   linked_router_appliance_instances:
-    google_network_connectivity_spoke__linked_router_appliance_instances
-    list ->
-  linked_vpc_network:
-    google_network_connectivity_spoke__linked_vpc_network list ->
-  linked_vpn_tunnels:
-    google_network_connectivity_spoke__linked_vpn_tunnels list ->
+    linked_router_appliance_instances list ->
+  linked_vpc_network:linked_vpc_network list ->
+  linked_vpn_tunnels:linked_vpn_tunnels list ->
   string ->
   t

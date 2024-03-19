@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_db_instance_automated_backups_replication__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_db_instance_automated_backups_replication__timeouts *)
+(** timeouts *)
 
 type aws_db_instance_automated_backups_replication = {
   id : string prop option; [@option]  (** id *)
@@ -20,11 +20,25 @@ type aws_db_instance_automated_backups_replication = {
       (** retention_period *)
   source_db_instance_arn : string prop;
       (** source_db_instance_arn *)
-  timeouts :
-    aws_db_instance_automated_backups_replication__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_instance_automated_backups_replication *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_db_instance_automated_backups_replication ?id ?kms_key_id
+    ?pre_signed_url ?retention_period ?timeouts
+    ~source_db_instance_arn () :
+    aws_db_instance_automated_backups_replication =
+  {
+    id;
+    kms_key_id;
+    pre_signed_url;
+    retention_period;
+    source_db_instance_arn;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -34,24 +48,18 @@ type t = {
   source_db_instance_arn : string prop;
 }
 
-let aws_db_instance_automated_backups_replication ?id ?kms_key_id
-    ?pre_signed_url ?retention_period ?timeouts
-    ~source_db_instance_arn __resource_id =
+let register ?tf_module ?id ?kms_key_id ?pre_signed_url
+    ?retention_period ?timeouts ~source_db_instance_arn __resource_id
+    =
   let __resource_type =
     "aws_db_instance_automated_backups_replication"
   in
   let __resource =
-    ({
-       id;
-       kms_key_id;
-       pre_signed_url;
-       retention_period;
-       source_db_instance_arn;
-       timeouts;
-     }
-      : aws_db_instance_automated_backups_replication)
+    aws_db_instance_automated_backups_replication ?id ?kms_key_id
+      ?pre_signed_url ?retention_period ?timeouts
+      ~source_db_instance_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_instance_automated_backups_replication
        __resource);
   let __resource_attributes =

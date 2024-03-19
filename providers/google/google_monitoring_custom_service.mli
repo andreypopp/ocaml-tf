@@ -2,9 +2,38 @@
 
 open! Tf.Prelude
 
-type google_monitoring_custom_service__telemetry
-type google_monitoring_custom_service__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type telemetry
+
+val telemetry : ?resource_name:string prop -> unit -> telemetry
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_monitoring_custom_service
+
+val google_monitoring_custom_service :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?service_id:string prop ->
+  ?user_labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  telemetry:telemetry list ->
+  unit ->
+  google_monitoring_custom_service
+
+val yojson_of_google_monitoring_custom_service :
+  google_monitoring_custom_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   display_name : string prop;
@@ -15,13 +44,14 @@ type t = private {
   user_labels : (string * string) list prop;
 }
 
-val google_monitoring_custom_service :
+val register :
+  ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?service_id:string prop ->
   ?user_labels:(string * string prop) list ->
-  ?timeouts:google_monitoring_custom_service__timeouts ->
-  telemetry:google_monitoring_custom_service__telemetry list ->
+  ?timeouts:timeouts ->
+  telemetry:telemetry list ->
   string ->
   t

@@ -12,18 +12,22 @@ type digitalocean_database_db = {
 [@@deriving yojson_of]
 (** digitalocean_database_db *)
 
+let digitalocean_database_db ?id ~cluster_id ~name () :
+    digitalocean_database_db =
+  { cluster_id; id; name }
+
 type t = {
   cluster_id : string prop;
   id : string prop;
   name : string prop;
 }
 
-let digitalocean_database_db ?id ~cluster_id ~name __resource_id =
+let register ?tf_module ?id ~cluster_id ~name __resource_id =
   let __resource_type = "digitalocean_database_db" in
   let __resource =
-    ({ cluster_id; id; name } : digitalocean_database_db)
+    digitalocean_database_db ?id ~cluster_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_db __resource);
   let __resource_attributes =
     ({

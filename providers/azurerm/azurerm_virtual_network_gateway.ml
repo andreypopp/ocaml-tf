@@ -4,35 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_network_gateway__bgp_settings__peering_addresses = {
+type bgp_settings__peering_addresses = {
   apipa_addresses : string prop list option; [@option]
       (** apipa_addresses *)
-  default_addresses : string prop list;  (** default_addresses *)
   ip_configuration_name : string prop option; [@option]
       (** ip_configuration_name *)
-  tunnel_ip_addresses : string prop list;  (** tunnel_ip_addresses *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__bgp_settings__peering_addresses *)
+(** bgp_settings__peering_addresses *)
 
-type azurerm_virtual_network_gateway__bgp_settings = {
+type bgp_settings = {
   asn : float prop option; [@option]  (** asn *)
   peer_weight : float prop option; [@option]  (** peer_weight *)
-  peering_addresses :
-    azurerm_virtual_network_gateway__bgp_settings__peering_addresses
-    list;
+  peering_addresses : bgp_settings__peering_addresses list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__bgp_settings *)
+(** bgp_settings *)
 
-type azurerm_virtual_network_gateway__custom_route = {
+type custom_route = {
   address_prefixes : string prop list option; [@option]
       (** address_prefixes *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__custom_route *)
+(** custom_route *)
 
-type azurerm_virtual_network_gateway__ip_configuration = {
+type ip_configuration = {
   name : string prop option; [@option]  (** name *)
   private_ip_address_allocation : string prop option; [@option]
       (** private_ip_address_allocation *)
@@ -40,36 +36,35 @@ type azurerm_virtual_network_gateway__ip_configuration = {
   subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__ip_configuration *)
+(** ip_configuration *)
 
-type azurerm_virtual_network_gateway__policy_group__policy_member = {
+type policy_group__policy_member = {
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__policy_group__policy_member *)
+(** policy_group__policy_member *)
 
-type azurerm_virtual_network_gateway__policy_group = {
+type policy_group = {
   is_default : bool prop option; [@option]  (** is_default *)
   name : string prop;  (** name *)
   priority : float prop option; [@option]  (** priority *)
-  policy_member :
-    azurerm_virtual_network_gateway__policy_group__policy_member list;
+  policy_member : policy_group__policy_member list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__policy_group *)
+(** policy_group *)
 
-type azurerm_virtual_network_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__timeouts *)
+(** timeouts *)
 
-type azurerm_virtual_network_gateway__vpn_client_configuration__ipsec_policy = {
+type vpn_client_configuration__ipsec_policy = {
   dh_group : string prop;  (** dh_group *)
   ike_encryption : string prop;  (** ike_encryption *)
   ike_integrity : string prop;  (** ike_integrity *)
@@ -81,39 +76,39 @@ type azurerm_virtual_network_gateway__vpn_client_configuration__ipsec_policy = {
   sa_lifetime_in_seconds : float prop;  (** sa_lifetime_in_seconds *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__vpn_client_configuration__ipsec_policy *)
+(** vpn_client_configuration__ipsec_policy *)
 
-type azurerm_virtual_network_gateway__vpn_client_configuration__radius_server = {
+type vpn_client_configuration__radius_server = {
   address : string prop;  (** address *)
   score : float prop;  (** score *)
   secret : string prop;  (** secret *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__vpn_client_configuration__radius_server *)
+(** vpn_client_configuration__radius_server *)
 
-type azurerm_virtual_network_gateway__vpn_client_configuration__revoked_certificate = {
+type vpn_client_configuration__revoked_certificate = {
   name : string prop;  (** name *)
   thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__vpn_client_configuration__revoked_certificate *)
+(** vpn_client_configuration__revoked_certificate *)
 
-type azurerm_virtual_network_gateway__vpn_client_configuration__root_certificate = {
+type vpn_client_configuration__root_certificate = {
   name : string prop;  (** name *)
   public_cert_data : string prop;  (** public_cert_data *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__vpn_client_configuration__root_certificate *)
+(** vpn_client_configuration__root_certificate *)
 
-type azurerm_virtual_network_gateway__vpn_client_configuration__virtual_network_gateway_client_connection = {
+type vpn_client_configuration__virtual_network_gateway_client_connection = {
   address_prefixes : string prop list;  (** address_prefixes *)
   name : string prop;  (** name *)
   policy_group_names : string prop list;  (** policy_group_names *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__vpn_client_configuration__virtual_network_gateway_client_connection *)
+(** vpn_client_configuration__virtual_network_gateway_client_connection *)
 
-type azurerm_virtual_network_gateway__vpn_client_configuration = {
+type vpn_client_configuration = {
   aad_audience : string prop option; [@option]  (** aad_audience *)
   aad_issuer : string prop option; [@option]  (** aad_issuer *)
   aad_tenant : string prop option; [@option]  (** aad_tenant *)
@@ -126,24 +121,17 @@ type azurerm_virtual_network_gateway__vpn_client_configuration = {
       (** vpn_auth_types *)
   vpn_client_protocols : string prop list option; [@option]
       (** vpn_client_protocols *)
-  ipsec_policy :
-    azurerm_virtual_network_gateway__vpn_client_configuration__ipsec_policy
-    list;
-  radius_server :
-    azurerm_virtual_network_gateway__vpn_client_configuration__radius_server
-    list;
+  ipsec_policy : vpn_client_configuration__ipsec_policy list;
+  radius_server : vpn_client_configuration__radius_server list;
   revoked_certificate :
-    azurerm_virtual_network_gateway__vpn_client_configuration__revoked_certificate
-    list;
-  root_certificate :
-    azurerm_virtual_network_gateway__vpn_client_configuration__root_certificate
-    list;
+    vpn_client_configuration__revoked_certificate list;
+  root_certificate : vpn_client_configuration__root_certificate list;
   virtual_network_gateway_client_connection :
-    azurerm_virtual_network_gateway__vpn_client_configuration__virtual_network_gateway_client_connection
+    vpn_client_configuration__virtual_network_gateway_client_connection
     list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway__vpn_client_configuration *)
+(** vpn_client_configuration *)
 
 type azurerm_virtual_network_gateway = {
   active_active : bool prop option; [@option]  (** active_active *)
@@ -172,17 +160,140 @@ type azurerm_virtual_network_gateway = {
   virtual_wan_traffic_enabled : bool prop option; [@option]
       (** virtual_wan_traffic_enabled *)
   vpn_type : string prop option; [@option]  (** vpn_type *)
-  bgp_settings : azurerm_virtual_network_gateway__bgp_settings list;
-  custom_route : azurerm_virtual_network_gateway__custom_route list;
-  ip_configuration :
-    azurerm_virtual_network_gateway__ip_configuration list;
-  policy_group : azurerm_virtual_network_gateway__policy_group list;
-  timeouts : azurerm_virtual_network_gateway__timeouts option;
-  vpn_client_configuration :
-    azurerm_virtual_network_gateway__vpn_client_configuration list;
+  bgp_settings : bgp_settings list;
+  custom_route : custom_route list;
+  ip_configuration : ip_configuration list;
+  policy_group : policy_group list;
+  timeouts : timeouts option;
+  vpn_client_configuration : vpn_client_configuration list;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_network_gateway *)
+
+let bgp_settings__peering_addresses ?apipa_addresses
+    ?ip_configuration_name () : bgp_settings__peering_addresses =
+  { apipa_addresses; ip_configuration_name }
+
+let bgp_settings ?asn ?peer_weight ~peering_addresses () :
+    bgp_settings =
+  { asn; peer_weight; peering_addresses }
+
+let custom_route ?address_prefixes () : custom_route =
+  { address_prefixes }
+
+let ip_configuration ?name ?private_ip_address_allocation
+    ~public_ip_address_id ~subnet_id () : ip_configuration =
+  {
+    name;
+    private_ip_address_allocation;
+    public_ip_address_id;
+    subnet_id;
+  }
+
+let policy_group__policy_member ~name ~type_ ~value () :
+    policy_group__policy_member =
+  { name; type_; value }
+
+let policy_group ?is_default ?priority ~name ~policy_member () :
+    policy_group =
+  { is_default; name; priority; policy_member }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let vpn_client_configuration__ipsec_policy ~dh_group ~ike_encryption
+    ~ike_integrity ~ipsec_encryption ~ipsec_integrity ~pfs_group
+    ~sa_data_size_in_kilobytes ~sa_lifetime_in_seconds () :
+    vpn_client_configuration__ipsec_policy =
+  {
+    dh_group;
+    ike_encryption;
+    ike_integrity;
+    ipsec_encryption;
+    ipsec_integrity;
+    pfs_group;
+    sa_data_size_in_kilobytes;
+    sa_lifetime_in_seconds;
+  }
+
+let vpn_client_configuration__radius_server ~address ~score ~secret
+    () : vpn_client_configuration__radius_server =
+  { address; score; secret }
+
+let vpn_client_configuration__revoked_certificate ~name ~thumbprint
+    () : vpn_client_configuration__revoked_certificate =
+  { name; thumbprint }
+
+let vpn_client_configuration__root_certificate ~name
+    ~public_cert_data () : vpn_client_configuration__root_certificate
+    =
+  { name; public_cert_data }
+
+let vpn_client_configuration__virtual_network_gateway_client_connection
+    ~address_prefixes ~name ~policy_group_names () :
+    vpn_client_configuration__virtual_network_gateway_client_connection
+    =
+  { address_prefixes; name; policy_group_names }
+
+let vpn_client_configuration ?aad_audience ?aad_issuer ?aad_tenant
+    ?radius_server_address ?radius_server_secret ?vpn_auth_types
+    ?vpn_client_protocols ~address_space ~ipsec_policy ~radius_server
+    ~revoked_certificate ~root_certificate
+    ~virtual_network_gateway_client_connection () :
+    vpn_client_configuration =
+  {
+    aad_audience;
+    aad_issuer;
+    aad_tenant;
+    address_space;
+    radius_server_address;
+    radius_server_secret;
+    vpn_auth_types;
+    vpn_client_protocols;
+    ipsec_policy;
+    radius_server;
+    revoked_certificate;
+    root_certificate;
+    virtual_network_gateway_client_connection;
+  }
+
+let azurerm_virtual_network_gateway ?active_active
+    ?bgp_route_translation_for_nat_enabled
+    ?default_local_network_gateway_id ?dns_forwarding_enabled
+    ?edge_zone ?enable_bgp ?generation ?id
+    ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
+    ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
+    ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
+    ~type_ ~bgp_settings ~custom_route ~ip_configuration
+    ~policy_group ~vpn_client_configuration () :
+    azurerm_virtual_network_gateway =
+  {
+    active_active;
+    bgp_route_translation_for_nat_enabled;
+    default_local_network_gateway_id;
+    dns_forwarding_enabled;
+    edge_zone;
+    enable_bgp;
+    generation;
+    id;
+    ip_sec_replay_protection_enabled;
+    location;
+    name;
+    private_ip_address_enabled;
+    remote_vnet_traffic_enabled;
+    resource_group_name;
+    sku;
+    tags;
+    type_;
+    virtual_wan_traffic_enabled;
+    vpn_type;
+    bgp_settings;
+    custom_route;
+    ip_configuration;
+    policy_group;
+    timeouts;
+    vpn_client_configuration;
+  }
 
 type t = {
   active_active : bool prop;
@@ -206,7 +317,7 @@ type t = {
   vpn_type : string prop;
 }
 
-let azurerm_virtual_network_gateway ?active_active
+let register ?tf_module ?active_active
     ?bgp_route_translation_for_nat_enabled
     ?default_local_network_gateway_id ?dns_forwarding_enabled
     ?edge_zone ?enable_bgp ?generation ?id
@@ -217,36 +328,17 @@ let azurerm_virtual_network_gateway ?active_active
     ~policy_group ~vpn_client_configuration __resource_id =
   let __resource_type = "azurerm_virtual_network_gateway" in
   let __resource =
-    ({
-       active_active;
-       bgp_route_translation_for_nat_enabled;
-       default_local_network_gateway_id;
-       dns_forwarding_enabled;
-       edge_zone;
-       enable_bgp;
-       generation;
-       id;
-       ip_sec_replay_protection_enabled;
-       location;
-       name;
-       private_ip_address_enabled;
-       remote_vnet_traffic_enabled;
-       resource_group_name;
-       sku;
-       tags;
-       type_;
-       virtual_wan_traffic_enabled;
-       vpn_type;
-       bgp_settings;
-       custom_route;
-       ip_configuration;
-       policy_group;
-       timeouts;
-       vpn_client_configuration;
-     }
-      : azurerm_virtual_network_gateway)
+    azurerm_virtual_network_gateway ?active_active
+      ?bgp_route_translation_for_nat_enabled
+      ?default_local_network_gateway_id ?dns_forwarding_enabled
+      ?edge_zone ?enable_bgp ?generation ?id
+      ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
+      ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
+      ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
+      ~type_ ~bgp_settings ~custom_route ~ip_configuration
+      ~policy_group ~vpn_client_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_gateway __resource);
   let __resource_attributes =
     ({

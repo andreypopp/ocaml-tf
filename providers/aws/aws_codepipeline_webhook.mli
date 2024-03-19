@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type aws_codepipeline_webhook__authentication_configuration
-type aws_codepipeline_webhook__filter
+(** RESOURCE SERIALIZATION *)
+
+type authentication_configuration
+
+val authentication_configuration :
+  ?allowed_ip_range:string prop ->
+  ?secret_token:string prop ->
+  unit ->
+  authentication_configuration
+
+type filter
+
+val filter :
+  json_path:string prop -> match_equals:string prop -> unit -> filter
+
 type aws_codepipeline_webhook
+
+val aws_codepipeline_webhook :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  authentication:string prop ->
+  name:string prop ->
+  target_action:string prop ->
+  target_pipeline:string prop ->
+  authentication_configuration:authentication_configuration list ->
+  filter:filter list ->
+  unit ->
+  aws_codepipeline_webhook
+
+val yojson_of_aws_codepipeline_webhook :
+  aws_codepipeline_webhook -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,7 +49,8 @@ type t = private {
   url : string prop;
 }
 
-val aws_codepipeline_webhook :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
@@ -26,8 +58,7 @@ val aws_codepipeline_webhook :
   name:string prop ->
   target_action:string prop ->
   target_pipeline:string prop ->
-  authentication_configuration:
-    aws_codepipeline_webhook__authentication_configuration list ->
-  filter:aws_codepipeline_webhook__filter list ->
+  authentication_configuration:authentication_configuration list ->
+  filter:filter list ->
   string ->
   t

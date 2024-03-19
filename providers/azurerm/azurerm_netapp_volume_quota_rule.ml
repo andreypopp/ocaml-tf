@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_volume_quota_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_volume_quota_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_netapp_volume_quota_rule = {
   id : string prop option; [@option]  (** id *)
@@ -21,10 +21,27 @@ type azurerm_netapp_volume_quota_rule = {
   quota_target : string prop option; [@option]  (** quota_target *)
   quota_type : string prop;  (** quota_type *)
   volume_id : string prop;  (** volume_id *)
-  timeouts : azurerm_netapp_volume_quota_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_volume_quota_rule *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_netapp_volume_quota_rule ?id ?quota_target ?timeouts
+    ~location ~name ~quota_size_in_kib ~quota_type ~volume_id () :
+    azurerm_netapp_volume_quota_rule =
+  {
+    id;
+    location;
+    name;
+    quota_size_in_kib;
+    quota_target;
+    quota_type;
+    volume_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -36,24 +53,14 @@ type t = {
   volume_id : string prop;
 }
 
-let azurerm_netapp_volume_quota_rule ?id ?quota_target ?timeouts
-    ~location ~name ~quota_size_in_kib ~quota_type ~volume_id
-    __resource_id =
+let register ?tf_module ?id ?quota_target ?timeouts ~location ~name
+    ~quota_size_in_kib ~quota_type ~volume_id __resource_id =
   let __resource_type = "azurerm_netapp_volume_quota_rule" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       quota_size_in_kib;
-       quota_target;
-       quota_type;
-       volume_id;
-       timeouts;
-     }
-      : azurerm_netapp_volume_quota_rule)
+    azurerm_netapp_volume_quota_rule ?id ?quota_target ?timeouts
+      ~location ~name ~quota_size_in_kib ~quota_type ~volume_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_volume_quota_rule __resource);
   let __resource_attributes =
     ({

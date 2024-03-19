@@ -4,17 +4,15 @@
 
 open! Tf.Prelude
 
-type google_gke_hub_scope__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gke_hub_scope__timeouts *)
+(** timeouts *)
 
-type google_gke_hub_scope__state = {
-  code : string prop;  (** code *)
-}
+type state = { code : string prop  (** code *) }
 [@@deriving yojson_of]
 
 type google_gke_hub_scope = {
@@ -34,10 +32,17 @@ share a key. Keys and values must be Kubernetes-conformant. *)
   project : string prop option; [@option]  (** project *)
   scope_id : string prop;
       (** The client-provided identifier of the scope. *)
-  timeouts : google_gke_hub_scope__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gke_hub_scope *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gke_hub_scope ?id ?labels ?namespace_labels ?project
+    ?timeouts ~scope_id () : google_gke_hub_scope =
+  { id; labels; namespace_labels; project; scope_id; timeouts }
 
 type t = {
   create_time : string prop;
@@ -49,20 +54,20 @@ type t = {
   namespace_labels : (string * string) list prop;
   project : string prop;
   scope_id : string prop;
-  state : google_gke_hub_scope__state list prop;
+  state : state list prop;
   terraform_labels : (string * string) list prop;
   uid : string prop;
   update_time : string prop;
 }
 
-let google_gke_hub_scope ?id ?labels ?namespace_labels ?project
+let register ?tf_module ?id ?labels ?namespace_labels ?project
     ?timeouts ~scope_id __resource_id =
   let __resource_type = "google_gke_hub_scope" in
   let __resource =
-    ({ id; labels; namespace_labels; project; scope_id; timeouts }
-      : google_gke_hub_scope)
+    google_gke_hub_scope ?id ?labels ?namespace_labels ?project
+      ?timeouts ~scope_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_scope __resource);
   let __resource_attributes =
     ({

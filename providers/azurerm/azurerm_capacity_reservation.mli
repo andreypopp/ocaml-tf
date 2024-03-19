@@ -2,9 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_capacity_reservation__sku
-type azurerm_capacity_reservation__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type sku
+
+val sku : capacity:float prop -> name:string prop -> unit -> sku
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_capacity_reservation
+
+val azurerm_capacity_reservation :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  capacity_reservation_group_id:string prop ->
+  name:string prop ->
+  sku:sku list ->
+  unit ->
+  azurerm_capacity_reservation
+
+val yojson_of_azurerm_capacity_reservation :
+  azurerm_capacity_reservation -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   capacity_reservation_group_id : string prop;
@@ -14,13 +44,14 @@ type t = private {
   zone : string prop;
 }
 
-val azurerm_capacity_reservation :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?zone:string prop ->
-  ?timeouts:azurerm_capacity_reservation__timeouts ->
+  ?timeouts:timeouts ->
   capacity_reservation_group_id:string prop ->
   name:string prop ->
-  sku:azurerm_capacity_reservation__sku list ->
+  sku:sku list ->
   string ->
   t

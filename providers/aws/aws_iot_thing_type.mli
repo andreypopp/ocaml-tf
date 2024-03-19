@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_iot_thing_type__properties
+(** RESOURCE SERIALIZATION *)
+
+type properties
+
+val properties :
+  ?description:string prop ->
+  ?searchable_attributes:string prop list ->
+  unit ->
+  properties
+
 type aws_iot_thing_type
+
+val aws_iot_thing_type :
+  ?deprecated:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  properties:properties list ->
+  unit ->
+  aws_iot_thing_type
+
+val yojson_of_aws_iot_thing_type : aws_iot_thing_type -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,12 +37,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_iot_thing_type :
+val register :
+  ?tf_module:tf_module ->
   ?deprecated:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  properties:aws_iot_thing_type__properties list ->
+  properties:properties list ->
   string ->
   t

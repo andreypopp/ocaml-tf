@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_firebase_app_check_service_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_firebase_app_check_service_config__timeouts *)
+(** timeouts *)
 
 type google_firebase_app_check_service_config = {
   enforcement_mode : string prop option; [@option]
@@ -52,11 +52,18 @@ clients in use. Possible values: [UNENFORCED, ENFORCED] *)
   firebasedatabase.googleapis.com (Firebase Realtime Database)
   firestore.googleapis.com (Cloud Firestore)
   identitytoolkit.googleapis.com (Authentication) *)
-  timeouts :
-    google_firebase_app_check_service_config__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_firebase_app_check_service_config *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_firebase_app_check_service_config ?enforcement_mode ?id
+    ?project ?timeouts ~service_id () :
+    google_firebase_app_check_service_config =
+  { enforcement_mode; id; project; service_id; timeouts }
 
 type t = {
   enforcement_mode : string prop;
@@ -66,14 +73,14 @@ type t = {
   service_id : string prop;
 }
 
-let google_firebase_app_check_service_config ?enforcement_mode ?id
-    ?project ?timeouts ~service_id __resource_id =
+let register ?tf_module ?enforcement_mode ?id ?project ?timeouts
+    ~service_id __resource_id =
   let __resource_type = "google_firebase_app_check_service_config" in
   let __resource =
-    ({ enforcement_mode; id; project; service_id; timeouts }
-      : google_firebase_app_check_service_config)
+    google_firebase_app_check_service_config ?enforcement_mode ?id
+      ?project ?timeouts ~service_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebase_app_check_service_config __resource);
   let __resource_attributes =
     ({

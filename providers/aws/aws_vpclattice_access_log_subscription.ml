@@ -15,6 +15,11 @@ type aws_vpclattice_access_log_subscription = {
 [@@deriving yojson_of]
 (** aws_vpclattice_access_log_subscription *)
 
+let aws_vpclattice_access_log_subscription ?id ?tags ?tags_all
+    ~destination_arn ~resource_identifier () :
+    aws_vpclattice_access_log_subscription =
+  { destination_arn; id; resource_identifier; tags; tags_all }
+
 type t = {
   arn : string prop;
   destination_arn : string prop;
@@ -25,14 +30,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpclattice_access_log_subscription ?id ?tags ?tags_all
-    ~destination_arn ~resource_identifier __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~destination_arn
+    ~resource_identifier __resource_id =
   let __resource_type = "aws_vpclattice_access_log_subscription" in
   let __resource =
-    ({ destination_arn; id; resource_identifier; tags; tags_all }
-      : aws_vpclattice_access_log_subscription)
+    aws_vpclattice_access_log_subscription ?id ?tags ?tags_all
+      ~destination_arn ~resource_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_access_log_subscription __resource);
   let __resource_attributes =
     ({

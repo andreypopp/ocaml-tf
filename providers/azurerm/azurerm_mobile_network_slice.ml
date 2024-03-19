@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_mobile_network_slice__single_network_slice_selection_assistance_information = {
+type single_network_slice_selection_assistance_information = {
   slice_differentiator : string prop option; [@option]
       (** slice_differentiator *)
   slice_service_type : float prop;  (** slice_service_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_slice__single_network_slice_selection_assistance_information *)
+(** single_network_slice_selection_assistance_information *)
 
-type azurerm_mobile_network_slice__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_slice__timeouts *)
+(** timeouts *)
 
 type azurerm_mobile_network_slice = {
   description : string prop option; [@option]  (** description *)
@@ -29,12 +29,34 @@ type azurerm_mobile_network_slice = {
   name : string prop;  (** name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   single_network_slice_selection_assistance_information :
-    azurerm_mobile_network_slice__single_network_slice_selection_assistance_information
-    list;
-  timeouts : azurerm_mobile_network_slice__timeouts option;
+    single_network_slice_selection_assistance_information list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_slice *)
+
+let single_network_slice_selection_assistance_information
+    ?slice_differentiator ~slice_service_type () :
+    single_network_slice_selection_assistance_information =
+  { slice_differentiator; slice_service_type }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mobile_network_slice ?description ?id ?tags ?timeouts
+    ~location ~mobile_network_id ~name
+    ~single_network_slice_selection_assistance_information () :
+    azurerm_mobile_network_slice =
+  {
+    description;
+    id;
+    location;
+    mobile_network_id;
+    name;
+    tags;
+    single_network_slice_selection_assistance_information;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -45,25 +67,17 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_mobile_network_slice ?description ?id ?tags ?timeouts
-    ~location ~mobile_network_id ~name
+let register ?tf_module ?description ?id ?tags ?timeouts ~location
+    ~mobile_network_id ~name
     ~single_network_slice_selection_assistance_information
     __resource_id =
   let __resource_type = "azurerm_mobile_network_slice" in
   let __resource =
-    ({
-       description;
-       id;
-       location;
-       mobile_network_id;
-       name;
-       tags;
-       single_network_slice_selection_assistance_information;
-       timeouts;
-     }
-      : azurerm_mobile_network_slice)
+    azurerm_mobile_network_slice ?description ?id ?tags ?timeouts
+      ~location ~mobile_network_id ~name
+      ~single_network_slice_selection_assistance_information ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_slice __resource);
   let __resource_attributes =
     ({

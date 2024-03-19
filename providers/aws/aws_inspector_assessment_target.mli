@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_inspector_assessment_target
+
+val aws_inspector_assessment_target :
+  ?id:string prop ->
+  ?resource_group_arn:string prop ->
+  name:string prop ->
+  unit ->
+  aws_inspector_assessment_target
+
+val yojson_of_aws_inspector_assessment_target :
+  aws_inspector_assessment_target -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -11,7 +25,8 @@ type t = private {
   resource_group_arn : string prop;
 }
 
-val aws_inspector_assessment_target :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?resource_group_arn:string prop ->
   name:string prop ->

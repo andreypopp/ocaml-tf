@@ -2,11 +2,65 @@
 
 open! Tf.Prelude
 
-type cloudflare_load_balancer_pool__load_shedding
-type cloudflare_load_balancer_pool__origin_steering
-type cloudflare_load_balancer_pool__origins__header
-type cloudflare_load_balancer_pool__origins
+(** RESOURCE SERIALIZATION *)
+
+type load_shedding
+
+val load_shedding :
+  ?default_percent:float prop ->
+  ?default_policy:string prop ->
+  ?session_percent:float prop ->
+  ?session_policy:string prop ->
+  unit ->
+  load_shedding
+
+type origin_steering
+
+val origin_steering : ?policy:string prop -> unit -> origin_steering
+
+type origins__header
+
+val origins__header :
+  header:string prop ->
+  values:string prop list ->
+  unit ->
+  origins__header
+
+type origins
+
+val origins :
+  ?enabled:bool prop ->
+  ?weight:float prop ->
+  address:string prop ->
+  name:string prop ->
+  header:origins__header list ->
+  unit ->
+  origins
+
 type cloudflare_load_balancer_pool
+
+val cloudflare_load_balancer_pool :
+  ?check_regions:string prop list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?latitude:float prop ->
+  ?longitude:float prop ->
+  ?minimum_origins:float prop ->
+  ?monitor:string prop ->
+  ?notification_email:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  load_shedding:load_shedding list ->
+  origin_steering:origin_steering list ->
+  origins:origins list ->
+  unit ->
+  cloudflare_load_balancer_pool
+
+val yojson_of_cloudflare_load_balancer_pool :
+  cloudflare_load_balancer_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -24,7 +78,8 @@ type t = private {
   notification_email : string prop;
 }
 
-val cloudflare_load_balancer_pool :
+val register :
+  ?tf_module:tf_module ->
   ?check_regions:string prop list ->
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -36,8 +91,8 @@ val cloudflare_load_balancer_pool :
   ?notification_email:string prop ->
   account_id:string prop ->
   name:string prop ->
-  load_shedding:cloudflare_load_balancer_pool__load_shedding list ->
-  origin_steering:cloudflare_load_balancer_pool__origin_steering list ->
-  origins:cloudflare_load_balancer_pool__origins list ->
+  load_shedding:load_shedding list ->
+  origin_steering:origin_steering list ->
+  origins:origins list ->
   string ->
   t

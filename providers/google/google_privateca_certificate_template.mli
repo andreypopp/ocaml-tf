@@ -2,33 +2,159 @@
 
 open! Tf.Prelude
 
-type google_privateca_certificate_template__identity_constraints__cel_expression
+(** RESOURCE SERIALIZATION *)
 
-type google_privateca_certificate_template__identity_constraints
+type identity_constraints__cel_expression
 
-type google_privateca_certificate_template__passthrough_extensions__additional_extensions
+val identity_constraints__cel_expression :
+  ?description:string prop ->
+  ?expression:string prop ->
+  ?location:string prop ->
+  ?title:string prop ->
+  unit ->
+  identity_constraints__cel_expression
 
-type google_privateca_certificate_template__passthrough_extensions
+type identity_constraints
 
-type google_privateca_certificate_template__predefined_values__additional_extensions__object_id
+val identity_constraints :
+  allow_subject_alt_names_passthrough:bool prop ->
+  allow_subject_passthrough:bool prop ->
+  cel_expression:identity_constraints__cel_expression list ->
+  unit ->
+  identity_constraints
 
-type google_privateca_certificate_template__predefined_values__additional_extensions
+type passthrough_extensions__additional_extensions
 
-type google_privateca_certificate_template__predefined_values__ca_options
+val passthrough_extensions__additional_extensions :
+  object_id_path:float prop list ->
+  unit ->
+  passthrough_extensions__additional_extensions
 
-type google_privateca_certificate_template__predefined_values__key_usage__base_key_usage
+type passthrough_extensions
 
-type google_privateca_certificate_template__predefined_values__key_usage__extended_key_usage
+val passthrough_extensions :
+  ?known_extensions:string prop list ->
+  additional_extensions:
+    passthrough_extensions__additional_extensions list ->
+  unit ->
+  passthrough_extensions
 
-type google_privateca_certificate_template__predefined_values__key_usage__unknown_extended_key_usages
+type predefined_values__additional_extensions__object_id
 
-type google_privateca_certificate_template__predefined_values__key_usage
+val predefined_values__additional_extensions__object_id :
+  object_id_path:float prop list ->
+  unit ->
+  predefined_values__additional_extensions__object_id
 
-type google_privateca_certificate_template__predefined_values__policy_ids
+type predefined_values__additional_extensions
 
-type google_privateca_certificate_template__predefined_values
-type google_privateca_certificate_template__timeouts
+val predefined_values__additional_extensions :
+  ?critical:bool prop ->
+  value:string prop ->
+  object_id:predefined_values__additional_extensions__object_id list ->
+  unit ->
+  predefined_values__additional_extensions
+
+type predefined_values__ca_options
+
+val predefined_values__ca_options :
+  ?is_ca:bool prop ->
+  ?max_issuer_path_length:float prop ->
+  unit ->
+  predefined_values__ca_options
+
+type predefined_values__key_usage__base_key_usage
+
+val predefined_values__key_usage__base_key_usage :
+  ?cert_sign:bool prop ->
+  ?content_commitment:bool prop ->
+  ?crl_sign:bool prop ->
+  ?data_encipherment:bool prop ->
+  ?decipher_only:bool prop ->
+  ?digital_signature:bool prop ->
+  ?encipher_only:bool prop ->
+  ?key_agreement:bool prop ->
+  ?key_encipherment:bool prop ->
+  unit ->
+  predefined_values__key_usage__base_key_usage
+
+type predefined_values__key_usage__extended_key_usage
+
+val predefined_values__key_usage__extended_key_usage :
+  ?client_auth:bool prop ->
+  ?code_signing:bool prop ->
+  ?email_protection:bool prop ->
+  ?ocsp_signing:bool prop ->
+  ?server_auth:bool prop ->
+  ?time_stamping:bool prop ->
+  unit ->
+  predefined_values__key_usage__extended_key_usage
+
+type predefined_values__key_usage__unknown_extended_key_usages
+
+val predefined_values__key_usage__unknown_extended_key_usages :
+  object_id_path:float prop list ->
+  unit ->
+  predefined_values__key_usage__unknown_extended_key_usages
+
+type predefined_values__key_usage
+
+val predefined_values__key_usage :
+  base_key_usage:predefined_values__key_usage__base_key_usage list ->
+  extended_key_usage:
+    predefined_values__key_usage__extended_key_usage list ->
+  unknown_extended_key_usages:
+    predefined_values__key_usage__unknown_extended_key_usages list ->
+  unit ->
+  predefined_values__key_usage
+
+type predefined_values__policy_ids
+
+val predefined_values__policy_ids :
+  object_id_path:float prop list ->
+  unit ->
+  predefined_values__policy_ids
+
+type predefined_values
+
+val predefined_values :
+  ?aia_ocsp_servers:string prop list ->
+  additional_extensions:predefined_values__additional_extensions list ->
+  ca_options:predefined_values__ca_options list ->
+  key_usage:predefined_values__key_usage list ->
+  policy_ids:predefined_values__policy_ids list ->
+  unit ->
+  predefined_values
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_privateca_certificate_template
+
+val google_privateca_certificate_template :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  identity_constraints:identity_constraints list ->
+  passthrough_extensions:passthrough_extensions list ->
+  predefined_values:predefined_values list ->
+  unit ->
+  google_privateca_certificate_template
+
+val yojson_of_google_privateca_certificate_template :
+  google_privateca_certificate_template -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -43,20 +169,17 @@ type t = private {
   update_time : string prop;
 }
 
-val google_privateca_certificate_template :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_privateca_certificate_template__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  identity_constraints:
-    google_privateca_certificate_template__identity_constraints list ->
-  passthrough_extensions:
-    google_privateca_certificate_template__passthrough_extensions
-    list ->
-  predefined_values:
-    google_privateca_certificate_template__predefined_values list ->
+  identity_constraints:identity_constraints list ->
+  passthrough_extensions:passthrough_extensions list ->
+  predefined_values:predefined_values list ->
   string ->
   t

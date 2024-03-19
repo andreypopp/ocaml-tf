@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_organizations_policy_attachment
+
+val aws_organizations_policy_attachment :
+  ?id:string prop ->
+  ?skip_destroy:bool prop ->
+  policy_id:string prop ->
+  target_id:string prop ->
+  unit ->
+  aws_organizations_policy_attachment
+
+val yojson_of_aws_organizations_policy_attachment :
+  aws_organizations_policy_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,7 +26,8 @@ type t = private {
   target_id : string prop;
 }
 
-val aws_organizations_policy_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?skip_destroy:bool prop ->
   policy_id:string prop ->

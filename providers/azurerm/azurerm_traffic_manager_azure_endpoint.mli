@@ -2,10 +2,54 @@
 
 open! Tf.Prelude
 
-type azurerm_traffic_manager_azure_endpoint__custom_header
-type azurerm_traffic_manager_azure_endpoint__subnet
-type azurerm_traffic_manager_azure_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type custom_header
+
+val custom_header :
+  name:string prop -> value:string prop -> unit -> custom_header
+
+type subnet
+
+val subnet :
+  ?last:string prop ->
+  ?scope:float prop ->
+  first:string prop ->
+  unit ->
+  subnet
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_traffic_manager_azure_endpoint
+
+val azurerm_traffic_manager_azure_endpoint :
+  ?always_serve_enabled:bool prop ->
+  ?enabled:bool prop ->
+  ?geo_mappings:string prop list ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?weight:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  profile_id:string prop ->
+  target_resource_id:string prop ->
+  custom_header:custom_header list ->
+  subnet:subnet list ->
+  unit ->
+  azurerm_traffic_manager_azure_endpoint
+
+val yojson_of_azurerm_traffic_manager_azure_endpoint :
+  azurerm_traffic_manager_azure_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   always_serve_enabled : bool prop;
@@ -19,19 +63,19 @@ type t = private {
   weight : float prop;
 }
 
-val azurerm_traffic_manager_azure_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?always_serve_enabled:bool prop ->
   ?enabled:bool prop ->
   ?geo_mappings:string prop list ->
   ?id:string prop ->
   ?priority:float prop ->
   ?weight:float prop ->
-  ?timeouts:azurerm_traffic_manager_azure_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   profile_id:string prop ->
   target_resource_id:string prop ->
-  custom_header:
-    azurerm_traffic_manager_azure_endpoint__custom_header list ->
-  subnet:azurerm_traffic_manager_azure_endpoint__subnet list ->
+  custom_header:custom_header list ->
+  subnet:subnet list ->
   string ->
   t

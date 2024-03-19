@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_target_http_proxy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_target_http_proxy__timeouts *)
+(** timeouts *)
 
 type google_compute_target_http_proxy = {
   description : string prop option; [@option]
@@ -38,10 +38,27 @@ this target proxy has a loadBalancingScheme set to INTERNAL_SELF_MANAGED. *)
   url_map : string prop;
       (** A reference to the UrlMap resource that defines the mapping from URL
 to the BackendService. *)
-  timeouts : google_compute_target_http_proxy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_target_http_proxy *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_target_http_proxy ?description
+    ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind ?timeouts
+    ~name ~url_map () : google_compute_target_http_proxy =
+  {
+    description;
+    http_keep_alive_timeout_sec;
+    id;
+    name;
+    project;
+    proxy_bind;
+    url_map;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -56,24 +73,15 @@ type t = {
   url_map : string prop;
 }
 
-let google_compute_target_http_proxy ?description
-    ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind ?timeouts
-    ~name ~url_map __resource_id =
+let register ?tf_module ?description ?http_keep_alive_timeout_sec ?id
+    ?project ?proxy_bind ?timeouts ~name ~url_map __resource_id =
   let __resource_type = "google_compute_target_http_proxy" in
   let __resource =
-    ({
-       description;
-       http_keep_alive_timeout_sec;
-       id;
-       name;
-       project;
-       proxy_bind;
-       url_map;
-       timeouts;
-     }
-      : google_compute_target_http_proxy)
+    google_compute_target_http_proxy ?description
+      ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind ?timeouts
+      ~name ~url_map ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_http_proxy __resource);
   let __resource_attributes =
     ({

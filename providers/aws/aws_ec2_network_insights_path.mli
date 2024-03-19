@@ -2,7 +2,27 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ec2_network_insights_path
+
+val aws_ec2_network_insights_path :
+  ?destination_ip:string prop ->
+  ?destination_port:float prop ->
+  ?id:string prop ->
+  ?source_ip:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  destination:string prop ->
+  protocol:string prop ->
+  source:string prop ->
+  unit ->
+  aws_ec2_network_insights_path
+
+val yojson_of_aws_ec2_network_insights_path :
+  aws_ec2_network_insights_path -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,7 +39,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ec2_network_insights_path :
+val register :
+  ?tf_module:tf_module ->
   ?destination_ip:string prop ->
   ?destination_port:float prop ->
   ?id:string prop ->

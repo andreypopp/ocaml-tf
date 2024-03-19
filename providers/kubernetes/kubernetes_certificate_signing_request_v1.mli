@@ -2,10 +2,46 @@
 
 open! Tf.Prelude
 
-type kubernetes_certificate_signing_request_v1__metadata
-type kubernetes_certificate_signing_request_v1__spec
-type kubernetes_certificate_signing_request_v1__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  unit ->
+  metadata
+
+type spec
+
+val spec :
+  ?usages:string prop list ->
+  request:string prop ->
+  signer_name:string prop ->
+  unit ->
+  spec
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type kubernetes_certificate_signing_request_v1
+
+val kubernetes_certificate_signing_request_v1 :
+  ?auto_approve:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  spec:spec list ->
+  unit ->
+  kubernetes_certificate_signing_request_v1
+
+val yojson_of_kubernetes_certificate_signing_request_v1 :
+  kubernetes_certificate_signing_request_v1 -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_approve : bool prop;
@@ -13,11 +49,12 @@ type t = private {
   id : string prop;
 }
 
-val kubernetes_certificate_signing_request_v1 :
+val register :
+  ?tf_module:tf_module ->
   ?auto_approve:bool prop ->
   ?id:string prop ->
-  ?timeouts:kubernetes_certificate_signing_request_v1__timeouts ->
-  metadata:kubernetes_certificate_signing_request_v1__metadata list ->
-  spec:kubernetes_certificate_signing_request_v1__spec list ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  spec:spec list ->
   string ->
   t

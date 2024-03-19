@@ -2,9 +2,43 @@
 
 open! Tf.Prelude
 
-type aws_eks_identity_provider_config__oidc
-type aws_eks_identity_provider_config__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type oidc
+
+val oidc :
+  ?groups_claim:string prop ->
+  ?groups_prefix:string prop ->
+  ?required_claims:(string * string prop) list ->
+  ?username_claim:string prop ->
+  ?username_prefix:string prop ->
+  client_id:string prop ->
+  identity_provider_config_name:string prop ->
+  issuer_url:string prop ->
+  unit ->
+  oidc
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_eks_identity_provider_config
+
+val aws_eks_identity_provider_config :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  oidc:oidc list ->
+  unit ->
+  aws_eks_identity_provider_config
+
+val yojson_of_aws_eks_identity_provider_config :
+  aws_eks_identity_provider_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,12 +49,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_eks_identity_provider_config :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_eks_identity_provider_config__timeouts ->
+  ?timeouts:timeouts ->
   cluster_name:string prop ->
-  oidc:aws_eks_identity_provider_config__oidc list ->
+  oidc:oidc list ->
   string ->
   t

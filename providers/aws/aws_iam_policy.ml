@@ -18,6 +18,19 @@ type aws_iam_policy = {
 [@@deriving yojson_of]
 (** aws_iam_policy *)
 
+let aws_iam_policy ?description ?id ?name ?name_prefix ?path ?tags
+    ?tags_all ~policy () : aws_iam_policy =
+  {
+    description;
+    id;
+    name;
+    name_prefix;
+    path;
+    policy;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -31,23 +44,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_iam_policy ?description ?id ?name ?name_prefix ?path ?tags
-    ?tags_all ~policy __resource_id =
+let register ?tf_module ?description ?id ?name ?name_prefix ?path
+    ?tags ?tags_all ~policy __resource_id =
   let __resource_type = "aws_iam_policy" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       name_prefix;
-       path;
-       policy;
-       tags;
-       tags_all;
-     }
-      : aws_iam_policy)
+    aws_iam_policy ?description ?id ?name ?name_prefix ?path ?tags
+      ?tags_all ~policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_policy __resource);
   let __resource_attributes =
     ({

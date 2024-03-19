@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_spot_instance_request__capacity_reservation_specification__capacity_reservation_target = {
+type capacity_reservation_specification__capacity_reservation_target = {
   capacity_reservation_id : string prop option; [@option]
       (** capacity_reservation_id *)
   capacity_reservation_resource_group_arn : string prop option;
@@ -12,34 +12,34 @@ type aws_spot_instance_request__capacity_reservation_specification__capacity_res
       (** capacity_reservation_resource_group_arn *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__capacity_reservation_specification__capacity_reservation_target *)
+(** capacity_reservation_specification__capacity_reservation_target *)
 
-type aws_spot_instance_request__capacity_reservation_specification = {
+type capacity_reservation_specification = {
   capacity_reservation_preference : string prop option; [@option]
       (** capacity_reservation_preference *)
   capacity_reservation_target :
-    aws_spot_instance_request__capacity_reservation_specification__capacity_reservation_target
+    capacity_reservation_specification__capacity_reservation_target
     list;
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__capacity_reservation_specification *)
+(** capacity_reservation_specification *)
 
-type aws_spot_instance_request__cpu_options = {
+type cpu_options = {
   amd_sev_snp : string prop option; [@option]  (** amd_sev_snp *)
   core_count : float prop option; [@option]  (** core_count *)
   threads_per_core : float prop option; [@option]
       (** threads_per_core *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__cpu_options *)
+(** cpu_options *)
 
-type aws_spot_instance_request__credit_specification = {
+type credit_specification = {
   cpu_credits : string prop option; [@option]  (** cpu_credits *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__credit_specification *)
+(** credit_specification *)
 
-type aws_spot_instance_request__ebs_block_device = {
+type ebs_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   device_name : string prop;  (** device_name *)
@@ -51,42 +51,41 @@ type aws_spot_instance_request__ebs_block_device = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   throughput : float prop option; [@option]  (** throughput *)
-  volume_id : string prop;  (** volume_id *)
   volume_size : float prop option; [@option]  (** volume_size *)
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__ebs_block_device *)
+(** ebs_block_device *)
 
-type aws_spot_instance_request__enclave_options = {
+type enclave_options = {
   enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__enclave_options *)
+(** enclave_options *)
 
-type aws_spot_instance_request__ephemeral_block_device = {
+type ephemeral_block_device = {
   device_name : string prop;  (** device_name *)
   no_device : bool prop option; [@option]  (** no_device *)
   virtual_name : string prop option; [@option]  (** virtual_name *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__ephemeral_block_device *)
+(** ephemeral_block_device *)
 
-type aws_spot_instance_request__launch_template = {
+type launch_template = {
   id : string prop option; [@option]  (** id *)
   name : string prop option; [@option]  (** name *)
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__launch_template *)
+(** launch_template *)
 
-type aws_spot_instance_request__maintenance_options = {
+type maintenance_options = {
   auto_recovery : string prop option; [@option]  (** auto_recovery *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__maintenance_options *)
+(** maintenance_options *)
 
-type aws_spot_instance_request__metadata_options = {
+type metadata_options = {
   http_endpoint : string prop option; [@option]  (** http_endpoint *)
   http_protocol_ipv6 : string prop option; [@option]
       (** http_protocol_ipv6 *)
@@ -97,9 +96,9 @@ type aws_spot_instance_request__metadata_options = {
       (** instance_metadata_tags *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__metadata_options *)
+(** metadata_options *)
 
-type aws_spot_instance_request__network_interface = {
+type network_interface = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   device_index : float prop;  (** device_index *)
@@ -108,9 +107,9 @@ type aws_spot_instance_request__network_interface = {
   network_interface_id : string prop;  (** network_interface_id *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__network_interface *)
+(** network_interface *)
 
-type aws_spot_instance_request__private_dns_name_options = {
+type private_dns_name_options = {
   enable_resource_name_dns_a_record : bool prop option; [@option]
       (** enable_resource_name_dns_a_record *)
   enable_resource_name_dns_aaaa_record : bool prop option; [@option]
@@ -118,12 +117,11 @@ type aws_spot_instance_request__private_dns_name_options = {
   hostname_type : string prop option; [@option]  (** hostname_type *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__private_dns_name_options *)
+(** private_dns_name_options *)
 
-type aws_spot_instance_request__root_block_device = {
+type root_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
-  device_name : string prop;  (** device_name *)
   encrypted : bool prop option; [@option]  (** encrypted *)
   iops : float prop option; [@option]  (** iops *)
   kms_key_id : string prop option; [@option]  (** kms_key_id *)
@@ -131,20 +129,19 @@ type aws_spot_instance_request__root_block_device = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   throughput : float prop option; [@option]  (** throughput *)
-  volume_id : string prop;  (** volume_id *)
   volume_size : float prop option; [@option]  (** volume_size *)
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__root_block_device *)
+(** root_block_device *)
 
-type aws_spot_instance_request__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** aws_spot_instance_request__timeouts *)
+(** timeouts *)
 
 type aws_spot_instance_request = {
   ami : string prop option; [@option]  (** ami *)
@@ -217,31 +214,197 @@ type aws_spot_instance_request = {
   wait_for_fulfillment : bool prop option; [@option]
       (** wait_for_fulfillment *)
   capacity_reservation_specification :
-    aws_spot_instance_request__capacity_reservation_specification
-    list;
-  cpu_options : aws_spot_instance_request__cpu_options list;
-  credit_specification :
-    aws_spot_instance_request__credit_specification list;
-  ebs_block_device :
-    aws_spot_instance_request__ebs_block_device list;
-  enclave_options : aws_spot_instance_request__enclave_options list;
-  ephemeral_block_device :
-    aws_spot_instance_request__ephemeral_block_device list;
-  launch_template : aws_spot_instance_request__launch_template list;
-  maintenance_options :
-    aws_spot_instance_request__maintenance_options list;
-  metadata_options :
-    aws_spot_instance_request__metadata_options list;
-  network_interface :
-    aws_spot_instance_request__network_interface list;
-  private_dns_name_options :
-    aws_spot_instance_request__private_dns_name_options list;
-  root_block_device :
-    aws_spot_instance_request__root_block_device list;
-  timeouts : aws_spot_instance_request__timeouts option;
+    capacity_reservation_specification list;
+  cpu_options : cpu_options list;
+  credit_specification : credit_specification list;
+  ebs_block_device : ebs_block_device list;
+  enclave_options : enclave_options list;
+  ephemeral_block_device : ephemeral_block_device list;
+  launch_template : launch_template list;
+  maintenance_options : maintenance_options list;
+  metadata_options : metadata_options list;
+  network_interface : network_interface list;
+  private_dns_name_options : private_dns_name_options list;
+  root_block_device : root_block_device list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request *)
+
+let capacity_reservation_specification__capacity_reservation_target
+    ?capacity_reservation_id ?capacity_reservation_resource_group_arn
+    () :
+    capacity_reservation_specification__capacity_reservation_target =
+  {
+    capacity_reservation_id;
+    capacity_reservation_resource_group_arn;
+  }
+
+let capacity_reservation_specification
+    ?capacity_reservation_preference ~capacity_reservation_target ()
+    : capacity_reservation_specification =
+  { capacity_reservation_preference; capacity_reservation_target }
+
+let cpu_options ?amd_sev_snp ?core_count ?threads_per_core () :
+    cpu_options =
+  { amd_sev_snp; core_count; threads_per_core }
+
+let credit_specification ?cpu_credits () : credit_specification =
+  { cpu_credits }
+
+let ebs_block_device ?delete_on_termination ?encrypted ?iops
+    ?kms_key_id ?snapshot_id ?tags ?tags_all ?throughput ?volume_size
+    ?volume_type ~device_name () : ebs_block_device =
+  {
+    delete_on_termination;
+    device_name;
+    encrypted;
+    iops;
+    kms_key_id;
+    snapshot_id;
+    tags;
+    tags_all;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let enclave_options ?enabled () : enclave_options = { enabled }
+
+let ephemeral_block_device ?no_device ?virtual_name ~device_name () :
+    ephemeral_block_device =
+  { device_name; no_device; virtual_name }
+
+let launch_template ?id ?name ?version () : launch_template =
+  { id; name; version }
+
+let maintenance_options ?auto_recovery () : maintenance_options =
+  { auto_recovery }
+
+let metadata_options ?http_endpoint ?http_protocol_ipv6
+    ?http_put_response_hop_limit ?http_tokens ?instance_metadata_tags
+    () : metadata_options =
+  {
+    http_endpoint;
+    http_protocol_ipv6;
+    http_put_response_hop_limit;
+    http_tokens;
+    instance_metadata_tags;
+  }
+
+let network_interface ?delete_on_termination ?network_card_index
+    ~device_index ~network_interface_id () : network_interface =
+  {
+    delete_on_termination;
+    device_index;
+    network_card_index;
+    network_interface_id;
+  }
+
+let private_dns_name_options ?enable_resource_name_dns_a_record
+    ?enable_resource_name_dns_aaaa_record ?hostname_type () :
+    private_dns_name_options =
+  {
+    enable_resource_name_dns_a_record;
+    enable_resource_name_dns_aaaa_record;
+    hostname_type;
+  }
+
+let root_block_device ?delete_on_termination ?encrypted ?iops
+    ?kms_key_id ?tags ?tags_all ?throughput ?volume_size ?volume_type
+    () : root_block_device =
+  {
+    delete_on_termination;
+    encrypted;
+    iops;
+    kms_key_id;
+    tags;
+    tags_all;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let aws_spot_instance_request ?ami ?associate_public_ip_address
+    ?availability_zone ?block_duration_minutes ?cpu_core_count
+    ?cpu_threads_per_core ?disable_api_stop ?disable_api_termination
+    ?ebs_optimized ?get_password_data ?hibernation ?host_id
+    ?host_resource_group_arn ?iam_instance_profile ?id
+    ?instance_initiated_shutdown_behavior
+    ?instance_interruption_behavior ?instance_type
+    ?ipv6_address_count ?ipv6_addresses ?key_name ?launch_group
+    ?monitoring ?placement_group ?placement_partition_number
+    ?private_ip ?secondary_private_ips ?security_groups
+    ?source_dest_check ?spot_price ?spot_type ?subnet_id ?tags
+    ?tags_all ?tenancy ?user_data ?user_data_base64
+    ?user_data_replace_on_change ?valid_from ?valid_until
+    ?volume_tags ?vpc_security_group_ids ?wait_for_fulfillment
+    ?timeouts ~capacity_reservation_specification ~cpu_options
+    ~credit_specification ~ebs_block_device ~enclave_options
+    ~ephemeral_block_device ~launch_template ~maintenance_options
+    ~metadata_options ~network_interface ~private_dns_name_options
+    ~root_block_device () : aws_spot_instance_request =
+  {
+    ami;
+    associate_public_ip_address;
+    availability_zone;
+    block_duration_minutes;
+    cpu_core_count;
+    cpu_threads_per_core;
+    disable_api_stop;
+    disable_api_termination;
+    ebs_optimized;
+    get_password_data;
+    hibernation;
+    host_id;
+    host_resource_group_arn;
+    iam_instance_profile;
+    id;
+    instance_initiated_shutdown_behavior;
+    instance_interruption_behavior;
+    instance_type;
+    ipv6_address_count;
+    ipv6_addresses;
+    key_name;
+    launch_group;
+    monitoring;
+    placement_group;
+    placement_partition_number;
+    private_ip;
+    secondary_private_ips;
+    security_groups;
+    source_dest_check;
+    spot_price;
+    spot_type;
+    subnet_id;
+    tags;
+    tags_all;
+    tenancy;
+    user_data;
+    user_data_base64;
+    user_data_replace_on_change;
+    valid_from;
+    valid_until;
+    volume_tags;
+    vpc_security_group_ids;
+    wait_for_fulfillment;
+    capacity_reservation_specification;
+    cpu_options;
+    credit_specification;
+    ebs_block_device;
+    enclave_options;
+    ephemeral_block_device;
+    launch_template;
+    maintenance_options;
+    metadata_options;
+    network_interface;
+    private_dns_name_options;
+    root_block_device;
+    timeouts;
+  }
 
 type t = {
   ami : string prop;
@@ -300,7 +463,7 @@ type t = {
   wait_for_fulfillment : bool prop;
 }
 
-let aws_spot_instance_request ?ami ?associate_public_ip_address
+let register ?tf_module ?ami ?associate_public_ip_address
     ?availability_zone ?block_duration_minutes ?cpu_core_count
     ?cpu_threads_per_core ?disable_api_stop ?disable_api_termination
     ?ebs_optimized ?get_password_data ?hibernation ?host_id
@@ -321,67 +484,27 @@ let aws_spot_instance_request ?ami ?associate_public_ip_address
     ~root_block_device __resource_id =
   let __resource_type = "aws_spot_instance_request" in
   let __resource =
-    ({
-       ami;
-       associate_public_ip_address;
-       availability_zone;
-       block_duration_minutes;
-       cpu_core_count;
-       cpu_threads_per_core;
-       disable_api_stop;
-       disable_api_termination;
-       ebs_optimized;
-       get_password_data;
-       hibernation;
-       host_id;
-       host_resource_group_arn;
-       iam_instance_profile;
-       id;
-       instance_initiated_shutdown_behavior;
-       instance_interruption_behavior;
-       instance_type;
-       ipv6_address_count;
-       ipv6_addresses;
-       key_name;
-       launch_group;
-       monitoring;
-       placement_group;
-       placement_partition_number;
-       private_ip;
-       secondary_private_ips;
-       security_groups;
-       source_dest_check;
-       spot_price;
-       spot_type;
-       subnet_id;
-       tags;
-       tags_all;
-       tenancy;
-       user_data;
-       user_data_base64;
-       user_data_replace_on_change;
-       valid_from;
-       valid_until;
-       volume_tags;
-       vpc_security_group_ids;
-       wait_for_fulfillment;
-       capacity_reservation_specification;
-       cpu_options;
-       credit_specification;
-       ebs_block_device;
-       enclave_options;
-       ephemeral_block_device;
-       launch_template;
-       maintenance_options;
-       metadata_options;
-       network_interface;
-       private_dns_name_options;
-       root_block_device;
-       timeouts;
-     }
-      : aws_spot_instance_request)
+    aws_spot_instance_request ?ami ?associate_public_ip_address
+      ?availability_zone ?block_duration_minutes ?cpu_core_count
+      ?cpu_threads_per_core ?disable_api_stop
+      ?disable_api_termination ?ebs_optimized ?get_password_data
+      ?hibernation ?host_id ?host_resource_group_arn
+      ?iam_instance_profile ?id ?instance_initiated_shutdown_behavior
+      ?instance_interruption_behavior ?instance_type
+      ?ipv6_address_count ?ipv6_addresses ?key_name ?launch_group
+      ?monitoring ?placement_group ?placement_partition_number
+      ?private_ip ?secondary_private_ips ?security_groups
+      ?source_dest_check ?spot_price ?spot_type ?subnet_id ?tags
+      ?tags_all ?tenancy ?user_data ?user_data_base64
+      ?user_data_replace_on_change ?valid_from ?valid_until
+      ?volume_tags ?vpc_security_group_ids ?wait_for_fulfillment
+      ?timeouts ~capacity_reservation_specification ~cpu_options
+      ~credit_specification ~ebs_block_device ~enclave_options
+      ~ephemeral_block_device ~launch_template ~maintenance_options
+      ~metadata_options ~network_interface ~private_dns_name_options
+      ~root_block_device ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_spot_instance_request __resource);
   let __resource_attributes =
     ({

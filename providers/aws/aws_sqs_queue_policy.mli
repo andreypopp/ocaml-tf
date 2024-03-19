@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_sqs_queue_policy
+
+val aws_sqs_queue_policy :
+  ?id:string prop ->
+  policy:string prop ->
+  queue_url:string prop ->
+  unit ->
+  aws_sqs_queue_policy
+
+val yojson_of_aws_sqs_queue_policy : aws_sqs_queue_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,7 +23,8 @@ type t = private {
   queue_url : string prop;
 }
 
-val aws_sqs_queue_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   policy:string prop ->
   queue_url:string prop ->

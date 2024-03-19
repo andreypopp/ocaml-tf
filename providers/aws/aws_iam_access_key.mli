@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iam_access_key
+
+val aws_iam_access_key :
+  ?id:string prop ->
+  ?pgp_key:string prop ->
+  ?status:string prop ->
+  user:string prop ->
+  unit ->
+  aws_iam_access_key
+
+val yojson_of_aws_iam_access_key : aws_iam_access_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_date : string prop;
@@ -17,7 +31,8 @@ type t = private {
   user : string prop;
 }
 
-val aws_iam_access_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?pgp_key:string prop ->
   ?status:string prop ->

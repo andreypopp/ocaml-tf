@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_eventgrid_system_topic__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventgrid_system_topic__identity *)
+(** identity *)
 
-type azurerm_eventgrid_system_topic__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventgrid_system_topic__timeouts *)
+(** timeouts *)
 
 type azurerm_eventgrid_system_topic = {
   id : string prop option; [@option]  (** id *)
@@ -32,11 +30,32 @@ type azurerm_eventgrid_system_topic = {
       (** source_arm_resource_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   topic_type : string prop;  (** topic_type *)
-  identity : azurerm_eventgrid_system_topic__identity list;
-  timeouts : azurerm_eventgrid_system_topic__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_system_topic *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~source_arm_resource_id ~topic_type
+    ~identity () : azurerm_eventgrid_system_topic =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    source_arm_resource_id;
+    tags;
+    topic_type;
+    identity;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -49,25 +68,16 @@ type t = {
   topic_type : string prop;
 }
 
-let azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~source_arm_resource_id ~topic_type
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~source_arm_resource_id ~topic_type
     ~identity __resource_id =
   let __resource_type = "azurerm_eventgrid_system_topic" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       source_arm_resource_id;
-       tags;
-       topic_type;
-       identity;
-       timeouts;
-     }
-      : azurerm_eventgrid_system_topic)
+    azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
+      ~name ~resource_group_name ~source_arm_resource_id ~topic_type
+      ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventgrid_system_topic __resource);
   let __resource_attributes =
     ({

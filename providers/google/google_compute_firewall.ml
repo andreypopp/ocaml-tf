@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_firewall__allow = {
+type allow = {
   ports : string prop list option; [@option]
       (** An optional list of ports to which this rule applies. This field
 is only applicable for UDP or TCP protocol. Each entry must be
@@ -24,7 +24,7 @@ icmp, esp, ah, sctp, ipip, all), or the IP protocol number. *)
 specifies a protocol and port-range tuple that describes a permitted
 connection. *)
 
-type google_compute_firewall__deny = {
+type deny = {
   ports : string prop list option; [@option]
       (** An optional list of ports to which this rule applies. This field
 is only applicable for UDP or TCP protocol. Each entry must be
@@ -43,7 +43,7 @@ icmp, esp, ah, sctp, ipip, all), or the IP protocol number. *)
 (** The list of DENY rules specified by this firewall. Each rule specifies
 a protocol and port-range tuple that describes a denied connection. *)
 
-type google_compute_firewall__log_config = {
+type log_config = {
   metadata : string prop;
       (** This field denotes whether to include or exclude metadata for firewall logs. Possible values: [EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA] *)
 }
@@ -51,13 +51,13 @@ type google_compute_firewall__log_config = {
 (** This field denotes the logging options for a particular firewall rule.
 If defined, logging is enabled, and logs will be exported to Cloud Logging. *)
 
-type google_compute_firewall__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_firewall__timeouts *)
+(** timeouts *)
 
 type google_compute_firewall = {
   description : string prop option; [@option]
@@ -143,13 +143,47 @@ network. *)
 network that may make network connections as specified in allowed[].
 If no targetTags are specified, the firewall rule applies to all
 instances on the specified network. *)
-  allow : google_compute_firewall__allow list;
-  deny : google_compute_firewall__deny list;
-  log_config : google_compute_firewall__log_config list;
-  timeouts : google_compute_firewall__timeouts option;
+  allow : allow list;
+  deny : deny list;
+  log_config : log_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_firewall *)
+
+let allow ?ports ~protocol () : allow = { ports; protocol }
+let deny ?ports ~protocol () : deny = { ports; protocol }
+let log_config ~metadata () : log_config = { metadata }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_firewall ?description ?destination_ranges
+    ?direction ?disabled ?enable_logging ?id ?priority ?project
+    ?source_ranges ?source_service_accounts ?source_tags
+    ?target_service_accounts ?target_tags ?timeouts ~name ~network
+    ~allow ~deny ~log_config () : google_compute_firewall =
+  {
+    description;
+    destination_ranges;
+    direction;
+    disabled;
+    enable_logging;
+    id;
+    name;
+    network;
+    priority;
+    project;
+    source_ranges;
+    source_service_accounts;
+    source_tags;
+    target_service_accounts;
+    target_tags;
+    allow;
+    deny;
+    log_config;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -171,37 +205,20 @@ type t = {
   target_tags : string list prop;
 }
 
-let google_compute_firewall ?description ?destination_ranges
-    ?direction ?disabled ?enable_logging ?id ?priority ?project
-    ?source_ranges ?source_service_accounts ?source_tags
-    ?target_service_accounts ?target_tags ?timeouts ~name ~network
-    ~allow ~deny ~log_config __resource_id =
+let register ?tf_module ?description ?destination_ranges ?direction
+    ?disabled ?enable_logging ?id ?priority ?project ?source_ranges
+    ?source_service_accounts ?source_tags ?target_service_accounts
+    ?target_tags ?timeouts ~name ~network ~allow ~deny ~log_config
+    __resource_id =
   let __resource_type = "google_compute_firewall" in
   let __resource =
-    ({
-       description;
-       destination_ranges;
-       direction;
-       disabled;
-       enable_logging;
-       id;
-       name;
-       network;
-       priority;
-       project;
-       source_ranges;
-       source_service_accounts;
-       source_tags;
-       target_service_accounts;
-       target_tags;
-       allow;
-       deny;
-       log_config;
-       timeouts;
-     }
-      : google_compute_firewall)
+    google_compute_firewall ?description ?destination_ranges
+      ?direction ?disabled ?enable_logging ?id ?priority ?project
+      ?source_ranges ?source_service_accounts ?source_tags
+      ?target_service_accounts ?target_tags ?timeouts ~name ~network
+      ~allow ~deny ~log_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_firewall __resource);
   let __resource_attributes =
     ({

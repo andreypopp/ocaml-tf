@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type kubernetes_env__env__value_from__config_map_key_ref = {
+type env__value_from__config_map_key_ref = {
   key : string prop option; [@option]  (** The key to select. *)
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
@@ -14,7 +14,7 @@ type kubernetes_env__env__value_from__config_map_key_ref = {
 [@@deriving yojson_of]
 (** Selects a key of a ConfigMap. *)
 
-type kubernetes_env__env__value_from__field_ref = {
+type env__value_from__field_ref = {
   api_version : string prop option; [@option]
       (** Version of the schema the FieldPath is written in terms of, defaults to v1. *)
   field_path : string prop option; [@option]
@@ -23,7 +23,7 @@ type kubernetes_env__env__value_from__field_ref = {
 [@@deriving yojson_of]
 (** Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP. *)
 
-type kubernetes_env__env__value_from__resource_field_ref = {
+type env__value_from__resource_field_ref = {
   container_name : string prop option; [@option]
       (** container_name *)
   divisor : string prop option; [@option]  (** divisor *)
@@ -32,7 +32,7 @@ type kubernetes_env__env__value_from__resource_field_ref = {
 [@@deriving yojson_of]
 (** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported. *)
 
-type kubernetes_env__env__value_from__secret_key_ref = {
+type env__value_from__secret_key_ref = {
   key : string prop option; [@option]
       (** The key of the secret to select from. Must be a valid secret key. *)
   name : string prop option; [@option]
@@ -43,35 +43,32 @@ type kubernetes_env__env__value_from__secret_key_ref = {
 [@@deriving yojson_of]
 (** Selects a key of a secret in the pod's namespace. *)
 
-type kubernetes_env__env__value_from = {
-  config_map_key_ref :
-    kubernetes_env__env__value_from__config_map_key_ref list;
-  field_ref : kubernetes_env__env__value_from__field_ref list;
-  resource_field_ref :
-    kubernetes_env__env__value_from__resource_field_ref list;
-  secret_key_ref :
-    kubernetes_env__env__value_from__secret_key_ref list;
+type env__value_from = {
+  config_map_key_ref : env__value_from__config_map_key_ref list;
+  field_ref : env__value_from__field_ref list;
+  resource_field_ref : env__value_from__resource_field_ref list;
+  secret_key_ref : env__value_from__secret_key_ref list;
 }
 [@@deriving yojson_of]
 (** Source for the environment variable's value *)
 
-type kubernetes_env__env = {
+type env = {
   name : string prop;
       (** Name of the environment variable. Must be a C_IDENTIFIER *)
   value : string prop option; [@option]
       (** Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to . *)
-  value_from : kubernetes_env__env__value_from list;
+  value_from : env__value_from list;
 }
 [@@deriving yojson_of]
 (** List of custom values used to represent environment variables *)
 
-type kubernetes_env__metadata = {
+type metadata = {
   name : string prop;  (** The name of the resource. *)
   namespace : string prop option; [@option]
       (** The namespace of the resource. *)
 }
 [@@deriving yojson_of]
-(** kubernetes_env__metadata *)
+(** metadata *)
 
 type kubernetes_env = {
   api_version : string prop;  (** Resource API version *)
@@ -85,11 +82,56 @@ type kubernetes_env = {
   init_container : string prop option; [@option]
       (** Name of the initContainer for which we are updating the environment variables. *)
   kind : string prop;  (** Resource Kind *)
-  env : kubernetes_env__env list;
-  metadata : kubernetes_env__metadata list;
+  env : env list;
+  metadata : metadata list;
 }
 [@@deriving yojson_of]
 (** kubernetes_env *)
+
+let env__value_from__config_map_key_ref ?key ?name ?optional () :
+    env__value_from__config_map_key_ref =
+  { key; name; optional }
+
+let env__value_from__field_ref ?api_version ?field_path () :
+    env__value_from__field_ref =
+  { api_version; field_path }
+
+let env__value_from__resource_field_ref ?container_name ?divisor
+    ~resource () : env__value_from__resource_field_ref =
+  { container_name; divisor; resource }
+
+let env__value_from__secret_key_ref ?key ?name ?optional () :
+    env__value_from__secret_key_ref =
+  { key; name; optional }
+
+let env__value_from ~config_map_key_ref ~field_ref
+    ~resource_field_ref ~secret_key_ref () : env__value_from =
+  {
+    config_map_key_ref;
+    field_ref;
+    resource_field_ref;
+    secret_key_ref;
+  }
+
+let env ?value ~name ~value_from () : env =
+  { name; value; value_from }
+
+let metadata ?namespace ~name () : metadata = { name; namespace }
+
+let kubernetes_env ?container ?field_manager ?force ?id
+    ?init_container ~api_version ~kind ~env ~metadata () :
+    kubernetes_env =
+  {
+    api_version;
+    container;
+    field_manager;
+    force;
+    id;
+    init_container;
+    kind;
+    env;
+    metadata;
+  }
 
 type t = {
   api_version : string prop;
@@ -101,24 +143,14 @@ type t = {
   kind : string prop;
 }
 
-let kubernetes_env ?container ?field_manager ?force ?id
+let register ?tf_module ?container ?field_manager ?force ?id
     ?init_container ~api_version ~kind ~env ~metadata __resource_id =
   let __resource_type = "kubernetes_env" in
   let __resource =
-    ({
-       api_version;
-       container;
-       field_manager;
-       force;
-       id;
-       init_container;
-       kind;
-       env;
-       metadata;
-     }
-      : kubernetes_env)
+    kubernetes_env ?container ?field_manager ?force ?id
+      ?init_container ~api_version ~kind ~env ~metadata ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_env __resource);
   let __resource_attributes =
     ({

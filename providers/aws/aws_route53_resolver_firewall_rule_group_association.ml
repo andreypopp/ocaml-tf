@@ -20,6 +20,21 @@ type aws_route53_resolver_firewall_rule_group_association = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_firewall_rule_group_association *)
 
+let aws_route53_resolver_firewall_rule_group_association ?id
+    ?mutation_protection ?tags ?tags_all ~firewall_rule_group_id
+    ~name ~priority ~vpc_id () :
+    aws_route53_resolver_firewall_rule_group_association =
+  {
+    firewall_rule_group_id;
+    id;
+    mutation_protection;
+    name;
+    priority;
+    tags;
+    tags_all;
+    vpc_id;
+  }
+
 type t = {
   arn : string prop;
   firewall_rule_group_id : string prop;
@@ -32,26 +47,17 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_route53_resolver_firewall_rule_group_association ?id
-    ?mutation_protection ?tags ?tags_all ~firewall_rule_group_id
-    ~name ~priority ~vpc_id __resource_id =
+let register ?tf_module ?id ?mutation_protection ?tags ?tags_all
+    ~firewall_rule_group_id ~name ~priority ~vpc_id __resource_id =
   let __resource_type =
     "aws_route53_resolver_firewall_rule_group_association"
   in
   let __resource =
-    ({
-       firewall_rule_group_id;
-       id;
-       mutation_protection;
-       name;
-       priority;
-       tags;
-       tags_all;
-       vpc_id;
-     }
-      : aws_route53_resolver_firewall_rule_group_association)
+    aws_route53_resolver_firewall_rule_group_association ?id
+      ?mutation_protection ?tags ?tags_all ~firewall_rule_group_id
+      ~name ~priority ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_firewall_rule_group_association
        __resource);
   let __resource_attributes =

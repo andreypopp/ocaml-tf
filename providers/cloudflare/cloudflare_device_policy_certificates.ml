@@ -17,20 +17,22 @@ policy certificate resources enable client device certificate
 generation.
  *)
 
+let cloudflare_device_policy_certificates ?id ~enabled ~zone_id () :
+    cloudflare_device_policy_certificates =
+  { enabled; id; zone_id }
+
 type t = {
   enabled : bool prop;
   id : string prop;
   zone_id : string prop;
 }
 
-let cloudflare_device_policy_certificates ?id ~enabled ~zone_id
-    __resource_id =
+let register ?tf_module ?id ~enabled ~zone_id __resource_id =
   let __resource_type = "cloudflare_device_policy_certificates" in
   let __resource =
-    ({ enabled; id; zone_id }
-      : cloudflare_device_policy_certificates)
+    cloudflare_device_policy_certificates ?id ~enabled ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_policy_certificates __resource);
   let __resource_attributes =
     ({

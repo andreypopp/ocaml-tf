@@ -2,10 +2,58 @@
 
 open! Tf.Prelude
 
-type azurerm_logz_monitor__plan
-type azurerm_logz_monitor__timeouts
-type azurerm_logz_monitor__user
+(** RESOURCE SERIALIZATION *)
+
+type plan
+
+val plan :
+  ?plan_id:string prop ->
+  billing_cycle:string prop ->
+  effective_date:string prop ->
+  usage_type:string prop ->
+  unit ->
+  plan
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type user
+
+val user :
+  email:string prop ->
+  first_name:string prop ->
+  last_name:string prop ->
+  phone_number:string prop ->
+  unit ->
+  user
+
 type azurerm_logz_monitor
+
+val azurerm_logz_monitor :
+  ?company_name:string prop ->
+  ?enabled:bool prop ->
+  ?enterprise_app_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  plan:plan list ->
+  user:user list ->
+  unit ->
+  azurerm_logz_monitor
+
+val yojson_of_azurerm_logz_monitor : azurerm_logz_monitor -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   company_name : string prop;
@@ -20,17 +68,18 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_logz_monitor :
+val register :
+  ?tf_module:tf_module ->
   ?company_name:string prop ->
   ?enabled:bool prop ->
   ?enterprise_app_id:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_logz_monitor__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  plan:azurerm_logz_monitor__plan list ->
-  user:azurerm_logz_monitor__user list ->
+  plan:plan list ->
+  user:user list ->
   string ->
   t

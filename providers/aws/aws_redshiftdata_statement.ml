@@ -4,18 +4,18 @@
 
 open! Tf.Prelude
 
-type aws_redshiftdata_statement__parameters = {
+type parameters = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_redshiftdata_statement__parameters *)
+(** parameters *)
 
-type aws_redshiftdata_statement__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_redshiftdata_statement__timeouts *)
+(** timeouts *)
 
 type aws_redshiftdata_statement = {
   cluster_identifier : string prop option; [@option]
@@ -30,11 +30,31 @@ type aws_redshiftdata_statement = {
   with_event : bool prop option; [@option]  (** with_event *)
   workgroup_name : string prop option; [@option]
       (** workgroup_name *)
-  parameters : aws_redshiftdata_statement__parameters list;
-  timeouts : aws_redshiftdata_statement__timeouts option;
+  parameters : parameters list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_redshiftdata_statement *)
+
+let parameters ~name ~value () : parameters = { name; value }
+let timeouts ?create () : timeouts = { create }
+
+let aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
+    ?secret_arn ?statement_name ?with_event ?workgroup_name ?timeouts
+    ~database ~sql ~parameters () : aws_redshiftdata_statement =
+  {
+    cluster_identifier;
+    database;
+    db_user;
+    id;
+    secret_arn;
+    sql;
+    statement_name;
+    with_event;
+    workgroup_name;
+    parameters;
+    timeouts;
+  }
 
 type t = {
   cluster_identifier : string prop;
@@ -48,27 +68,16 @@ type t = {
   workgroup_name : string prop;
 }
 
-let aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
-    ?secret_arn ?statement_name ?with_event ?workgroup_name ?timeouts
-    ~database ~sql ~parameters __resource_id =
+let register ?tf_module ?cluster_identifier ?db_user ?id ?secret_arn
+    ?statement_name ?with_event ?workgroup_name ?timeouts ~database
+    ~sql ~parameters __resource_id =
   let __resource_type = "aws_redshiftdata_statement" in
   let __resource =
-    ({
-       cluster_identifier;
-       database;
-       db_user;
-       id;
-       secret_arn;
-       sql;
-       statement_name;
-       with_event;
-       workgroup_name;
-       parameters;
-       timeouts;
-     }
-      : aws_redshiftdata_statement)
+    aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
+      ?secret_arn ?statement_name ?with_event ?workgroup_name
+      ?timeouts ~database ~sql ~parameters ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshiftdata_statement __resource);
   let __resource_attributes =
     ({

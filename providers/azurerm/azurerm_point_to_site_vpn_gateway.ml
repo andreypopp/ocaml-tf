@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_point_to_site_vpn_gateway__connection_configuration__route__propagated_route_table = {
+type connection_configuration__route__propagated_route_table = {
   ids : string prop list;  (** ids *)
   labels : string prop list option; [@option]  (** labels *)
 }
 [@@deriving yojson_of]
-(** azurerm_point_to_site_vpn_gateway__connection_configuration__route__propagated_route_table *)
+(** connection_configuration__route__propagated_route_table *)
 
-type azurerm_point_to_site_vpn_gateway__connection_configuration__route = {
+type connection_configuration__route = {
   associated_route_table_id : string prop;
       (** associated_route_table_id *)
   inbound_route_map_id : string prop option; [@option]
@@ -19,40 +19,36 @@ type azurerm_point_to_site_vpn_gateway__connection_configuration__route = {
   outbound_route_map_id : string prop option; [@option]
       (** outbound_route_map_id *)
   propagated_route_table :
-    azurerm_point_to_site_vpn_gateway__connection_configuration__route__propagated_route_table
-    list;
+    connection_configuration__route__propagated_route_table list;
 }
 [@@deriving yojson_of]
-(** azurerm_point_to_site_vpn_gateway__connection_configuration__route *)
+(** connection_configuration__route *)
 
-type azurerm_point_to_site_vpn_gateway__connection_configuration__vpn_client_address_pool = {
+type connection_configuration__vpn_client_address_pool = {
   address_prefixes : string prop list;  (** address_prefixes *)
 }
 [@@deriving yojson_of]
-(** azurerm_point_to_site_vpn_gateway__connection_configuration__vpn_client_address_pool *)
+(** connection_configuration__vpn_client_address_pool *)
 
-type azurerm_point_to_site_vpn_gateway__connection_configuration = {
+type connection_configuration = {
   internet_security_enabled : bool prop option; [@option]
       (** internet_security_enabled *)
   name : string prop;  (** name *)
-  route :
-    azurerm_point_to_site_vpn_gateway__connection_configuration__route
-    list;
+  route : connection_configuration__route list;
   vpn_client_address_pool :
-    azurerm_point_to_site_vpn_gateway__connection_configuration__vpn_client_address_pool
-    list;
+    connection_configuration__vpn_client_address_pool list;
 }
 [@@deriving yojson_of]
-(** azurerm_point_to_site_vpn_gateway__connection_configuration *)
+(** connection_configuration *)
 
-type azurerm_point_to_site_vpn_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_point_to_site_vpn_gateway__timeouts *)
+(** timeouts *)
 
 type azurerm_point_to_site_vpn_gateway = {
   dns_servers : string prop list option; [@option]
@@ -68,12 +64,58 @@ type azurerm_point_to_site_vpn_gateway = {
   virtual_hub_id : string prop;  (** virtual_hub_id *)
   vpn_server_configuration_id : string prop;
       (** vpn_server_configuration_id *)
-  connection_configuration :
-    azurerm_point_to_site_vpn_gateway__connection_configuration list;
-  timeouts : azurerm_point_to_site_vpn_gateway__timeouts option;
+  connection_configuration : connection_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_point_to_site_vpn_gateway *)
+
+let connection_configuration__route__propagated_route_table ?labels
+    ~ids () : connection_configuration__route__propagated_route_table
+    =
+  { ids; labels }
+
+let connection_configuration__route ?inbound_route_map_id
+    ?outbound_route_map_id ~associated_route_table_id
+    ~propagated_route_table () : connection_configuration__route =
+  {
+    associated_route_table_id;
+    inbound_route_map_id;
+    outbound_route_map_id;
+    propagated_route_table;
+  }
+
+let connection_configuration__vpn_client_address_pool
+    ~address_prefixes () :
+    connection_configuration__vpn_client_address_pool =
+  { address_prefixes }
+
+let connection_configuration ?internet_security_enabled ~name ~route
+    ~vpn_client_address_pool () : connection_configuration =
+  { internet_security_enabled; name; route; vpn_client_address_pool }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_point_to_site_vpn_gateway ?dns_servers ?id
+    ?routing_preference_internet_enabled ?tags ?timeouts ~location
+    ~name ~resource_group_name ~scale_unit ~virtual_hub_id
+    ~vpn_server_configuration_id ~connection_configuration () :
+    azurerm_point_to_site_vpn_gateway =
+  {
+    dns_servers;
+    id;
+    location;
+    name;
+    resource_group_name;
+    routing_preference_internet_enabled;
+    scale_unit;
+    tags;
+    virtual_hub_id;
+    vpn_server_configuration_id;
+    connection_configuration;
+    timeouts;
+  }
 
 type t = {
   dns_servers : string list prop;
@@ -88,30 +130,19 @@ type t = {
   vpn_server_configuration_id : string prop;
 }
 
-let azurerm_point_to_site_vpn_gateway ?dns_servers ?id
+let register ?tf_module ?dns_servers ?id
     ?routing_preference_internet_enabled ?tags ?timeouts ~location
     ~name ~resource_group_name ~scale_unit ~virtual_hub_id
     ~vpn_server_configuration_id ~connection_configuration
     __resource_id =
   let __resource_type = "azurerm_point_to_site_vpn_gateway" in
   let __resource =
-    ({
-       dns_servers;
-       id;
-       location;
-       name;
-       resource_group_name;
-       routing_preference_internet_enabled;
-       scale_unit;
-       tags;
-       virtual_hub_id;
-       vpn_server_configuration_id;
-       connection_configuration;
-       timeouts;
-     }
-      : azurerm_point_to_site_vpn_gateway)
+    azurerm_point_to_site_vpn_gateway ?dns_servers ?id
+      ?routing_preference_internet_enabled ?tags ?timeouts ~location
+      ~name ~resource_group_name ~scale_unit ~virtual_hub_id
+      ~vpn_server_configuration_id ~connection_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_point_to_site_vpn_gateway __resource);
   let __resource_attributes =
     ({

@@ -2,14 +2,38 @@
 
 open! Tf.Prelude
 
-type google_storage_default_object_access_control__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_storage_default_object_access_control__project_team = {
+type project_team = {
   project_number : string prop;  (** project_number *)
   team : string prop;  (** team *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_storage_default_object_access_control
+
+val google_storage_default_object_access_control :
+  ?id:string prop ->
+  ?object_:string prop ->
+  ?timeouts:timeouts ->
+  bucket:string prop ->
+  entity:string prop ->
+  role:string prop ->
+  unit ->
+  google_storage_default_object_access_control
+
+val yojson_of_google_storage_default_object_access_control :
+  google_storage_default_object_access_control -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket : string prop;
@@ -20,16 +44,15 @@ type t = private {
   generation : float prop;
   id : string prop;
   object_ : string prop;
-  project_team :
-    google_storage_default_object_access_control__project_team list
-    prop;
+  project_team : project_team list prop;
   role : string prop;
 }
 
-val google_storage_default_object_access_control :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?object_:string prop ->
-  ?timeouts:google_storage_default_object_access_control__timeouts ->
+  ?timeouts:timeouts ->
   bucket:string prop ->
   entity:string prop ->
   role:string prop ->

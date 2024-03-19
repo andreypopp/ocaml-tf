@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_network_management_connectivity_test__destination = {
+type destination = {
   instance : string prop option; [@option]
       (** A Compute Engine instance URI. *)
   ip_address : string prop option; [@option]
@@ -46,7 +46,7 @@ A reachability analysis proceeds even if the destination location
 is ambiguous. However, the result can include endpoints that you
 don't intend to test. *)
 
-type google_network_management_connectivity_test__source = {
+type source = {
   instance : string prop option; [@option]
       (** A Compute Engine instance URI. *)
   ip_address : string prop option; [@option]
@@ -97,13 +97,13 @@ A reachability analysis proceeds even if the source location is
 ambiguous. However, the test result may include endpoints that
 you don't intend to test. *)
 
-type google_network_management_connectivity_test__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_management_connectivity_test__timeouts *)
+(** timeouts *)
 
 type google_network_management_connectivity_test = {
   description : string prop option; [@option]
@@ -124,14 +124,40 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Other projects that may be relevant for reachability analysis.
 This is applicable to scenarios where a test can cross project
 boundaries. *)
-  destination :
-    google_network_management_connectivity_test__destination list;
-  source : google_network_management_connectivity_test__source list;
-  timeouts :
-    google_network_management_connectivity_test__timeouts option;
+  destination : destination list;
+  source : source list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_management_connectivity_test *)
+
+let destination ?instance ?ip_address ?network ?port ?project_id () :
+    destination =
+  { instance; ip_address; network; port; project_id }
+
+let source ?instance ?ip_address ?network ?network_type ?port
+    ?project_id () : source =
+  { instance; ip_address; network; network_type; port; project_id }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_management_connectivity_test ?description ?id
+    ?labels ?project ?protocol ?related_projects ?timeouts ~name
+    ~destination ~source () :
+    google_network_management_connectivity_test =
+  {
+    description;
+    id;
+    labels;
+    name;
+    project;
+    protocol;
+    related_projects;
+    destination;
+    source;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -145,28 +171,18 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_network_management_connectivity_test ?description ?id
-    ?labels ?project ?protocol ?related_projects ?timeouts ~name
-    ~destination ~source __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?protocol
+    ?related_projects ?timeouts ~name ~destination ~source
+    __resource_id =
   let __resource_type =
     "google_network_management_connectivity_test"
   in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       name;
-       project;
-       protocol;
-       related_projects;
-       destination;
-       source;
-       timeouts;
-     }
-      : google_network_management_connectivity_test)
+    google_network_management_connectivity_test ?description ?id
+      ?labels ?project ?protocol ?related_projects ?timeouts ~name
+      ~destination ~source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_management_connectivity_test __resource);
   let __resource_attributes =
     ({

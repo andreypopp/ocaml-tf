@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_resolver_dnssec_config
+
+val aws_route53_resolver_dnssec_config :
+  ?id:string prop ->
+  resource_id:string prop ->
+  unit ->
+  aws_route53_resolver_dnssec_config
+
+val yojson_of_aws_route53_resolver_dnssec_config :
+  aws_route53_resolver_dnssec_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -12,5 +25,9 @@ type t = private {
   validation_status : string prop;
 }
 
-val aws_route53_resolver_dnssec_config :
-  ?id:string prop -> resource_id:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  resource_id:string prop ->
+  string ->
+  t

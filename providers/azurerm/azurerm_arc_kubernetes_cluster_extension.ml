@@ -4,22 +4,18 @@
 
 open! Tf.Prelude
 
-type azurerm_arc_kubernetes_cluster_extension__identity = {
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
-  type_ : string prop; [@key "type"]  (** type *)
-}
+type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
-(** azurerm_arc_kubernetes_cluster_extension__identity *)
+(** identity *)
 
-type azurerm_arc_kubernetes_cluster_extension__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_arc_kubernetes_cluster_extension__timeouts *)
+(** timeouts *)
 
 type azurerm_arc_kubernetes_cluster_extension = {
   cluster_id : string prop;  (** cluster_id *)
@@ -39,12 +35,36 @@ type azurerm_arc_kubernetes_cluster_extension = {
   target_namespace : string prop option; [@option]
       (** target_namespace *)
   version : string prop option; [@option]  (** version *)
-  identity : azurerm_arc_kubernetes_cluster_extension__identity list;
-  timeouts :
-    azurerm_arc_kubernetes_cluster_extension__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_arc_kubernetes_cluster_extension *)
+
+let identity ~type_ () : identity = { type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_arc_kubernetes_cluster_extension
+    ?configuration_protected_settings ?configuration_settings ?id
+    ?release_namespace ?release_train ?target_namespace ?version
+    ?timeouts ~cluster_id ~extension_type ~name ~identity () :
+    azurerm_arc_kubernetes_cluster_extension =
+  {
+    cluster_id;
+    configuration_protected_settings;
+    configuration_settings;
+    extension_type;
+    id;
+    name;
+    release_namespace;
+    release_train;
+    target_namespace;
+    version;
+    identity;
+    timeouts;
+  }
 
 type t = {
   cluster_id : string prop;
@@ -60,30 +80,18 @@ type t = {
   version : string prop;
 }
 
-let azurerm_arc_kubernetes_cluster_extension
-    ?configuration_protected_settings ?configuration_settings ?id
-    ?release_namespace ?release_train ?target_namespace ?version
-    ?timeouts ~cluster_id ~extension_type ~name ~identity
-    __resource_id =
+let register ?tf_module ?configuration_protected_settings
+    ?configuration_settings ?id ?release_namespace ?release_train
+    ?target_namespace ?version ?timeouts ~cluster_id ~extension_type
+    ~name ~identity __resource_id =
   let __resource_type = "azurerm_arc_kubernetes_cluster_extension" in
   let __resource =
-    ({
-       cluster_id;
-       configuration_protected_settings;
-       configuration_settings;
-       extension_type;
-       id;
-       name;
-       release_namespace;
-       release_train;
-       target_namespace;
-       version;
-       identity;
-       timeouts;
-     }
-      : azurerm_arc_kubernetes_cluster_extension)
+    azurerm_arc_kubernetes_cluster_extension
+      ?configuration_protected_settings ?configuration_settings ?id
+      ?release_namespace ?release_train ?target_namespace ?version
+      ?timeouts ~cluster_id ~extension_type ~name ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_arc_kubernetes_cluster_extension __resource);
   let __resource_attributes =
     ({

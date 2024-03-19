@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_elasticache_cluster__log_delivery_configuration = {
+type log_delivery_configuration = {
   destination : string prop;  (** destination *)
   destination_type : string prop;  (** destination_type *)
   log_format : string prop;  (** log_format *)
   log_type : string prop;  (** log_type *)
 }
 [@@deriving yojson_of]
-(** aws_elasticache_cluster__log_delivery_configuration *)
+(** log_delivery_configuration *)
 
-type aws_elasticache_cluster__cache_nodes = {
+type cache_nodes = {
   address : string prop;  (** address *)
   availability_zone : string prop;  (** availability_zone *)
   id : string prop;  (** id *)
@@ -72,11 +72,59 @@ type aws_elasticache_cluster = {
       (** tags_all *)
   transit_encryption_enabled : bool prop option; [@option]
       (** transit_encryption_enabled *)
-  log_delivery_configuration :
-    aws_elasticache_cluster__log_delivery_configuration list;
+  log_delivery_configuration : log_delivery_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_elasticache_cluster *)
+
+let log_delivery_configuration ~destination ~destination_type
+    ~log_format ~log_type () : log_delivery_configuration =
+  { destination; destination_type; log_format; log_type }
+
+let aws_elasticache_cluster ?apply_immediately
+    ?auto_minor_version_upgrade ?availability_zone ?az_mode ?engine
+    ?engine_version ?final_snapshot_identifier ?id ?ip_discovery
+    ?maintenance_window ?network_type ?node_type
+    ?notification_topic_arn ?num_cache_nodes ?outpost_mode
+    ?parameter_group_name ?port ?preferred_availability_zones
+    ?preferred_outpost_arn ?replication_group_id ?security_group_ids
+    ?snapshot_arns ?snapshot_name ?snapshot_retention_limit
+    ?snapshot_window ?subnet_group_name ?tags ?tags_all
+    ?transit_encryption_enabled ~cluster_id
+    ~log_delivery_configuration () : aws_elasticache_cluster =
+  {
+    apply_immediately;
+    auto_minor_version_upgrade;
+    availability_zone;
+    az_mode;
+    cluster_id;
+    engine;
+    engine_version;
+    final_snapshot_identifier;
+    id;
+    ip_discovery;
+    maintenance_window;
+    network_type;
+    node_type;
+    notification_topic_arn;
+    num_cache_nodes;
+    outpost_mode;
+    parameter_group_name;
+    port;
+    preferred_availability_zones;
+    preferred_outpost_arn;
+    replication_group_id;
+    security_group_ids;
+    snapshot_arns;
+    snapshot_name;
+    snapshot_retention_limit;
+    snapshot_window;
+    subnet_group_name;
+    tags;
+    tags_all;
+    transit_encryption_enabled;
+    log_delivery_configuration;
+  }
 
 type t = {
   apply_immediately : bool prop;
@@ -84,7 +132,7 @@ type t = {
   auto_minor_version_upgrade : string prop;
   availability_zone : string prop;
   az_mode : string prop;
-  cache_nodes : aws_elasticache_cluster__cache_nodes list prop;
+  cache_nodes : cache_nodes list prop;
   cluster_address : string prop;
   cluster_id : string prop;
   configuration_endpoint : string prop;
@@ -116,7 +164,7 @@ type t = {
   transit_encryption_enabled : bool prop;
 }
 
-let aws_elasticache_cluster ?apply_immediately
+let register ?tf_module ?apply_immediately
     ?auto_minor_version_upgrade ?availability_zone ?az_mode ?engine
     ?engine_version ?final_snapshot_identifier ?id ?ip_discovery
     ?maintenance_window ?network_type ?node_type
@@ -129,42 +177,19 @@ let aws_elasticache_cluster ?apply_immediately
     ~log_delivery_configuration __resource_id =
   let __resource_type = "aws_elasticache_cluster" in
   let __resource =
-    ({
-       apply_immediately;
-       auto_minor_version_upgrade;
-       availability_zone;
-       az_mode;
-       cluster_id;
-       engine;
-       engine_version;
-       final_snapshot_identifier;
-       id;
-       ip_discovery;
-       maintenance_window;
-       network_type;
-       node_type;
-       notification_topic_arn;
-       num_cache_nodes;
-       outpost_mode;
-       parameter_group_name;
-       port;
-       preferred_availability_zones;
-       preferred_outpost_arn;
-       replication_group_id;
-       security_group_ids;
-       snapshot_arns;
-       snapshot_name;
-       snapshot_retention_limit;
-       snapshot_window;
-       subnet_group_name;
-       tags;
-       tags_all;
-       transit_encryption_enabled;
-       log_delivery_configuration;
-     }
-      : aws_elasticache_cluster)
+    aws_elasticache_cluster ?apply_immediately
+      ?auto_minor_version_upgrade ?availability_zone ?az_mode ?engine
+      ?engine_version ?final_snapshot_identifier ?id ?ip_discovery
+      ?maintenance_window ?network_type ?node_type
+      ?notification_topic_arn ?num_cache_nodes ?outpost_mode
+      ?parameter_group_name ?port ?preferred_availability_zones
+      ?preferred_outpost_arn ?replication_group_id
+      ?security_group_ids ?snapshot_arns ?snapshot_name
+      ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
+      ?tags ?tags_all ?transit_encryption_enabled ~cluster_id
+      ~log_delivery_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticache_cluster __resource);
   let __resource_attributes =
     ({

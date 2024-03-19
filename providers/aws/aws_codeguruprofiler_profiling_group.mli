@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_codeguruprofiler_profiling_group__agent_orchestration_config
+(** RESOURCE SERIALIZATION *)
+
+type agent_orchestration_config
+
+val agent_orchestration_config :
+  profiling_enabled:bool prop -> unit -> agent_orchestration_config
+
 type aws_codeguruprofiler_profiling_group
+
+val aws_codeguruprofiler_profiling_group :
+  ?compute_platform:string prop ->
+  ?tags:(string * string prop) list ->
+  name:string prop ->
+  agent_orchestration_config:agent_orchestration_config list ->
+  unit ->
+  aws_codeguruprofiler_profiling_group
+
+val yojson_of_aws_codeguruprofiler_profiling_group :
+  aws_codeguruprofiler_profiling_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,12 +33,11 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_codeguruprofiler_profiling_group :
+val register :
+  ?tf_module:tf_module ->
   ?compute_platform:string prop ->
   ?tags:(string * string prop) list ->
   name:string prop ->
-  agent_orchestration_config:
-    aws_codeguruprofiler_profiling_group__agent_orchestration_config
-    list ->
+  agent_orchestration_config:agent_orchestration_config list ->
   string ->
   t

@@ -13,6 +13,10 @@ type aws_lightsail_disk_attachment = {
 [@@deriving yojson_of]
 (** aws_lightsail_disk_attachment *)
 
+let aws_lightsail_disk_attachment ?id ~disk_name ~disk_path
+    ~instance_name () : aws_lightsail_disk_attachment =
+  { disk_name; disk_path; id; instance_name }
+
 type t = {
   disk_name : string prop;
   disk_path : string prop;
@@ -20,14 +24,14 @@ type t = {
   instance_name : string prop;
 }
 
-let aws_lightsail_disk_attachment ?id ~disk_name ~disk_path
-    ~instance_name __resource_id =
+let register ?tf_module ?id ~disk_name ~disk_path ~instance_name
+    __resource_id =
   let __resource_type = "aws_lightsail_disk_attachment" in
   let __resource =
-    ({ disk_name; disk_path; id; instance_name }
-      : aws_lightsail_disk_attachment)
+    aws_lightsail_disk_attachment ?id ~disk_name ~disk_path
+      ~instance_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_disk_attachment __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_device_dex_test__data = {
+type data = {
   host : string prop;
       (** The host URL for `http` test `kind`. For `traceroute`, it must be a valid hostname or IP address. *)
   kind : string prop;
@@ -26,10 +26,16 @@ type cloudflare_device_dex_test = {
   interval : string prop;  (** How often the test will run. *)
   name : string prop;
       (** The name of the Device Dex Test. Must be unique. *)
-  data : cloudflare_device_dex_test__data list;
+  data : data list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Device Dex Test resource. Device Dex Tests allow for building location-aware device settings policies. *)
+
+let data ?method_ ~host ~kind () : data = { host; kind; method_ }
+
+let cloudflare_device_dex_test ?id ~account_id ~description ~enabled
+    ~interval ~name ~data () : cloudflare_device_dex_test =
+  { account_id; description; enabled; id; interval; name; data }
 
 type t = {
   account_id : string prop;
@@ -42,14 +48,14 @@ type t = {
   updated : string prop;
 }
 
-let cloudflare_device_dex_test ?id ~account_id ~description ~enabled
+let register ?tf_module ?id ~account_id ~description ~enabled
     ~interval ~name ~data __resource_id =
   let __resource_type = "cloudflare_device_dex_test" in
   let __resource =
-    ({ account_id; description; enabled; id; interval; name; data }
-      : cloudflare_device_dex_test)
+    cloudflare_device_dex_test ?id ~account_id ~description ~enabled
+      ~interval ~name ~data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_dex_test __resource);
   let __resource_attributes =
     ({

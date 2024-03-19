@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_elastic_beanstalk_application__appversion_lifecycle
+(** RESOURCE SERIALIZATION *)
+
+type appversion_lifecycle
+
+val appversion_lifecycle :
+  ?delete_source_from_s3:bool prop ->
+  ?max_age_in_days:float prop ->
+  ?max_count:float prop ->
+  service_role:string prop ->
+  unit ->
+  appversion_lifecycle
+
 type aws_elastic_beanstalk_application
+
+val aws_elastic_beanstalk_application :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  appversion_lifecycle:appversion_lifecycle list ->
+  unit ->
+  aws_elastic_beanstalk_application
+
+val yojson_of_aws_elastic_beanstalk_application :
+  aws_elastic_beanstalk_application -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,13 +40,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_elastic_beanstalk_application :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  appversion_lifecycle:
-    aws_elastic_beanstalk_application__appversion_lifecycle list ->
+  appversion_lifecycle:appversion_lifecycle list ->
   string ->
   t

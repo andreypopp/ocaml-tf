@@ -17,6 +17,18 @@ type aws_vpc_endpoint_connection_notification = {
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_connection_notification *)
 
+let aws_vpc_endpoint_connection_notification ?id ?vpc_endpoint_id
+    ?vpc_endpoint_service_id ~connection_events
+    ~connection_notification_arn () :
+    aws_vpc_endpoint_connection_notification =
+  {
+    connection_events;
+    connection_notification_arn;
+    id;
+    vpc_endpoint_id;
+    vpc_endpoint_service_id;
+  }
+
 type t = {
   connection_events : string list prop;
   connection_notification_arn : string prop;
@@ -27,21 +39,15 @@ type t = {
   vpc_endpoint_service_id : string prop;
 }
 
-let aws_vpc_endpoint_connection_notification ?id ?vpc_endpoint_id
-    ?vpc_endpoint_service_id ~connection_events
-    ~connection_notification_arn __resource_id =
+let register ?tf_module ?id ?vpc_endpoint_id ?vpc_endpoint_service_id
+    ~connection_events ~connection_notification_arn __resource_id =
   let __resource_type = "aws_vpc_endpoint_connection_notification" in
   let __resource =
-    ({
-       connection_events;
-       connection_notification_arn;
-       id;
-       vpc_endpoint_id;
-       vpc_endpoint_service_id;
-     }
-      : aws_vpc_endpoint_connection_notification)
+    aws_vpc_endpoint_connection_notification ?id ?vpc_endpoint_id
+      ?vpc_endpoint_service_id ~connection_events
+      ~connection_notification_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_endpoint_connection_notification __resource);
   let __resource_attributes =
     ({

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_region_network_firewall_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_network_firewall_policy__timeouts *)
+(** timeouts *)
 
 type google_compute_region_network_firewall_policy = {
   description : string prop option; [@option]
@@ -21,11 +21,18 @@ type google_compute_region_network_firewall_policy = {
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** The region of this resource. *)
-  timeouts :
-    google_compute_region_network_firewall_policy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_network_firewall_policy *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_region_network_firewall_policy ?description ?id
+    ?project ?region ?timeouts ~name () :
+    google_compute_region_network_firewall_policy =
+  { description; id; name; project; region; timeouts }
 
 type t = {
   creation_timestamp : string prop;
@@ -41,16 +48,16 @@ type t = {
   self_link_with_id : string prop;
 }
 
-let google_compute_region_network_firewall_policy ?description ?id
-    ?project ?region ?timeouts ~name __resource_id =
+let register ?tf_module ?description ?id ?project ?region ?timeouts
+    ~name __resource_id =
   let __resource_type =
     "google_compute_region_network_firewall_policy"
   in
   let __resource =
-    ({ description; id; name; project; region; timeouts }
-      : google_compute_region_network_firewall_policy)
+    google_compute_region_network_firewall_policy ?description ?id
+      ?project ?region ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_network_firewall_policy
        __resource);
   let __resource_attributes =

@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_media_live_event__cross_site_access_policy = {
+type cross_site_access_policy = {
   client_access_policy : string prop option; [@option]
       (** client_access_policy *)
   cross_domain_policy : string prop option; [@option]
       (** cross_domain_policy *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_live_event__cross_site_access_policy *)
+(** cross_site_access_policy *)
 
-type azurerm_media_live_event__encoding = {
+type encoding = {
   key_frame_interval : string prop option; [@option]
       (** key_frame_interval *)
   preset_name : string prop option; [@option]  (** preset_name *)
@@ -21,75 +21,69 @@ type azurerm_media_live_event__encoding = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_live_event__encoding *)
+(** encoding *)
 
-type azurerm_media_live_event__input__ip_access_control_allow = {
+type input__ip_access_control_allow = {
   address : string prop option; [@option]  (** address *)
   name : string prop option; [@option]  (** name *)
   subnet_prefix_length : float prop option; [@option]
       (** subnet_prefix_length *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_live_event__input__ip_access_control_allow *)
+(** input__ip_access_control_allow *)
 
-type azurerm_media_live_event__input__endpoint = {
+type input__endpoint = {
   protocol : string prop;  (** protocol *)
   url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
 
-type azurerm_media_live_event__input = {
+type input = {
   access_token : string prop option; [@option]  (** access_token *)
-  endpoint : azurerm_media_live_event__input__endpoint list;
-      (** endpoint *)
   key_frame_interval_duration : string prop option; [@option]
       (** key_frame_interval_duration *)
   streaming_protocol : string prop option; [@option]
       (** streaming_protocol *)
-  ip_access_control_allow :
-    azurerm_media_live_event__input__ip_access_control_allow list;
+  ip_access_control_allow : input__ip_access_control_allow list;
 }
 [@@deriving yojson_of]
-(** azurerm_media_live_event__input *)
+(** input *)
 
-type azurerm_media_live_event__preview__ip_access_control_allow = {
+type preview__ip_access_control_allow = {
   address : string prop option; [@option]  (** address *)
   name : string prop option; [@option]  (** name *)
   subnet_prefix_length : float prop option; [@option]
       (** subnet_prefix_length *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_live_event__preview__ip_access_control_allow *)
+(** preview__ip_access_control_allow *)
 
-type azurerm_media_live_event__preview__endpoint = {
+type preview__endpoint = {
   protocol : string prop;  (** protocol *)
   url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
 
-type azurerm_media_live_event__preview = {
+type preview = {
   alternative_media_id : string prop option; [@option]
       (** alternative_media_id *)
-  endpoint : azurerm_media_live_event__preview__endpoint list;
-      (** endpoint *)
   preview_locator : string prop option; [@option]
       (** preview_locator *)
   streaming_policy_name : string prop option; [@option]
       (** streaming_policy_name *)
-  ip_access_control_allow :
-    azurerm_media_live_event__preview__ip_access_control_allow list;
+  ip_access_control_allow : preview__ip_access_control_allow list;
 }
 [@@deriving yojson_of]
-(** azurerm_media_live_event__preview *)
+(** preview *)
 
-type azurerm_media_live_event__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_live_event__timeouts *)
+(** timeouts *)
 
 type azurerm_media_live_event = {
   auto_start_enabled : bool prop option; [@option]
@@ -110,15 +104,77 @@ type azurerm_media_live_event = {
       (** transcription_languages *)
   use_static_hostname : bool prop option; [@option]
       (** use_static_hostname *)
-  cross_site_access_policy :
-    azurerm_media_live_event__cross_site_access_policy list;
-  encoding : azurerm_media_live_event__encoding list;
-  input : azurerm_media_live_event__input list;
-  preview : azurerm_media_live_event__preview list;
-  timeouts : azurerm_media_live_event__timeouts option;
+  cross_site_access_policy : cross_site_access_policy list;
+  encoding : encoding list;
+  input : input list;
+  preview : preview list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_media_live_event *)
+
+let cross_site_access_policy ?client_access_policy
+    ?cross_domain_policy () : cross_site_access_policy =
+  { client_access_policy; cross_domain_policy }
+
+let encoding ?key_frame_interval ?preset_name ?stretch_mode ?type_ ()
+    : encoding =
+  { key_frame_interval; preset_name; stretch_mode; type_ }
+
+let input__ip_access_control_allow ?address ?name
+    ?subnet_prefix_length () : input__ip_access_control_allow =
+  { address; name; subnet_prefix_length }
+
+let input ?access_token ?key_frame_interval_duration
+    ?streaming_protocol ~ip_access_control_allow () : input =
+  {
+    access_token;
+    key_frame_interval_duration;
+    streaming_protocol;
+    ip_access_control_allow;
+  }
+
+let preview__ip_access_control_allow ?address ?name
+    ?subnet_prefix_length () : preview__ip_access_control_allow =
+  { address; name; subnet_prefix_length }
+
+let preview ?alternative_media_id ?preview_locator
+    ?streaming_policy_name ~ip_access_control_allow () : preview =
+  {
+    alternative_media_id;
+    preview_locator;
+    streaming_policy_name;
+    ip_access_control_allow;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_media_live_event ?auto_start_enabled ?description
+    ?hostname_prefix ?id ?stream_options ?tags
+    ?transcription_languages ?use_static_hostname ?timeouts ~location
+    ~media_services_account_name ~name ~resource_group_name
+    ~cross_site_access_policy ~encoding ~input ~preview () :
+    azurerm_media_live_event =
+  {
+    auto_start_enabled;
+    description;
+    hostname_prefix;
+    id;
+    location;
+    media_services_account_name;
+    name;
+    resource_group_name;
+    stream_options;
+    tags;
+    transcription_languages;
+    use_static_hostname;
+    cross_site_access_policy;
+    encoding;
+    input;
+    preview;
+    timeouts;
+  }
 
 type t = {
   auto_start_enabled : bool prop;
@@ -135,7 +191,7 @@ type t = {
   use_static_hostname : bool prop;
 }
 
-let azurerm_media_live_event ?auto_start_enabled ?description
+let register ?tf_module ?auto_start_enabled ?description
     ?hostname_prefix ?id ?stream_options ?tags
     ?transcription_languages ?use_static_hostname ?timeouts ~location
     ~media_services_account_name ~name ~resource_group_name
@@ -143,28 +199,14 @@ let azurerm_media_live_event ?auto_start_enabled ?description
     =
   let __resource_type = "azurerm_media_live_event" in
   let __resource =
-    ({
-       auto_start_enabled;
-       description;
-       hostname_prefix;
-       id;
-       location;
-       media_services_account_name;
-       name;
-       resource_group_name;
-       stream_options;
-       tags;
-       transcription_languages;
-       use_static_hostname;
-       cross_site_access_policy;
-       encoding;
-       input;
-       preview;
-       timeouts;
-     }
-      : azurerm_media_live_event)
+    azurerm_media_live_event ?auto_start_enabled ?description
+      ?hostname_prefix ?id ?stream_options ?tags
+      ?transcription_languages ?use_static_hostname ?timeouts
+      ~location ~media_services_account_name ~name
+      ~resource_group_name ~cross_site_access_policy ~encoding ~input
+      ~preview ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_live_event __resource);
   let __resource_attributes =
     ({

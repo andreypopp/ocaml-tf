@@ -4,23 +4,37 @@
 
 open! Tf.Prelude
 
-type azurerm_managed_disk_sas_token__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_managed_disk_sas_token__timeouts *)
+(** timeouts *)
 
 type azurerm_managed_disk_sas_token = {
   access_level : string prop;  (** access_level *)
   duration_in_seconds : float prop;  (** duration_in_seconds *)
   id : string prop option; [@option]  (** id *)
   managed_disk_id : string prop;  (** managed_disk_id *)
-  timeouts : azurerm_managed_disk_sas_token__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_managed_disk_sas_token *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_managed_disk_sas_token ?id ?timeouts ~access_level
+    ~duration_in_seconds ~managed_disk_id () :
+    azurerm_managed_disk_sas_token =
+  {
+    access_level;
+    duration_in_seconds;
+    id;
+    managed_disk_id;
+    timeouts;
+  }
 
 type t = {
   access_level : string prop;
@@ -30,20 +44,14 @@ type t = {
   sas_url : string prop;
 }
 
-let azurerm_managed_disk_sas_token ?id ?timeouts ~access_level
+let register ?tf_module ?id ?timeouts ~access_level
     ~duration_in_seconds ~managed_disk_id __resource_id =
   let __resource_type = "azurerm_managed_disk_sas_token" in
   let __resource =
-    ({
-       access_level;
-       duration_in_seconds;
-       id;
-       managed_disk_id;
-       timeouts;
-     }
-      : azurerm_managed_disk_sas_token)
+    azurerm_managed_disk_sas_token ?id ?timeouts ~access_level
+      ~duration_in_seconds ~managed_disk_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_managed_disk_sas_token __resource);
   let __resource_attributes =
     ({

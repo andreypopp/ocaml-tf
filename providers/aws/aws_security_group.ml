@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_security_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_security_group__timeouts *)
+(** timeouts *)
 
-type aws_security_group__egress = {
+type egress = {
   cidr_blocks : string prop list;  (** cidr_blocks *)
   description : string prop;  (** description *)
   from_port : float prop;  (** from_port *)
@@ -24,7 +24,7 @@ type aws_security_group__egress = {
 }
 [@@deriving yojson_of]
 
-type aws_security_group__ingress = {
+type ingress = {
   cidr_blocks : string prop list;  (** cidr_blocks *)
   description : string prop;  (** description *)
   from_port : float prop;  (** from_port *)
@@ -39,11 +39,9 @@ type aws_security_group__ingress = {
 
 type aws_security_group = {
   description : string prop option; [@option]  (** description *)
-  egress : aws_security_group__egress list option; [@option]
-      (** egress *)
+  egress : egress list option; [@option]  (** egress *)
   id : string prop option; [@option]  (** id *)
-  ingress : aws_security_group__ingress list option; [@option]
-      (** ingress *)
+  ingress : ingress list option; [@option]  (** ingress *)
   name : string prop option; [@option]  (** name *)
   name_prefix : string prop option; [@option]  (** name_prefix *)
   revoke_rules_on_delete : bool prop option; [@option]
@@ -52,17 +50,36 @@ type aws_security_group = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   vpc_id : string prop option; [@option]  (** vpc_id *)
-  timeouts : aws_security_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_security_group *)
 
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_security_group ?description ?egress ?id ?ingress ?name
+    ?name_prefix ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id
+    ?timeouts () : aws_security_group =
+  {
+    description;
+    egress;
+    id;
+    ingress;
+    name;
+    name_prefix;
+    revoke_rules_on_delete;
+    tags;
+    tags_all;
+    vpc_id;
+    timeouts;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
-  egress : aws_security_group__egress list prop;
+  egress : egress list prop;
   id : string prop;
-  ingress : aws_security_group__ingress list prop;
+  ingress : ingress list prop;
   name : string prop;
   name_prefix : string prop;
   owner_id : string prop;
@@ -72,27 +89,16 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_security_group ?description ?egress ?id ?ingress ?name
+let register ?tf_module ?description ?egress ?id ?ingress ?name
     ?name_prefix ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id
     ?timeouts __resource_id =
   let __resource_type = "aws_security_group" in
   let __resource =
-    ({
-       description;
-       egress;
-       id;
-       ingress;
-       name;
-       name_prefix;
-       revoke_rules_on_delete;
-       tags;
-       tags_all;
-       vpc_id;
-       timeouts;
-     }
-      : aws_security_group)
+    aws_security_group ?description ?egress ?id ?ingress ?name
+      ?name_prefix ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id
+      ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_security_group __resource);
   let __resource_attributes =
     ({

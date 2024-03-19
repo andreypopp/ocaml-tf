@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_backup_plan__advanced_backup_setting = {
+type advanced_backup_setting = {
   backup_options : (string * string prop) list;
       (** backup_options *)
   resource_type : string prop;  (** resource_type *)
 }
 [@@deriving yojson_of]
-(** aws_backup_plan__advanced_backup_setting *)
+(** advanced_backup_setting *)
 
-type aws_backup_plan__rule__copy_action__lifecycle = {
+type rule__copy_action__lifecycle = {
   cold_storage_after : float prop option; [@option]
       (** cold_storage_after *)
   delete_after : float prop option; [@option]  (** delete_after *)
@@ -21,16 +21,16 @@ type aws_backup_plan__rule__copy_action__lifecycle = {
       (** opt_in_to_archive_for_supported_resources *)
 }
 [@@deriving yojson_of]
-(** aws_backup_plan__rule__copy_action__lifecycle *)
+(** rule__copy_action__lifecycle *)
 
-type aws_backup_plan__rule__copy_action = {
+type rule__copy_action = {
   destination_vault_arn : string prop;  (** destination_vault_arn *)
-  lifecycle : aws_backup_plan__rule__copy_action__lifecycle list;
+  lifecycle : rule__copy_action__lifecycle list;
 }
 [@@deriving yojson_of]
-(** aws_backup_plan__rule__copy_action *)
+(** rule__copy_action *)
 
-type aws_backup_plan__rule__lifecycle = {
+type rule__lifecycle = {
   cold_storage_after : float prop option; [@option]
       (** cold_storage_after *)
   delete_after : float prop option; [@option]  (** delete_after *)
@@ -39,9 +39,9 @@ type aws_backup_plan__rule__lifecycle = {
       (** opt_in_to_archive_for_supported_resources *)
 }
 [@@deriving yojson_of]
-(** aws_backup_plan__rule__lifecycle *)
+(** rule__lifecycle *)
 
-type aws_backup_plan__rule = {
+type rule = {
   completion_window : float prop option; [@option]
       (** completion_window *)
   enable_continuous_backup : bool prop option; [@option]
@@ -52,11 +52,11 @@ type aws_backup_plan__rule = {
   schedule : string prop option; [@option]  (** schedule *)
   start_window : float prop option; [@option]  (** start_window *)
   target_vault_name : string prop;  (** target_vault_name *)
-  copy_action : aws_backup_plan__rule__copy_action list;
-  lifecycle : aws_backup_plan__rule__lifecycle list;
+  copy_action : rule__copy_action list;
+  lifecycle : rule__lifecycle list;
 }
 [@@deriving yojson_of]
-(** aws_backup_plan__rule *)
+(** rule *)
 
 type aws_backup_plan = {
   id : string prop option; [@option]  (** id *)
@@ -64,12 +64,55 @@ type aws_backup_plan = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  advanced_backup_setting :
-    aws_backup_plan__advanced_backup_setting list;
-  rule : aws_backup_plan__rule list;
+  advanced_backup_setting : advanced_backup_setting list;
+  rule : rule list;
 }
 [@@deriving yojson_of]
 (** aws_backup_plan *)
+
+let advanced_backup_setting ~backup_options ~resource_type () :
+    advanced_backup_setting =
+  { backup_options; resource_type }
+
+let rule__copy_action__lifecycle ?cold_storage_after ?delete_after
+    ?opt_in_to_archive_for_supported_resources () :
+    rule__copy_action__lifecycle =
+  {
+    cold_storage_after;
+    delete_after;
+    opt_in_to_archive_for_supported_resources;
+  }
+
+let rule__copy_action ~destination_vault_arn ~lifecycle () :
+    rule__copy_action =
+  { destination_vault_arn; lifecycle }
+
+let rule__lifecycle ?cold_storage_after ?delete_after
+    ?opt_in_to_archive_for_supported_resources () : rule__lifecycle =
+  {
+    cold_storage_after;
+    delete_after;
+    opt_in_to_archive_for_supported_resources;
+  }
+
+let rule ?completion_window ?enable_continuous_backup
+    ?recovery_point_tags ?schedule ?start_window ~rule_name
+    ~target_vault_name ~copy_action ~lifecycle () : rule =
+  {
+    completion_window;
+    enable_continuous_backup;
+    recovery_point_tags;
+    rule_name;
+    schedule;
+    start_window;
+    target_vault_name;
+    copy_action;
+    lifecycle;
+  }
+
+let aws_backup_plan ?id ?tags ?tags_all ~name
+    ~advanced_backup_setting ~rule () : aws_backup_plan =
+  { id; name; tags; tags_all; advanced_backup_setting; rule }
 
 type t = {
   arn : string prop;
@@ -80,14 +123,14 @@ type t = {
   version : string prop;
 }
 
-let aws_backup_plan ?id ?tags ?tags_all ~name
+let register ?tf_module ?id ?tags ?tags_all ~name
     ~advanced_backup_setting ~rule __resource_id =
   let __resource_type = "aws_backup_plan" in
   let __resource =
-    ({ id; name; tags; tags_all; advanced_backup_setting; rule }
-      : aws_backup_plan)
+    aws_backup_plan ?id ?tags ?tags_all ~name
+      ~advanced_backup_setting ~rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_plan __resource);
   let __resource_attributes =
     ({

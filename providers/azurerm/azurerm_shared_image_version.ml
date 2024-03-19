@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_shared_image_version__target_region = {
+type target_region = {
   disk_encryption_set_id : string prop option; [@option]
       (** disk_encryption_set_id *)
   exclude_from_latest_enabled : bool prop option; [@option]
@@ -15,16 +15,16 @@ type azurerm_shared_image_version__target_region = {
       (** storage_account_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_shared_image_version__target_region *)
+(** target_region *)
 
-type azurerm_shared_image_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_shared_image_version__timeouts *)
+(** timeouts *)
 
 type azurerm_shared_image_version = {
   blob_uri : string prop option; [@option]  (** blob_uri *)
@@ -50,11 +50,51 @@ type azurerm_shared_image_version = {
   storage_account_id : string prop option; [@option]
       (** storage_account_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  target_region : azurerm_shared_image_version__target_region list;
-  timeouts : azurerm_shared_image_version__timeouts option;
+  target_region : target_region list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_shared_image_version *)
+
+let target_region ?disk_encryption_set_id
+    ?exclude_from_latest_enabled ?storage_account_type ~name
+    ~regional_replica_count () : target_region =
+  {
+    disk_encryption_set_id;
+    exclude_from_latest_enabled;
+    name;
+    regional_replica_count;
+    storage_account_type;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_shared_image_version ?blob_uri
+    ?deletion_of_replicated_locations_enabled ?end_of_life_date
+    ?exclude_from_latest ?id ?managed_image_id ?os_disk_snapshot_id
+    ?replication_mode ?storage_account_id ?tags ?timeouts
+    ~gallery_name ~image_name ~location ~name ~resource_group_name
+    ~target_region () : azurerm_shared_image_version =
+  {
+    blob_uri;
+    deletion_of_replicated_locations_enabled;
+    end_of_life_date;
+    exclude_from_latest;
+    gallery_name;
+    id;
+    image_name;
+    location;
+    managed_image_id;
+    name;
+    os_disk_snapshot_id;
+    replication_mode;
+    resource_group_name;
+    storage_account_id;
+    tags;
+    target_region;
+    timeouts;
+  }
 
 type t = {
   blob_uri : string prop;
@@ -74,7 +114,7 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_shared_image_version ?blob_uri
+let register ?tf_module ?blob_uri
     ?deletion_of_replicated_locations_enabled ?end_of_life_date
     ?exclude_from_latest ?id ?managed_image_id ?os_disk_snapshot_id
     ?replication_mode ?storage_account_id ?tags ?timeouts
@@ -82,28 +122,14 @@ let azurerm_shared_image_version ?blob_uri
     ~target_region __resource_id =
   let __resource_type = "azurerm_shared_image_version" in
   let __resource =
-    ({
-       blob_uri;
-       deletion_of_replicated_locations_enabled;
-       end_of_life_date;
-       exclude_from_latest;
-       gallery_name;
-       id;
-       image_name;
-       location;
-       managed_image_id;
-       name;
-       os_disk_snapshot_id;
-       replication_mode;
-       resource_group_name;
-       storage_account_id;
-       tags;
-       target_region;
-       timeouts;
-     }
-      : azurerm_shared_image_version)
+    azurerm_shared_image_version ?blob_uri
+      ?deletion_of_replicated_locations_enabled ?end_of_life_date
+      ?exclude_from_latest ?id ?managed_image_id ?os_disk_snapshot_id
+      ?replication_mode ?storage_account_id ?tags ?timeouts
+      ~gallery_name ~image_name ~location ~name ~resource_group_name
+      ~target_region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_shared_image_version __resource);
   let __resource_attributes =
     ({

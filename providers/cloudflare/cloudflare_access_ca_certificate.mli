@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_access_ca_certificate
+
+val cloudflare_access_ca_certificate :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?zone_id:string prop ->
+  application_id:string prop ->
+  unit ->
+  cloudflare_access_ca_certificate
+
+val yojson_of_cloudflare_access_ca_certificate :
+  cloudflare_access_ca_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -13,7 +28,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_access_ca_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?id:string prop ->
   ?zone_id:string prop ->

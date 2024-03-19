@@ -15,6 +15,11 @@ type aws_redshift_hsm_client_certificate = {
 [@@deriving yojson_of]
 (** aws_redshift_hsm_client_certificate *)
 
+let aws_redshift_hsm_client_certificate ?id ?tags ?tags_all
+    ~hsm_client_certificate_identifier () :
+    aws_redshift_hsm_client_certificate =
+  { hsm_client_certificate_identifier; id; tags; tags_all }
+
 type t = {
   arn : string prop;
   hsm_client_certificate_identifier : string prop;
@@ -24,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_redshift_hsm_client_certificate ?id ?tags ?tags_all
+let register ?tf_module ?id ?tags ?tags_all
     ~hsm_client_certificate_identifier __resource_id =
   let __resource_type = "aws_redshift_hsm_client_certificate" in
   let __resource =
-    ({ hsm_client_certificate_identifier; id; tags; tags_all }
-      : aws_redshift_hsm_client_certificate)
+    aws_redshift_hsm_client_certificate ?id ?tags ?tags_all
+      ~hsm_client_certificate_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_hsm_client_certificate __resource);
   let __resource_attributes =
     ({

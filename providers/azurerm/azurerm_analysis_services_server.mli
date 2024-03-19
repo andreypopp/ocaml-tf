@@ -2,9 +2,49 @@
 
 open! Tf.Prelude
 
-type azurerm_analysis_services_server__ipv4_firewall_rule
-type azurerm_analysis_services_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type ipv4_firewall_rule
+
+val ipv4_firewall_rule :
+  name:string prop ->
+  range_end:string prop ->
+  range_start:string prop ->
+  unit ->
+  ipv4_firewall_rule
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_analysis_services_server
+
+val azurerm_analysis_services_server :
+  ?admin_users:string prop list ->
+  ?backup_blob_container_uri:string prop ->
+  ?enable_power_bi_service:bool prop ->
+  ?id:string prop ->
+  ?querypool_connection_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  ipv4_firewall_rule:ipv4_firewall_rule list ->
+  unit ->
+  azurerm_analysis_services_server
+
+val yojson_of_azurerm_analysis_services_server :
+  azurerm_analysis_services_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   admin_users : string list prop;
@@ -20,19 +60,19 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_analysis_services_server :
+val register :
+  ?tf_module:tf_module ->
   ?admin_users:string prop list ->
   ?backup_blob_container_uri:string prop ->
   ?enable_power_bi_service:bool prop ->
   ?id:string prop ->
   ?querypool_connection_mode:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_analysis_services_server__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  ipv4_firewall_rule:
-    azurerm_analysis_services_server__ipv4_firewall_rule list ->
+  ipv4_firewall_rule:ipv4_firewall_rule list ->
   string ->
   t

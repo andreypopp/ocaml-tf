@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_efs_file_system__lifecycle_policy = {
+type lifecycle_policy = {
   transition_to_archive : string prop option; [@option]
       (** transition_to_archive *)
   transition_to_ia : string prop option; [@option]
@@ -13,16 +13,16 @@ type aws_efs_file_system__lifecycle_policy = {
       (** transition_to_primary_storage_class *)
 }
 [@@deriving yojson_of]
-(** aws_efs_file_system__lifecycle_policy *)
+(** lifecycle_policy *)
 
-type aws_efs_file_system__protection = {
+type protection = {
   replication_overwrite : string prop option; [@option]
       (** replication_overwrite *)
 }
 [@@deriving yojson_of]
-(** aws_efs_file_system__protection *)
+(** protection *)
 
-type aws_efs_file_system__size_in_bytes = {
+type size_in_bytes = {
   value : float prop;  (** value *)
   value_in_ia : float prop;  (** value_in_ia *)
   value_in_standard : float prop;  (** value_in_standard *)
@@ -46,11 +46,41 @@ type aws_efs_file_system = {
       (** tags_all *)
   throughput_mode : string prop option; [@option]
       (** throughput_mode *)
-  lifecycle_policy : aws_efs_file_system__lifecycle_policy list;
-  protection : aws_efs_file_system__protection list;
+  lifecycle_policy : lifecycle_policy list;
+  protection : protection list;
 }
 [@@deriving yojson_of]
 (** aws_efs_file_system *)
+
+let lifecycle_policy ?transition_to_archive ?transition_to_ia
+    ?transition_to_primary_storage_class () : lifecycle_policy =
+  {
+    transition_to_archive;
+    transition_to_ia;
+    transition_to_primary_storage_class;
+  }
+
+let protection ?replication_overwrite () : protection =
+  { replication_overwrite }
+
+let aws_efs_file_system ?availability_zone_name ?creation_token
+    ?encrypted ?id ?kms_key_id ?performance_mode
+    ?provisioned_throughput_in_mibps ?tags ?tags_all ?throughput_mode
+    ~lifecycle_policy ~protection () : aws_efs_file_system =
+  {
+    availability_zone_name;
+    creation_token;
+    encrypted;
+    id;
+    kms_key_id;
+    performance_mode;
+    provisioned_throughput_in_mibps;
+    tags;
+    tags_all;
+    throughput_mode;
+    lifecycle_policy;
+    protection;
+  }
 
 type t = {
   arn : string prop;
@@ -66,35 +96,24 @@ type t = {
   owner_id : string prop;
   performance_mode : string prop;
   provisioned_throughput_in_mibps : float prop;
-  size_in_bytes : aws_efs_file_system__size_in_bytes list prop;
+  size_in_bytes : size_in_bytes list prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   throughput_mode : string prop;
 }
 
-let aws_efs_file_system ?availability_zone_name ?creation_token
+let register ?tf_module ?availability_zone_name ?creation_token
     ?encrypted ?id ?kms_key_id ?performance_mode
     ?provisioned_throughput_in_mibps ?tags ?tags_all ?throughput_mode
     ~lifecycle_policy ~protection __resource_id =
   let __resource_type = "aws_efs_file_system" in
   let __resource =
-    ({
-       availability_zone_name;
-       creation_token;
-       encrypted;
-       id;
-       kms_key_id;
-       performance_mode;
-       provisioned_throughput_in_mibps;
-       tags;
-       tags_all;
-       throughput_mode;
-       lifecycle_policy;
-       protection;
-     }
-      : aws_efs_file_system)
+    aws_efs_file_system ?availability_zone_name ?creation_token
+      ?encrypted ?id ?kms_key_id ?performance_mode
+      ?provisioned_throughput_in_mibps ?tags ?tags_all
+      ?throughput_mode ~lifecycle_policy ~protection ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_efs_file_system __resource);
   let __resource_attributes =
     ({

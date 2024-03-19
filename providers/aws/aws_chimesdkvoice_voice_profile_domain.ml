@@ -4,19 +4,19 @@
 
 open! Tf.Prelude
 
-type aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration = {
+type server_side_encryption_configuration = {
   kms_key_arn : string prop;  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
-(** aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration *)
+(** server_side_encryption_configuration *)
 
-type aws_chimesdkvoice_voice_profile_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_chimesdkvoice_voice_profile_domain__timeouts *)
+(** timeouts *)
 
 type aws_chimesdkvoice_voice_profile_domain = {
   description : string prop option; [@option]  (** description *)
@@ -25,12 +25,30 @@ type aws_chimesdkvoice_voice_profile_domain = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   server_side_encryption_configuration :
-    aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration
-    list;
-  timeouts : aws_chimesdkvoice_voice_profile_domain__timeouts option;
+    server_side_encryption_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_chimesdkvoice_voice_profile_domain *)
+
+let server_side_encryption_configuration ~kms_key_arn () :
+    server_side_encryption_configuration =
+  { kms_key_arn }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_chimesdkvoice_voice_profile_domain ?description ?tags
+    ?tags_all ?timeouts ~name ~server_side_encryption_configuration
+    () : aws_chimesdkvoice_voice_profile_domain =
+  {
+    description;
+    name;
+    tags;
+    tags_all;
+    server_side_encryption_configuration;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -41,22 +59,15 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_chimesdkvoice_voice_profile_domain ?description ?tags
-    ?tags_all ?timeouts ~name ~server_side_encryption_configuration
-    __resource_id =
+let register ?tf_module ?description ?tags ?tags_all ?timeouts ~name
+    ~server_side_encryption_configuration __resource_id =
   let __resource_type = "aws_chimesdkvoice_voice_profile_domain" in
   let __resource =
-    ({
-       description;
-       name;
-       tags;
-       tags_all;
-       server_side_encryption_configuration;
-       timeouts;
-     }
-      : aws_chimesdkvoice_voice_profile_domain)
+    aws_chimesdkvoice_voice_profile_domain ?description ?tags
+      ?tags_all ?timeouts ~name ~server_side_encryption_configuration
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chimesdkvoice_voice_profile_domain __resource);
   let __resource_attributes =
     ({

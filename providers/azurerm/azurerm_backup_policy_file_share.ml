@@ -4,29 +4,27 @@
 
 open! Tf.Prelude
 
-type azurerm_backup_policy_file_share__backup__hourly = {
+type backup__hourly = {
   interval : float prop;  (** interval *)
   start_time : string prop;  (** start_time *)
   window_duration : float prop;  (** window_duration *)
 }
 [@@deriving yojson_of]
-(** azurerm_backup_policy_file_share__backup__hourly *)
+(** backup__hourly *)
 
-type azurerm_backup_policy_file_share__backup = {
+type backup = {
   frequency : string prop;  (** frequency *)
   time : string prop option; [@option]  (** time *)
-  hourly : azurerm_backup_policy_file_share__backup__hourly list;
+  hourly : backup__hourly list;
 }
 [@@deriving yojson_of]
-(** azurerm_backup_policy_file_share__backup *)
+(** backup *)
 
-type azurerm_backup_policy_file_share__retention_daily = {
-  count : float prop;  (** count *)
-}
+type retention_daily = { count : float prop  (** count *) }
 [@@deriving yojson_of]
-(** azurerm_backup_policy_file_share__retention_daily *)
+(** retention_daily *)
 
-type azurerm_backup_policy_file_share__retention_monthly = {
+type retention_monthly = {
   count : float prop;  (** count *)
   days : float prop list option; [@option]  (** days *)
   include_last_days : bool prop option; [@option]
@@ -35,16 +33,16 @@ type azurerm_backup_policy_file_share__retention_monthly = {
   weeks : string prop list option; [@option]  (** weeks *)
 }
 [@@deriving yojson_of]
-(** azurerm_backup_policy_file_share__retention_monthly *)
+(** retention_monthly *)
 
-type azurerm_backup_policy_file_share__retention_weekly = {
+type retention_weekly = {
   count : float prop;  (** count *)
   weekdays : string prop list;  (** weekdays *)
 }
 [@@deriving yojson_of]
-(** azurerm_backup_policy_file_share__retention_weekly *)
+(** retention_weekly *)
 
-type azurerm_backup_policy_file_share__retention_yearly = {
+type retention_yearly = {
   count : float prop;  (** count *)
   days : float prop list option; [@option]  (** days *)
   include_last_days : bool prop option; [@option]
@@ -54,16 +52,16 @@ type azurerm_backup_policy_file_share__retention_yearly = {
   weeks : string prop list option; [@option]  (** weeks *)
 }
 [@@deriving yojson_of]
-(** azurerm_backup_policy_file_share__retention_yearly *)
+(** retention_yearly *)
 
-type azurerm_backup_policy_file_share__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_backup_policy_file_share__timeouts *)
+(** timeouts *)
 
 type azurerm_backup_policy_file_share = {
   id : string prop option; [@option]  (** id *)
@@ -71,19 +69,56 @@ type azurerm_backup_policy_file_share = {
   recovery_vault_name : string prop;  (** recovery_vault_name *)
   resource_group_name : string prop;  (** resource_group_name *)
   timezone : string prop option; [@option]  (** timezone *)
-  backup : azurerm_backup_policy_file_share__backup list;
-  retention_daily :
-    azurerm_backup_policy_file_share__retention_daily list;
-  retention_monthly :
-    azurerm_backup_policy_file_share__retention_monthly list;
-  retention_weekly :
-    azurerm_backup_policy_file_share__retention_weekly list;
-  retention_yearly :
-    azurerm_backup_policy_file_share__retention_yearly list;
-  timeouts : azurerm_backup_policy_file_share__timeouts option;
+  backup : backup list;
+  retention_daily : retention_daily list;
+  retention_monthly : retention_monthly list;
+  retention_weekly : retention_weekly list;
+  retention_yearly : retention_yearly list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_backup_policy_file_share *)
+
+let backup__hourly ~interval ~start_time ~window_duration () :
+    backup__hourly =
+  { interval; start_time; window_duration }
+
+let backup ?time ~frequency ~hourly () : backup =
+  { frequency; time; hourly }
+
+let retention_daily ~count () : retention_daily = { count }
+
+let retention_monthly ?days ?include_last_days ?weekdays ?weeks
+    ~count () : retention_monthly =
+  { count; days; include_last_days; weekdays; weeks }
+
+let retention_weekly ~count ~weekdays () : retention_weekly =
+  { count; weekdays }
+
+let retention_yearly ?days ?include_last_days ?weekdays ?weeks ~count
+    ~months () : retention_yearly =
+  { count; days; include_last_days; months; weekdays; weeks }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_backup_policy_file_share ?id ?timezone ?timeouts ~name
+    ~recovery_vault_name ~resource_group_name ~backup
+    ~retention_daily ~retention_monthly ~retention_weekly
+    ~retention_yearly () : azurerm_backup_policy_file_share =
+  {
+    id;
+    name;
+    recovery_vault_name;
+    resource_group_name;
+    timezone;
+    backup;
+    retention_daily;
+    retention_monthly;
+    retention_weekly;
+    retention_yearly;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -93,28 +128,18 @@ type t = {
   timezone : string prop;
 }
 
-let azurerm_backup_policy_file_share ?id ?timezone ?timeouts ~name
+let register ?tf_module ?id ?timezone ?timeouts ~name
     ~recovery_vault_name ~resource_group_name ~backup
     ~retention_daily ~retention_monthly ~retention_weekly
     ~retention_yearly __resource_id =
   let __resource_type = "azurerm_backup_policy_file_share" in
   let __resource =
-    ({
-       id;
-       name;
-       recovery_vault_name;
-       resource_group_name;
-       timezone;
-       backup;
-       retention_daily;
-       retention_monthly;
-       retention_weekly;
-       retention_yearly;
-       timeouts;
-     }
-      : azurerm_backup_policy_file_share)
+    azurerm_backup_policy_file_share ?id ?timezone ?timeouts ~name
+      ~recovery_vault_name ~resource_group_name ~backup
+      ~retention_daily ~retention_monthly ~retention_weekly
+      ~retention_yearly ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_backup_policy_file_share __resource);
   let __resource_attributes =
     ({

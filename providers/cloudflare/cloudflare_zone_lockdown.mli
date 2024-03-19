@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type cloudflare_zone_lockdown__configurations
+(** RESOURCE SERIALIZATION *)
+
+type configurations
+
+val configurations :
+  target:string prop -> value:string prop -> unit -> configurations
+
 type cloudflare_zone_lockdown
+
+val cloudflare_zone_lockdown :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?paused:bool prop ->
+  ?priority:float prop ->
+  urls:string prop list ->
+  zone_id:string prop ->
+  configurations:configurations list ->
+  unit ->
+  cloudflare_zone_lockdown
+
+val yojson_of_cloudflare_zone_lockdown :
+  cloudflare_zone_lockdown -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -14,13 +36,14 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_zone_lockdown :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?paused:bool prop ->
   ?priority:float prop ->
   urls:string prop list ->
   zone_id:string prop ->
-  configurations:cloudflare_zone_lockdown__configurations list ->
+  configurations:configurations list ->
   string ->
   t

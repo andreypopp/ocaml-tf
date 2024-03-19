@@ -4,42 +4,41 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_trigger_schedule__pipeline = {
+type pipeline = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_schedule__pipeline *)
+(** pipeline *)
 
-type azurerm_data_factory_trigger_schedule__schedule__monthly = {
+type schedule__monthly = {
   week : float prop option; [@option]  (** week *)
   weekday : string prop;  (** weekday *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_schedule__schedule__monthly *)
+(** schedule__monthly *)
 
-type azurerm_data_factory_trigger_schedule__schedule = {
+type schedule = {
   days_of_month : float prop list option; [@option]
       (** days_of_month *)
   days_of_week : string prop list option; [@option]
       (** days_of_week *)
   hours : float prop list option; [@option]  (** hours *)
   minutes : float prop list option; [@option]  (** minutes *)
-  monthly :
-    azurerm_data_factory_trigger_schedule__schedule__monthly list;
+  monthly : schedule__monthly list;
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_schedule__schedule *)
+(** schedule *)
 
-type azurerm_data_factory_trigger_schedule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_schedule__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_trigger_schedule = {
   activated : bool prop option; [@option]  (** activated *)
@@ -57,12 +56,48 @@ type azurerm_data_factory_trigger_schedule = {
       (** pipeline_parameters *)
   start_time : string prop option; [@option]  (** start_time *)
   time_zone : string prop option; [@option]  (** time_zone *)
-  pipeline : azurerm_data_factory_trigger_schedule__pipeline list;
-  schedule : azurerm_data_factory_trigger_schedule__schedule list;
-  timeouts : azurerm_data_factory_trigger_schedule__timeouts option;
+  pipeline : pipeline list;
+  schedule : schedule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_schedule *)
+
+let pipeline ?parameters ~name () : pipeline = { name; parameters }
+
+let schedule__monthly ?week ~weekday () : schedule__monthly =
+  { week; weekday }
+
+let schedule ?days_of_month ?days_of_week ?hours ?minutes ~monthly ()
+    : schedule =
+  { days_of_month; days_of_week; hours; minutes; monthly }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_trigger_schedule ?activated ?annotations
+    ?description ?end_time ?frequency ?id ?interval ?pipeline_name
+    ?pipeline_parameters ?start_time ?time_zone ?timeouts
+    ~data_factory_id ~name ~pipeline ~schedule () :
+    azurerm_data_factory_trigger_schedule =
+  {
+    activated;
+    annotations;
+    data_factory_id;
+    description;
+    end_time;
+    frequency;
+    id;
+    interval;
+    name;
+    pipeline_name;
+    pipeline_parameters;
+    start_time;
+    time_zone;
+    pipeline;
+    schedule;
+    timeouts;
+  }
 
 type t = {
   activated : bool prop;
@@ -80,33 +115,18 @@ type t = {
   time_zone : string prop;
 }
 
-let azurerm_data_factory_trigger_schedule ?activated ?annotations
-    ?description ?end_time ?frequency ?id ?interval ?pipeline_name
+let register ?tf_module ?activated ?annotations ?description
+    ?end_time ?frequency ?id ?interval ?pipeline_name
     ?pipeline_parameters ?start_time ?time_zone ?timeouts
     ~data_factory_id ~name ~pipeline ~schedule __resource_id =
   let __resource_type = "azurerm_data_factory_trigger_schedule" in
   let __resource =
-    ({
-       activated;
-       annotations;
-       data_factory_id;
-       description;
-       end_time;
-       frequency;
-       id;
-       interval;
-       name;
-       pipeline_name;
-       pipeline_parameters;
-       start_time;
-       time_zone;
-       pipeline;
-       schedule;
-       timeouts;
-     }
-      : azurerm_data_factory_trigger_schedule)
+    azurerm_data_factory_trigger_schedule ?activated ?annotations
+      ?description ?end_time ?frequency ?id ?interval ?pipeline_name
+      ?pipeline_parameters ?start_time ?time_zone ?timeouts
+      ~data_factory_id ~name ~pipeline ~schedule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_trigger_schedule __resource);
   let __resource_attributes =
     ({

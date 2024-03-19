@@ -2,10 +2,57 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_inference_cluster__identity
-type azurerm_machine_learning_inference_cluster__ssl
-type azurerm_machine_learning_inference_cluster__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type ssl
+
+val ssl :
+  ?cert:string prop ->
+  ?cname:string prop ->
+  ?key:string prop ->
+  ?leaf_domain_label:string prop ->
+  ?overwrite_existing_domain:bool prop ->
+  unit ->
+  ssl
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_machine_learning_inference_cluster
+
+val azurerm_machine_learning_inference_cluster :
+  ?cluster_purpose:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  kubernetes_cluster_id:string prop ->
+  location:string prop ->
+  machine_learning_workspace_id:string prop ->
+  name:string prop ->
+  identity:identity list ->
+  ssl:ssl list ->
+  unit ->
+  azurerm_machine_learning_inference_cluster
+
+val yojson_of_azurerm_machine_learning_inference_cluster :
+  azurerm_machine_learning_inference_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_purpose : string prop;
@@ -18,17 +65,18 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_machine_learning_inference_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?cluster_purpose:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_machine_learning_inference_cluster__timeouts ->
+  ?timeouts:timeouts ->
   kubernetes_cluster_id:string prop ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
-  identity:azurerm_machine_learning_inference_cluster__identity list ->
-  ssl:azurerm_machine_learning_inference_cluster__ssl list ->
+  identity:identity list ->
+  ssl:ssl list ->
   string ->
   t

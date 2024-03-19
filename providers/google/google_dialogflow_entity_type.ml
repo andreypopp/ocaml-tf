@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_entity_type__entities = {
+type entities = {
   synonyms : string prop list;
       (** A collection of value synonyms. For example, if the entity type is vegetable, and value is scallions, a synonym
 could be green onions.
@@ -21,13 +21,13 @@ For KIND_LIST entity types:
 [@@deriving yojson_of]
 (** The collection of entity entries associated with the entity type. *)
 
-type google_dialogflow_entity_type__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_entity_type__timeouts *)
+(** timeouts *)
 
 type google_dialogflow_entity_type = {
   display_name : string prop;
@@ -42,11 +42,29 @@ type google_dialogflow_entity_type = {
 types can contain references to other entity types (with or without aliases).
 * KIND_REGEXP: Regexp entity types allow to specify regular expressions in entries values. Possible values: [KIND_MAP, KIND_LIST, KIND_REGEXP] *)
   project : string prop option; [@option]  (** project *)
-  entities : google_dialogflow_entity_type__entities list;
-  timeouts : google_dialogflow_entity_type__timeouts option;
+  entities : entities list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_entity_type *)
+
+let entities ~synonyms ~value () : entities = { synonyms; value }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
+    ?project ?timeouts ~display_name ~kind ~entities () :
+    google_dialogflow_entity_type =
+  {
+    display_name;
+    enable_fuzzy_extraction;
+    id;
+    kind;
+    project;
+    entities;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -57,22 +75,14 @@ type t = {
   project : string prop;
 }
 
-let google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
-    ?project ?timeouts ~display_name ~kind ~entities __resource_id =
+let register ?tf_module ?enable_fuzzy_extraction ?id ?project
+    ?timeouts ~display_name ~kind ~entities __resource_id =
   let __resource_type = "google_dialogflow_entity_type" in
   let __resource =
-    ({
-       display_name;
-       enable_fuzzy_extraction;
-       id;
-       kind;
-       project;
-       entities;
-       timeouts;
-     }
-      : google_dialogflow_entity_type)
+    google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
+      ?project ?timeouts ~display_name ~kind ~entities ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_entity_type __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_redshift_snapshot_copy_grant
+
+val aws_redshift_snapshot_copy_grant :
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  snapshot_copy_grant_name:string prop ->
+  unit ->
+  aws_redshift_snapshot_copy_grant
+
+val yojson_of_aws_redshift_snapshot_copy_grant :
+  aws_redshift_snapshot_copy_grant -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +29,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_redshift_snapshot_copy_grant :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?tags:(string * string prop) list ->

@@ -2,11 +2,69 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_compute_cluster__identity
-type azurerm_machine_learning_compute_cluster__scale_settings
-type azurerm_machine_learning_compute_cluster__ssh
-type azurerm_machine_learning_compute_cluster__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type scale_settings
+
+val scale_settings :
+  max_node_count:float prop ->
+  min_node_count:float prop ->
+  scale_down_nodes_after_idle_duration:string prop ->
+  unit ->
+  scale_settings
+
+type ssh
+
+val ssh :
+  ?admin_password:string prop ->
+  ?key_value:string prop ->
+  admin_username:string prop ->
+  unit ->
+  ssh
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_machine_learning_compute_cluster
+
+val azurerm_machine_learning_compute_cluster :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?node_public_ip_enabled:bool prop ->
+  ?ssh_public_access_enabled:bool prop ->
+  ?subnet_resource_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  machine_learning_workspace_id:string prop ->
+  name:string prop ->
+  vm_priority:string prop ->
+  vm_size:string prop ->
+  identity:identity list ->
+  scale_settings:scale_settings list ->
+  ssh:ssh list ->
+  unit ->
+  azurerm_machine_learning_compute_cluster
+
+val yojson_of_azurerm_machine_learning_compute_cluster :
+  azurerm_machine_learning_compute_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -23,7 +81,8 @@ type t = private {
   vm_size : string prop;
 }
 
-val azurerm_machine_learning_compute_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
@@ -31,15 +90,14 @@ val azurerm_machine_learning_compute_cluster :
   ?ssh_public_access_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_machine_learning_compute_cluster__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   vm_priority:string prop ->
   vm_size:string prop ->
-  identity:azurerm_machine_learning_compute_cluster__identity list ->
-  scale_settings:
-    azurerm_machine_learning_compute_cluster__scale_settings list ->
-  ssh:azurerm_machine_learning_compute_cluster__ssh list ->
+  identity:identity list ->
+  scale_settings:scale_settings list ->
+  ssh:ssh list ->
   string ->
   t

@@ -12,18 +12,20 @@ type aws_acmpca_policy = {
 [@@deriving yojson_of]
 (** aws_acmpca_policy *)
 
+let aws_acmpca_policy ?id ~policy ~resource_arn () :
+    aws_acmpca_policy =
+  { id; policy; resource_arn }
+
 type t = {
   id : string prop;
   policy : string prop;
   resource_arn : string prop;
 }
 
-let aws_acmpca_policy ?id ~policy ~resource_arn __resource_id =
+let register ?tf_module ?id ~policy ~resource_arn __resource_id =
   let __resource_type = "aws_acmpca_policy" in
-  let __resource =
-    ({ id; policy; resource_arn } : aws_acmpca_policy)
-  in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_acmpca_policy ?id ~policy ~resource_arn () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_acmpca_policy __resource);
   let __resource_attributes =
     ({

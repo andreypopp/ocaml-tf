@@ -12,6 +12,10 @@ type aws_sagemaker_image_version = {
 [@@deriving yojson_of]
 (** aws_sagemaker_image_version *)
 
+let aws_sagemaker_image_version ?id ~base_image ~image_name () :
+    aws_sagemaker_image_version =
+  { base_image; id; image_name }
+
 type t = {
   arn : string prop;
   base_image : string prop;
@@ -22,13 +26,12 @@ type t = {
   version : float prop;
 }
 
-let aws_sagemaker_image_version ?id ~base_image ~image_name
-    __resource_id =
+let register ?tf_module ?id ~base_image ~image_name __resource_id =
   let __resource_type = "aws_sagemaker_image_version" in
   let __resource =
-    ({ base_image; id; image_name } : aws_sagemaker_image_version)
+    aws_sagemaker_image_version ?id ~base_image ~image_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_image_version __resource);
   let __resource_attributes =
     ({

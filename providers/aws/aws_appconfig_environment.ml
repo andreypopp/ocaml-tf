@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type aws_appconfig_environment__monitor = {
+type monitor = {
   alarm_arn : string prop;  (** alarm_arn *)
   alarm_role_arn : string prop option; [@option]
       (** alarm_role_arn *)
 }
 [@@deriving yojson_of]
-(** aws_appconfig_environment__monitor *)
+(** monitor *)
 
 type aws_appconfig_environment = {
   application_id : string prop;  (** application_id *)
   description : string prop option; [@option]  (** description *)
   name : string prop;  (** name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  monitor : aws_appconfig_environment__monitor list;
+  monitor : monitor list;
 }
 [@@deriving yojson_of]
 (** aws_appconfig_environment *)
+
+let monitor ?alarm_role_arn ~alarm_arn () : monitor =
+  { alarm_arn; alarm_role_arn }
+
+let aws_appconfig_environment ?description ?tags ~application_id
+    ~name ~monitor () : aws_appconfig_environment =
+  { application_id; description; name; tags; monitor }
 
 type t = {
   application_id : string prop;
@@ -34,14 +41,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appconfig_environment ?description ?tags ~application_id
-    ~name ~monitor __resource_id =
+let register ?tf_module ?description ?tags ~application_id ~name
+    ~monitor __resource_id =
   let __resource_type = "aws_appconfig_environment" in
   let __resource =
-    ({ application_id; description; name; tags; monitor }
-      : aws_appconfig_environment)
+    aws_appconfig_environment ?description ?tags ~application_id
+      ~name ~monitor ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_environment __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_biglake_table__hive_options__storage_descriptor = {
+type hive_options__storage_descriptor = {
   input_format : string prop option; [@option]
       (** The fully qualified Java class name of the input format. *)
   location_uri : string prop option; [@option]
@@ -15,26 +15,25 @@ type google_biglake_table__hive_options__storage_descriptor = {
 [@@deriving yojson_of]
 (** Stores physical storage information on the data. *)
 
-type google_biglake_table__hive_options = {
+type hive_options = {
   parameters : (string * string prop) list option; [@option]
       (** Stores user supplied Hive table parameters. An object containing a
 list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   table_type : string prop option; [@option]
       (** Hive table type. For example, MANAGED_TABLE, EXTERNAL_TABLE. *)
-  storage_descriptor :
-    google_biglake_table__hive_options__storage_descriptor list;
+  storage_descriptor : hive_options__storage_descriptor list;
 }
 [@@deriving yojson_of]
 (** Options of a Hive table. *)
 
-type google_biglake_table__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_biglake_table__timeouts *)
+(** timeouts *)
 
 type google_biglake_table = {
   database : string prop option; [@option]
@@ -45,11 +44,26 @@ type google_biglake_table = {
 projects/{project_id_or_number}/locations/{locationId}/catalogs/{catalogId}/databases/{databaseId}/tables/{tableId} *)
   type_ : string prop option; [@option] [@key "type"]
       (** The database type. Possible values: [HIVE] *)
-  hive_options : google_biglake_table__hive_options list;
-  timeouts : google_biglake_table__timeouts option;
+  hive_options : hive_options list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_biglake_table *)
+
+let hive_options__storage_descriptor ?input_format ?location_uri
+    ?output_format () : hive_options__storage_descriptor =
+  { input_format; location_uri; output_format }
+
+let hive_options ?parameters ?table_type ~storage_descriptor () :
+    hive_options =
+  { parameters; table_type; storage_descriptor }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_biglake_table ?database ?id ?type_ ?timeouts ~name
+    ~hive_options () : google_biglake_table =
+  { database; id; name; type_; hive_options; timeouts }
 
 type t = {
   create_time : string prop;
@@ -63,14 +77,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_biglake_table ?database ?id ?type_ ?timeouts ~name
+let register ?tf_module ?database ?id ?type_ ?timeouts ~name
     ~hive_options __resource_id =
   let __resource_type = "google_biglake_table" in
   let __resource =
-    ({ database; id; name; type_; hive_options; timeouts }
-      : google_biglake_table)
+    google_biglake_table ?database ?id ?type_ ?timeouts ~name
+      ~hive_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_biglake_table __resource);
   let __resource_attributes =
     ({

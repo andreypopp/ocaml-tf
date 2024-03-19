@@ -2,14 +2,59 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_container_service_deployment_version__container
+(** RESOURCE SERIALIZATION *)
 
-type aws_lightsail_container_service_deployment_version__public_endpoint__health_check
+type container
 
-type aws_lightsail_container_service_deployment_version__public_endpoint
+val container :
+  ?command:string prop list ->
+  ?environment:(string * string prop) list ->
+  ?ports:(string * string prop) list ->
+  container_name:string prop ->
+  image:string prop ->
+  unit ->
+  container
 
-type aws_lightsail_container_service_deployment_version__timeouts
+type public_endpoint__health_check
+
+val public_endpoint__health_check :
+  ?healthy_threshold:float prop ->
+  ?interval_seconds:float prop ->
+  ?path:string prop ->
+  ?success_codes:string prop ->
+  ?timeout_seconds:float prop ->
+  ?unhealthy_threshold:float prop ->
+  unit ->
+  public_endpoint__health_check
+
+type public_endpoint
+
+val public_endpoint :
+  container_name:string prop ->
+  container_port:float prop ->
+  health_check:public_endpoint__health_check list ->
+  unit ->
+  public_endpoint
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_lightsail_container_service_deployment_version
+
+val aws_lightsail_container_service_deployment_version :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  service_name:string prop ->
+  container:container list ->
+  public_endpoint:public_endpoint list ->
+  unit ->
+  aws_lightsail_container_service_deployment_version
+
+val yojson_of_aws_lightsail_container_service_deployment_version :
+  aws_lightsail_container_service_deployment_version -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created_at : string prop;
@@ -19,16 +64,12 @@ type t = private {
   version : float prop;
 }
 
-val aws_lightsail_container_service_deployment_version :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    aws_lightsail_container_service_deployment_version__timeouts ->
+  ?timeouts:timeouts ->
   service_name:string prop ->
-  container:
-    aws_lightsail_container_service_deployment_version__container
-    list ->
-  public_endpoint:
-    aws_lightsail_container_service_deployment_version__public_endpoint
-    list ->
+  container:container list ->
+  public_endpoint:public_endpoint list ->
   string ->
   t

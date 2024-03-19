@@ -14,6 +14,11 @@ type aws_securityhub_standards_control = {
 [@@deriving yojson_of]
 (** aws_securityhub_standards_control *)
 
+let aws_securityhub_standards_control ?disabled_reason ?id
+    ~control_status ~standards_control_arn () :
+    aws_securityhub_standards_control =
+  { control_status; disabled_reason; id; standards_control_arn }
+
 type t = {
   control_id : string prop;
   control_status : string prop;
@@ -28,14 +33,14 @@ type t = {
   title : string prop;
 }
 
-let aws_securityhub_standards_control ?disabled_reason ?id
-    ~control_status ~standards_control_arn __resource_id =
+let register ?tf_module ?disabled_reason ?id ~control_status
+    ~standards_control_arn __resource_id =
   let __resource_type = "aws_securityhub_standards_control" in
   let __resource =
-    ({ control_status; disabled_reason; id; standards_control_arn }
-      : aws_securityhub_standards_control)
+    aws_securityhub_standards_control ?disabled_reason ?id
+      ~control_status ~standards_control_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_standards_control __resource);
   let __resource_attributes =
     ({

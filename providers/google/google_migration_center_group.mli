@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type google_migration_center_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_migration_center_group
+
+val google_migration_center_group :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  group_id:string prop ->
+  location:string prop ->
+  unit ->
+  google_migration_center_group
+
+val yojson_of_google_migration_center_group :
+  google_migration_center_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -20,13 +47,14 @@ type t = private {
   update_time : string prop;
 }
 
-val google_migration_center_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_migration_center_group__timeouts ->
+  ?timeouts:timeouts ->
   group_id:string prop ->
   location:string prop ->
   string ->

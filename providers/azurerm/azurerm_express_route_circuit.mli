@@ -2,9 +2,46 @@
 
 open! Tf.Prelude
 
-type azurerm_express_route_circuit__sku
-type azurerm_express_route_circuit__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type sku
+
+val sku : family:string prop -> tier:string prop -> unit -> sku
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_express_route_circuit
+
+val azurerm_express_route_circuit :
+  ?allow_classic_operations:bool prop ->
+  ?authorization_key:string prop ->
+  ?bandwidth_in_gbps:float prop ->
+  ?bandwidth_in_mbps:float prop ->
+  ?express_route_port_id:string prop ->
+  ?id:string prop ->
+  ?peering_location:string prop ->
+  ?service_provider_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:sku list ->
+  unit ->
+  azurerm_express_route_circuit
+
+val yojson_of_azurerm_express_route_circuit :
+  azurerm_express_route_circuit -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allow_classic_operations : bool prop;
@@ -23,7 +60,8 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_express_route_circuit :
+val register :
+  ?tf_module:tf_module ->
   ?allow_classic_operations:bool prop ->
   ?authorization_key:string prop ->
   ?bandwidth_in_gbps:float prop ->
@@ -33,10 +71,10 @@ val azurerm_express_route_circuit :
   ?peering_location:string prop ->
   ?service_provider_name:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_express_route_circuit__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  sku:azurerm_express_route_circuit__sku list ->
+  sku:sku list ->
   string ->
   t

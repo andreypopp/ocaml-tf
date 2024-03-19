@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_snapshot_create_volume_permission__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_snapshot_create_volume_permission
+
+val aws_snapshot_create_volume_permission :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  account_id:string prop ->
+  snapshot_id:string prop ->
+  unit ->
+  aws_snapshot_create_volume_permission
+
+val yojson_of_aws_snapshot_create_volume_permission :
+  aws_snapshot_create_volume_permission -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -11,9 +30,10 @@ type t = private {
   snapshot_id : string prop;
 }
 
-val aws_snapshot_create_volume_permission :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_snapshot_create_volume_permission__timeouts ->
+  ?timeouts:timeouts ->
   account_id:string prop ->
   snapshot_id:string prop ->
   string ->

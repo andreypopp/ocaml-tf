@@ -2,9 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_ecr_registry_scanning_configuration__rule__repository_filter
-type aws_ecr_registry_scanning_configuration__rule
+(** RESOURCE SERIALIZATION *)
+
+type rule__repository_filter
+
+val rule__repository_filter :
+  filter:string prop ->
+  filter_type:string prop ->
+  unit ->
+  rule__repository_filter
+
+type rule
+
+val rule :
+  scan_frequency:string prop ->
+  repository_filter:rule__repository_filter list ->
+  unit ->
+  rule
+
 type aws_ecr_registry_scanning_configuration
+
+val aws_ecr_registry_scanning_configuration :
+  ?id:string prop ->
+  scan_type:string prop ->
+  rule:rule list ->
+  unit ->
+  aws_ecr_registry_scanning_configuration
+
+val yojson_of_aws_ecr_registry_scanning_configuration :
+  aws_ecr_registry_scanning_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,9 +40,10 @@ type t = private {
   scan_type : string prop;
 }
 
-val aws_ecr_registry_scanning_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   scan_type:string prop ->
-  rule:aws_ecr_registry_scanning_configuration__rule list ->
+  rule:rule list ->
   string ->
   t

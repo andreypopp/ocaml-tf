@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_apprunner_custom_domain_association__certificate_validation_records = {
+type certificate_validation_records = {
   name : string prop;  (** name *)
   status : string prop;  (** status *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -22,11 +22,14 @@ type aws_apprunner_custom_domain_association = {
 [@@deriving yojson_of]
 (** aws_apprunner_custom_domain_association *)
 
+let aws_apprunner_custom_domain_association ?enable_www_subdomain ?id
+    ~domain_name ~service_arn () :
+    aws_apprunner_custom_domain_association =
+  { domain_name; enable_www_subdomain; id; service_arn }
+
 type t = {
   certificate_validation_records :
-    aws_apprunner_custom_domain_association__certificate_validation_records
-    list
-    prop;
+    certificate_validation_records list prop;
   dns_target : string prop;
   domain_name : string prop;
   enable_www_subdomain : bool prop;
@@ -35,14 +38,14 @@ type t = {
   status : string prop;
 }
 
-let aws_apprunner_custom_domain_association ?enable_www_subdomain ?id
-    ~domain_name ~service_arn __resource_id =
+let register ?tf_module ?enable_www_subdomain ?id ~domain_name
+    ~service_arn __resource_id =
   let __resource_type = "aws_apprunner_custom_domain_association" in
   let __resource =
-    ({ domain_name; enable_www_subdomain; id; service_arn }
-      : aws_apprunner_custom_domain_association)
+    aws_apprunner_custom_domain_association ?enable_www_subdomain ?id
+      ~domain_name ~service_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apprunner_custom_domain_association __resource);
   let __resource_attributes =
     ({

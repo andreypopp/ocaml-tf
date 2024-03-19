@@ -4,38 +4,30 @@
 
 open! Tf.Prelude
 
-type google_edgecontainer_vpn_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_edgecontainer_vpn_connection__timeouts *)
+(** timeouts *)
 
-type google_edgecontainer_vpn_connection__vpc_project = {
+type vpc_project = {
   project_id : string prop option; [@option]
       (** The project of the VPC to connect to. If not specified, it is the same as the cluster project. *)
 }
 [@@deriving yojson_of]
 (** Project detail of the VPC network. Required if VPC is in a different project than the cluster project. *)
 
-type google_edgecontainer_vpn_connection__details__cloud_vpns = {
-  gateway : string prop;  (** gateway *)
-}
+type details__cloud_vpns = { gateway : string prop  (** gateway *) }
 [@@deriving yojson_of]
 
-type google_edgecontainer_vpn_connection__details__cloud_router = {
-  name : string prop;  (** name *)
-}
+type details__cloud_router = { name : string prop  (** name *) }
 [@@deriving yojson_of]
 
-type google_edgecontainer_vpn_connection__details = {
-  cloud_router :
-    google_edgecontainer_vpn_connection__details__cloud_router list;
-      (** cloud_router *)
-  cloud_vpns :
-    google_edgecontainer_vpn_connection__details__cloud_vpns list;
-      (** cloud_vpns *)
+type details = {
+  cloud_router : details__cloud_router list;  (** cloud_router *)
+  cloud_vpns : details__cloud_vpns list;  (** cloud_vpns *)
   error : string prop;  (** error *)
   state : string prop;  (** state *)
 }
@@ -62,16 +54,40 @@ This is empty if NAT is not used. *)
       (** The VPN connection Cloud Router name. *)
   vpc : string prop option; [@option]
       (** The network ID of VPC to connect to. *)
-  timeouts : google_edgecontainer_vpn_connection__timeouts option;
-  vpc_project : google_edgecontainer_vpn_connection__vpc_project list;
+  timeouts : timeouts option;
+  vpc_project : vpc_project list;
 }
 [@@deriving yojson_of]
 (** google_edgecontainer_vpn_connection *)
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc_project ?project_id () : vpc_project = { project_id }
+
+let google_edgecontainer_vpn_connection ?enable_high_availability ?id
+    ?labels ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
+    ~location ~name ~vpc_project () :
+    google_edgecontainer_vpn_connection =
+  {
+    cluster;
+    enable_high_availability;
+    id;
+    labels;
+    location;
+    name;
+    nat_gateway_ip;
+    project;
+    router;
+    vpc;
+    timeouts;
+    vpc_project;
+  }
+
 type t = {
   cluster : string prop;
   create_time : string prop;
-  details : google_edgecontainer_vpn_connection__details list prop;
+  details : details list prop;
   effective_labels : (string * string) list prop;
   enable_high_availability : bool prop;
   id : string prop;
@@ -86,28 +102,16 @@ type t = {
   vpc : string prop;
 }
 
-let google_edgecontainer_vpn_connection ?enable_high_availability ?id
-    ?labels ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
+let register ?tf_module ?enable_high_availability ?id ?labels
+    ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
     ~location ~name ~vpc_project __resource_id =
   let __resource_type = "google_edgecontainer_vpn_connection" in
   let __resource =
-    ({
-       cluster;
-       enable_high_availability;
-       id;
-       labels;
-       location;
-       name;
-       nat_gateway_ip;
-       project;
-       router;
-       vpc;
-       timeouts;
-       vpc_project;
-     }
-      : google_edgecontainer_vpn_connection)
+    google_edgecontainer_vpn_connection ?enable_high_availability ?id
+      ?labels ?nat_gateway_ip ?project ?router ?vpc ?timeouts
+      ~cluster ~location ~name ~vpc_project ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_edgecontainer_vpn_connection __resource);
   let __resource_attributes =
     ({

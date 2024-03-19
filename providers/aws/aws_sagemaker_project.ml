@@ -4,24 +4,23 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_project__service_catalog_provisioning_details__provisioning_parameter = {
+type service_catalog_provisioning_details__provisioning_parameter = {
   key : string prop;  (** key *)
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_project__service_catalog_provisioning_details__provisioning_parameter *)
+(** service_catalog_provisioning_details__provisioning_parameter *)
 
-type aws_sagemaker_project__service_catalog_provisioning_details = {
+type service_catalog_provisioning_details = {
   path_id : string prop option; [@option]  (** path_id *)
   product_id : string prop;  (** product_id *)
   provisioning_artifact_id : string prop option; [@option]
       (** provisioning_artifact_id *)
   provisioning_parameter :
-    aws_sagemaker_project__service_catalog_provisioning_details__provisioning_parameter
-    list;
+    service_catalog_provisioning_details__provisioning_parameter list;
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_project__service_catalog_provisioning_details *)
+(** service_catalog_provisioning_details *)
 
 type aws_sagemaker_project = {
   id : string prop option; [@option]  (** id *)
@@ -32,10 +31,37 @@ type aws_sagemaker_project = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   service_catalog_provisioning_details :
-    aws_sagemaker_project__service_catalog_provisioning_details list;
+    service_catalog_provisioning_details list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_project *)
+
+let service_catalog_provisioning_details__provisioning_parameter
+    ?value ~key () :
+    service_catalog_provisioning_details__provisioning_parameter =
+  { key; value }
+
+let service_catalog_provisioning_details ?path_id
+    ?provisioning_artifact_id ~product_id ~provisioning_parameter ()
+    : service_catalog_provisioning_details =
+  {
+    path_id;
+    product_id;
+    provisioning_artifact_id;
+    provisioning_parameter;
+  }
+
+let aws_sagemaker_project ?id ?project_description ?tags ?tags_all
+    ~project_name ~service_catalog_provisioning_details () :
+    aws_sagemaker_project =
+  {
+    id;
+    project_description;
+    project_name;
+    tags;
+    tags_all;
+    service_catalog_provisioning_details;
+  }
 
 type t = {
   arn : string prop;
@@ -47,22 +73,15 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_sagemaker_project ?id ?project_description ?tags ?tags_all
+let register ?tf_module ?id ?project_description ?tags ?tags_all
     ~project_name ~service_catalog_provisioning_details __resource_id
     =
   let __resource_type = "aws_sagemaker_project" in
   let __resource =
-    ({
-       id;
-       project_description;
-       project_name;
-       tags;
-       tags_all;
-       service_catalog_provisioning_details;
-     }
-      : aws_sagemaker_project)
+    aws_sagemaker_project ?id ?project_description ?tags ?tags_all
+      ~project_name ~service_catalog_provisioning_details ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_project __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_integration_account_session__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_session__timeouts *)
+(** timeouts *)
 
 type azurerm_logic_app_integration_account_session = {
   content : string prop;  (** content *)
@@ -20,11 +20,25 @@ type azurerm_logic_app_integration_account_session = {
       (** integration_account_name *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts :
-    azurerm_logic_app_integration_account_session__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_session *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logic_app_integration_account_session ?id ?timeouts
+    ~content ~integration_account_name ~name ~resource_group_name ()
+    : azurerm_logic_app_integration_account_session =
+  {
+    content;
+    id;
+    integration_account_name;
+    name;
+    resource_group_name;
+    timeouts;
+  }
 
 type t = {
   content : string prop;
@@ -34,24 +48,18 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_logic_app_integration_account_session ?id ?timeouts
-    ~content ~integration_account_name ~name ~resource_group_name
+let register ?tf_module ?id ?timeouts ~content
+    ~integration_account_name ~name ~resource_group_name
     __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_session"
   in
   let __resource =
-    ({
-       content;
-       id;
-       integration_account_name;
-       name;
-       resource_group_name;
-       timeouts;
-     }
-      : azurerm_logic_app_integration_account_session)
+    azurerm_logic_app_integration_account_session ?id ?timeouts
+      ~content ~integration_account_name ~name ~resource_group_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_session
        __resource);
   let __resource_attributes =

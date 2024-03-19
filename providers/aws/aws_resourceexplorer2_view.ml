@@ -4,28 +4,30 @@
 
 open! Tf.Prelude
 
-type aws_resourceexplorer2_view__filters = {
-  filter_string : string prop;  (** filter_string *)
-}
+type filters = { filter_string : string prop  (** filter_string *) }
 [@@deriving yojson_of]
-(** aws_resourceexplorer2_view__filters *)
+(** filters *)
 
-type aws_resourceexplorer2_view__included_property = {
-  name : string prop;  (** name *)
-}
+type included_property = { name : string prop  (** name *) }
 [@@deriving yojson_of]
-(** aws_resourceexplorer2_view__included_property *)
+(** included_property *)
 
 type aws_resourceexplorer2_view = {
   default_view : bool prop option; [@option]  (** default_view *)
   name : string prop;  (** name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  filters : aws_resourceexplorer2_view__filters list;
-  included_property :
-    aws_resourceexplorer2_view__included_property list;
+  filters : filters list;
+  included_property : included_property list;
 }
 [@@deriving yojson_of]
 (** aws_resourceexplorer2_view *)
+
+let filters ~filter_string () : filters = { filter_string }
+let included_property ~name () : included_property = { name }
+
+let aws_resourceexplorer2_view ?default_view ?tags ~name ~filters
+    ~included_property () : aws_resourceexplorer2_view =
+  { default_view; name; tags; filters; included_property }
 
 type t = {
   arn : string prop;
@@ -36,14 +38,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_resourceexplorer2_view ?default_view ?tags ~name ~filters
+let register ?tf_module ?default_view ?tags ~name ~filters
     ~included_property __resource_id =
   let __resource_type = "aws_resourceexplorer2_view" in
   let __resource =
-    ({ default_view; name; tags; filters; included_property }
-      : aws_resourceexplorer2_view)
+    aws_resourceexplorer2_view ?default_view ?tags ~name ~filters
+      ~included_property ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_resourceexplorer2_view __resource);
   let __resource_attributes =
     ({

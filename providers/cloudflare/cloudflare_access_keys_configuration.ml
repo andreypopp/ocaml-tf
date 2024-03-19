@@ -16,20 +16,25 @@ type cloudflare_access_keys_configuration = {
 that access will use to sign data.
  *)
 
+let cloudflare_access_keys_configuration ?id
+    ?key_rotation_interval_days ~account_id () :
+    cloudflare_access_keys_configuration =
+  { account_id; id; key_rotation_interval_days }
+
 type t = {
   account_id : string prop;
   id : string prop;
   key_rotation_interval_days : float prop;
 }
 
-let cloudflare_access_keys_configuration ?id
-    ?key_rotation_interval_days ~account_id __resource_id =
+let register ?tf_module ?id ?key_rotation_interval_days ~account_id
+    __resource_id =
   let __resource_type = "cloudflare_access_keys_configuration" in
   let __resource =
-    ({ account_id; id; key_rotation_interval_days }
-      : cloudflare_access_keys_configuration)
+    cloudflare_access_keys_configuration ?id
+      ?key_rotation_interval_days ~account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_keys_configuration __resource);
   let __resource_attributes =
     ({

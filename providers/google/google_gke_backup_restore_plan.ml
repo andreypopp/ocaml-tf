@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope__excluded_group_kinds = {
+type restore_config__cluster_resource_restore_scope__excluded_group_kinds = {
   resource_group : string prop option; [@option]
       (** API Group string of a Kubernetes resource, e.g.
 apiextensions.k8s.io, storage.k8s.io, etc.
@@ -19,7 +19,7 @@ If specified, all valid cluster-scoped resources will be restored except
 for those specified in the list.
 Mutually exclusive to any other field in 'clusterResourceRestoreScope'. *)
 
-type google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope__selected_group_kinds = {
+type restore_config__cluster_resource_restore_scope__selected_group_kinds = {
   resource_group : string prop option; [@option]
       (** API Group string of a Kubernetes resource, e.g.
 apiextensions.k8s.io, storage.k8s.io, etc.
@@ -33,7 +33,7 @@ CustomResourceDefinition, StorageClass, etc. *)
 If specified, only the selected resources will be restored.
 Mutually exclusive to any other field in the 'clusterResourceRestoreScope'. *)
 
-type google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope = {
+type restore_config__cluster_resource_restore_scope = {
   all_group_kinds : bool prop option; [@option]
       (** If True, all valid cluster-scoped resources will be restored.
 Mutually exclusive to any other field in 'clusterResourceRestoreScope'. *)
@@ -41,16 +41,16 @@ Mutually exclusive to any other field in 'clusterResourceRestoreScope'. *)
       (** If True, no cluster-scoped resources will be restored.
 Mutually exclusive to any other field in 'clusterResourceRestoreScope'. *)
   excluded_group_kinds :
-    google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope__excluded_group_kinds
+    restore_config__cluster_resource_restore_scope__excluded_group_kinds
     list;
   selected_group_kinds :
-    google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope__selected_group_kinds
+    restore_config__cluster_resource_restore_scope__selected_group_kinds
     list;
 }
 [@@deriving yojson_of]
 (** Identifies the cluster-scoped resources to restore from the Backup. *)
 
-type google_gke_backup_restore_plan__restore_config__excluded_namespaces = {
+type restore_config__excluded_namespaces = {
   namespaces : string prop list;
       (** A list of Kubernetes Namespaces. *)
 }
@@ -58,7 +58,7 @@ type google_gke_backup_restore_plan__restore_config__excluded_namespaces = {
 (** A list of selected namespaces excluded from restoration.
 All namespaces except those in this list will be restored. *)
 
-type google_gke_backup_restore_plan__restore_config__selected_applications__namespaced_names = {
+type restore_config__selected_applications__namespaced_names = {
   name : string prop;  (** The name of a Kubernetes Resource. *)
   namespace : string prop;
       (** The namespace of a Kubernetes Resource. *)
@@ -66,17 +66,16 @@ type google_gke_backup_restore_plan__restore_config__selected_applications__name
 [@@deriving yojson_of]
 (** A list of namespaced Kubernetes resources. *)
 
-type google_gke_backup_restore_plan__restore_config__selected_applications = {
+type restore_config__selected_applications = {
   namespaced_names :
-    google_gke_backup_restore_plan__restore_config__selected_applications__namespaced_names
-    list;
+    restore_config__selected_applications__namespaced_names list;
 }
 [@@deriving yojson_of]
 (** A list of selected ProtectedApplications to restore.
 The listed ProtectedApplications and all the resources
 to which they refer will be restored. *)
 
-type google_gke_backup_restore_plan__restore_config__selected_namespaces = {
+type restore_config__selected_namespaces = {
   namespaces : string prop list;
       (** A list of Kubernetes Namespaces. *)
 }
@@ -84,7 +83,7 @@ type google_gke_backup_restore_plan__restore_config__selected_namespaces = {
 (** A list of selected namespaces to restore from the Backup.
 The listed Namespaces and all resources contained in them will be restored. *)
 
-type google_gke_backup_restore_plan__restore_config__transformation_rules__field_actions = {
+type restore_config__transformation_rules__field_actions = {
   from_path : string prop option; [@option]
       (** A string containing a JSON Pointer value that references the
 location in the target document to move the value from. *)
@@ -103,7 +102,7 @@ resources. Actions are executed in order defined - this order
 matters, as they could potentially interfere with each other and
 the first operation could affect the outcome of the second operation. *)
 
-type google_gke_backup_restore_plan__restore_config__transformation_rules__resource_filter__group_kinds = {
+type restore_config__transformation_rules__resource_filter__group_kinds = {
   resource_group : string prop option; [@option]
       (** API Group string of a Kubernetes resource, e.g.
 apiextensions.k8s.io, storage.k8s.io, etc.
@@ -119,7 +118,7 @@ no type filtering will be performed
 (all resources of all types matching previous filtering parameters
 will be candidates for transformation). *)
 
-type google_gke_backup_restore_plan__restore_config__transformation_rules__resource_filter = {
+type restore_config__transformation_rules__resource_filter = {
   json_path : string prop option; [@option]
       (** This is a JSONPath expression that matches specific fields of
 candidate resources and it operates as a filtering parameter
@@ -134,7 +133,7 @@ cluster-scoped resources, will be candidates for transformation).
 To mix cluster-scoped and namespaced resources in the same rule,
 use an empty string () as one of the target namespaces. *)
   group_kinds :
-    google_gke_backup_restore_plan__restore_config__transformation_rules__resource_filter__group_kinds
+    restore_config__transformation_rules__resource_filter__group_kinds
     list;
 }
 [@@deriving yojson_of]
@@ -143,16 +142,14 @@ determine which resources in backup should be acted upon by the
 supplied transformation rule actions, and this will ensure that only
 specific resources are affected by transformation rule actions. *)
 
-type google_gke_backup_restore_plan__restore_config__transformation_rules = {
+type restore_config__transformation_rules = {
   description : string prop option; [@option]
       (** The description is a user specified string description
 of the transformation rule. *)
   field_actions :
-    google_gke_backup_restore_plan__restore_config__transformation_rules__field_actions
-    list;
+    restore_config__transformation_rules__field_actions list;
   resource_filter :
-    google_gke_backup_restore_plan__restore_config__transformation_rules__resource_filter
-    list;
+    restore_config__transformation_rules__resource_filter list;
 }
 [@@deriving yojson_of]
 (** A list of transformation rules to be applied against Kubernetes
@@ -161,7 +158,7 @@ Rules are executed in order defined - this order matters,
 as changes made by a rule may impact the filtering logic of subsequent
 rules. An empty list means no transformation will occur. *)
 
-type google_gke_backup_restore_plan__restore_config = {
+type restore_config = {
   all_namespaces : bool prop option; [@option]
       (** If True, restore all namespaced resources in the Backup.
 Setting this field to False will result in an error. *)
@@ -190,31 +187,22 @@ If not specified, it will be treated as 'NO_VOLUME_DATA_RESTORATION'.
 See https://cloud.google.com/kubernetes-engine/docs/add-on/backup-for-gke/reference/rest/v1/RestoreConfig#VolumeDataRestorePolicy
 for more information on each policy option. Possible values: [RESTORE_VOLUME_DATA_FROM_BACKUP, REUSE_VOLUME_HANDLE_FROM_BACKUP, NO_VOLUME_DATA_RESTORATION] *)
   cluster_resource_restore_scope :
-    google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope
-    list;
-  excluded_namespaces :
-    google_gke_backup_restore_plan__restore_config__excluded_namespaces
-    list;
-  selected_applications :
-    google_gke_backup_restore_plan__restore_config__selected_applications
-    list;
-  selected_namespaces :
-    google_gke_backup_restore_plan__restore_config__selected_namespaces
-    list;
-  transformation_rules :
-    google_gke_backup_restore_plan__restore_config__transformation_rules
-    list;
+    restore_config__cluster_resource_restore_scope list;
+  excluded_namespaces : restore_config__excluded_namespaces list;
+  selected_applications : restore_config__selected_applications list;
+  selected_namespaces : restore_config__selected_namespaces list;
+  transformation_rules : restore_config__transformation_rules list;
 }
 [@@deriving yojson_of]
 (** Defines the configuration of Restores created via this RestorePlan. *)
 
-type google_gke_backup_restore_plan__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gke_backup_restore_plan__timeouts *)
+(** timeouts *)
 
 type google_gke_backup_restore_plan = {
   backup_plan : string prop;
@@ -237,12 +225,107 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string prop;
       (** The full name of the BackupPlan Resource. *)
   project : string prop option; [@option]  (** project *)
-  restore_config :
-    google_gke_backup_restore_plan__restore_config list;
-  timeouts : google_gke_backup_restore_plan__timeouts option;
+  restore_config : restore_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gke_backup_restore_plan *)
+
+let restore_config__cluster_resource_restore_scope__excluded_group_kinds
+    ?resource_group ?resource_kind () :
+    restore_config__cluster_resource_restore_scope__excluded_group_kinds
+    =
+  { resource_group; resource_kind }
+
+let restore_config__cluster_resource_restore_scope__selected_group_kinds
+    ?resource_group ?resource_kind () :
+    restore_config__cluster_resource_restore_scope__selected_group_kinds
+    =
+  { resource_group; resource_kind }
+
+let restore_config__cluster_resource_restore_scope ?all_group_kinds
+    ?no_group_kinds ~excluded_group_kinds ~selected_group_kinds () :
+    restore_config__cluster_resource_restore_scope =
+  {
+    all_group_kinds;
+    no_group_kinds;
+    excluded_group_kinds;
+    selected_group_kinds;
+  }
+
+let restore_config__excluded_namespaces ~namespaces () :
+    restore_config__excluded_namespaces =
+  { namespaces }
+
+let restore_config__selected_applications__namespaced_names ~name
+    ~namespace () :
+    restore_config__selected_applications__namespaced_names =
+  { name; namespace }
+
+let restore_config__selected_applications ~namespaced_names () :
+    restore_config__selected_applications =
+  { namespaced_names }
+
+let restore_config__selected_namespaces ~namespaces () :
+    restore_config__selected_namespaces =
+  { namespaces }
+
+let restore_config__transformation_rules__field_actions ?from_path
+    ?path ?value ~op () :
+    restore_config__transformation_rules__field_actions =
+  { from_path; op; path; value }
+
+let restore_config__transformation_rules__resource_filter__group_kinds
+    ?resource_group ?resource_kind () :
+    restore_config__transformation_rules__resource_filter__group_kinds
+    =
+  { resource_group; resource_kind }
+
+let restore_config__transformation_rules__resource_filter ?json_path
+    ?namespaces ~group_kinds () :
+    restore_config__transformation_rules__resource_filter =
+  { json_path; namespaces; group_kinds }
+
+let restore_config__transformation_rules ?description ~field_actions
+    ~resource_filter () : restore_config__transformation_rules =
+  { description; field_actions; resource_filter }
+
+let restore_config ?all_namespaces ?cluster_resource_conflict_policy
+    ?namespaced_resource_restore_mode ?no_namespaces
+    ?volume_data_restore_policy ~cluster_resource_restore_scope
+    ~excluded_namespaces ~selected_applications ~selected_namespaces
+    ~transformation_rules () : restore_config =
+  {
+    all_namespaces;
+    cluster_resource_conflict_policy;
+    namespaced_resource_restore_mode;
+    no_namespaces;
+    volume_data_restore_policy;
+    cluster_resource_restore_scope;
+    excluded_namespaces;
+    selected_applications;
+    selected_namespaces;
+    transformation_rules;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gke_backup_restore_plan ?description ?id ?labels ?project
+    ?timeouts ~backup_plan ~cluster ~location ~name ~restore_config
+    () : google_gke_backup_restore_plan =
+  {
+    backup_plan;
+    cluster;
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    restore_config;
+    timeouts;
+  }
 
 type t = {
   backup_plan : string prop;
@@ -260,26 +343,16 @@ type t = {
   uid : string prop;
 }
 
-let google_gke_backup_restore_plan ?description ?id ?labels ?project
-    ?timeouts ~backup_plan ~cluster ~location ~name ~restore_config
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~backup_plan ~cluster ~location ~name ~restore_config
     __resource_id =
   let __resource_type = "google_gke_backup_restore_plan" in
   let __resource =
-    ({
-       backup_plan;
-       cluster;
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       restore_config;
-       timeouts;
-     }
-      : google_gke_backup_restore_plan)
+    google_gke_backup_restore_plan ?description ?id ?labels ?project
+      ?timeouts ~backup_plan ~cluster ~location ~name ~restore_config
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_backup_restore_plan __resource);
   let __resource_attributes =
     ({

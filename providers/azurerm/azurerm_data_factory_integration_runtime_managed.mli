@@ -2,15 +2,69 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_integration_runtime_managed__catalog_info
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_data_factory_integration_runtime_managed__custom_setup_script
+type catalog_info
 
-type azurerm_data_factory_integration_runtime_managed__timeouts
+val catalog_info :
+  ?administrator_login:string prop ->
+  ?administrator_password:string prop ->
+  ?pricing_tier:string prop ->
+  server_endpoint:string prop ->
+  unit ->
+  catalog_info
 
-type azurerm_data_factory_integration_runtime_managed__vnet_integration
+type custom_setup_script
+
+val custom_setup_script :
+  blob_container_uri:string prop ->
+  sas_token:string prop ->
+  unit ->
+  custom_setup_script
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type vnet_integration
+
+val vnet_integration :
+  subnet_name:string prop ->
+  vnet_id:string prop ->
+  unit ->
+  vnet_integration
 
 type azurerm_data_factory_integration_runtime_managed
+
+val azurerm_data_factory_integration_runtime_managed :
+  ?credential_name:string prop ->
+  ?description:string prop ->
+  ?edition:string prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?max_parallel_executions_per_node:float prop ->
+  ?number_of_nodes:float prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  node_size:string prop ->
+  catalog_info:catalog_info list ->
+  custom_setup_script:custom_setup_script list ->
+  vnet_integration:vnet_integration list ->
+  unit ->
+  azurerm_data_factory_integration_runtime_managed
+
+val yojson_of_azurerm_data_factory_integration_runtime_managed :
+  azurerm_data_factory_integration_runtime_managed -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   credential_name : string prop;
@@ -26,7 +80,8 @@ type t = private {
   number_of_nodes : float prop;
 }
 
-val azurerm_data_factory_integration_runtime_managed :
+val register :
+  ?tf_module:tf_module ->
   ?credential_name:string prop ->
   ?description:string prop ->
   ?edition:string prop ->
@@ -34,20 +89,13 @@ val azurerm_data_factory_integration_runtime_managed :
   ?license_type:string prop ->
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
-  ?timeouts:
-    azurerm_data_factory_integration_runtime_managed__timeouts ->
+  ?timeouts:timeouts ->
   data_factory_id:string prop ->
   location:string prop ->
   name:string prop ->
   node_size:string prop ->
-  catalog_info:
-    azurerm_data_factory_integration_runtime_managed__catalog_info
-    list ->
-  custom_setup_script:
-    azurerm_data_factory_integration_runtime_managed__custom_setup_script
-    list ->
-  vnet_integration:
-    azurerm_data_factory_integration_runtime_managed__vnet_integration
-    list ->
+  catalog_info:catalog_info list ->
+  custom_setup_script:custom_setup_script list ->
+  vnet_integration:vnet_integration list ->
   string ->
   t

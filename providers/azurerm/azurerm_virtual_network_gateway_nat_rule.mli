@@ -2,10 +2,54 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_network_gateway_nat_rule__external_mapping
-type azurerm_virtual_network_gateway_nat_rule__internal_mapping
-type azurerm_virtual_network_gateway_nat_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type external_mapping
+
+val external_mapping :
+  ?port_range:string prop ->
+  address_space:string prop ->
+  unit ->
+  external_mapping
+
+type internal_mapping
+
+val internal_mapping :
+  ?port_range:string prop ->
+  address_space:string prop ->
+  unit ->
+  internal_mapping
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_virtual_network_gateway_nat_rule
+
+val azurerm_virtual_network_gateway_nat_rule :
+  ?id:string prop ->
+  ?ip_configuration_id:string prop ->
+  ?mode:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  virtual_network_gateway_id:string prop ->
+  external_mapping:external_mapping list ->
+  internal_mapping:internal_mapping list ->
+  unit ->
+  azurerm_virtual_network_gateway_nat_rule
+
+val yojson_of_azurerm_virtual_network_gateway_nat_rule :
+  azurerm_virtual_network_gateway_nat_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -17,18 +61,17 @@ type t = private {
   virtual_network_gateway_id : string prop;
 }
 
-val azurerm_virtual_network_gateway_nat_rule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ip_configuration_id:string prop ->
   ?mode:string prop ->
   ?type_:string prop ->
-  ?timeouts:azurerm_virtual_network_gateway_nat_rule__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_network_gateway_id:string prop ->
-  external_mapping:
-    azurerm_virtual_network_gateway_nat_rule__external_mapping list ->
-  internal_mapping:
-    azurerm_virtual_network_gateway_nat_rule__internal_mapping list ->
+  external_mapping:external_mapping list ->
+  internal_mapping:internal_mapping list ->
   string ->
   t

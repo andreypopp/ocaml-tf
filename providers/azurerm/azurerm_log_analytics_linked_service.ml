@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_linked_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_log_analytics_linked_service__timeouts *)
+(** timeouts *)
 
 type azurerm_log_analytics_linked_service = {
   id : string prop option; [@option]  (** id *)
@@ -21,10 +21,25 @@ type azurerm_log_analytics_linked_service = {
   workspace_id : string prop;  (** workspace_id *)
   write_access_id : string prop option; [@option]
       (** write_access_id *)
-  timeouts : azurerm_log_analytics_linked_service__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_linked_service *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_log_analytics_linked_service ?id ?read_access_id
+    ?write_access_id ?timeouts ~resource_group_name ~workspace_id ()
+    : azurerm_log_analytics_linked_service =
+  {
+    id;
+    read_access_id;
+    resource_group_name;
+    workspace_id;
+    write_access_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -35,22 +50,15 @@ type t = {
   write_access_id : string prop;
 }
 
-let azurerm_log_analytics_linked_service ?id ?read_access_id
-    ?write_access_id ?timeouts ~resource_group_name ~workspace_id
-    __resource_id =
+let register ?tf_module ?id ?read_access_id ?write_access_id
+    ?timeouts ~resource_group_name ~workspace_id __resource_id =
   let __resource_type = "azurerm_log_analytics_linked_service" in
   let __resource =
-    ({
-       id;
-       read_access_id;
-       resource_group_name;
-       workspace_id;
-       write_access_id;
-       timeouts;
-     }
-      : azurerm_log_analytics_linked_service)
+    azurerm_log_analytics_linked_service ?id ?read_access_id
+      ?write_access_id ?timeouts ~resource_group_name ~workspace_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_linked_service __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_ami__ebs_block_device = {
+type ebs_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   device_name : string prop;  (** device_name *)
@@ -17,22 +17,22 @@ type aws_ami__ebs_block_device = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_ami__ebs_block_device *)
+(** ebs_block_device *)
 
-type aws_ami__ephemeral_block_device = {
+type ephemeral_block_device = {
   device_name : string prop;  (** device_name *)
   virtual_name : string prop;  (** virtual_name *)
 }
 [@@deriving yojson_of]
-(** aws_ami__ephemeral_block_device *)
+(** ephemeral_block_device *)
 
-type aws_ami__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ami__timeouts *)
+(** timeouts *)
 
 type aws_ami = {
   architecture : string prop option; [@option]  (** architecture *)
@@ -58,12 +58,62 @@ type aws_ami = {
   tpm_support : string prop option; [@option]  (** tpm_support *)
   virtualization_type : string prop option; [@option]
       (** virtualization_type *)
-  ebs_block_device : aws_ami__ebs_block_device list;
-  ephemeral_block_device : aws_ami__ephemeral_block_device list;
-  timeouts : aws_ami__timeouts option;
+  ebs_block_device : ebs_block_device list;
+  ephemeral_block_device : ephemeral_block_device list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ami *)
+
+let ebs_block_device ?delete_on_termination ?encrypted ?iops
+    ?outpost_arn ?snapshot_id ?throughput ?volume_size ?volume_type
+    ~device_name () : ebs_block_device =
+  {
+    delete_on_termination;
+    device_name;
+    encrypted;
+    iops;
+    outpost_arn;
+    snapshot_id;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let ephemeral_block_device ~device_name ~virtual_name () :
+    ephemeral_block_device =
+  { device_name; virtual_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_ami ?architecture ?boot_mode ?deprecation_time ?description
+    ?ena_support ?id ?image_location ?imds_support ?kernel_id
+    ?ramdisk_id ?root_device_name ?sriov_net_support ?tags ?tags_all
+    ?tpm_support ?virtualization_type ?timeouts ~name
+    ~ebs_block_device ~ephemeral_block_device () : aws_ami =
+  {
+    architecture;
+    boot_mode;
+    deprecation_time;
+    description;
+    ena_support;
+    id;
+    image_location;
+    imds_support;
+    kernel_id;
+    name;
+    ramdisk_id;
+    root_device_name;
+    sriov_net_support;
+    tags;
+    tags_all;
+    tpm_support;
+    virtualization_type;
+    ebs_block_device;
+    ephemeral_block_device;
+    timeouts;
+  }
 
 type t = {
   architecture : string prop;
@@ -96,38 +146,20 @@ type t = {
   virtualization_type : string prop;
 }
 
-let aws_ami ?architecture ?boot_mode ?deprecation_time ?description
-    ?ena_support ?id ?image_location ?imds_support ?kernel_id
-    ?ramdisk_id ?root_device_name ?sriov_net_support ?tags ?tags_all
-    ?tpm_support ?virtualization_type ?timeouts ~name
+let register ?tf_module ?architecture ?boot_mode ?deprecation_time
+    ?description ?ena_support ?id ?image_location ?imds_support
+    ?kernel_id ?ramdisk_id ?root_device_name ?sriov_net_support ?tags
+    ?tags_all ?tpm_support ?virtualization_type ?timeouts ~name
     ~ebs_block_device ~ephemeral_block_device __resource_id =
   let __resource_type = "aws_ami" in
   let __resource =
-    ({
-       architecture;
-       boot_mode;
-       deprecation_time;
-       description;
-       ena_support;
-       id;
-       image_location;
-       imds_support;
-       kernel_id;
-       name;
-       ramdisk_id;
-       root_device_name;
-       sriov_net_support;
-       tags;
-       tags_all;
-       tpm_support;
-       virtualization_type;
-       ebs_block_device;
-       ephemeral_block_device;
-       timeouts;
-     }
-      : aws_ami)
+    aws_ami ?architecture ?boot_mode ?deprecation_time ?description
+      ?ena_support ?id ?image_location ?imds_support ?kernel_id
+      ?ramdisk_id ?root_device_name ?sriov_net_support ?tags
+      ?tags_all ?tpm_support ?virtualization_type ?timeouts ~name
+      ~ebs_block_device ~ephemeral_block_device ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ami __resource);
   let __resource_attributes =
     ({

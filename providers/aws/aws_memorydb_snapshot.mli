@@ -2,9 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_memorydb_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type aws_memorydb_snapshot__cluster_configuration = {
+type cluster_configuration = {
   description : string prop;  (** description *)
   engine_version : string prop;  (** engine_version *)
   maintenance_window : string prop;  (** maintenance_window *)
@@ -21,12 +21,32 @@ type aws_memorydb_snapshot__cluster_configuration = {
   vpc_id : string prop;  (** vpc_id *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_memorydb_snapshot
+
+val aws_memorydb_snapshot :
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  unit ->
+  aws_memorydb_snapshot
+
+val yojson_of_aws_memorydb_snapshot : aws_memorydb_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
-  cluster_configuration :
-    aws_memorydb_snapshot__cluster_configuration list prop;
+  cluster_configuration : cluster_configuration list prop;
   cluster_name : string prop;
   id : string prop;
   kms_key_arn : string prop;
@@ -37,14 +57,15 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_memorydb_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_arn:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_memorydb_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   cluster_name:string prop ->
   string ->
   t

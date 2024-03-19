@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_neptune_cluster__serverless_v2_scaling_configuration = {
+type serverless_v2_scaling_configuration = {
   max_capacity : float prop option; [@option]  (** max_capacity *)
   min_capacity : float prop option; [@option]  (** min_capacity *)
 }
 [@@deriving yojson_of]
-(** aws_neptune_cluster__serverless_v2_scaling_configuration *)
+(** serverless_v2_scaling_configuration *)
 
-type aws_neptune_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_neptune_cluster__timeouts *)
+(** timeouts *)
 
 type aws_neptune_cluster = {
   allow_major_version_upgrade : bool prop option; [@option]
@@ -78,11 +78,68 @@ type aws_neptune_cluster = {
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
   serverless_v2_scaling_configuration :
-    aws_neptune_cluster__serverless_v2_scaling_configuration list;
-  timeouts : aws_neptune_cluster__timeouts option;
+    serverless_v2_scaling_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_neptune_cluster *)
+
+let serverless_v2_scaling_configuration ?max_capacity ?min_capacity
+    () : serverless_v2_scaling_configuration =
+  { max_capacity; min_capacity }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_neptune_cluster ?allow_major_version_upgrade
+    ?apply_immediately ?availability_zones ?backup_retention_period
+    ?cluster_identifier ?cluster_identifier_prefix
+    ?copy_tags_to_snapshot ?deletion_protection
+    ?enable_cloudwatch_logs_exports ?engine ?engine_version
+    ?final_snapshot_identifier ?global_cluster_identifier
+    ?iam_database_authentication_enabled ?iam_roles ?id ?kms_key_arn
+    ?neptune_cluster_parameter_group_name
+    ?neptune_instance_parameter_group_name ?neptune_subnet_group_name
+    ?port ?preferred_backup_window ?preferred_maintenance_window
+    ?replication_source_identifier ?skip_final_snapshot
+    ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
+    ?tags_all ?vpc_security_group_ids ?timeouts
+    ~serverless_v2_scaling_configuration () : aws_neptune_cluster =
+  {
+    allow_major_version_upgrade;
+    apply_immediately;
+    availability_zones;
+    backup_retention_period;
+    cluster_identifier;
+    cluster_identifier_prefix;
+    copy_tags_to_snapshot;
+    deletion_protection;
+    enable_cloudwatch_logs_exports;
+    engine;
+    engine_version;
+    final_snapshot_identifier;
+    global_cluster_identifier;
+    iam_database_authentication_enabled;
+    iam_roles;
+    id;
+    kms_key_arn;
+    neptune_cluster_parameter_group_name;
+    neptune_instance_parameter_group_name;
+    neptune_subnet_group_name;
+    port;
+    preferred_backup_window;
+    preferred_maintenance_window;
+    replication_source_identifier;
+    skip_final_snapshot;
+    snapshot_identifier;
+    storage_encrypted;
+    storage_type;
+    tags;
+    tags_all;
+    vpc_security_group_ids;
+    serverless_v2_scaling_configuration;
+    timeouts;
+  }
 
 type t = {
   allow_major_version_upgrade : bool prop;
@@ -124,7 +181,7 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
-let aws_neptune_cluster ?allow_major_version_upgrade
+let register ?tf_module ?allow_major_version_upgrade
     ?apply_immediately ?availability_zones ?backup_retention_period
     ?cluster_identifier ?cluster_identifier_prefix
     ?copy_tags_to_snapshot ?deletion_protection
@@ -140,44 +197,22 @@ let aws_neptune_cluster ?allow_major_version_upgrade
     ~serverless_v2_scaling_configuration __resource_id =
   let __resource_type = "aws_neptune_cluster" in
   let __resource =
-    ({
-       allow_major_version_upgrade;
-       apply_immediately;
-       availability_zones;
-       backup_retention_period;
-       cluster_identifier;
-       cluster_identifier_prefix;
-       copy_tags_to_snapshot;
-       deletion_protection;
-       enable_cloudwatch_logs_exports;
-       engine;
-       engine_version;
-       final_snapshot_identifier;
-       global_cluster_identifier;
-       iam_database_authentication_enabled;
-       iam_roles;
-       id;
-       kms_key_arn;
-       neptune_cluster_parameter_group_name;
-       neptune_instance_parameter_group_name;
-       neptune_subnet_group_name;
-       port;
-       preferred_backup_window;
-       preferred_maintenance_window;
-       replication_source_identifier;
-       skip_final_snapshot;
-       snapshot_identifier;
-       storage_encrypted;
-       storage_type;
-       tags;
-       tags_all;
-       vpc_security_group_ids;
-       serverless_v2_scaling_configuration;
-       timeouts;
-     }
-      : aws_neptune_cluster)
+    aws_neptune_cluster ?allow_major_version_upgrade
+      ?apply_immediately ?availability_zones ?backup_retention_period
+      ?cluster_identifier ?cluster_identifier_prefix
+      ?copy_tags_to_snapshot ?deletion_protection
+      ?enable_cloudwatch_logs_exports ?engine ?engine_version
+      ?final_snapshot_identifier ?global_cluster_identifier
+      ?iam_database_authentication_enabled ?iam_roles ?id
+      ?kms_key_arn ?neptune_cluster_parameter_group_name
+      ?neptune_instance_parameter_group_name
+      ?neptune_subnet_group_name ?port ?preferred_backup_window
+      ?preferred_maintenance_window ?replication_source_identifier
+      ?skip_final_snapshot ?snapshot_identifier ?storage_encrypted
+      ?storage_type ?tags ?tags_all ?vpc_security_group_ids ?timeouts
+      ~serverless_v2_scaling_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_neptune_cluster __resource);
   let __resource_attributes =
     ({

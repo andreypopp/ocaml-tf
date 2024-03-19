@@ -2,8 +2,29 @@
 
 open! Tf.Prelude
 
-type aws_acmpca_certificate__validity
+(** RESOURCE SERIALIZATION *)
+
+type validity
+
+val validity :
+  type_:string prop -> value:string prop -> unit -> validity
+
 type aws_acmpca_certificate
+
+val aws_acmpca_certificate :
+  ?api_passthrough:string prop ->
+  ?id:string prop ->
+  ?template_arn:string prop ->
+  certificate_authority_arn:string prop ->
+  certificate_signing_request:string prop ->
+  signing_algorithm:string prop ->
+  validity:validity list ->
+  unit ->
+  aws_acmpca_certificate
+
+val yojson_of_aws_acmpca_certificate : aws_acmpca_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_passthrough : string prop;
@@ -17,13 +38,14 @@ type t = private {
   template_arn : string prop;
 }
 
-val aws_acmpca_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?api_passthrough:string prop ->
   ?id:string prop ->
   ?template_arn:string prop ->
   certificate_authority_arn:string prop ->
   certificate_signing_request:string prop ->
   signing_algorithm:string prop ->
-  validity:aws_acmpca_certificate__validity list ->
+  validity:validity list ->
   string ->
   t

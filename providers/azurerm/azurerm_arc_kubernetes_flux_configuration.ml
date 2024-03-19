@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_arc_kubernetes_flux_configuration__blob_storage__service_principal = {
+type blob_storage__service_principal = {
   client_certificate_base64 : string prop option; [@option]
       (** client_certificate_base64 *)
   client_certificate_password : string prop option; [@option]
@@ -16,9 +16,9 @@ type azurerm_arc_kubernetes_flux_configuration__blob_storage__service_principal 
   tenant_id : string prop;  (** tenant_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_arc_kubernetes_flux_configuration__blob_storage__service_principal *)
+(** blob_storage__service_principal *)
 
-type azurerm_arc_kubernetes_flux_configuration__blob_storage = {
+type blob_storage = {
   account_key : string prop option; [@option]  (** account_key *)
   container_id : string prop;  (** container_id *)
   local_auth_reference : string prop option; [@option]
@@ -28,14 +28,12 @@ type azurerm_arc_kubernetes_flux_configuration__blob_storage = {
       (** sync_interval_in_seconds *)
   timeout_in_seconds : float prop option; [@option]
       (** timeout_in_seconds *)
-  service_principal :
-    azurerm_arc_kubernetes_flux_configuration__blob_storage__service_principal
-    list;
+  service_principal : blob_storage__service_principal list;
 }
 [@@deriving yojson_of]
-(** azurerm_arc_kubernetes_flux_configuration__blob_storage *)
+(** blob_storage *)
 
-type azurerm_arc_kubernetes_flux_configuration__bucket = {
+type bucket = {
   access_key : string prop option; [@option]  (** access_key *)
   bucket_name : string prop;  (** bucket_name *)
   local_auth_reference : string prop option; [@option]
@@ -50,9 +48,9 @@ type azurerm_arc_kubernetes_flux_configuration__bucket = {
   url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
-(** azurerm_arc_kubernetes_flux_configuration__bucket *)
+(** bucket *)
 
-type azurerm_arc_kubernetes_flux_configuration__git_repository = {
+type git_repository = {
   https_ca_cert_base64 : string prop option; [@option]
       (** https_ca_cert_base64 *)
   https_key_base64 : string prop option; [@option]
@@ -73,9 +71,9 @@ type azurerm_arc_kubernetes_flux_configuration__git_repository = {
   url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
-(** azurerm_arc_kubernetes_flux_configuration__git_repository *)
+(** git_repository *)
 
-type azurerm_arc_kubernetes_flux_configuration__kustomizations = {
+type kustomizations = {
   depends_on : string prop list option; [@option]  (** depends_on *)
   garbage_collection_enabled : bool prop option; [@option]
       (** garbage_collection_enabled *)
@@ -91,16 +89,16 @@ type azurerm_arc_kubernetes_flux_configuration__kustomizations = {
       (** timeout_in_seconds *)
 }
 [@@deriving yojson_of]
-(** azurerm_arc_kubernetes_flux_configuration__kustomizations *)
+(** kustomizations *)
 
-type azurerm_arc_kubernetes_flux_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_arc_kubernetes_flux_configuration__timeouts *)
+(** timeouts *)
 
 type azurerm_arc_kubernetes_flux_configuration = {
   cluster_id : string prop;  (** cluster_id *)
@@ -110,18 +108,110 @@ type azurerm_arc_kubernetes_flux_configuration = {
   name : string prop;  (** name *)
   namespace : string prop;  (** namespace *)
   scope : string prop option; [@option]  (** scope *)
-  blob_storage :
-    azurerm_arc_kubernetes_flux_configuration__blob_storage list;
-  bucket : azurerm_arc_kubernetes_flux_configuration__bucket list;
-  git_repository :
-    azurerm_arc_kubernetes_flux_configuration__git_repository list;
-  kustomizations :
-    azurerm_arc_kubernetes_flux_configuration__kustomizations list;
-  timeouts :
-    azurerm_arc_kubernetes_flux_configuration__timeouts option;
+  blob_storage : blob_storage list;
+  bucket : bucket list;
+  git_repository : git_repository list;
+  kustomizations : kustomizations list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_arc_kubernetes_flux_configuration *)
+
+let blob_storage__service_principal ?client_certificate_base64
+    ?client_certificate_password ?client_certificate_send_chain
+    ?client_secret ~client_id ~tenant_id () :
+    blob_storage__service_principal =
+  {
+    client_certificate_base64;
+    client_certificate_password;
+    client_certificate_send_chain;
+    client_id;
+    client_secret;
+    tenant_id;
+  }
+
+let blob_storage ?account_key ?local_auth_reference ?sas_token
+    ?sync_interval_in_seconds ?timeout_in_seconds ~container_id
+    ~service_principal () : blob_storage =
+  {
+    account_key;
+    container_id;
+    local_auth_reference;
+    sas_token;
+    sync_interval_in_seconds;
+    timeout_in_seconds;
+    service_principal;
+  }
+
+let bucket ?access_key ?local_auth_reference ?secret_key_base64
+    ?sync_interval_in_seconds ?timeout_in_seconds ?tls_enabled
+    ~bucket_name ~url () : bucket =
+  {
+    access_key;
+    bucket_name;
+    local_auth_reference;
+    secret_key_base64;
+    sync_interval_in_seconds;
+    timeout_in_seconds;
+    tls_enabled;
+    url;
+  }
+
+let git_repository ?https_ca_cert_base64 ?https_key_base64
+    ?https_user ?local_auth_reference ?ssh_known_hosts_base64
+    ?ssh_private_key_base64 ?sync_interval_in_seconds
+    ?timeout_in_seconds ~reference_type ~reference_value ~url () :
+    git_repository =
+  {
+    https_ca_cert_base64;
+    https_key_base64;
+    https_user;
+    local_auth_reference;
+    reference_type;
+    reference_value;
+    ssh_known_hosts_base64;
+    ssh_private_key_base64;
+    sync_interval_in_seconds;
+    timeout_in_seconds;
+    url;
+  }
+
+let kustomizations ?depends_on ?garbage_collection_enabled ?path
+    ?recreating_enabled ?retry_interval_in_seconds
+    ?sync_interval_in_seconds ?timeout_in_seconds ~name () :
+    kustomizations =
+  {
+    depends_on;
+    garbage_collection_enabled;
+    name;
+    path;
+    recreating_enabled;
+    retry_interval_in_seconds;
+    sync_interval_in_seconds;
+    timeout_in_seconds;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_arc_kubernetes_flux_configuration
+    ?continuous_reconciliation_enabled ?id ?scope ?timeouts
+    ~cluster_id ~name ~namespace ~blob_storage ~bucket
+    ~git_repository ~kustomizations () :
+    azurerm_arc_kubernetes_flux_configuration =
+  {
+    cluster_id;
+    continuous_reconciliation_enabled;
+    id;
+    name;
+    namespace;
+    scope;
+    blob_storage;
+    bucket;
+    git_repository;
+    kustomizations;
+    timeouts;
+  }
 
 type t = {
   cluster_id : string prop;
@@ -132,30 +222,19 @@ type t = {
   scope : string prop;
 }
 
-let azurerm_arc_kubernetes_flux_configuration
-    ?continuous_reconciliation_enabled ?id ?scope ?timeouts
-    ~cluster_id ~name ~namespace ~blob_storage ~bucket
+let register ?tf_module ?continuous_reconciliation_enabled ?id ?scope
+    ?timeouts ~cluster_id ~name ~namespace ~blob_storage ~bucket
     ~git_repository ~kustomizations __resource_id =
   let __resource_type =
     "azurerm_arc_kubernetes_flux_configuration"
   in
   let __resource =
-    ({
-       cluster_id;
-       continuous_reconciliation_enabled;
-       id;
-       name;
-       namespace;
-       scope;
-       blob_storage;
-       bucket;
-       git_repository;
-       kustomizations;
-       timeouts;
-     }
-      : azurerm_arc_kubernetes_flux_configuration)
+    azurerm_arc_kubernetes_flux_configuration
+      ?continuous_reconciliation_enabled ?id ?scope ?timeouts
+      ~cluster_id ~name ~namespace ~blob_storage ~bucket
+      ~git_repository ~kustomizations ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_arc_kubernetes_flux_configuration __resource);
   let __resource_attributes =
     ({

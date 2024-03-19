@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory__github_configuration = {
+type github_configuration = {
   account_name : string prop;  (** account_name *)
   branch_name : string prop;  (** branch_name *)
   git_url : string prop option; [@option]  (** git_url *)
@@ -14,36 +14,34 @@ type azurerm_data_factory__github_configuration = {
   root_folder : string prop;  (** root_folder *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory__github_configuration *)
+(** github_configuration *)
 
-type azurerm_data_factory__global_parameter = {
+type global_parameter = {
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory__global_parameter *)
+(** global_parameter *)
 
-type azurerm_data_factory__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory__identity *)
+(** identity *)
 
-type azurerm_data_factory__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory__timeouts *)
+(** timeouts *)
 
-type azurerm_data_factory__vsts_configuration = {
+type vsts_configuration = {
   account_name : string prop;  (** account_name *)
   branch_name : string prop;  (** branch_name *)
   project_name : string prop;  (** project_name *)
@@ -54,7 +52,7 @@ type azurerm_data_factory__vsts_configuration = {
   tenant_id : string prop;  (** tenant_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory__vsts_configuration *)
+(** vsts_configuration *)
 
 type azurerm_data_factory = {
   customer_managed_key_id : string prop option; [@option]
@@ -71,15 +69,72 @@ type azurerm_data_factory = {
   purview_id : string prop option; [@option]  (** purview_id *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  github_configuration :
-    azurerm_data_factory__github_configuration list;
-  global_parameter : azurerm_data_factory__global_parameter list;
-  identity : azurerm_data_factory__identity list;
-  timeouts : azurerm_data_factory__timeouts option;
-  vsts_configuration : azurerm_data_factory__vsts_configuration list;
+  github_configuration : github_configuration list;
+  global_parameter : global_parameter list;
+  identity : identity list;
+  timeouts : timeouts option;
+  vsts_configuration : vsts_configuration list;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory *)
+
+let github_configuration ?git_url ?publishing_enabled ~account_name
+    ~branch_name ~repository_name ~root_folder () :
+    github_configuration =
+  {
+    account_name;
+    branch_name;
+    git_url;
+    publishing_enabled;
+    repository_name;
+    root_folder;
+  }
+
+let global_parameter ~name ~type_ ~value () : global_parameter =
+  { name; type_; value }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let vsts_configuration ?publishing_enabled ~account_name ~branch_name
+    ~project_name ~repository_name ~root_folder ~tenant_id () :
+    vsts_configuration =
+  {
+    account_name;
+    branch_name;
+    project_name;
+    publishing_enabled;
+    repository_name;
+    root_folder;
+    tenant_id;
+  }
+
+let azurerm_data_factory ?customer_managed_key_id
+    ?customer_managed_key_identity_id ?id
+    ?managed_virtual_network_enabled ?public_network_enabled
+    ?purview_id ?tags ?timeouts ~location ~name ~resource_group_name
+    ~github_configuration ~global_parameter ~identity
+    ~vsts_configuration () : azurerm_data_factory =
+  {
+    customer_managed_key_id;
+    customer_managed_key_identity_id;
+    id;
+    location;
+    managed_virtual_network_enabled;
+    name;
+    public_network_enabled;
+    purview_id;
+    resource_group_name;
+    tags;
+    github_configuration;
+    global_parameter;
+    identity;
+    timeouts;
+    vsts_configuration;
+  }
 
 type t = {
   customer_managed_key_id : string prop;
@@ -94,7 +149,7 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_data_factory ?customer_managed_key_id
+let register ?tf_module ?customer_managed_key_id
     ?customer_managed_key_identity_id ?id
     ?managed_virtual_network_enabled ?public_network_enabled
     ?purview_id ?tags ?timeouts ~location ~name ~resource_group_name
@@ -102,26 +157,14 @@ let azurerm_data_factory ?customer_managed_key_id
     ~vsts_configuration __resource_id =
   let __resource_type = "azurerm_data_factory" in
   let __resource =
-    ({
-       customer_managed_key_id;
-       customer_managed_key_identity_id;
-       id;
-       location;
-       managed_virtual_network_enabled;
-       name;
-       public_network_enabled;
-       purview_id;
-       resource_group_name;
-       tags;
-       github_configuration;
-       global_parameter;
-       identity;
-       timeouts;
-       vsts_configuration;
-     }
-      : azurerm_data_factory)
+    azurerm_data_factory ?customer_managed_key_id
+      ?customer_managed_key_identity_id ?id
+      ?managed_virtual_network_enabled ?public_network_enabled
+      ?purview_id ?tags ?timeouts ~location ~name
+      ~resource_group_name ~github_configuration ~global_parameter
+      ~identity ~vsts_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory __resource);
   let __resource_attributes =
     ({

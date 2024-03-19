@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_lightsail_static_ip
+
+val aws_lightsail_static_ip :
+  ?id:string prop ->
+  name:string prop ->
+  unit ->
+  aws_lightsail_static_ip
+
+val yojson_of_aws_lightsail_static_ip :
+  aws_lightsail_static_ip -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -12,5 +25,9 @@ type t = private {
   support_code : string prop;
 }
 
-val aws_lightsail_static_ip :
-  ?id:string prop -> name:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  name:string prop ->
+  string ->
+  t

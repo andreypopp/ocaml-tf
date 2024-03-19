@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_region_autoscaler__autoscaling_policy__cpu_utilization = {
+type autoscaling_policy__cpu_utilization = {
   predictive_method : string prop option; [@option]
       (** Indicates whether predictive autoscaling based on CPU metric is enabled. Valid values are:
 
@@ -31,7 +31,7 @@ utilization. *)
 scale based on the average CPU utilization of a managed instance
 group. *)
 
-type google_compute_region_autoscaler__autoscaling_policy__load_balancing_utilization = {
+type autoscaling_policy__load_balancing_utilization = {
   target : float prop;
       (** Fraction of backend capacity utilization (set in HTTP(s) load
 balancing configuration) that autoscaler should maintain. Must
@@ -40,7 +40,7 @@ be a positive float value. If not defined, the default is 0.8. *)
 [@@deriving yojson_of]
 (** Configuration parameters of autoscaling based on a load balancer. *)
 
-type google_compute_region_autoscaler__autoscaling_policy__metric = {
+type autoscaling_policy__metric = {
   name : string prop;
       (** The identifier (type) of the Stackdriver Monitoring metric.
 The metric cannot have negative values.
@@ -63,7 +63,7 @@ Stackdriver Monitoring metric. Possible values: [GAUGE, DELTA_PER_SECOND, DELTA_
 [@@deriving yojson_of]
 (** Configuration parameters of autoscaling based on a custom metric. *)
 
-type google_compute_region_autoscaler__autoscaling_policy__scale_in_control__max_scaled_in_replicas = {
+type autoscaling_policy__scale_in_control__max_scaled_in_replicas = {
   fixed : float prop option; [@option]
       (** Specifies a fixed number of VM instances. This must be a positive
 integer. *)
@@ -74,19 +74,18 @@ For example, specify 80 for 80%. *)
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_compute_region_autoscaler__autoscaling_policy__scale_in_control = {
+type autoscaling_policy__scale_in_control = {
   time_window_sec : float prop option; [@option]
       (** How long back autoscaling should look when computing recommendations
 to include directives regarding slower scale down, as described above. *)
   max_scaled_in_replicas :
-    google_compute_region_autoscaler__autoscaling_policy__scale_in_control__max_scaled_in_replicas
-    list;
+    autoscaling_policy__scale_in_control__max_scaled_in_replicas list;
 }
 [@@deriving yojson_of]
 (** Defines scale in controls to reduce the risk of response latency
 and outages due to abrupt scale-in events *)
 
-type google_compute_region_autoscaler__autoscaling_policy__scaling_schedules = {
+type autoscaling_policy__scaling_schedules = {
   description : string prop option; [@option]
       (** A description of a scaling schedule. *)
   disabled : bool prop option; [@option]
@@ -104,7 +103,7 @@ type google_compute_region_autoscaler__autoscaling_policy__scaling_schedules = {
 [@@deriving yojson_of]
 (** Scaling schedules defined for an autoscaler. Multiple schedules can be set on an autoscaler and they can overlap. *)
 
-type google_compute_region_autoscaler__autoscaling_policy = {
+type autoscaling_policy = {
   cooldown_period : float prop option; [@option]
       (** The number of seconds that the autoscaler should wait before it
 starts collecting information from a new instance. This prevents
@@ -128,20 +127,12 @@ choose a default value depending on maximum number of instances
 allowed. *)
   mode : string prop option; [@option]
       (** Defines operating mode for this policy. *)
-  cpu_utilization :
-    google_compute_region_autoscaler__autoscaling_policy__cpu_utilization
-    list;
+  cpu_utilization : autoscaling_policy__cpu_utilization list;
   load_balancing_utilization :
-    google_compute_region_autoscaler__autoscaling_policy__load_balancing_utilization
-    list;
-  metric :
-    google_compute_region_autoscaler__autoscaling_policy__metric list;
-  scale_in_control :
-    google_compute_region_autoscaler__autoscaling_policy__scale_in_control
-    list;
-  scaling_schedules :
-    google_compute_region_autoscaler__autoscaling_policy__scaling_schedules
-    list;
+    autoscaling_policy__load_balancing_utilization list;
+  metric : autoscaling_policy__metric list;
+  scale_in_control : autoscaling_policy__scale_in_control list;
+  scaling_schedules : autoscaling_policy__scaling_schedules list;
 }
 [@@deriving yojson_of]
 (** The configuration parameters for the autoscaling algorithm. You can
@@ -151,13 +142,13 @@ customMetricUtilizations, and loadBalancingUtilization.
 If none of these are specified, the default will be to autoscale based
 on cpuUtilization to 0.6 or 60%. *)
 
-type google_compute_region_autoscaler__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_autoscaler__timeouts *)
+(** timeouts *)
 
 type google_compute_region_autoscaler = {
   description : string prop option; [@option]
@@ -174,12 +165,79 @@ character, which cannot be a dash. *)
       (** URL of the region where the instance group resides. *)
   target : string prop;
       (** URL of the managed instance group that this autoscaler will scale. *)
-  autoscaling_policy :
-    google_compute_region_autoscaler__autoscaling_policy list;
-  timeouts : google_compute_region_autoscaler__timeouts option;
+  autoscaling_policy : autoscaling_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_autoscaler *)
+
+let autoscaling_policy__cpu_utilization ?predictive_method ~target ()
+    : autoscaling_policy__cpu_utilization =
+  { predictive_method; target }
+
+let autoscaling_policy__load_balancing_utilization ~target () :
+    autoscaling_policy__load_balancing_utilization =
+  { target }
+
+let autoscaling_policy__metric ?target ?type_ ~name () :
+    autoscaling_policy__metric =
+  { name; target; type_ }
+
+let autoscaling_policy__scale_in_control__max_scaled_in_replicas
+    ?fixed ?percent () :
+    autoscaling_policy__scale_in_control__max_scaled_in_replicas =
+  { fixed; percent }
+
+let autoscaling_policy__scale_in_control ?time_window_sec
+    ~max_scaled_in_replicas () : autoscaling_policy__scale_in_control
+    =
+  { time_window_sec; max_scaled_in_replicas }
+
+let autoscaling_policy__scaling_schedules ?description ?disabled
+    ?time_zone ~duration_sec ~min_required_replicas ~name ~schedule
+    () : autoscaling_policy__scaling_schedules =
+  {
+    description;
+    disabled;
+    duration_sec;
+    min_required_replicas;
+    name;
+    schedule;
+    time_zone;
+  }
+
+let autoscaling_policy ?cooldown_period ?mode ~max_replicas
+    ~min_replicas ~cpu_utilization ~load_balancing_utilization
+    ~metric ~scale_in_control ~scaling_schedules () :
+    autoscaling_policy =
+  {
+    cooldown_period;
+    max_replicas;
+    min_replicas;
+    mode;
+    cpu_utilization;
+    load_balancing_utilization;
+    metric;
+    scale_in_control;
+    scaling_schedules;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_region_autoscaler ?description ?id ?project
+    ?region ?timeouts ~name ~target ~autoscaling_policy () :
+    google_compute_region_autoscaler =
+  {
+    description;
+    id;
+    name;
+    project;
+    region;
+    target;
+    autoscaling_policy;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -192,24 +250,14 @@ type t = {
   target : string prop;
 }
 
-let google_compute_region_autoscaler ?description ?id ?project
-    ?region ?timeouts ~name ~target ~autoscaling_policy __resource_id
-    =
+let register ?tf_module ?description ?id ?project ?region ?timeouts
+    ~name ~target ~autoscaling_policy __resource_id =
   let __resource_type = "google_compute_region_autoscaler" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       project;
-       region;
-       target;
-       autoscaling_policy;
-       timeouts;
-     }
-      : google_compute_region_autoscaler)
+    google_compute_region_autoscaler ?description ?id ?project
+      ?region ?timeouts ~name ~target ~autoscaling_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_autoscaler __resource);
   let __resource_attributes =
     ({

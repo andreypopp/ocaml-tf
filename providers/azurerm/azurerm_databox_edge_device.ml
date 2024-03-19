@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_databox_edge_device__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_databox_edge_device__timeouts *)
+(** timeouts *)
 
-type azurerm_databox_edge_device__device_properties = {
+type device_properties = {
   capacity : float prop;  (** capacity *)
   configured_role_types : string prop list;
       (** configured_role_types *)
@@ -36,14 +36,28 @@ type azurerm_databox_edge_device = {
   resource_group_name : string prop;  (** resource_group_name *)
   sku_name : string prop;  (** sku_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_databox_edge_device__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_databox_edge_device *)
 
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_databox_edge_device ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku_name () : azurerm_databox_edge_device =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    sku_name;
+    tags;
+    timeouts;
+  }
+
 type t = {
-  device_properties :
-    azurerm_databox_edge_device__device_properties list prop;
+  device_properties : device_properties list prop;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -52,22 +66,14 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_databox_edge_device ?id ?tags ?timeouts ~location ~name
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_databox_edge_device" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       sku_name;
-       tags;
-       timeouts;
-     }
-      : azurerm_databox_edge_device)
+    azurerm_databox_edge_device ?id ?tags ?timeouts ~location ~name
+      ~resource_group_name ~sku_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_databox_edge_device __resource);
   let __resource_attributes =
     ({

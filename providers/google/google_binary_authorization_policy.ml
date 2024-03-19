@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_binary_authorization_policy__admission_whitelist_patterns = {
+type admission_whitelist_patterns = {
   name_pattern : string prop;
       (** An image name pattern to whitelist, in the form
 'registry/path/to/image'. This supports a trailing * as a
@@ -16,7 +16,7 @@ part. *)
 image's name matches a whitelist pattern, the image's admission
 requests will always be permitted regardless of your admission rules. *)
 
-type google_binary_authorization_policy__cluster_admission_rules = {
+type cluster_admission_rules = {
   cluster : string prop;  (** cluster *)
   enforcement_mode : string prop;
       (** The action when a pod creation is denied by the admission rule. Possible values: [ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY] *)
@@ -45,7 +45,7 @@ Identifier format: '{{location}}.{{clusterId}}'.
 A location is either a compute zone (e.g. 'us-central1-a') or a region
 (e.g. 'us-central1'). *)
 
-type google_binary_authorization_policy__default_admission_rule = {
+type default_admission_rule = {
   enforcement_mode : string prop;
       (** The action when a pod creation is denied by the admission rule. Possible values: [ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY] *)
   evaluation_mode : string prop;
@@ -65,13 +65,13 @@ specifies REQUIRE_ATTESTATION, otherwise it must be empty. *)
 (** Default admission rule for a cluster without a per-cluster admission
 rule. *)
 
-type google_binary_authorization_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_binary_authorization_policy__timeouts *)
+(** timeouts *)
 
 type google_binary_authorization_policy = {
   description : string prop option; [@option]
@@ -82,17 +82,48 @@ for common system-level images. Images not covered by the global
 policy will be subject to the project admission policy. Possible values: [ENABLE, DISABLE] *)
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]  (** project *)
-  admission_whitelist_patterns :
-    google_binary_authorization_policy__admission_whitelist_patterns
-    list;
-  cluster_admission_rules :
-    google_binary_authorization_policy__cluster_admission_rules list;
-  default_admission_rule :
-    google_binary_authorization_policy__default_admission_rule list;
-  timeouts : google_binary_authorization_policy__timeouts option;
+  admission_whitelist_patterns : admission_whitelist_patterns list;
+  cluster_admission_rules : cluster_admission_rules list;
+  default_admission_rule : default_admission_rule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_binary_authorization_policy *)
+
+let admission_whitelist_patterns ~name_pattern () :
+    admission_whitelist_patterns =
+  { name_pattern }
+
+let cluster_admission_rules ?require_attestations_by ~cluster
+    ~enforcement_mode ~evaluation_mode () : cluster_admission_rules =
+  {
+    cluster;
+    enforcement_mode;
+    evaluation_mode;
+    require_attestations_by;
+  }
+
+let default_admission_rule ?require_attestations_by ~enforcement_mode
+    ~evaluation_mode () : default_admission_rule =
+  { enforcement_mode; evaluation_mode; require_attestations_by }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_binary_authorization_policy ?description
+    ?global_policy_evaluation_mode ?id ?project ?timeouts
+    ~admission_whitelist_patterns ~cluster_admission_rules
+    ~default_admission_rule () : google_binary_authorization_policy =
+  {
+    description;
+    global_policy_evaluation_mode;
+    id;
+    project;
+    admission_whitelist_patterns;
+    cluster_admission_rules;
+    default_admission_rule;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -101,25 +132,17 @@ type t = {
   project : string prop;
 }
 
-let google_binary_authorization_policy ?description
-    ?global_policy_evaluation_mode ?id ?project ?timeouts
-    ~admission_whitelist_patterns ~cluster_admission_rules
-    ~default_admission_rule __resource_id =
+let register ?tf_module ?description ?global_policy_evaluation_mode
+    ?id ?project ?timeouts ~admission_whitelist_patterns
+    ~cluster_admission_rules ~default_admission_rule __resource_id =
   let __resource_type = "google_binary_authorization_policy" in
   let __resource =
-    ({
-       description;
-       global_policy_evaluation_mode;
-       id;
-       project;
-       admission_whitelist_patterns;
-       cluster_admission_rules;
-       default_admission_rule;
-       timeouts;
-     }
-      : google_binary_authorization_policy)
+    google_binary_authorization_policy ?description
+      ?global_policy_evaluation_mode ?id ?project ?timeouts
+      ~admission_whitelist_patterns ~cluster_admission_rules
+      ~default_admission_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_binary_authorization_policy __resource);
   let __resource_attributes =
     ({

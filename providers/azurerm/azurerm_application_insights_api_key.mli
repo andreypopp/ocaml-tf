@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_application_insights_api_key__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_application_insights_api_key
+
+val azurerm_application_insights_api_key :
+  ?id:string prop ->
+  ?read_permissions:string prop list ->
+  ?write_permissions:string prop list ->
+  ?timeouts:timeouts ->
+  application_insights_id:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_application_insights_api_key
+
+val yojson_of_azurerm_application_insights_api_key :
+  azurerm_application_insights_api_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_key : string prop;
@@ -14,11 +39,12 @@ type t = private {
   write_permissions : string list prop;
 }
 
-val azurerm_application_insights_api_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?read_permissions:string prop list ->
   ?write_permissions:string prop list ->
-  ?timeouts:azurerm_application_insights_api_key__timeouts ->
+  ?timeouts:timeouts ->
   application_insights_id:string prop ->
   name:string prop ->
   string ->

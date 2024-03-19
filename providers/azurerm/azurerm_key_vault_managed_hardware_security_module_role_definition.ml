@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault_managed_hardware_security_module_role_definition__permission = {
+type permission = {
   actions : string prop list option; [@option]  (** actions *)
   data_actions : string prop list option; [@option]
       (** data_actions *)
@@ -14,16 +14,16 @@ type azurerm_key_vault_managed_hardware_security_module_role_definition__permiss
       (** not_data_actions *)
 }
 [@@deriving yojson_of]
-(** azurerm_key_vault_managed_hardware_security_module_role_definition__permission *)
+(** permission *)
 
-type azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts *)
+(** timeouts *)
 
 type azurerm_key_vault_managed_hardware_security_module_role_definition = {
   description : string prop option; [@option]  (** description *)
@@ -31,15 +31,33 @@ type azurerm_key_vault_managed_hardware_security_module_role_definition = {
   name : string prop;  (** name *)
   role_name : string prop option; [@option]  (** role_name *)
   vault_base_url : string prop;  (** vault_base_url *)
-  permission :
-    azurerm_key_vault_managed_hardware_security_module_role_definition__permission
-    list;
-  timeouts :
-    azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts
-    option;
+  permission : permission list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module_role_definition *)
+
+let permission ?actions ?data_actions ?not_actions ?not_data_actions
+    () : permission =
+  { actions; data_actions; not_actions; not_data_actions }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_key_vault_managed_hardware_security_module_role_definition
+    ?description ?id ?role_name ?timeouts ~name ~vault_base_url
+    ~permission () :
+    azurerm_key_vault_managed_hardware_security_module_role_definition
+    =
+  {
+    description;
+    id;
+    name;
+    role_name;
+    vault_base_url;
+    permission;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -51,25 +69,17 @@ type t = {
   vault_base_url : string prop;
 }
 
-let azurerm_key_vault_managed_hardware_security_module_role_definition
-    ?description ?id ?role_name ?timeouts ~name ~vault_base_url
-    ~permission __resource_id =
+let register ?tf_module ?description ?id ?role_name ?timeouts ~name
+    ~vault_base_url ~permission __resource_id =
   let __resource_type =
     "azurerm_key_vault_managed_hardware_security_module_role_definition"
   in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       role_name;
-       vault_base_url;
-       permission;
-       timeouts;
-     }
-      : azurerm_key_vault_managed_hardware_security_module_role_definition)
+    azurerm_key_vault_managed_hardware_security_module_role_definition
+      ?description ?id ?role_name ?timeouts ~name ~vault_base_url
+      ~permission ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_managed_hardware_security_module_role_definition
        __resource);
   let __resource_attributes =

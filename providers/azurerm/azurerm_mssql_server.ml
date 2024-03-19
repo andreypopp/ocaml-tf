@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_server__azuread_administrator = {
+type azuread_administrator = {
   azuread_authentication_only : bool prop option; [@option]
       (** azuread_authentication_only *)
   login_username : string prop;  (** login_username *)
@@ -12,26 +12,24 @@ type azurerm_mssql_server__azuread_administrator = {
   tenant_id : string prop option; [@option]  (** tenant_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_server__azuread_administrator *)
+(** azuread_administrator *)
 
-type azurerm_mssql_server__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_server__identity *)
+(** identity *)
 
-type azurerm_mssql_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_server__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_server = {
   administrator_login : string prop option; [@option]
@@ -57,13 +55,54 @@ type azurerm_mssql_server = {
       [@option]
       (** transparent_data_encryption_key_vault_key_id *)
   version : string prop;  (** version *)
-  azuread_administrator :
-    azurerm_mssql_server__azuread_administrator list;
-  identity : azurerm_mssql_server__identity list;
-  timeouts : azurerm_mssql_server__timeouts option;
+  azuread_administrator : azuread_administrator list;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_server *)
+
+let azuread_administrator ?azuread_authentication_only ?tenant_id
+    ~login_username ~object_id () : azuread_administrator =
+  {
+    azuread_authentication_only;
+    login_username;
+    object_id;
+    tenant_id;
+  }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_server ?administrator_login
+    ?administrator_login_password ?connection_policy ?id
+    ?minimum_tls_version ?outbound_network_restriction_enabled
+    ?primary_user_assigned_identity_id ?public_network_access_enabled
+    ?tags ?transparent_data_encryption_key_vault_key_id ?timeouts
+    ~location ~name ~resource_group_name ~version
+    ~azuread_administrator ~identity () : azurerm_mssql_server =
+  {
+    administrator_login;
+    administrator_login_password;
+    connection_policy;
+    id;
+    location;
+    minimum_tls_version;
+    name;
+    outbound_network_restriction_enabled;
+    primary_user_assigned_identity_id;
+    public_network_access_enabled;
+    resource_group_name;
+    tags;
+    transparent_data_encryption_key_vault_key_id;
+    version;
+    azuread_administrator;
+    identity;
+    timeouts;
+  }
 
 type t = {
   administrator_login : string prop;
@@ -84,7 +123,7 @@ type t = {
   version : string prop;
 }
 
-let azurerm_mssql_server ?administrator_login
+let register ?tf_module ?administrator_login
     ?administrator_login_password ?connection_policy ?id
     ?minimum_tls_version ?outbound_network_restriction_enabled
     ?primary_user_assigned_identity_id ?public_network_access_enabled
@@ -93,28 +132,16 @@ let azurerm_mssql_server ?administrator_login
     ~azuread_administrator ~identity __resource_id =
   let __resource_type = "azurerm_mssql_server" in
   let __resource =
-    ({
-       administrator_login;
-       administrator_login_password;
-       connection_policy;
-       id;
-       location;
-       minimum_tls_version;
-       name;
-       outbound_network_restriction_enabled;
-       primary_user_assigned_identity_id;
-       public_network_access_enabled;
-       resource_group_name;
-       tags;
-       transparent_data_encryption_key_vault_key_id;
-       version;
-       azuread_administrator;
-       identity;
-       timeouts;
-     }
-      : azurerm_mssql_server)
+    azurerm_mssql_server ?administrator_login
+      ?administrator_login_password ?connection_policy ?id
+      ?minimum_tls_version ?outbound_network_restriction_enabled
+      ?primary_user_assigned_identity_id
+      ?public_network_access_enabled ?tags
+      ?transparent_data_encryption_key_vault_key_id ?timeouts
+      ~location ~name ~resource_group_name ~version
+      ~azuread_administrator ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_server __resource);
   let __resource_attributes =
     ({

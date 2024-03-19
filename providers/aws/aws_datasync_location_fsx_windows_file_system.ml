@@ -19,6 +19,22 @@ type aws_datasync_location_fsx_windows_file_system = {
 [@@deriving yojson_of]
 (** aws_datasync_location_fsx_windows_file_system *)
 
+let aws_datasync_location_fsx_windows_file_system ?domain ?id
+    ?subdirectory ?tags ?tags_all ~fsx_filesystem_arn ~password
+    ~security_group_arns ~user () :
+    aws_datasync_location_fsx_windows_file_system =
+  {
+    domain;
+    fsx_filesystem_arn;
+    id;
+    password;
+    security_group_arns;
+    subdirectory;
+    tags;
+    tags_all;
+    user;
+  }
+
 type t = {
   arn : string prop;
   creation_time : string prop;
@@ -34,27 +50,18 @@ type t = {
   user : string prop;
 }
 
-let aws_datasync_location_fsx_windows_file_system ?domain ?id
-    ?subdirectory ?tags ?tags_all ~fsx_filesystem_arn ~password
-    ~security_group_arns ~user __resource_id =
+let register ?tf_module ?domain ?id ?subdirectory ?tags ?tags_all
+    ~fsx_filesystem_arn ~password ~security_group_arns ~user
+    __resource_id =
   let __resource_type =
     "aws_datasync_location_fsx_windows_file_system"
   in
   let __resource =
-    ({
-       domain;
-       fsx_filesystem_arn;
-       id;
-       password;
-       security_group_arns;
-       subdirectory;
-       tags;
-       tags_all;
-       user;
-     }
-      : aws_datasync_location_fsx_windows_file_system)
+    aws_datasync_location_fsx_windows_file_system ?domain ?id
+      ?subdirectory ?tags ?tags_all ~fsx_filesystem_arn ~password
+      ~security_group_arns ~user ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_fsx_windows_file_system
        __resource);
   let __resource_attributes =

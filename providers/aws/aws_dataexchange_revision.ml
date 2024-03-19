@@ -15,6 +15,10 @@ type aws_dataexchange_revision = {
 [@@deriving yojson_of]
 (** aws_dataexchange_revision *)
 
+let aws_dataexchange_revision ?comment ?id ?tags ?tags_all
+    ~data_set_id () : aws_dataexchange_revision =
+  { comment; data_set_id; id; tags; tags_all }
+
 type t = {
   arn : string prop;
   comment : string prop;
@@ -25,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_dataexchange_revision ?comment ?id ?tags ?tags_all
-    ~data_set_id __resource_id =
+let register ?tf_module ?comment ?id ?tags ?tags_all ~data_set_id
+    __resource_id =
   let __resource_type = "aws_dataexchange_revision" in
   let __resource =
-    ({ comment; data_set_id; id; tags; tags_all }
-      : aws_dataexchange_revision)
+    aws_dataexchange_revision ?comment ?id ?tags ?tags_all
+      ~data_set_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dataexchange_revision __resource);
   let __resource_attributes =
     ({

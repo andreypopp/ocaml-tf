@@ -14,6 +14,10 @@ type aws_ses_template = {
 [@@deriving yojson_of]
 (** aws_ses_template *)
 
+let aws_ses_template ?html ?id ?subject ?text ~name () :
+    aws_ses_template =
+  { html; id; name; subject; text }
+
 type t = {
   arn : string prop;
   html : string prop;
@@ -23,12 +27,13 @@ type t = {
   text : string prop;
 }
 
-let aws_ses_template ?html ?id ?subject ?text ~name __resource_id =
+let register ?tf_module ?html ?id ?subject ?text ~name __resource_id
+    =
   let __resource_type = "aws_ses_template" in
   let __resource =
-    ({ html; id; name; subject; text } : aws_ses_template)
+    aws_ses_template ?html ?id ?subject ?text ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_template __resource);
   let __resource_attributes =
     ({

@@ -14,6 +14,10 @@ type aws_devicefarm_upload = {
 [@@deriving yojson_of]
 (** aws_devicefarm_upload *)
 
+let aws_devicefarm_upload ?content_type ?id ~name ~project_arn ~type_
+    () : aws_devicefarm_upload =
+  { content_type; id; name; project_arn; type_ }
+
 type t = {
   arn : string prop;
   category : string prop;
@@ -26,14 +30,14 @@ type t = {
   url : string prop;
 }
 
-let aws_devicefarm_upload ?content_type ?id ~name ~project_arn ~type_
+let register ?tf_module ?content_type ?id ~name ~project_arn ~type_
     __resource_id =
   let __resource_type = "aws_devicefarm_upload" in
   let __resource =
-    ({ content_type; id; name; project_arn; type_ }
-      : aws_devicefarm_upload)
+    aws_devicefarm_upload ?content_type ?id ~name ~project_arn ~type_
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_devicefarm_upload __resource);
   let __resource_attributes =
     ({

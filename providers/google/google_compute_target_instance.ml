@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_target_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_target_instance__timeouts *)
+(** timeouts *)
 
 type google_compute_target_instance = {
   description : string prop option; [@option]
@@ -36,10 +36,26 @@ Currently only NO_NAT (default value) is supported. Default value: NO_NAT Possib
   project : string prop option; [@option]  (** project *)
   zone : string prop option; [@option]
       (** URL of the zone where the target instance resides. *)
-  timeouts : google_compute_target_instance__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_target_instance *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_target_instance ?description ?id ?nat_policy
+    ?project ?zone ?timeouts ~instance ~name () :
+    google_compute_target_instance =
+  {
+    description;
+    id;
+    instance;
+    name;
+    nat_policy;
+    project;
+    zone;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -53,23 +69,14 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_target_instance ?description ?id ?nat_policy
-    ?project ?zone ?timeouts ~instance ~name __resource_id =
+let register ?tf_module ?description ?id ?nat_policy ?project ?zone
+    ?timeouts ~instance ~name __resource_id =
   let __resource_type = "google_compute_target_instance" in
   let __resource =
-    ({
-       description;
-       id;
-       instance;
-       name;
-       nat_policy;
-       project;
-       zone;
-       timeouts;
-     }
-      : google_compute_target_instance)
+    google_compute_target_instance ?description ?id ?nat_policy
+      ?project ?zone ?timeouts ~instance ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_instance __resource);
   let __resource_attributes =
     ({

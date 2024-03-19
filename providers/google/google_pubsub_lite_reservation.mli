@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_pubsub_lite_reservation__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_pubsub_lite_reservation
+
+val google_pubsub_lite_reservation :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  throughput_capacity:float prop ->
+  unit ->
+  google_pubsub_lite_reservation
+
+val yojson_of_google_pubsub_lite_reservation :
+  google_pubsub_lite_reservation -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,11 +38,12 @@ type t = private {
   throughput_capacity : float prop;
 }
 
-val google_pubsub_lite_reservation :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?timeouts:google_pubsub_lite_reservation__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   throughput_capacity:float prop ->
   string ->

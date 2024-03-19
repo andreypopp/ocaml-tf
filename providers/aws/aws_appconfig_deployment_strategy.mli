@@ -2,7 +2,28 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_appconfig_deployment_strategy
+
+val aws_appconfig_deployment_strategy :
+  ?description:string prop ->
+  ?final_bake_time_in_minutes:float prop ->
+  ?growth_type:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  deployment_duration_in_minutes:float prop ->
+  growth_factor:float prop ->
+  name:string prop ->
+  replicate_to:string prop ->
+  unit ->
+  aws_appconfig_deployment_strategy
+
+val yojson_of_aws_appconfig_deployment_strategy :
+  aws_appconfig_deployment_strategy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,7 +39,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_appconfig_deployment_strategy :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?final_bake_time_in_minutes:float prop ->
   ?growth_type:string prop ->

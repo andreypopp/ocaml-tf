@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type kubernetes_annotations__metadata
+(** RESOURCE SERIALIZATION *)
+
+type metadata
+
+val metadata :
+  ?namespace:string prop -> name:string prop -> unit -> metadata
+
 type kubernetes_annotations
+
+val kubernetes_annotations :
+  ?annotations:(string * string prop) list ->
+  ?field_manager:string prop ->
+  ?force:bool prop ->
+  ?id:string prop ->
+  ?template_annotations:(string * string prop) list ->
+  api_version:string prop ->
+  kind:string prop ->
+  metadata:metadata list ->
+  unit ->
+  kubernetes_annotations
+
+val yojson_of_kubernetes_annotations : kubernetes_annotations -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   annotations : (string * string) list prop;
@@ -15,7 +37,8 @@ type t = private {
   template_annotations : (string * string) list prop;
 }
 
-val kubernetes_annotations :
+val register :
+  ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?field_manager:string prop ->
   ?force:bool prop ->
@@ -23,6 +46,6 @@ val kubernetes_annotations :
   ?template_annotations:(string * string prop) list ->
   api_version:string prop ->
   kind:string prop ->
-  metadata:kubernetes_annotations__metadata list ->
+  metadata:metadata list ->
   string ->
   t

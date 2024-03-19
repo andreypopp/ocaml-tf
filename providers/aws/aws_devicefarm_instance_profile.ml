@@ -22,6 +22,21 @@ type aws_devicefarm_instance_profile = {
 [@@deriving yojson_of]
 (** aws_devicefarm_instance_profile *)
 
+let aws_devicefarm_instance_profile ?description
+    ?exclude_app_packages_from_cleanup ?id ?package_cleanup
+    ?reboot_after_use ?tags ?tags_all ~name () :
+    aws_devicefarm_instance_profile =
+  {
+    description;
+    exclude_app_packages_from_cleanup;
+    id;
+    name;
+    package_cleanup;
+    reboot_after_use;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -34,24 +49,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_devicefarm_instance_profile ?description
+let register ?tf_module ?description
     ?exclude_app_packages_from_cleanup ?id ?package_cleanup
     ?reboot_after_use ?tags ?tags_all ~name __resource_id =
   let __resource_type = "aws_devicefarm_instance_profile" in
   let __resource =
-    ({
-       description;
-       exclude_app_packages_from_cleanup;
-       id;
-       name;
-       package_cleanup;
-       reboot_after_use;
-       tags;
-       tags_all;
-     }
-      : aws_devicefarm_instance_profile)
+    aws_devicefarm_instance_profile ?description
+      ?exclude_app_packages_from_cleanup ?id ?package_cleanup
+      ?reboot_after_use ?tags ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_devicefarm_instance_profile __resource);
   let __resource_attributes =
     ({

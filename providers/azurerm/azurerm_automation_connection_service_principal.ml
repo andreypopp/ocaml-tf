@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_connection_service_principal__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_connection_service_principal__timeouts *)
+(** timeouts *)
 
 type azurerm_automation_connection_service_principal = {
   application_id : string prop;  (** application_id *)
@@ -25,11 +25,31 @@ type azurerm_automation_connection_service_principal = {
   resource_group_name : string prop;  (** resource_group_name *)
   subscription_id : string prop;  (** subscription_id *)
   tenant_id : string prop;  (** tenant_id *)
-  timeouts :
-    azurerm_automation_connection_service_principal__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_connection_service_principal *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_automation_connection_service_principal ?description ?id
+    ?timeouts ~application_id ~automation_account_name
+    ~certificate_thumbprint ~name ~resource_group_name
+    ~subscription_id ~tenant_id () :
+    azurerm_automation_connection_service_principal =
+  {
+    application_id;
+    automation_account_name;
+    certificate_thumbprint;
+    description;
+    id;
+    name;
+    resource_group_name;
+    subscription_id;
+    tenant_id;
+    timeouts;
+  }
 
 type t = {
   application_id : string prop;
@@ -43,29 +63,19 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_automation_connection_service_principal ?description ?id
-    ?timeouts ~application_id ~automation_account_name
-    ~certificate_thumbprint ~name ~resource_group_name
-    ~subscription_id ~tenant_id __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~application_id
+    ~automation_account_name ~certificate_thumbprint ~name
+    ~resource_group_name ~subscription_id ~tenant_id __resource_id =
   let __resource_type =
     "azurerm_automation_connection_service_principal"
   in
   let __resource =
-    ({
-       application_id;
-       automation_account_name;
-       certificate_thumbprint;
-       description;
-       id;
-       name;
-       resource_group_name;
-       subscription_id;
-       tenant_id;
-       timeouts;
-     }
-      : azurerm_automation_connection_service_principal)
+    azurerm_automation_connection_service_principal ?description ?id
+      ?timeouts ~application_id ~automation_account_name
+      ~certificate_thumbprint ~name ~resource_group_name
+      ~subscription_id ~tenant_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_connection_service_principal
        __resource);
   let __resource_attributes =

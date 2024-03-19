@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_sql_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_sql_database__timeouts *)
+(** timeouts *)
 
 type google_sql_database = {
   charset : string prop option; [@option]
@@ -38,10 +38,26 @@ ID. *)
       (** The name of the database in the Cloud SQL instance.
 This does not include the project ID or instance name. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_sql_database__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_sql_database *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_sql_database ?charset ?collation ?deletion_policy ?id
+    ?project ?timeouts ~instance ~name () : google_sql_database =
+  {
+    charset;
+    collation;
+    deletion_policy;
+    id;
+    instance;
+    name;
+    project;
+    timeouts;
+  }
 
 type t = {
   charset : string prop;
@@ -54,23 +70,14 @@ type t = {
   self_link : string prop;
 }
 
-let google_sql_database ?charset ?collation ?deletion_policy ?id
+let register ?tf_module ?charset ?collation ?deletion_policy ?id
     ?project ?timeouts ~instance ~name __resource_id =
   let __resource_type = "google_sql_database" in
   let __resource =
-    ({
-       charset;
-       collation;
-       deletion_policy;
-       id;
-       instance;
-       name;
-       project;
-       timeouts;
-     }
-      : google_sql_database)
+    google_sql_database ?charset ?collation ?deletion_policy ?id
+      ?project ?timeouts ~instance ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_database __resource);
   let __resource_attributes =
     ({

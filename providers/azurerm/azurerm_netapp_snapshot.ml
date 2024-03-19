@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_snapshot__timeouts *)
+(** timeouts *)
 
 type azurerm_netapp_snapshot = {
   account_name : string prop;  (** account_name *)
@@ -20,10 +20,27 @@ type azurerm_netapp_snapshot = {
   pool_name : string prop;  (** pool_name *)
   resource_group_name : string prop;  (** resource_group_name *)
   volume_name : string prop;  (** volume_name *)
-  timeouts : azurerm_netapp_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_netapp_snapshot ?id ?timeouts ~account_name ~location
+    ~name ~pool_name ~resource_group_name ~volume_name () :
+    azurerm_netapp_snapshot =
+  {
+    account_name;
+    id;
+    location;
+    name;
+    pool_name;
+    resource_group_name;
+    volume_name;
+    timeouts;
+  }
 
 type t = {
   account_name : string prop;
@@ -35,24 +52,14 @@ type t = {
   volume_name : string prop;
 }
 
-let azurerm_netapp_snapshot ?id ?timeouts ~account_name ~location
-    ~name ~pool_name ~resource_group_name ~volume_name __resource_id
-    =
+let register ?tf_module ?id ?timeouts ~account_name ~location ~name
+    ~pool_name ~resource_group_name ~volume_name __resource_id =
   let __resource_type = "azurerm_netapp_snapshot" in
   let __resource =
-    ({
-       account_name;
-       id;
-       location;
-       name;
-       pool_name;
-       resource_group_name;
-       volume_name;
-       timeouts;
-     }
-      : azurerm_netapp_snapshot)
+    azurerm_netapp_snapshot ?id ?timeouts ~account_name ~location
+      ~name ~pool_name ~resource_group_name ~volume_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_snapshot __resource);
   let __resource_attributes =
     ({

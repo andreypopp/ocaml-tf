@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_container_analysis_note_iam_member__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_container_analysis_note_iam_member__condition *)
+(** condition *)
 
 type google_container_analysis_note_iam_member = {
   id : string prop option; [@option]  (** id *)
@@ -18,11 +18,18 @@ type google_container_analysis_note_iam_member = {
   note : string prop;  (** note *)
   project : string prop option; [@option]  (** project *)
   role : string prop;  (** role *)
-  condition :
-    google_container_analysis_note_iam_member__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_container_analysis_note_iam_member *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_container_analysis_note_iam_member ?id ?project ~member
+    ~note ~role ~condition () :
+    google_container_analysis_note_iam_member =
+  { id; member; note; project; role; condition }
 
 type t = {
   etag : string prop;
@@ -33,16 +40,16 @@ type t = {
   role : string prop;
 }
 
-let google_container_analysis_note_iam_member ?id ?project ~member
-    ~note ~role ~condition __resource_id =
+let register ?tf_module ?id ?project ~member ~note ~role ~condition
+    __resource_id =
   let __resource_type =
     "google_container_analysis_note_iam_member"
   in
   let __resource =
-    ({ id; member; note; project; role; condition }
-      : google_container_analysis_note_iam_member)
+    google_container_analysis_note_iam_member ?id ?project ~member
+      ~note ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_analysis_note_iam_member __resource);
   let __resource_attributes =
     ({

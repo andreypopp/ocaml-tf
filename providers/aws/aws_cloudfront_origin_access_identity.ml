@@ -11,6 +11,10 @@ type aws_cloudfront_origin_access_identity = {
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_access_identity *)
 
+let aws_cloudfront_origin_access_identity ?comment ?id () :
+    aws_cloudfront_origin_access_identity =
+  { comment; id }
+
 type t = {
   caller_reference : string prop;
   cloudfront_access_identity_path : string prop;
@@ -21,13 +25,12 @@ type t = {
   s3_canonical_user_id : string prop;
 }
 
-let aws_cloudfront_origin_access_identity ?comment ?id __resource_id
-    =
+let register ?tf_module ?comment ?id __resource_id =
   let __resource_type = "aws_cloudfront_origin_access_identity" in
   let __resource =
-    ({ comment; id } : aws_cloudfront_origin_access_identity)
+    aws_cloudfront_origin_access_identity ?comment ?id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_origin_access_identity __resource);
   let __resource_attributes =
     ({

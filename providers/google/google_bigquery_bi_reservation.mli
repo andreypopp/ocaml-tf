@@ -2,9 +2,42 @@
 
 open! Tf.Prelude
 
-type google_bigquery_bi_reservation__preferred_tables
-type google_bigquery_bi_reservation__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type preferred_tables
+
+val preferred_tables :
+  ?dataset_id:string prop ->
+  ?project_id:string prop ->
+  ?table_id:string prop ->
+  unit ->
+  preferred_tables
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_bigquery_bi_reservation
+
+val google_bigquery_bi_reservation :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?size:float prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  preferred_tables:preferred_tables list ->
+  unit ->
+  google_bigquery_bi_reservation
+
+val yojson_of_google_bigquery_bi_reservation :
+  google_bigquery_bi_reservation -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,13 +48,13 @@ type t = private {
   update_time : string prop;
 }
 
-val google_bigquery_bi_reservation :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   ?size:float prop ->
-  ?timeouts:google_bigquery_bi_reservation__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
-  preferred_tables:
-    google_bigquery_bi_reservation__preferred_tables list ->
+  preferred_tables:preferred_tables list ->
   string ->
   t

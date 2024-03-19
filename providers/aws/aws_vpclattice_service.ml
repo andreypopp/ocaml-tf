@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_service__timeouts *)
+(** timeouts *)
 
-type aws_vpclattice_service__dns_entry = {
+type dns_entry = {
   domain_name : string prop;  (** domain_name *)
   hosted_zone_id : string prop;  (** hosted_zone_id *)
 }
@@ -29,17 +29,34 @@ type aws_vpclattice_service = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_vpclattice_service__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_service *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpclattice_service ?auth_type ?certificate_arn
+    ?custom_domain_name ?id ?tags ?tags_all ?timeouts ~name () :
+    aws_vpclattice_service =
+  {
+    auth_type;
+    certificate_arn;
+    custom_domain_name;
+    id;
+    name;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
   auth_type : string prop;
   certificate_arn : string prop;
   custom_domain_name : string prop;
-  dns_entry : aws_vpclattice_service__dns_entry list prop;
+  dns_entry : dns_entry list prop;
   id : string prop;
   name : string prop;
   status : string prop;
@@ -47,24 +64,15 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpclattice_service ?auth_type ?certificate_arn
+let register ?tf_module ?auth_type ?certificate_arn
     ?custom_domain_name ?id ?tags ?tags_all ?timeouts ~name
     __resource_id =
   let __resource_type = "aws_vpclattice_service" in
   let __resource =
-    ({
-       auth_type;
-       certificate_arn;
-       custom_domain_name;
-       id;
-       name;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_vpclattice_service)
+    aws_vpclattice_service ?auth_type ?certificate_arn
+      ?custom_domain_name ?id ?tags ?tags_all ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_service __resource);
   let __resource_attributes =
     ({

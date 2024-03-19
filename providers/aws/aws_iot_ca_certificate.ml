@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_iot_ca_certificate__registration_config = {
+type registration_config = {
   role_arn : string prop option; [@option]  (** role_arn *)
   template_body : string prop option; [@option]  (** template_body *)
   template_name : string prop option; [@option]  (** template_name *)
 }
 [@@deriving yojson_of]
-(** aws_iot_ca_certificate__registration_config *)
+(** registration_config *)
 
-type aws_iot_ca_certificate__validity = {
+type validity = {
   not_after : string prop;  (** not_after *)
   not_before : string prop;  (** not_before *)
 }
@@ -31,11 +31,30 @@ type aws_iot_ca_certificate = {
       (** tags_all *)
   verification_certificate_pem : string prop option; [@option]
       (** verification_certificate_pem *)
-  registration_config :
-    aws_iot_ca_certificate__registration_config list;
+  registration_config : registration_config list;
 }
 [@@deriving yojson_of]
 (** aws_iot_ca_certificate *)
+
+let registration_config ?role_arn ?template_body ?template_name () :
+    registration_config =
+  { role_arn; template_body; template_name }
+
+let aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
+    ?verification_certificate_pem ~active ~allow_auto_registration
+    ~ca_certificate_pem ~registration_config () :
+    aws_iot_ca_certificate =
+  {
+    active;
+    allow_auto_registration;
+    ca_certificate_pem;
+    certificate_mode;
+    id;
+    tags;
+    tags_all;
+    verification_certificate_pem;
+    registration_config;
+  }
 
 type t = {
   active : bool prop;
@@ -48,29 +67,20 @@ type t = {
   id : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
-  validity : aws_iot_ca_certificate__validity list prop;
+  validity : validity list prop;
   verification_certificate_pem : string prop;
 }
 
-let aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
+let register ?tf_module ?certificate_mode ?id ?tags ?tags_all
     ?verification_certificate_pem ~active ~allow_auto_registration
     ~ca_certificate_pem ~registration_config __resource_id =
   let __resource_type = "aws_iot_ca_certificate" in
   let __resource =
-    ({
-       active;
-       allow_auto_registration;
-       ca_certificate_pem;
-       certificate_mode;
-       id;
-       tags;
-       tags_all;
-       verification_certificate_pem;
-       registration_config;
-     }
-      : aws_iot_ca_certificate)
+    aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
+      ?verification_certificate_pem ~active ~allow_auto_registration
+      ~ca_certificate_pem ~registration_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_ca_certificate __resource);
   let __resource_attributes =
     ({

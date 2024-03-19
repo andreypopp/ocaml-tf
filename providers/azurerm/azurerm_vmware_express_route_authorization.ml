@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_vmware_express_route_authorization__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_vmware_express_route_authorization__timeouts *)
+(** timeouts *)
 
 type azurerm_vmware_express_route_authorization = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   private_cloud_id : string prop;  (** private_cloud_id *)
-  timeouts :
-    azurerm_vmware_express_route_authorization__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_vmware_express_route_authorization *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_vmware_express_route_authorization ?id ?timeouts ~name
+    ~private_cloud_id () : azurerm_vmware_express_route_authorization
+    =
+  { id; name; private_cloud_id; timeouts }
 
 type t = {
   express_route_authorization_id : string prop;
@@ -30,16 +37,16 @@ type t = {
   private_cloud_id : string prop;
 }
 
-let azurerm_vmware_express_route_authorization ?id ?timeouts ~name
-    ~private_cloud_id __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~private_cloud_id
+    __resource_id =
   let __resource_type =
     "azurerm_vmware_express_route_authorization"
   in
   let __resource =
-    ({ id; name; private_cloud_id; timeouts }
-      : azurerm_vmware_express_route_authorization)
+    azurerm_vmware_express_route_authorization ?id ?timeouts ~name
+      ~private_cloud_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vmware_express_route_authorization __resource);
   let __resource_attributes =
     ({

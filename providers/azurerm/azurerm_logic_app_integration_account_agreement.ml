@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_integration_account_agreement__guest_identity = {
+type guest_identity = {
   qualifier : string prop;  (** qualifier *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_agreement__guest_identity *)
+(** guest_identity *)
 
-type azurerm_logic_app_integration_account_agreement__host_identity = {
+type host_identity = {
   qualifier : string prop;  (** qualifier *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_agreement__host_identity *)
+(** host_identity *)
 
-type azurerm_logic_app_integration_account_agreement__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_agreement__timeouts *)
+(** timeouts *)
 
 type azurerm_logic_app_integration_account_agreement = {
   agreement_type : string prop;  (** agreement_type *)
@@ -39,17 +39,41 @@ type azurerm_logic_app_integration_account_agreement = {
       (** metadata *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  guest_identity :
-    azurerm_logic_app_integration_account_agreement__guest_identity
-    list;
-  host_identity :
-    azurerm_logic_app_integration_account_agreement__host_identity
-    list;
-  timeouts :
-    azurerm_logic_app_integration_account_agreement__timeouts option;
+  guest_identity : guest_identity list;
+  host_identity : host_identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_agreement *)
+
+let guest_identity ~qualifier ~value () : guest_identity =
+  { qualifier; value }
+
+let host_identity ~qualifier ~value () : host_identity =
+  { qualifier; value }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logic_app_integration_account_agreement ?id ?metadata
+    ?timeouts ~agreement_type ~content ~guest_partner_name
+    ~host_partner_name ~integration_account_name ~name
+    ~resource_group_name ~guest_identity ~host_identity () :
+    azurerm_logic_app_integration_account_agreement =
+  {
+    agreement_type;
+    content;
+    guest_partner_name;
+    host_partner_name;
+    id;
+    integration_account_name;
+    metadata;
+    name;
+    resource_group_name;
+    guest_identity;
+    host_identity;
+    timeouts;
+  }
 
 type t = {
   agreement_type : string prop;
@@ -63,32 +87,20 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_logic_app_integration_account_agreement ?id ?metadata
-    ?timeouts ~agreement_type ~content ~guest_partner_name
-    ~host_partner_name ~integration_account_name ~name
-    ~resource_group_name ~guest_identity ~host_identity __resource_id
-    =
+let register ?tf_module ?id ?metadata ?timeouts ~agreement_type
+    ~content ~guest_partner_name ~host_partner_name
+    ~integration_account_name ~name ~resource_group_name
+    ~guest_identity ~host_identity __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_agreement"
   in
   let __resource =
-    ({
-       agreement_type;
-       content;
-       guest_partner_name;
-       host_partner_name;
-       id;
-       integration_account_name;
-       metadata;
-       name;
-       resource_group_name;
-       guest_identity;
-       host_identity;
-       timeouts;
-     }
-      : azurerm_logic_app_integration_account_agreement)
+    azurerm_logic_app_integration_account_agreement ?id ?metadata
+      ?timeouts ~agreement_type ~content ~guest_partner_name
+      ~host_partner_name ~integration_account_name ~name
+      ~resource_group_name ~guest_identity ~host_identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_agreement
        __resource);
   let __resource_attributes =

@@ -13,6 +13,11 @@ type aws_ssoadmin_application_access_scope = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_application_access_scope *)
 
+let aws_ssoadmin_application_access_scope ?authorized_targets
+    ~application_arn ~scope () :
+    aws_ssoadmin_application_access_scope =
+  { application_arn; authorized_targets; scope }
+
 type t = {
   application_arn : string prop;
   authorized_targets : string list prop;
@@ -20,14 +25,14 @@ type t = {
   scope : string prop;
 }
 
-let aws_ssoadmin_application_access_scope ?authorized_targets
-    ~application_arn ~scope __resource_id =
+let register ?tf_module ?authorized_targets ~application_arn ~scope
+    __resource_id =
   let __resource_type = "aws_ssoadmin_application_access_scope" in
   let __resource =
-    ({ application_arn; authorized_targets; scope }
-      : aws_ssoadmin_application_access_scope)
+    aws_ssoadmin_application_access_scope ?authorized_targets
+      ~application_arn ~scope ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssoadmin_application_access_scope __resource);
   let __resource_attributes =
     ({

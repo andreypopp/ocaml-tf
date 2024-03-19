@@ -44,6 +44,34 @@ type cloudflare_device_settings_policy = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Device Settings Policy resource. Device policies configure settings applied to WARP devices. *)
 
+let cloudflare_device_settings_policy ?allow_mode_switch
+    ?allow_updates ?allowed_to_leave ?auto_connect ?captive_portal
+    ?default ?disable_auto_fallback ?enabled ?exclude_office_ips ?id
+    ?match_ ?precedence ?service_mode_v2_mode ?service_mode_v2_port
+    ?support_url ?switch_locked ~account_id ~description ~name () :
+    cloudflare_device_settings_policy =
+  {
+    account_id;
+    allow_mode_switch;
+    allow_updates;
+    allowed_to_leave;
+    auto_connect;
+    captive_portal;
+    default;
+    description;
+    disable_auto_fallback;
+    enabled;
+    exclude_office_ips;
+    id;
+    match_;
+    name;
+    precedence;
+    service_mode_v2_mode;
+    service_mode_v2_port;
+    support_url;
+    switch_locked;
+  }
+
 type t = {
   account_id : string prop;
   allow_mode_switch : bool prop;
@@ -66,38 +94,22 @@ type t = {
   switch_locked : bool prop;
 }
 
-let cloudflare_device_settings_policy ?allow_mode_switch
-    ?allow_updates ?allowed_to_leave ?auto_connect ?captive_portal
-    ?default ?disable_auto_fallback ?enabled ?exclude_office_ips ?id
-    ?match_ ?precedence ?service_mode_v2_mode ?service_mode_v2_port
+let register ?tf_module ?allow_mode_switch ?allow_updates
+    ?allowed_to_leave ?auto_connect ?captive_portal ?default
+    ?disable_auto_fallback ?enabled ?exclude_office_ips ?id ?match_
+    ?precedence ?service_mode_v2_mode ?service_mode_v2_port
     ?support_url ?switch_locked ~account_id ~description ~name
     __resource_id =
   let __resource_type = "cloudflare_device_settings_policy" in
   let __resource =
-    ({
-       account_id;
-       allow_mode_switch;
-       allow_updates;
-       allowed_to_leave;
-       auto_connect;
-       captive_portal;
-       default;
-       description;
-       disable_auto_fallback;
-       enabled;
-       exclude_office_ips;
-       id;
-       match_;
-       name;
-       precedence;
-       service_mode_v2_mode;
-       service_mode_v2_port;
-       support_url;
-       switch_locked;
-     }
-      : cloudflare_device_settings_policy)
+    cloudflare_device_settings_policy ?allow_mode_switch
+      ?allow_updates ?allowed_to_leave ?auto_connect ?captive_portal
+      ?default ?disable_auto_fallback ?enabled ?exclude_office_ips
+      ?id ?match_ ?precedence ?service_mode_v2_mode
+      ?service_mode_v2_port ?support_url ?switch_locked ~account_id
+      ~description ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_settings_policy __resource);
   let __resource_attributes =
     ({

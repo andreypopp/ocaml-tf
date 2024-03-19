@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_express_route_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_express_route_gateway__timeouts *)
+(** timeouts *)
 
 type azurerm_express_route_gateway = {
   allow_non_virtual_wan_traffic : bool prop option; [@option]
@@ -23,10 +23,28 @@ type azurerm_express_route_gateway = {
   scale_units : float prop;  (** scale_units *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   virtual_hub_id : string prop;  (** virtual_hub_id *)
-  timeouts : azurerm_express_route_gateway__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_gateway *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_express_route_gateway ?allow_non_virtual_wan_traffic ?id
+    ?tags ?timeouts ~location ~name ~resource_group_name ~scale_units
+    ~virtual_hub_id () : azurerm_express_route_gateway =
+  {
+    allow_non_virtual_wan_traffic;
+    id;
+    location;
+    name;
+    resource_group_name;
+    scale_units;
+    tags;
+    virtual_hub_id;
+    timeouts;
+  }
 
 type t = {
   allow_non_virtual_wan_traffic : bool prop;
@@ -39,25 +57,16 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let azurerm_express_route_gateway ?allow_non_virtual_wan_traffic ?id
-    ?tags ?timeouts ~location ~name ~resource_group_name ~scale_units
+let register ?tf_module ?allow_non_virtual_wan_traffic ?id ?tags
+    ?timeouts ~location ~name ~resource_group_name ~scale_units
     ~virtual_hub_id __resource_id =
   let __resource_type = "azurerm_express_route_gateway" in
   let __resource =
-    ({
-       allow_non_virtual_wan_traffic;
-       id;
-       location;
-       name;
-       resource_group_name;
-       scale_units;
-       tags;
-       virtual_hub_id;
-       timeouts;
-     }
-      : azurerm_express_route_gateway)
+    azurerm_express_route_gateway ?allow_non_virtual_wan_traffic ?id
+      ?tags ?timeouts ~location ~name ~resource_group_name
+      ~scale_units ~virtual_hub_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_express_route_gateway __resource);
   let __resource_attributes =
     ({

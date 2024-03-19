@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type kubernetes_manifest__field_manager = {
+type field_manager = {
   force_conflicts : bool prop option; [@option]
       (** Force changes against conflicts. *)
   name : string prop option; [@option]
@@ -13,7 +13,7 @@ type kubernetes_manifest__field_manager = {
 [@@deriving yojson_of]
 (** Configure field manager options. *)
 
-type kubernetes_manifest__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** Timeout for the create operation. *)
   delete : string prop option; [@option]
@@ -22,28 +22,28 @@ type kubernetes_manifest__timeouts = {
       (** Timeout for the update operation. *)
 }
 [@@deriving yojson_of]
-(** kubernetes_manifest__timeouts *)
+(** timeouts *)
 
-type kubernetes_manifest__wait__condition = {
+type wait__condition = {
   status : string prop option; [@option]
       (** The condition status. *)
   type_ : string prop option; [@option] [@key "type"]
       (** The type of condition. *)
 }
 [@@deriving yojson_of]
-(** kubernetes_manifest__wait__condition *)
+(** wait__condition *)
 
-type kubernetes_manifest__wait = {
+type wait = {
   fields : (string * string prop) list option; [@option]
       (** A map of paths to fields to wait for a specific field value. *)
   rollout : bool prop option; [@option]
       (** Wait for rollout to complete on resources that support `kubectl rollout status`. *)
-  condition : kubernetes_manifest__wait__condition list;
+  condition : wait__condition list;
 }
 [@@deriving yojson_of]
 (** Configure waiter options. *)
 
-type kubernetes_manifest__wait_for = {
+type wait_for = {
   fields : (string * string prop) list;  (** fields *)
 }
 [@@deriving yojson_of]
@@ -55,38 +55,54 @@ type kubernetes_manifest = {
       (** A Kubernetes manifest describing the desired state of the resource in HCL format. *)
   object_ : json prop option; [@option] [@key "object"]
       (** The resulting resource state, as returned by the API server after applying the desired state from `manifest`. *)
-  wait_for : kubernetes_manifest__wait_for option; [@option]
+  wait_for : wait_for option; [@option]
       (** A map of attribute paths and desired patterns to be matched. After each apply the provider will wait for all attributes listed here to reach a value that matches the desired pattern. *)
-  field_manager : kubernetes_manifest__field_manager list;
-  timeouts : kubernetes_manifest__timeouts list;
-  wait : kubernetes_manifest__wait list;
+  field_manager : field_manager list;
+  timeouts : timeouts list;
+  wait : wait list;
 }
 [@@deriving yojson_of]
 (** kubernetes_manifest *)
+
+let field_manager ?force_conflicts ?name () : field_manager =
+  { force_conflicts; name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let wait__condition ?status ?type_ () : wait__condition =
+  { status; type_ }
+
+let wait ?fields ?rollout ~condition () : wait =
+  { fields; rollout; condition }
+
+let kubernetes_manifest ?computed_fields ?object_ ?wait_for ~manifest
+    ~field_manager ~timeouts ~wait () : kubernetes_manifest =
+  {
+    computed_fields;
+    manifest;
+    object_;
+    wait_for;
+    field_manager;
+    timeouts;
+    wait;
+  }
 
 type t = {
   computed_fields : string list prop;
   manifest : json prop;
   object_ : json prop;
-  wait_for : kubernetes_manifest__wait_for prop;
+  wait_for : wait_for prop;
 }
 
-let kubernetes_manifest ?computed_fields ?object_ ?wait_for ~manifest
+let register ?tf_module ?computed_fields ?object_ ?wait_for ~manifest
     ~field_manager ~timeouts ~wait __resource_id =
   let __resource_type = "kubernetes_manifest" in
   let __resource =
-    ({
-       computed_fields;
-       manifest;
-       object_;
-       wait_for;
-       field_manager;
-       timeouts;
-       wait;
-     }
-      : kubernetes_manifest)
+    kubernetes_manifest ?computed_fields ?object_ ?wait_for ~manifest
+      ~field_manager ~timeouts ~wait ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_manifest __resource);
   let __resource_attributes =
     ({

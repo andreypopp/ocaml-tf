@@ -18,6 +18,20 @@ type aws_guardduty_threatintelset = {
 [@@deriving yojson_of]
 (** aws_guardduty_threatintelset *)
 
+let aws_guardduty_threatintelset ?id ?tags ?tags_all ~activate
+    ~detector_id ~format ~location ~name () :
+    aws_guardduty_threatintelset =
+  {
+    activate;
+    detector_id;
+    format;
+    id;
+    location;
+    name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   activate : bool prop;
   arn : string prop;
@@ -30,23 +44,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_guardduty_threatintelset ?id ?tags ?tags_all ~activate
-    ~detector_id ~format ~location ~name __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~activate ~detector_id
+    ~format ~location ~name __resource_id =
   let __resource_type = "aws_guardduty_threatintelset" in
   let __resource =
-    ({
-       activate;
-       detector_id;
-       format;
-       id;
-       location;
-       name;
-       tags;
-       tags_all;
-     }
-      : aws_guardduty_threatintelset)
+    aws_guardduty_threatintelset ?id ?tags ?tags_all ~activate
+      ~detector_id ~format ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_threatintelset __resource);
   let __resource_attributes =
     ({

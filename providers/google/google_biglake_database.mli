@@ -2,9 +2,41 @@
 
 open! Tf.Prelude
 
-type google_biglake_database__hive_options
-type google_biglake_database__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type hive_options
+
+val hive_options :
+  ?location_uri:string prop ->
+  ?parameters:(string * string prop) list ->
+  unit ->
+  hive_options
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_biglake_database
+
+val google_biglake_database :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  catalog:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  hive_options:hive_options list ->
+  unit ->
+  google_biglake_database
+
+val yojson_of_google_biglake_database :
+  google_biglake_database -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   catalog : string prop;
@@ -17,12 +49,13 @@ type t = private {
   update_time : string prop;
 }
 
-val google_biglake_database :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:google_biglake_database__timeouts ->
+  ?timeouts:timeouts ->
   catalog:string prop ->
   name:string prop ->
   type_:string prop ->
-  hive_options:google_biglake_database__hive_options list ->
+  hive_options:hive_options list ->
   string ->
   t

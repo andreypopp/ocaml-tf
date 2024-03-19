@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_webhook__generic_web_service = {
+type generic_web_service = {
   allowed_ca_certs : string prop list option; [@option]
       (** Specifies a list of allowed custom CA certificates (in DER format) for HTTPS verification. *)
   request_headers : (string * string prop) list option; [@option]
@@ -15,7 +15,7 @@ type google_dialogflow_cx_webhook__generic_web_service = {
 [@@deriving yojson_of]
 (** Configuration for a generic web service. *)
 
-type google_dialogflow_cx_webhook__service_directory__generic_web_service = {
+type service_directory__generic_web_service = {
   allowed_ca_certs : string prop list option; [@option]
       (** Specifies a list of allowed custom CA certificates (in DER format) for HTTPS verification. *)
   request_headers : (string * string prop) list option; [@option]
@@ -26,23 +26,21 @@ type google_dialogflow_cx_webhook__service_directory__generic_web_service = {
 [@@deriving yojson_of]
 (** The name of Service Directory service. *)
 
-type google_dialogflow_cx_webhook__service_directory = {
+type service_directory = {
   service : string prop;
       (** The name of Service Directory service. *)
-  generic_web_service :
-    google_dialogflow_cx_webhook__service_directory__generic_web_service
-    list;
+  generic_web_service : service_directory__generic_web_service list;
 }
 [@@deriving yojson_of]
 (** Configuration for a Service Directory service. *)
 
-type google_dialogflow_cx_webhook__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_cx_webhook__timeouts *)
+(** timeouts *)
 
 type google_dialogflow_cx_webhook = {
   disabled : bool prop option; [@option]
@@ -61,14 +59,46 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
       (** Name of the SecuritySettings reference for the agent. Format: projects/<Project ID>/locations/<Location ID>/securitySettings/<Security Settings ID>. *)
   timeout : string prop option; [@option]
       (** Webhook execution timeout. *)
-  generic_web_service :
-    google_dialogflow_cx_webhook__generic_web_service list;
-  service_directory :
-    google_dialogflow_cx_webhook__service_directory list;
-  timeouts : google_dialogflow_cx_webhook__timeouts option;
+  generic_web_service : generic_web_service list;
+  service_directory : service_directory list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_webhook *)
+
+let generic_web_service ?allowed_ca_certs ?request_headers ~uri () :
+    generic_web_service =
+  { allowed_ca_certs; request_headers; uri }
+
+let service_directory__generic_web_service ?allowed_ca_certs
+    ?request_headers ~uri () : service_directory__generic_web_service
+    =
+  { allowed_ca_certs; request_headers; uri }
+
+let service_directory ~service ~generic_web_service () :
+    service_directory =
+  { service; generic_web_service }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
+    ?enable_stackdriver_logging ?id ?parent ?security_settings
+    ?timeout ?timeouts ~display_name ~generic_web_service
+    ~service_directory () : google_dialogflow_cx_webhook =
+  {
+    disabled;
+    display_name;
+    enable_spell_correction;
+    enable_stackdriver_logging;
+    id;
+    parent;
+    security_settings;
+    timeout;
+    generic_web_service;
+    service_directory;
+    timeouts;
+  }
 
 type t = {
   disabled : bool prop;
@@ -83,28 +113,18 @@ type t = {
   timeout : string prop;
 }
 
-let google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
+let register ?tf_module ?disabled ?enable_spell_correction
     ?enable_stackdriver_logging ?id ?parent ?security_settings
     ?timeout ?timeouts ~display_name ~generic_web_service
     ~service_directory __resource_id =
   let __resource_type = "google_dialogflow_cx_webhook" in
   let __resource =
-    ({
-       disabled;
-       display_name;
-       enable_spell_correction;
-       enable_stackdriver_logging;
-       id;
-       parent;
-       security_settings;
-       timeout;
-       generic_web_service;
-       service_directory;
-       timeouts;
-     }
-      : google_dialogflow_cx_webhook)
+    google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
+      ?enable_stackdriver_logging ?id ?parent ?security_settings
+      ?timeout ?timeouts ~display_name ~generic_web_service
+      ~service_directory ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_webhook __resource);
   let __resource_attributes =
     ({

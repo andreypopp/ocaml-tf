@@ -22,6 +22,10 @@ referenced when creating secure web gateway policies or device
 posture rules.
  *)
 
+let cloudflare_teams_list ?description ?id ?items ~account_id ~name
+    ~type_ () : cloudflare_teams_list =
+  { account_id; description; id; items; name; type_ }
+
 type t = {
   account_id : string prop;
   description : string prop;
@@ -31,14 +35,14 @@ type t = {
   type_ : string prop;
 }
 
-let cloudflare_teams_list ?description ?id ?items ~account_id ~name
+let register ?tf_module ?description ?id ?items ~account_id ~name
     ~type_ __resource_id =
   let __resource_type = "cloudflare_teams_list" in
   let __resource =
-    ({ account_id; description; id; items; name; type_ }
-      : cloudflare_teams_list)
+    cloudflare_teams_list ?description ?id ?items ~account_id ~name
+      ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_list __resource);
   let __resource_attributes =
     ({

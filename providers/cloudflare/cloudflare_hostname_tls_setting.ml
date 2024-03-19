@@ -18,6 +18,10 @@ type cloudflare_hostname_tls_setting = {
 (** Provides a Cloudflare per-hostname TLS setting resource. Used to set TLS settings for hostnames under the specified zone.
  *)
 
+let cloudflare_hostname_tls_setting ?id ~hostname ~setting ~value
+    ~zone_id () : cloudflare_hostname_tls_setting =
+  { hostname; id; setting; value; zone_id }
+
 type t = {
   created_at : string prop;
   hostname : string prop;
@@ -28,14 +32,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_hostname_tls_setting ?id ~hostname ~setting ~value
-    ~zone_id __resource_id =
+let register ?tf_module ?id ~hostname ~setting ~value ~zone_id
+    __resource_id =
   let __resource_type = "cloudflare_hostname_tls_setting" in
   let __resource =
-    ({ hostname; id; setting; value; zone_id }
-      : cloudflare_hostname_tls_setting)
+    cloudflare_hostname_tls_setting ?id ~hostname ~setting ~value
+      ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_hostname_tls_setting __resource);
   let __resource_attributes =
     ({

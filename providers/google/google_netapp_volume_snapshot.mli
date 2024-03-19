@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type google_netapp_volume_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_netapp_volume_snapshot
+
+val google_netapp_volume_snapshot :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  volume_name:string prop ->
+  unit ->
+  google_netapp_volume_snapshot
+
+val yojson_of_google_netapp_volume_snapshot :
+  google_netapp_volume_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -18,12 +45,13 @@ type t = private {
   volume_name : string prop;
 }
 
-val google_netapp_volume_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_netapp_volume_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   volume_name:string prop ->

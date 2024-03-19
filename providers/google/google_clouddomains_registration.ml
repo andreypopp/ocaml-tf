@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_clouddomains_registration__contact_settings__admin_contact__postal_address = {
+type contact_settings__admin_contact__postal_address = {
   address_lines : string prop list option; [@option]
       (** Unstructured address lines describing the lower levels of an address.
 Because values in addressLines do not have type information and may sometimes contain multiple values in a single
@@ -36,7 +36,7 @@ https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html f
 [@@deriving yojson_of]
 (** Required. Postal address of the contact. *)
 
-type google_clouddomains_registration__contact_settings__admin_contact = {
+type contact_settings__admin_contact = {
   email : string prop;
       (** Required. Email address of the contact. *)
   fax_number : string prop option; [@option]
@@ -44,8 +44,7 @@ type google_clouddomains_registration__contact_settings__admin_contact = {
   phone_number : string prop;
       (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
-    google_clouddomains_registration__contact_settings__admin_contact__postal_address
-    list;
+    contact_settings__admin_contact__postal_address list;
 }
 [@@deriving yojson_of]
 (** Caution: Anyone with access to this email address, phone number, and/or postal address can take control of the domain.
@@ -53,7 +52,7 @@ type google_clouddomains_registration__contact_settings__admin_contact = {
 Warning: For new Registrations, the registrant receives an email confirmation that they must complete within 15 days to
 avoid domain suspension. *)
 
-type google_clouddomains_registration__contact_settings__registrant_contact__postal_address = {
+type contact_settings__registrant_contact__postal_address = {
   address_lines : string prop list option; [@option]
       (** Unstructured address lines describing the lower levels of an address.
 Because values in addressLines do not have type information and may sometimes contain multiple values in a single
@@ -85,7 +84,7 @@ https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html f
 [@@deriving yojson_of]
 (** Required. Postal address of the contact. *)
 
-type google_clouddomains_registration__contact_settings__registrant_contact = {
+type contact_settings__registrant_contact = {
   email : string prop;
       (** Required. Email address of the contact. *)
   fax_number : string prop option; [@option]
@@ -93,8 +92,7 @@ type google_clouddomains_registration__contact_settings__registrant_contact = {
   phone_number : string prop;
       (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
-    google_clouddomains_registration__contact_settings__registrant_contact__postal_address
-    list;
+    contact_settings__registrant_contact__postal_address list;
 }
 [@@deriving yojson_of]
 (** Caution: Anyone with access to this email address, phone number, and/or postal address can take control of the domain.
@@ -102,7 +100,7 @@ type google_clouddomains_registration__contact_settings__registrant_contact = {
 Warning: For new Registrations, the registrant receives an email confirmation that they must complete within 15 days to
 avoid domain suspension. *)
 
-type google_clouddomains_registration__contact_settings__technical_contact__postal_address = {
+type contact_settings__technical_contact__postal_address = {
   address_lines : string prop list option; [@option]
       (** Unstructured address lines describing the lower levels of an address.
 Because values in addressLines do not have type information and may sometimes contain multiple values in a single
@@ -134,7 +132,7 @@ https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html f
 [@@deriving yojson_of]
 (** Required. Postal address of the contact. *)
 
-type google_clouddomains_registration__contact_settings__technical_contact = {
+type contact_settings__technical_contact = {
   email : string prop;
       (** Required. Email address of the contact. *)
   fax_number : string prop option; [@option]
@@ -142,8 +140,7 @@ type google_clouddomains_registration__contact_settings__technical_contact = {
   phone_number : string prop;
       (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
-    google_clouddomains_registration__contact_settings__technical_contact__postal_address
-    list;
+    contact_settings__technical_contact__postal_address list;
 }
 [@@deriving yojson_of]
 (** Caution: Anyone with access to this email address, phone number, and/or postal address can take control of the domain.
@@ -151,24 +148,18 @@ type google_clouddomains_registration__contact_settings__technical_contact = {
 Warning: For new Registrations, the registrant receives an email confirmation that they must complete within 15 days to
 avoid domain suspension. *)
 
-type google_clouddomains_registration__contact_settings = {
+type contact_settings = {
   privacy : string prop;
       (** Required. Privacy setting for the contacts associated with the Registration.
 Values are PUBLIC_CONTACT_DATA, PRIVATE_CONTACT_DATA, and REDACTED_CONTACT_DATA *)
-  admin_contact :
-    google_clouddomains_registration__contact_settings__admin_contact
-    list;
-  registrant_contact :
-    google_clouddomains_registration__contact_settings__registrant_contact
-    list;
-  technical_contact :
-    google_clouddomains_registration__contact_settings__technical_contact
-    list;
+  admin_contact : contact_settings__admin_contact list;
+  registrant_contact : contact_settings__registrant_contact list;
+  technical_contact : contact_settings__technical_contact list;
 }
 [@@deriving yojson_of]
 (** Required. Settings for contact information linked to the Registration. *)
 
-type google_clouddomains_registration__dns_settings__custom_dns__ds_records = {
+type dns_settings__custom_dns__ds_records = {
   algorithm : string prop option; [@option]
       (** The algorithm used to generate the referenced DNSKEY. *)
   digest : string prop option; [@option]
@@ -182,18 +173,16 @@ type google_clouddomains_registration__dns_settings__custom_dns__ds_records = {
 (** The list of DS records for this domain, which are used to enable DNSSEC. The domain's DNS provider can provide
 the values to set here. If this field is empty, DNSSEC is disabled. *)
 
-type google_clouddomains_registration__dns_settings__custom_dns = {
+type dns_settings__custom_dns = {
   name_servers : string prop list;
       (** Required. A list of name servers that store the DNS zone for this domain. Each name server is a domain
 name, with Unicode domain names expressed in Punycode format. *)
-  ds_records :
-    google_clouddomains_registration__dns_settings__custom_dns__ds_records
-    list;
+  ds_records : dns_settings__custom_dns__ds_records list;
 }
 [@@deriving yojson_of]
 (** Configuration for an arbitrary DNS provider. *)
 
-type google_clouddomains_registration__dns_settings__glue_records = {
+type dns_settings__glue_records = {
   host_name : string prop;
       (** Required. Domain name of the host in Punycode format. *)
   ipv4_addresses : string prop list option; [@option]
@@ -206,16 +195,14 @@ At least one of ipv4_address and ipv6_address must be set. *)
 [@@deriving yojson_of]
 (** The list of glue records for this Registration. Commonly empty. *)
 
-type google_clouddomains_registration__dns_settings = {
-  custom_dns :
-    google_clouddomains_registration__dns_settings__custom_dns list;
-  glue_records :
-    google_clouddomains_registration__dns_settings__glue_records list;
+type dns_settings = {
+  custom_dns : dns_settings__custom_dns list;
+  glue_records : dns_settings__glue_records list;
 }
 [@@deriving yojson_of]
 (** Settings controlling the DNS configuration of the Registration. *)
 
-type google_clouddomains_registration__management_settings = {
+type management_settings = {
   preferred_renewal_method : string prop option; [@option]
       (** The desired renewal method for this Registration. The actual renewalMethod is automatically updated to reflect this choice.
 If unset or equal to RENEWAL_METHOD_UNSPECIFIED, the actual renewalMethod is treated as if it were set to AUTOMATIC_RENEWAL.
@@ -225,26 +212,21 @@ resource has state ACTIVE or SUSPENDED.
 When preferredRenewalMethod is set to AUTOMATIC_RENEWAL, the actual renewalMethod can be set to RENEWAL_DISABLED in case of
 problems with the billing account or reported domain abuse. In such cases, check the issues field on the Registration. After
 the problem is resolved, the renewalMethod is automatically updated to preferredRenewalMethod in a few hours. *)
-  renewal_method : string prop;
-      (** Output only. The actual renewal method for this Registration. When preferredRenewalMethod is set to AUTOMATIC_RENEWAL,
-the actual renewalMethod can be equal to RENEWAL_DISABLED—for example, when there are problems with the billing account
-or reported domain abuse. In such cases, check the issues field on the Registration. After the problem is resolved, the
-renewalMethod is automatically updated to preferredRenewalMethod in a few hours. *)
   transfer_lock_state : string prop option; [@option]
       (** Controls whether the domain can be transferred to another registrar. Values are UNLOCKED or LOCKED. *)
 }
 [@@deriving yojson_of]
 (** Settings for management of the Registration, including renewal, billing, and transfer *)
 
-type google_clouddomains_registration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_clouddomains_registration__timeouts *)
+(** timeouts *)
 
-type google_clouddomains_registration__yearly_price = {
+type yearly_price = {
   currency_code : string prop option; [@option]
       (** The three-letter currency code defined in ISO 4217. *)
   units : string prop option; [@option]
@@ -269,16 +251,118 @@ type google_clouddomains_registration = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop;  (** The location for the resource *)
   project : string prop option; [@option]  (** project *)
-  contact_settings :
-    google_clouddomains_registration__contact_settings list;
-  dns_settings : google_clouddomains_registration__dns_settings list;
-  management_settings :
-    google_clouddomains_registration__management_settings list;
-  timeouts : google_clouddomains_registration__timeouts option;
-  yearly_price : google_clouddomains_registration__yearly_price list;
+  contact_settings : contact_settings list;
+  dns_settings : dns_settings list;
+  management_settings : management_settings list;
+  timeouts : timeouts option;
+  yearly_price : yearly_price list;
 }
 [@@deriving yojson_of]
 (** google_clouddomains_registration *)
+
+let contact_settings__admin_contact__postal_address ?address_lines
+    ?administrative_area ?locality ?organization ?postal_code
+    ?recipients ~region_code () :
+    contact_settings__admin_contact__postal_address =
+  {
+    address_lines;
+    administrative_area;
+    locality;
+    organization;
+    postal_code;
+    recipients;
+    region_code;
+  }
+
+let contact_settings__admin_contact ?fax_number ~email ~phone_number
+    ~postal_address () : contact_settings__admin_contact =
+  { email; fax_number; phone_number; postal_address }
+
+let contact_settings__registrant_contact__postal_address
+    ?address_lines ?administrative_area ?locality ?organization
+    ?postal_code ?recipients ~region_code () :
+    contact_settings__registrant_contact__postal_address =
+  {
+    address_lines;
+    administrative_area;
+    locality;
+    organization;
+    postal_code;
+    recipients;
+    region_code;
+  }
+
+let contact_settings__registrant_contact ?fax_number ~email
+    ~phone_number ~postal_address () :
+    contact_settings__registrant_contact =
+  { email; fax_number; phone_number; postal_address }
+
+let contact_settings__technical_contact__postal_address
+    ?address_lines ?administrative_area ?locality ?organization
+    ?postal_code ?recipients ~region_code () :
+    contact_settings__technical_contact__postal_address =
+  {
+    address_lines;
+    administrative_area;
+    locality;
+    organization;
+    postal_code;
+    recipients;
+    region_code;
+  }
+
+let contact_settings__technical_contact ?fax_number ~email
+    ~phone_number ~postal_address () :
+    contact_settings__technical_contact =
+  { email; fax_number; phone_number; postal_address }
+
+let contact_settings ~privacy ~admin_contact ~registrant_contact
+    ~technical_contact () : contact_settings =
+  { privacy; admin_contact; registrant_contact; technical_contact }
+
+let dns_settings__custom_dns__ds_records ?algorithm ?digest
+    ?digest_type ?key_tag () : dns_settings__custom_dns__ds_records =
+  { algorithm; digest; digest_type; key_tag }
+
+let dns_settings__custom_dns ~name_servers ~ds_records () :
+    dns_settings__custom_dns =
+  { name_servers; ds_records }
+
+let dns_settings__glue_records ?ipv4_addresses ?ipv6_addresses
+    ~host_name () : dns_settings__glue_records =
+  { host_name; ipv4_addresses; ipv6_addresses }
+
+let dns_settings ~custom_dns ~glue_records () : dns_settings =
+  { custom_dns; glue_records }
+
+let management_settings ?preferred_renewal_method
+    ?transfer_lock_state () : management_settings =
+  { preferred_renewal_method; transfer_lock_state }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let yearly_price ?currency_code ?units () : yearly_price =
+  { currency_code; units }
+
+let google_clouddomains_registration ?contact_notices ?domain_notices
+    ?id ?labels ?project ?timeouts ~domain_name ~location
+    ~contact_settings ~dns_settings ~management_settings
+    ~yearly_price () : google_clouddomains_registration =
+  {
+    contact_notices;
+    domain_name;
+    domain_notices;
+    id;
+    labels;
+    location;
+    project;
+    contact_settings;
+    dns_settings;
+    management_settings;
+    timeouts;
+    yearly_price;
+  }
 
 type t = {
   contact_notices : string list prop;
@@ -299,29 +383,17 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_clouddomains_registration ?contact_notices ?domain_notices
-    ?id ?labels ?project ?timeouts ~domain_name ~location
-    ~contact_settings ~dns_settings ~management_settings
-    ~yearly_price __resource_id =
+let register ?tf_module ?contact_notices ?domain_notices ?id ?labels
+    ?project ?timeouts ~domain_name ~location ~contact_settings
+    ~dns_settings ~management_settings ~yearly_price __resource_id =
   let __resource_type = "google_clouddomains_registration" in
   let __resource =
-    ({
-       contact_notices;
-       domain_name;
-       domain_notices;
-       id;
-       labels;
-       location;
-       project;
-       contact_settings;
-       dns_settings;
-       management_settings;
-       timeouts;
-       yearly_price;
-     }
-      : google_clouddomains_registration)
+    google_clouddomains_registration ?contact_notices ?domain_notices
+      ?id ?labels ?project ?timeouts ~domain_name ~location
+      ~contact_settings ~dns_settings ~management_settings
+      ~yearly_price ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_clouddomains_registration __resource);
   let __resource_attributes =
     ({

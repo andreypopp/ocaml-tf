@@ -4,13 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_network_interface__attachment = {
-  attachment_id : string prop;  (** attachment_id *)
+type attachment = {
   device_index : float prop;  (** device_index *)
   instance : string prop;  (** instance *)
 }
 [@@deriving yojson_of]
-(** aws_network_interface__attachment *)
+(** attachment *)
 
 type aws_network_interface = {
   description : string prop option; [@option]  (** description *)
@@ -50,10 +49,45 @@ type aws_network_interface = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  attachment : aws_network_interface__attachment list;
+  attachment : attachment list;
 }
 [@@deriving yojson_of]
 (** aws_network_interface *)
+
+let attachment ~device_index ~instance () : attachment =
+  { device_index; instance }
+
+let aws_network_interface ?description ?id ?interface_type
+    ?ipv4_prefix_count ?ipv4_prefixes ?ipv6_address_count
+    ?ipv6_address_list ?ipv6_address_list_enabled ?ipv6_addresses
+    ?ipv6_prefix_count ?ipv6_prefixes ?private_ip ?private_ip_list
+    ?private_ip_list_enabled ?private_ips ?private_ips_count
+    ?security_groups ?source_dest_check ?tags ?tags_all ~subnet_id
+    ~attachment () : aws_network_interface =
+  {
+    description;
+    id;
+    interface_type;
+    ipv4_prefix_count;
+    ipv4_prefixes;
+    ipv6_address_count;
+    ipv6_address_list;
+    ipv6_address_list_enabled;
+    ipv6_addresses;
+    ipv6_prefix_count;
+    ipv6_prefixes;
+    private_ip;
+    private_ip_list;
+    private_ip_list_enabled;
+    private_ips;
+    private_ips_count;
+    security_groups;
+    source_dest_check;
+    subnet_id;
+    tags;
+    tags_all;
+    attachment;
+  }
 
 type t = {
   arn : string prop;
@@ -84,7 +118,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_network_interface ?description ?id ?interface_type
+let register ?tf_module ?description ?id ?interface_type
     ?ipv4_prefix_count ?ipv4_prefixes ?ipv6_address_count
     ?ipv6_address_list ?ipv6_address_list_enabled ?ipv6_addresses
     ?ipv6_prefix_count ?ipv6_prefixes ?private_ip ?private_ip_list
@@ -93,33 +127,15 @@ let aws_network_interface ?description ?id ?interface_type
     ~attachment __resource_id =
   let __resource_type = "aws_network_interface" in
   let __resource =
-    ({
-       description;
-       id;
-       interface_type;
-       ipv4_prefix_count;
-       ipv4_prefixes;
-       ipv6_address_count;
-       ipv6_address_list;
-       ipv6_address_list_enabled;
-       ipv6_addresses;
-       ipv6_prefix_count;
-       ipv6_prefixes;
-       private_ip;
-       private_ip_list;
-       private_ip_list_enabled;
-       private_ips;
-       private_ips_count;
-       security_groups;
-       source_dest_check;
-       subnet_id;
-       tags;
-       tags_all;
-       attachment;
-     }
-      : aws_network_interface)
+    aws_network_interface ?description ?id ?interface_type
+      ?ipv4_prefix_count ?ipv4_prefixes ?ipv6_address_count
+      ?ipv6_address_list ?ipv6_address_list_enabled ?ipv6_addresses
+      ?ipv6_prefix_count ?ipv6_prefixes ?private_ip ?private_ip_list
+      ?private_ip_list_enabled ?private_ips ?private_ips_count
+      ?security_groups ?source_dest_check ?tags ?tags_all ~subnet_id
+      ~attachment ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_network_interface __resource);
   let __resource_attributes =
     ({

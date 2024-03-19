@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_tunnel_virtual_network
+
+val cloudflare_tunnel_virtual_network :
+  ?comment:string prop ->
+  ?id:string prop ->
+  ?is_default_network:bool prop ->
+  account_id:string prop ->
+  name:string prop ->
+  unit ->
+  cloudflare_tunnel_virtual_network
+
+val yojson_of_cloudflare_tunnel_virtual_network :
+  cloudflare_tunnel_virtual_network -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -12,7 +28,8 @@ type t = private {
   name : string prop;
 }
 
-val cloudflare_tunnel_virtual_network :
+val register :
+  ?tf_module:tf_module ->
   ?comment:string prop ->
   ?id:string prop ->
   ?is_default_network:bool prop ->

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_database_extended_auditing_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_database_extended_auditing_policy__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_database_extended_auditing_policy = {
   database_id : string prop;  (** database_id *)
@@ -28,11 +28,31 @@ type azurerm_mssql_database_extended_auditing_policy = {
       (** storage_account_access_key_is_secondary *)
   storage_endpoint : string prop option; [@option]
       (** storage_endpoint *)
-  timeouts :
-    azurerm_mssql_database_extended_auditing_policy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database_extended_auditing_policy *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_database_extended_auditing_policy ?enabled ?id
+    ?log_monitoring_enabled ?retention_in_days
+    ?storage_account_access_key
+    ?storage_account_access_key_is_secondary ?storage_endpoint
+    ?timeouts ~database_id () :
+    azurerm_mssql_database_extended_auditing_policy =
+  {
+    database_id;
+    enabled;
+    id;
+    log_monitoring_enabled;
+    retention_in_days;
+    storage_account_access_key;
+    storage_account_access_key_is_secondary;
+    storage_endpoint;
+    timeouts;
+  }
 
 type t = {
   database_id : string prop;
@@ -45,29 +65,21 @@ type t = {
   storage_endpoint : string prop;
 }
 
-let azurerm_mssql_database_extended_auditing_policy ?enabled ?id
-    ?log_monitoring_enabled ?retention_in_days
-    ?storage_account_access_key
+let register ?tf_module ?enabled ?id ?log_monitoring_enabled
+    ?retention_in_days ?storage_account_access_key
     ?storage_account_access_key_is_secondary ?storage_endpoint
     ?timeouts ~database_id __resource_id =
   let __resource_type =
     "azurerm_mssql_database_extended_auditing_policy"
   in
   let __resource =
-    ({
-       database_id;
-       enabled;
-       id;
-       log_monitoring_enabled;
-       retention_in_days;
-       storage_account_access_key;
-       storage_account_access_key_is_secondary;
-       storage_endpoint;
-       timeouts;
-     }
-      : azurerm_mssql_database_extended_auditing_policy)
+    azurerm_mssql_database_extended_auditing_policy ?enabled ?id
+      ?log_monitoring_enabled ?retention_in_days
+      ?storage_account_access_key
+      ?storage_account_access_key_is_secondary ?storage_endpoint
+      ?timeouts ~database_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_database_extended_auditing_policy
        __resource);
   let __resource_attributes =

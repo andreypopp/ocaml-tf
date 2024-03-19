@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_binary_authorization_attestor__attestation_authority_note__public_keys__pkix_public_key = {
+type attestation_authority_note__public_keys__pkix_public_key = {
   public_key_pem : string prop option; [@option]
       (** A PEM-encoded public key, as described in
 'https://tools.ietf.org/html/rfc7468#section-13' *)
@@ -23,7 +23,7 @@ type of public key, but it MUST be a valid RFC3986 URI. If id is left
 blank, a default one will be computed based on the digest of the DER
 encoding of the public key. *)
 
-type google_binary_authorization_attestor__attestation_authority_note__public_keys = {
+type attestation_authority_note__public_keys = {
   ascii_armored_pgp_public_key : string prop option; [@option]
       (** ASCII-armored representation of a PGP public key, as the
 entire output by the command
@@ -44,8 +44,7 @@ field exactly. Additional restrictions on this field can
 be imposed based on which public key type is encapsulated.
 See the documentation on publicKey cases below for details. *)
   pkix_public_key :
-    google_binary_authorization_attestor__attestation_authority_note__public_keys__pkix_public_key
-    list;
+    attestation_authority_note__public_keys__pkix_public_key list;
 }
 [@@deriving yojson_of]
 (** Public keys that verify attestations signed by this attestor. This
@@ -56,17 +55,7 @@ image specified in the admission request.
 If this field is empty, this attestor always returns that no valid
 attestations exist. *)
 
-type google_binary_authorization_attestor__attestation_authority_note = {
-  delegation_service_account_email : string prop;
-      (** This field will contain the service account email address that
-this Attestor will use as the principal when querying Container
-Analysis. Attestor administrators must grant this service account
-the IAM role needed to read attestations from the noteReference in
-Container Analysis (containeranalysis.notes.occurrences.viewer).
-This email address is fixed for the lifetime of the Attestor, but
-callers should not make any other assumptions about the service
-account email; future versions may use an email based on a
-different naming pattern. *)
+type attestation_authority_note = {
   note_reference : string prop;
       (** The resource name of a ATTESTATION_AUTHORITY Note, created by the
 user. If the Note is in a different project from the Attestor, it
@@ -75,20 +64,18 @@ should be specified in the format 'projects/*/notes/*' (or the legacy
 An attestation by this attestor is stored as a Container Analysis
 ATTESTATION_AUTHORITY Occurrence that names a container image
 and that links to this Note. *)
-  public_keys :
-    google_binary_authorization_attestor__attestation_authority_note__public_keys
-    list;
+  public_keys : attestation_authority_note__public_keys list;
 }
 [@@deriving yojson_of]
 (** A Container Analysis ATTESTATION_AUTHORITY Note, created by the user. *)
 
-type google_binary_authorization_attestor__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_binary_authorization_attestor__timeouts *)
+(** timeouts *)
 
 type google_binary_authorization_attestor = {
   description : string prop option; [@option]
@@ -97,13 +84,40 @@ displayed in chooser dialogs. *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** The resource name. *)
   project : string prop option; [@option]  (** project *)
-  attestation_authority_note :
-    google_binary_authorization_attestor__attestation_authority_note
-    list;
-  timeouts : google_binary_authorization_attestor__timeouts option;
+  attestation_authority_note : attestation_authority_note list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_binary_authorization_attestor *)
+
+let attestation_authority_note__public_keys__pkix_public_key
+    ?public_key_pem ?signature_algorithm () :
+    attestation_authority_note__public_keys__pkix_public_key =
+  { public_key_pem; signature_algorithm }
+
+let attestation_authority_note__public_keys
+    ?ascii_armored_pgp_public_key ?comment ?id ~pkix_public_key () :
+    attestation_authority_note__public_keys =
+  { ascii_armored_pgp_public_key; comment; id; pkix_public_key }
+
+let attestation_authority_note ~note_reference ~public_keys () :
+    attestation_authority_note =
+  { note_reference; public_keys }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_binary_authorization_attestor ?description ?id ?project
+    ?timeouts ~name ~attestation_authority_note () :
+    google_binary_authorization_attestor =
+  {
+    description;
+    id;
+    name;
+    project;
+    attestation_authority_note;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -112,21 +126,14 @@ type t = {
   project : string prop;
 }
 
-let google_binary_authorization_attestor ?description ?id ?project
-    ?timeouts ~name ~attestation_authority_note __resource_id =
+let register ?tf_module ?description ?id ?project ?timeouts ~name
+    ~attestation_authority_note __resource_id =
   let __resource_type = "google_binary_authorization_attestor" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       project;
-       attestation_authority_note;
-       timeouts;
-     }
-      : google_binary_authorization_attestor)
+    google_binary_authorization_attestor ?description ?id ?project
+      ?timeouts ~name ~attestation_authority_note ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_binary_authorization_attestor __resource);
   let __resource_attributes =
     ({

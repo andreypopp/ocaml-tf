@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_kms_grant__constraints
+(** RESOURCE SERIALIZATION *)
+
+type constraints
+
+val constraints :
+  ?encryption_context_equals:(string * string prop) list ->
+  ?encryption_context_subset:(string * string prop) list ->
+  unit ->
+  constraints
+
 type aws_kms_grant
+
+val aws_kms_grant :
+  ?grant_creation_tokens:string prop list ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?retire_on_delete:bool prop ->
+  ?retiring_principal:string prop ->
+  grantee_principal:string prop ->
+  key_id:string prop ->
+  operations:string prop list ->
+  constraints:constraints list ->
+  unit ->
+  aws_kms_grant
+
+val yojson_of_aws_kms_grant : aws_kms_grant -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   grant_creation_tokens : string list prop;
@@ -18,7 +44,8 @@ type t = private {
   retiring_principal : string prop;
 }
 
-val aws_kms_grant :
+val register :
+  ?tf_module:tf_module ->
   ?grant_creation_tokens:string prop list ->
   ?id:string prop ->
   ?name:string prop ->
@@ -27,6 +54,6 @@ val aws_kms_grant :
   grantee_principal:string prop ->
   key_id:string prop ->
   operations:string prop list ->
-  constraints:aws_kms_grant__constraints list ->
+  constraints:constraints list ->
   string ->
   t

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_principal_portfolio_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_principal_portfolio_association__timeouts *)
+(** timeouts *)
 
 type aws_servicecatalog_principal_portfolio_association = {
   accept_language : string prop option; [@option]
@@ -20,12 +20,26 @@ type aws_servicecatalog_principal_portfolio_association = {
   principal_arn : string prop;  (** principal_arn *)
   principal_type : string prop option; [@option]
       (** principal_type *)
-  timeouts :
-    aws_servicecatalog_principal_portfolio_association__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_principal_portfolio_association *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let aws_servicecatalog_principal_portfolio_association
+    ?accept_language ?id ?principal_type ?timeouts ~portfolio_id
+    ~principal_arn () :
+    aws_servicecatalog_principal_portfolio_association =
+  {
+    accept_language;
+    id;
+    portfolio_id;
+    principal_arn;
+    principal_type;
+    timeouts;
+  }
 
 type t = {
   accept_language : string prop;
@@ -35,24 +49,17 @@ type t = {
   principal_type : string prop;
 }
 
-let aws_servicecatalog_principal_portfolio_association
-    ?accept_language ?id ?principal_type ?timeouts ~portfolio_id
-    ~principal_arn __resource_id =
+let register ?tf_module ?accept_language ?id ?principal_type
+    ?timeouts ~portfolio_id ~principal_arn __resource_id =
   let __resource_type =
     "aws_servicecatalog_principal_portfolio_association"
   in
   let __resource =
-    ({
-       accept_language;
-       id;
-       portfolio_id;
-       principal_arn;
-       principal_type;
-       timeouts;
-     }
-      : aws_servicecatalog_principal_portfolio_association)
+    aws_servicecatalog_principal_portfolio_association
+      ?accept_language ?id ?principal_type ?timeouts ~portfolio_id
+      ~principal_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_principal_portfolio_association
        __resource);
   let __resource_attributes =

@@ -15,6 +15,10 @@ type aws_route53_resolver_firewall_domain_list = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_firewall_domain_list *)
 
+let aws_route53_resolver_firewall_domain_list ?domains ?id ?tags
+    ?tags_all ~name () : aws_route53_resolver_firewall_domain_list =
+  { domains; id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   domains : string list prop;
@@ -24,16 +28,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_route53_resolver_firewall_domain_list ?domains ?id ?tags
-    ?tags_all ~name __resource_id =
+let register ?tf_module ?domains ?id ?tags ?tags_all ~name
+    __resource_id =
   let __resource_type =
     "aws_route53_resolver_firewall_domain_list"
   in
   let __resource =
-    ({ domains; id; name; tags; tags_all }
-      : aws_route53_resolver_firewall_domain_list)
+    aws_route53_resolver_firewall_domain_list ?domains ?id ?tags
+      ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_firewall_domain_list __resource);
   let __resource_attributes =
     ({

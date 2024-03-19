@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_network_peering__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vmwareengine_network_peering__timeouts *)
+(** timeouts *)
 
 type google_vmwareengine_network_peering = {
   description : string prop option; [@option]
@@ -35,10 +35,33 @@ The provided network can be a consumer VPC network or another standard VMware En
       (** The relative resource name of the VMware Engine network. Specify the name in the following form:
 projects/{project}/locations/{location}/vmwareEngineNetworks/{vmwareEngineNetworkId} where {project}
 can either be a project number or a project ID. *)
-  timeouts : google_vmwareengine_network_peering__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_network_peering *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vmwareengine_network_peering ?description
+    ?export_custom_routes ?export_custom_routes_with_public_ip ?id
+    ?import_custom_routes ?import_custom_routes_with_public_ip
+    ?project ?timeouts ~name ~peer_network ~peer_network_type
+    ~vmware_engine_network () : google_vmwareengine_network_peering =
+  {
+    description;
+    export_custom_routes;
+    export_custom_routes_with_public_ip;
+    id;
+    import_custom_routes;
+    import_custom_routes_with_public_ip;
+    name;
+    peer_network;
+    peer_network_type;
+    project;
+    vmware_engine_network;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -60,30 +83,20 @@ type t = {
   vmware_engine_network_canonical : string prop;
 }
 
-let google_vmwareengine_network_peering ?description
-    ?export_custom_routes ?export_custom_routes_with_public_ip ?id
-    ?import_custom_routes ?import_custom_routes_with_public_ip
-    ?project ?timeouts ~name ~peer_network ~peer_network_type
-    ~vmware_engine_network __resource_id =
+let register ?tf_module ?description ?export_custom_routes
+    ?export_custom_routes_with_public_ip ?id ?import_custom_routes
+    ?import_custom_routes_with_public_ip ?project ?timeouts ~name
+    ~peer_network ~peer_network_type ~vmware_engine_network
+    __resource_id =
   let __resource_type = "google_vmwareengine_network_peering" in
   let __resource =
-    ({
-       description;
-       export_custom_routes;
-       export_custom_routes_with_public_ip;
-       id;
-       import_custom_routes;
-       import_custom_routes_with_public_ip;
-       name;
-       peer_network;
-       peer_network_type;
-       project;
-       vmware_engine_network;
-       timeouts;
-     }
-      : google_vmwareengine_network_peering)
+    google_vmwareengine_network_peering ?description
+      ?export_custom_routes ?export_custom_routes_with_public_ip ?id
+      ?import_custom_routes ?import_custom_routes_with_public_ip
+      ?project ?timeouts ~name ~peer_network ~peer_network_type
+      ~vmware_engine_network ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_network_peering __resource);
   let __resource_attributes =
     ({

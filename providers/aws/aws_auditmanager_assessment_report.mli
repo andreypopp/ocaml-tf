@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_auditmanager_assessment_report
+
+val aws_auditmanager_assessment_report :
+  ?description:string prop ->
+  assessment_id:string prop ->
+  name:string prop ->
+  unit ->
+  aws_auditmanager_assessment_report
+
+val yojson_of_aws_auditmanager_assessment_report :
+  aws_auditmanager_assessment_report -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   assessment_id : string prop;
@@ -13,7 +27,8 @@ type t = private {
   status : string prop;
 }
 
-val aws_auditmanager_assessment_report :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   assessment_id:string prop ->
   name:string prop ->

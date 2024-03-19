@@ -13,6 +13,10 @@ type aws_sesv2_email_identity_policy = {
 [@@deriving yojson_of]
 (** aws_sesv2_email_identity_policy *)
 
+let aws_sesv2_email_identity_policy ?id ~email_identity ~policy
+    ~policy_name () : aws_sesv2_email_identity_policy =
+  { email_identity; id; policy; policy_name }
+
 type t = {
   email_identity : string prop;
   id : string prop;
@@ -20,14 +24,14 @@ type t = {
   policy_name : string prop;
 }
 
-let aws_sesv2_email_identity_policy ?id ~email_identity ~policy
-    ~policy_name __resource_id =
+let register ?tf_module ?id ~email_identity ~policy ~policy_name
+    __resource_id =
   let __resource_type = "aws_sesv2_email_identity_policy" in
   let __resource =
-    ({ email_identity; id; policy; policy_name }
-      : aws_sesv2_email_identity_policy)
+    aws_sesv2_email_identity_policy ?id ~email_identity ~policy
+      ~policy_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sesv2_email_identity_policy __resource);
   let __resource_attributes =
     ({

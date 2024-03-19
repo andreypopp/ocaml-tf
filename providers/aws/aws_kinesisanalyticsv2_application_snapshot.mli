@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_kinesisanalyticsv2_application_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_kinesisanalyticsv2_application_snapshot
+
+val aws_kinesisanalyticsv2_application_snapshot :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  application_name:string prop ->
+  snapshot_name:string prop ->
+  unit ->
+  aws_kinesisanalyticsv2_application_snapshot
+
+val yojson_of_aws_kinesisanalyticsv2_application_snapshot :
+  aws_kinesisanalyticsv2_application_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_name : string prop;
@@ -13,9 +32,10 @@ type t = private {
   snapshot_name : string prop;
 }
 
-val aws_kinesisanalyticsv2_application_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_kinesisanalyticsv2_application_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   application_name:string prop ->
   snapshot_name:string prop ->
   string ->

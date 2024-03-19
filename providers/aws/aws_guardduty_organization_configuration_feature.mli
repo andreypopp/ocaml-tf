@@ -2,9 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_guardduty_organization_configuration_feature__additional_configuration
+(** RESOURCE SERIALIZATION *)
+
+type additional_configuration
+
+val additional_configuration :
+  auto_enable:string prop ->
+  name:string prop ->
+  unit ->
+  additional_configuration
 
 type aws_guardduty_organization_configuration_feature
+
+val aws_guardduty_organization_configuration_feature :
+  ?id:string prop ->
+  auto_enable:string prop ->
+  detector_id:string prop ->
+  name:string prop ->
+  additional_configuration:additional_configuration list ->
+  unit ->
+  aws_guardduty_organization_configuration_feature
+
+val yojson_of_aws_guardduty_organization_configuration_feature :
+  aws_guardduty_organization_configuration_feature -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_enable : string prop;
@@ -13,13 +35,12 @@ type t = private {
   name : string prop;
 }
 
-val aws_guardduty_organization_configuration_feature :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   auto_enable:string prop ->
   detector_id:string prop ->
   name:string prop ->
-  additional_configuration:
-    aws_guardduty_organization_configuration_feature__additional_configuration
-    list ->
+  additional_configuration:additional_configuration list ->
   string ->
   t

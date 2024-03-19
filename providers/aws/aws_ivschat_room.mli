@@ -2,9 +2,43 @@
 
 open! Tf.Prelude
 
-type aws_ivschat_room__message_review_handler
-type aws_ivschat_room__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type message_review_handler
+
+val message_review_handler :
+  ?fallback_result:string prop ->
+  ?uri:string prop ->
+  unit ->
+  message_review_handler
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_ivschat_room
+
+val aws_ivschat_room :
+  ?id:string prop ->
+  ?logging_configuration_identifiers:string prop list ->
+  ?maximum_message_length:float prop ->
+  ?maximum_message_rate_per_second:float prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  message_review_handler:message_review_handler list ->
+  unit ->
+  aws_ivschat_room
+
+val yojson_of_aws_ivschat_room : aws_ivschat_room -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +51,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ivschat_room :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?logging_configuration_identifiers:string prop list ->
   ?maximum_message_length:float prop ->
@@ -25,8 +60,7 @@ val aws_ivschat_room :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_ivschat_room__timeouts ->
-  message_review_handler:
-    aws_ivschat_room__message_review_handler list ->
+  ?timeouts:timeouts ->
+  message_review_handler:message_review_handler list ->
   string ->
   t

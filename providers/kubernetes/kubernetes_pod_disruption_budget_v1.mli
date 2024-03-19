@@ -2,18 +2,65 @@
 
 open! Tf.Prelude
 
-type kubernetes_pod_disruption_budget_v1__metadata
+(** RESOURCE SERIALIZATION *)
 
-type kubernetes_pod_disruption_budget_v1__spec__selector__match_expressions
+type metadata
 
-type kubernetes_pod_disruption_budget_v1__spec__selector
-type kubernetes_pod_disruption_budget_v1__spec
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?namespace:string prop ->
+  unit ->
+  metadata
+
+type spec__selector__match_expressions
+
+val spec__selector__match_expressions :
+  ?key:string prop ->
+  ?operator:string prop ->
+  ?values:string prop list ->
+  unit ->
+  spec__selector__match_expressions
+
+type spec__selector
+
+val spec__selector :
+  ?match_labels:(string * string prop) list ->
+  match_expressions:spec__selector__match_expressions list ->
+  unit ->
+  spec__selector
+
+type spec
+
+val spec :
+  ?max_unavailable:string prop ->
+  ?min_available:string prop ->
+  selector:spec__selector list ->
+  unit ->
+  spec
+
 type kubernetes_pod_disruption_budget_v1
-type t = private { id : string prop }
 
 val kubernetes_pod_disruption_budget_v1 :
   ?id:string prop ->
-  metadata:kubernetes_pod_disruption_budget_v1__metadata list ->
-  spec:kubernetes_pod_disruption_budget_v1__spec list ->
+  metadata:metadata list ->
+  spec:spec list ->
+  unit ->
+  kubernetes_pod_disruption_budget_v1
+
+val yojson_of_kubernetes_pod_disruption_budget_v1 :
+  kubernetes_pod_disruption_budget_v1 -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  metadata:metadata list ->
+  spec:spec list ->
   string ->
   t

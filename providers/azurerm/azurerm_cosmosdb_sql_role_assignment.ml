@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_sql_role_assignment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_sql_role_assignment__timeouts *)
+(** timeouts *)
 
 type azurerm_cosmosdb_sql_role_assignment = {
   account_name : string prop;  (** account_name *)
@@ -21,10 +21,28 @@ type azurerm_cosmosdb_sql_role_assignment = {
   resource_group_name : string prop;  (** resource_group_name *)
   role_definition_id : string prop;  (** role_definition_id *)
   scope : string prop;  (** scope *)
-  timeouts : azurerm_cosmosdb_sql_role_assignment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_role_assignment *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cosmosdb_sql_role_assignment ?id ?name ?timeouts
+    ~account_name ~principal_id ~resource_group_name
+    ~role_definition_id ~scope () :
+    azurerm_cosmosdb_sql_role_assignment =
+  {
+    account_name;
+    id;
+    name;
+    principal_id;
+    resource_group_name;
+    role_definition_id;
+    scope;
+    timeouts;
+  }
 
 type t = {
   account_name : string prop;
@@ -36,24 +54,16 @@ type t = {
   scope : string prop;
 }
 
-let azurerm_cosmosdb_sql_role_assignment ?id ?name ?timeouts
-    ~account_name ~principal_id ~resource_group_name
-    ~role_definition_id ~scope __resource_id =
+let register ?tf_module ?id ?name ?timeouts ~account_name
+    ~principal_id ~resource_group_name ~role_definition_id ~scope
+    __resource_id =
   let __resource_type = "azurerm_cosmosdb_sql_role_assignment" in
   let __resource =
-    ({
-       account_name;
-       id;
-       name;
-       principal_id;
-       resource_group_name;
-       role_definition_id;
-       scope;
-       timeouts;
-     }
-      : azurerm_cosmosdb_sql_role_assignment)
+    azurerm_cosmosdb_sql_role_assignment ?id ?name ?timeouts
+      ~account_name ~principal_id ~resource_group_name
+      ~role_definition_id ~scope ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_sql_role_assignment __resource);
   let __resource_attributes =
     ({

@@ -2,10 +2,63 @@
 
 open! Tf.Prelude
 
-type hcloud_server__network
-type hcloud_server__public_net
-type hcloud_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type network
+
+val network :
+  ?alias_ips:string prop list ->
+  ?ip:string prop ->
+  network_id:float prop ->
+  unit ->
+  network
+
+type public_net
+
+val public_net :
+  ?ipv4:float prop ->
+  ?ipv4_enabled:bool prop ->
+  ?ipv6:float prop ->
+  ?ipv6_enabled:bool prop ->
+  unit ->
+  public_net
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type hcloud_server
+
+val hcloud_server :
+  ?allow_deprecated_images:bool prop ->
+  ?backups:bool prop ->
+  ?datacenter:string prop ->
+  ?delete_protection:bool prop ->
+  ?firewall_ids:float prop list ->
+  ?id:string prop ->
+  ?ignore_remote_firewall_ids:bool prop ->
+  ?image:string prop ->
+  ?iso:string prop ->
+  ?keep_disk:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?placement_group_id:float prop ->
+  ?rebuild_protection:bool prop ->
+  ?rescue:string prop ->
+  ?shutdown_before_deletion:bool prop ->
+  ?ssh_keys:string prop list ->
+  ?user_data:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  server_type:string prop ->
+  network:network list ->
+  public_net:public_net list ->
+  unit ->
+  hcloud_server
+
+val yojson_of_hcloud_server : hcloud_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allow_deprecated_images : bool prop;
@@ -36,7 +89,8 @@ type t = private {
   user_data : string prop;
 }
 
-val hcloud_server :
+val register :
+  ?tf_module:tf_module ->
   ?allow_deprecated_images:bool prop ->
   ?backups:bool prop ->
   ?datacenter:string prop ->
@@ -55,10 +109,10 @@ val hcloud_server :
   ?shutdown_before_deletion:bool prop ->
   ?ssh_keys:string prop list ->
   ?user_data:string prop ->
-  ?timeouts:hcloud_server__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   server_type:string prop ->
-  network:hcloud_server__network list ->
-  public_net:hcloud_server__public_net list ->
+  network:network list ->
+  public_net:public_net list ->
   string ->
   t

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_cdn_frontdoor_profile__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_profile__timeouts *)
+(** timeouts *)
 
 type azurerm_cdn_frontdoor_profile = {
   id : string prop option; [@option]  (** id *)
@@ -21,10 +21,26 @@ type azurerm_cdn_frontdoor_profile = {
       (** response_timeout_seconds *)
   sku_name : string prop;  (** sku_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_cdn_frontdoor_profile__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_profile *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cdn_frontdoor_profile ?id ?response_timeout_seconds ?tags
+    ?timeouts ~name ~resource_group_name ~sku_name () :
+    azurerm_cdn_frontdoor_profile =
+  {
+    id;
+    name;
+    resource_group_name;
+    response_timeout_seconds;
+    sku_name;
+    tags;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -36,22 +52,14 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_cdn_frontdoor_profile ?id ?response_timeout_seconds ?tags
-    ?timeouts ~name ~resource_group_name ~sku_name __resource_id =
+let register ?tf_module ?id ?response_timeout_seconds ?tags ?timeouts
+    ~name ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_profile" in
   let __resource =
-    ({
-       id;
-       name;
-       resource_group_name;
-       response_timeout_seconds;
-       sku_name;
-       tags;
-       timeouts;
-     }
-      : azurerm_cdn_frontdoor_profile)
+    azurerm_cdn_frontdoor_profile ?id ?response_timeout_seconds ?tags
+      ?timeouts ~name ~resource_group_name ~sku_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_profile __resource);
   let __resource_attributes =
     ({

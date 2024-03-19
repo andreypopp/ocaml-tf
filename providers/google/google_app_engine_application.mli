@@ -2,17 +2,52 @@
 
 open! Tf.Prelude
 
-type google_app_engine_application__feature_settings
-type google_app_engine_application__iap
-type google_app_engine_application__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_app_engine_application__url_dispatch_rule = {
+type url_dispatch_rule = {
   domain : string prop;  (** domain *)
   path : string prop;  (** path *)
   service : string prop;  (** service *)
 }
 
+type feature_settings
+
+val feature_settings :
+  split_health_checks:bool prop -> unit -> feature_settings
+
+type iap
+
+val iap :
+  ?enabled:bool prop ->
+  oauth2_client_id:string prop ->
+  oauth2_client_secret:string prop ->
+  unit ->
+  iap
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type google_app_engine_application
+
+val google_app_engine_application :
+  ?auth_domain:string prop ->
+  ?database_type:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?serving_status:string prop ->
+  ?timeouts:timeouts ->
+  location_id:string prop ->
+  feature_settings:feature_settings list ->
+  iap:iap list ->
+  unit ->
+  google_app_engine_application
+
+val yojson_of_google_app_engine_application :
+  google_app_engine_application -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_id : string prop;
@@ -27,20 +62,19 @@ type t = private {
   name : string prop;
   project : string prop;
   serving_status : string prop;
-  url_dispatch_rule :
-    google_app_engine_application__url_dispatch_rule list prop;
+  url_dispatch_rule : url_dispatch_rule list prop;
 }
 
-val google_app_engine_application :
+val register :
+  ?tf_module:tf_module ->
   ?auth_domain:string prop ->
   ?database_type:string prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?serving_status:string prop ->
-  ?timeouts:google_app_engine_application__timeouts ->
+  ?timeouts:timeouts ->
   location_id:string prop ->
-  feature_settings:
-    google_app_engine_application__feature_settings list ->
-  iap:google_app_engine_application__iap list ->
+  feature_settings:feature_settings list ->
+  iap:iap list ->
   string ->
   t

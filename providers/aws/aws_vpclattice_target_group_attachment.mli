@@ -2,19 +2,42 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_target_group_attachment__target
-type aws_vpclattice_target_group_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type target
+
+val target : ?port:float prop -> id:string prop -> unit -> target
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_vpclattice_target_group_attachment
+
+val aws_vpclattice_target_group_attachment :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  target_group_identifier:string prop ->
+  target:target list ->
+  unit ->
+  aws_vpclattice_target_group_attachment
+
+val yojson_of_aws_vpclattice_target_group_attachment :
+  aws_vpclattice_target_group_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
   target_group_identifier : string prop;
 }
 
-val aws_vpclattice_target_group_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_vpclattice_target_group_attachment__timeouts ->
+  ?timeouts:timeouts ->
   target_group_identifier:string prop ->
-  target:aws_vpclattice_target_group_attachment__target list ->
+  target:target list ->
   string ->
   t

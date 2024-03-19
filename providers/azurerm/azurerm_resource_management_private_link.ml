@@ -4,24 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_resource_management_private_link__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_management_private_link__timeouts *)
+(** timeouts *)
 
 type azurerm_resource_management_private_link = {
   id : string prop option; [@option]  (** id *)
   location : string prop;  (** location *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts :
-    azurerm_resource_management_private_link__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_resource_management_private_link *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_resource_management_private_link ?id ?timeouts ~location
+    ~name ~resource_group_name () :
+    azurerm_resource_management_private_link =
+  { id; location; name; resource_group_name; timeouts }
 
 type t = {
   id : string prop;
@@ -30,14 +37,14 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_resource_management_private_link ?id ?timeouts ~location
-    ~name ~resource_group_name __resource_id =
+let register ?tf_module ?id ?timeouts ~location ~name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_resource_management_private_link" in
   let __resource =
-    ({ id; location; name; resource_group_name; timeouts }
-      : azurerm_resource_management_private_link)
+    azurerm_resource_management_private_link ?id ?timeouts ~location
+      ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_resource_management_private_link __resource);
   let __resource_attributes =
     ({

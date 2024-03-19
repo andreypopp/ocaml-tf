@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type cloudflare_device_posture_integration__config
+(** RESOURCE SERIALIZATION *)
+
+type config
+
+val config :
+  ?access_client_id:string prop ->
+  ?access_client_secret:string prop ->
+  ?api_url:string prop ->
+  ?auth_url:string prop ->
+  ?client_id:string prop ->
+  ?client_key:string prop ->
+  ?client_secret:string prop ->
+  ?customer_id:string prop ->
+  unit ->
+  config
+
 type cloudflare_device_posture_integration
+
+val cloudflare_device_posture_integration :
+  ?id:string prop ->
+  ?identifier:string prop ->
+  ?interval:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  config:config list ->
+  unit ->
+  cloudflare_device_posture_integration
+
+val yojson_of_cloudflare_device_posture_integration :
+  cloudflare_device_posture_integration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -14,13 +45,14 @@ type t = private {
   type_ : string prop;
 }
 
-val cloudflare_device_posture_integration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?identifier:string prop ->
   ?interval:string prop ->
   account_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  config:cloudflare_device_posture_integration__config list ->
+  config:config list ->
   string ->
   t

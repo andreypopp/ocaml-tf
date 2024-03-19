@@ -4,17 +4,15 @@
 
 open! Tf.Prelude
 
-type google_network_connectivity_hub__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_connectivity_hub__timeouts *)
+(** timeouts *)
 
-type google_network_connectivity_hub__routing_vpcs = {
-  uri : string prop;  (** uri *)
-}
+type routing_vpcs = { uri : string prop  (** uri *) }
 [@@deriving yojson_of]
 
 type google_network_connectivity_hub = {
@@ -30,10 +28,17 @@ Please refer to the field `effective_labels` for all of the labels present on th
       (** Immutable. The name of the hub. Hub names must be unique. They use the following form: `projects/{project_number}/locations/global/hubs/{hub_id}` *)
   project : string prop option; [@option]
       (** The project for the resource *)
-  timeouts : google_network_connectivity_hub__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_connectivity_hub *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_connectivity_hub ?description ?id ?labels ?project
+    ?timeouts ~name () : google_network_connectivity_hub =
+  { description; id; labels; name; project; timeouts }
 
 type t = {
   create_time : string prop;
@@ -43,22 +48,21 @@ type t = {
   labels : (string * string) list prop;
   name : string prop;
   project : string prop;
-  routing_vpcs :
-    google_network_connectivity_hub__routing_vpcs list prop;
+  routing_vpcs : routing_vpcs list prop;
   state : string prop;
   terraform_labels : (string * string) list prop;
   unique_id : string prop;
   update_time : string prop;
 }
 
-let google_network_connectivity_hub ?description ?id ?labels ?project
-    ?timeouts ~name __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~name __resource_id =
   let __resource_type = "google_network_connectivity_hub" in
   let __resource =
-    ({ description; id; labels; name; project; timeouts }
-      : google_network_connectivity_hub)
+    google_network_connectivity_hub ?description ?id ?labels ?project
+      ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_connectivity_hub __resource);
   let __resource_attributes =
     ({

@@ -2,9 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_data_share_account__identity
-type azurerm_data_share_account__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_data_share_account
+
+val azurerm_data_share_account :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_data_share_account
+
+val yojson_of_azurerm_data_share_account :
+  azurerm_data_share_account -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,13 +44,14 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_data_share_account :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_data_share_account__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_data_share_account__identity list ->
+  identity:identity list ->
   string ->
   t

@@ -11,16 +11,19 @@ type aws_ses_domain_dkim = {
 [@@deriving yojson_of]
 (** aws_ses_domain_dkim *)
 
+let aws_ses_domain_dkim ?id ~domain () : aws_ses_domain_dkim =
+  { domain; id }
+
 type t = {
   dkim_tokens : string list prop;
   domain : string prop;
   id : string prop;
 }
 
-let aws_ses_domain_dkim ?id ~domain __resource_id =
+let register ?tf_module ?id ~domain __resource_id =
   let __resource_type = "aws_ses_domain_dkim" in
-  let __resource = ({ domain; id } : aws_ses_domain_dkim) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_ses_domain_dkim ?id ~domain () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_domain_dkim __resource);
   let __resource_attributes =
     ({

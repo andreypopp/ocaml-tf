@@ -2,32 +2,30 @@
 
 open! Tf.Prelude
 
-type azurerm_databox_edge_order__contact
-type azurerm_databox_edge_order__shipment_address
-type azurerm_databox_edge_order__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_databox_edge_order__return_tracking = {
+type return_tracking = {
   carrier_name : string prop;  (** carrier_name *)
   serial_number : string prop;  (** serial_number *)
   tracking_id : string prop;  (** tracking_id *)
   tracking_url : string prop;  (** tracking_url *)
 }
 
-type azurerm_databox_edge_order__shipment_history = {
+type shipment_history = {
   additional_details : (string * string prop) list;
       (** additional_details *)
   comments : string prop;  (** comments *)
   last_update : string prop;  (** last_update *)
 }
 
-type azurerm_databox_edge_order__shipment_tracking = {
+type shipment_tracking = {
   carrier_name : string prop;  (** carrier_name *)
   serial_number : string prop;  (** serial_number *)
   tracking_id : string prop;  (** tracking_id *)
   tracking_url : string prop;  (** tracking_url *)
 }
 
-type azurerm_databox_edge_order__status = {
+type status = {
   additional_details : (string * string prop) list;
       (** additional_details *)
   comments : string prop;  (** comments *)
@@ -35,29 +33,73 @@ type azurerm_databox_edge_order__status = {
   last_update : string prop;  (** last_update *)
 }
 
+type contact
+
+val contact :
+  company_name:string prop ->
+  emails:string prop list ->
+  name:string prop ->
+  phone_number:string prop ->
+  unit ->
+  contact
+
+type shipment_address
+
+val shipment_address :
+  address:string prop list ->
+  city:string prop ->
+  country:string prop ->
+  postal_code:string prop ->
+  state:string prop ->
+  unit ->
+  shipment_address
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_databox_edge_order
+
+val azurerm_databox_edge_order :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  device_name:string prop ->
+  resource_group_name:string prop ->
+  contact:contact list ->
+  shipment_address:shipment_address list ->
+  unit ->
+  azurerm_databox_edge_order
+
+val yojson_of_azurerm_databox_edge_order :
+  azurerm_databox_edge_order -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   device_name : string prop;
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
-  return_tracking :
-    azurerm_databox_edge_order__return_tracking list prop;
+  return_tracking : return_tracking list prop;
   serial_number : string prop;
-  shipment_history :
-    azurerm_databox_edge_order__shipment_history list prop;
-  shipment_tracking :
-    azurerm_databox_edge_order__shipment_tracking list prop;
-  status : azurerm_databox_edge_order__status list prop;
+  shipment_history : shipment_history list prop;
+  shipment_tracking : shipment_tracking list prop;
+  status : status list prop;
 }
 
-val azurerm_databox_edge_order :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_databox_edge_order__timeouts ->
+  ?timeouts:timeouts ->
   device_name:string prop ->
   resource_group_name:string prop ->
-  contact:azurerm_databox_edge_order__contact list ->
-  shipment_address:azurerm_databox_edge_order__shipment_address list ->
+  contact:contact list ->
+  shipment_address:shipment_address list ->
   string ->
   t

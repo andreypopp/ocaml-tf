@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_hosted_zone_dnssec
+
+val aws_route53_hosted_zone_dnssec :
+  ?id:string prop ->
+  ?signing_status:string prop ->
+  hosted_zone_id:string prop ->
+  unit ->
+  aws_route53_hosted_zone_dnssec
+
+val yojson_of_aws_route53_hosted_zone_dnssec :
+  aws_route53_hosted_zone_dnssec -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   hosted_zone_id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   signing_status : string prop;
 }
 
-val aws_route53_hosted_zone_dnssec :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?signing_status:string prop ->
   hosted_zone_id:string prop ->

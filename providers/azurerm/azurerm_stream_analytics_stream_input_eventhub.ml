@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_stream_input_eventhub__serialization = {
+type serialization = {
   encoding : string prop option; [@option]  (** encoding *)
   field_delimiter : string prop option; [@option]
       (** field_delimiter *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_stream_input_eventhub__serialization *)
+(** serialization *)
 
-type azurerm_stream_analytics_stream_input_eventhub__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_stream_input_eventhub__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_stream_input_eventhub = {
   authentication_mode : string prop option; [@option]
@@ -39,14 +39,41 @@ type azurerm_stream_analytics_stream_input_eventhub = {
       (** shared_access_policy_name *)
   stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
-  serialization :
-    azurerm_stream_analytics_stream_input_eventhub__serialization
-    list;
-  timeouts :
-    azurerm_stream_analytics_stream_input_eventhub__timeouts option;
+  serialization : serialization list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_stream_input_eventhub *)
+
+let serialization ?encoding ?field_delimiter ~type_ () :
+    serialization =
+  { encoding; field_delimiter; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_stream_input_eventhub
+    ?authentication_mode ?eventhub_consumer_group_name ?id
+    ?partition_key ?shared_access_policy_key
+    ?shared_access_policy_name ?timeouts ~eventhub_name ~name
+    ~resource_group_name ~servicebus_namespace
+    ~stream_analytics_job_name ~serialization () :
+    azurerm_stream_analytics_stream_input_eventhub =
+  {
+    authentication_mode;
+    eventhub_consumer_group_name;
+    eventhub_name;
+    id;
+    name;
+    partition_key;
+    resource_group_name;
+    servicebus_namespace;
+    shared_access_policy_key;
+    shared_access_policy_name;
+    stream_analytics_job_name;
+    serialization;
+    timeouts;
+  }
 
 type t = {
   authentication_mode : string prop;
@@ -62,34 +89,23 @@ type t = {
   stream_analytics_job_name : string prop;
 }
 
-let azurerm_stream_analytics_stream_input_eventhub
-    ?authentication_mode ?eventhub_consumer_group_name ?id
-    ?partition_key ?shared_access_policy_key
-    ?shared_access_policy_name ?timeouts ~eventhub_name ~name
-    ~resource_group_name ~servicebus_namespace
+let register ?tf_module ?authentication_mode
+    ?eventhub_consumer_group_name ?id ?partition_key
+    ?shared_access_policy_key ?shared_access_policy_name ?timeouts
+    ~eventhub_name ~name ~resource_group_name ~servicebus_namespace
     ~stream_analytics_job_name ~serialization __resource_id =
   let __resource_type =
     "azurerm_stream_analytics_stream_input_eventhub"
   in
   let __resource =
-    ({
-       authentication_mode;
-       eventhub_consumer_group_name;
-       eventhub_name;
-       id;
-       name;
-       partition_key;
-       resource_group_name;
-       servicebus_namespace;
-       shared_access_policy_key;
-       shared_access_policy_name;
-       stream_analytics_job_name;
-       serialization;
-       timeouts;
-     }
-      : azurerm_stream_analytics_stream_input_eventhub)
+    azurerm_stream_analytics_stream_input_eventhub
+      ?authentication_mode ?eventhub_consumer_group_name ?id
+      ?partition_key ?shared_access_policy_key
+      ?shared_access_policy_name ?timeouts ~eventhub_name ~name
+      ~resource_group_name ~servicebus_namespace
+      ~stream_analytics_job_name ~serialization ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_stream_input_eventhub
        __resource);
   let __resource_attributes =

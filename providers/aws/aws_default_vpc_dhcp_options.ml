@@ -14,6 +14,10 @@ type aws_default_vpc_dhcp_options = {
 [@@deriving yojson_of]
 (** aws_default_vpc_dhcp_options *)
 
+let aws_default_vpc_dhcp_options ?id ?owner_id ?tags ?tags_all () :
+    aws_default_vpc_dhcp_options =
+  { id; owner_id; tags; tags_all }
+
 type t = {
   arn : string prop;
   domain_name : string prop;
@@ -27,13 +31,12 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_default_vpc_dhcp_options ?id ?owner_id ?tags ?tags_all
-    __resource_id =
+let register ?tf_module ?id ?owner_id ?tags ?tags_all __resource_id =
   let __resource_type = "aws_default_vpc_dhcp_options" in
   let __resource =
-    ({ id; owner_id; tags; tags_all } : aws_default_vpc_dhcp_options)
+    aws_default_vpc_dhcp_options ?id ?owner_id ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_vpc_dhcp_options __resource);
   let __resource_attributes =
     ({

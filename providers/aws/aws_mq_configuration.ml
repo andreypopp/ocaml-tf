@@ -20,6 +20,21 @@ type aws_mq_configuration = {
 [@@deriving yojson_of]
 (** aws_mq_configuration *)
 
+let aws_mq_configuration ?authentication_strategy ?description ?id
+    ?tags ?tags_all ~data ~engine_type ~engine_version ~name () :
+    aws_mq_configuration =
+  {
+    authentication_strategy;
+    data;
+    description;
+    engine_type;
+    engine_version;
+    id;
+    name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   authentication_strategy : string prop;
@@ -34,25 +49,15 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_mq_configuration ?authentication_strategy ?description ?id
+let register ?tf_module ?authentication_strategy ?description ?id
     ?tags ?tags_all ~data ~engine_type ~engine_version ~name
     __resource_id =
   let __resource_type = "aws_mq_configuration" in
   let __resource =
-    ({
-       authentication_strategy;
-       data;
-       description;
-       engine_type;
-       engine_version;
-       id;
-       name;
-       tags;
-       tags_all;
-     }
-      : aws_mq_configuration)
+    aws_mq_configuration ?authentication_strategy ?description ?id
+      ?tags ?tags_all ~data ~engine_type ~engine_version ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_mq_configuration __resource);
   let __resource_attributes =
     ({

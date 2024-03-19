@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_codecatalyst_project__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_codecatalyst_project
+
+val aws_codecatalyst_project :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  space_name:string prop ->
+  unit ->
+  aws_codecatalyst_project
+
+val yojson_of_aws_codecatalyst_project :
+  aws_codecatalyst_project -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -13,10 +37,11 @@ type t = private {
   space_name : string prop;
 }
 
-val aws_codecatalyst_project :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:aws_codecatalyst_project__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   space_name:string prop ->
   string ->

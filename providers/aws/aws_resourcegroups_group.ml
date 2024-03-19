@@ -4,34 +4,33 @@
 
 open! Tf.Prelude
 
-type aws_resourcegroups_group__configuration__parameters = {
+type configuration__parameters = {
   name : string prop;  (** name *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_resourcegroups_group__configuration__parameters *)
+(** configuration__parameters *)
 
-type aws_resourcegroups_group__configuration = {
+type configuration = {
   type_ : string prop; [@key "type"]  (** type *)
-  parameters :
-    aws_resourcegroups_group__configuration__parameters list;
+  parameters : configuration__parameters list;
 }
 [@@deriving yojson_of]
-(** aws_resourcegroups_group__configuration *)
+(** configuration *)
 
-type aws_resourcegroups_group__resource_query = {
+type resource_query = {
   query : string prop;  (** query *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_resourcegroups_group__resource_query *)
+(** resource_query *)
 
-type aws_resourcegroups_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_resourcegroups_group__timeouts *)
+(** timeouts *)
 
 type aws_resourcegroups_group = {
   description : string prop option; [@option]  (** description *)
@@ -40,12 +39,38 @@ type aws_resourcegroups_group = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  configuration : aws_resourcegroups_group__configuration list;
-  resource_query : aws_resourcegroups_group__resource_query list;
-  timeouts : aws_resourcegroups_group__timeouts option;
+  configuration : configuration list;
+  resource_query : resource_query list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_resourcegroups_group *)
+
+let configuration__parameters ~name ~values () :
+    configuration__parameters =
+  { name; values }
+
+let configuration ~type_ ~parameters () : configuration =
+  { type_; parameters }
+
+let resource_query ?type_ ~query () : resource_query =
+  { query; type_ }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_resourcegroups_group ?description ?id ?tags ?tags_all
+    ?timeouts ~name ~configuration ~resource_query () :
+    aws_resourcegroups_group =
+  {
+    description;
+    id;
+    name;
+    tags;
+    tags_all;
+    configuration;
+    resource_query;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -56,23 +81,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_resourcegroups_group ?description ?id ?tags ?tags_all
-    ?timeouts ~name ~configuration ~resource_query __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~name ~configuration ~resource_query __resource_id =
   let __resource_type = "aws_resourcegroups_group" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       tags;
-       tags_all;
-       configuration;
-       resource_query;
-       timeouts;
-     }
-      : aws_resourcegroups_group)
+    aws_resourcegroups_group ?description ?id ?tags ?tags_all
+      ?timeouts ~name ~configuration ~resource_query ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_resourcegroups_group __resource);
   let __resource_attributes =
     ({

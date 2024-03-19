@@ -4,34 +4,32 @@
 
 open! Tf.Prelude
 
-type aws_fsx_data_repository_association__s3__auto_export_policy = {
+type s3__auto_export_policy = {
   events : string prop list option; [@option]  (** events *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_data_repository_association__s3__auto_export_policy *)
+(** s3__auto_export_policy *)
 
-type aws_fsx_data_repository_association__s3__auto_import_policy = {
+type s3__auto_import_policy = {
   events : string prop list option; [@option]  (** events *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_data_repository_association__s3__auto_import_policy *)
+(** s3__auto_import_policy *)
 
-type aws_fsx_data_repository_association__s3 = {
-  auto_export_policy :
-    aws_fsx_data_repository_association__s3__auto_export_policy list;
-  auto_import_policy :
-    aws_fsx_data_repository_association__s3__auto_import_policy list;
+type s3 = {
+  auto_export_policy : s3__auto_export_policy list;
+  auto_import_policy : s3__auto_import_policy list;
 }
 [@@deriving yojson_of]
-(** aws_fsx_data_repository_association__s3 *)
+(** s3 *)
 
-type aws_fsx_data_repository_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_data_repository_association__timeouts *)
+(** timeouts *)
 
 type aws_fsx_data_repository_association = {
   batch_import_meta_data_on_create : bool prop option; [@option]
@@ -47,11 +45,42 @@ type aws_fsx_data_repository_association = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  s3 : aws_fsx_data_repository_association__s3 list;
-  timeouts : aws_fsx_data_repository_association__timeouts option;
+  s3 : s3 list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_fsx_data_repository_association *)
+
+let s3__auto_export_policy ?events () : s3__auto_export_policy =
+  { events }
+
+let s3__auto_import_policy ?events () : s3__auto_import_policy =
+  { events }
+
+let s3 ~auto_export_policy ~auto_import_policy () : s3 =
+  { auto_export_policy; auto_import_policy }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_fsx_data_repository_association
+    ?batch_import_meta_data_on_create ?delete_data_in_filesystem ?id
+    ?imported_file_chunk_size ?tags ?tags_all ?timeouts
+    ~data_repository_path ~file_system_id ~file_system_path ~s3 () :
+    aws_fsx_data_repository_association =
+  {
+    batch_import_meta_data_on_create;
+    data_repository_path;
+    delete_data_in_filesystem;
+    file_system_id;
+    file_system_path;
+    id;
+    imported_file_chunk_size;
+    tags;
+    tags_all;
+    s3;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -67,29 +96,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_fsx_data_repository_association
-    ?batch_import_meta_data_on_create ?delete_data_in_filesystem ?id
-    ?imported_file_chunk_size ?tags ?tags_all ?timeouts
-    ~data_repository_path ~file_system_id ~file_system_path ~s3
-    __resource_id =
+let register ?tf_module ?batch_import_meta_data_on_create
+    ?delete_data_in_filesystem ?id ?imported_file_chunk_size ?tags
+    ?tags_all ?timeouts ~data_repository_path ~file_system_id
+    ~file_system_path ~s3 __resource_id =
   let __resource_type = "aws_fsx_data_repository_association" in
   let __resource =
-    ({
-       batch_import_meta_data_on_create;
-       data_repository_path;
-       delete_data_in_filesystem;
-       file_system_id;
-       file_system_path;
-       id;
-       imported_file_chunk_size;
-       tags;
-       tags_all;
-       s3;
-       timeouts;
-     }
-      : aws_fsx_data_repository_association)
+    aws_fsx_data_repository_association
+      ?batch_import_meta_data_on_create ?delete_data_in_filesystem
+      ?id ?imported_file_chunk_size ?tags ?tags_all ?timeouts
+      ~data_repository_path ~file_system_id ~file_system_path ~s3 ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_data_repository_association __resource);
   let __resource_attributes =
     ({

@@ -2,14 +2,79 @@
 
 open! Tf.Prelude
 
-type azurerm_resource_group_cost_management_view__dataset__aggregation
-type azurerm_resource_group_cost_management_view__dataset__grouping
-type azurerm_resource_group_cost_management_view__dataset__sorting
-type azurerm_resource_group_cost_management_view__dataset
-type azurerm_resource_group_cost_management_view__kpi
-type azurerm_resource_group_cost_management_view__pivot
-type azurerm_resource_group_cost_management_view__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type dataset__aggregation
+
+val dataset__aggregation :
+  column_name:string prop ->
+  name:string prop ->
+  unit ->
+  dataset__aggregation
+
+type dataset__grouping
+
+val dataset__grouping :
+  name:string prop -> type_:string prop -> unit -> dataset__grouping
+
+type dataset__sorting
+
+val dataset__sorting :
+  direction:string prop ->
+  name:string prop ->
+  unit ->
+  dataset__sorting
+
+type dataset
+
+val dataset :
+  granularity:string prop ->
+  aggregation:dataset__aggregation list ->
+  grouping:dataset__grouping list ->
+  sorting:dataset__sorting list ->
+  unit ->
+  dataset
+
+type kpi
+
+val kpi : type_:string prop -> unit -> kpi
+
+type pivot
+
+val pivot : name:string prop -> type_:string prop -> unit -> pivot
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_resource_group_cost_management_view
+
+val azurerm_resource_group_cost_management_view :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  accumulated:bool prop ->
+  chart_type:string prop ->
+  display_name:string prop ->
+  name:string prop ->
+  report_type:string prop ->
+  resource_group_id:string prop ->
+  timeframe:string prop ->
+  dataset:dataset list ->
+  kpi:kpi list ->
+  pivot:pivot list ->
+  unit ->
+  azurerm_resource_group_cost_management_view
+
+val yojson_of_azurerm_resource_group_cost_management_view :
+  azurerm_resource_group_cost_management_view -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   accumulated : bool prop;
@@ -22,9 +87,10 @@ type t = private {
   timeframe : string prop;
 }
 
-val azurerm_resource_group_cost_management_view :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_resource_group_cost_management_view__timeouts ->
+  ?timeouts:timeouts ->
   accumulated:bool prop ->
   chart_type:string prop ->
   display_name:string prop ->
@@ -32,8 +98,8 @@ val azurerm_resource_group_cost_management_view :
   report_type:string prop ->
   resource_group_id:string prop ->
   timeframe:string prop ->
-  dataset:azurerm_resource_group_cost_management_view__dataset list ->
-  kpi:azurerm_resource_group_cost_management_view__kpi list ->
-  pivot:azurerm_resource_group_cost_management_view__pivot list ->
+  dataset:dataset list ->
+  kpi:kpi list ->
+  pivot:pivot list ->
   string ->
   t

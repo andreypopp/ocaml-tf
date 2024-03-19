@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_fallback_domain__domains = {
+type domains = {
   description : string prop option; [@option]
       (** A description of the fallback domain, displayed in the client UI. *)
   dns_server : string prop list option; [@option]
@@ -13,7 +13,7 @@ type cloudflare_fallback_domain__domains = {
       (** The domain suffix to match when resolving locally. *)
 }
 [@@deriving yojson_of]
-(** cloudflare_fallback_domain__domains *)
+(** domains *)
 
 type cloudflare_fallback_domain = {
   account_id : string prop;
@@ -21,7 +21,7 @@ type cloudflare_fallback_domain = {
   id : string prop option; [@option]  (** id *)
   policy_id : string prop option; [@option]
       (** The settings policy for which to configure this fallback domain policy. *)
-  domains : cloudflare_fallback_domain__domains list;
+  domains : domains list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Fallback Domain resource. Fallback domains are
@@ -30,20 +30,26 @@ requests will be passed back to other DNS servers configured on
 existing network interfaces on the device.
  *)
 
+let domains ?description ?dns_server ?suffix () : domains =
+  { description; dns_server; suffix }
+
+let cloudflare_fallback_domain ?id ?policy_id ~account_id ~domains ()
+    : cloudflare_fallback_domain =
+  { account_id; id; policy_id; domains }
+
 type t = {
   account_id : string prop;
   id : string prop;
   policy_id : string prop;
 }
 
-let cloudflare_fallback_domain ?id ?policy_id ~account_id ~domains
+let register ?tf_module ?id ?policy_id ~account_id ~domains
     __resource_id =
   let __resource_type = "cloudflare_fallback_domain" in
   let __resource =
-    ({ account_id; id; policy_id; domains }
-      : cloudflare_fallback_domain)
+    cloudflare_fallback_domain ?id ?policy_id ~account_id ~domains ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_fallback_domain __resource);
   let __resource_attributes =
     ({

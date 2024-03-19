@@ -4,32 +4,38 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_intelligent_tiering_configuration__filter = {
+type filter = {
   prefix : string prop option; [@option]  (** prefix *)
   tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_intelligent_tiering_configuration__filter *)
+(** filter *)
 
-type aws_s3_bucket_intelligent_tiering_configuration__tiering = {
+type tiering = {
   access_tier : string prop;  (** access_tier *)
   days : float prop;  (** days *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_intelligent_tiering_configuration__tiering *)
+(** tiering *)
 
 type aws_s3_bucket_intelligent_tiering_configuration = {
   bucket : string prop;  (** bucket *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   status : string prop option; [@option]  (** status *)
-  filter :
-    aws_s3_bucket_intelligent_tiering_configuration__filter list;
-  tiering :
-    aws_s3_bucket_intelligent_tiering_configuration__tiering list;
+  filter : filter list;
+  tiering : tiering list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_intelligent_tiering_configuration *)
+
+let filter ?prefix ?tags () : filter = { prefix; tags }
+let tiering ~access_tier ~days () : tiering = { access_tier; days }
+
+let aws_s3_bucket_intelligent_tiering_configuration ?id ?status
+    ~bucket ~name ~filter ~tiering () :
+    aws_s3_bucket_intelligent_tiering_configuration =
+  { bucket; id; name; status; filter; tiering }
 
 type t = {
   bucket : string prop;
@@ -38,16 +44,16 @@ type t = {
   status : string prop;
 }
 
-let aws_s3_bucket_intelligent_tiering_configuration ?id ?status
-    ~bucket ~name ~filter ~tiering __resource_id =
+let register ?tf_module ?id ?status ~bucket ~name ~filter ~tiering
+    __resource_id =
   let __resource_type =
     "aws_s3_bucket_intelligent_tiering_configuration"
   in
   let __resource =
-    ({ bucket; id; name; status; filter; tiering }
-      : aws_s3_bucket_intelligent_tiering_configuration)
+    aws_s3_bucket_intelligent_tiering_configuration ?id ?status
+      ~bucket ~name ~filter ~tiering ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_intelligent_tiering_configuration
        __resource);
   let __resource_attributes =

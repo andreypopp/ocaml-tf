@@ -12,20 +12,23 @@ type aws_appsync_domain_name_api_association = {
 [@@deriving yojson_of]
 (** aws_appsync_domain_name_api_association *)
 
+let aws_appsync_domain_name_api_association ?id ~api_id ~domain_name
+    () : aws_appsync_domain_name_api_association =
+  { api_id; domain_name; id }
+
 type t = {
   api_id : string prop;
   domain_name : string prop;
   id : string prop;
 }
 
-let aws_appsync_domain_name_api_association ?id ~api_id ~domain_name
-    __resource_id =
+let register ?tf_module ?id ~api_id ~domain_name __resource_id =
   let __resource_type = "aws_appsync_domain_name_api_association" in
   let __resource =
-    ({ api_id; domain_name; id }
-      : aws_appsync_domain_name_api_association)
+    aws_appsync_domain_name_api_association ?id ~api_id ~domain_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_domain_name_api_association __resource);
   let __resource_attributes =
     ({

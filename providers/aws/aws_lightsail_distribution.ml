@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_distribution__cache_behavior = {
+type cache_behavior = {
   behavior : string prop;
       (** The cache behavior for the specified path. *)
   path : string prop;
@@ -13,26 +13,26 @@ type aws_lightsail_distribution__cache_behavior = {
 [@@deriving yojson_of]
 (** An array of objects that describe the per-path cache behavior of the distribution. *)
 
-type aws_lightsail_distribution__cache_behavior_settings__forwarded_cookies = {
+type cache_behavior_settings__forwarded_cookies = {
   cookies_allow_list : string prop list option; [@option]
       (** The specific cookies to forward to your distribution's origin. *)
-  option : string prop option; [@option]
+  option_ : string prop option; [@option] [@key "option"]
       (** Specifies which cookies to forward to the distribution's origin for a cache behavior: all, none, or allow-list to forward only the cookies specified in the cookiesAllowList parameter. *)
 }
 [@@deriving yojson_of]
 (** An object that describes the cookies that are forwarded to the origin. Your content is cached based on the cookies that are forwarded. *)
 
-type aws_lightsail_distribution__cache_behavior_settings__forwarded_headers = {
+type cache_behavior_settings__forwarded_headers = {
   headers_allow_list : string prop list option; [@option]
       (** The specific headers to forward to your distribution's origin. *)
-  option : string prop option; [@option]
+  option_ : string prop option; [@option] [@key "option"]
       (** The headers that you want your distribution to forward to your origin and base caching on. *)
 }
 [@@deriving yojson_of]
 (** An object that describes the headers that are forwarded to the origin. Your content is cached based on the headers that are forwarded. *)
 
-type aws_lightsail_distribution__cache_behavior_settings__forwarded_query_strings = {
-  option : bool prop option; [@option]
+type cache_behavior_settings__forwarded_query_strings = {
+  option_ : bool prop option; [@option] [@key "option"]
       (** Indicates whether the distribution forwards and caches based on query strings. *)
   query_strings_allowed_list : string prop list option; [@option]
       (** The specific query strings that the distribution forwards to the origin. *)
@@ -40,7 +40,7 @@ type aws_lightsail_distribution__cache_behavior_settings__forwarded_query_string
 [@@deriving yojson_of]
 (** An object that describes the query strings that are forwarded to the origin. Your content is cached based on the query strings that are forwarded. *)
 
-type aws_lightsail_distribution__cache_behavior_settings = {
+type cache_behavior_settings = {
   allowed_http_methods : string prop option; [@option]
       (** The HTTP methods that are processed and forwarded to the distribution's origin. *)
   cached_http_methods : string prop option; [@option]
@@ -52,46 +52,41 @@ type aws_lightsail_distribution__cache_behavior_settings = {
   minimum_ttl : float prop option; [@option]
       (** The minimum amount of time that objects stay in the distribution's cache before the distribution forwards another request to the origin to determine whether the object has been updated. *)
   forwarded_cookies :
-    aws_lightsail_distribution__cache_behavior_settings__forwarded_cookies
-    list;
+    cache_behavior_settings__forwarded_cookies list;
   forwarded_headers :
-    aws_lightsail_distribution__cache_behavior_settings__forwarded_headers
-    list;
+    cache_behavior_settings__forwarded_headers list;
   forwarded_query_strings :
-    aws_lightsail_distribution__cache_behavior_settings__forwarded_query_strings
-    list;
+    cache_behavior_settings__forwarded_query_strings list;
 }
 [@@deriving yojson_of]
 (** An object that describes the cache behavior settings of the distribution. *)
 
-type aws_lightsail_distribution__default_cache_behavior = {
+type default_cache_behavior = {
   behavior : string prop;
       (** The cache behavior of the distribution. *)
 }
 [@@deriving yojson_of]
 (** An object that describes the default cache behavior of the distribution. *)
 
-type aws_lightsail_distribution__origin = {
+type origin = {
   name : string prop;  (** The name of the origin resource. *)
   protocol_policy : string prop option; [@option]
       (** The protocol that your Amazon Lightsail distribution uses when establishing a connection with your origin to pull content. *)
   region_name : string prop;
       (** The AWS Region name of the origin resource. *)
-  resource_type : string prop;
-      (** The resource type of the origin resource (e.g., Instance). *)
 }
 [@@deriving yojson_of]
 (** An object that describes the origin resource of the distribution, such as a Lightsail instance, bucket, or load balancer. *)
 
-type aws_lightsail_distribution__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lightsail_distribution__timeouts *)
+(** timeouts *)
 
-type aws_lightsail_distribution__location = {
+type location = {
   availability_zone : string prop;  (** availability_zone *)
   region_name : string prop;  (** region_name *)
 }
@@ -111,16 +106,74 @@ type aws_lightsail_distribution = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  cache_behavior : aws_lightsail_distribution__cache_behavior list;
-  cache_behavior_settings :
-    aws_lightsail_distribution__cache_behavior_settings list;
-  default_cache_behavior :
-    aws_lightsail_distribution__default_cache_behavior list;
-  origin : aws_lightsail_distribution__origin list;
-  timeouts : aws_lightsail_distribution__timeouts option;
+  cache_behavior : cache_behavior list;
+  cache_behavior_settings : cache_behavior_settings list;
+  default_cache_behavior : default_cache_behavior list;
+  origin : origin list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lightsail_distribution *)
+
+let cache_behavior ~behavior ~path () : cache_behavior =
+  { behavior; path }
+
+let cache_behavior_settings__forwarded_cookies ?cookies_allow_list
+    ?option_ () : cache_behavior_settings__forwarded_cookies =
+  { cookies_allow_list; option_ }
+
+let cache_behavior_settings__forwarded_headers ?headers_allow_list
+    ?option_ () : cache_behavior_settings__forwarded_headers =
+  { headers_allow_list; option_ }
+
+let cache_behavior_settings__forwarded_query_strings ?option_
+    ?query_strings_allowed_list () :
+    cache_behavior_settings__forwarded_query_strings =
+  { option_; query_strings_allowed_list }
+
+let cache_behavior_settings ?allowed_http_methods
+    ?cached_http_methods ?default_ttl ?maximum_ttl ?minimum_ttl
+    ~forwarded_cookies ~forwarded_headers ~forwarded_query_strings ()
+    : cache_behavior_settings =
+  {
+    allowed_http_methods;
+    cached_http_methods;
+    default_ttl;
+    maximum_ttl;
+    minimum_ttl;
+    forwarded_cookies;
+    forwarded_headers;
+    forwarded_query_strings;
+  }
+
+let default_cache_behavior ~behavior () : default_cache_behavior =
+  { behavior }
+
+let origin ?protocol_policy ~name ~region_name () : origin =
+  { name; protocol_policy; region_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_lightsail_distribution ?certificate_name ?id ?ip_address_type
+    ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
+    ~cache_behavior ~cache_behavior_settings ~default_cache_behavior
+    ~origin () : aws_lightsail_distribution =
+  {
+    bundle_id;
+    certificate_name;
+    id;
+    ip_address_type;
+    is_enabled;
+    name;
+    tags;
+    tags_all;
+    cache_behavior;
+    cache_behavior_settings;
+    default_cache_behavior;
+    origin;
+    timeouts;
+  }
 
 type t = {
   alternative_domain_names : string list prop;
@@ -132,7 +185,7 @@ type t = {
   id : string prop;
   ip_address_type : string prop;
   is_enabled : bool prop;
-  location : aws_lightsail_distribution__location list prop;
+  location : location list prop;
   name : string prop;
   origin_public_dns : string prop;
   resource_type : string prop;
@@ -142,30 +195,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_lightsail_distribution ?certificate_name ?id ?ip_address_type
+let register ?tf_module ?certificate_name ?id ?ip_address_type
     ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
     ~cache_behavior ~cache_behavior_settings ~default_cache_behavior
     ~origin __resource_id =
   let __resource_type = "aws_lightsail_distribution" in
   let __resource =
-    ({
-       bundle_id;
-       certificate_name;
-       id;
-       ip_address_type;
-       is_enabled;
-       name;
-       tags;
-       tags_all;
-       cache_behavior;
-       cache_behavior_settings;
-       default_cache_behavior;
-       origin;
-       timeouts;
-     }
-      : aws_lightsail_distribution)
+    aws_lightsail_distribution ?certificate_name ?id ?ip_address_type
+      ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
+      ~cache_behavior ~cache_behavior_settings
+      ~default_cache_behavior ~origin ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_distribution __resource);
   let __resource_attributes =
     ({

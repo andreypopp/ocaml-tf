@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_cloudformation_stack_set__auto_deployment = {
+type auto_deployment = {
   enabled : bool prop option; [@option]  (** enabled *)
   retain_stacks_on_account_removal : bool prop option; [@option]
       (** retain_stacks_on_account_removal *)
 }
 [@@deriving yojson_of]
-(** aws_cloudformation_stack_set__auto_deployment *)
+(** auto_deployment *)
 
-type aws_cloudformation_stack_set__managed_execution = {
+type managed_execution = {
   active : bool prop option; [@option]  (** active *)
 }
 [@@deriving yojson_of]
-(** aws_cloudformation_stack_set__managed_execution *)
+(** managed_execution *)
 
-type aws_cloudformation_stack_set__operation_preferences = {
+type operation_preferences = {
   failure_tolerance_count : float prop option; [@option]
       (** failure_tolerance_count *)
   failure_tolerance_percentage : float prop option; [@option]
@@ -33,13 +33,13 @@ type aws_cloudformation_stack_set__operation_preferences = {
       (** region_order *)
 }
 [@@deriving yojson_of]
-(** aws_cloudformation_stack_set__operation_preferences *)
+(** operation_preferences *)
 
-type aws_cloudformation_stack_set__timeouts = {
+type timeouts = {
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_cloudformation_stack_set__timeouts *)
+(** timeouts *)
 
 type aws_cloudformation_stack_set = {
   administration_role_arn : string prop option; [@option]
@@ -61,16 +61,59 @@ type aws_cloudformation_stack_set = {
       (** tags_all *)
   template_body : string prop option; [@option]  (** template_body *)
   template_url : string prop option; [@option]  (** template_url *)
-  auto_deployment :
-    aws_cloudformation_stack_set__auto_deployment list;
-  managed_execution :
-    aws_cloudformation_stack_set__managed_execution list;
-  operation_preferences :
-    aws_cloudformation_stack_set__operation_preferences list;
-  timeouts : aws_cloudformation_stack_set__timeouts option;
+  auto_deployment : auto_deployment list;
+  managed_execution : managed_execution list;
+  operation_preferences : operation_preferences list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_cloudformation_stack_set *)
+
+let auto_deployment ?enabled ?retain_stacks_on_account_removal () :
+    auto_deployment =
+  { enabled; retain_stacks_on_account_removal }
+
+let managed_execution ?active () : managed_execution = { active }
+
+let operation_preferences ?failure_tolerance_count
+    ?failure_tolerance_percentage ?max_concurrent_count
+    ?max_concurrent_percentage ?region_concurrency_type ?region_order
+    () : operation_preferences =
+  {
+    failure_tolerance_count;
+    failure_tolerance_percentage;
+    max_concurrent_count;
+    max_concurrent_percentage;
+    region_concurrency_type;
+    region_order;
+  }
+
+let timeouts ?update () : timeouts = { update }
+
+let aws_cloudformation_stack_set ?administration_role_arn ?call_as
+    ?capabilities ?description ?execution_role_name ?id ?parameters
+    ?permission_model ?tags ?tags_all ?template_body ?template_url
+    ?timeouts ~name ~auto_deployment ~managed_execution
+    ~operation_preferences () : aws_cloudformation_stack_set =
+  {
+    administration_role_arn;
+    call_as;
+    capabilities;
+    description;
+    execution_role_name;
+    id;
+    name;
+    parameters;
+    permission_model;
+    tags;
+    tags_all;
+    template_body;
+    template_url;
+    auto_deployment;
+    managed_execution;
+    operation_preferences;
+    timeouts;
+  }
 
 type t = {
   administration_role_arn : string prop;
@@ -90,35 +133,20 @@ type t = {
   template_url : string prop;
 }
 
-let aws_cloudformation_stack_set ?administration_role_arn ?call_as
+let register ?tf_module ?administration_role_arn ?call_as
     ?capabilities ?description ?execution_role_name ?id ?parameters
     ?permission_model ?tags ?tags_all ?template_body ?template_url
     ?timeouts ~name ~auto_deployment ~managed_execution
     ~operation_preferences __resource_id =
   let __resource_type = "aws_cloudformation_stack_set" in
   let __resource =
-    ({
-       administration_role_arn;
-       call_as;
-       capabilities;
-       description;
-       execution_role_name;
-       id;
-       name;
-       parameters;
-       permission_model;
-       tags;
-       tags_all;
-       template_body;
-       template_url;
-       auto_deployment;
-       managed_execution;
-       operation_preferences;
-       timeouts;
-     }
-      : aws_cloudformation_stack_set)
+    aws_cloudformation_stack_set ?administration_role_arn ?call_as
+      ?capabilities ?description ?execution_role_name ?id ?parameters
+      ?permission_model ?tags ?tags_all ?template_body ?template_url
+      ?timeouts ~name ~auto_deployment ~managed_execution
+      ~operation_preferences ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudformation_stack_set __resource);
   let __resource_attributes =
     ({

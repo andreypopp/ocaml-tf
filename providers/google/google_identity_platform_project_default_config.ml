@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_identity_platform_project_default_config__sign_in__anonymous = {
+type sign_in__anonymous = {
   enabled : bool prop;
       (** Whether anonymous user auth is enabled for the project or not. *)
 }
 [@@deriving yojson_of]
 (** Configuration options related to authenticating an anonymous user. *)
 
-type google_identity_platform_project_default_config__sign_in__email = {
+type sign_in__email = {
   enabled : bool prop option; [@option]
       (** Whether email auth is enabled for the project or not. *)
   password_required : bool prop option; [@option]
@@ -22,7 +22,7 @@ email/password or email link. *)
 [@@deriving yojson_of]
 (** Configuration options related to authenticating a user by their email address. *)
 
-type google_identity_platform_project_default_config__sign_in__phone_number = {
+type sign_in__phone_number = {
   enabled : bool prop option; [@option]
       (** Whether phone number auth is enabled for the project or not. *)
   test_phone_numbers : (string * string prop) list option; [@option]
@@ -31,7 +31,7 @@ type google_identity_platform_project_default_config__sign_in__phone_number = {
 [@@deriving yojson_of]
 (** Configuration options related to authenticated a user by their phone number. *)
 
-type google_identity_platform_project_default_config__sign_in__hash_config = {
+type sign_in__hash_config = {
   algorithm : string prop;  (** algorithm *)
   memory_cost : float prop;  (** memory_cost *)
   rounds : float prop;  (** rounds *)
@@ -40,44 +40,53 @@ type google_identity_platform_project_default_config__sign_in__hash_config = {
 }
 [@@deriving yojson_of]
 
-type google_identity_platform_project_default_config__sign_in = {
+type sign_in = {
   allow_duplicate_emails : bool prop option; [@option]
       (** Whether to allow more than one account to have the same email. *)
-  hash_config :
-    google_identity_platform_project_default_config__sign_in__hash_config
-    list;
-      (** Output only. Hash config information. *)
-  anonymous :
-    google_identity_platform_project_default_config__sign_in__anonymous
-    list;
-  email :
-    google_identity_platform_project_default_config__sign_in__email
-    list;
-  phone_number :
-    google_identity_platform_project_default_config__sign_in__phone_number
-    list;
+  anonymous : sign_in__anonymous list;
+  email : sign_in__email list;
+  phone_number : sign_in__phone_number list;
 }
 [@@deriving yojson_of]
 (** Configuration related to local sign in methods. *)
 
-type google_identity_platform_project_default_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_identity_platform_project_default_config__timeouts *)
+(** timeouts *)
 
 type google_identity_platform_project_default_config = {
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]  (** project *)
-  sign_in :
-    google_identity_platform_project_default_config__sign_in list;
-  timeouts :
-    google_identity_platform_project_default_config__timeouts option;
+  sign_in : sign_in list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_identity_platform_project_default_config *)
+
+let sign_in__anonymous ~enabled () : sign_in__anonymous = { enabled }
+
+let sign_in__email ?enabled ?password_required () : sign_in__email =
+  { enabled; password_required }
+
+let sign_in__phone_number ?enabled ?test_phone_numbers () :
+    sign_in__phone_number =
+  { enabled; test_phone_numbers }
+
+let sign_in ?allow_duplicate_emails ~anonymous ~email ~phone_number
+    () : sign_in =
+  { allow_duplicate_emails; anonymous; email; phone_number }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_identity_platform_project_default_config ?id ?project
+    ?timeouts ~sign_in () :
+    google_identity_platform_project_default_config =
+  { id; project; sign_in; timeouts }
 
 type t = {
   id : string prop;
@@ -85,16 +94,16 @@ type t = {
   project : string prop;
 }
 
-let google_identity_platform_project_default_config ?id ?project
-    ?timeouts ~sign_in __resource_id =
+let register ?tf_module ?id ?project ?timeouts ~sign_in __resource_id
+    =
   let __resource_type =
     "google_identity_platform_project_default_config"
   in
   let __resource =
-    ({ id; project; sign_in; timeouts }
-      : google_identity_platform_project_default_config)
+    google_identity_platform_project_default_config ?id ?project
+      ?timeouts ~sign_in ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_project_default_config
        __resource);
   let __resource_attributes =

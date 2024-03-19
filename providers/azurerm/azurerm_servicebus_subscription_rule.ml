@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_servicebus_subscription_rule__correlation_filter = {
+type correlation_filter = {
   content_type : string prop option; [@option]  (** content_type *)
   correlation_id : string prop option; [@option]
       (** correlation_id *)
@@ -19,16 +19,16 @@ type azurerm_servicebus_subscription_rule__correlation_filter = {
   to_ : string prop option; [@option] [@key "to"]  (** to *)
 }
 [@@deriving yojson_of]
-(** azurerm_servicebus_subscription_rule__correlation_filter *)
+(** correlation_filter *)
 
-type azurerm_servicebus_subscription_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_servicebus_subscription_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_servicebus_subscription_rule = {
   action : string prop option; [@option]  (** action *)
@@ -37,12 +37,43 @@ type azurerm_servicebus_subscription_rule = {
   name : string prop;  (** name *)
   sql_filter : string prop option; [@option]  (** sql_filter *)
   subscription_id : string prop;  (** subscription_id *)
-  correlation_filter :
-    azurerm_servicebus_subscription_rule__correlation_filter list;
-  timeouts : azurerm_servicebus_subscription_rule__timeouts option;
+  correlation_filter : correlation_filter list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_subscription_rule *)
+
+let correlation_filter ?content_type ?correlation_id ?label
+    ?message_id ?properties ?reply_to ?reply_to_session_id
+    ?session_id ?to_ () : correlation_filter =
+  {
+    content_type;
+    correlation_id;
+    label;
+    message_id;
+    properties;
+    reply_to;
+    reply_to_session_id;
+    session_id;
+    to_;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_servicebus_subscription_rule ?action ?id ?sql_filter
+    ?timeouts ~filter_type ~name ~subscription_id ~correlation_filter
+    () : azurerm_servicebus_subscription_rule =
+  {
+    action;
+    filter_type;
+    id;
+    name;
+    sql_filter;
+    subscription_id;
+    correlation_filter;
+    timeouts;
+  }
 
 type t = {
   action : string prop;
@@ -54,24 +85,16 @@ type t = {
   subscription_id : string prop;
 }
 
-let azurerm_servicebus_subscription_rule ?action ?id ?sql_filter
-    ?timeouts ~filter_type ~name ~subscription_id ~correlation_filter
+let register ?tf_module ?action ?id ?sql_filter ?timeouts
+    ~filter_type ~name ~subscription_id ~correlation_filter
     __resource_id =
   let __resource_type = "azurerm_servicebus_subscription_rule" in
   let __resource =
-    ({
-       action;
-       filter_type;
-       id;
-       name;
-       sql_filter;
-       subscription_id;
-       correlation_filter;
-       timeouts;
-     }
-      : azurerm_servicebus_subscription_rule)
+    azurerm_servicebus_subscription_rule ?action ?id ?sql_filter
+      ?timeouts ~filter_type ~name ~subscription_id
+      ~correlation_filter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_servicebus_subscription_rule __resource);
   let __resource_attributes =
     ({

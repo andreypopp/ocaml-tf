@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_eventgrid_domain_topic__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_eventgrid_domain_topic
+
+val azurerm_eventgrid_domain_topic :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_eventgrid_domain_topic
+
+val yojson_of_azurerm_eventgrid_domain_topic :
+  azurerm_eventgrid_domain_topic -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   domain_name : string prop;
@@ -12,9 +36,10 @@ type t = private {
   resource_group_name : string prop;
 }
 
-val azurerm_eventgrid_domain_topic :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_eventgrid_domain_topic__timeouts ->
+  ?timeouts:timeouts ->
   domain_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_bigquery_data_transfer_config__email_preferences = {
+type email_preferences = {
   enable_failure_email : bool prop;
       (** If true, email notifications will be sent on transfer run failures. *)
 }
@@ -12,7 +12,7 @@ type google_bigquery_data_transfer_config__email_preferences = {
 (** Email notifications will be sent according to these preferences to the
 email address of the user who owns this transfer config. *)
 
-type google_bigquery_data_transfer_config__schedule_options = {
+type schedule_options = {
   disable_auto_scheduling : bool prop option; [@option]
       (** If true, automatic scheduling of data transfer runs for this
 configuration will be disabled. The runs can be started on ad-hoc
@@ -34,7 +34,7 @@ limited by this option. *)
 [@@deriving yojson_of]
 (** Options customizing the data transfer schedule. *)
 
-type google_bigquery_data_transfer_config__sensitive_params = {
+type sensitive_params = {
   secret_access_key : string prop;
       (** The Secret Access Key of the AWS account transferring data from. *)
 }
@@ -47,13 +47,13 @@ in the 'params' map in the api request.
 Credentials may not be specified in both locations and will cause an error. Changing from one location
 to a different credential configuration in the config will require an apply to update state. *)
 
-type google_bigquery_data_transfer_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_data_transfer_config__timeouts *)
+(** timeouts *)
 
 type google_bigquery_data_transfer_config = {
   data_refresh_window_days : float prop option; [@option]
@@ -97,16 +97,51 @@ NOTE: the granularity should be at least 8 hours, or less frequent. *)
       (** Service account email. If this field is set, transfer config will
 be created with this service account credentials. It requires that
 requesting user calling this API has permissions to act as this service account. *)
-  email_preferences :
-    google_bigquery_data_transfer_config__email_preferences list;
-  schedule_options :
-    google_bigquery_data_transfer_config__schedule_options list;
-  sensitive_params :
-    google_bigquery_data_transfer_config__sensitive_params list;
-  timeouts : google_bigquery_data_transfer_config__timeouts option;
+  email_preferences : email_preferences list;
+  schedule_options : schedule_options list;
+  sensitive_params : sensitive_params list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_data_transfer_config *)
+
+let email_preferences ~enable_failure_email () : email_preferences =
+  { enable_failure_email }
+
+let schedule_options ?disable_auto_scheduling ?end_time ?start_time
+    () : schedule_options =
+  { disable_auto_scheduling; end_time; start_time }
+
+let sensitive_params ~secret_access_key () : sensitive_params =
+  { secret_access_key }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_bigquery_data_transfer_config ?data_refresh_window_days
+    ?destination_dataset_id ?disabled ?id ?location
+    ?notification_pubsub_topic ?project ?schedule
+    ?service_account_name ?timeouts ~data_source_id ~display_name
+    ~params ~email_preferences ~schedule_options ~sensitive_params ()
+    : google_bigquery_data_transfer_config =
+  {
+    data_refresh_window_days;
+    data_source_id;
+    destination_dataset_id;
+    disabled;
+    display_name;
+    id;
+    location;
+    notification_pubsub_topic;
+    params;
+    project;
+    schedule;
+    service_account_name;
+    email_preferences;
+    schedule_options;
+    sensitive_params;
+    timeouts;
+  }
 
 type t = {
   data_refresh_window_days : float prop;
@@ -124,7 +159,7 @@ type t = {
   service_account_name : string prop;
 }
 
-let google_bigquery_data_transfer_config ?data_refresh_window_days
+let register ?tf_module ?data_refresh_window_days
     ?destination_dataset_id ?disabled ?id ?location
     ?notification_pubsub_topic ?project ?schedule
     ?service_account_name ?timeouts ~data_source_id ~display_name
@@ -132,27 +167,14 @@ let google_bigquery_data_transfer_config ?data_refresh_window_days
     __resource_id =
   let __resource_type = "google_bigquery_data_transfer_config" in
   let __resource =
-    ({
-       data_refresh_window_days;
-       data_source_id;
-       destination_dataset_id;
-       disabled;
-       display_name;
-       id;
-       location;
-       notification_pubsub_topic;
-       params;
-       project;
-       schedule;
-       service_account_name;
-       email_preferences;
-       schedule_options;
-       sensitive_params;
-       timeouts;
-     }
-      : google_bigquery_data_transfer_config)
+    google_bigquery_data_transfer_config ?data_refresh_window_days
+      ?destination_dataset_id ?disabled ?id ?location
+      ?notification_pubsub_topic ?project ?schedule
+      ?service_account_name ?timeouts ~data_source_id ~display_name
+      ~params ~email_preferences ~schedule_options ~sensitive_params
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_data_transfer_config __resource);
   let __resource_attributes =
     ({

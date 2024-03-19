@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_cloudwatch_event_permission__condition = {
+type condition = {
   key : string prop;  (** key *)
   type_ : string prop; [@key "type"]  (** type *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_cloudwatch_event_permission__condition *)
+(** condition *)
 
 type aws_cloudwatch_event_permission = {
   action : string prop option; [@option]  (** action *)
@@ -19,10 +19,18 @@ type aws_cloudwatch_event_permission = {
   id : string prop option; [@option]  (** id *)
   principal : string prop;  (** principal *)
   statement_id : string prop;  (** statement_id *)
-  condition : aws_cloudwatch_event_permission__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_permission *)
+
+let condition ~key ~type_ ~value () : condition =
+  { key; type_; value }
+
+let aws_cloudwatch_event_permission ?action ?event_bus_name ?id
+    ~principal ~statement_id ~condition () :
+    aws_cloudwatch_event_permission =
+  { action; event_bus_name; id; principal; statement_id; condition }
 
 type t = {
   action : string prop;
@@ -32,21 +40,14 @@ type t = {
   statement_id : string prop;
 }
 
-let aws_cloudwatch_event_permission ?action ?event_bus_name ?id
-    ~principal ~statement_id ~condition __resource_id =
+let register ?tf_module ?action ?event_bus_name ?id ~principal
+    ~statement_id ~condition __resource_id =
   let __resource_type = "aws_cloudwatch_event_permission" in
   let __resource =
-    ({
-       action;
-       event_bus_name;
-       id;
-       principal;
-       statement_id;
-       condition;
-     }
-      : aws_cloudwatch_event_permission)
+    aws_cloudwatch_event_permission ?action ?event_bus_name ?id
+      ~principal ~statement_id ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_permission __resource);
   let __resource_attributes =
     ({

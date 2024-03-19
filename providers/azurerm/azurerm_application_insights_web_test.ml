@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_application_insights_web_test__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_application_insights_web_test__timeouts *)
+(** timeouts *)
 
 type azurerm_application_insights_web_test = {
   application_insights_id : string prop;
@@ -29,10 +29,36 @@ type azurerm_application_insights_web_test = {
   retry_enabled : bool prop option; [@option]  (** retry_enabled *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   timeout : float prop option; [@option]  (** timeout *)
-  timeouts : azurerm_application_insights_web_test__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_web_test *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_application_insights_web_test ?description ?enabled
+    ?frequency ?id ?retry_enabled ?tags ?timeout ?timeouts
+    ~application_insights_id ~configuration ~geo_locations ~kind
+    ~location ~name ~resource_group_name () :
+    azurerm_application_insights_web_test =
+  {
+    application_insights_id;
+    configuration;
+    description;
+    enabled;
+    frequency;
+    geo_locations;
+    id;
+    kind;
+    location;
+    name;
+    resource_group_name;
+    retry_enabled;
+    tags;
+    timeout;
+    timeouts;
+  }
 
 type t = {
   application_insights_id : string prop;
@@ -52,32 +78,18 @@ type t = {
   timeout : float prop;
 }
 
-let azurerm_application_insights_web_test ?description ?enabled
-    ?frequency ?id ?retry_enabled ?tags ?timeout ?timeouts
-    ~application_insights_id ~configuration ~geo_locations ~kind
-    ~location ~name ~resource_group_name __resource_id =
+let register ?tf_module ?description ?enabled ?frequency ?id
+    ?retry_enabled ?tags ?timeout ?timeouts ~application_insights_id
+    ~configuration ~geo_locations ~kind ~location ~name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_application_insights_web_test" in
   let __resource =
-    ({
-       application_insights_id;
-       configuration;
-       description;
-       enabled;
-       frequency;
-       geo_locations;
-       id;
-       kind;
-       location;
-       name;
-       resource_group_name;
-       retry_enabled;
-       tags;
-       timeout;
-       timeouts;
-     }
-      : azurerm_application_insights_web_test)
+    azurerm_application_insights_web_test ?description ?enabled
+      ?frequency ?id ?retry_enabled ?tags ?timeout ?timeouts
+      ~application_insights_id ~configuration ~geo_locations ~kind
+      ~location ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_insights_web_test __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,40 @@
 
 open! Tf.Prelude
 
-type azurerm_app_configuration_key__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_app_configuration_key
+
+val azurerm_app_configuration_key :
+  ?content_type:string prop ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  ?label:string prop ->
+  ?locked:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?type_:string prop ->
+  ?value:string prop ->
+  ?vault_key_reference:string prop ->
+  ?timeouts:timeouts ->
+  configuration_store_id:string prop ->
+  key:string prop ->
+  unit ->
+  azurerm_app_configuration_key
+
+val yojson_of_azurerm_app_configuration_key :
+  azurerm_app_configuration_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   configuration_store_id : string prop;
@@ -19,7 +51,8 @@ type t = private {
   vault_key_reference : string prop;
 }
 
-val azurerm_app_configuration_key :
+val register :
+  ?tf_module:tf_module ->
   ?content_type:string prop ->
   ?etag:string prop ->
   ?id:string prop ->
@@ -29,7 +62,7 @@ val azurerm_app_configuration_key :
   ?type_:string prop ->
   ?value:string prop ->
   ?vault_key_reference:string prop ->
-  ?timeouts:azurerm_app_configuration_key__timeouts ->
+  ?timeouts:timeouts ->
   configuration_store_id:string prop ->
   key:string prop ->
   string ->

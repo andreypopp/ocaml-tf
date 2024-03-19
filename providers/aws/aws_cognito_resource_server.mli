@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_cognito_resource_server__scope
+(** RESOURCE SERIALIZATION *)
+
+type scope
+
+val scope :
+  scope_description:string prop ->
+  scope_name:string prop ->
+  unit ->
+  scope
+
 type aws_cognito_resource_server
+
+val aws_cognito_resource_server :
+  ?id:string prop ->
+  identifier:string prop ->
+  name:string prop ->
+  user_pool_id:string prop ->
+  scope:scope list ->
+  unit ->
+  aws_cognito_resource_server
+
+val yojson_of_aws_cognito_resource_server :
+  aws_cognito_resource_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,11 +36,12 @@ type t = private {
   user_pool_id : string prop;
 }
 
-val aws_cognito_resource_server :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   identifier:string prop ->
   name:string prop ->
   user_pool_id:string prop ->
-  scope:aws_cognito_resource_server__scope list ->
+  scope:scope list ->
   string ->
   t

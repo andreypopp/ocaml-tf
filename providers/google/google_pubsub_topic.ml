@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_pubsub_topic__message_storage_policy = {
+type message_storage_policy = {
   allowed_persistence_regions : string prop list;
       (** A list of IDs of GCP regions where messages that are published to
 the topic may be persisted in storage. Messages published by
@@ -18,7 +18,7 @@ and is not a valid configuration. *)
 messages published to the topic may be stored. If not present, then no
 constraints are in effect. *)
 
-type google_pubsub_topic__schema_settings = {
+type schema_settings = {
   encoding : string prop option; [@option]
       (** The encoding of messages validated against schema. Default value: ENCODING_UNSPECIFIED Possible values: [ENCODING_UNSPECIFIED, JSON, BINARY] *)
   schema : string prop;
@@ -30,13 +30,13 @@ if the schema has been deleted. *)
 [@@deriving yojson_of]
 (** Settings for validating messages published against a schema. *)
 
-type google_pubsub_topic__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_pubsub_topic__timeouts *)
+(** timeouts *)
 
 type google_pubsub_topic = {
   id : string prop option; [@option]  (** id *)
@@ -63,13 +63,38 @@ The rotation period has the format of a decimal number, followed by the
 letter 's' (seconds). Cannot be more than 31 days or less than 10 minutes. *)
   name : string prop;  (** Name of the topic. *)
   project : string prop option; [@option]  (** project *)
-  message_storage_policy :
-    google_pubsub_topic__message_storage_policy list;
-  schema_settings : google_pubsub_topic__schema_settings list;
-  timeouts : google_pubsub_topic__timeouts option;
+  message_storage_policy : message_storage_policy list;
+  schema_settings : schema_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_pubsub_topic *)
+
+let message_storage_policy ~allowed_persistence_regions () :
+    message_storage_policy =
+  { allowed_persistence_regions }
+
+let schema_settings ?encoding ~schema () : schema_settings =
+  { encoding; schema }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_pubsub_topic ?id ?kms_key_name ?labels
+    ?message_retention_duration ?project ?timeouts ~name
+    ~message_storage_policy ~schema_settings () : google_pubsub_topic
+    =
+  {
+    id;
+    kms_key_name;
+    labels;
+    message_retention_duration;
+    name;
+    project;
+    message_storage_policy;
+    schema_settings;
+    timeouts;
+  }
 
 type t = {
   effective_labels : (string * string) list prop;
@@ -82,25 +107,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_pubsub_topic ?id ?kms_key_name ?labels
+let register ?tf_module ?id ?kms_key_name ?labels
     ?message_retention_duration ?project ?timeouts ~name
     ~message_storage_policy ~schema_settings __resource_id =
   let __resource_type = "google_pubsub_topic" in
   let __resource =
-    ({
-       id;
-       kms_key_name;
-       labels;
-       message_retention_duration;
-       name;
-       project;
-       message_storage_policy;
-       schema_settings;
-       timeouts;
-     }
-      : google_pubsub_topic)
+    google_pubsub_topic ?id ?kms_key_name ?labels
+      ?message_retention_duration ?project ?timeouts ~name
+      ~message_storage_policy ~schema_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_topic __resource);
   let __resource_attributes =
     ({

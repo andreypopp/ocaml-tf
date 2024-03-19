@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type google_bigquery_capacity_commitment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_bigquery_capacity_commitment
+
+val google_bigquery_capacity_commitment :
+  ?capacity_commitment_id:string prop ->
+  ?edition:string prop ->
+  ?enforce_single_admin_project_per_org:string prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?renewal_plan:string prop ->
+  ?timeouts:timeouts ->
+  plan:string prop ->
+  slot_count:float prop ->
+  unit ->
+  google_bigquery_capacity_commitment
+
+val yojson_of_google_bigquery_capacity_commitment :
+  google_bigquery_capacity_commitment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   capacity_commitment_id : string prop;
@@ -21,7 +50,8 @@ type t = private {
   state : string prop;
 }
 
-val google_bigquery_capacity_commitment :
+val register :
+  ?tf_module:tf_module ->
   ?capacity_commitment_id:string prop ->
   ?edition:string prop ->
   ?enforce_single_admin_project_per_org:string prop ->
@@ -29,7 +59,7 @@ val google_bigquery_capacity_commitment :
   ?location:string prop ->
   ?project:string prop ->
   ?renewal_plan:string prop ->
-  ?timeouts:google_bigquery_capacity_commitment__timeouts ->
+  ?timeouts:timeouts ->
   plan:string prop ->
   slot_count:float prop ->
   string ->

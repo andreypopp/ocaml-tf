@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type aws_codecatalyst_project__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_codecatalyst_project__timeouts *)
+(** timeouts *)
 
 type aws_codecatalyst_project = {
   description : string prop option; [@option]  (** description *)
   display_name : string prop;  (** display_name *)
   id : string prop option; [@option]  (** id *)
   space_name : string prop;  (** space_name *)
-  timeouts : aws_codecatalyst_project__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_codecatalyst_project *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_codecatalyst_project ?description ?id ?timeouts ~display_name
+    ~space_name () : aws_codecatalyst_project =
+  { description; display_name; id; space_name; timeouts }
 
 type t = {
   description : string prop;
@@ -30,14 +37,14 @@ type t = {
   space_name : string prop;
 }
 
-let aws_codecatalyst_project ?description ?id ?timeouts ~display_name
+let register ?tf_module ?description ?id ?timeouts ~display_name
     ~space_name __resource_id =
   let __resource_type = "aws_codecatalyst_project" in
   let __resource =
-    ({ description; display_name; id; space_name; timeouts }
-      : aws_codecatalyst_project)
+    aws_codecatalyst_project ?description ?id ?timeouts ~display_name
+      ~space_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecatalyst_project __resource);
   let __resource_attributes =
     ({

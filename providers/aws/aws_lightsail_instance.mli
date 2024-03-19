@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_instance__add_on
+(** RESOURCE SERIALIZATION *)
+
+type add_on
+
+val add_on :
+  snapshot_time:string prop ->
+  status:string prop ->
+  type_:string prop ->
+  unit ->
+  add_on
+
 type aws_lightsail_instance
+
+val aws_lightsail_instance :
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?key_pair_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_data:string prop ->
+  availability_zone:string prop ->
+  blueprint_id:string prop ->
+  bundle_id:string prop ->
+  name:string prop ->
+  add_on:add_on list ->
+  unit ->
+  aws_lightsail_instance
+
+val yojson_of_aws_lightsail_instance : aws_lightsail_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -27,7 +56,8 @@ type t = private {
   username : string prop;
 }
 
-val aws_lightsail_instance :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?key_pair_name:string prop ->
@@ -38,6 +68,6 @@ val aws_lightsail_instance :
   blueprint_id:string prop ->
   bundle_id:string prop ->
   name:string prop ->
-  add_on:aws_lightsail_instance__add_on list ->
+  add_on:add_on list ->
   string ->
   t

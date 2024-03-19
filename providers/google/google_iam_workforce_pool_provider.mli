@@ -2,13 +2,75 @@
 
 open! Tf.Prelude
 
-type google_iam_workforce_pool_provider__oidc__client_secret__value
-type google_iam_workforce_pool_provider__oidc__client_secret
-type google_iam_workforce_pool_provider__oidc__web_sso_config
-type google_iam_workforce_pool_provider__oidc
-type google_iam_workforce_pool_provider__saml
-type google_iam_workforce_pool_provider__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type oidc__client_secret__value
+
+val oidc__client_secret__value :
+  plain_text:string prop -> unit -> oidc__client_secret__value
+
+type oidc__client_secret
+
+val oidc__client_secret :
+  value:oidc__client_secret__value list ->
+  unit ->
+  oidc__client_secret
+
+type oidc__web_sso_config
+
+val oidc__web_sso_config :
+  ?additional_scopes:string prop list ->
+  assertion_claims_behavior:string prop ->
+  response_type:string prop ->
+  unit ->
+  oidc__web_sso_config
+
+type oidc
+
+val oidc :
+  ?jwks_json:string prop ->
+  client_id:string prop ->
+  issuer_uri:string prop ->
+  client_secret:oidc__client_secret list ->
+  web_sso_config:oidc__web_sso_config list ->
+  unit ->
+  oidc
+
+type saml
+
+val saml : idp_metadata_xml:string prop -> unit -> saml
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_iam_workforce_pool_provider
+
+val google_iam_workforce_pool_provider :
+  ?attribute_condition:string prop ->
+  ?attribute_mapping:(string * string prop) list ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  provider_id:string prop ->
+  workforce_pool_id:string prop ->
+  oidc:oidc list ->
+  saml:saml list ->
+  unit ->
+  google_iam_workforce_pool_provider
+
+val yojson_of_google_iam_workforce_pool_provider :
+  google_iam_workforce_pool_provider -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   attribute_condition : string prop;
@@ -24,18 +86,19 @@ type t = private {
   workforce_pool_id : string prop;
 }
 
-val google_iam_workforce_pool_provider :
+val register :
+  ?tf_module:tf_module ->
   ?attribute_condition:string prop ->
   ?attribute_mapping:(string * string prop) list ->
   ?description:string prop ->
   ?disabled:bool prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?timeouts:google_iam_workforce_pool_provider__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   provider_id:string prop ->
   workforce_pool_id:string prop ->
-  oidc:google_iam_workforce_pool_provider__oidc list ->
-  saml:google_iam_workforce_pool_provider__saml list ->
+  oidc:oidc list ->
+  saml:saml list ->
   string ->
   t

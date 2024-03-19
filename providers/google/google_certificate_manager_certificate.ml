@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_certificate__managed__authorization_attempt_info = {
+type managed__authorization_attempt_info = {
   details : string prop;  (** details *)
   domain : string prop;  (** domain *)
   failure_reason : string prop;  (** failure_reason *)
@@ -12,18 +12,13 @@ type google_certificate_manager_certificate__managed__authorization_attempt_info
 }
 [@@deriving yojson_of]
 
-type google_certificate_manager_certificate__managed__provisioning_issue = {
+type managed__provisioning_issue = {
   details : string prop;  (** details *)
   reason : string prop;  (** reason *)
 }
 [@@deriving yojson_of]
 
-type google_certificate_manager_certificate__managed = {
-  authorization_attempt_info :
-    google_certificate_manager_certificate__managed__authorization_attempt_info
-    list;
-      (** Detailed state of the latest authorization attempt for each domain
-specified for this Managed Certificate. *)
+type managed = {
   dns_authorizations : string prop list option; [@option]
       (** Authorizations that will be used for performing domain authorization. Either issuanceConfig or dnsAuthorizations should be specificed, but not both. *)
   domains : string prop list option; [@option]
@@ -33,18 +28,13 @@ Wildcard domains are only supported with DNS challenge resolution *)
       (** The resource name for a CertificateIssuanceConfig used to configure private PKI certificates in the format projects/*/locations/*/certificateIssuanceConfigs/*.
 If this field is not set, the certificates will instead be publicly signed as documented at https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#caa.
 Either issuanceConfig or dnsAuthorizations should be specificed, but not both. *)
-  provisioning_issue :
-    google_certificate_manager_certificate__managed__provisioning_issue
-    list;
-      (** Information about issues with provisioning this Managed Certificate. *)
-  state : string prop;  (** A state of this Managed Certificate. *)
 }
 [@@deriving yojson_of]
 (** Configuration and state of a Managed Certificate.
 Certificate Manager provisions and renews Managed Certificates
 automatically, for as long as it's authorized to do so. *)
 
-type google_certificate_manager_certificate__self_managed = {
+type self_managed = {
   certificate_pem : string prop option; [@option]
       (** The certificate chain in PEM-encoded form.
 
@@ -63,13 +53,13 @@ Leaf certificate comes first, followed by intermediate ones if any. *)
 SelfManaged Certificates are uploaded by the user. Updating such
 certificates before they expire remains the user's responsibility. *)
 
-type google_certificate_manager_certificate__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_certificate_manager_certificate__timeouts *)
+(** timeouts *)
 
 type google_certificate_manager_certificate = {
   description : string prop option; [@option]
@@ -98,13 +88,44 @@ See https://cloud.google.com/vpc/docs/edge-locations.
 
 ALL_REGIONS: Certificates with ALL_REGIONS scope are served from all GCP regions (You can only use ALL_REGIONS with global certs).
 See https://cloud.google.com/compute/docs/regions-zones *)
-  managed : google_certificate_manager_certificate__managed list;
-  self_managed :
-    google_certificate_manager_certificate__self_managed list;
-  timeouts : google_certificate_manager_certificate__timeouts option;
+  managed : managed list;
+  self_managed : self_managed list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate *)
+
+let managed ?dns_authorizations ?domains ?issuance_config () :
+    managed =
+  { dns_authorizations; domains; issuance_config }
+
+let self_managed ?certificate_pem ?pem_certificate ?pem_private_key
+    ?private_key_pem () : self_managed =
+  {
+    certificate_pem;
+    pem_certificate;
+    pem_private_key;
+    private_key_pem;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_certificate_manager_certificate ?description ?id ?labels
+    ?location ?project ?scope ?timeouts ~name ~managed ~self_managed
+    () : google_certificate_manager_certificate =
+  {
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    scope;
+    managed;
+    self_managed;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -118,26 +139,15 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_certificate_manager_certificate ?description ?id ?labels
-    ?location ?project ?scope ?timeouts ~name ~managed ~self_managed
-    __resource_id =
+let register ?tf_module ?description ?id ?labels ?location ?project
+    ?scope ?timeouts ~name ~managed ~self_managed __resource_id =
   let __resource_type = "google_certificate_manager_certificate" in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       scope;
-       managed;
-       self_managed;
-       timeouts;
-     }
-      : google_certificate_manager_certificate)
+    google_certificate_manager_certificate ?description ?id ?labels
+      ?location ?project ?scope ?timeouts ~name ~managed
+      ~self_managed ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_certificate __resource);
   let __resource_attributes =
     ({

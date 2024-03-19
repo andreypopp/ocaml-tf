@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_lexv2models_bot__data_privacy = {
+type data_privacy = {
   child_directed : bool prop;  (** child_directed *)
 }
 [@@deriving yojson_of]
-(** aws_lexv2models_bot__data_privacy *)
+(** data_privacy *)
 
-type aws_lexv2models_bot__members = {
+type members = {
   alias_id : string prop;  (** alias_id *)
   alias_name : string prop;  (** alias_name *)
   id : string prop;  (** id *)
@@ -18,9 +18,9 @@ type aws_lexv2models_bot__members = {
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_lexv2models_bot__members *)
+(** members *)
 
-type aws_lexv2models_bot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
@@ -29,7 +29,7 @@ type aws_lexv2models_bot__timeouts = {
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
-(** aws_lexv2models_bot__timeouts *)
+(** timeouts *)
 
 type aws_lexv2models_bot = {
   description : string prop option; [@option]  (** description *)
@@ -41,12 +41,37 @@ type aws_lexv2models_bot = {
   test_bot_alias_tags : (string * string prop) list option; [@option]
       (** test_bot_alias_tags *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  data_privacy : aws_lexv2models_bot__data_privacy list;
-  members : aws_lexv2models_bot__members list;
-  timeouts : aws_lexv2models_bot__timeouts option;
+  data_privacy : data_privacy list;
+  members : members list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_bot *)
+
+let data_privacy ~child_directed () : data_privacy =
+  { child_directed }
+
+let members ~alias_id ~alias_name ~id ~name ~version () : members =
+  { alias_id; alias_name; id; name; version }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
+    ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
+    ~data_privacy ~members () : aws_lexv2models_bot =
+  {
+    description;
+    idle_session_ttl_in_seconds;
+    name;
+    role_arn;
+    tags;
+    test_bot_alias_tags;
+    type_;
+    data_privacy;
+    members;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -61,26 +86,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
+let register ?tf_module ?description ?tags ?test_bot_alias_tags
     ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
     ~data_privacy ~members __resource_id =
   let __resource_type = "aws_lexv2models_bot" in
   let __resource =
-    ({
-       description;
-       idle_session_ttl_in_seconds;
-       name;
-       role_arn;
-       tags;
-       test_bot_alias_tags;
-       type_;
-       data_privacy;
-       members;
-       timeouts;
-     }
-      : aws_lexv2models_bot)
+    aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
+      ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
+      ~data_privacy ~members ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_bot __resource);
   let __resource_attributes =
     ({

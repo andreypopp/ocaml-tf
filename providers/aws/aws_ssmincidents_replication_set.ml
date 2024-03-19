@@ -4,33 +4,40 @@
 
 open! Tf.Prelude
 
-type aws_ssmincidents_replication_set__region = {
+type region = {
   kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
   name : string prop;  (** name *)
-  status : string prop;  (** status *)
-  status_message : string prop;  (** status_message *)
 }
 [@@deriving yojson_of]
-(** aws_ssmincidents_replication_set__region *)
+(** region *)
 
-type aws_ssmincidents_replication_set__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ssmincidents_replication_set__timeouts *)
+(** timeouts *)
 
 type aws_ssmincidents_replication_set = {
   id : string prop option; [@option]  (** id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  region : aws_ssmincidents_replication_set__region list;
-  timeouts : aws_ssmincidents_replication_set__timeouts option;
+  region : region list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ssmincidents_replication_set *)
+
+let region ?kms_key_arn ~name () : region = { kms_key_arn; name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_ssmincidents_replication_set ?id ?tags ?tags_all ?timeouts
+    ~region () : aws_ssmincidents_replication_set =
+  { id; tags; tags_all; region; timeouts }
 
 type t = {
   arn : string prop;
@@ -43,14 +50,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ssmincidents_replication_set ?id ?tags ?tags_all ?timeouts
-    ~region __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~region
+    __resource_id =
   let __resource_type = "aws_ssmincidents_replication_set" in
   let __resource =
-    ({ id; tags; tags_all; region; timeouts }
-      : aws_ssmincidents_replication_set)
+    aws_ssmincidents_replication_set ?id ?tags ?tags_all ?timeouts
+      ~region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmincidents_replication_set __resource);
   let __resource_attributes =
     ({

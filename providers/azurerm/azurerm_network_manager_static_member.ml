@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_static_member__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_static_member__timeouts *)
+(** timeouts *)
 
 type azurerm_network_manager_static_member = {
   id : string prop option; [@option]  (** id *)
@@ -18,10 +18,18 @@ type azurerm_network_manager_static_member = {
   network_group_id : string prop;  (** network_group_id *)
   target_virtual_network_id : string prop;
       (** target_virtual_network_id *)
-  timeouts : azurerm_network_manager_static_member__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_static_member *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_network_manager_static_member ?id ?timeouts ~name
+    ~network_group_id ~target_virtual_network_id () :
+    azurerm_network_manager_static_member =
+  { id; name; network_group_id; target_virtual_network_id; timeouts }
 
 type t = {
   id : string prop;
@@ -31,20 +39,14 @@ type t = {
   target_virtual_network_id : string prop;
 }
 
-let azurerm_network_manager_static_member ?id ?timeouts ~name
-    ~network_group_id ~target_virtual_network_id __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~network_group_id
+    ~target_virtual_network_id __resource_id =
   let __resource_type = "azurerm_network_manager_static_member" in
   let __resource =
-    ({
-       id;
-       name;
-       network_group_id;
-       target_virtual_network_id;
-       timeouts;
-     }
-      : azurerm_network_manager_static_member)
+    azurerm_network_manager_static_member ?id ?timeouts ~name
+      ~network_group_id ~target_virtual_network_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_static_member __resource);
   let __resource_attributes =
     ({

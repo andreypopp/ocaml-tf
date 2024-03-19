@@ -4,20 +4,26 @@
 
 open! Tf.Prelude
 
-type aws_guardduty_invite_accepter__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_guardduty_invite_accepter__timeouts *)
+(** timeouts *)
 
 type aws_guardduty_invite_accepter = {
   detector_id : string prop;  (** detector_id *)
   id : string prop option; [@option]  (** id *)
   master_account_id : string prop;  (** master_account_id *)
-  timeouts : aws_guardduty_invite_accepter__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_guardduty_invite_accepter *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_guardduty_invite_accepter ?id ?timeouts ~detector_id
+    ~master_account_id () : aws_guardduty_invite_accepter =
+  { detector_id; id; master_account_id; timeouts }
 
 type t = {
   detector_id : string prop;
@@ -25,14 +31,14 @@ type t = {
   master_account_id : string prop;
 }
 
-let aws_guardduty_invite_accepter ?id ?timeouts ~detector_id
-    ~master_account_id __resource_id =
+let register ?tf_module ?id ?timeouts ~detector_id ~master_account_id
+    __resource_id =
   let __resource_type = "aws_guardduty_invite_accepter" in
   let __resource =
-    ({ detector_id; id; master_account_id; timeouts }
-      : aws_guardduty_invite_accepter)
+    aws_guardduty_invite_accepter ?id ?timeouts ~detector_id
+      ~master_account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_invite_accepter __resource);
   let __resource_attributes =
     ({

@@ -4,56 +4,50 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule__monthly = {
+type release_criteria__recurrence__schedule__monthly = {
   week : float prop;  (** week *)
   weekday : string prop;  (** weekday *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule__monthly *)
+(** release_criteria__recurrence__schedule__monthly *)
 
-type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule = {
+type release_criteria__recurrence__schedule = {
   hours : float prop list option; [@option]  (** hours *)
   minutes : float prop list option; [@option]  (** minutes *)
   month_days : float prop list option; [@option]  (** month_days *)
   week_days : string prop list option; [@option]  (** week_days *)
-  monthly :
-    azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule__monthly
-    list;
+  monthly : release_criteria__recurrence__schedule__monthly list;
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule *)
+(** release_criteria__recurrence__schedule *)
 
-type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence = {
+type release_criteria__recurrence = {
   end_time : string prop option; [@option]  (** end_time *)
   frequency : string prop;  (** frequency *)
   interval : float prop;  (** interval *)
   start_time : string prop option; [@option]  (** start_time *)
   time_zone : string prop option; [@option]  (** time_zone *)
-  schedule :
-    azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule
-    list;
+  schedule : release_criteria__recurrence__schedule list;
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence *)
+(** release_criteria__recurrence *)
 
-type azurerm_logic_app_integration_account_batch_configuration__release_criteria = {
+type release_criteria = {
   batch_size : float prop option; [@option]  (** batch_size *)
   message_count : float prop option; [@option]  (** message_count *)
-  recurrence :
-    azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence
-    list;
+  recurrence : release_criteria__recurrence list;
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_batch_configuration__release_criteria *)
+(** release_criteria *)
 
-type azurerm_logic_app_integration_account_batch_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_batch_configuration__timeouts *)
+(** timeouts *)
 
 type azurerm_logic_app_integration_account_batch_configuration = {
   batch_group_name : string prop;  (** batch_group_name *)
@@ -64,15 +58,47 @@ type azurerm_logic_app_integration_account_batch_configuration = {
       (** metadata *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  release_criteria :
-    azurerm_logic_app_integration_account_batch_configuration__release_criteria
-    list;
-  timeouts :
-    azurerm_logic_app_integration_account_batch_configuration__timeouts
-    option;
+  release_criteria : release_criteria list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_batch_configuration *)
+
+let release_criteria__recurrence__schedule__monthly ~week ~weekday ()
+    : release_criteria__recurrence__schedule__monthly =
+  { week; weekday }
+
+let release_criteria__recurrence__schedule ?hours ?minutes
+    ?month_days ?week_days ~monthly () :
+    release_criteria__recurrence__schedule =
+  { hours; minutes; month_days; week_days; monthly }
+
+let release_criteria__recurrence ?end_time ?start_time ?time_zone
+    ~frequency ~interval ~schedule () : release_criteria__recurrence
+    =
+  { end_time; frequency; interval; start_time; time_zone; schedule }
+
+let release_criteria ?batch_size ?message_count ~recurrence () :
+    release_criteria =
+  { batch_size; message_count; recurrence }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logic_app_integration_account_batch_configuration ?id
+    ?metadata ?timeouts ~batch_group_name ~integration_account_name
+    ~name ~resource_group_name ~release_criteria () :
+    azurerm_logic_app_integration_account_batch_configuration =
+  {
+    batch_group_name;
+    id;
+    integration_account_name;
+    metadata;
+    name;
+    resource_group_name;
+    release_criteria;
+    timeouts;
+  }
 
 type t = {
   batch_group_name : string prop;
@@ -83,26 +109,18 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_logic_app_integration_account_batch_configuration ?id
-    ?metadata ?timeouts ~batch_group_name ~integration_account_name
-    ~name ~resource_group_name ~release_criteria __resource_id =
+let register ?tf_module ?id ?metadata ?timeouts ~batch_group_name
+    ~integration_account_name ~name ~resource_group_name
+    ~release_criteria __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_batch_configuration"
   in
   let __resource =
-    ({
-       batch_group_name;
-       id;
-       integration_account_name;
-       metadata;
-       name;
-       resource_group_name;
-       release_criteria;
-       timeouts;
-     }
-      : azurerm_logic_app_integration_account_batch_configuration)
+    azurerm_logic_app_integration_account_batch_configuration ?id
+      ?metadata ?timeouts ~batch_group_name ~integration_account_name
+      ~name ~resource_group_name ~release_criteria ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_batch_configuration
        __resource);
   let __resource_attributes =

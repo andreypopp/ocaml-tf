@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_digital_twins_endpoint_servicebus__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_digital_twins_endpoint_servicebus
+
+val azurerm_digital_twins_endpoint_servicebus :
+  ?dead_letter_storage_secret:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  digital_twins_id:string prop ->
+  name:string prop ->
+  servicebus_primary_connection_string:string prop ->
+  servicebus_secondary_connection_string:string prop ->
+  unit ->
+  azurerm_digital_twins_endpoint_servicebus
+
+val yojson_of_azurerm_digital_twins_endpoint_servicebus :
+  azurerm_digital_twins_endpoint_servicebus -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dead_letter_storage_secret : string prop;
@@ -14,10 +41,11 @@ type t = private {
   servicebus_secondary_connection_string : string prop;
 }
 
-val azurerm_digital_twins_endpoint_servicebus :
+val register :
+  ?tf_module:tf_module ->
   ?dead_letter_storage_secret:string prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_digital_twins_endpoint_servicebus__timeouts ->
+  ?timeouts:timeouts ->
   digital_twins_id:string prop ->
   name:string prop ->
   servicebus_primary_connection_string:string prop ->

@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cloud9_environment_membership
+
+val aws_cloud9_environment_membership :
+  ?id:string prop ->
+  environment_id:string prop ->
+  permissions:string prop ->
+  user_arn:string prop ->
+  unit ->
+  aws_cloud9_environment_membership
+
+val yojson_of_aws_cloud9_environment_membership :
+  aws_cloud9_environment_membership -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   environment_id : string prop;
@@ -12,7 +27,8 @@ type t = private {
   user_id : string prop;
 }
 
-val aws_cloud9_environment_membership :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   environment_id:string prop ->
   permissions:string prop ->

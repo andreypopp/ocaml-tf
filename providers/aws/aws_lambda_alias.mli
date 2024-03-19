@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_lambda_alias__routing_config
+(** RESOURCE SERIALIZATION *)
+
+type routing_config
+
+val routing_config :
+  ?additional_version_weights:(string * float prop) list ->
+  unit ->
+  routing_config
+
 type aws_lambda_alias
+
+val aws_lambda_alias :
+  ?description:string prop ->
+  ?id:string prop ->
+  function_name:string prop ->
+  function_version:string prop ->
+  name:string prop ->
+  routing_config:routing_config list ->
+  unit ->
+  aws_lambda_alias
+
+val yojson_of_aws_lambda_alias : aws_lambda_alias -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,12 +37,13 @@ type t = private {
   name : string prop;
 }
 
-val aws_lambda_alias :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   function_name:string prop ->
   function_version:string prop ->
   name:string prop ->
-  routing_config:aws_lambda_alias__routing_config list ->
+  routing_config:routing_config list ->
   string ->
   t

@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_fluid_relay_server__identity
-type azurerm_fluid_relay_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_fluid_relay_server
+
+val azurerm_fluid_relay_server :
+  ?id:string prop ->
+  ?storage_sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_fluid_relay_server
+
+val yojson_of_azurerm_fluid_relay_server :
+  azurerm_fluid_relay_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   frs_tenant_id : string prop;
@@ -21,14 +56,15 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_fluid_relay_server :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?storage_sku:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_fluid_relay_server__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_fluid_relay_server__identity list ->
+  identity:identity list ->
   string ->
   t

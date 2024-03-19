@@ -2,9 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_default_route_table__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type aws_default_route_table__route = {
+type route = {
   cidr_block : string prop;  (** cidr_block *)
   core_network_arn : string prop;  (** core_network_arn *)
   destination_prefix_list_id : string prop;
@@ -22,7 +22,28 @@ type aws_default_route_table__route = {
       (** vpc_peering_connection_id *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_default_route_table
+
+val aws_default_route_table :
+  ?id:string prop ->
+  ?propagating_vgws:string prop list ->
+  ?route:route list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  default_route_table_id:string prop ->
+  unit ->
+  aws_default_route_table
+
+val yojson_of_aws_default_route_table :
+  aws_default_route_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -30,19 +51,20 @@ type t = private {
   id : string prop;
   owner_id : string prop;
   propagating_vgws : string list prop;
-  route : aws_default_route_table__route list prop;
+  route : route list prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   vpc_id : string prop;
 }
 
-val aws_default_route_table :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?propagating_vgws:string prop list ->
-  ?route:aws_default_route_table__route list ->
+  ?route:route list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_default_route_table__timeouts ->
+  ?timeouts:timeouts ->
   default_route_table_id:string prop ->
   string ->
   t

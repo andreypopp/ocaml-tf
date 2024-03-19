@@ -4,29 +4,25 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_failover_group__partner_server = {
-  id : string prop;  (** id *)
-  location : string prop;  (** location *)
-  role : string prop;  (** role *)
-}
+type partner_server = { id : string prop  (** id *) }
 [@@deriving yojson_of]
-(** azurerm_mssql_failover_group__partner_server *)
+(** partner_server *)
 
-type azurerm_mssql_failover_group__read_write_endpoint_failover_policy = {
+type read_write_endpoint_failover_policy = {
   grace_minutes : float prop option; [@option]  (** grace_minutes *)
   mode : string prop;  (** mode *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_failover_group__read_write_endpoint_failover_policy *)
+(** read_write_endpoint_failover_policy *)
 
-type azurerm_mssql_failover_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_failover_group__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_failover_group = {
   databases : string prop list option; [@option]  (** databases *)
@@ -37,14 +33,38 @@ type azurerm_mssql_failover_group = {
       (** readonly_endpoint_failover_policy_enabled *)
   server_id : string prop;  (** server_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  partner_server : azurerm_mssql_failover_group__partner_server list;
+  partner_server : partner_server list;
   read_write_endpoint_failover_policy :
-    azurerm_mssql_failover_group__read_write_endpoint_failover_policy
-    list;
-  timeouts : azurerm_mssql_failover_group__timeouts option;
+    read_write_endpoint_failover_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_failover_group *)
+
+let partner_server ~id () : partner_server = { id }
+
+let read_write_endpoint_failover_policy ?grace_minutes ~mode () :
+    read_write_endpoint_failover_policy =
+  { grace_minutes; mode }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_failover_group ?databases ?id
+    ?readonly_endpoint_failover_policy_enabled ?tags ?timeouts ~name
+    ~server_id ~partner_server ~read_write_endpoint_failover_policy
+    () : azurerm_mssql_failover_group =
+  {
+    databases;
+    id;
+    name;
+    readonly_endpoint_failover_policy_enabled;
+    server_id;
+    tags;
+    partner_server;
+    read_write_endpoint_failover_policy;
+    timeouts;
+  }
 
 type t = {
   databases : string list prop;
@@ -55,26 +75,18 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_mssql_failover_group ?databases ?id
+let register ?tf_module ?databases ?id
     ?readonly_endpoint_failover_policy_enabled ?tags ?timeouts ~name
     ~server_id ~partner_server ~read_write_endpoint_failover_policy
     __resource_id =
   let __resource_type = "azurerm_mssql_failover_group" in
   let __resource =
-    ({
-       databases;
-       id;
-       name;
-       readonly_endpoint_failover_policy_enabled;
-       server_id;
-       tags;
-       partner_server;
-       read_write_endpoint_failover_policy;
-       timeouts;
-     }
-      : azurerm_mssql_failover_group)
+    azurerm_mssql_failover_group ?databases ?id
+      ?readonly_endpoint_failover_policy_enabled ?tags ?timeouts
+      ~name ~server_id ~partner_server
+      ~read_write_endpoint_failover_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_failover_group __resource);
   let __resource_attributes =
     ({

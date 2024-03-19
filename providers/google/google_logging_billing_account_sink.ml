@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_logging_billing_account_sink__bigquery_options = {
+type bigquery_options = {
   use_partitioned_tables : bool prop;
       (** Whether to use BigQuery's partition tables. By default, Logging creates dated tables based on the log entries' timestamps, e.g. syslog_20170523. With partitioned tables the date suffix is no longer present and special query syntax has to be used instead. In both cases, tables are sharded based on UTC timezone. *)
 }
 [@@deriving yojson_of]
 (** Options that affect sinks exporting data to BigQuery. *)
 
-type google_logging_billing_account_sink__exclusions = {
+type exclusions = {
   description : string prop option; [@option]
       (** A description of this exclusion. *)
   disabled : bool prop option; [@option]
@@ -37,12 +37,32 @@ type google_logging_billing_account_sink = {
       (** The filter to apply when exporting logs. Only log entries that match the filter are exported. *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** The name of the logging sink. *)
-  bigquery_options :
-    google_logging_billing_account_sink__bigquery_options list;
-  exclusions : google_logging_billing_account_sink__exclusions list;
+  bigquery_options : bigquery_options list;
+  exclusions : exclusions list;
 }
 [@@deriving yojson_of]
 (** google_logging_billing_account_sink *)
+
+let bigquery_options ~use_partitioned_tables () : bigquery_options =
+  { use_partitioned_tables }
+
+let exclusions ?description ?disabled ~filter ~name () : exclusions =
+  { description; disabled; filter; name }
+
+let google_logging_billing_account_sink ?description ?disabled
+    ?filter ?id ~billing_account ~destination ~name ~bigquery_options
+    ~exclusions () : google_logging_billing_account_sink =
+  {
+    billing_account;
+    description;
+    destination;
+    disabled;
+    filter;
+    id;
+    name;
+    bigquery_options;
+    exclusions;
+  }
 
 type t = {
   billing_account : string prop;
@@ -55,25 +75,16 @@ type t = {
   writer_identity : string prop;
 }
 
-let google_logging_billing_account_sink ?description ?disabled
-    ?filter ?id ~billing_account ~destination ~name ~bigquery_options
-    ~exclusions __resource_id =
+let register ?tf_module ?description ?disabled ?filter ?id
+    ~billing_account ~destination ~name ~bigquery_options ~exclusions
+    __resource_id =
   let __resource_type = "google_logging_billing_account_sink" in
   let __resource =
-    ({
-       billing_account;
-       description;
-       destination;
-       disabled;
-       filter;
-       id;
-       name;
-       bigquery_options;
-       exclusions;
-     }
-      : google_logging_billing_account_sink)
+    google_logging_billing_account_sink ?description ?disabled
+      ?filter ?id ~billing_account ~destination ~name
+      ~bigquery_options ~exclusions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_billing_account_sink __resource);
   let __resource_attributes =
     ({

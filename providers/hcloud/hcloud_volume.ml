@@ -20,6 +20,20 @@ type hcloud_volume = {
 [@@deriving yojson_of]
 (** hcloud_volume *)
 
+let hcloud_volume ?automount ?delete_protection ?format ?id ?labels
+    ?location ?server_id ~name ~size () : hcloud_volume =
+  {
+    automount;
+    delete_protection;
+    format;
+    id;
+    labels;
+    location;
+    name;
+    server_id;
+    size;
+  }
+
 type t = {
   automount : bool prop;
   delete_protection : bool prop;
@@ -33,24 +47,14 @@ type t = {
   size : float prop;
 }
 
-let hcloud_volume ?automount ?delete_protection ?format ?id ?labels
-    ?location ?server_id ~name ~size __resource_id =
+let register ?tf_module ?automount ?delete_protection ?format ?id
+    ?labels ?location ?server_id ~name ~size __resource_id =
   let __resource_type = "hcloud_volume" in
   let __resource =
-    ({
-       automount;
-       delete_protection;
-       format;
-       id;
-       labels;
-       location;
-       name;
-       server_id;
-       size;
-     }
-      : hcloud_volume)
+    hcloud_volume ?automount ?delete_protection ?format ?id ?labels
+      ?location ?server_id ~name ~size ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_volume __resource);
   let __resource_attributes =
     ({

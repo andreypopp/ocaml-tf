@@ -15,6 +15,10 @@ type aws_datapipeline_pipeline = {
 [@@deriving yojson_of]
 (** aws_datapipeline_pipeline *)
 
+let aws_datapipeline_pipeline ?description ?id ?tags ?tags_all ~name
+    () : aws_datapipeline_pipeline =
+  { description; id; name; tags; tags_all }
+
 type t = {
   description : string prop;
   id : string prop;
@@ -23,14 +27,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_datapipeline_pipeline ?description ?id ?tags ?tags_all ~name
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
     __resource_id =
   let __resource_type = "aws_datapipeline_pipeline" in
   let __resource =
-    ({ description; id; name; tags; tags_all }
-      : aws_datapipeline_pipeline)
+    aws_datapipeline_pipeline ?description ?id ?tags ?tags_all ~name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datapipeline_pipeline __resource);
   let __resource_attributes =
     ({

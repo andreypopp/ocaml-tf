@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_region_backend_service__backend = {
+type backend = {
   balancing_mode : string prop option; [@option]
       (** Specifies the balancing mode for this backend.
 
@@ -102,7 +102,7 @@ Cannot be set for INTERNAL backend services. *)
 [@@deriving yojson_of]
 (** The set of backends that serve this RegionBackendService. *)
 
-type google_compute_region_backend_service__cdn_policy__cache_key_policy = {
+type cdn_policy__cache_key_policy = {
   include_host : bool prop option; [@option]
       (** If true requests to different hosts will be cached separately. *)
   include_named_cookies : string prop list option; [@option]
@@ -135,7 +135,7 @@ delimiters. *)
 [@@deriving yojson_of]
 (** The CacheKeyPolicy for this CdnPolicy. *)
 
-type google_compute_region_backend_service__cdn_policy__negative_caching_policy = {
+type cdn_policy__negative_caching_policy = {
   code : float prop option; [@option]
       (** The HTTP status code to define a TTL against. Only HTTP status codes 300, 301, 308, 404, 405, 410, 421, 451 and 501
 can be specified as values, and you cannot specify a status code more than once. *)
@@ -144,7 +144,7 @@ can be specified as values, and you cannot specify a status code more than once.
 (** Sets a cache TTL for the specified HTTP status code. negativeCaching must be enabled to configure negativeCachingPolicy.
 Omitting the policy and leaving negativeCaching enabled will use Cloud CDN's default cache TTLs. *)
 
-type google_compute_region_backend_service__cdn_policy = {
+type cdn_policy = {
   cache_mode : string prop option; [@option]
       (** Specifies the cache setting for all responses from this backend.
 The possible values are: USE_ORIGIN_HEADERS, FORCE_CACHE_ALL and CACHE_ALL_STATIC Possible values: [USE_ORIGIN_HEADERS, FORCE_CACHE_ALL, CACHE_ALL_STATIC] *)
@@ -170,17 +170,13 @@ internally behave as though all responses from this backend had a
 Cache-Control: public, max-age=[TTL] header, regardless of any
 existing Cache-Control header. The actual headers served in
 responses will not be altered. *)
-  cache_key_policy :
-    google_compute_region_backend_service__cdn_policy__cache_key_policy
-    list;
-  negative_caching_policy :
-    google_compute_region_backend_service__cdn_policy__negative_caching_policy
-    list;
+  cache_key_policy : cdn_policy__cache_key_policy list;
+  negative_caching_policy : cdn_policy__negative_caching_policy list;
 }
 [@@deriving yojson_of]
 (** Cloud CDN configuration for this BackendService. *)
 
-type google_compute_region_backend_service__circuit_breakers = {
+type circuit_breakers = {
   max_connections : float prop option; [@option]
       (** The maximum number of connections to the backend cluster.
 Defaults to 1024. *)
@@ -204,7 +200,7 @@ Defaults to 3. *)
 is applicable only when the 'load_balancing_scheme' is set to INTERNAL_MANAGED
 and the 'protocol' is set to HTTP, HTTPS, or HTTP2. *)
 
-type google_compute_region_backend_service__consistent_hash__http_cookie__ttl = {
+type consistent_hash__http_cookie__ttl = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond
 resolution. Durations less than one second are represented
@@ -217,13 +213,11 @@ Must be from 0 to 315,576,000,000 inclusive. *)
 [@@deriving yojson_of]
 (** Lifetime of the cookie. *)
 
-type google_compute_region_backend_service__consistent_hash__http_cookie = {
+type consistent_hash__http_cookie = {
   name : string prop option; [@option]  (** Name of the cookie. *)
   path : string prop option; [@option]
       (** Path to set for the cookie. *)
-  ttl :
-    google_compute_region_backend_service__consistent_hash__http_cookie__ttl
-    list;
+  ttl : consistent_hash__http_cookie__ttl list;
 }
 [@@deriving yojson_of]
 (** Hash is based on HTTP Cookie. This field describes a HTTP cookie
@@ -231,7 +225,7 @@ that will be used as the hash key for the consistent hash load
 balancer. If the cookie is not present, it will be generated.
 This field is applicable if the sessionAffinity is set to HTTP_COOKIE. *)
 
-type google_compute_region_backend_service__consistent_hash = {
+type consistent_hash = {
   http_header_name : string prop option; [@option]
       (** The hash based on the value of the specified header field.
 This field is applicable if the sessionAffinity is set to HEADER_FIELD. *)
@@ -242,9 +236,7 @@ distributions. If the number of hosts in the load balancing pool
 is larger than the ring size, each host will be assigned a single
 virtual node.
 Defaults to 1024. *)
-  http_cookie :
-    google_compute_region_backend_service__consistent_hash__http_cookie
-    list;
+  http_cookie : consistent_hash__http_cookie list;
 }
 [@@deriving yojson_of]
 (** Consistent Hash-based load balancing can be used to provide soft session
@@ -258,7 +250,7 @@ This field only applies when all of the following are true -
   * 'protocol' is set to HTTP, HTTPS, or HTTP2
   * 'locality_lb_policy' is set to MAGLEV or RING_HASH *)
 
-type google_compute_region_backend_service__failover_policy = {
+type failover_policy = {
   disable_connection_drain_on_failover : bool prop option; [@option]
       (** On failover or failback, this field indicates whether connection drain
 will be honored. Setting this to true has the following effect: connections
@@ -286,17 +278,15 @@ This field is only used with l4 load balancing. *)
 [@@deriving yojson_of]
 (** Policy for failovers. *)
 
-type google_compute_region_backend_service__iap = {
+type iap = {
   oauth2_client_id : string prop;  (** OAuth2 Client ID for IAP *)
   oauth2_client_secret : string prop;
       (** OAuth2 Client Secret for IAP *)
-  oauth2_client_secret_sha256 : string prop;
-      (** OAuth2 Client Secret SHA-256 for IAP *)
 }
 [@@deriving yojson_of]
 (** Settings for enabling Cloud Identity Aware Proxy *)
 
-type google_compute_region_backend_service__log_config = {
+type log_config = {
   enable : bool prop option; [@option]
       (** Whether to enable logging for the load balancer traffic served by this backend service. *)
   sample_rate : float prop option; [@option]
@@ -309,7 +299,7 @@ The default value is 1.0. *)
 (** This field denotes the logging options for the load balancer traffic served by this backend service.
 If logging is enabled, logs will be exported to Stackdriver. *)
 
-type google_compute_region_backend_service__outlier_detection__base_ejection_time = {
+type outlier_detection__base_ejection_time = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
@@ -323,7 +313,7 @@ inclusive. *)
 time multiplied by the number of times the host has been ejected. Defaults to
 30000ms or 30s. *)
 
-type google_compute_region_backend_service__outlier_detection__interval = {
+type outlier_detection__interval = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
@@ -336,7 +326,7 @@ inclusive. *)
 (** Time interval between ejection sweep analysis. This can result in both new
 ejections as well as hosts being returned to service. Defaults to 10 seconds. *)
 
-type google_compute_region_backend_service__outlier_detection = {
+type outlier_detection = {
   consecutive_errors : float prop option; [@option]
       (** Number of errors before a host is ejected from the connection pool. When the
 backend host is accessed over HTTP, a 5xx return code qualifies as an error.
@@ -379,25 +369,21 @@ rate, and the product of this factor and the standard deviation of the mean
 success rate: mean - (stdev * success_rate_stdev_factor). This factor is divided
 by a thousand to get a double. That is, if the desired factor is 1.9, the
 runtime value should be 1900. Defaults to 1900. *)
-  base_ejection_time :
-    google_compute_region_backend_service__outlier_detection__base_ejection_time
-    list;
-  interval :
-    google_compute_region_backend_service__outlier_detection__interval
-    list;
+  base_ejection_time : outlier_detection__base_ejection_time list;
+  interval : outlier_detection__interval list;
 }
 [@@deriving yojson_of]
 (** Settings controlling eviction of unhealthy hosts from the load balancing pool.
 This field is applicable only when the 'load_balancing_scheme' is set
 to INTERNAL_MANAGED and the 'protocol' is set to HTTP, HTTPS, or HTTP2. *)
 
-type google_compute_region_backend_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_backend_service__timeouts *)
+(** timeouts *)
 
 type google_compute_region_backend_service = {
   affinity_cookie_ttl_sec : float prop option; [@option]
@@ -518,24 +504,173 @@ not applicable if the protocol is UDP. Possible values: [NONE, CLIENT_IP, CLIENT
   timeout_sec : float prop option; [@option]
       (** How many seconds to wait for the backend before considering it a
 failed request. Default is 30 seconds. Valid range is [1, 86400]. *)
-  backend : google_compute_region_backend_service__backend list;
-  cdn_policy :
-    google_compute_region_backend_service__cdn_policy list;
-  circuit_breakers :
-    google_compute_region_backend_service__circuit_breakers list;
-  consistent_hash :
-    google_compute_region_backend_service__consistent_hash list;
-  failover_policy :
-    google_compute_region_backend_service__failover_policy list;
-  iap : google_compute_region_backend_service__iap list;
-  log_config :
-    google_compute_region_backend_service__log_config list;
-  outlier_detection :
-    google_compute_region_backend_service__outlier_detection list;
-  timeouts : google_compute_region_backend_service__timeouts option;
+  backend : backend list;
+  cdn_policy : cdn_policy list;
+  circuit_breakers : circuit_breakers list;
+  consistent_hash : consistent_hash list;
+  failover_policy : failover_policy list;
+  iap : iap list;
+  log_config : log_config list;
+  outlier_detection : outlier_detection list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_backend_service *)
+
+let backend ?balancing_mode ?capacity_scaler ?description ?failover
+    ?max_connections ?max_connections_per_endpoint
+    ?max_connections_per_instance ?max_rate ?max_rate_per_endpoint
+    ?max_rate_per_instance ?max_utilization ~group () : backend =
+  {
+    balancing_mode;
+    capacity_scaler;
+    description;
+    failover;
+    group;
+    max_connections;
+    max_connections_per_endpoint;
+    max_connections_per_instance;
+    max_rate;
+    max_rate_per_endpoint;
+    max_rate_per_instance;
+    max_utilization;
+  }
+
+let cdn_policy__cache_key_policy ?include_host ?include_named_cookies
+    ?include_protocol ?include_query_string ?query_string_blacklist
+    ?query_string_whitelist () : cdn_policy__cache_key_policy =
+  {
+    include_host;
+    include_named_cookies;
+    include_protocol;
+    include_query_string;
+    query_string_blacklist;
+    query_string_whitelist;
+  }
+
+let cdn_policy__negative_caching_policy ?code () :
+    cdn_policy__negative_caching_policy =
+  { code }
+
+let cdn_policy ?cache_mode ?client_ttl ?default_ttl ?max_ttl
+    ?negative_caching ?serve_while_stale
+    ?signed_url_cache_max_age_sec ~cache_key_policy
+    ~negative_caching_policy () : cdn_policy =
+  {
+    cache_mode;
+    client_ttl;
+    default_ttl;
+    max_ttl;
+    negative_caching;
+    serve_while_stale;
+    signed_url_cache_max_age_sec;
+    cache_key_policy;
+    negative_caching_policy;
+  }
+
+let circuit_breakers ?max_connections ?max_pending_requests
+    ?max_requests ?max_requests_per_connection ?max_retries () :
+    circuit_breakers =
+  {
+    max_connections;
+    max_pending_requests;
+    max_requests;
+    max_requests_per_connection;
+    max_retries;
+  }
+
+let consistent_hash__http_cookie__ttl ?nanos ~seconds () :
+    consistent_hash__http_cookie__ttl =
+  { nanos; seconds }
+
+let consistent_hash__http_cookie ?name ?path ~ttl () :
+    consistent_hash__http_cookie =
+  { name; path; ttl }
+
+let consistent_hash ?http_header_name ?minimum_ring_size ~http_cookie
+    () : consistent_hash =
+  { http_header_name; minimum_ring_size; http_cookie }
+
+let failover_policy ?disable_connection_drain_on_failover
+    ?drop_traffic_if_unhealthy ?failover_ratio () : failover_policy =
+  {
+    disable_connection_drain_on_failover;
+    drop_traffic_if_unhealthy;
+    failover_ratio;
+  }
+
+let iap ~oauth2_client_id ~oauth2_client_secret () : iap =
+  { oauth2_client_id; oauth2_client_secret }
+
+let log_config ?enable ?sample_rate () : log_config =
+  { enable; sample_rate }
+
+let outlier_detection__base_ejection_time ?nanos ~seconds () :
+    outlier_detection__base_ejection_time =
+  { nanos; seconds }
+
+let outlier_detection__interval ?nanos ~seconds () :
+    outlier_detection__interval =
+  { nanos; seconds }
+
+let outlier_detection ?consecutive_errors
+    ?consecutive_gateway_failure ?enforcing_consecutive_errors
+    ?enforcing_consecutive_gateway_failure ?enforcing_success_rate
+    ?max_ejection_percent ?success_rate_minimum_hosts
+    ?success_rate_request_volume ?success_rate_stdev_factor
+    ~base_ejection_time ~interval () : outlier_detection =
+  {
+    consecutive_errors;
+    consecutive_gateway_failure;
+    enforcing_consecutive_errors;
+    enforcing_consecutive_gateway_failure;
+    enforcing_success_rate;
+    max_ejection_percent;
+    success_rate_minimum_hosts;
+    success_rate_request_volume;
+    success_rate_stdev_factor;
+    base_ejection_time;
+    interval;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_region_backend_service ?affinity_cookie_ttl_sec
+    ?connection_draining_timeout_sec ?description ?enable_cdn
+    ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
+    ?network ?port_name ?project ?protocol ?region ?session_affinity
+    ?timeout_sec ?timeouts ~name ~backend ~cdn_policy
+    ~circuit_breakers ~consistent_hash ~failover_policy ~iap
+    ~log_config ~outlier_detection () :
+    google_compute_region_backend_service =
+  {
+    affinity_cookie_ttl_sec;
+    connection_draining_timeout_sec;
+    description;
+    enable_cdn;
+    health_checks;
+    id;
+    load_balancing_scheme;
+    locality_lb_policy;
+    name;
+    network;
+    port_name;
+    project;
+    protocol;
+    region;
+    session_affinity;
+    timeout_sec;
+    backend;
+    cdn_policy;
+    circuit_breakers;
+    consistent_hash;
+    failover_policy;
+    iap;
+    log_config;
+    outlier_detection;
+    timeouts;
+  }
 
 type t = {
   affinity_cookie_ttl_sec : float prop;
@@ -559,7 +694,7 @@ type t = {
   timeout_sec : float prop;
 }
 
-let google_compute_region_backend_service ?affinity_cookie_ttl_sec
+let register ?tf_module ?affinity_cookie_ttl_sec
     ?connection_draining_timeout_sec ?description ?enable_cdn
     ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
     ?network ?port_name ?project ?protocol ?region ?session_affinity
@@ -568,36 +703,15 @@ let google_compute_region_backend_service ?affinity_cookie_ttl_sec
     ~log_config ~outlier_detection __resource_id =
   let __resource_type = "google_compute_region_backend_service" in
   let __resource =
-    ({
-       affinity_cookie_ttl_sec;
-       connection_draining_timeout_sec;
-       description;
-       enable_cdn;
-       health_checks;
-       id;
-       load_balancing_scheme;
-       locality_lb_policy;
-       name;
-       network;
-       port_name;
-       project;
-       protocol;
-       region;
-       session_affinity;
-       timeout_sec;
-       backend;
-       cdn_policy;
-       circuit_breakers;
-       consistent_hash;
-       failover_policy;
-       iap;
-       log_config;
-       outlier_detection;
-       timeouts;
-     }
-      : google_compute_region_backend_service)
+    google_compute_region_backend_service ?affinity_cookie_ttl_sec
+      ?connection_draining_timeout_sec ?description ?enable_cdn
+      ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
+      ?network ?port_name ?project ?protocol ?region
+      ?session_affinity ?timeout_sec ?timeouts ~name ~backend
+      ~cdn_policy ~circuit_breakers ~consistent_hash ~failover_policy
+      ~iap ~log_config ~outlier_detection ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_backend_service __resource);
   let __resource_attributes =
     ({

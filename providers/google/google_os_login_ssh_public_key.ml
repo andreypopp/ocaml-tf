@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_os_login_ssh_public_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_os_login_ssh_public_key__timeouts *)
+(** timeouts *)
 
 type google_os_login_ssh_public_key = {
   expiration_time_usec : string prop option; [@option]
@@ -21,10 +21,17 @@ type google_os_login_ssh_public_key = {
   project : string prop option; [@option]
       (** The project ID of the Google Cloud Platform project. *)
   user : string prop;  (** The user email. *)
-  timeouts : google_os_login_ssh_public_key__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_os_login_ssh_public_key *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_os_login_ssh_public_key ?expiration_time_usec ?id ?project
+    ?timeouts ~key ~user () : google_os_login_ssh_public_key =
+  { expiration_time_usec; id; key; project; user; timeouts }
 
 type t = {
   expiration_time_usec : string prop;
@@ -35,14 +42,14 @@ type t = {
   user : string prop;
 }
 
-let google_os_login_ssh_public_key ?expiration_time_usec ?id ?project
-    ?timeouts ~key ~user __resource_id =
+let register ?tf_module ?expiration_time_usec ?id ?project ?timeouts
+    ~key ~user __resource_id =
   let __resource_type = "google_os_login_ssh_public_key" in
   let __resource =
-    ({ expiration_time_usec; id; key; project; user; timeouts }
-      : google_os_login_ssh_public_key)
+    google_os_login_ssh_public_key ?expiration_time_usec ?id ?project
+      ?timeouts ~key ~user ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_os_login_ssh_public_key __resource);
   let __resource_attributes =
     ({

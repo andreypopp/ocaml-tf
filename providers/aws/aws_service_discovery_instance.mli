@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_service_discovery_instance
+
+val aws_service_discovery_instance :
+  ?id:string prop ->
+  attributes:(string * string prop) list ->
+  instance_id:string prop ->
+  service_id:string prop ->
+  unit ->
+  aws_service_discovery_instance
+
+val yojson_of_aws_service_discovery_instance :
+  aws_service_discovery_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   attributes : (string * string) list prop;
@@ -11,7 +26,8 @@ type t = private {
   service_id : string prop;
 }
 
-val aws_service_discovery_instance :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   attributes:(string * string prop) list ->
   instance_id:string prop ->

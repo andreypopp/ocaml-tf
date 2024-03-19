@@ -4,46 +4,46 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_metadata__author = {
+type author = {
   email : string prop option; [@option]  (** email *)
   link : string prop option; [@option]  (** link *)
   name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_metadata__author *)
+(** author *)
 
-type azurerm_sentinel_metadata__category = {
+type category = {
   domains : string prop list option; [@option]  (** domains *)
   verticals : string prop list option; [@option]  (** verticals *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_metadata__category *)
+(** category *)
 
-type azurerm_sentinel_metadata__source = {
+type source = {
   id : string prop option; [@option]  (** id *)
   kind : string prop;  (** kind *)
   name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_metadata__source *)
+(** source *)
 
-type azurerm_sentinel_metadata__support = {
+type support = {
   email : string prop option; [@option]  (** email *)
   link : string prop option; [@option]  (** link *)
   name : string prop option; [@option]  (** name *)
   tier : string prop;  (** tier *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_metadata__support *)
+(** support *)
 
-type azurerm_sentinel_metadata__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_metadata__timeouts *)
+(** timeouts *)
 
 type azurerm_sentinel_metadata = {
   content_id : string prop;  (** content_id *)
@@ -72,14 +72,60 @@ type azurerm_sentinel_metadata = {
       (** threat_analysis_techniques *)
   version : string prop option; [@option]  (** version *)
   workspace_id : string prop;  (** workspace_id *)
-  author : azurerm_sentinel_metadata__author list;
-  category : azurerm_sentinel_metadata__category list;
-  source : azurerm_sentinel_metadata__source list;
-  support : azurerm_sentinel_metadata__support list;
-  timeouts : azurerm_sentinel_metadata__timeouts option;
+  author : author list;
+  category : category list;
+  source : source list;
+  support : support list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_metadata *)
+
+let author ?email ?link ?name () : author = { email; link; name }
+
+let category ?domains ?verticals () : category =
+  { domains; verticals }
+
+let source ?id ?name ~kind () : source = { id; kind; name }
+
+let support ?email ?link ?name ~tier () : support =
+  { email; link; name; tier }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sentinel_metadata ?content_schema_version ?custom_version
+    ?dependency ?first_publish_date ?icon_id ?id ?last_publish_date
+    ?preview_images ?preview_images_dark ?providers
+    ?threat_analysis_tactics ?threat_analysis_techniques ?version
+    ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
+    ~author ~category ~source ~support () : azurerm_sentinel_metadata
+    =
+  {
+    content_id;
+    content_schema_version;
+    custom_version;
+    dependency;
+    first_publish_date;
+    icon_id;
+    id;
+    kind;
+    last_publish_date;
+    name;
+    parent_id;
+    preview_images;
+    preview_images_dark;
+    providers;
+    threat_analysis_tactics;
+    threat_analysis_techniques;
+    version;
+    workspace_id;
+    author;
+    category;
+    source;
+    support;
+    timeouts;
+  }
 
 type t = {
   content_id : string prop;
@@ -102,7 +148,7 @@ type t = {
   workspace_id : string prop;
 }
 
-let azurerm_sentinel_metadata ?content_schema_version ?custom_version
+let register ?tf_module ?content_schema_version ?custom_version
     ?dependency ?first_publish_date ?icon_id ?id ?last_publish_date
     ?preview_images ?preview_images_dark ?providers
     ?threat_analysis_tactics ?threat_analysis_techniques ?version
@@ -110,34 +156,14 @@ let azurerm_sentinel_metadata ?content_schema_version ?custom_version
     ~author ~category ~source ~support __resource_id =
   let __resource_type = "azurerm_sentinel_metadata" in
   let __resource =
-    ({
-       content_id;
-       content_schema_version;
-       custom_version;
-       dependency;
-       first_publish_date;
-       icon_id;
-       id;
-       kind;
-       last_publish_date;
-       name;
-       parent_id;
-       preview_images;
-       preview_images_dark;
-       providers;
-       threat_analysis_tactics;
-       threat_analysis_techniques;
-       version;
-       workspace_id;
-       author;
-       category;
-       source;
-       support;
-       timeouts;
-     }
-      : azurerm_sentinel_metadata)
+    azurerm_sentinel_metadata ?content_schema_version ?custom_version
+      ?dependency ?first_publish_date ?icon_id ?id ?last_publish_date
+      ?preview_images ?preview_images_dark ?providers
+      ?threat_analysis_tactics ?threat_analysis_techniques ?version
+      ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
+      ~author ~category ~source ~support ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_metadata __resource);
   let __resource_attributes =
     ({

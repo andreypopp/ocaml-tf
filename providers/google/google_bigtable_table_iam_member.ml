@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_bigtable_table_iam_member__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_bigtable_table_iam_member__condition *)
+(** condition *)
 
 type google_bigtable_table_iam_member = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,17 @@ type google_bigtable_table_iam_member = {
   project : string prop option; [@option]  (** project *)
   role : string prop;  (** role *)
   table : string prop;  (** table *)
-  condition : google_bigtable_table_iam_member__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_bigtable_table_iam_member *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_bigtable_table_iam_member ?id ?project ~instance ~member
+    ~role ~table ~condition () : google_bigtable_table_iam_member =
+  { id; instance; member; project; role; table; condition }
 
 type t = {
   etag : string prop;
@@ -34,14 +41,14 @@ type t = {
   table : string prop;
 }
 
-let google_bigtable_table_iam_member ?id ?project ~instance ~member
-    ~role ~table ~condition __resource_id =
+let register ?tf_module ?id ?project ~instance ~member ~role ~table
+    ~condition __resource_id =
   let __resource_type = "google_bigtable_table_iam_member" in
   let __resource =
-    ({ id; instance; member; project; role; table; condition }
-      : google_bigtable_table_iam_member)
+    google_bigtable_table_iam_member ?id ?project ~instance ~member
+      ~role ~table ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigtable_table_iam_member __resource);
   let __resource_attributes =
     ({

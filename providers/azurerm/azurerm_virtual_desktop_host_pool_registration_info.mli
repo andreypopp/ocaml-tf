@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_desktop_host_pool_registration_info__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_virtual_desktop_host_pool_registration_info
+
+val azurerm_virtual_desktop_host_pool_registration_info :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  expiration_date:string prop ->
+  hostpool_id:string prop ->
+  unit ->
+  azurerm_virtual_desktop_host_pool_registration_info
+
+val yojson_of_azurerm_virtual_desktop_host_pool_registration_info :
+  azurerm_virtual_desktop_host_pool_registration_info -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   expiration_date : string prop;
@@ -12,10 +36,10 @@ type t = private {
   token : string prop;
 }
 
-val azurerm_virtual_desktop_host_pool_registration_info :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_virtual_desktop_host_pool_registration_info__timeouts ->
+  ?timeouts:timeouts ->
   expiration_date:string prop ->
   hostpool_id:string prop ->
   string ->

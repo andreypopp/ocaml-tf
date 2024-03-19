@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_signer_signing_profile__signature_validity_period = {
+type signature_validity_period = {
   type_ : string prop; [@key "type"]  (** type *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_signer_signing_profile__signature_validity_period *)
+(** signature_validity_period *)
 
-type aws_signer_signing_profile__signing_material = {
+type signing_material = {
   certificate_arn : string prop;  (** certificate_arn *)
 }
 [@@deriving yojson_of]
-(** aws_signer_signing_profile__signing_material *)
+(** signing_material *)
 
-type aws_signer_signing_profile__revocation_record = {
+type revocation_record = {
   revocation_effective_from : string prop;
       (** revocation_effective_from *)
   revoked_at : string prop;  (** revoked_at *)
@@ -33,13 +33,32 @@ type aws_signer_signing_profile = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  signature_validity_period :
-    aws_signer_signing_profile__signature_validity_period list;
-  signing_material :
-    aws_signer_signing_profile__signing_material list;
+  signature_validity_period : signature_validity_period list;
+  signing_material : signing_material list;
 }
 [@@deriving yojson_of]
 (** aws_signer_signing_profile *)
+
+let signature_validity_period ~type_ ~value () :
+    signature_validity_period =
+  { type_; value }
+
+let signing_material ~certificate_arn () : signing_material =
+  { certificate_arn }
+
+let aws_signer_signing_profile ?id ?name ?name_prefix ?tags ?tags_all
+    ~platform_id ~signature_validity_period ~signing_material () :
+    aws_signer_signing_profile =
+  {
+    id;
+    name;
+    name_prefix;
+    platform_id;
+    tags;
+    tags_all;
+    signature_validity_period;
+    signing_material;
+  }
 
 type t = {
   arn : string prop;
@@ -48,8 +67,7 @@ type t = {
   name_prefix : string prop;
   platform_display_name : string prop;
   platform_id : string prop;
-  revocation_record :
-    aws_signer_signing_profile__revocation_record list prop;
+  revocation_record : revocation_record list prop;
   status : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
@@ -57,24 +75,15 @@ type t = {
   version_arn : string prop;
 }
 
-let aws_signer_signing_profile ?id ?name ?name_prefix ?tags ?tags_all
+let register ?tf_module ?id ?name ?name_prefix ?tags ?tags_all
     ~platform_id ~signature_validity_period ~signing_material
     __resource_id =
   let __resource_type = "aws_signer_signing_profile" in
   let __resource =
-    ({
-       id;
-       name;
-       name_prefix;
-       platform_id;
-       tags;
-       tags_all;
-       signature_validity_period;
-       signing_material;
-     }
-      : aws_signer_signing_profile)
+    aws_signer_signing_profile ?id ?name ?name_prefix ?tags ?tags_all
+      ~platform_id ~signature_validity_period ~signing_material ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_signer_signing_profile __resource);
   let __resource_attributes =
     ({

@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_api_portal__sso = {
+type sso = {
   client_id : string prop option; [@option]  (** client_id *)
   client_secret : string prop option; [@option]  (** client_secret *)
   issuer_uri : string prop option; [@option]  (** issuer_uri *)
   scope : string prop list option; [@option]  (** scope *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_api_portal__sso *)
+(** sso *)
 
-type azurerm_spring_cloud_api_portal__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_api_portal__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_api_portal = {
   api_try_out_enabled : bool prop option; [@option]
@@ -37,11 +37,35 @@ type azurerm_spring_cloud_api_portal = {
       (** public_network_access_enabled *)
   spring_cloud_service_id : string prop;
       (** spring_cloud_service_id *)
-  sso : azurerm_spring_cloud_api_portal__sso list;
-  timeouts : azurerm_spring_cloud_api_portal__timeouts option;
+  sso : sso list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_api_portal *)
+
+let sso ?client_id ?client_secret ?issuer_uri ?scope () : sso =
+  { client_id; client_secret; issuer_uri; scope }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
+    ?https_only_enabled ?id ?instance_count
+    ?public_network_access_enabled ?timeouts ~name
+    ~spring_cloud_service_id ~sso () :
+    azurerm_spring_cloud_api_portal =
+  {
+    api_try_out_enabled;
+    gateway_ids;
+    https_only_enabled;
+    id;
+    instance_count;
+    name;
+    public_network_access_enabled;
+    spring_cloud_service_id;
+    sso;
+    timeouts;
+  }
 
 type t = {
   api_try_out_enabled : bool prop;
@@ -55,27 +79,18 @@ type t = {
   url : string prop;
 }
 
-let azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
+let register ?tf_module ?api_try_out_enabled ?gateway_ids
     ?https_only_enabled ?id ?instance_count
     ?public_network_access_enabled ?timeouts ~name
     ~spring_cloud_service_id ~sso __resource_id =
   let __resource_type = "azurerm_spring_cloud_api_portal" in
   let __resource =
-    ({
-       api_try_out_enabled;
-       gateway_ids;
-       https_only_enabled;
-       id;
-       instance_count;
-       name;
-       public_network_access_enabled;
-       spring_cloud_service_id;
-       sso;
-       timeouts;
-     }
-      : azurerm_spring_cloud_api_portal)
+    azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
+      ?https_only_enabled ?id ?instance_count
+      ?public_network_access_enabled ?timeouts ~name
+      ~spring_cloud_service_id ~sso ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_api_portal __resource);
   let __resource_attributes =
     ({

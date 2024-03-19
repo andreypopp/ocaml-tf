@@ -4,42 +4,38 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_test_schedule__daily_recurrence = {
-  time : string prop;  (** time *)
-}
+type daily_recurrence = { time : string prop  (** time *) }
 [@@deriving yojson_of]
-(** azurerm_dev_test_schedule__daily_recurrence *)
+(** daily_recurrence *)
 
-type azurerm_dev_test_schedule__hourly_recurrence = {
-  minute : float prop;  (** minute *)
-}
+type hourly_recurrence = { minute : float prop  (** minute *) }
 [@@deriving yojson_of]
-(** azurerm_dev_test_schedule__hourly_recurrence *)
+(** hourly_recurrence *)
 
-type azurerm_dev_test_schedule__notification_settings = {
+type notification_settings = {
   status : string prop option; [@option]  (** status *)
   time_in_minutes : float prop option; [@option]
       (** time_in_minutes *)
   webhook_url : string prop option; [@option]  (** webhook_url *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_schedule__notification_settings *)
+(** notification_settings *)
 
-type azurerm_dev_test_schedule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_schedule__timeouts *)
+(** timeouts *)
 
-type azurerm_dev_test_schedule__weekly_recurrence = {
+type weekly_recurrence = {
   time : string prop;  (** time *)
   week_days : string prop list option; [@option]  (** week_days *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_schedule__weekly_recurrence *)
+(** weekly_recurrence *)
 
 type azurerm_dev_test_schedule = {
   id : string prop option; [@option]  (** id *)
@@ -51,18 +47,48 @@ type azurerm_dev_test_schedule = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   task_type : string prop;  (** task_type *)
   time_zone_id : string prop;  (** time_zone_id *)
-  daily_recurrence :
-    azurerm_dev_test_schedule__daily_recurrence list;
-  hourly_recurrence :
-    azurerm_dev_test_schedule__hourly_recurrence list;
-  notification_settings :
-    azurerm_dev_test_schedule__notification_settings list;
-  timeouts : azurerm_dev_test_schedule__timeouts option;
-  weekly_recurrence :
-    azurerm_dev_test_schedule__weekly_recurrence list;
+  daily_recurrence : daily_recurrence list;
+  hourly_recurrence : hourly_recurrence list;
+  notification_settings : notification_settings list;
+  timeouts : timeouts option;
+  weekly_recurrence : weekly_recurrence list;
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_schedule *)
+
+let daily_recurrence ~time () : daily_recurrence = { time }
+let hourly_recurrence ~minute () : hourly_recurrence = { minute }
+
+let notification_settings ?status ?time_in_minutes ?webhook_url () :
+    notification_settings =
+  { status; time_in_minutes; webhook_url }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let weekly_recurrence ?week_days ~time () : weekly_recurrence =
+  { time; week_days }
+
+let azurerm_dev_test_schedule ?id ?status ?tags ?timeouts ~lab_name
+    ~location ~name ~resource_group_name ~task_type ~time_zone_id
+    ~daily_recurrence ~hourly_recurrence ~notification_settings
+    ~weekly_recurrence () : azurerm_dev_test_schedule =
+  {
+    id;
+    lab_name;
+    location;
+    name;
+    resource_group_name;
+    status;
+    tags;
+    task_type;
+    time_zone_id;
+    daily_recurrence;
+    hourly_recurrence;
+    notification_settings;
+    timeouts;
+    weekly_recurrence;
+  }
 
 type t = {
   id : string prop;
@@ -76,31 +102,18 @@ type t = {
   time_zone_id : string prop;
 }
 
-let azurerm_dev_test_schedule ?id ?status ?tags ?timeouts ~lab_name
+let register ?tf_module ?id ?status ?tags ?timeouts ~lab_name
     ~location ~name ~resource_group_name ~task_type ~time_zone_id
     ~daily_recurrence ~hourly_recurrence ~notification_settings
     ~weekly_recurrence __resource_id =
   let __resource_type = "azurerm_dev_test_schedule" in
   let __resource =
-    ({
-       id;
-       lab_name;
-       location;
-       name;
-       resource_group_name;
-       status;
-       tags;
-       task_type;
-       time_zone_id;
-       daily_recurrence;
-       hourly_recurrence;
-       notification_settings;
-       timeouts;
-       weekly_recurrence;
-     }
-      : azurerm_dev_test_schedule)
+    azurerm_dev_test_schedule ?id ?status ?tags ?timeouts ~lab_name
+      ~location ~name ~resource_group_name ~task_type ~time_zone_id
+      ~daily_recurrence ~hourly_recurrence ~notification_settings
+      ~weekly_recurrence ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_test_schedule __resource);
   let __resource_attributes =
     ({

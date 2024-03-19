@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_cloud_ids_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloud_ids_endpoint__timeouts *)
+(** timeouts *)
 
 type google_cloud_ids_endpoint = {
   description : string prop option; [@option]
@@ -26,10 +26,28 @@ type google_cloud_ids_endpoint = {
       (** The minimum alert severity level that is reported by the endpoint. Possible values: [INFORMATIONAL, LOW, MEDIUM, HIGH, CRITICAL] *)
   threat_exceptions : string prop list option; [@option]
       (** Configuration for threat IDs excluded from generating alerts. Limit: 99 IDs. *)
-  timeouts : google_cloud_ids_endpoint__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloud_ids_endpoint *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_cloud_ids_endpoint ?description ?id ?project
+    ?threat_exceptions ?timeouts ~location ~name ~network ~severity
+    () : google_cloud_ids_endpoint =
+  {
+    description;
+    id;
+    location;
+    name;
+    network;
+    project;
+    severity;
+    threat_exceptions;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -46,25 +64,15 @@ type t = {
   update_time : string prop;
 }
 
-let google_cloud_ids_endpoint ?description ?id ?project
-    ?threat_exceptions ?timeouts ~location ~name ~network ~severity
-    __resource_id =
+let register ?tf_module ?description ?id ?project ?threat_exceptions
+    ?timeouts ~location ~name ~network ~severity __resource_id =
   let __resource_type = "google_cloud_ids_endpoint" in
   let __resource =
-    ({
-       description;
-       id;
-       location;
-       name;
-       network;
-       project;
-       severity;
-       threat_exceptions;
-       timeouts;
-     }
-      : google_cloud_ids_endpoint)
+    google_cloud_ids_endpoint ?description ?id ?project
+      ?threat_exceptions ?timeouts ~location ~name ~network ~severity
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_ids_endpoint __resource);
   let __resource_attributes =
     ({

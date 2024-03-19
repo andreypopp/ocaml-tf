@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_devicefarm_test_grid_project__vpc_config = {
+type vpc_config = {
   security_group_ids : string prop list;  (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
-(** aws_devicefarm_test_grid_project__vpc_config *)
+(** vpc_config *)
 
 type aws_devicefarm_test_grid_project = {
   description : string prop option; [@option]  (** description *)
@@ -19,10 +19,18 @@ type aws_devicefarm_test_grid_project = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_config : aws_devicefarm_test_grid_project__vpc_config list;
+  vpc_config : vpc_config list;
 }
 [@@deriving yojson_of]
 (** aws_devicefarm_test_grid_project *)
+
+let vpc_config ~security_group_ids ~subnet_ids ~vpc_id () :
+    vpc_config =
+  { security_group_ids; subnet_ids; vpc_id }
+
+let aws_devicefarm_test_grid_project ?description ?id ?tags ?tags_all
+    ~name ~vpc_config () : aws_devicefarm_test_grid_project =
+  { description; id; name; tags; tags_all; vpc_config }
 
 type t = {
   arn : string prop;
@@ -33,14 +41,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_devicefarm_test_grid_project ?description ?id ?tags ?tags_all
-    ~name ~vpc_config __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
+    ~vpc_config __resource_id =
   let __resource_type = "aws_devicefarm_test_grid_project" in
   let __resource =
-    ({ description; id; name; tags; tags_all; vpc_config }
-      : aws_devicefarm_test_grid_project)
+    aws_devicefarm_test_grid_project ?description ?id ?tags ?tags_all
+      ~name ~vpc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_devicefarm_test_grid_project __resource);
   let __resource_attributes =
     ({

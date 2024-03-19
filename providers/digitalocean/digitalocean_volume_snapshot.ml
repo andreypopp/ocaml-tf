@@ -13,6 +13,10 @@ type digitalocean_volume_snapshot = {
 [@@deriving yojson_of]
 (** digitalocean_volume_snapshot *)
 
+let digitalocean_volume_snapshot ?id ?tags ~name ~volume_id () :
+    digitalocean_volume_snapshot =
+  { id; name; tags; volume_id }
+
 type t = {
   created_at : string prop;
   id : string prop;
@@ -24,13 +28,12 @@ type t = {
   volume_id : string prop;
 }
 
-let digitalocean_volume_snapshot ?id ?tags ~name ~volume_id
-    __resource_id =
+let register ?tf_module ?id ?tags ~name ~volume_id __resource_id =
   let __resource_type = "digitalocean_volume_snapshot" in
   let __resource =
-    ({ id; name; tags; volume_id } : digitalocean_volume_snapshot)
+    digitalocean_volume_snapshot ?id ?tags ~name ~volume_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_volume_snapshot __resource);
   let __resource_attributes =
     ({

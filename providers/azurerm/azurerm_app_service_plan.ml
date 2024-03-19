@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_plan__sku = {
+type sku = {
   capacity : float prop option; [@option]  (** capacity *)
   size : string prop;  (** size *)
   tier : string prop;  (** tier *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_plan__sku *)
+(** sku *)
 
-type azurerm_app_service_plan__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_plan__timeouts *)
+(** timeouts *)
 
 type azurerm_app_service_plan = {
   app_service_environment_id : string prop option; [@option]
@@ -37,11 +37,37 @@ type azurerm_app_service_plan = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   zone_redundant : bool prop option; [@option]  (** zone_redundant *)
-  sku : azurerm_app_service_plan__sku list;
-  timeouts : azurerm_app_service_plan__timeouts option;
+  sku : sku list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_plan *)
+
+let sku ?capacity ~size ~tier () : sku = { capacity; size; tier }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_app_service_plan ?app_service_environment_id ?id
+    ?is_xenon ?kind ?maximum_elastic_worker_count ?per_site_scaling
+    ?reserved ?tags ?zone_redundant ?timeouts ~location ~name
+    ~resource_group_name ~sku () : azurerm_app_service_plan =
+  {
+    app_service_environment_id;
+    id;
+    is_xenon;
+    kind;
+    location;
+    maximum_elastic_worker_count;
+    name;
+    per_site_scaling;
+    reserved;
+    resource_group_name;
+    tags;
+    zone_redundant;
+    sku;
+    timeouts;
+  }
 
 type t = {
   app_service_environment_id : string prop;
@@ -59,31 +85,18 @@ type t = {
   zone_redundant : bool prop;
 }
 
-let azurerm_app_service_plan ?app_service_environment_id ?id
-    ?is_xenon ?kind ?maximum_elastic_worker_count ?per_site_scaling
-    ?reserved ?tags ?zone_redundant ?timeouts ~location ~name
+let register ?tf_module ?app_service_environment_id ?id ?is_xenon
+    ?kind ?maximum_elastic_worker_count ?per_site_scaling ?reserved
+    ?tags ?zone_redundant ?timeouts ~location ~name
     ~resource_group_name ~sku __resource_id =
   let __resource_type = "azurerm_app_service_plan" in
   let __resource =
-    ({
-       app_service_environment_id;
-       id;
-       is_xenon;
-       kind;
-       location;
-       maximum_elastic_worker_count;
-       name;
-       per_site_scaling;
-       reserved;
-       resource_group_name;
-       tags;
-       zone_redundant;
-       sku;
-       timeouts;
-     }
-      : azurerm_app_service_plan)
+    azurerm_app_service_plan ?app_service_environment_id ?id
+      ?is_xenon ?kind ?maximum_elastic_worker_count ?per_site_scaling
+      ?reserved ?tags ?zone_redundant ?timeouts ~location ~name
+      ~resource_group_name ~sku ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_plan __resource);
   let __resource_attributes =
     ({

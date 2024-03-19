@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_portfolio_share__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_portfolio_share__timeouts *)
+(** timeouts *)
 
 type aws_servicecatalog_portfolio_share = {
   accept_language : string prop option; [@option]
@@ -26,10 +26,29 @@ type aws_servicecatalog_portfolio_share = {
   type_ : string prop; [@key "type"]  (** type *)
   wait_for_acceptance : bool prop option; [@option]
       (** wait_for_acceptance *)
-  timeouts : aws_servicecatalog_portfolio_share__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_portfolio_share *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let aws_servicecatalog_portfolio_share ?accept_language ?id
+    ?share_principals ?share_tag_options ?wait_for_acceptance
+    ?timeouts ~portfolio_id ~principal_id ~type_ () :
+    aws_servicecatalog_portfolio_share =
+  {
+    accept_language;
+    id;
+    portfolio_id;
+    principal_id;
+    share_principals;
+    share_tag_options;
+    type_;
+    wait_for_acceptance;
+    timeouts;
+  }
 
 type t = {
   accept_language : string prop;
@@ -43,25 +62,16 @@ type t = {
   wait_for_acceptance : bool prop;
 }
 
-let aws_servicecatalog_portfolio_share ?accept_language ?id
-    ?share_principals ?share_tag_options ?wait_for_acceptance
-    ?timeouts ~portfolio_id ~principal_id ~type_ __resource_id =
+let register ?tf_module ?accept_language ?id ?share_principals
+    ?share_tag_options ?wait_for_acceptance ?timeouts ~portfolio_id
+    ~principal_id ~type_ __resource_id =
   let __resource_type = "aws_servicecatalog_portfolio_share" in
   let __resource =
-    ({
-       accept_language;
-       id;
-       portfolio_id;
-       principal_id;
-       share_principals;
-       share_tag_options;
-       type_;
-       wait_for_acceptance;
-       timeouts;
-     }
-      : aws_servicecatalog_portfolio_share)
+    aws_servicecatalog_portfolio_share ?accept_language ?id
+      ?share_principals ?share_tag_options ?wait_for_acceptance
+      ?timeouts ~portfolio_id ~principal_id ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_portfolio_share __resource);
   let __resource_attributes =
     ({

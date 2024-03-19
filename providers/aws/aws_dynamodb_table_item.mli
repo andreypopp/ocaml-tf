@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_dynamodb_table_item
+
+val aws_dynamodb_table_item :
+  ?id:string prop ->
+  ?range_key:string prop ->
+  hash_key:string prop ->
+  item:string prop ->
+  table_name:string prop ->
+  unit ->
+  aws_dynamodb_table_item
+
+val yojson_of_aws_dynamodb_table_item :
+  aws_dynamodb_table_item -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   hash_key : string prop;
@@ -12,7 +28,8 @@ type t = private {
   table_name : string prop;
 }
 
-val aws_dynamodb_table_item :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?range_key:string prop ->
   hash_key:string prop ->

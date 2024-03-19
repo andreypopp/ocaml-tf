@@ -16,6 +16,10 @@ type aws_codestarconnections_connection = {
 [@@deriving yojson_of]
 (** aws_codestarconnections_connection *)
 
+let aws_codestarconnections_connection ?host_arn ?id ?provider_type
+    ?tags ?tags_all ~name () : aws_codestarconnections_connection =
+  { host_arn; id; name; provider_type; tags; tags_all }
+
 type t = {
   arn : string prop;
   connection_status : string prop;
@@ -27,14 +31,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_codestarconnections_connection ?host_arn ?id ?provider_type
-    ?tags ?tags_all ~name __resource_id =
+let register ?tf_module ?host_arn ?id ?provider_type ?tags ?tags_all
+    ~name __resource_id =
   let __resource_type = "aws_codestarconnections_connection" in
   let __resource =
-    ({ host_arn; id; name; provider_type; tags; tags_all }
-      : aws_codestarconnections_connection)
+    aws_codestarconnections_connection ?host_arn ?id ?provider_type
+      ?tags ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codestarconnections_connection __resource);
   let __resource_attributes =
     ({

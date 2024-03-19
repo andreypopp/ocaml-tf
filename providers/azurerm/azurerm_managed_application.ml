@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_managed_application__plan = {
+type plan = {
   name : string prop;  (** name *)
   product : string prop;  (** product *)
   promotion_code : string prop option; [@option]
@@ -13,16 +13,16 @@ type azurerm_managed_application__plan = {
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_managed_application__plan *)
+(** plan *)
 
-type azurerm_managed_application__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_managed_application__timeouts *)
+(** timeouts *)
 
 type azurerm_managed_application = {
   application_definition_id : string prop option; [@option]
@@ -39,11 +39,37 @@ type azurerm_managed_application = {
       (** parameters *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  plan : azurerm_managed_application__plan list;
-  timeouts : azurerm_managed_application__timeouts option;
+  plan : plan list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_managed_application *)
+
+let plan ?promotion_code ~name ~product ~publisher ~version () : plan
+    =
+  { name; product; promotion_code; publisher; version }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_managed_application ?application_definition_id ?id
+    ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
+    ~managed_resource_group_name ~name ~resource_group_name ~plan ()
+    : azurerm_managed_application =
+  {
+    application_definition_id;
+    id;
+    kind;
+    location;
+    managed_resource_group_name;
+    name;
+    parameter_values;
+    parameters;
+    resource_group_name;
+    tags;
+    plan;
+    timeouts;
+  }
 
 type t = {
   application_definition_id : string prop;
@@ -59,29 +85,18 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_managed_application ?application_definition_id ?id
+let register ?tf_module ?application_definition_id ?id
     ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
     ~managed_resource_group_name ~name ~resource_group_name ~plan
     __resource_id =
   let __resource_type = "azurerm_managed_application" in
   let __resource =
-    ({
-       application_definition_id;
-       id;
-       kind;
-       location;
-       managed_resource_group_name;
-       name;
-       parameter_values;
-       parameters;
-       resource_group_name;
-       tags;
-       plan;
-       timeouts;
-     }
-      : azurerm_managed_application)
+    azurerm_managed_application ?application_definition_id ?id
+      ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
+      ~managed_resource_group_name ~name ~resource_group_name ~plan
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_managed_application __resource);
   let __resource_attributes =
     ({

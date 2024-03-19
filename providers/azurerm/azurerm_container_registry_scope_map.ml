@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_container_registry_scope_map__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_scope_map__timeouts *)
+(** timeouts *)
 
 type azurerm_container_registry_scope_map = {
   actions : string prop list;  (** actions *)
@@ -21,10 +21,26 @@ type azurerm_container_registry_scope_map = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts : azurerm_container_registry_scope_map__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_container_registry_scope_map *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_container_registry_scope_map ?description ?id ?timeouts
+    ~actions ~container_registry_name ~name ~resource_group_name () :
+    azurerm_container_registry_scope_map =
+  {
+    actions;
+    container_registry_name;
+    description;
+    id;
+    name;
+    resource_group_name;
+    timeouts;
+  }
 
 type t = {
   actions : string list prop;
@@ -35,23 +51,15 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_container_registry_scope_map ?description ?id ?timeouts
-    ~actions ~container_registry_name ~name ~resource_group_name
-    __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~actions
+    ~container_registry_name ~name ~resource_group_name __resource_id
+    =
   let __resource_type = "azurerm_container_registry_scope_map" in
   let __resource =
-    ({
-       actions;
-       container_registry_name;
-       description;
-       id;
-       name;
-       resource_group_name;
-       timeouts;
-     }
-      : azurerm_container_registry_scope_map)
+    azurerm_container_registry_scope_map ?description ?id ?timeouts
+      ~actions ~container_registry_name ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry_scope_map __resource);
   let __resource_attributes =
     ({

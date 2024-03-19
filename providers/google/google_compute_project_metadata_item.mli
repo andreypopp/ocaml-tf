@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type google_compute_project_metadata_item__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_project_metadata_item
+
+val google_compute_project_metadata_item :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  key:string prop ->
+  value:string prop ->
+  unit ->
+  google_compute_project_metadata_item
+
+val yojson_of_google_compute_project_metadata_item :
+  google_compute_project_metadata_item -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,10 +36,11 @@ type t = private {
   value : string prop;
 }
 
-val google_compute_project_metadata_item :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_compute_project_metadata_item__timeouts ->
+  ?timeouts:timeouts ->
   key:string prop ->
   value:string prop ->
   string ->

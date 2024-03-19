@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_identitystore_group__external_ids = {
+type external_ids = {
   id : string prop;  (** id *)
   issuer : string prop;  (** issuer *)
 }
@@ -19,23 +19,27 @@ type aws_identitystore_group = {
 [@@deriving yojson_of]
 (** aws_identitystore_group *)
 
+let aws_identitystore_group ?description ?id ~display_name
+    ~identity_store_id () : aws_identitystore_group =
+  { description; display_name; id; identity_store_id }
+
 type t = {
   description : string prop;
   display_name : string prop;
-  external_ids : aws_identitystore_group__external_ids list prop;
+  external_ids : external_ids list prop;
   group_id : string prop;
   id : string prop;
   identity_store_id : string prop;
 }
 
-let aws_identitystore_group ?description ?id ~display_name
+let register ?tf_module ?description ?id ~display_name
     ~identity_store_id __resource_id =
   let __resource_type = "aws_identitystore_group" in
   let __resource =
-    ({ description; display_name; id; identity_store_id }
-      : aws_identitystore_group)
+    aws_identitystore_group ?description ?id ~display_name
+      ~identity_store_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_identitystore_group __resource);
   let __resource_attributes =
     ({

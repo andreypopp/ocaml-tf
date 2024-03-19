@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_automation_rule__action_incident = {
+type action_incident = {
   classification : string prop option; [@option]
       (** classification *)
   classification_comment : string prop option; [@option]
@@ -16,32 +16,32 @@ type azurerm_sentinel_automation_rule__action_incident = {
   status : string prop option; [@option]  (** status *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_automation_rule__action_incident *)
+(** action_incident *)
 
-type azurerm_sentinel_automation_rule__action_playbook = {
+type action_playbook = {
   logic_app_id : string prop;  (** logic_app_id *)
   order : float prop;  (** order *)
   tenant_id : string prop option; [@option]  (** tenant_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_automation_rule__action_playbook *)
+(** action_playbook *)
 
-type azurerm_sentinel_automation_rule__condition = {
+type condition = {
   operator : string prop;  (** operator *)
   property : string prop;  (** property *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_automation_rule__condition *)
+(** condition *)
 
-type azurerm_sentinel_automation_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_automation_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_sentinel_automation_rule = {
   condition_json : string prop option; [@option]
@@ -56,15 +56,57 @@ type azurerm_sentinel_automation_rule = {
   order : float prop;  (** order *)
   triggers_on : string prop option; [@option]  (** triggers_on *)
   triggers_when : string prop option; [@option]  (** triggers_when *)
-  action_incident :
-    azurerm_sentinel_automation_rule__action_incident list;
-  action_playbook :
-    azurerm_sentinel_automation_rule__action_playbook list;
-  condition : azurerm_sentinel_automation_rule__condition list;
-  timeouts : azurerm_sentinel_automation_rule__timeouts option;
+  action_incident : action_incident list;
+  action_playbook : action_playbook list;
+  condition : condition list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_automation_rule *)
+
+let action_incident ?classification ?classification_comment ?labels
+    ?owner_id ?severity ?status ~order () : action_incident =
+  {
+    classification;
+    classification_comment;
+    labels;
+    order;
+    owner_id;
+    severity;
+    status;
+  }
+
+let action_playbook ?tenant_id ~logic_app_id ~order () :
+    action_playbook =
+  { logic_app_id; order; tenant_id }
+
+let condition ~operator ~property ~values () : condition =
+  { operator; property; values }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sentinel_automation_rule ?condition_json ?enabled
+    ?expiration ?id ?triggers_on ?triggers_when ?timeouts
+    ~display_name ~log_analytics_workspace_id ~name ~order
+    ~action_incident ~action_playbook ~condition () :
+    azurerm_sentinel_automation_rule =
+  {
+    condition_json;
+    display_name;
+    enabled;
+    expiration;
+    id;
+    log_analytics_workspace_id;
+    name;
+    order;
+    triggers_on;
+    triggers_when;
+    action_incident;
+    action_playbook;
+    condition;
+    timeouts;
+  }
 
 type t = {
   condition_json : string prop;
@@ -79,31 +121,18 @@ type t = {
   triggers_when : string prop;
 }
 
-let azurerm_sentinel_automation_rule ?condition_json ?enabled
-    ?expiration ?id ?triggers_on ?triggers_when ?timeouts
-    ~display_name ~log_analytics_workspace_id ~name ~order
-    ~action_incident ~action_playbook ~condition __resource_id =
+let register ?tf_module ?condition_json ?enabled ?expiration ?id
+    ?triggers_on ?triggers_when ?timeouts ~display_name
+    ~log_analytics_workspace_id ~name ~order ~action_incident
+    ~action_playbook ~condition __resource_id =
   let __resource_type = "azurerm_sentinel_automation_rule" in
   let __resource =
-    ({
-       condition_json;
-       display_name;
-       enabled;
-       expiration;
-       id;
-       log_analytics_workspace_id;
-       name;
-       order;
-       triggers_on;
-       triggers_when;
-       action_incident;
-       action_playbook;
-       condition;
-       timeouts;
-     }
-      : azurerm_sentinel_automation_rule)
+    azurerm_sentinel_automation_rule ?condition_json ?enabled
+      ?expiration ?id ?triggers_on ?triggers_when ?timeouts
+      ~display_name ~log_analytics_workspace_id ~name ~order
+      ~action_incident ~action_playbook ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_automation_rule __resource);
   let __resource_attributes =
     ({

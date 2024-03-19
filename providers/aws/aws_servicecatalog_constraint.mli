@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_constraint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_servicecatalog_constraint
+
+val aws_servicecatalog_constraint :
+  ?accept_language:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  parameters:string prop ->
+  portfolio_id:string prop ->
+  product_id:string prop ->
+  type_:string prop ->
+  unit ->
+  aws_servicecatalog_constraint
+
+val yojson_of_aws_servicecatalog_constraint :
+  aws_servicecatalog_constraint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   accept_language : string prop;
@@ -17,11 +45,12 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_servicecatalog_constraint :
+val register :
+  ?tf_module:tf_module ->
   ?accept_language:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:aws_servicecatalog_constraint__timeouts ->
+  ?timeouts:timeouts ->
   parameters:string prop ->
   portfolio_id:string prop ->
   product_id:string prop ->

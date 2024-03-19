@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_monitoring_dashboard__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_monitoring_dashboard__timeouts *)
+(** timeouts *)
 
 type google_monitoring_dashboard = {
   dashboard_json : string prop;
@@ -18,10 +18,17 @@ type google_monitoring_dashboard = {
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
-  timeouts : google_monitoring_dashboard__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_monitoring_dashboard *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_monitoring_dashboard ?id ?project ?timeouts
+    ~dashboard_json () : google_monitoring_dashboard =
+  { dashboard_json; id; project; timeouts }
 
 type t = {
   dashboard_json : string prop;
@@ -29,14 +36,14 @@ type t = {
   project : string prop;
 }
 
-let google_monitoring_dashboard ?id ?project ?timeouts
-    ~dashboard_json __resource_id =
+let register ?tf_module ?id ?project ?timeouts ~dashboard_json
+    __resource_id =
   let __resource_type = "google_monitoring_dashboard" in
   let __resource =
-    ({ dashboard_json; id; project; timeouts }
-      : google_monitoring_dashboard)
+    google_monitoring_dashboard ?id ?project ?timeouts
+      ~dashboard_json ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_dashboard __resource);
   let __resource_attributes =
     ({

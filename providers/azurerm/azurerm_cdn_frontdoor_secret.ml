@@ -4,40 +4,52 @@
 
 open! Tf.Prelude
 
-type azurerm_cdn_frontdoor_secret__secret__customer_certificate = {
+type secret__customer_certificate = {
   key_vault_certificate_id : string prop;
       (** key_vault_certificate_id *)
-  subject_alternative_names : string prop list;
-      (** subject_alternative_names *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_secret__secret__customer_certificate *)
+(** secret__customer_certificate *)
 
-type azurerm_cdn_frontdoor_secret__secret = {
-  customer_certificate :
-    azurerm_cdn_frontdoor_secret__secret__customer_certificate list;
+type secret = {
+  customer_certificate : secret__customer_certificate list;
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_secret__secret *)
+(** secret *)
 
-type azurerm_cdn_frontdoor_secret__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_secret__timeouts *)
+(** timeouts *)
 
 type azurerm_cdn_frontdoor_secret = {
   cdn_frontdoor_profile_id : string prop;
       (** cdn_frontdoor_profile_id *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  secret : azurerm_cdn_frontdoor_secret__secret list;
-  timeouts : azurerm_cdn_frontdoor_secret__timeouts option;
+  secret : secret list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_secret *)
+
+let secret__customer_certificate ~key_vault_certificate_id () :
+    secret__customer_certificate =
+  { key_vault_certificate_id }
+
+let secret ~customer_certificate () : secret =
+  { customer_certificate }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_cdn_frontdoor_secret ?id ?timeouts
+    ~cdn_frontdoor_profile_id ~name ~secret () :
+    azurerm_cdn_frontdoor_secret =
+  { cdn_frontdoor_profile_id; id; name; secret; timeouts }
 
 type t = {
   cdn_frontdoor_profile_id : string prop;
@@ -46,14 +58,14 @@ type t = {
   name : string prop;
 }
 
-let azurerm_cdn_frontdoor_secret ?id ?timeouts
-    ~cdn_frontdoor_profile_id ~name ~secret __resource_id =
+let register ?tf_module ?id ?timeouts ~cdn_frontdoor_profile_id ~name
+    ~secret __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_secret" in
   let __resource =
-    ({ cdn_frontdoor_profile_id; id; name; secret; timeouts }
-      : azurerm_cdn_frontdoor_secret)
+    azurerm_cdn_frontdoor_secret ?id ?timeouts
+      ~cdn_frontdoor_profile_id ~name ~secret ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_secret __resource);
   let __resource_attributes =
     ({

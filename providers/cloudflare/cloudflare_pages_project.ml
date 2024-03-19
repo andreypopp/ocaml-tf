@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_pages_project__build_config = {
+type build_config = {
   build_caching : bool prop option; [@option]
       (** Enable build caching for the project. *)
   build_command : string prop option; [@option]
@@ -21,14 +21,14 @@ type cloudflare_pages_project__build_config = {
 [@@deriving yojson_of]
 (** Configuration for the project build process. Read more about the build configuration in the [developer documentation](https://developers.cloudflare.com/pages/platform/build-configuration). *)
 
-type cloudflare_pages_project__deployment_configs__preview__placement = {
+type deployment_configs__preview__placement = {
   mode : string prop option; [@option]
       (** Placement Mode for the Pages Function. *)
 }
 [@@deriving yojson_of]
 (** Configuration for placement in the Cloudflare Pages project. *)
 
-type cloudflare_pages_project__deployment_configs__preview__service_binding = {
+type deployment_configs__preview__service_binding = {
   environment : string prop option; [@option]
       (** The name of the Worker environment to bind to. *)
   name : string prop;
@@ -38,7 +38,7 @@ type cloudflare_pages_project__deployment_configs__preview__service_binding = {
 [@@deriving yojson_of]
 (** Services used for Pages Functions. *)
 
-type cloudflare_pages_project__deployment_configs__preview = {
+type deployment_configs__preview = {
   always_use_latest_compatibility_date : bool prop option; [@option]
       (** Use latest compatibility date for Pages Functions. Defaults to `false`. *)
   compatibility_date : string prop option; [@option]
@@ -63,24 +63,20 @@ type cloudflare_pages_project__deployment_configs__preview = {
       (** Encrypted environment variables for Pages Functions. Defaults to `map[]`. *)
   usage_model : string prop option; [@option]
       (** Usage model used for Pages Functions. Available values: `unbound`, `bundled`, `standard`. Defaults to `bundled`. *)
-  placement :
-    cloudflare_pages_project__deployment_configs__preview__placement
-    list;
-  service_binding :
-    cloudflare_pages_project__deployment_configs__preview__service_binding
-    list;
+  placement : deployment_configs__preview__placement list;
+  service_binding : deployment_configs__preview__service_binding list;
 }
 [@@deriving yojson_of]
 (** Configuration for preview deploys. *)
 
-type cloudflare_pages_project__deployment_configs__production__placement = {
+type deployment_configs__production__placement = {
   mode : string prop option; [@option]
       (** Placement Mode for the Pages Function. *)
 }
 [@@deriving yojson_of]
 (** Configuration for placement in the Cloudflare Pages project. *)
 
-type cloudflare_pages_project__deployment_configs__production__service_binding = {
+type deployment_configs__production__service_binding = {
   environment : string prop option; [@option]
       (** The name of the Worker environment to bind to. *)
   name : string prop;
@@ -90,7 +86,7 @@ type cloudflare_pages_project__deployment_configs__production__service_binding =
 [@@deriving yojson_of]
 (** Services used for Pages Functions. *)
 
-type cloudflare_pages_project__deployment_configs__production = {
+type deployment_configs__production = {
   always_use_latest_compatibility_date : bool prop option; [@option]
       (** Use latest compatibility date for Pages Functions. Defaults to `false`. *)
   compatibility_date : string prop option; [@option]
@@ -115,26 +111,21 @@ type cloudflare_pages_project__deployment_configs__production = {
       (** Encrypted environment variables for Pages Functions. Defaults to `map[]`. *)
   usage_model : string prop option; [@option]
       (** Usage model used for Pages Functions. Available values: `unbound`, `bundled`, `standard`. Defaults to `bundled`. *)
-  placement :
-    cloudflare_pages_project__deployment_configs__production__placement
-    list;
+  placement : deployment_configs__production__placement list;
   service_binding :
-    cloudflare_pages_project__deployment_configs__production__service_binding
-    list;
+    deployment_configs__production__service_binding list;
 }
 [@@deriving yojson_of]
 (** Configuration for production deploys. *)
 
-type cloudflare_pages_project__deployment_configs = {
-  preview :
-    cloudflare_pages_project__deployment_configs__preview list;
-  production :
-    cloudflare_pages_project__deployment_configs__production list;
+type deployment_configs = {
+  preview : deployment_configs__preview list;
+  production : deployment_configs__production list;
 }
 [@@deriving yojson_of]
 (** Configuration for deployments in a project. *)
 
-type cloudflare_pages_project__source__config = {
+type source__config = {
   deployments_enabled : bool prop option; [@option]
       (** Toggle deployments on this repo. Defaults to `true`. *)
   owner : string prop option; [@option]
@@ -157,10 +148,10 @@ type cloudflare_pages_project__source__config = {
 [@@deriving yojson_of]
 (** Configuration for the source of the Cloudflare Pages project. *)
 
-type cloudflare_pages_project__source = {
+type source = {
   type_ : string prop option; [@option] [@key "type"]
       (** Project host type. *)
-  config : cloudflare_pages_project__source__config list;
+  config : source__config list;
 }
 [@@deriving yojson_of]
 (** Configuration for the project source. Read more about the source configuration in the [developer documentation](https://developers.cloudflare.com/pages/platform/branch-build-controls/). *)
@@ -172,14 +163,119 @@ type cloudflare_pages_project = {
   name : string prop;  (** Name of the project. *)
   production_branch : string prop;
       (** The name of the branch that is used for the production environment. *)
-  build_config : cloudflare_pages_project__build_config list;
-  deployment_configs :
-    cloudflare_pages_project__deployment_configs list;
-  source : cloudflare_pages_project__source list;
+  build_config : build_config list;
+  deployment_configs : deployment_configs list;
+  source : source list;
 }
 [@@deriving yojson_of]
 (** Provides a resource which manages Cloudflare Pages projects.
  *)
+
+let build_config ?build_caching ?build_command ?destination_dir
+    ?root_dir ?web_analytics_tag ?web_analytics_token () :
+    build_config =
+  {
+    build_caching;
+    build_command;
+    destination_dir;
+    root_dir;
+    web_analytics_tag;
+    web_analytics_token;
+  }
+
+let deployment_configs__preview__placement ?mode () :
+    deployment_configs__preview__placement =
+  { mode }
+
+let deployment_configs__preview__service_binding ?environment ~name
+    ~service () : deployment_configs__preview__service_binding =
+  { environment; name; service }
+
+let deployment_configs__preview ?always_use_latest_compatibility_date
+    ?compatibility_date ?compatibility_flags ?d1_databases
+    ?durable_object_namespaces ?environment_variables ?fail_open
+    ?kv_namespaces ?r2_buckets ?secrets ?usage_model ~placement
+    ~service_binding () : deployment_configs__preview =
+  {
+    always_use_latest_compatibility_date;
+    compatibility_date;
+    compatibility_flags;
+    d1_databases;
+    durable_object_namespaces;
+    environment_variables;
+    fail_open;
+    kv_namespaces;
+    r2_buckets;
+    secrets;
+    usage_model;
+    placement;
+    service_binding;
+  }
+
+let deployment_configs__production__placement ?mode () :
+    deployment_configs__production__placement =
+  { mode }
+
+let deployment_configs__production__service_binding ?environment
+    ~name ~service () :
+    deployment_configs__production__service_binding =
+  { environment; name; service }
+
+let deployment_configs__production
+    ?always_use_latest_compatibility_date ?compatibility_date
+    ?compatibility_flags ?d1_databases ?durable_object_namespaces
+    ?environment_variables ?fail_open ?kv_namespaces ?r2_buckets
+    ?secrets ?usage_model ~placement ~service_binding () :
+    deployment_configs__production =
+  {
+    always_use_latest_compatibility_date;
+    compatibility_date;
+    compatibility_flags;
+    d1_databases;
+    durable_object_namespaces;
+    environment_variables;
+    fail_open;
+    kv_namespaces;
+    r2_buckets;
+    secrets;
+    usage_model;
+    placement;
+    service_binding;
+  }
+
+let deployment_configs ~preview ~production () : deployment_configs =
+  { preview; production }
+
+let source__config ?deployments_enabled ?owner ?pr_comments_enabled
+    ?preview_branch_excludes ?preview_branch_includes
+    ?preview_deployment_setting ?production_deployment_enabled
+    ?repo_name ~production_branch () : source__config =
+  {
+    deployments_enabled;
+    owner;
+    pr_comments_enabled;
+    preview_branch_excludes;
+    preview_branch_includes;
+    preview_deployment_setting;
+    production_branch;
+    production_deployment_enabled;
+    repo_name;
+  }
+
+let source ?type_ ~config () : source = { type_; config }
+
+let cloudflare_pages_project ?id ~account_id ~name ~production_branch
+    ~build_config ~deployment_configs ~source () :
+    cloudflare_pages_project =
+  {
+    account_id;
+    id;
+    name;
+    production_branch;
+    build_config;
+    deployment_configs;
+    source;
+  }
 
 type t = {
   account_id : string prop;
@@ -191,22 +287,14 @@ type t = {
   subdomain : string prop;
 }
 
-let cloudflare_pages_project ?id ~account_id ~name ~production_branch
+let register ?tf_module ?id ~account_id ~name ~production_branch
     ~build_config ~deployment_configs ~source __resource_id =
   let __resource_type = "cloudflare_pages_project" in
   let __resource =
-    ({
-       account_id;
-       id;
-       name;
-       production_branch;
-       build_config;
-       deployment_configs;
-       source;
-     }
-      : cloudflare_pages_project)
+    cloudflare_pages_project ?id ~account_id ~name ~production_branch
+      ~build_config ~deployment_configs ~source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_pages_project __resource);
   let __resource_attributes =
     ({

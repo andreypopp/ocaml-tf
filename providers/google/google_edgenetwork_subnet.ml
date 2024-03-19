@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_edgenetwork_subnet__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_edgenetwork_subnet__timeouts *)
+(** timeouts *)
 
 type google_edgenetwork_subnet = {
   description : string prop option; [@option]
@@ -33,10 +33,30 @@ Must be of the form: 'projects/{{project}}/locations/{{location}}/zones/{{zone}}
       (** VLAN ID for this subnetwork. If not specified, one is assigned automatically. *)
   zone : string prop;
       (** The name of the target Distributed Cloud Edge zone. *)
-  timeouts : google_edgenetwork_subnet__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_edgenetwork_subnet *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_edgenetwork_subnet ?description ?id ?ipv4_cidr ?ipv6_cidr
+    ?labels ?project ?vlan_id ?timeouts ~location ~network ~subnet_id
+    ~zone () : google_edgenetwork_subnet =
+  {
+    description;
+    id;
+    ipv4_cidr;
+    ipv6_cidr;
+    labels;
+    location;
+    network;
+    project;
+    subnet_id;
+    vlan_id;
+    zone;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -56,28 +76,16 @@ type t = {
   zone : string prop;
 }
 
-let google_edgenetwork_subnet ?description ?id ?ipv4_cidr ?ipv6_cidr
+let register ?tf_module ?description ?id ?ipv4_cidr ?ipv6_cidr
     ?labels ?project ?vlan_id ?timeouts ~location ~network ~subnet_id
     ~zone __resource_id =
   let __resource_type = "google_edgenetwork_subnet" in
   let __resource =
-    ({
-       description;
-       id;
-       ipv4_cidr;
-       ipv6_cidr;
-       labels;
-       location;
-       network;
-       project;
-       subnet_id;
-       vlan_id;
-       zone;
-       timeouts;
-     }
-      : google_edgenetwork_subnet)
+    google_edgenetwork_subnet ?description ?id ?ipv4_cidr ?ipv6_cidr
+      ?labels ?project ?vlan_id ?timeouts ~location ~network
+      ~subnet_id ~zone ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_edgenetwork_subnet __resource);
   let __resource_attributes =
     ({

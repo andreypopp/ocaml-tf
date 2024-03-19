@@ -12,20 +12,22 @@ type aws_vpc_dhcp_options_association = {
 [@@deriving yojson_of]
 (** aws_vpc_dhcp_options_association *)
 
+let aws_vpc_dhcp_options_association ?id ~dhcp_options_id ~vpc_id ()
+    : aws_vpc_dhcp_options_association =
+  { dhcp_options_id; id; vpc_id }
+
 type t = {
   dhcp_options_id : string prop;
   id : string prop;
   vpc_id : string prop;
 }
 
-let aws_vpc_dhcp_options_association ?id ~dhcp_options_id ~vpc_id
-    __resource_id =
+let register ?tf_module ?id ~dhcp_options_id ~vpc_id __resource_id =
   let __resource_type = "aws_vpc_dhcp_options_association" in
   let __resource =
-    ({ dhcp_options_id; id; vpc_id }
-      : aws_vpc_dhcp_options_association)
+    aws_vpc_dhcp_options_association ?id ~dhcp_options_id ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_dhcp_options_association __resource);
   let __resource_attributes =
     ({

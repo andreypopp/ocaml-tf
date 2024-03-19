@@ -14,6 +14,10 @@ type aws_efs_file_system_policy = {
 [@@deriving yojson_of]
 (** aws_efs_file_system_policy *)
 
+let aws_efs_file_system_policy ?bypass_policy_lockout_safety_check
+    ?id ~file_system_id ~policy () : aws_efs_file_system_policy =
+  { bypass_policy_lockout_safety_check; file_system_id; id; policy }
+
 type t = {
   bypass_policy_lockout_safety_check : bool prop;
   file_system_id : string prop;
@@ -21,19 +25,14 @@ type t = {
   policy : string prop;
 }
 
-let aws_efs_file_system_policy ?bypass_policy_lockout_safety_check
-    ?id ~file_system_id ~policy __resource_id =
+let register ?tf_module ?bypass_policy_lockout_safety_check ?id
+    ~file_system_id ~policy __resource_id =
   let __resource_type = "aws_efs_file_system_policy" in
   let __resource =
-    ({
-       bypass_policy_lockout_safety_check;
-       file_system_id;
-       id;
-       policy;
-     }
-      : aws_efs_file_system_policy)
+    aws_efs_file_system_policy ?bypass_policy_lockout_safety_check
+      ?id ~file_system_id ~policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_efs_file_system_policy __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_notebooks_runtime_iam_policy
+
+val google_notebooks_runtime_iam_policy :
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  policy_data:string prop ->
+  runtime_name:string prop ->
+  unit ->
+  google_notebooks_runtime_iam_policy
+
+val yojson_of_google_notebooks_runtime_iam_policy :
+  google_notebooks_runtime_iam_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -13,7 +29,8 @@ type t = private {
   runtime_name : string prop;
 }
 
-val google_notebooks_runtime_iam_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->

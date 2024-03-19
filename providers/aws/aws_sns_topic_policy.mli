@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_sns_topic_policy
+
+val aws_sns_topic_policy :
+  ?id:string prop ->
+  arn:string prop ->
+  policy:string prop ->
+  unit ->
+  aws_sns_topic_policy
+
+val yojson_of_aws_sns_topic_policy : aws_sns_topic_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -11,7 +24,8 @@ type t = private {
   policy : string prop;
 }
 
-val aws_sns_topic_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   arn:string prop ->
   policy:string prop ->

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_container_azure_node_pool__autoscaling = {
+type autoscaling = {
   max_node_count : float prop;
       (** Maximum number of nodes in the node pool. Must be >= min_node_count. *)
   min_node_count : float prop;
@@ -13,7 +13,7 @@ type google_container_azure_node_pool__autoscaling = {
 [@@deriving yojson_of]
 (** Autoscaler configuration for this node pool. *)
 
-type google_container_azure_node_pool__config__proxy_config = {
+type config__proxy_config = {
   resource_group_id : string prop;
       (** The ARM ID the of the resource group containing proxy keyvault. Resource group ids are formatted as `/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>` *)
   secret_id : string prop;
@@ -22,58 +22,55 @@ type google_container_azure_node_pool__config__proxy_config = {
 [@@deriving yojson_of]
 (** Proxy configuration for outbound HTTP(S) traffic. *)
 
-type google_container_azure_node_pool__config__root_volume = {
+type config__root_volume = {
   size_gib : float prop option; [@option]
       (** Optional. The size of the disk, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
 }
 [@@deriving yojson_of]
 (** Optional. Configuration related to the root volume provisioned for each node pool machine. When unspecified, it defaults to a 32-GiB Azure Disk. *)
 
-type google_container_azure_node_pool__config__ssh_config = {
+type config__ssh_config = {
   authorized_key : string prop;
       (** The SSH public key data for VMs managed by Anthos. This accepts the authorized_keys file format used in OpenSSH according to the sshd(8) manual page. *)
 }
 [@@deriving yojson_of]
 (** SSH configuration for how to access the node pool machines. *)
 
-type google_container_azure_node_pool__config = {
+type config = {
   labels : (string * string prop) list option; [@option]
       (** Optional. The initial labels assigned to nodes of this node pool. An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   tags : (string * string prop) list option; [@option]
       (** Optional. A set of tags to apply to all underlying Azure resources for this node pool. This currently only includes Virtual Machine Scale Sets. Specify at most 50 pairs containing alphanumerics, spaces, and symbols (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to 255 Unicode characters. *)
   vm_size : string prop option; [@option]
       (** Optional. The Azure VM size name. Example: `Standard_DS2_v2`. See (/anthos/clusters/docs/azure/reference/supported-vms) for options. When unspecified, it defaults to `Standard_DS2_v2`. *)
-  proxy_config :
-    google_container_azure_node_pool__config__proxy_config list;
-  root_volume :
-    google_container_azure_node_pool__config__root_volume list;
-  ssh_config :
-    google_container_azure_node_pool__config__ssh_config list;
+  proxy_config : config__proxy_config list;
+  root_volume : config__root_volume list;
+  ssh_config : config__ssh_config list;
 }
 [@@deriving yojson_of]
 (** The node configuration of the node pool. *)
 
-type google_container_azure_node_pool__management = {
+type management = {
   auto_repair : bool prop option; [@option]
       (** Optional. Whether or not the nodes will be automatically repaired. *)
 }
 [@@deriving yojson_of]
 (** The Management configuration for this node pool. *)
 
-type google_container_azure_node_pool__max_pods_constraint = {
+type max_pods_constraint = {
   max_pods_per_node : float prop;
       (** The maximum number of pods to schedule on a single node. *)
 }
 [@@deriving yojson_of]
 (** The constraint on the maximum number of pods that can be run simultaneously on a node in the node pool. *)
 
-type google_container_azure_node_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_container_azure_node_pool__timeouts *)
+(** timeouts *)
 
 type google_container_azure_node_pool = {
   annotations : (string * string prop) list option; [@option]
@@ -93,15 +90,61 @@ Please refer to the field `effective_annotations` for all of the annotations pre
       (** The ARM ID of the subnet where the node pool VMs run. Make sure it's a subnet under the virtual network in the cluster configuration. *)
   version : string prop;
       (** The Kubernetes version (e.g. `1.19.10-gke.1000`) running on this node pool. *)
-  autoscaling : google_container_azure_node_pool__autoscaling list;
-  config : google_container_azure_node_pool__config list;
-  management : google_container_azure_node_pool__management list;
-  max_pods_constraint :
-    google_container_azure_node_pool__max_pods_constraint list;
-  timeouts : google_container_azure_node_pool__timeouts option;
+  autoscaling : autoscaling list;
+  config : config list;
+  management : management list;
+  max_pods_constraint : max_pods_constraint list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_container_azure_node_pool *)
+
+let autoscaling ~max_node_count ~min_node_count () : autoscaling =
+  { max_node_count; min_node_count }
+
+let config__proxy_config ~resource_group_id ~secret_id () :
+    config__proxy_config =
+  { resource_group_id; secret_id }
+
+let config__root_volume ?size_gib () : config__root_volume =
+  { size_gib }
+
+let config__ssh_config ~authorized_key () : config__ssh_config =
+  { authorized_key }
+
+let config ?labels ?tags ?vm_size ~proxy_config ~root_volume
+    ~ssh_config () : config =
+  { labels; tags; vm_size; proxy_config; root_volume; ssh_config }
+
+let management ?auto_repair () : management = { auto_repair }
+
+let max_pods_constraint ~max_pods_per_node () : max_pods_constraint =
+  { max_pods_per_node }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_container_azure_node_pool ?annotations
+    ?azure_availability_zone ?id ?project ?timeouts ~cluster
+    ~location ~name ~subnet_id ~version ~autoscaling ~config
+    ~management ~max_pods_constraint () :
+    google_container_azure_node_pool =
+  {
+    annotations;
+    azure_availability_zone;
+    cluster;
+    id;
+    location;
+    name;
+    project;
+    subnet_id;
+    version;
+    autoscaling;
+    config;
+    management;
+    max_pods_constraint;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -122,31 +165,18 @@ type t = {
   version : string prop;
 }
 
-let google_container_azure_node_pool ?annotations
-    ?azure_availability_zone ?id ?project ?timeouts ~cluster
-    ~location ~name ~subnet_id ~version ~autoscaling ~config
-    ~management ~max_pods_constraint __resource_id =
+let register ?tf_module ?annotations ?azure_availability_zone ?id
+    ?project ?timeouts ~cluster ~location ~name ~subnet_id ~version
+    ~autoscaling ~config ~management ~max_pods_constraint
+    __resource_id =
   let __resource_type = "google_container_azure_node_pool" in
   let __resource =
-    ({
-       annotations;
-       azure_availability_zone;
-       cluster;
-       id;
-       location;
-       name;
-       project;
-       subnet_id;
-       version;
-       autoscaling;
-       config;
-       management;
-       max_pods_constraint;
-       timeouts;
-     }
-      : google_container_azure_node_pool)
+    google_container_azure_node_pool ?annotations
+      ?azure_availability_zone ?id ?project ?timeouts ~cluster
+      ~location ~name ~subnet_id ~version ~autoscaling ~config
+      ~management ~max_pods_constraint ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_azure_node_pool __resource);
   let __resource_attributes =
     ({

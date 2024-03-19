@@ -23,6 +23,20 @@ type aws_iot_authorizer = {
 [@@deriving yojson_of]
 (** aws_iot_authorizer *)
 
+let aws_iot_authorizer ?enable_caching_for_http ?id ?signing_disabled
+    ?status ?token_key_name ?token_signing_public_keys
+    ~authorizer_function_arn ~name () : aws_iot_authorizer =
+  {
+    authorizer_function_arn;
+    enable_caching_for_http;
+    id;
+    name;
+    signing_disabled;
+    status;
+    token_key_name;
+    token_signing_public_keys;
+  }
+
 type t = {
   arn : string prop;
   authorizer_function_arn : string prop;
@@ -35,24 +49,17 @@ type t = {
   token_signing_public_keys : (string * string) list prop;
 }
 
-let aws_iot_authorizer ?enable_caching_for_http ?id ?signing_disabled
-    ?status ?token_key_name ?token_signing_public_keys
-    ~authorizer_function_arn ~name __resource_id =
+let register ?tf_module ?enable_caching_for_http ?id
+    ?signing_disabled ?status ?token_key_name
+    ?token_signing_public_keys ~authorizer_function_arn ~name
+    __resource_id =
   let __resource_type = "aws_iot_authorizer" in
   let __resource =
-    ({
-       authorizer_function_arn;
-       enable_caching_for_http;
-       id;
-       name;
-       signing_disabled;
-       status;
-       token_key_name;
-       token_signing_public_keys;
-     }
-      : aws_iot_authorizer)
+    aws_iot_authorizer ?enable_caching_for_http ?id ?signing_disabled
+      ?status ?token_key_name ?token_signing_public_keys
+      ~authorizer_function_arn ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_authorizer __resource);
   let __resource_attributes =
     ({

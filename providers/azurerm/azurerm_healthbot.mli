@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_healthbot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_healthbot
+
+val azurerm_healthbot :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  unit ->
+  azurerm_healthbot
+
+val yojson_of_azurerm_healthbot : azurerm_healthbot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bot_management_portal_url : string prop;
@@ -15,10 +41,11 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_healthbot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_healthbot__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

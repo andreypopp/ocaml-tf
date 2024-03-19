@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_project_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_project_service__timeouts *)
+(** timeouts *)
 
 type google_project_service = {
   disable_dependent_services : bool prop option; [@option]
@@ -21,10 +21,25 @@ type google_project_service = {
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]  (** project *)
   service : string prop;  (** service *)
-  timeouts : google_project_service__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_project_service *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let google_project_service ?disable_dependent_services
+    ?disable_on_destroy ?id ?project ?timeouts ~service () :
+    google_project_service =
+  {
+    disable_dependent_services;
+    disable_on_destroy;
+    id;
+    project;
+    service;
+    timeouts;
+  }
 
 type t = {
   disable_dependent_services : bool prop;
@@ -34,22 +49,15 @@ type t = {
   service : string prop;
 }
 
-let google_project_service ?disable_dependent_services
+let register ?tf_module ?disable_dependent_services
     ?disable_on_destroy ?id ?project ?timeouts ~service __resource_id
     =
   let __resource_type = "google_project_service" in
   let __resource =
-    ({
-       disable_dependent_services;
-       disable_on_destroy;
-       id;
-       project;
-       service;
-       timeouts;
-     }
-      : google_project_service)
+    google_project_service ?disable_dependent_services
+      ?disable_on_destroy ?id ?project ?timeouts ~service ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_service __resource);
   let __resource_attributes =
     ({

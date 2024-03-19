@@ -2,16 +2,93 @@
 
 open! Tf.Prelude
 
-type azurerm_subscription_policy_assignment__identity
-type azurerm_subscription_policy_assignment__non_compliance_message
-type azurerm_subscription_policy_assignment__overrides__selectors
-type azurerm_subscription_policy_assignment__overrides
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_subscription_policy_assignment__resource_selectors__selectors
+type identity
 
-type azurerm_subscription_policy_assignment__resource_selectors
-type azurerm_subscription_policy_assignment__timeouts
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type non_compliance_message
+
+val non_compliance_message :
+  ?policy_definition_reference_id:string prop ->
+  content:string prop ->
+  unit ->
+  non_compliance_message
+
+type overrides__selectors
+
+val overrides__selectors :
+  ?in_:string prop list ->
+  ?not_in:string prop list ->
+  unit ->
+  overrides__selectors
+
+type overrides
+
+val overrides :
+  value:string prop ->
+  selectors:overrides__selectors list ->
+  unit ->
+  overrides
+
+type resource_selectors__selectors
+
+val resource_selectors__selectors :
+  ?in_:string prop list ->
+  ?not_in:string prop list ->
+  kind:string prop ->
+  unit ->
+  resource_selectors__selectors
+
+type resource_selectors
+
+val resource_selectors :
+  ?name:string prop ->
+  selectors:resource_selectors__selectors list ->
+  unit ->
+  resource_selectors
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_subscription_policy_assignment
+
+val azurerm_subscription_policy_assignment :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?enforce:bool prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?metadata:string prop ->
+  ?not_scopes:string prop list ->
+  ?parameters:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  policy_definition_id:string prop ->
+  subscription_id:string prop ->
+  identity:identity list ->
+  non_compliance_message:non_compliance_message list ->
+  overrides:overrides list ->
+  resource_selectors:resource_selectors list ->
+  unit ->
+  azurerm_subscription_policy_assignment
+
+val yojson_of_azurerm_subscription_policy_assignment :
+  azurerm_subscription_policy_assignment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -27,7 +104,8 @@ type t = private {
   subscription_id : string prop;
 }
 
-val azurerm_subscription_policy_assignment :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?enforce:bool prop ->
@@ -36,16 +114,13 @@ val azurerm_subscription_policy_assignment :
   ?metadata:string prop ->
   ?not_scopes:string prop list ->
   ?parameters:string prop ->
-  ?timeouts:azurerm_subscription_policy_assignment__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   policy_definition_id:string prop ->
   subscription_id:string prop ->
-  identity:azurerm_subscription_policy_assignment__identity list ->
-  non_compliance_message:
-    azurerm_subscription_policy_assignment__non_compliance_message
-    list ->
-  overrides:azurerm_subscription_policy_assignment__overrides list ->
-  resource_selectors:
-    azurerm_subscription_policy_assignment__resource_selectors list ->
+  identity:identity list ->
+  non_compliance_message:non_compliance_message list ->
+  overrides:overrides list ->
+  resource_selectors:resource_selectors list ->
   string ->
   t

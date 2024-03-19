@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type google_iap_brand__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_iap_brand
+
+val google_iap_brand :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  application_title:string prop ->
+  support_email:string prop ->
+  unit ->
+  google_iap_brand
+
+val yojson_of_google_iap_brand : google_iap_brand -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_title : string prop;
@@ -14,10 +33,11 @@ type t = private {
   support_email : string prop;
 }
 
-val google_iap_brand :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_iap_brand__timeouts ->
+  ?timeouts:timeouts ->
   application_title:string prop ->
   support_email:string prop ->
   string ->

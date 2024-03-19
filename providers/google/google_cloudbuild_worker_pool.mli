@@ -2,10 +2,53 @@
 
 open! Tf.Prelude
 
-type google_cloudbuild_worker_pool__network_config
-type google_cloudbuild_worker_pool__timeouts
-type google_cloudbuild_worker_pool__worker_config
+(** RESOURCE SERIALIZATION *)
+
+type network_config
+
+val network_config :
+  ?peered_network_ip_range:string prop ->
+  peered_network:string prop ->
+  unit ->
+  network_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type worker_config
+
+val worker_config :
+  ?disk_size_gb:float prop ->
+  ?machine_type:string prop ->
+  ?no_external_ip:bool prop ->
+  unit ->
+  worker_config
+
 type google_cloudbuild_worker_pool
+
+val google_cloudbuild_worker_pool :
+  ?annotations:(string * string prop) list ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  network_config:network_config list ->
+  worker_config:worker_config list ->
+  unit ->
+  google_cloudbuild_worker_pool
+
+val yojson_of_google_cloudbuild_worker_pool :
+  google_cloudbuild_worker_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   annotations : (string * string) list prop;
@@ -22,15 +65,16 @@ type t = private {
   update_time : string prop;
 }
 
-val google_cloudbuild_worker_pool :
+val register :
+  ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_cloudbuild_worker_pool__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  network_config:google_cloudbuild_worker_pool__network_config list ->
-  worker_config:google_cloudbuild_worker_pool__worker_config list ->
+  network_config:network_config list ->
+  worker_config:worker_config list ->
   string ->
   t

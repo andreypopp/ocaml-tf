@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_route53recoverycontrolconfig_cluster__cluster_endpoints = {
+type cluster_endpoints = {
   endpoint : string prop;  (** endpoint *)
   region : string prop;  (** region *)
 }
@@ -17,23 +17,24 @@ type aws_route53recoverycontrolconfig_cluster = {
 [@@deriving yojson_of]
 (** aws_route53recoverycontrolconfig_cluster *)
 
+let aws_route53recoverycontrolconfig_cluster ?id ~name () :
+    aws_route53recoverycontrolconfig_cluster =
+  { id; name }
+
 type t = {
   arn : string prop;
-  cluster_endpoints :
-    aws_route53recoverycontrolconfig_cluster__cluster_endpoints list
-    prop;
+  cluster_endpoints : cluster_endpoints list prop;
   id : string prop;
   name : string prop;
   status : string prop;
 }
 
-let aws_route53recoverycontrolconfig_cluster ?id ~name __resource_id
-    =
+let register ?tf_module ?id ~name __resource_id =
   let __resource_type = "aws_route53recoverycontrolconfig_cluster" in
   let __resource =
-    ({ id; name } : aws_route53recoverycontrolconfig_cluster)
+    aws_route53recoverycontrolconfig_cluster ?id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53recoverycontrolconfig_cluster __resource);
   let __resource_attributes =
     ({

@@ -13,6 +13,9 @@ type aws_ec2_tag = {
 [@@deriving yojson_of]
 (** aws_ec2_tag *)
 
+let aws_ec2_tag ?id ~key ~resource_id ~value () : aws_ec2_tag =
+  { id; key; resource_id; value }
+
 type t = {
   id : string prop;
   key : string prop;
@@ -20,10 +23,10 @@ type t = {
   value : string prop;
 }
 
-let aws_ec2_tag ?id ~key ~resource_id ~value __resource_id =
+let register ?tf_module ?id ~key ~resource_id ~value __resource_id =
   let __resource_type = "aws_ec2_tag" in
-  let __resource = ({ id; key; resource_id; value } : aws_ec2_tag) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_ec2_tag ?id ~key ~resource_id ~value () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_tag __resource);
   let __resource_attributes =
     ({

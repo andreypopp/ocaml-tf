@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_record__data = {
+type data = {
   algorithm : float prop option; [@option]  (** algorithm *)
   altitude : float prop option; [@option]  (** altitude *)
   certificate : string prop option; [@option]  (** certificate *)
@@ -51,12 +51,12 @@ type cloudflare_record__data = {
 [@@deriving yojson_of]
 (** Map of attributes that constitute the record value. Conflicts with `value`. *)
 
-type cloudflare_record__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** cloudflare_record__timeouts *)
+(** timeouts *)
 
 type cloudflare_record = {
   allow_overwrite : bool prop option; [@option]
@@ -79,11 +79,82 @@ type cloudflare_record = {
       (** The value of the record. Conflicts with `data`. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  data : cloudflare_record__data list;
-  timeouts : cloudflare_record__timeouts option;
+  data : data list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare record resource. *)
+
+let data ?algorithm ?altitude ?certificate ?content ?digest
+    ?digest_type ?fingerprint ?flags ?key_tag ?lat_degrees
+    ?lat_direction ?lat_minutes ?lat_seconds ?long_degrees
+    ?long_direction ?long_minutes ?long_seconds ?matching_type ?name
+    ?order ?port ?precision_horz ?precision_vert ?preference
+    ?priority ?proto ?protocol ?public_key ?regex ?replacement
+    ?selector ?service ?size ?tag ?target ?type_ ?usage ?value
+    ?weight () : data =
+  {
+    algorithm;
+    altitude;
+    certificate;
+    content;
+    digest;
+    digest_type;
+    fingerprint;
+    flags;
+    key_tag;
+    lat_degrees;
+    lat_direction;
+    lat_minutes;
+    lat_seconds;
+    long_degrees;
+    long_direction;
+    long_minutes;
+    long_seconds;
+    matching_type;
+    name;
+    order;
+    port;
+    precision_horz;
+    precision_vert;
+    preference;
+    priority;
+    proto;
+    protocol;
+    public_key;
+    regex;
+    replacement;
+    selector;
+    service;
+    size;
+    tag;
+    target;
+    type_;
+    usage;
+    value;
+    weight;
+  }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let cloudflare_record ?allow_overwrite ?comment ?id ?priority
+    ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id ~data
+    () : cloudflare_record =
+  {
+    allow_overwrite;
+    comment;
+    id;
+    name;
+    priority;
+    proxied;
+    tags;
+    ttl;
+    type_;
+    value;
+    zone_id;
+    data;
+    timeouts;
+  }
 
 type t = {
   allow_overwrite : bool prop;
@@ -104,29 +175,16 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_record ?allow_overwrite ?comment ?id ?priority
+let register ?tf_module ?allow_overwrite ?comment ?id ?priority
     ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id ~data
     __resource_id =
   let __resource_type = "cloudflare_record" in
   let __resource =
-    ({
-       allow_overwrite;
-       comment;
-       id;
-       name;
-       priority;
-       proxied;
-       tags;
-       ttl;
-       type_;
-       value;
-       zone_id;
-       data;
-       timeouts;
-     }
-      : cloudflare_record)
+    cloudflare_record ?allow_overwrite ?comment ?id ?priority
+      ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id
+      ~data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_record __resource);
   let __resource_attributes =
     ({

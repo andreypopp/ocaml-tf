@@ -13,6 +13,10 @@ type aws_iam_service_specific_credential = {
 [@@deriving yojson_of]
 (** aws_iam_service_specific_credential *)
 
+let aws_iam_service_specific_credential ?id ?status ~service_name
+    ~user_name () : aws_iam_service_specific_credential =
+  { id; service_name; status; user_name }
+
 type t = {
   id : string prop;
   service_name : string prop;
@@ -23,14 +27,14 @@ type t = {
   user_name : string prop;
 }
 
-let aws_iam_service_specific_credential ?id ?status ~service_name
-    ~user_name __resource_id =
+let register ?tf_module ?id ?status ~service_name ~user_name
+    __resource_id =
   let __resource_type = "aws_iam_service_specific_credential" in
   let __resource =
-    ({ id; service_name; status; user_name }
-      : aws_iam_service_specific_credential)
+    aws_iam_service_specific_credential ?id ?status ~service_name
+      ~user_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_service_specific_credential __resource);
   let __resource_attributes =
     ({

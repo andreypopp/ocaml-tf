@@ -13,6 +13,10 @@ type google_sourcerepo_repository_iam_policy = {
 [@@deriving yojson_of]
 (** google_sourcerepo_repository_iam_policy *)
 
+let google_sourcerepo_repository_iam_policy ?id ?project ~policy_data
+    ~repository () : google_sourcerepo_repository_iam_policy =
+  { id; policy_data; project; repository }
+
 type t = {
   etag : string prop;
   id : string prop;
@@ -21,14 +25,14 @@ type t = {
   repository : string prop;
 }
 
-let google_sourcerepo_repository_iam_policy ?id ?project ~policy_data
-    ~repository __resource_id =
+let register ?tf_module ?id ?project ~policy_data ~repository
+    __resource_id =
   let __resource_type = "google_sourcerepo_repository_iam_policy" in
   let __resource =
-    ({ id; policy_data; project; repository }
-      : google_sourcerepo_repository_iam_policy)
+    google_sourcerepo_repository_iam_policy ?id ?project ~policy_data
+      ~repository ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sourcerepo_repository_iam_policy __resource);
   let __resource_attributes =
     ({

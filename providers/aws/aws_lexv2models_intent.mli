@@ -2,1834 +2,9375 @@
 
 open! Tf.Prelude
 
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__custom_payload
+(** RESOURCE SERIALIZATION *)
+
+type closing_setting__closing_response__message_group__message__custom_payload
+
+val closing_setting__closing_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  closing_setting__closing_response__message_group__message__custom_payload
+
+type closing_setting__closing_response__message_group__message__image_response_card__button
+
+val closing_setting__closing_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  closing_setting__closing_response__message_group__message__image_response_card__button
+
+type closing_setting__closing_response__message_group__message__image_response_card
+
+val closing_setting__closing_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    closing_setting__closing_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  closing_setting__closing_response__message_group__message__image_response_card
+
+type closing_setting__closing_response__message_group__message__plain_text_message
+
+val closing_setting__closing_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  closing_setting__closing_response__message_group__message__plain_text_message
+
+type closing_setting__closing_response__message_group__message__ssml_message
+
+val closing_setting__closing_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  closing_setting__closing_response__message_group__message__ssml_message
+
+type closing_setting__closing_response__message_group__message
+
+val closing_setting__closing_response__message_group__message :
+  custom_payload:
+    closing_setting__closing_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    closing_setting__closing_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    closing_setting__closing_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    closing_setting__closing_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  closing_setting__closing_response__message_group__message
+
+type closing_setting__closing_response__message_group__variation__custom_payload
+
+val closing_setting__closing_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  closing_setting__closing_response__message_group__variation__custom_payload
+
+type closing_setting__closing_response__message_group__variation__image_response_card__button
+
+val closing_setting__closing_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  closing_setting__closing_response__message_group__variation__image_response_card__button
+
+type closing_setting__closing_response__message_group__variation__image_response_card
+
+val closing_setting__closing_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    closing_setting__closing_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  closing_setting__closing_response__message_group__variation__image_response_card
+
+type closing_setting__closing_response__message_group__variation__plain_text_message
+
+val closing_setting__closing_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  closing_setting__closing_response__message_group__variation__plain_text_message
+
+type closing_setting__closing_response__message_group__variation__ssml_message
+
+val closing_setting__closing_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  closing_setting__closing_response__message_group__variation__ssml_message
+
+type closing_setting__closing_response__message_group__variation
+
+val closing_setting__closing_response__message_group__variation :
+  custom_payload:
+    closing_setting__closing_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    closing_setting__closing_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    closing_setting__closing_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    closing_setting__closing_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  closing_setting__closing_response__message_group__variation
+
+type closing_setting__closing_response__message_group
+
+val closing_setting__closing_response__message_group :
+  message:
+    closing_setting__closing_response__message_group__message list ->
+  variation:
+    closing_setting__closing_response__message_group__variation list ->
+  unit ->
+  closing_setting__closing_response__message_group
+
+type closing_setting__closing_response
+
+val closing_setting__closing_response :
+  ?allow_interrupt:bool prop ->
+  message_group:closing_setting__closing_response__message_group list ->
+  unit ->
+  closing_setting__closing_response
+
+type closing_setting__conditional__conditional_branch__condition
+
+val closing_setting__conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__condition
+
+type closing_setting__conditional__conditional_branch__next_step__dialog_action
+
+val closing_setting__conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__next_step__dialog_action
+
+type closing_setting__conditional__conditional_branch__next_step__intent__slot__value
+
+val closing_setting__conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__next_step__intent__slot__value
+
+type closing_setting__conditional__conditional_branch__next_step__intent__slot
+
+val closing_setting__conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    closing_setting__conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__next_step__intent__slot
+
+type closing_setting__conditional__conditional_branch__next_step__intent
+
+val closing_setting__conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    closing_setting__conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__next_step__intent
+
+type closing_setting__conditional__conditional_branch__next_step
+
+val closing_setting__conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    closing_setting__conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    closing_setting__conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__next_step
+
+type closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload
+
+val closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload
+
+type closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card
+
+val closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card
+
+type closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message
+
+val closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message
+
+type closing_setting__conditional__conditional_branch__response__message_group__message
+
+val closing_setting__conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__message
+
+type closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type closing_setting__conditional__conditional_branch__response__message_group__variation
+
+val closing_setting__conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group__variation
+
+type closing_setting__conditional__conditional_branch__response__message_group
+
+val closing_setting__conditional__conditional_branch__response__message_group :
+  message:
+    closing_setting__conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    closing_setting__conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response__message_group
+
+type closing_setting__conditional__conditional_branch__response
+
+val closing_setting__conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    closing_setting__conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  closing_setting__conditional__conditional_branch__response
+
+type closing_setting__conditional__conditional_branch
+
+val closing_setting__conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    closing_setting__conditional__conditional_branch__condition list ->
+  next_step:
+    closing_setting__conditional__conditional_branch__next_step list ->
+  response:
+    closing_setting__conditional__conditional_branch__response list ->
+  unit ->
+  closing_setting__conditional__conditional_branch
+
+type closing_setting__conditional__default_branch__next_step__dialog_action
+
+val closing_setting__conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__next_step__dialog_action
+
+type closing_setting__conditional__default_branch__next_step__intent__slot__value
+
+val closing_setting__conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__next_step__intent__slot__value
+
+type closing_setting__conditional__default_branch__next_step__intent__slot
+
+val closing_setting__conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    closing_setting__conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__next_step__intent__slot
+
+type closing_setting__conditional__default_branch__next_step__intent
+
+val closing_setting__conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    closing_setting__conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__next_step__intent
+
+type closing_setting__conditional__default_branch__next_step
+
+val closing_setting__conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    closing_setting__conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    closing_setting__conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__next_step
+
+type closing_setting__conditional__default_branch__response__message_group__message__custom_payload
+
+val closing_setting__conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__message__custom_payload
+
+type closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button
+
+val closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button
+
+type closing_setting__conditional__default_branch__response__message_group__message__image_response_card
+
+val closing_setting__conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__message__image_response_card
+
+type closing_setting__conditional__default_branch__response__message_group__message__plain_text_message
+
+val closing_setting__conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__message__plain_text_message
+
+type closing_setting__conditional__default_branch__response__message_group__message__ssml_message
+
+val closing_setting__conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__message__ssml_message
+
+type closing_setting__conditional__default_branch__response__message_group__message
+
+val closing_setting__conditional__default_branch__response__message_group__message :
+  custom_payload:
+    closing_setting__conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    closing_setting__conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    closing_setting__conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    closing_setting__conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__message
+
+type closing_setting__conditional__default_branch__response__message_group__variation__custom_payload
+
+val closing_setting__conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__variation__custom_payload
+
+type closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type closing_setting__conditional__default_branch__response__message_group__variation__image_response_card
+
+val closing_setting__conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__variation__image_response_card
+
+type closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message
+
+val closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message
+
+type closing_setting__conditional__default_branch__response__message_group__variation__ssml_message
+
+val closing_setting__conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__variation__ssml_message
+
+type closing_setting__conditional__default_branch__response__message_group__variation
+
+val closing_setting__conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    closing_setting__conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    closing_setting__conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    closing_setting__conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group__variation
+
+type closing_setting__conditional__default_branch__response__message_group
+
+val closing_setting__conditional__default_branch__response__message_group :
+  message:
+    closing_setting__conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    closing_setting__conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__response__message_group
+
+type closing_setting__conditional__default_branch__response
+
+val closing_setting__conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    closing_setting__conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  closing_setting__conditional__default_branch__response
+
+type closing_setting__conditional__default_branch
+
+val closing_setting__conditional__default_branch :
+  next_step:
+    closing_setting__conditional__default_branch__next_step list ->
+  response:
+    closing_setting__conditional__default_branch__response list ->
+  unit ->
+  closing_setting__conditional__default_branch
+
+type closing_setting__conditional
+
+val closing_setting__conditional :
+  active:bool prop ->
+  conditional_branch:
+    closing_setting__conditional__conditional_branch list ->
+  default_branch:closing_setting__conditional__default_branch list ->
+  unit ->
+  closing_setting__conditional
+
+type closing_setting__next_step__dialog_action
+
+val closing_setting__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  closing_setting__next_step__dialog_action
+
+type closing_setting__next_step__intent__slot__value
+
+val closing_setting__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  closing_setting__next_step__intent__slot__value
+
+type closing_setting__next_step__intent__slot
+
+val closing_setting__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:closing_setting__next_step__intent__slot__value list ->
+  unit ->
+  closing_setting__next_step__intent__slot
+
+type closing_setting__next_step__intent
+
+val closing_setting__next_step__intent :
+  ?name:string prop ->
+  slot:closing_setting__next_step__intent__slot list ->
+  unit ->
+  closing_setting__next_step__intent
+
+type closing_setting__next_step
+
+val closing_setting__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:closing_setting__next_step__dialog_action list ->
+  intent:closing_setting__next_step__intent list ->
+  unit ->
+  closing_setting__next_step
+
+type closing_setting
+
+val closing_setting :
+  ?active:bool prop ->
+  closing_response:closing_setting__closing_response list ->
+  conditional:closing_setting__conditional list ->
+  next_step:closing_setting__next_step list ->
+  unit ->
+  closing_setting
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
+    list ->
+  response:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch :
+  next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
+    list ->
+  response:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional :
+  active:bool prop ->
+  conditional_branch:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
+    list ->
+  default_branch:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_conditional
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__failure_response
+
+val confirmation_setting__code_hook__post_code_hook_specification__failure_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__failure_response
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
+    list ->
+  response:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch :
+  next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
+    list ->
+  response:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_conditional
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_conditional :
+  active:bool prop ->
+  conditional_branch:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
+    list ->
+  default_branch:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_conditional
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__success_response
+
+val confirmation_setting__code_hook__post_code_hook_specification__success_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__success_response
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
+    list ->
+  response:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch :
+  next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
+    list ->
+  response:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional :
+  active:bool prop ->
+  conditional_branch:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
+    list ->
+  default_branch:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation :
+  custom_payload:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group :
+  message:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
+
+type confirmation_setting__code_hook__post_code_hook_specification__timeout_response
+
+val confirmation_setting__code_hook__post_code_hook_specification__timeout_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification__timeout_response
+
+type confirmation_setting__code_hook__post_code_hook_specification
+
+val confirmation_setting__code_hook__post_code_hook_specification :
+  failure_conditional:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_conditional
+    list ->
+  failure_next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
+    list ->
+  failure_response:
+    confirmation_setting__code_hook__post_code_hook_specification__failure_response
+    list ->
+  success_conditional:
+    confirmation_setting__code_hook__post_code_hook_specification__success_conditional
+    list ->
+  success_next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__success_next_step
+    list ->
+  success_response:
+    confirmation_setting__code_hook__post_code_hook_specification__success_response
+    list ->
+  timeout_conditional:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional
+    list ->
+  timeout_next_step:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
+    list ->
+  timeout_response:
+    confirmation_setting__code_hook__post_code_hook_specification__timeout_response
+    list ->
+  unit ->
+  confirmation_setting__code_hook__post_code_hook_specification
+
+type confirmation_setting__code_hook
+
+val confirmation_setting__code_hook :
+  ?invocation_label:string prop ->
+  active:bool prop ->
+  enable_code_hook_invocation:bool prop ->
+  post_code_hook_specification:
+    confirmation_setting__code_hook__post_code_hook_specification
+    list ->
+  unit ->
+  confirmation_setting__code_hook
+
+type confirmation_setting__confirmation_conditional__conditional_branch__condition
+
+val confirmation_setting__confirmation_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__condition
+
+type confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
+
+val confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
+
+type confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value
+
+val confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value
+
+type confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
+
+val confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
+
+type confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent
+
+val confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent
+
+type confirmation_setting__confirmation_conditional__conditional_branch__next_step
+
+val confirmation_setting__confirmation_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__next_step
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response__message_group :
+  message:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
+
+type confirmation_setting__confirmation_conditional__conditional_branch__response
+
+val confirmation_setting__confirmation_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch__response
+
+type confirmation_setting__confirmation_conditional__conditional_branch
+
+val confirmation_setting__confirmation_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    confirmation_setting__confirmation_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    confirmation_setting__confirmation_conditional__conditional_branch__next_step
+    list ->
+  response:
+    confirmation_setting__confirmation_conditional__conditional_branch__response
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__conditional_branch
+
+type confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
+
+val confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
+
+type confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value
+
+val confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value
+
+type confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
+
+val confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
+
+type confirmation_setting__confirmation_conditional__default_branch__next_step__intent
+
+val confirmation_setting__confirmation_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__next_step__intent
+
+type confirmation_setting__confirmation_conditional__default_branch__next_step
+
+val confirmation_setting__confirmation_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__confirmation_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__next_step
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__message
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__message
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation
+
+type confirmation_setting__confirmation_conditional__default_branch__response__message_group
+
+val confirmation_setting__confirmation_conditional__default_branch__response__message_group :
+  message:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response__message_group
+
+type confirmation_setting__confirmation_conditional__default_branch__response
+
+val confirmation_setting__confirmation_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__confirmation_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch__response
+
+type confirmation_setting__confirmation_conditional__default_branch
+
+val confirmation_setting__confirmation_conditional__default_branch :
+  next_step:
+    confirmation_setting__confirmation_conditional__default_branch__next_step
+    list ->
+  response:
+    confirmation_setting__confirmation_conditional__default_branch__response
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional__default_branch
+
+type confirmation_setting__confirmation_conditional
+
+val confirmation_setting__confirmation_conditional :
+  active:bool prop ->
+  conditional_branch:
+    confirmation_setting__confirmation_conditional__conditional_branch
+    list ->
+  default_branch:
+    confirmation_setting__confirmation_conditional__default_branch
+    list ->
+  unit ->
+  confirmation_setting__confirmation_conditional
+
+type confirmation_setting__confirmation_next_step__dialog_action
+
+val confirmation_setting__confirmation_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__confirmation_next_step__dialog_action
+
+type confirmation_setting__confirmation_next_step__intent__slot__value
+
+val confirmation_setting__confirmation_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_next_step__intent__slot__value
+
+type confirmation_setting__confirmation_next_step__intent__slot
+
+val confirmation_setting__confirmation_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__confirmation_next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__confirmation_next_step__intent__slot
+
+type confirmation_setting__confirmation_next_step__intent
+
+val confirmation_setting__confirmation_next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__confirmation_next_step__intent__slot list ->
+  unit ->
+  confirmation_setting__confirmation_next_step__intent
+
+type confirmation_setting__confirmation_next_step
+
+val confirmation_setting__confirmation_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__confirmation_next_step__dialog_action list ->
+  intent:confirmation_setting__confirmation_next_step__intent list ->
+  unit ->
+  confirmation_setting__confirmation_next_step
+
+type confirmation_setting__confirmation_response__message_group__message__custom_payload
+
+val confirmation_setting__confirmation_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__message__custom_payload
+
+type confirmation_setting__confirmation_response__message_group__message__image_response_card__button
+
+val confirmation_setting__confirmation_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__message__image_response_card__button
+
+type confirmation_setting__confirmation_response__message_group__message__image_response_card
+
+val confirmation_setting__confirmation_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__confirmation_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__message__image_response_card
+
+type confirmation_setting__confirmation_response__message_group__message__plain_text_message
+
+val confirmation_setting__confirmation_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__message__plain_text_message
+
+type confirmation_setting__confirmation_response__message_group__message__ssml_message
+
+val confirmation_setting__confirmation_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__message__ssml_message
+
+type confirmation_setting__confirmation_response__message_group__message
+
+val confirmation_setting__confirmation_response__message_group__message :
+  custom_payload:
+    confirmation_setting__confirmation_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__confirmation_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__confirmation_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__confirmation_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__message
+
+type confirmation_setting__confirmation_response__message_group__variation__custom_payload
+
+val confirmation_setting__confirmation_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__variation__custom_payload
+
+type confirmation_setting__confirmation_response__message_group__variation__image_response_card__button
+
+val confirmation_setting__confirmation_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__variation__image_response_card__button
+
+type confirmation_setting__confirmation_response__message_group__variation__image_response_card
+
+val confirmation_setting__confirmation_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__confirmation_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__variation__image_response_card
+
+type confirmation_setting__confirmation_response__message_group__variation__plain_text_message
+
+val confirmation_setting__confirmation_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__variation__plain_text_message
+
+type confirmation_setting__confirmation_response__message_group__variation__ssml_message
+
+val confirmation_setting__confirmation_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__variation__ssml_message
+
+type confirmation_setting__confirmation_response__message_group__variation
+
+val confirmation_setting__confirmation_response__message_group__variation :
+  custom_payload:
+    confirmation_setting__confirmation_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__confirmation_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__confirmation_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__confirmation_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group__variation
+
+type confirmation_setting__confirmation_response__message_group
+
+val confirmation_setting__confirmation_response__message_group :
+  message:
+    confirmation_setting__confirmation_response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__confirmation_response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__confirmation_response__message_group
+
+type confirmation_setting__confirmation_response
+
+val confirmation_setting__confirmation_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__confirmation_response__message_group list ->
+  unit ->
+  confirmation_setting__confirmation_response
+
+type confirmation_setting__declination_conditional__conditional_branch__condition
+
+val confirmation_setting__declination_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__condition
+
+type confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
+
+val confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
+
+type confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value
+
+val confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value
+
+type confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
+
+val confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
+
+type confirmation_setting__declination_conditional__conditional_branch__next_step__intent
+
+val confirmation_setting__declination_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__next_step__intent
+
+type confirmation_setting__declination_conditional__conditional_branch__next_step
+
+val confirmation_setting__declination_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__declination_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__next_step
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__message
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__message
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation
+
+type confirmation_setting__declination_conditional__conditional_branch__response__message_group
+
+val confirmation_setting__declination_conditional__conditional_branch__response__message_group :
+  message:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response__message_group
+
+type confirmation_setting__declination_conditional__conditional_branch__response
+
+val confirmation_setting__declination_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__declination_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch__response
+
+type confirmation_setting__declination_conditional__conditional_branch
+
+val confirmation_setting__declination_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    confirmation_setting__declination_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    confirmation_setting__declination_conditional__conditional_branch__next_step
+    list ->
+  response:
+    confirmation_setting__declination_conditional__conditional_branch__response
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__conditional_branch
+
+type confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
+
+val confirmation_setting__declination_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
+
+type confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value
+
+val confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value
+
+type confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
+
+val confirmation_setting__declination_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
+
+type confirmation_setting__declination_conditional__default_branch__next_step__intent
+
+val confirmation_setting__declination_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__next_step__intent
+
+type confirmation_setting__declination_conditional__default_branch__next_step
+
+val confirmation_setting__declination_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__declination_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__next_step
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__message
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__message
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group__variation
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group__variation
+
+type confirmation_setting__declination_conditional__default_branch__response__message_group
+
+val confirmation_setting__declination_conditional__default_branch__response__message_group :
+  message:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__declination_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response__message_group
+
+type confirmation_setting__declination_conditional__default_branch__response
+
+val confirmation_setting__declination_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__declination_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch__response
+
+type confirmation_setting__declination_conditional__default_branch
+
+val confirmation_setting__declination_conditional__default_branch :
+  next_step:
+    confirmation_setting__declination_conditional__default_branch__next_step
+    list ->
+  response:
+    confirmation_setting__declination_conditional__default_branch__response
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional__default_branch
+
+type confirmation_setting__declination_conditional
+
+val confirmation_setting__declination_conditional :
+  active:bool prop ->
+  conditional_branch:
+    confirmation_setting__declination_conditional__conditional_branch
+    list ->
+  default_branch:
+    confirmation_setting__declination_conditional__default_branch
+    list ->
+  unit ->
+  confirmation_setting__declination_conditional
+
+type confirmation_setting__declination_next_step__dialog_action
+
+val confirmation_setting__declination_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__declination_next_step__dialog_action
+
+type confirmation_setting__declination_next_step__intent__slot__value
+
+val confirmation_setting__declination_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__declination_next_step__intent__slot__value
+
+type confirmation_setting__declination_next_step__intent__slot
+
+val confirmation_setting__declination_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__declination_next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__declination_next_step__intent__slot
+
+type confirmation_setting__declination_next_step__intent
+
+val confirmation_setting__declination_next_step__intent :
+  ?name:string prop ->
+  slot:confirmation_setting__declination_next_step__intent__slot list ->
+  unit ->
+  confirmation_setting__declination_next_step__intent
+
+type confirmation_setting__declination_next_step
+
+val confirmation_setting__declination_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__declination_next_step__dialog_action list ->
+  intent:confirmation_setting__declination_next_step__intent list ->
+  unit ->
+  confirmation_setting__declination_next_step
+
+type confirmation_setting__declination_response__message_group__message__custom_payload
+
+val confirmation_setting__declination_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_response__message_group__message__custom_payload
+
+type confirmation_setting__declination_response__message_group__message__image_response_card__button
+
+val confirmation_setting__declination_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_response__message_group__message__image_response_card__button
+
+type confirmation_setting__declination_response__message_group__message__image_response_card
+
+val confirmation_setting__declination_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__declination_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__declination_response__message_group__message__image_response_card
+
+type confirmation_setting__declination_response__message_group__message__plain_text_message
+
+val confirmation_setting__declination_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_response__message_group__message__plain_text_message
+
+type confirmation_setting__declination_response__message_group__message__ssml_message
+
+val confirmation_setting__declination_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_response__message_group__message__ssml_message
+
+type confirmation_setting__declination_response__message_group__message
+
+val confirmation_setting__declination_response__message_group__message :
+  custom_payload:
+    confirmation_setting__declination_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__declination_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__declination_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__declination_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__declination_response__message_group__message
+
+type confirmation_setting__declination_response__message_group__variation__custom_payload
+
+val confirmation_setting__declination_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_response__message_group__variation__custom_payload
+
+type confirmation_setting__declination_response__message_group__variation__image_response_card__button
+
+val confirmation_setting__declination_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_response__message_group__variation__image_response_card__button
+
+type confirmation_setting__declination_response__message_group__variation__image_response_card
+
+val confirmation_setting__declination_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__declination_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__declination_response__message_group__variation__image_response_card
+
+type confirmation_setting__declination_response__message_group__variation__plain_text_message
+
+val confirmation_setting__declination_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_response__message_group__variation__plain_text_message
+
+type confirmation_setting__declination_response__message_group__variation__ssml_message
+
+val confirmation_setting__declination_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__declination_response__message_group__variation__ssml_message
+
+type confirmation_setting__declination_response__message_group__variation
+
+val confirmation_setting__declination_response__message_group__variation :
+  custom_payload:
+    confirmation_setting__declination_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__declination_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__declination_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__declination_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__declination_response__message_group__variation
+
+type confirmation_setting__declination_response__message_group
+
+val confirmation_setting__declination_response__message_group :
+  message:
+    confirmation_setting__declination_response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__declination_response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__declination_response__message_group
+
+type confirmation_setting__declination_response
+
+val confirmation_setting__declination_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__declination_response__message_group list ->
+  unit ->
+  confirmation_setting__declination_response
+
+type confirmation_setting__elicitation_code_hook
+
+val confirmation_setting__elicitation_code_hook :
+  ?enable_code_hook_invocation:bool prop ->
+  ?invocation_label:string prop ->
+  unit ->
+  confirmation_setting__elicitation_code_hook
+
+type confirmation_setting__failure_conditional__conditional_branch__condition
+
+val confirmation_setting__failure_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__condition
+
+type confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
+
+val confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
+
+type confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value
+
+val confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value
+
+type confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
+
+val confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
+
+type confirmation_setting__failure_conditional__conditional_branch__next_step__intent
+
+val confirmation_setting__failure_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__next_step__intent
+
+type confirmation_setting__failure_conditional__conditional_branch__next_step
+
+val confirmation_setting__failure_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__failure_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__next_step
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__message
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__message
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation
+
+type confirmation_setting__failure_conditional__conditional_branch__response__message_group
+
+val confirmation_setting__failure_conditional__conditional_branch__response__message_group :
+  message:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response__message_group
+
+type confirmation_setting__failure_conditional__conditional_branch__response
+
+val confirmation_setting__failure_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__failure_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch__response
+
+type confirmation_setting__failure_conditional__conditional_branch
+
+val confirmation_setting__failure_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    confirmation_setting__failure_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    confirmation_setting__failure_conditional__conditional_branch__next_step
+    list ->
+  response:
+    confirmation_setting__failure_conditional__conditional_branch__response
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__conditional_branch
+
+type confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
+
+val confirmation_setting__failure_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
+
+type confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value
+
+val confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value
+
+type confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
+
+val confirmation_setting__failure_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
+
+type confirmation_setting__failure_conditional__default_branch__next_step__intent
+
+val confirmation_setting__failure_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__next_step__intent
+
+type confirmation_setting__failure_conditional__default_branch__next_step
+
+val confirmation_setting__failure_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    confirmation_setting__failure_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__next_step
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__message
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__message
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group__variation
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group__variation
+
+type confirmation_setting__failure_conditional__default_branch__response__message_group
+
+val confirmation_setting__failure_conditional__default_branch__response__message_group :
+  message:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__failure_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response__message_group
+
+type confirmation_setting__failure_conditional__default_branch__response
+
+val confirmation_setting__failure_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__failure_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch__response
+
+type confirmation_setting__failure_conditional__default_branch
+
+val confirmation_setting__failure_conditional__default_branch :
+  next_step:
+    confirmation_setting__failure_conditional__default_branch__next_step
+    list ->
+  response:
+    confirmation_setting__failure_conditional__default_branch__response
+    list ->
+  unit ->
+  confirmation_setting__failure_conditional__default_branch
+
+type confirmation_setting__failure_conditional
+
+val confirmation_setting__failure_conditional :
+  active:bool prop ->
+  conditional_branch:
+    confirmation_setting__failure_conditional__conditional_branch
+    list ->
+  default_branch:
+    confirmation_setting__failure_conditional__default_branch list ->
+  unit ->
+  confirmation_setting__failure_conditional
+
+type confirmation_setting__failure_next_step__dialog_action
+
+val confirmation_setting__failure_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  confirmation_setting__failure_next_step__dialog_action
+
+type confirmation_setting__failure_next_step__intent__slot__value
+
+val confirmation_setting__failure_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  confirmation_setting__failure_next_step__intent__slot__value
+
+type confirmation_setting__failure_next_step__intent__slot
+
+val confirmation_setting__failure_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    confirmation_setting__failure_next_step__intent__slot__value list ->
+  unit ->
+  confirmation_setting__failure_next_step__intent__slot
+
+type confirmation_setting__failure_next_step__intent
+
+val confirmation_setting__failure_next_step__intent :
+  ?name:string prop ->
+  slot:confirmation_setting__failure_next_step__intent__slot list ->
+  unit ->
+  confirmation_setting__failure_next_step__intent
+
+type confirmation_setting__failure_next_step
+
+val confirmation_setting__failure_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    confirmation_setting__failure_next_step__dialog_action list ->
+  intent:confirmation_setting__failure_next_step__intent list ->
+  unit ->
+  confirmation_setting__failure_next_step
+
+type confirmation_setting__failure_response__message_group__message__custom_payload
+
+val confirmation_setting__failure_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_response__message_group__message__custom_payload
+
+type confirmation_setting__failure_response__message_group__message__image_response_card__button
+
+val confirmation_setting__failure_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_response__message_group__message__image_response_card__button
+
+type confirmation_setting__failure_response__message_group__message__image_response_card
+
+val confirmation_setting__failure_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__failure_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__failure_response__message_group__message__image_response_card
+
+type confirmation_setting__failure_response__message_group__message__plain_text_message
+
+val confirmation_setting__failure_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_response__message_group__message__plain_text_message
+
+type confirmation_setting__failure_response__message_group__message__ssml_message
+
+val confirmation_setting__failure_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_response__message_group__message__ssml_message
+
+type confirmation_setting__failure_response__message_group__message
+
+val confirmation_setting__failure_response__message_group__message :
+  custom_payload:
+    confirmation_setting__failure_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__failure_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__failure_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__failure_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__failure_response__message_group__message
+
+type confirmation_setting__failure_response__message_group__variation__custom_payload
+
+val confirmation_setting__failure_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_response__message_group__variation__custom_payload
+
+type confirmation_setting__failure_response__message_group__variation__image_response_card__button
+
+val confirmation_setting__failure_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_response__message_group__variation__image_response_card__button
+
+type confirmation_setting__failure_response__message_group__variation__image_response_card
+
+val confirmation_setting__failure_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__failure_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__failure_response__message_group__variation__image_response_card
+
+type confirmation_setting__failure_response__message_group__variation__plain_text_message
+
+val confirmation_setting__failure_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_response__message_group__variation__plain_text_message
+
+type confirmation_setting__failure_response__message_group__variation__ssml_message
+
+val confirmation_setting__failure_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__failure_response__message_group__variation__ssml_message
+
+type confirmation_setting__failure_response__message_group__variation
+
+val confirmation_setting__failure_response__message_group__variation :
+  custom_payload:
+    confirmation_setting__failure_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__failure_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__failure_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__failure_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__failure_response__message_group__variation
+
+type confirmation_setting__failure_response__message_group
+
+val confirmation_setting__failure_response__message_group :
+  message:
+    confirmation_setting__failure_response__message_group__message
+    list ->
+  variation:
+    confirmation_setting__failure_response__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__failure_response__message_group
+
+type confirmation_setting__failure_response
+
+val confirmation_setting__failure_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    confirmation_setting__failure_response__message_group list ->
+  unit ->
+  confirmation_setting__failure_response
+
+type confirmation_setting__prompt_specification__message_group__message__custom_payload
+
+val confirmation_setting__prompt_specification__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__message__custom_payload
+
+type confirmation_setting__prompt_specification__message_group__message__image_response_card__button
+
+val confirmation_setting__prompt_specification__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__message__image_response_card__button
+
+type confirmation_setting__prompt_specification__message_group__message__image_response_card
+
+val confirmation_setting__prompt_specification__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__prompt_specification__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__message__image_response_card
+
+type confirmation_setting__prompt_specification__message_group__message__plain_text_message
+
+val confirmation_setting__prompt_specification__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__message__plain_text_message
+
+type confirmation_setting__prompt_specification__message_group__message__ssml_message
+
+val confirmation_setting__prompt_specification__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__message__ssml_message
+
+type confirmation_setting__prompt_specification__message_group__message
+
+val confirmation_setting__prompt_specification__message_group__message :
+  custom_payload:
+    confirmation_setting__prompt_specification__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__prompt_specification__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__prompt_specification__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__prompt_specification__message_group__message__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__message
+
+type confirmation_setting__prompt_specification__message_group__variation__custom_payload
+
+val confirmation_setting__prompt_specification__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__variation__custom_payload
+
+type confirmation_setting__prompt_specification__message_group__variation__image_response_card__button
+
+val confirmation_setting__prompt_specification__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__variation__image_response_card__button
+
+type confirmation_setting__prompt_specification__message_group__variation__image_response_card
+
+val confirmation_setting__prompt_specification__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    confirmation_setting__prompt_specification__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__variation__image_response_card
+
+type confirmation_setting__prompt_specification__message_group__variation__plain_text_message
+
+val confirmation_setting__prompt_specification__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__variation__plain_text_message
+
+type confirmation_setting__prompt_specification__message_group__variation__ssml_message
+
+val confirmation_setting__prompt_specification__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__variation__ssml_message
+
+type confirmation_setting__prompt_specification__message_group__variation
+
+val confirmation_setting__prompt_specification__message_group__variation :
+  custom_payload:
+    confirmation_setting__prompt_specification__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    confirmation_setting__prompt_specification__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    confirmation_setting__prompt_specification__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    confirmation_setting__prompt_specification__message_group__variation__ssml_message
+    list ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group__variation
+
+type confirmation_setting__prompt_specification__message_group
+
+val confirmation_setting__prompt_specification__message_group :
+  message:
+    confirmation_setting__prompt_specification__message_group__message
+    list ->
+  variation:
+    confirmation_setting__prompt_specification__message_group__variation
+    list ->
+  unit ->
+  confirmation_setting__prompt_specification__message_group
+
+type confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
+
+val confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types :
+  allow_audio_input:bool prop ->
+  allow_dtmf_input:bool prop ->
+  unit ->
+  confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
+
+type confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
+
+val confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification :
+  end_timeout_ms:float prop ->
+  max_length_ms:float prop ->
+  unit ->
+  confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
+
+type confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
+
+val confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification :
+  deletion_character:string prop ->
+  end_character:string prop ->
+  end_timeout_ms:float prop ->
+  max_length:float prop ->
+  unit ->
+  confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
+
+type confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
+
+val confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification :
+  start_timeout_ms:float prop ->
+  audio_specification:
+    confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
+    list ->
+  dtmf_specification:
+    confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
+    list ->
+  unit ->
+  confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
+
+type confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
+
+val confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification :
+  start_timeout_ms:float prop ->
+  unit ->
+  confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
+
+type confirmation_setting__prompt_specification__prompt_attempts_specification
+
+val confirmation_setting__prompt_specification__prompt_attempts_specification :
+  ?allow_interrupt:bool prop ->
+  map_block_key:string prop ->
+  allowed_input_types:
+    confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
+    list ->
+  audio_and_dtmf_input_specification:
+    confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
+    list ->
+  text_input_specification:
+    confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
+    list ->
+  unit ->
+  confirmation_setting__prompt_specification__prompt_attempts_specification
+
+type confirmation_setting__prompt_specification
+
+val confirmation_setting__prompt_specification :
+  ?allow_interrupt:bool prop ->
+  ?message_selection_strategy:string prop ->
+  max_retries:float prop ->
+  message_group:
+    confirmation_setting__prompt_specification__message_group list ->
+  prompt_attempts_specification:
+    confirmation_setting__prompt_specification__prompt_attempts_specification
+    list ->
+  unit ->
+  confirmation_setting__prompt_specification
+
+type confirmation_setting
+
+val confirmation_setting :
+  ?active:bool prop ->
+  code_hook:confirmation_setting__code_hook list ->
+  confirmation_conditional:
+    confirmation_setting__confirmation_conditional list ->
+  confirmation_next_step:
+    confirmation_setting__confirmation_next_step list ->
+  confirmation_response:
+    confirmation_setting__confirmation_response list ->
+  declination_conditional:
+    confirmation_setting__declination_conditional list ->
+  declination_next_step:
+    confirmation_setting__declination_next_step list ->
+  declination_response:
+    confirmation_setting__declination_response list ->
+  elicitation_code_hook:
+    confirmation_setting__elicitation_code_hook list ->
+  failure_conditional:confirmation_setting__failure_conditional list ->
+  failure_next_step:confirmation_setting__failure_next_step list ->
+  failure_response:confirmation_setting__failure_response list ->
+  prompt_specification:
+    confirmation_setting__prompt_specification list ->
+  unit ->
+  confirmation_setting
+
+type dialog_code_hook
+
+val dialog_code_hook : enabled:bool prop -> unit -> dialog_code_hook
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group :
+  message:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
+
+type fulfillment_code_hook__fulfillment_updates_specification__start_response
+
+val fulfillment_code_hook__fulfillment_updates_specification__start_response :
+  ?allow_interrupt:bool prop ->
+  ?delay_in_seconds:float prop ->
+  message_group:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__start_response
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group :
+  message:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
+
+type fulfillment_code_hook__fulfillment_updates_specification__update_response
+
+val fulfillment_code_hook__fulfillment_updates_specification__update_response :
+  ?allow_interrupt:bool prop ->
+  frequency_in_seconds:float prop ->
+  message_group:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification__update_response
+
+type fulfillment_code_hook__fulfillment_updates_specification
+
+val fulfillment_code_hook__fulfillment_updates_specification :
+  ?timeout_in_seconds:float prop ->
+  active:bool prop ->
+  start_response:
+    fulfillment_code_hook__fulfillment_updates_specification__start_response
+    list ->
+  update_response:
+    fulfillment_code_hook__fulfillment_updates_specification__update_response
+    list ->
+  unit ->
+  fulfillment_code_hook__fulfillment_updates_specification
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
+    list ->
+  response:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch :
+  next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
+    list ->
+  response:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional :
+  active:bool prop ->
+  conditional_branch:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
+    list ->
+  default_branch:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__failure_response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__failure_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__failure_response
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
+    list ->
+  response:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch :
+  next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
+    list ->
+  response:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional :
+  active:bool prop ->
+  conditional_branch:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
+    list ->
+  default_branch:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_conditional
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__success_response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__success_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__success_response
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
+    list ->
+  response:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch :
+  next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
+    list ->
+  response:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional :
+  active:bool prop ->
+  conditional_branch:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
+    list ->
+  default_branch:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent :
+  ?name:string prop ->
+  slot:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
+    list ->
+  intent:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation :
+  custom_payload:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group :
+  message:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message
+    list ->
+  variation:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
+
+type fulfillment_code_hook__post_fulfillment_status_specification__timeout_response
+
+val fulfillment_code_hook__post_fulfillment_status_specification__timeout_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification__timeout_response
+
+type fulfillment_code_hook__post_fulfillment_status_specification
+
+val fulfillment_code_hook__post_fulfillment_status_specification :
+  failure_conditional:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional
+    list ->
+  failure_next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
+    list ->
+  failure_response:
+    fulfillment_code_hook__post_fulfillment_status_specification__failure_response
+    list ->
+  success_conditional:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_conditional
+    list ->
+  success_next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
+    list ->
+  success_response:
+    fulfillment_code_hook__post_fulfillment_status_specification__success_response
+    list ->
+  timeout_conditional:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional
+    list ->
+  timeout_next_step:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
+    list ->
+  timeout_response:
+    fulfillment_code_hook__post_fulfillment_status_specification__timeout_response
+    list ->
+  unit ->
+  fulfillment_code_hook__post_fulfillment_status_specification
+
+type fulfillment_code_hook
+
+val fulfillment_code_hook :
+  ?active:bool prop ->
+  enabled:bool prop ->
+  fulfillment_updates_specification:
+    fulfillment_code_hook__fulfillment_updates_specification list ->
+  post_fulfillment_status_specification:
+    fulfillment_code_hook__post_fulfillment_status_specification list ->
+  unit ->
+  fulfillment_code_hook
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
+    list ->
+  response:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch :
+  next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
+    list ->
+  response:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional :
+  active:bool prop ->
+  conditional_branch:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
+    list ->
+  default_branch:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_conditional
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__failure_response
+
+val initial_response_setting__code_hook__post_code_hook_specification__failure_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__failure_response
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
+    list ->
+  response:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch :
+  next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
+    list ->
+  response:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_conditional
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_conditional :
+  active:bool prop ->
+  conditional_branch:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
+    list ->
+  default_branch:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_conditional
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__success_response
+
+val initial_response_setting__code_hook__post_code_hook_specification__success_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__success_response
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
+    list ->
+  next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
+    list ->
+  response:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch :
+  next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
+    list ->
+  response:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional :
+  active:bool prop ->
+  conditional_branch:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
+    list ->
+  default_branch:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation :
+  custom_payload:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group :
+  message:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
+
+type initial_response_setting__code_hook__post_code_hook_specification__timeout_response
+
+val initial_response_setting__code_hook__post_code_hook_specification__timeout_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification__timeout_response
+
+type initial_response_setting__code_hook__post_code_hook_specification
+
+val initial_response_setting__code_hook__post_code_hook_specification :
+  failure_conditional:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_conditional
+    list ->
+  failure_next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
+    list ->
+  failure_response:
+    initial_response_setting__code_hook__post_code_hook_specification__failure_response
+    list ->
+  success_conditional:
+    initial_response_setting__code_hook__post_code_hook_specification__success_conditional
+    list ->
+  success_next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__success_next_step
+    list ->
+  success_response:
+    initial_response_setting__code_hook__post_code_hook_specification__success_response
+    list ->
+  timeout_conditional:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional
+    list ->
+  timeout_next_step:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
+    list ->
+  timeout_response:
+    initial_response_setting__code_hook__post_code_hook_specification__timeout_response
+    list ->
+  unit ->
+  initial_response_setting__code_hook__post_code_hook_specification
+
+type initial_response_setting__code_hook
+
+val initial_response_setting__code_hook :
+  ?invocation_label:string prop ->
+  active:bool prop ->
+  enable_code_hook_invocation:bool prop ->
+  post_code_hook_specification:
+    initial_response_setting__code_hook__post_code_hook_specification
+    list ->
+  unit ->
+  initial_response_setting__code_hook
+
+type initial_response_setting__conditional__conditional_branch__condition
+
+val initial_response_setting__conditional__conditional_branch__condition :
+  expression_string:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__condition
+
+type initial_response_setting__conditional__conditional_branch__next_step__dialog_action
+
+val initial_response_setting__conditional__conditional_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__next_step__dialog_action
+
+type initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value
+
+val initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value
+
+type initial_response_setting__conditional__conditional_branch__next_step__intent__slot
+
+val initial_response_setting__conditional__conditional_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__next_step__intent__slot
+
+type initial_response_setting__conditional__conditional_branch__next_step__intent
+
+val initial_response_setting__conditional__conditional_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__conditional__conditional_branch__next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__next_step__intent
+
+type initial_response_setting__conditional__conditional_branch__next_step
+
+val initial_response_setting__conditional__conditional_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__conditional__conditional_branch__next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__conditional__conditional_branch__next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__next_step
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__message
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__message :
+  custom_payload:
+    initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__message
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
+
+type initial_response_setting__conditional__conditional_branch__response__message_group__variation
+
+val initial_response_setting__conditional__conditional_branch__response__message_group__variation :
+  custom_payload:
+    initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group__variation
+
+type initial_response_setting__conditional__conditional_branch__response__message_group
+
+val initial_response_setting__conditional__conditional_branch__response__message_group :
+  message:
+    initial_response_setting__conditional__conditional_branch__response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__conditional__conditional_branch__response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response__message_group
+
+type initial_response_setting__conditional__conditional_branch__response
+
+val initial_response_setting__conditional__conditional_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__conditional__conditional_branch__response__message_group
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch__response
+
+type initial_response_setting__conditional__conditional_branch
+
+val initial_response_setting__conditional__conditional_branch :
+  name:string prop ->
+  condition:
+    initial_response_setting__conditional__conditional_branch__condition
+    list ->
+  next_step:
+    initial_response_setting__conditional__conditional_branch__next_step
+    list ->
+  response:
+    initial_response_setting__conditional__conditional_branch__response
+    list ->
+  unit ->
+  initial_response_setting__conditional__conditional_branch
+
+type initial_response_setting__conditional__default_branch__next_step__dialog_action
+
+val initial_response_setting__conditional__default_branch__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__next_step__dialog_action
+
+type initial_response_setting__conditional__default_branch__next_step__intent__slot__value
+
+val initial_response_setting__conditional__default_branch__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__next_step__intent__slot__value
+
+type initial_response_setting__conditional__default_branch__next_step__intent__slot
+
+val initial_response_setting__conditional__default_branch__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:
+    initial_response_setting__conditional__default_branch__next_step__intent__slot__value
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__next_step__intent__slot
+
+type initial_response_setting__conditional__default_branch__next_step__intent
+
+val initial_response_setting__conditional__default_branch__next_step__intent :
+  ?name:string prop ->
+  slot:
+    initial_response_setting__conditional__default_branch__next_step__intent__slot
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__next_step__intent
+
+type initial_response_setting__conditional__default_branch__next_step
+
+val initial_response_setting__conditional__default_branch__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__conditional__default_branch__next_step__dialog_action
+    list ->
+  intent:
+    initial_response_setting__conditional__default_branch__next_step__intent
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__next_step
+
+type initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload
+
+val initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload
+
+type initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button
+
+val initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button
+
+type initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card
+
+val initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card
+
+type initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message
+
+val initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message
+
+type initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message
+
+val initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message
+
+type initial_response_setting__conditional__default_branch__response__message_group__message
+
+val initial_response_setting__conditional__default_branch__response__message_group__message :
+  custom_payload:
+    initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__message
+
+type initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload
+
+val initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload
+
+type initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
+
+val initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
+
+type initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card
+
+val initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card
+
+type initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message
+
+val initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message
+
+type initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message
+
+val initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message
+
+type initial_response_setting__conditional__default_branch__response__message_group__variation
+
+val initial_response_setting__conditional__default_branch__response__message_group__variation :
+  custom_payload:
+    initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group__variation
+
+type initial_response_setting__conditional__default_branch__response__message_group
+
+val initial_response_setting__conditional__default_branch__response__message_group :
+  message:
+    initial_response_setting__conditional__default_branch__response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__conditional__default_branch__response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response__message_group
+
+type initial_response_setting__conditional__default_branch__response
+
+val initial_response_setting__conditional__default_branch__response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__conditional__default_branch__response__message_group
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch__response
+
+type initial_response_setting__conditional__default_branch
+
+val initial_response_setting__conditional__default_branch :
+  next_step:
+    initial_response_setting__conditional__default_branch__next_step
+    list ->
+  response:
+    initial_response_setting__conditional__default_branch__response
+    list ->
+  unit ->
+  initial_response_setting__conditional__default_branch
+
+type initial_response_setting__conditional
+
+val initial_response_setting__conditional :
+  active:bool prop ->
+  conditional_branch:
+    initial_response_setting__conditional__conditional_branch list ->
+  default_branch:
+    initial_response_setting__conditional__default_branch list ->
+  unit ->
+  initial_response_setting__conditional
+
+type initial_response_setting__initial_response__message_group__message__custom_payload
+
+val initial_response_setting__initial_response__message_group__message__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__initial_response__message_group__message__custom_payload
+
+type initial_response_setting__initial_response__message_group__message__image_response_card__button
+
+val initial_response_setting__initial_response__message_group__message__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__initial_response__message_group__message__image_response_card__button
+
+type initial_response_setting__initial_response__message_group__message__image_response_card
+
+val initial_response_setting__initial_response__message_group__message__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__initial_response__message_group__message__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__initial_response__message_group__message__image_response_card
+
+type initial_response_setting__initial_response__message_group__message__plain_text_message
+
+val initial_response_setting__initial_response__message_group__message__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__initial_response__message_group__message__plain_text_message
+
+type initial_response_setting__initial_response__message_group__message__ssml_message
+
+val initial_response_setting__initial_response__message_group__message__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__initial_response__message_group__message__ssml_message
+
+type initial_response_setting__initial_response__message_group__message
+
+val initial_response_setting__initial_response__message_group__message :
+  custom_payload:
+    initial_response_setting__initial_response__message_group__message__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__initial_response__message_group__message__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__initial_response__message_group__message__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__initial_response__message_group__message__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__initial_response__message_group__message
+
+type initial_response_setting__initial_response__message_group__variation__custom_payload
+
+val initial_response_setting__initial_response__message_group__variation__custom_payload :
+  value:string prop ->
+  unit ->
+  initial_response_setting__initial_response__message_group__variation__custom_payload
+
+type initial_response_setting__initial_response__message_group__variation__image_response_card__button
+
+val initial_response_setting__initial_response__message_group__variation__image_response_card__button :
+  text:string prop ->
+  value:string prop ->
+  unit ->
+  initial_response_setting__initial_response__message_group__variation__image_response_card__button
+
+type initial_response_setting__initial_response__message_group__variation__image_response_card
+
+val initial_response_setting__initial_response__message_group__variation__image_response_card :
+  ?image_url:string prop ->
+  ?subtitle:string prop ->
+  title:string prop ->
+  button:
+    initial_response_setting__initial_response__message_group__variation__image_response_card__button
+    list ->
+  unit ->
+  initial_response_setting__initial_response__message_group__variation__image_response_card
+
+type initial_response_setting__initial_response__message_group__variation__plain_text_message
+
+val initial_response_setting__initial_response__message_group__variation__plain_text_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__initial_response__message_group__variation__plain_text_message
+
+type initial_response_setting__initial_response__message_group__variation__ssml_message
+
+val initial_response_setting__initial_response__message_group__variation__ssml_message :
+  value:string prop ->
+  unit ->
+  initial_response_setting__initial_response__message_group__variation__ssml_message
+
+type initial_response_setting__initial_response__message_group__variation
+
+val initial_response_setting__initial_response__message_group__variation :
+  custom_payload:
+    initial_response_setting__initial_response__message_group__variation__custom_payload
+    list ->
+  image_response_card:
+    initial_response_setting__initial_response__message_group__variation__image_response_card
+    list ->
+  plain_text_message:
+    initial_response_setting__initial_response__message_group__variation__plain_text_message
+    list ->
+  ssml_message:
+    initial_response_setting__initial_response__message_group__variation__ssml_message
+    list ->
+  unit ->
+  initial_response_setting__initial_response__message_group__variation
+
+type initial_response_setting__initial_response__message_group
+
+val initial_response_setting__initial_response__message_group :
+  message:
+    initial_response_setting__initial_response__message_group__message
+    list ->
+  variation:
+    initial_response_setting__initial_response__message_group__variation
+    list ->
+  unit ->
+  initial_response_setting__initial_response__message_group
+
+type initial_response_setting__initial_response
+
+val initial_response_setting__initial_response :
+  ?allow_interrupt:bool prop ->
+  message_group:
+    initial_response_setting__initial_response__message_group list ->
+  unit ->
+  initial_response_setting__initial_response
+
+type initial_response_setting__next_step__dialog_action
+
+val initial_response_setting__next_step__dialog_action :
+  ?slot_to_elicit:string prop ->
+  ?suppress_next_message:bool prop ->
+  type_:string prop ->
+  unit ->
+  initial_response_setting__next_step__dialog_action
+
+type initial_response_setting__next_step__intent__slot__value
+
+val initial_response_setting__next_step__intent__slot__value :
+  ?interpreted_value:string prop ->
+  unit ->
+  initial_response_setting__next_step__intent__slot__value
+
+type initial_response_setting__next_step__intent__slot
+
+val initial_response_setting__next_step__intent__slot :
+  ?shape:string prop ->
+  map_block_key:string prop ->
+  value:initial_response_setting__next_step__intent__slot__value list ->
+  unit ->
+  initial_response_setting__next_step__intent__slot
+
+type initial_response_setting__next_step__intent
+
+val initial_response_setting__next_step__intent :
+  ?name:string prop ->
+  slot:initial_response_setting__next_step__intent__slot list ->
+  unit ->
+  initial_response_setting__next_step__intent
+
+type initial_response_setting__next_step
+
+val initial_response_setting__next_step :
+  ?session_attributes:(string * string prop) list ->
+  dialog_action:
+    initial_response_setting__next_step__dialog_action list ->
+  intent:initial_response_setting__next_step__intent list ->
+  unit ->
+  initial_response_setting__next_step
+
+type initial_response_setting
+
+val initial_response_setting :
+  code_hook:initial_response_setting__code_hook list ->
+  conditional:initial_response_setting__conditional list ->
+  initial_response:initial_response_setting__initial_response list ->
+  next_step:initial_response_setting__next_step list ->
+  unit ->
+  initial_response_setting
+
+type input_context
+
+val input_context : name:string prop -> unit -> input_context
+
+type kendra_configuration
+
+val kendra_configuration :
+  ?query_filter_string:string prop ->
+  ?query_filter_string_enabled:bool prop ->
+  kendra_index:string prop ->
+  unit ->
+  kendra_configuration
+
+type output_context
+
+val output_context :
+  name:string prop ->
+  time_to_live_in_seconds:float prop ->
+  turns_to_live:float prop ->
+  unit ->
+  output_context
+
+type sample_utterance
+
+val sample_utterance :
+  utterance:string prop -> unit -> sample_utterance
+
+type slot_priority
+
+val slot_priority :
+  priority:float prop -> slot_id:string prop -> unit -> slot_priority
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__message
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation
-
-type aws_lexv2models_intent__closing_setting__closing_response__message_group
-
-type aws_lexv2models_intent__closing_setting__closing_response
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response
-
-type aws_lexv2models_intent__closing_setting__conditional__conditional_branch
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch__response
-
-type aws_lexv2models_intent__closing_setting__conditional__default_branch
-
-type aws_lexv2models_intent__closing_setting__conditional
-type aws_lexv2models_intent__closing_setting__next_step__dialog_action
-
-type aws_lexv2models_intent__closing_setting__next_step__intent__slot__value
-
-type aws_lexv2models_intent__closing_setting__next_step__intent__slot
-type aws_lexv2models_intent__closing_setting__next_step__intent
-type aws_lexv2models_intent__closing_setting__next_step
-type aws_lexv2models_intent__closing_setting
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response
-
-type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification
-
-type aws_lexv2models_intent__confirmation_setting__code_hook
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_conditional
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_next_step
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__confirmation_response
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch
-
-type aws_lexv2models_intent__confirmation_setting__declination_conditional
-
-type aws_lexv2models_intent__confirmation_setting__declination_next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__declination_next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__declination_next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__declination_next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__declination_next_step
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__declination_response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__declination_response
-
-type aws_lexv2models_intent__confirmation_setting__elicitation_code_hook
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch
-
-type aws_lexv2models_intent__confirmation_setting__failure_conditional
-
-type aws_lexv2models_intent__confirmation_setting__failure_next_step__dialog_action
-
-type aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__slot__value
-
-type aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__slot
-
-type aws_lexv2models_intent__confirmation_setting__failure_next_step__intent
-
-type aws_lexv2models_intent__confirmation_setting__failure_next_step
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__failure_response__message_group
-
-type aws_lexv2models_intent__confirmation_setting__failure_response
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification
-
-type aws_lexv2models_intent__confirmation_setting__prompt_specification
-
-type aws_lexv2models_intent__confirmation_setting
-type aws_lexv2models_intent__dialog_code_hook
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response
-
-type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response
-
-type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification
-
-type aws_lexv2models_intent__fulfillment_code_hook
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response
-
-type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification
-
-type aws_lexv2models_intent__initial_response_setting__code_hook
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__condition
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response
-
-type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response
-
-type aws_lexv2models_intent__initial_response_setting__conditional__default_branch
-
-type aws_lexv2models_intent__initial_response_setting__conditional
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__custom_payload
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__image_response_card__button
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__image_response_card
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__plain_text_message
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__ssml_message
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation
-
-type aws_lexv2models_intent__initial_response_setting__initial_response__message_group
-
-type aws_lexv2models_intent__initial_response_setting__initial_response
-
-type aws_lexv2models_intent__initial_response_setting__next_step__dialog_action
-
-type aws_lexv2models_intent__initial_response_setting__next_step__intent__slot__value
-
-type aws_lexv2models_intent__initial_response_setting__next_step__intent__slot
-
-type aws_lexv2models_intent__initial_response_setting__next_step__intent
-
-type aws_lexv2models_intent__initial_response_setting__next_step
-type aws_lexv2models_intent__initial_response_setting
-type aws_lexv2models_intent__input_context
-type aws_lexv2models_intent__kendra_configuration
-type aws_lexv2models_intent__output_context
-type aws_lexv2models_intent__sample_utterance
-type aws_lexv2models_intent__slot_priority
-type aws_lexv2models_intent__timeouts
 type aws_lexv2models_intent
+
+val aws_lexv2models_intent :
+  ?description:string prop ->
+  ?parent_intent_signature:string prop ->
+  ?timeouts:timeouts ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  locale_id:string prop ->
+  name:string prop ->
+  closing_setting:closing_setting list ->
+  confirmation_setting:confirmation_setting list ->
+  dialog_code_hook:dialog_code_hook list ->
+  fulfillment_code_hook:fulfillment_code_hook list ->
+  initial_response_setting:initial_response_setting list ->
+  input_context:input_context list ->
+  kendra_configuration:kendra_configuration list ->
+  output_context:output_context list ->
+  sample_utterance:sample_utterance list ->
+  slot_priority:slot_priority list ->
+  unit ->
+  aws_lexv2models_intent
+
+val yojson_of_aws_lexv2models_intent : aws_lexv2models_intent -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bot_id : string prop;
@@ -1844,27 +9385,24 @@ type t = private {
   parent_intent_signature : string prop;
 }
 
-val aws_lexv2models_intent :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?parent_intent_signature:string prop ->
-  ?timeouts:aws_lexv2models_intent__timeouts ->
+  ?timeouts:timeouts ->
   bot_id:string prop ->
   bot_version:string prop ->
   locale_id:string prop ->
   name:string prop ->
-  closing_setting:aws_lexv2models_intent__closing_setting list ->
-  confirmation_setting:
-    aws_lexv2models_intent__confirmation_setting list ->
-  dialog_code_hook:aws_lexv2models_intent__dialog_code_hook list ->
-  fulfillment_code_hook:
-    aws_lexv2models_intent__fulfillment_code_hook list ->
-  initial_response_setting:
-    aws_lexv2models_intent__initial_response_setting list ->
-  input_context:aws_lexv2models_intent__input_context list ->
-  kendra_configuration:
-    aws_lexv2models_intent__kendra_configuration list ->
-  output_context:aws_lexv2models_intent__output_context list ->
-  sample_utterance:aws_lexv2models_intent__sample_utterance list ->
-  slot_priority:aws_lexv2models_intent__slot_priority list ->
+  closing_setting:closing_setting list ->
+  confirmation_setting:confirmation_setting list ->
+  dialog_code_hook:dialog_code_hook list ->
+  fulfillment_code_hook:fulfillment_code_hook list ->
+  initial_response_setting:initial_response_setting list ->
+  input_context:input_context list ->
+  kendra_configuration:kendra_configuration list ->
+  output_context:output_context list ->
+  sample_utterance:sample_utterance list ->
+  slot_priority:slot_priority list ->
   string ->
   t

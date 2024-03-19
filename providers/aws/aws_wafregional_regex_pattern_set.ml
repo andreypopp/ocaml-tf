@@ -13,20 +13,24 @@ type aws_wafregional_regex_pattern_set = {
 [@@deriving yojson_of]
 (** aws_wafregional_regex_pattern_set *)
 
+let aws_wafregional_regex_pattern_set ?id ?regex_pattern_strings
+    ~name () : aws_wafregional_regex_pattern_set =
+  { id; name; regex_pattern_strings }
+
 type t = {
   id : string prop;
   name : string prop;
   regex_pattern_strings : string list prop;
 }
 
-let aws_wafregional_regex_pattern_set ?id ?regex_pattern_strings
-    ~name __resource_id =
+let register ?tf_module ?id ?regex_pattern_strings ~name
+    __resource_id =
   let __resource_type = "aws_wafregional_regex_pattern_set" in
   let __resource =
-    ({ id; name; regex_pattern_strings }
-      : aws_wafregional_regex_pattern_set)
+    aws_wafregional_regex_pattern_set ?id ?regex_pattern_strings
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafregional_regex_pattern_set __resource);
   let __resource_attributes =
     ({

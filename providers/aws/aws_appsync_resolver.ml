@@ -4,45 +4,44 @@
 
 open! Tf.Prelude
 
-type aws_appsync_resolver__caching_config = {
+type caching_config = {
   caching_keys : string prop list option; [@option]
       (** caching_keys *)
   ttl : float prop option; [@option]  (** ttl *)
 }
 [@@deriving yojson_of]
-(** aws_appsync_resolver__caching_config *)
+(** caching_config *)
 
-type aws_appsync_resolver__pipeline_config = {
+type pipeline_config = {
   functions : string prop list option; [@option]  (** functions *)
 }
 [@@deriving yojson_of]
-(** aws_appsync_resolver__pipeline_config *)
+(** pipeline_config *)
 
-type aws_appsync_resolver__runtime = {
+type runtime = {
   name : string prop;  (** name *)
   runtime_version : string prop;  (** runtime_version *)
 }
 [@@deriving yojson_of]
-(** aws_appsync_resolver__runtime *)
+(** runtime *)
 
-type aws_appsync_resolver__sync_config__lambda_conflict_handler_config = {
+type sync_config__lambda_conflict_handler_config = {
   lambda_conflict_handler_arn : string prop option; [@option]
       (** lambda_conflict_handler_arn *)
 }
 [@@deriving yojson_of]
-(** aws_appsync_resolver__sync_config__lambda_conflict_handler_config *)
+(** sync_config__lambda_conflict_handler_config *)
 
-type aws_appsync_resolver__sync_config = {
+type sync_config = {
   conflict_detection : string prop option; [@option]
       (** conflict_detection *)
   conflict_handler : string prop option; [@option]
       (** conflict_handler *)
   lambda_conflict_handler_config :
-    aws_appsync_resolver__sync_config__lambda_conflict_handler_config
-    list;
+    sync_config__lambda_conflict_handler_config list;
 }
 [@@deriving yojson_of]
-(** aws_appsync_resolver__sync_config *)
+(** sync_config *)
 
 type aws_appsync_resolver = {
   api_id : string prop;  (** api_id *)
@@ -58,13 +57,55 @@ type aws_appsync_resolver = {
   response_template : string prop option; [@option]
       (** response_template *)
   type_ : string prop; [@key "type"]  (** type *)
-  caching_config : aws_appsync_resolver__caching_config list;
-  pipeline_config : aws_appsync_resolver__pipeline_config list;
-  runtime : aws_appsync_resolver__runtime list;
-  sync_config : aws_appsync_resolver__sync_config list;
+  caching_config : caching_config list;
+  pipeline_config : pipeline_config list;
+  runtime : runtime list;
+  sync_config : sync_config list;
 }
 [@@deriving yojson_of]
 (** aws_appsync_resolver *)
+
+let caching_config ?caching_keys ?ttl () : caching_config =
+  { caching_keys; ttl }
+
+let pipeline_config ?functions () : pipeline_config = { functions }
+
+let runtime ~name ~runtime_version () : runtime =
+  { name; runtime_version }
+
+let sync_config__lambda_conflict_handler_config
+    ?lambda_conflict_handler_arn () :
+    sync_config__lambda_conflict_handler_config =
+  { lambda_conflict_handler_arn }
+
+let sync_config ?conflict_detection ?conflict_handler
+    ~lambda_conflict_handler_config () : sync_config =
+  {
+    conflict_detection;
+    conflict_handler;
+    lambda_conflict_handler_config;
+  }
+
+let aws_appsync_resolver ?code ?data_source ?id ?kind ?max_batch_size
+    ?request_template ?response_template ~api_id ~field ~type_
+    ~caching_config ~pipeline_config ~runtime ~sync_config () :
+    aws_appsync_resolver =
+  {
+    api_id;
+    code;
+    data_source;
+    field;
+    id;
+    kind;
+    max_batch_size;
+    request_template;
+    response_template;
+    type_;
+    caching_config;
+    pipeline_config;
+    runtime;
+    sync_config;
+  }
 
 type t = {
   api_id : string prop;
@@ -80,31 +121,17 @@ type t = {
   type_ : string prop;
 }
 
-let aws_appsync_resolver ?code ?data_source ?id ?kind ?max_batch_size
+let register ?tf_module ?code ?data_source ?id ?kind ?max_batch_size
     ?request_template ?response_template ~api_id ~field ~type_
     ~caching_config ~pipeline_config ~runtime ~sync_config
     __resource_id =
   let __resource_type = "aws_appsync_resolver" in
   let __resource =
-    ({
-       api_id;
-       code;
-       data_source;
-       field;
-       id;
-       kind;
-       max_batch_size;
-       request_template;
-       response_template;
-       type_;
-       caching_config;
-       pipeline_config;
-       runtime;
-       sync_config;
-     }
-      : aws_appsync_resolver)
+    aws_appsync_resolver ?code ?data_source ?id ?kind ?max_batch_size
+      ?request_template ?response_template ~api_id ~field ~type_
+      ~caching_config ~pipeline_config ~runtime ~sync_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_resolver __resource);
   let __resource_attributes =
     ({

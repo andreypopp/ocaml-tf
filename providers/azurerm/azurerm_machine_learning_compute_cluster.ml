@@ -4,41 +4,39 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_compute_cluster__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_compute_cluster__identity *)
+(** identity *)
 
-type azurerm_machine_learning_compute_cluster__scale_settings = {
+type scale_settings = {
   max_node_count : float prop;  (** max_node_count *)
   min_node_count : float prop;  (** min_node_count *)
   scale_down_nodes_after_idle_duration : string prop;
       (** scale_down_nodes_after_idle_duration *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_compute_cluster__scale_settings *)
+(** scale_settings *)
 
-type azurerm_machine_learning_compute_cluster__ssh = {
+type ssh = {
   admin_password : string prop option; [@option]
       (** admin_password *)
   admin_username : string prop;  (** admin_username *)
   key_value : string prop option; [@option]  (** key_value *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_compute_cluster__ssh *)
+(** ssh *)
 
-type azurerm_machine_learning_compute_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_compute_cluster__timeouts *)
+(** timeouts *)
 
 type azurerm_machine_learning_compute_cluster = {
   description : string prop option; [@option]  (** description *)
@@ -58,15 +56,55 @@ type azurerm_machine_learning_compute_cluster = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   vm_priority : string prop;  (** vm_priority *)
   vm_size : string prop;  (** vm_size *)
-  identity : azurerm_machine_learning_compute_cluster__identity list;
-  scale_settings :
-    azurerm_machine_learning_compute_cluster__scale_settings list;
-  ssh : azurerm_machine_learning_compute_cluster__ssh list;
-  timeouts :
-    azurerm_machine_learning_compute_cluster__timeouts option;
+  identity : identity list;
+  scale_settings : scale_settings list;
+  ssh : ssh list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_compute_cluster *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let scale_settings ~max_node_count ~min_node_count
+    ~scale_down_nodes_after_idle_duration () : scale_settings =
+  {
+    max_node_count;
+    min_node_count;
+    scale_down_nodes_after_idle_duration;
+  }
+
+let ssh ?admin_password ?key_value ~admin_username () : ssh =
+  { admin_password; admin_username; key_value }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_machine_learning_compute_cluster ?description ?id
+    ?local_auth_enabled ?node_public_ip_enabled
+    ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
+    ~location ~machine_learning_workspace_id ~name ~vm_priority
+    ~vm_size ~identity ~scale_settings ~ssh () :
+    azurerm_machine_learning_compute_cluster =
+  {
+    description;
+    id;
+    local_auth_enabled;
+    location;
+    machine_learning_workspace_id;
+    name;
+    node_public_ip_enabled;
+    ssh_public_access_enabled;
+    subnet_resource_id;
+    tags;
+    vm_priority;
+    vm_size;
+    identity;
+    scale_settings;
+    ssh;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -83,34 +121,20 @@ type t = {
   vm_size : string prop;
 }
 
-let azurerm_machine_learning_compute_cluster ?description ?id
-    ?local_auth_enabled ?node_public_ip_enabled
-    ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
-    ~location ~machine_learning_workspace_id ~name ~vm_priority
-    ~vm_size ~identity ~scale_settings ~ssh __resource_id =
+let register ?tf_module ?description ?id ?local_auth_enabled
+    ?node_public_ip_enabled ?ssh_public_access_enabled
+    ?subnet_resource_id ?tags ?timeouts ~location
+    ~machine_learning_workspace_id ~name ~vm_priority ~vm_size
+    ~identity ~scale_settings ~ssh __resource_id =
   let __resource_type = "azurerm_machine_learning_compute_cluster" in
   let __resource =
-    ({
-       description;
-       id;
-       local_auth_enabled;
-       location;
-       machine_learning_workspace_id;
-       name;
-       node_public_ip_enabled;
-       ssh_public_access_enabled;
-       subnet_resource_id;
-       tags;
-       vm_priority;
-       vm_size;
-       identity;
-       scale_settings;
-       ssh;
-       timeouts;
-     }
-      : azurerm_machine_learning_compute_cluster)
+    azurerm_machine_learning_compute_cluster ?description ?id
+      ?local_auth_enabled ?node_public_ip_enabled
+      ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
+      ~location ~machine_learning_workspace_id ~name ~vm_priority
+      ~vm_size ~identity ~scale_settings ~ssh ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_machine_learning_compute_cluster __resource);
   let __resource_attributes =
     ({

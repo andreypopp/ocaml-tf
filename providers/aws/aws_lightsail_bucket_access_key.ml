@@ -11,6 +11,10 @@ type aws_lightsail_bucket_access_key = {
 [@@deriving yojson_of]
 (** aws_lightsail_bucket_access_key *)
 
+let aws_lightsail_bucket_access_key ?id ~bucket_name () :
+    aws_lightsail_bucket_access_key =
+  { bucket_name; id }
+
 type t = {
   access_key_id : string prop;
   bucket_name : string prop;
@@ -20,12 +24,12 @@ type t = {
   status : string prop;
 }
 
-let aws_lightsail_bucket_access_key ?id ~bucket_name __resource_id =
+let register ?tf_module ?id ~bucket_name __resource_id =
   let __resource_type = "aws_lightsail_bucket_access_key" in
   let __resource =
-    ({ bucket_name; id } : aws_lightsail_bucket_access_key)
+    aws_lightsail_bucket_access_key ?id ~bucket_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_bucket_access_key __resource);
   let __resource_attributes =
     ({

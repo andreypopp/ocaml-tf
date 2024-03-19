@@ -13,6 +13,10 @@ type hcloud_volume_attachment = {
 [@@deriving yojson_of]
 (** hcloud_volume_attachment *)
 
+let hcloud_volume_attachment ?automount ?id ~server_id ~volume_id ()
+    : hcloud_volume_attachment =
+  { automount; id; server_id; volume_id }
+
 type t = {
   automount : bool prop;
   id : string prop;
@@ -20,14 +24,13 @@ type t = {
   volume_id : float prop;
 }
 
-let hcloud_volume_attachment ?automount ?id ~server_id ~volume_id
+let register ?tf_module ?automount ?id ~server_id ~volume_id
     __resource_id =
   let __resource_type = "hcloud_volume_attachment" in
   let __resource =
-    ({ automount; id; server_id; volume_id }
-      : hcloud_volume_attachment)
+    hcloud_volume_attachment ?automount ?id ~server_id ~volume_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_volume_attachment __resource);
   let __resource_attributes =
     ({

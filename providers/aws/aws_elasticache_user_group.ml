@@ -16,6 +16,10 @@ type aws_elasticache_user_group = {
 [@@deriving yojson_of]
 (** aws_elasticache_user_group *)
 
+let aws_elasticache_user_group ?id ?tags ?tags_all ?user_ids ~engine
+    ~user_group_id () : aws_elasticache_user_group =
+  { engine; id; tags; tags_all; user_group_id; user_ids }
+
 type t = {
   arn : string prop;
   engine : string prop;
@@ -26,14 +30,14 @@ type t = {
   user_ids : string list prop;
 }
 
-let aws_elasticache_user_group ?id ?tags ?tags_all ?user_ids ~engine
+let register ?tf_module ?id ?tags ?tags_all ?user_ids ~engine
     ~user_group_id __resource_id =
   let __resource_type = "aws_elasticache_user_group" in
   let __resource =
-    ({ engine; id; tags; tags_all; user_group_id; user_ids }
-      : aws_elasticache_user_group)
+    aws_elasticache_user_group ?id ?tags ?tags_all ?user_ids ~engine
+      ~user_group_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticache_user_group __resource);
   let __resource_attributes =
     ({

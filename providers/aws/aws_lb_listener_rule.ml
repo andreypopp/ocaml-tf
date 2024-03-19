@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_lb_listener_rule__action__authenticate_cognito = {
+type action__authenticate_cognito = {
   authentication_request_extra_params :
     (string * string prop) list option;
       [@option]
@@ -21,9 +21,9 @@ type aws_lb_listener_rule__action__authenticate_cognito = {
   user_pool_domain : string prop;  (** user_pool_domain *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__action__authenticate_cognito *)
+(** action__authenticate_cognito *)
 
-type aws_lb_listener_rule__action__authenticate_oidc = {
+type action__authenticate_oidc = {
   authentication_request_extra_params :
     (string * string prop) list option;
       [@option]
@@ -44,40 +44,38 @@ type aws_lb_listener_rule__action__authenticate_oidc = {
   user_info_endpoint : string prop;  (** user_info_endpoint *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__action__authenticate_oidc *)
+(** action__authenticate_oidc *)
 
-type aws_lb_listener_rule__action__fixed_response = {
+type action__fixed_response = {
   content_type : string prop;  (** content_type *)
   message_body : string prop option; [@option]  (** message_body *)
   status_code : string prop option; [@option]  (** status_code *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__action__fixed_response *)
+(** action__fixed_response *)
 
-type aws_lb_listener_rule__action__forward__stickiness = {
+type action__forward__stickiness = {
   duration : float prop;  (** duration *)
   enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__action__forward__stickiness *)
+(** action__forward__stickiness *)
 
-type aws_lb_listener_rule__action__forward__target_group = {
+type action__forward__target_group = {
   arn : string prop;  (** arn *)
   weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__action__forward__target_group *)
+(** action__forward__target_group *)
 
-type aws_lb_listener_rule__action__forward = {
-  stickiness :
-    aws_lb_listener_rule__action__forward__stickiness list;
-  target_group :
-    aws_lb_listener_rule__action__forward__target_group list;
+type action__forward = {
+  stickiness : action__forward__stickiness list;
+  target_group : action__forward__target_group list;
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__action__forward *)
+(** action__forward *)
 
-type aws_lb_listener_rule__action__redirect = {
+type action__redirect = {
   host : string prop option; [@option]  (** host *)
   path : string prop option; [@option]  (** path *)
   port : string prop option; [@option]  (** port *)
@@ -86,73 +84,70 @@ type aws_lb_listener_rule__action__redirect = {
   status_code : string prop;  (** status_code *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__action__redirect *)
+(** action__redirect *)
 
-type aws_lb_listener_rule__action = {
+type action = {
   order : float prop option; [@option]  (** order *)
   target_group_arn : string prop option; [@option]
       (** target_group_arn *)
   type_ : string prop; [@key "type"]  (** type *)
-  authenticate_cognito :
-    aws_lb_listener_rule__action__authenticate_cognito list;
-  authenticate_oidc :
-    aws_lb_listener_rule__action__authenticate_oidc list;
-  fixed_response : aws_lb_listener_rule__action__fixed_response list;
-  forward : aws_lb_listener_rule__action__forward list;
-  redirect : aws_lb_listener_rule__action__redirect list;
+  authenticate_cognito : action__authenticate_cognito list;
+  authenticate_oidc : action__authenticate_oidc list;
+  fixed_response : action__fixed_response list;
+  forward : action__forward list;
+  redirect : action__redirect list;
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__action *)
+(** action *)
 
-type aws_lb_listener_rule__condition__host_header = {
+type condition__host_header = {
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__condition__host_header *)
+(** condition__host_header *)
 
-type aws_lb_listener_rule__condition__http_header = {
+type condition__http_header = {
   http_header_name : string prop;  (** http_header_name *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__condition__http_header *)
+(** condition__http_header *)
 
-type aws_lb_listener_rule__condition__http_request_method = {
+type condition__http_request_method = {
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__condition__http_request_method *)
+(** condition__http_request_method *)
 
-type aws_lb_listener_rule__condition__path_pattern = {
+type condition__path_pattern = {
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__condition__path_pattern *)
+(** condition__path_pattern *)
 
-type aws_lb_listener_rule__condition__query_string = {
+type condition__query_string = {
   key : string prop option; [@option]  (** key *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__condition__query_string *)
+(** condition__query_string *)
 
-type aws_lb_listener_rule__condition__source_ip = {
+type condition__source_ip = {
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__condition__source_ip *)
+(** condition__source_ip *)
 
-type aws_lb_listener_rule__condition = {
-  host_header : aws_lb_listener_rule__condition__host_header list;
-  http_header : aws_lb_listener_rule__condition__http_header list;
-  http_request_method :
-    aws_lb_listener_rule__condition__http_request_method list;
-  path_pattern : aws_lb_listener_rule__condition__path_pattern list;
-  query_string : aws_lb_listener_rule__condition__query_string list;
-  source_ip : aws_lb_listener_rule__condition__source_ip list;
+type condition = {
+  host_header : condition__host_header list;
+  http_header : condition__http_header list;
+  http_request_method : condition__http_request_method list;
+  path_pattern : condition__path_pattern list;
+  query_string : condition__query_string list;
+  source_ip : condition__source_ip list;
 }
 [@@deriving yojson_of]
-(** aws_lb_listener_rule__condition *)
+(** condition *)
 
 type aws_lb_listener_rule = {
   id : string prop option; [@option]  (** id *)
@@ -161,11 +156,114 @@ type aws_lb_listener_rule = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  action : aws_lb_listener_rule__action list;
-  condition : aws_lb_listener_rule__condition list;
+  action : action list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** aws_lb_listener_rule *)
+
+let action__authenticate_cognito ?authentication_request_extra_params
+    ?on_unauthenticated_request ?scope ?session_cookie_name
+    ?session_timeout ~user_pool_arn ~user_pool_client_id
+    ~user_pool_domain () : action__authenticate_cognito =
+  {
+    authentication_request_extra_params;
+    on_unauthenticated_request;
+    scope;
+    session_cookie_name;
+    session_timeout;
+    user_pool_arn;
+    user_pool_client_id;
+    user_pool_domain;
+  }
+
+let action__authenticate_oidc ?authentication_request_extra_params
+    ?on_unauthenticated_request ?scope ?session_cookie_name
+    ?session_timeout ~authorization_endpoint ~client_id
+    ~client_secret ~issuer ~token_endpoint ~user_info_endpoint () :
+    action__authenticate_oidc =
+  {
+    authentication_request_extra_params;
+    authorization_endpoint;
+    client_id;
+    client_secret;
+    issuer;
+    on_unauthenticated_request;
+    scope;
+    session_cookie_name;
+    session_timeout;
+    token_endpoint;
+    user_info_endpoint;
+  }
+
+let action__fixed_response ?message_body ?status_code ~content_type
+    () : action__fixed_response =
+  { content_type; message_body; status_code }
+
+let action__forward__stickiness ?enabled ~duration () :
+    action__forward__stickiness =
+  { duration; enabled }
+
+let action__forward__target_group ?weight ~arn () :
+    action__forward__target_group =
+  { arn; weight }
+
+let action__forward ~stickiness ~target_group () : action__forward =
+  { stickiness; target_group }
+
+let action__redirect ?host ?path ?port ?protocol ?query ~status_code
+    () : action__redirect =
+  { host; path; port; protocol; query; status_code }
+
+let action ?order ?target_group_arn ~type_ ~authenticate_cognito
+    ~authenticate_oidc ~fixed_response ~forward ~redirect () : action
+    =
+  {
+    order;
+    target_group_arn;
+    type_;
+    authenticate_cognito;
+    authenticate_oidc;
+    fixed_response;
+    forward;
+    redirect;
+  }
+
+let condition__host_header ~values () : condition__host_header =
+  { values }
+
+let condition__http_header ~http_header_name ~values () :
+    condition__http_header =
+  { http_header_name; values }
+
+let condition__http_request_method ~values () :
+    condition__http_request_method =
+  { values }
+
+let condition__path_pattern ~values () : condition__path_pattern =
+  { values }
+
+let condition__query_string ?key ~value () : condition__query_string
+    =
+  { key; value }
+
+let condition__source_ip ~values () : condition__source_ip =
+  { values }
+
+let condition ~host_header ~http_header ~http_request_method
+    ~path_pattern ~query_string ~source_ip () : condition =
+  {
+    host_header;
+    http_header;
+    http_request_method;
+    path_pattern;
+    query_string;
+    source_ip;
+  }
+
+let aws_lb_listener_rule ?id ?priority ?tags ?tags_all ~listener_arn
+    ~action ~condition () : aws_lb_listener_rule =
+  { id; listener_arn; priority; tags; tags_all; action; condition }
 
 type t = {
   arn : string prop;
@@ -176,22 +274,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_lb_listener_rule ?id ?priority ?tags ?tags_all ~listener_arn
+let register ?tf_module ?id ?priority ?tags ?tags_all ~listener_arn
     ~action ~condition __resource_id =
   let __resource_type = "aws_lb_listener_rule" in
   let __resource =
-    ({
-       id;
-       listener_arn;
-       priority;
-       tags;
-       tags_all;
-       action;
-       condition;
-     }
-      : aws_lb_listener_rule)
+    aws_lb_listener_rule ?id ?priority ?tags ?tags_all ~listener_arn
+      ~action ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lb_listener_rule __resource);
   let __resource_attributes =
     ({

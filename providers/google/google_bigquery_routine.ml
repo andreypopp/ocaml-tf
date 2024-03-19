@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_bigquery_routine__arguments = {
+type arguments = {
   argument_kind : string prop option; [@option]
       (** Defaults to FIXED_TYPE. Default value: FIXED_TYPE Possible values: [FIXED_TYPE, ANY_TYPE] *)
   data_type : string prop option; [@option]
@@ -23,7 +23,7 @@ the schema as returned by the API. *)
 [@@deriving yojson_of]
 (** Input/output argument of a function or a stored procedure. *)
 
-type google_bigquery_routine__remote_function_options = {
+type remote_function_options = {
   connection : string prop option; [@option]
       (** Fully qualified name of the user-provided connection object which holds
 the authentication information to send requests to the remote service.
@@ -45,7 +45,7 @@ An object containing a list of key: value pairs. Example:
 [@@deriving yojson_of]
 (** Remote function specific options. *)
 
-type google_bigquery_routine__spark_options = {
+type spark_options = {
   archive_uris : string prop list option; [@option]
       (** Archive files to be extracted into the working directory of each executor. For more information about Apache Spark, see Apache Spark. *)
   connection : string prop option; [@option]
@@ -76,13 +76,13 @@ An object containing a list of key: value pairs. Example: { name: wrench, mass: 
 [@@deriving yojson_of]
 (** Optional. If language is one of PYTHON, JAVA, SCALA, this field stores the options for spark stored procedure. *)
 
-type google_bigquery_routine__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_routine__timeouts *)
+(** timeouts *)
 
 type google_bigquery_routine = {
   dataset_id : string prop;
@@ -121,14 +121,63 @@ the schema as returned by the API. *)
       (** The ID of the the routine. The ID must contain only letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum length is 256 characters. *)
   routine_type : string prop;
       (** The type of routine. Possible values: [SCALAR_FUNCTION, PROCEDURE, TABLE_VALUED_FUNCTION] *)
-  arguments : google_bigquery_routine__arguments list;
-  remote_function_options :
-    google_bigquery_routine__remote_function_options list;
-  spark_options : google_bigquery_routine__spark_options list;
-  timeouts : google_bigquery_routine__timeouts option;
+  arguments : arguments list;
+  remote_function_options : remote_function_options list;
+  spark_options : spark_options list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_routine *)
+
+let arguments ?argument_kind ?data_type ?mode ?name () : arguments =
+  { argument_kind; data_type; mode; name }
+
+let remote_function_options ?connection ?endpoint ?max_batching_rows
+    ?user_defined_context () : remote_function_options =
+  { connection; endpoint; max_batching_rows; user_defined_context }
+
+let spark_options ?archive_uris ?connection ?container_image
+    ?file_uris ?jar_uris ?main_class ?main_file_uri ?properties
+    ?py_file_uris ?runtime_version () : spark_options =
+  {
+    archive_uris;
+    connection;
+    container_image;
+    file_uris;
+    jar_uris;
+    main_class;
+    main_file_uri;
+    properties;
+    py_file_uris;
+    runtime_version;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_bigquery_routine ?description ?determinism_level ?id
+    ?imported_libraries ?language ?project ?return_table_type
+    ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
+    ~routine_type ~arguments ~remote_function_options ~spark_options
+    () : google_bigquery_routine =
+  {
+    dataset_id;
+    definition_body;
+    description;
+    determinism_level;
+    id;
+    imported_libraries;
+    language;
+    project;
+    return_table_type;
+    return_type;
+    routine_id;
+    routine_type;
+    arguments;
+    remote_function_options;
+    spark_options;
+    timeouts;
+  }
 
 type t = {
   creation_time : float prop;
@@ -147,34 +196,20 @@ type t = {
   routine_type : string prop;
 }
 
-let google_bigquery_routine ?description ?determinism_level ?id
+let register ?tf_module ?description ?determinism_level ?id
     ?imported_libraries ?language ?project ?return_table_type
     ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
     ~routine_type ~arguments ~remote_function_options ~spark_options
     __resource_id =
   let __resource_type = "google_bigquery_routine" in
   let __resource =
-    ({
-       dataset_id;
-       definition_body;
-       description;
-       determinism_level;
-       id;
-       imported_libraries;
-       language;
-       project;
-       return_table_type;
-       return_type;
-       routine_id;
-       routine_type;
-       arguments;
-       remote_function_options;
-       spark_options;
-       timeouts;
-     }
-      : google_bigquery_routine)
+    google_bigquery_routine ?description ?determinism_level ?id
+      ?imported_libraries ?language ?project ?return_table_type
+      ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
+      ~routine_type ~arguments ~remote_function_options
+      ~spark_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_routine __resource);
   let __resource_attributes =
     ({

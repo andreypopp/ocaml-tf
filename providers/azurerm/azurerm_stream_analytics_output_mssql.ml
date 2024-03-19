@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_output_mssql__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_output_mssql__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_output_mssql = {
   authentication_mode : string prop option; [@option]
@@ -30,10 +30,34 @@ type azurerm_stream_analytics_output_mssql = {
       (** stream_analytics_job_name *)
   table : string prop;  (** table *)
   user : string prop option; [@option]  (** user *)
-  timeouts : azurerm_stream_analytics_output_mssql__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_mssql *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_output_mssql ?authentication_mode ?id
+    ?max_batch_count ?max_writer_count ?password ?user ?timeouts
+    ~database ~name ~resource_group_name ~server
+    ~stream_analytics_job_name ~table () :
+    azurerm_stream_analytics_output_mssql =
+  {
+    authentication_mode;
+    database;
+    id;
+    max_batch_count;
+    max_writer_count;
+    name;
+    password;
+    resource_group_name;
+    server;
+    stream_analytics_job_name;
+    table;
+    user;
+    timeouts;
+  }
 
 type t = {
   authentication_mode : string prop;
@@ -50,30 +74,18 @@ type t = {
   user : string prop;
 }
 
-let azurerm_stream_analytics_output_mssql ?authentication_mode ?id
-    ?max_batch_count ?max_writer_count ?password ?user ?timeouts
-    ~database ~name ~resource_group_name ~server
-    ~stream_analytics_job_name ~table __resource_id =
+let register ?tf_module ?authentication_mode ?id ?max_batch_count
+    ?max_writer_count ?password ?user ?timeouts ~database ~name
+    ~resource_group_name ~server ~stream_analytics_job_name ~table
+    __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_mssql" in
   let __resource =
-    ({
-       authentication_mode;
-       database;
-       id;
-       max_batch_count;
-       max_writer_count;
-       name;
-       password;
-       resource_group_name;
-       server;
-       stream_analytics_job_name;
-       table;
-       user;
-       timeouts;
-     }
-      : azurerm_stream_analytics_output_mssql)
+    azurerm_stream_analytics_output_mssql ?authentication_mode ?id
+      ?max_batch_count ?max_writer_count ?password ?user ?timeouts
+      ~database ~name ~resource_group_name ~server
+      ~stream_analytics_job_name ~table ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_mssql __resource);
   let __resource_attributes =
     ({

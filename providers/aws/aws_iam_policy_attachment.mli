@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iam_policy_attachment
+
+val aws_iam_policy_attachment :
+  ?groups:string prop list ->
+  ?id:string prop ->
+  ?roles:string prop list ->
+  ?users:string prop list ->
+  name:string prop ->
+  policy_arn:string prop ->
+  unit ->
+  aws_iam_policy_attachment
+
+val yojson_of_aws_iam_policy_attachment :
+  aws_iam_policy_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   groups : string list prop;
@@ -13,7 +30,8 @@ type t = private {
   users : string list prop;
 }
 
-val aws_iam_policy_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?groups:string prop list ->
   ?id:string prop ->
   ?roles:string prop list ->

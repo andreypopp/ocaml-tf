@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_network_services_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_services_gateway__timeouts *)
+(** timeouts *)
 
 type google_network_services_gateway = {
   addresses : string prop list option; [@option]
@@ -63,10 +63,38 @@ For example: 'projects/*/regions/us-central1/subnetworks/network-1'.
 Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY. *)
   type_ : string prop; [@key "type"]
       (** Immutable. The type of the customer-managed gateway. Possible values are: * OPEN_MESH * SECURE_WEB_GATEWAY. Possible values: [TYPE_UNSPECIFIED, OPEN_MESH, SECURE_WEB_GATEWAY] *)
-  timeouts : google_network_services_gateway__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_services_gateway *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_services_gateway ?addresses ?certificate_urls
+    ?delete_swg_autogen_router_on_destroy ?description
+    ?gateway_security_policy ?id ?labels ?location ?network ?project
+    ?scope ?server_tls_policy ?subnetwork ?timeouts ~name ~ports
+    ~type_ () : google_network_services_gateway =
+  {
+    addresses;
+    certificate_urls;
+    delete_swg_autogen_router_on_destroy;
+    description;
+    gateway_security_policy;
+    id;
+    labels;
+    location;
+    name;
+    network;
+    ports;
+    project;
+    scope;
+    server_tls_policy;
+    subnetwork;
+    type_;
+    timeouts;
+  }
 
 type t = {
   addresses : string list prop;
@@ -92,35 +120,20 @@ type t = {
   update_time : string prop;
 }
 
-let google_network_services_gateway ?addresses ?certificate_urls
+let register ?tf_module ?addresses ?certificate_urls
     ?delete_swg_autogen_router_on_destroy ?description
     ?gateway_security_policy ?id ?labels ?location ?network ?project
     ?scope ?server_tls_policy ?subnetwork ?timeouts ~name ~ports
     ~type_ __resource_id =
   let __resource_type = "google_network_services_gateway" in
   let __resource =
-    ({
-       addresses;
-       certificate_urls;
-       delete_swg_autogen_router_on_destroy;
-       description;
-       gateway_security_policy;
-       id;
-       labels;
-       location;
-       name;
-       network;
-       ports;
-       project;
-       scope;
-       server_tls_policy;
-       subnetwork;
-       type_;
-       timeouts;
-     }
-      : google_network_services_gateway)
+    google_network_services_gateway ?addresses ?certificate_urls
+      ?delete_swg_autogen_router_on_destroy ?description
+      ?gateway_security_policy ?id ?labels ?location ?network
+      ?project ?scope ?server_tls_policy ?subnetwork ?timeouts ~name
+      ~ports ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_services_gateway __resource);
   let __resource_attributes =
     ({

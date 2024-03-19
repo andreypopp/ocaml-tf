@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iam_instance_profile
+
+val aws_iam_instance_profile :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?path:string prop ->
+  ?role:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  unit ->
+  aws_iam_instance_profile
+
+val yojson_of_aws_iam_instance_profile :
+  aws_iam_instance_profile -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +35,8 @@ type t = private {
   unique_id : string prop;
 }
 
-val aws_iam_instance_profile :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->

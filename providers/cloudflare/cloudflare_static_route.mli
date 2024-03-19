@@ -2,7 +2,27 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_static_route
+
+val cloudflare_static_route :
+  ?account_id:string prop ->
+  ?colo_names:string prop list ->
+  ?colo_regions:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?weight:float prop ->
+  nexthop:string prop ->
+  prefix:string prop ->
+  priority:float prop ->
+  unit ->
+  cloudflare_static_route
+
+val yojson_of_cloudflare_static_route :
+  cloudflare_static_route -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -16,7 +36,8 @@ type t = private {
   weight : float prop;
 }
 
-val cloudflare_static_route :
+val register :
+  ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?colo_names:string prop list ->
   ?colo_regions:string prop list ->

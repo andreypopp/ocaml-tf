@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_fsx_backup__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_fsx_backup
+
+val aws_fsx_backup :
+  ?file_system_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?volume_id:string prop ->
+  ?timeouts:timeouts ->
+  unit ->
+  aws_fsx_backup
+
+val yojson_of_aws_fsx_backup : aws_fsx_backup -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,12 +37,13 @@ type t = private {
   volume_id : string prop;
 }
 
-val aws_fsx_backup :
+val register :
+  ?tf_module:tf_module ->
   ?file_system_id:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_id:string prop ->
-  ?timeouts:aws_fsx_backup__timeouts ->
+  ?timeouts:timeouts ->
   string ->
   t

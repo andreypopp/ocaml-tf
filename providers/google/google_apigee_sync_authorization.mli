@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type google_apigee_sync_authorization__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_apigee_sync_authorization
+
+val google_apigee_sync_authorization :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  identities:string prop list ->
+  name:string prop ->
+  unit ->
+  google_apigee_sync_authorization
+
+val yojson_of_google_apigee_sync_authorization :
+  google_apigee_sync_authorization -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -12,9 +35,10 @@ type t = private {
   name : string prop;
 }
 
-val google_apigee_sync_authorization :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:google_apigee_sync_authorization__timeouts ->
+  ?timeouts:timeouts ->
   identities:string prop list ->
   name:string prop ->
   string ->

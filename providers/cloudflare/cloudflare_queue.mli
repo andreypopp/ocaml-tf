@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_queue
+
+val cloudflare_queue :
+  ?id:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  unit ->
+  cloudflare_queue
+
+val yojson_of_cloudflare_queue : cloudflare_queue -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -10,7 +23,8 @@ type t = private {
   name : string prop;
 }
 
-val cloudflare_queue :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   account_id:string prop ->
   name:string prop ->

@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_opensearch_package_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_opensearch_package_association
+
+val aws_opensearch_package_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  package_id:string prop ->
+  unit ->
+  aws_opensearch_package_association
+
+val yojson_of_aws_opensearch_package_association :
+  aws_opensearch_package_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   domain_name : string prop;
@@ -12,9 +31,10 @@ type t = private {
   reference_path : string prop;
 }
 
-val aws_opensearch_package_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_opensearch_package_association__timeouts ->
+  ?timeouts:timeouts ->
   domain_name:string prop ->
   package_id:string prop ->
   string ->

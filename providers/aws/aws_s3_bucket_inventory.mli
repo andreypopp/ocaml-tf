@@ -2,14 +2,71 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_inventory__destination__bucket__encryption__sse_kms
-type aws_s3_bucket_inventory__destination__bucket__encryption__sse_s3
-type aws_s3_bucket_inventory__destination__bucket__encryption
-type aws_s3_bucket_inventory__destination__bucket
-type aws_s3_bucket_inventory__destination
-type aws_s3_bucket_inventory__filter
-type aws_s3_bucket_inventory__schedule
+(** RESOURCE SERIALIZATION *)
+
+type destination__bucket__encryption__sse_kms
+
+val destination__bucket__encryption__sse_kms :
+  key_id:string prop ->
+  unit ->
+  destination__bucket__encryption__sse_kms
+
+type destination__bucket__encryption__sse_s3
+
+val destination__bucket__encryption__sse_s3 :
+  unit -> destination__bucket__encryption__sse_s3
+
+type destination__bucket__encryption
+
+val destination__bucket__encryption :
+  sse_kms:destination__bucket__encryption__sse_kms list ->
+  sse_s3:destination__bucket__encryption__sse_s3 list ->
+  unit ->
+  destination__bucket__encryption
+
+type destination__bucket
+
+val destination__bucket :
+  ?account_id:string prop ->
+  ?prefix:string prop ->
+  bucket_arn:string prop ->
+  format:string prop ->
+  encryption:destination__bucket__encryption list ->
+  unit ->
+  destination__bucket
+
+type destination
+
+val destination :
+  bucket:destination__bucket list -> unit -> destination
+
+type filter
+
+val filter : ?prefix:string prop -> unit -> filter
+
+type schedule
+
+val schedule : frequency:string prop -> unit -> schedule
+
 type aws_s3_bucket_inventory
+
+val aws_s3_bucket_inventory :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?optional_fields:string prop list ->
+  bucket:string prop ->
+  included_object_versions:string prop ->
+  name:string prop ->
+  destination:destination list ->
+  filter:filter list ->
+  schedule:schedule list ->
+  unit ->
+  aws_s3_bucket_inventory
+
+val yojson_of_aws_s3_bucket_inventory :
+  aws_s3_bucket_inventory -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket : string prop;
@@ -20,15 +77,16 @@ type t = private {
   optional_fields : string list prop;
 }
 
-val aws_s3_bucket_inventory :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?optional_fields:string prop list ->
   bucket:string prop ->
   included_object_versions:string prop ->
   name:string prop ->
-  destination:aws_s3_bucket_inventory__destination list ->
-  filter:aws_s3_bucket_inventory__filter list ->
-  schedule:aws_s3_bucket_inventory__schedule list ->
+  destination:destination list ->
+  filter:filter list ->
+  schedule:schedule list ->
   string ->
   t

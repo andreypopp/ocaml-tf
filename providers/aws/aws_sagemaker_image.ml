@@ -17,6 +17,18 @@ type aws_sagemaker_image = {
 [@@deriving yojson_of]
 (** aws_sagemaker_image *)
 
+let aws_sagemaker_image ?description ?display_name ?id ?tags
+    ?tags_all ~image_name ~role_arn () : aws_sagemaker_image =
+  {
+    description;
+    display_name;
+    id;
+    image_name;
+    role_arn;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -28,22 +40,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_sagemaker_image ?description ?display_name ?id ?tags
+let register ?tf_module ?description ?display_name ?id ?tags
     ?tags_all ~image_name ~role_arn __resource_id =
   let __resource_type = "aws_sagemaker_image" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       image_name;
-       role_arn;
-       tags;
-       tags_all;
-     }
-      : aws_sagemaker_image)
+    aws_sagemaker_image ?description ?display_name ?id ?tags
+      ?tags_all ~image_name ~role_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_image __resource);
   let __resource_attributes =
     ({

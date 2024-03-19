@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_alert_rule_machine_learning_behavior_analytics__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_alert_rule_machine_learning_behavior_analytics__timeouts *)
+(** timeouts *)
 
 type azurerm_sentinel_alert_rule_machine_learning_behavior_analytics = {
   alert_rule_template_guid : string prop;
@@ -21,12 +21,26 @@ type azurerm_sentinel_alert_rule_machine_learning_behavior_analytics = {
   log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
   name : string prop;  (** name *)
-  timeouts :
-    azurerm_sentinel_alert_rule_machine_learning_behavior_analytics__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_machine_learning_behavior_analytics *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sentinel_alert_rule_machine_learning_behavior_analytics
+    ?enabled ?id ?timeouts ~alert_rule_template_guid
+    ~log_analytics_workspace_id ~name () :
+    azurerm_sentinel_alert_rule_machine_learning_behavior_analytics =
+  {
+    alert_rule_template_guid;
+    enabled;
+    id;
+    log_analytics_workspace_id;
+    name;
+    timeouts;
+  }
 
 type t = {
   alert_rule_template_guid : string prop;
@@ -36,24 +50,18 @@ type t = {
   name : string prop;
 }
 
-let azurerm_sentinel_alert_rule_machine_learning_behavior_analytics
-    ?enabled ?id ?timeouts ~alert_rule_template_guid
-    ~log_analytics_workspace_id ~name __resource_id =
+let register ?tf_module ?enabled ?id ?timeouts
+    ~alert_rule_template_guid ~log_analytics_workspace_id ~name
+    __resource_id =
   let __resource_type =
     "azurerm_sentinel_alert_rule_machine_learning_behavior_analytics"
   in
   let __resource =
-    ({
-       alert_rule_template_guid;
-       enabled;
-       id;
-       log_analytics_workspace_id;
-       name;
-       timeouts;
-     }
-      : azurerm_sentinel_alert_rule_machine_learning_behavior_analytics)
+    azurerm_sentinel_alert_rule_machine_learning_behavior_analytics
+      ?enabled ?id ?timeouts ~alert_rule_template_guid
+      ~log_analytics_workspace_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_alert_rule_machine_learning_behavior_analytics
        __resource);
   let __resource_attributes =

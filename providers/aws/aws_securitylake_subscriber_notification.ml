@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_securitylake_subscriber_notification__configuration__https_notification_configuration = {
+type configuration__https_notification_configuration = {
   authorization_api_key_name : string prop option; [@option]
       (** authorization_api_key_name *)
   authorization_api_key_value : string prop option; [@option]
@@ -15,30 +15,51 @@ type aws_securitylake_subscriber_notification__configuration__https_notification
       (** target_role_arn *)
 }
 [@@deriving yojson_of]
-(** aws_securitylake_subscriber_notification__configuration__https_notification_configuration *)
+(** configuration__https_notification_configuration *)
 
-type aws_securitylake_subscriber_notification__configuration__sqs_notification_configuration =
-  unit
+type configuration__sqs_notification_configuration = unit
 [@@deriving yojson_of]
 
-type aws_securitylake_subscriber_notification__configuration = {
+type configuration = {
   https_notification_configuration :
-    aws_securitylake_subscriber_notification__configuration__https_notification_configuration
-    list;
+    configuration__https_notification_configuration list;
   sqs_notification_configuration :
-    aws_securitylake_subscriber_notification__configuration__sqs_notification_configuration
-    list;
+    configuration__sqs_notification_configuration list;
 }
 [@@deriving yojson_of]
-(** aws_securitylake_subscriber_notification__configuration *)
+(** configuration *)
 
 type aws_securitylake_subscriber_notification = {
   subscriber_id : string prop;  (** subscriber_id *)
-  configuration :
-    aws_securitylake_subscriber_notification__configuration list;
+  configuration : configuration list;
 }
 [@@deriving yojson_of]
 (** aws_securitylake_subscriber_notification *)
+
+let configuration__https_notification_configuration
+    ?authorization_api_key_name ?authorization_api_key_value
+    ?endpoint ?http_method ?target_role_arn () :
+    configuration__https_notification_configuration =
+  {
+    authorization_api_key_name;
+    authorization_api_key_value;
+    endpoint;
+    http_method;
+    target_role_arn;
+  }
+
+let configuration__sqs_notification_configuration () = ()
+
+let configuration ~https_notification_configuration
+    ~sqs_notification_configuration () : configuration =
+  {
+    https_notification_configuration;
+    sqs_notification_configuration;
+  }
+
+let aws_securitylake_subscriber_notification ~subscriber_id
+    ~configuration () : aws_securitylake_subscriber_notification =
+  { subscriber_id; configuration }
 
 type t = {
   endpoint_id : string prop;
@@ -46,14 +67,13 @@ type t = {
   subscriber_id : string prop;
 }
 
-let aws_securitylake_subscriber_notification ~subscriber_id
-    ~configuration __resource_id =
+let register ?tf_module ~subscriber_id ~configuration __resource_id =
   let __resource_type = "aws_securitylake_subscriber_notification" in
   let __resource =
-    ({ subscriber_id; configuration }
-      : aws_securitylake_subscriber_notification)
+    aws_securitylake_subscriber_notification ~subscriber_id
+      ~configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securitylake_subscriber_notification __resource);
   let __resource_attributes =
     ({

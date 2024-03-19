@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_product__provisioning_artifact_parameters = {
+type provisioning_artifact_parameters = {
   description : string prop option; [@option]  (** description *)
   disable_template_validation : bool prop option; [@option]
       (** disable_template_validation *)
@@ -15,16 +15,16 @@ type aws_servicecatalog_product__provisioning_artifact_parameters = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_product__provisioning_artifact_parameters *)
+(** provisioning_artifact_parameters *)
 
-type aws_servicecatalog_product__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_product__timeouts *)
+(** timeouts *)
 
 type aws_servicecatalog_product = {
   accept_language : string prop option; [@option]
@@ -43,11 +43,48 @@ type aws_servicecatalog_product = {
       (** tags_all *)
   type_ : string prop; [@key "type"]  (** type *)
   provisioning_artifact_parameters :
-    aws_servicecatalog_product__provisioning_artifact_parameters list;
-  timeouts : aws_servicecatalog_product__timeouts option;
+    provisioning_artifact_parameters list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_product *)
+
+let provisioning_artifact_parameters ?description
+    ?disable_template_validation ?name ?template_physical_id
+    ?template_url ?type_ () : provisioning_artifact_parameters =
+  {
+    description;
+    disable_template_validation;
+    name;
+    template_physical_id;
+    template_url;
+    type_;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let aws_servicecatalog_product ?accept_language ?description
+    ?distributor ?id ?support_description ?support_email ?support_url
+    ?tags ?tags_all ?timeouts ~name ~owner ~type_
+    ~provisioning_artifact_parameters () : aws_servicecatalog_product
+    =
+  {
+    accept_language;
+    description;
+    distributor;
+    id;
+    name;
+    owner;
+    support_description;
+    support_email;
+    support_url;
+    tags;
+    tags_all;
+    type_;
+    provisioning_artifact_parameters;
+    timeouts;
+  }
 
 type t = {
   accept_language : string prop;
@@ -68,31 +105,18 @@ type t = {
   type_ : string prop;
 }
 
-let aws_servicecatalog_product ?accept_language ?description
-    ?distributor ?id ?support_description ?support_email ?support_url
-    ?tags ?tags_all ?timeouts ~name ~owner ~type_
+let register ?tf_module ?accept_language ?description ?distributor
+    ?id ?support_description ?support_email ?support_url ?tags
+    ?tags_all ?timeouts ~name ~owner ~type_
     ~provisioning_artifact_parameters __resource_id =
   let __resource_type = "aws_servicecatalog_product" in
   let __resource =
-    ({
-       accept_language;
-       description;
-       distributor;
-       id;
-       name;
-       owner;
-       support_description;
-       support_email;
-       support_url;
-       tags;
-       tags_all;
-       type_;
-       provisioning_artifact_parameters;
-       timeouts;
-     }
-      : aws_servicecatalog_product)
+    aws_servicecatalog_product ?accept_language ?description
+      ?distributor ?id ?support_description ?support_email
+      ?support_url ?tags ?tags_all ?timeouts ~name ~owner ~type_
+      ~provisioning_artifact_parameters ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_product __resource);
   let __resource_attributes =
     ({

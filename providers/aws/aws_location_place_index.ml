@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_location_place_index__data_source_configuration = {
+type data_source_configuration = {
   intended_use : string prop option; [@option]  (** intended_use *)
 }
 [@@deriving yojson_of]
-(** aws_location_place_index__data_source_configuration *)
+(** data_source_configuration *)
 
 type aws_location_place_index = {
   data_source : string prop;  (** data_source *)
@@ -18,11 +18,27 @@ type aws_location_place_index = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  data_source_configuration :
-    aws_location_place_index__data_source_configuration list;
+  data_source_configuration : data_source_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_location_place_index *)
+
+let data_source_configuration ?intended_use () :
+    data_source_configuration =
+  { intended_use }
+
+let aws_location_place_index ?description ?id ?tags ?tags_all
+    ~data_source ~index_name ~data_source_configuration () :
+    aws_location_place_index =
+  {
+    data_source;
+    description;
+    id;
+    index_name;
+    tags;
+    tags_all;
+    data_source_configuration;
+  }
 
 type t = {
   create_time : string prop;
@@ -36,23 +52,14 @@ type t = {
   update_time : string prop;
 }
 
-let aws_location_place_index ?description ?id ?tags ?tags_all
-    ~data_source ~index_name ~data_source_configuration __resource_id
-    =
+let register ?tf_module ?description ?id ?tags ?tags_all ~data_source
+    ~index_name ~data_source_configuration __resource_id =
   let __resource_type = "aws_location_place_index" in
   let __resource =
-    ({
-       data_source;
-       description;
-       id;
-       index_name;
-       tags;
-       tags_all;
-       data_source_configuration;
-     }
-      : aws_location_place_index)
+    aws_location_place_index ?description ?id ?tags ?tags_all
+      ~data_source ~index_name ~data_source_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_location_place_index __resource);
   let __resource_attributes =
     ({

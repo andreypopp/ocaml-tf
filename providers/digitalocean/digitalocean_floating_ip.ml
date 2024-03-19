@@ -13,6 +13,10 @@ type digitalocean_floating_ip = {
 [@@deriving yojson_of]
 (** digitalocean_floating_ip *)
 
+let digitalocean_floating_ip ?droplet_id ?id ?ip_address ~region () :
+    digitalocean_floating_ip =
+  { droplet_id; id; ip_address; region }
+
 type t = {
   droplet_id : float prop;
   id : string prop;
@@ -21,14 +25,13 @@ type t = {
   urn : string prop;
 }
 
-let digitalocean_floating_ip ?droplet_id ?id ?ip_address ~region
+let register ?tf_module ?droplet_id ?id ?ip_address ~region
     __resource_id =
   let __resource_type = "digitalocean_floating_ip" in
   let __resource =
-    ({ droplet_id; id; ip_address; region }
-      : digitalocean_floating_ip)
+    digitalocean_floating_ip ?droplet_id ?id ?ip_address ~region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_floating_ip __resource);
   let __resource_attributes =
     ({

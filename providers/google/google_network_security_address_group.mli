@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type google_network_security_address_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_network_security_address_group
+
+val google_network_security_address_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?items:string prop list ->
+  ?labels:(string * string prop) list ->
+  ?parent:string prop ->
+  ?timeouts:timeouts ->
+  capacity:float prop ->
+  location:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  unit ->
+  google_network_security_address_group
+
+val yojson_of_google_network_security_address_group :
+  google_network_security_address_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   capacity : float prop;
@@ -21,13 +50,14 @@ type t = private {
   update_time : string prop;
 }
 
-val google_network_security_address_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?items:string prop list ->
   ?labels:(string * string prop) list ->
   ?parent:string prop ->
-  ?timeouts:google_network_security_address_group__timeouts ->
+  ?timeouts:timeouts ->
   capacity:float prop ->
   location:string prop ->
   name:string prop ->

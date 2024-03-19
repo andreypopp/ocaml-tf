@@ -2,10 +2,48 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_feature_group__big_query__big_query_source
-type google_vertex_ai_feature_group__big_query
-type google_vertex_ai_feature_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type big_query__big_query_source
+
+val big_query__big_query_source :
+  input_uri:string prop -> unit -> big_query__big_query_source
+
+type big_query
+
+val big_query :
+  ?entity_id_columns:string prop list ->
+  big_query_source:big_query__big_query_source list ->
+  unit ->
+  big_query
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vertex_ai_feature_group
+
+val google_vertex_ai_feature_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  big_query:big_query list ->
+  unit ->
+  google_vertex_ai_feature_group
+
+val yojson_of_google_vertex_ai_feature_group :
+  google_vertex_ai_feature_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -21,14 +59,15 @@ type t = private {
   update_time : string prop;
 }
 
-val google_vertex_ai_feature_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?timeouts:google_vertex_ai_feature_group__timeouts ->
-  big_query:google_vertex_ai_feature_group__big_query list ->
+  ?timeouts:timeouts ->
+  big_query:big_query list ->
   string ->
   t

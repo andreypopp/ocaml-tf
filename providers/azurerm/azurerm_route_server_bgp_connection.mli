@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_route_server_bgp_connection__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_route_server_bgp_connection
+
+val azurerm_route_server_bgp_connection :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  peer_asn:float prop ->
+  peer_ip:string prop ->
+  route_server_id:string prop ->
+  unit ->
+  azurerm_route_server_bgp_connection
+
+val yojson_of_azurerm_route_server_bgp_connection :
+  azurerm_route_server_bgp_connection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,9 +38,10 @@ type t = private {
   route_server_id : string prop;
 }
 
-val azurerm_route_server_bgp_connection :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_route_server_bgp_connection__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   peer_asn:float prop ->
   peer_ip:string prop ->

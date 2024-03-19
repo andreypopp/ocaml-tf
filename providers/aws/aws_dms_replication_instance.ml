@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_dms_replication_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_dms_replication_instance__timeouts *)
+(** timeouts *)
 
 type aws_dms_replication_instance = {
   allocated_storage : float prop option; [@option]
@@ -44,10 +44,43 @@ type aws_dms_replication_instance = {
       (** tags_all *)
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  timeouts : aws_dms_replication_instance__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dms_replication_instance *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_dms_replication_instance ?allocated_storage
+    ?allow_major_version_upgrade ?apply_immediately
+    ?auto_minor_version_upgrade ?availability_zone ?engine_version
+    ?id ?kms_key_arn ?multi_az ?network_type
+    ?preferred_maintenance_window ?publicly_accessible
+    ?replication_subnet_group_id ?tags ?tags_all
+    ?vpc_security_group_ids ?timeouts ~replication_instance_class
+    ~replication_instance_id () : aws_dms_replication_instance =
+  {
+    allocated_storage;
+    allow_major_version_upgrade;
+    apply_immediately;
+    auto_minor_version_upgrade;
+    availability_zone;
+    engine_version;
+    id;
+    kms_key_arn;
+    multi_az;
+    network_type;
+    preferred_maintenance_window;
+    publicly_accessible;
+    replication_instance_class;
+    replication_instance_id;
+    replication_subnet_group_id;
+    tags;
+    tags_all;
+    vpc_security_group_ids;
+    timeouts;
+  }
 
 type t = {
   allocated_storage : float prop;
@@ -73,7 +106,7 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
-let aws_dms_replication_instance ?allocated_storage
+let register ?tf_module ?allocated_storage
     ?allow_major_version_upgrade ?apply_immediately
     ?auto_minor_version_upgrade ?availability_zone ?engine_version
     ?id ?kms_key_arn ?multi_az ?network_type
@@ -83,30 +116,16 @@ let aws_dms_replication_instance ?allocated_storage
     ~replication_instance_id __resource_id =
   let __resource_type = "aws_dms_replication_instance" in
   let __resource =
-    ({
-       allocated_storage;
-       allow_major_version_upgrade;
-       apply_immediately;
-       auto_minor_version_upgrade;
-       availability_zone;
-       engine_version;
-       id;
-       kms_key_arn;
-       multi_az;
-       network_type;
-       preferred_maintenance_window;
-       publicly_accessible;
-       replication_instance_class;
-       replication_instance_id;
-       replication_subnet_group_id;
-       tags;
-       tags_all;
-       vpc_security_group_ids;
-       timeouts;
-     }
-      : aws_dms_replication_instance)
+    aws_dms_replication_instance ?allocated_storage
+      ?allow_major_version_upgrade ?apply_immediately
+      ?auto_minor_version_upgrade ?availability_zone ?engine_version
+      ?id ?kms_key_arn ?multi_az ?network_type
+      ?preferred_maintenance_window ?publicly_accessible
+      ?replication_subnet_group_id ?tags ?tags_all
+      ?vpc_security_group_ids ?timeouts ~replication_instance_class
+      ~replication_instance_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dms_replication_instance __resource);
   let __resource_attributes =
     ({

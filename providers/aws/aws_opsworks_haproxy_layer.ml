@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_opsworks_haproxy_layer__cloudwatch_configuration__log_streams = {
+type cloudwatch_configuration__log_streams = {
   batch_count : float prop option; [@option]  (** batch_count *)
   batch_size : float prop option; [@option]  (** batch_size *)
   buffer_duration : float prop option; [@option]
@@ -23,18 +23,16 @@ type aws_opsworks_haproxy_layer__cloudwatch_configuration__log_streams = {
   time_zone : string prop option; [@option]  (** time_zone *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_haproxy_layer__cloudwatch_configuration__log_streams *)
+(** cloudwatch_configuration__log_streams *)
 
-type aws_opsworks_haproxy_layer__cloudwatch_configuration = {
+type cloudwatch_configuration = {
   enabled : bool prop option; [@option]  (** enabled *)
-  log_streams :
-    aws_opsworks_haproxy_layer__cloudwatch_configuration__log_streams
-    list;
+  log_streams : cloudwatch_configuration__log_streams list;
 }
 [@@deriving yojson_of]
-(** aws_opsworks_haproxy_layer__cloudwatch_configuration *)
+(** cloudwatch_configuration *)
 
-type aws_opsworks_haproxy_layer__ebs_volume = {
+type ebs_volume = {
   encrypted : bool prop option; [@option]  (** encrypted *)
   iops : float prop option; [@option]  (** iops *)
   mount_point : string prop;  (** mount_point *)
@@ -44,9 +42,9 @@ type aws_opsworks_haproxy_layer__ebs_volume = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_haproxy_layer__ebs_volume *)
+(** ebs_volume *)
 
-type aws_opsworks_haproxy_layer__load_based_auto_scaling__downscaling = {
+type load_based_auto_scaling__downscaling = {
   alarms : string prop list option; [@option]  (** alarms *)
   cpu_threshold : float prop option; [@option]  (** cpu_threshold *)
   ignore_metrics_time : float prop option; [@option]
@@ -61,9 +59,9 @@ type aws_opsworks_haproxy_layer__load_based_auto_scaling__downscaling = {
       (** thresholds_wait_time *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_haproxy_layer__load_based_auto_scaling__downscaling *)
+(** load_based_auto_scaling__downscaling *)
 
-type aws_opsworks_haproxy_layer__load_based_auto_scaling__upscaling = {
+type load_based_auto_scaling__upscaling = {
   alarms : string prop list option; [@option]  (** alarms *)
   cpu_threshold : float prop option; [@option]  (** cpu_threshold *)
   ignore_metrics_time : float prop option; [@option]
@@ -78,19 +76,15 @@ type aws_opsworks_haproxy_layer__load_based_auto_scaling__upscaling = {
       (** thresholds_wait_time *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_haproxy_layer__load_based_auto_scaling__upscaling *)
+(** load_based_auto_scaling__upscaling *)
 
-type aws_opsworks_haproxy_layer__load_based_auto_scaling = {
+type load_based_auto_scaling = {
   enable : bool prop option; [@option]  (** enable *)
-  downscaling :
-    aws_opsworks_haproxy_layer__load_based_auto_scaling__downscaling
-    list;
-  upscaling :
-    aws_opsworks_haproxy_layer__load_based_auto_scaling__upscaling
-    list;
+  downscaling : load_based_auto_scaling__downscaling list;
+  upscaling : load_based_auto_scaling__upscaling list;
 }
 [@@deriving yojson_of]
-(** aws_opsworks_haproxy_layer__load_based_auto_scaling *)
+(** load_based_auto_scaling *)
 
 type aws_opsworks_haproxy_layer = {
   auto_assign_elastic_ips : bool prop option; [@option]
@@ -139,14 +133,125 @@ type aws_opsworks_haproxy_layer = {
       (** tags_all *)
   use_ebs_optimized_instances : bool prop option; [@option]
       (** use_ebs_optimized_instances *)
-  cloudwatch_configuration :
-    aws_opsworks_haproxy_layer__cloudwatch_configuration list;
-  ebs_volume : aws_opsworks_haproxy_layer__ebs_volume list;
-  load_based_auto_scaling :
-    aws_opsworks_haproxy_layer__load_based_auto_scaling list;
+  cloudwatch_configuration : cloudwatch_configuration list;
+  ebs_volume : ebs_volume list;
+  load_based_auto_scaling : load_based_auto_scaling list;
 }
 [@@deriving yojson_of]
 (** aws_opsworks_haproxy_layer *)
+
+let cloudwatch_configuration__log_streams ?batch_count ?batch_size
+    ?buffer_duration ?datetime_format ?encoding
+    ?file_fingerprint_lines ?initial_position
+    ?multiline_start_pattern ?time_zone ~file ~log_group_name () :
+    cloudwatch_configuration__log_streams =
+  {
+    batch_count;
+    batch_size;
+    buffer_duration;
+    datetime_format;
+    encoding;
+    file;
+    file_fingerprint_lines;
+    initial_position;
+    log_group_name;
+    multiline_start_pattern;
+    time_zone;
+  }
+
+let cloudwatch_configuration ?enabled ~log_streams () :
+    cloudwatch_configuration =
+  { enabled; log_streams }
+
+let ebs_volume ?encrypted ?iops ?raid_level ?type_ ~mount_point
+    ~number_of_disks ~size () : ebs_volume =
+  {
+    encrypted;
+    iops;
+    mount_point;
+    number_of_disks;
+    raid_level;
+    size;
+    type_;
+  }
+
+let load_based_auto_scaling__downscaling ?alarms ?cpu_threshold
+    ?ignore_metrics_time ?instance_count ?load_threshold
+    ?memory_threshold ?thresholds_wait_time () :
+    load_based_auto_scaling__downscaling =
+  {
+    alarms;
+    cpu_threshold;
+    ignore_metrics_time;
+    instance_count;
+    load_threshold;
+    memory_threshold;
+    thresholds_wait_time;
+  }
+
+let load_based_auto_scaling__upscaling ?alarms ?cpu_threshold
+    ?ignore_metrics_time ?instance_count ?load_threshold
+    ?memory_threshold ?thresholds_wait_time () :
+    load_based_auto_scaling__upscaling =
+  {
+    alarms;
+    cpu_threshold;
+    ignore_metrics_time;
+    instance_count;
+    load_threshold;
+    memory_threshold;
+    thresholds_wait_time;
+  }
+
+let load_based_auto_scaling ?enable ~downscaling ~upscaling () :
+    load_based_auto_scaling =
+  { enable; downscaling; upscaling }
+
+let aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
+    ?auto_assign_public_ips ?auto_healing ?custom_configure_recipes
+    ?custom_deploy_recipes ?custom_instance_profile_arn ?custom_json
+    ?custom_security_group_ids ?custom_setup_recipes
+    ?custom_shutdown_recipes ?custom_undeploy_recipes
+    ?drain_elb_on_shutdown ?elastic_load_balancer ?healthcheck_method
+    ?healthcheck_url ?id ?install_updates_on_boot
+    ?instance_shutdown_timeout ?name ?stats_enabled ?stats_url
+    ?stats_user ?system_packages ?tags ?tags_all
+    ?use_ebs_optimized_instances ~stack_id ~stats_password
+    ~cloudwatch_configuration ~ebs_volume ~load_based_auto_scaling ()
+    : aws_opsworks_haproxy_layer =
+  {
+    auto_assign_elastic_ips;
+    auto_assign_public_ips;
+    auto_healing;
+    custom_configure_recipes;
+    custom_deploy_recipes;
+    custom_instance_profile_arn;
+    custom_json;
+    custom_security_group_ids;
+    custom_setup_recipes;
+    custom_shutdown_recipes;
+    custom_undeploy_recipes;
+    drain_elb_on_shutdown;
+    elastic_load_balancer;
+    healthcheck_method;
+    healthcheck_url;
+    id;
+    install_updates_on_boot;
+    instance_shutdown_timeout;
+    name;
+    stack_id;
+    stats_enabled;
+    stats_password;
+    stats_url;
+    stats_user;
+    system_packages;
+    tags;
+    tags_all;
+    use_ebs_optimized_instances;
+    cloudwatch_configuration;
+    ebs_volume;
+    load_based_auto_scaling;
+  }
 
 type t = {
   arn : string prop;
@@ -180,7 +285,7 @@ type t = {
   use_ebs_optimized_instances : bool prop;
 }
 
-let aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
+let register ?tf_module ?auto_assign_elastic_ips
     ?auto_assign_public_ips ?auto_healing ?custom_configure_recipes
     ?custom_deploy_recipes ?custom_instance_profile_arn ?custom_json
     ?custom_security_group_ids ?custom_setup_recipes
@@ -194,42 +299,20 @@ let aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
     __resource_id =
   let __resource_type = "aws_opsworks_haproxy_layer" in
   let __resource =
-    ({
-       auto_assign_elastic_ips;
-       auto_assign_public_ips;
-       auto_healing;
-       custom_configure_recipes;
-       custom_deploy_recipes;
-       custom_instance_profile_arn;
-       custom_json;
-       custom_security_group_ids;
-       custom_setup_recipes;
-       custom_shutdown_recipes;
-       custom_undeploy_recipes;
-       drain_elb_on_shutdown;
-       elastic_load_balancer;
-       healthcheck_method;
-       healthcheck_url;
-       id;
-       install_updates_on_boot;
-       instance_shutdown_timeout;
-       name;
-       stack_id;
-       stats_enabled;
-       stats_password;
-       stats_url;
-       stats_user;
-       system_packages;
-       tags;
-       tags_all;
-       use_ebs_optimized_instances;
-       cloudwatch_configuration;
-       ebs_volume;
-       load_based_auto_scaling;
-     }
-      : aws_opsworks_haproxy_layer)
+    aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
+      ?auto_assign_public_ips ?auto_healing ?custom_configure_recipes
+      ?custom_deploy_recipes ?custom_instance_profile_arn
+      ?custom_json ?custom_security_group_ids ?custom_setup_recipes
+      ?custom_shutdown_recipes ?custom_undeploy_recipes
+      ?drain_elb_on_shutdown ?elastic_load_balancer
+      ?healthcheck_method ?healthcheck_url ?id
+      ?install_updates_on_boot ?instance_shutdown_timeout ?name
+      ?stats_enabled ?stats_url ?stats_user ?system_packages ?tags
+      ?tags_all ?use_ebs_optimized_instances ~stack_id
+      ~stats_password ~cloudwatch_configuration ~ebs_volume
+      ~load_based_auto_scaling ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_haproxy_layer __resource);
   let __resource_attributes =
     ({

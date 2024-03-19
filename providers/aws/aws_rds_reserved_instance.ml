@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_rds_reserved_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_rds_reserved_instance__timeouts *)
+(** timeouts *)
 
-type aws_rds_reserved_instance__recurring_charges = {
+type recurring_charges = {
   recurring_charge_amount : float prop;
       (** recurring_charge_amount *)
   recurring_charge_frequency : string prop;
@@ -30,10 +30,26 @@ type aws_rds_reserved_instance = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_rds_reserved_instance__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_rds_reserved_instance *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_rds_reserved_instance ?id ?instance_count ?reservation_id
+    ?tags ?tags_all ?timeouts ~offering_id () :
+    aws_rds_reserved_instance =
+  {
+    id;
+    instance_count;
+    offering_id;
+    reservation_id;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -48,8 +64,7 @@ type t = {
   offering_id : string prop;
   offering_type : string prop;
   product_description : string prop;
-  recurring_charges :
-    aws_rds_reserved_instance__recurring_charges list prop;
+  recurring_charges : recurring_charges list prop;
   reservation_id : string prop;
   start_time : string prop;
   state : string prop;
@@ -58,22 +73,14 @@ type t = {
   usage_price : float prop;
 }
 
-let aws_rds_reserved_instance ?id ?instance_count ?reservation_id
-    ?tags ?tags_all ?timeouts ~offering_id __resource_id =
+let register ?tf_module ?id ?instance_count ?reservation_id ?tags
+    ?tags_all ?timeouts ~offering_id __resource_id =
   let __resource_type = "aws_rds_reserved_instance" in
   let __resource =
-    ({
-       id;
-       instance_count;
-       offering_id;
-       reservation_id;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_rds_reserved_instance)
+    aws_rds_reserved_instance ?id ?instance_count ?reservation_id
+      ?tags ?tags_all ?timeouts ~offering_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rds_reserved_instance __resource);
   let __resource_attributes =
     ({

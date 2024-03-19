@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type aws_db_proxy_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_db_proxy_endpoint
+
+val aws_db_proxy_endpoint :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target_role:string prop ->
+  ?vpc_security_group_ids:string prop list ->
+  ?timeouts:timeouts ->
+  db_proxy_endpoint_name:string prop ->
+  db_proxy_name:string prop ->
+  vpc_subnet_ids:string prop list ->
+  unit ->
+  aws_db_proxy_endpoint
+
+val yojson_of_aws_db_proxy_endpoint : aws_db_proxy_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -20,13 +47,14 @@ type t = private {
   vpc_subnet_ids : string list prop;
 }
 
-val aws_db_proxy_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?target_role:string prop ->
   ?vpc_security_group_ids:string prop list ->
-  ?timeouts:aws_db_proxy_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   db_proxy_endpoint_name:string prop ->
   db_proxy_name:string prop ->
   vpc_subnet_ids:string prop list ->

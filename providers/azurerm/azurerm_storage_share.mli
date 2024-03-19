@@ -2,10 +2,53 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_share__acl__access_policy
-type azurerm_storage_share__acl
-type azurerm_storage_share__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type acl__access_policy
+
+val acl__access_policy :
+  ?expiry:string prop ->
+  ?start:string prop ->
+  permissions:string prop ->
+  unit ->
+  acl__access_policy
+
+type acl
+
+val acl :
+  id:string prop ->
+  access_policy:acl__access_policy list ->
+  unit ->
+  acl
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_storage_share
+
+val azurerm_storage_share :
+  ?access_tier:string prop ->
+  ?enabled_protocol:string prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  quota:float prop ->
+  storage_account_name:string prop ->
+  acl:acl list ->
+  unit ->
+  azurerm_storage_share
+
+val yojson_of_azurerm_storage_share : azurerm_storage_share -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_tier : string prop;
@@ -19,15 +62,16 @@ type t = private {
   url : string prop;
 }
 
-val azurerm_storage_share :
+val register :
+  ?tf_module:tf_module ->
   ?access_tier:string prop ->
   ?enabled_protocol:string prop ->
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
-  ?timeouts:azurerm_storage_share__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   quota:float prop ->
   storage_account_name:string prop ->
-  acl:azurerm_storage_share__acl list ->
+  acl:acl list ->
   string ->
   t

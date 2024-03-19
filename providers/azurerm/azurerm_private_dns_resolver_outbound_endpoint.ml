@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_private_dns_resolver_outbound_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_private_dns_resolver_outbound_endpoint__timeouts *)
+(** timeouts *)
 
 type azurerm_private_dns_resolver_outbound_endpoint = {
   id : string prop option; [@option]  (** id *)
@@ -21,11 +21,26 @@ type azurerm_private_dns_resolver_outbound_endpoint = {
       (** private_dns_resolver_id *)
   subnet_id : string prop;  (** subnet_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts :
-    azurerm_private_dns_resolver_outbound_endpoint__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_outbound_endpoint *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_private_dns_resolver_outbound_endpoint ?id ?tags
+    ?timeouts ~location ~name ~private_dns_resolver_id ~subnet_id ()
+    : azurerm_private_dns_resolver_outbound_endpoint =
+  {
+    id;
+    location;
+    name;
+    private_dns_resolver_id;
+    subnet_id;
+    tags;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -36,25 +51,17 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_private_dns_resolver_outbound_endpoint ?id ?tags
-    ?timeouts ~location ~name ~private_dns_resolver_id ~subnet_id
-    __resource_id =
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~private_dns_resolver_id ~subnet_id __resource_id =
   let __resource_type =
     "azurerm_private_dns_resolver_outbound_endpoint"
   in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       private_dns_resolver_id;
-       subnet_id;
-       tags;
-       timeouts;
-     }
-      : azurerm_private_dns_resolver_outbound_endpoint)
+    azurerm_private_dns_resolver_outbound_endpoint ?id ?tags
+      ?timeouts ~location ~name ~private_dns_resolver_id ~subnet_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_resolver_outbound_endpoint
        __resource);
   let __resource_attributes =

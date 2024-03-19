@@ -2,9 +2,41 @@
 
 open! Tf.Prelude
 
-type aws_ecrpublic_repository__catalog_data
-type aws_ecrpublic_repository__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type catalog_data
+
+val catalog_data :
+  ?about_text:string prop ->
+  ?architectures:string prop list ->
+  ?description:string prop ->
+  ?logo_image_blob:string prop ->
+  ?operating_systems:string prop list ->
+  ?usage_text:string prop ->
+  unit ->
+  catalog_data
+
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_ecrpublic_repository
+
+val aws_ecrpublic_repository :
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  repository_name:string prop ->
+  catalog_data:catalog_data list ->
+  unit ->
+  aws_ecrpublic_repository
+
+val yojson_of_aws_ecrpublic_repository :
+  aws_ecrpublic_repository -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,13 +49,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ecrpublic_repository :
+val register :
+  ?tf_module:tf_module ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_ecrpublic_repository__timeouts ->
+  ?timeouts:timeouts ->
   repository_name:string prop ->
-  catalog_data:aws_ecrpublic_repository__catalog_data list ->
+  catalog_data:catalog_data list ->
   string ->
   t

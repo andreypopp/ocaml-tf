@@ -2,8 +2,29 @@
 
 open! Tf.Prelude
 
-type aws_workspaces_ip_group__rules
+(** RESOURCE SERIALIZATION *)
+
+type rules
+
+val rules :
+  ?description:string prop -> source:string prop -> unit -> rules
+
 type aws_workspaces_ip_group
+
+val aws_workspaces_ip_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  rules:rules list ->
+  unit ->
+  aws_workspaces_ip_group
+
+val yojson_of_aws_workspaces_ip_group :
+  aws_workspaces_ip_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -13,12 +34,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_workspaces_ip_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  rules:aws_workspaces_ip_group__rules list ->
+  rules:rules list ->
   string ->
   t

@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_vpn_server_configuration_policy_group__policy
-type azurerm_vpn_server_configuration_policy_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type policy
+
+val policy :
+  name:string prop ->
+  type_:string prop ->
+  value:string prop ->
+  unit ->
+  policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_vpn_server_configuration_policy_group
+
+val azurerm_vpn_server_configuration_policy_group :
+  ?id:string prop ->
+  ?is_default:bool prop ->
+  ?priority:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  vpn_server_configuration_id:string prop ->
+  policy:policy list ->
+  unit ->
+  azurerm_vpn_server_configuration_policy_group
+
+val yojson_of_azurerm_vpn_server_configuration_policy_group :
+  azurerm_vpn_server_configuration_policy_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,13 +49,14 @@ type t = private {
   vpn_server_configuration_id : string prop;
 }
 
-val azurerm_vpn_server_configuration_policy_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?is_default:bool prop ->
   ?priority:float prop ->
-  ?timeouts:azurerm_vpn_server_configuration_policy_group__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   vpn_server_configuration_id:string prop ->
-  policy:azurerm_vpn_server_configuration_policy_group__policy list ->
+  policy:policy list ->
   string ->
   t

@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_network_gateway_nat_rule__external_mapping = {
+type external_mapping = {
   address_space : string prop;  (** address_space *)
   port_range : string prop option; [@option]  (** port_range *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway_nat_rule__external_mapping *)
+(** external_mapping *)
 
-type azurerm_virtual_network_gateway_nat_rule__internal_mapping = {
+type internal_mapping = {
   address_space : string prop;  (** address_space *)
   port_range : string prop option; [@option]  (** port_range *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway_nat_rule__internal_mapping *)
+(** internal_mapping *)
 
-type azurerm_virtual_network_gateway_nat_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway_nat_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_network_gateway_nat_rule = {
   id : string prop option; [@option]  (** id *)
@@ -37,15 +37,40 @@ type azurerm_virtual_network_gateway_nat_rule = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   virtual_network_gateway_id : string prop;
       (** virtual_network_gateway_id *)
-  external_mapping :
-    azurerm_virtual_network_gateway_nat_rule__external_mapping list;
-  internal_mapping :
-    azurerm_virtual_network_gateway_nat_rule__internal_mapping list;
-  timeouts :
-    azurerm_virtual_network_gateway_nat_rule__timeouts option;
+  external_mapping : external_mapping list;
+  internal_mapping : internal_mapping list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_network_gateway_nat_rule *)
+
+let external_mapping ?port_range ~address_space () : external_mapping
+    =
+  { address_space; port_range }
+
+let internal_mapping ?port_range ~address_space () : internal_mapping
+    =
+  { address_space; port_range }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_network_gateway_nat_rule ?id ?ip_configuration_id
+    ?mode ?type_ ?timeouts ~name ~resource_group_name
+    ~virtual_network_gateway_id ~external_mapping ~internal_mapping
+    () : azurerm_virtual_network_gateway_nat_rule =
+  {
+    id;
+    ip_configuration_id;
+    mode;
+    name;
+    resource_group_name;
+    type_;
+    virtual_network_gateway_id;
+    external_mapping;
+    internal_mapping;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -57,27 +82,17 @@ type t = {
   virtual_network_gateway_id : string prop;
 }
 
-let azurerm_virtual_network_gateway_nat_rule ?id ?ip_configuration_id
-    ?mode ?type_ ?timeouts ~name ~resource_group_name
-    ~virtual_network_gateway_id ~external_mapping ~internal_mapping
-    __resource_id =
+let register ?tf_module ?id ?ip_configuration_id ?mode ?type_
+    ?timeouts ~name ~resource_group_name ~virtual_network_gateway_id
+    ~external_mapping ~internal_mapping __resource_id =
   let __resource_type = "azurerm_virtual_network_gateway_nat_rule" in
   let __resource =
-    ({
-       id;
-       ip_configuration_id;
-       mode;
-       name;
-       resource_group_name;
-       type_;
-       virtual_network_gateway_id;
-       external_mapping;
-       internal_mapping;
-       timeouts;
-     }
-      : azurerm_virtual_network_gateway_nat_rule)
+    azurerm_virtual_network_gateway_nat_rule ?id ?ip_configuration_id
+      ?mode ?type_ ?timeouts ~name ~resource_group_name
+      ~virtual_network_gateway_id ~external_mapping ~internal_mapping
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_gateway_nat_rule __resource);
   let __resource_attributes =
     ({

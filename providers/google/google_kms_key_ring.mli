@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type google_kms_key_ring__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_kms_key_ring
+
+val google_kms_key_ring :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  unit ->
+  google_kms_key_ring
+
+val yojson_of_google_kms_key_ring : google_kms_key_ring -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,10 +31,11 @@ type t = private {
   project : string prop;
 }
 
-val google_kms_key_ring :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_kms_key_ring__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   string ->

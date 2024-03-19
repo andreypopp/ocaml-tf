@@ -2,10 +2,49 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_powershell72_module__module_link__hash
-type azurerm_automation_powershell72_module__module_link
-type azurerm_automation_powershell72_module__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type module_link__hash
+
+val module_link__hash :
+  algorithm:string prop ->
+  value:string prop ->
+  unit ->
+  module_link__hash
+
+type module_link
+
+val module_link :
+  uri:string prop ->
+  hash:module_link__hash list ->
+  unit ->
+  module_link
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_automation_powershell72_module
+
+val azurerm_automation_powershell72_module :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  automation_account_id:string prop ->
+  name:string prop ->
+  module_link:module_link list ->
+  unit ->
+  azurerm_automation_powershell72_module
+
+val yojson_of_azurerm_automation_powershell72_module :
+  azurerm_automation_powershell72_module -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   automation_account_id : string prop;
@@ -13,12 +52,12 @@ type t = private {
   name : string prop;
 }
 
-val azurerm_automation_powershell72_module :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_automation_powershell72_module__timeouts ->
+  ?timeouts:timeouts ->
   automation_account_id:string prop ->
   name:string prop ->
-  module_link:
-    azurerm_automation_powershell72_module__module_link list ->
+  module_link:module_link list ->
   string ->
   t

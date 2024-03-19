@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iam_policy
+
+val aws_iam_policy :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?path:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  policy:string prop ->
+  unit ->
+  aws_iam_policy
+
+val yojson_of_aws_iam_policy : aws_iam_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +35,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_iam_policy :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?name:string prop ->

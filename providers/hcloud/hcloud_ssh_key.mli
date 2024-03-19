@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type hcloud_ssh_key
+
+val hcloud_ssh_key :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  name:string prop ->
+  public_key:string prop ->
+  unit ->
+  hcloud_ssh_key
+
+val yojson_of_hcloud_ssh_key : hcloud_ssh_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   fingerprint : string prop;
@@ -12,7 +26,8 @@ type t = private {
   public_key : string prop;
 }
 
-val hcloud_ssh_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   name:string prop ->

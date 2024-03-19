@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_account_region__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_account_region
+
+val aws_account_region :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  enabled:bool prop ->
+  region_name:string prop ->
+  unit ->
+  aws_account_region
+
+val yojson_of_aws_account_region : aws_account_region -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -13,10 +32,11 @@ type t = private {
   region_name : string prop;
 }
 
-val aws_account_region :
+val register :
+  ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?id:string prop ->
-  ?timeouts:aws_account_region__timeouts ->
+  ?timeouts:timeouts ->
   enabled:bool prop ->
   region_name:string prop ->
   string ->

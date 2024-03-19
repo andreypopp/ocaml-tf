@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_kusto_database__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_kusto_database
+
+val azurerm_kusto_database :
+  ?hot_cache_period:string prop ->
+  ?id:string prop ->
+  ?soft_delete_period:string prop ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_kusto_database
+
+val yojson_of_azurerm_kusto_database : azurerm_kusto_database -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_name : string prop;
@@ -16,11 +43,12 @@ type t = private {
   soft_delete_period : string prop;
 }
 
-val azurerm_kusto_database :
+val register :
+  ?tf_module:tf_module ->
   ?hot_cache_period:string prop ->
   ?id:string prop ->
   ?soft_delete_period:string prop ->
-  ?timeouts:azurerm_kusto_database__timeouts ->
+  ?timeouts:timeouts ->
   cluster_name:string prop ->
   location:string prop ->
   name:string prop ->

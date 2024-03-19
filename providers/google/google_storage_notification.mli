@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_storage_notification
+
+val google_storage_notification :
+  ?custom_attributes:(string * string prop) list ->
+  ?event_types:string prop list ->
+  ?id:string prop ->
+  ?object_name_prefix:string prop ->
+  bucket:string prop ->
+  payload_format:string prop ->
+  topic:string prop ->
+  unit ->
+  google_storage_notification
+
+val yojson_of_google_storage_notification :
+  google_storage_notification -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket : string prop;
@@ -16,7 +34,8 @@ type t = private {
   topic : string prop;
 }
 
-val google_storage_notification :
+val register :
+  ?tf_module:tf_module ->
   ?custom_attributes:(string * string prop) list ->
   ?event_types:string prop list ->
   ?id:string prop ->

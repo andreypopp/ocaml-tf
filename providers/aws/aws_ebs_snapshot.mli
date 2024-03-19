@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_ebs_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_ebs_snapshot
+
+val aws_ebs_snapshot :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?outpost_arn:string prop ->
+  ?permanent_restore:bool prop ->
+  ?storage_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?temporary_restore_days:float prop ->
+  ?timeouts:timeouts ->
+  volume_id:string prop ->
+  unit ->
+  aws_ebs_snapshot
+
+val yojson_of_aws_ebs_snapshot : aws_ebs_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -24,7 +48,8 @@ type t = private {
   volume_size : float prop;
 }
 
-val aws_ebs_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?outpost_arn:string prop ->
@@ -33,7 +58,7 @@ val aws_ebs_snapshot :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?temporary_restore_days:float prop ->
-  ?timeouts:aws_ebs_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   volume_id:string prop ->
   string ->
   t

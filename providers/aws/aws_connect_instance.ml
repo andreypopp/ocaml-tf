@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_connect_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_connect_instance__timeouts *)
+(** timeouts *)
 
 type aws_connect_instance = {
   auto_resolve_best_voices_enabled : bool prop option; [@option]
@@ -30,10 +30,33 @@ type aws_connect_instance = {
   multi_party_conference_enabled : bool prop option; [@option]
       (** multi_party_conference_enabled *)
   outbound_calls_enabled : bool prop;  (** outbound_calls_enabled *)
-  timeouts : aws_connect_instance__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_connect_instance *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_connect_instance ?auto_resolve_best_voices_enabled
+    ?contact_flow_logs_enabled ?contact_lens_enabled ?directory_id
+    ?early_media_enabled ?id ?instance_alias
+    ?multi_party_conference_enabled ?timeouts
+    ~identity_management_type ~inbound_calls_enabled
+    ~outbound_calls_enabled () : aws_connect_instance =
+  {
+    auto_resolve_best_voices_enabled;
+    contact_flow_logs_enabled;
+    contact_lens_enabled;
+    directory_id;
+    early_media_enabled;
+    id;
+    identity_management_type;
+    inbound_calls_enabled;
+    instance_alias;
+    multi_party_conference_enabled;
+    outbound_calls_enabled;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -53,7 +76,7 @@ type t = {
   status : string prop;
 }
 
-let aws_connect_instance ?auto_resolve_best_voices_enabled
+let register ?tf_module ?auto_resolve_best_voices_enabled
     ?contact_flow_logs_enabled ?contact_lens_enabled ?directory_id
     ?early_media_enabled ?id ?instance_alias
     ?multi_party_conference_enabled ?timeouts
@@ -61,23 +84,14 @@ let aws_connect_instance ?auto_resolve_best_voices_enabled
     ~outbound_calls_enabled __resource_id =
   let __resource_type = "aws_connect_instance" in
   let __resource =
-    ({
-       auto_resolve_best_voices_enabled;
-       contact_flow_logs_enabled;
-       contact_lens_enabled;
-       directory_id;
-       early_media_enabled;
-       id;
-       identity_management_type;
-       inbound_calls_enabled;
-       instance_alias;
-       multi_party_conference_enabled;
-       outbound_calls_enabled;
-       timeouts;
-     }
-      : aws_connect_instance)
+    aws_connect_instance ?auto_resolve_best_voices_enabled
+      ?contact_flow_logs_enabled ?contact_lens_enabled ?directory_id
+      ?early_media_enabled ?id ?instance_alias
+      ?multi_party_conference_enabled ?timeouts
+      ~identity_management_type ~inbound_calls_enabled
+      ~outbound_calls_enabled ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_instance __resource);
   let __resource_attributes =
     ({

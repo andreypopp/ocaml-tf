@@ -4,43 +4,40 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_listener__default_action__fixed_response = {
+type default_action__fixed_response = {
   status_code : float prop;  (** status_code *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener__default_action__fixed_response *)
+(** default_action__fixed_response *)
 
-type aws_vpclattice_listener__default_action__forward__target_groups = {
+type default_action__forward__target_groups = {
   target_group_identifier : string prop option; [@option]
       (** target_group_identifier *)
   weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener__default_action__forward__target_groups *)
+(** default_action__forward__target_groups *)
 
-type aws_vpclattice_listener__default_action__forward = {
-  target_groups :
-    aws_vpclattice_listener__default_action__forward__target_groups
-    list;
+type default_action__forward = {
+  target_groups : default_action__forward__target_groups list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener__default_action__forward *)
+(** default_action__forward *)
 
-type aws_vpclattice_listener__default_action = {
-  fixed_response :
-    aws_vpclattice_listener__default_action__fixed_response list;
-  forward : aws_vpclattice_listener__default_action__forward list;
+type default_action = {
+  fixed_response : default_action__fixed_response list;
+  forward : default_action__forward list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener__default_action *)
+(** default_action *)
 
-type aws_vpclattice_listener__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener__timeouts *)
+(** timeouts *)
 
 type aws_vpclattice_listener = {
   id : string prop option; [@option]  (** id *)
@@ -53,11 +50,45 @@ type aws_vpclattice_listener = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  default_action : aws_vpclattice_listener__default_action list;
-  timeouts : aws_vpclattice_listener__timeouts option;
+  default_action : default_action list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_listener *)
+
+let default_action__fixed_response ~status_code () :
+    default_action__fixed_response =
+  { status_code }
+
+let default_action__forward__target_groups ?target_group_identifier
+    ?weight () : default_action__forward__target_groups =
+  { target_group_identifier; weight }
+
+let default_action__forward ~target_groups () :
+    default_action__forward =
+  { target_groups }
+
+let default_action ~fixed_response ~forward () : default_action =
+  { fixed_response; forward }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpclattice_listener ?id ?port ?service_arn
+    ?service_identifier ?tags ?tags_all ?timeouts ~name ~protocol
+    ~default_action () : aws_vpclattice_listener =
+  {
+    id;
+    name;
+    port;
+    protocol;
+    service_arn;
+    service_identifier;
+    tags;
+    tags_all;
+    default_action;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -74,26 +105,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpclattice_listener ?id ?port ?service_arn
-    ?service_identifier ?tags ?tags_all ?timeouts ~name ~protocol
-    ~default_action __resource_id =
+let register ?tf_module ?id ?port ?service_arn ?service_identifier
+    ?tags ?tags_all ?timeouts ~name ~protocol ~default_action
+    __resource_id =
   let __resource_type = "aws_vpclattice_listener" in
   let __resource =
-    ({
-       id;
-       name;
-       port;
-       protocol;
-       service_arn;
-       service_identifier;
-       tags;
-       tags_all;
-       default_action;
-       timeouts;
-     }
-      : aws_vpclattice_listener)
+    aws_vpclattice_listener ?id ?port ?service_arn
+      ?service_identifier ?tags ?tags_all ?timeouts ~name ~protocol
+      ~default_action ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_listener __resource);
   let __resource_attributes =
     ({

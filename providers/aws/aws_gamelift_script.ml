@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_gamelift_script__storage_location = {
+type storage_location = {
   bucket : string prop;  (** bucket *)
   key : string prop;  (** key *)
   object_version : string prop option; [@option]
@@ -12,7 +12,7 @@ type aws_gamelift_script__storage_location = {
   role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
-(** aws_gamelift_script__storage_location *)
+(** storage_location *)
 
 type aws_gamelift_script = {
   id : string prop option; [@option]  (** id *)
@@ -22,10 +22,18 @@ type aws_gamelift_script = {
       (** tags_all *)
   version : string prop option; [@option]  (** version *)
   zip_file : string prop option; [@option]  (** zip_file *)
-  storage_location : aws_gamelift_script__storage_location list;
+  storage_location : storage_location list;
 }
 [@@deriving yojson_of]
 (** aws_gamelift_script *)
+
+let storage_location ?object_version ~bucket ~key ~role_arn () :
+    storage_location =
+  { bucket; key; object_version; role_arn }
+
+let aws_gamelift_script ?id ?tags ?tags_all ?version ?zip_file ~name
+    ~storage_location () : aws_gamelift_script =
+  { id; name; tags; tags_all; version; zip_file; storage_location }
 
 type t = {
   arn : string prop;
@@ -37,22 +45,14 @@ type t = {
   zip_file : string prop;
 }
 
-let aws_gamelift_script ?id ?tags ?tags_all ?version ?zip_file ~name
+let register ?tf_module ?id ?tags ?tags_all ?version ?zip_file ~name
     ~storage_location __resource_id =
   let __resource_type = "aws_gamelift_script" in
   let __resource =
-    ({
-       id;
-       name;
-       tags;
-       tags_all;
-       version;
-       zip_file;
-       storage_location;
-     }
-      : aws_gamelift_script)
+    aws_gamelift_script ?id ?tags ?tags_all ?version ?zip_file ~name
+      ~storage_location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_script __resource);
   let __resource_attributes =
     ({

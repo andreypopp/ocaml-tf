@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_postgresql_role__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_cosmosdb_postgresql_role
+
+val azurerm_cosmosdb_postgresql_role :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cluster_id:string prop ->
+  name:string prop ->
+  password:string prop ->
+  unit ->
+  azurerm_cosmosdb_postgresql_role
+
+val yojson_of_azurerm_cosmosdb_postgresql_role :
+  azurerm_cosmosdb_postgresql_role -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_id : string prop;
@@ -12,9 +36,10 @@ type t = private {
   password : string prop;
 }
 
-val azurerm_cosmosdb_postgresql_role :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_cosmosdb_postgresql_role__timeouts ->
+  ?timeouts:timeouts ->
   cluster_id:string prop ->
   name:string prop ->
   password:string prop ->

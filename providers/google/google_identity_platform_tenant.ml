@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_identity_platform_tenant__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_identity_platform_tenant__timeouts *)
+(** timeouts *)
 
 type google_identity_platform_tenant = {
   allow_password_signup : bool prop option; [@option]
@@ -25,10 +25,26 @@ are not able to manage its users. *)
       (** Whether to enable email link user authentication. *)
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_identity_platform_tenant__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_identity_platform_tenant *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_identity_platform_tenant ?allow_password_signup
+    ?disable_auth ?enable_email_link_signin ?id ?project ?timeouts
+    ~display_name () : google_identity_platform_tenant =
+  {
+    allow_password_signup;
+    disable_auth;
+    display_name;
+    enable_email_link_signin;
+    id;
+    project;
+    timeouts;
+  }
 
 type t = {
   allow_password_signup : bool prop;
@@ -40,23 +56,16 @@ type t = {
   project : string prop;
 }
 
-let google_identity_platform_tenant ?allow_password_signup
-    ?disable_auth ?enable_email_link_signin ?id ?project ?timeouts
-    ~display_name __resource_id =
+let register ?tf_module ?allow_password_signup ?disable_auth
+    ?enable_email_link_signin ?id ?project ?timeouts ~display_name
+    __resource_id =
   let __resource_type = "google_identity_platform_tenant" in
   let __resource =
-    ({
-       allow_password_signup;
-       disable_auth;
-       display_name;
-       enable_email_link_signin;
-       id;
-       project;
-       timeouts;
-     }
-      : google_identity_platform_tenant)
+    google_identity_platform_tenant ?allow_password_signup
+      ?disable_auth ?enable_email_link_signin ?id ?project ?timeouts
+      ~display_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_tenant __resource);
   let __resource_attributes =
     ({

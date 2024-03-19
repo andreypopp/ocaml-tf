@@ -4,65 +4,59 @@
 
 open! Tf.Prelude
 
-type azurerm_resource_policy_assignment__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_policy_assignment__identity *)
+(** identity *)
 
-type azurerm_resource_policy_assignment__non_compliance_message = {
+type non_compliance_message = {
   content : string prop;  (** content *)
   policy_definition_reference_id : string prop option; [@option]
       (** policy_definition_reference_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_policy_assignment__non_compliance_message *)
+(** non_compliance_message *)
 
-type azurerm_resource_policy_assignment__overrides__selectors = {
+type overrides__selectors = {
   in_ : string prop list option; [@option] [@key "in"]  (** in *)
-  kind : string prop;  (** kind *)
   not_in : string prop list option; [@option]  (** not_in *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_policy_assignment__overrides__selectors *)
+(** overrides__selectors *)
 
-type azurerm_resource_policy_assignment__overrides = {
+type overrides = {
   value : string prop;  (** value *)
-  selectors :
-    azurerm_resource_policy_assignment__overrides__selectors list;
+  selectors : overrides__selectors list;
 }
 [@@deriving yojson_of]
-(** azurerm_resource_policy_assignment__overrides *)
+(** overrides *)
 
-type azurerm_resource_policy_assignment__resource_selectors__selectors = {
+type resource_selectors__selectors = {
   in_ : string prop list option; [@option] [@key "in"]  (** in *)
   kind : string prop;  (** kind *)
   not_in : string prop list option; [@option]  (** not_in *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_policy_assignment__resource_selectors__selectors *)
+(** resource_selectors__selectors *)
 
-type azurerm_resource_policy_assignment__resource_selectors = {
+type resource_selectors = {
   name : string prop option; [@option]  (** name *)
-  selectors :
-    azurerm_resource_policy_assignment__resource_selectors__selectors
-    list;
+  selectors : resource_selectors__selectors list;
 }
 [@@deriving yojson_of]
-(** azurerm_resource_policy_assignment__resource_selectors *)
+(** resource_selectors *)
 
-type azurerm_resource_policy_assignment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_policy_assignment__timeouts *)
+(** timeouts *)
 
 type azurerm_resource_policy_assignment = {
   description : string prop option; [@option]  (** description *)
@@ -76,16 +70,60 @@ type azurerm_resource_policy_assignment = {
   parameters : string prop option; [@option]  (** parameters *)
   policy_definition_id : string prop;  (** policy_definition_id *)
   resource_id : string prop;  (** resource_id *)
-  identity : azurerm_resource_policy_assignment__identity list;
-  non_compliance_message :
-    azurerm_resource_policy_assignment__non_compliance_message list;
-  overrides : azurerm_resource_policy_assignment__overrides list;
-  resource_selectors :
-    azurerm_resource_policy_assignment__resource_selectors list;
-  timeouts : azurerm_resource_policy_assignment__timeouts option;
+  identity : identity list;
+  non_compliance_message : non_compliance_message list;
+  overrides : overrides list;
+  resource_selectors : resource_selectors list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_resource_policy_assignment *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let non_compliance_message ?policy_definition_reference_id ~content
+    () : non_compliance_message =
+  { content; policy_definition_reference_id }
+
+let overrides__selectors ?in_ ?not_in () : overrides__selectors =
+  { in_; not_in }
+
+let overrides ~value ~selectors () : overrides = { value; selectors }
+
+let resource_selectors__selectors ?in_ ?not_in ~kind () :
+    resource_selectors__selectors =
+  { in_; kind; not_in }
+
+let resource_selectors ?name ~selectors () : resource_selectors =
+  { name; selectors }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_resource_policy_assignment ?description ?display_name
+    ?enforce ?id ?location ?metadata ?not_scopes ?parameters
+    ?timeouts ~name ~policy_definition_id ~resource_id ~identity
+    ~non_compliance_message ~overrides ~resource_selectors () :
+    azurerm_resource_policy_assignment =
+  {
+    description;
+    display_name;
+    enforce;
+    id;
+    location;
+    metadata;
+    name;
+    not_scopes;
+    parameters;
+    policy_definition_id;
+    resource_id;
+    identity;
+    non_compliance_message;
+    overrides;
+    resource_selectors;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -101,34 +139,19 @@ type t = {
   resource_id : string prop;
 }
 
-let azurerm_resource_policy_assignment ?description ?display_name
-    ?enforce ?id ?location ?metadata ?not_scopes ?parameters
-    ?timeouts ~name ~policy_definition_id ~resource_id ~identity
+let register ?tf_module ?description ?display_name ?enforce ?id
+    ?location ?metadata ?not_scopes ?parameters ?timeouts ~name
+    ~policy_definition_id ~resource_id ~identity
     ~non_compliance_message ~overrides ~resource_selectors
     __resource_id =
   let __resource_type = "azurerm_resource_policy_assignment" in
   let __resource =
-    ({
-       description;
-       display_name;
-       enforce;
-       id;
-       location;
-       metadata;
-       name;
-       not_scopes;
-       parameters;
-       policy_definition_id;
-       resource_id;
-       identity;
-       non_compliance_message;
-       overrides;
-       resource_selectors;
-       timeouts;
-     }
-      : azurerm_resource_policy_assignment)
+    azurerm_resource_policy_assignment ?description ?display_name
+      ?enforce ?id ?location ?metadata ?not_scopes ?parameters
+      ?timeouts ~name ~policy_definition_id ~resource_id ~identity
+      ~non_compliance_message ~overrides ~resource_selectors ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_resource_policy_assignment __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iam_user_group_membership
+
+val aws_iam_user_group_membership :
+  ?id:string prop ->
+  groups:string prop list ->
+  user:string prop ->
+  unit ->
+  aws_iam_user_group_membership
+
+val yojson_of_aws_iam_user_group_membership :
+  aws_iam_user_group_membership -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   groups : string list prop;
@@ -10,7 +24,8 @@ type t = private {
   user : string prop;
 }
 
-val aws_iam_user_group_membership :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   groups:string prop list ->
   user:string prop ->

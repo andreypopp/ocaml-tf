@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_palo_alto_local_rulestack_certificate__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_palo_alto_local_rulestack_certificate
+
+val azurerm_palo_alto_local_rulestack_certificate :
+  ?audit_comment:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?key_vault_certificate_id:string prop ->
+  ?self_signed:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  rulestack_id:string prop ->
+  unit ->
+  azurerm_palo_alto_local_rulestack_certificate
+
+val yojson_of_azurerm_palo_alto_local_rulestack_certificate :
+  azurerm_palo_alto_local_rulestack_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   audit_comment : string prop;
@@ -15,13 +43,14 @@ type t = private {
   self_signed : bool prop;
 }
 
-val azurerm_palo_alto_local_rulestack_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?audit_comment:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?key_vault_certificate_id:string prop ->
   ?self_signed:bool prop ->
-  ?timeouts:azurerm_palo_alto_local_rulestack_certificate__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   rulestack_id:string prop ->
   string ->

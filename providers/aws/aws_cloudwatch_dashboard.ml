@@ -12,6 +12,10 @@ type aws_cloudwatch_dashboard = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_dashboard *)
 
+let aws_cloudwatch_dashboard ?id ~dashboard_body ~dashboard_name () :
+    aws_cloudwatch_dashboard =
+  { dashboard_body; dashboard_name; id }
+
 type t = {
   dashboard_arn : string prop;
   dashboard_body : string prop;
@@ -19,14 +23,13 @@ type t = {
   id : string prop;
 }
 
-let aws_cloudwatch_dashboard ?id ~dashboard_body ~dashboard_name
+let register ?tf_module ?id ~dashboard_body ~dashboard_name
     __resource_id =
   let __resource_type = "aws_cloudwatch_dashboard" in
   let __resource =
-    ({ dashboard_body; dashboard_name; id }
-      : aws_cloudwatch_dashboard)
+    aws_cloudwatch_dashboard ?id ~dashboard_body ~dashboard_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_dashboard __resource);
   let __resource_attributes =
     ({

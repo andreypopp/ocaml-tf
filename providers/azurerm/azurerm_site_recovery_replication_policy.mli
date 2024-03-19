@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_site_recovery_replication_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_site_recovery_replication_policy
+
+val azurerm_site_recovery_replication_policy :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  application_consistent_snapshot_frequency_in_minutes:float prop ->
+  name:string prop ->
+  recovery_point_retention_in_minutes:float prop ->
+  recovery_vault_name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_site_recovery_replication_policy
+
+val yojson_of_azurerm_site_recovery_replication_policy :
+  azurerm_site_recovery_replication_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_consistent_snapshot_frequency_in_minutes : float prop;
@@ -14,9 +41,10 @@ type t = private {
   resource_group_name : string prop;
 }
 
-val azurerm_site_recovery_replication_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_site_recovery_replication_policy__timeouts ->
+  ?timeouts:timeouts ->
   application_consistent_snapshot_frequency_in_minutes:float prop ->
   name:string prop ->
   recovery_point_retention_in_minutes:float prop ->

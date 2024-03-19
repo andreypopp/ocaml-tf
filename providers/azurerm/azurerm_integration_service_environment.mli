@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_integration_service_environment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_integration_service_environment
+
+val azurerm_integration_service_environment :
+  ?id:string prop ->
+  ?sku_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  access_endpoint_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  virtual_network_subnet_ids:string prop list ->
+  unit ->
+  azurerm_integration_service_environment
+
+val yojson_of_azurerm_integration_service_environment :
+  azurerm_integration_service_environment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_endpoint_type : string prop;
@@ -20,11 +49,12 @@ type t = private {
   workflow_outbound_ip_addresses : string list prop;
 }
 
-val azurerm_integration_service_environment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?sku_name:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_integration_service_environment__timeouts ->
+  ?timeouts:timeouts ->
   access_endpoint_type:string prop ->
   location:string prop ->
   name:string prop ->

@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_aadb2c_directory__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_aadb2c_directory
+
+val azurerm_aadb2c_directory :
+  ?country_code:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  data_residency_location:string prop ->
+  domain_name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  unit ->
+  azurerm_aadb2c_directory
+
+val yojson_of_azurerm_aadb2c_directory :
+  azurerm_aadb2c_directory -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   billing_type : string prop;
@@ -19,12 +48,13 @@ type t = private {
   tenant_id : string prop;
 }
 
-val azurerm_aadb2c_directory :
+val register :
+  ?tf_module:tf_module ->
   ?country_code:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_aadb2c_directory__timeouts ->
+  ?timeouts:timeouts ->
   data_residency_location:string prop ->
   domain_name:string prop ->
   resource_group_name:string prop ->

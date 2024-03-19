@@ -4,29 +4,31 @@
 
 open! Tf.Prelude
 
-type aws_ssoadmin_instance_access_control_attributes__attribute__value = {
-  source : string prop list;  (** source *)
-}
+type attribute__value = { source : string prop list  (** source *) }
 [@@deriving yojson_of]
-(** aws_ssoadmin_instance_access_control_attributes__attribute__value *)
+(** attribute__value *)
 
-type aws_ssoadmin_instance_access_control_attributes__attribute = {
+type attribute = {
   key : string prop;  (** key *)
-  value :
-    aws_ssoadmin_instance_access_control_attributes__attribute__value
-    list;
+  value : attribute__value list;
 }
 [@@deriving yojson_of]
-(** aws_ssoadmin_instance_access_control_attributes__attribute *)
+(** attribute *)
 
 type aws_ssoadmin_instance_access_control_attributes = {
   id : string prop option; [@option]  (** id *)
   instance_arn : string prop;  (** instance_arn *)
-  attribute :
-    aws_ssoadmin_instance_access_control_attributes__attribute list;
+  attribute : attribute list;
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_instance_access_control_attributes *)
+
+let attribute__value ~source () : attribute__value = { source }
+let attribute ~key ~value () : attribute = { key; value }
+
+let aws_ssoadmin_instance_access_control_attributes ?id ~instance_arn
+    ~attribute () : aws_ssoadmin_instance_access_control_attributes =
+  { id; instance_arn; attribute }
 
 type t = {
   id : string prop;
@@ -35,16 +37,15 @@ type t = {
   status_reason : string prop;
 }
 
-let aws_ssoadmin_instance_access_control_attributes ?id ~instance_arn
-    ~attribute __resource_id =
+let register ?tf_module ?id ~instance_arn ~attribute __resource_id =
   let __resource_type =
     "aws_ssoadmin_instance_access_control_attributes"
   in
   let __resource =
-    ({ id; instance_arn; attribute }
-      : aws_ssoadmin_instance_access_control_attributes)
+    aws_ssoadmin_instance_access_control_attributes ?id ~instance_arn
+      ~attribute ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssoadmin_instance_access_control_attributes
        __resource);
   let __resource_attributes =

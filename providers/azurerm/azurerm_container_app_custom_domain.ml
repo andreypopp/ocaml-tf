@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_container_app_custom_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_app_custom_domain__timeouts *)
+(** timeouts *)
 
 type azurerm_container_app_custom_domain = {
   certificate_binding_type : string prop;
@@ -21,10 +21,26 @@ type azurerm_container_app_custom_domain = {
   id : string prop option; [@option]  (** id *)
   name : string prop;
       (** The hostname of the Certificate. Must be the CN or a named SAN in the certificate. *)
-  timeouts : azurerm_container_app_custom_domain__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_container_app_custom_domain *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_container_app_custom_domain ?id ?timeouts
+    ~certificate_binding_type
+    ~container_app_environment_certificate_id ~container_app_id ~name
+    () : azurerm_container_app_custom_domain =
+  {
+    certificate_binding_type;
+    container_app_environment_certificate_id;
+    container_app_id;
+    id;
+    name;
+    timeouts;
+  }
 
 type t = {
   certificate_binding_type : string prop;
@@ -34,23 +50,17 @@ type t = {
   name : string prop;
 }
 
-let azurerm_container_app_custom_domain ?id ?timeouts
-    ~certificate_binding_type
+let register ?tf_module ?id ?timeouts ~certificate_binding_type
     ~container_app_environment_certificate_id ~container_app_id ~name
     __resource_id =
   let __resource_type = "azurerm_container_app_custom_domain" in
   let __resource =
-    ({
-       certificate_binding_type;
-       container_app_environment_certificate_id;
-       container_app_id;
-       id;
-       name;
-       timeouts;
-     }
-      : azurerm_container_app_custom_domain)
+    azurerm_container_app_custom_domain ?id ?timeouts
+      ~certificate_binding_type
+      ~container_app_environment_certificate_id ~container_app_id
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app_custom_domain __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type google_compute_shared_vpc_service_project__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_shared_vpc_service_project
+
+val google_compute_shared_vpc_service_project :
+  ?deletion_policy:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  host_project:string prop ->
+  service_project:string prop ->
+  unit ->
+  google_compute_shared_vpc_service_project
+
+val yojson_of_google_compute_shared_vpc_service_project :
+  google_compute_shared_vpc_service_project -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   deletion_policy : string prop;
@@ -12,10 +32,11 @@ type t = private {
   service_project : string prop;
 }
 
-val google_compute_shared_vpc_service_project :
+val register :
+  ?tf_module:tf_module ->
   ?deletion_policy:string prop ->
   ?id:string prop ->
-  ?timeouts:google_compute_shared_vpc_service_project__timeouts ->
+  ?timeouts:timeouts ->
   host_project:string prop ->
   service_project:string prop ->
   string ->

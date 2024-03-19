@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type digitalocean_custom_image__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type digitalocean_custom_image
+
+val digitalocean_custom_image :
+  ?description:string prop ->
+  ?distribution:string prop ->
+  ?id:string prop ->
+  ?tags:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  regions:string prop list ->
+  url:string prop ->
+  unit ->
+  digitalocean_custom_image
+
+val yojson_of_digitalocean_custom_image :
+  digitalocean_custom_image -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created_at : string prop;
@@ -23,12 +45,13 @@ type t = private {
   url : string prop;
 }
 
-val digitalocean_custom_image :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?distribution:string prop ->
   ?id:string prop ->
   ?tags:string prop list ->
-  ?timeouts:digitalocean_custom_image__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   regions:string prop list ->
   url:string prop ->

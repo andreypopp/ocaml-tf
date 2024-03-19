@@ -28,6 +28,25 @@ type aws_cognito_user = {
 [@@deriving yojson_of]
 (** aws_cognito_user *)
 
+let aws_cognito_user ?attributes ?client_metadata
+    ?desired_delivery_mediums ?enabled ?force_alias_creation ?id
+    ?message_action ?password ?temporary_password ?validation_data
+    ~user_pool_id ~username () : aws_cognito_user =
+  {
+    attributes;
+    client_metadata;
+    desired_delivery_mediums;
+    enabled;
+    force_alias_creation;
+    id;
+    message_action;
+    password;
+    temporary_password;
+    user_pool_id;
+    username;
+    validation_data;
+  }
+
 type t = {
   attributes : (string * string) list prop;
   client_metadata : (string * string) list prop;
@@ -49,29 +68,18 @@ type t = {
   validation_data : (string * string) list prop;
 }
 
-let aws_cognito_user ?attributes ?client_metadata
+let register ?tf_module ?attributes ?client_metadata
     ?desired_delivery_mediums ?enabled ?force_alias_creation ?id
     ?message_action ?password ?temporary_password ?validation_data
     ~user_pool_id ~username __resource_id =
   let __resource_type = "aws_cognito_user" in
   let __resource =
-    ({
-       attributes;
-       client_metadata;
-       desired_delivery_mediums;
-       enabled;
-       force_alias_creation;
-       id;
-       message_action;
-       password;
-       temporary_password;
-       user_pool_id;
-       username;
-       validation_data;
-     }
-      : aws_cognito_user)
+    aws_cognito_user ?attributes ?client_metadata
+      ?desired_delivery_mediums ?enabled ?force_alias_creation ?id
+      ?message_action ?password ?temporary_password ?validation_data
+      ~user_pool_id ~username ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_user __resource);
   let __resource_attributes =
     ({

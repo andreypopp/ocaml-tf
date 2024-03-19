@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_netapp_volume_replication__destination_volume_parameters = {
+type destination_volume_parameters = {
   description : string prop option; [@option]
       (** Description for the destination volume. *)
   share_name : string prop option; [@option]
@@ -17,15 +17,15 @@ type google_netapp_volume_replication__destination_volume_parameters = {
 [@@deriving yojson_of]
 (** Destination volume parameters. *)
 
-type google_netapp_volume_replication__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_netapp_volume_replication__timeouts *)
+(** timeouts *)
 
-type google_netapp_volume_replication__transfer_stats = {
+type transfer_stats = {
   lag_duration : string prop;  (** lag_duration *)
   last_transfer_bytes : string prop;  (** last_transfer_bytes *)
   last_transfer_duration : string prop;
@@ -81,13 +81,40 @@ done to the destination volume with the content of the source volume. *)
       (** Replication resource state is independent of mirror_state. With enough data, it can take many hours
 for mirror_state to reach MIRRORED. If you want Terraform to wait for the mirror to finish on
 create/stop/resume operations, set this parameter to true. Default is false. *)
-  destination_volume_parameters :
-    google_netapp_volume_replication__destination_volume_parameters
-    list;
-  timeouts : google_netapp_volume_replication__timeouts option;
+  destination_volume_parameters : destination_volume_parameters list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_volume_replication *)
+
+let destination_volume_parameters ?description ?share_name ?volume_id
+    ~storage_pool () : destination_volume_parameters =
+  { description; share_name; storage_pool; volume_id }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_netapp_volume_replication ?delete_destination_volume
+    ?description ?force_stopping ?id ?labels ?project
+    ?replication_enabled ?wait_for_mirror ?timeouts ~location ~name
+    ~replication_schedule ~volume_name ~destination_volume_parameters
+    () : google_netapp_volume_replication =
+  {
+    delete_destination_volume;
+    description;
+    force_stopping;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    replication_enabled;
+    replication_schedule;
+    volume_name;
+    wait_for_mirror;
+    destination_volume_parameters;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -110,38 +137,24 @@ type t = {
   state : string prop;
   state_details : string prop;
   terraform_labels : (string * string) list prop;
-  transfer_stats :
-    google_netapp_volume_replication__transfer_stats list prop;
+  transfer_stats : transfer_stats list prop;
   volume_name : string prop;
   wait_for_mirror : bool prop;
 }
 
-let google_netapp_volume_replication ?delete_destination_volume
-    ?description ?force_stopping ?id ?labels ?project
-    ?replication_enabled ?wait_for_mirror ?timeouts ~location ~name
-    ~replication_schedule ~volume_name ~destination_volume_parameters
-    __resource_id =
+let register ?tf_module ?delete_destination_volume ?description
+    ?force_stopping ?id ?labels ?project ?replication_enabled
+    ?wait_for_mirror ?timeouts ~location ~name ~replication_schedule
+    ~volume_name ~destination_volume_parameters __resource_id =
   let __resource_type = "google_netapp_volume_replication" in
   let __resource =
-    ({
-       delete_destination_volume;
-       description;
-       force_stopping;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       replication_enabled;
-       replication_schedule;
-       volume_name;
-       wait_for_mirror;
-       destination_volume_parameters;
-       timeouts;
-     }
-      : google_netapp_volume_replication)
+    google_netapp_volume_replication ?delete_destination_volume
+      ?description ?force_stopping ?id ?labels ?project
+      ?replication_enabled ?wait_for_mirror ?timeouts ~location ~name
+      ~replication_schedule ~volume_name
+      ~destination_volume_parameters ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_volume_replication __resource);
   let __resource_attributes =
     ({

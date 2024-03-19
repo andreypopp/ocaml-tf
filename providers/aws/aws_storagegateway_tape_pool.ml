@@ -19,6 +19,19 @@ type aws_storagegateway_tape_pool = {
 [@@deriving yojson_of]
 (** aws_storagegateway_tape_pool *)
 
+let aws_storagegateway_tape_pool ?id ?retention_lock_time_in_days
+    ?retention_lock_type ?tags ?tags_all ~pool_name ~storage_class ()
+    : aws_storagegateway_tape_pool =
+  {
+    id;
+    pool_name;
+    retention_lock_time_in_days;
+    retention_lock_type;
+    storage_class;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -30,23 +43,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_storagegateway_tape_pool ?id ?retention_lock_time_in_days
+let register ?tf_module ?id ?retention_lock_time_in_days
     ?retention_lock_type ?tags ?tags_all ~pool_name ~storage_class
     __resource_id =
   let __resource_type = "aws_storagegateway_tape_pool" in
   let __resource =
-    ({
-       id;
-       pool_name;
-       retention_lock_time_in_days;
-       retention_lock_type;
-       storage_class;
-       tags;
-       tags_all;
-     }
-      : aws_storagegateway_tape_pool)
+    aws_storagegateway_tape_pool ?id ?retention_lock_time_in_days
+      ?retention_lock_type ?tags ?tags_all ~pool_name ~storage_class
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_storagegateway_tape_pool __resource);
   let __resource_attributes =
     ({

@@ -2,33 +2,168 @@
 
 open! Tf.Prelude
 
-type azurerm_web_application_firewall_policy__custom_rules__match_conditions__match_variables
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_web_application_firewall_policy__custom_rules__match_conditions
+type custom_rules__match_conditions__match_variables
 
-type azurerm_web_application_firewall_policy__custom_rules
+val custom_rules__match_conditions__match_variables :
+  ?selector:string prop ->
+  variable_name:string prop ->
+  unit ->
+  custom_rules__match_conditions__match_variables
 
-type azurerm_web_application_firewall_policy__managed_rules__exclusion__excluded_rule_set__rule_group
+type custom_rules__match_conditions
 
-type azurerm_web_application_firewall_policy__managed_rules__exclusion__excluded_rule_set
+val custom_rules__match_conditions :
+  ?match_values:string prop list ->
+  ?negation_condition:bool prop ->
+  ?transforms:string prop list ->
+  operator:string prop ->
+  match_variables:
+    custom_rules__match_conditions__match_variables list ->
+  unit ->
+  custom_rules__match_conditions
 
-type azurerm_web_application_firewall_policy__managed_rules__exclusion
+type custom_rules
 
-type azurerm_web_application_firewall_policy__managed_rules__managed_rule_set__rule_group_override__rule
+val custom_rules :
+  ?enabled:bool prop ->
+  ?group_rate_limit_by:string prop ->
+  ?name:string prop ->
+  ?rate_limit_duration:string prop ->
+  ?rate_limit_threshold:float prop ->
+  action:string prop ->
+  priority:float prop ->
+  rule_type:string prop ->
+  match_conditions:custom_rules__match_conditions list ->
+  unit ->
+  custom_rules
 
-type azurerm_web_application_firewall_policy__managed_rules__managed_rule_set__rule_group_override
+type managed_rules__exclusion__excluded_rule_set__rule_group
 
-type azurerm_web_application_firewall_policy__managed_rules__managed_rule_set
+val managed_rules__exclusion__excluded_rule_set__rule_group :
+  ?excluded_rules:string prop list ->
+  rule_group_name:string prop ->
+  unit ->
+  managed_rules__exclusion__excluded_rule_set__rule_group
 
-type azurerm_web_application_firewall_policy__managed_rules
+type managed_rules__exclusion__excluded_rule_set
 
-type azurerm_web_application_firewall_policy__policy_settings__log_scrubbing__rule
+val managed_rules__exclusion__excluded_rule_set :
+  ?type_:string prop ->
+  ?version:string prop ->
+  rule_group:
+    managed_rules__exclusion__excluded_rule_set__rule_group list ->
+  unit ->
+  managed_rules__exclusion__excluded_rule_set
 
-type azurerm_web_application_firewall_policy__policy_settings__log_scrubbing
+type managed_rules__exclusion
 
-type azurerm_web_application_firewall_policy__policy_settings
-type azurerm_web_application_firewall_policy__timeouts
+val managed_rules__exclusion :
+  match_variable:string prop ->
+  selector:string prop ->
+  selector_match_operator:string prop ->
+  excluded_rule_set:managed_rules__exclusion__excluded_rule_set list ->
+  unit ->
+  managed_rules__exclusion
+
+type managed_rules__managed_rule_set__rule_group_override__rule
+
+val managed_rules__managed_rule_set__rule_group_override__rule :
+  ?action:string prop ->
+  ?enabled:bool prop ->
+  id:string prop ->
+  unit ->
+  managed_rules__managed_rule_set__rule_group_override__rule
+
+type managed_rules__managed_rule_set__rule_group_override
+
+val managed_rules__managed_rule_set__rule_group_override :
+  ?disabled_rules:string prop list ->
+  rule_group_name:string prop ->
+  rule:
+    managed_rules__managed_rule_set__rule_group_override__rule list ->
+  unit ->
+  managed_rules__managed_rule_set__rule_group_override
+
+type managed_rules__managed_rule_set
+
+val managed_rules__managed_rule_set :
+  ?type_:string prop ->
+  version:string prop ->
+  rule_group_override:
+    managed_rules__managed_rule_set__rule_group_override list ->
+  unit ->
+  managed_rules__managed_rule_set
+
+type managed_rules
+
+val managed_rules :
+  exclusion:managed_rules__exclusion list ->
+  managed_rule_set:managed_rules__managed_rule_set list ->
+  unit ->
+  managed_rules
+
+type policy_settings__log_scrubbing__rule
+
+val policy_settings__log_scrubbing__rule :
+  ?enabled:bool prop ->
+  ?selector:string prop ->
+  ?selector_match_operator:string prop ->
+  match_variable:string prop ->
+  unit ->
+  policy_settings__log_scrubbing__rule
+
+type policy_settings__log_scrubbing
+
+val policy_settings__log_scrubbing :
+  ?enabled:bool prop ->
+  rule:policy_settings__log_scrubbing__rule list ->
+  unit ->
+  policy_settings__log_scrubbing
+
+type policy_settings
+
+val policy_settings :
+  ?enabled:bool prop ->
+  ?file_upload_limit_in_mb:float prop ->
+  ?max_request_body_size_in_kb:float prop ->
+  ?mode:string prop ->
+  ?request_body_check:bool prop ->
+  ?request_body_inspect_limit_in_kb:float prop ->
+  log_scrubbing:policy_settings__log_scrubbing list ->
+  unit ->
+  policy_settings
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_web_application_firewall_policy
+
+val azurerm_web_application_firewall_policy :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  custom_rules:custom_rules list ->
+  managed_rules:managed_rules list ->
+  policy_settings:policy_settings list ->
+  unit ->
+  azurerm_web_application_firewall_policy
+
+val yojson_of_azurerm_web_application_firewall_policy :
+  azurerm_web_application_firewall_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   http_listener_ids : string list prop;
@@ -40,18 +175,16 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_web_application_firewall_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_web_application_firewall_policy__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  custom_rules:
-    azurerm_web_application_firewall_policy__custom_rules list ->
-  managed_rules:
-    azurerm_web_application_firewall_policy__managed_rules list ->
-  policy_settings:
-    azurerm_web_application_firewall_policy__policy_settings list ->
+  custom_rules:custom_rules list ->
+  managed_rules:managed_rules list ->
+  policy_settings:policy_settings list ->
   string ->
   t

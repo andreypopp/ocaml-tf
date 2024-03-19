@@ -13,6 +13,10 @@ type aws_cognito_user_in_group = {
 [@@deriving yojson_of]
 (** aws_cognito_user_in_group *)
 
+let aws_cognito_user_in_group ?id ~group_name ~user_pool_id ~username
+    () : aws_cognito_user_in_group =
+  { group_name; id; user_pool_id; username }
+
 type t = {
   group_name : string prop;
   id : string prop;
@@ -20,14 +24,14 @@ type t = {
   username : string prop;
 }
 
-let aws_cognito_user_in_group ?id ~group_name ~user_pool_id ~username
+let register ?tf_module ?id ~group_name ~user_pool_id ~username
     __resource_id =
   let __resource_type = "aws_cognito_user_in_group" in
   let __resource =
-    ({ group_name; id; user_pool_id; username }
-      : aws_cognito_user_in_group)
+    aws_cognito_user_in_group ?id ~group_name ~user_pool_id ~username
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_user_in_group __resource);
   let __resource_attributes =
     ({

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_privateca_ca_pool_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_privateca_ca_pool_iam_binding__condition *)
+(** condition *)
 
 type google_privateca_ca_pool_iam_binding = {
   ca_pool : string prop;  (** ca_pool *)
@@ -19,10 +19,18 @@ type google_privateca_ca_pool_iam_binding = {
   members : string prop list;  (** members *)
   project : string prop option; [@option]  (** project *)
   role : string prop;  (** role *)
-  condition : google_privateca_ca_pool_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_privateca_ca_pool_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_privateca_ca_pool_iam_binding ?id ?location ?project
+    ~ca_pool ~members ~role ~condition () :
+    google_privateca_ca_pool_iam_binding =
+  { ca_pool; id; location; members; project; role; condition }
 
 type t = {
   ca_pool : string prop;
@@ -34,14 +42,14 @@ type t = {
   role : string prop;
 }
 
-let google_privateca_ca_pool_iam_binding ?id ?location ?project
-    ~ca_pool ~members ~role ~condition __resource_id =
+let register ?tf_module ?id ?location ?project ~ca_pool ~members
+    ~role ~condition __resource_id =
   let __resource_type = "google_privateca_ca_pool_iam_binding" in
   let __resource =
-    ({ ca_pool; id; location; members; project; role; condition }
-      : google_privateca_ca_pool_iam_binding)
+    google_privateca_ca_pool_iam_binding ?id ?location ?project
+      ~ca_pool ~members ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_privateca_ca_pool_iam_binding __resource);
   let __resource_attributes =
     ({

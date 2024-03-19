@@ -4,38 +4,37 @@
 
 open! Tf.Prelude
 
-type azurerm_snapshot__encryption_settings__disk_encryption_key = {
+type encryption_settings__disk_encryption_key = {
   secret_url : string prop;  (** secret_url *)
   source_vault_id : string prop;  (** source_vault_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_snapshot__encryption_settings__disk_encryption_key *)
+(** encryption_settings__disk_encryption_key *)
 
-type azurerm_snapshot__encryption_settings__key_encryption_key = {
+type encryption_settings__key_encryption_key = {
   key_url : string prop;  (** key_url *)
   source_vault_id : string prop;  (** source_vault_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_snapshot__encryption_settings__key_encryption_key *)
+(** encryption_settings__key_encryption_key *)
 
-type azurerm_snapshot__encryption_settings = {
+type encryption_settings = {
   enabled : bool prop option; [@option]  (** enabled *)
   disk_encryption_key :
-    azurerm_snapshot__encryption_settings__disk_encryption_key list;
-  key_encryption_key :
-    azurerm_snapshot__encryption_settings__key_encryption_key list;
+    encryption_settings__disk_encryption_key list;
+  key_encryption_key : encryption_settings__key_encryption_key list;
 }
 [@@deriving yojson_of]
-(** azurerm_snapshot__encryption_settings *)
+(** encryption_settings *)
 
-type azurerm_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_snapshot__timeouts *)
+(** timeouts *)
 
 type azurerm_snapshot = {
   create_option : string prop;  (** create_option *)
@@ -52,11 +51,46 @@ type azurerm_snapshot = {
   storage_account_id : string prop option; [@option]
       (** storage_account_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  encryption_settings : azurerm_snapshot__encryption_settings list;
-  timeouts : azurerm_snapshot__timeouts option;
+  encryption_settings : encryption_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_snapshot *)
+
+let encryption_settings__disk_encryption_key ~secret_url
+    ~source_vault_id () : encryption_settings__disk_encryption_key =
+  { secret_url; source_vault_id }
+
+let encryption_settings__key_encryption_key ~key_url ~source_vault_id
+    () : encryption_settings__key_encryption_key =
+  { key_url; source_vault_id }
+
+let encryption_settings ?enabled ~disk_encryption_key
+    ~key_encryption_key () : encryption_settings =
+  { enabled; disk_encryption_key; key_encryption_key }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
+    ?source_resource_id ?source_uri ?storage_account_id ?tags
+    ?timeouts ~create_option ~location ~name ~resource_group_name
+    ~encryption_settings () : azurerm_snapshot =
+  {
+    create_option;
+    disk_size_gb;
+    id;
+    incremental_enabled;
+    location;
+    name;
+    resource_group_name;
+    source_resource_id;
+    source_uri;
+    storage_account_id;
+    tags;
+    encryption_settings;
+    timeouts;
+  }
 
 type t = {
   create_option : string prop;
@@ -73,30 +107,18 @@ type t = {
   trusted_launch_enabled : bool prop;
 }
 
-let azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
+let register ?tf_module ?disk_size_gb ?id ?incremental_enabled
     ?source_resource_id ?source_uri ?storage_account_id ?tags
     ?timeouts ~create_option ~location ~name ~resource_group_name
     ~encryption_settings __resource_id =
   let __resource_type = "azurerm_snapshot" in
   let __resource =
-    ({
-       create_option;
-       disk_size_gb;
-       id;
-       incremental_enabled;
-       location;
-       name;
-       resource_group_name;
-       source_resource_id;
-       source_uri;
-       storage_account_id;
-       tags;
-       encryption_settings;
-       timeouts;
-     }
-      : azurerm_snapshot)
+    azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
+      ?source_resource_id ?source_uri ?storage_account_id ?tags
+      ?timeouts ~create_option ~location ~name ~resource_group_name
+      ~encryption_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_snapshot __resource);
   let __resource_attributes =
     ({

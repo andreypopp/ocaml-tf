@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_dns_managed_zone__cloud_logging_config = {
+type cloud_logging_config = {
   enable_logging : bool prop;
       (** If set, enable query logging for this ManagedZone. False by default, making logging opt-in. *)
 }
 [@@deriving yojson_of]
 (** Cloud logging configuration *)
 
-type google_dns_managed_zone__dnssec_config__default_key_specs = {
+type dnssec_config__default_key_specs = {
   algorithm : string prop option; [@option]
       (** String mnemonic specifying the DNSSEC algorithm of this key Possible values: [ecdsap256sha256, ecdsap384sha384, rsasha1, rsasha256, rsasha512] *)
   key_length : float prop option; [@option]
@@ -32,7 +32,7 @@ for this ManagedZone. If you provide a spec for keySigning or zoneSigning,
 you must also provide one for the other.
 default_key_specs can only be updated when the state is 'off'. *)
 
-type google_dns_managed_zone__dnssec_config = {
+type dnssec_config = {
   kind : string prop option; [@option]
       (** Identifies what kind of resource this is *)
   non_existence : string prop option; [@option]
@@ -40,13 +40,12 @@ type google_dns_managed_zone__dnssec_config = {
 non_existence can only be updated when the state is 'off'. Possible values: [nsec, nsec3] *)
   state : string prop option; [@option]
       (** Specifies whether DNSSEC is enabled, and what mode it is in Possible values: [off, on, transfer] *)
-  default_key_specs :
-    google_dns_managed_zone__dnssec_config__default_key_specs list;
+  default_key_specs : dnssec_config__default_key_specs list;
 }
 [@@deriving yojson_of]
 (** DNSSEC configuration *)
 
-type google_dns_managed_zone__forwarding_config__target_name_servers = {
+type forwarding_config__target_name_servers = {
   forwarding_path : string prop option; [@option]
       (** Forwarding path for this TargetNameServer. If unset or 'default' Cloud DNS will make forwarding
 decision based on address ranges, i.e. RFC1918 addresses go to the VPC, Non-RFC1918 addresses go
@@ -59,17 +58,15 @@ to the Internet. When set to 'private', Cloud DNS will always send queries throu
 select the best available name server if more than
 one target is given. *)
 
-type google_dns_managed_zone__forwarding_config = {
-  target_name_servers :
-    google_dns_managed_zone__forwarding_config__target_name_servers
-    list;
+type forwarding_config = {
+  target_name_servers : forwarding_config__target_name_servers list;
 }
 [@@deriving yojson_of]
 (** The presence for this field indicates that outbound forwarding is enabled
 for this zone. The value of this field contains the set of destinations
 to forward to. *)
 
-type google_dns_managed_zone__peering_config__target_network = {
+type peering_config__target_network = {
   network_url : string prop;
       (** The id or fully qualified URL of the VPC network to forward queries to.
 This should be formatted like 'projects/{project}/global/networks/{network}' or
@@ -78,15 +75,14 @@ This should be formatted like 'projects/{project}/global/networks/{network}' or
 [@@deriving yojson_of]
 (** The network with which to peer. *)
 
-type google_dns_managed_zone__peering_config = {
-  target_network :
-    google_dns_managed_zone__peering_config__target_network list;
+type peering_config = {
+  target_network : peering_config__target_network list;
 }
 [@@deriving yojson_of]
 (** The presence of this field indicates that DNS Peering is enabled for this
 zone. The value of this field contains the network to peer with. *)
 
-type google_dns_managed_zone__private_visibility_config__gke_clusters = {
+type private_visibility_config__gke_clusters = {
   gke_cluster_name : string prop;
       (** The resource name of the cluster to bind this ManagedZone to.
 This should be specified in the format like
@@ -95,7 +91,7 @@ This should be specified in the format like
 [@@deriving yojson_of]
 (** The list of Google Kubernetes Engine clusters that can see this zone. *)
 
-type google_dns_managed_zone__private_visibility_config__networks = {
+type private_visibility_config__networks = {
   network_url : string prop;
       (** The id or fully qualified URL of the VPC network to bind to.
 This should be formatted like 'projects/{project}/global/networks/{network}' or
@@ -108,24 +104,21 @@ add another 'networks' block while keeping the old block, Terraform will see an 
 and apply an incorrect update to the resource. If you encounter this issue, remove all 'networks'
 blocks in an update and then apply another update adding all of them back simultaneously. *)
 
-type google_dns_managed_zone__private_visibility_config = {
-  gke_clusters :
-    google_dns_managed_zone__private_visibility_config__gke_clusters
-    list;
-  networks :
-    google_dns_managed_zone__private_visibility_config__networks list;
+type private_visibility_config = {
+  gke_clusters : private_visibility_config__gke_clusters list;
+  networks : private_visibility_config__networks list;
 }
 [@@deriving yojson_of]
 (** For privately visible zones, the set of Virtual Private Cloud
 resources that the zone is visible from. At least one of 'gke_clusters' or 'networks' must be specified. *)
 
-type google_dns_managed_zone__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dns_managed_zone__timeouts *)
+(** timeouts *)
 
 type google_dns_managed_zone = {
   description : string prop option; [@option]
@@ -148,18 +141,77 @@ Must be unique within the project. *)
   visibility : string prop option; [@option]
       (** The zone's visibility: public zones are exposed to the Internet,
 while private zones are visible only to Virtual Private Cloud resources. Default value: public Possible values: [private, public] *)
-  cloud_logging_config :
-    google_dns_managed_zone__cloud_logging_config list;
-  dnssec_config : google_dns_managed_zone__dnssec_config list;
-  forwarding_config :
-    google_dns_managed_zone__forwarding_config list;
-  peering_config : google_dns_managed_zone__peering_config list;
-  private_visibility_config :
-    google_dns_managed_zone__private_visibility_config list;
-  timeouts : google_dns_managed_zone__timeouts option;
+  cloud_logging_config : cloud_logging_config list;
+  dnssec_config : dnssec_config list;
+  forwarding_config : forwarding_config list;
+  peering_config : peering_config list;
+  private_visibility_config : private_visibility_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dns_managed_zone *)
+
+let cloud_logging_config ~enable_logging () : cloud_logging_config =
+  { enable_logging }
+
+let dnssec_config__default_key_specs ?algorithm ?key_length ?key_type
+    ?kind () : dnssec_config__default_key_specs =
+  { algorithm; key_length; key_type; kind }
+
+let dnssec_config ?kind ?non_existence ?state ~default_key_specs () :
+    dnssec_config =
+  { kind; non_existence; state; default_key_specs }
+
+let forwarding_config__target_name_servers ?forwarding_path
+    ~ipv4_address () : forwarding_config__target_name_servers =
+  { forwarding_path; ipv4_address }
+
+let forwarding_config ~target_name_servers () : forwarding_config =
+  { target_name_servers }
+
+let peering_config__target_network ~network_url () :
+    peering_config__target_network =
+  { network_url }
+
+let peering_config ~target_network () : peering_config =
+  { target_network }
+
+let private_visibility_config__gke_clusters ~gke_cluster_name () :
+    private_visibility_config__gke_clusters =
+  { gke_cluster_name }
+
+let private_visibility_config__networks ~network_url () :
+    private_visibility_config__networks =
+  { network_url }
+
+let private_visibility_config ~gke_clusters ~networks () :
+    private_visibility_config =
+  { gke_clusters; networks }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dns_managed_zone ?description ?force_destroy ?id ?labels
+    ?project ?visibility ?timeouts ~dns_name ~name
+    ~cloud_logging_config ~dnssec_config ~forwarding_config
+    ~peering_config ~private_visibility_config () :
+    google_dns_managed_zone =
+  {
+    description;
+    dns_name;
+    force_destroy;
+    id;
+    labels;
+    name;
+    project;
+    visibility;
+    cloud_logging_config;
+    dnssec_config;
+    forwarding_config;
+    peering_config;
+    private_visibility_config;
+    timeouts;
+  }
 
 type t = {
   creation_time : string prop;
@@ -177,31 +229,18 @@ type t = {
   visibility : string prop;
 }
 
-let google_dns_managed_zone ?description ?force_destroy ?id ?labels
+let register ?tf_module ?description ?force_destroy ?id ?labels
     ?project ?visibility ?timeouts ~dns_name ~name
     ~cloud_logging_config ~dnssec_config ~forwarding_config
     ~peering_config ~private_visibility_config __resource_id =
   let __resource_type = "google_dns_managed_zone" in
   let __resource =
-    ({
-       description;
-       dns_name;
-       force_destroy;
-       id;
-       labels;
-       name;
-       project;
-       visibility;
-       cloud_logging_config;
-       dnssec_config;
-       forwarding_config;
-       peering_config;
-       private_visibility_config;
-       timeouts;
-     }
-      : google_dns_managed_zone)
+    google_dns_managed_zone ?description ?force_destroy ?id ?labels
+      ?project ?visibility ?timeouts ~dns_name ~name
+      ~cloud_logging_config ~dnssec_config ~forwarding_config
+      ~peering_config ~private_visibility_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_managed_zone __resource);
   let __resource_attributes =
     ({

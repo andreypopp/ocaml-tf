@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cognito_user_pool_ui_customization
+
+val aws_cognito_user_pool_ui_customization :
+  ?client_id:string prop ->
+  ?css:string prop ->
+  ?id:string prop ->
+  ?image_file:string prop ->
+  user_pool_id:string prop ->
+  unit ->
+  aws_cognito_user_pool_ui_customization
+
+val yojson_of_aws_cognito_user_pool_ui_customization :
+  aws_cognito_user_pool_ui_customization -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   client_id : string prop;
@@ -16,7 +32,8 @@ type t = private {
   user_pool_id : string prop;
 }
 
-val aws_cognito_user_pool_ui_customization :
+val register :
+  ?tf_module:tf_module ->
   ?client_id:string prop ->
   ?css:string prop ->
   ?id:string prop ->

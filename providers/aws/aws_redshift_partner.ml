@@ -14,6 +14,10 @@ type aws_redshift_partner = {
 [@@deriving yojson_of]
 (** aws_redshift_partner *)
 
+let aws_redshift_partner ?id ~account_id ~cluster_identifier
+    ~database_name ~partner_name () : aws_redshift_partner =
+  { account_id; cluster_identifier; database_name; id; partner_name }
+
 type t = {
   account_id : string prop;
   cluster_identifier : string prop;
@@ -24,20 +28,14 @@ type t = {
   status_message : string prop;
 }
 
-let aws_redshift_partner ?id ~account_id ~cluster_identifier
+let register ?tf_module ?id ~account_id ~cluster_identifier
     ~database_name ~partner_name __resource_id =
   let __resource_type = "aws_redshift_partner" in
   let __resource =
-    ({
-       account_id;
-       cluster_identifier;
-       database_name;
-       id;
-       partner_name;
-     }
-      : aws_redshift_partner)
+    aws_redshift_partner ?id ~account_id ~cluster_identifier
+      ~database_name ~partner_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_partner __resource);
   let __resource_attributes =
     ({

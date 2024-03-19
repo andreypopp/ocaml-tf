@@ -2,15 +2,45 @@
 
 open! Tf.Prelude
 
-type azurerm_resource_provider_registration__feature
-type azurerm_resource_provider_registration__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type feature
+
+val feature :
+  name:string prop -> registered:bool prop -> unit -> feature
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_resource_provider_registration
-type t = private { id : string prop; name : string prop }
 
 val azurerm_resource_provider_registration :
   ?id:string prop ->
-  ?timeouts:azurerm_resource_provider_registration__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  feature:azurerm_resource_provider_registration__feature list ->
+  feature:feature list ->
+  unit ->
+  azurerm_resource_provider_registration
+
+val yojson_of_azurerm_resource_provider_registration :
+  azurerm_resource_provider_registration -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; name : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  feature:feature list ->
   string ->
   t

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_lambda_provisioned_concurrency_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_provisioned_concurrency_config__timeouts *)
+(** timeouts *)
 
 type aws_lambda_provisioned_concurrency_config = {
   function_name : string prop;  (** function_name *)
@@ -18,11 +18,24 @@ type aws_lambda_provisioned_concurrency_config = {
       (** provisioned_concurrent_executions *)
   qualifier : string prop;  (** qualifier *)
   skip_destroy : bool prop option; [@option]  (** skip_destroy *)
-  timeouts :
-    aws_lambda_provisioned_concurrency_config__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lambda_provisioned_concurrency_config *)
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_lambda_provisioned_concurrency_config ?id ?skip_destroy
+    ?timeouts ~function_name ~provisioned_concurrent_executions
+    ~qualifier () : aws_lambda_provisioned_concurrency_config =
+  {
+    function_name;
+    id;
+    provisioned_concurrent_executions;
+    qualifier;
+    skip_destroy;
+    timeouts;
+  }
 
 type t = {
   function_name : string prop;
@@ -32,24 +45,17 @@ type t = {
   skip_destroy : bool prop;
 }
 
-let aws_lambda_provisioned_concurrency_config ?id ?skip_destroy
-    ?timeouts ~function_name ~provisioned_concurrent_executions
-    ~qualifier __resource_id =
+let register ?tf_module ?id ?skip_destroy ?timeouts ~function_name
+    ~provisioned_concurrent_executions ~qualifier __resource_id =
   let __resource_type =
     "aws_lambda_provisioned_concurrency_config"
   in
   let __resource =
-    ({
-       function_name;
-       id;
-       provisioned_concurrent_executions;
-       qualifier;
-       skip_destroy;
-       timeouts;
-     }
-      : aws_lambda_provisioned_concurrency_config)
+    aws_lambda_provisioned_concurrency_config ?id ?skip_destroy
+      ?timeouts ~function_name ~provisioned_concurrent_executions
+      ~qualifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_provisioned_concurrency_config __resource);
   let __resource_attributes =
     ({

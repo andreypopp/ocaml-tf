@@ -2,11 +2,61 @@
 
 open! Tf.Prelude
 
-type azurerm_elastic_san_volume_group__encryption
-type azurerm_elastic_san_volume_group__identity
-type azurerm_elastic_san_volume_group__network_rule
-type azurerm_elastic_san_volume_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type encryption
+
+val encryption :
+  ?user_assigned_identity_id:string prop ->
+  key_vault_key_id:string prop ->
+  unit ->
+  encryption
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type network_rule
+
+val network_rule :
+  ?action:string prop ->
+  subnet_id:string prop ->
+  unit ->
+  network_rule
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_elastic_san_volume_group
+
+val azurerm_elastic_san_volume_group :
+  ?encryption_type:string prop ->
+  ?id:string prop ->
+  ?protocol_type:string prop ->
+  ?timeouts:timeouts ->
+  elastic_san_id:string prop ->
+  name:string prop ->
+  encryption:encryption list ->
+  identity:identity list ->
+  network_rule:network_rule list ->
+  unit ->
+  azurerm_elastic_san_volume_group
+
+val yojson_of_azurerm_elastic_san_volume_group :
+  azurerm_elastic_san_volume_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   elastic_san_id : string prop;
@@ -16,15 +66,16 @@ type t = private {
   protocol_type : string prop;
 }
 
-val azurerm_elastic_san_volume_group :
+val register :
+  ?tf_module:tf_module ->
   ?encryption_type:string prop ->
   ?id:string prop ->
   ?protocol_type:string prop ->
-  ?timeouts:azurerm_elastic_san_volume_group__timeouts ->
+  ?timeouts:timeouts ->
   elastic_san_id:string prop ->
   name:string prop ->
-  encryption:azurerm_elastic_san_volume_group__encryption list ->
-  identity:azurerm_elastic_san_volume_group__identity list ->
-  network_rule:azurerm_elastic_san_volume_group__network_rule list ->
+  encryption:encryption list ->
+  identity:identity list ->
+  network_rule:network_rule list ->
   string ->
   t

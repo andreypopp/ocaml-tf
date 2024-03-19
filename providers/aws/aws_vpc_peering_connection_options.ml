@@ -4,43 +4,53 @@
 
 open! Tf.Prelude
 
-type aws_vpc_peering_connection_options__accepter = {
+type accepter = {
   allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_peering_connection_options__accepter *)
+(** accepter *)
 
-type aws_vpc_peering_connection_options__requester = {
+type requester = {
   allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_peering_connection_options__requester *)
+(** requester *)
 
 type aws_vpc_peering_connection_options = {
   id : string prop option; [@option]  (** id *)
   vpc_peering_connection_id : string prop;
       (** vpc_peering_connection_id *)
-  accepter : aws_vpc_peering_connection_options__accepter list;
-  requester : aws_vpc_peering_connection_options__requester list;
+  accepter : accepter list;
+  requester : requester list;
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_options *)
+
+let accepter ?allow_remote_vpc_dns_resolution () : accepter =
+  { allow_remote_vpc_dns_resolution }
+
+let requester ?allow_remote_vpc_dns_resolution () : requester =
+  { allow_remote_vpc_dns_resolution }
+
+let aws_vpc_peering_connection_options ?id ~vpc_peering_connection_id
+    ~accepter ~requester () : aws_vpc_peering_connection_options =
+  { id; vpc_peering_connection_id; accepter; requester }
 
 type t = {
   id : string prop;
   vpc_peering_connection_id : string prop;
 }
 
-let aws_vpc_peering_connection_options ?id ~vpc_peering_connection_id
-    ~accepter ~requester __resource_id =
+let register ?tf_module ?id ~vpc_peering_connection_id ~accepter
+    ~requester __resource_id =
   let __resource_type = "aws_vpc_peering_connection_options" in
   let __resource =
-    ({ id; vpc_peering_connection_id; accepter; requester }
-      : aws_vpc_peering_connection_options)
+    aws_vpc_peering_connection_options ?id ~vpc_peering_connection_id
+      ~accepter ~requester ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_peering_connection_options __resource);
   let __resource_attributes =
     ({

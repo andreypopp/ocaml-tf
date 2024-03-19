@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_alert_rule_anomaly_built_in__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_alert_rule_anomaly_built_in__timeouts *)
+(** timeouts *)
 
-type azurerm_sentinel_alert_rule_anomaly_built_in__multi_select_observation = {
+type multi_select_observation = {
   description : string prop;  (** description *)
   name : string prop;  (** name *)
   supported_values : string prop list;  (** supported_values *)
@@ -21,7 +21,7 @@ type azurerm_sentinel_alert_rule_anomaly_built_in__multi_select_observation = {
 }
 [@@deriving yojson_of]
 
-type azurerm_sentinel_alert_rule_anomaly_built_in__prioritized_exclude_observation = {
+type prioritized_exclude_observation = {
   description : string prop;  (** description *)
   exclude : string prop;  (** exclude *)
   name : string prop;  (** name *)
@@ -29,13 +29,13 @@ type azurerm_sentinel_alert_rule_anomaly_built_in__prioritized_exclude_observati
 }
 [@@deriving yojson_of]
 
-type azurerm_sentinel_alert_rule_anomaly_built_in__required_data_connector = {
+type required_data_connector = {
   connector_id : string prop;  (** connector_id *)
   data_types : string prop list;  (** data_types *)
 }
 [@@deriving yojson_of]
 
-type azurerm_sentinel_alert_rule_anomaly_built_in__single_select_observation = {
+type single_select_observation = {
   description : string prop;  (** description *)
   name : string prop;  (** name *)
   supported_values : string prop list;  (** supported_values *)
@@ -43,7 +43,7 @@ type azurerm_sentinel_alert_rule_anomaly_built_in__single_select_observation = {
 }
 [@@deriving yojson_of]
 
-type azurerm_sentinel_alert_rule_anomaly_built_in__threshold_observation = {
+type threshold_observation = {
   description : string prop;  (** description *)
   max : string prop;  (** max *)
   min : string prop;  (** min *)
@@ -60,11 +60,26 @@ type azurerm_sentinel_alert_rule_anomaly_built_in = {
       (** log_analytics_workspace_id *)
   mode : string prop;  (** mode *)
   name : string prop option; [@option]  (** name *)
-  timeouts :
-    azurerm_sentinel_alert_rule_anomaly_built_in__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_anomaly_built_in *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sentinel_alert_rule_anomaly_built_in ?display_name ?id
+    ?name ?timeouts ~enabled ~log_analytics_workspace_id ~mode () :
+    azurerm_sentinel_alert_rule_anomaly_built_in =
+  {
+    display_name;
+    enabled;
+    id;
+    log_analytics_workspace_id;
+    mode;
+    name;
+    timeouts;
+  }
 
 type t = {
   anomaly_settings_version : float prop;
@@ -76,51 +91,28 @@ type t = {
   id : string prop;
   log_analytics_workspace_id : string prop;
   mode : string prop;
-  multi_select_observation :
-    azurerm_sentinel_alert_rule_anomaly_built_in__multi_select_observation
-    list
-    prop;
+  multi_select_observation : multi_select_observation list prop;
   name : string prop;
   prioritized_exclude_observation :
-    azurerm_sentinel_alert_rule_anomaly_built_in__prioritized_exclude_observation
-    list
-    prop;
-  required_data_connector :
-    azurerm_sentinel_alert_rule_anomaly_built_in__required_data_connector
-    list
-    prop;
+    prioritized_exclude_observation list prop;
+  required_data_connector : required_data_connector list prop;
   settings_definition_id : string prop;
-  single_select_observation :
-    azurerm_sentinel_alert_rule_anomaly_built_in__single_select_observation
-    list
-    prop;
+  single_select_observation : single_select_observation list prop;
   tactics : string list prop;
   techniques : string list prop;
-  threshold_observation :
-    azurerm_sentinel_alert_rule_anomaly_built_in__threshold_observation
-    list
-    prop;
+  threshold_observation : threshold_observation list prop;
 }
 
-let azurerm_sentinel_alert_rule_anomaly_built_in ?display_name ?id
-    ?name ?timeouts ~enabled ~log_analytics_workspace_id ~mode
-    __resource_id =
+let register ?tf_module ?display_name ?id ?name ?timeouts ~enabled
+    ~log_analytics_workspace_id ~mode __resource_id =
   let __resource_type =
     "azurerm_sentinel_alert_rule_anomaly_built_in"
   in
   let __resource =
-    ({
-       display_name;
-       enabled;
-       id;
-       log_analytics_workspace_id;
-       mode;
-       name;
-       timeouts;
-     }
-      : azurerm_sentinel_alert_rule_anomaly_built_in)
+    azurerm_sentinel_alert_rule_anomaly_built_in ?display_name ?id
+      ?name ?timeouts ~enabled ~log_analytics_workspace_id ~mode ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_alert_rule_anomaly_built_in
        __resource);
   let __resource_attributes =

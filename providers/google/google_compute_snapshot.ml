@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_snapshot__snapshot_encryption_key = {
+type snapshot_encryption_key = {
   kms_key_self_link : string prop option; [@option]
       (** The name of the encryption key that is stored in Google Cloud KMS. *)
   kms_key_service_account : string prop option; [@option]
@@ -13,9 +13,6 @@ If absent, the Compute Engine Service Agent service account is used. *)
   raw_key : string prop option; [@option]
       (** Specifies a 256-bit customer-supplied encryption key, encoded in
 RFC 4648 base64 to either encrypt or decrypt this resource. *)
-  sha256 : string prop;
-      (** The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
-encryption key that protects this resource. *)
 }
 [@@deriving yojson_of]
 (** Encrypts the snapshot using a customer-supplied encryption key.
@@ -32,7 +29,7 @@ If you do not provide an encryption key when creating the snapshot,
 then the snapshot will be encrypted using an automatically generated
 key and you do not need to provide a key to use the snapshot later. *)
 
-type google_compute_snapshot__source_disk_encryption_key = {
+type source_disk_encryption_key = {
   kms_key_service_account : string prop option; [@option]
       (** The service account used for the encryption request for the given KMS key.
 If absent, the Compute Engine Service Agent service account is used. *)
@@ -45,13 +42,13 @@ RFC 4648 base64 to either encrypt or decrypt this resource. *)
 if the source snapshot is protected by a customer-supplied encryption
 key. *)
 
-type google_compute_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_snapshot__timeouts *)
+(** timeouts *)
 
 type google_compute_snapshot = {
   chain_name : string prop option; [@option]
@@ -84,14 +81,42 @@ character, which cannot be a dash. *)
       (** Cloud Storage bucket storage location of the snapshot (regional or multi-regional). *)
   zone : string prop option; [@option]
       (** A reference to the zone where the disk is hosted. *)
-  snapshot_encryption_key :
-    google_compute_snapshot__snapshot_encryption_key list;
-  source_disk_encryption_key :
-    google_compute_snapshot__source_disk_encryption_key list;
-  timeouts : google_compute_snapshot__timeouts option;
+  snapshot_encryption_key : snapshot_encryption_key list;
+  source_disk_encryption_key : source_disk_encryption_key list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_snapshot *)
+
+let snapshot_encryption_key ?kms_key_self_link
+    ?kms_key_service_account ?raw_key () : snapshot_encryption_key =
+  { kms_key_self_link; kms_key_service_account; raw_key }
+
+let source_disk_encryption_key ?kms_key_service_account ?raw_key () :
+    source_disk_encryption_key =
+  { kms_key_service_account; raw_key }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_snapshot ?chain_name ?description ?id ?labels
+    ?project ?storage_locations ?zone ?timeouts ~name ~source_disk
+    ~snapshot_encryption_key ~source_disk_encryption_key () :
+    google_compute_snapshot =
+  {
+    chain_name;
+    description;
+    id;
+    labels;
+    name;
+    project;
+    source_disk;
+    storage_locations;
+    zone;
+    snapshot_encryption_key;
+    source_disk_encryption_key;
+    timeouts;
+  }
 
 type t = {
   chain_name : string prop;
@@ -114,29 +139,17 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_snapshot ?chain_name ?description ?id ?labels
-    ?project ?storage_locations ?zone ?timeouts ~name ~source_disk
+let register ?tf_module ?chain_name ?description ?id ?labels ?project
+    ?storage_locations ?zone ?timeouts ~name ~source_disk
     ~snapshot_encryption_key ~source_disk_encryption_key
     __resource_id =
   let __resource_type = "google_compute_snapshot" in
   let __resource =
-    ({
-       chain_name;
-       description;
-       id;
-       labels;
-       name;
-       project;
-       source_disk;
-       storage_locations;
-       zone;
-       snapshot_encryption_key;
-       source_disk_encryption_key;
-       timeouts;
-     }
-      : google_compute_snapshot)
+    google_compute_snapshot ?chain_name ?description ?id ?labels
+      ?project ?storage_locations ?zone ?timeouts ~name ~source_disk
+      ~snapshot_encryption_key ~source_disk_encryption_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_snapshot __resource);
   let __resource_attributes =
     ({

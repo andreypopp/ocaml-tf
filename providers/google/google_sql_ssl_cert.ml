@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_sql_ssl_cert__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_sql_ssl_cert__timeouts *)
+(** timeouts *)
 
 type google_sql_ssl_cert = {
   common_name : string prop;
@@ -19,10 +19,16 @@ type google_sql_ssl_cert = {
       (** The name of the Cloud SQL instance. Changing this forces a new resource to be created. *)
   project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
-  timeouts : google_sql_ssl_cert__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_sql_ssl_cert *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_sql_ssl_cert ?id ?project ?timeouts ~common_name ~instance
+    () : google_sql_ssl_cert =
+  { common_name; id; instance; project; timeouts }
 
 type t = {
   cert : string prop;
@@ -38,14 +44,14 @@ type t = {
   sha1_fingerprint : string prop;
 }
 
-let google_sql_ssl_cert ?id ?project ?timeouts ~common_name ~instance
+let register ?tf_module ?id ?project ?timeouts ~common_name ~instance
     __resource_id =
   let __resource_type = "google_sql_ssl_cert" in
   let __resource =
-    ({ common_name; id; instance; project; timeouts }
-      : google_sql_ssl_cert)
+    google_sql_ssl_cert ?id ?project ?timeouts ~common_name ~instance
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_ssl_cert __resource);
   let __resource_attributes =
     ({

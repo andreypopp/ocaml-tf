@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_firebase_app_check_debug_token__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_firebase_app_check_debug_token__timeouts *)
+(** timeouts *)
 
 type google_firebase_app_check_debug_token = {
   app_id : string prop;
@@ -31,10 +31,18 @@ This field is immutable once set, and cannot be updated. You can, however, delet
 this debug token to revoke it.
 
 For security reasons, this field will never be populated in any response. *)
-  timeouts : google_firebase_app_check_debug_token__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_firebase_app_check_debug_token *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_firebase_app_check_debug_token ?id ?project ?timeouts
+    ~app_id ~display_name ~token () :
+    google_firebase_app_check_debug_token =
+  { app_id; display_name; id; project; token; timeouts }
 
 type t = {
   app_id : string prop;
@@ -45,14 +53,14 @@ type t = {
   token : string prop;
 }
 
-let google_firebase_app_check_debug_token ?id ?project ?timeouts
-    ~app_id ~display_name ~token __resource_id =
+let register ?tf_module ?id ?project ?timeouts ~app_id ~display_name
+    ~token __resource_id =
   let __resource_type = "google_firebase_app_check_debug_token" in
   let __resource =
-    ({ app_id; display_name; id; project; token; timeouts }
-      : google_firebase_app_check_debug_token)
+    google_firebase_app_check_debug_token ?id ?project ?timeouts
+      ~app_id ~display_name ~token ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebase_app_check_debug_token __resource);
   let __resource_attributes =
     ({

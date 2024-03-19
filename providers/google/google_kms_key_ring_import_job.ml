@@ -4,22 +4,20 @@
 
 open! Tf.Prelude
 
-type google_kms_key_ring_import_job__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_kms_key_ring_import_job__timeouts *)
+(** timeouts *)
 
-type google_kms_key_ring_import_job__attestation = {
+type attestation = {
   content : string prop;  (** content *)
   format : string prop;  (** format *)
 }
 [@@deriving yojson_of]
 
-type google_kms_key_ring_import_job__public_key = {
-  pem : string prop;  (** pem *)
-}
+type public_key = { pem : string prop  (** pem *) }
 [@@deriving yojson_of]
 
 type google_kms_key_ring_import_job = {
@@ -34,14 +32,27 @@ Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}''. *)
   protection_level : string prop;
       (** The protection level of the ImportJob. This must match the protectionLevel of the
 versionTemplate on the CryptoKey you attempt to import into. Possible values: [SOFTWARE, HSM, EXTERNAL] *)
-  timeouts : google_kms_key_ring_import_job__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_kms_key_ring_import_job *)
 
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_kms_key_ring_import_job ?id ?timeouts ~import_job_id
+    ~import_method ~key_ring ~protection_level () :
+    google_kms_key_ring_import_job =
+  {
+    id;
+    import_job_id;
+    import_method;
+    key_ring;
+    protection_level;
+    timeouts;
+  }
+
 type t = {
-  attestation :
-    google_kms_key_ring_import_job__attestation list prop;
+  attestation : attestation list prop;
   expire_time : string prop;
   id : string prop;
   import_job_id : string prop;
@@ -49,25 +60,18 @@ type t = {
   key_ring : string prop;
   name : string prop;
   protection_level : string prop;
-  public_key : google_kms_key_ring_import_job__public_key list prop;
+  public_key : public_key list prop;
   state : string prop;
 }
 
-let google_kms_key_ring_import_job ?id ?timeouts ~import_job_id
-    ~import_method ~key_ring ~protection_level __resource_id =
+let register ?tf_module ?id ?timeouts ~import_job_id ~import_method
+    ~key_ring ~protection_level __resource_id =
   let __resource_type = "google_kms_key_ring_import_job" in
   let __resource =
-    ({
-       id;
-       import_job_id;
-       import_method;
-       key_ring;
-       protection_level;
-       timeouts;
-     }
-      : google_kms_key_ring_import_job)
+    google_kms_key_ring_import_job ?id ?timeouts ~import_job_id
+      ~import_method ~key_ring ~protection_level ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_key_ring_import_job __resource);
   let __resource_attributes =
     ({

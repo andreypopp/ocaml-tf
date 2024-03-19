@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_security_group_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_security_group_rule__timeouts *)
+(** timeouts *)
 
 type aws_security_group_rule = {
   cidr_blocks : string prop list option; [@option]
@@ -27,10 +27,32 @@ type aws_security_group_rule = {
       (** source_security_group_id *)
   to_port : float prop;  (** to_port *)
   type_ : string prop; [@key "type"]  (** type *)
-  timeouts : aws_security_group_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_security_group_rule *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_security_group_rule ?cidr_blocks ?description ?id
+    ?ipv6_cidr_blocks ?prefix_list_ids ?self
+    ?source_security_group_id ?timeouts ~from_port ~protocol
+    ~security_group_id ~to_port ~type_ () : aws_security_group_rule =
+  {
+    cidr_blocks;
+    description;
+    from_port;
+    id;
+    ipv6_cidr_blocks;
+    prefix_list_ids;
+    protocol;
+    security_group_id;
+    self;
+    source_security_group_id;
+    to_port;
+    type_;
+    timeouts;
+  }
 
 type t = {
   cidr_blocks : string list prop;
@@ -48,30 +70,18 @@ type t = {
   type_ : string prop;
 }
 
-let aws_security_group_rule ?cidr_blocks ?description ?id
+let register ?tf_module ?cidr_blocks ?description ?id
     ?ipv6_cidr_blocks ?prefix_list_ids ?self
     ?source_security_group_id ?timeouts ~from_port ~protocol
     ~security_group_id ~to_port ~type_ __resource_id =
   let __resource_type = "aws_security_group_rule" in
   let __resource =
-    ({
-       cidr_blocks;
-       description;
-       from_port;
-       id;
-       ipv6_cidr_blocks;
-       prefix_list_ids;
-       protocol;
-       security_group_id;
-       self;
-       source_security_group_id;
-       to_port;
-       type_;
-       timeouts;
-     }
-      : aws_security_group_rule)
+    aws_security_group_rule ?cidr_blocks ?description ?id
+      ?ipv6_cidr_blocks ?prefix_list_ids ?self
+      ?source_security_group_id ?timeouts ~from_port ~protocol
+      ~security_group_id ~to_port ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_security_group_rule __resource);
   let __resource_attributes =
     ({

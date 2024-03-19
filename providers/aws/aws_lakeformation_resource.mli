@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_lakeformation_resource
+
+val aws_lakeformation_resource :
+  ?hybrid_access_enabled:bool prop ->
+  ?id:string prop ->
+  ?role_arn:string prop ->
+  ?use_service_linked_role:bool prop ->
+  ?with_federation:bool prop ->
+  arn:string prop ->
+  unit ->
+  aws_lakeformation_resource
+
+val yojson_of_aws_lakeformation_resource :
+  aws_lakeformation_resource -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +31,8 @@ type t = private {
   with_federation : bool prop;
 }
 
-val aws_lakeformation_resource :
+val register :
+  ?tf_module:tf_module ->
   ?hybrid_access_enabled:bool prop ->
   ?id:string prop ->
   ?role_arn:string prop ->

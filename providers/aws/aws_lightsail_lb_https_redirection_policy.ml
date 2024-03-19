@@ -12,22 +12,25 @@ type aws_lightsail_lb_https_redirection_policy = {
 [@@deriving yojson_of]
 (** aws_lightsail_lb_https_redirection_policy *)
 
+let aws_lightsail_lb_https_redirection_policy ?id ~enabled ~lb_name
+    () : aws_lightsail_lb_https_redirection_policy =
+  { enabled; id; lb_name }
+
 type t = {
   enabled : bool prop;
   id : string prop;
   lb_name : string prop;
 }
 
-let aws_lightsail_lb_https_redirection_policy ?id ~enabled ~lb_name
-    __resource_id =
+let register ?tf_module ?id ~enabled ~lb_name __resource_id =
   let __resource_type =
     "aws_lightsail_lb_https_redirection_policy"
   in
   let __resource =
-    ({ enabled; id; lb_name }
-      : aws_lightsail_lb_https_redirection_policy)
+    aws_lightsail_lb_https_redirection_policy ?id ~enabled ~lb_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_lb_https_redirection_policy __resource);
   let __resource_attributes =
     ({

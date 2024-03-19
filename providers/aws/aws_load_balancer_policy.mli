@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_load_balancer_policy__policy_attribute
+(** RESOURCE SERIALIZATION *)
+
+type policy_attribute
+
+val policy_attribute :
+  ?name:string prop -> ?value:string prop -> unit -> policy_attribute
+
 type aws_load_balancer_policy
+
+val aws_load_balancer_policy :
+  ?id:string prop ->
+  load_balancer_name:string prop ->
+  policy_name:string prop ->
+  policy_type_name:string prop ->
+  policy_attribute:policy_attribute list ->
+  unit ->
+  aws_load_balancer_policy
+
+val yojson_of_aws_load_balancer_policy :
+  aws_load_balancer_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,11 +32,12 @@ type t = private {
   policy_type_name : string prop;
 }
 
-val aws_load_balancer_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   load_balancer_name:string prop ->
   policy_name:string prop ->
   policy_type_name:string prop ->
-  policy_attribute:aws_load_balancer_policy__policy_attribute list ->
+  policy_attribute:policy_attribute list ->
   string ->
   t

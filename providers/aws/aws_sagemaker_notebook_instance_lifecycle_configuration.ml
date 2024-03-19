@@ -13,6 +13,11 @@ type aws_sagemaker_notebook_instance_lifecycle_configuration = {
 [@@deriving yojson_of]
 (** aws_sagemaker_notebook_instance_lifecycle_configuration *)
 
+let aws_sagemaker_notebook_instance_lifecycle_configuration ?id ?name
+    ?on_create ?on_start () :
+    aws_sagemaker_notebook_instance_lifecycle_configuration =
+  { id; name; on_create; on_start }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -21,16 +26,16 @@ type t = {
   on_start : string prop;
 }
 
-let aws_sagemaker_notebook_instance_lifecycle_configuration ?id ?name
-    ?on_create ?on_start __resource_id =
+let register ?tf_module ?id ?name ?on_create ?on_start __resource_id
+    =
   let __resource_type =
     "aws_sagemaker_notebook_instance_lifecycle_configuration"
   in
   let __resource =
-    ({ id; name; on_create; on_start }
-      : aws_sagemaker_notebook_instance_lifecycle_configuration)
+    aws_sagemaker_notebook_instance_lifecycle_configuration ?id ?name
+      ?on_create ?on_start ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_notebook_instance_lifecycle_configuration
        __resource);
   let __resource_attributes =

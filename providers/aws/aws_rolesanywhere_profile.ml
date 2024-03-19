@@ -24,6 +24,22 @@ type aws_rolesanywhere_profile = {
 [@@deriving yojson_of]
 (** aws_rolesanywhere_profile *)
 
+let aws_rolesanywhere_profile ?duration_seconds ?enabled ?id
+    ?managed_policy_arns ?require_instance_properties ?session_policy
+    ?tags ?tags_all ~name ~role_arns () : aws_rolesanywhere_profile =
+  {
+    duration_seconds;
+    enabled;
+    id;
+    managed_policy_arns;
+    name;
+    require_instance_properties;
+    role_arns;
+    session_policy;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   duration_seconds : float prop;
@@ -38,26 +54,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_rolesanywhere_profile ?duration_seconds ?enabled ?id
+let register ?tf_module ?duration_seconds ?enabled ?id
     ?managed_policy_arns ?require_instance_properties ?session_policy
     ?tags ?tags_all ~name ~role_arns __resource_id =
   let __resource_type = "aws_rolesanywhere_profile" in
   let __resource =
-    ({
-       duration_seconds;
-       enabled;
-       id;
-       managed_policy_arns;
-       name;
-       require_instance_properties;
-       role_arns;
-       session_policy;
-       tags;
-       tags_all;
-     }
-      : aws_rolesanywhere_profile)
+    aws_rolesanywhere_profile ?duration_seconds ?enabled ?id
+      ?managed_policy_arns ?require_instance_properties
+      ?session_policy ?tags ?tags_all ~name ~role_arns ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rolesanywhere_profile __resource);
   let __resource_attributes =
     ({

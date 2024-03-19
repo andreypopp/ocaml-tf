@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_admin_rule__destination = {
+type destination = {
   address_prefix : string prop;  (** address_prefix *)
   address_prefix_type : string prop;  (** address_prefix_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_admin_rule__destination *)
+(** destination *)
 
-type azurerm_network_manager_admin_rule__source = {
+type source = {
   address_prefix : string prop;  (** address_prefix *)
   address_prefix_type : string prop;  (** address_prefix_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_admin_rule__source *)
+(** source *)
 
-type azurerm_network_manager_admin_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_admin_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_network_manager_admin_rule = {
   action : string prop;  (** action *)
@@ -41,12 +41,43 @@ type azurerm_network_manager_admin_rule = {
   protocol : string prop;  (** protocol *)
   source_port_ranges : string prop list option; [@option]
       (** source_port_ranges *)
-  destination : azurerm_network_manager_admin_rule__destination list;
-  source : azurerm_network_manager_admin_rule__source list;
-  timeouts : azurerm_network_manager_admin_rule__timeouts option;
+  destination : destination list;
+  source : source list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_admin_rule *)
+
+let destination ~address_prefix ~address_prefix_type () : destination
+    =
+  { address_prefix; address_prefix_type }
+
+let source ~address_prefix ~address_prefix_type () : source =
+  { address_prefix; address_prefix_type }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_manager_admin_rule ?description
+    ?destination_port_ranges ?id ?source_port_ranges ?timeouts
+    ~action ~admin_rule_collection_id ~direction ~name ~priority
+    ~protocol ~destination ~source () :
+    azurerm_network_manager_admin_rule =
+  {
+    action;
+    admin_rule_collection_id;
+    description;
+    destination_port_ranges;
+    direction;
+    id;
+    name;
+    priority;
+    protocol;
+    source_port_ranges;
+    destination;
+    source;
+    timeouts;
+  }
 
 type t = {
   action : string prop;
@@ -61,30 +92,18 @@ type t = {
   source_port_ranges : string list prop;
 }
 
-let azurerm_network_manager_admin_rule ?description
-    ?destination_port_ranges ?id ?source_port_ranges ?timeouts
-    ~action ~admin_rule_collection_id ~direction ~name ~priority
-    ~protocol ~destination ~source __resource_id =
+let register ?tf_module ?description ?destination_port_ranges ?id
+    ?source_port_ranges ?timeouts ~action ~admin_rule_collection_id
+    ~direction ~name ~priority ~protocol ~destination ~source
+    __resource_id =
   let __resource_type = "azurerm_network_manager_admin_rule" in
   let __resource =
-    ({
-       action;
-       admin_rule_collection_id;
-       description;
-       destination_port_ranges;
-       direction;
-       id;
-       name;
-       priority;
-       protocol;
-       source_port_ranges;
-       destination;
-       source;
-       timeouts;
-     }
-      : azurerm_network_manager_admin_rule)
+    azurerm_network_manager_admin_rule ?description
+      ?destination_port_ranges ?id ?source_port_ranges ?timeouts
+      ~action ~admin_rule_collection_id ~direction ~name ~priority
+      ~protocol ~destination ~source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_admin_rule __resource);
   let __resource_attributes =
     ({

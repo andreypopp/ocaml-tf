@@ -2,11 +2,51 @@
 
 open! Tf.Prelude
 
-type aws_ivs_recording_configuration__destination_configuration__s3
-type aws_ivs_recording_configuration__destination_configuration
-type aws_ivs_recording_configuration__thumbnail_configuration
-type aws_ivs_recording_configuration__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type destination_configuration__s3
+
+val destination_configuration__s3 :
+  bucket_name:string prop -> unit -> destination_configuration__s3
+
+type destination_configuration
+
+val destination_configuration :
+  s3:destination_configuration__s3 list ->
+  unit ->
+  destination_configuration
+
+type thumbnail_configuration
+
+val thumbnail_configuration :
+  ?recording_mode:string prop ->
+  ?target_interval_seconds:float prop ->
+  unit ->
+  thumbnail_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_ivs_recording_configuration
+
+val aws_ivs_recording_configuration :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?recording_reconnect_window_seconds:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  destination_configuration:destination_configuration list ->
+  thumbnail_configuration:thumbnail_configuration list ->
+  unit ->
+  aws_ivs_recording_configuration
+
+val yojson_of_aws_ivs_recording_configuration :
+  aws_ivs_recording_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,16 +58,15 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ivs_recording_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?recording_reconnect_window_seconds:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_ivs_recording_configuration__timeouts ->
-  destination_configuration:
-    aws_ivs_recording_configuration__destination_configuration list ->
-  thumbnail_configuration:
-    aws_ivs_recording_configuration__thumbnail_configuration list ->
+  ?timeouts:timeouts ->
+  destination_configuration:destination_configuration list ->
+  thumbnail_configuration:thumbnail_configuration list ->
   string ->
   t

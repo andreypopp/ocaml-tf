@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_policy_definition__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_policy_definition
+
+val azurerm_policy_definition :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?management_group_id:string prop ->
+  ?metadata:string prop ->
+  ?parameters:string prop ->
+  ?policy_rule:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  mode:string prop ->
+  name:string prop ->
+  policy_type:string prop ->
+  unit ->
+  azurerm_policy_definition
+
+val yojson_of_azurerm_policy_definition :
+  azurerm_policy_definition -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -19,14 +50,15 @@ type t = private {
   role_definition_ids : string list prop;
 }
 
-val azurerm_policy_definition :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?management_group_id:string prop ->
   ?metadata:string prop ->
   ?parameters:string prop ->
   ?policy_rule:string prop ->
-  ?timeouts:azurerm_policy_definition__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   mode:string prop ->
   name:string prop ->

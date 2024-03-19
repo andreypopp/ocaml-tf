@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_evidently_launch__groups = {
+type groups = {
   description : string prop option; [@option]  (** description *)
   feature : string prop;  (** feature *)
   name : string prop;  (** name *)
   variation : string prop;  (** variation *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_launch__groups *)
+(** groups *)
 
-type aws_evidently_launch__metric_monitors__metric_definition = {
+type metric_monitors__metric_definition = {
   entity_id_key : string prop;  (** entity_id_key *)
   event_pattern : string prop option; [@option]  (** event_pattern *)
   name : string prop;  (** name *)
@@ -21,48 +21,46 @@ type aws_evidently_launch__metric_monitors__metric_definition = {
   value_key : string prop;  (** value_key *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_launch__metric_monitors__metric_definition *)
+(** metric_monitors__metric_definition *)
 
-type aws_evidently_launch__metric_monitors = {
-  metric_definition :
-    aws_evidently_launch__metric_monitors__metric_definition list;
+type metric_monitors = {
+  metric_definition : metric_monitors__metric_definition list;
 }
 [@@deriving yojson_of]
-(** aws_evidently_launch__metric_monitors *)
+(** metric_monitors *)
 
-type aws_evidently_launch__scheduled_splits_config__steps__segment_overrides = {
+type scheduled_splits_config__steps__segment_overrides = {
   evaluation_order : float prop;  (** evaluation_order *)
   segment : string prop;  (** segment *)
   weights : (string * float prop) list;  (** weights *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_launch__scheduled_splits_config__steps__segment_overrides *)
+(** scheduled_splits_config__steps__segment_overrides *)
 
-type aws_evidently_launch__scheduled_splits_config__steps = {
+type scheduled_splits_config__steps = {
   group_weights : (string * float prop) list;  (** group_weights *)
   start_time : string prop;  (** start_time *)
   segment_overrides :
-    aws_evidently_launch__scheduled_splits_config__steps__segment_overrides
-    list;
+    scheduled_splits_config__steps__segment_overrides list;
 }
 [@@deriving yojson_of]
-(** aws_evidently_launch__scheduled_splits_config__steps *)
+(** scheduled_splits_config__steps *)
 
-type aws_evidently_launch__scheduled_splits_config = {
-  steps : aws_evidently_launch__scheduled_splits_config__steps list;
+type scheduled_splits_config = {
+  steps : scheduled_splits_config__steps list;
 }
 [@@deriving yojson_of]
-(** aws_evidently_launch__scheduled_splits_config *)
+(** scheduled_splits_config *)
 
-type aws_evidently_launch__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_launch__timeouts *)
+(** timeouts *)
 
-type aws_evidently_launch__execution = {
+type execution = {
   ended_time : string prop;  (** ended_time *)
   started_time : string prop;  (** started_time *)
 }
@@ -78,20 +76,62 @@ type aws_evidently_launch = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  groups : aws_evidently_launch__groups list;
-  metric_monitors : aws_evidently_launch__metric_monitors list;
-  scheduled_splits_config :
-    aws_evidently_launch__scheduled_splits_config list;
-  timeouts : aws_evidently_launch__timeouts option;
+  groups : groups list;
+  metric_monitors : metric_monitors list;
+  scheduled_splits_config : scheduled_splits_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_evidently_launch *)
+
+let groups ?description ~feature ~name ~variation () : groups =
+  { description; feature; name; variation }
+
+let metric_monitors__metric_definition ?event_pattern ?unit_label
+    ~entity_id_key ~name ~value_key () :
+    metric_monitors__metric_definition =
+  { entity_id_key; event_pattern; name; unit_label; value_key }
+
+let metric_monitors ~metric_definition () : metric_monitors =
+  { metric_definition }
+
+let scheduled_splits_config__steps__segment_overrides
+    ~evaluation_order ~segment ~weights () :
+    scheduled_splits_config__steps__segment_overrides =
+  { evaluation_order; segment; weights }
+
+let scheduled_splits_config__steps ~group_weights ~start_time
+    ~segment_overrides () : scheduled_splits_config__steps =
+  { group_weights; start_time; segment_overrides }
+
+let scheduled_splits_config ~steps () : scheduled_splits_config =
+  { steps }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_evidently_launch ?description ?id ?randomization_salt ?tags
+    ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
+    ~scheduled_splits_config () : aws_evidently_launch =
+  {
+    description;
+    id;
+    name;
+    project;
+    randomization_salt;
+    tags;
+    tags_all;
+    groups;
+    metric_monitors;
+    scheduled_splits_config;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
   created_time : string prop;
   description : string prop;
-  execution : aws_evidently_launch__execution list prop;
+  execution : execution list prop;
   id : string prop;
   last_updated_time : string prop;
   name : string prop;
@@ -104,27 +144,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_evidently_launch ?description ?id ?randomization_salt ?tags
+let register ?tf_module ?description ?id ?randomization_salt ?tags
     ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
     ~scheduled_splits_config __resource_id =
   let __resource_type = "aws_evidently_launch" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       project;
-       randomization_salt;
-       tags;
-       tags_all;
-       groups;
-       metric_monitors;
-       scheduled_splits_config;
-       timeouts;
-     }
-      : aws_evidently_launch)
+    aws_evidently_launch ?description ?id ?randomization_salt ?tags
+      ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
+      ~scheduled_splits_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_evidently_launch __resource);
   let __resource_attributes =
     ({

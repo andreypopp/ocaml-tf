@@ -2,16 +2,44 @@
 
 open! Tf.Prelude
 
-type aws_ssm_document__attachments_source
+(** RESOURCE SERIALIZATION *)
 
-type aws_ssm_document__parameter = {
+type parameter = {
   default_value : string prop;  (** default_value *)
   description : string prop;  (** description *)
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+type attachments_source
+
+val attachments_source :
+  ?name:string prop ->
+  key:string prop ->
+  values:string prop list ->
+  unit ->
+  attachments_source
+
 type aws_ssm_document
+
+val aws_ssm_document :
+  ?document_format:string prop ->
+  ?id:string prop ->
+  ?permissions:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target_type:string prop ->
+  ?version_name:string prop ->
+  content:string prop ->
+  document_type:string prop ->
+  name:string prop ->
+  attachments_source:attachments_source list ->
+  unit ->
+  aws_ssm_document
+
+val yojson_of_aws_ssm_document : aws_ssm_document -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -28,7 +56,7 @@ type t = private {
   latest_version : string prop;
   name : string prop;
   owner : string prop;
-  parameter : aws_ssm_document__parameter list prop;
+  parameter : parameter list prop;
   permissions : (string * string) list prop;
   platform_types : string list prop;
   schema_version : string prop;
@@ -39,7 +67,8 @@ type t = private {
   version_name : string prop;
 }
 
-val aws_ssm_document :
+val register :
+  ?tf_module:tf_module ->
   ?document_format:string prop ->
   ?id:string prop ->
   ?permissions:(string * string prop) list ->
@@ -50,6 +79,6 @@ val aws_ssm_document :
   content:string prop ->
   document_type:string prop ->
   name:string prop ->
-  attachments_source:aws_ssm_document__attachments_source list ->
+  attachments_source:attachments_source list ->
   string ->
   t

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_entry_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_data_catalog_entry_group__timeouts *)
+(** timeouts *)
 
 type google_data_catalog_entry_group = {
   description : string prop option; [@option]
@@ -24,10 +24,26 @@ contain only English letters, numbers and underscores, and be at most 64 charact
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** EntryGroup location region. *)
-  timeouts : google_data_catalog_entry_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_data_catalog_entry_group *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_data_catalog_entry_group ?description ?display_name ?id
+    ?project ?region ?timeouts ~entry_group_id () :
+    google_data_catalog_entry_group =
+  {
+    description;
+    display_name;
+    entry_group_id;
+    id;
+    project;
+    region;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -39,22 +55,14 @@ type t = {
   region : string prop;
 }
 
-let google_data_catalog_entry_group ?description ?display_name ?id
-    ?project ?region ?timeouts ~entry_group_id __resource_id =
+let register ?tf_module ?description ?display_name ?id ?project
+    ?region ?timeouts ~entry_group_id __resource_id =
   let __resource_type = "google_data_catalog_entry_group" in
   let __resource =
-    ({
-       description;
-       display_name;
-       entry_group_id;
-       id;
-       project;
-       region;
-       timeouts;
-     }
-      : google_data_catalog_entry_group)
+    google_data_catalog_entry_group ?description ?display_name ?id
+      ?project ?region ?timeouts ~entry_group_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_entry_group __resource);
   let __resource_attributes =
     ({

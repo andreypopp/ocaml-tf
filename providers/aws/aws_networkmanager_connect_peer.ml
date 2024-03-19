@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_connect_peer__bgp_options = {
+type bgp_options = {
   peer_asn : float prop option; [@option]  (** peer_asn *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_connect_peer__bgp_options *)
+(** bgp_options *)
 
-type aws_networkmanager_connect_peer__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_connect_peer__timeouts *)
+(** timeouts *)
 
-type aws_networkmanager_connect_peer__configuration__bgp_configurations = {
+type configuration__bgp_configurations = {
   core_network_address : string prop;  (** core_network_address *)
   core_network_asn : float prop;  (** core_network_asn *)
   peer_address : string prop;  (** peer_address *)
@@ -25,10 +25,8 @@ type aws_networkmanager_connect_peer__configuration__bgp_configurations = {
 }
 [@@deriving yojson_of]
 
-type aws_networkmanager_connect_peer__configuration = {
-  bgp_configurations :
-    aws_networkmanager_connect_peer__configuration__bgp_configurations
-    list;
+type configuration = {
+  bgp_configurations : configuration__bgp_configurations list;
       (** bgp_configurations *)
   core_network_address : string prop;  (** core_network_address *)
   inside_cidr_blocks : string prop list;  (** inside_cidr_blocks *)
@@ -49,16 +47,35 @@ type aws_networkmanager_connect_peer = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  bgp_options : aws_networkmanager_connect_peer__bgp_options list;
-  timeouts : aws_networkmanager_connect_peer__timeouts option;
+  bgp_options : bgp_options list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_connect_peer *)
 
+let bgp_options ?peer_asn () : bgp_options = { peer_asn }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_networkmanager_connect_peer ?core_network_address ?id
+    ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
+    ~connect_attachment_id ~peer_address ~bgp_options () :
+    aws_networkmanager_connect_peer =
+  {
+    connect_attachment_id;
+    core_network_address;
+    id;
+    inside_cidr_blocks;
+    peer_address;
+    subnet_arn;
+    tags;
+    tags_all;
+    bgp_options;
+    timeouts;
+  }
+
 type t = {
   arn : string prop;
-  configuration :
-    aws_networkmanager_connect_peer__configuration list prop;
+  configuration : configuration list prop;
   connect_attachment_id : string prop;
   connect_peer_id : string prop;
   core_network_address : string prop;
@@ -74,26 +91,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_networkmanager_connect_peer ?core_network_address ?id
-    ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
-    ~connect_attachment_id ~peer_address ~bgp_options __resource_id =
+let register ?tf_module ?core_network_address ?id ?inside_cidr_blocks
+    ?subnet_arn ?tags ?tags_all ?timeouts ~connect_attachment_id
+    ~peer_address ~bgp_options __resource_id =
   let __resource_type = "aws_networkmanager_connect_peer" in
   let __resource =
-    ({
-       connect_attachment_id;
-       core_network_address;
-       id;
-       inside_cidr_blocks;
-       peer_address;
-       subnet_arn;
-       tags;
-       tags_all;
-       bgp_options;
-       timeouts;
-     }
-      : aws_networkmanager_connect_peer)
+    aws_networkmanager_connect_peer ?core_network_address ?id
+      ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
+      ~connect_attachment_id ~peer_address ~bgp_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_connect_peer __resource);
   let __resource_attributes =
     ({

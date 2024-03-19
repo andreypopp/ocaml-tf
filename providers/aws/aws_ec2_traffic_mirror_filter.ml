@@ -16,6 +16,10 @@ type aws_ec2_traffic_mirror_filter = {
 [@@deriving yojson_of]
 (** aws_ec2_traffic_mirror_filter *)
 
+let aws_ec2_traffic_mirror_filter ?description ?id ?network_services
+    ?tags ?tags_all () : aws_ec2_traffic_mirror_filter =
+  { description; id; network_services; tags; tags_all }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -25,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ec2_traffic_mirror_filter ?description ?id ?network_services
-    ?tags ?tags_all __resource_id =
+let register ?tf_module ?description ?id ?network_services ?tags
+    ?tags_all __resource_id =
   let __resource_type = "aws_ec2_traffic_mirror_filter" in
   let __resource =
-    ({ description; id; network_services; tags; tags_all }
-      : aws_ec2_traffic_mirror_filter)
+    aws_ec2_traffic_mirror_filter ?description ?id ?network_services
+      ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_traffic_mirror_filter __resource);
   let __resource_attributes =
     ({

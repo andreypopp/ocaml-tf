@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_dynamodb_table__attribute = {
+type attribute = {
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__attribute *)
+(** attribute *)
 
-type aws_dynamodb_table__global_secondary_index = {
+type global_secondary_index = {
   hash_key : string prop;  (** hash_key *)
   name : string prop;  (** name *)
   non_key_attributes : string prop list option; [@option]
@@ -22,43 +22,40 @@ type aws_dynamodb_table__global_secondary_index = {
   write_capacity : float prop option; [@option]  (** write_capacity *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__global_secondary_index *)
+(** global_secondary_index *)
 
-type aws_dynamodb_table__import_table__input_format_options__csv = {
+type import_table__input_format_options__csv = {
   delimiter : string prop option; [@option]  (** delimiter *)
   header_list : string prop list option; [@option]  (** header_list *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__import_table__input_format_options__csv *)
+(** import_table__input_format_options__csv *)
 
-type aws_dynamodb_table__import_table__input_format_options = {
-  csv :
-    aws_dynamodb_table__import_table__input_format_options__csv list;
+type import_table__input_format_options = {
+  csv : import_table__input_format_options__csv list;
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__import_table__input_format_options *)
+(** import_table__input_format_options *)
 
-type aws_dynamodb_table__import_table__s3_bucket_source = {
+type import_table__s3_bucket_source = {
   bucket : string prop;  (** bucket *)
   bucket_owner : string prop option; [@option]  (** bucket_owner *)
   key_prefix : string prop option; [@option]  (** key_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__import_table__s3_bucket_source *)
+(** import_table__s3_bucket_source *)
 
-type aws_dynamodb_table__import_table = {
+type import_table = {
   input_compression_type : string prop option; [@option]
       (** input_compression_type *)
   input_format : string prop;  (** input_format *)
-  input_format_options :
-    aws_dynamodb_table__import_table__input_format_options list;
-  s3_bucket_source :
-    aws_dynamodb_table__import_table__s3_bucket_source list;
+  input_format_options : import_table__input_format_options list;
+  s3_bucket_source : import_table__s3_bucket_source list;
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__import_table *)
+(** import_table *)
 
-type aws_dynamodb_table__local_secondary_index = {
+type local_secondary_index = {
   name : string prop;  (** name *)
   non_key_attributes : string prop list option; [@option]
       (** non_key_attributes *)
@@ -66,48 +63,43 @@ type aws_dynamodb_table__local_secondary_index = {
   range_key : string prop;  (** range_key *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__local_secondary_index *)
+(** local_secondary_index *)
 
-type aws_dynamodb_table__point_in_time_recovery = {
-  enabled : bool prop;  (** enabled *)
-}
+type point_in_time_recovery = { enabled : bool prop  (** enabled *) }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__point_in_time_recovery *)
+(** point_in_time_recovery *)
 
-type aws_dynamodb_table__replica = {
-  arn : string prop;  (** arn *)
+type replica = {
   kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
   point_in_time_recovery : bool prop option; [@option]
       (** point_in_time_recovery *)
   propagate_tags : bool prop option; [@option]  (** propagate_tags *)
   region_name : string prop;  (** region_name *)
-  stream_arn : string prop;  (** stream_arn *)
-  stream_label : string prop;  (** stream_label *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__replica *)
+(** replica *)
 
-type aws_dynamodb_table__server_side_encryption = {
+type server_side_encryption = {
   enabled : bool prop;  (** enabled *)
   kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__server_side_encryption *)
+(** server_side_encryption *)
 
-type aws_dynamodb_table__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__timeouts *)
+(** timeouts *)
 
-type aws_dynamodb_table__ttl = {
+type ttl = {
   attribute_name : string prop;  (** attribute_name *)
   enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_table__ttl *)
+(** ttl *)
 
 type aws_dynamodb_table = {
   billing_mode : string prop option; [@option]  (** billing_mode *)
@@ -133,22 +125,115 @@ type aws_dynamodb_table = {
       (** tags_all *)
   write_capacity : float prop option; [@option]
       (** write_capacity *)
-  attribute : aws_dynamodb_table__attribute list;
-  global_secondary_index :
-    aws_dynamodb_table__global_secondary_index list;
-  import_table : aws_dynamodb_table__import_table list;
-  local_secondary_index :
-    aws_dynamodb_table__local_secondary_index list;
-  point_in_time_recovery :
-    aws_dynamodb_table__point_in_time_recovery list;
-  replica : aws_dynamodb_table__replica list;
-  server_side_encryption :
-    aws_dynamodb_table__server_side_encryption list;
-  timeouts : aws_dynamodb_table__timeouts option;
-  ttl : aws_dynamodb_table__ttl list;
+  attribute : attribute list;
+  global_secondary_index : global_secondary_index list;
+  import_table : import_table list;
+  local_secondary_index : local_secondary_index list;
+  point_in_time_recovery : point_in_time_recovery list;
+  replica : replica list;
+  server_side_encryption : server_side_encryption list;
+  timeouts : timeouts option;
+  ttl : ttl list;
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_table *)
+
+let attribute ~name ~type_ () : attribute = { name; type_ }
+
+let global_secondary_index ?non_key_attributes ?range_key
+    ?read_capacity ?write_capacity ~hash_key ~name ~projection_type
+    () : global_secondary_index =
+  {
+    hash_key;
+    name;
+    non_key_attributes;
+    projection_type;
+    range_key;
+    read_capacity;
+    write_capacity;
+  }
+
+let import_table__input_format_options__csv ?delimiter ?header_list
+    () : import_table__input_format_options__csv =
+  { delimiter; header_list }
+
+let import_table__input_format_options ~csv () :
+    import_table__input_format_options =
+  { csv }
+
+let import_table__s3_bucket_source ?bucket_owner ?key_prefix ~bucket
+    () : import_table__s3_bucket_source =
+  { bucket; bucket_owner; key_prefix }
+
+let import_table ?input_compression_type ~input_format
+    ~input_format_options ~s3_bucket_source () : import_table =
+  {
+    input_compression_type;
+    input_format;
+    input_format_options;
+    s3_bucket_source;
+  }
+
+let local_secondary_index ?non_key_attributes ~name ~projection_type
+    ~range_key () : local_secondary_index =
+  { name; non_key_attributes; projection_type; range_key }
+
+let point_in_time_recovery ~enabled () : point_in_time_recovery =
+  { enabled }
+
+let replica ?kms_key_arn ?point_in_time_recovery ?propagate_tags
+    ~region_name () : replica =
+  {
+    kms_key_arn;
+    point_in_time_recovery;
+    propagate_tags;
+    region_name;
+  }
+
+let server_side_encryption ?kms_key_arn ~enabled () :
+    server_side_encryption =
+  { enabled; kms_key_arn }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let ttl ?enabled ~attribute_name () : ttl =
+  { attribute_name; enabled }
+
+let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
+    ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
+    ?restore_source_name ?restore_to_latest_time ?stream_enabled
+    ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
+    ?timeouts ~name ~attribute ~global_secondary_index ~import_table
+    ~local_secondary_index ~point_in_time_recovery ~replica
+    ~server_side_encryption ~ttl () : aws_dynamodb_table =
+  {
+    billing_mode;
+    deletion_protection_enabled;
+    hash_key;
+    id;
+    name;
+    range_key;
+    read_capacity;
+    restore_date_time;
+    restore_source_name;
+    restore_to_latest_time;
+    stream_enabled;
+    stream_view_type;
+    table_class;
+    tags;
+    tags_all;
+    write_capacity;
+    attribute;
+    global_secondary_index;
+    import_table;
+    local_secondary_index;
+    point_in_time_recovery;
+    replica;
+    server_side_encryption;
+    timeouts;
+    ttl;
+  }
 
 type t = {
   arn : string prop;
@@ -172,7 +257,7 @@ type t = {
   write_capacity : float prop;
 }
 
-let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
+let register ?tf_module ?billing_mode ?deletion_protection_enabled
     ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
     ?restore_source_name ?restore_to_latest_time ?stream_enabled
     ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
@@ -181,36 +266,15 @@ let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
     ~server_side_encryption ~ttl __resource_id =
   let __resource_type = "aws_dynamodb_table" in
   let __resource =
-    ({
-       billing_mode;
-       deletion_protection_enabled;
-       hash_key;
-       id;
-       name;
-       range_key;
-       read_capacity;
-       restore_date_time;
-       restore_source_name;
-       restore_to_latest_time;
-       stream_enabled;
-       stream_view_type;
-       table_class;
-       tags;
-       tags_all;
-       write_capacity;
-       attribute;
-       global_secondary_index;
-       import_table;
-       local_secondary_index;
-       point_in_time_recovery;
-       replica;
-       server_side_encryption;
-       timeouts;
-       ttl;
-     }
-      : aws_dynamodb_table)
+    aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
+      ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
+      ?restore_source_name ?restore_to_latest_time ?stream_enabled
+      ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
+      ?timeouts ~name ~attribute ~global_secondary_index
+      ~import_table ~local_secondary_index ~point_in_time_recovery
+      ~replica ~server_side_encryption ~ttl ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_table __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,38 @@
 
 open! Tf.Prelude
 
-type aws_cloudwatch_composite_alarm__actions_suppressor
+(** RESOURCE SERIALIZATION *)
+
+type actions_suppressor
+
+val actions_suppressor :
+  alarm:string prop ->
+  extension_period:float prop ->
+  wait_period:float prop ->
+  unit ->
+  actions_suppressor
+
 type aws_cloudwatch_composite_alarm
+
+val aws_cloudwatch_composite_alarm :
+  ?actions_enabled:bool prop ->
+  ?alarm_actions:string prop list ->
+  ?alarm_description:string prop ->
+  ?id:string prop ->
+  ?insufficient_data_actions:string prop list ->
+  ?ok_actions:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  alarm_name:string prop ->
+  alarm_rule:string prop ->
+  actions_suppressor:actions_suppressor list ->
+  unit ->
+  aws_cloudwatch_composite_alarm
+
+val yojson_of_aws_cloudwatch_composite_alarm :
+  aws_cloudwatch_composite_alarm -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   actions_enabled : bool prop;
@@ -19,7 +49,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_cloudwatch_composite_alarm :
+val register :
+  ?tf_module:tf_module ->
   ?actions_enabled:bool prop ->
   ?alarm_actions:string prop list ->
   ?alarm_description:string prop ->
@@ -30,7 +61,6 @@ val aws_cloudwatch_composite_alarm :
   ?tags_all:(string * string prop) list ->
   alarm_name:string prop ->
   alarm_rule:string prop ->
-  actions_suppressor:
-    aws_cloudwatch_composite_alarm__actions_suppressor list ->
+  actions_suppressor:actions_suppressor list ->
   string ->
   t

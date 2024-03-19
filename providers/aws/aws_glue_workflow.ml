@@ -20,6 +20,19 @@ type aws_glue_workflow = {
 [@@deriving yojson_of]
 (** aws_glue_workflow *)
 
+let aws_glue_workflow ?default_run_properties ?description ?id
+    ?max_concurrent_runs ?name ?tags ?tags_all () : aws_glue_workflow
+    =
+  {
+    default_run_properties;
+    description;
+    id;
+    max_concurrent_runs;
+    name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   default_run_properties : (string * string) list prop;
@@ -31,22 +44,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_glue_workflow ?default_run_properties ?description ?id
+let register ?tf_module ?default_run_properties ?description ?id
     ?max_concurrent_runs ?name ?tags ?tags_all __resource_id =
   let __resource_type = "aws_glue_workflow" in
   let __resource =
-    ({
-       default_run_properties;
-       description;
-       id;
-       max_concurrent_runs;
-       name;
-       tags;
-       tags_all;
-     }
-      : aws_glue_workflow)
+    aws_glue_workflow ?default_run_properties ?description ?id
+      ?max_concurrent_runs ?name ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_workflow __resource);
   let __resource_attributes =
     ({

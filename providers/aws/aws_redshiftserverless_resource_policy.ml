@@ -12,20 +12,23 @@ type aws_redshiftserverless_resource_policy = {
 [@@deriving yojson_of]
 (** aws_redshiftserverless_resource_policy *)
 
+let aws_redshiftserverless_resource_policy ?id ~policy ~resource_arn
+    () : aws_redshiftserverless_resource_policy =
+  { id; policy; resource_arn }
+
 type t = {
   id : string prop;
   policy : string prop;
   resource_arn : string prop;
 }
 
-let aws_redshiftserverless_resource_policy ?id ~policy ~resource_arn
-    __resource_id =
+let register ?tf_module ?id ~policy ~resource_arn __resource_id =
   let __resource_type = "aws_redshiftserverless_resource_policy" in
   let __resource =
-    ({ id; policy; resource_arn }
-      : aws_redshiftserverless_resource_policy)
+    aws_redshiftserverless_resource_policy ?id ~policy ~resource_arn
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshiftserverless_resource_policy __resource);
   let __resource_attributes =
     ({

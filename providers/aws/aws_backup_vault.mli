@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_backup_vault__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_backup_vault
+
+val aws_backup_vault :
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  unit ->
+  aws_backup_vault
+
+val yojson_of_aws_backup_vault : aws_backup_vault -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,13 +36,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_backup_vault :
+val register :
+  ?tf_module:tf_module ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?kms_key_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_backup_vault__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   string ->
   t

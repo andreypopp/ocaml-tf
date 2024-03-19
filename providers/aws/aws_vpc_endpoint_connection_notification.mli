@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_vpc_endpoint_connection_notification
+
+val aws_vpc_endpoint_connection_notification :
+  ?id:string prop ->
+  ?vpc_endpoint_id:string prop ->
+  ?vpc_endpoint_service_id:string prop ->
+  connection_events:string prop list ->
+  connection_notification_arn:string prop ->
+  unit ->
+  aws_vpc_endpoint_connection_notification
+
+val yojson_of_aws_vpc_endpoint_connection_notification :
+  aws_vpc_endpoint_connection_notification -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   connection_events : string list prop;
@@ -14,7 +30,8 @@ type t = private {
   vpc_endpoint_service_id : string prop;
 }
 
-val aws_vpc_endpoint_connection_notification :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?vpc_endpoint_id:string prop ->
   ?vpc_endpoint_service_id:string prop ->

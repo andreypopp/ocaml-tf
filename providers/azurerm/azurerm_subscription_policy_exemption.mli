@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_subscription_policy_exemption__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_subscription_policy_exemption
+
+val azurerm_subscription_policy_exemption :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?expires_on:string prop ->
+  ?id:string prop ->
+  ?metadata:string prop ->
+  ?policy_definition_reference_ids:string prop list ->
+  ?timeouts:timeouts ->
+  exemption_category:string prop ->
+  name:string prop ->
+  policy_assignment_id:string prop ->
+  subscription_id:string prop ->
+  unit ->
+  azurerm_subscription_policy_exemption
+
+val yojson_of_azurerm_subscription_policy_exemption :
+  azurerm_subscription_policy_exemption -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -18,14 +49,15 @@ type t = private {
   subscription_id : string prop;
 }
 
-val azurerm_subscription_policy_exemption :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?expires_on:string prop ->
   ?id:string prop ->
   ?metadata:string prop ->
   ?policy_definition_reference_ids:string prop list ->
-  ?timeouts:azurerm_subscription_policy_exemption__timeouts ->
+  ?timeouts:timeouts ->
   exemption_category:string prop ->
   name:string prop ->
   policy_assignment_id:string prop ->

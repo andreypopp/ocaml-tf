@@ -14,6 +14,10 @@ type aws_media_store_container = {
 [@@deriving yojson_of]
 (** aws_media_store_container *)
 
+let aws_media_store_container ?id ?tags ?tags_all ~name () :
+    aws_media_store_container =
+  { id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   endpoint : string prop;
@@ -23,13 +27,12 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_media_store_container ?id ?tags ?tags_all ~name __resource_id
-    =
+let register ?tf_module ?id ?tags ?tags_all ~name __resource_id =
   let __resource_type = "aws_media_store_container" in
   let __resource =
-    ({ id; name; tags; tags_all } : aws_media_store_container)
+    aws_media_store_container ?id ?tags ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_media_store_container __resource);
   let __resource_attributes =
     ({

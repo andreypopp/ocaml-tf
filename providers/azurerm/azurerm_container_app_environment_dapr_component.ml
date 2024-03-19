@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_container_app_environment_dapr_component__metadata = {
+type metadata = {
   name : string prop;
       (** The name of the Metadata configuration item. *)
   secret_name : string prop option; [@option]
@@ -13,23 +13,23 @@ type azurerm_container_app_environment_dapr_component__metadata = {
       (** The value for this metadata configuration item. *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_app_environment_dapr_component__metadata *)
+(** metadata *)
 
-type azurerm_container_app_environment_dapr_component__secret = {
+type secret = {
   name : string prop;  (** The Secret name. *)
   value : string prop;  (** The value for this secret. *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_app_environment_dapr_component__secret *)
+(** secret *)
 
-type azurerm_container_app_environment_dapr_component__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_app_environment_dapr_component__timeouts *)
+(** timeouts *)
 
 type azurerm_container_app_environment_dapr_component = {
   component_type : string prop;
@@ -45,15 +45,38 @@ type azurerm_container_app_environment_dapr_component = {
   scopes : string prop list option; [@option]
       (** A list of scopes to which this component applies. e.g. a Container App's `dapr.app_id` value. *)
   version : string prop;  (** The version of the component. *)
-  metadata :
-    azurerm_container_app_environment_dapr_component__metadata list;
-  secret :
-    azurerm_container_app_environment_dapr_component__secret list;
-  timeouts :
-    azurerm_container_app_environment_dapr_component__timeouts option;
+  metadata : metadata list;
+  secret : secret list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_container_app_environment_dapr_component *)
+
+let metadata ?secret_name ?value ~name () : metadata =
+  { name; secret_name; value }
+
+let secret ~name ~value () : secret = { name; value }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_container_app_environment_dapr_component ?id
+    ?ignore_errors ?init_timeout ?scopes ?timeouts ~component_type
+    ~container_app_environment_id ~name ~version ~metadata ~secret ()
+    : azurerm_container_app_environment_dapr_component =
+  {
+    component_type;
+    container_app_environment_id;
+    id;
+    ignore_errors;
+    init_timeout;
+    name;
+    scopes;
+    version;
+    metadata;
+    secret;
+    timeouts;
+  }
 
 type t = {
   component_type : string prop;
@@ -66,30 +89,19 @@ type t = {
   version : string prop;
 }
 
-let azurerm_container_app_environment_dapr_component ?id
-    ?ignore_errors ?init_timeout ?scopes ?timeouts ~component_type
-    ~container_app_environment_id ~name ~version ~metadata ~secret
-    __resource_id =
+let register ?tf_module ?id ?ignore_errors ?init_timeout ?scopes
+    ?timeouts ~component_type ~container_app_environment_id ~name
+    ~version ~metadata ~secret __resource_id =
   let __resource_type =
     "azurerm_container_app_environment_dapr_component"
   in
   let __resource =
-    ({
-       component_type;
-       container_app_environment_id;
-       id;
-       ignore_errors;
-       init_timeout;
-       name;
-       scopes;
-       version;
-       metadata;
-       secret;
-       timeouts;
-     }
-      : azurerm_container_app_environment_dapr_component)
+    azurerm_container_app_environment_dapr_component ?id
+      ?ignore_errors ?init_timeout ?scopes ?timeouts ~component_type
+      ~container_app_environment_id ~name ~version ~metadata ~secret
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app_environment_dapr_component
        __resource);
   let __resource_attributes =

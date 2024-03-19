@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_route53_zone__vpc
+(** RESOURCE SERIALIZATION *)
+
+type vpc
+
+val vpc :
+  ?vpc_region:string prop -> vpc_id:string prop -> unit -> vpc
+
 type aws_route53_zone
+
+val aws_route53_zone :
+  ?comment:string prop ->
+  ?delegation_set_id:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  vpc:vpc list ->
+  unit ->
+  aws_route53_zone
+
+val yojson_of_aws_route53_zone : aws_route53_zone -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,7 +41,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val aws_route53_zone :
+val register :
+  ?tf_module:tf_module ->
   ?comment:string prop ->
   ?delegation_set_id:string prop ->
   ?force_destroy:bool prop ->
@@ -27,6 +50,6 @@ val aws_route53_zone :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  vpc:aws_route53_zone__vpc list ->
+  vpc:vpc list ->
   string ->
   t

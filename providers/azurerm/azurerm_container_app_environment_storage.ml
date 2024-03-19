@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_container_app_environment_storage__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_app_environment_storage__timeouts *)
+(** timeouts *)
 
 type azurerm_container_app_environment_storage = {
   access_key : string prop;  (** The Storage Account Access Key. *)
@@ -25,11 +25,28 @@ type azurerm_container_app_environment_storage = {
   name : string prop;  (** The name for this Storage. *)
   share_name : string prop;
       (** The name of the Azure Storage Share to use. *)
-  timeouts :
-    azurerm_container_app_environment_storage__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_container_app_environment_storage *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_container_app_environment_storage ?id ?timeouts
+    ~access_key ~access_mode ~account_name
+    ~container_app_environment_id ~name ~share_name () :
+    azurerm_container_app_environment_storage =
+  {
+    access_key;
+    access_mode;
+    account_name;
+    container_app_environment_id;
+    id;
+    name;
+    share_name;
+    timeouts;
+  }
 
 type t = {
   access_key : string prop;
@@ -41,26 +58,18 @@ type t = {
   share_name : string prop;
 }
 
-let azurerm_container_app_environment_storage ?id ?timeouts
-    ~access_key ~access_mode ~account_name
-    ~container_app_environment_id ~name ~share_name __resource_id =
+let register ?tf_module ?id ?timeouts ~access_key ~access_mode
+    ~account_name ~container_app_environment_id ~name ~share_name
+    __resource_id =
   let __resource_type =
     "azurerm_container_app_environment_storage"
   in
   let __resource =
-    ({
-       access_key;
-       access_mode;
-       account_name;
-       container_app_environment_id;
-       id;
-       name;
-       share_name;
-       timeouts;
-     }
-      : azurerm_container_app_environment_storage)
+    azurerm_container_app_environment_storage ?id ?timeouts
+      ~access_key ~access_mode ~account_name
+      ~container_app_environment_id ~name ~share_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app_environment_storage __resource);
   let __resource_attributes =
     ({

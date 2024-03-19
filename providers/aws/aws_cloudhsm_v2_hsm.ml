@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_cloudhsm_v2_hsm__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_cloudhsm_v2_hsm__timeouts *)
+(** timeouts *)
 
 type aws_cloudhsm_v2_hsm = {
   availability_zone : string prop option; [@option]
@@ -18,10 +18,23 @@ type aws_cloudhsm_v2_hsm = {
   id : string prop option; [@option]  (** id *)
   ip_address : string prop option; [@option]  (** ip_address *)
   subnet_id : string prop option; [@option]  (** subnet_id *)
-  timeouts : aws_cloudhsm_v2_hsm__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_cloudhsm_v2_hsm *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_cloudhsm_v2_hsm ?availability_zone ?id ?ip_address ?subnet_id
+    ?timeouts ~cluster_id () : aws_cloudhsm_v2_hsm =
+  {
+    availability_zone;
+    cluster_id;
+    id;
+    ip_address;
+    subnet_id;
+    timeouts;
+  }
 
 type t = {
   availability_zone : string prop;
@@ -34,21 +47,14 @@ type t = {
   subnet_id : string prop;
 }
 
-let aws_cloudhsm_v2_hsm ?availability_zone ?id ?ip_address ?subnet_id
+let register ?tf_module ?availability_zone ?id ?ip_address ?subnet_id
     ?timeouts ~cluster_id __resource_id =
   let __resource_type = "aws_cloudhsm_v2_hsm" in
   let __resource =
-    ({
-       availability_zone;
-       cluster_id;
-       id;
-       ip_address;
-       subnet_id;
-       timeouts;
-     }
-      : aws_cloudhsm_v2_hsm)
+    aws_cloudhsm_v2_hsm ?availability_zone ?id ?ip_address ?subnet_id
+      ?timeouts ~cluster_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudhsm_v2_hsm __resource);
   let __resource_attributes =
     ({

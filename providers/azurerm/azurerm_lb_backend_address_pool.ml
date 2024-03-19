@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_lb_backend_address_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_lb_backend_address_pool__timeouts *)
+(** timeouts *)
 
-type azurerm_lb_backend_address_pool__tunnel_interface = {
+type tunnel_interface = {
   identifier : float prop;  (** identifier *)
   port : float prop;  (** port *)
   protocol : string prop;  (** protocol *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_lb_backend_address_pool__tunnel_interface *)
+(** tunnel_interface *)
 
 type azurerm_lb_backend_address_pool = {
   id : string prop option; [@option]  (** id *)
@@ -28,12 +28,30 @@ type azurerm_lb_backend_address_pool = {
   name : string prop;  (** name *)
   virtual_network_id : string prop option; [@option]
       (** virtual_network_id *)
-  timeouts : azurerm_lb_backend_address_pool__timeouts option;
-  tunnel_interface :
-    azurerm_lb_backend_address_pool__tunnel_interface list;
+  timeouts : timeouts option;
+  tunnel_interface : tunnel_interface list;
 }
 [@@deriving yojson_of]
 (** azurerm_lb_backend_address_pool *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let tunnel_interface ~identifier ~port ~protocol ~type_ () :
+    tunnel_interface =
+  { identifier; port; protocol; type_ }
+
+let azurerm_lb_backend_address_pool ?id ?virtual_network_id ?timeouts
+    ~loadbalancer_id ~name ~tunnel_interface () :
+    azurerm_lb_backend_address_pool =
+  {
+    id;
+    loadbalancer_id;
+    name;
+    virtual_network_id;
+    timeouts;
+    tunnel_interface;
+  }
 
 type t = {
   backend_ip_configurations : string list prop;
@@ -46,21 +64,14 @@ type t = {
   virtual_network_id : string prop;
 }
 
-let azurerm_lb_backend_address_pool ?id ?virtual_network_id ?timeouts
+let register ?tf_module ?id ?virtual_network_id ?timeouts
     ~loadbalancer_id ~name ~tunnel_interface __resource_id =
   let __resource_type = "azurerm_lb_backend_address_pool" in
   let __resource =
-    ({
-       id;
-       loadbalancer_id;
-       name;
-       virtual_network_id;
-       timeouts;
-       tunnel_interface;
-     }
-      : azurerm_lb_backend_address_pool)
+    azurerm_lb_backend_address_pool ?id ?virtual_network_id ?timeouts
+      ~loadbalancer_id ~name ~tunnel_interface ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lb_backend_address_pool __resource);
   let __resource_attributes =
     ({

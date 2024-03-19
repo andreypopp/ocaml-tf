@@ -14,6 +14,11 @@ type aws_mskconnect_worker_configuration = {
 [@@deriving yojson_of]
 (** aws_mskconnect_worker_configuration *)
 
+let aws_mskconnect_worker_configuration ?description ?id ~name
+    ~properties_file_content () : aws_mskconnect_worker_configuration
+    =
+  { description; id; name; properties_file_content }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -23,14 +28,14 @@ type t = {
   properties_file_content : string prop;
 }
 
-let aws_mskconnect_worker_configuration ?description ?id ~name
+let register ?tf_module ?description ?id ~name
     ~properties_file_content __resource_id =
   let __resource_type = "aws_mskconnect_worker_configuration" in
   let __resource =
-    ({ description; id; name; properties_file_content }
-      : aws_mskconnect_worker_configuration)
+    aws_mskconnect_worker_configuration ?description ?id ~name
+      ~properties_file_content ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_mskconnect_worker_configuration __resource);
   let __resource_attributes =
     ({

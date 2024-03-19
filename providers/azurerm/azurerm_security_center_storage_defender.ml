@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_security_center_storage_defender__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_security_center_storage_defender__timeouts *)
+(** timeouts *)
 
 type azurerm_security_center_storage_defender = {
   id : string prop option; [@option]  (** id *)
@@ -26,11 +26,29 @@ type azurerm_security_center_storage_defender = {
   sensitive_data_discovery_enabled : bool prop option; [@option]
       (** sensitive_data_discovery_enabled *)
   storage_account_id : string prop;  (** storage_account_id *)
-  timeouts :
-    azurerm_security_center_storage_defender__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_storage_defender *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_security_center_storage_defender ?id
+    ?malware_scanning_on_upload_cap_gb_per_month
+    ?malware_scanning_on_upload_enabled
+    ?override_subscription_settings_enabled
+    ?sensitive_data_discovery_enabled ?timeouts ~storage_account_id
+    () : azurerm_security_center_storage_defender =
+  {
+    id;
+    malware_scanning_on_upload_cap_gb_per_month;
+    malware_scanning_on_upload_enabled;
+    override_subscription_settings_enabled;
+    sensitive_data_discovery_enabled;
+    storage_account_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -41,7 +59,7 @@ type t = {
   storage_account_id : string prop;
 }
 
-let azurerm_security_center_storage_defender ?id
+let register ?tf_module ?id
     ?malware_scanning_on_upload_cap_gb_per_month
     ?malware_scanning_on_upload_enabled
     ?override_subscription_settings_enabled
@@ -49,18 +67,14 @@ let azurerm_security_center_storage_defender ?id
     __resource_id =
   let __resource_type = "azurerm_security_center_storage_defender" in
   let __resource =
-    ({
-       id;
-       malware_scanning_on_upload_cap_gb_per_month;
-       malware_scanning_on_upload_enabled;
-       override_subscription_settings_enabled;
-       sensitive_data_discovery_enabled;
-       storage_account_id;
-       timeouts;
-     }
-      : azurerm_security_center_storage_defender)
+    azurerm_security_center_storage_defender ?id
+      ?malware_scanning_on_upload_cap_gb_per_month
+      ?malware_scanning_on_upload_enabled
+      ?override_subscription_settings_enabled
+      ?sensitive_data_discovery_enabled ?timeouts ~storage_account_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_storage_defender __resource);
   let __resource_attributes =
     ({

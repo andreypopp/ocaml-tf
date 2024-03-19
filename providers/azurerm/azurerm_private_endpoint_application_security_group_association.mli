@@ -2,9 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_private_endpoint_application_security_group_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
 
 type azurerm_private_endpoint_application_security_group_association
+
+val azurerm_private_endpoint_application_security_group_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  application_security_group_id:string prop ->
+  private_endpoint_id:string prop ->
+  unit ->
+  azurerm_private_endpoint_application_security_group_association
+
+val yojson_of_azurerm_private_endpoint_application_security_group_association :
+  azurerm_private_endpoint_application_security_group_association ->
+  json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_security_group_id : string prop;
@@ -12,10 +35,10 @@ type t = private {
   private_endpoint_id : string prop;
 }
 
-val azurerm_private_endpoint_application_security_group_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_private_endpoint_application_security_group_association__timeouts ->
+  ?timeouts:timeouts ->
   application_security_group_id:string prop ->
   private_endpoint_id:string prop ->
   string ->

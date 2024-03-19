@@ -32,6 +32,31 @@ type digitalocean_spaces_bucket_object = {
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket_object *)
 
+let digitalocean_spaces_bucket_object ?acl ?cache_control ?content
+    ?content_base64 ?content_disposition ?content_encoding
+    ?content_language ?content_type ?etag ?force_destroy ?id
+    ?metadata ?source ?website_redirect ~bucket ~key ~region () :
+    digitalocean_spaces_bucket_object =
+  {
+    acl;
+    bucket;
+    cache_control;
+    content;
+    content_base64;
+    content_disposition;
+    content_encoding;
+    content_language;
+    content_type;
+    etag;
+    force_destroy;
+    id;
+    key;
+    metadata;
+    region;
+    source;
+    website_redirect;
+  }
+
 type t = {
   acl : string prop;
   bucket : string prop;
@@ -53,35 +78,18 @@ type t = {
   website_redirect : string prop;
 }
 
-let digitalocean_spaces_bucket_object ?acl ?cache_control ?content
-    ?content_base64 ?content_disposition ?content_encoding
-    ?content_language ?content_type ?etag ?force_destroy ?id
-    ?metadata ?source ?website_redirect ~bucket ~key ~region
-    __resource_id =
+let register ?tf_module ?acl ?cache_control ?content ?content_base64
+    ?content_disposition ?content_encoding ?content_language
+    ?content_type ?etag ?force_destroy ?id ?metadata ?source
+    ?website_redirect ~bucket ~key ~region __resource_id =
   let __resource_type = "digitalocean_spaces_bucket_object" in
   let __resource =
-    ({
-       acl;
-       bucket;
-       cache_control;
-       content;
-       content_base64;
-       content_disposition;
-       content_encoding;
-       content_language;
-       content_type;
-       etag;
-       force_destroy;
-       id;
-       key;
-       metadata;
-       region;
-       source;
-       website_redirect;
-     }
-      : digitalocean_spaces_bucket_object)
+    digitalocean_spaces_bucket_object ?acl ?cache_control ?content
+      ?content_base64 ?content_disposition ?content_encoding
+      ?content_language ?content_type ?etag ?force_destroy ?id
+      ?metadata ?source ?website_redirect ~bucket ~key ~region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_spaces_bucket_object __resource);
   let __resource_attributes =
     ({

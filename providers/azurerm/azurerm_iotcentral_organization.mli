@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_iotcentral_organization__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_iotcentral_organization
+
+val azurerm_iotcentral_organization :
+  ?id:string prop ->
+  ?parent_organization_id:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  iotcentral_application_id:string prop ->
+  organization_id:string prop ->
+  unit ->
+  azurerm_iotcentral_organization
+
+val yojson_of_azurerm_iotcentral_organization :
+  azurerm_iotcentral_organization -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   display_name : string prop;
@@ -13,10 +39,11 @@ type t = private {
   parent_organization_id : string prop;
 }
 
-val azurerm_iotcentral_organization :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?parent_organization_id:string prop ->
-  ?timeouts:azurerm_iotcentral_organization__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   iotcentral_application_id:string prop ->
   organization_id:string prop ->

@@ -12,20 +12,22 @@ type aws_config_configuration_recorder_status = {
 [@@deriving yojson_of]
 (** aws_config_configuration_recorder_status *)
 
+let aws_config_configuration_recorder_status ?id ~is_enabled ~name ()
+    : aws_config_configuration_recorder_status =
+  { id; is_enabled; name }
+
 type t = {
   id : string prop;
   is_enabled : bool prop;
   name : string prop;
 }
 
-let aws_config_configuration_recorder_status ?id ~is_enabled ~name
-    __resource_id =
+let register ?tf_module ?id ~is_enabled ~name __resource_id =
   let __resource_type = "aws_config_configuration_recorder_status" in
   let __resource =
-    ({ id; is_enabled; name }
-      : aws_config_configuration_recorder_status)
+    aws_config_configuration_recorder_status ?id ~is_enabled ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_config_configuration_recorder_status __resource);
   let __resource_attributes =
     ({

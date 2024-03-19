@@ -2,9 +2,45 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_hub_route_table__route
-type azurerm_virtual_hub_route_table__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type route
+
+val route :
+  ?next_hop_type:string prop ->
+  destinations:string prop list ->
+  destinations_type:string prop ->
+  name:string prop ->
+  next_hop:string prop ->
+  unit ->
+  route
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_virtual_hub_route_table
+
+val azurerm_virtual_hub_route_table :
+  ?id:string prop ->
+  ?labels:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  virtual_hub_id:string prop ->
+  route:route list ->
+  unit ->
+  azurerm_virtual_hub_route_table
+
+val yojson_of_azurerm_virtual_hub_route_table :
+  azurerm_virtual_hub_route_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,12 +49,13 @@ type t = private {
   virtual_hub_id : string prop;
 }
 
-val azurerm_virtual_hub_route_table :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?labels:string prop list ->
-  ?timeouts:azurerm_virtual_hub_route_table__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   virtual_hub_id:string prop ->
-  route:azurerm_virtual_hub_route_table__route list ->
+  route:route list ->
   string ->
   t

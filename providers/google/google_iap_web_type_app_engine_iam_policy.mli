@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_iap_web_type_app_engine_iam_policy
+
+val google_iap_web_type_app_engine_iam_policy :
+  ?id:string prop ->
+  ?project:string prop ->
+  app_id:string prop ->
+  policy_data:string prop ->
+  unit ->
+  google_iap_web_type_app_engine_iam_policy
+
+val yojson_of_google_iap_web_type_app_engine_iam_policy :
+  google_iap_web_type_app_engine_iam_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_id : string prop;
@@ -12,7 +27,8 @@ type t = private {
   project : string prop;
 }
 
-val google_iap_web_type_app_engine_iam_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   app_id:string prop ->

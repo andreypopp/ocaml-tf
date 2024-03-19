@@ -4,31 +4,46 @@
 
 open! Tf.Prelude
 
-type aws_glue_partition_index__partition_index = {
+type partition_index = {
   index_name : string prop option; [@option]  (** index_name *)
-  index_status : string prop;  (** index_status *)
   keys : string prop list option; [@option]  (** keys *)
 }
 [@@deriving yojson_of]
-(** aws_glue_partition_index__partition_index *)
+(** partition_index *)
 
-type aws_glue_partition_index__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_glue_partition_index__timeouts *)
+(** timeouts *)
 
 type aws_glue_partition_index = {
   catalog_id : string prop option; [@option]  (** catalog_id *)
   database_name : string prop;  (** database_name *)
   id : string prop option; [@option]  (** id *)
   table_name : string prop;  (** table_name *)
-  partition_index : aws_glue_partition_index__partition_index list;
-  timeouts : aws_glue_partition_index__timeouts option;
+  partition_index : partition_index list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_glue_partition_index *)
+
+let partition_index ?index_name ?keys () : partition_index =
+  { index_name; keys }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_glue_partition_index ?catalog_id ?id ?timeouts ~database_name
+    ~table_name ~partition_index () : aws_glue_partition_index =
+  {
+    catalog_id;
+    database_name;
+    id;
+    table_name;
+    partition_index;
+    timeouts;
+  }
 
 type t = {
   catalog_id : string prop;
@@ -37,21 +52,14 @@ type t = {
   table_name : string prop;
 }
 
-let aws_glue_partition_index ?catalog_id ?id ?timeouts ~database_name
+let register ?tf_module ?catalog_id ?id ?timeouts ~database_name
     ~table_name ~partition_index __resource_id =
   let __resource_type = "aws_glue_partition_index" in
   let __resource =
-    ({
-       catalog_id;
-       database_name;
-       id;
-       table_name;
-       partition_index;
-       timeouts;
-     }
-      : aws_glue_partition_index)
+    aws_glue_partition_index ?catalog_id ?id ?timeouts ~database_name
+      ~table_name ~partition_index ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_partition_index __resource);
   let __resource_attributes =
     ({

@@ -13,6 +13,11 @@ type google_binary_authorization_attestor_iam_policy = {
 [@@deriving yojson_of]
 (** google_binary_authorization_attestor_iam_policy *)
 
+let google_binary_authorization_attestor_iam_policy ?id ?project
+    ~attestor ~policy_data () :
+    google_binary_authorization_attestor_iam_policy =
+  { attestor; id; policy_data; project }
+
 type t = {
   attestor : string prop;
   etag : string prop;
@@ -21,16 +26,16 @@ type t = {
   project : string prop;
 }
 
-let google_binary_authorization_attestor_iam_policy ?id ?project
-    ~attestor ~policy_data __resource_id =
+let register ?tf_module ?id ?project ~attestor ~policy_data
+    __resource_id =
   let __resource_type =
     "google_binary_authorization_attestor_iam_policy"
   in
   let __resource =
-    ({ attestor; id; policy_data; project }
-      : google_binary_authorization_attestor_iam_policy)
+    google_binary_authorization_attestor_iam_policy ?id ?project
+      ~attestor ~policy_data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_binary_authorization_attestor_iam_policy
        __resource);
   let __resource_attributes =

@@ -4,26 +4,24 @@
 
 open! Tf.Prelude
 
-type azurerm_redis_cache__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_redis_cache__identity *)
+(** identity *)
 
-type azurerm_redis_cache__patch_schedule = {
+type patch_schedule = {
   day_of_week : string prop;  (** day_of_week *)
   maintenance_window : string prop option; [@option]
       (** maintenance_window *)
   start_hour_utc : float prop option; [@option]  (** start_hour_utc *)
 }
 [@@deriving yojson_of]
-(** azurerm_redis_cache__patch_schedule *)
+(** patch_schedule *)
 
-type azurerm_redis_cache__redis_configuration = {
+type redis_configuration = {
   active_directory_authentication_enabled : bool prop option;
       [@option]
       (** active_directory_authentication_enabled *)
@@ -38,7 +36,6 @@ type azurerm_redis_cache__redis_configuration = {
       (** data_persistence_authentication_method *)
   enable_authentication : bool prop option; [@option]
       (** enable_authentication *)
-  maxclients : float prop;  (** maxclients *)
   maxfragmentationmemory_reserved : float prop option; [@option]
       (** maxfragmentationmemory_reserved *)
   maxmemory_delta : float prop option; [@option]
@@ -61,16 +58,16 @@ type azurerm_redis_cache__redis_configuration = {
       (** storage_account_subscription_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_redis_cache__redis_configuration *)
+(** redis_configuration *)
 
-type azurerm_redis_cache__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_redis_cache__timeouts *)
+(** timeouts *)
 
 type azurerm_redis_cache = {
   capacity : float prop;  (** capacity *)
@@ -99,14 +96,84 @@ type azurerm_redis_cache = {
   tenant_settings : (string * string prop) list option; [@option]
       (** tenant_settings *)
   zones : string prop list option; [@option]  (** zones *)
-  identity : azurerm_redis_cache__identity list;
-  patch_schedule : azurerm_redis_cache__patch_schedule list;
-  redis_configuration :
-    azurerm_redis_cache__redis_configuration list;
-  timeouts : azurerm_redis_cache__timeouts option;
+  identity : identity list;
+  patch_schedule : patch_schedule list;
+  redis_configuration : redis_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_redis_cache *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let patch_schedule ?maintenance_window ?start_hour_utc ~day_of_week
+    () : patch_schedule =
+  { day_of_week; maintenance_window; start_hour_utc }
+
+let redis_configuration ?active_directory_authentication_enabled
+    ?aof_backup_enabled ?aof_storage_connection_string_0
+    ?aof_storage_connection_string_1
+    ?data_persistence_authentication_method ?enable_authentication
+    ?maxfragmentationmemory_reserved ?maxmemory_delta
+    ?maxmemory_policy ?maxmemory_reserved ?notify_keyspace_events
+    ?rdb_backup_enabled ?rdb_backup_frequency
+    ?rdb_backup_max_snapshot_count ?rdb_storage_connection_string
+    ?storage_account_subscription_id () : redis_configuration =
+  {
+    active_directory_authentication_enabled;
+    aof_backup_enabled;
+    aof_storage_connection_string_0;
+    aof_storage_connection_string_1;
+    data_persistence_authentication_method;
+    enable_authentication;
+    maxfragmentationmemory_reserved;
+    maxmemory_delta;
+    maxmemory_policy;
+    maxmemory_reserved;
+    notify_keyspace_events;
+    rdb_backup_enabled;
+    rdb_backup_frequency;
+    rdb_backup_max_snapshot_count;
+    rdb_storage_connection_string;
+    storage_account_subscription_id;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
+    ?private_static_ip_address ?public_network_access_enabled
+    ?redis_version ?replicas_per_master ?replicas_per_primary
+    ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
+    ~capacity ~family ~location ~name ~resource_group_name ~sku_name
+    ~identity ~patch_schedule ~redis_configuration () :
+    azurerm_redis_cache =
+  {
+    capacity;
+    enable_non_ssl_port;
+    family;
+    id;
+    location;
+    minimum_tls_version;
+    name;
+    private_static_ip_address;
+    public_network_access_enabled;
+    redis_version;
+    replicas_per_master;
+    replicas_per_primary;
+    resource_group_name;
+    shard_count;
+    sku_name;
+    subnet_id;
+    tags;
+    tenant_settings;
+    zones;
+    identity;
+    patch_schedule;
+    redis_configuration;
+    timeouts;
+  }
 
 type t = {
   capacity : float prop;
@@ -137,7 +204,7 @@ type t = {
   zones : string list prop;
 }
 
-let azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
+let register ?tf_module ?enable_non_ssl_port ?id ?minimum_tls_version
     ?private_static_ip_address ?public_network_access_enabled
     ?redis_version ?replicas_per_master ?replicas_per_primary
     ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
@@ -145,34 +212,14 @@ let azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
     ~identity ~patch_schedule ~redis_configuration __resource_id =
   let __resource_type = "azurerm_redis_cache" in
   let __resource =
-    ({
-       capacity;
-       enable_non_ssl_port;
-       family;
-       id;
-       location;
-       minimum_tls_version;
-       name;
-       private_static_ip_address;
-       public_network_access_enabled;
-       redis_version;
-       replicas_per_master;
-       replicas_per_primary;
-       resource_group_name;
-       shard_count;
-       sku_name;
-       subnet_id;
-       tags;
-       tenant_settings;
-       zones;
-       identity;
-       patch_schedule;
-       redis_configuration;
-       timeouts;
-     }
-      : azurerm_redis_cache)
+    azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
+      ?private_static_ip_address ?public_network_access_enabled
+      ?redis_version ?replicas_per_master ?replicas_per_primary
+      ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
+      ~capacity ~family ~location ~name ~resource_group_name
+      ~sku_name ~identity ~patch_schedule ~redis_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_redis_cache __resource);
   let __resource_attributes =
     ({

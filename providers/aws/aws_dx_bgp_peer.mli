@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_dx_bgp_peer__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_dx_bgp_peer
+
+val aws_dx_bgp_peer :
+  ?amazon_address:string prop ->
+  ?bgp_auth_key:string prop ->
+  ?customer_address:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  address_family:string prop ->
+  bgp_asn:float prop ->
+  virtual_interface_id:string prop ->
+  unit ->
+  aws_dx_bgp_peer
+
+val yojson_of_aws_dx_bgp_peer : aws_dx_bgp_peer -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   address_family : string prop;
@@ -18,12 +40,13 @@ type t = private {
   virtual_interface_id : string prop;
 }
 
-val aws_dx_bgp_peer :
+val register :
+  ?tf_module:tf_module ->
   ?amazon_address:string prop ->
   ?bgp_auth_key:string prop ->
   ?customer_address:string prop ->
   ?id:string prop ->
-  ?timeouts:aws_dx_bgp_peer__timeouts ->
+  ?timeouts:timeouts ->
   address_family:string prop ->
   bgp_asn:float prop ->
   virtual_interface_id:string prop ->

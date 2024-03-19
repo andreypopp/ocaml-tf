@@ -13,6 +13,10 @@ type aws_securityhub_action_target = {
 [@@deriving yojson_of]
 (** aws_securityhub_action_target *)
 
+let aws_securityhub_action_target ?id ~description ~identifier ~name
+    () : aws_securityhub_action_target =
+  { description; id; identifier; name }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -21,14 +25,14 @@ type t = {
   name : string prop;
 }
 
-let aws_securityhub_action_target ?id ~description ~identifier ~name
+let register ?tf_module ?id ~description ~identifier ~name
     __resource_id =
   let __resource_type = "aws_securityhub_action_target" in
   let __resource =
-    ({ description; id; identifier; name }
-      : aws_securityhub_action_target)
+    aws_securityhub_action_target ?id ~description ~identifier ~name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_action_target __resource);
   let __resource_attributes =
     ({

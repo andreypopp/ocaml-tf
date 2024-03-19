@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_center_gallery__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_dev_center_gallery
+
+val azurerm_dev_center_gallery :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  dev_center_id:string prop ->
+  name:string prop ->
+  shared_gallery_id:string prop ->
+  unit ->
+  azurerm_dev_center_gallery
+
+val yojson_of_azurerm_dev_center_gallery :
+  azurerm_dev_center_gallery -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dev_center_id : string prop;
@@ -12,9 +36,10 @@ type t = private {
   shared_gallery_id : string prop;
 }
 
-val azurerm_dev_center_gallery :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_dev_center_gallery__timeouts ->
+  ?timeouts:timeouts ->
   dev_center_id:string prop ->
   name:string prop ->
   shared_gallery_id:string prop ->

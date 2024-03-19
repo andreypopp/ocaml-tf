@@ -2,11 +2,73 @@
 
 open! Tf.Prelude
 
-type azurerm_express_route_circuit_peering__ipv6__microsoft_peering
-type azurerm_express_route_circuit_peering__ipv6
-type azurerm_express_route_circuit_peering__microsoft_peering_config
-type azurerm_express_route_circuit_peering__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type ipv6__microsoft_peering
+
+val ipv6__microsoft_peering :
+  ?advertised_communities:string prop list ->
+  ?advertised_public_prefixes:string prop list ->
+  ?customer_asn:float prop ->
+  ?routing_registry_name:string prop ->
+  unit ->
+  ipv6__microsoft_peering
+
+type ipv6
+
+val ipv6 :
+  ?enabled:bool prop ->
+  ?route_filter_id:string prop ->
+  primary_peer_address_prefix:string prop ->
+  secondary_peer_address_prefix:string prop ->
+  microsoft_peering:ipv6__microsoft_peering list ->
+  unit ->
+  ipv6
+
+type microsoft_peering_config
+
+val microsoft_peering_config :
+  ?advertised_communities:string prop list ->
+  ?customer_asn:float prop ->
+  ?routing_registry_name:string prop ->
+  advertised_public_prefixes:string prop list ->
+  unit ->
+  microsoft_peering_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_express_route_circuit_peering
+
+val azurerm_express_route_circuit_peering :
+  ?id:string prop ->
+  ?ipv4_enabled:bool prop ->
+  ?peer_asn:float prop ->
+  ?primary_peer_address_prefix:string prop ->
+  ?route_filter_id:string prop ->
+  ?secondary_peer_address_prefix:string prop ->
+  ?shared_key:string prop ->
+  ?timeouts:timeouts ->
+  express_route_circuit_name:string prop ->
+  peering_type:string prop ->
+  resource_group_name:string prop ->
+  vlan_id:float prop ->
+  ipv6:ipv6 list ->
+  microsoft_peering_config:microsoft_peering_config list ->
+  unit ->
+  azurerm_express_route_circuit_peering
+
+val yojson_of_azurerm_express_route_circuit_peering :
+  azurerm_express_route_circuit_peering -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   azure_asn : float prop;
@@ -26,7 +88,8 @@ type t = private {
   vlan_id : float prop;
 }
 
-val azurerm_express_route_circuit_peering :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ipv4_enabled:bool prop ->
   ?peer_asn:float prop ->
@@ -34,14 +97,12 @@ val azurerm_express_route_circuit_peering :
   ?route_filter_id:string prop ->
   ?secondary_peer_address_prefix:string prop ->
   ?shared_key:string prop ->
-  ?timeouts:azurerm_express_route_circuit_peering__timeouts ->
+  ?timeouts:timeouts ->
   express_route_circuit_name:string prop ->
   peering_type:string prop ->
   resource_group_name:string prop ->
   vlan_id:float prop ->
-  ipv6:azurerm_express_route_circuit_peering__ipv6 list ->
-  microsoft_peering_config:
-    azurerm_express_route_circuit_peering__microsoft_peering_config
-    list ->
+  ipv6:ipv6 list ->
+  microsoft_peering_config:microsoft_peering_config list ->
   string ->
   t

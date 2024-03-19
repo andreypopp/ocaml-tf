@@ -25,6 +25,25 @@ type aws_cur_report_definition = {
 [@@deriving yojson_of]
 (** aws_cur_report_definition *)
 
+let aws_cur_report_definition ?additional_artifacts ?id
+    ?refresh_closed_reports ?report_versioning ?s3_prefix
+    ~additional_schema_elements ~compression ~format ~report_name
+    ~s3_bucket ~s3_region ~time_unit () : aws_cur_report_definition =
+  {
+    additional_artifacts;
+    additional_schema_elements;
+    compression;
+    format;
+    id;
+    refresh_closed_reports;
+    report_name;
+    report_versioning;
+    s3_bucket;
+    s3_prefix;
+    s3_region;
+    time_unit;
+  }
+
 type t = {
   additional_artifacts : string list prop;
   additional_schema_elements : string list prop;
@@ -41,29 +60,18 @@ type t = {
   time_unit : string prop;
 }
 
-let aws_cur_report_definition ?additional_artifacts ?id
+let register ?tf_module ?additional_artifacts ?id
     ?refresh_closed_reports ?report_versioning ?s3_prefix
     ~additional_schema_elements ~compression ~format ~report_name
     ~s3_bucket ~s3_region ~time_unit __resource_id =
   let __resource_type = "aws_cur_report_definition" in
   let __resource =
-    ({
-       additional_artifacts;
-       additional_schema_elements;
-       compression;
-       format;
-       id;
-       refresh_closed_reports;
-       report_name;
-       report_versioning;
-       s3_bucket;
-       s3_prefix;
-       s3_region;
-       time_unit;
-     }
-      : aws_cur_report_definition)
+    aws_cur_report_definition ?additional_artifacts ?id
+      ?refresh_closed_reports ?report_versioning ?s3_prefix
+      ~additional_schema_elements ~compression ~format ~report_name
+      ~s3_bucket ~s3_region ~time_unit ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cur_report_definition __resource);
   let __resource_attributes =
     ({

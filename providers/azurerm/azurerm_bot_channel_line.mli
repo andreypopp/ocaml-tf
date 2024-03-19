@@ -2,9 +2,42 @@
 
 open! Tf.Prelude
 
-type azurerm_bot_channel_line__line_channel
-type azurerm_bot_channel_line__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type line_channel
+
+val line_channel :
+  access_token:string prop ->
+  secret:string prop ->
+  unit ->
+  line_channel
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_bot_channel_line
+
+val azurerm_bot_channel_line :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  line_channel:line_channel list ->
+  unit ->
+  azurerm_bot_channel_line
+
+val yojson_of_azurerm_bot_channel_line :
+  azurerm_bot_channel_line -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bot_name : string prop;
@@ -13,12 +46,13 @@ type t = private {
   resource_group_name : string prop;
 }
 
-val azurerm_bot_channel_line :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_bot_channel_line__timeouts ->
+  ?timeouts:timeouts ->
   bot_name:string prop ->
   location:string prop ->
   resource_group_name:string prop ->
-  line_channel:azurerm_bot_channel_line__line_channel list ->
+  line_channel:line_channel list ->
   string ->
   t

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_apigee_endpoint_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_apigee_endpoint_attachment__timeouts *)
+(** timeouts *)
 
 type google_apigee_endpoint_attachment = {
   endpoint_attachment_id : string prop;
@@ -22,10 +22,24 @@ type google_apigee_endpoint_attachment = {
 in the format 'organizations/{{org_name}}'. *)
   service_attachment : string prop;
       (** Format: projects/*/regions/*/serviceAttachments/* *)
-  timeouts : google_apigee_endpoint_attachment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_endpoint_attachment *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_apigee_endpoint_attachment ?id ?timeouts
+    ~endpoint_attachment_id ~location ~org_id ~service_attachment ()
+    : google_apigee_endpoint_attachment =
+  {
+    endpoint_attachment_id;
+    id;
+    location;
+    org_id;
+    service_attachment;
+    timeouts;
+  }
 
 type t = {
   connection_state : string prop;
@@ -38,22 +52,15 @@ type t = {
   service_attachment : string prop;
 }
 
-let google_apigee_endpoint_attachment ?id ?timeouts
-    ~endpoint_attachment_id ~location ~org_id ~service_attachment
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~endpoint_attachment_id
+    ~location ~org_id ~service_attachment __resource_id =
   let __resource_type = "google_apigee_endpoint_attachment" in
   let __resource =
-    ({
-       endpoint_attachment_id;
-       id;
-       location;
-       org_id;
-       service_attachment;
-       timeouts;
-     }
-      : google_apigee_endpoint_attachment)
+    google_apigee_endpoint_attachment ?id ?timeouts
+      ~endpoint_attachment_id ~location ~org_id ~service_attachment
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_endpoint_attachment __resource);
   let __resource_attributes =
     ({

@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_eventgrid_domain_topic__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventgrid_domain_topic__timeouts *)
+(** timeouts *)
 
 type azurerm_eventgrid_domain_topic = {
   domain_name : string prop;  (** domain_name *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts : azurerm_eventgrid_domain_topic__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_domain_topic *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_eventgrid_domain_topic ?id ?timeouts ~domain_name ~name
+    ~resource_group_name () : azurerm_eventgrid_domain_topic =
+  { domain_name; id; name; resource_group_name; timeouts }
 
 type t = {
   domain_name : string prop;
@@ -29,14 +36,14 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_eventgrid_domain_topic ?id ?timeouts ~domain_name ~name
+let register ?tf_module ?id ?timeouts ~domain_name ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_eventgrid_domain_topic" in
   let __resource =
-    ({ domain_name; id; name; resource_group_name; timeouts }
-      : azurerm_eventgrid_domain_topic)
+    azurerm_eventgrid_domain_topic ?id ?timeouts ~domain_name ~name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventgrid_domain_topic __resource);
   let __resource_attributes =
     ({

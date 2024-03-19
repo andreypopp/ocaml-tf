@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_backend_bucket_signed_url_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_backend_bucket_signed_url_key__timeouts *)
+(** timeouts *)
 
 type google_compute_backend_bucket_signed_url_key = {
   backend_bucket : string prop;
@@ -20,11 +20,17 @@ type google_compute_backend_bucket_signed_url_key = {
 valid RFC 4648 Section 5 base64url encoded string. *)
   name : string prop;  (** Name of the signed URL key. *)
   project : string prop option; [@option]  (** project *)
-  timeouts :
-    google_compute_backend_bucket_signed_url_key__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_backend_bucket_signed_url_key *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_backend_bucket_signed_url_key ?id ?project
+    ?timeouts ~backend_bucket ~key_value ~name () :
+    google_compute_backend_bucket_signed_url_key =
+  { backend_bucket; id; key_value; name; project; timeouts }
 
 type t = {
   backend_bucket : string prop;
@@ -34,16 +40,16 @@ type t = {
   project : string prop;
 }
 
-let google_compute_backend_bucket_signed_url_key ?id ?project
-    ?timeouts ~backend_bucket ~key_value ~name __resource_id =
+let register ?tf_module ?id ?project ?timeouts ~backend_bucket
+    ~key_value ~name __resource_id =
   let __resource_type =
     "google_compute_backend_bucket_signed_url_key"
   in
   let __resource =
-    ({ backend_bucket; id; key_value; name; project; timeouts }
-      : google_compute_backend_bucket_signed_url_key)
+    google_compute_backend_bucket_signed_url_key ?id ?project
+      ?timeouts ~backend_bucket ~key_value ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_backend_bucket_signed_url_key
        __resource);
   let __resource_attributes =

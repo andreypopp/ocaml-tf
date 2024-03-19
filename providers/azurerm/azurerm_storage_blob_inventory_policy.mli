@@ -2,20 +2,68 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_blob_inventory_policy__rules__filter
-type azurerm_storage_blob_inventory_policy__rules
-type azurerm_storage_blob_inventory_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type rules__filter
+
+val rules__filter :
+  ?exclude_prefixes:string prop list ->
+  ?include_blob_versions:bool prop ->
+  ?include_deleted:bool prop ->
+  ?include_snapshots:bool prop ->
+  ?prefix_match:string prop list ->
+  blob_types:string prop list ->
+  unit ->
+  rules__filter
+
+type rules
+
+val rules :
+  format:string prop ->
+  name:string prop ->
+  schedule:string prop ->
+  schema_fields:string prop list ->
+  scope:string prop ->
+  storage_container_name:string prop ->
+  filter:rules__filter list ->
+  unit ->
+  rules
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_storage_blob_inventory_policy
+
+val azurerm_storage_blob_inventory_policy :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  storage_account_id:string prop ->
+  rules:rules list ->
+  unit ->
+  azurerm_storage_blob_inventory_policy
+
+val yojson_of_azurerm_storage_blob_inventory_policy :
+  azurerm_storage_blob_inventory_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
   storage_account_id : string prop;
 }
 
-val azurerm_storage_blob_inventory_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_storage_blob_inventory_policy__timeouts ->
+  ?timeouts:timeouts ->
   storage_account_id:string prop ->
-  rules:azurerm_storage_blob_inventory_policy__rules list ->
+  rules:rules list ->
   string ->
   t

@@ -15,6 +15,17 @@ type aws_rds_cluster_activity_stream = {
 [@@deriving yojson_of]
 (** aws_rds_cluster_activity_stream *)
 
+let aws_rds_cluster_activity_stream
+    ?engine_native_audit_fields_included ?id ~kms_key_id ~mode
+    ~resource_arn () : aws_rds_cluster_activity_stream =
+  {
+    engine_native_audit_fields_included;
+    id;
+    kms_key_id;
+    mode;
+    resource_arn;
+  }
+
 type t = {
   engine_native_audit_fields_included : bool prop;
   id : string prop;
@@ -24,21 +35,15 @@ type t = {
   resource_arn : string prop;
 }
 
-let aws_rds_cluster_activity_stream
-    ?engine_native_audit_fields_included ?id ~kms_key_id ~mode
-    ~resource_arn __resource_id =
+let register ?tf_module ?engine_native_audit_fields_included ?id
+    ~kms_key_id ~mode ~resource_arn __resource_id =
   let __resource_type = "aws_rds_cluster_activity_stream" in
   let __resource =
-    ({
-       engine_native_audit_fields_included;
-       id;
-       kms_key_id;
-       mode;
-       resource_arn;
-     }
-      : aws_rds_cluster_activity_stream)
+    aws_rds_cluster_activity_stream
+      ?engine_native_audit_fields_included ?id ~kms_key_id ~mode
+      ~resource_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rds_cluster_activity_stream __resource);
   let __resource_attributes =
     ({

@@ -4,158 +4,134 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_diagnostic__backend_request__data_masking__headers = {
+type backend_request__data_masking__headers = {
   mode : string prop;  (** mode *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__backend_request__data_masking__headers *)
+(** backend_request__data_masking__headers *)
 
-type azurerm_api_management_diagnostic__backend_request__data_masking__query_params = {
+type backend_request__data_masking__query_params = {
   mode : string prop;  (** mode *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__backend_request__data_masking__query_params *)
+(** backend_request__data_masking__query_params *)
 
-type azurerm_api_management_diagnostic__backend_request__data_masking = {
-  headers :
-    azurerm_api_management_diagnostic__backend_request__data_masking__headers
-    list;
-  query_params :
-    azurerm_api_management_diagnostic__backend_request__data_masking__query_params
-    list;
+type backend_request__data_masking = {
+  headers : backend_request__data_masking__headers list;
+  query_params : backend_request__data_masking__query_params list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__backend_request__data_masking *)
+(** backend_request__data_masking *)
 
-type azurerm_api_management_diagnostic__backend_request = {
+type backend_request = {
   body_bytes : float prop option; [@option]  (** body_bytes *)
   headers_to_log : string prop list option; [@option]
       (** headers_to_log *)
-  data_masking :
-    azurerm_api_management_diagnostic__backend_request__data_masking
-    list;
+  data_masking : backend_request__data_masking list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__backend_request *)
+(** backend_request *)
 
-type azurerm_api_management_diagnostic__backend_response__data_masking__headers = {
+type backend_response__data_masking__headers = {
   mode : string prop;  (** mode *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__backend_response__data_masking__headers *)
+(** backend_response__data_masking__headers *)
 
-type azurerm_api_management_diagnostic__backend_response__data_masking__query_params = {
+type backend_response__data_masking__query_params = {
   mode : string prop;  (** mode *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__backend_response__data_masking__query_params *)
+(** backend_response__data_masking__query_params *)
 
-type azurerm_api_management_diagnostic__backend_response__data_masking = {
-  headers :
-    azurerm_api_management_diagnostic__backend_response__data_masking__headers
-    list;
-  query_params :
-    azurerm_api_management_diagnostic__backend_response__data_masking__query_params
-    list;
+type backend_response__data_masking = {
+  headers : backend_response__data_masking__headers list;
+  query_params : backend_response__data_masking__query_params list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__backend_response__data_masking *)
+(** backend_response__data_masking *)
 
-type azurerm_api_management_diagnostic__backend_response = {
+type backend_response = {
   body_bytes : float prop option; [@option]  (** body_bytes *)
   headers_to_log : string prop list option; [@option]
       (** headers_to_log *)
-  data_masking :
-    azurerm_api_management_diagnostic__backend_response__data_masking
-    list;
+  data_masking : backend_response__data_masking list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__backend_response *)
+(** backend_response *)
 
-type azurerm_api_management_diagnostic__frontend_request__data_masking__headers = {
+type frontend_request__data_masking__headers = {
   mode : string prop;  (** mode *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__frontend_request__data_masking__headers *)
+(** frontend_request__data_masking__headers *)
 
-type azurerm_api_management_diagnostic__frontend_request__data_masking__query_params = {
+type frontend_request__data_masking__query_params = {
   mode : string prop;  (** mode *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__frontend_request__data_masking__query_params *)
+(** frontend_request__data_masking__query_params *)
 
-type azurerm_api_management_diagnostic__frontend_request__data_masking = {
-  headers :
-    azurerm_api_management_diagnostic__frontend_request__data_masking__headers
-    list;
-  query_params :
-    azurerm_api_management_diagnostic__frontend_request__data_masking__query_params
-    list;
+type frontend_request__data_masking = {
+  headers : frontend_request__data_masking__headers list;
+  query_params : frontend_request__data_masking__query_params list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__frontend_request__data_masking *)
+(** frontend_request__data_masking *)
 
-type azurerm_api_management_diagnostic__frontend_request = {
+type frontend_request = {
   body_bytes : float prop option; [@option]  (** body_bytes *)
   headers_to_log : string prop list option; [@option]
       (** headers_to_log *)
-  data_masking :
-    azurerm_api_management_diagnostic__frontend_request__data_masking
-    list;
+  data_masking : frontend_request__data_masking list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__frontend_request *)
+(** frontend_request *)
 
-type azurerm_api_management_diagnostic__frontend_response__data_masking__headers = {
+type frontend_response__data_masking__headers = {
   mode : string prop;  (** mode *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__frontend_response__data_masking__headers *)
+(** frontend_response__data_masking__headers *)
 
-type azurerm_api_management_diagnostic__frontend_response__data_masking__query_params = {
+type frontend_response__data_masking__query_params = {
   mode : string prop;  (** mode *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__frontend_response__data_masking__query_params *)
+(** frontend_response__data_masking__query_params *)
 
-type azurerm_api_management_diagnostic__frontend_response__data_masking = {
-  headers :
-    azurerm_api_management_diagnostic__frontend_response__data_masking__headers
-    list;
-  query_params :
-    azurerm_api_management_diagnostic__frontend_response__data_masking__query_params
-    list;
+type frontend_response__data_masking = {
+  headers : frontend_response__data_masking__headers list;
+  query_params : frontend_response__data_masking__query_params list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__frontend_response__data_masking *)
+(** frontend_response__data_masking *)
 
-type azurerm_api_management_diagnostic__frontend_response = {
+type frontend_response = {
   body_bytes : float prop option; [@option]  (** body_bytes *)
   headers_to_log : string prop list option; [@option]
       (** headers_to_log *)
-  data_masking :
-    azurerm_api_management_diagnostic__frontend_response__data_masking
-    list;
+  data_masking : frontend_response__data_masking list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__frontend_response *)
+(** frontend_response *)
 
-type azurerm_api_management_diagnostic__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_diagnostic__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_diagnostic = {
   always_log_errors : bool prop option; [@option]
@@ -174,18 +150,107 @@ type azurerm_api_management_diagnostic = {
   sampling_percentage : float prop option; [@option]
       (** sampling_percentage *)
   verbosity : string prop option; [@option]  (** verbosity *)
-  backend_request :
-    azurerm_api_management_diagnostic__backend_request list;
-  backend_response :
-    azurerm_api_management_diagnostic__backend_response list;
-  frontend_request :
-    azurerm_api_management_diagnostic__frontend_request list;
-  frontend_response :
-    azurerm_api_management_diagnostic__frontend_response list;
-  timeouts : azurerm_api_management_diagnostic__timeouts option;
+  backend_request : backend_request list;
+  backend_response : backend_response list;
+  frontend_request : frontend_request list;
+  frontend_response : frontend_response list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_diagnostic *)
+
+let backend_request__data_masking__headers ~mode ~value () :
+    backend_request__data_masking__headers =
+  { mode; value }
+
+let backend_request__data_masking__query_params ~mode ~value () :
+    backend_request__data_masking__query_params =
+  { mode; value }
+
+let backend_request__data_masking ~headers ~query_params () :
+    backend_request__data_masking =
+  { headers; query_params }
+
+let backend_request ?body_bytes ?headers_to_log ~data_masking () :
+    backend_request =
+  { body_bytes; headers_to_log; data_masking }
+
+let backend_response__data_masking__headers ~mode ~value () :
+    backend_response__data_masking__headers =
+  { mode; value }
+
+let backend_response__data_masking__query_params ~mode ~value () :
+    backend_response__data_masking__query_params =
+  { mode; value }
+
+let backend_response__data_masking ~headers ~query_params () :
+    backend_response__data_masking =
+  { headers; query_params }
+
+let backend_response ?body_bytes ?headers_to_log ~data_masking () :
+    backend_response =
+  { body_bytes; headers_to_log; data_masking }
+
+let frontend_request__data_masking__headers ~mode ~value () :
+    frontend_request__data_masking__headers =
+  { mode; value }
+
+let frontend_request__data_masking__query_params ~mode ~value () :
+    frontend_request__data_masking__query_params =
+  { mode; value }
+
+let frontend_request__data_masking ~headers ~query_params () :
+    frontend_request__data_masking =
+  { headers; query_params }
+
+let frontend_request ?body_bytes ?headers_to_log ~data_masking () :
+    frontend_request =
+  { body_bytes; headers_to_log; data_masking }
+
+let frontend_response__data_masking__headers ~mode ~value () :
+    frontend_response__data_masking__headers =
+  { mode; value }
+
+let frontend_response__data_masking__query_params ~mode ~value () :
+    frontend_response__data_masking__query_params =
+  { mode; value }
+
+let frontend_response__data_masking ~headers ~query_params () :
+    frontend_response__data_masking =
+  { headers; query_params }
+
+let frontend_response ?body_bytes ?headers_to_log ~data_masking () :
+    frontend_response =
+  { body_bytes; headers_to_log; data_masking }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_diagnostic ?always_log_errors
+    ?http_correlation_protocol ?id ?log_client_ip
+    ?operation_name_format ?sampling_percentage ?verbosity ?timeouts
+    ~api_management_logger_id ~api_management_name ~identifier
+    ~resource_group_name ~backend_request ~backend_response
+    ~frontend_request ~frontend_response () :
+    azurerm_api_management_diagnostic =
+  {
+    always_log_errors;
+    api_management_logger_id;
+    api_management_name;
+    http_correlation_protocol;
+    id;
+    identifier;
+    log_client_ip;
+    operation_name_format;
+    resource_group_name;
+    sampling_percentage;
+    verbosity;
+    backend_request;
+    backend_response;
+    frontend_request;
+    frontend_response;
+    timeouts;
+  }
 
 type t = {
   always_log_errors : bool prop;
@@ -201,35 +266,22 @@ type t = {
   verbosity : string prop;
 }
 
-let azurerm_api_management_diagnostic ?always_log_errors
-    ?http_correlation_protocol ?id ?log_client_ip
-    ?operation_name_format ?sampling_percentage ?verbosity ?timeouts
-    ~api_management_logger_id ~api_management_name ~identifier
-    ~resource_group_name ~backend_request ~backend_response
-    ~frontend_request ~frontend_response __resource_id =
+let register ?tf_module ?always_log_errors ?http_correlation_protocol
+    ?id ?log_client_ip ?operation_name_format ?sampling_percentage
+    ?verbosity ?timeouts ~api_management_logger_id
+    ~api_management_name ~identifier ~resource_group_name
+    ~backend_request ~backend_response ~frontend_request
+    ~frontend_response __resource_id =
   let __resource_type = "azurerm_api_management_diagnostic" in
   let __resource =
-    ({
-       always_log_errors;
-       api_management_logger_id;
-       api_management_name;
-       http_correlation_protocol;
-       id;
-       identifier;
-       log_client_ip;
-       operation_name_format;
-       resource_group_name;
-       sampling_percentage;
-       verbosity;
-       backend_request;
-       backend_response;
-       frontend_request;
-       frontend_response;
-       timeouts;
-     }
-      : azurerm_api_management_diagnostic)
+    azurerm_api_management_diagnostic ?always_log_errors
+      ?http_correlation_protocol ?id ?log_client_ip
+      ?operation_name_format ?sampling_percentage ?verbosity
+      ?timeouts ~api_management_logger_id ~api_management_name
+      ~identifier ~resource_group_name ~backend_request
+      ~backend_response ~frontend_request ~frontend_response ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_diagnostic __resource);
   let __resource_attributes =
     ({

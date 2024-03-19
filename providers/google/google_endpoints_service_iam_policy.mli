@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_endpoints_service_iam_policy
+
+val google_endpoints_service_iam_policy :
+  ?id:string prop ->
+  policy_data:string prop ->
+  service_name:string prop ->
+  unit ->
+  google_endpoints_service_iam_policy
+
+val yojson_of_google_endpoints_service_iam_policy :
+  google_endpoints_service_iam_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -11,7 +25,8 @@ type t = private {
   service_name : string prop;
 }
 
-val google_endpoints_service_iam_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   policy_data:string prop ->
   service_name:string prop ->

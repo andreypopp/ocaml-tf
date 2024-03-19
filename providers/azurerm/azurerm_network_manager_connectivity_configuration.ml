@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_connectivity_configuration__applies_to_group = {
+type applies_to_group = {
   global_mesh_enabled : bool prop option; [@option]
       (** global_mesh_enabled *)
   group_connectivity : string prop;  (** group_connectivity *)
@@ -13,23 +13,23 @@ type azurerm_network_manager_connectivity_configuration__applies_to_group = {
       (** use_hub_gateway *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_connectivity_configuration__applies_to_group *)
+(** applies_to_group *)
 
-type azurerm_network_manager_connectivity_configuration__hub = {
+type hub = {
   resource_id : string prop;  (** resource_id *)
   resource_type : string prop;  (** resource_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_connectivity_configuration__hub *)
+(** hub *)
 
-type azurerm_network_manager_connectivity_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_connectivity_configuration__timeouts *)
+(** timeouts *)
 
 type azurerm_network_manager_connectivity_configuration = {
   connectivity_topology : string prop;  (** connectivity_topology *)
@@ -41,16 +41,45 @@ type azurerm_network_manager_connectivity_configuration = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   network_manager_id : string prop;  (** network_manager_id *)
-  applies_to_group :
-    azurerm_network_manager_connectivity_configuration__applies_to_group
-    list;
-  hub : azurerm_network_manager_connectivity_configuration__hub list;
-  timeouts :
-    azurerm_network_manager_connectivity_configuration__timeouts
-    option;
+  applies_to_group : applies_to_group list;
+  hub : hub list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_connectivity_configuration *)
+
+let applies_to_group ?global_mesh_enabled ?use_hub_gateway
+    ~group_connectivity ~network_group_id () : applies_to_group =
+  {
+    global_mesh_enabled;
+    group_connectivity;
+    network_group_id;
+    use_hub_gateway;
+  }
+
+let hub ~resource_id ~resource_type () : hub =
+  { resource_id; resource_type }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_manager_connectivity_configuration
+    ?delete_existing_peering_enabled ?description
+    ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
+    ~network_manager_id ~applies_to_group ~hub () :
+    azurerm_network_manager_connectivity_configuration =
+  {
+    connectivity_topology;
+    delete_existing_peering_enabled;
+    description;
+    global_mesh_enabled;
+    id;
+    name;
+    network_manager_id;
+    applies_to_group;
+    hub;
+    timeouts;
+  }
 
 type t = {
   connectivity_topology : string prop;
@@ -62,29 +91,19 @@ type t = {
   network_manager_id : string prop;
 }
 
-let azurerm_network_manager_connectivity_configuration
-    ?delete_existing_peering_enabled ?description
+let register ?tf_module ?delete_existing_peering_enabled ?description
     ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
     ~network_manager_id ~applies_to_group ~hub __resource_id =
   let __resource_type =
     "azurerm_network_manager_connectivity_configuration"
   in
   let __resource =
-    ({
-       connectivity_topology;
-       delete_existing_peering_enabled;
-       description;
-       global_mesh_enabled;
-       id;
-       name;
-       network_manager_id;
-       applies_to_group;
-       hub;
-       timeouts;
-     }
-      : azurerm_network_manager_connectivity_configuration)
+    azurerm_network_manager_connectivity_configuration
+      ?delete_existing_peering_enabled ?description
+      ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
+      ~network_manager_id ~applies_to_group ~hub ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_connectivity_configuration
        __resource);
   let __resource_attributes =

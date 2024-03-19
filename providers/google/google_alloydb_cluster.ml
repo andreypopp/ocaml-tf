@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type google_alloydb_cluster__automated_backup_policy__encryption_config = {
+type automated_backup_policy__encryption_config = {
   kms_key_name : string prop option; [@option]
       (** The fully-qualified resource name of the KMS key. Each Cloud KMS key is regionalized and has the following format: projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME]. *)
 }
 [@@deriving yojson_of]
 (** EncryptionConfig describes the encryption config of a cluster or a backup that is encrypted with a CMEK (customer-managed encryption key). *)
 
-type google_alloydb_cluster__automated_backup_policy__quantity_based_retention = {
+type automated_backup_policy__quantity_based_retention = {
   count : float prop option; [@option]
       (** The number of backups to retain. *)
 }
 [@@deriving yojson_of]
 (** Quantity-based Backup retention policy to retain recent backups. Conflicts with 'time_based_retention', both can't be set together. *)
 
-type google_alloydb_cluster__automated_backup_policy__time_based_retention = {
+type automated_backup_policy__time_based_retention = {
   retention_period : string prop option; [@option]
       (** The retention period.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
@@ -26,7 +26,7 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 [@@deriving yojson_of]
 (** Time-based Backup retention policy. Conflicts with 'quantity_based_retention', both can't be set together. *)
 
-type google_alloydb_cluster__automated_backup_policy__weekly_schedule__start_times = {
+type automated_backup_policy__weekly_schedule__start_times = {
   hours : float prop option; [@option]
       (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
@@ -39,17 +39,16 @@ type google_alloydb_cluster__automated_backup_policy__weekly_schedule__start_tim
 [@@deriving yojson_of]
 (** The times during the day to start a backup. At least one start time must be provided. The start times are assumed to be in UTC and to be an exact hour (e.g., 04:00:00). *)
 
-type google_alloydb_cluster__automated_backup_policy__weekly_schedule = {
+type automated_backup_policy__weekly_schedule = {
   days_of_week : string prop list option; [@option]
       (** The days of the week to perform a backup. At least one day of the week must be provided. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
   start_times :
-    google_alloydb_cluster__automated_backup_policy__weekly_schedule__start_times
-    list;
+    automated_backup_policy__weekly_schedule__start_times list;
 }
 [@@deriving yojson_of]
 (** Weekly schedule for the Backup. *)
 
-type google_alloydb_cluster__automated_backup_policy = {
+type automated_backup_policy = {
   backup_window : string prop option; [@option]
       (** The length of the time window during which a backup can be taken. If a backup does not succeed within this time window, it will be canceled and considered failed.
 
@@ -63,29 +62,24 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
   location : string prop option; [@option]
       (** The location where the backup will be stored. Currently, the only supported option is to store the backup in the same region as the cluster. *)
   encryption_config :
-    google_alloydb_cluster__automated_backup_policy__encryption_config
-    list;
+    automated_backup_policy__encryption_config list;
   quantity_based_retention :
-    google_alloydb_cluster__automated_backup_policy__quantity_based_retention
-    list;
+    automated_backup_policy__quantity_based_retention list;
   time_based_retention :
-    google_alloydb_cluster__automated_backup_policy__time_based_retention
-    list;
-  weekly_schedule :
-    google_alloydb_cluster__automated_backup_policy__weekly_schedule
-    list;
+    automated_backup_policy__time_based_retention list;
+  weekly_schedule : automated_backup_policy__weekly_schedule list;
 }
 [@@deriving yojson_of]
 (** The automated backup policy for this cluster. AutomatedBackupPolicy is disabled by default. *)
 
-type google_alloydb_cluster__continuous_backup_config__encryption_config = {
+type continuous_backup_config__encryption_config = {
   kms_key_name : string prop option; [@option]
       (** The fully-qualified resource name of the KMS key. Each Cloud KMS key is regionalized and has the following format: projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME]. *)
 }
 [@@deriving yojson_of]
 (** EncryptionConfig describes the encryption config of a cluster or a backup that is encrypted with a CMEK (customer-managed encryption key). *)
 
-type google_alloydb_cluster__continuous_backup_config = {
+type continuous_backup_config = {
   enabled : bool prop option; [@option]
       (** Whether continuous backup recovery is enabled. If not set, defaults to true. *)
   recovery_window_days : float prop option; [@option]
@@ -93,29 +87,28 @@ type google_alloydb_cluster__continuous_backup_config = {
 
 If not set, defaults to 14 days. *)
   encryption_config :
-    google_alloydb_cluster__continuous_backup_config__encryption_config
-    list;
+    continuous_backup_config__encryption_config list;
 }
 [@@deriving yojson_of]
 (** The continuous backup config for this cluster.
 
 If no policy is provided then the default policy will be used. The default policy takes one backup a day and retains backups for 14 days. *)
 
-type google_alloydb_cluster__encryption_config = {
+type encryption_config = {
   kms_key_name : string prop option; [@option]
       (** The fully-qualified resource name of the KMS key. Each Cloud KMS key is regionalized and has the following format: projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME]. *)
 }
 [@@deriving yojson_of]
 (** EncryptionConfig describes the encryption config of a cluster or a backup that is encrypted with a CMEK (customer-managed encryption key). *)
 
-type google_alloydb_cluster__initial_user = {
+type initial_user = {
   password : string prop;  (** The initial password for the user. *)
   user : string prop option; [@option]  (** The database username. *)
 }
 [@@deriving yojson_of]
 (** Initial user to setup during cluster creation. *)
 
-type google_alloydb_cluster__network_config = {
+type network_config = {
   allocated_ip_range : string prop option; [@option]
       (** The name of the allocated IP range for the private IP AlloyDB cluster. For example: google-managed-services-default.
 If set, the instance IPs for this cluster will be created in the allocated range. *)
@@ -126,14 +119,14 @@ It is specified in the form: projects/{projectNumber}/global/networks/{network_i
 [@@deriving yojson_of]
 (** Metadata related to network configuration. *)
 
-type google_alloydb_cluster__restore_backup_source = {
+type restore_backup_source = {
   backup_name : string prop;
       (** The name of the backup that this cluster is restored from. *)
 }
 [@@deriving yojson_of]
 (** The source when restoring from a backup. Conflicts with 'restore_continuous_backup_source', both can't be set together. *)
 
-type google_alloydb_cluster__restore_continuous_backup_source = {
+type restore_continuous_backup_source = {
   cluster : string prop;
       (** The name of the source cluster that this cluster is restored from. *)
   point_in_time : string prop;
@@ -142,7 +135,7 @@ type google_alloydb_cluster__restore_continuous_backup_source = {
 [@@deriving yojson_of]
 (** The source when restoring via point in time recovery (PITR). Conflicts with 'restore_backup_source', both can't be set together. *)
 
-type google_alloydb_cluster__secondary_config = {
+type secondary_config = {
   primary_cluster_name : string prop;
       (** Name of the primary cluster must be in the format
 'projects/{project}/locations/{location}/clusters/{cluster_id}' *)
@@ -150,44 +143,42 @@ type google_alloydb_cluster__secondary_config = {
 [@@deriving yojson_of]
 (** Configuration of the secondary cluster for Cross Region Replication. This should be set if and only if the cluster is of type SECONDARY. *)
 
-type google_alloydb_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_alloydb_cluster__timeouts *)
+(** timeouts *)
 
-type google_alloydb_cluster__backup_source = {
+type backup_source = {
   backup_name : string prop;  (** backup_name *)
 }
 [@@deriving yojson_of]
 
-type google_alloydb_cluster__continuous_backup_info__encryption_info = {
+type continuous_backup_info__encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
   kms_key_versions : string prop list;  (** kms_key_versions *)
 }
 [@@deriving yojson_of]
 
-type google_alloydb_cluster__continuous_backup_info = {
+type continuous_backup_info = {
   earliest_restorable_time : string prop;
       (** earliest_restorable_time *)
   enabled_time : string prop;  (** enabled_time *)
-  encryption_info :
-    google_alloydb_cluster__continuous_backup_info__encryption_info
-    list;
+  encryption_info : continuous_backup_info__encryption_info list;
       (** encryption_info *)
   schedule : string prop list;  (** schedule *)
 }
 [@@deriving yojson_of]
 
-type google_alloydb_cluster__encryption_info = {
+type encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
   kms_key_versions : string prop list;  (** kms_key_versions *)
 }
 [@@deriving yojson_of]
 
-type google_alloydb_cluster__migration_source = {
+type migration_source = {
   host_port : string prop;  (** host_port *)
   reference_id : string prop;  (** reference_id *)
   source_type : string prop;  (** source_type *)
@@ -228,43 +219,134 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 
 projects/{projectNumber}/global/networks/{network_id}. *)
   project : string prop option; [@option]  (** project *)
-  automated_backup_policy :
-    google_alloydb_cluster__automated_backup_policy list;
-  continuous_backup_config :
-    google_alloydb_cluster__continuous_backup_config list;
-  encryption_config : google_alloydb_cluster__encryption_config list;
-  initial_user : google_alloydb_cluster__initial_user list;
-  network_config : google_alloydb_cluster__network_config list;
-  restore_backup_source :
-    google_alloydb_cluster__restore_backup_source list;
+  automated_backup_policy : automated_backup_policy list;
+  continuous_backup_config : continuous_backup_config list;
+  encryption_config : encryption_config list;
+  initial_user : initial_user list;
+  network_config : network_config list;
+  restore_backup_source : restore_backup_source list;
   restore_continuous_backup_source :
-    google_alloydb_cluster__restore_continuous_backup_source list;
-  secondary_config : google_alloydb_cluster__secondary_config list;
-  timeouts : google_alloydb_cluster__timeouts option;
+    restore_continuous_backup_source list;
+  secondary_config : secondary_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_alloydb_cluster *)
 
+let automated_backup_policy__encryption_config ?kms_key_name () :
+    automated_backup_policy__encryption_config =
+  { kms_key_name }
+
+let automated_backup_policy__quantity_based_retention ?count () :
+    automated_backup_policy__quantity_based_retention =
+  { count }
+
+let automated_backup_policy__time_based_retention ?retention_period
+    () : automated_backup_policy__time_based_retention =
+  { retention_period }
+
+let automated_backup_policy__weekly_schedule__start_times ?hours
+    ?minutes ?nanos ?seconds () :
+    automated_backup_policy__weekly_schedule__start_times =
+  { hours; minutes; nanos; seconds }
+
+let automated_backup_policy__weekly_schedule ?days_of_week
+    ~start_times () : automated_backup_policy__weekly_schedule =
+  { days_of_week; start_times }
+
+let automated_backup_policy ?backup_window ?enabled ?labels ?location
+    ~encryption_config ~quantity_based_retention
+    ~time_based_retention ~weekly_schedule () :
+    automated_backup_policy =
+  {
+    backup_window;
+    enabled;
+    labels;
+    location;
+    encryption_config;
+    quantity_based_retention;
+    time_based_retention;
+    weekly_schedule;
+  }
+
+let continuous_backup_config__encryption_config ?kms_key_name () :
+    continuous_backup_config__encryption_config =
+  { kms_key_name }
+
+let continuous_backup_config ?enabled ?recovery_window_days
+    ~encryption_config () : continuous_backup_config =
+  { enabled; recovery_window_days; encryption_config }
+
+let encryption_config ?kms_key_name () : encryption_config =
+  { kms_key_name }
+
+let initial_user ?user ~password () : initial_user =
+  { password; user }
+
+let network_config ?allocated_ip_range ?network () : network_config =
+  { allocated_ip_range; network }
+
+let restore_backup_source ~backup_name () : restore_backup_source =
+  { backup_name }
+
+let restore_continuous_backup_source ~cluster ~point_in_time () :
+    restore_continuous_backup_source =
+  { cluster; point_in_time }
+
+let secondary_config ~primary_cluster_name () : secondary_config =
+  { primary_cluster_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_alloydb_cluster ?annotations ?cluster_type
+    ?database_version ?deletion_policy ?display_name ?etag ?id
+    ?labels ?network ?project ?timeouts ~cluster_id ~location
+    ~automated_backup_policy ~continuous_backup_config
+    ~encryption_config ~initial_user ~network_config
+    ~restore_backup_source ~restore_continuous_backup_source
+    ~secondary_config () : google_alloydb_cluster =
+  {
+    annotations;
+    cluster_id;
+    cluster_type;
+    database_version;
+    deletion_policy;
+    display_name;
+    etag;
+    id;
+    labels;
+    location;
+    network;
+    project;
+    automated_backup_policy;
+    continuous_backup_config;
+    encryption_config;
+    initial_user;
+    network_config;
+    restore_backup_source;
+    restore_continuous_backup_source;
+    secondary_config;
+    timeouts;
+  }
+
 type t = {
   annotations : (string * string) list prop;
-  backup_source : google_alloydb_cluster__backup_source list prop;
+  backup_source : backup_source list prop;
   cluster_id : string prop;
   cluster_type : string prop;
-  continuous_backup_info :
-    google_alloydb_cluster__continuous_backup_info list prop;
+  continuous_backup_info : continuous_backup_info list prop;
   database_version : string prop;
   deletion_policy : string prop;
   display_name : string prop;
   effective_annotations : (string * string) list prop;
   effective_labels : (string * string) list prop;
-  encryption_info :
-    google_alloydb_cluster__encryption_info list prop;
+  encryption_info : encryption_info list prop;
   etag : string prop;
   id : string prop;
   labels : (string * string) list prop;
   location : string prop;
-  migration_source :
-    google_alloydb_cluster__migration_source list prop;
+  migration_source : migration_source list prop;
   name : string prop;
   network : string prop;
   project : string prop;
@@ -274,41 +356,24 @@ type t = {
   uid : string prop;
 }
 
-let google_alloydb_cluster ?annotations ?cluster_type
-    ?database_version ?deletion_policy ?display_name ?etag ?id
-    ?labels ?network ?project ?timeouts ~cluster_id ~location
-    ~automated_backup_policy ~continuous_backup_config
-    ~encryption_config ~initial_user ~network_config
-    ~restore_backup_source ~restore_continuous_backup_source
-    ~secondary_config __resource_id =
+let register ?tf_module ?annotations ?cluster_type ?database_version
+    ?deletion_policy ?display_name ?etag ?id ?labels ?network
+    ?project ?timeouts ~cluster_id ~location ~automated_backup_policy
+    ~continuous_backup_config ~encryption_config ~initial_user
+    ~network_config ~restore_backup_source
+    ~restore_continuous_backup_source ~secondary_config __resource_id
+    =
   let __resource_type = "google_alloydb_cluster" in
   let __resource =
-    ({
-       annotations;
-       cluster_id;
-       cluster_type;
-       database_version;
-       deletion_policy;
-       display_name;
-       etag;
-       id;
-       labels;
-       location;
-       network;
-       project;
-       automated_backup_policy;
-       continuous_backup_config;
-       encryption_config;
-       initial_user;
-       network_config;
-       restore_backup_source;
-       restore_continuous_backup_source;
-       secondary_config;
-       timeouts;
-     }
-      : google_alloydb_cluster)
+    google_alloydb_cluster ?annotations ?cluster_type
+      ?database_version ?deletion_policy ?display_name ?etag ?id
+      ?labels ?network ?project ?timeouts ~cluster_id ~location
+      ~automated_backup_policy ~continuous_backup_config
+      ~encryption_config ~initial_user ~network_config
+      ~restore_backup_source ~restore_continuous_backup_source
+      ~secondary_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_alloydb_cluster __resource);
   let __resource_attributes =
     ({

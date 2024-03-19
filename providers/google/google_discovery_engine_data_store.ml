@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_discovery_engine_data_store__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_discovery_engine_data_store__timeouts *)
+(** timeouts *)
 
 type google_discovery_engine_data_store = {
   content_config : string prop;
@@ -33,10 +33,30 @@ only be one of global, us and eu. *)
   project : string prop option; [@option]  (** project *)
   solution_types : string prop list option; [@option]
       (** The solutions that the data store enrolls. Possible values: [SOLUTION_TYPE_RECOMMENDATION, SOLUTION_TYPE_SEARCH, SOLUTION_TYPE_CHAT] *)
-  timeouts : google_discovery_engine_data_store__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_discovery_engine_data_store *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_discovery_engine_data_store ?create_advanced_site_search
+    ?id ?project ?solution_types ?timeouts ~content_config
+    ~data_store_id ~display_name ~industry_vertical ~location () :
+    google_discovery_engine_data_store =
+  {
+    content_config;
+    create_advanced_site_search;
+    data_store_id;
+    display_name;
+    id;
+    industry_vertical;
+    location;
+    project;
+    solution_types;
+    timeouts;
+  }
 
 type t = {
   content_config : string prop;
@@ -53,27 +73,16 @@ type t = {
   solution_types : string list prop;
 }
 
-let google_discovery_engine_data_store ?create_advanced_site_search
-    ?id ?project ?solution_types ?timeouts ~content_config
-    ~data_store_id ~display_name ~industry_vertical ~location
-    __resource_id =
+let register ?tf_module ?create_advanced_site_search ?id ?project
+    ?solution_types ?timeouts ~content_config ~data_store_id
+    ~display_name ~industry_vertical ~location __resource_id =
   let __resource_type = "google_discovery_engine_data_store" in
   let __resource =
-    ({
-       content_config;
-       create_advanced_site_search;
-       data_store_id;
-       display_name;
-       id;
-       industry_vertical;
-       location;
-       project;
-       solution_types;
-       timeouts;
-     }
-      : google_discovery_engine_data_store)
+    google_discovery_engine_data_store ?create_advanced_site_search
+      ?id ?project ?solution_types ?timeouts ~content_config
+      ~data_store_id ~display_name ~industry_vertical ~location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_discovery_engine_data_store __resource);
   let __resource_attributes =
     ({

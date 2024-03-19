@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_zone_hold
+
+val cloudflare_zone_hold :
+  ?hold_after:string prop ->
+  ?id:string prop ->
+  ?include_subdomains:bool prop ->
+  hold:bool prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_zone_hold
+
+val yojson_of_cloudflare_zone_hold : cloudflare_zone_hold -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   hold : bool prop;
@@ -12,7 +27,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_zone_hold :
+val register :
+  ?tf_module:tf_module ->
   ?hold_after:string prop ->
   ?id:string prop ->
   ?include_subdomains:bool prop ->

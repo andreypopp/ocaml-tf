@@ -4,32 +4,35 @@
 
 open! Tf.Prelude
 
-type digitalocean_database_firewall__rule = {
-  created_at : string prop;  (** created_at *)
+type rule = {
   type_ : string prop; [@key "type"]  (** type *)
-  uuid : string prop;  (** uuid *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** digitalocean_database_firewall__rule *)
+(** rule *)
 
 type digitalocean_database_firewall = {
   cluster_id : string prop;  (** cluster_id *)
   id : string prop option; [@option]  (** id *)
-  rule : digitalocean_database_firewall__rule list;
+  rule : rule list;
 }
 [@@deriving yojson_of]
 (** digitalocean_database_firewall *)
 
+let rule ~type_ ~value () : rule = { type_; value }
+
+let digitalocean_database_firewall ?id ~cluster_id ~rule () :
+    digitalocean_database_firewall =
+  { cluster_id; id; rule }
+
 type t = { cluster_id : string prop; id : string prop }
 
-let digitalocean_database_firewall ?id ~cluster_id ~rule
-    __resource_id =
+let register ?tf_module ?id ~cluster_id ~rule __resource_id =
   let __resource_type = "digitalocean_database_firewall" in
   let __resource =
-    ({ cluster_id; id; rule } : digitalocean_database_firewall)
+    digitalocean_database_firewall ?id ~cluster_id ~rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_firewall __resource);
   let __resource_attributes =
     ({

@@ -18,6 +18,19 @@ type aws_signer_signing_profile_permission = {
 [@@deriving yojson_of]
 (** aws_signer_signing_profile_permission *)
 
+let aws_signer_signing_profile_permission ?id ?profile_version
+    ?statement_id ?statement_id_prefix ~action ~principal
+    ~profile_name () : aws_signer_signing_profile_permission =
+  {
+    action;
+    id;
+    principal;
+    profile_name;
+    profile_version;
+    statement_id;
+    statement_id_prefix;
+  }
+
 type t = {
   action : string prop;
   id : string prop;
@@ -28,23 +41,16 @@ type t = {
   statement_id_prefix : string prop;
 }
 
-let aws_signer_signing_profile_permission ?id ?profile_version
-    ?statement_id ?statement_id_prefix ~action ~principal
-    ~profile_name __resource_id =
+let register ?tf_module ?id ?profile_version ?statement_id
+    ?statement_id_prefix ~action ~principal ~profile_name
+    __resource_id =
   let __resource_type = "aws_signer_signing_profile_permission" in
   let __resource =
-    ({
-       action;
-       id;
-       principal;
-       profile_name;
-       profile_version;
-       statement_id;
-       statement_id_prefix;
-     }
-      : aws_signer_signing_profile_permission)
+    aws_signer_signing_profile_permission ?id ?profile_version
+      ?statement_id ?statement_id_prefix ~action ~principal
+      ~profile_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_signer_signing_profile_permission __resource);
   let __resource_attributes =
     ({

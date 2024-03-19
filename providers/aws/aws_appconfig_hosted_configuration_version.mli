@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_appconfig_hosted_configuration_version
+
+val aws_appconfig_hosted_configuration_version :
+  ?description:string prop ->
+  ?id:string prop ->
+  application_id:string prop ->
+  configuration_profile_id:string prop ->
+  content:string prop ->
+  content_type:string prop ->
+  unit ->
+  aws_appconfig_hosted_configuration_version
+
+val yojson_of_aws_appconfig_hosted_configuration_version :
+  aws_appconfig_hosted_configuration_version -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -15,7 +32,8 @@ type t = private {
   version_number : float prop;
 }
 
-val aws_appconfig_hosted_configuration_version :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   application_id:string prop ->

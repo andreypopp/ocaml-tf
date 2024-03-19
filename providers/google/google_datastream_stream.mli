@@ -2,109 +2,544 @@
 
 open! Tf.Prelude
 
-type google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
+(** RESOURCE SERIALIZATION *)
 
-type google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
+type backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
 
-type google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases
+val backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns :
+  ?collation:string prop ->
+  ?column:string prop ->
+  ?data_type:string prop ->
+  ?nullable:bool prop ->
+  ?ordinal_position:float prop ->
+  ?primary_key:bool prop ->
+  unit ->
+  backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
 
-type google_datastream_stream__backfill_all__mysql_excluded_objects
+type backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
 
-type google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
+val backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables :
+  table:string prop ->
+  mysql_columns:
+    backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
+    list ->
+  unit ->
+  backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
 
-type google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
+type backfill_all__mysql_excluded_objects__mysql_databases
 
-type google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas
+val backfill_all__mysql_excluded_objects__mysql_databases :
+  database:string prop ->
+  mysql_tables:
+    backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
+    list ->
+  unit ->
+  backfill_all__mysql_excluded_objects__mysql_databases
 
-type google_datastream_stream__backfill_all__oracle_excluded_objects
+type backfill_all__mysql_excluded_objects
 
-type google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+val backfill_all__mysql_excluded_objects :
+  mysql_databases:
+    backfill_all__mysql_excluded_objects__mysql_databases list ->
+  unit ->
+  backfill_all__mysql_excluded_objects
 
-type google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
+type backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
 
-type google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas
+val backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns :
+  ?column:string prop ->
+  ?data_type:string prop ->
+  unit ->
+  backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
 
-type google_datastream_stream__backfill_all__postgresql_excluded_objects
+type backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
 
-type google_datastream_stream__backfill_all
-type google_datastream_stream__backfill_none
+val backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables :
+  table:string prop ->
+  oracle_columns:
+    backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
+    list ->
+  unit ->
+  backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
 
-type google_datastream_stream__destination_config__bigquery_destination_config__single_target_dataset
+type backfill_all__oracle_excluded_objects__oracle_schemas
 
-type google_datastream_stream__destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
+val backfill_all__oracle_excluded_objects__oracle_schemas :
+  schema:string prop ->
+  oracle_tables:
+    backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
+    list ->
+  unit ->
+  backfill_all__oracle_excluded_objects__oracle_schemas
 
-type google_datastream_stream__destination_config__bigquery_destination_config__source_hierarchy_datasets
+type backfill_all__oracle_excluded_objects
 
-type google_datastream_stream__destination_config__bigquery_destination_config
+val backfill_all__oracle_excluded_objects :
+  oracle_schemas:
+    backfill_all__oracle_excluded_objects__oracle_schemas list ->
+  unit ->
+  backfill_all__oracle_excluded_objects
 
-type google_datastream_stream__destination_config__gcs_destination_config__avro_file_format
+type backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
 
-type google_datastream_stream__destination_config__gcs_destination_config__json_file_format
+val backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns :
+  ?column:string prop ->
+  ?data_type:string prop ->
+  ?nullable:bool prop ->
+  ?ordinal_position:float prop ->
+  ?primary_key:bool prop ->
+  unit ->
+  backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
 
-type google_datastream_stream__destination_config__gcs_destination_config
+type backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
 
-type google_datastream_stream__destination_config
+val backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables :
+  table:string prop ->
+  postgresql_columns:
+    backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    list ->
+  unit ->
+  backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
 
-type google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
+type backfill_all__postgresql_excluded_objects__postgresql_schemas
 
-type google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
+val backfill_all__postgresql_excluded_objects__postgresql_schemas :
+  schema:string prop ->
+  postgresql_tables:
+    backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
+    list ->
+  unit ->
+  backfill_all__postgresql_excluded_objects__postgresql_schemas
 
-type google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases
+type backfill_all__postgresql_excluded_objects
 
-type google_datastream_stream__source_config__mysql_source_config__exclude_objects
+val backfill_all__postgresql_excluded_objects :
+  postgresql_schemas:
+    backfill_all__postgresql_excluded_objects__postgresql_schemas
+    list ->
+  unit ->
+  backfill_all__postgresql_excluded_objects
 
-type google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
+type backfill_all
 
-type google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
+val backfill_all :
+  mysql_excluded_objects:backfill_all__mysql_excluded_objects list ->
+  oracle_excluded_objects:backfill_all__oracle_excluded_objects list ->
+  postgresql_excluded_objects:
+    backfill_all__postgresql_excluded_objects list ->
+  unit ->
+  backfill_all
 
-type google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases
+type backfill_none
 
-type google_datastream_stream__source_config__mysql_source_config__include_objects
+val backfill_none : unit -> backfill_none
 
-type google_datastream_stream__source_config__mysql_source_config
+type destination_config__bigquery_destination_config__single_target_dataset
 
-type google_datastream_stream__source_config__oracle_source_config__drop_large_objects
+val destination_config__bigquery_destination_config__single_target_dataset :
+  dataset_id:string prop ->
+  unit ->
+  destination_config__bigquery_destination_config__single_target_dataset
 
-type google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
+type destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
 
-type google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
+val destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template :
+  ?dataset_id_prefix:string prop ->
+  ?kms_key_name:string prop ->
+  location:string prop ->
+  unit ->
+  destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
 
-type google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas
+type destination_config__bigquery_destination_config__source_hierarchy_datasets
 
-type google_datastream_stream__source_config__oracle_source_config__exclude_objects
+val destination_config__bigquery_destination_config__source_hierarchy_datasets :
+  dataset_template:
+    destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
+    list ->
+  unit ->
+  destination_config__bigquery_destination_config__source_hierarchy_datasets
 
-type google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
+type destination_config__bigquery_destination_config
 
-type google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
+val destination_config__bigquery_destination_config :
+  ?data_freshness:string prop ->
+  single_target_dataset:
+    destination_config__bigquery_destination_config__single_target_dataset
+    list ->
+  source_hierarchy_datasets:
+    destination_config__bigquery_destination_config__source_hierarchy_datasets
+    list ->
+  unit ->
+  destination_config__bigquery_destination_config
 
-type google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas
+type destination_config__gcs_destination_config__avro_file_format
 
-type google_datastream_stream__source_config__oracle_source_config__include_objects
+val destination_config__gcs_destination_config__avro_file_format :
+  unit ->
+  destination_config__gcs_destination_config__avro_file_format
 
-type google_datastream_stream__source_config__oracle_source_config__stream_large_objects
+type destination_config__gcs_destination_config__json_file_format
 
-type google_datastream_stream__source_config__oracle_source_config
+val destination_config__gcs_destination_config__json_file_format :
+  ?compression:string prop ->
+  ?schema_file_format:string prop ->
+  unit ->
+  destination_config__gcs_destination_config__json_file_format
 
-type google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+type destination_config__gcs_destination_config
 
-type google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
+val destination_config__gcs_destination_config :
+  ?file_rotation_interval:string prop ->
+  ?file_rotation_mb:float prop ->
+  ?path:string prop ->
+  avro_file_format:
+    destination_config__gcs_destination_config__avro_file_format list ->
+  json_file_format:
+    destination_config__gcs_destination_config__json_file_format list ->
+  unit ->
+  destination_config__gcs_destination_config
 
-type google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas
+type destination_config
 
-type google_datastream_stream__source_config__postgresql_source_config__exclude_objects
+val destination_config :
+  destination_connection_profile:string prop ->
+  bigquery_destination_config:
+    destination_config__bigquery_destination_config list ->
+  gcs_destination_config:
+    destination_config__gcs_destination_config list ->
+  unit ->
+  destination_config
 
-type google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+type source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
 
-type google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
+val source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns :
+  ?collation:string prop ->
+  ?column:string prop ->
+  ?data_type:string prop ->
+  ?nullable:bool prop ->
+  ?ordinal_position:float prop ->
+  ?primary_key:bool prop ->
+  unit ->
+  source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
 
-type google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas
+type source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
 
-type google_datastream_stream__source_config__postgresql_source_config__include_objects
+val source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables :
+  table:string prop ->
+  mysql_columns:
+    source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
+    list ->
+  unit ->
+  source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
 
-type google_datastream_stream__source_config__postgresql_source_config
-type google_datastream_stream__source_config
-type google_datastream_stream__timeouts
+type source_config__mysql_source_config__exclude_objects__mysql_databases
+
+val source_config__mysql_source_config__exclude_objects__mysql_databases :
+  database:string prop ->
+  mysql_tables:
+    source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
+    list ->
+  unit ->
+  source_config__mysql_source_config__exclude_objects__mysql_databases
+
+type source_config__mysql_source_config__exclude_objects
+
+val source_config__mysql_source_config__exclude_objects :
+  mysql_databases:
+    source_config__mysql_source_config__exclude_objects__mysql_databases
+    list ->
+  unit ->
+  source_config__mysql_source_config__exclude_objects
+
+type source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
+
+val source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns :
+  ?collation:string prop ->
+  ?column:string prop ->
+  ?data_type:string prop ->
+  ?nullable:bool prop ->
+  ?ordinal_position:float prop ->
+  ?primary_key:bool prop ->
+  unit ->
+  source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
+
+type source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
+
+val source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables :
+  table:string prop ->
+  mysql_columns:
+    source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
+    list ->
+  unit ->
+  source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
+
+type source_config__mysql_source_config__include_objects__mysql_databases
+
+val source_config__mysql_source_config__include_objects__mysql_databases :
+  database:string prop ->
+  mysql_tables:
+    source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
+    list ->
+  unit ->
+  source_config__mysql_source_config__include_objects__mysql_databases
+
+type source_config__mysql_source_config__include_objects
+
+val source_config__mysql_source_config__include_objects :
+  mysql_databases:
+    source_config__mysql_source_config__include_objects__mysql_databases
+    list ->
+  unit ->
+  source_config__mysql_source_config__include_objects
+
+type source_config__mysql_source_config
+
+val source_config__mysql_source_config :
+  ?max_concurrent_backfill_tasks:float prop ->
+  ?max_concurrent_cdc_tasks:float prop ->
+  exclude_objects:
+    source_config__mysql_source_config__exclude_objects list ->
+  include_objects:
+    source_config__mysql_source_config__include_objects list ->
+  unit ->
+  source_config__mysql_source_config
+
+type source_config__oracle_source_config__drop_large_objects
+
+val source_config__oracle_source_config__drop_large_objects :
+  unit -> source_config__oracle_source_config__drop_large_objects
+
+type source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
+
+val source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns :
+  ?column:string prop ->
+  ?data_type:string prop ->
+  unit ->
+  source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
+
+type source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
+
+val source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables :
+  table:string prop ->
+  oracle_columns:
+    source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
+    list ->
+  unit ->
+  source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
+
+type source_config__oracle_source_config__exclude_objects__oracle_schemas
+
+val source_config__oracle_source_config__exclude_objects__oracle_schemas :
+  schema:string prop ->
+  oracle_tables:
+    source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
+    list ->
+  unit ->
+  source_config__oracle_source_config__exclude_objects__oracle_schemas
+
+type source_config__oracle_source_config__exclude_objects
+
+val source_config__oracle_source_config__exclude_objects :
+  oracle_schemas:
+    source_config__oracle_source_config__exclude_objects__oracle_schemas
+    list ->
+  unit ->
+  source_config__oracle_source_config__exclude_objects
+
+type source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
+
+val source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns :
+  ?column:string prop ->
+  ?data_type:string prop ->
+  unit ->
+  source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
+
+type source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
+
+val source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables :
+  table:string prop ->
+  oracle_columns:
+    source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
+    list ->
+  unit ->
+  source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
+
+type source_config__oracle_source_config__include_objects__oracle_schemas
+
+val source_config__oracle_source_config__include_objects__oracle_schemas :
+  schema:string prop ->
+  oracle_tables:
+    source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
+    list ->
+  unit ->
+  source_config__oracle_source_config__include_objects__oracle_schemas
+
+type source_config__oracle_source_config__include_objects
+
+val source_config__oracle_source_config__include_objects :
+  oracle_schemas:
+    source_config__oracle_source_config__include_objects__oracle_schemas
+    list ->
+  unit ->
+  source_config__oracle_source_config__include_objects
+
+type source_config__oracle_source_config__stream_large_objects
+
+val source_config__oracle_source_config__stream_large_objects :
+  unit -> source_config__oracle_source_config__stream_large_objects
+
+type source_config__oracle_source_config
+
+val source_config__oracle_source_config :
+  ?max_concurrent_backfill_tasks:float prop ->
+  ?max_concurrent_cdc_tasks:float prop ->
+  drop_large_objects:
+    source_config__oracle_source_config__drop_large_objects list ->
+  exclude_objects:
+    source_config__oracle_source_config__exclude_objects list ->
+  include_objects:
+    source_config__oracle_source_config__include_objects list ->
+  stream_large_objects:
+    source_config__oracle_source_config__stream_large_objects list ->
+  unit ->
+  source_config__oracle_source_config
+
+type source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+
+val source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns :
+  ?column:string prop ->
+  ?data_type:string prop ->
+  ?nullable:bool prop ->
+  ?ordinal_position:float prop ->
+  ?primary_key:bool prop ->
+  unit ->
+  source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+
+type source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
+
+val source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables :
+  table:string prop ->
+  postgresql_columns:
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    list ->
+  unit ->
+  source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
+
+type source_config__postgresql_source_config__exclude_objects__postgresql_schemas
+
+val source_config__postgresql_source_config__exclude_objects__postgresql_schemas :
+  schema:string prop ->
+  postgresql_tables:
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
+    list ->
+  unit ->
+  source_config__postgresql_source_config__exclude_objects__postgresql_schemas
+
+type source_config__postgresql_source_config__exclude_objects
+
+val source_config__postgresql_source_config__exclude_objects :
+  postgresql_schemas:
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas
+    list ->
+  unit ->
+  source_config__postgresql_source_config__exclude_objects
+
+type source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+
+val source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns :
+  ?column:string prop ->
+  ?data_type:string prop ->
+  ?nullable:bool prop ->
+  ?ordinal_position:float prop ->
+  ?primary_key:bool prop ->
+  unit ->
+  source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+
+type source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
+
+val source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables :
+  table:string prop ->
+  postgresql_columns:
+    source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    list ->
+  unit ->
+  source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
+
+type source_config__postgresql_source_config__include_objects__postgresql_schemas
+
+val source_config__postgresql_source_config__include_objects__postgresql_schemas :
+  schema:string prop ->
+  postgresql_tables:
+    source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
+    list ->
+  unit ->
+  source_config__postgresql_source_config__include_objects__postgresql_schemas
+
+type source_config__postgresql_source_config__include_objects
+
+val source_config__postgresql_source_config__include_objects :
+  postgresql_schemas:
+    source_config__postgresql_source_config__include_objects__postgresql_schemas
+    list ->
+  unit ->
+  source_config__postgresql_source_config__include_objects
+
+type source_config__postgresql_source_config
+
+val source_config__postgresql_source_config :
+  ?max_concurrent_backfill_tasks:float prop ->
+  publication:string prop ->
+  replication_slot:string prop ->
+  exclude_objects:
+    source_config__postgresql_source_config__exclude_objects list ->
+  include_objects:
+    source_config__postgresql_source_config__include_objects list ->
+  unit ->
+  source_config__postgresql_source_config
+
+type source_config
+
+val source_config :
+  source_connection_profile:string prop ->
+  mysql_source_config:source_config__mysql_source_config list ->
+  oracle_source_config:source_config__oracle_source_config list ->
+  postgresql_source_config:
+    source_config__postgresql_source_config list ->
+  unit ->
+  source_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_datastream_stream
+
+val google_datastream_stream :
+  ?customer_managed_encryption_key:string prop ->
+  ?desired_state:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  location:string prop ->
+  stream_id:string prop ->
+  backfill_all:backfill_all list ->
+  backfill_none:backfill_none list ->
+  destination_config:destination_config list ->
+  source_config:source_config list ->
+  unit ->
+  google_datastream_stream
+
+val yojson_of_google_datastream_stream :
+  google_datastream_stream -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   customer_managed_encryption_key : string prop;
@@ -121,20 +556,20 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_datastream_stream :
+val register :
+  ?tf_module:tf_module ->
   ?customer_managed_encryption_key:string prop ->
   ?desired_state:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_datastream_stream__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
   stream_id:string prop ->
-  backfill_all:google_datastream_stream__backfill_all list ->
-  backfill_none:google_datastream_stream__backfill_none list ->
-  destination_config:
-    google_datastream_stream__destination_config list ->
-  source_config:google_datastream_stream__source_config list ->
+  backfill_all:backfill_all list ->
+  backfill_none:backfill_none list ->
+  destination_config:destination_config list ->
+  source_config:source_config list ->
   string ->
   t

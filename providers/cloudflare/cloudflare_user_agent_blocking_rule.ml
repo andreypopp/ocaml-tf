@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_user_agent_blocking_rule__configuration = {
+type configuration = {
   target : string prop;
       (** The configuration target for this rule. You must set the target to ua for User Agent Blocking rules. *)
   value : string prop;
@@ -23,12 +23,19 @@ type cloudflare_user_agent_blocking_rule = {
       (** When true, indicates that the rule is currently paused. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  configuration :
-    cloudflare_user_agent_blocking_rule__configuration list;
+  configuration : configuration list;
 }
 [@@deriving yojson_of]
 (** Provides a resource to manage User Agent Blocking Rules.
  *)
+
+let configuration ~target ~value () : configuration =
+  { target; value }
+
+let cloudflare_user_agent_blocking_rule ?id ~description ~mode
+    ~paused ~zone_id ~configuration () :
+    cloudflare_user_agent_blocking_rule =
+  { description; id; mode; paused; zone_id; configuration }
 
 type t = {
   description : string prop;
@@ -38,14 +45,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_user_agent_blocking_rule ?id ~description ~mode
-    ~paused ~zone_id ~configuration __resource_id =
+let register ?tf_module ?id ~description ~mode ~paused ~zone_id
+    ~configuration __resource_id =
   let __resource_type = "cloudflare_user_agent_blocking_rule" in
   let __resource =
-    ({ description; id; mode; paused; zone_id; configuration }
-      : cloudflare_user_agent_blocking_rule)
+    cloudflare_user_agent_blocking_rule ?id ~description ~mode
+      ~paused ~zone_id ~configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_user_agent_blocking_rule __resource);
   let __resource_attributes =
     ({

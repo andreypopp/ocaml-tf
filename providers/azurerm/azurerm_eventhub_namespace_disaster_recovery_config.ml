@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_eventhub_namespace_disaster_recovery_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventhub_namespace_disaster_recovery_config__timeouts *)
+(** timeouts *)
 
 type azurerm_eventhub_namespace_disaster_recovery_config = {
   id : string prop option; [@option]  (** id *)
@@ -19,12 +19,25 @@ type azurerm_eventhub_namespace_disaster_recovery_config = {
   namespace_name : string prop;  (** namespace_name *)
   partner_namespace_id : string prop;  (** partner_namespace_id *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts :
-    azurerm_eventhub_namespace_disaster_recovery_config__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_disaster_recovery_config *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_eventhub_namespace_disaster_recovery_config ?id ?timeouts
+    ~name ~namespace_name ~partner_namespace_id ~resource_group_name
+    () : azurerm_eventhub_namespace_disaster_recovery_config =
+  {
+    id;
+    name;
+    namespace_name;
+    partner_namespace_id;
+    resource_group_name;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -34,24 +47,17 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_eventhub_namespace_disaster_recovery_config ?id ?timeouts
-    ~name ~namespace_name ~partner_namespace_id ~resource_group_name
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~namespace_name
+    ~partner_namespace_id ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_eventhub_namespace_disaster_recovery_config"
   in
   let __resource =
-    ({
-       id;
-       name;
-       namespace_name;
-       partner_namespace_id;
-       resource_group_name;
-       timeouts;
-     }
-      : azurerm_eventhub_namespace_disaster_recovery_config)
+    azurerm_eventhub_namespace_disaster_recovery_config ?id ?timeouts
+      ~name ~namespace_name ~partner_namespace_id
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventhub_namespace_disaster_recovery_config
        __resource);
   let __resource_attributes =

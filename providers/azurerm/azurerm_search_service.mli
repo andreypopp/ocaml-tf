@@ -2,36 +2,28 @@
 
 open! Tf.Prelude
 
-type azurerm_search_service__identity
-type azurerm_search_service__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_search_service__query_keys = {
+type query_keys = {
   key : string prop;  (** key *)
   name : string prop;  (** name *)
 }
 
-type azurerm_search_service
+type identity
 
-type t = private {
-  allowed_ips : string list prop;
-  authentication_failure_mode : string prop;
-  customer_managed_key_enforcement_enabled : bool prop;
-  hosting_mode : string prop;
-  id : string prop;
-  local_authentication_enabled : bool prop;
-  location : string prop;
-  name : string prop;
-  partition_count : float prop;
-  primary_key : string prop;
-  public_network_access_enabled : bool prop;
-  query_keys : azurerm_search_service__query_keys list prop;
-  replica_count : float prop;
-  resource_group_name : string prop;
-  secondary_key : string prop;
-  semantic_search_sku : string prop;
-  sku : string prop;
-  tags : (string * string) list prop;
-}
+val identity : type_:string prop -> unit -> identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type azurerm_search_service
 
 val azurerm_search_service :
   ?allowed_ips:string prop list ->
@@ -45,11 +37,58 @@ val azurerm_search_service :
   ?replica_count:float prop ->
   ?semantic_search_sku:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_search_service__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:azurerm_search_service__identity list ->
+  identity:identity list ->
+  unit ->
+  azurerm_search_service
+
+val yojson_of_azurerm_search_service : azurerm_search_service -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  allowed_ips : string list prop;
+  authentication_failure_mode : string prop;
+  customer_managed_key_enforcement_enabled : bool prop;
+  hosting_mode : string prop;
+  id : string prop;
+  local_authentication_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  partition_count : float prop;
+  primary_key : string prop;
+  public_network_access_enabled : bool prop;
+  query_keys : query_keys list prop;
+  replica_count : float prop;
+  resource_group_name : string prop;
+  secondary_key : string prop;
+  semantic_search_sku : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+}
+
+val register :
+  ?tf_module:tf_module ->
+  ?allowed_ips:string prop list ->
+  ?authentication_failure_mode:string prop ->
+  ?customer_managed_key_enforcement_enabled:bool prop ->
+  ?hosting_mode:string prop ->
+  ?id:string prop ->
+  ?local_authentication_enabled:bool prop ->
+  ?partition_count:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?replica_count:float prop ->
+  ?semantic_search_sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  identity:identity list ->
   string ->
   t

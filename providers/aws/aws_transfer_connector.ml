@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_transfer_connector__as2_config = {
+type as2_config = {
   compression : string prop;  (** compression *)
   encryption_algorithm : string prop;  (** encryption_algorithm *)
   local_profile_id : string prop;  (** local_profile_id *)
@@ -17,16 +17,16 @@ type aws_transfer_connector__as2_config = {
   signing_algorithm : string prop;  (** signing_algorithm *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_connector__as2_config *)
+(** as2_config *)
 
-type aws_transfer_connector__sftp_config = {
+type sftp_config = {
   trusted_host_keys : string prop list option; [@option]
       (** trusted_host_keys *)
   user_secret_id : string prop option; [@option]
       (** user_secret_id *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_connector__sftp_config *)
+(** sftp_config *)
 
 type aws_transfer_connector = {
   access_role : string prop;  (** access_role *)
@@ -36,11 +36,42 @@ type aws_transfer_connector = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   url : string prop;  (** url *)
-  as2_config : aws_transfer_connector__as2_config list;
-  sftp_config : aws_transfer_connector__sftp_config list;
+  as2_config : as2_config list;
+  sftp_config : sftp_config list;
 }
 [@@deriving yojson_of]
 (** aws_transfer_connector *)
+
+let as2_config ?mdn_signing_algorithm ?message_subject ~compression
+    ~encryption_algorithm ~local_profile_id ~mdn_response
+    ~partner_profile_id ~signing_algorithm () : as2_config =
+  {
+    compression;
+    encryption_algorithm;
+    local_profile_id;
+    mdn_response;
+    mdn_signing_algorithm;
+    message_subject;
+    partner_profile_id;
+    signing_algorithm;
+  }
+
+let sftp_config ?trusted_host_keys ?user_secret_id () : sftp_config =
+  { trusted_host_keys; user_secret_id }
+
+let aws_transfer_connector ?id ?logging_role ?tags ?tags_all
+    ~access_role ~url ~as2_config ~sftp_config () :
+    aws_transfer_connector =
+  {
+    access_role;
+    id;
+    logging_role;
+    tags;
+    tags_all;
+    url;
+    as2_config;
+    sftp_config;
+  }
 
 type t = {
   access_role : string prop;
@@ -53,23 +84,14 @@ type t = {
   url : string prop;
 }
 
-let aws_transfer_connector ?id ?logging_role ?tags ?tags_all
+let register ?tf_module ?id ?logging_role ?tags ?tags_all
     ~access_role ~url ~as2_config ~sftp_config __resource_id =
   let __resource_type = "aws_transfer_connector" in
   let __resource =
-    ({
-       access_role;
-       id;
-       logging_role;
-       tags;
-       tags_all;
-       url;
-       as2_config;
-       sftp_config;
-     }
-      : aws_transfer_connector)
+    aws_transfer_connector ?id ?logging_role ?tags ?tags_all
+      ~access_role ~url ~as2_config ~sftp_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_connector __resource);
   let __resource_attributes =
     ({

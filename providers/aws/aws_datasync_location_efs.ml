@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_efs__ec2_config = {
+type ec2_config = {
   security_group_arns : string prop list;  (** security_group_arns *)
   subnet_arn : string prop;  (** subnet_arn *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_efs__ec2_config *)
+(** ec2_config *)
 
 type aws_datasync_location_efs = {
   access_point_arn : string prop option; [@option]
@@ -24,10 +24,29 @@ type aws_datasync_location_efs = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  ec2_config : aws_datasync_location_efs__ec2_config list;
+  ec2_config : ec2_config list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_efs *)
+
+let ec2_config ~security_group_arns ~subnet_arn () : ec2_config =
+  { security_group_arns; subnet_arn }
+
+let aws_datasync_location_efs ?access_point_arn
+    ?file_system_access_role_arn ?id ?in_transit_encryption
+    ?subdirectory ?tags ?tags_all ~efs_file_system_arn ~ec2_config ()
+    : aws_datasync_location_efs =
+  {
+    access_point_arn;
+    efs_file_system_arn;
+    file_system_access_role_arn;
+    id;
+    in_transit_encryption;
+    subdirectory;
+    tags;
+    tags_all;
+    ec2_config;
+  }
 
 type t = {
   access_point_arn : string prop;
@@ -42,26 +61,18 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_efs ?access_point_arn
+let register ?tf_module ?access_point_arn
     ?file_system_access_role_arn ?id ?in_transit_encryption
     ?subdirectory ?tags ?tags_all ~efs_file_system_arn ~ec2_config
     __resource_id =
   let __resource_type = "aws_datasync_location_efs" in
   let __resource =
-    ({
-       access_point_arn;
-       efs_file_system_arn;
-       file_system_access_role_arn;
-       id;
-       in_transit_encryption;
-       subdirectory;
-       tags;
-       tags_all;
-       ec2_config;
-     }
-      : aws_datasync_location_efs)
+    aws_datasync_location_efs ?access_point_arn
+      ?file_system_access_role_arn ?id ?in_transit_encryption
+      ?subdirectory ?tags ?tags_all ~efs_file_system_arn ~ec2_config
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_efs __resource);
   let __resource_attributes =
     ({

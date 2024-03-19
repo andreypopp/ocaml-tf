@@ -2,8 +2,38 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_dsc_configuration__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_automation_dsc_configuration
+
+val azurerm_automation_dsc_configuration :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?log_verbose:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  automation_account_name:string prop ->
+  content_embedded:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_automation_dsc_configuration
+
+val yojson_of_azurerm_automation_dsc_configuration :
+  azurerm_automation_dsc_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   automation_account_name : string prop;
@@ -18,12 +48,13 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_automation_dsc_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?log_verbose:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_automation_dsc_configuration__timeouts ->
+  ?timeouts:timeouts ->
   automation_account_name:string prop ->
   content_embedded:string prop ->
   location:string prop ->

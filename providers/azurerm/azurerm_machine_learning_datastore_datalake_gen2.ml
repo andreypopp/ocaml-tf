@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_datastore_datalake_gen2__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_datastore_datalake_gen2__timeouts *)
+(** timeouts *)
 
 type azurerm_machine_learning_datastore_datalake_gen2 = {
   authority_url : string prop option; [@option]  (** authority_url *)
@@ -26,11 +26,33 @@ type azurerm_machine_learning_datastore_datalake_gen2 = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tenant_id : string prop option; [@option]  (** tenant_id *)
   workspace_id : string prop;  (** workspace_id *)
-  timeouts :
-    azurerm_machine_learning_datastore_datalake_gen2__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_datastore_datalake_gen2 *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_machine_learning_datastore_datalake_gen2 ?authority_url
+    ?client_id ?client_secret ?description ?id ?service_data_identity
+    ?tags ?tenant_id ?timeouts ~name ~storage_container_id
+    ~workspace_id () :
+    azurerm_machine_learning_datastore_datalake_gen2 =
+  {
+    authority_url;
+    client_id;
+    client_secret;
+    description;
+    id;
+    name;
+    service_data_identity;
+    storage_container_id;
+    tags;
+    tenant_id;
+    workspace_id;
+    timeouts;
+  }
 
 type t = {
   authority_url : string prop;
@@ -47,31 +69,20 @@ type t = {
   workspace_id : string prop;
 }
 
-let azurerm_machine_learning_datastore_datalake_gen2 ?authority_url
-    ?client_id ?client_secret ?description ?id ?service_data_identity
-    ?tags ?tenant_id ?timeouts ~name ~storage_container_id
-    ~workspace_id __resource_id =
+let register ?tf_module ?authority_url ?client_id ?client_secret
+    ?description ?id ?service_data_identity ?tags ?tenant_id
+    ?timeouts ~name ~storage_container_id ~workspace_id __resource_id
+    =
   let __resource_type =
     "azurerm_machine_learning_datastore_datalake_gen2"
   in
   let __resource =
-    ({
-       authority_url;
-       client_id;
-       client_secret;
-       description;
-       id;
-       name;
-       service_data_identity;
-       storage_container_id;
-       tags;
-       tenant_id;
-       workspace_id;
-       timeouts;
-     }
-      : azurerm_machine_learning_datastore_datalake_gen2)
+    azurerm_machine_learning_datastore_datalake_gen2 ?authority_url
+      ?client_id ?client_secret ?description ?id
+      ?service_data_identity ?tags ?tenant_id ?timeouts ~name
+      ~storage_container_id ~workspace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_machine_learning_datastore_datalake_gen2
        __resource);
   let __resource_attributes =

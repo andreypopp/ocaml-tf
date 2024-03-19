@@ -4,13 +4,9 @@
 
 open! Tf.Prelude
 
-type cloudflare_certificate_pack__validation_errors = {
-  message : string prop;  (** message *)
-}
-[@@deriving yojson_of]
-(** cloudflare_certificate_pack__validation_errors *)
+type validation_errors = unit [@@deriving yojson_of]
 
-type cloudflare_certificate_pack__validation_records = {
+type validation_records = {
   cname_name : string prop option; [@option]  (** cname_name *)
   cname_target : string prop option; [@option]  (** cname_target *)
   emails : string prop list option; [@option]  (** emails *)
@@ -20,7 +16,7 @@ type cloudflare_certificate_pack__validation_records = {
   txt_value : string prop option; [@option]  (** txt_value *)
 }
 [@@deriving yojson_of]
-(** cloudflare_certificate_pack__validation_records *)
+(** validation_records *)
 
 type cloudflare_certificate_pack = {
   certificate_authority : string prop;
@@ -40,15 +36,45 @@ type cloudflare_certificate_pack = {
       (** Whether or not to wait for a certificate pack to reach status `active` during creation. Defaults to `false`. **Modifying this attribute will force creation of a new resource.** *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  validation_errors :
-    cloudflare_certificate_pack__validation_errors list;
-  validation_records :
-    cloudflare_certificate_pack__validation_records list;
+  validation_errors : validation_errors list;
+  validation_records : validation_records list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Certificate Pack resource that is used to
 provision managed TLS certificates.
  *)
+
+let validation_errors () = ()
+
+let validation_records ?cname_name ?cname_target ?emails ?http_body
+    ?http_url ?txt_name ?txt_value () : validation_records =
+  {
+    cname_name;
+    cname_target;
+    emails;
+    http_body;
+    http_url;
+    txt_name;
+    txt_value;
+  }
+
+let cloudflare_certificate_pack ?cloudflare_branding ?id
+    ?wait_for_active_status ~certificate_authority ~hosts ~type_
+    ~validation_method ~validity_days ~zone_id ~validation_errors
+    ~validation_records () : cloudflare_certificate_pack =
+  {
+    certificate_authority;
+    cloudflare_branding;
+    hosts;
+    id;
+    type_;
+    validation_method;
+    validity_days;
+    wait_for_active_status;
+    zone_id;
+    validation_errors;
+    validation_records;
+  }
 
 type t = {
   certificate_authority : string prop;
@@ -62,28 +88,18 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_certificate_pack ?cloudflare_branding ?id
+let register ?tf_module ?cloudflare_branding ?id
     ?wait_for_active_status ~certificate_authority ~hosts ~type_
     ~validation_method ~validity_days ~zone_id ~validation_errors
     ~validation_records __resource_id =
   let __resource_type = "cloudflare_certificate_pack" in
   let __resource =
-    ({
-       certificate_authority;
-       cloudflare_branding;
-       hosts;
-       id;
-       type_;
-       validation_method;
-       validity_days;
-       wait_for_active_status;
-       zone_id;
-       validation_errors;
-       validation_records;
-     }
-      : cloudflare_certificate_pack)
+    cloudflare_certificate_pack ?cloudflare_branding ?id
+      ?wait_for_active_status ~certificate_authority ~hosts ~type_
+      ~validation_method ~validity_days ~zone_id ~validation_errors
+      ~validation_records ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_certificate_pack __resource);
   let __resource_attributes =
     ({

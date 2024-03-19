@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_firestore_document__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_firestore_document__timeouts *)
+(** timeouts *)
 
 type google_firestore_document = {
   collection : string prop;
@@ -23,10 +23,25 @@ type google_firestore_document = {
       (** The document's [fields](https://cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.documents) formated as a json string. *)
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_firestore_document__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_firestore_document *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_firestore_document ?database ?id ?project ?timeouts
+    ~collection ~document_id ~fields () : google_firestore_document =
+  {
+    collection;
+    database;
+    document_id;
+    fields;
+    id;
+    project;
+    timeouts;
+  }
 
 type t = {
   collection : string prop;
@@ -41,22 +56,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_firestore_document ?database ?id ?project ?timeouts
-    ~collection ~document_id ~fields __resource_id =
+let register ?tf_module ?database ?id ?project ?timeouts ~collection
+    ~document_id ~fields __resource_id =
   let __resource_type = "google_firestore_document" in
   let __resource =
-    ({
-       collection;
-       database;
-       document_id;
-       fields;
-       id;
-       project;
-       timeouts;
-     }
-      : google_firestore_document)
+    google_firestore_document ?database ?id ?project ?timeouts
+      ~collection ~document_id ~fields ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_document __resource);
   let __resource_attributes =
     ({

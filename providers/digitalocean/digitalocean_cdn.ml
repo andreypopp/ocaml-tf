@@ -20,6 +20,17 @@ type digitalocean_cdn = {
 [@@deriving yojson_of]
 (** digitalocean_cdn *)
 
+let digitalocean_cdn ?certificate_id ?certificate_name ?custom_domain
+    ?id ?ttl ~origin () : digitalocean_cdn =
+  {
+    certificate_id;
+    certificate_name;
+    custom_domain;
+    id;
+    origin;
+    ttl;
+  }
+
 type t = {
   certificate_id : string prop;
   certificate_name : string prop;
@@ -31,21 +42,14 @@ type t = {
   ttl : float prop;
 }
 
-let digitalocean_cdn ?certificate_id ?certificate_name ?custom_domain
-    ?id ?ttl ~origin __resource_id =
+let register ?tf_module ?certificate_id ?certificate_name
+    ?custom_domain ?id ?ttl ~origin __resource_id =
   let __resource_type = "digitalocean_cdn" in
   let __resource =
-    ({
-       certificate_id;
-       certificate_name;
-       custom_domain;
-       id;
-       origin;
-       ttl;
-     }
-      : digitalocean_cdn)
+    digitalocean_cdn ?certificate_id ?certificate_name ?custom_domain
+      ?id ?ttl ~origin ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_cdn __resource);
   let __resource_attributes =
     ({

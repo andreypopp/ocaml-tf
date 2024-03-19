@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iot_certificate
+
+val aws_iot_certificate :
+  ?ca_pem:string prop ->
+  ?certificate_pem:string prop ->
+  ?csr:string prop ->
+  ?id:string prop ->
+  active:bool prop ->
+  unit ->
+  aws_iot_certificate
+
+val yojson_of_aws_iot_certificate : aws_iot_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   active : bool prop;
@@ -16,7 +31,8 @@ type t = private {
   public_key : string prop;
 }
 
-val aws_iot_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?ca_pem:string prop ->
   ?certificate_pem:string prop ->
   ?csr:string prop ->

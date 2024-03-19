@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_grafana_role_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_grafana_role_association__timeouts *)
+(** timeouts *)
 
 type aws_grafana_role_association = {
   group_ids : string prop list option; [@option]  (** group_ids *)
@@ -17,10 +17,16 @@ type aws_grafana_role_association = {
   role : string prop;  (** role *)
   user_ids : string prop list option; [@option]  (** user_ids *)
   workspace_id : string prop;  (** workspace_id *)
-  timeouts : aws_grafana_role_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_grafana_role_association *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_grafana_role_association ?group_ids ?id ?user_ids ?timeouts
+    ~role ~workspace_id () : aws_grafana_role_association =
+  { group_ids; id; role; user_ids; workspace_id; timeouts }
 
 type t = {
   group_ids : string list prop;
@@ -30,14 +36,14 @@ type t = {
   workspace_id : string prop;
 }
 
-let aws_grafana_role_association ?group_ids ?id ?user_ids ?timeouts
-    ~role ~workspace_id __resource_id =
+let register ?tf_module ?group_ids ?id ?user_ids ?timeouts ~role
+    ~workspace_id __resource_id =
   let __resource_type = "aws_grafana_role_association" in
   let __resource =
-    ({ group_ids; id; role; user_ids; workspace_id; timeouts }
-      : aws_grafana_role_association)
+    aws_grafana_role_association ?group_ids ?id ?user_ids ?timeouts
+      ~role ~workspace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_grafana_role_association __resource);
   let __resource_attributes =
     ({

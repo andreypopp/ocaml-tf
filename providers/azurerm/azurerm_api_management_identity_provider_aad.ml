@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_identity_provider_aad__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_identity_provider_aad__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_identity_provider_aad = {
   allowed_tenants : string prop list;  (** allowed_tenants *)
@@ -21,11 +21,28 @@ type azurerm_api_management_identity_provider_aad = {
   id : string prop option; [@option]  (** id *)
   resource_group_name : string prop;  (** resource_group_name *)
   signin_tenant : string prop option; [@option]  (** signin_tenant *)
-  timeouts :
-    azurerm_api_management_identity_provider_aad__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_aad *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_identity_provider_aad ?id ?signin_tenant
+    ?timeouts ~allowed_tenants ~api_management_name ~client_id
+    ~client_secret ~resource_group_name () :
+    azurerm_api_management_identity_provider_aad =
+  {
+    allowed_tenants;
+    api_management_name;
+    client_id;
+    client_secret;
+    id;
+    resource_group_name;
+    signin_tenant;
+    timeouts;
+  }
 
 type t = {
   allowed_tenants : string list prop;
@@ -37,26 +54,18 @@ type t = {
   signin_tenant : string prop;
 }
 
-let azurerm_api_management_identity_provider_aad ?id ?signin_tenant
-    ?timeouts ~allowed_tenants ~api_management_name ~client_id
-    ~client_secret ~resource_group_name __resource_id =
+let register ?tf_module ?id ?signin_tenant ?timeouts ~allowed_tenants
+    ~api_management_name ~client_id ~client_secret
+    ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_api_management_identity_provider_aad"
   in
   let __resource =
-    ({
-       allowed_tenants;
-       api_management_name;
-       client_id;
-       client_secret;
-       id;
-       resource_group_name;
-       signin_tenant;
-       timeouts;
-     }
-      : azurerm_api_management_identity_provider_aad)
+    azurerm_api_management_identity_provider_aad ?id ?signin_tenant
+      ?timeouts ~allowed_tenants ~api_management_name ~client_id
+      ~client_secret ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_identity_provider_aad
        __resource);
   let __resource_attributes =

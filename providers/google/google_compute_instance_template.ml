@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_instance_template__advanced_machine_features = {
+type advanced_machine_features = {
   enable_nested_virtualization : bool prop option; [@option]
       (** Whether to enable nested virtualization or not. *)
   threads_per_core : float prop option; [@option]
@@ -15,21 +15,21 @@ type google_compute_instance_template__advanced_machine_features = {
 [@@deriving yojson_of]
 (** Controls for advanced machine-related behavior features. *)
 
-type google_compute_instance_template__confidential_instance_config = {
+type confidential_instance_config = {
   enable_confidential_compute : bool prop;
       (** Defines whether the instance should have confidential compute enabled. *)
 }
 [@@deriving yojson_of]
 (** The Confidential VM config being used by the instance. on_host_maintenance has to be set to TERMINATE or this will fail to create. *)
 
-type google_compute_instance_template__disk__disk_encryption_key = {
+type disk__disk_encryption_key = {
   kms_key_self_link : string prop;
       (** The self link of the encryption key that is stored in Google Cloud KMS. *)
 }
 [@@deriving yojson_of]
 (** Encrypts or decrypts a disk using a customer-supplied encryption key. *)
 
-type google_compute_instance_template__disk__source_image_encryption_key = {
+type disk__source_image_encryption_key = {
   kms_key_self_link : string prop;
       (** The self link of the encryption key that is stored in
 Google Cloud KMS. *)
@@ -48,7 +48,7 @@ encryption keys, so you cannot create disks for
 instances in a managed instance group if the source
 images are encrypted with your own keys. *)
 
-type google_compute_instance_template__disk__source_snapshot_encryption_key = {
+type disk__source_snapshot_encryption_key = {
   kms_key_self_link : string prop;
       (** The self link of the encryption key that is stored in
 Google Cloud KMS. *)
@@ -60,7 +60,7 @@ Engine default service account is used. *)
 [@@deriving yojson_of]
 (** The customer-supplied encryption key of the source snapshot. *)
 
-type google_compute_instance_template__disk = {
+type disk = {
   auto_delete : bool prop option; [@option]
       (** Whether or not the disk should be auto-deleted. This defaults to true. *)
   boot : bool prop option; [@option]
@@ -97,19 +97,16 @@ initializeParams.sourceImage, or disks.source is
 required except for local SSD. *)
   type_ : string prop option; [@option] [@key "type"]
       (** The type of Google Compute Engine disk, can be either SCRATCH or PERSISTENT. *)
-  disk_encryption_key :
-    google_compute_instance_template__disk__disk_encryption_key list;
+  disk_encryption_key : disk__disk_encryption_key list;
   source_image_encryption_key :
-    google_compute_instance_template__disk__source_image_encryption_key
-    list;
+    disk__source_image_encryption_key list;
   source_snapshot_encryption_key :
-    google_compute_instance_template__disk__source_snapshot_encryption_key
-    list;
+    disk__source_snapshot_encryption_key list;
 }
 [@@deriving yojson_of]
 (** Disks to attach to instances created from this template. This can be specified multiple times for multiple disks. *)
 
-type google_compute_instance_template__guest_accelerator = {
+type guest_accelerator = {
   count : float prop;
       (** The number of the guest accelerator cards exposed to this instance. *)
   type_ : string prop; [@key "type"]
@@ -118,18 +115,16 @@ type google_compute_instance_template__guest_accelerator = {
 [@@deriving yojson_of]
 (** List of the type and count of accelerator cards attached to the instance. *)
 
-type google_compute_instance_template__network_interface__access_config = {
+type network_interface__access_config = {
   nat_ip : string prop option; [@option]
       (** The IP address that will be 1:1 mapped to the instance's network ip. If not given, one will be generated. *)
   network_tier : string prop option; [@option]
       (** The networking tier used for configuring this instance template. This field can take the following values: PREMIUM, STANDARD, FIXED_STANDARD. If this field is not specified, it is assumed to be PREMIUM. *)
-  public_ptr_domain_name : string prop;
-      (** The DNS domain name for the public PTR record.The DNS domain name for the public PTR record. *)
 }
 [@@deriving yojson_of]
 (** Access configurations, i.e. IPs via which this instance can be accessed via the Internet. Omit to ensure that the instance is not accessible from the Internet (this means that ssh provisioners will not work unless you are running Terraform can send traffic to the instance's network (e.g. via tunnel or because it is running on another cloud instance on that network). This block can be repeated multiple times. *)
 
-type google_compute_instance_template__network_interface__alias_ip_range = {
+type network_interface__alias_ip_range = {
   ip_cidr_range : string prop;
       (** The IP CIDR range represented by this alias IP range. This IP CIDR range must belong to the specified subnetwork and cannot contain IP addresses reserved by system or used by other network interfaces. At the time of writing only a netmask (e.g. /24) may be supplied, with a CIDR format resulting in an API error. *)
   subnetwork_range_name : string prop option; [@option]
@@ -138,28 +133,18 @@ type google_compute_instance_template__network_interface__alias_ip_range = {
 [@@deriving yojson_of]
 (** An array of alias IP ranges for this network interface. Can only be specified for network interfaces on subnet-mode networks. *)
 
-type google_compute_instance_template__network_interface__ipv6_access_config = {
-  external_ipv6 : string prop;
-      (** The first IPv6 address of the external IPv6 range associated with this instance, prefix length is stored in externalIpv6PrefixLength in ipv6AccessConfig. The field is output only, an IPv6 address from a subnetwork associated with the instance will be allocated dynamically. *)
-  external_ipv6_prefix_length : string prop;
-      (** The prefix length of the external IPv6 range. *)
-  name : string prop;  (** The name of this access configuration. *)
+type network_interface__ipv6_access_config = {
   network_tier : string prop;
       (** The service-level to be provided for IPv6 traffic when the subnet has an external subnet. Only PREMIUM tier is valid for IPv6 *)
-  public_ptr_domain_name : string prop;
-      (** The domain name to be used when creating DNSv6 records for the external IPv6 ranges. *)
 }
 [@@deriving yojson_of]
 (** An array of IPv6 access configurations for this interface. Currently, only one IPv6 access config, DIRECT_IPV6, is supported. If there is no ipv6AccessConfig specified, then this instance will have no external IPv6 Internet access. *)
 
-type google_compute_instance_template__network_interface = {
+type network_interface = {
   internal_ipv6_prefix_length : float prop option; [@option]
       (** The prefix length of the primary internal IPv6 range. *)
-  ipv6_access_type : string prop;
-      (** One of EXTERNAL, INTERNAL to indicate whether the IP can be accessed from the Internet. This field is always inherited from its subnetwork. *)
   ipv6_address : string prop option; [@option]
       (** An IPv6 internal network address for this network interface. If not specified, Google Cloud will automatically assign an internal IPv6 address from the instance's subnetwork. *)
-  name : string prop;  (** The name of the network_interface. *)
   network : string prop option; [@option]
       (** The name or self_link of the network to attach this interface to. Use network attribute for Legacy or Auto subnetted networks and subnetwork for custom subnetted networks. *)
   network_ip : string prop option; [@option]
@@ -174,27 +159,21 @@ type google_compute_instance_template__network_interface = {
       (** The name of the subnetwork to attach this interface to. The subnetwork must exist in the same region this instance will be created in. Either network or subnetwork must be provided. *)
   subnetwork_project : string prop option; [@option]
       (** The ID of the project in which the subnetwork belongs. If it is not provided, the provider project is used. *)
-  access_config :
-    google_compute_instance_template__network_interface__access_config
-    list;
-  alias_ip_range :
-    google_compute_instance_template__network_interface__alias_ip_range
-    list;
-  ipv6_access_config :
-    google_compute_instance_template__network_interface__ipv6_access_config
-    list;
+  access_config : network_interface__access_config list;
+  alias_ip_range : network_interface__alias_ip_range list;
+  ipv6_access_config : network_interface__ipv6_access_config list;
 }
 [@@deriving yojson_of]
 (** Networks to attach to instances created from this template. This can be specified multiple times for multiple networks. *)
 
-type google_compute_instance_template__network_performance_config = {
+type network_performance_config = {
   total_egress_bandwidth_tier : string prop;
       (** The egress bandwidth tier to enable. Possible values:TIER_1, DEFAULT *)
 }
 [@@deriving yojson_of]
 (** Configures network performance settings for the instance. If not specified, the instance will be created with its default network performance configuration. *)
 
-type google_compute_instance_template__reservation_affinity__specific_reservation = {
+type reservation_affinity__specific_reservation = {
   key : string prop;
       (** Corresponds to the label key of a reservation resource. To target a SPECIFIC_RESERVATION by name, specify compute.googleapis.com/reservation-name as the key and specify the name of your reservation as the only value. *)
   values : string prop list;
@@ -203,17 +182,16 @@ type google_compute_instance_template__reservation_affinity__specific_reservatio
 [@@deriving yojson_of]
 (** Specifies the label selector for the reservation to use. *)
 
-type google_compute_instance_template__reservation_affinity = {
+type reservation_affinity = {
   type_ : string prop; [@key "type"]
       (** The type of reservation from which this instance can consume resources. *)
   specific_reservation :
-    google_compute_instance_template__reservation_affinity__specific_reservation
-    list;
+    reservation_affinity__specific_reservation list;
 }
 [@@deriving yojson_of]
 (** Specifies the reservations that this instance can consume from. *)
 
-type google_compute_instance_template__scheduling__local_ssd_recovery_timeout = {
+type scheduling__local_ssd_recovery_timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond
 resolution. Durations less than one second are represented
@@ -229,7 +207,7 @@ Must be from 0 to 315,576,000,000 inclusive. *)
   between 0 and 168 hours with hour granularity and the default value being 1
   hour. *)
 
-type google_compute_instance_template__scheduling__node_affinities = {
+type scheduling__node_affinities = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
   values : string prop list;  (** values *)
@@ -237,7 +215,7 @@ type google_compute_instance_template__scheduling__node_affinities = {
 [@@deriving yojson_of]
 (** Specifies node affinities or anti-affinities to determine which sole-tenant nodes your instances and managed instance groups will use as host systems. *)
 
-type google_compute_instance_template__scheduling = {
+type scheduling = {
   automatic_restart : bool prop option; [@option]
       (** Specifies whether the instance should be automatically restarted if it is terminated by Compute Engine (not terminated by a user). This defaults to true. *)
   instance_termination_action : string prop option; [@option]
@@ -251,16 +229,13 @@ type google_compute_instance_template__scheduling = {
   provisioning_model : string prop option; [@option]
       (** Whether the instance is spot. If this is set as SPOT. *)
   local_ssd_recovery_timeout :
-    google_compute_instance_template__scheduling__local_ssd_recovery_timeout
-    list;
-  node_affinities :
-    google_compute_instance_template__scheduling__node_affinities
-    list;
+    scheduling__local_ssd_recovery_timeout list;
+  node_affinities : scheduling__node_affinities list;
 }
 [@@deriving yojson_of]
 (** The scheduling strategy to use. *)
 
-type google_compute_instance_template__service_account = {
+type service_account = {
   email : string prop option; [@option]
       (** The service account e-mail address. If not given, the default Google Compute Engine service account is used. *)
   scopes : string prop list;
@@ -269,7 +244,7 @@ type google_compute_instance_template__service_account = {
 [@@deriving yojson_of]
 (** Service account to attach to the instance. *)
 
-type google_compute_instance_template__shielded_instance_config = {
+type shielded_instance_config = {
   enable_integrity_monitoring : bool prop option; [@option]
       (** Compare the most recent boot measurements to the integrity policy baseline and return a pair of pass/fail results depending on whether they match or not. Defaults to true. *)
   enable_secure_boot : bool prop option; [@option]
@@ -280,12 +255,12 @@ type google_compute_instance_template__shielded_instance_config = {
 [@@deriving yojson_of]
 (** Enable Shielded VM on this instance. Shielded VM provides verifiable integrity to prevent against malware and rootkits. Defaults to disabled. Note: shielded_instance_config can only be used with boot images with shielded vm support. *)
 
-type google_compute_instance_template__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_instance_template__timeouts *)
+(** timeouts *)
 
 type google_compute_instance_template = {
   can_ip_forward : bool prop option; [@option]
@@ -326,29 +301,190 @@ type google_compute_instance_template = {
       (** A list of self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported. *)
   tags : string prop list option; [@option]
       (** Tags to attach to the instance. *)
-  advanced_machine_features :
-    google_compute_instance_template__advanced_machine_features list;
-  confidential_instance_config :
-    google_compute_instance_template__confidential_instance_config
-    list;
-  disk : google_compute_instance_template__disk list;
-  guest_accelerator :
-    google_compute_instance_template__guest_accelerator list;
-  network_interface :
-    google_compute_instance_template__network_interface list;
-  network_performance_config :
-    google_compute_instance_template__network_performance_config list;
-  reservation_affinity :
-    google_compute_instance_template__reservation_affinity list;
-  scheduling : google_compute_instance_template__scheduling list;
-  service_account :
-    google_compute_instance_template__service_account list;
-  shielded_instance_config :
-    google_compute_instance_template__shielded_instance_config list;
-  timeouts : google_compute_instance_template__timeouts option;
+  advanced_machine_features : advanced_machine_features list;
+  confidential_instance_config : confidential_instance_config list;
+  disk : disk list;
+  guest_accelerator : guest_accelerator list;
+  network_interface : network_interface list;
+  network_performance_config : network_performance_config list;
+  reservation_affinity : reservation_affinity list;
+  scheduling : scheduling list;
+  service_account : service_account list;
+  shielded_instance_config : shielded_instance_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_instance_template *)
+
+let advanced_machine_features ?enable_nested_virtualization
+    ?threads_per_core ?visible_core_count () :
+    advanced_machine_features =
+  {
+    enable_nested_virtualization;
+    threads_per_core;
+    visible_core_count;
+  }
+
+let confidential_instance_config ~enable_confidential_compute () :
+    confidential_instance_config =
+  { enable_confidential_compute }
+
+let disk__disk_encryption_key ~kms_key_self_link () :
+    disk__disk_encryption_key =
+  { kms_key_self_link }
+
+let disk__source_image_encryption_key ?kms_key_service_account
+    ~kms_key_self_link () : disk__source_image_encryption_key =
+  { kms_key_self_link; kms_key_service_account }
+
+let disk__source_snapshot_encryption_key ?kms_key_service_account
+    ~kms_key_self_link () : disk__source_snapshot_encryption_key =
+  { kms_key_self_link; kms_key_service_account }
+
+let disk ?auto_delete ?boot ?device_name ?disk_name ?disk_size_gb
+    ?disk_type ?interface ?labels ?mode ?provisioned_iops
+    ?resource_manager_tags ?resource_policies ?source ?source_image
+    ?source_snapshot ?type_ ~disk_encryption_key
+    ~source_image_encryption_key ~source_snapshot_encryption_key () :
+    disk =
+  {
+    auto_delete;
+    boot;
+    device_name;
+    disk_name;
+    disk_size_gb;
+    disk_type;
+    interface;
+    labels;
+    mode;
+    provisioned_iops;
+    resource_manager_tags;
+    resource_policies;
+    source;
+    source_image;
+    source_snapshot;
+    type_;
+    disk_encryption_key;
+    source_image_encryption_key;
+    source_snapshot_encryption_key;
+  }
+
+let guest_accelerator ~count ~type_ () : guest_accelerator =
+  { count; type_ }
+
+let network_interface__access_config ?nat_ip ?network_tier () :
+    network_interface__access_config =
+  { nat_ip; network_tier }
+
+let network_interface__alias_ip_range ?subnetwork_range_name
+    ~ip_cidr_range () : network_interface__alias_ip_range =
+  { ip_cidr_range; subnetwork_range_name }
+
+let network_interface__ipv6_access_config ~network_tier () :
+    network_interface__ipv6_access_config =
+  { network_tier }
+
+let network_interface ?internal_ipv6_prefix_length ?ipv6_address
+    ?network ?network_ip ?nic_type ?queue_count ?stack_type
+    ?subnetwork ?subnetwork_project ~access_config ~alias_ip_range
+    ~ipv6_access_config () : network_interface =
+  {
+    internal_ipv6_prefix_length;
+    ipv6_address;
+    network;
+    network_ip;
+    nic_type;
+    queue_count;
+    stack_type;
+    subnetwork;
+    subnetwork_project;
+    access_config;
+    alias_ip_range;
+    ipv6_access_config;
+  }
+
+let network_performance_config ~total_egress_bandwidth_tier () :
+    network_performance_config =
+  { total_egress_bandwidth_tier }
+
+let reservation_affinity__specific_reservation ~key ~values () :
+    reservation_affinity__specific_reservation =
+  { key; values }
+
+let reservation_affinity ~type_ ~specific_reservation () :
+    reservation_affinity =
+  { type_; specific_reservation }
+
+let scheduling__local_ssd_recovery_timeout ?nanos ~seconds () :
+    scheduling__local_ssd_recovery_timeout =
+  { nanos; seconds }
+
+let scheduling__node_affinities ~key ~operator ~values () :
+    scheduling__node_affinities =
+  { key; operator; values }
+
+let scheduling ?automatic_restart ?instance_termination_action
+    ?min_node_cpus ?on_host_maintenance ?preemptible
+    ?provisioning_model ~local_ssd_recovery_timeout ~node_affinities
+    () : scheduling =
+  {
+    automatic_restart;
+    instance_termination_action;
+    min_node_cpus;
+    on_host_maintenance;
+    preemptible;
+    provisioning_model;
+    local_ssd_recovery_timeout;
+    node_affinities;
+  }
+
+let service_account ?email ~scopes () : service_account =
+  { email; scopes }
+
+let shielded_instance_config ?enable_integrity_monitoring
+    ?enable_secure_boot ?enable_vtpm () : shielded_instance_config =
+  { enable_integrity_monitoring; enable_secure_boot; enable_vtpm }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_instance_template ?can_ip_forward ?description ?id
+    ?instance_description ?labels ?metadata ?metadata_startup_script
+    ?min_cpu_platform ?name ?name_prefix ?project ?region
+    ?resource_manager_tags ?resource_policies ?tags ?timeouts
+    ~machine_type ~advanced_machine_features
+    ~confidential_instance_config ~disk ~guest_accelerator
+    ~network_interface ~network_performance_config
+    ~reservation_affinity ~scheduling ~service_account
+    ~shielded_instance_config () : google_compute_instance_template =
+  {
+    can_ip_forward;
+    description;
+    id;
+    instance_description;
+    labels;
+    machine_type;
+    metadata;
+    metadata_startup_script;
+    min_cpu_platform;
+    name;
+    name_prefix;
+    project;
+    region;
+    resource_manager_tags;
+    resource_policies;
+    tags;
+    advanced_machine_features;
+    confidential_instance_config;
+    disk;
+    guest_accelerator;
+    network_interface;
+    network_performance_config;
+    reservation_affinity;
+    scheduling;
+    service_account;
+    shielded_instance_config;
+    timeouts;
+  }
 
 type t = {
   can_ip_forward : bool prop;
@@ -375,7 +511,7 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_compute_instance_template ?can_ip_forward ?description ?id
+let register ?tf_module ?can_ip_forward ?description ?id
     ?instance_description ?labels ?metadata ?metadata_startup_script
     ?min_cpu_platform ?name ?name_prefix ?project ?region
     ?resource_manager_tags ?resource_policies ?tags ?timeouts
@@ -386,38 +522,17 @@ let google_compute_instance_template ?can_ip_forward ?description ?id
     ~shielded_instance_config __resource_id =
   let __resource_type = "google_compute_instance_template" in
   let __resource =
-    ({
-       can_ip_forward;
-       description;
-       id;
-       instance_description;
-       labels;
-       machine_type;
-       metadata;
-       metadata_startup_script;
-       min_cpu_platform;
-       name;
-       name_prefix;
-       project;
-       region;
-       resource_manager_tags;
-       resource_policies;
-       tags;
-       advanced_machine_features;
-       confidential_instance_config;
-       disk;
-       guest_accelerator;
-       network_interface;
-       network_performance_config;
-       reservation_affinity;
-       scheduling;
-       service_account;
-       shielded_instance_config;
-       timeouts;
-     }
-      : google_compute_instance_template)
+    google_compute_instance_template ?can_ip_forward ?description ?id
+      ?instance_description ?labels ?metadata
+      ?metadata_startup_script ?min_cpu_platform ?name ?name_prefix
+      ?project ?region ?resource_manager_tags ?resource_policies
+      ?tags ?timeouts ~machine_type ~advanced_machine_features
+      ~confidential_instance_config ~disk ~guest_accelerator
+      ~network_interface ~network_performance_config
+      ~reservation_affinity ~scheduling ~service_account
+      ~shielded_instance_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_instance_template __resource);
   let __resource_attributes =
     ({

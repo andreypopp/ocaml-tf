@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_management_lock__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_management_lock__timeouts *)
+(** timeouts *)
 
 type azurerm_management_lock = {
   id : string prop option; [@option]  (** id *)
@@ -18,10 +18,17 @@ type azurerm_management_lock = {
   name : string prop;  (** name *)
   notes : string prop option; [@option]  (** notes *)
   scope : string prop;  (** scope *)
-  timeouts : azurerm_management_lock__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_management_lock *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_management_lock ?id ?notes ?timeouts ~lock_level ~name
+    ~scope () : azurerm_management_lock =
+  { id; lock_level; name; notes; scope; timeouts }
 
 type t = {
   id : string prop;
@@ -31,14 +38,14 @@ type t = {
   scope : string prop;
 }
 
-let azurerm_management_lock ?id ?notes ?timeouts ~lock_level ~name
-    ~scope __resource_id =
+let register ?tf_module ?id ?notes ?timeouts ~lock_level ~name ~scope
+    __resource_id =
   let __resource_type = "azurerm_management_lock" in
   let __resource =
-    ({ id; lock_level; name; notes; scope; timeouts }
-      : azurerm_management_lock)
+    azurerm_management_lock ?id ?notes ?timeouts ~lock_level ~name
+      ~scope ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_management_lock __resource);
   let __resource_attributes =
     ({

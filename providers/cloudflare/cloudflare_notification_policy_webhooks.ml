@@ -17,6 +17,10 @@ type cloudflare_notification_policy_webhooks = {
 [@@deriving yojson_of]
 (** Provides a resource, that manages a webhook destination. These destinations can be tied to the notification policies created for Cloudflare's products. *)
 
+let cloudflare_notification_policy_webhooks ?id ?secret ?url
+    ~account_id ~name () : cloudflare_notification_policy_webhooks =
+  { account_id; id; name; secret; url }
+
 type t = {
   account_id : string prop;
   created_at : string prop;
@@ -29,14 +33,14 @@ type t = {
   url : string prop;
 }
 
-let cloudflare_notification_policy_webhooks ?id ?secret ?url
-    ~account_id ~name __resource_id =
+let register ?tf_module ?id ?secret ?url ~account_id ~name
+    __resource_id =
   let __resource_type = "cloudflare_notification_policy_webhooks" in
   let __resource =
-    ({ account_id; id; name; secret; url }
-      : cloudflare_notification_policy_webhooks)
+    cloudflare_notification_policy_webhooks ?id ?secret ?url
+      ~account_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_notification_policy_webhooks __resource);
   let __resource_attributes =
     ({

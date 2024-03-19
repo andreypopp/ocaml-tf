@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_cors_configuration__cors_rule = {
+type cors_rule = {
   allowed_headers : string prop list option; [@option]
       (** allowed_headers *)
   allowed_methods : string prop list;  (** allowed_methods *)
@@ -16,17 +16,32 @@ type aws_s3_bucket_cors_configuration__cors_rule = {
       (** max_age_seconds *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_cors_configuration__cors_rule *)
+(** cors_rule *)
 
 type aws_s3_bucket_cors_configuration = {
   bucket : string prop;  (** bucket *)
   expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
   id : string prop option; [@option]  (** id *)
-  cors_rule : aws_s3_bucket_cors_configuration__cors_rule list;
+  cors_rule : cors_rule list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_cors_configuration *)
+
+let cors_rule ?allowed_headers ?expose_headers ?id ?max_age_seconds
+    ~allowed_methods ~allowed_origins () : cors_rule =
+  {
+    allowed_headers;
+    allowed_methods;
+    allowed_origins;
+    expose_headers;
+    id;
+    max_age_seconds;
+  }
+
+let aws_s3_bucket_cors_configuration ?expected_bucket_owner ?id
+    ~bucket ~cors_rule () : aws_s3_bucket_cors_configuration =
+  { bucket; expected_bucket_owner; id; cors_rule }
 
 type t = {
   bucket : string prop;
@@ -34,14 +49,14 @@ type t = {
   id : string prop;
 }
 
-let aws_s3_bucket_cors_configuration ?expected_bucket_owner ?id
-    ~bucket ~cors_rule __resource_id =
+let register ?tf_module ?expected_bucket_owner ?id ~bucket ~cors_rule
+    __resource_id =
   let __resource_type = "aws_s3_bucket_cors_configuration" in
   let __resource =
-    ({ bucket; expected_bucket_owner; id; cors_rule }
-      : aws_s3_bucket_cors_configuration)
+    aws_s3_bucket_cors_configuration ?expected_bucket_owner ?id
+      ~bucket ~cors_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_cors_configuration __resource);
   let __resource_attributes =
     ({

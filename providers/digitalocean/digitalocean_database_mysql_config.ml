@@ -60,6 +60,50 @@ type digitalocean_database_mysql_config = {
 [@@deriving yojson_of]
 (** digitalocean_database_mysql_config *)
 
+let digitalocean_database_mysql_config ?backup_hour ?backup_minute
+    ?binlog_retention_period ?connect_timeout ?default_time_zone
+    ?group_concat_max_len ?id ?information_schema_stats_expiry
+    ?innodb_ft_min_token_size ?innodb_ft_server_stopword_table
+    ?innodb_lock_wait_timeout ?innodb_log_buffer_size
+    ?innodb_online_alter_log_max_size ?innodb_print_all_deadlocks
+    ?innodb_rollback_on_timeout ?interactive_timeout
+    ?internal_tmp_mem_storage_engine ?long_query_time
+    ?max_allowed_packet ?max_heap_table_size ?net_read_timeout
+    ?net_write_timeout ?slow_query_log ?sort_buffer_size ?sql_mode
+    ?sql_require_primary_key ?tmp_table_size ?wait_timeout
+    ~cluster_id () : digitalocean_database_mysql_config =
+  {
+    backup_hour;
+    backup_minute;
+    binlog_retention_period;
+    cluster_id;
+    connect_timeout;
+    default_time_zone;
+    group_concat_max_len;
+    id;
+    information_schema_stats_expiry;
+    innodb_ft_min_token_size;
+    innodb_ft_server_stopword_table;
+    innodb_lock_wait_timeout;
+    innodb_log_buffer_size;
+    innodb_online_alter_log_max_size;
+    innodb_print_all_deadlocks;
+    innodb_rollback_on_timeout;
+    interactive_timeout;
+    internal_tmp_mem_storage_engine;
+    long_query_time;
+    max_allowed_packet;
+    max_heap_table_size;
+    net_read_timeout;
+    net_write_timeout;
+    slow_query_log;
+    sort_buffer_size;
+    sql_mode;
+    sql_require_primary_key;
+    tmp_table_size;
+    wait_timeout;
+  }
+
 type t = {
   backup_hour : float prop;
   backup_minute : float prop;
@@ -92,7 +136,7 @@ type t = {
   wait_timeout : float prop;
 }
 
-let digitalocean_database_mysql_config ?backup_hour ?backup_minute
+let register ?tf_module ?backup_hour ?backup_minute
     ?binlog_retention_period ?connect_timeout ?default_time_zone
     ?group_concat_max_len ?id ?information_schema_stats_expiry
     ?innodb_ft_min_token_size ?innodb_ft_server_stopword_table
@@ -106,40 +150,20 @@ let digitalocean_database_mysql_config ?backup_hour ?backup_minute
     ~cluster_id __resource_id =
   let __resource_type = "digitalocean_database_mysql_config" in
   let __resource =
-    ({
-       backup_hour;
-       backup_minute;
-       binlog_retention_period;
-       cluster_id;
-       connect_timeout;
-       default_time_zone;
-       group_concat_max_len;
-       id;
-       information_schema_stats_expiry;
-       innodb_ft_min_token_size;
-       innodb_ft_server_stopword_table;
-       innodb_lock_wait_timeout;
-       innodb_log_buffer_size;
-       innodb_online_alter_log_max_size;
-       innodb_print_all_deadlocks;
-       innodb_rollback_on_timeout;
-       interactive_timeout;
-       internal_tmp_mem_storage_engine;
-       long_query_time;
-       max_allowed_packet;
-       max_heap_table_size;
-       net_read_timeout;
-       net_write_timeout;
-       slow_query_log;
-       sort_buffer_size;
-       sql_mode;
-       sql_require_primary_key;
-       tmp_table_size;
-       wait_timeout;
-     }
-      : digitalocean_database_mysql_config)
+    digitalocean_database_mysql_config ?backup_hour ?backup_minute
+      ?binlog_retention_period ?connect_timeout ?default_time_zone
+      ?group_concat_max_len ?id ?information_schema_stats_expiry
+      ?innodb_ft_min_token_size ?innodb_ft_server_stopword_table
+      ?innodb_lock_wait_timeout ?innodb_log_buffer_size
+      ?innodb_online_alter_log_max_size ?innodb_print_all_deadlocks
+      ?innodb_rollback_on_timeout ?interactive_timeout
+      ?internal_tmp_mem_storage_engine ?long_query_time
+      ?max_allowed_packet ?max_heap_table_size ?net_read_timeout
+      ?net_write_timeout ?slow_query_log ?sort_buffer_size ?sql_mode
+      ?sql_require_primary_key ?tmp_table_size ?wait_timeout
+      ~cluster_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_mysql_config __resource);
   let __resource_attributes =
     ({

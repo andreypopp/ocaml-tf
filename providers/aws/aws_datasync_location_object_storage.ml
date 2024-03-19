@@ -24,6 +24,25 @@ type aws_datasync_location_object_storage = {
 [@@deriving yojson_of]
 (** aws_datasync_location_object_storage *)
 
+let aws_datasync_location_object_storage ?access_key ?id ?secret_key
+    ?server_certificate ?server_port ?server_protocol ?subdirectory
+    ?tags ?tags_all ~agent_arns ~bucket_name ~server_hostname () :
+    aws_datasync_location_object_storage =
+  {
+    access_key;
+    agent_arns;
+    bucket_name;
+    id;
+    secret_key;
+    server_certificate;
+    server_hostname;
+    server_port;
+    server_protocol;
+    subdirectory;
+    tags;
+    tags_all;
+  }
+
 type t = {
   access_key : string prop;
   agent_arns : string list prop;
@@ -41,29 +60,17 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_object_storage ?access_key ?id ?secret_key
+let register ?tf_module ?access_key ?id ?secret_key
     ?server_certificate ?server_port ?server_protocol ?subdirectory
     ?tags ?tags_all ~agent_arns ~bucket_name ~server_hostname
     __resource_id =
   let __resource_type = "aws_datasync_location_object_storage" in
   let __resource =
-    ({
-       access_key;
-       agent_arns;
-       bucket_name;
-       id;
-       secret_key;
-       server_certificate;
-       server_hostname;
-       server_port;
-       server_protocol;
-       subdirectory;
-       tags;
-       tags_all;
-     }
-      : aws_datasync_location_object_storage)
+    aws_datasync_location_object_storage ?access_key ?id ?secret_key
+      ?server_certificate ?server_port ?server_protocol ?subdirectory
+      ?tags ?tags_all ~agent_arns ~bucket_name ~server_hostname ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_object_storage __resource);
   let __resource_attributes =
     ({

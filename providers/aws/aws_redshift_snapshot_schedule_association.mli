@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_redshift_snapshot_schedule_association
+
+val aws_redshift_snapshot_schedule_association :
+  ?id:string prop ->
+  cluster_identifier:string prop ->
+  schedule_identifier:string prop ->
+  unit ->
+  aws_redshift_snapshot_schedule_association
+
+val yojson_of_aws_redshift_snapshot_schedule_association :
+  aws_redshift_snapshot_schedule_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_identifier : string prop;
@@ -10,7 +24,8 @@ type t = private {
   schedule_identifier : string prop;
 }
 
-val aws_redshift_snapshot_schedule_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   cluster_identifier:string prop ->
   schedule_identifier:string prop ->

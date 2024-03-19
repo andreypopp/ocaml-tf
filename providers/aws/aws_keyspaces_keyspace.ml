@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_keyspaces_keyspace__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_keyspaces_keyspace__timeouts *)
+(** timeouts *)
 
 type aws_keyspaces_keyspace = {
   id : string prop option; [@option]  (** id *)
@@ -17,10 +17,16 @@ type aws_keyspaces_keyspace = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_keyspaces_keyspace__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_keyspaces_keyspace *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_keyspaces_keyspace ?id ?tags ?tags_all ?timeouts ~name () :
+    aws_keyspaces_keyspace =
+  { id; name; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -30,13 +36,13 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_keyspaces_keyspace ?id ?tags ?tags_all ?timeouts ~name
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~name
     __resource_id =
   let __resource_type = "aws_keyspaces_keyspace" in
   let __resource =
-    ({ id; name; tags; tags_all; timeouts } : aws_keyspaces_keyspace)
+    aws_keyspaces_keyspace ?id ?tags ?tags_all ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_keyspaces_keyspace __resource);
   let __resource_attributes =
     ({

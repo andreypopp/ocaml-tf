@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_lighthouse_definition__authorization = {
+type authorization = {
   delegated_role_definition_ids : string prop list option; [@option]
       (** delegated_role_definition_ids *)
   principal_display_name : string prop option; [@option]
@@ -13,57 +13,55 @@ type azurerm_lighthouse_definition__authorization = {
   role_definition_id : string prop;  (** role_definition_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_lighthouse_definition__authorization *)
+(** authorization *)
 
-type azurerm_lighthouse_definition__eligible_authorization__just_in_time_access_policy__approver = {
+type eligible_authorization__just_in_time_access_policy__approver = {
   principal_display_name : string prop option; [@option]
       (** principal_display_name *)
   principal_id : string prop;  (** principal_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_lighthouse_definition__eligible_authorization__just_in_time_access_policy__approver *)
+(** eligible_authorization__just_in_time_access_policy__approver *)
 
-type azurerm_lighthouse_definition__eligible_authorization__just_in_time_access_policy = {
+type eligible_authorization__just_in_time_access_policy = {
   maximum_activation_duration : string prop option; [@option]
       (** maximum_activation_duration *)
   multi_factor_auth_provider : string prop option; [@option]
       (** multi_factor_auth_provider *)
   approver :
-    azurerm_lighthouse_definition__eligible_authorization__just_in_time_access_policy__approver
-    list;
+    eligible_authorization__just_in_time_access_policy__approver list;
 }
 [@@deriving yojson_of]
-(** azurerm_lighthouse_definition__eligible_authorization__just_in_time_access_policy *)
+(** eligible_authorization__just_in_time_access_policy *)
 
-type azurerm_lighthouse_definition__eligible_authorization = {
+type eligible_authorization = {
   principal_display_name : string prop option; [@option]
       (** principal_display_name *)
   principal_id : string prop;  (** principal_id *)
   role_definition_id : string prop;  (** role_definition_id *)
   just_in_time_access_policy :
-    azurerm_lighthouse_definition__eligible_authorization__just_in_time_access_policy
-    list;
+    eligible_authorization__just_in_time_access_policy list;
 }
 [@@deriving yojson_of]
-(** azurerm_lighthouse_definition__eligible_authorization *)
+(** eligible_authorization *)
 
-type azurerm_lighthouse_definition__plan = {
+type plan = {
   name : string prop;  (** name *)
   product : string prop;  (** product *)
   publisher : string prop;  (** publisher *)
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_lighthouse_definition__plan *)
+(** plan *)
 
-type azurerm_lighthouse_definition__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_lighthouse_definition__timeouts *)
+(** timeouts *)
 
 type azurerm_lighthouse_definition = {
   description : string prop option; [@option]  (** description *)
@@ -73,14 +71,71 @@ type azurerm_lighthouse_definition = {
   managing_tenant_id : string prop;  (** managing_tenant_id *)
   name : string prop;  (** name *)
   scope : string prop;  (** scope *)
-  authorization : azurerm_lighthouse_definition__authorization list;
-  eligible_authorization :
-    azurerm_lighthouse_definition__eligible_authorization list;
-  plan : azurerm_lighthouse_definition__plan list;
-  timeouts : azurerm_lighthouse_definition__timeouts option;
+  authorization : authorization list;
+  eligible_authorization : eligible_authorization list;
+  plan : plan list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_lighthouse_definition *)
+
+let authorization ?delegated_role_definition_ids
+    ?principal_display_name ~principal_id ~role_definition_id () :
+    authorization =
+  {
+    delegated_role_definition_ids;
+    principal_display_name;
+    principal_id;
+    role_definition_id;
+  }
+
+let eligible_authorization__just_in_time_access_policy__approver
+    ?principal_display_name ~principal_id () :
+    eligible_authorization__just_in_time_access_policy__approver =
+  { principal_display_name; principal_id }
+
+let eligible_authorization__just_in_time_access_policy
+    ?maximum_activation_duration ?multi_factor_auth_provider
+    ~approver () : eligible_authorization__just_in_time_access_policy
+    =
+  {
+    maximum_activation_duration;
+    multi_factor_auth_provider;
+    approver;
+  }
+
+let eligible_authorization ?principal_display_name ~principal_id
+    ~role_definition_id ~just_in_time_access_policy () :
+    eligible_authorization =
+  {
+    principal_display_name;
+    principal_id;
+    role_definition_id;
+    just_in_time_access_policy;
+  }
+
+let plan ~name ~product ~publisher ~version () : plan =
+  { name; product; publisher; version }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_lighthouse_definition ?description ?id
+    ?lighthouse_definition_id ?timeouts ~managing_tenant_id ~name
+    ~scope ~authorization ~eligible_authorization ~plan () :
+    azurerm_lighthouse_definition =
+  {
+    description;
+    id;
+    lighthouse_definition_id;
+    managing_tenant_id;
+    name;
+    scope;
+    authorization;
+    eligible_authorization;
+    plan;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -91,27 +146,16 @@ type t = {
   scope : string prop;
 }
 
-let azurerm_lighthouse_definition ?description ?id
-    ?lighthouse_definition_id ?timeouts ~managing_tenant_id ~name
-    ~scope ~authorization ~eligible_authorization ~plan __resource_id
-    =
+let register ?tf_module ?description ?id ?lighthouse_definition_id
+    ?timeouts ~managing_tenant_id ~name ~scope ~authorization
+    ~eligible_authorization ~plan __resource_id =
   let __resource_type = "azurerm_lighthouse_definition" in
   let __resource =
-    ({
-       description;
-       id;
-       lighthouse_definition_id;
-       managing_tenant_id;
-       name;
-       scope;
-       authorization;
-       eligible_authorization;
-       plan;
-       timeouts;
-     }
-      : azurerm_lighthouse_definition)
+    azurerm_lighthouse_definition ?description ?id
+      ?lighthouse_definition_id ?timeouts ~managing_tenant_id ~name
+      ~scope ~authorization ~eligible_authorization ~plan ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lighthouse_definition __resource);
   let __resource_attributes =
     ({

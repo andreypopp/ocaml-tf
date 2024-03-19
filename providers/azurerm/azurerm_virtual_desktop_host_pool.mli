@@ -2,11 +2,64 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_desktop_host_pool__scheduled_agent_updates__schedule
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_virtual_desktop_host_pool__scheduled_agent_updates
-type azurerm_virtual_desktop_host_pool__timeouts
+type scheduled_agent_updates__schedule
+
+val scheduled_agent_updates__schedule :
+  day_of_week:string prop ->
+  hour_of_day:float prop ->
+  unit ->
+  scheduled_agent_updates__schedule
+
+type scheduled_agent_updates
+
+val scheduled_agent_updates :
+  ?enabled:bool prop ->
+  ?timezone:string prop ->
+  ?use_session_host_timezone:bool prop ->
+  schedule:scheduled_agent_updates__schedule list ->
+  unit ->
+  scheduled_agent_updates
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_virtual_desktop_host_pool
+
+val azurerm_virtual_desktop_host_pool :
+  ?custom_rdp_properties:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?maximum_sessions_allowed:float prop ->
+  ?personal_desktop_assignment_type:string prop ->
+  ?preferred_app_group_type:string prop ->
+  ?start_vm_on_connect:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?validate_environment:bool prop ->
+  ?vm_template:string prop ->
+  ?timeouts:timeouts ->
+  load_balancer_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  type_:string prop ->
+  scheduled_agent_updates:scheduled_agent_updates list ->
+  unit ->
+  azurerm_virtual_desktop_host_pool
+
+val yojson_of_azurerm_virtual_desktop_host_pool :
+  azurerm_virtual_desktop_host_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   custom_rdp_properties : string prop;
@@ -27,7 +80,8 @@ type t = private {
   vm_template : string prop;
 }
 
-val azurerm_virtual_desktop_host_pool :
+val register :
+  ?tf_module:tf_module ->
   ?custom_rdp_properties:string prop ->
   ?description:string prop ->
   ?friendly_name:string prop ->
@@ -39,13 +93,12 @@ val azurerm_virtual_desktop_host_pool :
   ?tags:(string * string prop) list ->
   ?validate_environment:bool prop ->
   ?vm_template:string prop ->
-  ?timeouts:azurerm_virtual_desktop_host_pool__timeouts ->
+  ?timeouts:timeouts ->
   load_balancer_type:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
-  scheduled_agent_updates:
-    azurerm_virtual_desktop_host_pool__scheduled_agent_updates list ->
+  scheduled_agent_updates:scheduled_agent_updates list ->
   string ->
   t

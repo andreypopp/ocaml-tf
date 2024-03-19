@@ -12,6 +12,10 @@ type digitalocean_droplet_snapshot = {
 [@@deriving yojson_of]
 (** digitalocean_droplet_snapshot *)
 
+let digitalocean_droplet_snapshot ?id ~droplet_id ~name () :
+    digitalocean_droplet_snapshot =
+  { droplet_id; id; name }
+
 type t = {
   created_at : string prop;
   droplet_id : string prop;
@@ -22,13 +26,12 @@ type t = {
   size : float prop;
 }
 
-let digitalocean_droplet_snapshot ?id ~droplet_id ~name __resource_id
-    =
+let register ?tf_module ?id ~droplet_id ~name __resource_id =
   let __resource_type = "digitalocean_droplet_snapshot" in
   let __resource =
-    ({ droplet_id; id; name } : digitalocean_droplet_snapshot)
+    digitalocean_droplet_snapshot ?id ~droplet_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_droplet_snapshot __resource);
   let __resource_attributes =
     ({

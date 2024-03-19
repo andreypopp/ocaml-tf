@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_hub_security_partner_provider__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_hub_security_partner_provider__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_hub_security_partner_provider = {
   id : string prop option; [@option]  (** id *)
@@ -23,11 +23,28 @@ type azurerm_virtual_hub_security_partner_provider = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   virtual_hub_id : string prop option; [@option]
       (** virtual_hub_id *)
-  timeouts :
-    azurerm_virtual_hub_security_partner_provider__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_security_partner_provider *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_hub_security_partner_provider ?id ?tags
+    ?virtual_hub_id ?timeouts ~location ~name ~resource_group_name
+    ~security_provider_name () :
+    azurerm_virtual_hub_security_partner_provider =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    security_provider_name;
+    tags;
+    virtual_hub_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -39,26 +56,18 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let azurerm_virtual_hub_security_partner_provider ?id ?tags
-    ?virtual_hub_id ?timeouts ~location ~name ~resource_group_name
-    ~security_provider_name __resource_id =
+let register ?tf_module ?id ?tags ?virtual_hub_id ?timeouts ~location
+    ~name ~resource_group_name ~security_provider_name __resource_id
+    =
   let __resource_type =
     "azurerm_virtual_hub_security_partner_provider"
   in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       security_provider_name;
-       tags;
-       virtual_hub_id;
-       timeouts;
-     }
-      : azurerm_virtual_hub_security_partner_provider)
+    azurerm_virtual_hub_security_partner_provider ?id ?tags
+      ?virtual_hub_id ?timeouts ~location ~name ~resource_group_name
+      ~security_provider_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_hub_security_partner_provider
        __resource);
   let __resource_attributes =

@@ -2,13 +2,70 @@
 
 open! Tf.Prelude
 
-type google_folder_organization_policy__boolean_policy
-type google_folder_organization_policy__list_policy__allow
-type google_folder_organization_policy__list_policy__deny
-type google_folder_organization_policy__list_policy
-type google_folder_organization_policy__restore_policy
-type google_folder_organization_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type boolean_policy
+
+val boolean_policy : enforced:bool prop -> unit -> boolean_policy
+
+type list_policy__allow
+
+val list_policy__allow :
+  ?all:bool prop ->
+  ?values:string prop list ->
+  unit ->
+  list_policy__allow
+
+type list_policy__deny
+
+val list_policy__deny :
+  ?all:bool prop ->
+  ?values:string prop list ->
+  unit ->
+  list_policy__deny
+
+type list_policy
+
+val list_policy :
+  ?inherit_from_parent:bool prop ->
+  ?suggested_value:string prop ->
+  allow:list_policy__allow list ->
+  deny:list_policy__deny list ->
+  unit ->
+  list_policy
+
+type restore_policy
+
+val restore_policy : default:bool prop -> unit -> restore_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_folder_organization_policy
+
+val google_folder_organization_policy :
+  ?id:string prop ->
+  ?version:float prop ->
+  ?timeouts:timeouts ->
+  constraint_:string prop ->
+  folder:string prop ->
+  boolean_policy:boolean_policy list ->
+  list_policy:list_policy list ->
+  restore_policy:restore_policy list ->
+  unit ->
+  google_folder_organization_policy
+
+val yojson_of_google_folder_organization_policy :
+  google_folder_organization_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   constraint_ : string prop;
@@ -19,16 +76,15 @@ type t = private {
   version : float prop;
 }
 
-val google_folder_organization_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?version:float prop ->
-  ?timeouts:google_folder_organization_policy__timeouts ->
+  ?timeouts:timeouts ->
   constraint_:string prop ->
   folder:string prop ->
-  boolean_policy:
-    google_folder_organization_policy__boolean_policy list ->
-  list_policy:google_folder_organization_policy__list_policy list ->
-  restore_policy:
-    google_folder_organization_policy__restore_policy list ->
+  boolean_policy:boolean_policy list ->
+  list_policy:list_policy list ->
+  restore_policy:restore_policy list ->
   string ->
   t

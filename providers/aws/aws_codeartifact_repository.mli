@@ -2,9 +2,38 @@
 
 open! Tf.Prelude
 
-type aws_codeartifact_repository__external_connections
-type aws_codeartifact_repository__upstream
+(** RESOURCE SERIALIZATION *)
+
+type external_connections
+
+val external_connections :
+  external_connection_name:string prop ->
+  unit ->
+  external_connections
+
+type upstream
+
+val upstream : repository_name:string prop -> unit -> upstream
+
 type aws_codeartifact_repository
+
+val aws_codeartifact_repository :
+  ?description:string prop ->
+  ?domain_owner:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  domain:string prop ->
+  repository:string prop ->
+  external_connections:external_connections list ->
+  upstream:upstream list ->
+  unit ->
+  aws_codeartifact_repository
+
+val yojson_of_aws_codeartifact_repository :
+  aws_codeartifact_repository -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   administrator_account : string prop;
@@ -18,7 +47,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_codeartifact_repository :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?domain_owner:string prop ->
   ?id:string prop ->
@@ -26,8 +56,7 @@ val aws_codeartifact_repository :
   ?tags_all:(string * string prop) list ->
   domain:string prop ->
   repository:string prop ->
-  external_connections:
-    aws_codeartifact_repository__external_connections list ->
-  upstream:aws_codeartifact_repository__upstream list ->
+  external_connections:external_connections list ->
+  upstream:upstream list ->
   string ->
   t

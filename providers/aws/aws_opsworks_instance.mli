@@ -2,11 +2,88 @@
 
 open! Tf.Prelude
 
-type aws_opsworks_instance__ebs_block_device
-type aws_opsworks_instance__ephemeral_block_device
-type aws_opsworks_instance__root_block_device
-type aws_opsworks_instance__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type ebs_block_device
+
+val ebs_block_device :
+  ?delete_on_termination:bool prop ->
+  ?iops:float prop ->
+  ?snapshot_id:string prop ->
+  ?volume_size:float prop ->
+  ?volume_type:string prop ->
+  device_name:string prop ->
+  unit ->
+  ebs_block_device
+
+type ephemeral_block_device
+
+val ephemeral_block_device :
+  device_name:string prop ->
+  virtual_name:string prop ->
+  unit ->
+  ephemeral_block_device
+
+type root_block_device
+
+val root_block_device :
+  ?delete_on_termination:bool prop ->
+  ?iops:float prop ->
+  ?volume_size:float prop ->
+  ?volume_type:string prop ->
+  unit ->
+  root_block_device
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_opsworks_instance
+
+val aws_opsworks_instance :
+  ?agent_version:string prop ->
+  ?ami_id:string prop ->
+  ?architecture:string prop ->
+  ?auto_scaling_type:string prop ->
+  ?availability_zone:string prop ->
+  ?created_at:string prop ->
+  ?delete_ebs:bool prop ->
+  ?delete_eip:bool prop ->
+  ?ebs_optimized:bool prop ->
+  ?ecs_cluster_arn:string prop ->
+  ?elastic_ip:string prop ->
+  ?hostname:string prop ->
+  ?id:string prop ->
+  ?infrastructure_class:string prop ->
+  ?install_updates_on_boot:bool prop ->
+  ?instance_profile_arn:string prop ->
+  ?instance_type:string prop ->
+  ?os:string prop ->
+  ?root_device_type:string prop ->
+  ?security_group_ids:string prop list ->
+  ?ssh_key_name:string prop ->
+  ?state:string prop ->
+  ?status:string prop ->
+  ?subnet_id:string prop ->
+  ?tenancy:string prop ->
+  ?virtualization_type:string prop ->
+  ?timeouts:timeouts ->
+  layer_ids:string prop list ->
+  stack_id:string prop ->
+  ebs_block_device:ebs_block_device list ->
+  ephemeral_block_device:ephemeral_block_device list ->
+  root_block_device:root_block_device list ->
+  unit ->
+  aws_opsworks_instance
+
+val yojson_of_aws_opsworks_instance : aws_opsworks_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   agent_version : string prop;
@@ -54,7 +131,8 @@ type t = private {
   virtualization_type : string prop;
 }
 
-val aws_opsworks_instance :
+val register :
+  ?tf_module:tf_module ->
   ?agent_version:string prop ->
   ?ami_id:string prop ->
   ?architecture:string prop ->
@@ -81,12 +159,11 @@ val aws_opsworks_instance :
   ?subnet_id:string prop ->
   ?tenancy:string prop ->
   ?virtualization_type:string prop ->
-  ?timeouts:aws_opsworks_instance__timeouts ->
+  ?timeouts:timeouts ->
   layer_ids:string prop list ->
   stack_id:string prop ->
-  ebs_block_device:aws_opsworks_instance__ebs_block_device list ->
-  ephemeral_block_device:
-    aws_opsworks_instance__ephemeral_block_device list ->
-  root_block_device:aws_opsworks_instance__root_block_device list ->
+  ebs_block_device:ebs_block_device list ->
+  ephemeral_block_device:ephemeral_block_device list ->
+  root_block_device:root_block_device list ->
   string ->
   t

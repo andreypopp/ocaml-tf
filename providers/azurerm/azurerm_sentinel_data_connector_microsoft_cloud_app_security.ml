@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_data_connector_microsoft_cloud_app_security__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_data_connector_microsoft_cloud_app_security__timeouts *)
+(** timeouts *)
 
 type azurerm_sentinel_data_connector_microsoft_cloud_app_security = {
   alerts_enabled : bool prop option; [@option]  (** alerts_enabled *)
@@ -22,12 +22,27 @@ type azurerm_sentinel_data_connector_microsoft_cloud_app_security = {
       (** log_analytics_workspace_id *)
   name : string prop;  (** name *)
   tenant_id : string prop option; [@option]  (** tenant_id *)
-  timeouts :
-    azurerm_sentinel_data_connector_microsoft_cloud_app_security__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_microsoft_cloud_app_security *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sentinel_data_connector_microsoft_cloud_app_security
+    ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id ?timeouts
+    ~log_analytics_workspace_id ~name () :
+    azurerm_sentinel_data_connector_microsoft_cloud_app_security =
+  {
+    alerts_enabled;
+    discovery_logs_enabled;
+    id;
+    log_analytics_workspace_id;
+    name;
+    tenant_id;
+    timeouts;
+  }
 
 type t = {
   alerts_enabled : bool prop;
@@ -38,25 +53,18 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_sentinel_data_connector_microsoft_cloud_app_security
-    ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id ?timeouts
-    ~log_analytics_workspace_id ~name __resource_id =
+let register ?tf_module ?alerts_enabled ?discovery_logs_enabled ?id
+    ?tenant_id ?timeouts ~log_analytics_workspace_id ~name
+    __resource_id =
   let __resource_type =
     "azurerm_sentinel_data_connector_microsoft_cloud_app_security"
   in
   let __resource =
-    ({
-       alerts_enabled;
-       discovery_logs_enabled;
-       id;
-       log_analytics_workspace_id;
-       name;
-       tenant_id;
-       timeouts;
-     }
-      : azurerm_sentinel_data_connector_microsoft_cloud_app_security)
+    azurerm_sentinel_data_connector_microsoft_cloud_app_security
+      ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id
+      ?timeouts ~log_analytics_workspace_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_data_connector_microsoft_cloud_app_security
        __resource);
   let __resource_attributes =

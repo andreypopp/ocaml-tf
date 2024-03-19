@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_docdb_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_docdb_cluster__timeouts *)
+(** timeouts *)
 
 type aws_docdb_cluster = {
   allow_major_version_upgrade : bool prop option; [@option]
@@ -66,10 +66,58 @@ type aws_docdb_cluster = {
       (** tags_all *)
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  timeouts : aws_docdb_cluster__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_docdb_cluster *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_docdb_cluster ?allow_major_version_upgrade ?apply_immediately
+    ?availability_zones ?backup_retention_period ?cluster_identifier
+    ?cluster_identifier_prefix ?cluster_members
+    ?db_cluster_parameter_group_name ?db_subnet_group_name
+    ?deletion_protection ?enabled_cloudwatch_logs_exports ?engine
+    ?engine_version ?final_snapshot_identifier
+    ?global_cluster_identifier ?id ?kms_key_id ?master_password
+    ?master_username ?port ?preferred_backup_window
+    ?preferred_maintenance_window ?skip_final_snapshot
+    ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
+    ?tags_all ?vpc_security_group_ids ?timeouts () :
+    aws_docdb_cluster =
+  {
+    allow_major_version_upgrade;
+    apply_immediately;
+    availability_zones;
+    backup_retention_period;
+    cluster_identifier;
+    cluster_identifier_prefix;
+    cluster_members;
+    db_cluster_parameter_group_name;
+    db_subnet_group_name;
+    deletion_protection;
+    enabled_cloudwatch_logs_exports;
+    engine;
+    engine_version;
+    final_snapshot_identifier;
+    global_cluster_identifier;
+    id;
+    kms_key_id;
+    master_password;
+    master_username;
+    port;
+    preferred_backup_window;
+    preferred_maintenance_window;
+    skip_final_snapshot;
+    snapshot_identifier;
+    storage_encrypted;
+    storage_type;
+    tags;
+    tags_all;
+    vpc_security_group_ids;
+    timeouts;
+  }
 
 type t = {
   allow_major_version_upgrade : bool prop;
@@ -108,9 +156,9 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
-let aws_docdb_cluster ?allow_major_version_upgrade ?apply_immediately
-    ?availability_zones ?backup_retention_period ?cluster_identifier
-    ?cluster_identifier_prefix ?cluster_members
+let register ?tf_module ?allow_major_version_upgrade
+    ?apply_immediately ?availability_zones ?backup_retention_period
+    ?cluster_identifier ?cluster_identifier_prefix ?cluster_members
     ?db_cluster_parameter_group_name ?db_subnet_group_name
     ?deletion_protection ?enabled_cloudwatch_logs_exports ?engine
     ?engine_version ?final_snapshot_identifier
@@ -121,41 +169,19 @@ let aws_docdb_cluster ?allow_major_version_upgrade ?apply_immediately
     ?tags_all ?vpc_security_group_ids ?timeouts __resource_id =
   let __resource_type = "aws_docdb_cluster" in
   let __resource =
-    ({
-       allow_major_version_upgrade;
-       apply_immediately;
-       availability_zones;
-       backup_retention_period;
-       cluster_identifier;
-       cluster_identifier_prefix;
-       cluster_members;
-       db_cluster_parameter_group_name;
-       db_subnet_group_name;
-       deletion_protection;
-       enabled_cloudwatch_logs_exports;
-       engine;
-       engine_version;
-       final_snapshot_identifier;
-       global_cluster_identifier;
-       id;
-       kms_key_id;
-       master_password;
-       master_username;
-       port;
-       preferred_backup_window;
-       preferred_maintenance_window;
-       skip_final_snapshot;
-       snapshot_identifier;
-       storage_encrypted;
-       storage_type;
-       tags;
-       tags_all;
-       vpc_security_group_ids;
-       timeouts;
-     }
-      : aws_docdb_cluster)
+    aws_docdb_cluster ?allow_major_version_upgrade ?apply_immediately
+      ?availability_zones ?backup_retention_period
+      ?cluster_identifier ?cluster_identifier_prefix ?cluster_members
+      ?db_cluster_parameter_group_name ?db_subnet_group_name
+      ?deletion_protection ?enabled_cloudwatch_logs_exports ?engine
+      ?engine_version ?final_snapshot_identifier
+      ?global_cluster_identifier ?id ?kms_key_id ?master_password
+      ?master_username ?port ?preferred_backup_window
+      ?preferred_maintenance_window ?skip_final_snapshot
+      ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
+      ?tags_all ?vpc_security_group_ids ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_docdb_cluster __resource);
   let __resource_attributes =
     ({

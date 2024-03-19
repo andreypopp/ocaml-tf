@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_data_export_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_log_analytics_data_export_rule
+
+val azurerm_log_analytics_data_export_rule :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  destination_resource_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  table_names:string prop list ->
+  workspace_resource_id:string prop ->
+  unit ->
+  azurerm_log_analytics_data_export_rule
+
+val yojson_of_azurerm_log_analytics_data_export_rule :
+  azurerm_log_analytics_data_export_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   destination_resource_id : string prop;
@@ -16,10 +44,11 @@ type t = private {
   workspace_resource_id : string prop;
 }
 
-val azurerm_log_analytics_data_export_rule :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_log_analytics_data_export_rule__timeouts ->
+  ?timeouts:timeouts ->
   destination_resource_id:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

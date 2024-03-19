@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_lexv2models_bot_locale__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
@@ -13,14 +13,14 @@ type aws_lexv2models_bot_locale__timeouts = {
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
-(** aws_lexv2models_bot_locale__timeouts *)
+(** timeouts *)
 
-type aws_lexv2models_bot_locale__voice_settings = {
+type voice_settings = {
   engine : string prop option; [@option]  (** engine *)
   voice_id : string prop;  (** voice_id *)
 }
 [@@deriving yojson_of]
-(** aws_lexv2models_bot_locale__voice_settings *)
+(** voice_settings *)
 
 type aws_lexv2models_bot_locale = {
   bot_id : string prop;  (** bot_id *)
@@ -30,11 +30,31 @@ type aws_lexv2models_bot_locale = {
   n_lu_intent_confidence_threshold : float prop;
       (** n_lu_intent_confidence_threshold *)
   name : string prop option; [@option]  (** name *)
-  timeouts : aws_lexv2models_bot_locale__timeouts option;
-  voice_settings : aws_lexv2models_bot_locale__voice_settings list;
+  timeouts : timeouts option;
+  voice_settings : voice_settings list;
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_bot_locale *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let voice_settings ?engine ~voice_id () : voice_settings =
+  { engine; voice_id }
+
+let aws_lexv2models_bot_locale ?description ?name ?timeouts ~bot_id
+    ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
+    ~voice_settings () : aws_lexv2models_bot_locale =
+  {
+    bot_id;
+    bot_version;
+    description;
+    locale_id;
+    n_lu_intent_confidence_threshold;
+    name;
+    timeouts;
+    voice_settings;
+  }
 
 type t = {
   bot_id : string prop;
@@ -46,24 +66,16 @@ type t = {
   name : string prop;
 }
 
-let aws_lexv2models_bot_locale ?description ?name ?timeouts ~bot_id
+let register ?tf_module ?description ?name ?timeouts ~bot_id
     ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
     ~voice_settings __resource_id =
   let __resource_type = "aws_lexv2models_bot_locale" in
   let __resource =
-    ({
-       bot_id;
-       bot_version;
-       description;
-       locale_id;
-       n_lu_intent_confidence_threshold;
-       name;
-       timeouts;
-       voice_settings;
-     }
-      : aws_lexv2models_bot_locale)
+    aws_lexv2models_bot_locale ?description ?name ?timeouts ~bot_id
+      ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
+      ~voice_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_bot_locale __resource);
   let __resource_attributes =
     ({

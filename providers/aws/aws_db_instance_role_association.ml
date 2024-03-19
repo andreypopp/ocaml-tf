@@ -14,6 +14,10 @@ type aws_db_instance_role_association = {
 [@@deriving yojson_of]
 (** aws_db_instance_role_association *)
 
+let aws_db_instance_role_association ?id ~db_instance_identifier
+    ~feature_name ~role_arn () : aws_db_instance_role_association =
+  { db_instance_identifier; feature_name; id; role_arn }
+
 type t = {
   db_instance_identifier : string prop;
   feature_name : string prop;
@@ -21,14 +25,14 @@ type t = {
   role_arn : string prop;
 }
 
-let aws_db_instance_role_association ?id ~db_instance_identifier
-    ~feature_name ~role_arn __resource_id =
+let register ?tf_module ?id ~db_instance_identifier ~feature_name
+    ~role_arn __resource_id =
   let __resource_type = "aws_db_instance_role_association" in
   let __resource =
-    ({ db_instance_identifier; feature_name; id; role_arn }
-      : aws_db_instance_role_association)
+    aws_db_instance_role_association ?id ~db_instance_identifier
+      ~feature_name ~role_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_instance_role_association __resource);
   let __resource_attributes =
     ({

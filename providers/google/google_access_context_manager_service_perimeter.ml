@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_access_context_manager_service_perimeter__spec__egress_policies__egress_from__sources = {
+type spec__egress_policies__egress_from__sources = {
   access_level : string prop option; [@option]
       (** An AccessLevel resource name that allows resources outside the ServicePerimeter to be accessed from the inside. *)
 }
 [@@deriving yojson_of]
 (** Sources that this EgressPolicy authorizes access from. *)
 
-type google_access_context_manager_service_perimeter__spec__egress_policies__egress_from = {
+type spec__egress_policies__egress_from = {
   identities : string prop list option; [@option]
       (** A list of identities that are allowed access through this 'EgressPolicy'.
 Should be in the format of email address. The email address should
@@ -22,14 +22,12 @@ perimeter. If left unspecified, then members of 'identities' field will
 be allowed access. Possible values: [IDENTITY_TYPE_UNSPECIFIED, ANY_IDENTITY, ANY_USER_ACCOUNT, ANY_SERVICE_ACCOUNT] *)
   source_restriction : string prop option; [@option]
       (** Whether to enforce traffic restrictions based on 'sources' field. If the 'sources' field is non-empty, then this field must be set to 'SOURCE_RESTRICTION_ENABLED'. Possible values: [SOURCE_RESTRICTION_UNSPECIFIED, SOURCE_RESTRICTION_ENABLED, SOURCE_RESTRICTION_DISABLED] *)
-  sources :
-    google_access_context_manager_service_perimeter__spec__egress_policies__egress_from__sources
-    list;
+  sources : spec__egress_policies__egress_from__sources list;
 }
 [@@deriving yojson_of]
 (** Defines conditions on the source of a request causing this 'EgressPolicy' to apply. *)
 
-type google_access_context_manager_service_perimeter__spec__egress_policies__egress_to__operations__method_selectors = {
+type spec__egress_policies__egress_to__operations__method_selectors = {
   method_ : string prop option; [@option] [@key "method"]
       (** Value for 'method' should be a valid method name for the corresponding
 'serviceName' in 'ApiOperation'. If '*' used as value for method,
@@ -44,20 +42,20 @@ to the service specified by 'serviceName' field. A single MethodSelector
 entry with '*' specified for the 'method' field will allow all methods
 AND permissions for the service specified in 'serviceName'. *)
 
-type google_access_context_manager_service_perimeter__spec__egress_policies__egress_to__operations = {
+type spec__egress_policies__egress_to__operations = {
   service_name : string prop option; [@option]
       (** The name of the API whose methods or permissions the 'IngressPolicy' or
 'EgressPolicy' want to allow. A single 'ApiOperation' with serviceName
 field set to '*' will allow all methods AND permissions for all services. *)
   method_selectors :
-    google_access_context_manager_service_perimeter__spec__egress_policies__egress_to__operations__method_selectors
+    spec__egress_policies__egress_to__operations__method_selectors
     list;
 }
 [@@deriving yojson_of]
 (** A list of 'ApiOperations' that this egress rule applies to. A request matches
 if it contains an operation/service in this list. *)
 
-type google_access_context_manager_service_perimeter__spec__egress_policies__egress_to = {
+type spec__egress_policies__egress_to = {
   external_resources : string prop list option; [@option]
       (** A list of external resources that are allowed to be accessed. A request
 matches if it contains an external resource in this list (Example:
@@ -68,21 +66,15 @@ s3://bucket/path). Currently '*' is not allowed. *)
 if it contains a resource in this list. If * is specified for resources,
 then this 'EgressTo' rule will authorize access to all resources outside
 the perimeter. *)
-  operations :
-    google_access_context_manager_service_perimeter__spec__egress_policies__egress_to__operations
-    list;
+  operations : spec__egress_policies__egress_to__operations list;
 }
 [@@deriving yojson_of]
 (** Defines the conditions on the 'ApiOperation' and destination resources that
 cause this 'EgressPolicy' to apply. *)
 
-type google_access_context_manager_service_perimeter__spec__egress_policies = {
-  egress_from :
-    google_access_context_manager_service_perimeter__spec__egress_policies__egress_from
-    list;
-  egress_to :
-    google_access_context_manager_service_perimeter__spec__egress_policies__egress_to
-    list;
+type spec__egress_policies = {
+  egress_from : spec__egress_policies__egress_from list;
+  egress_to : spec__egress_policies__egress_to list;
 }
 [@@deriving yojson_of]
 (** List of EgressPolicies to apply to the perimeter. A perimeter may
@@ -90,7 +82,7 @@ have multiple EgressPolicies, each of which is evaluated separately.
 Access is granted if any EgressPolicy grants it. Must be empty for
 a perimeter bridge. *)
 
-type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_from__sources = {
+type spec__ingress_policies__ingress_from__sources = {
   access_level : string prop option; [@option]
       (** An 'AccessLevel' resource name that allow resources within the
 'ServicePerimeters' to be accessed from the internet. 'AccessLevels' listed
@@ -111,7 +103,7 @@ of allowing all Google Cloud resources only is not supported. *)
 [@@deriving yojson_of]
 (** Sources that this 'IngressPolicy' authorizes access from. *)
 
-type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_from = {
+type spec__ingress_policies__ingress_from = {
   identities : string prop list option; [@option]
       (** A list of identities that are allowed access through this ingress policy.
 Should be in the format of email address. The email address should represent
@@ -120,15 +112,13 @@ individual user or service account only. *)
       (** Specifies the type of identities that are allowed access from outside the
 perimeter. If left unspecified, then members of 'identities' field will be
 allowed access. Possible values: [IDENTITY_TYPE_UNSPECIFIED, ANY_IDENTITY, ANY_USER_ACCOUNT, ANY_SERVICE_ACCOUNT] *)
-  sources :
-    google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_from__sources
-    list;
+  sources : spec__ingress_policies__ingress_from__sources list;
 }
 [@@deriving yojson_of]
 (** Defines the conditions on the source of a request causing this 'IngressPolicy'
 to apply. *)
 
-type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to__operations__method_selectors = {
+type spec__ingress_policies__ingress_to__operations__method_selectors = {
   method_ : string prop option; [@option] [@key "method"]
       (** Value for method should be a valid method name for the corresponding
 serviceName in 'ApiOperation'. If '*' used as value for 'method', then
@@ -143,20 +133,20 @@ the service specified by serviceName field. A single 'MethodSelector' entry
 with '*' specified for the method field will allow all methods AND
 permissions for the service specified in 'serviceName'. *)
 
-type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to__operations = {
+type spec__ingress_policies__ingress_to__operations = {
   service_name : string prop option; [@option]
       (** The name of the API whose methods or permissions the 'IngressPolicy' or
 'EgressPolicy' want to allow. A single 'ApiOperation' with 'serviceName'
 field set to '*' will allow all methods AND permissions for all services. *)
   method_selectors :
-    google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to__operations__method_selectors
+    spec__ingress_policies__ingress_to__operations__method_selectors
     list;
 }
 [@@deriving yojson_of]
 (** A list of 'ApiOperations' the sources specified in corresponding 'IngressFrom'
 are allowed to perform in this 'ServicePerimeter'. *)
 
-type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to = {
+type spec__ingress_policies__ingress_to = {
   resources : string prop list option; [@option]
       (** A list of resources, currently only projects in the form
 'projects/<projectnumber>', protected by this 'ServicePerimeter'
@@ -166,21 +156,15 @@ a resource in this list. If '*' is specified for resources,
 then this 'IngressTo' rule will authorize access to all
 resources inside the perimeter, provided that the request
 also matches the 'operations' field. *)
-  operations :
-    google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to__operations
-    list;
+  operations : spec__ingress_policies__ingress_to__operations list;
 }
 [@@deriving yojson_of]
 (** Defines the conditions on the 'ApiOperation' and request destination that cause
 this 'IngressPolicy' to apply. *)
 
-type google_access_context_manager_service_perimeter__spec__ingress_policies = {
-  ingress_from :
-    google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_from
-    list;
-  ingress_to :
-    google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to
-    list;
+type spec__ingress_policies = {
+  ingress_from : spec__ingress_policies__ingress_from list;
+  ingress_to : spec__ingress_policies__ingress_to list;
 }
 [@@deriving yojson_of]
 (** List of 'IngressPolicies' to apply to the perimeter. A perimeter may
@@ -188,7 +172,7 @@ have multiple 'IngressPolicies', each of which is evaluated
 separately. Access is granted if any 'Ingress Policy' grants it.
 Must be empty for a perimeter bridge. *)
 
-type google_access_context_manager_service_perimeter__spec__vpc_accessible_services = {
+type spec__vpc_accessible_services = {
   allowed_services : string prop list option; [@option]
       (** The list of APIs usable within the Service Perimeter.
 Must be empty unless 'enableRestriction' is True. *)
@@ -200,7 +184,7 @@ list of APIs specified in 'allowedServices'. *)
 (** Specifies how APIs are allowed to communicate within the Service
 Perimeter. *)
 
-type google_access_context_manager_service_perimeter__spec = {
+type spec = {
   access_levels : string prop list option; [@option]
       (** A list of AccessLevel resource names that allow resources within
 the ServicePerimeter to be accessed from the internet.
@@ -222,15 +206,9 @@ restrictions. Must contain a list of services. For example, if
 'storage.googleapis.com' is specified, access to the storage
 buckets inside the perimeter must meet the perimeter's access
 restrictions. *)
-  egress_policies :
-    google_access_context_manager_service_perimeter__spec__egress_policies
-    list;
-  ingress_policies :
-    google_access_context_manager_service_perimeter__spec__ingress_policies
-    list;
-  vpc_accessible_services :
-    google_access_context_manager_service_perimeter__spec__vpc_accessible_services
-    list;
+  egress_policies : spec__egress_policies list;
+  ingress_policies : spec__ingress_policies list;
+  vpc_accessible_services : spec__vpc_accessible_services list;
 }
 [@@deriving yojson_of]
 (** Proposed (or dry run) ServicePerimeter configuration.
@@ -238,14 +216,14 @@ This configuration allows to specify and test ServicePerimeter configuration
 without enforcing actual access restrictions. Only allowed to be set when
 the 'useExplicitDryRunSpec' flag is set. *)
 
-type google_access_context_manager_service_perimeter__status__egress_policies__egress_from__sources = {
+type status__egress_policies__egress_from__sources = {
   access_level : string prop option; [@option]
       (** An AccessLevel resource name that allows resources outside the ServicePerimeter to be accessed from the inside. *)
 }
 [@@deriving yojson_of]
 (** Sources that this EgressPolicy authorizes access from. *)
 
-type google_access_context_manager_service_perimeter__status__egress_policies__egress_from = {
+type status__egress_policies__egress_from = {
   identities : string prop list option; [@option]
       (** A list of identities that are allowed access through this 'EgressPolicy'.
 Should be in the format of email address. The email address should
@@ -256,14 +234,12 @@ perimeter. If left unspecified, then members of 'identities' field will
 be allowed access. Possible values: [IDENTITY_TYPE_UNSPECIFIED, ANY_IDENTITY, ANY_USER_ACCOUNT, ANY_SERVICE_ACCOUNT] *)
   source_restriction : string prop option; [@option]
       (** Whether to enforce traffic restrictions based on 'sources' field. If the 'sources' field is non-empty, then this field must be set to 'SOURCE_RESTRICTION_ENABLED'. Possible values: [SOURCE_RESTRICTION_UNSPECIFIED, SOURCE_RESTRICTION_ENABLED, SOURCE_RESTRICTION_DISABLED] *)
-  sources :
-    google_access_context_manager_service_perimeter__status__egress_policies__egress_from__sources
-    list;
+  sources : status__egress_policies__egress_from__sources list;
 }
 [@@deriving yojson_of]
 (** Defines conditions on the source of a request causing this 'EgressPolicy' to apply. *)
 
-type google_access_context_manager_service_perimeter__status__egress_policies__egress_to__operations__method_selectors = {
+type status__egress_policies__egress_to__operations__method_selectors = {
   method_ : string prop option; [@option] [@key "method"]
       (** Value for 'method' should be a valid method name for the corresponding
 'serviceName' in 'ApiOperation'. If '*' used as value for method,
@@ -278,20 +254,20 @@ to the service specified by 'serviceName' field. A single MethodSelector
 entry with '*' specified for the 'method' field will allow all methods
 AND permissions for the service specified in 'serviceName'. *)
 
-type google_access_context_manager_service_perimeter__status__egress_policies__egress_to__operations = {
+type status__egress_policies__egress_to__operations = {
   service_name : string prop option; [@option]
       (** The name of the API whose methods or permissions the 'IngressPolicy' or
 'EgressPolicy' want to allow. A single 'ApiOperation' with serviceName
 field set to '*' will allow all methods AND permissions for all services. *)
   method_selectors :
-    google_access_context_manager_service_perimeter__status__egress_policies__egress_to__operations__method_selectors
+    status__egress_policies__egress_to__operations__method_selectors
     list;
 }
 [@@deriving yojson_of]
 (** A list of 'ApiOperations' that this egress rule applies to. A request matches
 if it contains an operation/service in this list. *)
 
-type google_access_context_manager_service_perimeter__status__egress_policies__egress_to = {
+type status__egress_policies__egress_to = {
   external_resources : string prop list option; [@option]
       (** A list of external resources that are allowed to be accessed. A request
 matches if it contains an external resource in this list (Example:
@@ -302,21 +278,15 @@ s3://bucket/path). Currently '*' is not allowed. *)
 if it contains a resource in this list. If * is specified for resources,
 then this 'EgressTo' rule will authorize access to all resources outside
 the perimeter. *)
-  operations :
-    google_access_context_manager_service_perimeter__status__egress_policies__egress_to__operations
-    list;
+  operations : status__egress_policies__egress_to__operations list;
 }
 [@@deriving yojson_of]
 (** Defines the conditions on the 'ApiOperation' and destination resources that
 cause this 'EgressPolicy' to apply. *)
 
-type google_access_context_manager_service_perimeter__status__egress_policies = {
-  egress_from :
-    google_access_context_manager_service_perimeter__status__egress_policies__egress_from
-    list;
-  egress_to :
-    google_access_context_manager_service_perimeter__status__egress_policies__egress_to
-    list;
+type status__egress_policies = {
+  egress_from : status__egress_policies__egress_from list;
+  egress_to : status__egress_policies__egress_to list;
 }
 [@@deriving yojson_of]
 (** List of EgressPolicies to apply to the perimeter. A perimeter may
@@ -324,7 +294,7 @@ have multiple EgressPolicies, each of which is evaluated separately.
 Access is granted if any EgressPolicy grants it. Must be empty for
 a perimeter bridge. *)
 
-type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_from__sources = {
+type status__ingress_policies__ingress_from__sources = {
   access_level : string prop option; [@option]
       (** An 'AccessLevel' resource name that allow resources within the
 'ServicePerimeters' to be accessed from the internet. 'AccessLevels' listed
@@ -345,7 +315,7 @@ of allowing all Google Cloud resources only is not supported. *)
 [@@deriving yojson_of]
 (** Sources that this 'IngressPolicy' authorizes access from. *)
 
-type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_from = {
+type status__ingress_policies__ingress_from = {
   identities : string prop list option; [@option]
       (** A list of identities that are allowed access through this ingress policy.
 Should be in the format of email address. The email address should represent
@@ -354,15 +324,13 @@ individual user or service account only. *)
       (** Specifies the type of identities that are allowed access from outside the
 perimeter. If left unspecified, then members of 'identities' field will be
 allowed access. Possible values: [IDENTITY_TYPE_UNSPECIFIED, ANY_IDENTITY, ANY_USER_ACCOUNT, ANY_SERVICE_ACCOUNT] *)
-  sources :
-    google_access_context_manager_service_perimeter__status__ingress_policies__ingress_from__sources
-    list;
+  sources : status__ingress_policies__ingress_from__sources list;
 }
 [@@deriving yojson_of]
 (** Defines the conditions on the source of a request causing this 'IngressPolicy'
 to apply. *)
 
-type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to__operations__method_selectors = {
+type status__ingress_policies__ingress_to__operations__method_selectors = {
   method_ : string prop option; [@option] [@key "method"]
       (** Value for method should be a valid method name for the corresponding
 serviceName in 'ApiOperation'. If '*' used as value for 'method', then
@@ -377,20 +345,20 @@ the service specified by serviceName field. A single 'MethodSelector' entry
 with '*' specified for the method field will allow all methods AND
 permissions for the service specified in 'serviceName'. *)
 
-type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to__operations = {
+type status__ingress_policies__ingress_to__operations = {
   service_name : string prop option; [@option]
       (** The name of the API whose methods or permissions the 'IngressPolicy' or
 'EgressPolicy' want to allow. A single 'ApiOperation' with 'serviceName'
 field set to '*' will allow all methods AND permissions for all services. *)
   method_selectors :
-    google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to__operations__method_selectors
+    status__ingress_policies__ingress_to__operations__method_selectors
     list;
 }
 [@@deriving yojson_of]
 (** A list of 'ApiOperations' the sources specified in corresponding 'IngressFrom'
 are allowed to perform in this 'ServicePerimeter'. *)
 
-type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to = {
+type status__ingress_policies__ingress_to = {
   resources : string prop list option; [@option]
       (** A list of resources, currently only projects in the form
 'projects/<projectnumber>', protected by this 'ServicePerimeter'
@@ -400,21 +368,15 @@ a resource in this list. If '*' is specified for resources,
 then this 'IngressTo' rule will authorize access to all
 resources inside the perimeter, provided that the request
 also matches the 'operations' field. *)
-  operations :
-    google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to__operations
-    list;
+  operations : status__ingress_policies__ingress_to__operations list;
 }
 [@@deriving yojson_of]
 (** Defines the conditions on the 'ApiOperation' and request destination that cause
 this 'IngressPolicy' to apply. *)
 
-type google_access_context_manager_service_perimeter__status__ingress_policies = {
-  ingress_from :
-    google_access_context_manager_service_perimeter__status__ingress_policies__ingress_from
-    list;
-  ingress_to :
-    google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to
-    list;
+type status__ingress_policies = {
+  ingress_from : status__ingress_policies__ingress_from list;
+  ingress_to : status__ingress_policies__ingress_to list;
 }
 [@@deriving yojson_of]
 (** List of 'IngressPolicies' to apply to the perimeter. A perimeter may
@@ -422,7 +384,7 @@ have multiple 'IngressPolicies', each of which is evaluated
 separately. Access is granted if any 'Ingress Policy' grants it.
 Must be empty for a perimeter bridge. *)
 
-type google_access_context_manager_service_perimeter__status__vpc_accessible_services = {
+type status__vpc_accessible_services = {
   allowed_services : string prop list option; [@option]
       (** The list of APIs usable within the Service Perimeter.
 Must be empty unless 'enableRestriction' is True. *)
@@ -434,7 +396,7 @@ list of APIs specified in 'allowedServices'. *)
 (** Specifies how APIs are allowed to communicate within the Service
 Perimeter. *)
 
-type google_access_context_manager_service_perimeter__status = {
+type status = {
   access_levels : string prop list option; [@option]
       (** A list of AccessLevel resource names that allow resources within
 the ServicePerimeter to be accessed from the internet.
@@ -456,28 +418,22 @@ restrictions. Must contain a list of services. For example, if
 'storage.googleapis.com' is specified, access to the storage
 buckets inside the perimeter must meet the perimeter's access
 restrictions. *)
-  egress_policies :
-    google_access_context_manager_service_perimeter__status__egress_policies
-    list;
-  ingress_policies :
-    google_access_context_manager_service_perimeter__status__ingress_policies
-    list;
-  vpc_accessible_services :
-    google_access_context_manager_service_perimeter__status__vpc_accessible_services
-    list;
+  egress_policies : status__egress_policies list;
+  ingress_policies : status__ingress_policies list;
+  vpc_accessible_services : status__vpc_accessible_services list;
 }
 [@@deriving yojson_of]
 (** ServicePerimeter configuration. Specifies sets of resources,
 restricted services and access levels that determine
 perimeter content and boundaries. *)
 
-type google_access_context_manager_service_perimeter__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_access_context_manager_service_perimeter__timeouts *)
+(** timeouts *)
 
 type google_access_context_manager_service_perimeter = {
   description : string prop option; [@option]
@@ -520,14 +476,173 @@ This allows the user to test changes to the enforced config (status) without
 actually enforcing them. This testing is done through analyzing the differences
 between currently enforced and suggested restrictions. useExplicitDryRunSpec must
 bet set to True if any of the fields in the spec are set to non-default values. *)
-  spec : google_access_context_manager_service_perimeter__spec list;
-  status :
-    google_access_context_manager_service_perimeter__status list;
-  timeouts :
-    google_access_context_manager_service_perimeter__timeouts option;
+  spec : spec list;
+  status : status list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_service_perimeter *)
+
+let spec__egress_policies__egress_from__sources ?access_level () :
+    spec__egress_policies__egress_from__sources =
+  { access_level }
+
+let spec__egress_policies__egress_from ?identities ?identity_type
+    ?source_restriction ~sources () :
+    spec__egress_policies__egress_from =
+  { identities; identity_type; source_restriction; sources }
+
+let spec__egress_policies__egress_to__operations__method_selectors
+    ?method_ ?permission () :
+    spec__egress_policies__egress_to__operations__method_selectors =
+  { method_; permission }
+
+let spec__egress_policies__egress_to__operations ?service_name
+    ~method_selectors () :
+    spec__egress_policies__egress_to__operations =
+  { service_name; method_selectors }
+
+let spec__egress_policies__egress_to ?external_resources ?resources
+    ~operations () : spec__egress_policies__egress_to =
+  { external_resources; resources; operations }
+
+let spec__egress_policies ~egress_from ~egress_to () :
+    spec__egress_policies =
+  { egress_from; egress_to }
+
+let spec__ingress_policies__ingress_from__sources ?access_level
+    ?resource () : spec__ingress_policies__ingress_from__sources =
+  { access_level; resource }
+
+let spec__ingress_policies__ingress_from ?identities ?identity_type
+    ~sources () : spec__ingress_policies__ingress_from =
+  { identities; identity_type; sources }
+
+let spec__ingress_policies__ingress_to__operations__method_selectors
+    ?method_ ?permission () :
+    spec__ingress_policies__ingress_to__operations__method_selectors
+    =
+  { method_; permission }
+
+let spec__ingress_policies__ingress_to__operations ?service_name
+    ~method_selectors () :
+    spec__ingress_policies__ingress_to__operations =
+  { service_name; method_selectors }
+
+let spec__ingress_policies__ingress_to ?resources ~operations () :
+    spec__ingress_policies__ingress_to =
+  { resources; operations }
+
+let spec__ingress_policies ~ingress_from ~ingress_to () :
+    spec__ingress_policies =
+  { ingress_from; ingress_to }
+
+let spec__vpc_accessible_services ?allowed_services
+    ?enable_restriction () : spec__vpc_accessible_services =
+  { allowed_services; enable_restriction }
+
+let spec ?access_levels ?resources ?restricted_services
+    ~egress_policies ~ingress_policies ~vpc_accessible_services () :
+    spec =
+  {
+    access_levels;
+    resources;
+    restricted_services;
+    egress_policies;
+    ingress_policies;
+    vpc_accessible_services;
+  }
+
+let status__egress_policies__egress_from__sources ?access_level () :
+    status__egress_policies__egress_from__sources =
+  { access_level }
+
+let status__egress_policies__egress_from ?identities ?identity_type
+    ?source_restriction ~sources () :
+    status__egress_policies__egress_from =
+  { identities; identity_type; source_restriction; sources }
+
+let status__egress_policies__egress_to__operations__method_selectors
+    ?method_ ?permission () :
+    status__egress_policies__egress_to__operations__method_selectors
+    =
+  { method_; permission }
+
+let status__egress_policies__egress_to__operations ?service_name
+    ~method_selectors () :
+    status__egress_policies__egress_to__operations =
+  { service_name; method_selectors }
+
+let status__egress_policies__egress_to ?external_resources ?resources
+    ~operations () : status__egress_policies__egress_to =
+  { external_resources; resources; operations }
+
+let status__egress_policies ~egress_from ~egress_to () :
+    status__egress_policies =
+  { egress_from; egress_to }
+
+let status__ingress_policies__ingress_from__sources ?access_level
+    ?resource () : status__ingress_policies__ingress_from__sources =
+  { access_level; resource }
+
+let status__ingress_policies__ingress_from ?identities ?identity_type
+    ~sources () : status__ingress_policies__ingress_from =
+  { identities; identity_type; sources }
+
+let status__ingress_policies__ingress_to__operations__method_selectors
+    ?method_ ?permission () :
+    status__ingress_policies__ingress_to__operations__method_selectors
+    =
+  { method_; permission }
+
+let status__ingress_policies__ingress_to__operations ?service_name
+    ~method_selectors () :
+    status__ingress_policies__ingress_to__operations =
+  { service_name; method_selectors }
+
+let status__ingress_policies__ingress_to ?resources ~operations () :
+    status__ingress_policies__ingress_to =
+  { resources; operations }
+
+let status__ingress_policies ~ingress_from ~ingress_to () :
+    status__ingress_policies =
+  { ingress_from; ingress_to }
+
+let status__vpc_accessible_services ?allowed_services
+    ?enable_restriction () : status__vpc_accessible_services =
+  { allowed_services; enable_restriction }
+
+let status ?access_levels ?resources ?restricted_services
+    ~egress_policies ~ingress_policies ~vpc_accessible_services () :
+    status =
+  {
+    access_levels;
+    resources;
+    restricted_services;
+    egress_policies;
+    ingress_policies;
+    vpc_accessible_services;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_access_context_manager_service_perimeter ?description ?id
+    ?perimeter_type ?use_explicit_dry_run_spec ?timeouts ~name
+    ~parent ~title ~spec ~status () :
+    google_access_context_manager_service_perimeter =
+  {
+    description;
+    id;
+    name;
+    parent;
+    perimeter_type;
+    title;
+    use_explicit_dry_run_spec;
+    spec;
+    status;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -541,28 +656,18 @@ type t = {
   use_explicit_dry_run_spec : bool prop;
 }
 
-let google_access_context_manager_service_perimeter ?description ?id
-    ?perimeter_type ?use_explicit_dry_run_spec ?timeouts ~name
-    ~parent ~title ~spec ~status __resource_id =
+let register ?tf_module ?description ?id ?perimeter_type
+    ?use_explicit_dry_run_spec ?timeouts ~name ~parent ~title ~spec
+    ~status __resource_id =
   let __resource_type =
     "google_access_context_manager_service_perimeter"
   in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       parent;
-       perimeter_type;
-       title;
-       use_explicit_dry_run_spec;
-       spec;
-       status;
-       timeouts;
-     }
-      : google_access_context_manager_service_perimeter)
+    google_access_context_manager_service_perimeter ?description ?id
+      ?perimeter_type ?use_explicit_dry_run_spec ?timeouts ~name
+      ~parent ~title ~spec ~status ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_service_perimeter
        __resource);
   let __resource_attributes =

@@ -13,6 +13,11 @@ type aws_vpc_endpoint_connection_accepter = {
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_connection_accepter *)
 
+let aws_vpc_endpoint_connection_accepter ?id ~vpc_endpoint_id
+    ~vpc_endpoint_service_id () :
+    aws_vpc_endpoint_connection_accepter =
+  { id; vpc_endpoint_id; vpc_endpoint_service_id }
+
 type t = {
   id : string prop;
   vpc_endpoint_id : string prop;
@@ -20,14 +25,14 @@ type t = {
   vpc_endpoint_state : string prop;
 }
 
-let aws_vpc_endpoint_connection_accepter ?id ~vpc_endpoint_id
-    ~vpc_endpoint_service_id __resource_id =
+let register ?tf_module ?id ~vpc_endpoint_id ~vpc_endpoint_service_id
+    __resource_id =
   let __resource_type = "aws_vpc_endpoint_connection_accepter" in
   let __resource =
-    ({ id; vpc_endpoint_id; vpc_endpoint_service_id }
-      : aws_vpc_endpoint_connection_accepter)
+    aws_vpc_endpoint_connection_accepter ?id ~vpc_endpoint_id
+      ~vpc_endpoint_service_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_endpoint_connection_accepter __resource);
   let __resource_attributes =
     ({

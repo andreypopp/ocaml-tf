@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_iam_access_boundary_policy__rules__access_boundary_rule__availability_condition = {
+type rules__access_boundary_rule__availability_condition = {
   description : string prop option; [@option]
       (** Description of the expression. This is a longer text which describes the expression,
 e.g. when hovered over it in a UI. *)
@@ -20,35 +20,32 @@ This can be used e.g. in UIs which allow to enter the expression. *)
 [@@deriving yojson_of]
 (** The availability condition further constrains the access allowed by the access boundary rule. *)
 
-type google_iam_access_boundary_policy__rules__access_boundary_rule = {
+type rules__access_boundary_rule = {
   available_permissions : string prop list option; [@option]
       (** A list of permissions that may be allowed for use on the specified resource. *)
   available_resource : string prop option; [@option]
       (** The full resource name of a Google Cloud resource entity. *)
   availability_condition :
-    google_iam_access_boundary_policy__rules__access_boundary_rule__availability_condition
-    list;
+    rules__access_boundary_rule__availability_condition list;
 }
 [@@deriving yojson_of]
 (** An access boundary rule in an IAM policy. *)
 
-type google_iam_access_boundary_policy__rules = {
+type rules = {
   description : string prop option; [@option]
       (** The description of the rule. *)
-  access_boundary_rule :
-    google_iam_access_boundary_policy__rules__access_boundary_rule
-    list;
+  access_boundary_rule : rules__access_boundary_rule list;
 }
 [@@deriving yojson_of]
 (** Rules to be applied. *)
 
-type google_iam_access_boundary_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_iam_access_boundary_policy__timeouts *)
+(** timeouts *)
 
 type google_iam_access_boundary_policy = {
   display_name : string prop option; [@option]
@@ -57,11 +54,35 @@ type google_iam_access_boundary_policy = {
   name : string prop;  (** The name of the policy. *)
   parent : string prop;
       (** The attachment point is identified by its URL-encoded full resource name. *)
-  rules : google_iam_access_boundary_policy__rules list;
-  timeouts : google_iam_access_boundary_policy__timeouts option;
+  rules : rules list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_iam_access_boundary_policy *)
+
+let rules__access_boundary_rule__availability_condition ?description
+    ?location ?title ~expression () :
+    rules__access_boundary_rule__availability_condition =
+  { description; expression; location; title }
+
+let rules__access_boundary_rule ?available_permissions
+    ?available_resource ~availability_condition () :
+    rules__access_boundary_rule =
+  {
+    available_permissions;
+    available_resource;
+    availability_condition;
+  }
+
+let rules ?description ~access_boundary_rule () : rules =
+  { description; access_boundary_rule }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_iam_access_boundary_policy ?display_name ?id ?timeouts
+    ~name ~parent ~rules () : google_iam_access_boundary_policy =
+  { display_name; id; name; parent; rules; timeouts }
 
 type t = {
   display_name : string prop;
@@ -71,14 +92,14 @@ type t = {
   parent : string prop;
 }
 
-let google_iam_access_boundary_policy ?display_name ?id ?timeouts
-    ~name ~parent ~rules __resource_id =
+let register ?tf_module ?display_name ?id ?timeouts ~name ~parent
+    ~rules __resource_id =
   let __resource_type = "google_iam_access_boundary_policy" in
   let __resource =
-    ({ display_name; id; name; parent; rules; timeouts }
-      : google_iam_access_boundary_policy)
+    google_iam_access_boundary_policy ?display_name ?id ?timeouts
+      ~name ~parent ~rules ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_access_boundary_policy __resource);
   let __resource_attributes =
     ({

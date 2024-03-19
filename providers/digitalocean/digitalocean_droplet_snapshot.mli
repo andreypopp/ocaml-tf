@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type digitalocean_droplet_snapshot
+
+val digitalocean_droplet_snapshot :
+  ?id:string prop ->
+  droplet_id:string prop ->
+  name:string prop ->
+  unit ->
+  digitalocean_droplet_snapshot
+
+val yojson_of_digitalocean_droplet_snapshot :
+  digitalocean_droplet_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created_at : string prop;
@@ -14,7 +28,8 @@ type t = private {
   size : float prop;
 }
 
-val digitalocean_droplet_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   droplet_id:string prop ->
   name:string prop ->

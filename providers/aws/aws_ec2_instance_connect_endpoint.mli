@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_ec2_instance_connect_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_ec2_instance_connect_endpoint
+
+val aws_ec2_instance_connect_endpoint :
+  ?preserve_client_ip:bool prop ->
+  ?security_group_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  subnet_id:string prop ->
+  unit ->
+  aws_ec2_instance_connect_endpoint
+
+val yojson_of_aws_ec2_instance_connect_endpoint :
+  aws_ec2_instance_connect_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,11 +41,12 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_ec2_instance_connect_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?preserve_client_ip:bool prop ->
   ?security_group_ids:string prop list ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_ec2_instance_connect_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   subnet_id:string prop ->
   string ->
   t

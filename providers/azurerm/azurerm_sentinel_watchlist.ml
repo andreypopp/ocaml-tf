@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_watchlist__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_watchlist__timeouts *)
+(** timeouts *)
 
 type azurerm_sentinel_watchlist = {
   default_duration : string prop option; [@option]
@@ -23,10 +23,29 @@ type azurerm_sentinel_watchlist = {
   log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
   name : string prop;  (** name *)
-  timeouts : azurerm_sentinel_watchlist__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_watchlist *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_sentinel_watchlist ?default_duration ?description ?id
+    ?labels ?timeouts ~display_name ~item_search_key
+    ~log_analytics_workspace_id ~name () : azurerm_sentinel_watchlist
+    =
+  {
+    default_duration;
+    description;
+    display_name;
+    id;
+    item_search_key;
+    labels;
+    log_analytics_workspace_id;
+    name;
+    timeouts;
+  }
 
 type t = {
   default_duration : string prop;
@@ -39,25 +58,16 @@ type t = {
   name : string prop;
 }
 
-let azurerm_sentinel_watchlist ?default_duration ?description ?id
-    ?labels ?timeouts ~display_name ~item_search_key
+let register ?tf_module ?default_duration ?description ?id ?labels
+    ?timeouts ~display_name ~item_search_key
     ~log_analytics_workspace_id ~name __resource_id =
   let __resource_type = "azurerm_sentinel_watchlist" in
   let __resource =
-    ({
-       default_duration;
-       description;
-       display_name;
-       id;
-       item_search_key;
-       labels;
-       log_analytics_workspace_id;
-       name;
-       timeouts;
-     }
-      : azurerm_sentinel_watchlist)
+    azurerm_sentinel_watchlist ?default_duration ?description ?id
+      ?labels ?timeouts ~display_name ~item_search_key
+      ~log_analytics_workspace_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_watchlist __resource);
   let __resource_attributes =
     ({

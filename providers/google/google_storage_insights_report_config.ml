@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_storage_insights_report_config__csv_options = {
+type csv_options = {
   delimiter : string prop option; [@option]
       (** The delimiter used to separate the fields in the inventory report CSV file. *)
   header_required : bool prop option; [@option]
@@ -15,7 +15,7 @@ type google_storage_insights_report_config__csv_options = {
 [@@deriving yojson_of]
 (** Options for configuring the format of the inventory report CSV file. *)
 
-type google_storage_insights_report_config__frequency_options__end_date = {
+type frequency_options__end_date = {
   day : float prop;
       (** The day of the month to stop generating inventory reports. *)
   month : float prop;
@@ -26,7 +26,7 @@ type google_storage_insights_report_config__frequency_options__end_date = {
 [@@deriving yojson_of]
 (** The date to stop generating inventory reports. For example, {day: 15, month: 9, year: 2022}. *)
 
-type google_storage_insights_report_config__frequency_options__start_date = {
+type frequency_options__start_date = {
   day : float prop;
       (** The day of the month to start generating inventory reports. *)
   month : float prop;
@@ -37,20 +37,16 @@ type google_storage_insights_report_config__frequency_options__start_date = {
 [@@deriving yojson_of]
 (** The date to start generating inventory reports. For example, {day: 15, month: 8, year: 2022}. *)
 
-type google_storage_insights_report_config__frequency_options = {
+type frequency_options = {
   frequency : string prop;
       (** The frequency in which inventory reports are generated. Values are DAILY or WEEKLY. Possible values: [DAILY, WEEKLY] *)
-  end_date :
-    google_storage_insights_report_config__frequency_options__end_date
-    list;
-  start_date :
-    google_storage_insights_report_config__frequency_options__start_date
-    list;
+  end_date : frequency_options__end_date list;
+  start_date : frequency_options__start_date list;
 }
 [@@deriving yojson_of]
 (** Options for configuring how inventory reports are generated. *)
 
-type google_storage_insights_report_config__object_metadata_report_options__storage_destination_options = {
+type object_metadata_report_options__storage_destination_options = {
   bucket : string prop;
       (** The destination bucket that stores the generated inventory reports. *)
   destination_path : string prop option; [@option]
@@ -59,33 +55,31 @@ type google_storage_insights_report_config__object_metadata_report_options__stor
 [@@deriving yojson_of]
 (** Options for where the inventory reports are stored. *)
 
-type google_storage_insights_report_config__object_metadata_report_options__storage_filters = {
+type object_metadata_report_options__storage_filters = {
   bucket : string prop option; [@option]
       (** The filter to use when specifying which bucket to generate inventory reports for. *)
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_storage_insights_report_config__object_metadata_report_options = {
+type object_metadata_report_options = {
   metadata_fields : string prop list;
       (** The metadata fields included in an inventory report. *)
   storage_destination_options :
-    google_storage_insights_report_config__object_metadata_report_options__storage_destination_options
-    list;
+    object_metadata_report_options__storage_destination_options list;
   storage_filters :
-    google_storage_insights_report_config__object_metadata_report_options__storage_filters
-    list;
+    object_metadata_report_options__storage_filters list;
 }
 [@@deriving yojson_of]
 (** Options for including metadata in an inventory report. *)
 
-type google_storage_insights_report_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_storage_insights_report_config__timeouts *)
+(** timeouts *)
 
 type google_storage_insights_report_config = {
   display_name : string prop option; [@option]
@@ -95,17 +89,62 @@ type google_storage_insights_report_config = {
       (** The location of the ReportConfig. The source and destination buckets specified in the ReportConfig
 must be in the same location. *)
   project : string prop option; [@option]  (** project *)
-  csv_options :
-    google_storage_insights_report_config__csv_options list;
-  frequency_options :
-    google_storage_insights_report_config__frequency_options list;
+  csv_options : csv_options list;
+  frequency_options : frequency_options list;
   object_metadata_report_options :
-    google_storage_insights_report_config__object_metadata_report_options
-    list;
-  timeouts : google_storage_insights_report_config__timeouts option;
+    object_metadata_report_options list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_storage_insights_report_config *)
+
+let csv_options ?delimiter ?header_required ?record_separator () :
+    csv_options =
+  { delimiter; header_required; record_separator }
+
+let frequency_options__end_date ~day ~month ~year () :
+    frequency_options__end_date =
+  { day; month; year }
+
+let frequency_options__start_date ~day ~month ~year () :
+    frequency_options__start_date =
+  { day; month; year }
+
+let frequency_options ~frequency ~end_date ~start_date () :
+    frequency_options =
+  { frequency; end_date; start_date }
+
+let object_metadata_report_options__storage_destination_options
+    ?destination_path ~bucket () :
+    object_metadata_report_options__storage_destination_options =
+  { bucket; destination_path }
+
+let object_metadata_report_options__storage_filters ?bucket () :
+    object_metadata_report_options__storage_filters =
+  { bucket }
+
+let object_metadata_report_options ~metadata_fields
+    ~storage_destination_options ~storage_filters () :
+    object_metadata_report_options =
+  { metadata_fields; storage_destination_options; storage_filters }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_storage_insights_report_config ?display_name ?id ?project
+    ?timeouts ~location ~csv_options ~frequency_options
+    ~object_metadata_report_options () :
+    google_storage_insights_report_config =
+  {
+    display_name;
+    id;
+    location;
+    project;
+    csv_options;
+    frequency_options;
+    object_metadata_report_options;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -115,24 +154,16 @@ type t = {
   project : string prop;
 }
 
-let google_storage_insights_report_config ?display_name ?id ?project
-    ?timeouts ~location ~csv_options ~frequency_options
+let register ?tf_module ?display_name ?id ?project ?timeouts
+    ~location ~csv_options ~frequency_options
     ~object_metadata_report_options __resource_id =
   let __resource_type = "google_storage_insights_report_config" in
   let __resource =
-    ({
-       display_name;
-       id;
-       location;
-       project;
-       csv_options;
-       frequency_options;
-       object_metadata_report_options;
-       timeouts;
-     }
-      : google_storage_insights_report_config)
+    google_storage_insights_report_config ?display_name ?id ?project
+      ?timeouts ~location ~csv_options ~frequency_options
+      ~object_metadata_report_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_insights_report_config __resource);
   let __resource_attributes =
     ({

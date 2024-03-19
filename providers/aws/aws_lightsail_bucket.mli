@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_lightsail_bucket
+
+val aws_lightsail_bucket :
+  ?force_delete:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  bundle_id:string prop ->
+  name:string prop ->
+  unit ->
+  aws_lightsail_bucket
+
+val yojson_of_aws_lightsail_bucket : aws_lightsail_bucket -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,7 +35,8 @@ type t = private {
   url : string prop;
 }
 
-val aws_lightsail_bucket :
+val register :
+  ?tf_module:tf_module ->
   ?force_delete:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

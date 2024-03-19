@@ -4,11 +4,9 @@
 
 open! Tf.Prelude
 
-type aws_location_map__configuration = {
-  style : string prop;  (** style *)
-}
+type configuration = { style : string prop  (** style *) }
 [@@deriving yojson_of]
-(** aws_location_map__configuration *)
+(** configuration *)
 
 type aws_location_map = {
   description : string prop option; [@option]  (** description *)
@@ -17,10 +15,16 @@ type aws_location_map = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  configuration : aws_location_map__configuration list;
+  configuration : configuration list;
 }
 [@@deriving yojson_of]
 (** aws_location_map *)
+
+let configuration ~style () : configuration = { style }
+
+let aws_location_map ?description ?id ?tags ?tags_all ~map_name
+    ~configuration () : aws_location_map =
+  { description; id; map_name; tags; tags_all; configuration }
 
 type t = {
   create_time : string prop;
@@ -33,14 +37,14 @@ type t = {
   update_time : string prop;
 }
 
-let aws_location_map ?description ?id ?tags ?tags_all ~map_name
+let register ?tf_module ?description ?id ?tags ?tags_all ~map_name
     ~configuration __resource_id =
   let __resource_type = "aws_location_map" in
   let __resource =
-    ({ description; id; map_name; tags; tags_all; configuration }
-      : aws_location_map)
+    aws_location_map ?description ?id ?tags ?tags_all ~map_name
+      ~configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_location_map __resource);
   let __resource_attributes =
     ({

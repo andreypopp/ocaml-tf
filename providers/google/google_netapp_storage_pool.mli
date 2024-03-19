@@ -2,8 +2,40 @@
 
 open! Tf.Prelude
 
-type google_netapp_storage_pool__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_netapp_storage_pool
+
+val google_netapp_storage_pool :
+  ?active_directory:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_config:string prop ->
+  ?labels:(string * string prop) list ->
+  ?ldap_enabled:bool prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  capacity_gib:string prop ->
+  location:string prop ->
+  name:string prop ->
+  network:string prop ->
+  service_level:string prop ->
+  unit ->
+  google_netapp_storage_pool
+
+val yojson_of_google_netapp_storage_pool :
+  google_netapp_storage_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   active_directory : string prop;
@@ -25,7 +57,8 @@ type t = private {
   volume_count : float prop;
 }
 
-val google_netapp_storage_pool :
+val register :
+  ?tf_module:tf_module ->
   ?active_directory:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -33,7 +66,7 @@ val google_netapp_storage_pool :
   ?labels:(string * string prop) list ->
   ?ldap_enabled:bool prop ->
   ?project:string prop ->
-  ?timeouts:google_netapp_storage_pool__timeouts ->
+  ?timeouts:timeouts ->
   capacity_gib:string prop ->
   location:string prop ->
   name:string prop ->

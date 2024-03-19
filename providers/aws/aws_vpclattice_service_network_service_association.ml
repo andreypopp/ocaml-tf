@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_service_network_service_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_service_network_service_association__timeouts *)
+(** timeouts *)
 
-type aws_vpclattice_service_network_service_association__dns_entry = {
+type dns_entry = {
   domain_name : string prop;  (** domain_name *)
   hosted_zone_id : string prop;  (** hosted_zone_id *)
 }
@@ -26,21 +26,32 @@ type aws_vpclattice_service_network_service_association = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts :
-    aws_vpclattice_service_network_service_association__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_service_network_service_association *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpclattice_service_network_service_association ?id ?tags
+    ?tags_all ?timeouts ~service_identifier
+    ~service_network_identifier () :
+    aws_vpclattice_service_network_service_association =
+  {
+    id;
+    service_identifier;
+    service_network_identifier;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
   created_by : string prop;
   custom_domain_name : string prop;
-  dns_entry :
-    aws_vpclattice_service_network_service_association__dns_entry
-    list
-    prop;
+  dns_entry : dns_entry list prop;
   id : string prop;
   service_identifier : string prop;
   service_network_identifier : string prop;
@@ -49,24 +60,17 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpclattice_service_network_service_association ?id ?tags
-    ?tags_all ?timeouts ~service_identifier
-    ~service_network_identifier __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
+    ~service_identifier ~service_network_identifier __resource_id =
   let __resource_type =
     "aws_vpclattice_service_network_service_association"
   in
   let __resource =
-    ({
-       id;
-       service_identifier;
-       service_network_identifier;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_vpclattice_service_network_service_association)
+    aws_vpclattice_service_network_service_association ?id ?tags
+      ?tags_all ?timeouts ~service_identifier
+      ~service_network_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_service_network_service_association
        __resource);
   let __resource_attributes =

@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_device_update_instance__diagnostic_storage_account
-type azurerm_iothub_device_update_instance__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type diagnostic_storage_account
+
+val diagnostic_storage_account :
+  connection_string:string prop ->
+  id:string prop ->
+  unit ->
+  diagnostic_storage_account
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_iothub_device_update_instance
+
+val azurerm_iothub_device_update_instance :
+  ?diagnostic_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  device_update_account_id:string prop ->
+  iothub_id:string prop ->
+  name:string prop ->
+  diagnostic_storage_account:diagnostic_storage_account list ->
+  unit ->
+  azurerm_iothub_device_update_instance
+
+val yojson_of_azurerm_iothub_device_update_instance :
+  azurerm_iothub_device_update_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   device_update_account_id : string prop;
@@ -15,16 +50,15 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_iothub_device_update_instance :
+val register :
+  ?tf_module:tf_module ->
   ?diagnostic_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_iothub_device_update_instance__timeouts ->
+  ?timeouts:timeouts ->
   device_update_account_id:string prop ->
   iothub_id:string prop ->
   name:string prop ->
-  diagnostic_storage_account:
-    azurerm_iothub_device_update_instance__diagnostic_storage_account
-    list ->
+  diagnostic_storage_account:diagnostic_storage_account list ->
   string ->
   t

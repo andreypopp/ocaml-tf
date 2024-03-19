@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_resolver_query_log_config
+
+val aws_route53_resolver_query_log_config :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  destination_arn:string prop ->
+  name:string prop ->
+  unit ->
+  aws_route53_resolver_query_log_config
+
+val yojson_of_aws_route53_resolver_query_log_config :
+  aws_route53_resolver_query_log_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,7 +31,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_route53_resolver_query_log_config :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

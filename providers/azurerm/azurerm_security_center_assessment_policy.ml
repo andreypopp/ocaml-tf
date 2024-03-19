@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_security_center_assessment_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_security_center_assessment_policy__timeouts *)
+(** timeouts *)
 
 type azurerm_security_center_assessment_policy = {
   categories : string prop list option; [@option]  (** categories *)
@@ -25,11 +25,30 @@ type azurerm_security_center_assessment_policy = {
   severity : string prop option; [@option]  (** severity *)
   threats : string prop list option; [@option]  (** threats *)
   user_impact : string prop option; [@option]  (** user_impact *)
-  timeouts :
-    azurerm_security_center_assessment_policy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_assessment_policy *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_security_center_assessment_policy ?categories ?id
+    ?implementation_effort ?remediation_description ?severity
+    ?threats ?user_impact ?timeouts ~description ~display_name () :
+    azurerm_security_center_assessment_policy =
+  {
+    categories;
+    description;
+    display_name;
+    id;
+    implementation_effort;
+    remediation_description;
+    severity;
+    threats;
+    user_impact;
+    timeouts;
+  }
 
 type t = {
   categories : string list prop;
@@ -44,29 +63,18 @@ type t = {
   user_impact : string prop;
 }
 
-let azurerm_security_center_assessment_policy ?categories ?id
-    ?implementation_effort ?remediation_description ?severity
-    ?threats ?user_impact ?timeouts ~description ~display_name
-    __resource_id =
+let register ?tf_module ?categories ?id ?implementation_effort
+    ?remediation_description ?severity ?threats ?user_impact
+    ?timeouts ~description ~display_name __resource_id =
   let __resource_type =
     "azurerm_security_center_assessment_policy"
   in
   let __resource =
-    ({
-       categories;
-       description;
-       display_name;
-       id;
-       implementation_effort;
-       remediation_description;
-       severity;
-       threats;
-       user_impact;
-       timeouts;
-     }
-      : azurerm_security_center_assessment_policy)
+    azurerm_security_center_assessment_policy ?categories ?id
+      ?implementation_effort ?remediation_description ?severity
+      ?threats ?user_impact ?timeouts ~description ~display_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_assessment_policy __resource);
   let __resource_attributes =
     ({

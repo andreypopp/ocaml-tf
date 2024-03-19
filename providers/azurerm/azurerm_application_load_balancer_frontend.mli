@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_application_load_balancer_frontend__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_application_load_balancer_frontend
+
+val azurerm_application_load_balancer_frontend :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  application_load_balancer_id:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_application_load_balancer_frontend
+
+val yojson_of_azurerm_application_load_balancer_frontend :
+  azurerm_application_load_balancer_frontend -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_load_balancer_id : string prop;
@@ -13,10 +38,11 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_application_load_balancer_frontend :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_application_load_balancer_frontend__timeouts ->
+  ?timeouts:timeouts ->
   application_load_balancer_id:string prop ->
   name:string prop ->
   string ->

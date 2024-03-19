@@ -4,41 +4,37 @@
 
 open! Tf.Prelude
 
-type aws_auditmanager_assessment__assessment_reports_destination = {
+type assessment_reports_destination = {
   destination : string prop;  (** destination *)
   destination_type : string prop;  (** destination_type *)
 }
 [@@deriving yojson_of]
-(** aws_auditmanager_assessment__assessment_reports_destination *)
+(** assessment_reports_destination *)
 
-type aws_auditmanager_assessment__scope__aws_accounts = {
-  id : string prop;  (** id *)
-}
+type scope__aws_accounts = { id : string prop  (** id *) }
 [@@deriving yojson_of]
-(** aws_auditmanager_assessment__scope__aws_accounts *)
+(** scope__aws_accounts *)
 
-type aws_auditmanager_assessment__scope__aws_services = {
+type scope__aws_services = {
   service_name : string prop;  (** service_name *)
 }
 [@@deriving yojson_of]
-(** aws_auditmanager_assessment__scope__aws_services *)
+(** scope__aws_services *)
 
-type aws_auditmanager_assessment__scope = {
-  aws_accounts :
-    aws_auditmanager_assessment__scope__aws_accounts list;
-  aws_services :
-    aws_auditmanager_assessment__scope__aws_services list;
+type scope = {
+  aws_accounts : scope__aws_accounts list;
+  aws_services : scope__aws_services list;
 }
 [@@deriving yojson_of]
-(** aws_auditmanager_assessment__scope *)
+(** scope *)
 
-type aws_auditmanager_assessment__roles = {
+type roles = {
   role_arn : string prop;  (** role_arn *)
   role_type : string prop;  (** role_type *)
 }
 [@@deriving yojson_of]
 
-type aws_auditmanager_assessment__roles_all = {
+type roles_all = {
   role_arn : string prop;  (** role_arn *)
   role_type : string prop;  (** role_type *)
 }
@@ -48,14 +44,39 @@ type aws_auditmanager_assessment = {
   description : string prop option; [@option]  (** description *)
   framework_id : string prop;  (** framework_id *)
   name : string prop;  (** name *)
-  roles : aws_auditmanager_assessment__roles list;  (** roles *)
+  roles : roles list;  (** roles *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   assessment_reports_destination :
-    aws_auditmanager_assessment__assessment_reports_destination list;
-  scope : aws_auditmanager_assessment__scope list;
+    assessment_reports_destination list;
+  scope : scope list;
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_assessment *)
+
+let assessment_reports_destination ~destination ~destination_type ()
+    : assessment_reports_destination =
+  { destination; destination_type }
+
+let scope__aws_accounts ~id () : scope__aws_accounts = { id }
+
+let scope__aws_services ~service_name () : scope__aws_services =
+  { service_name }
+
+let scope ~aws_accounts ~aws_services () : scope =
+  { aws_accounts; aws_services }
+
+let aws_auditmanager_assessment ?description ?tags ~framework_id
+    ~name ~roles ~assessment_reports_destination ~scope () :
+    aws_auditmanager_assessment =
+  {
+    description;
+    framework_id;
+    name;
+    roles;
+    tags;
+    assessment_reports_destination;
+    scope;
+  }
 
 type t = {
   arn : string prop;
@@ -63,30 +84,21 @@ type t = {
   framework_id : string prop;
   id : string prop;
   name : string prop;
-  roles : aws_auditmanager_assessment__roles list prop;
-  roles_all : aws_auditmanager_assessment__roles_all list prop;
+  roles : roles list prop;
+  roles_all : roles_all list prop;
   status : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
 }
 
-let aws_auditmanager_assessment ?description ?tags ~framework_id
-    ~name ~roles ~assessment_reports_destination ~scope __resource_id
-    =
+let register ?tf_module ?description ?tags ~framework_id ~name ~roles
+    ~assessment_reports_destination ~scope __resource_id =
   let __resource_type = "aws_auditmanager_assessment" in
   let __resource =
-    ({
-       description;
-       framework_id;
-       name;
-       roles;
-       tags;
-       assessment_reports_destination;
-       scope;
-     }
-      : aws_auditmanager_assessment)
+    aws_auditmanager_assessment ?description ?tags ~framework_id
+      ~name ~roles ~assessment_reports_destination ~scope ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_auditmanager_assessment __resource);
   let __resource_attributes =
     ({

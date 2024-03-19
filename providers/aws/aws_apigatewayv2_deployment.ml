@@ -14,6 +14,10 @@ type aws_apigatewayv2_deployment = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_deployment *)
 
+let aws_apigatewayv2_deployment ?description ?id ?triggers ~api_id ()
+    : aws_apigatewayv2_deployment =
+  { api_id; description; id; triggers }
+
 type t = {
   api_id : string prop;
   auto_deployed : bool prop;
@@ -22,14 +26,13 @@ type t = {
   triggers : (string * string) list prop;
 }
 
-let aws_apigatewayv2_deployment ?description ?id ?triggers ~api_id
+let register ?tf_module ?description ?id ?triggers ~api_id
     __resource_id =
   let __resource_type = "aws_apigatewayv2_deployment" in
   let __resource =
-    ({ api_id; description; id; triggers }
-      : aws_apigatewayv2_deployment)
+    aws_apigatewayv2_deployment ?description ?id ?triggers ~api_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_deployment __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_share_file__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_storage_share_file
+
+val azurerm_storage_share_file :
+  ?content_disposition:string prop ->
+  ?content_encoding:string prop ->
+  ?content_md5:string prop ->
+  ?content_type:string prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?path:string prop ->
+  ?source:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  storage_share_id:string prop ->
+  unit ->
+  azurerm_storage_share_file
+
+val yojson_of_azurerm_storage_share_file :
+  azurerm_storage_share_file -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   content_disposition : string prop;
@@ -19,7 +50,8 @@ type t = private {
   storage_share_id : string prop;
 }
 
-val azurerm_storage_share_file :
+val register :
+  ?tf_module:tf_module ->
   ?content_disposition:string prop ->
   ?content_encoding:string prop ->
   ?content_md5:string prop ->
@@ -28,7 +60,7 @@ val azurerm_storage_share_file :
   ?metadata:(string * string prop) list ->
   ?path:string prop ->
   ?source:string prop ->
-  ?timeouts:azurerm_storage_share_file__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   storage_share_id:string prop ->
   string ->

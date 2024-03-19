@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_application_insights_workbook__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_application_insights_workbook__identity *)
+(** identity *)
 
-type azurerm_application_insights_workbook__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_application_insights_workbook__timeouts *)
+(** timeouts *)
 
 type azurerm_application_insights_workbook = {
   category : string prop option; [@option]  (** category *)
@@ -36,11 +34,37 @@ type azurerm_application_insights_workbook = {
   storage_container_id : string prop option; [@option]
       (** storage_container_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity : azurerm_application_insights_workbook__identity list;
-  timeouts : azurerm_application_insights_workbook__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_application_insights_workbook ?category ?description ?id
+    ?source_id ?storage_container_id ?tags ?timeouts ~data_json
+    ~display_name ~location ~name ~resource_group_name ~identity () :
+    azurerm_application_insights_workbook =
+  {
+    category;
+    data_json;
+    description;
+    display_name;
+    id;
+    location;
+    name;
+    resource_group_name;
+    source_id;
+    storage_container_id;
+    tags;
+    identity;
+    timeouts;
+  }
 
 type t = {
   category : string prop;
@@ -56,30 +80,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_application_insights_workbook ?category ?description ?id
-    ?source_id ?storage_container_id ?tags ?timeouts ~data_json
-    ~display_name ~location ~name ~resource_group_name ~identity
-    __resource_id =
+let register ?tf_module ?category ?description ?id ?source_id
+    ?storage_container_id ?tags ?timeouts ~data_json ~display_name
+    ~location ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_application_insights_workbook" in
   let __resource =
-    ({
-       category;
-       data_json;
-       description;
-       display_name;
-       id;
-       location;
-       name;
-       resource_group_name;
-       source_id;
-       storage_container_id;
-       tags;
-       identity;
-       timeouts;
-     }
-      : azurerm_application_insights_workbook)
+    azurerm_application_insights_workbook ?category ?description ?id
+      ?source_id ?storage_container_id ?tags ?timeouts ~data_json
+      ~display_name ~location ~name ~resource_group_name ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_insights_workbook __resource);
   let __resource_attributes =
     ({

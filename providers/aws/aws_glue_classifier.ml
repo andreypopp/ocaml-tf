@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_glue_classifier__csv_classifier = {
+type csv_classifier = {
   allow_single_column : bool prop option; [@option]
       (** allow_single_column *)
   contains_header : string prop option; [@option]
@@ -21,58 +21,85 @@ type aws_glue_classifier__csv_classifier = {
   serde : string prop option; [@option]  (** serde *)
 }
 [@@deriving yojson_of]
-(** aws_glue_classifier__csv_classifier *)
+(** csv_classifier *)
 
-type aws_glue_classifier__grok_classifier = {
+type grok_classifier = {
   classification : string prop;  (** classification *)
   custom_patterns : string prop option; [@option]
       (** custom_patterns *)
   grok_pattern : string prop;  (** grok_pattern *)
 }
 [@@deriving yojson_of]
-(** aws_glue_classifier__grok_classifier *)
+(** grok_classifier *)
 
-type aws_glue_classifier__json_classifier = {
-  json_path : string prop;  (** json_path *)
-}
+type json_classifier = { json_path : string prop  (** json_path *) }
 [@@deriving yojson_of]
-(** aws_glue_classifier__json_classifier *)
+(** json_classifier *)
 
-type aws_glue_classifier__xml_classifier = {
+type xml_classifier = {
   classification : string prop;  (** classification *)
   row_tag : string prop;  (** row_tag *)
 }
 [@@deriving yojson_of]
-(** aws_glue_classifier__xml_classifier *)
+(** xml_classifier *)
 
 type aws_glue_classifier = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  csv_classifier : aws_glue_classifier__csv_classifier list;
-  grok_classifier : aws_glue_classifier__grok_classifier list;
-  json_classifier : aws_glue_classifier__json_classifier list;
-  xml_classifier : aws_glue_classifier__xml_classifier list;
+  csv_classifier : csv_classifier list;
+  grok_classifier : grok_classifier list;
+  json_classifier : json_classifier list;
+  xml_classifier : xml_classifier list;
 }
 [@@deriving yojson_of]
 (** aws_glue_classifier *)
 
-type t = { id : string prop; name : string prop }
+let csv_classifier ?allow_single_column ?contains_header
+    ?custom_datatype_configured ?custom_datatypes ?delimiter
+    ?disable_value_trimming ?header ?quote_symbol ?serde () :
+    csv_classifier =
+  {
+    allow_single_column;
+    contains_header;
+    custom_datatype_configured;
+    custom_datatypes;
+    delimiter;
+    disable_value_trimming;
+    header;
+    quote_symbol;
+    serde;
+  }
+
+let grok_classifier ?custom_patterns ~classification ~grok_pattern ()
+    : grok_classifier =
+  { classification; custom_patterns; grok_pattern }
+
+let json_classifier ~json_path () : json_classifier = { json_path }
+
+let xml_classifier ~classification ~row_tag () : xml_classifier =
+  { classification; row_tag }
 
 let aws_glue_classifier ?id ~name ~csv_classifier ~grok_classifier
+    ~json_classifier ~xml_classifier () : aws_glue_classifier =
+  {
+    id;
+    name;
+    csv_classifier;
+    grok_classifier;
+    json_classifier;
+    xml_classifier;
+  }
+
+type t = { id : string prop; name : string prop }
+
+let register ?tf_module ?id ~name ~csv_classifier ~grok_classifier
     ~json_classifier ~xml_classifier __resource_id =
   let __resource_type = "aws_glue_classifier" in
   let __resource =
-    ({
-       id;
-       name;
-       csv_classifier;
-       grok_classifier;
-       json_classifier;
-       xml_classifier;
-     }
-      : aws_glue_classifier)
+    aws_glue_classifier ?id ~name ~csv_classifier ~grok_classifier
+      ~json_classifier ~xml_classifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_classifier __resource);
   let __resource_attributes =
     ({

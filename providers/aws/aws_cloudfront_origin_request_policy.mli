@@ -2,15 +2,65 @@
 
 open! Tf.Prelude
 
-type aws_cloudfront_origin_request_policy__cookies_config__cookies
-type aws_cloudfront_origin_request_policy__cookies_config
-type aws_cloudfront_origin_request_policy__headers_config__headers
-type aws_cloudfront_origin_request_policy__headers_config
+(** RESOURCE SERIALIZATION *)
 
-type aws_cloudfront_origin_request_policy__query_strings_config__query_strings
+type cookies_config__cookies
 
-type aws_cloudfront_origin_request_policy__query_strings_config
+val cookies_config__cookies :
+  ?items:string prop list -> unit -> cookies_config__cookies
+
+type cookies_config
+
+val cookies_config :
+  cookie_behavior:string prop ->
+  cookies:cookies_config__cookies list ->
+  unit ->
+  cookies_config
+
+type headers_config__headers
+
+val headers_config__headers :
+  ?items:string prop list -> unit -> headers_config__headers
+
+type headers_config
+
+val headers_config :
+  ?header_behavior:string prop ->
+  headers:headers_config__headers list ->
+  unit ->
+  headers_config
+
+type query_strings_config__query_strings
+
+val query_strings_config__query_strings :
+  ?items:string prop list ->
+  unit ->
+  query_strings_config__query_strings
+
+type query_strings_config
+
+val query_strings_config :
+  query_string_behavior:string prop ->
+  query_strings:query_strings_config__query_strings list ->
+  unit ->
+  query_strings_config
+
 type aws_cloudfront_origin_request_policy
+
+val aws_cloudfront_origin_request_policy :
+  ?comment:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  cookies_config:cookies_config list ->
+  headers_config:headers_config list ->
+  query_strings_config:query_strings_config list ->
+  unit ->
+  aws_cloudfront_origin_request_policy
+
+val yojson_of_aws_cloudfront_origin_request_policy :
+  aws_cloudfront_origin_request_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   comment : string prop;
@@ -19,15 +69,13 @@ type t = private {
   name : string prop;
 }
 
-val aws_cloudfront_origin_request_policy :
+val register :
+  ?tf_module:tf_module ->
   ?comment:string prop ->
   ?id:string prop ->
   name:string prop ->
-  cookies_config:
-    aws_cloudfront_origin_request_policy__cookies_config list ->
-  headers_config:
-    aws_cloudfront_origin_request_policy__headers_config list ->
-  query_strings_config:
-    aws_cloudfront_origin_request_policy__query_strings_config list ->
+  cookies_config:cookies_config list ->
+  headers_config:headers_config list ->
+  query_strings_config:query_strings_config list ->
   string ->
   t

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloudfunctions2_function__build_config__source__repo_source = {
+type build_config__source__repo_source = {
   branch_name : string prop option; [@option]
       (** Regex matching branches to build. *)
   commit_sha : string prop option; [@option]
@@ -25,7 +25,7 @@ project ID requesting the build is assumed. *)
 [@@deriving yojson_of]
 (** If provided, get the source from this location in a Cloud Source Repository. *)
 
-type google_cloudfunctions2_function__build_config__source__storage_source = {
+type build_config__source__storage_source = {
   bucket : string prop option; [@option]
       (** Google Cloud Storage bucket containing the source *)
   generation : float prop option; [@option]
@@ -37,21 +37,14 @@ is omitted, the latest generation will be used. *)
 [@@deriving yojson_of]
 (** If provided, get the source from this location in Google Cloud Storage. *)
 
-type google_cloudfunctions2_function__build_config__source = {
-  repo_source :
-    google_cloudfunctions2_function__build_config__source__repo_source
-    list;
-  storage_source :
-    google_cloudfunctions2_function__build_config__source__storage_source
-    list;
+type build_config__source = {
+  repo_source : build_config__source__repo_source list;
+  storage_source : build_config__source__storage_source list;
 }
 [@@deriving yojson_of]
 (** The location of the function source code. *)
 
-type google_cloudfunctions2_function__build_config = {
-  build : string prop;
-      (** The Cloud Build name of the latest successful
-deployment of the function. *)
+type build_config = {
   docker_repository : string prop option; [@option]
       (** User managed repository created in Artifact Registry optionally with a customer managed encryption key. *)
   entry_point : string prop option; [@option]
@@ -68,13 +61,13 @@ function exported by the module specified in source_location. *)
 function, optional when updating an existing function. *)
   worker_pool : string prop option; [@option]
       (** Name of the Cloud Build Custom Worker Pool that should be used to build the function. *)
-  source : google_cloudfunctions2_function__build_config__source list;
+  source : build_config__source list;
 }
 [@@deriving yojson_of]
 (** Describes the Build step of the function that builds a container
 from the given source. *)
 
-type google_cloudfunctions2_function__event_trigger__event_filters = {
+type event_trigger__event_filters = {
   attribute : string prop;
       (** 'Required. The name of a CloudEvents attribute.
 Currently, only a subset of attributes are supported for filtering. Use the 'gcloud eventarc providers describe' command to learn more about events and their attributes.
@@ -92,7 +85,7 @@ If the operator field is set as 'match-path-pattern', this value can be a path p
 [@@deriving yojson_of]
 (** Criteria used to filter events. *)
 
-type google_cloudfunctions2_function__event_trigger = {
+type event_trigger = {
   event_type : string prop option; [@option]
       (** Required. The type of event to observe. *)
   pubsub_topic : string prop option; [@option]
@@ -105,22 +98,18 @@ Retried execution is charged as any other execution. Possible values: [RETRY_POL
       (** Optional. The email of the trigger's service account. The service account
 must have permission to invoke Cloud Run services. If empty, defaults to the
 Compute Engine default service account: {project_number}-compute@developer.gserviceaccount.com. *)
-  trigger : string prop;
-      (** Output only. The resource name of the Eventarc trigger. *)
   trigger_region : string prop option; [@option]
       (** The region that the trigger will be in. The trigger will only receive
 events originating in this region. It can be the same
 region as the function, a different region or multi-region, or the global
 region. If not provided, defaults to the same region as the function. *)
-  event_filters :
-    google_cloudfunctions2_function__event_trigger__event_filters
-    list;
+  event_filters : event_trigger__event_filters list;
 }
 [@@deriving yojson_of]
 (** An Eventarc trigger managed by Google Cloud Functions that fires events in
 response to a condition in another service. *)
 
-type google_cloudfunctions2_function__service_config__secret_environment_variables = {
+type service_config__secret_environment_variables = {
   key : string prop;  (** Name of the environment variable. *)
   project_id : string prop;
       (** Project identifier (preferrably project number but can also be the project ID) of the project that contains the secret. If not set, it will be populated with the function's project assuming that the secret exists in the same project as of the function. *)
@@ -132,7 +121,7 @@ type google_cloudfunctions2_function__service_config__secret_environment_variabl
 [@@deriving yojson_of]
 (** Secret environment variables configuration. *)
 
-type google_cloudfunctions2_function__service_config__secret_volumes__versions = {
+type service_config__secret_volumes__versions = {
   path : string prop;
       (** Relative path of the file under the mount path where the secret value for this version will be fetched and made available. For example, setting the mountPath as '/etc/secrets' and path as secret_foo would mount the secret value file at /etc/secrets/secret_foo. *)
   version : string prop;
@@ -141,21 +130,19 @@ type google_cloudfunctions2_function__service_config__secret_volumes__versions =
 [@@deriving yojson_of]
 (** List of secret versions to mount for this secret. If empty, the latest version of the secret will be made available in a file named after the secret under the mount point.' *)
 
-type google_cloudfunctions2_function__service_config__secret_volumes = {
+type service_config__secret_volumes = {
   mount_path : string prop;
       (** The path within the container to mount the secret volume. For example, setting the mountPath as /etc/secrets would mount the secret value files under the /etc/secrets directory. This directory will also be completely shadowed and unavailable to mount any other secrets. Recommended mount path: /etc/secrets *)
   project_id : string prop;
       (** Project identifier (preferrably project number but can also be the project ID) of the project that contains the secret. If not set, it will be populated with the function's project assuming that the secret exists in the same project as of the function. *)
   secret : string prop;
       (** Name of the secret in secret manager (not the full resource name). *)
-  versions :
-    google_cloudfunctions2_function__service_config__secret_volumes__versions
-    list;
+  versions : service_config__secret_volumes__versions list;
 }
 [@@deriving yojson_of]
 (** Secret volumes configuration. *)
 
-type google_cloudfunctions2_function__service_config = {
+type service_config = {
   all_traffic_on_latest_revision : bool prop option; [@option]
       (** Whether 100% of traffic is routed to the latest revision. Defaults to true. *)
   available_cpu : string prop option; [@option]
@@ -167,7 +154,6 @@ supplied the value is interpreted as bytes. *)
   environment_variables : (string * string prop) list option;
       [@option]
       (** Environment variables that shall be available during function execution. *)
-  gcf_uri : string prop;  (** URIs of the Service deployed *)
   ingress_settings : string prop option; [@option]
       (** Available ingress settings. Defaults to ALLOW_ALL if unspecified. Default value: ALLOW_ALL Possible values: [ALLOW_ALL, ALLOW_INTERNAL_ONLY, ALLOW_INTERNAL_AND_GCLB] *)
   max_instance_count : float prop option; [@option]
@@ -186,28 +172,24 @@ given time. *)
       (** The function execution timeout. Execution is considered failed and
 can be terminated if the function is not completed at the end of the
 timeout period. Defaults to 60 seconds. *)
-  uri : string prop;  (** URI of the Service deployed. *)
   vpc_connector : string prop option; [@option]
       (** The Serverless VPC Access connector that this cloud function can connect to. *)
   vpc_connector_egress_settings : string prop option; [@option]
       (** Available egress settings. Possible values: [VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED, PRIVATE_RANGES_ONLY, ALL_TRAFFIC] *)
   secret_environment_variables :
-    google_cloudfunctions2_function__service_config__secret_environment_variables
-    list;
-  secret_volumes :
-    google_cloudfunctions2_function__service_config__secret_volumes
-    list;
+    service_config__secret_environment_variables list;
+  secret_volumes : service_config__secret_volumes list;
 }
 [@@deriving yojson_of]
 (** Describes the Service being deployed. *)
 
-type google_cloudfunctions2_function__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloudfunctions2_function__timeouts *)
+(** timeouts *)
 
 type google_cloudfunctions2_function = {
   description : string prop option; [@option]
@@ -228,15 +210,121 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** A user-defined name of the function. Function names must
 be unique globally and match pattern 'projects/*/locations/*/functions/*'. *)
   project : string prop option; [@option]  (** project *)
-  build_config : google_cloudfunctions2_function__build_config list;
-  event_trigger :
-    google_cloudfunctions2_function__event_trigger list;
-  service_config :
-    google_cloudfunctions2_function__service_config list;
-  timeouts : google_cloudfunctions2_function__timeouts option;
+  build_config : build_config list;
+  event_trigger : event_trigger list;
+  service_config : service_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloudfunctions2_function *)
+
+let build_config__source__repo_source ?branch_name ?commit_sha ?dir
+    ?invert_regex ?project_id ?repo_name ?tag_name () :
+    build_config__source__repo_source =
+  {
+    branch_name;
+    commit_sha;
+    dir;
+    invert_regex;
+    project_id;
+    repo_name;
+    tag_name;
+  }
+
+let build_config__source__storage_source ?bucket ?generation ?object_
+    () : build_config__source__storage_source =
+  { bucket; generation; object_ }
+
+let build_config__source ~repo_source ~storage_source () :
+    build_config__source =
+  { repo_source; storage_source }
+
+let build_config ?docker_repository ?entry_point
+    ?environment_variables ?runtime ?worker_pool ~source () :
+    build_config =
+  {
+    docker_repository;
+    entry_point;
+    environment_variables;
+    runtime;
+    worker_pool;
+    source;
+  }
+
+let event_trigger__event_filters ?operator ~attribute ~value () :
+    event_trigger__event_filters =
+  { attribute; operator; value }
+
+let event_trigger ?event_type ?pubsub_topic ?retry_policy
+    ?service_account_email ?trigger_region ~event_filters () :
+    event_trigger =
+  {
+    event_type;
+    pubsub_topic;
+    retry_policy;
+    service_account_email;
+    trigger_region;
+    event_filters;
+  }
+
+let service_config__secret_environment_variables ~key ~project_id
+    ~secret ~version () :
+    service_config__secret_environment_variables =
+  { key; project_id; secret; version }
+
+let service_config__secret_volumes__versions ~path ~version () :
+    service_config__secret_volumes__versions =
+  { path; version }
+
+let service_config__secret_volumes ~mount_path ~project_id ~secret
+    ~versions () : service_config__secret_volumes =
+  { mount_path; project_id; secret; versions }
+
+let service_config ?all_traffic_on_latest_revision ?available_cpu
+    ?available_memory ?environment_variables ?ingress_settings
+    ?max_instance_count ?max_instance_request_concurrency
+    ?min_instance_count ?service ?service_account_email
+    ?timeout_seconds ?vpc_connector ?vpc_connector_egress_settings
+    ~secret_environment_variables ~secret_volumes () : service_config
+    =
+  {
+    all_traffic_on_latest_revision;
+    available_cpu;
+    available_memory;
+    environment_variables;
+    ingress_settings;
+    max_instance_count;
+    max_instance_request_concurrency;
+    min_instance_count;
+    service;
+    service_account_email;
+    timeout_seconds;
+    vpc_connector;
+    vpc_connector_egress_settings;
+    secret_environment_variables;
+    secret_volumes;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_cloudfunctions2_function ?description ?id ?kms_key_name
+    ?labels ?project ?timeouts ~location ~name ~build_config
+    ~event_trigger ~service_config () :
+    google_cloudfunctions2_function =
+  {
+    description;
+    id;
+    kms_key_name;
+    labels;
+    location;
+    name;
+    project;
+    build_config;
+    event_trigger;
+    service_config;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -254,27 +342,16 @@ type t = {
   url : string prop;
 }
 
-let google_cloudfunctions2_function ?description ?id ?kms_key_name
-    ?labels ?project ?timeouts ~location ~name ~build_config
-    ~event_trigger ~service_config __resource_id =
+let register ?tf_module ?description ?id ?kms_key_name ?labels
+    ?project ?timeouts ~location ~name ~build_config ~event_trigger
+    ~service_config __resource_id =
   let __resource_type = "google_cloudfunctions2_function" in
   let __resource =
-    ({
-       description;
-       id;
-       kms_key_name;
-       labels;
-       location;
-       name;
-       project;
-       build_config;
-       event_trigger;
-       service_config;
-       timeouts;
-     }
-      : google_cloudfunctions2_function)
+    google_cloudfunctions2_function ?description ?id ?kms_key_name
+      ?labels ?project ?timeouts ~location ~name ~build_config
+      ~event_trigger ~service_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudfunctions2_function __resource);
   let __resource_attributes =
     ({

@@ -4,30 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_elasticpool__per_database_settings = {
+type per_database_settings = {
   max_capacity : float prop;  (** max_capacity *)
   min_capacity : float prop;  (** min_capacity *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_elasticpool__per_database_settings *)
+(** per_database_settings *)
 
-type azurerm_mssql_elasticpool__sku = {
+type sku = {
   capacity : float prop;  (** capacity *)
   family : string prop option; [@option]  (** family *)
   name : string prop;  (** name *)
   tier : string prop;  (** tier *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_elasticpool__sku *)
+(** sku *)
 
-type azurerm_mssql_elasticpool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_elasticpool__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_elasticpool = {
   enclave_type : string prop option; [@option]  (** enclave_type *)
@@ -44,13 +44,45 @@ type azurerm_mssql_elasticpool = {
   server_name : string prop;  (** server_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   zone_redundant : bool prop option; [@option]  (** zone_redundant *)
-  per_database_settings :
-    azurerm_mssql_elasticpool__per_database_settings list;
-  sku : azurerm_mssql_elasticpool__sku list;
-  timeouts : azurerm_mssql_elasticpool__timeouts option;
+  per_database_settings : per_database_settings list;
+  sku : sku list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_elasticpool *)
+
+let per_database_settings ~max_capacity ~min_capacity () :
+    per_database_settings =
+  { max_capacity; min_capacity }
+
+let sku ?family ~capacity ~name ~tier () : sku =
+  { capacity; family; name; tier }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
+    ?maintenance_configuration_name ?max_size_bytes ?max_size_gb
+    ?tags ?zone_redundant ?timeouts ~location ~name
+    ~resource_group_name ~server_name ~per_database_settings ~sku ()
+    : azurerm_mssql_elasticpool =
+  {
+    enclave_type;
+    id;
+    license_type;
+    location;
+    maintenance_configuration_name;
+    max_size_bytes;
+    max_size_gb;
+    name;
+    resource_group_name;
+    server_name;
+    tags;
+    zone_redundant;
+    per_database_settings;
+    sku;
+    timeouts;
+  }
 
 type t = {
   enclave_type : string prop;
@@ -67,33 +99,20 @@ type t = {
   zone_redundant : bool prop;
 }
 
-let azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
+let register ?tf_module ?enclave_type ?id ?license_type
     ?maintenance_configuration_name ?max_size_bytes ?max_size_gb
     ?tags ?zone_redundant ?timeouts ~location ~name
     ~resource_group_name ~server_name ~per_database_settings ~sku
     __resource_id =
   let __resource_type = "azurerm_mssql_elasticpool" in
   let __resource =
-    ({
-       enclave_type;
-       id;
-       license_type;
-       location;
-       maintenance_configuration_name;
-       max_size_bytes;
-       max_size_gb;
-       name;
-       resource_group_name;
-       server_name;
-       tags;
-       zone_redundant;
-       per_database_settings;
-       sku;
-       timeouts;
-     }
-      : azurerm_mssql_elasticpool)
+    azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
+      ?maintenance_configuration_name ?max_size_bytes ?max_size_gb
+      ?tags ?zone_redundant ?timeouts ~location ~name
+      ~resource_group_name ~server_name ~per_database_settings ~sku
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_elasticpool __resource);
   let __resource_attributes =
     ({

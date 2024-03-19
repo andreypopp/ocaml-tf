@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_configuration_service__repository = {
+type repository = {
   ca_certificate_id : string prop option; [@option]
       (** ca_certificate_id *)
   host_key : string prop option; [@option]  (** host_key *)
@@ -23,16 +23,16 @@ type azurerm_spring_cloud_configuration_service__repository = {
   username : string prop option; [@option]  (** username *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_configuration_service__repository *)
+(** repository *)
 
-type azurerm_spring_cloud_configuration_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_configuration_service__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_configuration_service = {
   generation : string prop option; [@option]  (** generation *)
@@ -42,13 +42,46 @@ type azurerm_spring_cloud_configuration_service = {
       (** refresh_interval_in_seconds *)
   spring_cloud_service_id : string prop;
       (** spring_cloud_service_id *)
-  repository :
-    azurerm_spring_cloud_configuration_service__repository list;
-  timeouts :
-    azurerm_spring_cloud_configuration_service__timeouts option;
+  repository : repository list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_configuration_service *)
+
+let repository ?ca_certificate_id ?host_key ?host_key_algorithm
+    ?password ?private_key ?search_paths ?strict_host_key_checking
+    ?username ~label ~name ~patterns ~uri () : repository =
+  {
+    ca_certificate_id;
+    host_key;
+    host_key_algorithm;
+    label;
+    name;
+    password;
+    patterns;
+    private_key;
+    search_paths;
+    strict_host_key_checking;
+    uri;
+    username;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_configuration_service ?generation ?id
+    ?refresh_interval_in_seconds ?timeouts ~name
+    ~spring_cloud_service_id ~repository () :
+    azurerm_spring_cloud_configuration_service =
+  {
+    generation;
+    id;
+    name;
+    refresh_interval_in_seconds;
+    spring_cloud_service_id;
+    repository;
+    timeouts;
+  }
 
 type t = {
   generation : string prop;
@@ -58,25 +91,18 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
-let azurerm_spring_cloud_configuration_service ?generation ?id
-    ?refresh_interval_in_seconds ?timeouts ~name
-    ~spring_cloud_service_id ~repository __resource_id =
+let register ?tf_module ?generation ?id ?refresh_interval_in_seconds
+    ?timeouts ~name ~spring_cloud_service_id ~repository
+    __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_configuration_service"
   in
   let __resource =
-    ({
-       generation;
-       id;
-       name;
-       refresh_interval_in_seconds;
-       spring_cloud_service_id;
-       repository;
-       timeouts;
-     }
-      : azurerm_spring_cloud_configuration_service)
+    azurerm_spring_cloud_configuration_service ?generation ?id
+      ?refresh_interval_in_seconds ?timeouts ~name
+      ~spring_cloud_service_id ~repository ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_configuration_service __resource);
   let __resource_attributes =
     ({

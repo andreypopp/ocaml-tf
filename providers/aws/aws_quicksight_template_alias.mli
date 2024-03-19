@@ -2,21 +2,37 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_quicksight_template_alias
 
+val aws_quicksight_template_alias :
+    ?aws_account_id:string prop ->
+    alias_name:string prop ->
+    template_id:string prop ->
+    template_version_number:float prop ->
+    unit ->
+    aws_quicksight_template_alias
+
+val yojson_of_aws_quicksight_template_alias : aws_quicksight_template_alias -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  alias_name : string prop;
-  arn : string prop;
-  aws_account_id : string prop;
-  id : string prop;
-  template_id : string prop;
-  template_version_number : float prop;
+  alias_name: string prop;
+  arn: string prop;
+  aws_account_id: string prop;
+  id: string prop;
+  template_id: string prop;
+  template_version_number: float prop;
 }
 
-val aws_quicksight_template_alias :
-  ?aws_account_id:string prop ->
-  alias_name:string prop ->
-  template_id:string prop ->
-  template_version_number:float prop ->
-  string ->
-  t
+val register :
+    ?tf_module:tf_module ->
+    ?aws_account_id:string prop ->
+    alias_name:string prop ->
+    template_id:string prop ->
+    template_version_number:float prop ->
+    string ->
+    t
+

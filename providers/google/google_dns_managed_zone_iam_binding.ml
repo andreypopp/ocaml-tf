@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_dns_managed_zone_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_dns_managed_zone_iam_binding__condition *)
+(** condition *)
 
 type google_dns_managed_zone_iam_binding = {
   id : string prop option; [@option]  (** id *)
@@ -18,10 +18,18 @@ type google_dns_managed_zone_iam_binding = {
   members : string prop list;  (** members *)
   project : string prop option; [@option]  (** project *)
   role : string prop;  (** role *)
-  condition : google_dns_managed_zone_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_dns_managed_zone_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_dns_managed_zone_iam_binding ?id ?project ~managed_zone
+    ~members ~role ~condition () :
+    google_dns_managed_zone_iam_binding =
+  { id; managed_zone; members; project; role; condition }
 
 type t = {
   etag : string prop;
@@ -32,14 +40,14 @@ type t = {
   role : string prop;
 }
 
-let google_dns_managed_zone_iam_binding ?id ?project ~managed_zone
-    ~members ~role ~condition __resource_id =
+let register ?tf_module ?id ?project ~managed_zone ~members ~role
+    ~condition __resource_id =
   let __resource_type = "google_dns_managed_zone_iam_binding" in
   let __resource =
-    ({ id; managed_zone; members; project; role; condition }
-      : google_dns_managed_zone_iam_binding)
+    google_dns_managed_zone_iam_binding ?id ?project ~managed_zone
+      ~members ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_managed_zone_iam_binding __resource);
   let __resource_attributes =
     ({

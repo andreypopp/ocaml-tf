@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type aws_finspace_kx_user__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_finspace_kx_user
+
+val aws_finspace_kx_user :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  environment_id:string prop ->
+  iam_role:string prop ->
+  name:string prop ->
+  unit ->
+  aws_finspace_kx_user
+
+val yojson_of_aws_finspace_kx_user : aws_finspace_kx_user -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,11 +40,12 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_finspace_kx_user :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_finspace_kx_user__timeouts ->
+  ?timeouts:timeouts ->
   environment_id:string prop ->
   iam_role:string prop ->
   name:string prop ->

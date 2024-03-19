@@ -4,52 +4,71 @@
 
 open! Tf.Prelude
 
-type aws_prometheus_scraper__destination__amp = {
+type destination__amp = {
   workspace_arn : string prop;  (** workspace_arn *)
 }
 [@@deriving yojson_of]
-(** aws_prometheus_scraper__destination__amp *)
+(** destination__amp *)
 
-type aws_prometheus_scraper__destination = {
-  amp : aws_prometheus_scraper__destination__amp list;
-}
+type destination = { amp : destination__amp list }
 [@@deriving yojson_of]
-(** aws_prometheus_scraper__destination *)
+(** destination *)
 
-type aws_prometheus_scraper__source__eks = {
+type source__eks = {
   cluster_arn : string prop;  (** cluster_arn *)
   security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_prometheus_scraper__source__eks *)
+(** source__eks *)
 
-type aws_prometheus_scraper__source = {
-  eks : aws_prometheus_scraper__source__eks list;
-}
-[@@deriving yojson_of]
-(** aws_prometheus_scraper__source *)
+type source = { eks : source__eks list } [@@deriving yojson_of]
+(** source *)
 
-type aws_prometheus_scraper__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
 [@@deriving yojson_of]
-(** aws_prometheus_scraper__timeouts *)
+(** timeouts *)
 
 type aws_prometheus_scraper = {
   alias : string prop option; [@option]  (** alias *)
   scrape_configuration : string prop;  (** scrape_configuration *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  destination : aws_prometheus_scraper__destination list;
-  source : aws_prometheus_scraper__source list;
-  timeouts : aws_prometheus_scraper__timeouts option;
+  destination : destination list;
+  source : source list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_prometheus_scraper *)
+
+let destination__amp ~workspace_arn () : destination__amp =
+  { workspace_arn }
+
+let destination ~amp () : destination = { amp }
+
+let source__eks ?security_group_ids ~cluster_arn ~subnet_ids () :
+    source__eks =
+  { cluster_arn; security_group_ids; subnet_ids }
+
+let source ~eks () : source = { eks }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_prometheus_scraper ?alias ?tags ?timeouts
+    ~scrape_configuration ~destination ~source () :
+    aws_prometheus_scraper =
+  {
+    alias;
+    scrape_configuration;
+    tags;
+    destination;
+    source;
+    timeouts;
+  }
 
 type t = {
   alias : string prop;
@@ -61,21 +80,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_prometheus_scraper ?alias ?tags ?timeouts
-    ~scrape_configuration ~destination ~source __resource_id =
+let register ?tf_module ?alias ?tags ?timeouts ~scrape_configuration
+    ~destination ~source __resource_id =
   let __resource_type = "aws_prometheus_scraper" in
   let __resource =
-    ({
-       alias;
-       scrape_configuration;
-       tags;
-       destination;
-       source;
-       timeouts;
-     }
-      : aws_prometheus_scraper)
+    aws_prometheus_scraper ?alias ?tags ?timeouts
+      ~scrape_configuration ~destination ~source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_prometheus_scraper __resource);
   let __resource_attributes =
     ({

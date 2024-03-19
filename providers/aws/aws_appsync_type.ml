@@ -13,6 +13,10 @@ type aws_appsync_type = {
 [@@deriving yojson_of]
 (** aws_appsync_type *)
 
+let aws_appsync_type ?id ~api_id ~definition ~format () :
+    aws_appsync_type =
+  { api_id; definition; format; id }
+
 type t = {
   api_id : string prop;
   arn : string prop;
@@ -23,12 +27,13 @@ type t = {
   name : string prop;
 }
 
-let aws_appsync_type ?id ~api_id ~definition ~format __resource_id =
+let register ?tf_module ?id ~api_id ~definition ~format __resource_id
+    =
   let __resource_type = "aws_appsync_type" in
   let __resource =
-    ({ api_id; definition; format; id } : aws_appsync_type)
+    aws_appsync_type ?id ~api_id ~definition ~format ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_type __resource);
   let __resource_attributes =
     ({

@@ -2,35 +2,59 @@
 
 open! Tf.Prelude
 
-type google_endpoints_service__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_endpoints_service__apis__methods = {
+type apis__methods = {
   name : string prop;  (** name *)
   request_type : string prop;  (** request_type *)
   response_type : string prop;  (** response_type *)
   syntax : string prop;  (** syntax *)
 }
 
-type google_endpoints_service__apis = {
-  methods : google_endpoints_service__apis__methods list;
-      (** methods *)
+type apis = {
+  methods : apis__methods list;  (** methods *)
   name : string prop;  (** name *)
   syntax : string prop;  (** syntax *)
   version : string prop;  (** version *)
 }
 
-type google_endpoints_service__endpoints = {
+type endpoints = {
   address : string prop;  (** address *)
   name : string prop;  (** name *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_endpoints_service
 
+val google_endpoints_service :
+  ?grpc_config:string prop ->
+  ?id:string prop ->
+  ?openapi_config:string prop ->
+  ?project:string prop ->
+  ?protoc_output_base64:string prop ->
+  ?timeouts:timeouts ->
+  service_name:string prop ->
+  unit ->
+  google_endpoints_service
+
+val yojson_of_google_endpoints_service :
+  google_endpoints_service -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  apis : google_endpoints_service__apis list prop;
+  apis : apis list prop;
   config_id : string prop;
   dns_address : string prop;
-  endpoints : google_endpoints_service__endpoints list prop;
+  endpoints : endpoints list prop;
   grpc_config : string prop;
   id : string prop;
   openapi_config : string prop;
@@ -39,13 +63,14 @@ type t = private {
   service_name : string prop;
 }
 
-val google_endpoints_service :
+val register :
+  ?tf_module:tf_module ->
   ?grpc_config:string prop ->
   ?id:string prop ->
   ?openapi_config:string prop ->
   ?project:string prop ->
   ?protoc_output_base64:string prop ->
-  ?timeouts:google_endpoints_service__timeouts ->
+  ?timeouts:timeouts ->
   service_name:string prop ->
   string ->
   t

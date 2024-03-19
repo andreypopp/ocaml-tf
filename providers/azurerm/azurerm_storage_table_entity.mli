@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_table_entity__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_storage_table_entity
+
+val azurerm_storage_table_entity :
+  ?id:string prop ->
+  ?storage_account_name:string prop ->
+  ?storage_table_id:string prop ->
+  ?table_name:string prop ->
+  ?timeouts:timeouts ->
+  entity:(string * string prop) list ->
+  partition_key:string prop ->
+  row_key:string prop ->
+  unit ->
+  azurerm_storage_table_entity
+
+val yojson_of_azurerm_storage_table_entity :
+  azurerm_storage_table_entity -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   entity : (string * string) list prop;
@@ -15,12 +43,13 @@ type t = private {
   table_name : string prop;
 }
 
-val azurerm_storage_table_entity :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?storage_account_name:string prop ->
   ?storage_table_id:string prop ->
   ?table_name:string prop ->
-  ?timeouts:azurerm_storage_table_entity__timeouts ->
+  ?timeouts:timeouts ->
   entity:(string * string prop) list ->
   partition_key:string prop ->
   row_key:string prop ->

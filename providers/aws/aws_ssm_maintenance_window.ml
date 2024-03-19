@@ -27,6 +27,27 @@ type aws_ssm_maintenance_window = {
 [@@deriving yojson_of]
 (** aws_ssm_maintenance_window *)
 
+let aws_ssm_maintenance_window ?allow_unassociated_targets
+    ?description ?enabled ?end_date ?id ?schedule_offset
+    ?schedule_timezone ?start_date ?tags ?tags_all ~cutoff ~duration
+    ~name ~schedule () : aws_ssm_maintenance_window =
+  {
+    allow_unassociated_targets;
+    cutoff;
+    description;
+    duration;
+    enabled;
+    end_date;
+    id;
+    name;
+    schedule;
+    schedule_offset;
+    schedule_timezone;
+    start_date;
+    tags;
+    tags_all;
+  }
+
 type t = {
   allow_unassociated_targets : bool prop;
   cutoff : float prop;
@@ -44,31 +65,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ssm_maintenance_window ?allow_unassociated_targets
-    ?description ?enabled ?end_date ?id ?schedule_offset
-    ?schedule_timezone ?start_date ?tags ?tags_all ~cutoff ~duration
-    ~name ~schedule __resource_id =
+let register ?tf_module ?allow_unassociated_targets ?description
+    ?enabled ?end_date ?id ?schedule_offset ?schedule_timezone
+    ?start_date ?tags ?tags_all ~cutoff ~duration ~name ~schedule
+    __resource_id =
   let __resource_type = "aws_ssm_maintenance_window" in
   let __resource =
-    ({
-       allow_unassociated_targets;
-       cutoff;
-       description;
-       duration;
-       enabled;
-       end_date;
-       id;
-       name;
-       schedule;
-       schedule_offset;
-       schedule_timezone;
-       start_date;
-       tags;
-       tags_all;
-     }
-      : aws_ssm_maintenance_window)
+    aws_ssm_maintenance_window ?allow_unassociated_targets
+      ?description ?enabled ?end_date ?id ?schedule_offset
+      ?schedule_timezone ?start_date ?tags ?tags_all ~cutoff
+      ~duration ~name ~schedule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_maintenance_window __resource);
   let __resource_attributes =
     ({

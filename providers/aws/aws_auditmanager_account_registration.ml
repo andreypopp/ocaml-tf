@@ -14,6 +14,11 @@ type aws_auditmanager_account_registration = {
 [@@deriving yojson_of]
 (** aws_auditmanager_account_registration *)
 
+let aws_auditmanager_account_registration ?delegated_admin_account
+    ?deregister_on_destroy ?kms_key () :
+    aws_auditmanager_account_registration =
+  { delegated_admin_account; deregister_on_destroy; kms_key }
+
 type t = {
   delegated_admin_account : string prop;
   deregister_on_destroy : bool prop;
@@ -22,14 +27,14 @@ type t = {
   status : string prop;
 }
 
-let aws_auditmanager_account_registration ?delegated_admin_account
+let register ?tf_module ?delegated_admin_account
     ?deregister_on_destroy ?kms_key __resource_id =
   let __resource_type = "aws_auditmanager_account_registration" in
   let __resource =
-    ({ delegated_admin_account; deregister_on_destroy; kms_key }
-      : aws_auditmanager_account_registration)
+    aws_auditmanager_account_registration ?delegated_admin_account
+      ?deregister_on_destroy ?kms_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_auditmanager_account_registration __resource);
   let __resource_attributes =
     ({

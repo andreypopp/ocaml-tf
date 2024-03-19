@@ -2,9 +2,41 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_cluster__node_type_configs
-type google_vmwareengine_cluster__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type node_type_configs
+
+val node_type_configs :
+  ?custom_core_count:float prop ->
+  node_count:float prop ->
+  node_type_id:string prop ->
+  unit ->
+  node_type_configs
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vmwareengine_cluster
+
+val google_vmwareengine_cluster :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  parent:string prop ->
+  node_type_configs:node_type_configs list ->
+  unit ->
+  google_vmwareengine_cluster
+
+val yojson_of_google_vmwareengine_cluster :
+  google_vmwareengine_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,12 +47,12 @@ type t = private {
   uid : string prop;
 }
 
-val google_vmwareengine_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:google_vmwareengine_cluster__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
-  node_type_configs:
-    google_vmwareengine_cluster__node_type_configs list ->
+  node_type_configs:node_type_configs list ->
   string ->
   t

@@ -17,6 +17,10 @@ type aws_iam_instance_profile = {
 [@@deriving yojson_of]
 (** aws_iam_instance_profile *)
 
+let aws_iam_instance_profile ?id ?name ?name_prefix ?path ?role ?tags
+    ?tags_all () : aws_iam_instance_profile =
+  { id; name; name_prefix; path; role; tags; tags_all }
+
 type t = {
   arn : string prop;
   create_date : string prop;
@@ -30,14 +34,14 @@ type t = {
   unique_id : string prop;
 }
 
-let aws_iam_instance_profile ?id ?name ?name_prefix ?path ?role ?tags
+let register ?tf_module ?id ?name ?name_prefix ?path ?role ?tags
     ?tags_all __resource_id =
   let __resource_type = "aws_iam_instance_profile" in
   let __resource =
-    ({ id; name; name_prefix; path; role; tags; tags_all }
-      : aws_iam_instance_profile)
+    aws_iam_instance_profile ?id ?name ?name_prefix ?path ?role ?tags
+      ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_instance_profile __resource);
   let __resource_attributes =
     ({

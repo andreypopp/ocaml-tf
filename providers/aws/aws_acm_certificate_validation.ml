@@ -4,21 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_acm_certificate_validation__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_acm_certificate_validation__timeouts *)
+(** timeouts *)
 
 type aws_acm_certificate_validation = {
   certificate_arn : string prop;  (** certificate_arn *)
   id : string prop option; [@option]  (** id *)
   validation_record_fqdns : string prop list option; [@option]
       (** validation_record_fqdns *)
-  timeouts : aws_acm_certificate_validation__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_acm_certificate_validation *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_acm_certificate_validation ?id ?validation_record_fqdns
+    ?timeouts ~certificate_arn () : aws_acm_certificate_validation =
+  { certificate_arn; id; validation_record_fqdns; timeouts }
 
 type t = {
   certificate_arn : string prop;
@@ -26,14 +32,14 @@ type t = {
   validation_record_fqdns : string list prop;
 }
 
-let aws_acm_certificate_validation ?id ?validation_record_fqdns
-    ?timeouts ~certificate_arn __resource_id =
+let register ?tf_module ?id ?validation_record_fqdns ?timeouts
+    ~certificate_arn __resource_id =
   let __resource_type = "aws_acm_certificate_validation" in
   let __resource =
-    ({ certificate_arn; id; validation_record_fqdns; timeouts }
-      : aws_acm_certificate_validation)
+    aws_acm_certificate_validation ?id ?validation_record_fqdns
+      ?timeouts ~certificate_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_acm_certificate_validation __resource);
   let __resource_attributes =
     ({

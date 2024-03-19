@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_data_protection_backup_policy_postgresql__retention_rule__criteria = {
+type retention_rule__criteria = {
   absolute_criteria : string prop option; [@option]
       (** absolute_criteria *)
   days_of_week : string prop list option; [@option]
@@ -17,26 +17,24 @@ type azurerm_data_protection_backup_policy_postgresql__retention_rule__criteria 
       (** weeks_of_month *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_postgresql__retention_rule__criteria *)
+(** retention_rule__criteria *)
 
-type azurerm_data_protection_backup_policy_postgresql__retention_rule = {
+type retention_rule = {
   duration : string prop;  (** duration *)
   name : string prop;  (** name *)
   priority : float prop;  (** priority *)
-  criteria :
-    azurerm_data_protection_backup_policy_postgresql__retention_rule__criteria
-    list;
+  criteria : retention_rule__criteria list;
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_postgresql__retention_rule *)
+(** retention_rule *)
 
-type azurerm_data_protection_backup_policy_postgresql__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_postgresql__timeouts *)
+(** timeouts *)
 
 type azurerm_data_protection_backup_policy_postgresql = {
   backup_repeating_time_intervals : string prop list;
@@ -48,14 +46,46 @@ type azurerm_data_protection_backup_policy_postgresql = {
   resource_group_name : string prop;  (** resource_group_name *)
   time_zone : string prop option; [@option]  (** time_zone *)
   vault_name : string prop;  (** vault_name *)
-  retention_rule :
-    azurerm_data_protection_backup_policy_postgresql__retention_rule
-    list;
-  timeouts :
-    azurerm_data_protection_backup_policy_postgresql__timeouts option;
+  retention_rule : retention_rule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_postgresql *)
+
+let retention_rule__criteria ?absolute_criteria ?days_of_week
+    ?months_of_year ?scheduled_backup_times ?weeks_of_month () :
+    retention_rule__criteria =
+  {
+    absolute_criteria;
+    days_of_week;
+    months_of_year;
+    scheduled_backup_times;
+    weeks_of_month;
+  }
+
+let retention_rule ~duration ~name ~priority ~criteria () :
+    retention_rule =
+  { duration; name; priority; criteria }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_data_protection_backup_policy_postgresql ?id ?time_zone
+    ?timeouts ~backup_repeating_time_intervals
+    ~default_retention_duration ~name ~resource_group_name
+    ~vault_name ~retention_rule () :
+    azurerm_data_protection_backup_policy_postgresql =
+  {
+    backup_repeating_time_intervals;
+    default_retention_duration;
+    id;
+    name;
+    resource_group_name;
+    time_zone;
+    vault_name;
+    retention_rule;
+    timeouts;
+  }
 
 type t = {
   backup_repeating_time_intervals : string list prop;
@@ -67,28 +97,20 @@ type t = {
   vault_name : string prop;
 }
 
-let azurerm_data_protection_backup_policy_postgresql ?id ?time_zone
-    ?timeouts ~backup_repeating_time_intervals
-    ~default_retention_duration ~name ~resource_group_name
-    ~vault_name ~retention_rule __resource_id =
+let register ?tf_module ?id ?time_zone ?timeouts
+    ~backup_repeating_time_intervals ~default_retention_duration
+    ~name ~resource_group_name ~vault_name ~retention_rule
+    __resource_id =
   let __resource_type =
     "azurerm_data_protection_backup_policy_postgresql"
   in
   let __resource =
-    ({
-       backup_repeating_time_intervals;
-       default_retention_duration;
-       id;
-       name;
-       resource_group_name;
-       time_zone;
-       vault_name;
-       retention_rule;
-       timeouts;
-     }
-      : azurerm_data_protection_backup_policy_postgresql)
+    azurerm_data_protection_backup_policy_postgresql ?id ?time_zone
+      ?timeouts ~backup_repeating_time_intervals
+      ~default_retention_duration ~name ~resource_group_name
+      ~vault_name ~retention_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_policy_postgresql
        __resource);
   let __resource_attributes =

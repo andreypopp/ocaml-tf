@@ -2,10 +2,9 @@
 
 open! Tf.Prelude
 
-type google_netapp_volume_replication__destination_volume_parameters
-type google_netapp_volume_replication__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_netapp_volume_replication__transfer_stats = {
+type transfer_stats = {
   lag_duration : string prop;  (** lag_duration *)
   last_transfer_bytes : string prop;  (** last_transfer_bytes *)
   last_transfer_duration : string prop;
@@ -19,7 +18,49 @@ type google_netapp_volume_replication__transfer_stats = {
   update_time : string prop;  (** update_time *)
 }
 
+type destination_volume_parameters
+
+val destination_volume_parameters :
+  ?description:string prop ->
+  ?share_name:string prop ->
+  ?volume_id:string prop ->
+  storage_pool:string prop ->
+  unit ->
+  destination_volume_parameters
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_netapp_volume_replication
+
+val google_netapp_volume_replication :
+  ?delete_destination_volume:bool prop ->
+  ?description:string prop ->
+  ?force_stopping:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?replication_enabled:bool prop ->
+  ?wait_for_mirror:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  replication_schedule:string prop ->
+  volume_name:string prop ->
+  destination_volume_parameters:destination_volume_parameters list ->
+  unit ->
+  google_netapp_volume_replication
+
+val yojson_of_google_netapp_volume_replication :
+  google_netapp_volume_replication -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -42,13 +83,13 @@ type t = private {
   state : string prop;
   state_details : string prop;
   terraform_labels : (string * string) list prop;
-  transfer_stats :
-    google_netapp_volume_replication__transfer_stats list prop;
+  transfer_stats : transfer_stats list prop;
   volume_name : string prop;
   wait_for_mirror : bool prop;
 }
 
-val google_netapp_volume_replication :
+val register :
+  ?tf_module:tf_module ->
   ?delete_destination_volume:bool prop ->
   ?description:string prop ->
   ?force_stopping:bool prop ->
@@ -57,13 +98,11 @@ val google_netapp_volume_replication :
   ?project:string prop ->
   ?replication_enabled:bool prop ->
   ?wait_for_mirror:bool prop ->
-  ?timeouts:google_netapp_volume_replication__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   replication_schedule:string prop ->
   volume_name:string prop ->
-  destination_volume_parameters:
-    google_netapp_volume_replication__destination_volume_parameters
-    list ->
+  destination_volume_parameters:destination_volume_parameters list ->
   string ->
   t

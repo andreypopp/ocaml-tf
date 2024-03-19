@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_ssl_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_ssl_policy__timeouts *)
+(** timeouts *)
 
 type google_compute_ssl_policy = {
   custom_features : string prop list option; [@option]
@@ -48,10 +48,27 @@ See the [official documentation](https://cloud.google.com/compute/docs/load-bala
 for information on what cipher suites each profile provides. If
 'CUSTOM' is used, the 'custom_features' attribute **must be set**. Default value: COMPATIBLE Possible values: [COMPATIBLE, MODERN, RESTRICTED, CUSTOM] *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_compute_ssl_policy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_ssl_policy *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_ssl_policy ?custom_features ?description ?id
+    ?min_tls_version ?profile ?project ?timeouts ~name () :
+    google_compute_ssl_policy =
+  {
+    custom_features;
+    description;
+    id;
+    min_tls_version;
+    name;
+    profile;
+    project;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -67,24 +84,15 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_ssl_policy ?custom_features ?description ?id
+let register ?tf_module ?custom_features ?description ?id
     ?min_tls_version ?profile ?project ?timeouts ~name __resource_id
     =
   let __resource_type = "google_compute_ssl_policy" in
   let __resource =
-    ({
-       custom_features;
-       description;
-       id;
-       min_tls_version;
-       name;
-       profile;
-       project;
-       timeouts;
-     }
-      : google_compute_ssl_policy)
+    google_compute_ssl_policy ?custom_features ?description ?id
+      ?min_tls_version ?profile ?project ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_ssl_policy __resource);
   let __resource_attributes =
     ({

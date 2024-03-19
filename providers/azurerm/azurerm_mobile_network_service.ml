@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_mobile_network_service__pcc_rule__qos_policy__guaranteed_bit_rate = {
+type pcc_rule__qos_policy__guaranteed_bit_rate = {
   downlink : string prop;  (** downlink *)
   uplink : string prop;  (** uplink *)
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_service__pcc_rule__qos_policy__guaranteed_bit_rate *)
+(** pcc_rule__qos_policy__guaranteed_bit_rate *)
 
-type azurerm_mobile_network_service__pcc_rule__qos_policy__maximum_bit_rate = {
+type pcc_rule__qos_policy__maximum_bit_rate = {
   downlink : string prop;  (** downlink *)
   uplink : string prop;  (** uplink *)
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_service__pcc_rule__qos_policy__maximum_bit_rate *)
+(** pcc_rule__qos_policy__maximum_bit_rate *)
 
-type azurerm_mobile_network_service__pcc_rule__qos_policy = {
+type pcc_rule__qos_policy = {
   allocation_and_retention_priority_level : float prop option;
       [@option]
       (** allocation_and_retention_priority_level *)
@@ -28,16 +28,13 @@ type azurerm_mobile_network_service__pcc_rule__qos_policy = {
       (** preemption_vulnerability *)
   qos_indicator : float prop;  (** qos_indicator *)
   guaranteed_bit_rate :
-    azurerm_mobile_network_service__pcc_rule__qos_policy__guaranteed_bit_rate
-    list;
-  maximum_bit_rate :
-    azurerm_mobile_network_service__pcc_rule__qos_policy__maximum_bit_rate
-    list;
+    pcc_rule__qos_policy__guaranteed_bit_rate list;
+  maximum_bit_rate : pcc_rule__qos_policy__maximum_bit_rate list;
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_service__pcc_rule__qos_policy *)
+(** pcc_rule__qos_policy *)
 
-type azurerm_mobile_network_service__pcc_rule__service_data_flow_template = {
+type pcc_rule__service_data_flow_template = {
   direction : string prop;  (** direction *)
   name : string prop;  (** name *)
   ports : string prop list option; [@option]  (** ports *)
@@ -45,30 +42,28 @@ type azurerm_mobile_network_service__pcc_rule__service_data_flow_template = {
   remote_ip_list : string prop list;  (** remote_ip_list *)
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_service__pcc_rule__service_data_flow_template *)
+(** pcc_rule__service_data_flow_template *)
 
-type azurerm_mobile_network_service__pcc_rule = {
+type pcc_rule = {
   name : string prop;  (** name *)
   precedence : float prop;  (** precedence *)
   traffic_control_enabled : bool prop option; [@option]
       (** traffic_control_enabled *)
-  qos_policy :
-    azurerm_mobile_network_service__pcc_rule__qos_policy list;
+  qos_policy : pcc_rule__qos_policy list;
   service_data_flow_template :
-    azurerm_mobile_network_service__pcc_rule__service_data_flow_template
-    list;
+    pcc_rule__service_data_flow_template list;
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_service__pcc_rule *)
+(** pcc_rule *)
 
-type azurerm_mobile_network_service__service_qos_policy__maximum_bit_rate = {
+type service_qos_policy__maximum_bit_rate = {
   downlink : string prop;  (** downlink *)
   uplink : string prop;  (** uplink *)
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_service__service_qos_policy__maximum_bit_rate *)
+(** service_qos_policy__maximum_bit_rate *)
 
-type azurerm_mobile_network_service__service_qos_policy = {
+type service_qos_policy = {
   allocation_and_retention_priority_level : float prop option;
       [@option]
       (** allocation_and_retention_priority_level *)
@@ -77,21 +72,19 @@ type azurerm_mobile_network_service__service_qos_policy = {
   preemption_vulnerability : string prop option; [@option]
       (** preemption_vulnerability *)
   qos_indicator : float prop option; [@option]  (** qos_indicator *)
-  maximum_bit_rate :
-    azurerm_mobile_network_service__service_qos_policy__maximum_bit_rate
-    list;
+  maximum_bit_rate : service_qos_policy__maximum_bit_rate list;
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_service__service_qos_policy *)
+(** service_qos_policy *)
 
-type azurerm_mobile_network_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_service__timeouts *)
+(** timeouts *)
 
 type azurerm_mobile_network_service = {
   id : string prop option; [@option]  (** id *)
@@ -100,13 +93,81 @@ type azurerm_mobile_network_service = {
   name : string prop;  (** name *)
   service_precedence : float prop;  (** service_precedence *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  pcc_rule : azurerm_mobile_network_service__pcc_rule list;
-  service_qos_policy :
-    azurerm_mobile_network_service__service_qos_policy list;
-  timeouts : azurerm_mobile_network_service__timeouts option;
+  pcc_rule : pcc_rule list;
+  service_qos_policy : service_qos_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_service *)
+
+let pcc_rule__qos_policy__guaranteed_bit_rate ~downlink ~uplink () :
+    pcc_rule__qos_policy__guaranteed_bit_rate =
+  { downlink; uplink }
+
+let pcc_rule__qos_policy__maximum_bit_rate ~downlink ~uplink () :
+    pcc_rule__qos_policy__maximum_bit_rate =
+  { downlink; uplink }
+
+let pcc_rule__qos_policy ?allocation_and_retention_priority_level
+    ?preemption_capability ?preemption_vulnerability ~qos_indicator
+    ~guaranteed_bit_rate ~maximum_bit_rate () : pcc_rule__qos_policy
+    =
+  {
+    allocation_and_retention_priority_level;
+    preemption_capability;
+    preemption_vulnerability;
+    qos_indicator;
+    guaranteed_bit_rate;
+    maximum_bit_rate;
+  }
+
+let pcc_rule__service_data_flow_template ?ports ~direction ~name
+    ~protocol ~remote_ip_list () :
+    pcc_rule__service_data_flow_template =
+  { direction; name; ports; protocol; remote_ip_list }
+
+let pcc_rule ?traffic_control_enabled ~name ~precedence ~qos_policy
+    ~service_data_flow_template () : pcc_rule =
+  {
+    name;
+    precedence;
+    traffic_control_enabled;
+    qos_policy;
+    service_data_flow_template;
+  }
+
+let service_qos_policy__maximum_bit_rate ~downlink ~uplink () :
+    service_qos_policy__maximum_bit_rate =
+  { downlink; uplink }
+
+let service_qos_policy ?allocation_and_retention_priority_level
+    ?preemption_capability ?preemption_vulnerability ?qos_indicator
+    ~maximum_bit_rate () : service_qos_policy =
+  {
+    allocation_and_retention_priority_level;
+    preemption_capability;
+    preemption_vulnerability;
+    qos_indicator;
+    maximum_bit_rate;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mobile_network_service ?id ?tags ?timeouts ~location
+    ~mobile_network_id ~name ~service_precedence ~pcc_rule
+    ~service_qos_policy () : azurerm_mobile_network_service =
+  {
+    id;
+    location;
+    mobile_network_id;
+    name;
+    service_precedence;
+    tags;
+    pcc_rule;
+    service_qos_policy;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -117,25 +178,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_mobile_network_service ?id ?tags ?timeouts ~location
+let register ?tf_module ?id ?tags ?timeouts ~location
     ~mobile_network_id ~name ~service_precedence ~pcc_rule
     ~service_qos_policy __resource_id =
   let __resource_type = "azurerm_mobile_network_service" in
   let __resource =
-    ({
-       id;
-       location;
-       mobile_network_id;
-       name;
-       service_precedence;
-       tags;
-       pcc_rule;
-       service_qos_policy;
-       timeouts;
-     }
-      : azurerm_mobile_network_service)
+    azurerm_mobile_network_service ?id ?tags ?timeouts ~location
+      ~mobile_network_id ~name ~service_precedence ~pcc_rule
+      ~service_qos_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_service __resource);
   let __resource_attributes =
     ({

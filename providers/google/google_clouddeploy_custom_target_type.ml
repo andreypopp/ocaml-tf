@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_clouddeploy_custom_target_type__custom_actions__include_skaffold_modules__git = {
+type custom_actions__include_skaffold_modules__git = {
   path : string prop option; [@option]
       (** Relative path from the repository root to the Skaffold file. *)
   ref : string prop option; [@option]
@@ -15,7 +15,7 @@ type google_clouddeploy_custom_target_type__custom_actions__include_skaffold_mod
 [@@deriving yojson_of]
 (** Remote git repository containing the Skaffold Config modules. *)
 
-type google_clouddeploy_custom_target_type__custom_actions__include_skaffold_modules__google_cloud_storage = {
+type custom_actions__include_skaffold_modules__google_cloud_storage = {
   path : string prop option; [@option]
       (** Relative path from the source to the Skaffold file. *)
   source : string prop;
@@ -24,38 +24,35 @@ type google_clouddeploy_custom_target_type__custom_actions__include_skaffold_mod
 [@@deriving yojson_of]
 (** Cloud Storage bucket containing Skaffold Config modules. *)
 
-type google_clouddeploy_custom_target_type__custom_actions__include_skaffold_modules = {
+type custom_actions__include_skaffold_modules = {
   configs : string prop list option; [@option]
       (** The Skaffold Config modules to use from the specified source. *)
-  git :
-    google_clouddeploy_custom_target_type__custom_actions__include_skaffold_modules__git
-    list;
+  git : custom_actions__include_skaffold_modules__git list;
   google_cloud_storage :
-    google_clouddeploy_custom_target_type__custom_actions__include_skaffold_modules__google_cloud_storage
+    custom_actions__include_skaffold_modules__google_cloud_storage
     list;
 }
 [@@deriving yojson_of]
 (** List of Skaffold modules Cloud Deploy will include in the Skaffold Config as required before performing diagnose. *)
 
-type google_clouddeploy_custom_target_type__custom_actions = {
+type custom_actions = {
   deploy_action : string prop;
       (** The Skaffold custom action responsible for deploy operations. *)
   render_action : string prop option; [@option]
       (** The Skaffold custom action responsible for render operations. If not provided then Cloud Deploy will perform the render operations via 'skaffold render'. *)
   include_skaffold_modules :
-    google_clouddeploy_custom_target_type__custom_actions__include_skaffold_modules
-    list;
+    custom_actions__include_skaffold_modules list;
 }
 [@@deriving yojson_of]
 (** Configures render and deploy for the 'CustomTargetType' using Skaffold custom actions. *)
 
-type google_clouddeploy_custom_target_type__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_clouddeploy_custom_target_type__timeouts *)
+(** timeouts *)
 
 type google_clouddeploy_custom_target_type = {
   annotations : (string * string prop) list option; [@option]
@@ -74,12 +71,47 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string prop;  (** The location of the source. *)
   name : string prop;  (** Name of the 'CustomTargetType'. *)
   project : string prop option; [@option]  (** project *)
-  custom_actions :
-    google_clouddeploy_custom_target_type__custom_actions list;
-  timeouts : google_clouddeploy_custom_target_type__timeouts option;
+  custom_actions : custom_actions list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_clouddeploy_custom_target_type *)
+
+let custom_actions__include_skaffold_modules__git ?path ?ref ~repo ()
+    : custom_actions__include_skaffold_modules__git =
+  { path; ref; repo }
+
+let custom_actions__include_skaffold_modules__google_cloud_storage
+    ?path ~source () :
+    custom_actions__include_skaffold_modules__google_cloud_storage =
+  { path; source }
+
+let custom_actions__include_skaffold_modules ?configs ~git
+    ~google_cloud_storage () :
+    custom_actions__include_skaffold_modules =
+  { configs; git; google_cloud_storage }
+
+let custom_actions ?render_action ~deploy_action
+    ~include_skaffold_modules () : custom_actions =
+  { deploy_action; render_action; include_skaffold_modules }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_clouddeploy_custom_target_type ?annotations ?description
+    ?id ?labels ?project ?timeouts ~location ~name ~custom_actions ()
+    : google_clouddeploy_custom_target_type =
+  {
+    annotations;
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    custom_actions;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -99,25 +131,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_clouddeploy_custom_target_type ?annotations ?description
-    ?id ?labels ?project ?timeouts ~location ~name ~custom_actions
-    __resource_id =
+let register ?tf_module ?annotations ?description ?id ?labels
+    ?project ?timeouts ~location ~name ~custom_actions __resource_id
+    =
   let __resource_type = "google_clouddeploy_custom_target_type" in
   let __resource =
-    ({
-       annotations;
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       custom_actions;
-       timeouts;
-     }
-      : google_clouddeploy_custom_target_type)
+    google_clouddeploy_custom_target_type ?annotations ?description
+      ?id ?labels ?project ?timeouts ~location ~name ~custom_actions
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_clouddeploy_custom_target_type __resource);
   let __resource_attributes =
     ({

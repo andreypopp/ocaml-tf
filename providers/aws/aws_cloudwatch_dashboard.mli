@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cloudwatch_dashboard
+
+val aws_cloudwatch_dashboard :
+  ?id:string prop ->
+  dashboard_body:string prop ->
+  dashboard_name:string prop ->
+  unit ->
+  aws_cloudwatch_dashboard
+
+val yojson_of_aws_cloudwatch_dashboard :
+  aws_cloudwatch_dashboard -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dashboard_arn : string prop;
@@ -11,7 +25,8 @@ type t = private {
   id : string prop;
 }
 
-val aws_cloudwatch_dashboard :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   dashboard_body:string prop ->
   dashboard_name:string prop ->

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_certificate_issuance_config__certificate_authority_config__certificate_authority_service_config = {
+type certificate_authority_config__certificate_authority_service_config = {
   ca_pool : string prop;
       (** A CA pool resource used to issue a certificate.
 The CA pool string has a relative resource path following the form
@@ -13,21 +13,21 @@ projects/{project}/locations/{location}/caPools/{caPool}. *)
 [@@deriving yojson_of]
 (** Defines a CertificateAuthorityServiceConfig. *)
 
-type google_certificate_manager_certificate_issuance_config__certificate_authority_config = {
+type certificate_authority_config = {
   certificate_authority_service_config :
-    google_certificate_manager_certificate_issuance_config__certificate_authority_config__certificate_authority_service_config
+    certificate_authority_config__certificate_authority_service_config
     list;
 }
 [@@deriving yojson_of]
 (** The CA that issues the workload certificate. It includes the CA address, type, authentication to CA service, etc. *)
 
-type google_certificate_manager_certificate_issuance_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_certificate_manager_certificate_issuance_config__timeouts *)
+(** timeouts *)
 
 type google_certificate_manager_certificate_issuance_config = {
   description : string prop option; [@option]
@@ -56,15 +56,44 @@ CertificateIssuanceConfig names must be unique globally. *)
 Must be a number between 1-99, inclusive.
 You must set the rotation window percentage in relation to the certificate lifetime so that certificate renewal occurs at least 7 days after
 the certificate has been issued and at least 7 days before it expires. *)
-  certificate_authority_config :
-    google_certificate_manager_certificate_issuance_config__certificate_authority_config
-    list;
-  timeouts :
-    google_certificate_manager_certificate_issuance_config__timeouts
-    option;
+  certificate_authority_config : certificate_authority_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate_issuance_config *)
+
+let certificate_authority_config__certificate_authority_service_config
+    ~ca_pool () :
+    certificate_authority_config__certificate_authority_service_config
+    =
+  { ca_pool }
+
+let certificate_authority_config
+    ~certificate_authority_service_config () :
+    certificate_authority_config =
+  { certificate_authority_service_config }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_certificate_manager_certificate_issuance_config
+    ?description ?id ?labels ?location ?project ?timeouts
+    ~key_algorithm ~lifetime ~name ~rotation_window_percentage
+    ~certificate_authority_config () :
+    google_certificate_manager_certificate_issuance_config =
+  {
+    description;
+    id;
+    key_algorithm;
+    labels;
+    lifetime;
+    location;
+    name;
+    project;
+    rotation_window_percentage;
+    certificate_authority_config;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -82,30 +111,20 @@ type t = {
   update_time : string prop;
 }
 
-let google_certificate_manager_certificate_issuance_config
-    ?description ?id ?labels ?location ?project ?timeouts
-    ~key_algorithm ~lifetime ~name ~rotation_window_percentage
-    ~certificate_authority_config __resource_id =
+let register ?tf_module ?description ?id ?labels ?location ?project
+    ?timeouts ~key_algorithm ~lifetime ~name
+    ~rotation_window_percentage ~certificate_authority_config
+    __resource_id =
   let __resource_type =
     "google_certificate_manager_certificate_issuance_config"
   in
   let __resource =
-    ({
-       description;
-       id;
-       key_algorithm;
-       labels;
-       lifetime;
-       location;
-       name;
-       project;
-       rotation_window_percentage;
-       certificate_authority_config;
-       timeouts;
-     }
-      : google_certificate_manager_certificate_issuance_config)
+    google_certificate_manager_certificate_issuance_config
+      ?description ?id ?labels ?location ?project ?timeouts
+      ~key_algorithm ~lifetime ~name ~rotation_window_percentage
+      ~certificate_authority_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_certificate_issuance_config
        __resource);
   let __resource_attributes =

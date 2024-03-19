@@ -2,61 +2,145 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_standard__connection_string
-type azurerm_logic_app_standard__identity
-type azurerm_logic_app_standard__site_config__cors
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_logic_app_standard__site_config__ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
-}
-
-type azurerm_logic_app_standard__site_config__ip_restriction = {
-  action : string prop;  (** action *)
-  headers :
-    azurerm_logic_app_standard__site_config__ip_restriction__headers
-    list;
-      (** headers *)
-  ip_address : string prop;  (** ip_address *)
-  name : string prop;  (** name *)
-  priority : float prop;  (** priority *)
-  service_tag : string prop;  (** service_tag *)
-  virtual_network_subnet_id : string prop;
-      (** virtual_network_subnet_id *)
-}
-
-type azurerm_logic_app_standard__site_config__scm_ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
-}
-
-type azurerm_logic_app_standard__site_config__scm_ip_restriction = {
-  action : string prop;  (** action *)
-  headers :
-    azurerm_logic_app_standard__site_config__scm_ip_restriction__headers
-    list;
-      (** headers *)
-  ip_address : string prop;  (** ip_address *)
-  name : string prop;  (** name *)
-  priority : float prop;  (** priority *)
-  service_tag : string prop;  (** service_tag *)
-  virtual_network_subnet_id : string prop;
-      (** virtual_network_subnet_id *)
-}
-
-type azurerm_logic_app_standard__site_config
-type azurerm_logic_app_standard__timeouts
-
-type azurerm_logic_app_standard__site_credential = {
+type site_credential = {
   password : string prop;  (** password *)
   username : string prop;  (** username *)
 }
 
+type connection_string
+
+val connection_string :
+  name:string prop ->
+  type_:string prop ->
+  value:string prop ->
+  unit ->
+  connection_string
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type site_config__ip_restriction__headers = {
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+}
+
+type site_config__ip_restriction = {
+  action : string prop;  (** action *)
+  headers : site_config__ip_restriction__headers list;
+      (** headers *)
+  ip_address : string prop;  (** ip_address *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  service_tag : string prop;  (** service_tag *)
+  virtual_network_subnet_id : string prop;
+      (** virtual_network_subnet_id *)
+}
+
+type site_config__scm_ip_restriction__headers = {
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+}
+
+type site_config__scm_ip_restriction = {
+  action : string prop;  (** action *)
+  headers : site_config__scm_ip_restriction__headers list;
+      (** headers *)
+  ip_address : string prop;  (** ip_address *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  service_tag : string prop;  (** service_tag *)
+  virtual_network_subnet_id : string prop;
+      (** virtual_network_subnet_id *)
+}
+
+type site_config__cors
+
+val site_config__cors :
+  ?support_credentials:bool prop ->
+  allowed_origins:string prop list ->
+  unit ->
+  site_config__cors
+
+type site_config
+
+val site_config :
+  ?always_on:bool prop ->
+  ?app_scale_limit:float prop ->
+  ?dotnet_framework_version:string prop ->
+  ?elastic_instance_minimum:float prop ->
+  ?ftps_state:string prop ->
+  ?health_check_path:string prop ->
+  ?http2_enabled:bool prop ->
+  ?ip_restriction:site_config__ip_restriction list ->
+  ?linux_fx_version:string prop ->
+  ?min_tls_version:string prop ->
+  ?pre_warmed_instance_count:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?runtime_scale_monitoring_enabled:bool prop ->
+  ?scm_ip_restriction:site_config__scm_ip_restriction list ->
+  ?scm_min_tls_version:string prop ->
+  ?scm_type:string prop ->
+  ?scm_use_main_ip_restriction:bool prop ->
+  ?use_32_bit_worker_process:bool prop ->
+  ?vnet_route_all_enabled:bool prop ->
+  ?websockets_enabled:bool prop ->
+  cors:site_config__cors list ->
+  unit ->
+  site_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_logic_app_standard
+
+val azurerm_logic_app_standard :
+  ?app_settings:(string * string prop) list ->
+  ?bundle_version:string prop ->
+  ?client_affinity_enabled:bool prop ->
+  ?client_certificate_mode:string prop ->
+  ?enabled:bool prop ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?storage_account_share_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?use_extension_bundle:bool prop ->
+  ?version:string prop ->
+  ?virtual_network_subnet_id:string prop ->
+  ?timeouts:timeouts ->
+  app_service_plan_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_access_key:string prop ->
+  storage_account_name:string prop ->
+  connection_string:connection_string list ->
+  identity:identity list ->
+  site_config:site_config list ->
+  unit ->
+  azurerm_logic_app_standard
+
+val yojson_of_azurerm_logic_app_standard :
+  azurerm_logic_app_standard -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_service_plan_id : string prop;
@@ -75,8 +159,7 @@ type t = private {
   outbound_ip_addresses : string prop;
   possible_outbound_ip_addresses : string prop;
   resource_group_name : string prop;
-  site_credential :
-    azurerm_logic_app_standard__site_credential list prop;
+  site_credential : site_credential list prop;
   storage_account_access_key : string prop;
   storage_account_name : string prop;
   storage_account_share_name : string prop;
@@ -86,7 +169,8 @@ type t = private {
   virtual_network_subnet_id : string prop;
 }
 
-val azurerm_logic_app_standard :
+val register :
+  ?tf_module:tf_module ->
   ?app_settings:(string * string prop) list ->
   ?bundle_version:string prop ->
   ?client_affinity_enabled:bool prop ->
@@ -99,16 +183,15 @@ val azurerm_logic_app_standard :
   ?use_extension_bundle:bool prop ->
   ?version:string prop ->
   ?virtual_network_subnet_id:string prop ->
-  ?timeouts:azurerm_logic_app_standard__timeouts ->
+  ?timeouts:timeouts ->
   app_service_plan_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   storage_account_access_key:string prop ->
   storage_account_name:string prop ->
-  connection_string:
-    azurerm_logic_app_standard__connection_string list ->
-  identity:azurerm_logic_app_standard__identity list ->
-  site_config:azurerm_logic_app_standard__site_config list ->
+  connection_string:connection_string list ->
+  identity:identity list ->
+  site_config:site_config list ->
   string ->
   t

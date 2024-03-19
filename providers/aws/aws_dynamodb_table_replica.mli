@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type aws_dynamodb_table_replica__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_dynamodb_table_replica
+
+val aws_dynamodb_table_replica :
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?point_in_time_recovery:bool prop ->
+  ?table_class_override:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  global_table_arn:string prop ->
+  unit ->
+  aws_dynamodb_table_replica
+
+val yojson_of_aws_dynamodb_table_replica :
+  aws_dynamodb_table_replica -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,14 +43,15 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_dynamodb_table_replica :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_arn:string prop ->
   ?point_in_time_recovery:bool prop ->
   ?table_class_override:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_dynamodb_table_replica__timeouts ->
+  ?timeouts:timeouts ->
   global_table_arn:string prop ->
   string ->
   t

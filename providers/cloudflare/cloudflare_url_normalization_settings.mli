@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_url_normalization_settings
+
+val cloudflare_url_normalization_settings :
+  ?id:string prop ->
+  scope:string prop ->
+  type_:string prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_url_normalization_settings
+
+val yojson_of_cloudflare_url_normalization_settings :
+  cloudflare_url_normalization_settings -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,7 +26,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_url_normalization_settings :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   scope:string prop ->
   type_:string prop ->

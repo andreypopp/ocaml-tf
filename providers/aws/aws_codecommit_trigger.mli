@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_codecommit_trigger__trigger
+(** RESOURCE SERIALIZATION *)
+
+type trigger
+
+val trigger :
+  ?branches:string prop list ->
+  ?custom_data:string prop ->
+  destination_arn:string prop ->
+  events:string prop list ->
+  name:string prop ->
+  unit ->
+  trigger
+
 type aws_codecommit_trigger
+
+val aws_codecommit_trigger :
+  ?id:string prop ->
+  repository_name:string prop ->
+  trigger:trigger list ->
+  unit ->
+  aws_codecommit_trigger
+
+val yojson_of_aws_codecommit_trigger : aws_codecommit_trigger -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   configuration_id : string prop;
@@ -11,9 +34,10 @@ type t = private {
   repository_name : string prop;
 }
 
-val aws_codecommit_trigger :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   repository_name:string prop ->
-  trigger:aws_codecommit_trigger__trigger list ->
+  trigger:trigger list ->
   string ->
   t

@@ -2,13 +2,64 @@
 
 open! Tf.Prelude
 
-type aws_ecs_cluster__configuration__execute_command_configuration__log_configuration
+(** RESOURCE SERIALIZATION *)
 
-type aws_ecs_cluster__configuration__execute_command_configuration
-type aws_ecs_cluster__configuration
-type aws_ecs_cluster__service_connect_defaults
-type aws_ecs_cluster__setting
+type configuration__execute_command_configuration__log_configuration
+
+val configuration__execute_command_configuration__log_configuration :
+  ?cloud_watch_encryption_enabled:bool prop ->
+  ?cloud_watch_log_group_name:string prop ->
+  ?s3_bucket_encryption_enabled:bool prop ->
+  ?s3_bucket_name:string prop ->
+  ?s3_key_prefix:string prop ->
+  unit ->
+  configuration__execute_command_configuration__log_configuration
+
+type configuration__execute_command_configuration
+
+val configuration__execute_command_configuration :
+  ?kms_key_id:string prop ->
+  ?logging:string prop ->
+  log_configuration:
+    configuration__execute_command_configuration__log_configuration
+    list ->
+  unit ->
+  configuration__execute_command_configuration
+
+type configuration
+
+val configuration :
+  execute_command_configuration:
+    configuration__execute_command_configuration list ->
+  unit ->
+  configuration
+
+type service_connect_defaults
+
+val service_connect_defaults :
+  namespace:string prop -> unit -> service_connect_defaults
+
+type setting
+
+val setting :
+  name:string prop -> value:string prop -> unit -> setting
+
 type aws_ecs_cluster
+
+val aws_ecs_cluster :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  configuration:configuration list ->
+  service_connect_defaults:service_connect_defaults list ->
+  setting:setting list ->
+  unit ->
+  aws_ecs_cluster
+
+val yojson_of_aws_ecs_cluster : aws_ecs_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,14 +69,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ecs_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  configuration:aws_ecs_cluster__configuration list ->
-  service_connect_defaults:
-    aws_ecs_cluster__service_connect_defaults list ->
-  setting:aws_ecs_cluster__setting list ->
+  configuration:configuration list ->
+  service_connect_defaults:service_connect_defaults list ->
+  setting:setting list ->
   string ->
   t

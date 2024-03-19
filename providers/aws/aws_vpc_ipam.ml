@@ -4,19 +4,19 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipam__operating_regions = {
+type operating_regions = {
   region_name : string prop;  (** region_name *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_ipam__operating_regions *)
+(** operating_regions *)
 
-type aws_vpc_ipam__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_ipam__timeouts *)
+(** timeouts *)
 
 type aws_vpc_ipam = {
   cascade : bool prop option; [@option]  (** cascade *)
@@ -25,11 +25,29 @@ type aws_vpc_ipam = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  operating_regions : aws_vpc_ipam__operating_regions list;
-  timeouts : aws_vpc_ipam__timeouts option;
+  operating_regions : operating_regions list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipam *)
+
+let operating_regions ~region_name () : operating_regions =
+  { region_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all ?timeouts
+    ~operating_regions () : aws_vpc_ipam =
+  {
+    cascade;
+    description;
+    id;
+    tags;
+    tags_all;
+    operating_regions;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -45,22 +63,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all ?timeouts
-    ~operating_regions __resource_id =
+let register ?tf_module ?cascade ?description ?id ?tags ?tags_all
+    ?timeouts ~operating_regions __resource_id =
   let __resource_type = "aws_vpc_ipam" in
   let __resource =
-    ({
-       cascade;
-       description;
-       id;
-       tags;
-       tags_all;
-       operating_regions;
-       timeouts;
-     }
-      : aws_vpc_ipam)
+    aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all ?timeouts
+      ~operating_regions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipam __resource);
   let __resource_attributes =
     ({

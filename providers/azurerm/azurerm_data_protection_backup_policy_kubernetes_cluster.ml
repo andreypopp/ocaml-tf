@@ -4,22 +4,20 @@
 
 open! Tf.Prelude
 
-type azurerm_data_protection_backup_policy_kubernetes_cluster__default_retention_rule__life_cycle = {
+type default_retention_rule__life_cycle = {
   data_store_type : string prop;  (** data_store_type *)
   duration : string prop;  (** duration *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_kubernetes_cluster__default_retention_rule__life_cycle *)
+(** default_retention_rule__life_cycle *)
 
-type azurerm_data_protection_backup_policy_kubernetes_cluster__default_retention_rule = {
-  life_cycle :
-    azurerm_data_protection_backup_policy_kubernetes_cluster__default_retention_rule__life_cycle
-    list;
+type default_retention_rule = {
+  life_cycle : default_retention_rule__life_cycle list;
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_kubernetes_cluster__default_retention_rule *)
+(** default_retention_rule *)
 
-type azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule__criteria = {
+type retention_rule__criteria = {
   absolute_criteria : string prop option; [@option]
       (** absolute_criteria *)
   days_of_week : string prop list option; [@option]
@@ -32,35 +30,31 @@ type azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule__c
       (** weeks_of_month *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule__criteria *)
+(** retention_rule__criteria *)
 
-type azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule__life_cycle = {
+type retention_rule__life_cycle = {
   data_store_type : string prop;  (** data_store_type *)
   duration : string prop;  (** duration *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule__life_cycle *)
+(** retention_rule__life_cycle *)
 
-type azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule = {
+type retention_rule = {
   name : string prop;  (** name *)
   priority : float prop;  (** priority *)
-  criteria :
-    azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule__criteria
-    list;
-  life_cycle :
-    azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule__life_cycle
-    list;
+  criteria : retention_rule__criteria list;
+  life_cycle : retention_rule__life_cycle list;
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule *)
+(** retention_rule *)
 
-type azurerm_data_protection_backup_policy_kubernetes_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_kubernetes_cluster__timeouts *)
+(** timeouts *)
 
 type azurerm_data_protection_backup_policy_kubernetes_cluster = {
   backup_repeating_time_intervals : string prop list;
@@ -70,18 +64,58 @@ type azurerm_data_protection_backup_policy_kubernetes_cluster = {
   resource_group_name : string prop;  (** resource_group_name *)
   time_zone : string prop option; [@option]  (** time_zone *)
   vault_name : string prop;  (** vault_name *)
-  default_retention_rule :
-    azurerm_data_protection_backup_policy_kubernetes_cluster__default_retention_rule
-    list;
-  retention_rule :
-    azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule
-    list;
-  timeouts :
-    azurerm_data_protection_backup_policy_kubernetes_cluster__timeouts
-    option;
+  default_retention_rule : default_retention_rule list;
+  retention_rule : retention_rule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_kubernetes_cluster *)
+
+let default_retention_rule__life_cycle ~data_store_type ~duration ()
+    : default_retention_rule__life_cycle =
+  { data_store_type; duration }
+
+let default_retention_rule ~life_cycle () : default_retention_rule =
+  { life_cycle }
+
+let retention_rule__criteria ?absolute_criteria ?days_of_week
+    ?months_of_year ?scheduled_backup_times ?weeks_of_month () :
+    retention_rule__criteria =
+  {
+    absolute_criteria;
+    days_of_week;
+    months_of_year;
+    scheduled_backup_times;
+    weeks_of_month;
+  }
+
+let retention_rule__life_cycle ~data_store_type ~duration () :
+    retention_rule__life_cycle =
+  { data_store_type; duration }
+
+let retention_rule ~name ~priority ~criteria ~life_cycle () :
+    retention_rule =
+  { name; priority; criteria; life_cycle }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_data_protection_backup_policy_kubernetes_cluster ?id
+    ?time_zone ?timeouts ~backup_repeating_time_intervals ~name
+    ~resource_group_name ~vault_name ~default_retention_rule
+    ~retention_rule () :
+    azurerm_data_protection_backup_policy_kubernetes_cluster =
+  {
+    backup_repeating_time_intervals;
+    id;
+    name;
+    resource_group_name;
+    time_zone;
+    vault_name;
+    default_retention_rule;
+    retention_rule;
+    timeouts;
+  }
 
 type t = {
   backup_repeating_time_intervals : string list prop;
@@ -92,28 +126,20 @@ type t = {
   vault_name : string prop;
 }
 
-let azurerm_data_protection_backup_policy_kubernetes_cluster ?id
-    ?time_zone ?timeouts ~backup_repeating_time_intervals ~name
-    ~resource_group_name ~vault_name ~default_retention_rule
-    ~retention_rule __resource_id =
+let register ?tf_module ?id ?time_zone ?timeouts
+    ~backup_repeating_time_intervals ~name ~resource_group_name
+    ~vault_name ~default_retention_rule ~retention_rule __resource_id
+    =
   let __resource_type =
     "azurerm_data_protection_backup_policy_kubernetes_cluster"
   in
   let __resource =
-    ({
-       backup_repeating_time_intervals;
-       id;
-       name;
-       resource_group_name;
-       time_zone;
-       vault_name;
-       default_retention_rule;
-       retention_rule;
-       timeouts;
-     }
-      : azurerm_data_protection_backup_policy_kubernetes_cluster)
+    azurerm_data_protection_backup_policy_kubernetes_cluster ?id
+      ?time_zone ?timeouts ~backup_repeating_time_intervals ~name
+      ~resource_group_name ~vault_name ~default_retention_rule
+      ~retention_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_policy_kubernetes_cluster
        __resource);
   let __resource_attributes =

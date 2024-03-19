@@ -2,13 +2,38 @@
 
 open! Tf.Prelude
 
-type kubernetes_runtime_class_v1__metadata
+(** RESOURCE SERIALIZATION *)
+
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  unit ->
+  metadata
+
 type kubernetes_runtime_class_v1
-type t = private { handler : string prop; id : string prop }
 
 val kubernetes_runtime_class_v1 :
   ?id:string prop ->
   handler:string prop ->
-  metadata:kubernetes_runtime_class_v1__metadata list ->
+  metadata:metadata list ->
+  unit ->
+  kubernetes_runtime_class_v1
+
+val yojson_of_kubernetes_runtime_class_v1 :
+  kubernetes_runtime_class_v1 -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { handler : string prop; id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  handler:string prop ->
+  metadata:metadata list ->
   string ->
   t

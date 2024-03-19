@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_org_policy_custom_constraint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_org_policy_custom_constraint__timeouts *)
+(** timeouts *)
 
 type google_org_policy_custom_constraint = {
   action_type : string prop;
@@ -30,10 +30,29 @@ type google_org_policy_custom_constraint = {
       (** The parent of the resource, an organization. Format should be 'organizations/{organization_id}'. *)
   resource_types : string prop list;
       (** Immutable. The fully qualified name of the Google Cloud REST resource containing the object and field you want to restrict. For example, 'container.googleapis.com/NodePool'. *)
-  timeouts : google_org_policy_custom_constraint__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_org_policy_custom_constraint *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_org_policy_custom_constraint ?description ?display_name
+    ?id ?timeouts ~action_type ~condition ~method_types ~name ~parent
+    ~resource_types () : google_org_policy_custom_constraint =
+  {
+    action_type;
+    condition;
+    description;
+    display_name;
+    id;
+    method_types;
+    name;
+    parent;
+    resource_types;
+    timeouts;
+  }
 
 type t = {
   action_type : string prop;
@@ -48,26 +67,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_org_policy_custom_constraint ?description ?display_name
-    ?id ?timeouts ~action_type ~condition ~method_types ~name ~parent
+let register ?tf_module ?description ?display_name ?id ?timeouts
+    ~action_type ~condition ~method_types ~name ~parent
     ~resource_types __resource_id =
   let __resource_type = "google_org_policy_custom_constraint" in
   let __resource =
-    ({
-       action_type;
-       condition;
-       description;
-       display_name;
-       id;
-       method_types;
-       name;
-       parent;
-       resource_types;
-       timeouts;
-     }
-      : google_org_policy_custom_constraint)
+    google_org_policy_custom_constraint ?description ?display_name
+      ?id ?timeouts ~action_type ~condition ~method_types ~name
+      ~parent ~resource_types ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_org_policy_custom_constraint __resource);
   let __resource_attributes =
     ({

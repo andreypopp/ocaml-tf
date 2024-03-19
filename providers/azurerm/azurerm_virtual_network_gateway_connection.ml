@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_network_gateway_connection__custom_bgp_addresses = {
+type custom_bgp_addresses = {
   primary : string prop;  (** primary *)
   secondary : string prop option; [@option]  (** secondary *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway_connection__custom_bgp_addresses *)
+(** custom_bgp_addresses *)
 
-type azurerm_virtual_network_gateway_connection__ipsec_policy = {
+type ipsec_policy = {
   dh_group : string prop;  (** dh_group *)
   ike_encryption : string prop;  (** ike_encryption *)
   ike_integrity : string prop;  (** ike_integrity *)
@@ -22,24 +22,24 @@ type azurerm_virtual_network_gateway_connection__ipsec_policy = {
   sa_lifetime : float prop option; [@option]  (** sa_lifetime *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway_connection__ipsec_policy *)
+(** ipsec_policy *)
 
-type azurerm_virtual_network_gateway_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway_connection__timeouts *)
+(** timeouts *)
 
-type azurerm_virtual_network_gateway_connection__traffic_selector_policy = {
+type traffic_selector_policy = {
   local_address_cidrs : string prop list;  (** local_address_cidrs *)
   remote_address_cidrs : string prop list;
       (** remote_address_cidrs *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_network_gateway_connection__traffic_selector_policy *)
+(** traffic_selector_policy *)
 
 type azurerm_virtual_network_gateway_connection = {
   authorization_key : string prop option; [@option]
@@ -78,19 +78,77 @@ type azurerm_virtual_network_gateway_connection = {
       (** use_policy_based_traffic_selectors *)
   virtual_network_gateway_id : string prop;
       (** virtual_network_gateway_id *)
-  custom_bgp_addresses :
-    azurerm_virtual_network_gateway_connection__custom_bgp_addresses
-    list;
-  ipsec_policy :
-    azurerm_virtual_network_gateway_connection__ipsec_policy list;
-  timeouts :
-    azurerm_virtual_network_gateway_connection__timeouts option;
-  traffic_selector_policy :
-    azurerm_virtual_network_gateway_connection__traffic_selector_policy
-    list;
+  custom_bgp_addresses : custom_bgp_addresses list;
+  ipsec_policy : ipsec_policy list;
+  timeouts : timeouts option;
+  traffic_selector_policy : traffic_selector_policy list;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_network_gateway_connection *)
+
+let custom_bgp_addresses ?secondary ~primary () :
+    custom_bgp_addresses =
+  { primary; secondary }
+
+let ipsec_policy ?sa_datasize ?sa_lifetime ~dh_group ~ike_encryption
+    ~ike_integrity ~ipsec_encryption ~ipsec_integrity ~pfs_group () :
+    ipsec_policy =
+  {
+    dh_group;
+    ike_encryption;
+    ike_integrity;
+    ipsec_encryption;
+    ipsec_integrity;
+    pfs_group;
+    sa_datasize;
+    sa_lifetime;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let traffic_selector_policy ~local_address_cidrs
+    ~remote_address_cidrs () : traffic_selector_policy =
+  { local_address_cidrs; remote_address_cidrs }
+
+let azurerm_virtual_network_gateway_connection ?authorization_key
+    ?connection_mode ?connection_protocol ?dpd_timeout_seconds
+    ?egress_nat_rule_ids ?enable_bgp ?express_route_circuit_id
+    ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
+    ?local_azure_ip_address_enabled ?local_network_gateway_id
+    ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
+    ?tags ?use_policy_based_traffic_selectors ?timeouts ~location
+    ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
+    ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy () :
+    azurerm_virtual_network_gateway_connection =
+  {
+    authorization_key;
+    connection_mode;
+    connection_protocol;
+    dpd_timeout_seconds;
+    egress_nat_rule_ids;
+    enable_bgp;
+    express_route_circuit_id;
+    express_route_gateway_bypass;
+    id;
+    ingress_nat_rule_ids;
+    local_azure_ip_address_enabled;
+    local_network_gateway_id;
+    location;
+    name;
+    peer_virtual_network_gateway_id;
+    resource_group_name;
+    routing_weight;
+    shared_key;
+    tags;
+    type_;
+    use_policy_based_traffic_selectors;
+    virtual_network_gateway_id;
+    custom_bgp_addresses;
+    ipsec_policy;
+    timeouts;
+    traffic_selector_policy;
+  }
 
 type t = {
   authorization_key : string prop;
@@ -117,9 +175,9 @@ type t = {
   virtual_network_gateway_id : string prop;
 }
 
-let azurerm_virtual_network_gateway_connection ?authorization_key
-    ?connection_mode ?connection_protocol ?dpd_timeout_seconds
-    ?egress_nat_rule_ids ?enable_bgp ?express_route_circuit_id
+let register ?tf_module ?authorization_key ?connection_mode
+    ?connection_protocol ?dpd_timeout_seconds ?egress_nat_rule_ids
+    ?enable_bgp ?express_route_circuit_id
     ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
     ?local_azure_ip_address_enabled ?local_network_gateway_id
     ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
@@ -131,37 +189,17 @@ let azurerm_virtual_network_gateway_connection ?authorization_key
     "azurerm_virtual_network_gateway_connection"
   in
   let __resource =
-    ({
-       authorization_key;
-       connection_mode;
-       connection_protocol;
-       dpd_timeout_seconds;
-       egress_nat_rule_ids;
-       enable_bgp;
-       express_route_circuit_id;
-       express_route_gateway_bypass;
-       id;
-       ingress_nat_rule_ids;
-       local_azure_ip_address_enabled;
-       local_network_gateway_id;
-       location;
-       name;
-       peer_virtual_network_gateway_id;
-       resource_group_name;
-       routing_weight;
-       shared_key;
-       tags;
-       type_;
-       use_policy_based_traffic_selectors;
-       virtual_network_gateway_id;
-       custom_bgp_addresses;
-       ipsec_policy;
-       timeouts;
-       traffic_selector_policy;
-     }
-      : azurerm_virtual_network_gateway_connection)
+    azurerm_virtual_network_gateway_connection ?authorization_key
+      ?connection_mode ?connection_protocol ?dpd_timeout_seconds
+      ?egress_nat_rule_ids ?enable_bgp ?express_route_circuit_id
+      ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
+      ?local_azure_ip_address_enabled ?local_network_gateway_id
+      ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
+      ?tags ?use_policy_based_traffic_selectors ?timeouts ~location
+      ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
+      ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_gateway_connection __resource);
   let __resource_attributes =
     ({

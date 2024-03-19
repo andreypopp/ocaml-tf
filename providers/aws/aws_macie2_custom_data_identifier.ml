@@ -22,6 +22,22 @@ type aws_macie2_custom_data_identifier = {
 [@@deriving yojson_of]
 (** aws_macie2_custom_data_identifier *)
 
+let aws_macie2_custom_data_identifier ?description ?id ?ignore_words
+    ?keywords ?maximum_match_distance ?name ?name_prefix ?regex ?tags
+    ?tags_all () : aws_macie2_custom_data_identifier =
+  {
+    description;
+    id;
+    ignore_words;
+    keywords;
+    maximum_match_distance;
+    name;
+    name_prefix;
+    regex;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   created_at : string prop;
@@ -37,26 +53,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_macie2_custom_data_identifier ?description ?id ?ignore_words
-    ?keywords ?maximum_match_distance ?name ?name_prefix ?regex ?tags
-    ?tags_all __resource_id =
+let register ?tf_module ?description ?id ?ignore_words ?keywords
+    ?maximum_match_distance ?name ?name_prefix ?regex ?tags ?tags_all
+    __resource_id =
   let __resource_type = "aws_macie2_custom_data_identifier" in
   let __resource =
-    ({
-       description;
-       id;
-       ignore_words;
-       keywords;
-       maximum_match_distance;
-       name;
-       name_prefix;
-       regex;
-       tags;
-       tags_all;
-     }
-      : aws_macie2_custom_data_identifier)
+    aws_macie2_custom_data_identifier ?description ?id ?ignore_words
+      ?keywords ?maximum_match_distance ?name ?name_prefix ?regex
+      ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_macie2_custom_data_identifier __resource);
   let __resource_attributes =
     ({

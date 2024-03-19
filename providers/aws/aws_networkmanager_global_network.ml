@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_global_network__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_global_network__timeouts *)
+(** timeouts *)
 
 type aws_networkmanager_global_network = {
   description : string prop option; [@option]  (** description *)
@@ -18,10 +18,17 @@ type aws_networkmanager_global_network = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_networkmanager_global_network__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_global_network *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_networkmanager_global_network ?description ?id ?tags
+    ?tags_all ?timeouts () : aws_networkmanager_global_network =
+  { description; id; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -31,14 +38,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_networkmanager_global_network ?description ?id ?tags
-    ?tags_all ?timeouts __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    __resource_id =
   let __resource_type = "aws_networkmanager_global_network" in
   let __resource =
-    ({ description; id; tags; tags_all; timeouts }
-      : aws_networkmanager_global_network)
+    aws_networkmanager_global_network ?description ?id ?tags
+      ?tags_all ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_global_network __resource);
   let __resource_attributes =
     ({

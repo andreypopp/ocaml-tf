@@ -2,9 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type azurerm_spring_cloud_elastic_application_performance_monitoring
+
+val azurerm_spring_cloud_elastic_application_performance_monitoring :
+  ?globally_enabled:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  application_packages:string prop list ->
+  name:string prop ->
+  server_url:string prop ->
+  service_name:string prop ->
+  spring_cloud_service_id:string prop ->
+  unit ->
+  azurerm_spring_cloud_elastic_application_performance_monitoring
+
+val yojson_of_azurerm_spring_cloud_elastic_application_performance_monitoring :
+  azurerm_spring_cloud_elastic_application_performance_monitoring ->
+  json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_packages : string list prop;
@@ -16,11 +44,11 @@ type t = private {
   spring_cloud_service_id : string prop;
 }
 
-val azurerm_spring_cloud_elastic_application_performance_monitoring :
+val register :
+  ?tf_module:tf_module ->
   ?globally_enabled:bool prop ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts ->
+  ?timeouts:timeouts ->
   application_packages:string prop list ->
   name:string prop ->
   server_url:string prop ->

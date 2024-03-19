@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_chime_voice_connector
+
+val aws_chime_voice_connector :
+  ?aws_region:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  require_encryption:bool prop ->
+  unit ->
+  aws_chime_voice_connector
+
+val yojson_of_aws_chime_voice_connector :
+  aws_chime_voice_connector -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,7 +32,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_chime_voice_connector :
+val register :
+  ?tf_module:tf_module ->
   ?aws_region:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

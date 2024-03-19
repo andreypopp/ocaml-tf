@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_web3_hostname
+
+val cloudflare_web3_hostname :
+  ?description:string prop ->
+  ?dnslink:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  target:string prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_web3_hostname
+
+val yojson_of_cloudflare_web3_hostname :
+  cloudflare_web3_hostname -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created_on : string prop;
@@ -16,7 +33,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_web3_hostname :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?dnslink:string prop ->
   ?id:string prop ->

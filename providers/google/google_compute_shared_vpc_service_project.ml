@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_shared_vpc_service_project__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_shared_vpc_service_project__timeouts *)
+(** timeouts *)
 
 type google_compute_shared_vpc_service_project = {
   deletion_policy : string prop option; [@option]
@@ -20,11 +20,17 @@ type google_compute_shared_vpc_service_project = {
   id : string prop option; [@option]  (** id *)
   service_project : string prop;
       (** The ID of the project that will serve as a Shared VPC service project. *)
-  timeouts :
-    google_compute_shared_vpc_service_project__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_shared_vpc_service_project *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_shared_vpc_service_project ?deletion_policy ?id
+    ?timeouts ~host_project ~service_project () :
+    google_compute_shared_vpc_service_project =
+  { deletion_policy; host_project; id; service_project; timeouts }
 
 type t = {
   deletion_policy : string prop;
@@ -33,16 +39,16 @@ type t = {
   service_project : string prop;
 }
 
-let google_compute_shared_vpc_service_project ?deletion_policy ?id
-    ?timeouts ~host_project ~service_project __resource_id =
+let register ?tf_module ?deletion_policy ?id ?timeouts ~host_project
+    ~service_project __resource_id =
   let __resource_type =
     "google_compute_shared_vpc_service_project"
   in
   let __resource =
-    ({ deletion_policy; host_project; id; service_project; timeouts }
-      : google_compute_shared_vpc_service_project)
+    google_compute_shared_vpc_service_project ?deletion_policy ?id
+      ?timeouts ~host_project ~service_project ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_shared_vpc_service_project __resource);
   let __resource_attributes =
     ({

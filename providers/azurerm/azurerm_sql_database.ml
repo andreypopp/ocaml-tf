@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_sql_database__import = {
+type import = {
   administrator_login : string prop;  (** administrator_login *)
   administrator_login_password : string prop;
       (** administrator_login_password *)
@@ -16,9 +16,9 @@ type azurerm_sql_database__import = {
   storage_uri : string prop;  (** storage_uri *)
 }
 [@@deriving yojson_of]
-(** azurerm_sql_database__import *)
+(** import *)
 
-type azurerm_sql_database__threat_detection_policy = {
+type threat_detection_policy = {
   disabled_alerts : string prop list option; [@option]
       (** disabled_alerts *)
   email_account_admins : string prop option; [@option]
@@ -34,16 +34,16 @@ type azurerm_sql_database__threat_detection_policy = {
       (** storage_endpoint *)
 }
 [@@deriving yojson_of]
-(** azurerm_sql_database__threat_detection_policy *)
+(** threat_detection_policy *)
 
-type azurerm_sql_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sql_database__timeouts *)
+(** timeouts *)
 
 type azurerm_sql_database = {
   collation : string prop option; [@option]  (** collation *)
@@ -72,13 +72,74 @@ type azurerm_sql_database = {
       (** source_database_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   zone_redundant : bool prop option; [@option]  (** zone_redundant *)
-  import : azurerm_sql_database__import list;
-  threat_detection_policy :
-    azurerm_sql_database__threat_detection_policy list;
-  timeouts : azurerm_sql_database__timeouts option;
+  import : import list;
+  threat_detection_policy : threat_detection_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sql_database *)
+
+let import ?operation_mode ~administrator_login
+    ~administrator_login_password ~authentication_type ~storage_key
+    ~storage_key_type ~storage_uri () : import =
+  {
+    administrator_login;
+    administrator_login_password;
+    authentication_type;
+    operation_mode;
+    storage_key;
+    storage_key_type;
+    storage_uri;
+  }
+
+let threat_detection_policy ?disabled_alerts ?email_account_admins
+    ?email_addresses ?retention_days ?state
+    ?storage_account_access_key ?storage_endpoint () :
+    threat_detection_policy =
+  {
+    disabled_alerts;
+    email_account_admins;
+    email_addresses;
+    retention_days;
+    state;
+    storage_account_access_key;
+    storage_endpoint;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sql_database ?collation ?create_mode ?edition
+    ?elastic_pool_name ?id ?max_size_bytes ?max_size_gb ?read_scale
+    ?requested_service_objective_id ?requested_service_objective_name
+    ?restore_point_in_time ?source_database_deletion_date
+    ?source_database_id ?tags ?zone_redundant ?timeouts ~location
+    ~name ~resource_group_name ~server_name ~import
+    ~threat_detection_policy () : azurerm_sql_database =
+  {
+    collation;
+    create_mode;
+    edition;
+    elastic_pool_name;
+    id;
+    location;
+    max_size_bytes;
+    max_size_gb;
+    name;
+    read_scale;
+    requested_service_objective_id;
+    requested_service_objective_name;
+    resource_group_name;
+    restore_point_in_time;
+    server_name;
+    source_database_deletion_date;
+    source_database_id;
+    tags;
+    zone_redundant;
+    import;
+    threat_detection_policy;
+    timeouts;
+  }
 
 type t = {
   collation : string prop;
@@ -105,7 +166,7 @@ type t = {
   zone_redundant : bool prop;
 }
 
-let azurerm_sql_database ?collation ?create_mode ?edition
+let register ?tf_module ?collation ?create_mode ?edition
     ?elastic_pool_name ?id ?max_size_bytes ?max_size_gb ?read_scale
     ?requested_service_objective_id ?requested_service_objective_name
     ?restore_point_in_time ?source_database_deletion_date
@@ -114,33 +175,15 @@ let azurerm_sql_database ?collation ?create_mode ?edition
     ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_sql_database" in
   let __resource =
-    ({
-       collation;
-       create_mode;
-       edition;
-       elastic_pool_name;
-       id;
-       location;
-       max_size_bytes;
-       max_size_gb;
-       name;
-       read_scale;
-       requested_service_objective_id;
-       requested_service_objective_name;
-       resource_group_name;
-       restore_point_in_time;
-       server_name;
-       source_database_deletion_date;
-       source_database_id;
-       tags;
-       zone_redundant;
-       import;
-       threat_detection_policy;
-       timeouts;
-     }
-      : azurerm_sql_database)
+    azurerm_sql_database ?collation ?create_mode ?edition
+      ?elastic_pool_name ?id ?max_size_bytes ?max_size_gb ?read_scale
+      ?requested_service_objective_id
+      ?requested_service_objective_name ?restore_point_in_time
+      ?source_database_deletion_date ?source_database_id ?tags
+      ?zone_redundant ?timeouts ~location ~name ~resource_group_name
+      ~server_name ~import ~threat_detection_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sql_database __resource);
   let __resource_attributes =
     ({

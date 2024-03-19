@@ -19,6 +19,19 @@ type aws_ce_anomaly_monitor = {
 [@@deriving yojson_of]
 (** aws_ce_anomaly_monitor *)
 
+let aws_ce_anomaly_monitor ?id ?monitor_dimension
+    ?monitor_specification ?tags ?tags_all ~monitor_type ~name () :
+    aws_ce_anomaly_monitor =
+  {
+    id;
+    monitor_dimension;
+    monitor_specification;
+    monitor_type;
+    name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -30,23 +43,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ce_anomaly_monitor ?id ?monitor_dimension
-    ?monitor_specification ?tags ?tags_all ~monitor_type ~name
-    __resource_id =
+let register ?tf_module ?id ?monitor_dimension ?monitor_specification
+    ?tags ?tags_all ~monitor_type ~name __resource_id =
   let __resource_type = "aws_ce_anomaly_monitor" in
   let __resource =
-    ({
-       id;
-       monitor_dimension;
-       monitor_specification;
-       monitor_type;
-       name;
-       tags;
-       tags_all;
-     }
-      : aws_ce_anomaly_monitor)
+    aws_ce_anomaly_monitor ?id ?monitor_dimension
+      ?monitor_specification ?tags ?tags_all ~monitor_type ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ce_anomaly_monitor __resource);
   let __resource_attributes =
     ({

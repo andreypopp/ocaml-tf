@@ -4,18 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_storagegateway_gateway__maintenance_start_time = {
+type maintenance_start_time = {
   day_of_month : string prop option; [@option]  (** day_of_month *)
   day_of_week : string prop option; [@option]  (** day_of_week *)
   hour_of_day : float prop;  (** hour_of_day *)
   minute_of_hour : float prop option; [@option]  (** minute_of_hour *)
 }
 [@@deriving yojson_of]
-(** aws_storagegateway_gateway__maintenance_start_time *)
+(** maintenance_start_time *)
 
-type aws_storagegateway_gateway__smb_active_directory_settings = {
-  active_directory_status : string prop;
-      (** active_directory_status *)
+type smb_active_directory_settings = {
   domain_controllers : string prop list option; [@option]
       (** domain_controllers *)
   domain_name : string prop;  (** domain_name *)
@@ -27,15 +25,15 @@ type aws_storagegateway_gateway__smb_active_directory_settings = {
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** aws_storagegateway_gateway__smb_active_directory_settings *)
+(** smb_active_directory_settings *)
 
-type aws_storagegateway_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_storagegateway_gateway__timeouts *)
+(** timeouts *)
 
-type aws_storagegateway_gateway__gateway_network_interface = {
+type gateway_network_interface = {
   ipv4_address : string prop;  (** ipv4_address *)
 }
 [@@deriving yojson_of]
@@ -72,14 +70,62 @@ type aws_storagegateway_gateway = {
       (** tags_all *)
   tape_drive_type : string prop option; [@option]
       (** tape_drive_type *)
-  maintenance_start_time :
-    aws_storagegateway_gateway__maintenance_start_time list;
-  smb_active_directory_settings :
-    aws_storagegateway_gateway__smb_active_directory_settings list;
-  timeouts : aws_storagegateway_gateway__timeouts option;
+  maintenance_start_time : maintenance_start_time list;
+  smb_active_directory_settings : smb_active_directory_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_storagegateway_gateway *)
+
+let maintenance_start_time ?day_of_month ?day_of_week ?minute_of_hour
+    ~hour_of_day () : maintenance_start_time =
+  { day_of_month; day_of_week; hour_of_day; minute_of_hour }
+
+let smb_active_directory_settings ?domain_controllers
+    ?organizational_unit ?timeout_in_seconds ~domain_name ~password
+    ~username () : smb_active_directory_settings =
+  {
+    domain_controllers;
+    domain_name;
+    organizational_unit;
+    password;
+    timeout_in_seconds;
+    username;
+  }
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_storagegateway_gateway ?activation_key
+    ?average_download_rate_limit_in_bits_per_sec
+    ?average_upload_rate_limit_in_bits_per_sec
+    ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
+    ?gateway_vpc_endpoint ?id ?medium_changer_type
+    ?smb_file_share_visibility ?smb_guest_password
+    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type ?timeouts
+    ~gateway_name ~gateway_timezone ~maintenance_start_time
+    ~smb_active_directory_settings () : aws_storagegateway_gateway =
+  {
+    activation_key;
+    average_download_rate_limit_in_bits_per_sec;
+    average_upload_rate_limit_in_bits_per_sec;
+    cloudwatch_log_group_arn;
+    gateway_ip_address;
+    gateway_name;
+    gateway_timezone;
+    gateway_type;
+    gateway_vpc_endpoint;
+    id;
+    medium_changer_type;
+    smb_file_share_visibility;
+    smb_guest_password;
+    smb_security_strategy;
+    tags;
+    tags_all;
+    tape_drive_type;
+    maintenance_start_time;
+    smb_active_directory_settings;
+    timeouts;
+  }
 
 type t = {
   activation_key : string prop;
@@ -92,8 +138,7 @@ type t = {
   gateway_id : string prop;
   gateway_ip_address : string prop;
   gateway_name : string prop;
-  gateway_network_interface :
-    aws_storagegateway_gateway__gateway_network_interface list prop;
+  gateway_network_interface : gateway_network_interface list prop;
   gateway_timezone : string prop;
   gateway_type : string prop;
   gateway_vpc_endpoint : string prop;
@@ -108,7 +153,7 @@ type t = {
   tape_drive_type : string prop;
 }
 
-let aws_storagegateway_gateway ?activation_key
+let register ?tf_module ?activation_key
     ?average_download_rate_limit_in_bits_per_sec
     ?average_upload_rate_limit_in_bits_per_sec
     ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
@@ -119,31 +164,17 @@ let aws_storagegateway_gateway ?activation_key
     ~smb_active_directory_settings __resource_id =
   let __resource_type = "aws_storagegateway_gateway" in
   let __resource =
-    ({
-       activation_key;
-       average_download_rate_limit_in_bits_per_sec;
-       average_upload_rate_limit_in_bits_per_sec;
-       cloudwatch_log_group_arn;
-       gateway_ip_address;
-       gateway_name;
-       gateway_timezone;
-       gateway_type;
-       gateway_vpc_endpoint;
-       id;
-       medium_changer_type;
-       smb_file_share_visibility;
-       smb_guest_password;
-       smb_security_strategy;
-       tags;
-       tags_all;
-       tape_drive_type;
-       maintenance_start_time;
-       smb_active_directory_settings;
-       timeouts;
-     }
-      : aws_storagegateway_gateway)
+    aws_storagegateway_gateway ?activation_key
+      ?average_download_rate_limit_in_bits_per_sec
+      ?average_upload_rate_limit_in_bits_per_sec
+      ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
+      ?gateway_vpc_endpoint ?id ?medium_changer_type
+      ?smb_file_share_visibility ?smb_guest_password
+      ?smb_security_strategy ?tags ?tags_all ?tape_drive_type
+      ?timeouts ~gateway_name ~gateway_timezone
+      ~maintenance_start_time ~smb_active_directory_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_storagegateway_gateway __resource);
   let __resource_attributes =
     ({

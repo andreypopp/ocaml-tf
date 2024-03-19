@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_access_context_manager_access_level_condition__device_policy__os_constraints = {
+type device_policy__os_constraints = {
   minimum_version : string prop option; [@option]
       (** The minimum allowed OS version. If not set, any version
 of this OS satisfies the constraint.
@@ -16,7 +16,7 @@ Format: major.minor.patch such as 10.5.301, 9.2.1. *)
 (** A list of allowed OS versions.
 An empty list allows all types and all versions. *)
 
-type google_access_context_manager_access_level_condition__device_policy = {
+type device_policy = {
   allowed_device_management_levels : string prop list option;
       [@option]
       (** A list of allowed device management levels.
@@ -31,23 +31,21 @@ An empty list allows all statuses. Possible values: [ENCRYPTION_UNSPECIFIED, ENC
   require_screen_lock : bool prop option; [@option]
       (** Whether or not screenlock is required for the DevicePolicy
 to be true. Defaults to false. *)
-  os_constraints :
-    google_access_context_manager_access_level_condition__device_policy__os_constraints
-    list;
+  os_constraints : device_policy__os_constraints list;
 }
 [@@deriving yojson_of]
 (** Device specific restrictions, all restrictions must hold for
 the Condition to be true. If not specified, all devices are
 allowed. *)
 
-type google_access_context_manager_access_level_condition__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_access_context_manager_access_level_condition__timeouts *)
+(** timeouts *)
 
-type google_access_context_manager_access_level_condition__vpc_network_sources__vpc_subnetwork = {
+type vpc_network_sources__vpc_subnetwork = {
   network : string prop;
       (** Required. Network name to be allowed by this Access Level. Networks of foreign organizations requires 'compute.network.get' permission to be granted to caller. *)
   vpc_ip_subnetworks : string prop list option; [@option]
@@ -56,10 +54,8 @@ type google_access_context_manager_access_level_condition__vpc_network_sources__
 [@@deriving yojson_of]
 (** Sub networks within a VPC network. *)
 
-type google_access_context_manager_access_level_condition__vpc_network_sources = {
-  vpc_subnetwork :
-    google_access_context_manager_access_level_condition__vpc_network_sources__vpc_subnetwork
-    list;
+type vpc_network_sources = {
+  vpc_subnetwork : vpc_network_sources__vpc_subnetwork list;
 }
 [@@deriving yojson_of]
 (** The request must originate from one of the provided VPC networks in Google Cloud. Cannot specify this field together with 'ip_subnetworks'. *)
@@ -102,18 +98,55 @@ referenced by resource name. Referencing an AccessLevel which
 does not exist is an error. All access levels listed must be
 granted for the Condition to be true.
 Format: accessPolicies/{policy_id}/accessLevels/{short_name} *)
-  device_policy :
-    google_access_context_manager_access_level_condition__device_policy
-    list;
-  timeouts :
-    google_access_context_manager_access_level_condition__timeouts
-    option;
-  vpc_network_sources :
-    google_access_context_manager_access_level_condition__vpc_network_sources
-    list;
+  device_policy : device_policy list;
+  timeouts : timeouts option;
+  vpc_network_sources : vpc_network_sources list;
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_access_level_condition *)
+
+let device_policy__os_constraints ?minimum_version ~os_type () :
+    device_policy__os_constraints =
+  { minimum_version; os_type }
+
+let device_policy ?allowed_device_management_levels
+    ?allowed_encryption_statuses ?require_admin_approval
+    ?require_corp_owned ?require_screen_lock ~os_constraints () :
+    device_policy =
+  {
+    allowed_device_management_levels;
+    allowed_encryption_statuses;
+    require_admin_approval;
+    require_corp_owned;
+    require_screen_lock;
+    os_constraints;
+  }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let vpc_network_sources__vpc_subnetwork ?vpc_ip_subnetworks ~network
+    () : vpc_network_sources__vpc_subnetwork =
+  { network; vpc_ip_subnetworks }
+
+let vpc_network_sources ~vpc_subnetwork () : vpc_network_sources =
+  { vpc_subnetwork }
+
+let google_access_context_manager_access_level_condition ?id
+    ?ip_subnetworks ?members ?negate ?regions ?required_access_levels
+    ?timeouts ~access_level ~device_policy ~vpc_network_sources () :
+    google_access_context_manager_access_level_condition =
+  {
+    access_level;
+    id;
+    ip_subnetworks;
+    members;
+    negate;
+    regions;
+    required_access_levels;
+    device_policy;
+    timeouts;
+    vpc_network_sources;
+  }
 
 type t = {
   access_level : string prop;
@@ -125,29 +158,19 @@ type t = {
   required_access_levels : string list prop;
 }
 
-let google_access_context_manager_access_level_condition ?id
-    ?ip_subnetworks ?members ?negate ?regions ?required_access_levels
-    ?timeouts ~access_level ~device_policy ~vpc_network_sources
-    __resource_id =
+let register ?tf_module ?id ?ip_subnetworks ?members ?negate ?regions
+    ?required_access_levels ?timeouts ~access_level ~device_policy
+    ~vpc_network_sources __resource_id =
   let __resource_type =
     "google_access_context_manager_access_level_condition"
   in
   let __resource =
-    ({
-       access_level;
-       id;
-       ip_subnetworks;
-       members;
-       negate;
-       regions;
-       required_access_levels;
-       device_policy;
-       timeouts;
-       vpc_network_sources;
-     }
-      : google_access_context_manager_access_level_condition)
+    google_access_context_manager_access_level_condition ?id
+      ?ip_subnetworks ?members ?negate ?regions
+      ?required_access_levels ?timeouts ~access_level ~device_policy
+      ~vpc_network_sources ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_access_level_condition
        __resource);
   let __resource_attributes =

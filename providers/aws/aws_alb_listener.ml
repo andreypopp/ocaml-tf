@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_alb_listener__default_action__authenticate_cognito = {
+type default_action__authenticate_cognito = {
   authentication_request_extra_params :
     (string * string prop) list option;
       [@option]
@@ -21,9 +21,9 @@ type aws_alb_listener__default_action__authenticate_cognito = {
   user_pool_domain : string prop;  (** user_pool_domain *)
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__default_action__authenticate_cognito *)
+(** default_action__authenticate_cognito *)
 
-type aws_alb_listener__default_action__authenticate_oidc = {
+type default_action__authenticate_oidc = {
   authentication_request_extra_params :
     (string * string prop) list option;
       [@option]
@@ -44,40 +44,38 @@ type aws_alb_listener__default_action__authenticate_oidc = {
   user_info_endpoint : string prop;  (** user_info_endpoint *)
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__default_action__authenticate_oidc *)
+(** default_action__authenticate_oidc *)
 
-type aws_alb_listener__default_action__fixed_response = {
+type default_action__fixed_response = {
   content_type : string prop;  (** content_type *)
   message_body : string prop option; [@option]  (** message_body *)
   status_code : string prop option; [@option]  (** status_code *)
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__default_action__fixed_response *)
+(** default_action__fixed_response *)
 
-type aws_alb_listener__default_action__forward__stickiness = {
+type default_action__forward__stickiness = {
   duration : float prop;  (** duration *)
   enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__default_action__forward__stickiness *)
+(** default_action__forward__stickiness *)
 
-type aws_alb_listener__default_action__forward__target_group = {
+type default_action__forward__target_group = {
   arn : string prop;  (** arn *)
   weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__default_action__forward__target_group *)
+(** default_action__forward__target_group *)
 
-type aws_alb_listener__default_action__forward = {
-  stickiness :
-    aws_alb_listener__default_action__forward__stickiness list;
-  target_group :
-    aws_alb_listener__default_action__forward__target_group list;
+type default_action__forward = {
+  stickiness : default_action__forward__stickiness list;
+  target_group : default_action__forward__target_group list;
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__default_action__forward *)
+(** default_action__forward *)
 
-type aws_alb_listener__default_action__redirect = {
+type default_action__redirect = {
   host : string prop option; [@option]  (** host *)
   path : string prop option; [@option]  (** path *)
   port : string prop option; [@option]  (** port *)
@@ -86,26 +84,23 @@ type aws_alb_listener__default_action__redirect = {
   status_code : string prop;  (** status_code *)
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__default_action__redirect *)
+(** default_action__redirect *)
 
-type aws_alb_listener__default_action = {
+type default_action = {
   order : float prop option; [@option]  (** order *)
   target_group_arn : string prop option; [@option]
       (** target_group_arn *)
   type_ : string prop; [@key "type"]  (** type *)
-  authenticate_cognito :
-    aws_alb_listener__default_action__authenticate_cognito list;
-  authenticate_oidc :
-    aws_alb_listener__default_action__authenticate_oidc list;
-  fixed_response :
-    aws_alb_listener__default_action__fixed_response list;
-  forward : aws_alb_listener__default_action__forward list;
-  redirect : aws_alb_listener__default_action__redirect list;
+  authenticate_cognito : default_action__authenticate_cognito list;
+  authenticate_oidc : default_action__authenticate_oidc list;
+  fixed_response : default_action__fixed_response list;
+  forward : default_action__forward list;
+  redirect : default_action__redirect list;
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__default_action *)
+(** default_action *)
 
-type aws_alb_listener__mutual_authentication = {
+type mutual_authentication = {
   ignore_client_certificate_expiry : bool prop option; [@option]
       (** ignore_client_certificate_expiry *)
   mode : string prop;  (** mode *)
@@ -113,14 +108,14 @@ type aws_alb_listener__mutual_authentication = {
       (** trust_store_arn *)
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__mutual_authentication *)
+(** mutual_authentication *)
 
-type aws_alb_listener__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_alb_listener__timeouts *)
+(** timeouts *)
 
 type aws_alb_listener = {
   alpn_policy : string prop option; [@option]  (** alpn_policy *)
@@ -134,13 +129,107 @@ type aws_alb_listener = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  default_action : aws_alb_listener__default_action list;
-  mutual_authentication :
-    aws_alb_listener__mutual_authentication list;
-  timeouts : aws_alb_listener__timeouts option;
+  default_action : default_action list;
+  mutual_authentication : mutual_authentication list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_alb_listener *)
+
+let default_action__authenticate_cognito
+    ?authentication_request_extra_params ?on_unauthenticated_request
+    ?scope ?session_cookie_name ?session_timeout ~user_pool_arn
+    ~user_pool_client_id ~user_pool_domain () :
+    default_action__authenticate_cognito =
+  {
+    authentication_request_extra_params;
+    on_unauthenticated_request;
+    scope;
+    session_cookie_name;
+    session_timeout;
+    user_pool_arn;
+    user_pool_client_id;
+    user_pool_domain;
+  }
+
+let default_action__authenticate_oidc
+    ?authentication_request_extra_params ?on_unauthenticated_request
+    ?scope ?session_cookie_name ?session_timeout
+    ~authorization_endpoint ~client_id ~client_secret ~issuer
+    ~token_endpoint ~user_info_endpoint () :
+    default_action__authenticate_oidc =
+  {
+    authentication_request_extra_params;
+    authorization_endpoint;
+    client_id;
+    client_secret;
+    issuer;
+    on_unauthenticated_request;
+    scope;
+    session_cookie_name;
+    session_timeout;
+    token_endpoint;
+    user_info_endpoint;
+  }
+
+let default_action__fixed_response ?message_body ?status_code
+    ~content_type () : default_action__fixed_response =
+  { content_type; message_body; status_code }
+
+let default_action__forward__stickiness ?enabled ~duration () :
+    default_action__forward__stickiness =
+  { duration; enabled }
+
+let default_action__forward__target_group ?weight ~arn () :
+    default_action__forward__target_group =
+  { arn; weight }
+
+let default_action__forward ~stickiness ~target_group () :
+    default_action__forward =
+  { stickiness; target_group }
+
+let default_action__redirect ?host ?path ?port ?protocol ?query
+    ~status_code () : default_action__redirect =
+  { host; path; port; protocol; query; status_code }
+
+let default_action ?order ?target_group_arn ~type_
+    ~authenticate_cognito ~authenticate_oidc ~fixed_response ~forward
+    ~redirect () : default_action =
+  {
+    order;
+    target_group_arn;
+    type_;
+    authenticate_cognito;
+    authenticate_oidc;
+    fixed_response;
+    forward;
+    redirect;
+  }
+
+let mutual_authentication ?ignore_client_certificate_expiry
+    ?trust_store_arn ~mode () : mutual_authentication =
+  { ignore_client_certificate_expiry; mode; trust_store_arn }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_alb_listener ?alpn_policy ?certificate_arn ?id ?port
+    ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
+    ~load_balancer_arn ~default_action ~mutual_authentication () :
+    aws_alb_listener =
+  {
+    alpn_policy;
+    certificate_arn;
+    id;
+    load_balancer_arn;
+    port;
+    protocol;
+    ssl_policy;
+    tags;
+    tags_all;
+    default_action;
+    mutual_authentication;
+    timeouts;
+  }
 
 type t = {
   alpn_policy : string prop;
@@ -155,29 +244,17 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_alb_listener ?alpn_policy ?certificate_arn ?id ?port
+let register ?tf_module ?alpn_policy ?certificate_arn ?id ?port
     ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
     ~load_balancer_arn ~default_action ~mutual_authentication
     __resource_id =
   let __resource_type = "aws_alb_listener" in
   let __resource =
-    ({
-       alpn_policy;
-       certificate_arn;
-       id;
-       load_balancer_arn;
-       port;
-       protocol;
-       ssl_policy;
-       tags;
-       tags_all;
-       default_action;
-       mutual_authentication;
-       timeouts;
-     }
-      : aws_alb_listener)
+    aws_alb_listener ?alpn_policy ?certificate_arn ?id ?port
+      ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
+      ~load_balancer_arn ~default_action ~mutual_authentication ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_alb_listener __resource);
   let __resource_attributes =
     ({

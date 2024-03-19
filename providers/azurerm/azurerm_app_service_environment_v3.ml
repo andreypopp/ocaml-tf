@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_environment_v3__cluster_setting = {
+type cluster_setting = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_environment_v3__cluster_setting *)
+(** cluster_setting *)
 
-type azurerm_app_service_environment_v3__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_environment_v3__timeouts *)
+(** timeouts *)
 
-type azurerm_app_service_environment_v3__inbound_network_dependencies = {
+type inbound_network_dependencies = {
   description : string prop;  (** description *)
   ip_addresses : string prop list;  (** ip_addresses *)
   ports : string prop list;  (** ports *)
@@ -43,12 +43,37 @@ type azurerm_app_service_environment_v3 = {
   subnet_id : string prop;  (** subnet_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   zone_redundant : bool prop option; [@option]  (** zone_redundant *)
-  cluster_setting :
-    azurerm_app_service_environment_v3__cluster_setting list;
-  timeouts : azurerm_app_service_environment_v3__timeouts option;
+  cluster_setting : cluster_setting list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_environment_v3 *)
+
+let cluster_setting ~name ~value () : cluster_setting =
+  { name; value }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_app_service_environment_v3
+    ?allow_new_private_endpoint_connections ?dedicated_host_count ?id
+    ?internal_load_balancing_mode ?remote_debugging_enabled ?tags
+    ?zone_redundant ?timeouts ~name ~resource_group_name ~subnet_id
+    ~cluster_setting () : azurerm_app_service_environment_v3 =
+  {
+    allow_new_private_endpoint_connections;
+    dedicated_host_count;
+    id;
+    internal_load_balancing_mode;
+    name;
+    remote_debugging_enabled;
+    resource_group_name;
+    subnet_id;
+    tags;
+    zone_redundant;
+    cluster_setting;
+    timeouts;
+  }
 
 type t = {
   allow_new_private_endpoint_connections : bool prop;
@@ -57,9 +82,7 @@ type t = {
   external_inbound_ip_addresses : string list prop;
   id : string prop;
   inbound_network_dependencies :
-    azurerm_app_service_environment_v3__inbound_network_dependencies
-    list
-    prop;
+    inbound_network_dependencies list prop;
   internal_inbound_ip_addresses : string list prop;
   internal_load_balancing_mode : string prop;
   ip_ssl_address_count : float prop;
@@ -75,30 +98,19 @@ type t = {
   zone_redundant : bool prop;
 }
 
-let azurerm_app_service_environment_v3
-    ?allow_new_private_endpoint_connections ?dedicated_host_count ?id
-    ?internal_load_balancing_mode ?remote_debugging_enabled ?tags
-    ?zone_redundant ?timeouts ~name ~resource_group_name ~subnet_id
-    ~cluster_setting __resource_id =
+let register ?tf_module ?allow_new_private_endpoint_connections
+    ?dedicated_host_count ?id ?internal_load_balancing_mode
+    ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts ~name
+    ~resource_group_name ~subnet_id ~cluster_setting __resource_id =
   let __resource_type = "azurerm_app_service_environment_v3" in
   let __resource =
-    ({
-       allow_new_private_endpoint_connections;
-       dedicated_host_count;
-       id;
-       internal_load_balancing_mode;
-       name;
-       remote_debugging_enabled;
-       resource_group_name;
-       subnet_id;
-       tags;
-       zone_redundant;
-       cluster_setting;
-       timeouts;
-     }
-      : azurerm_app_service_environment_v3)
+    azurerm_app_service_environment_v3
+      ?allow_new_private_endpoint_connections ?dedicated_host_count
+      ?id ?internal_load_balancing_mode ?remote_debugging_enabled
+      ?tags ?zone_redundant ?timeouts ~name ~resource_group_name
+      ~subnet_id ~cluster_setting ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_environment_v3 __resource);
   let __resource_attributes =
     ({

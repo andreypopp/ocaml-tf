@@ -2,8 +2,24 @@
 
 open! Tf.Prelude
 
-type aws_apprunner_deployment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_apprunner_deployment
+
+val aws_apprunner_deployment :
+  ?timeouts:timeouts ->
+  service_arn:string prop ->
+  unit ->
+  aws_apprunner_deployment
+
+val yojson_of_aws_apprunner_deployment :
+  aws_apprunner_deployment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,8 +28,9 @@ type t = private {
   status : string prop;
 }
 
-val aws_apprunner_deployment :
-  ?timeouts:aws_apprunner_deployment__timeouts ->
+val register :
+  ?tf_module:tf_module ->
+  ?timeouts:timeouts ->
   service_arn:string prop ->
   string ->
   t

@@ -2,18 +2,48 @@
 
 open! Tf.Prelude
 
-type google_app_engine_application_url_dispatch_rules__dispatch_rules
-type google_app_engine_application_url_dispatch_rules__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type dispatch_rules
+
+val dispatch_rules :
+  ?domain:string prop ->
+  path:string prop ->
+  service:string prop ->
+  unit ->
+  dispatch_rules
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_app_engine_application_url_dispatch_rules
-type t = private { id : string prop; project : string prop }
 
 val google_app_engine_application_url_dispatch_rules :
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:
-    google_app_engine_application_url_dispatch_rules__timeouts ->
-  dispatch_rules:
-    google_app_engine_application_url_dispatch_rules__dispatch_rules
-    list ->
+  ?timeouts:timeouts ->
+  dispatch_rules:dispatch_rules list ->
+  unit ->
+  google_app_engine_application_url_dispatch_rules
+
+val yojson_of_google_app_engine_application_url_dispatch_rules :
+  google_app_engine_application_url_dispatch_rules -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; project : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  dispatch_rules:dispatch_rules list ->
   string ->
   t

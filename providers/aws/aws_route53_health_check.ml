@@ -44,6 +44,40 @@ type aws_route53_health_check = {
 [@@deriving yojson_of]
 (** aws_route53_health_check *)
 
+let aws_route53_health_check ?child_health_threshold
+    ?child_healthchecks ?cloudwatch_alarm_name
+    ?cloudwatch_alarm_region ?disabled ?enable_sni ?failure_threshold
+    ?fqdn ?id ?insufficient_data_health_status ?invert_healthcheck
+    ?ip_address ?measure_latency ?port ?reference_name ?regions
+    ?request_interval ?resource_path ?routing_control_arn
+    ?search_string ?tags ?tags_all ~type_ () :
+    aws_route53_health_check =
+  {
+    child_health_threshold;
+    child_healthchecks;
+    cloudwatch_alarm_name;
+    cloudwatch_alarm_region;
+    disabled;
+    enable_sni;
+    failure_threshold;
+    fqdn;
+    id;
+    insufficient_data_health_status;
+    invert_healthcheck;
+    ip_address;
+    measure_latency;
+    port;
+    reference_name;
+    regions;
+    request_interval;
+    resource_path;
+    routing_control_arn;
+    search_string;
+    tags;
+    tags_all;
+    type_;
+  }
+
 type t = {
   arn : string prop;
   child_health_threshold : float prop;
@@ -71,43 +105,24 @@ type t = {
   type_ : string prop;
 }
 
-let aws_route53_health_check ?child_health_threshold
-    ?child_healthchecks ?cloudwatch_alarm_name
-    ?cloudwatch_alarm_region ?disabled ?enable_sni ?failure_threshold
-    ?fqdn ?id ?insufficient_data_health_status ?invert_healthcheck
-    ?ip_address ?measure_latency ?port ?reference_name ?regions
-    ?request_interval ?resource_path ?routing_control_arn
-    ?search_string ?tags ?tags_all ~type_ __resource_id =
+let register ?tf_module ?child_health_threshold ?child_healthchecks
+    ?cloudwatch_alarm_name ?cloudwatch_alarm_region ?disabled
+    ?enable_sni ?failure_threshold ?fqdn ?id
+    ?insufficient_data_health_status ?invert_healthcheck ?ip_address
+    ?measure_latency ?port ?reference_name ?regions ?request_interval
+    ?resource_path ?routing_control_arn ?search_string ?tags
+    ?tags_all ~type_ __resource_id =
   let __resource_type = "aws_route53_health_check" in
   let __resource =
-    ({
-       child_health_threshold;
-       child_healthchecks;
-       cloudwatch_alarm_name;
-       cloudwatch_alarm_region;
-       disabled;
-       enable_sni;
-       failure_threshold;
-       fqdn;
-       id;
-       insufficient_data_health_status;
-       invert_healthcheck;
-       ip_address;
-       measure_latency;
-       port;
-       reference_name;
-       regions;
-       request_interval;
-       resource_path;
-       routing_control_arn;
-       search_string;
-       tags;
-       tags_all;
-       type_;
-     }
-      : aws_route53_health_check)
+    aws_route53_health_check ?child_health_threshold
+      ?child_healthchecks ?cloudwatch_alarm_name
+      ?cloudwatch_alarm_region ?disabled ?enable_sni
+      ?failure_threshold ?fqdn ?id ?insufficient_data_health_status
+      ?invert_healthcheck ?ip_address ?measure_latency ?port
+      ?reference_name ?regions ?request_interval ?resource_path
+      ?routing_control_arn ?search_string ?tags ?tags_all ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_health_check __resource);
   let __resource_attributes =
     ({

@@ -2,18 +2,44 @@
 
 open! Tf.Prelude
 
-type google_beyondcorp_app_gateway__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_beyondcorp_app_gateway__allocated_connections = {
+type allocated_connections = {
   ingress_port : float prop;  (** ingress_port *)
   psc_uri : string prop;  (** psc_uri *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_beyondcorp_app_gateway
 
+val google_beyondcorp_app_gateway :
+  ?display_name:string prop ->
+  ?host_type:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  unit ->
+  google_beyondcorp_app_gateway
+
+val yojson_of_google_beyondcorp_app_gateway :
+  google_beyondcorp_app_gateway -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  allocated_connections :
-    google_beyondcorp_app_gateway__allocated_connections list prop;
+  allocated_connections : allocated_connections list prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
   host_type : string prop;
@@ -28,7 +54,8 @@ type t = private {
   uri : string prop;
 }
 
-val google_beyondcorp_app_gateway :
+val register :
+  ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?host_type:string prop ->
   ?id:string prop ->
@@ -36,7 +63,7 @@ val google_beyondcorp_app_gateway :
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
-  ?timeouts:google_beyondcorp_app_gateway__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   string ->
   t

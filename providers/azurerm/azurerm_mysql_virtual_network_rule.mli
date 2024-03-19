@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_mysql_virtual_network_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mysql_virtual_network_rule
+
+val azurerm_mysql_virtual_network_rule :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
+  subnet_id:string prop ->
+  unit ->
+  azurerm_mysql_virtual_network_rule
+
+val yojson_of_azurerm_mysql_virtual_network_rule :
+  azurerm_mysql_virtual_network_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,9 +39,10 @@ type t = private {
   subnet_id : string prop;
 }
 
-val azurerm_mysql_virtual_network_rule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_mysql_virtual_network_rule__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   server_name:string prop ->

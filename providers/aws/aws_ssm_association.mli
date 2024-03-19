@@ -2,9 +2,47 @@
 
 open! Tf.Prelude
 
-type aws_ssm_association__output_location
-type aws_ssm_association__targets
+(** RESOURCE SERIALIZATION *)
+
+type output_location
+
+val output_location :
+  ?s3_key_prefix:string prop ->
+  ?s3_region:string prop ->
+  s3_bucket_name:string prop ->
+  unit ->
+  output_location
+
+type targets
+
+val targets :
+  key:string prop -> values:string prop list -> unit -> targets
+
 type aws_ssm_association
+
+val aws_ssm_association :
+  ?apply_only_at_cron_interval:bool prop ->
+  ?association_name:string prop ->
+  ?automation_target_parameter_name:string prop ->
+  ?compliance_severity:string prop ->
+  ?document_version:string prop ->
+  ?id:string prop ->
+  ?instance_id:string prop ->
+  ?max_concurrency:string prop ->
+  ?max_errors:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?schedule_expression:string prop ->
+  ?sync_compliance:string prop ->
+  ?wait_for_success_timeout_seconds:float prop ->
+  name:string prop ->
+  output_location:output_location list ->
+  targets:targets list ->
+  unit ->
+  aws_ssm_association
+
+val yojson_of_aws_ssm_association : aws_ssm_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   apply_only_at_cron_interval : bool prop;
@@ -25,7 +63,8 @@ type t = private {
   wait_for_success_timeout_seconds : float prop;
 }
 
-val aws_ssm_association :
+val register :
+  ?tf_module:tf_module ->
   ?apply_only_at_cron_interval:bool prop ->
   ?association_name:string prop ->
   ?automation_target_parameter_name:string prop ->
@@ -40,7 +79,7 @@ val aws_ssm_association :
   ?sync_compliance:string prop ->
   ?wait_for_success_timeout_seconds:float prop ->
   name:string prop ->
-  output_location:aws_ssm_association__output_location list ->
-  targets:aws_ssm_association__targets list ->
+  output_location:output_location list ->
+  targets:targets list ->
   string ->
   t

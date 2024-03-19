@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_center_project__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_dev_center_project
+
+val azurerm_dev_center_project :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?maximum_dev_boxes_per_user:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  dev_center_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_dev_center_project
+
+val yojson_of_azurerm_dev_center_project :
+  azurerm_dev_center_project -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -17,12 +46,13 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_dev_center_project :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?maximum_dev_boxes_per_user:float prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_dev_center_project__timeouts ->
+  ?timeouts:timeouts ->
   dev_center_id:string prop ->
   location:string prop ->
   name:string prop ->

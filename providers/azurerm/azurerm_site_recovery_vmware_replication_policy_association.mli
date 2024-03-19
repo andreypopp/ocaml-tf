@@ -2,9 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_site_recovery_vmware_replication_policy_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
 
 type azurerm_site_recovery_vmware_replication_policy_association
+
+val azurerm_site_recovery_vmware_replication_policy_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  policy_id:string prop ->
+  recovery_vault_id:string prop ->
+  unit ->
+  azurerm_site_recovery_vmware_replication_policy_association
+
+val yojson_of_azurerm_site_recovery_vmware_replication_policy_association :
+  azurerm_site_recovery_vmware_replication_policy_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,10 +36,10 @@ type t = private {
   recovery_vault_id : string prop;
 }
 
-val azurerm_site_recovery_vmware_replication_policy_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_site_recovery_vmware_replication_policy_association__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   policy_id:string prop ->
   recovery_vault_id:string prop ->

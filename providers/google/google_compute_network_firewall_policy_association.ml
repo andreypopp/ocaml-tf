@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_network_firewall_policy_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_network_firewall_policy_association__timeouts *)
+(** timeouts *)
 
 type google_compute_network_firewall_policy_association = {
   attachment_target : string prop;
@@ -20,12 +20,17 @@ type google_compute_network_firewall_policy_association = {
   name : string prop;  (** The name for an association. *)
   project : string prop option; [@option]
       (** The project for the resource *)
-  timeouts :
-    google_compute_network_firewall_policy_association__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_network_firewall_policy_association *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_network_firewall_policy_association ?id ?project
+    ?timeouts ~attachment_target ~firewall_policy ~name () :
+    google_compute_network_firewall_policy_association =
+  { attachment_target; firewall_policy; id; name; project; timeouts }
 
 type t = {
   attachment_target : string prop;
@@ -36,24 +41,16 @@ type t = {
   short_name : string prop;
 }
 
-let google_compute_network_firewall_policy_association ?id ?project
-    ?timeouts ~attachment_target ~firewall_policy ~name __resource_id
-    =
+let register ?tf_module ?id ?project ?timeouts ~attachment_target
+    ~firewall_policy ~name __resource_id =
   let __resource_type =
     "google_compute_network_firewall_policy_association"
   in
   let __resource =
-    ({
-       attachment_target;
-       firewall_policy;
-       id;
-       name;
-       project;
-       timeouts;
-     }
-      : google_compute_network_firewall_policy_association)
+    google_compute_network_firewall_policy_association ?id ?project
+      ?timeouts ~attachment_target ~firewall_policy ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_firewall_policy_association
        __resource);
   let __resource_attributes =

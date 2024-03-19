@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloud_asset_folder_feed__condition = {
+type condition = {
   description : string prop option; [@option]
       (** Description of the expression. This is a longer text which describes the expression,
 e.g. when hovered over it in a UI. *)
@@ -24,27 +24,25 @@ must be a valid CEL expression on a TemporalAsset with name temporal_asset. Exam
 expression temporal_asset.deleted == true will only publish Asset deletions. Other fields of
 condition are optional. *)
 
-type google_cloud_asset_folder_feed__feed_output_config__pubsub_destination = {
+type feed_output_config__pubsub_destination = {
   topic : string prop;  (** Destination on Cloud Pubsub topic. *)
 }
 [@@deriving yojson_of]
 (** Destination on Cloud Pubsub. *)
 
-type google_cloud_asset_folder_feed__feed_output_config = {
-  pubsub_destination :
-    google_cloud_asset_folder_feed__feed_output_config__pubsub_destination
-    list;
+type feed_output_config = {
+  pubsub_destination : feed_output_config__pubsub_destination list;
 }
 [@@deriving yojson_of]
 (** Output configuration for asset feed destination. *)
 
-type google_cloud_asset_folder_feed__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloud_asset_folder_feed__timeouts *)
+(** timeouts *)
 
 type google_cloud_asset_folder_feed = {
   asset_names : string prop list option; [@option]
@@ -69,13 +67,43 @@ enablement check, quota, and billing. *)
   folder : string prop;
       (** The folder this feed should be created in. *)
   id : string prop option; [@option]  (** id *)
-  condition : google_cloud_asset_folder_feed__condition list;
-  feed_output_config :
-    google_cloud_asset_folder_feed__feed_output_config list;
-  timeouts : google_cloud_asset_folder_feed__timeouts option;
+  condition : condition list;
+  feed_output_config : feed_output_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloud_asset_folder_feed *)
+
+let condition ?description ?location ?title ~expression () :
+    condition =
+  { description; expression; location; title }
+
+let feed_output_config__pubsub_destination ~topic () :
+    feed_output_config__pubsub_destination =
+  { topic }
+
+let feed_output_config ~pubsub_destination () : feed_output_config =
+  { pubsub_destination }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_cloud_asset_folder_feed ?asset_names ?asset_types
+    ?content_type ?id ?timeouts ~billing_project ~feed_id ~folder
+    ~condition ~feed_output_config () :
+    google_cloud_asset_folder_feed =
+  {
+    asset_names;
+    asset_types;
+    billing_project;
+    content_type;
+    feed_id;
+    folder;
+    id;
+    condition;
+    feed_output_config;
+    timeouts;
+  }
 
 type t = {
   asset_names : string list prop;
@@ -89,26 +117,16 @@ type t = {
   name : string prop;
 }
 
-let google_cloud_asset_folder_feed ?asset_names ?asset_types
-    ?content_type ?id ?timeouts ~billing_project ~feed_id ~folder
-    ~condition ~feed_output_config __resource_id =
+let register ?tf_module ?asset_names ?asset_types ?content_type ?id
+    ?timeouts ~billing_project ~feed_id ~folder ~condition
+    ~feed_output_config __resource_id =
   let __resource_type = "google_cloud_asset_folder_feed" in
   let __resource =
-    ({
-       asset_names;
-       asset_types;
-       billing_project;
-       content_type;
-       feed_id;
-       folder;
-       id;
-       condition;
-       feed_output_config;
-       timeouts;
-     }
-      : google_cloud_asset_folder_feed)
+    google_cloud_asset_folder_feed ?asset_names ?asset_types
+      ?content_type ?id ?timeouts ~billing_project ~feed_id ~folder
+      ~condition ~feed_output_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_asset_folder_feed __resource);
   let __resource_attributes =
     ({

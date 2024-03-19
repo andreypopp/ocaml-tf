@@ -15,6 +15,17 @@ type aws_appstream_user_stack_association = {
 [@@deriving yojson_of]
 (** aws_appstream_user_stack_association *)
 
+let aws_appstream_user_stack_association ?id ?send_email_notification
+    ~authentication_type ~stack_name ~user_name () :
+    aws_appstream_user_stack_association =
+  {
+    authentication_type;
+    id;
+    send_email_notification;
+    stack_name;
+    user_name;
+  }
+
 type t = {
   authentication_type : string prop;
   id : string prop;
@@ -23,20 +34,14 @@ type t = {
   user_name : string prop;
 }
 
-let aws_appstream_user_stack_association ?id ?send_email_notification
+let register ?tf_module ?id ?send_email_notification
     ~authentication_type ~stack_name ~user_name __resource_id =
   let __resource_type = "aws_appstream_user_stack_association" in
   let __resource =
-    ({
-       authentication_type;
-       id;
-       send_email_notification;
-       stack_name;
-       user_name;
-     }
-      : aws_appstream_user_stack_association)
+    aws_appstream_user_stack_association ?id ?send_email_notification
+      ~authentication_type ~stack_name ~user_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_user_stack_association __resource);
   let __resource_attributes =
     ({

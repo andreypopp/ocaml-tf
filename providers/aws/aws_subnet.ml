@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_subnet__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_subnet__timeouts *)
+(** timeouts *)
 
 type aws_subnet = {
   assign_ipv6_address_on_creation : bool prop option; [@option]
@@ -45,10 +45,44 @@ type aws_subnet = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   vpc_id : string prop;  (** vpc_id *)
-  timeouts : aws_subnet__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_subnet *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_subnet ?assign_ipv6_address_on_creation ?availability_zone
+    ?availability_zone_id ?cidr_block ?customer_owned_ipv4_pool
+    ?enable_dns64 ?enable_lni_at_device_index
+    ?enable_resource_name_dns_a_record_on_launch
+    ?enable_resource_name_dns_aaaa_record_on_launch ?id
+    ?ipv6_cidr_block ?ipv6_native ?map_customer_owned_ip_on_launch
+    ?map_public_ip_on_launch ?outpost_arn
+    ?private_dns_hostname_type_on_launch ?tags ?tags_all ?timeouts
+    ~vpc_id () : aws_subnet =
+  {
+    assign_ipv6_address_on_creation;
+    availability_zone;
+    availability_zone_id;
+    cidr_block;
+    customer_owned_ipv4_pool;
+    enable_dns64;
+    enable_lni_at_device_index;
+    enable_resource_name_dns_a_record_on_launch;
+    enable_resource_name_dns_aaaa_record_on_launch;
+    id;
+    ipv6_cidr_block;
+    ipv6_native;
+    map_customer_owned_ip_on_launch;
+    map_public_ip_on_launch;
+    outpost_arn;
+    private_dns_hostname_type_on_launch;
+    tags;
+    tags_all;
+    vpc_id;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -75,9 +109,10 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_subnet ?assign_ipv6_address_on_creation ?availability_zone
-    ?availability_zone_id ?cidr_block ?customer_owned_ipv4_pool
-    ?enable_dns64 ?enable_lni_at_device_index
+let register ?tf_module ?assign_ipv6_address_on_creation
+    ?availability_zone ?availability_zone_id ?cidr_block
+    ?customer_owned_ipv4_pool ?enable_dns64
+    ?enable_lni_at_device_index
     ?enable_resource_name_dns_a_record_on_launch
     ?enable_resource_name_dns_aaaa_record_on_launch ?id
     ?ipv6_cidr_block ?ipv6_native ?map_customer_owned_ip_on_launch
@@ -86,31 +121,17 @@ let aws_subnet ?assign_ipv6_address_on_creation ?availability_zone
     ~vpc_id __resource_id =
   let __resource_type = "aws_subnet" in
   let __resource =
-    ({
-       assign_ipv6_address_on_creation;
-       availability_zone;
-       availability_zone_id;
-       cidr_block;
-       customer_owned_ipv4_pool;
-       enable_dns64;
-       enable_lni_at_device_index;
-       enable_resource_name_dns_a_record_on_launch;
-       enable_resource_name_dns_aaaa_record_on_launch;
-       id;
-       ipv6_cidr_block;
-       ipv6_native;
-       map_customer_owned_ip_on_launch;
-       map_public_ip_on_launch;
-       outpost_arn;
-       private_dns_hostname_type_on_launch;
-       tags;
-       tags_all;
-       vpc_id;
-       timeouts;
-     }
-      : aws_subnet)
+    aws_subnet ?assign_ipv6_address_on_creation ?availability_zone
+      ?availability_zone_id ?cidr_block ?customer_owned_ipv4_pool
+      ?enable_dns64 ?enable_lni_at_device_index
+      ?enable_resource_name_dns_a_record_on_launch
+      ?enable_resource_name_dns_aaaa_record_on_launch ?id
+      ?ipv6_cidr_block ?ipv6_native ?map_customer_owned_ip_on_launch
+      ?map_public_ip_on_launch ?outpost_arn
+      ?private_dns_hostname_type_on_launch ?tags ?tags_all ?timeouts
+      ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_subnet __resource);
   let __resource_attributes =
     ({

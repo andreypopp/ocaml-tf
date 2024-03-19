@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_monitoring_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_monitoring_group
+
+val google_monitoring_group :
+  ?id:string prop ->
+  ?is_cluster:bool prop ->
+  ?parent_name:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  filter:string prop ->
+  unit ->
+  google_monitoring_group
+
+val yojson_of_google_monitoring_group :
+  google_monitoring_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   display_name : string prop;
@@ -15,12 +41,13 @@ type t = private {
   project : string prop;
 }
 
-val google_monitoring_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?is_cluster:bool prop ->
   ?parent_name:string prop ->
   ?project:string prop ->
-  ?timeouts:google_monitoring_group__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   filter:string prop ->
   string ->

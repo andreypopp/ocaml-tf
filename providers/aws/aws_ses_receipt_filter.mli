@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ses_receipt_filter
+
+val aws_ses_receipt_filter :
+  ?id:string prop ->
+  cidr:string prop ->
+  name:string prop ->
+  policy:string prop ->
+  unit ->
+  aws_ses_receipt_filter
+
+val yojson_of_aws_ses_receipt_filter : aws_ses_receipt_filter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -12,7 +26,8 @@ type t = private {
   policy : string prop;
 }
 
-val aws_ses_receipt_filter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   cidr:string prop ->
   name:string prop ->

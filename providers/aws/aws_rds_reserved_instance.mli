@@ -2,16 +2,41 @@
 
 open! Tf.Prelude
 
-type aws_rds_reserved_instance__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type aws_rds_reserved_instance__recurring_charges = {
+type recurring_charges = {
   recurring_charge_amount : float prop;
       (** recurring_charge_amount *)
   recurring_charge_frequency : string prop;
       (** recurring_charge_frequency *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_rds_reserved_instance
+
+val aws_rds_reserved_instance :
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?reservation_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  offering_id:string prop ->
+  unit ->
+  aws_rds_reserved_instance
+
+val yojson_of_aws_rds_reserved_instance :
+  aws_rds_reserved_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -26,8 +51,7 @@ type t = private {
   offering_id : string prop;
   offering_type : string prop;
   product_description : string prop;
-  recurring_charges :
-    aws_rds_reserved_instance__recurring_charges list prop;
+  recurring_charges : recurring_charges list prop;
   reservation_id : string prop;
   start_time : string prop;
   state : string prop;
@@ -36,13 +60,14 @@ type t = private {
   usage_price : float prop;
 }
 
-val aws_rds_reserved_instance :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?reservation_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_rds_reserved_instance__timeouts ->
+  ?timeouts:timeouts ->
   offering_id:string prop ->
   string ->
   t

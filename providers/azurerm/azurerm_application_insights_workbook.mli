@@ -2,9 +2,49 @@
 
 open! Tf.Prelude
 
-type azurerm_application_insights_workbook__identity
-type azurerm_application_insights_workbook__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_application_insights_workbook
+
+val azurerm_application_insights_workbook :
+  ?category:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?source_id:string prop ->
+  ?storage_container_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  data_json:string prop ->
+  display_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_application_insights_workbook
+
+val yojson_of_azurerm_application_insights_workbook :
+  azurerm_application_insights_workbook -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   category : string prop;
@@ -20,19 +60,20 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_application_insights_workbook :
+val register :
+  ?tf_module:tf_module ->
   ?category:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?source_id:string prop ->
   ?storage_container_id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_application_insights_workbook__timeouts ->
+  ?timeouts:timeouts ->
   data_json:string prop ->
   display_name:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_application_insights_workbook__identity list ->
+  identity:identity list ->
   string ->
   t

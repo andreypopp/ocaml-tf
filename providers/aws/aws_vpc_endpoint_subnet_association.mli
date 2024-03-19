@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_vpc_endpoint_subnet_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_vpc_endpoint_subnet_association
+
+val aws_vpc_endpoint_subnet_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  subnet_id:string prop ->
+  vpc_endpoint_id:string prop ->
+  unit ->
+  aws_vpc_endpoint_subnet_association
+
+val yojson_of_aws_vpc_endpoint_subnet_association :
+  aws_vpc_endpoint_subnet_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,9 +30,10 @@ type t = private {
   vpc_endpoint_id : string prop;
 }
 
-val aws_vpc_endpoint_subnet_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_vpc_endpoint_subnet_association__timeouts ->
+  ?timeouts:timeouts ->
   subnet_id:string prop ->
   vpc_endpoint_id:string prop ->
   string ->

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_vpn_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_vpn_gateway__timeouts *)
+(** timeouts *)
 
 type google_compute_vpn_gateway = {
   description : string prop option; [@option]
@@ -28,10 +28,16 @@ character, which cannot be a dash. *)
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** The region this gateway should sit in. *)
-  timeouts : google_compute_vpn_gateway__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_vpn_gateway *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_vpn_gateway ?description ?id ?project ?region
+    ?timeouts ~name ~network () : google_compute_vpn_gateway =
+  { description; id; name; network; project; region; timeouts }
 
 type t = {
   creation_timestamp : string prop;
@@ -45,14 +51,14 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_vpn_gateway ?description ?id ?project ?region
-    ?timeouts ~name ~network __resource_id =
+let register ?tf_module ?description ?id ?project ?region ?timeouts
+    ~name ~network __resource_id =
   let __resource_type = "google_compute_vpn_gateway" in
   let __resource =
-    ({ description; id; name; network; project; region; timeouts }
-      : google_compute_vpn_gateway)
+    google_compute_vpn_gateway ?description ?id ?project ?region
+      ?timeouts ~name ~network ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_vpn_gateway __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_lb_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_lb_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_lb_rule = {
   backend_address_pool_ids : string prop list option; [@option]
@@ -35,10 +35,36 @@ type azurerm_lb_rule = {
   name : string prop;  (** name *)
   probe_id : string prop option; [@option]  (** probe_id *)
   protocol : string prop;  (** protocol *)
-  timeouts : azurerm_lb_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_lb_rule *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_lb_rule ?backend_address_pool_ids ?disable_outbound_snat
+    ?enable_floating_ip ?enable_tcp_reset ?id
+    ?idle_timeout_in_minutes ?load_distribution ?probe_id ?timeouts
+    ~backend_port ~frontend_ip_configuration_name ~frontend_port
+    ~loadbalancer_id ~name ~protocol () : azurerm_lb_rule =
+  {
+    backend_address_pool_ids;
+    backend_port;
+    disable_outbound_snat;
+    enable_floating_ip;
+    enable_tcp_reset;
+    frontend_ip_configuration_name;
+    frontend_port;
+    id;
+    idle_timeout_in_minutes;
+    load_distribution;
+    loadbalancer_id;
+    name;
+    probe_id;
+    protocol;
+    timeouts;
+  }
 
 type t = {
   backend_address_pool_ids : string list prop;
@@ -58,33 +84,20 @@ type t = {
   protocol : string prop;
 }
 
-let azurerm_lb_rule ?backend_address_pool_ids ?disable_outbound_snat
-    ?enable_floating_ip ?enable_tcp_reset ?id
+let register ?tf_module ?backend_address_pool_ids
+    ?disable_outbound_snat ?enable_floating_ip ?enable_tcp_reset ?id
     ?idle_timeout_in_minutes ?load_distribution ?probe_id ?timeouts
     ~backend_port ~frontend_ip_configuration_name ~frontend_port
     ~loadbalancer_id ~name ~protocol __resource_id =
   let __resource_type = "azurerm_lb_rule" in
   let __resource =
-    ({
-       backend_address_pool_ids;
-       backend_port;
-       disable_outbound_snat;
-       enable_floating_ip;
-       enable_tcp_reset;
-       frontend_ip_configuration_name;
-       frontend_port;
-       id;
-       idle_timeout_in_minutes;
-       load_distribution;
-       loadbalancer_id;
-       name;
-       probe_id;
-       protocol;
-       timeouts;
-     }
-      : azurerm_lb_rule)
+    azurerm_lb_rule ?backend_address_pool_ids ?disable_outbound_snat
+      ?enable_floating_ip ?enable_tcp_reset ?id
+      ?idle_timeout_in_minutes ?load_distribution ?probe_id ?timeouts
+      ~backend_port ~frontend_ip_configuration_name ~frontend_port
+      ~loadbalancer_id ~name ~protocol ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lb_rule __resource);
   let __resource_attributes =
     ({

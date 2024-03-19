@@ -2,10 +2,49 @@
 
 open! Tf.Prelude
 
-type google_network_services_edge_cache_keyset__public_key
-type google_network_services_edge_cache_keyset__timeouts
-type google_network_services_edge_cache_keyset__validation_shared_keys
+(** RESOURCE SERIALIZATION *)
+
+type public_key
+
+val public_key :
+  ?managed:bool prop ->
+  ?value:string prop ->
+  id:string prop ->
+  unit ->
+  public_key
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type validation_shared_keys
+
+val validation_shared_keys :
+  secret_version:string prop -> unit -> validation_shared_keys
+
 type google_network_services_edge_cache_keyset
+
+val google_network_services_edge_cache_keyset :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  public_key:public_key list ->
+  validation_shared_keys:validation_shared_keys list ->
+  unit ->
+  google_network_services_edge_cache_keyset
+
+val yojson_of_google_network_services_edge_cache_keyset :
+  google_network_services_edge_cache_keyset -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -17,17 +56,15 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_network_services_edge_cache_keyset :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_network_services_edge_cache_keyset__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  public_key:
-    google_network_services_edge_cache_keyset__public_key list ->
-  validation_shared_keys:
-    google_network_services_edge_cache_keyset__validation_shared_keys
-    list ->
+  public_key:public_key list ->
+  validation_shared_keys:validation_shared_keys list ->
   string ->
   t

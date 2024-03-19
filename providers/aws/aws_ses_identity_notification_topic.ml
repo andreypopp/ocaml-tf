@@ -15,6 +15,17 @@ type aws_ses_identity_notification_topic = {
 [@@deriving yojson_of]
 (** aws_ses_identity_notification_topic *)
 
+let aws_ses_identity_notification_topic ?id ?include_original_headers
+    ?topic_arn ~identity ~notification_type () :
+    aws_ses_identity_notification_topic =
+  {
+    id;
+    identity;
+    include_original_headers;
+    notification_type;
+    topic_arn;
+  }
+
 type t = {
   id : string prop;
   identity : string prop;
@@ -23,20 +34,14 @@ type t = {
   topic_arn : string prop;
 }
 
-let aws_ses_identity_notification_topic ?id ?include_original_headers
-    ?topic_arn ~identity ~notification_type __resource_id =
+let register ?tf_module ?id ?include_original_headers ?topic_arn
+    ~identity ~notification_type __resource_id =
   let __resource_type = "aws_ses_identity_notification_topic" in
   let __resource =
-    ({
-       id;
-       identity;
-       include_original_headers;
-       notification_type;
-       topic_arn;
-     }
-      : aws_ses_identity_notification_topic)
+    aws_ses_identity_notification_topic ?id ?include_original_headers
+      ?topic_arn ~identity ~notification_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_identity_notification_topic __resource);
   let __resource_attributes =
     ({

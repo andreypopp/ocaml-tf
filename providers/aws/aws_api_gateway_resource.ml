@@ -13,6 +13,10 @@ type aws_api_gateway_resource = {
 [@@deriving yojson_of]
 (** aws_api_gateway_resource *)
 
+let aws_api_gateway_resource ?id ~parent_id ~path_part ~rest_api_id
+    () : aws_api_gateway_resource =
+  { id; parent_id; path_part; rest_api_id }
+
 type t = {
   id : string prop;
   parent_id : string prop;
@@ -21,14 +25,14 @@ type t = {
   rest_api_id : string prop;
 }
 
-let aws_api_gateway_resource ?id ~parent_id ~path_part ~rest_api_id
+let register ?tf_module ?id ~parent_id ~path_part ~rest_api_id
     __resource_id =
   let __resource_type = "aws_api_gateway_resource" in
   let __resource =
-    ({ id; parent_id; path_part; rest_api_id }
-      : aws_api_gateway_resource)
+    aws_api_gateway_resource ?id ~parent_id ~path_part ~rest_api_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_resource __resource);
   let __resource_attributes =
     ({

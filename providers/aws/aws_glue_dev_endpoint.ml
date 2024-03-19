@@ -35,6 +35,32 @@ type aws_glue_dev_endpoint = {
 [@@deriving yojson_of]
 (** aws_glue_dev_endpoint *)
 
+let aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
+    ?extra_python_libs_s3_path ?glue_version ?id ?number_of_nodes
+    ?number_of_workers ?public_key ?public_keys
+    ?security_configuration ?security_group_ids ?subnet_id ?tags
+    ?tags_all ?worker_type ~name ~role_arn () : aws_glue_dev_endpoint
+    =
+  {
+    arguments;
+    extra_jars_s3_path;
+    extra_python_libs_s3_path;
+    glue_version;
+    id;
+    name;
+    number_of_nodes;
+    number_of_workers;
+    public_key;
+    public_keys;
+    role_arn;
+    security_configuration;
+    security_group_ids;
+    subnet_id;
+    tags;
+    tags_all;
+    worker_type;
+  }
+
 type t = {
   arguments : (string * string) list prop;
   arn : string prop;
@@ -64,35 +90,20 @@ type t = {
   zeppelin_remote_spark_interpreter_port : float prop;
 }
 
-let aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
+let register ?tf_module ?arguments ?extra_jars_s3_path
     ?extra_python_libs_s3_path ?glue_version ?id ?number_of_nodes
     ?number_of_workers ?public_key ?public_keys
     ?security_configuration ?security_group_ids ?subnet_id ?tags
     ?tags_all ?worker_type ~name ~role_arn __resource_id =
   let __resource_type = "aws_glue_dev_endpoint" in
   let __resource =
-    ({
-       arguments;
-       extra_jars_s3_path;
-       extra_python_libs_s3_path;
-       glue_version;
-       id;
-       name;
-       number_of_nodes;
-       number_of_workers;
-       public_key;
-       public_keys;
-       role_arn;
-       security_configuration;
-       security_group_ids;
-       subnet_id;
-       tags;
-       tags_all;
-       worker_type;
-     }
-      : aws_glue_dev_endpoint)
+    aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
+      ?extra_python_libs_s3_path ?glue_version ?id ?number_of_nodes
+      ?number_of_workers ?public_key ?public_keys
+      ?security_configuration ?security_group_ids ?subnet_id ?tags
+      ?tags_all ?worker_type ~name ~role_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_dev_endpoint __resource);
   let __resource_attributes =
     ({

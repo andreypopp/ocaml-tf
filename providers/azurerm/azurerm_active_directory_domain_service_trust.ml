@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_active_directory_domain_service_trust__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_active_directory_domain_service_trust__timeouts *)
+(** timeouts *)
 
 type azurerm_active_directory_domain_service_trust = {
   domain_service_id : string prop;  (** domain_service_id *)
@@ -21,11 +21,27 @@ type azurerm_active_directory_domain_service_trust = {
   trusted_domain_dns_ips : string prop list;
       (** trusted_domain_dns_ips *)
   trusted_domain_fqdn : string prop;  (** trusted_domain_fqdn *)
-  timeouts :
-    azurerm_active_directory_domain_service_trust__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_active_directory_domain_service_trust *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_active_directory_domain_service_trust ?id ?timeouts
+    ~domain_service_id ~name ~password ~trusted_domain_dns_ips
+    ~trusted_domain_fqdn () :
+    azurerm_active_directory_domain_service_trust =
+  {
+    domain_service_id;
+    id;
+    name;
+    password;
+    trusted_domain_dns_ips;
+    trusted_domain_fqdn;
+    timeouts;
+  }
 
 type t = {
   domain_service_id : string prop;
@@ -36,25 +52,18 @@ type t = {
   trusted_domain_fqdn : string prop;
 }
 
-let azurerm_active_directory_domain_service_trust ?id ?timeouts
-    ~domain_service_id ~name ~password ~trusted_domain_dns_ips
-    ~trusted_domain_fqdn __resource_id =
+let register ?tf_module ?id ?timeouts ~domain_service_id ~name
+    ~password ~trusted_domain_dns_ips ~trusted_domain_fqdn
+    __resource_id =
   let __resource_type =
     "azurerm_active_directory_domain_service_trust"
   in
   let __resource =
-    ({
-       domain_service_id;
-       id;
-       name;
-       password;
-       trusted_domain_dns_ips;
-       trusted_domain_fqdn;
-       timeouts;
-     }
-      : azurerm_active_directory_domain_service_trust)
+    azurerm_active_directory_domain_service_trust ?id ?timeouts
+      ~domain_service_id ~name ~password ~trusted_domain_dns_ips
+      ~trusted_domain_fqdn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_active_directory_domain_service_trust
        __resource);
   let __resource_attributes =

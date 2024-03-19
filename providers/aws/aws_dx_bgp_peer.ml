@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_dx_bgp_peer__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_dx_bgp_peer__timeouts *)
+(** timeouts *)
 
 type aws_dx_bgp_peer = {
   address_family : string prop;  (** address_family *)
@@ -21,10 +21,26 @@ type aws_dx_bgp_peer = {
       (** customer_address *)
   id : string prop option; [@option]  (** id *)
   virtual_interface_id : string prop;  (** virtual_interface_id *)
-  timeouts : aws_dx_bgp_peer__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dx_bgp_peer *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_dx_bgp_peer ?amazon_address ?bgp_auth_key ?customer_address
+    ?id ?timeouts ~address_family ~bgp_asn ~virtual_interface_id () :
+    aws_dx_bgp_peer =
+  {
+    address_family;
+    amazon_address;
+    bgp_asn;
+    bgp_auth_key;
+    customer_address;
+    id;
+    virtual_interface_id;
+    timeouts;
+  }
 
 type t = {
   address_family : string prop;
@@ -39,24 +55,15 @@ type t = {
   virtual_interface_id : string prop;
 }
 
-let aws_dx_bgp_peer ?amazon_address ?bgp_auth_key ?customer_address
-    ?id ?timeouts ~address_family ~bgp_asn ~virtual_interface_id
-    __resource_id =
+let register ?tf_module ?amazon_address ?bgp_auth_key
+    ?customer_address ?id ?timeouts ~address_family ~bgp_asn
+    ~virtual_interface_id __resource_id =
   let __resource_type = "aws_dx_bgp_peer" in
   let __resource =
-    ({
-       address_family;
-       amazon_address;
-       bgp_asn;
-       bgp_auth_key;
-       customer_address;
-       id;
-       virtual_interface_id;
-       timeouts;
-     }
-      : aws_dx_bgp_peer)
+    aws_dx_bgp_peer ?amazon_address ?bgp_auth_key ?customer_address
+      ?id ?timeouts ~address_family ~bgp_asn ~virtual_interface_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_bgp_peer __resource);
   let __resource_attributes =
     ({

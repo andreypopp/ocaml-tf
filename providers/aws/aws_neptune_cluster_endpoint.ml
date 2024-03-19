@@ -21,6 +21,21 @@ type aws_neptune_cluster_endpoint = {
 [@@deriving yojson_of]
 (** aws_neptune_cluster_endpoint *)
 
+let aws_neptune_cluster_endpoint ?excluded_members ?id
+    ?static_members ?tags ?tags_all ~cluster_endpoint_identifier
+    ~cluster_identifier ~endpoint_type () :
+    aws_neptune_cluster_endpoint =
+  {
+    cluster_endpoint_identifier;
+    cluster_identifier;
+    endpoint_type;
+    excluded_members;
+    id;
+    static_members;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   cluster_endpoint_identifier : string prop;
@@ -34,24 +49,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_neptune_cluster_endpoint ?excluded_members ?id
-    ?static_members ?tags ?tags_all ~cluster_endpoint_identifier
-    ~cluster_identifier ~endpoint_type __resource_id =
+let register ?tf_module ?excluded_members ?id ?static_members ?tags
+    ?tags_all ~cluster_endpoint_identifier ~cluster_identifier
+    ~endpoint_type __resource_id =
   let __resource_type = "aws_neptune_cluster_endpoint" in
   let __resource =
-    ({
-       cluster_endpoint_identifier;
-       cluster_identifier;
-       endpoint_type;
-       excluded_members;
-       id;
-       static_members;
-       tags;
-       tags_all;
-     }
-      : aws_neptune_cluster_endpoint)
+    aws_neptune_cluster_endpoint ?excluded_members ?id
+      ?static_members ?tags ?tags_all ~cluster_endpoint_identifier
+      ~cluster_identifier ~endpoint_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_neptune_cluster_endpoint __resource);
   let __resource_attributes =
     ({

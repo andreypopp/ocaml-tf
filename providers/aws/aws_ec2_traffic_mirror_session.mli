@@ -2,7 +2,28 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ec2_traffic_mirror_session
+
+val aws_ec2_traffic_mirror_session :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?packet_length:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?virtual_network_id:float prop ->
+  network_interface_id:string prop ->
+  session_number:float prop ->
+  traffic_mirror_filter_id:string prop ->
+  traffic_mirror_target_id:string prop ->
+  unit ->
+  aws_ec2_traffic_mirror_session
+
+val yojson_of_aws_ec2_traffic_mirror_session :
+  aws_ec2_traffic_mirror_session -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,7 +40,8 @@ type t = private {
   virtual_network_id : float prop;
 }
 
-val aws_ec2_traffic_mirror_session :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?packet_length:float prop ->

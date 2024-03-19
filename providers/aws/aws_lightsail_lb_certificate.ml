@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_lb_certificate__domain_validation_records = {
+type domain_validation_records = {
   domain_name : string prop;  (** domain_name *)
   resource_record_name : string prop;  (** resource_record_name *)
   resource_record_type : string prop;  (** resource_record_type *)
@@ -23,12 +23,16 @@ type aws_lightsail_lb_certificate = {
 [@@deriving yojson_of]
 (** aws_lightsail_lb_certificate *)
 
+let aws_lightsail_lb_certificate ?domain_name ?id
+    ?subject_alternative_names ~lb_name ~name () :
+    aws_lightsail_lb_certificate =
+  { domain_name; id; lb_name; name; subject_alternative_names }
+
 type t = {
   arn : string prop;
   created_at : string prop;
   domain_name : string prop;
-  domain_validation_records :
-    aws_lightsail_lb_certificate__domain_validation_records list prop;
+  domain_validation_records : domain_validation_records list prop;
   id : string prop;
   lb_name : string prop;
   name : string prop;
@@ -36,14 +40,14 @@ type t = {
   support_code : string prop;
 }
 
-let aws_lightsail_lb_certificate ?domain_name ?id
-    ?subject_alternative_names ~lb_name ~name __resource_id =
+let register ?tf_module ?domain_name ?id ?subject_alternative_names
+    ~lb_name ~name __resource_id =
   let __resource_type = "aws_lightsail_lb_certificate" in
   let __resource =
-    ({ domain_name; id; lb_name; name; subject_alternative_names }
-      : aws_lightsail_lb_certificate)
+    aws_lightsail_lb_certificate ?domain_name ?id
+      ?subject_alternative_names ~lb_name ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_lb_certificate __resource);
   let __resource_attributes =
     ({

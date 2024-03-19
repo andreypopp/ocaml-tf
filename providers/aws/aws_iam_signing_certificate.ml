@@ -13,6 +13,10 @@ type aws_iam_signing_certificate = {
 [@@deriving yojson_of]
 (** aws_iam_signing_certificate *)
 
+let aws_iam_signing_certificate ?id ?status ~certificate_body
+    ~user_name () : aws_iam_signing_certificate =
+  { certificate_body; id; status; user_name }
+
 type t = {
   certificate_body : string prop;
   certificate_id : string prop;
@@ -21,14 +25,14 @@ type t = {
   user_name : string prop;
 }
 
-let aws_iam_signing_certificate ?id ?status ~certificate_body
-    ~user_name __resource_id =
+let register ?tf_module ?id ?status ~certificate_body ~user_name
+    __resource_id =
   let __resource_type = "aws_iam_signing_certificate" in
   let __resource =
-    ({ certificate_body; id; status; user_name }
-      : aws_iam_signing_certificate)
+    aws_iam_signing_certificate ?id ?status ~certificate_body
+      ~user_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_signing_certificate __resource);
   let __resource_attributes =
     ({

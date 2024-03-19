@@ -14,6 +14,11 @@ type aws_vpc_ipam_preview_next_cidr = {
 [@@deriving yojson_of]
 (** aws_vpc_ipam_preview_next_cidr *)
 
+let aws_vpc_ipam_preview_next_cidr ?disallowed_cidrs ?id
+    ?netmask_length ~ipam_pool_id () : aws_vpc_ipam_preview_next_cidr
+    =
+  { disallowed_cidrs; id; ipam_pool_id; netmask_length }
+
 type t = {
   cidr : string prop;
   disallowed_cidrs : string list prop;
@@ -22,14 +27,14 @@ type t = {
   netmask_length : float prop;
 }
 
-let aws_vpc_ipam_preview_next_cidr ?disallowed_cidrs ?id
-    ?netmask_length ~ipam_pool_id __resource_id =
+let register ?tf_module ?disallowed_cidrs ?id ?netmask_length
+    ~ipam_pool_id __resource_id =
   let __resource_type = "aws_vpc_ipam_preview_next_cidr" in
   let __resource =
-    ({ disallowed_cidrs; id; ipam_pool_id; netmask_length }
-      : aws_vpc_ipam_preview_next_cidr)
+    aws_vpc_ipam_preview_next_cidr ?disallowed_cidrs ?id
+      ?netmask_length ~ipam_pool_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipam_preview_next_cidr __resource);
   let __resource_attributes =
     ({

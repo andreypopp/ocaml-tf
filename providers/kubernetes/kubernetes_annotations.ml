@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type kubernetes_annotations__metadata = {
+type metadata = {
   name : string prop;  (** The name of the resource. *)
   namespace : string prop option; [@option]
       (** The namespace of the resource. *)
 }
 [@@deriving yojson_of]
-(** kubernetes_annotations__metadata *)
+(** metadata *)
 
 type kubernetes_annotations = {
   annotations : (string * string prop) list option; [@option]
@@ -26,10 +26,26 @@ type kubernetes_annotations = {
   template_annotations : (string * string prop) list option;
       [@option]
       (** A map of annotations to apply to the resource template. *)
-  metadata : kubernetes_annotations__metadata list;
+  metadata : metadata list;
 }
 [@@deriving yojson_of]
 (** kubernetes_annotations *)
+
+let metadata ?namespace ~name () : metadata = { name; namespace }
+
+let kubernetes_annotations ?annotations ?field_manager ?force ?id
+    ?template_annotations ~api_version ~kind ~metadata () :
+    kubernetes_annotations =
+  {
+    annotations;
+    api_version;
+    field_manager;
+    force;
+    id;
+    kind;
+    template_annotations;
+    metadata;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -41,24 +57,15 @@ type t = {
   template_annotations : (string * string) list prop;
 }
 
-let kubernetes_annotations ?annotations ?field_manager ?force ?id
+let register ?tf_module ?annotations ?field_manager ?force ?id
     ?template_annotations ~api_version ~kind ~metadata __resource_id
     =
   let __resource_type = "kubernetes_annotations" in
   let __resource =
-    ({
-       annotations;
-       api_version;
-       field_manager;
-       force;
-       id;
-       kind;
-       template_annotations;
-       metadata;
-     }
-      : kubernetes_annotations)
+    kubernetes_annotations ?annotations ?field_manager ?force ?id
+      ?template_annotations ~api_version ~kind ~metadata ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_annotations __resource);
   let __resource_attributes =
     ({

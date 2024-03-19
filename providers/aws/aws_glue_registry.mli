@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_glue_registry
+
+val aws_glue_registry :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  registry_name:string prop ->
+  unit ->
+  aws_glue_registry
+
+val yojson_of_aws_glue_registry : aws_glue_registry -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +28,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_glue_registry :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

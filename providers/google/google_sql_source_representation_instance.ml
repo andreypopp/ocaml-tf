@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_sql_source_representation_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_sql_source_representation_instance__timeouts *)
+(** timeouts *)
 
 type google_sql_source_representation_instance = {
   ca_certificate : string prop option; [@option]
@@ -38,11 +38,33 @@ Defaults to 3306. *)
 If it is not provided, the provider region is used. *)
   username : string prop option; [@option]
       (** The replication user account on the external server. *)
-  timeouts :
-    google_sql_source_representation_instance__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_sql_source_representation_instance *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_sql_source_representation_instance ?ca_certificate
+    ?client_certificate ?client_key ?dump_file_path ?id ?password
+    ?port ?project ?region ?username ?timeouts ~database_version
+    ~host ~name () : google_sql_source_representation_instance =
+  {
+    ca_certificate;
+    client_certificate;
+    client_key;
+    database_version;
+    dump_file_path;
+    host;
+    id;
+    name;
+    password;
+    port;
+    project;
+    region;
+    username;
+    timeouts;
+  }
 
 type t = {
   ca_certificate : string prop;
@@ -60,33 +82,19 @@ type t = {
   username : string prop;
 }
 
-let google_sql_source_representation_instance ?ca_certificate
-    ?client_certificate ?client_key ?dump_file_path ?id ?password
-    ?port ?project ?region ?username ?timeouts ~database_version
-    ~host ~name __resource_id =
+let register ?tf_module ?ca_certificate ?client_certificate
+    ?client_key ?dump_file_path ?id ?password ?port ?project ?region
+    ?username ?timeouts ~database_version ~host ~name __resource_id =
   let __resource_type =
     "google_sql_source_representation_instance"
   in
   let __resource =
-    ({
-       ca_certificate;
-       client_certificate;
-       client_key;
-       database_version;
-       dump_file_path;
-       host;
-       id;
-       name;
-       password;
-       port;
-       project;
-       region;
-       username;
-       timeouts;
-     }
-      : google_sql_source_representation_instance)
+    google_sql_source_representation_instance ?ca_certificate
+      ?client_certificate ?client_key ?dump_file_path ?id ?password
+      ?port ?project ?region ?username ?timeouts ~database_version
+      ~host ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_source_representation_instance __resource);
   let __resource_attributes =
     ({

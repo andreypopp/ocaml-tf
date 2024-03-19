@@ -2,10 +2,49 @@
 
 open! Tf.Prelude
 
-type aws_pinpoint_app__campaign_hook
-type aws_pinpoint_app__limits
-type aws_pinpoint_app__quiet_time
+(** RESOURCE SERIALIZATION *)
+
+type campaign_hook
+
+val campaign_hook :
+  ?lambda_function_name:string prop ->
+  ?mode:string prop ->
+  ?web_url:string prop ->
+  unit ->
+  campaign_hook
+
+type limits
+
+val limits :
+  ?daily:float prop ->
+  ?maximum_duration:float prop ->
+  ?messages_per_second:float prop ->
+  ?total:float prop ->
+  unit ->
+  limits
+
+type quiet_time
+
+val quiet_time :
+  ?end_:string prop -> ?start:string prop -> unit -> quiet_time
+
 type aws_pinpoint_app
+
+val aws_pinpoint_app :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  campaign_hook:campaign_hook list ->
+  limits:limits list ->
+  quiet_time:quiet_time list ->
+  unit ->
+  aws_pinpoint_app
+
+val yojson_of_aws_pinpoint_app : aws_pinpoint_app -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -17,14 +56,15 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_pinpoint_app :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  campaign_hook:aws_pinpoint_app__campaign_hook list ->
-  limits:aws_pinpoint_app__limits list ->
-  quiet_time:aws_pinpoint_app__quiet_time list ->
+  campaign_hook:campaign_hook list ->
+  limits:limits list ->
+  quiet_time:quiet_time list ->
   string ->
   t

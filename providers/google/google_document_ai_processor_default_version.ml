@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_document_ai_processor_default_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_document_ai_processor_default_version__timeouts *)
+(** timeouts *)
 
 type google_document_ai_processor_default_version = {
   id : string prop option; [@option]  (** id *)
@@ -18,11 +18,17 @@ type google_document_ai_processor_default_version = {
   version : string prop;
       (** The version to set. Using 'stable' or 'rc' will cause the API to return the latest version in that release channel.
 Apply 'lifecycle.ignore_changes' to the 'version' field to suppress this diff. *)
-  timeouts :
-    google_document_ai_processor_default_version__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_document_ai_processor_default_version *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_document_ai_processor_default_version ?id ?timeouts
+    ~processor ~version () :
+    google_document_ai_processor_default_version =
+  { id; processor; version; timeouts }
 
 type t = {
   id : string prop;
@@ -30,16 +36,16 @@ type t = {
   version : string prop;
 }
 
-let google_document_ai_processor_default_version ?id ?timeouts
-    ~processor ~version __resource_id =
+let register ?tf_module ?id ?timeouts ~processor ~version
+    __resource_id =
   let __resource_type =
     "google_document_ai_processor_default_version"
   in
   let __resource =
-    ({ id; processor; version; timeouts }
-      : google_document_ai_processor_default_version)
+    google_document_ai_processor_default_version ?id ?timeouts
+      ~processor ~version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_document_ai_processor_default_version
        __resource);
   let __resource_attributes =

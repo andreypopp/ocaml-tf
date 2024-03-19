@@ -2,9 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_route_table__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type aws_route_table__route = {
+type route = {
   carrier_gateway_id : string prop;  (** carrier_gateway_id *)
   cidr_block : string prop;  (** cidr_block *)
   core_network_arn : string prop;  (** core_network_arn *)
@@ -23,26 +23,51 @@ type aws_route_table__route = {
       (** vpc_peering_connection_id *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_route_table
+
+val aws_route_table :
+  ?id:string prop ->
+  ?propagating_vgws:string prop list ->
+  ?route:route list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  vpc_id:string prop ->
+  unit ->
+  aws_route_table
+
+val yojson_of_aws_route_table : aws_route_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
   id : string prop;
   owner_id : string prop;
   propagating_vgws : string list prop;
-  route : aws_route_table__route list prop;
+  route : route list prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   vpc_id : string prop;
 }
 
-val aws_route_table :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?propagating_vgws:string prop list ->
-  ?route:aws_route_table__route list ->
+  ?route:route list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_route_table__timeouts ->
+  ?timeouts:timeouts ->
   vpc_id:string prop ->
   string ->
   t

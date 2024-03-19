@@ -2,11 +2,43 @@
 
 open! Tf.Prelude
 
-type aws_config_configuration_aggregator__account_aggregation_source
+(** RESOURCE SERIALIZATION *)
 
-type aws_config_configuration_aggregator__organization_aggregation_source
+type account_aggregation_source
+
+val account_aggregation_source :
+  ?all_regions:bool prop ->
+  ?regions:string prop list ->
+  account_ids:string prop list ->
+  unit ->
+  account_aggregation_source
+
+type organization_aggregation_source
+
+val organization_aggregation_source :
+  ?all_regions:bool prop ->
+  ?regions:string prop list ->
+  role_arn:string prop ->
+  unit ->
+  organization_aggregation_source
 
 type aws_config_configuration_aggregator
+
+val aws_config_configuration_aggregator :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  account_aggregation_source:account_aggregation_source list ->
+  organization_aggregation_source:
+    organization_aggregation_source list ->
+  unit ->
+  aws_config_configuration_aggregator
+
+val yojson_of_aws_config_configuration_aggregator :
+  aws_config_configuration_aggregator -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,16 +48,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_config_configuration_aggregator :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  account_aggregation_source:
-    aws_config_configuration_aggregator__account_aggregation_source
-    list ->
+  account_aggregation_source:account_aggregation_source list ->
   organization_aggregation_source:
-    aws_config_configuration_aggregator__organization_aggregation_source
-    list ->
+    organization_aggregation_source list ->
   string ->
   t

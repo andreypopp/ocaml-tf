@@ -14,6 +14,10 @@ type aws_api_gateway_client_certificate = {
 [@@deriving yojson_of]
 (** aws_api_gateway_client_certificate *)
 
+let aws_api_gateway_client_certificate ?description ?id ?tags
+    ?tags_all () : aws_api_gateway_client_certificate =
+  { description; id; tags; tags_all }
+
 type t = {
   arn : string prop;
   created_date : string prop;
@@ -25,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_api_gateway_client_certificate ?description ?id ?tags
-    ?tags_all __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    __resource_id =
   let __resource_type = "aws_api_gateway_client_certificate" in
   let __resource =
-    ({ description; id; tags; tags_all }
-      : aws_api_gateway_client_certificate)
+    aws_api_gateway_client_certificate ?description ?id ?tags
+      ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_client_certificate __resource);
   let __resource_attributes =
     ({

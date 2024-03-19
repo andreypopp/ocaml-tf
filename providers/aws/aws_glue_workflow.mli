@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_glue_workflow
+
+val aws_glue_workflow :
+  ?default_run_properties:(string * string prop) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?max_concurrent_runs:float prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  unit ->
+  aws_glue_workflow
+
+val yojson_of_aws_glue_workflow : aws_glue_workflow -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,7 +32,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_glue_workflow :
+val register :
+  ?tf_module:tf_module ->
   ?default_run_properties:(string * string prop) list ->
   ?description:string prop ->
   ?id:string prop ->

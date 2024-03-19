@@ -4,10 +4,9 @@
 
 open! Tf.Prelude
 
-type google_compute_node_template__node_type_flexibility = {
+type node_type_flexibility = {
   cpus : string prop option; [@option]
       (** Number of virtual CPUs to use. *)
-  local_ssd : string prop;  (** Use local SSD *)
   memory : string prop option; [@option]
       (** Physical memory available to the node, defined in MB. *)
 }
@@ -17,7 +16,7 @@ use this node template will create nodes of a type that matches
 these properties. Only one of nodeTypeFlexibility and nodeType can
 be specified. *)
 
-type google_compute_node_template__server_binding = {
+type server_binding = {
   type_ : string prop; [@key "type"]
       (** Type of server binding policy. If 'RESTART_NODE_ON_ANY_SERVER',
 nodes using this template will restart on any physical server
@@ -36,12 +35,12 @@ nodes will experience outages while maintenance is applied. Possible values: [RE
 (** The server binding policy for nodes using this template. Determines
 where the nodes should restart following a maintenance event. *)
 
-type google_compute_node_template__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_node_template__timeouts *)
+(** timeouts *)
 
 type google_compute_node_template = {
   cpu_overcommit_type : string prop option; [@option]
@@ -61,13 +60,36 @@ Only one of nodeTypeFlexibility and nodeType can be specified. *)
   region : string prop option; [@option]
       (** Region where nodes using the node template will be created.
 If it is not provided, the provider region is used. *)
-  node_type_flexibility :
-    google_compute_node_template__node_type_flexibility list;
-  server_binding : google_compute_node_template__server_binding list;
-  timeouts : google_compute_node_template__timeouts option;
+  node_type_flexibility : node_type_flexibility list;
+  server_binding : server_binding list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_node_template *)
+
+let node_type_flexibility ?cpus ?memory () : node_type_flexibility =
+  { cpus; memory }
+
+let server_binding ~type_ () : server_binding = { type_ }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_node_template ?cpu_overcommit_type ?description
+    ?id ?name ?node_affinity_labels ?node_type ?project ?region
+    ?timeouts ~node_type_flexibility ~server_binding () :
+    google_compute_node_template =
+  {
+    cpu_overcommit_type;
+    description;
+    id;
+    name;
+    node_affinity_labels;
+    node_type;
+    project;
+    region;
+    node_type_flexibility;
+    server_binding;
+    timeouts;
+  }
 
 type t = {
   cpu_overcommit_type : string prop;
@@ -82,27 +104,16 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_node_template ?cpu_overcommit_type ?description
-    ?id ?name ?node_affinity_labels ?node_type ?project ?region
-    ?timeouts ~node_type_flexibility ~server_binding __resource_id =
+let register ?tf_module ?cpu_overcommit_type ?description ?id ?name
+    ?node_affinity_labels ?node_type ?project ?region ?timeouts
+    ~node_type_flexibility ~server_binding __resource_id =
   let __resource_type = "google_compute_node_template" in
   let __resource =
-    ({
-       cpu_overcommit_type;
-       description;
-       id;
-       name;
-       node_affinity_labels;
-       node_type;
-       project;
-       region;
-       node_type_flexibility;
-       server_binding;
-       timeouts;
-     }
-      : google_compute_node_template)
+    google_compute_node_template ?cpu_overcommit_type ?description
+      ?id ?name ?node_affinity_labels ?node_type ?project ?region
+      ?timeouts ~node_type_flexibility ~server_binding ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_node_template __resource);
   let __resource_attributes =
     ({

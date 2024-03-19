@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_shield_application_layer_automatic_response__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
@@ -13,16 +13,23 @@ type aws_shield_application_layer_automatic_response__timeouts = {
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
-(** aws_shield_application_layer_automatic_response__timeouts *)
+(** timeouts *)
 
 type aws_shield_application_layer_automatic_response = {
   action : string prop;  (** action *)
   resource_arn : string prop;  (** resource_arn *)
-  timeouts :
-    aws_shield_application_layer_automatic_response__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_shield_application_layer_automatic_response *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_shield_application_layer_automatic_response ?timeouts ~action
+    ~resource_arn () :
+    aws_shield_application_layer_automatic_response =
+  { action; resource_arn; timeouts }
 
 type t = {
   action : string prop;
@@ -30,16 +37,16 @@ type t = {
   resource_arn : string prop;
 }
 
-let aws_shield_application_layer_automatic_response ?timeouts ~action
-    ~resource_arn __resource_id =
+let register ?tf_module ?timeouts ~action ~resource_arn __resource_id
+    =
   let __resource_type =
     "aws_shield_application_layer_automatic_response"
   in
   let __resource =
-    ({ action; resource_arn; timeouts }
-      : aws_shield_application_layer_automatic_response)
+    aws_shield_application_layer_automatic_response ?timeouts ~action
+      ~resource_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_application_layer_automatic_response
        __resource);
   let __resource_attributes =

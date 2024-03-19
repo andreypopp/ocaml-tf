@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_container_connected_registry__notification = {
+type notification = {
   action : string prop;  (** action *)
   digest : string prop option; [@option]  (** digest *)
   name : string prop;  (** name *)
   tag : string prop option; [@option]  (** tag *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_connected_registry__notification *)
+(** notification *)
 
-type azurerm_container_connected_registry__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_connected_registry__timeouts *)
+(** timeouts *)
 
 type azurerm_container_connected_registry = {
   audit_log_enabled : bool prop option; [@option]
@@ -39,12 +39,39 @@ type azurerm_container_connected_registry = {
   sync_schedule : string prop option; [@option]  (** sync_schedule *)
   sync_token_id : string prop;  (** sync_token_id *)
   sync_window : string prop option; [@option]  (** sync_window *)
-  notification :
-    azurerm_container_connected_registry__notification list;
-  timeouts : azurerm_container_connected_registry__timeouts option;
+  notification : notification list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_container_connected_registry *)
+
+let notification ?digest ?tag ~action ~name () : notification =
+  { action; digest; name; tag }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_container_connected_registry ?audit_log_enabled
+    ?client_token_ids ?id ?log_level ?mode ?parent_registry_id
+    ?sync_message_ttl ?sync_schedule ?sync_window ?timeouts
+    ~container_registry_id ~name ~sync_token_id ~notification () :
+    azurerm_container_connected_registry =
+  {
+    audit_log_enabled;
+    client_token_ids;
+    container_registry_id;
+    id;
+    log_level;
+    mode;
+    name;
+    parent_registry_id;
+    sync_message_ttl;
+    sync_schedule;
+    sync_token_id;
+    sync_window;
+    notification;
+    timeouts;
+  }
 
 type t = {
   audit_log_enabled : bool prop;
@@ -61,32 +88,18 @@ type t = {
   sync_window : string prop;
 }
 
-let azurerm_container_connected_registry ?audit_log_enabled
-    ?client_token_ids ?id ?log_level ?mode ?parent_registry_id
-    ?sync_message_ttl ?sync_schedule ?sync_window ?timeouts
-    ~container_registry_id ~name ~sync_token_id ~notification
-    __resource_id =
+let register ?tf_module ?audit_log_enabled ?client_token_ids ?id
+    ?log_level ?mode ?parent_registry_id ?sync_message_ttl
+    ?sync_schedule ?sync_window ?timeouts ~container_registry_id
+    ~name ~sync_token_id ~notification __resource_id =
   let __resource_type = "azurerm_container_connected_registry" in
   let __resource =
-    ({
-       audit_log_enabled;
-       client_token_ids;
-       container_registry_id;
-       id;
-       log_level;
-       mode;
-       name;
-       parent_registry_id;
-       sync_message_ttl;
-       sync_schedule;
-       sync_token_id;
-       sync_window;
-       notification;
-       timeouts;
-     }
-      : azurerm_container_connected_registry)
+    azurerm_container_connected_registry ?audit_log_enabled
+      ?client_token_ids ?id ?log_level ?mode ?parent_registry_id
+      ?sync_message_ttl ?sync_schedule ?sync_window ?timeouts
+      ~container_registry_id ~name ~sync_token_id ~notification ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_connected_registry __resource);
   let __resource_attributes =
     ({

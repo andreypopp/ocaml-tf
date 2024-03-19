@@ -2,9 +2,48 @@
 
 open! Tf.Prelude
 
-type aws_finspace_kx_dataview__segment_configurations
-type aws_finspace_kx_dataview__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type segment_configurations
+
+val segment_configurations :
+  db_paths:string prop list ->
+  volume_name:string prop ->
+  unit ->
+  segment_configurations
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_finspace_kx_dataview
+
+val aws_finspace_kx_dataview :
+  ?availability_zone_id:string prop ->
+  ?changeset_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  auto_update:bool prop ->
+  az_mode:string prop ->
+  database_name:string prop ->
+  environment_id:string prop ->
+  name:string prop ->
+  segment_configurations:segment_configurations list ->
+  unit ->
+  aws_finspace_kx_dataview
+
+val yojson_of_aws_finspace_kx_dataview :
+  aws_finspace_kx_dataview -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -24,20 +63,20 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_finspace_kx_dataview :
+val register :
+  ?tf_module:tf_module ->
   ?availability_zone_id:string prop ->
   ?changeset_id:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_finspace_kx_dataview__timeouts ->
+  ?timeouts:timeouts ->
   auto_update:bool prop ->
   az_mode:string prop ->
   database_name:string prop ->
   environment_id:string prop ->
   name:string prop ->
-  segment_configurations:
-    aws_finspace_kx_dataview__segment_configurations list ->
+  segment_configurations:segment_configurations list ->
   string ->
   t

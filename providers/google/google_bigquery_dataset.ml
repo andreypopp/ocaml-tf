@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_bigquery_dataset__access__dataset__dataset = {
+type access__dataset__dataset = {
   dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
   project_id : string prop;
@@ -13,16 +13,16 @@ type google_bigquery_dataset__access__dataset__dataset = {
 [@@deriving yojson_of]
 (** The dataset this entry applies to *)
 
-type google_bigquery_dataset__access__dataset = {
+type access__dataset = {
   target_types : string prop list;
       (** Which resources in the dataset this entry applies to. Currently, only views are supported,
 but additional target types may be added in the future. Possible values: VIEWS *)
-  dataset : google_bigquery_dataset__access__dataset__dataset list;
+  dataset : access__dataset__dataset list;
 }
 [@@deriving yojson_of]
 (** Grants all resources of particular types in a particular dataset read access to the current dataset. *)
 
-type google_bigquery_dataset__access__routine = {
+type access__routine = {
   dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
   project_id : string prop;
@@ -39,7 +39,7 @@ this dataset. The role field is not required when this field is
 set. If that routine is updated by any user, access to the routine
 needs to be granted again via an update operation. *)
 
-type google_bigquery_dataset__access__view = {
+type access__view = {
   dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
   project_id : string prop;
@@ -56,7 +56,7 @@ this dataset. The role field is not required when this field is
 set. If that view is updated by any user, access to the view
 needs to be granted again via an update operation. *)
 
-type google_bigquery_dataset__access = {
+type access = {
   domain : string prop option; [@option]
       (** A domain to grant access to. Any users signed in with the
 domain specified will be granted the specified access *)
@@ -88,14 +88,14 @@ are swapped by the API to their basic counterparts. See
   user_by_email : string prop option; [@option]
       (** An email address of a user to grant access to. For example:
 fred@example.com *)
-  dataset : google_bigquery_dataset__access__dataset list;
-  routine : google_bigquery_dataset__access__routine list;
-  view : google_bigquery_dataset__access__view list;
+  dataset : access__dataset list;
+  routine : access__routine list;
+  view : access__view list;
 }
 [@@deriving yojson_of]
 (** An array of objects that define dataset access for one or more entities. *)
 
-type google_bigquery_dataset__default_encryption_configuration = {
+type default_encryption_configuration = {
   kms_key_name : string prop;
       (** Describes the Cloud KMS encryption key that will be used to protect destination
 BigQuery table. The BigQuery Service Account associated with your project requires
@@ -106,13 +106,13 @@ access to this encryption key. *)
 all newly-created partitioned tables in the dataset will have encryption key set to
 this value, unless table creation request (or query) overrides the key. *)
 
-type google_bigquery_dataset__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_dataset__timeouts *)
+(** timeouts *)
 
 type google_bigquery_dataset = {
   dataset_id : string prop;
@@ -202,13 +202,75 @@ Set this flag value to LOGICAL to use logical bytes for storage billing,
 or to PHYSICAL to use physical bytes instead.
 
 LOGICAL is the default if this flag isn't specified. *)
-  access : google_bigquery_dataset__access list;
+  access : access list;
   default_encryption_configuration :
-    google_bigquery_dataset__default_encryption_configuration list;
-  timeouts : google_bigquery_dataset__timeouts option;
+    default_encryption_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_dataset *)
+
+let access__dataset__dataset ~dataset_id ~project_id () :
+    access__dataset__dataset =
+  { dataset_id; project_id }
+
+let access__dataset ~target_types ~dataset () : access__dataset =
+  { target_types; dataset }
+
+let access__routine ~dataset_id ~project_id ~routine_id () :
+    access__routine =
+  { dataset_id; project_id; routine_id }
+
+let access__view ~dataset_id ~project_id ~table_id () : access__view
+    =
+  { dataset_id; project_id; table_id }
+
+let access ?domain ?group_by_email ?iam_member ?role ?special_group
+    ?user_by_email ~dataset ~routine ~view () : access =
+  {
+    domain;
+    group_by_email;
+    iam_member;
+    role;
+    special_group;
+    user_by_email;
+    dataset;
+    routine;
+    view;
+  }
+
+let default_encryption_configuration ~kms_key_name () :
+    default_encryption_configuration =
+  { kms_key_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_bigquery_dataset ?default_collation
+    ?default_partition_expiration_ms ?default_table_expiration_ms
+    ?delete_contents_on_destroy ?description ?friendly_name ?id
+    ?is_case_insensitive ?labels ?location ?max_time_travel_hours
+    ?project ?storage_billing_model ?timeouts ~dataset_id ~access
+    ~default_encryption_configuration () : google_bigquery_dataset =
+  {
+    dataset_id;
+    default_collation;
+    default_partition_expiration_ms;
+    default_table_expiration_ms;
+    delete_contents_on_destroy;
+    description;
+    friendly_name;
+    id;
+    is_case_insensitive;
+    labels;
+    location;
+    max_time_travel_hours;
+    project;
+    storage_billing_model;
+    access;
+    default_encryption_configuration;
+    timeouts;
+  }
 
 type t = {
   creation_time : float prop;
@@ -233,7 +295,7 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_bigquery_dataset ?default_collation
+let register ?tf_module ?default_collation
     ?default_partition_expiration_ms ?default_table_expiration_ms
     ?delete_contents_on_destroy ?description ?friendly_name ?id
     ?is_case_insensitive ?labels ?location ?max_time_travel_hours
@@ -241,28 +303,14 @@ let google_bigquery_dataset ?default_collation
     ~default_encryption_configuration __resource_id =
   let __resource_type = "google_bigquery_dataset" in
   let __resource =
-    ({
-       dataset_id;
-       default_collation;
-       default_partition_expiration_ms;
-       default_table_expiration_ms;
-       delete_contents_on_destroy;
-       description;
-       friendly_name;
-       id;
-       is_case_insensitive;
-       labels;
-       location;
-       max_time_travel_hours;
-       project;
-       storage_billing_model;
-       access;
-       default_encryption_configuration;
-       timeouts;
-     }
-      : google_bigquery_dataset)
+    google_bigquery_dataset ?default_collation
+      ?default_partition_expiration_ms ?default_table_expiration_ms
+      ?delete_contents_on_destroy ?description ?friendly_name ?id
+      ?is_case_insensitive ?labels ?location ?max_time_travel_hours
+      ?project ?storage_billing_model ?timeouts ~dataset_id ~access
+      ~default_encryption_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_dataset __resource);
   let __resource_attributes =
     ({

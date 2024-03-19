@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_schedule__monthly_occurrence = {
+type monthly_occurrence = {
   day : string prop;  (** day *)
   occurrence : float prop;  (** occurrence *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_schedule__monthly_occurrence *)
+(** monthly_occurrence *)
 
-type azurerm_automation_schedule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_schedule__timeouts *)
+(** timeouts *)
 
 type azurerm_automation_schedule = {
   automation_account_name : string prop;
@@ -34,12 +34,38 @@ type azurerm_automation_schedule = {
   start_time : string prop option; [@option]  (** start_time *)
   timezone : string prop option; [@option]  (** timezone *)
   week_days : string prop list option; [@option]  (** week_days *)
-  monthly_occurrence :
-    azurerm_automation_schedule__monthly_occurrence list;
-  timeouts : azurerm_automation_schedule__timeouts option;
+  monthly_occurrence : monthly_occurrence list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_schedule *)
+
+let monthly_occurrence ~day ~occurrence () : monthly_occurrence =
+  { day; occurrence }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_automation_schedule ?description ?expiry_time ?id
+    ?interval ?month_days ?start_time ?timezone ?week_days ?timeouts
+    ~automation_account_name ~frequency ~name ~resource_group_name
+    ~monthly_occurrence () : azurerm_automation_schedule =
+  {
+    automation_account_name;
+    description;
+    expiry_time;
+    frequency;
+    id;
+    interval;
+    month_days;
+    name;
+    resource_group_name;
+    start_time;
+    timezone;
+    week_days;
+    monthly_occurrence;
+    timeouts;
+  }
 
 type t = {
   automation_account_name : string prop;
@@ -56,31 +82,18 @@ type t = {
   week_days : string list prop;
 }
 
-let azurerm_automation_schedule ?description ?expiry_time ?id
-    ?interval ?month_days ?start_time ?timezone ?week_days ?timeouts
+let register ?tf_module ?description ?expiry_time ?id ?interval
+    ?month_days ?start_time ?timezone ?week_days ?timeouts
     ~automation_account_name ~frequency ~name ~resource_group_name
     ~monthly_occurrence __resource_id =
   let __resource_type = "azurerm_automation_schedule" in
   let __resource =
-    ({
-       automation_account_name;
-       description;
-       expiry_time;
-       frequency;
-       id;
-       interval;
-       month_days;
-       name;
-       resource_group_name;
-       start_time;
-       timezone;
-       week_days;
-       monthly_occurrence;
-       timeouts;
-     }
-      : azurerm_automation_schedule)
+    azurerm_automation_schedule ?description ?expiry_time ?id
+      ?interval ?month_days ?start_time ?timezone ?week_days
+      ?timeouts ~automation_account_name ~frequency ~name
+      ~resource_group_name ~monthly_occurrence ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_schedule __resource);
   let __resource_attributes =
     ({

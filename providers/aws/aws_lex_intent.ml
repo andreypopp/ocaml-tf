@@ -4,132 +4,128 @@
 
 open! Tf.Prelude
 
-type aws_lex_intent__conclusion_statement__message = {
+type conclusion_statement__message = {
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   group_number : float prop option; [@option]  (** group_number *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__conclusion_statement__message *)
+(** conclusion_statement__message *)
 
-type aws_lex_intent__conclusion_statement = {
+type conclusion_statement = {
   response_card : string prop option; [@option]  (** response_card *)
-  message : aws_lex_intent__conclusion_statement__message list;
+  message : conclusion_statement__message list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__conclusion_statement *)
+(** conclusion_statement *)
 
-type aws_lex_intent__confirmation_prompt__message = {
+type confirmation_prompt__message = {
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   group_number : float prop option; [@option]  (** group_number *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__confirmation_prompt__message *)
+(** confirmation_prompt__message *)
 
-type aws_lex_intent__confirmation_prompt = {
+type confirmation_prompt = {
   max_attempts : float prop;  (** max_attempts *)
   response_card : string prop option; [@option]  (** response_card *)
-  message : aws_lex_intent__confirmation_prompt__message list;
+  message : confirmation_prompt__message list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__confirmation_prompt *)
+(** confirmation_prompt *)
 
-type aws_lex_intent__dialog_code_hook = {
+type dialog_code_hook = {
   message_version : string prop;  (** message_version *)
   uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__dialog_code_hook *)
+(** dialog_code_hook *)
 
-type aws_lex_intent__follow_up_prompt__prompt__message = {
+type follow_up_prompt__prompt__message = {
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   group_number : float prop option; [@option]  (** group_number *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__follow_up_prompt__prompt__message *)
+(** follow_up_prompt__prompt__message *)
 
-type aws_lex_intent__follow_up_prompt__prompt = {
+type follow_up_prompt__prompt = {
   max_attempts : float prop;  (** max_attempts *)
   response_card : string prop option; [@option]  (** response_card *)
-  message : aws_lex_intent__follow_up_prompt__prompt__message list;
+  message : follow_up_prompt__prompt__message list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__follow_up_prompt__prompt *)
+(** follow_up_prompt__prompt *)
 
-type aws_lex_intent__follow_up_prompt__rejection_statement__message = {
+type follow_up_prompt__rejection_statement__message = {
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   group_number : float prop option; [@option]  (** group_number *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__follow_up_prompt__rejection_statement__message *)
+(** follow_up_prompt__rejection_statement__message *)
 
-type aws_lex_intent__follow_up_prompt__rejection_statement = {
+type follow_up_prompt__rejection_statement = {
   response_card : string prop option; [@option]  (** response_card *)
-  message :
-    aws_lex_intent__follow_up_prompt__rejection_statement__message
-    list;
+  message : follow_up_prompt__rejection_statement__message list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__follow_up_prompt__rejection_statement *)
+(** follow_up_prompt__rejection_statement *)
 
-type aws_lex_intent__follow_up_prompt = {
-  prompt : aws_lex_intent__follow_up_prompt__prompt list;
-  rejection_statement :
-    aws_lex_intent__follow_up_prompt__rejection_statement list;
+type follow_up_prompt = {
+  prompt : follow_up_prompt__prompt list;
+  rejection_statement : follow_up_prompt__rejection_statement list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__follow_up_prompt *)
+(** follow_up_prompt *)
 
-type aws_lex_intent__fulfillment_activity__code_hook = {
+type fulfillment_activity__code_hook = {
   message_version : string prop;  (** message_version *)
   uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__fulfillment_activity__code_hook *)
+(** fulfillment_activity__code_hook *)
 
-type aws_lex_intent__fulfillment_activity = {
+type fulfillment_activity = {
   type_ : string prop; [@key "type"]  (** type *)
-  code_hook : aws_lex_intent__fulfillment_activity__code_hook list;
+  code_hook : fulfillment_activity__code_hook list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__fulfillment_activity *)
+(** fulfillment_activity *)
 
-type aws_lex_intent__rejection_statement__message = {
+type rejection_statement__message = {
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   group_number : float prop option; [@option]  (** group_number *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__rejection_statement__message *)
+(** rejection_statement__message *)
 
-type aws_lex_intent__rejection_statement = {
+type rejection_statement = {
   response_card : string prop option; [@option]  (** response_card *)
-  message : aws_lex_intent__rejection_statement__message list;
+  message : rejection_statement__message list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__rejection_statement *)
+(** rejection_statement *)
 
-type aws_lex_intent__slot__value_elicitation_prompt__message = {
+type slot__value_elicitation_prompt__message = {
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   group_number : float prop option; [@option]  (** group_number *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__slot__value_elicitation_prompt__message *)
+(** slot__value_elicitation_prompt__message *)
 
-type aws_lex_intent__slot__value_elicitation_prompt = {
+type slot__value_elicitation_prompt = {
   max_attempts : float prop;  (** max_attempts *)
   response_card : string prop option; [@option]  (** response_card *)
-  message :
-    aws_lex_intent__slot__value_elicitation_prompt__message list;
+  message : slot__value_elicitation_prompt__message list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__slot__value_elicitation_prompt *)
+(** slot__value_elicitation_prompt *)
 
-type aws_lex_intent__slot = {
+type slot = {
   description : string prop option; [@option]  (** description *)
   name : string prop;  (** name *)
   priority : float prop option; [@option]  (** priority *)
@@ -140,19 +136,18 @@ type aws_lex_intent__slot = {
   slot_type : string prop;  (** slot_type *)
   slot_type_version : string prop option; [@option]
       (** slot_type_version *)
-  value_elicitation_prompt :
-    aws_lex_intent__slot__value_elicitation_prompt list;
+  value_elicitation_prompt : slot__value_elicitation_prompt list;
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__slot *)
+(** slot *)
 
-type aws_lex_intent__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lex_intent__timeouts *)
+(** timeouts *)
 
 type aws_lex_intent = {
   create_version : bool prop option; [@option]  (** create_version *)
@@ -163,17 +158,121 @@ type aws_lex_intent = {
       (** parent_intent_signature *)
   sample_utterances : string prop list option; [@option]
       (** sample_utterances *)
-  conclusion_statement : aws_lex_intent__conclusion_statement list;
-  confirmation_prompt : aws_lex_intent__confirmation_prompt list;
-  dialog_code_hook : aws_lex_intent__dialog_code_hook list;
-  follow_up_prompt : aws_lex_intent__follow_up_prompt list;
-  fulfillment_activity : aws_lex_intent__fulfillment_activity list;
-  rejection_statement : aws_lex_intent__rejection_statement list;
-  slot : aws_lex_intent__slot list;
-  timeouts : aws_lex_intent__timeouts option;
+  conclusion_statement : conclusion_statement list;
+  confirmation_prompt : confirmation_prompt list;
+  dialog_code_hook : dialog_code_hook list;
+  follow_up_prompt : follow_up_prompt list;
+  fulfillment_activity : fulfillment_activity list;
+  rejection_statement : rejection_statement list;
+  slot : slot list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lex_intent *)
+
+let conclusion_statement__message ?group_number ~content
+    ~content_type () : conclusion_statement__message =
+  { content; content_type; group_number }
+
+let conclusion_statement ?response_card ~message () :
+    conclusion_statement =
+  { response_card; message }
+
+let confirmation_prompt__message ?group_number ~content ~content_type
+    () : confirmation_prompt__message =
+  { content; content_type; group_number }
+
+let confirmation_prompt ?response_card ~max_attempts ~message () :
+    confirmation_prompt =
+  { max_attempts; response_card; message }
+
+let dialog_code_hook ~message_version ~uri () : dialog_code_hook =
+  { message_version; uri }
+
+let follow_up_prompt__prompt__message ?group_number ~content
+    ~content_type () : follow_up_prompt__prompt__message =
+  { content; content_type; group_number }
+
+let follow_up_prompt__prompt ?response_card ~max_attempts ~message ()
+    : follow_up_prompt__prompt =
+  { max_attempts; response_card; message }
+
+let follow_up_prompt__rejection_statement__message ?group_number
+    ~content ~content_type () :
+    follow_up_prompt__rejection_statement__message =
+  { content; content_type; group_number }
+
+let follow_up_prompt__rejection_statement ?response_card ~message ()
+    : follow_up_prompt__rejection_statement =
+  { response_card; message }
+
+let follow_up_prompt ~prompt ~rejection_statement () :
+    follow_up_prompt =
+  { prompt; rejection_statement }
+
+let fulfillment_activity__code_hook ~message_version ~uri () :
+    fulfillment_activity__code_hook =
+  { message_version; uri }
+
+let fulfillment_activity ~type_ ~code_hook () : fulfillment_activity
+    =
+  { type_; code_hook }
+
+let rejection_statement__message ?group_number ~content ~content_type
+    () : rejection_statement__message =
+  { content; content_type; group_number }
+
+let rejection_statement ?response_card ~message () :
+    rejection_statement =
+  { response_card; message }
+
+let slot__value_elicitation_prompt__message ?group_number ~content
+    ~content_type () : slot__value_elicitation_prompt__message =
+  { content; content_type; group_number }
+
+let slot__value_elicitation_prompt ?response_card ~max_attempts
+    ~message () : slot__value_elicitation_prompt =
+  { max_attempts; response_card; message }
+
+let slot ?description ?priority ?response_card ?sample_utterances
+    ?slot_type_version ~name ~slot_constraint ~slot_type
+    ~value_elicitation_prompt () : slot =
+  {
+    description;
+    name;
+    priority;
+    response_card;
+    sample_utterances;
+    slot_constraint;
+    slot_type;
+    slot_type_version;
+    value_elicitation_prompt;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_lex_intent ?create_version ?description ?id
+    ?parent_intent_signature ?sample_utterances ?timeouts ~name
+    ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
+    ~follow_up_prompt ~fulfillment_activity ~rejection_statement
+    ~slot () : aws_lex_intent =
+  {
+    create_version;
+    description;
+    id;
+    name;
+    parent_intent_signature;
+    sample_utterances;
+    conclusion_statement;
+    confirmation_prompt;
+    dialog_code_hook;
+    follow_up_prompt;
+    fulfillment_activity;
+    rejection_statement;
+    slot;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -189,32 +288,20 @@ type t = {
   version : string prop;
 }
 
-let aws_lex_intent ?create_version ?description ?id
+let register ?tf_module ?create_version ?description ?id
     ?parent_intent_signature ?sample_utterances ?timeouts ~name
     ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
     ~follow_up_prompt ~fulfillment_activity ~rejection_statement
     ~slot __resource_id =
   let __resource_type = "aws_lex_intent" in
   let __resource =
-    ({
-       create_version;
-       description;
-       id;
-       name;
-       parent_intent_signature;
-       sample_utterances;
-       conclusion_statement;
-       confirmation_prompt;
-       dialog_code_hook;
-       follow_up_prompt;
-       fulfillment_activity;
-       rejection_statement;
-       slot;
-       timeouts;
-     }
-      : aws_lex_intent)
+    aws_lex_intent ?create_version ?description ?id
+      ?parent_intent_signature ?sample_utterances ?timeouts ~name
+      ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
+      ~follow_up_prompt ~fulfillment_activity ~rejection_statement
+      ~slot ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lex_intent __resource);
   let __resource_attributes =
     ({

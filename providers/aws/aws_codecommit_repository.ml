@@ -18,6 +18,19 @@ type aws_codecommit_repository = {
 [@@deriving yojson_of]
 (** aws_codecommit_repository *)
 
+let aws_codecommit_repository ?default_branch ?description ?id
+    ?kms_key_id ?tags ?tags_all ~repository_name () :
+    aws_codecommit_repository =
+  {
+    default_branch;
+    description;
+    id;
+    kms_key_id;
+    repository_name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   clone_url_http : string prop;
@@ -32,22 +45,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_codecommit_repository ?default_branch ?description ?id
-    ?kms_key_id ?tags ?tags_all ~repository_name __resource_id =
+let register ?tf_module ?default_branch ?description ?id ?kms_key_id
+    ?tags ?tags_all ~repository_name __resource_id =
   let __resource_type = "aws_codecommit_repository" in
   let __resource =
-    ({
-       default_branch;
-       description;
-       id;
-       kms_key_id;
-       repository_name;
-       tags;
-       tags_all;
-     }
-      : aws_codecommit_repository)
+    aws_codecommit_repository ?default_branch ?description ?id
+      ?kms_key_id ?tags ?tags_all ~repository_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecommit_repository __resource);
   let __resource_attributes =
     ({

@@ -18,6 +18,17 @@ type hcloud_network = {
 [@@deriving yojson_of]
 (** hcloud_network *)
 
+let hcloud_network ?delete_protection ?expose_routes_to_vswitch ?id
+    ?labels ~ip_range ~name () : hcloud_network =
+  {
+    delete_protection;
+    expose_routes_to_vswitch;
+    id;
+    ip_range;
+    labels;
+    name;
+  }
+
 type t = {
   delete_protection : bool prop;
   expose_routes_to_vswitch : bool prop;
@@ -27,21 +38,14 @@ type t = {
   name : string prop;
 }
 
-let hcloud_network ?delete_protection ?expose_routes_to_vswitch ?id
-    ?labels ~ip_range ~name __resource_id =
+let register ?tf_module ?delete_protection ?expose_routes_to_vswitch
+    ?id ?labels ~ip_range ~name __resource_id =
   let __resource_type = "hcloud_network" in
   let __resource =
-    ({
-       delete_protection;
-       expose_routes_to_vswitch;
-       id;
-       ip_range;
-       labels;
-       name;
-     }
-      : hcloud_network)
+    hcloud_network ?delete_protection ?expose_routes_to_vswitch ?id
+      ?labels ~ip_range ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_network __resource);
   let __resource_attributes =
     ({

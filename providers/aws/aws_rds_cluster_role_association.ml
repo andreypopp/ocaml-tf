@@ -4,22 +4,29 @@
 
 open! Tf.Prelude
 
-type aws_rds_cluster_role_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_rds_cluster_role_association__timeouts *)
+(** timeouts *)
 
 type aws_rds_cluster_role_association = {
   db_cluster_identifier : string prop;  (** db_cluster_identifier *)
   feature_name : string prop;  (** feature_name *)
   id : string prop option; [@option]  (** id *)
   role_arn : string prop;  (** role_arn *)
-  timeouts : aws_rds_cluster_role_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster_role_association *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_rds_cluster_role_association ?id ?timeouts
+    ~db_cluster_identifier ~feature_name ~role_arn () :
+    aws_rds_cluster_role_association =
+  { db_cluster_identifier; feature_name; id; role_arn; timeouts }
 
 type t = {
   db_cluster_identifier : string prop;
@@ -28,14 +35,14 @@ type t = {
   role_arn : string prop;
 }
 
-let aws_rds_cluster_role_association ?id ?timeouts
-    ~db_cluster_identifier ~feature_name ~role_arn __resource_id =
+let register ?tf_module ?id ?timeouts ~db_cluster_identifier
+    ~feature_name ~role_arn __resource_id =
   let __resource_type = "aws_rds_cluster_role_association" in
   let __resource =
-    ({ db_cluster_identifier; feature_name; id; role_arn; timeouts }
-      : aws_rds_cluster_role_association)
+    aws_rds_cluster_role_association ?id ?timeouts
+      ~db_cluster_identifier ~feature_name ~role_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rds_cluster_role_association __resource);
   let __resource_attributes =
     ({

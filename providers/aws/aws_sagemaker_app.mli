@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_app__resource_spec
+(** RESOURCE SERIALIZATION *)
+
+type resource_spec
+
+val resource_spec :
+  ?instance_type:string prop ->
+  ?lifecycle_config_arn:string prop ->
+  ?sagemaker_image_arn:string prop ->
+  ?sagemaker_image_version_alias:string prop ->
+  ?sagemaker_image_version_arn:string prop ->
+  unit ->
+  resource_spec
+
 type aws_sagemaker_app
+
+val aws_sagemaker_app :
+  ?id:string prop ->
+  ?space_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_profile_name:string prop ->
+  app_name:string prop ->
+  app_type:string prop ->
+  domain_id:string prop ->
+  resource_spec:resource_spec list ->
+  unit ->
+  aws_sagemaker_app
+
+val yojson_of_aws_sagemaker_app : aws_sagemaker_app -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_name : string prop;
@@ -17,7 +46,8 @@ type t = private {
   user_profile_name : string prop;
 }
 
-val aws_sagemaker_app :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?space_name:string prop ->
   ?tags:(string * string prop) list ->
@@ -26,6 +56,6 @@ val aws_sagemaker_app :
   app_name:string prop ->
   app_type:string prop ->
   domain_id:string prop ->
-  resource_spec:aws_sagemaker_app__resource_spec list ->
+  resource_spec:resource_spec list ->
   string ->
   t

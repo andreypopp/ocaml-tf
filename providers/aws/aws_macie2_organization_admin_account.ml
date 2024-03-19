@@ -11,16 +11,18 @@ type aws_macie2_organization_admin_account = {
 [@@deriving yojson_of]
 (** aws_macie2_organization_admin_account *)
 
+let aws_macie2_organization_admin_account ?id ~admin_account_id () :
+    aws_macie2_organization_admin_account =
+  { admin_account_id; id }
+
 type t = { admin_account_id : string prop; id : string prop }
 
-let aws_macie2_organization_admin_account ?id ~admin_account_id
-    __resource_id =
+let register ?tf_module ?id ~admin_account_id __resource_id =
   let __resource_type = "aws_macie2_organization_admin_account" in
   let __resource =
-    ({ admin_account_id; id }
-      : aws_macie2_organization_admin_account)
+    aws_macie2_organization_admin_account ?id ~admin_account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_macie2_organization_admin_account __resource);
   let __resource_attributes =
     ({

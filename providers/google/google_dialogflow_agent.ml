@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_agent__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_agent__timeouts *)
+(** timeouts *)
 
 type google_dialogflow_agent = {
   api_version : string prop option; [@option]
@@ -58,10 +58,35 @@ the Terraform state and Dialogflow if the agent tier is changed outside of Terra
   time_zone : string prop;
       (** The time zone of this agent from the [time zone database](https://www.iana.org/time-zones), e.g., America/New_York,
 Europe/Paris. *)
-  timeouts : google_dialogflow_agent__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_agent *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_agent ?api_version ?avatar_uri
+    ?classification_threshold ?description ?enable_logging ?id
+    ?match_mode ?project ?supported_language_codes ?tier ?timeouts
+    ~default_language_code ~display_name ~time_zone () :
+    google_dialogflow_agent =
+  {
+    api_version;
+    avatar_uri;
+    classification_threshold;
+    default_language_code;
+    description;
+    display_name;
+    enable_logging;
+    id;
+    match_mode;
+    project;
+    supported_language_codes;
+    tier;
+    time_zone;
+    timeouts;
+  }
 
 type t = {
   api_version : string prop;
@@ -80,31 +105,18 @@ type t = {
   time_zone : string prop;
 }
 
-let google_dialogflow_agent ?api_version ?avatar_uri
+let register ?tf_module ?api_version ?avatar_uri
     ?classification_threshold ?description ?enable_logging ?id
     ?match_mode ?project ?supported_language_codes ?tier ?timeouts
     ~default_language_code ~display_name ~time_zone __resource_id =
   let __resource_type = "google_dialogflow_agent" in
   let __resource =
-    ({
-       api_version;
-       avatar_uri;
-       classification_threshold;
-       default_language_code;
-       description;
-       display_name;
-       enable_logging;
-       id;
-       match_mode;
-       project;
-       supported_language_codes;
-       tier;
-       time_zone;
-       timeouts;
-     }
-      : google_dialogflow_agent)
+    google_dialogflow_agent ?api_version ?avatar_uri
+      ?classification_threshold ?description ?enable_logging ?id
+      ?match_mode ?project ?supported_language_codes ?tier ?timeouts
+      ~default_language_code ~display_name ~time_zone ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_agent __resource);
   let __resource_attributes =
     ({

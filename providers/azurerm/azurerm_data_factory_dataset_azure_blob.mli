@@ -2,9 +2,52 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_dataset_azure_blob__schema_column
-type azurerm_data_factory_dataset_azure_blob__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type schema_column
+
+val schema_column :
+  ?description:string prop ->
+  ?type_:string prop ->
+  name:string prop ->
+  unit ->
+  schema_column
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_data_factory_dataset_azure_blob
+
+val azurerm_data_factory_dataset_azure_blob :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?dynamic_filename_enabled:bool prop ->
+  ?dynamic_path_enabled:bool prop ->
+  ?filename:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?path:string prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
+  schema_column:schema_column list ->
+  unit ->
+  azurerm_data_factory_dataset_azure_blob
+
+val yojson_of_azurerm_data_factory_dataset_azure_blob :
+  azurerm_data_factory_dataset_azure_blob -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   additional_properties : (string * string) list prop;
@@ -22,7 +65,8 @@ type t = private {
   path : string prop;
 }
 
-val azurerm_data_factory_dataset_azure_blob :
+val register :
+  ?tf_module:tf_module ->
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
   ?description:string prop ->
@@ -33,11 +77,10 @@ val azurerm_data_factory_dataset_azure_blob :
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
   ?path:string prop ->
-  ?timeouts:azurerm_data_factory_dataset_azure_blob__timeouts ->
+  ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  schema_column:
-    azurerm_data_factory_dataset_azure_blob__schema_column list ->
+  schema_column:schema_column list ->
   string ->
   t

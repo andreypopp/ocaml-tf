@@ -2,11 +2,57 @@
 
 open! Tf.Prelude
 
-type azurerm_sql_failover_group__partner_servers
-type azurerm_sql_failover_group__read_write_endpoint_failover_policy
-type azurerm_sql_failover_group__readonly_endpoint_failover_policy
-type azurerm_sql_failover_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type partner_servers
+
+val partner_servers : id:string prop -> unit -> partner_servers
+
+type read_write_endpoint_failover_policy
+
+val read_write_endpoint_failover_policy :
+  ?grace_minutes:float prop ->
+  mode:string prop ->
+  unit ->
+  read_write_endpoint_failover_policy
+
+type readonly_endpoint_failover_policy
+
+val readonly_endpoint_failover_policy :
+  mode:string prop -> unit -> readonly_endpoint_failover_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_sql_failover_group
+
+val azurerm_sql_failover_group :
+  ?databases:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
+  partner_servers:partner_servers list ->
+  read_write_endpoint_failover_policy:
+    read_write_endpoint_failover_policy list ->
+  readonly_endpoint_failover_policy:
+    readonly_endpoint_failover_policy list ->
+  unit ->
+  azurerm_sql_failover_group
+
+val yojson_of_azurerm_sql_failover_group :
+  azurerm_sql_failover_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   databases : string list prop;
@@ -19,20 +65,19 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_sql_failover_group :
+val register :
+  ?tf_module:tf_module ->
   ?databases:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_sql_failover_group__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   server_name:string prop ->
-  partner_servers:azurerm_sql_failover_group__partner_servers list ->
+  partner_servers:partner_servers list ->
   read_write_endpoint_failover_policy:
-    azurerm_sql_failover_group__read_write_endpoint_failover_policy
-    list ->
+    read_write_endpoint_failover_policy list ->
   readonly_endpoint_failover_policy:
-    azurerm_sql_failover_group__readonly_endpoint_failover_policy
-    list ->
+    readonly_endpoint_failover_policy list ->
   string ->
   t

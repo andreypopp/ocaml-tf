@@ -14,6 +14,10 @@ type aws_api_gateway_base_path_mapping = {
 [@@deriving yojson_of]
 (** aws_api_gateway_base_path_mapping *)
 
+let aws_api_gateway_base_path_mapping ?base_path ?id ?stage_name
+    ~api_id ~domain_name () : aws_api_gateway_base_path_mapping =
+  { api_id; base_path; domain_name; id; stage_name }
+
 type t = {
   api_id : string prop;
   base_path : string prop;
@@ -22,14 +26,14 @@ type t = {
   stage_name : string prop;
 }
 
-let aws_api_gateway_base_path_mapping ?base_path ?id ?stage_name
-    ~api_id ~domain_name __resource_id =
+let register ?tf_module ?base_path ?id ?stage_name ~api_id
+    ~domain_name __resource_id =
   let __resource_type = "aws_api_gateway_base_path_mapping" in
   let __resource =
-    ({ api_id; base_path; domain_name; id; stage_name }
-      : aws_api_gateway_base_path_mapping)
+    aws_api_gateway_base_path_mapping ?base_path ?id ?stage_name
+      ~api_id ~domain_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_base_path_mapping __resource);
   let __resource_attributes =
     ({

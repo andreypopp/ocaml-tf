@@ -15,6 +15,11 @@ type aws_route53_key_signing_key = {
 [@@deriving yojson_of]
 (** aws_route53_key_signing_key *)
 
+let aws_route53_key_signing_key ?id ?status ~hosted_zone_id
+    ~key_management_service_arn ~name () :
+    aws_route53_key_signing_key =
+  { hosted_zone_id; id; key_management_service_arn; name; status }
+
 type t = {
   digest_algorithm_mnemonic : string prop;
   digest_algorithm_type : float prop;
@@ -33,14 +38,14 @@ type t = {
   status : string prop;
 }
 
-let aws_route53_key_signing_key ?id ?status ~hosted_zone_id
+let register ?tf_module ?id ?status ~hosted_zone_id
     ~key_management_service_arn ~name __resource_id =
   let __resource_type = "aws_route53_key_signing_key" in
   let __resource =
-    ({ hosted_zone_id; id; key_management_service_arn; name; status }
-      : aws_route53_key_signing_key)
+    aws_route53_key_signing_key ?id ?status ~hosted_zone_id
+      ~key_management_service_arn ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_key_signing_key __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_guardduty_invite_accepter__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_guardduty_invite_accepter
+
+val aws_guardduty_invite_accepter :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  detector_id:string prop ->
+  master_account_id:string prop ->
+  unit ->
+  aws_guardduty_invite_accepter
+
+val yojson_of_aws_guardduty_invite_accepter :
+  aws_guardduty_invite_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   detector_id : string prop;
@@ -11,9 +29,10 @@ type t = private {
   master_account_id : string prop;
 }
 
-val aws_guardduty_invite_accepter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_guardduty_invite_accepter__timeouts ->
+  ?timeouts:timeouts ->
   detector_id:string prop ->
   master_account_id:string prop ->
   string ->

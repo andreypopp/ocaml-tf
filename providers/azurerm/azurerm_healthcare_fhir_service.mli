@@ -2,12 +2,80 @@
 
 open! Tf.Prelude
 
-type azurerm_healthcare_fhir_service__authentication
-type azurerm_healthcare_fhir_service__cors
-type azurerm_healthcare_fhir_service__identity
-type azurerm_healthcare_fhir_service__oci_artifact
-type azurerm_healthcare_fhir_service__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type authentication
+
+val authentication :
+  ?smart_proxy_enabled:bool prop ->
+  audience:string prop ->
+  authority:string prop ->
+  unit ->
+  authentication
+
+type cors
+
+val cors :
+  ?credentials_allowed:bool prop ->
+  ?max_age_in_seconds:float prop ->
+  allowed_headers:string prop list ->
+  allowed_methods:string prop list ->
+  allowed_origins:string prop list ->
+  unit ->
+  cors
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type oci_artifact
+
+val oci_artifact :
+  ?digest:string prop ->
+  ?image_name:string prop ->
+  login_server:string prop ->
+  unit ->
+  oci_artifact
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_healthcare_fhir_service
+
+val azurerm_healthcare_fhir_service :
+  ?access_policy_object_ids:string prop list ->
+  ?configuration_export_storage_account_name:string prop ->
+  ?container_registry_login_server_url:string prop list ->
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  workspace_id:string prop ->
+  authentication:authentication list ->
+  cors:cors list ->
+  identity:identity list ->
+  oci_artifact:oci_artifact list ->
+  unit ->
+  azurerm_healthcare_fhir_service
+
+val yojson_of_azurerm_healthcare_fhir_service :
+  azurerm_healthcare_fhir_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_policy_object_ids : string list prop;
@@ -23,21 +91,22 @@ type t = private {
   workspace_id : string prop;
 }
 
-val azurerm_healthcare_fhir_service :
+val register :
+  ?tf_module:tf_module ->
   ?access_policy_object_ids:string prop list ->
   ?configuration_export_storage_account_name:string prop ->
   ?container_registry_login_server_url:string prop list ->
   ?id:string prop ->
   ?kind:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_healthcare_fhir_service__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   workspace_id:string prop ->
-  authentication:azurerm_healthcare_fhir_service__authentication list ->
-  cors:azurerm_healthcare_fhir_service__cors list ->
-  identity:azurerm_healthcare_fhir_service__identity list ->
-  oci_artifact:azurerm_healthcare_fhir_service__oci_artifact list ->
+  authentication:authentication list ->
+  cors:cors list ->
+  identity:identity list ->
+  oci_artifact:oci_artifact list ->
   string ->
   t

@@ -19,6 +19,19 @@ type aws_transcribe_vocabulary_filter = {
 [@@deriving yojson_of]
 (** aws_transcribe_vocabulary_filter *)
 
+let aws_transcribe_vocabulary_filter ?id ?tags ?tags_all
+    ?vocabulary_filter_file_uri ?words ~language_code
+    ~vocabulary_filter_name () : aws_transcribe_vocabulary_filter =
+  {
+    id;
+    language_code;
+    tags;
+    tags_all;
+    vocabulary_filter_file_uri;
+    vocabulary_filter_name;
+    words;
+  }
+
 type t = {
   arn : string prop;
   download_uri : string prop;
@@ -31,23 +44,16 @@ type t = {
   words : string list prop;
 }
 
-let aws_transcribe_vocabulary_filter ?id ?tags ?tags_all
+let register ?tf_module ?id ?tags ?tags_all
     ?vocabulary_filter_file_uri ?words ~language_code
     ~vocabulary_filter_name __resource_id =
   let __resource_type = "aws_transcribe_vocabulary_filter" in
   let __resource =
-    ({
-       id;
-       language_code;
-       tags;
-       tags_all;
-       vocabulary_filter_file_uri;
-       vocabulary_filter_name;
-       words;
-     }
-      : aws_transcribe_vocabulary_filter)
+    aws_transcribe_vocabulary_filter ?id ?tags ?tags_all
+      ?vocabulary_filter_file_uri ?words ~language_code
+      ~vocabulary_filter_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transcribe_vocabulary_filter __resource);
   let __resource_attributes =
     ({

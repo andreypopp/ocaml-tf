@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_api_gateway_rest_api__endpoint_configuration = {
+type endpoint_configuration = {
   types : string prop list;  (** types *)
   vpc_endpoint_ids : string prop list option; [@option]
       (** vpc_endpoint_ids *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_rest_api__endpoint_configuration *)
+(** endpoint_configuration *)
 
 type aws_api_gateway_rest_api = {
   api_key_source : string prop option; [@option]
@@ -35,11 +35,37 @@ type aws_api_gateway_rest_api = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  endpoint_configuration :
-    aws_api_gateway_rest_api__endpoint_configuration list;
+  endpoint_configuration : endpoint_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_rest_api *)
+
+let endpoint_configuration ?vpc_endpoint_ids ~types () :
+    endpoint_configuration =
+  { types; vpc_endpoint_ids }
+
+let aws_api_gateway_rest_api ?api_key_source ?binary_media_types
+    ?body ?description ?disable_execute_api_endpoint
+    ?fail_on_warnings ?id ?minimum_compression_size ?parameters
+    ?policy ?put_rest_api_mode ?tags ?tags_all ~name
+    ~endpoint_configuration () : aws_api_gateway_rest_api =
+  {
+    api_key_source;
+    binary_media_types;
+    body;
+    description;
+    disable_execute_api_endpoint;
+    fail_on_warnings;
+    id;
+    minimum_compression_size;
+    name;
+    parameters;
+    policy;
+    put_rest_api_mode;
+    tags;
+    tags_all;
+    endpoint_configuration;
+  }
 
 type t = {
   api_key_source : string prop;
@@ -62,33 +88,19 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_api_gateway_rest_api ?api_key_source ?binary_media_types
-    ?body ?description ?disable_execute_api_endpoint
-    ?fail_on_warnings ?id ?minimum_compression_size ?parameters
-    ?policy ?put_rest_api_mode ?tags ?tags_all ~name
-    ~endpoint_configuration __resource_id =
+let register ?tf_module ?api_key_source ?binary_media_types ?body
+    ?description ?disable_execute_api_endpoint ?fail_on_warnings ?id
+    ?minimum_compression_size ?parameters ?policy ?put_rest_api_mode
+    ?tags ?tags_all ~name ~endpoint_configuration __resource_id =
   let __resource_type = "aws_api_gateway_rest_api" in
   let __resource =
-    ({
-       api_key_source;
-       binary_media_types;
-       body;
-       description;
-       disable_execute_api_endpoint;
-       fail_on_warnings;
-       id;
-       minimum_compression_size;
-       name;
-       parameters;
-       policy;
-       put_rest_api_mode;
-       tags;
-       tags_all;
-       endpoint_configuration;
-     }
-      : aws_api_gateway_rest_api)
+    aws_api_gateway_rest_api ?api_key_source ?binary_media_types
+      ?body ?description ?disable_execute_api_endpoint
+      ?fail_on_warnings ?id ?minimum_compression_size ?parameters
+      ?policy ?put_rest_api_mode ?tags ?tags_all ~name
+      ~endpoint_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_rest_api __resource);
   let __resource_attributes =
     ({

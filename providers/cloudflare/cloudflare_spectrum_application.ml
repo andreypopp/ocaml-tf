@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_spectrum_application__dns = {
+type dns = {
   name : string prop;
       (** The name of the DNS record associated with the application. *)
   type_ : string prop; [@key "type"]
@@ -13,7 +13,7 @@ type cloudflare_spectrum_application__dns = {
 [@@deriving yojson_of]
 (** The name and type of DNS record for the Spectrum application. *)
 
-type cloudflare_spectrum_application__edge_ips = {
+type edge_ips = {
   connectivity : string prop option; [@option]
       (** The IP versions supported for inbound connections on Spectrum anycast IPs. Required when `type` is not `static`. Available values: `all`, `ipv4`, `ipv6`. *)
   ips : string prop list option; [@option]
@@ -24,14 +24,14 @@ type cloudflare_spectrum_application__edge_ips = {
 [@@deriving yojson_of]
 (** The anycast edge IP configuration for the hostname of this application. *)
 
-type cloudflare_spectrum_application__origin_dns = {
+type origin_dns = {
   name : string prop;
       (** Fully qualified domain name of the origin. *)
 }
 [@@deriving yojson_of]
 (** A destination DNS addresses to the origin. *)
 
-type cloudflare_spectrum_application__origin_port_range = {
+type origin_port_range = {
   end_ : float prop; [@key "end"]
       (** Upper bound of the origin port range. *)
   start : float prop;  (** Lower bound of the origin port range. *)
@@ -59,17 +59,47 @@ type cloudflare_spectrum_application = {
       (** Sets application type. Available values: `direct`, `http`, `https`. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. *)
-  dns : cloudflare_spectrum_application__dns list;
-  edge_ips : cloudflare_spectrum_application__edge_ips list;
-  origin_dns : cloudflare_spectrum_application__origin_dns list;
-  origin_port_range :
-    cloudflare_spectrum_application__origin_port_range list;
+  dns : dns list;
+  edge_ips : edge_ips list;
+  origin_dns : origin_dns list;
+  origin_port_range : origin_port_range list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Spectrum Application. You can extend the power
 of Cloudflare's DDoS, TLS, and IP Firewall to your other TCP-based
 services.
  *)
+
+let dns ~name ~type_ () : dns = { name; type_ }
+
+let edge_ips ?connectivity ?ips ~type_ () : edge_ips =
+  { connectivity; ips; type_ }
+
+let origin_dns ~name () : origin_dns = { name }
+
+let origin_port_range ~end_ ~start () : origin_port_range =
+  { end_; start }
+
+let cloudflare_spectrum_application ?argo_smart_routing ?id
+    ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol ?tls
+    ?traffic_type ~protocol ~zone_id ~dns ~edge_ips ~origin_dns
+    ~origin_port_range () : cloudflare_spectrum_application =
+  {
+    argo_smart_routing;
+    id;
+    ip_firewall;
+    origin_direct;
+    origin_port;
+    protocol;
+    proxy_protocol;
+    tls;
+    traffic_type;
+    zone_id;
+    dns;
+    edge_ips;
+    origin_dns;
+    origin_port_range;
+  }
 
 type t = {
   argo_smart_routing : bool prop;
@@ -84,31 +114,18 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_spectrum_application ?argo_smart_routing ?id
-    ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol ?tls
-    ?traffic_type ~protocol ~zone_id ~dns ~edge_ips ~origin_dns
-    ~origin_port_range __resource_id =
+let register ?tf_module ?argo_smart_routing ?id ?ip_firewall
+    ?origin_direct ?origin_port ?proxy_protocol ?tls ?traffic_type
+    ~protocol ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range
+    __resource_id =
   let __resource_type = "cloudflare_spectrum_application" in
   let __resource =
-    ({
-       argo_smart_routing;
-       id;
-       ip_firewall;
-       origin_direct;
-       origin_port;
-       protocol;
-       proxy_protocol;
-       tls;
-       traffic_type;
-       zone_id;
-       dns;
-       edge_ips;
-       origin_dns;
-       origin_port_range;
-     }
-      : cloudflare_spectrum_application)
+    cloudflare_spectrum_application ?argo_smart_routing ?id
+      ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol ?tls
+      ?traffic_type ~protocol ~zone_id ~dns ~edge_ips ~origin_dns
+      ~origin_port_range ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_spectrum_application __resource);
   let __resource_attributes =
     ({

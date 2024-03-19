@@ -2,9 +2,39 @@
 
 open! Tf.Prelude
 
-type aws_sfn_alias__routing_configuration
-type aws_sfn_alias__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type routing_configuration
+
+val routing_configuration :
+  state_machine_version_arn:string prop ->
+  weight:float prop ->
+  unit ->
+  routing_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_sfn_alias
+
+val aws_sfn_alias :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  routing_configuration:routing_configuration list ->
+  unit ->
+  aws_sfn_alias
+
+val yojson_of_aws_sfn_alias : aws_sfn_alias -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,11 +44,12 @@ type t = private {
   name : string prop;
 }
 
-val aws_sfn_alias :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:aws_sfn_alias__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  routing_configuration:aws_sfn_alias__routing_configuration list ->
+  routing_configuration:routing_configuration list ->
   string ->
   t

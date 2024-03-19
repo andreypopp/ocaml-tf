@@ -2,9 +2,46 @@
 
 open! Tf.Prelude
 
-type azurerm_role_definition__permissions
-type azurerm_role_definition__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type permissions
+
+val permissions :
+  ?actions:string prop list ->
+  ?data_actions:string prop list ->
+  ?not_actions:string prop list ->
+  ?not_data_actions:string prop list ->
+  unit ->
+  permissions
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_role_definition
+
+val azurerm_role_definition :
+  ?assignable_scopes:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?role_definition_id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  scope:string prop ->
+  permissions:permissions list ->
+  unit ->
+  azurerm_role_definition
+
+val yojson_of_azurerm_role_definition :
+  azurerm_role_definition -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   assignable_scopes : string list prop;
@@ -16,14 +53,15 @@ type t = private {
   scope : string prop;
 }
 
-val azurerm_role_definition :
+val register :
+  ?tf_module:tf_module ->
   ?assignable_scopes:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
   ?role_definition_id:string prop ->
-  ?timeouts:azurerm_role_definition__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   scope:string prop ->
-  permissions:azurerm_role_definition__permissions list ->
+  permissions:permissions list ->
   string ->
   t

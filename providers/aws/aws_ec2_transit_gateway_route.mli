@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ec2_transit_gateway_route
+
+val aws_ec2_transit_gateway_route :
+  ?blackhole:bool prop ->
+  ?id:string prop ->
+  ?transit_gateway_attachment_id:string prop ->
+  destination_cidr_block:string prop ->
+  transit_gateway_route_table_id:string prop ->
+  unit ->
+  aws_ec2_transit_gateway_route
+
+val yojson_of_aws_ec2_transit_gateway_route :
+  aws_ec2_transit_gateway_route -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   blackhole : bool prop;
@@ -12,7 +28,8 @@ type t = private {
   transit_gateway_route_table_id : string prop;
 }
 
-val aws_ec2_transit_gateway_route :
+val register :
+  ?tf_module:tf_module ->
   ?blackhole:bool prop ->
   ?id:string prop ->
   ?transit_gateway_attachment_id:string prop ->

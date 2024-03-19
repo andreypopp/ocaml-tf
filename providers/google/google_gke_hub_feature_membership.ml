@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_gke_hub_feature_membership__configmanagement__binauthz = {
+type configmanagement__binauthz = {
   enabled : bool prop option; [@option]
       (** Whether binauthz is enabled in this cluster. *)
 }
 [@@deriving yojson_of]
 (** **DEPRECATED** Binauthz configuration for the cluster. This field will be ignored and should not be set. *)
 
-type google_gke_hub_feature_membership__configmanagement__config_sync__git = {
+type configmanagement__config_sync__git = {
   gcp_service_account_email : string prop option; [@option]
       (** The GCP Service Account Email used for auth when secretType is gcpServiceAccount. *)
   https_proxy : string prop option; [@option]
@@ -30,9 +30,9 @@ type google_gke_hub_feature_membership__configmanagement__config_sync__git = {
       (** Period in seconds between consecutive syncs. Default: 15. *)
 }
 [@@deriving yojson_of]
-(** google_gke_hub_feature_membership__configmanagement__config_sync__git *)
+(** configmanagement__config_sync__git *)
 
-type google_gke_hub_feature_membership__configmanagement__config_sync__oci = {
+type configmanagement__config_sync__oci = {
   gcp_service_account_email : string prop option; [@option]
       (** The GCP Service Account Email used for auth when secret_type is gcpserviceaccount.  *)
   policy_dir : string prop option; [@option]
@@ -45,26 +45,22 @@ type google_gke_hub_feature_membership__configmanagement__config_sync__oci = {
       (** Period in seconds(int64 format) between consecutive syncs. Default: 15. *)
 }
 [@@deriving yojson_of]
-(** google_gke_hub_feature_membership__configmanagement__config_sync__oci *)
+(** configmanagement__config_sync__oci *)
 
-type google_gke_hub_feature_membership__configmanagement__config_sync = {
+type configmanagement__config_sync = {
   metrics_gcp_service_account_email : string prop option; [@option]
       (** The Email of the Google Cloud Service Account (GSA) used for exporting Config Sync metrics to Cloud Monitoring. The GSA should have the Monitoring Metric Writer(roles/monitoring.metricWriter) IAM role. The Kubernetes ServiceAccount `default` in the namespace `config-management-monitoring` should be bound to the GSA. *)
   prevent_drift : bool prop option; [@option]
       (** Set to true to enable the Config Sync admission webhook to prevent drifts. If set to `false`, disables the Config Sync admission webhook and does not prevent drifts. *)
   source_format : string prop option; [@option]
       (** Specifies whether the Config Sync Repo is in hierarchical or unstructured mode. *)
-  git :
-    google_gke_hub_feature_membership__configmanagement__config_sync__git
-    list;
-  oci :
-    google_gke_hub_feature_membership__configmanagement__config_sync__oci
-    list;
+  git : configmanagement__config_sync__git list;
+  oci : configmanagement__config_sync__oci list;
 }
 [@@deriving yojson_of]
 (** Config Sync configuration for the cluster. *)
 
-type google_gke_hub_feature_membership__configmanagement__hierarchy_controller = {
+type configmanagement__hierarchy_controller = {
   enable_hierarchical_resource_quota : bool prop option; [@option]
       (** Whether hierarchical resource quota is enabled in this cluster. *)
   enable_pod_tree_labels : bool prop option; [@option]
@@ -75,14 +71,14 @@ type google_gke_hub_feature_membership__configmanagement__hierarchy_controller =
 [@@deriving yojson_of]
 (** Hierarchy Controller configuration for the cluster. *)
 
-type google_gke_hub_feature_membership__configmanagement__policy_controller__monitoring = {
+type configmanagement__policy_controller__monitoring = {
   backends : string prop list option; [@option]
       (**  Specifies the list of backends Policy Controller will export to. Specifying an empty value `[]` disables metrics export. *)
 }
 [@@deriving yojson_of]
 (** Specifies the backends Policy Controller should export metrics to. For example, to specify metrics should be exported to Cloud Monitoring and Prometheus, specify backends: [cloudmonitoring, prometheus]. Default: [cloudmonitoring, prometheus] *)
 
-type google_gke_hub_feature_membership__configmanagement__policy_controller = {
+type configmanagement__policy_controller = {
   audit_interval_seconds : string prop option; [@option]
       (** Sets the interval for Policy Controller Audit Scans (in seconds). When set to 0, this disables audit functionality altogether. *)
   enabled : bool prop option; [@option]
@@ -97,33 +93,23 @@ type google_gke_hub_feature_membership__configmanagement__policy_controller = {
       (** Enables the ability to use Constraint Templates that reference to objects other than the object currently being evaluated. *)
   template_library_installed : bool prop option; [@option]
       (** Installs the default template library along with Policy Controller. *)
-  monitoring :
-    google_gke_hub_feature_membership__configmanagement__policy_controller__monitoring
-    list;
+  monitoring : configmanagement__policy_controller__monitoring list;
 }
 [@@deriving yojson_of]
 (** Policy Controller configuration for the cluster. *)
 
-type google_gke_hub_feature_membership__configmanagement = {
+type configmanagement = {
   version : string prop option; [@option]
       (** Optional. Version of ACM to install. Defaults to the latest version. *)
-  binauthz :
-    google_gke_hub_feature_membership__configmanagement__binauthz
-    list;
-  config_sync :
-    google_gke_hub_feature_membership__configmanagement__config_sync
-    list;
-  hierarchy_controller :
-    google_gke_hub_feature_membership__configmanagement__hierarchy_controller
-    list;
-  policy_controller :
-    google_gke_hub_feature_membership__configmanagement__policy_controller
-    list;
+  binauthz : configmanagement__binauthz list;
+  config_sync : configmanagement__config_sync list;
+  hierarchy_controller : configmanagement__hierarchy_controller list;
+  policy_controller : configmanagement__policy_controller list;
 }
 [@@deriving yojson_of]
 (** Config Management-specific spec. *)
 
-type google_gke_hub_feature_membership__mesh = {
+type mesh = {
   control_plane : string prop option; [@option]
       (** **DEPRECATED** Whether to automatically manage Service Mesh control planes. Possible values: CONTROL_PLANE_MANAGEMENT_UNSPECIFIED, AUTOMATIC, MANUAL *)
   management : string prop option; [@option]
@@ -132,7 +118,7 @@ type google_gke_hub_feature_membership__mesh = {
 [@@deriving yojson_of]
 (** Manage Mesh Features *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits = {
+type policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits = {
   cpu : string prop option; [@option]
       (** CPU requirement expressed in Kubernetes resource units. *)
   memory : string prop option; [@option]
@@ -141,7 +127,7 @@ type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_
 [@@deriving yojson_of]
 (** Limits describes the maximum amount of compute resources allowed for use by the running container. *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests = {
+type policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests = {
   cpu : string prop option; [@option]
       (** CPU requirement expressed in Kubernetes resource units. *)
   memory : string prop option; [@option]
@@ -150,18 +136,18 @@ type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_
 [@@deriving yojson_of]
 (** Requests describes the amount of compute resources reserved for the container by the kube-scheduler. *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs__container_resources = {
+type policycontroller__policy_controller_hub_config__deployment_configs__container_resources = {
   limits :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
+    policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
     list;
   requests :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
+    policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
     list;
 }
 [@@deriving yojson_of]
 (** Container resource requirements. *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations = {
+type policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations = {
   effect : string prop option; [@option]
       (** Matches a taint effect. *)
   key : string prop option; [@option]
@@ -173,7 +159,7 @@ type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_
 [@@deriving yojson_of]
 (** Pod tolerations of node taints. *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs = {
+type policycontroller__policy_controller_hub_config__deployment_configs = {
   component_name : string prop;
       (** The name for the key in the map for which this object is mapped to in the API *)
   pod_affinity : string prop option; [@option]
@@ -181,23 +167,23 @@ type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_
   replica_count : float prop option; [@option]
       (** Pod replica count. *)
   container_resources :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
+    policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     list;
   pod_tolerations :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
+    policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
     list;
 }
 [@@deriving yojson_of]
 (** Map of deployment configs to deployments (admission, audit, mutation). *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__monitoring = {
+type policycontroller__policy_controller_hub_config__monitoring = {
   backends : string prop list option; [@option]
       (**  Specifies the list of backends Policy Controller will export to. Specifying an empty value `[]` disables metrics export. *)
 }
 [@@deriving yojson_of]
 (** Specifies the backends Policy Controller should export metrics to. For example, to specify metrics should be exported to Cloud Monitoring and Prometheus, specify backends: [cloudmonitoring, prometheus]. Default: [cloudmonitoring, prometheus] *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__policy_content__bundles = {
+type policycontroller__policy_controller_hub_config__policy_content__bundles = {
   bundle_name : string prop;
       (** The name for the key in the map for which this object is mapped to in the API *)
   exempted_namespaces : string prop list option; [@option]
@@ -206,25 +192,25 @@ type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_
 [@@deriving yojson_of]
 (** map of bundle name to BundleInstallSpec. The bundle name maps to the `bundleName` key in the `policycontroller.gke.io/constraintData` annotation on a constraint. *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__policy_content__template_library = {
+type policycontroller__policy_controller_hub_config__policy_content__template_library = {
   installation : string prop option; [@option]
       (** Configures the manner in which the template library is installed on the cluster. Possible values: INSTALLATION_UNSPECIFIED, NOT_INSTALLED, ALL *)
 }
 [@@deriving yojson_of]
 (** Configures the installation of the Template Library. *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__policy_content = {
+type policycontroller__policy_controller_hub_config__policy_content = {
   bundles :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__policy_content__bundles
+    policycontroller__policy_controller_hub_config__policy_content__bundles
     list;
   template_library :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__policy_content__template_library
+    policycontroller__policy_controller_hub_config__policy_content__template_library
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the desired policy content on the cluster. *)
 
-type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config = {
+type policycontroller__policy_controller_hub_config = {
   audit_interval_seconds : float prop option; [@option]
       (** Sets the interval for Policy Controller Audit Scans (in seconds). When set to 0, this disables audit functionality altogether. *)
   constraint_violation_limit : float prop option; [@option]
@@ -240,35 +226,33 @@ type google_gke_hub_feature_membership__policycontroller__policy_controller_hub_
   referential_rules_enabled : bool prop option; [@option]
       (** Enables the ability to use Constraint Templates that reference to objects other than the object currently being evaluated. *)
   deployment_configs :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__deployment_configs
+    policycontroller__policy_controller_hub_config__deployment_configs
     list;
   monitoring :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__monitoring
-    list;
+    policycontroller__policy_controller_hub_config__monitoring list;
   policy_content :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config__policy_content
+    policycontroller__policy_controller_hub_config__policy_content
     list;
 }
 [@@deriving yojson_of]
 (** Policy Controller configuration for the cluster. *)
 
-type google_gke_hub_feature_membership__policycontroller = {
+type policycontroller = {
   version : string prop option; [@option]
       (** Optional. Version of Policy Controller to install. Defaults to the latest version. *)
   policy_controller_hub_config :
-    google_gke_hub_feature_membership__policycontroller__policy_controller_hub_config
-    list;
+    policycontroller__policy_controller_hub_config list;
 }
 [@@deriving yojson_of]
 (** Policy Controller-specific spec. *)
 
-type google_gke_hub_feature_membership__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gke_hub_feature_membership__timeouts *)
+(** timeouts *)
 
 type google_gke_hub_feature_membership = {
   feature : string prop;  (** The name of the feature *)
@@ -279,15 +263,198 @@ type google_gke_hub_feature_membership = {
       (** The location of the membership *)
   project : string prop option; [@option]
       (** The project of the feature *)
-  configmanagement :
-    google_gke_hub_feature_membership__configmanagement list;
-  mesh : google_gke_hub_feature_membership__mesh list;
-  policycontroller :
-    google_gke_hub_feature_membership__policycontroller list;
-  timeouts : google_gke_hub_feature_membership__timeouts option;
+  configmanagement : configmanagement list;
+  mesh : mesh list;
+  policycontroller : policycontroller list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gke_hub_feature_membership *)
+
+let configmanagement__binauthz ?enabled () :
+    configmanagement__binauthz =
+  { enabled }
+
+let configmanagement__config_sync__git ?gcp_service_account_email
+    ?https_proxy ?policy_dir ?secret_type ?sync_branch ?sync_repo
+    ?sync_rev ?sync_wait_secs () : configmanagement__config_sync__git
+    =
+  {
+    gcp_service_account_email;
+    https_proxy;
+    policy_dir;
+    secret_type;
+    sync_branch;
+    sync_repo;
+    sync_rev;
+    sync_wait_secs;
+  }
+
+let configmanagement__config_sync__oci ?gcp_service_account_email
+    ?policy_dir ?secret_type ?sync_repo ?sync_wait_secs () :
+    configmanagement__config_sync__oci =
+  {
+    gcp_service_account_email;
+    policy_dir;
+    secret_type;
+    sync_repo;
+    sync_wait_secs;
+  }
+
+let configmanagement__config_sync ?metrics_gcp_service_account_email
+    ?prevent_drift ?source_format ~git ~oci () :
+    configmanagement__config_sync =
+  {
+    metrics_gcp_service_account_email;
+    prevent_drift;
+    source_format;
+    git;
+    oci;
+  }
+
+let configmanagement__hierarchy_controller
+    ?enable_hierarchical_resource_quota ?enable_pod_tree_labels
+    ?enabled () : configmanagement__hierarchy_controller =
+  {
+    enable_hierarchical_resource_quota;
+    enable_pod_tree_labels;
+    enabled;
+  }
+
+let configmanagement__policy_controller__monitoring ?backends () :
+    configmanagement__policy_controller__monitoring =
+  { backends }
+
+let configmanagement__policy_controller ?audit_interval_seconds
+    ?enabled ?exemptable_namespaces ?log_denies_enabled
+    ?mutation_enabled ?referential_rules_enabled
+    ?template_library_installed ~monitoring () :
+    configmanagement__policy_controller =
+  {
+    audit_interval_seconds;
+    enabled;
+    exemptable_namespaces;
+    log_denies_enabled;
+    mutation_enabled;
+    referential_rules_enabled;
+    template_library_installed;
+    monitoring;
+  }
+
+let configmanagement ?version ~binauthz ~config_sync
+    ~hierarchy_controller ~policy_controller () : configmanagement =
+  {
+    version;
+    binauthz;
+    config_sync;
+    hierarchy_controller;
+    policy_controller;
+  }
+
+let mesh ?control_plane ?management () : mesh =
+  { control_plane; management }
+
+let policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
+    ?cpu ?memory () :
+    policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
+    =
+  { cpu; memory }
+
+let policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
+    ?cpu ?memory () :
+    policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
+    =
+  { cpu; memory }
+
+let policycontroller__policy_controller_hub_config__deployment_configs__container_resources
+    ~limits ~requests () :
+    policycontroller__policy_controller_hub_config__deployment_configs__container_resources
+    =
+  { limits; requests }
+
+let policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
+    ?effect ?key ?operator ?value () :
+    policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
+    =
+  { effect; key; operator; value }
+
+let policycontroller__policy_controller_hub_config__deployment_configs
+    ?pod_affinity ?replica_count ~component_name ~container_resources
+    ~pod_tolerations () :
+    policycontroller__policy_controller_hub_config__deployment_configs
+    =
+  {
+    component_name;
+    pod_affinity;
+    replica_count;
+    container_resources;
+    pod_tolerations;
+  }
+
+let policycontroller__policy_controller_hub_config__monitoring
+    ?backends () :
+    policycontroller__policy_controller_hub_config__monitoring =
+  { backends }
+
+let policycontroller__policy_controller_hub_config__policy_content__bundles
+    ?exempted_namespaces ~bundle_name () :
+    policycontroller__policy_controller_hub_config__policy_content__bundles
+    =
+  { bundle_name; exempted_namespaces }
+
+let policycontroller__policy_controller_hub_config__policy_content__template_library
+    ?installation () :
+    policycontroller__policy_controller_hub_config__policy_content__template_library
+    =
+  { installation }
+
+let policycontroller__policy_controller_hub_config__policy_content
+    ~bundles ~template_library () :
+    policycontroller__policy_controller_hub_config__policy_content =
+  { bundles; template_library }
+
+let policycontroller__policy_controller_hub_config
+    ?audit_interval_seconds ?constraint_violation_limit
+    ?exemptable_namespaces ?install_spec ?log_denies_enabled
+    ?mutation_enabled ?referential_rules_enabled ~deployment_configs
+    ~monitoring ~policy_content () :
+    policycontroller__policy_controller_hub_config =
+  {
+    audit_interval_seconds;
+    constraint_violation_limit;
+    exemptable_namespaces;
+    install_spec;
+    log_denies_enabled;
+    mutation_enabled;
+    referential_rules_enabled;
+    deployment_configs;
+    monitoring;
+    policy_content;
+  }
+
+let policycontroller ?version ~policy_controller_hub_config () :
+    policycontroller =
+  { version; policy_controller_hub_config }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gke_hub_feature_membership ?id ?membership_location
+    ?project ?timeouts ~feature ~location ~membership
+    ~configmanagement ~mesh ~policycontroller () :
+    google_gke_hub_feature_membership =
+  {
+    feature;
+    id;
+    location;
+    membership;
+    membership_location;
+    project;
+    configmanagement;
+    mesh;
+    policycontroller;
+    timeouts;
+  }
 
 type t = {
   feature : string prop;
@@ -298,26 +465,16 @@ type t = {
   project : string prop;
 }
 
-let google_gke_hub_feature_membership ?id ?membership_location
-    ?project ?timeouts ~feature ~location ~membership
-    ~configmanagement ~mesh ~policycontroller __resource_id =
+let register ?tf_module ?id ?membership_location ?project ?timeouts
+    ~feature ~location ~membership ~configmanagement ~mesh
+    ~policycontroller __resource_id =
   let __resource_type = "google_gke_hub_feature_membership" in
   let __resource =
-    ({
-       feature;
-       id;
-       location;
-       membership;
-       membership_location;
-       project;
-       configmanagement;
-       mesh;
-       policycontroller;
-       timeouts;
-     }
-      : google_gke_hub_feature_membership)
+    google_gke_hub_feature_membership ?id ?membership_location
+      ?project ?timeouts ~feature ~location ~membership
+      ~configmanagement ~mesh ~policycontroller ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_feature_membership __resource);
   let __resource_attributes =
     ({

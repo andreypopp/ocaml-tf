@@ -17,6 +17,10 @@ type aws_iot_role_alias = {
 [@@deriving yojson_of]
 (** aws_iot_role_alias *)
 
+let aws_iot_role_alias ?credential_duration ?id ?tags ?tags_all
+    ~alias ~role_arn () : aws_iot_role_alias =
+  { alias; credential_duration; id; role_arn; tags; tags_all }
+
 type t = {
   alias : string prop;
   arn : string prop;
@@ -27,14 +31,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_iot_role_alias ?credential_duration ?id ?tags ?tags_all
+let register ?tf_module ?credential_duration ?id ?tags ?tags_all
     ~alias ~role_arn __resource_id =
   let __resource_type = "aws_iot_role_alias" in
   let __resource =
-    ({ alias; credential_duration; id; role_arn; tags; tags_all }
-      : aws_iot_role_alias)
+    aws_iot_role_alias ?credential_duration ?id ?tags ?tags_all
+      ~alias ~role_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_role_alias __resource);
   let __resource_attributes =
     ({

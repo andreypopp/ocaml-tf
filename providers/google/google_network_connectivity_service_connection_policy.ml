@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_network_connectivity_service_connection_policy__psc_config = {
+type psc_config = {
   limit : string prop option; [@option]
       (** Max number of PSC connections for this policy. *)
   subnetworks : string prop list;
@@ -13,42 +13,36 @@ type google_network_connectivity_service_connection_policy__psc_config = {
 [@@deriving yojson_of]
 (** Configuration used for Private Service Connect connections. Used when Infrastructure is PSC. *)
 
-type google_network_connectivity_service_connection_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_connectivity_service_connection_policy__timeouts *)
+(** timeouts *)
 
-type google_network_connectivity_service_connection_policy__psc_connections__error_info = {
+type psc_connections__error_info = {
   domain : string prop;  (** domain *)
   metadata : (string * string prop) list;  (** metadata *)
   reason : string prop;  (** reason *)
 }
 [@@deriving yojson_of]
 
-type google_network_connectivity_service_connection_policy__psc_connections__error = {
+type psc_connections__error = {
   code : float prop;  (** code *)
   details : (string * string prop) list list;  (** details *)
   message : string prop;  (** message *)
 }
 [@@deriving yojson_of]
 
-type google_network_connectivity_service_connection_policy__psc_connections = {
+type psc_connections = {
   consumer_address : string prop;  (** consumer_address *)
   consumer_forwarding_rule : string prop;
       (** consumer_forwarding_rule *)
   consumer_target_project : string prop;
       (** consumer_target_project *)
-  error :
-    google_network_connectivity_service_connection_policy__psc_connections__error
-    list;
-      (** error *)
-  error_info :
-    google_network_connectivity_service_connection_policy__psc_connections__error_info
-    list;
-      (** error_info *)
+  error : psc_connections__error list;  (** error *)
+  error_info : psc_connections__error_info list;  (** error_info *)
   error_type : string prop;  (** error_type *)
   gce_operation : string prop;  (** gce_operation *)
   psc_connection_id : string prop;  (** psc_connection_id *)
@@ -76,15 +70,34 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   service_class : string prop;
       (** The service class identifier for which this ServiceConnectionPolicy is for. The service class identifier is a unique, symbolic representation of a ServiceClass.
 It is provided by the Service Producer. Google services have a prefix of gcp. For example, gcp-cloud-sql. 3rd party services do not. For example, test-service-a3dfcx. *)
-  psc_config :
-    google_network_connectivity_service_connection_policy__psc_config
-    list;
-  timeouts :
-    google_network_connectivity_service_connection_policy__timeouts
-    option;
+  psc_config : psc_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_connectivity_service_connection_policy *)
+
+let psc_config ?limit ~subnetworks () : psc_config =
+  { limit; subnetworks }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_connectivity_service_connection_policy
+    ?description ?id ?labels ?project ?timeouts ~location ~name
+    ~network ~service_class ~psc_config () :
+    google_network_connectivity_service_connection_policy =
+  {
+    description;
+    id;
+    labels;
+    location;
+    name;
+    network;
+    project;
+    service_class;
+    psc_config;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -98,37 +111,24 @@ type t = {
   name : string prop;
   network : string prop;
   project : string prop;
-  psc_connections :
-    google_network_connectivity_service_connection_policy__psc_connections
-    list
-    prop;
+  psc_connections : psc_connections list prop;
   service_class : string prop;
   terraform_labels : (string * string) list prop;
   update_time : string prop;
 }
 
-let google_network_connectivity_service_connection_policy
-    ?description ?id ?labels ?project ?timeouts ~location ~name
-    ~network ~service_class ~psc_config __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~location ~name ~network ~service_class ~psc_config __resource_id
+    =
   let __resource_type =
     "google_network_connectivity_service_connection_policy"
   in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       location;
-       name;
-       network;
-       project;
-       service_class;
-       psc_config;
-       timeouts;
-     }
-      : google_network_connectivity_service_connection_policy)
+    google_network_connectivity_service_connection_policy
+      ?description ?id ?labels ?project ?timeouts ~location ~name
+      ~network ~service_class ~psc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_connectivity_service_connection_policy
        __resource);
   let __resource_attributes =

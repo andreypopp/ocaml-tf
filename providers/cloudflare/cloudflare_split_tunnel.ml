@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_split_tunnel__tunnels = {
+type tunnels = {
   address : string prop option; [@option]
       (** The address for the tunnel. *)
   description : string prop option; [@option]
@@ -23,12 +23,19 @@ type cloudflare_split_tunnel = {
       (** The mode of the split tunnel policy. Available values: `include`, `exclude`. *)
   policy_id : string prop option; [@option]
       (** The settings policy for which to configure this split tunnel policy. *)
-  tunnels : cloudflare_split_tunnel__tunnels list;
+  tunnels : tunnels list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Split Tunnel resource. Split tunnels are used to either
 include or exclude lists of routes from the WARP client's tunnel.
  *)
+
+let tunnels ?address ?description ?host () : tunnels =
+  { address; description; host }
+
+let cloudflare_split_tunnel ?id ?policy_id ~account_id ~mode ~tunnels
+    () : cloudflare_split_tunnel =
+  { account_id; id; mode; policy_id; tunnels }
 
 type t = {
   account_id : string prop;
@@ -37,14 +44,14 @@ type t = {
   policy_id : string prop;
 }
 
-let cloudflare_split_tunnel ?id ?policy_id ~account_id ~mode ~tunnels
+let register ?tf_module ?id ?policy_id ~account_id ~mode ~tunnels
     __resource_id =
   let __resource_type = "cloudflare_split_tunnel" in
   let __resource =
-    ({ account_id; id; mode; policy_id; tunnels }
-      : cloudflare_split_tunnel)
+    cloudflare_split_tunnel ?id ?policy_id ~account_id ~mode ~tunnels
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_split_tunnel __resource);
   let __resource_attributes =
     ({

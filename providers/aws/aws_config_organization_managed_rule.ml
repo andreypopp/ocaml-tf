@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_config_organization_managed_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_config_organization_managed_rule__timeouts *)
+(** timeouts *)
 
 type aws_config_organization_managed_rule = {
   description : string prop option; [@option]  (** description *)
@@ -30,10 +30,34 @@ type aws_config_organization_managed_rule = {
   tag_key_scope : string prop option; [@option]  (** tag_key_scope *)
   tag_value_scope : string prop option; [@option]
       (** tag_value_scope *)
-  timeouts : aws_config_organization_managed_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_config_organization_managed_rule *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_config_organization_managed_rule ?description
+    ?excluded_accounts ?id ?input_parameters
+    ?maximum_execution_frequency ?resource_id_scope
+    ?resource_types_scope ?tag_key_scope ?tag_value_scope ?timeouts
+    ~name ~rule_identifier () : aws_config_organization_managed_rule
+    =
+  {
+    description;
+    excluded_accounts;
+    id;
+    input_parameters;
+    maximum_execution_frequency;
+    name;
+    resource_id_scope;
+    resource_types_scope;
+    rule_identifier;
+    tag_key_scope;
+    tag_value_scope;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -50,30 +74,19 @@ type t = {
   tag_value_scope : string prop;
 }
 
-let aws_config_organization_managed_rule ?description
-    ?excluded_accounts ?id ?input_parameters
-    ?maximum_execution_frequency ?resource_id_scope
+let register ?tf_module ?description ?excluded_accounts ?id
+    ?input_parameters ?maximum_execution_frequency ?resource_id_scope
     ?resource_types_scope ?tag_key_scope ?tag_value_scope ?timeouts
     ~name ~rule_identifier __resource_id =
   let __resource_type = "aws_config_organization_managed_rule" in
   let __resource =
-    ({
-       description;
-       excluded_accounts;
-       id;
-       input_parameters;
-       maximum_execution_frequency;
-       name;
-       resource_id_scope;
-       resource_types_scope;
-       rule_identifier;
-       tag_key_scope;
-       tag_value_scope;
-       timeouts;
-     }
-      : aws_config_organization_managed_rule)
+    aws_config_organization_managed_rule ?description
+      ?excluded_accounts ?id ?input_parameters
+      ?maximum_execution_frequency ?resource_id_scope
+      ?resource_types_scope ?tag_key_scope ?tag_value_scope ?timeouts
+      ~name ~rule_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_config_organization_managed_rule __resource);
   let __resource_attributes =
     ({

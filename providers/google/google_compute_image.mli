@@ -2,11 +2,64 @@
 
 open! Tf.Prelude
 
-type google_compute_image__guest_os_features
-type google_compute_image__image_encryption_key
-type google_compute_image__raw_disk
-type google_compute_image__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type guest_os_features
+
+val guest_os_features :
+  type_:string prop -> unit -> guest_os_features
+
+type image_encryption_key
+
+val image_encryption_key :
+  ?kms_key_self_link:string prop ->
+  ?kms_key_service_account:string prop ->
+  unit ->
+  image_encryption_key
+
+type raw_disk
+
+val raw_disk :
+  ?container_type:string prop ->
+  ?sha1:string prop ->
+  source:string prop ->
+  unit ->
+  raw_disk
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_image
+
+val google_compute_image :
+  ?description:string prop ->
+  ?disk_size_gb:float prop ->
+  ?family:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?licenses:string prop list ->
+  ?project:string prop ->
+  ?source_disk:string prop ->
+  ?source_image:string prop ->
+  ?source_snapshot:string prop ->
+  ?storage_locations:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  guest_os_features:guest_os_features list ->
+  image_encryption_key:image_encryption_key list ->
+  raw_disk:raw_disk list ->
+  unit ->
+  google_compute_image
+
+val yojson_of_google_compute_image : google_compute_image -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   archive_size_bytes : float prop;
@@ -29,7 +82,8 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_compute_image :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?disk_size_gb:float prop ->
   ?family:string prop ->
@@ -41,11 +95,10 @@ val google_compute_image :
   ?source_image:string prop ->
   ?source_snapshot:string prop ->
   ?storage_locations:string prop list ->
-  ?timeouts:google_compute_image__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  guest_os_features:google_compute_image__guest_os_features list ->
-  image_encryption_key:
-    google_compute_image__image_encryption_key list ->
-  raw_disk:google_compute_image__raw_disk list ->
+  guest_os_features:guest_os_features list ->
+  image_encryption_key:image_encryption_key list ->
+  raw_disk:raw_disk list ->
   string ->
   t

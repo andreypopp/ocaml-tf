@@ -13,6 +13,10 @@ type aws_lightsail_lb_stickiness_policy = {
 [@@deriving yojson_of]
 (** aws_lightsail_lb_stickiness_policy *)
 
+let aws_lightsail_lb_stickiness_policy ?id ~cookie_duration ~enabled
+    ~lb_name () : aws_lightsail_lb_stickiness_policy =
+  { cookie_duration; enabled; id; lb_name }
+
 type t = {
   cookie_duration : float prop;
   enabled : bool prop;
@@ -20,14 +24,14 @@ type t = {
   lb_name : string prop;
 }
 
-let aws_lightsail_lb_stickiness_policy ?id ~cookie_duration ~enabled
-    ~lb_name __resource_id =
+let register ?tf_module ?id ~cookie_duration ~enabled ~lb_name
+    __resource_id =
   let __resource_type = "aws_lightsail_lb_stickiness_policy" in
   let __resource =
-    ({ cookie_duration; enabled; id; lb_name }
-      : aws_lightsail_lb_stickiness_policy)
+    aws_lightsail_lb_stickiness_policy ?id ~cookie_duration ~enabled
+      ~lb_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_lb_stickiness_policy __resource);
   let __resource_attributes =
     ({

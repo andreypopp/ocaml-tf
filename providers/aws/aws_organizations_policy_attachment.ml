@@ -13,6 +13,10 @@ type aws_organizations_policy_attachment = {
 [@@deriving yojson_of]
 (** aws_organizations_policy_attachment *)
 
+let aws_organizations_policy_attachment ?id ?skip_destroy ~policy_id
+    ~target_id () : aws_organizations_policy_attachment =
+  { id; policy_id; skip_destroy; target_id }
+
 type t = {
   id : string prop;
   policy_id : string prop;
@@ -20,14 +24,14 @@ type t = {
   target_id : string prop;
 }
 
-let aws_organizations_policy_attachment ?id ?skip_destroy ~policy_id
-    ~target_id __resource_id =
+let register ?tf_module ?id ?skip_destroy ~policy_id ~target_id
+    __resource_id =
   let __resource_type = "aws_organizations_policy_attachment" in
   let __resource =
-    ({ id; policy_id; skip_destroy; target_id }
-      : aws_organizations_policy_attachment)
+    aws_organizations_policy_attachment ?id ?skip_destroy ~policy_id
+      ~target_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_policy_attachment __resource);
   let __resource_attributes =
     ({

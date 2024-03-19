@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_appintegrations_data_integration__schedule_config = {
+type schedule_config = {
   first_execution_from : string prop;  (** first_execution_from *)
   object_ : string prop; [@key "object"]  (** object *)
   schedule_expression : string prop;  (** schedule_expression *)
 }
 [@@deriving yojson_of]
-(** aws_appintegrations_data_integration__schedule_config *)
+(** schedule_config *)
 
 type aws_appintegrations_data_integration = {
   description : string prop option; [@option]  (** description *)
@@ -21,11 +21,28 @@ type aws_appintegrations_data_integration = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  schedule_config :
-    aws_appintegrations_data_integration__schedule_config list;
+  schedule_config : schedule_config list;
 }
 [@@deriving yojson_of]
 (** aws_appintegrations_data_integration *)
+
+let schedule_config ~first_execution_from ~object_
+    ~schedule_expression () : schedule_config =
+  { first_execution_from; object_; schedule_expression }
+
+let aws_appintegrations_data_integration ?description ?id ?tags
+    ?tags_all ~kms_key ~name ~source_uri ~schedule_config () :
+    aws_appintegrations_data_integration =
+  {
+    description;
+    id;
+    kms_key;
+    name;
+    source_uri;
+    tags;
+    tags_all;
+    schedule_config;
+  }
 
 type t = {
   arn : string prop;
@@ -38,24 +55,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appintegrations_data_integration ?description ?id ?tags
-    ?tags_all ~kms_key ~name ~source_uri ~schedule_config
-    __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~kms_key
+    ~name ~source_uri ~schedule_config __resource_id =
   let __resource_type = "aws_appintegrations_data_integration" in
   let __resource =
-    ({
-       description;
-       id;
-       kms_key;
-       name;
-       source_uri;
-       tags;
-       tags_all;
-       schedule_config;
-     }
-      : aws_appintegrations_data_integration)
+    aws_appintegrations_data_integration ?description ?id ?tags
+      ?tags_all ~kms_key ~name ~source_uri ~schedule_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appintegrations_data_integration __resource);
   let __resource_attributes =
     ({

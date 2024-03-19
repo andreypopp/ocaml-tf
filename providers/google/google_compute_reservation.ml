@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_reservation__share_settings__project_map = {
+type share_settings__project_map = {
   id : string prop;  (** id *)
   project_id : string prop option; [@option]
       (** The project id/number, should be same as the key of this project config in the project map. *)
@@ -12,16 +12,15 @@ type google_compute_reservation__share_settings__project_map = {
 [@@deriving yojson_of]
 (** A map of project number and project config. This is only valid when shareType's value is SPECIFIC_PROJECTS. *)
 
-type google_compute_reservation__share_settings = {
+type share_settings = {
   share_type : string prop option; [@option]
       (** Type of sharing for this shared-reservation Possible values: [LOCAL, SPECIFIC_PROJECTS] *)
-  project_map :
-    google_compute_reservation__share_settings__project_map list;
+  project_map : share_settings__project_map list;
 }
 [@@deriving yojson_of]
 (** The share setting for reservations. *)
 
-type google_compute_reservation__specific_reservation__instance_properties__guest_accelerators = {
+type specific_reservation__instance_properties__guest_accelerators = {
   accelerator_count : float prop;
       (** The number of the guest accelerator cards exposed to
 this instance. *)
@@ -35,7 +34,7 @@ If you are creating an instance template, specify only the accelerator name. *)
 [@@deriving yojson_of]
 (** Guest accelerator type and count. *)
 
-type google_compute_reservation__specific_reservation__instance_properties__local_ssds = {
+type specific_reservation__instance_properties__local_ssds = {
   disk_size_gb : float prop;
       (** The size of the disk in base-2 GB. *)
   interface : string prop option; [@option]
@@ -45,7 +44,7 @@ type google_compute_reservation__specific_reservation__instance_properties__loca
 (** The amount of local ssd to reserve with each instance. This
 reserves disks of type 'local-ssd'. *)
 
-type google_compute_reservation__specific_reservation__instance_properties = {
+type specific_reservation__instance_properties = {
   machine_type : string prop;
       (** The name of the machine type to reserve. *)
   min_cpu_platform : string prop option; [@option]
@@ -54,33 +53,30 @@ type google_compute_reservation__specific_reservation__instance_properties = {
 the CPU platform availability reference](https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#availablezones)
 for information on available CPU platforms. *)
   guest_accelerators :
-    google_compute_reservation__specific_reservation__instance_properties__guest_accelerators
+    specific_reservation__instance_properties__guest_accelerators
     list;
   local_ssds :
-    google_compute_reservation__specific_reservation__instance_properties__local_ssds
-    list;
+    specific_reservation__instance_properties__local_ssds list;
 }
 [@@deriving yojson_of]
 (** The instance properties for the reservation. *)
 
-type google_compute_reservation__specific_reservation = {
+type specific_reservation = {
   count : float prop;
       (** The number of resources that are allocated. *)
-  in_use_count : float prop;  (** How many instances are in use. *)
   instance_properties :
-    google_compute_reservation__specific_reservation__instance_properties
-    list;
+    specific_reservation__instance_properties list;
 }
 [@@deriving yojson_of]
 (** Reservation for instances with specific machine shapes. *)
 
-type google_compute_reservation__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_reservation__timeouts *)
+(** timeouts *)
 
 type google_compute_reservation = {
   description : string prop option; [@option]
@@ -100,13 +96,57 @@ character, which cannot be a dash. *)
 consume this reservation. Otherwise, it can be consumed by VMs with
 affinity for any reservation. Defaults to false. *)
   zone : string prop;  (** The zone where the reservation is made. *)
-  share_settings : google_compute_reservation__share_settings list;
-  specific_reservation :
-    google_compute_reservation__specific_reservation list;
-  timeouts : google_compute_reservation__timeouts option;
+  share_settings : share_settings list;
+  specific_reservation : specific_reservation list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_reservation *)
+
+let share_settings__project_map ?project_id ~id () :
+    share_settings__project_map =
+  { id; project_id }
+
+let share_settings ?share_type ~project_map () : share_settings =
+  { share_type; project_map }
+
+let specific_reservation__instance_properties__guest_accelerators
+    ~accelerator_count ~accelerator_type () :
+    specific_reservation__instance_properties__guest_accelerators =
+  { accelerator_count; accelerator_type }
+
+let specific_reservation__instance_properties__local_ssds ?interface
+    ~disk_size_gb () :
+    specific_reservation__instance_properties__local_ssds =
+  { disk_size_gb; interface }
+
+let specific_reservation__instance_properties ?min_cpu_platform
+    ~machine_type ~guest_accelerators ~local_ssds () :
+    specific_reservation__instance_properties =
+  { machine_type; min_cpu_platform; guest_accelerators; local_ssds }
+
+let specific_reservation ~count ~instance_properties () :
+    specific_reservation =
+  { count; instance_properties }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_reservation ?description ?id ?project
+    ?specific_reservation_required ?timeouts ~name ~zone
+    ~share_settings ~specific_reservation () :
+    google_compute_reservation =
+  {
+    description;
+    id;
+    name;
+    project;
+    specific_reservation_required;
+    zone;
+    share_settings;
+    specific_reservation;
+    timeouts;
+  }
 
 type t = {
   commitment : string prop;
@@ -121,25 +161,16 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_reservation ?description ?id ?project
+let register ?tf_module ?description ?id ?project
     ?specific_reservation_required ?timeouts ~name ~zone
     ~share_settings ~specific_reservation __resource_id =
   let __resource_type = "google_compute_reservation" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       project;
-       specific_reservation_required;
-       zone;
-       share_settings;
-       specific_reservation;
-       timeouts;
-     }
-      : google_compute_reservation)
+    google_compute_reservation ?description ?id ?project
+      ?specific_reservation_required ?timeouts ~name ~zone
+      ~share_settings ~specific_reservation ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_reservation __resource);
   let __resource_attributes =
     ({

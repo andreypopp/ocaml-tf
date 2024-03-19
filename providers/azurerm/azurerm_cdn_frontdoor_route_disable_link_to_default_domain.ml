@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_cdn_frontdoor_route_disable_link_to_default_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_route_disable_link_to_default_domain__timeouts *)
+(** timeouts *)
 
 type azurerm_cdn_frontdoor_route_disable_link_to_default_domain = {
   cdn_frontdoor_custom_domain_ids : string prop list;
@@ -19,12 +19,24 @@ type azurerm_cdn_frontdoor_route_disable_link_to_default_domain = {
   cdn_frontdoor_route_id : string prop;
       (** cdn_frontdoor_route_id *)
   id : string prop option; [@option]  (** id *)
-  timeouts :
-    azurerm_cdn_frontdoor_route_disable_link_to_default_domain__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_route_disable_link_to_default_domain *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cdn_frontdoor_route_disable_link_to_default_domain ?id
+    ?timeouts ~cdn_frontdoor_custom_domain_ids
+    ~cdn_frontdoor_route_id () :
+    azurerm_cdn_frontdoor_route_disable_link_to_default_domain =
+  {
+    cdn_frontdoor_custom_domain_ids;
+    cdn_frontdoor_route_id;
+    id;
+    timeouts;
+  }
 
 type t = {
   cdn_frontdoor_custom_domain_ids : string list prop;
@@ -32,22 +44,18 @@ type t = {
   id : string prop;
 }
 
-let azurerm_cdn_frontdoor_route_disable_link_to_default_domain ?id
-    ?timeouts ~cdn_frontdoor_custom_domain_ids
-    ~cdn_frontdoor_route_id __resource_id =
+let register ?tf_module ?id ?timeouts
+    ~cdn_frontdoor_custom_domain_ids ~cdn_frontdoor_route_id
+    __resource_id =
   let __resource_type =
     "azurerm_cdn_frontdoor_route_disable_link_to_default_domain"
   in
   let __resource =
-    ({
-       cdn_frontdoor_custom_domain_ids;
-       cdn_frontdoor_route_id;
-       id;
-       timeouts;
-     }
-      : azurerm_cdn_frontdoor_route_disable_link_to_default_domain)
+    azurerm_cdn_frontdoor_route_disable_link_to_default_domain ?id
+      ?timeouts ~cdn_frontdoor_custom_domain_ids
+      ~cdn_frontdoor_route_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_route_disable_link_to_default_domain
        __resource);
   let __resource_attributes =

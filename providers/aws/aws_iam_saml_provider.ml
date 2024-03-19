@@ -16,6 +16,10 @@ type aws_iam_saml_provider = {
 [@@deriving yojson_of]
 (** aws_iam_saml_provider *)
 
+let aws_iam_saml_provider ?id ?tags ?tags_all ~name
+    ~saml_metadata_document () : aws_iam_saml_provider =
+  { id; name; saml_metadata_document; tags; tags_all }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -26,14 +30,14 @@ type t = {
   valid_until : string prop;
 }
 
-let aws_iam_saml_provider ?id ?tags ?tags_all ~name
+let register ?tf_module ?id ?tags ?tags_all ~name
     ~saml_metadata_document __resource_id =
   let __resource_type = "aws_iam_saml_provider" in
   let __resource =
-    ({ id; name; saml_metadata_document; tags; tags_all }
-      : aws_iam_saml_provider)
+    aws_iam_saml_provider ?id ?tags ?tags_all ~name
+      ~saml_metadata_document ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_saml_provider __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_location_map__configuration
+(** RESOURCE SERIALIZATION *)
+
+type configuration
+
+val configuration : style:string prop -> unit -> configuration
+
 type aws_location_map
+
+val aws_location_map :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  map_name:string prop ->
+  configuration:configuration list ->
+  unit ->
+  aws_location_map
+
+val yojson_of_aws_location_map : aws_location_map -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -16,12 +35,13 @@ type t = private {
   update_time : string prop;
 }
 
-val aws_location_map :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   map_name:string prop ->
-  configuration:aws_location_map__configuration list ->
+  configuration:configuration list ->
   string ->
   t

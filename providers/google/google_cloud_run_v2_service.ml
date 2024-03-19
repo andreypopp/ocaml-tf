@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloud_run_v2_service__binary_authorization = {
+type binary_authorization = {
   breakglass_justification : string prop option; [@option]
       (** If present, indicates to use Breakglass using this justification. If useDefault is False, then it must be empty. For more information on breakglass, see https://cloud.google.com/binary-authorization/docs/using-breakglass *)
   use_default : bool prop option; [@option]
@@ -13,7 +13,7 @@ type google_cloud_run_v2_service__binary_authorization = {
 [@@deriving yojson_of]
 (** Settings for the Binary Authorization feature. *)
 
-type google_cloud_run_v2_service__template__containers__env__value_source__secret_key_ref = {
+type template__containers__env__value_source__secret_key_ref = {
   secret : string prop;
       (** The name of the secret in Cloud Secret Manager. Format: {secretName} if the secret is in the same project. projects/{project}/secrets/{secretName} if the secret is in a different project. *)
   version : string prop option; [@option]
@@ -22,27 +22,24 @@ type google_cloud_run_v2_service__template__containers__env__value_source__secre
 [@@deriving yojson_of]
 (** Selects a secret and a specific version from Cloud Secret Manager. *)
 
-type google_cloud_run_v2_service__template__containers__env__value_source = {
+type template__containers__env__value_source = {
   secret_key_ref :
-    google_cloud_run_v2_service__template__containers__env__value_source__secret_key_ref
-    list;
+    template__containers__env__value_source__secret_key_ref list;
 }
 [@@deriving yojson_of]
 (** Source for the environment variable's value. *)
 
-type google_cloud_run_v2_service__template__containers__env = {
+type template__containers__env = {
   name : string prop;
       (** Name of the environment variable. Must be a C_IDENTIFIER, and mnay not exceed 32768 characters. *)
   value : string prop option; [@option]
       (** Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any route environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to , and the maximum length is 32768 bytes *)
-  value_source :
-    google_cloud_run_v2_service__template__containers__env__value_source
-    list;
+  value_source : template__containers__env__value_source list;
 }
 [@@deriving yojson_of]
 (** List of environment variables to set in the container. *)
 
-type google_cloud_run_v2_service__template__containers__liveness_probe__grpc = {
+type template__containers__liveness_probe__grpc = {
   port : float prop option; [@option]
       (** Port number to access on the container. Number must be in the range 1 to 65535.
 If not specified, defaults to the same value as container.ports[0].containerPort. *)
@@ -54,27 +51,26 @@ If this is not specified, the default behavior is defined by gRPC. *)
 [@@deriving yojson_of]
 (** GRPC specifies an action involving a GRPC port. *)
 
-type google_cloud_run_v2_service__template__containers__liveness_probe__http_get__http_headers = {
+type template__containers__liveness_probe__http_get__http_headers = {
   name : string prop;  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Custom headers to set in the request. HTTP allows repeated headers. *)
 
-type google_cloud_run_v2_service__template__containers__liveness_probe__http_get = {
+type template__containers__liveness_probe__http_get = {
   path : string prop option; [@option]
       (** Path to access on the HTTP server. Defaults to '/'. *)
   port : float prop option; [@option]
       (** Port number to access on the container. Number must be in the range 1 to 65535.
 If not specified, defaults to the same value as container.ports[0].containerPort. *)
   http_headers :
-    google_cloud_run_v2_service__template__containers__liveness_probe__http_get__http_headers
-    list;
+    template__containers__liveness_probe__http_get__http_headers list;
 }
 [@@deriving yojson_of]
 (** HTTPGet specifies the http request to perform. *)
 
-type google_cloud_run_v2_service__template__containers__liveness_probe__tcp_socket = {
+type template__containers__liveness_probe__tcp_socket = {
   port : float prop;
       (** Port number to access on the container. Must be in the range 1 to 65535.
 If not specified, defaults to the exposed port of the container, which
@@ -83,7 +79,7 @@ is the value of container.ports[0].containerPort. *)
 [@@deriving yojson_of]
 (** TCPSocketAction describes an action based on opening a socket *)
 
-type google_cloud_run_v2_service__template__containers__liveness_probe = {
+type template__containers__liveness_probe = {
   failure_threshold : float prop option; [@option]
       (** Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1. *)
   initial_delay_seconds : float prop option; [@option]
@@ -92,20 +88,14 @@ type google_cloud_run_v2_service__template__containers__liveness_probe = {
       (** How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1. Maximum value for liveness probe is 3600. Maximum value for startup probe is 240. Must be greater or equal than timeoutSeconds *)
   timeout_seconds : float prop option; [@option]
       (** Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. Maximum value is 3600. Must be smaller than periodSeconds. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
-  grpc :
-    google_cloud_run_v2_service__template__containers__liveness_probe__grpc
-    list;
-  http_get :
-    google_cloud_run_v2_service__template__containers__liveness_probe__http_get
-    list;
-  tcp_socket :
-    google_cloud_run_v2_service__template__containers__liveness_probe__tcp_socket
-    list;
+  grpc : template__containers__liveness_probe__grpc list;
+  http_get : template__containers__liveness_probe__http_get list;
+  tcp_socket : template__containers__liveness_probe__tcp_socket list;
 }
 [@@deriving yojson_of]
 (** Periodic probe of container liveness. Container will be restarted if the probe fails. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
 
-type google_cloud_run_v2_service__template__containers__ports = {
+type template__containers__ports = {
   container_port : float prop option; [@option]
       (** Port number the container listens on. This must be a valid TCP port number, 0 < containerPort < 65536. *)
   name : string prop option; [@option]
@@ -116,7 +106,7 @@ type google_cloud_run_v2_service__template__containers__ports = {
 
 If omitted, a port number will be chosen and passed to the container through the PORT environment variable for the container to listen on *)
 
-type google_cloud_run_v2_service__template__containers__resources = {
+type template__containers__resources = {
   cpu_idle : bool prop option; [@option]
       (** Determines whether CPU is only allocated during requests. True by default if the parent 'resources' field is not set. However, if
 'resources' is set, this field must be explicitly set to true to preserve the default behavior. *)
@@ -128,7 +118,7 @@ type google_cloud_run_v2_service__template__containers__resources = {
 [@@deriving yojson_of]
 (** Compute Resource requirements by this container. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
 
-type google_cloud_run_v2_service__template__containers__startup_probe__grpc = {
+type template__containers__startup_probe__grpc = {
   port : float prop option; [@option]
       (** Port number to access on the container. Number must be in the range 1 to 65535.
 If not specified, defaults to the same value as container.ports[0].containerPort. *)
@@ -140,27 +130,26 @@ If this is not specified, the default behavior is defined by gRPC. *)
 [@@deriving yojson_of]
 (** GRPC specifies an action involving a GRPC port. *)
 
-type google_cloud_run_v2_service__template__containers__startup_probe__http_get__http_headers = {
+type template__containers__startup_probe__http_get__http_headers = {
   name : string prop;  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Custom headers to set in the request. HTTP allows repeated headers. *)
 
-type google_cloud_run_v2_service__template__containers__startup_probe__http_get = {
+type template__containers__startup_probe__http_get = {
   path : string prop option; [@option]
       (** Path to access on the HTTP server. Defaults to '/'. *)
   port : float prop option; [@option]
       (** Port number to access on the container. Must be in the range 1 to 65535.
 If not specified, defaults to the same value as container.ports[0].containerPort. *)
   http_headers :
-    google_cloud_run_v2_service__template__containers__startup_probe__http_get__http_headers
-    list;
+    template__containers__startup_probe__http_get__http_headers list;
 }
 [@@deriving yojson_of]
 (** HTTPGet specifies the http request to perform. Exactly one of HTTPGet or TCPSocket must be specified. *)
 
-type google_cloud_run_v2_service__template__containers__startup_probe__tcp_socket = {
+type template__containers__startup_probe__tcp_socket = {
   port : float prop option; [@option]
       (** Port number to access on the container. Must be in the range 1 to 65535.
 If not specified, defaults to the same value as container.ports[0].containerPort. *)
@@ -168,7 +157,7 @@ If not specified, defaults to the same value as container.ports[0].containerPort
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. Exactly one of HTTPGet or TCPSocket must be specified. *)
 
-type google_cloud_run_v2_service__template__containers__startup_probe = {
+type template__containers__startup_probe = {
   failure_threshold : float prop option; [@option]
       (** Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1. *)
   initial_delay_seconds : float prop option; [@option]
@@ -177,20 +166,14 @@ type google_cloud_run_v2_service__template__containers__startup_probe = {
       (** How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1. Maximum value for liveness probe is 3600. Maximum value for startup probe is 240. Must be greater or equal than timeoutSeconds *)
   timeout_seconds : float prop option; [@option]
       (** Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. Maximum value is 3600. Must be smaller than periodSeconds. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
-  grpc :
-    google_cloud_run_v2_service__template__containers__startup_probe__grpc
-    list;
-  http_get :
-    google_cloud_run_v2_service__template__containers__startup_probe__http_get
-    list;
-  tcp_socket :
-    google_cloud_run_v2_service__template__containers__startup_probe__tcp_socket
-    list;
+  grpc : template__containers__startup_probe__grpc list;
+  http_get : template__containers__startup_probe__http_get list;
+  tcp_socket : template__containers__startup_probe__tcp_socket list;
 }
 [@@deriving yojson_of]
 (** Startup probe of application within the container. All other probes are disabled if a startup probe is provided, until it succeeds. Container will not be added to service endpoints if the probe fails. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
 
-type google_cloud_run_v2_service__template__containers__volume_mounts = {
+type template__containers__volume_mounts = {
   mount_path : string prop;
       (** Path within the container at which the volume should be mounted. Must not contain ':'. For Cloud SQL volumes, it can be left empty, or must otherwise be /cloudsql. All instances defined in the Volume will be available as /cloudsql/[instance]. For more information on Cloud SQL volumes, visit https://cloud.google.com/sql/docs/mysql/connect-run *)
   name : string prop;  (** This must match the Name of a Volume. *)
@@ -198,7 +181,7 @@ type google_cloud_run_v2_service__template__containers__volume_mounts = {
 [@@deriving yojson_of]
 (** Volume to mount into the container's filesystem. *)
 
-type google_cloud_run_v2_service__template__containers = {
+type template__containers = {
   args : string prop list option; [@option]
       (** Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   command : string prop list option; [@option]
@@ -211,25 +194,17 @@ type google_cloud_run_v2_service__template__containers = {
       (** Name of the container specified as a DNS_LABEL. *)
   working_dir : string prop option; [@option]
       (** Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. *)
-  env : google_cloud_run_v2_service__template__containers__env list;
-  liveness_probe :
-    google_cloud_run_v2_service__template__containers__liveness_probe
-    list;
-  ports :
-    google_cloud_run_v2_service__template__containers__ports list;
-  resources :
-    google_cloud_run_v2_service__template__containers__resources list;
-  startup_probe :
-    google_cloud_run_v2_service__template__containers__startup_probe
-    list;
-  volume_mounts :
-    google_cloud_run_v2_service__template__containers__volume_mounts
-    list;
+  env : template__containers__env list;
+  liveness_probe : template__containers__liveness_probe list;
+  ports : template__containers__ports list;
+  resources : template__containers__resources list;
+  startup_probe : template__containers__startup_probe list;
+  volume_mounts : template__containers__volume_mounts list;
 }
 [@@deriving yojson_of]
 (** Holds the containers that define the unit of execution for this Service. *)
 
-type google_cloud_run_v2_service__template__scaling = {
+type template__scaling = {
   max_instance_count : float prop option; [@option]
       (** Maximum number of serving instances that this resource should have. *)
   min_instance_count : float prop option; [@option]
@@ -238,14 +213,14 @@ type google_cloud_run_v2_service__template__scaling = {
 [@@deriving yojson_of]
 (** Scaling settings for this Revision. *)
 
-type google_cloud_run_v2_service__template__volumes__cloud_sql_instance = {
+type template__volumes__cloud_sql_instance = {
   instances : string prop list option; [@option]
       (** The Cloud SQL instance connection names, as can be found in https://console.cloud.google.com/sql/instances. Visit https://cloud.google.com/sql/docs/mysql/connect-run for more information on how to connect Cloud SQL and Cloud Run. Format: {project}:{location}:{instance} *)
 }
 [@@deriving yojson_of]
 (** For Cloud SQL volumes, contains the specific instances that should be mounted. Visit https://cloud.google.com/sql/docs/mysql/connect-run for more information on how to connect Cloud SQL and Cloud Run. *)
 
-type google_cloud_run_v2_service__template__volumes__gcs = {
+type template__volumes__gcs = {
   bucket : string prop;  (** GCS Bucket name *)
   read_only : bool prop option; [@option]
       (** If true, mount the GCS bucket as read-only *)
@@ -253,7 +228,7 @@ type google_cloud_run_v2_service__template__volumes__gcs = {
 [@@deriving yojson_of]
 (** Represents a GCS Bucket mounted as a volume. *)
 
-type google_cloud_run_v2_service__template__volumes__nfs = {
+type template__volumes__nfs = {
   path : string prop;
       (** Path that is exported by the NFS server. *)
   read_only : bool prop option; [@option]
@@ -264,7 +239,7 @@ type google_cloud_run_v2_service__template__volumes__nfs = {
 [@@deriving yojson_of]
 (** Represents an NFS mount. *)
 
-type google_cloud_run_v2_service__template__volumes__secret__items = {
+type template__volumes__secret__items = {
   mode : float prop option; [@option]
       (** Integer octal mode bits to use on this file, must be a value between 01 and 0777 (octal). If 0 or not set, the Volume's default mode will be used. *)
   path : string prop;
@@ -275,32 +250,27 @@ type google_cloud_run_v2_service__template__volumes__secret__items = {
 [@@deriving yojson_of]
 (** If unspecified, the volume will expose a file whose name is the secret, relative to VolumeMount.mount_path. If specified, the key will be used as the version to fetch from Cloud Secret Manager and the path will be the name of the file exposed in the volume. When items are defined, they must specify a path and a version. *)
 
-type google_cloud_run_v2_service__template__volumes__secret = {
+type template__volumes__secret = {
   default_mode : float prop option; [@option]
       (** Integer representation of mode bits to use on created files by default. Must be a value between 0000 and 0777 (octal), defaulting to 0444. Directories within the path are not affected by this setting. *)
   secret : string prop;
       (** The name of the secret in Cloud Secret Manager. Format: {secret} if the secret is in the same project. projects/{project}/secrets/{secret} if the secret is in a different project. *)
-  items :
-    google_cloud_run_v2_service__template__volumes__secret__items
-    list;
+  items : template__volumes__secret__items list;
 }
 [@@deriving yojson_of]
 (** Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret *)
 
-type google_cloud_run_v2_service__template__volumes = {
+type template__volumes = {
   name : string prop;  (** Volume's name. *)
-  cloud_sql_instance :
-    google_cloud_run_v2_service__template__volumes__cloud_sql_instance
-    list;
-  gcs : google_cloud_run_v2_service__template__volumes__gcs list;
-  nfs : google_cloud_run_v2_service__template__volumes__nfs list;
-  secret :
-    google_cloud_run_v2_service__template__volumes__secret list;
+  cloud_sql_instance : template__volumes__cloud_sql_instance list;
+  gcs : template__volumes__gcs list;
+  nfs : template__volumes__nfs list;
+  secret : template__volumes__secret list;
 }
 [@@deriving yojson_of]
 (** A list of Volumes to make available to containers. *)
 
-type google_cloud_run_v2_service__template__vpc_access__network_interfaces = {
+type template__vpc_access__network_interfaces = {
   network : string prop option; [@option]
       (** The VPC network that the Cloud Run resource will be able to send traffic to. At least one of network or subnetwork must be specified. If both
 network and subnetwork are specified, the given VPC subnetwork must belong to the given VPC network. If network is not specified, it will be
@@ -315,19 +285,17 @@ subnetwork with the same name with the network will be used. *)
 [@@deriving yojson_of]
 (** Direct VPC egress settings. Currently only single network interface is supported. *)
 
-type google_cloud_run_v2_service__template__vpc_access = {
+type template__vpc_access = {
   connector : string prop option; [@option]
       (** VPC Access connector name. Format: projects/{project}/locations/{location}/connectors/{connector}, where {project} can be project id or number. *)
   egress : string prop option; [@option]
       (** Traffic VPC egress settings. Possible values: [ALL_TRAFFIC, PRIVATE_RANGES_ONLY] *)
-  network_interfaces :
-    google_cloud_run_v2_service__template__vpc_access__network_interfaces
-    list;
+  network_interfaces : template__vpc_access__network_interfaces list;
 }
 [@@deriving yojson_of]
 (** VPC Access configuration to use for this Task. For more information, visit https://cloud.google.com/run/docs/configuring/connecting-vpc. *)
 
-type google_cloud_run_v2_service__template = {
+type template = {
   annotations : (string * string prop) list option; [@option]
       (** Unstructured key value map that may be set by external tools to store and arbitrary metadata. They are not queryable and should be preserved when modifying objects.
 
@@ -357,24 +325,23 @@ All system labels in v1 now have a corresponding field in v2 RevisionTemplate. *
       (** Max allowed time for an instance to respond to a request.
 
 A duration in seconds with up to nine fractional digits, ending with 's'. Example: 3.5s. *)
-  containers :
-    google_cloud_run_v2_service__template__containers list;
-  scaling : google_cloud_run_v2_service__template__scaling list;
-  volumes : google_cloud_run_v2_service__template__volumes list;
-  vpc_access : google_cloud_run_v2_service__template__vpc_access list;
+  containers : template__containers list;
+  scaling : template__scaling list;
+  volumes : template__volumes list;
+  vpc_access : template__vpc_access list;
 }
 [@@deriving yojson_of]
 (** The template used to create revisions for this Service. *)
 
-type google_cloud_run_v2_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloud_run_v2_service__timeouts *)
+(** timeouts *)
 
-type google_cloud_run_v2_service__traffic = {
+type traffic = {
   percent : float prop option; [@option]
       (** Specifies percent of the traffic to this Revision. This defaults to zero if unspecified. *)
   revision : string prop option; [@option]
@@ -387,7 +354,7 @@ type google_cloud_run_v2_service__traffic = {
 [@@deriving yojson_of]
 (** Specifies how to distribute traffic over a collection of Revisions belonging to the Service. If traffic is empty or not provided, defaults to 100% traffic to the latest Ready Revision. *)
 
-type google_cloud_run_v2_service__conditions = {
+type conditions = {
   execution_reason : string prop;  (** execution_reason *)
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
@@ -399,7 +366,7 @@ type google_cloud_run_v2_service__conditions = {
 }
 [@@deriving yojson_of]
 
-type google_cloud_run_v2_service__terminal_condition = {
+type terminal_condition = {
   execution_reason : string prop;  (** execution_reason *)
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
@@ -411,7 +378,7 @@ type google_cloud_run_v2_service__terminal_condition = {
 }
 [@@deriving yojson_of]
 
-type google_cloud_run_v2_service__traffic_statuses = {
+type traffic_statuses = {
   percent : float prop;  (** percent *)
   revision : string prop;  (** revision *)
   tag : string prop;  (** tag *)
@@ -461,20 +428,213 @@ For example, if ALPHA is provided as input, but only BETA and GA-level features 
       (** The location of the cloud run service *)
   name : string prop;  (** Name of the Service. *)
   project : string prop option; [@option]  (** project *)
-  binary_authorization :
-    google_cloud_run_v2_service__binary_authorization list;
-  template : google_cloud_run_v2_service__template list;
-  timeouts : google_cloud_run_v2_service__timeouts option;
-  traffic : google_cloud_run_v2_service__traffic list;
+  binary_authorization : binary_authorization list;
+  template : template list;
+  timeouts : timeouts option;
+  traffic : traffic list;
 }
 [@@deriving yojson_of]
 (** google_cloud_run_v2_service *)
+
+let binary_authorization ?breakglass_justification ?use_default () :
+    binary_authorization =
+  { breakglass_justification; use_default }
+
+let template__containers__env__value_source__secret_key_ref ?version
+    ~secret () :
+    template__containers__env__value_source__secret_key_ref =
+  { secret; version }
+
+let template__containers__env__value_source ~secret_key_ref () :
+    template__containers__env__value_source =
+  { secret_key_ref }
+
+let template__containers__env ?value ~name ~value_source () :
+    template__containers__env =
+  { name; value; value_source }
+
+let template__containers__liveness_probe__grpc ?port ?service () :
+    template__containers__liveness_probe__grpc =
+  { port; service }
+
+let template__containers__liveness_probe__http_get__http_headers
+    ?value ~name () :
+    template__containers__liveness_probe__http_get__http_headers =
+  { name; value }
+
+let template__containers__liveness_probe__http_get ?path ?port
+    ~http_headers () : template__containers__liveness_probe__http_get
+    =
+  { path; port; http_headers }
+
+let template__containers__liveness_probe__tcp_socket ~port () :
+    template__containers__liveness_probe__tcp_socket =
+  { port }
+
+let template__containers__liveness_probe ?failure_threshold
+    ?initial_delay_seconds ?period_seconds ?timeout_seconds ~grpc
+    ~http_get ~tcp_socket () : template__containers__liveness_probe =
+  {
+    failure_threshold;
+    initial_delay_seconds;
+    period_seconds;
+    timeout_seconds;
+    grpc;
+    http_get;
+    tcp_socket;
+  }
+
+let template__containers__ports ?container_port ?name () :
+    template__containers__ports =
+  { container_port; name }
+
+let template__containers__resources ?cpu_idle ?limits
+    ?startup_cpu_boost () : template__containers__resources =
+  { cpu_idle; limits; startup_cpu_boost }
+
+let template__containers__startup_probe__grpc ?port ?service () :
+    template__containers__startup_probe__grpc =
+  { port; service }
+
+let template__containers__startup_probe__http_get__http_headers
+    ?value ~name () :
+    template__containers__startup_probe__http_get__http_headers =
+  { name; value }
+
+let template__containers__startup_probe__http_get ?path ?port
+    ~http_headers () : template__containers__startup_probe__http_get
+    =
+  { path; port; http_headers }
+
+let template__containers__startup_probe__tcp_socket ?port () :
+    template__containers__startup_probe__tcp_socket =
+  { port }
+
+let template__containers__startup_probe ?failure_threshold
+    ?initial_delay_seconds ?period_seconds ?timeout_seconds ~grpc
+    ~http_get ~tcp_socket () : template__containers__startup_probe =
+  {
+    failure_threshold;
+    initial_delay_seconds;
+    period_seconds;
+    timeout_seconds;
+    grpc;
+    http_get;
+    tcp_socket;
+  }
+
+let template__containers__volume_mounts ~mount_path ~name () :
+    template__containers__volume_mounts =
+  { mount_path; name }
+
+let template__containers ?args ?command ?depends_on ?name
+    ?working_dir ~image ~env ~liveness_probe ~ports ~resources
+    ~startup_probe ~volume_mounts () : template__containers =
+  {
+    args;
+    command;
+    depends_on;
+    image;
+    name;
+    working_dir;
+    env;
+    liveness_probe;
+    ports;
+    resources;
+    startup_probe;
+    volume_mounts;
+  }
+
+let template__scaling ?max_instance_count ?min_instance_count () :
+    template__scaling =
+  { max_instance_count; min_instance_count }
+
+let template__volumes__cloud_sql_instance ?instances () :
+    template__volumes__cloud_sql_instance =
+  { instances }
+
+let template__volumes__gcs ?read_only ~bucket () :
+    template__volumes__gcs =
+  { bucket; read_only }
+
+let template__volumes__nfs ?read_only ~path ~server () :
+    template__volumes__nfs =
+  { path; read_only; server }
+
+let template__volumes__secret__items ?mode ?version ~path () :
+    template__volumes__secret__items =
+  { mode; path; version }
+
+let template__volumes__secret ?default_mode ~secret ~items () :
+    template__volumes__secret =
+  { default_mode; secret; items }
+
+let template__volumes ~name ~cloud_sql_instance ~gcs ~nfs ~secret ()
+    : template__volumes =
+  { name; cloud_sql_instance; gcs; nfs; secret }
+
+let template__vpc_access__network_interfaces ?network ?subnetwork
+    ?tags () : template__vpc_access__network_interfaces =
+  { network; subnetwork; tags }
+
+let template__vpc_access ?connector ?egress ~network_interfaces () :
+    template__vpc_access =
+  { connector; egress; network_interfaces }
+
+let template ?annotations ?encryption_key ?execution_environment
+    ?labels ?max_instance_request_concurrency ?revision
+    ?service_account ?session_affinity ?timeout ~containers ~scaling
+    ~volumes ~vpc_access () : template =
+  {
+    annotations;
+    encryption_key;
+    execution_environment;
+    labels;
+    max_instance_request_concurrency;
+    revision;
+    service_account;
+    session_affinity;
+    timeout;
+    containers;
+    scaling;
+    volumes;
+    vpc_access;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let traffic ?percent ?revision ?tag ?type_ () : traffic =
+  { percent; revision; tag; type_ }
+
+let google_cloud_run_v2_service ?annotations ?client ?client_version
+    ?custom_audiences ?description ?id ?ingress ?labels ?launch_stage
+    ?project ?timeouts ~location ~name ~binary_authorization
+    ~template ~traffic () : google_cloud_run_v2_service =
+  {
+    annotations;
+    client;
+    client_version;
+    custom_audiences;
+    description;
+    id;
+    ingress;
+    labels;
+    launch_stage;
+    location;
+    name;
+    project;
+    binary_authorization;
+    template;
+    timeouts;
+    traffic;
+  }
 
 type t = {
   annotations : (string * string) list prop;
   client : string prop;
   client_version : string prop;
-  conditions : google_cloud_run_v2_service__conditions list prop;
+  conditions : conditions list prop;
   create_time : string prop;
   creator : string prop;
   custom_audiences : string list prop;
@@ -497,43 +657,26 @@ type t = {
   observed_generation : string prop;
   project : string prop;
   reconciling : bool prop;
-  terminal_condition :
-    google_cloud_run_v2_service__terminal_condition list prop;
+  terminal_condition : terminal_condition list prop;
   terraform_labels : (string * string) list prop;
-  traffic_statuses :
-    google_cloud_run_v2_service__traffic_statuses list prop;
+  traffic_statuses : traffic_statuses list prop;
   uid : string prop;
   update_time : string prop;
   uri : string prop;
 }
 
-let google_cloud_run_v2_service ?annotations ?client ?client_version
+let register ?tf_module ?annotations ?client ?client_version
     ?custom_audiences ?description ?id ?ingress ?labels ?launch_stage
     ?project ?timeouts ~location ~name ~binary_authorization
     ~template ~traffic __resource_id =
   let __resource_type = "google_cloud_run_v2_service" in
   let __resource =
-    ({
-       annotations;
-       client;
-       client_version;
-       custom_audiences;
-       description;
-       id;
-       ingress;
-       labels;
-       launch_stage;
-       location;
-       name;
-       project;
-       binary_authorization;
-       template;
-       timeouts;
-       traffic;
-     }
-      : google_cloud_run_v2_service)
+    google_cloud_run_v2_service ?annotations ?client ?client_version
+      ?custom_audiences ?description ?id ?ingress ?labels
+      ?launch_stage ?project ?timeouts ~location ~name
+      ~binary_authorization ~template ~traffic ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_run_v2_service __resource);
   let __resource_attributes =
     ({

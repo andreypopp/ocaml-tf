@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_redshift_subnet_group
+
+val aws_redshift_subnet_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  subnet_ids:string prop list ->
+  unit ->
+  aws_redshift_subnet_group
+
+val yojson_of_aws_redshift_subnet_group :
+  aws_redshift_subnet_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +31,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_redshift_subnet_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

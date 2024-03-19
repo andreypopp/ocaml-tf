@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_iap_tunnel_instance_iam_policy
+
+val google_iap_tunnel_instance_iam_policy :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
+  instance:string prop ->
+  policy_data:string prop ->
+  unit ->
+  google_iap_tunnel_instance_iam_policy
+
+val yojson_of_google_iap_tunnel_instance_iam_policy :
+  google_iap_tunnel_instance_iam_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -13,7 +29,8 @@ type t = private {
   zone : string prop;
 }
 
-val google_iap_tunnel_instance_iam_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   ?zone:string prop ->

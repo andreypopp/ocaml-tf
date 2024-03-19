@@ -17,6 +17,18 @@ type aws_api_gateway_gateway_response = {
 [@@deriving yojson_of]
 (** aws_api_gateway_gateway_response *)
 
+let aws_api_gateway_gateway_response ?id ?response_parameters
+    ?response_templates ?status_code ~response_type ~rest_api_id () :
+    aws_api_gateway_gateway_response =
+  {
+    id;
+    response_parameters;
+    response_templates;
+    response_type;
+    rest_api_id;
+    status_code;
+  }
+
 type t = {
   id : string prop;
   response_parameters : (string * string) list prop;
@@ -26,22 +38,14 @@ type t = {
   status_code : string prop;
 }
 
-let aws_api_gateway_gateway_response ?id ?response_parameters
-    ?response_templates ?status_code ~response_type ~rest_api_id
-    __resource_id =
+let register ?tf_module ?id ?response_parameters ?response_templates
+    ?status_code ~response_type ~rest_api_id __resource_id =
   let __resource_type = "aws_api_gateway_gateway_response" in
   let __resource =
-    ({
-       id;
-       response_parameters;
-       response_templates;
-       response_type;
-       rest_api_id;
-       status_code;
-     }
-      : aws_api_gateway_gateway_response)
+    aws_api_gateway_gateway_response ?id ?response_parameters
+      ?response_templates ?status_code ~response_type ~rest_api_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_gateway_response __resource);
   let __resource_attributes =
     ({

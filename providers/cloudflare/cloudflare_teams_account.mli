@@ -2,21 +2,140 @@
 
 open! Tf.Prelude
 
-type cloudflare_teams_account__antivirus__notification_settings
-type cloudflare_teams_account__antivirus
-type cloudflare_teams_account__block_page
-type cloudflare_teams_account__body_scanning
-type cloudflare_teams_account__extended_email_matching
-type cloudflare_teams_account__fips
-type cloudflare_teams_account__logging__settings_by_rule_type__dns
-type cloudflare_teams_account__logging__settings_by_rule_type__http
-type cloudflare_teams_account__logging__settings_by_rule_type__l4
-type cloudflare_teams_account__logging__settings_by_rule_type
-type cloudflare_teams_account__logging
-type cloudflare_teams_account__payload_log
-type cloudflare_teams_account__proxy
-type cloudflare_teams_account__ssh_session_log
+(** RESOURCE SERIALIZATION *)
+
+type antivirus__notification_settings
+
+val antivirus__notification_settings :
+  ?enabled:bool prop ->
+  ?message:string prop ->
+  ?support_url:string prop ->
+  unit ->
+  antivirus__notification_settings
+
+type antivirus
+
+val antivirus :
+  enabled_download_phase:bool prop ->
+  enabled_upload_phase:bool prop ->
+  fail_closed:bool prop ->
+  notification_settings:antivirus__notification_settings list ->
+  unit ->
+  antivirus
+
+type block_page
+
+val block_page :
+  ?background_color:string prop ->
+  ?enabled:bool prop ->
+  ?footer_text:string prop ->
+  ?header_text:string prop ->
+  ?logo_path:string prop ->
+  ?mailto_address:string prop ->
+  ?mailto_subject:string prop ->
+  ?name:string prop ->
+  unit ->
+  block_page
+
+type body_scanning
+
+val body_scanning :
+  inspection_mode:string prop -> unit -> body_scanning
+
+type extended_email_matching
+
+val extended_email_matching :
+  enabled:bool prop -> unit -> extended_email_matching
+
+type fips
+
+val fips : ?tls:bool prop -> unit -> fips
+
+type logging__settings_by_rule_type__dns
+
+val logging__settings_by_rule_type__dns :
+  log_all:bool prop ->
+  log_blocks:bool prop ->
+  unit ->
+  logging__settings_by_rule_type__dns
+
+type logging__settings_by_rule_type__http
+
+val logging__settings_by_rule_type__http :
+  log_all:bool prop ->
+  log_blocks:bool prop ->
+  unit ->
+  logging__settings_by_rule_type__http
+
+type logging__settings_by_rule_type__l4
+
+val logging__settings_by_rule_type__l4 :
+  log_all:bool prop ->
+  log_blocks:bool prop ->
+  unit ->
+  logging__settings_by_rule_type__l4
+
+type logging__settings_by_rule_type
+
+val logging__settings_by_rule_type :
+  dns:logging__settings_by_rule_type__dns list ->
+  http:logging__settings_by_rule_type__http list ->
+  l4:logging__settings_by_rule_type__l4 list ->
+  unit ->
+  logging__settings_by_rule_type
+
+type logging
+
+val logging :
+  redact_pii:bool prop ->
+  settings_by_rule_type:logging__settings_by_rule_type list ->
+  unit ->
+  logging
+
+type payload_log
+
+val payload_log : public_key:string prop -> unit -> payload_log
+
+type proxy
+
+val proxy :
+  root_ca:bool prop ->
+  tcp:bool prop ->
+  udp:bool prop ->
+  unit ->
+  proxy
+
+type ssh_session_log
+
+val ssh_session_log :
+  public_key:string prop -> unit -> ssh_session_log
+
 type cloudflare_teams_account
+
+val cloudflare_teams_account :
+  ?activity_log_enabled:bool prop ->
+  ?id:string prop ->
+  ?non_identity_browser_isolation_enabled:bool prop ->
+  ?protocol_detection_enabled:bool prop ->
+  ?tls_decrypt_enabled:bool prop ->
+  ?url_browser_isolation_enabled:bool prop ->
+  account_id:string prop ->
+  antivirus:antivirus list ->
+  block_page:block_page list ->
+  body_scanning:body_scanning list ->
+  extended_email_matching:extended_email_matching list ->
+  fips:fips list ->
+  logging:logging list ->
+  payload_log:payload_log list ->
+  proxy:proxy list ->
+  ssh_session_log:ssh_session_log list ->
+  unit ->
+  cloudflare_teams_account
+
+val yojson_of_cloudflare_teams_account :
+  cloudflare_teams_account -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -28,7 +147,8 @@ type t = private {
   url_browser_isolation_enabled : bool prop;
 }
 
-val cloudflare_teams_account :
+val register :
+  ?tf_module:tf_module ->
   ?activity_log_enabled:bool prop ->
   ?id:string prop ->
   ?non_identity_browser_isolation_enabled:bool prop ->
@@ -36,15 +156,14 @@ val cloudflare_teams_account :
   ?tls_decrypt_enabled:bool prop ->
   ?url_browser_isolation_enabled:bool prop ->
   account_id:string prop ->
-  antivirus:cloudflare_teams_account__antivirus list ->
-  block_page:cloudflare_teams_account__block_page list ->
-  body_scanning:cloudflare_teams_account__body_scanning list ->
-  extended_email_matching:
-    cloudflare_teams_account__extended_email_matching list ->
-  fips:cloudflare_teams_account__fips list ->
-  logging:cloudflare_teams_account__logging list ->
-  payload_log:cloudflare_teams_account__payload_log list ->
-  proxy:cloudflare_teams_account__proxy list ->
-  ssh_session_log:cloudflare_teams_account__ssh_session_log list ->
+  antivirus:antivirus list ->
+  block_page:block_page list ->
+  body_scanning:body_scanning list ->
+  extended_email_matching:extended_email_matching list ->
+  fips:fips list ->
+  logging:logging list ->
+  payload_log:payload_log list ->
+  proxy:proxy list ->
+  ssh_session_log:ssh_session_log list ->
   string ->
   t

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_instance_group_manager__all_instances_config = {
+type all_instances_config = {
   labels : (string * string prop) list option; [@option]
       (** The label key-value pairs that you want to patch onto the instance, *)
   metadata : (string * string prop) list option; [@option]
@@ -13,7 +13,7 @@ type google_compute_instance_group_manager__all_instances_config = {
 [@@deriving yojson_of]
 (** Specifies configuration that overrides the instance template configuration for the group. *)
 
-type google_compute_instance_group_manager__auto_healing_policies = {
+type auto_healing_policies = {
   health_check : string prop;
       (** The health check resource that signals autohealing. *)
   initial_delay_sec : float prop;
@@ -22,7 +22,7 @@ type google_compute_instance_group_manager__auto_healing_policies = {
 [@@deriving yojson_of]
 (** The autohealing policies for this managed instance group. You can specify only one value. *)
 
-type google_compute_instance_group_manager__instance_lifecycle_policy = {
+type instance_lifecycle_policy = {
   default_action_on_failure : string prop option; [@option]
       (** Default behavior for all instance or health check failures. *)
   force_update_on_repair : string prop option; [@option]
@@ -31,14 +31,14 @@ type google_compute_instance_group_manager__instance_lifecycle_policy = {
 [@@deriving yojson_of]
 (** The instance lifecycle policy for this managed instance group. *)
 
-type google_compute_instance_group_manager__named_port = {
+type named_port = {
   name : string prop;  (** The name of the port. *)
   port : float prop;  (** The port number. *)
 }
 [@@deriving yojson_of]
 (** The named port configuration. *)
 
-type google_compute_instance_group_manager__stateful_disk = {
+type stateful_disk = {
   delete_rule : string prop option; [@option]
       (** A value that prescribes what should happen to the stateful disk when the VM instance is deleted. The available options are NEVER and ON_PERMANENT_INSTANCE_DELETION. NEVER - detach the disk when the VM is deleted, but do not delete the disk. ON_PERMANENT_INSTANCE_DELETION will delete the stateful disk when the VM is permanently deleted from the instance group. The default is NEVER. *)
   device_name : string prop;
@@ -47,7 +47,7 @@ type google_compute_instance_group_manager__stateful_disk = {
 [@@deriving yojson_of]
 (** Disks created on the instances that will be preserved on instance delete, update, etc. *)
 
-type google_compute_instance_group_manager__stateful_external_ip = {
+type stateful_external_ip = {
   delete_rule : string prop option; [@option]
       (** A value that prescribes what should happen to an associated static Address resource when a VM instance is permanently deleted. The available options are NEVER and ON_PERMANENT_INSTANCE_DELETION. NEVER - detach the IP when the VM is deleted, but do not delete the address resource. ON_PERMANENT_INSTANCE_DELETION will delete the stateful address when the VM is permanently deleted from the instance group. The default is NEVER. *)
   interface_name : string prop option; [@option]
@@ -56,7 +56,7 @@ type google_compute_instance_group_manager__stateful_external_ip = {
 [@@deriving yojson_of]
 (** External IPs considered stateful by the instance group.  *)
 
-type google_compute_instance_group_manager__stateful_internal_ip = {
+type stateful_internal_ip = {
   delete_rule : string prop option; [@option]
       (** A value that prescribes what should happen to an associated static Address resource when a VM instance is permanently deleted. The available options are NEVER and ON_PERMANENT_INSTANCE_DELETION. NEVER - detach the IP when the VM is deleted, but do not delete the address resource. ON_PERMANENT_INSTANCE_DELETION will delete the stateful address when the VM is permanently deleted from the instance group. The default is NEVER. *)
   interface_name : string prop option; [@option]
@@ -65,15 +65,15 @@ type google_compute_instance_group_manager__stateful_internal_ip = {
 [@@deriving yojson_of]
 (** External IPs considered stateful by the instance group.  *)
 
-type google_compute_instance_group_manager__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_instance_group_manager__timeouts *)
+(** timeouts *)
 
-type google_compute_instance_group_manager__update_policy = {
+type update_policy = {
   max_surge_fixed : float prop option; [@option]
       (** The maximum number of instances that can be created above the specified targetSize during the update process. Conflicts with max_surge_percent. If neither is set, defaults to 1 *)
   max_surge_percent : float prop option; [@option]
@@ -94,7 +94,7 @@ type google_compute_instance_group_manager__update_policy = {
 [@@deriving yojson_of]
 (** The update policy for this managed instance group. *)
 
-type google_compute_instance_group_manager__version__target_size = {
+type version__target_size = {
   fixed : float prop option; [@option]
       (** The number of instances which are managed for this version. Conflicts with percent. *)
   percent : float prop option; [@option]
@@ -103,53 +103,43 @@ type google_compute_instance_group_manager__version__target_size = {
 [@@deriving yojson_of]
 (** The number of instances calculated as a fixed number or a percentage depending on the settings. *)
 
-type google_compute_instance_group_manager__version = {
+type version = {
   instance_template : string prop;
       (** The full URL to an instance template from which all new instances of this version will be created. *)
   name : string prop option; [@option]  (** Version name. *)
-  target_size :
-    google_compute_instance_group_manager__version__target_size list;
+  target_size : version__target_size list;
 }
 [@@deriving yojson_of]
 (** Application versions managed by this instance group. Each version deals with a specific instance template, allowing canary release scenarios. *)
 
-type google_compute_instance_group_manager__status__version_target = {
+type status__version_target = {
   is_reached : bool prop;  (** is_reached *)
 }
 [@@deriving yojson_of]
 
-type google_compute_instance_group_manager__status__stateful__per_instance_configs = {
+type status__stateful__per_instance_configs = {
   all_effective : bool prop;  (** all_effective *)
 }
 [@@deriving yojson_of]
 
-type google_compute_instance_group_manager__status__stateful = {
+type status__stateful = {
   has_stateful_config : bool prop;  (** has_stateful_config *)
-  per_instance_configs :
-    google_compute_instance_group_manager__status__stateful__per_instance_configs
-    list;
+  per_instance_configs : status__stateful__per_instance_configs list;
       (** per_instance_configs *)
 }
 [@@deriving yojson_of]
 
-type google_compute_instance_group_manager__status__all_instances_config = {
+type status__all_instances_config = {
   effective : bool prop;  (** effective *)
 }
 [@@deriving yojson_of]
 
-type google_compute_instance_group_manager__status = {
-  all_instances_config :
-    google_compute_instance_group_manager__status__all_instances_config
-    list;
+type status = {
+  all_instances_config : status__all_instances_config list;
       (** all_instances_config *)
   is_stable : bool prop;  (** is_stable *)
-  stateful :
-    google_compute_instance_group_manager__status__stateful list;
-      (** stateful *)
-  version_target :
-    google_compute_instance_group_manager__status__version_target
-    list;
-      (** version_target *)
+  stateful : status__stateful list;  (** stateful *)
+  version_target : status__version_target list;  (** version_target *)
 }
 [@@deriving yojson_of]
 
@@ -175,28 +165,100 @@ type google_compute_instance_group_manager = {
       (** When used with wait_for_instances specifies the status to wait for. When STABLE is specified this resource will wait until the instances are stable before returning. When UPDATED is set, it will wait for the version target to be reached and any per instance configs to be effective and all instances configs to be effective as well as all instances to be stable before returning. *)
   zone : string prop option; [@option]
       (** The zone that instances in this group should be created in. *)
-  all_instances_config :
-    google_compute_instance_group_manager__all_instances_config list;
-  auto_healing_policies :
-    google_compute_instance_group_manager__auto_healing_policies list;
-  instance_lifecycle_policy :
-    google_compute_instance_group_manager__instance_lifecycle_policy
-    list;
-  named_port :
-    google_compute_instance_group_manager__named_port list;
-  stateful_disk :
-    google_compute_instance_group_manager__stateful_disk list;
-  stateful_external_ip :
-    google_compute_instance_group_manager__stateful_external_ip list;
-  stateful_internal_ip :
-    google_compute_instance_group_manager__stateful_internal_ip list;
-  timeouts : google_compute_instance_group_manager__timeouts option;
-  update_policy :
-    google_compute_instance_group_manager__update_policy list;
-  version : google_compute_instance_group_manager__version list;
+  all_instances_config : all_instances_config list;
+  auto_healing_policies : auto_healing_policies list;
+  instance_lifecycle_policy : instance_lifecycle_policy list;
+  named_port : named_port list;
+  stateful_disk : stateful_disk list;
+  stateful_external_ip : stateful_external_ip list;
+  stateful_internal_ip : stateful_internal_ip list;
+  timeouts : timeouts option;
+  update_policy : update_policy list;
+  version : version list;
 }
 [@@deriving yojson_of]
 (** google_compute_instance_group_manager *)
+
+let all_instances_config ?labels ?metadata () : all_instances_config
+    =
+  { labels; metadata }
+
+let auto_healing_policies ~health_check ~initial_delay_sec () :
+    auto_healing_policies =
+  { health_check; initial_delay_sec }
+
+let instance_lifecycle_policy ?default_action_on_failure
+    ?force_update_on_repair () : instance_lifecycle_policy =
+  { default_action_on_failure; force_update_on_repair }
+
+let named_port ~name ~port () : named_port = { name; port }
+
+let stateful_disk ?delete_rule ~device_name () : stateful_disk =
+  { delete_rule; device_name }
+
+let stateful_external_ip ?delete_rule ?interface_name () :
+    stateful_external_ip =
+  { delete_rule; interface_name }
+
+let stateful_internal_ip ?delete_rule ?interface_name () :
+    stateful_internal_ip =
+  { delete_rule; interface_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let update_policy ?max_surge_fixed ?max_surge_percent
+    ?max_unavailable_fixed ?max_unavailable_percent
+    ?most_disruptive_allowed_action ?replacement_method
+    ~minimal_action ~type_ () : update_policy =
+  {
+    max_surge_fixed;
+    max_surge_percent;
+    max_unavailable_fixed;
+    max_unavailable_percent;
+    minimal_action;
+    most_disruptive_allowed_action;
+    replacement_method;
+    type_;
+  }
+
+let version__target_size ?fixed ?percent () : version__target_size =
+  { fixed; percent }
+
+let version ?name ~instance_template ~target_size () : version =
+  { instance_template; name; target_size }
+
+let google_compute_instance_group_manager ?description ?id
+    ?list_managed_instances_results ?project ?target_pools
+    ?target_size ?wait_for_instances ?wait_for_instances_status ?zone
+    ?timeouts ~base_instance_name ~name ~all_instances_config
+    ~auto_healing_policies ~instance_lifecycle_policy ~named_port
+    ~stateful_disk ~stateful_external_ip ~stateful_internal_ip
+    ~update_policy ~version () :
+    google_compute_instance_group_manager =
+  {
+    base_instance_name;
+    description;
+    id;
+    list_managed_instances_results;
+    name;
+    project;
+    target_pools;
+    target_size;
+    wait_for_instances;
+    wait_for_instances_status;
+    zone;
+    all_instances_config;
+    auto_healing_policies;
+    instance_lifecycle_policy;
+    named_port;
+    stateful_disk;
+    stateful_external_ip;
+    stateful_internal_ip;
+    timeouts;
+    update_policy;
+    version;
+  }
 
 type t = {
   base_instance_name : string prop;
@@ -210,7 +272,7 @@ type t = {
   operation : string prop;
   project : string prop;
   self_link : string prop;
-  status : google_compute_instance_group_manager__status list prop;
+  status : status list prop;
   target_pools : string list prop;
   target_size : float prop;
   wait_for_instances : bool prop;
@@ -218,7 +280,7 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_instance_group_manager ?description ?id
+let register ?tf_module ?description ?id
     ?list_managed_instances_results ?project ?target_pools
     ?target_size ?wait_for_instances ?wait_for_instances_status ?zone
     ?timeouts ~base_instance_name ~name ~all_instances_config
@@ -227,32 +289,15 @@ let google_compute_instance_group_manager ?description ?id
     ~update_policy ~version __resource_id =
   let __resource_type = "google_compute_instance_group_manager" in
   let __resource =
-    ({
-       base_instance_name;
-       description;
-       id;
-       list_managed_instances_results;
-       name;
-       project;
-       target_pools;
-       target_size;
-       wait_for_instances;
-       wait_for_instances_status;
-       zone;
-       all_instances_config;
-       auto_healing_policies;
-       instance_lifecycle_policy;
-       named_port;
-       stateful_disk;
-       stateful_external_ip;
-       stateful_internal_ip;
-       timeouts;
-       update_policy;
-       version;
-     }
-      : google_compute_instance_group_manager)
+    google_compute_instance_group_manager ?description ?id
+      ?list_managed_instances_results ?project ?target_pools
+      ?target_size ?wait_for_instances ?wait_for_instances_status
+      ?zone ?timeouts ~base_instance_name ~name ~all_instances_config
+      ~auto_healing_policies ~instance_lifecycle_policy ~named_port
+      ~stateful_disk ~stateful_external_ip ~stateful_internal_ip
+      ~update_policy ~version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_instance_group_manager __resource);
   let __resource_attributes =
     ({

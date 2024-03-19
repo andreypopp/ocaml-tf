@@ -15,6 +15,10 @@ type aws_schemas_discoverer = {
 [@@deriving yojson_of]
 (** aws_schemas_discoverer *)
 
+let aws_schemas_discoverer ?description ?id ?tags ?tags_all
+    ~source_arn () : aws_schemas_discoverer =
+  { description; id; source_arn; tags; tags_all }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -24,14 +28,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_schemas_discoverer ?description ?id ?tags ?tags_all
-    ~source_arn __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~source_arn
+    __resource_id =
   let __resource_type = "aws_schemas_discoverer" in
   let __resource =
-    ({ description; id; source_arn; tags; tags_all }
-      : aws_schemas_discoverer)
+    aws_schemas_discoverer ?description ?id ?tags ?tags_all
+      ~source_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_schemas_discoverer __resource);
   let __resource_attributes =
     ({

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_directory_service_radius_settings__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_directory_service_radius_settings__timeouts *)
+(** timeouts *)
 
 type aws_directory_service_radius_settings = {
   authentication_protocol : string prop;
@@ -24,10 +24,30 @@ type aws_directory_service_radius_settings = {
   shared_secret : string prop;  (** shared_secret *)
   use_same_username : bool prop option; [@option]
       (** use_same_username *)
-  timeouts : aws_directory_service_radius_settings__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_directory_service_radius_settings *)
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_directory_service_radius_settings ?id ?use_same_username
+    ?timeouts ~authentication_protocol ~directory_id ~display_label
+    ~radius_port ~radius_retries ~radius_servers ~radius_timeout
+    ~shared_secret () : aws_directory_service_radius_settings =
+  {
+    authentication_protocol;
+    directory_id;
+    display_label;
+    id;
+    radius_port;
+    radius_retries;
+    radius_servers;
+    radius_timeout;
+    shared_secret;
+    use_same_username;
+    timeouts;
+  }
 
 type t = {
   authentication_protocol : string prop;
@@ -42,28 +62,18 @@ type t = {
   use_same_username : bool prop;
 }
 
-let aws_directory_service_radius_settings ?id ?use_same_username
-    ?timeouts ~authentication_protocol ~directory_id ~display_label
+let register ?tf_module ?id ?use_same_username ?timeouts
+    ~authentication_protocol ~directory_id ~display_label
     ~radius_port ~radius_retries ~radius_servers ~radius_timeout
     ~shared_secret __resource_id =
   let __resource_type = "aws_directory_service_radius_settings" in
   let __resource =
-    ({
-       authentication_protocol;
-       directory_id;
-       display_label;
-       id;
-       radius_port;
-       radius_retries;
-       radius_servers;
-       radius_timeout;
-       shared_secret;
-       use_same_username;
-       timeouts;
-     }
-      : aws_directory_service_radius_settings)
+    aws_directory_service_radius_settings ?id ?use_same_username
+      ?timeouts ~authentication_protocol ~directory_id ~display_label
+      ~radius_port ~radius_retries ~radius_servers ~radius_timeout
+      ~shared_secret ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_directory_service_radius_settings __resource);
   let __resource_attributes =
     ({

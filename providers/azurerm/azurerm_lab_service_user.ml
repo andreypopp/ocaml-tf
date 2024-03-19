@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_lab_service_user__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_lab_service_user__timeouts *)
+(** timeouts *)
 
 type azurerm_lab_service_user = {
   additional_usage_quota : string prop option; [@option]
@@ -20,10 +20,17 @@ type azurerm_lab_service_user = {
   id : string prop option; [@option]  (** id *)
   lab_id : string prop;  (** lab_id *)
   name : string prop;  (** name *)
-  timeouts : azurerm_lab_service_user__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_user *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_lab_service_user ?additional_usage_quota ?id ?timeouts
+    ~email ~lab_id ~name () : azurerm_lab_service_user =
+  { additional_usage_quota; email; id; lab_id; name; timeouts }
 
 type t = {
   additional_usage_quota : string prop;
@@ -33,14 +40,14 @@ type t = {
   name : string prop;
 }
 
-let azurerm_lab_service_user ?additional_usage_quota ?id ?timeouts
-    ~email ~lab_id ~name __resource_id =
+let register ?tf_module ?additional_usage_quota ?id ?timeouts ~email
+    ~lab_id ~name __resource_id =
   let __resource_type = "azurerm_lab_service_user" in
   let __resource =
-    ({ additional_usage_quota; email; id; lab_id; name; timeouts }
-      : azurerm_lab_service_user)
+    azurerm_lab_service_user ?additional_usage_quota ?id ?timeouts
+      ~email ~lab_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lab_service_user __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_hub_security_partner_provider__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_virtual_hub_security_partner_provider
+
+val azurerm_virtual_hub_security_partner_provider :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?virtual_hub_id:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  security_provider_name:string prop ->
+  unit ->
+  azurerm_virtual_hub_security_partner_provider
+
+val yojson_of_azurerm_virtual_hub_security_partner_provider :
+  azurerm_virtual_hub_security_partner_provider -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,11 +43,12 @@ type t = private {
   virtual_hub_id : string prop;
 }
 
-val azurerm_virtual_hub_security_partner_provider :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?virtual_hub_id:string prop ->
-  ?timeouts:azurerm_virtual_hub_security_partner_provider__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

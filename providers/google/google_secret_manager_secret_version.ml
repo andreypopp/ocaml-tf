@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_secret_manager_secret_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_secret_manager_secret_version__timeouts *)
+(** timeouts *)
 
 type google_secret_manager_secret_version = {
   deletion_policy : string prop option; [@option]
@@ -28,10 +28,26 @@ disabled rather than deleted. Default is 'DELETE'. Possible values are:
   secret : string prop;  (** Secret Manager secret resource *)
   secret_data : string prop;
       (** The secret data. Must be no larger than 64KiB. *)
-  timeouts : google_secret_manager_secret_version__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_secret_manager_secret_version *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_secret_manager_secret_version ?deletion_policy ?enabled
+    ?id ?is_secret_data_base64 ?timeouts ~secret ~secret_data () :
+    google_secret_manager_secret_version =
+  {
+    deletion_policy;
+    enabled;
+    id;
+    is_secret_data_base64;
+    secret;
+    secret_data;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -46,23 +62,15 @@ type t = {
   version : string prop;
 }
 
-let google_secret_manager_secret_version ?deletion_policy ?enabled
-    ?id ?is_secret_data_base64 ?timeouts ~secret ~secret_data
+let register ?tf_module ?deletion_policy ?enabled ?id
+    ?is_secret_data_base64 ?timeouts ~secret ~secret_data
     __resource_id =
   let __resource_type = "google_secret_manager_secret_version" in
   let __resource =
-    ({
-       deletion_policy;
-       enabled;
-       id;
-       is_secret_data_base64;
-       secret;
-       secret_data;
-       timeouts;
-     }
-      : google_secret_manager_secret_version)
+    google_secret_manager_secret_version ?deletion_policy ?enabled
+      ?id ?is_secret_data_base64 ?timeouts ~secret ~secret_data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_secret_manager_secret_version __resource);
   let __resource_attributes =
     ({

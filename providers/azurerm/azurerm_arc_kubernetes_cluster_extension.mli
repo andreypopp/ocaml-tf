@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_arc_kubernetes_cluster_extension__identity
-type azurerm_arc_kubernetes_cluster_extension__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_arc_kubernetes_cluster_extension
+
+val azurerm_arc_kubernetes_cluster_extension :
+  ?configuration_protected_settings:(string * string prop) list ->
+  ?configuration_settings:(string * string prop) list ->
+  ?id:string prop ->
+  ?release_namespace:string prop ->
+  ?release_train:string prop ->
+  ?target_namespace:string prop ->
+  ?version:string prop ->
+  ?timeouts:timeouts ->
+  cluster_id:string prop ->
+  extension_type:string prop ->
+  name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_arc_kubernetes_cluster_extension
+
+val yojson_of_azurerm_arc_kubernetes_cluster_extension :
+  azurerm_arc_kubernetes_cluster_extension -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_id : string prop;
@@ -20,7 +55,8 @@ type t = private {
   version : string prop;
 }
 
-val azurerm_arc_kubernetes_cluster_extension :
+val register :
+  ?tf_module:tf_module ->
   ?configuration_protected_settings:(string * string prop) list ->
   ?configuration_settings:(string * string prop) list ->
   ?id:string prop ->
@@ -28,10 +64,10 @@ val azurerm_arc_kubernetes_cluster_extension :
   ?release_train:string prop ->
   ?target_namespace:string prop ->
   ?version:string prop ->
-  ?timeouts:azurerm_arc_kubernetes_cluster_extension__timeouts ->
+  ?timeouts:timeouts ->
   cluster_id:string prop ->
   extension_type:string prop ->
   name:string prop ->
-  identity:azurerm_arc_kubernetes_cluster_extension__identity list ->
+  identity:identity list ->
   string ->
   t

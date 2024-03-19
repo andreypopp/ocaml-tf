@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_kusto_database_principal_assignment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_kusto_database_principal_assignment__timeouts *)
+(** timeouts *)
 
 type azurerm_kusto_database_principal_assignment = {
   cluster_name : string prop;  (** cluster_name *)
@@ -22,11 +22,30 @@ type azurerm_kusto_database_principal_assignment = {
   resource_group_name : string prop;  (** resource_group_name *)
   role : string prop;  (** role *)
   tenant_id : string prop;  (** tenant_id *)
-  timeouts :
-    azurerm_kusto_database_principal_assignment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_database_principal_assignment *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_kusto_database_principal_assignment ?id ?timeouts
+    ~cluster_name ~database_name ~name ~principal_id ~principal_type
+    ~resource_group_name ~role ~tenant_id () :
+    azurerm_kusto_database_principal_assignment =
+  {
+    cluster_name;
+    database_name;
+    id;
+    name;
+    principal_id;
+    principal_type;
+    resource_group_name;
+    role;
+    tenant_id;
+    timeouts;
+  }
 
 type t = {
   cluster_name : string prop;
@@ -42,28 +61,18 @@ type t = {
   tenant_name : string prop;
 }
 
-let azurerm_kusto_database_principal_assignment ?id ?timeouts
-    ~cluster_name ~database_name ~name ~principal_id ~principal_type
-    ~resource_group_name ~role ~tenant_id __resource_id =
+let register ?tf_module ?id ?timeouts ~cluster_name ~database_name
+    ~name ~principal_id ~principal_type ~resource_group_name ~role
+    ~tenant_id __resource_id =
   let __resource_type =
     "azurerm_kusto_database_principal_assignment"
   in
   let __resource =
-    ({
-       cluster_name;
-       database_name;
-       id;
-       name;
-       principal_id;
-       principal_type;
-       resource_group_name;
-       role;
-       tenant_id;
-       timeouts;
-     }
-      : azurerm_kusto_database_principal_assignment)
+    azurerm_kusto_database_principal_assignment ?id ?timeouts
+      ~cluster_name ~database_name ~name ~principal_id
+      ~principal_type ~resource_group_name ~role ~tenant_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_database_principal_assignment __resource);
   let __resource_attributes =
     ({

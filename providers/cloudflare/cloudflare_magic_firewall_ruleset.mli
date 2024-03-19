@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_magic_firewall_ruleset
+
+val cloudflare_magic_firewall_ruleset :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?rules:(string * string prop) list list ->
+  account_id:string prop ->
+  name:string prop ->
+  unit ->
+  cloudflare_magic_firewall_ruleset
+
+val yojson_of_cloudflare_magic_firewall_ruleset :
+  cloudflare_magic_firewall_ruleset -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -12,7 +28,8 @@ type t = private {
   rules : (string * string) list list prop;
 }
 
-val cloudflare_magic_firewall_ruleset :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?rules:(string * string prop) list list ->

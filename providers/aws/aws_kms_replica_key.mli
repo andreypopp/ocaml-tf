@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_kms_replica_key
+
+val aws_kms_replica_key :
+  ?bypass_policy_lockout_safety_check:bool prop ->
+  ?deletion_window_in_days:float prop ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?policy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  primary_key_arn:string prop ->
+  unit ->
+  aws_kms_replica_key
+
+val yojson_of_aws_kms_replica_key : aws_kms_replica_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,7 +40,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_kms_replica_key :
+val register :
+  ?tf_module:tf_module ->
   ?bypass_policy_lockout_safety_check:bool prop ->
   ?deletion_window_in_days:float prop ->
   ?description:string prop ->

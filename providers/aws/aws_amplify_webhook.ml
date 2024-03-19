@@ -13,6 +13,10 @@ type aws_amplify_webhook = {
 [@@deriving yojson_of]
 (** aws_amplify_webhook *)
 
+let aws_amplify_webhook ?description ?id ~app_id ~branch_name () :
+    aws_amplify_webhook =
+  { app_id; branch_name; description; id }
+
 type t = {
   app_id : string prop;
   arn : string prop;
@@ -22,13 +26,13 @@ type t = {
   url : string prop;
 }
 
-let aws_amplify_webhook ?description ?id ~app_id ~branch_name
+let register ?tf_module ?description ?id ~app_id ~branch_name
     __resource_id =
   let __resource_type = "aws_amplify_webhook" in
   let __resource =
-    ({ app_id; branch_name; description; id } : aws_amplify_webhook)
+    aws_amplify_webhook ?description ?id ~app_id ~branch_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_amplify_webhook __resource);
   let __resource_attributes =
     ({

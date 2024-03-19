@@ -4,43 +4,39 @@
 
 open! Tf.Prelude
 
-type azurerm_firewall__ip_configuration = {
+type ip_configuration = {
   name : string prop;  (** name *)
-  private_ip_address : string prop;  (** private_ip_address *)
   public_ip_address_id : string prop option; [@option]
       (** public_ip_address_id *)
   subnet_id : string prop option; [@option]  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_firewall__ip_configuration *)
+(** ip_configuration *)
 
-type azurerm_firewall__management_ip_configuration = {
+type management_ip_configuration = {
   name : string prop;  (** name *)
-  private_ip_address : string prop;  (** private_ip_address *)
   public_ip_address_id : string prop;  (** public_ip_address_id *)
   subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_firewall__management_ip_configuration *)
+(** management_ip_configuration *)
 
-type azurerm_firewall__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_firewall__timeouts *)
+(** timeouts *)
 
-type azurerm_firewall__virtual_hub = {
-  private_ip_address : string prop;  (** private_ip_address *)
-  public_ip_addresses : string prop list;  (** public_ip_addresses *)
+type virtual_hub = {
   public_ip_count : float prop option; [@option]
       (** public_ip_count *)
   virtual_hub_id : string prop;  (** virtual_hub_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_firewall__virtual_hub *)
+(** virtual_hub *)
 
 type azurerm_firewall = {
   dns_proxy_enabled : bool prop option; [@option]
@@ -61,14 +57,52 @@ type azurerm_firewall = {
   threat_intel_mode : string prop option; [@option]
       (** threat_intel_mode *)
   zones : string prop list option; [@option]  (** zones *)
-  ip_configuration : azurerm_firewall__ip_configuration list;
-  management_ip_configuration :
-    azurerm_firewall__management_ip_configuration list;
-  timeouts : azurerm_firewall__timeouts option;
-  virtual_hub : azurerm_firewall__virtual_hub list;
+  ip_configuration : ip_configuration list;
+  management_ip_configuration : management_ip_configuration list;
+  timeouts : timeouts option;
+  virtual_hub : virtual_hub list;
 }
 [@@deriving yojson_of]
 (** azurerm_firewall *)
+
+let ip_configuration ?public_ip_address_id ?subnet_id ~name () :
+    ip_configuration =
+  { name; public_ip_address_id; subnet_id }
+
+let management_ip_configuration ~name ~public_ip_address_id
+    ~subnet_id () : management_ip_configuration =
+  { name; public_ip_address_id; subnet_id }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let virtual_hub ?public_ip_count ~virtual_hub_id () : virtual_hub =
+  { public_ip_count; virtual_hub_id }
+
+let azurerm_firewall ?dns_proxy_enabled ?dns_servers
+    ?firewall_policy_id ?id ?private_ip_ranges ?tags
+    ?threat_intel_mode ?zones ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
+    ~management_ip_configuration ~virtual_hub () : azurerm_firewall =
+  {
+    dns_proxy_enabled;
+    dns_servers;
+    firewall_policy_id;
+    id;
+    location;
+    name;
+    private_ip_ranges;
+    resource_group_name;
+    sku_name;
+    sku_tier;
+    tags;
+    threat_intel_mode;
+    zones;
+    ip_configuration;
+    management_ip_configuration;
+    timeouts;
+    virtual_hub;
+  }
 
 type t = {
   dns_proxy_enabled : bool prop;
@@ -86,35 +120,20 @@ type t = {
   zones : string list prop;
 }
 
-let azurerm_firewall ?dns_proxy_enabled ?dns_servers
+let register ?tf_module ?dns_proxy_enabled ?dns_servers
     ?firewall_policy_id ?id ?private_ip_ranges ?tags
     ?threat_intel_mode ?zones ?timeouts ~location ~name
     ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
     ~management_ip_configuration ~virtual_hub __resource_id =
   let __resource_type = "azurerm_firewall" in
   let __resource =
-    ({
-       dns_proxy_enabled;
-       dns_servers;
-       firewall_policy_id;
-       id;
-       location;
-       name;
-       private_ip_ranges;
-       resource_group_name;
-       sku_name;
-       sku_tier;
-       tags;
-       threat_intel_mode;
-       zones;
-       ip_configuration;
-       management_ip_configuration;
-       timeouts;
-       virtual_hub;
-     }
-      : azurerm_firewall)
+    azurerm_firewall ?dns_proxy_enabled ?dns_servers
+      ?firewall_policy_id ?id ?private_ip_ranges ?tags
+      ?threat_intel_mode ?zones ?timeouts ~location ~name
+      ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
+      ~management_ip_configuration ~virtual_hub ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_firewall __resource);
   let __resource_attributes =
     ({

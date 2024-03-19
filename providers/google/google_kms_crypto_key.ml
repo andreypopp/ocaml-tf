@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_kms_crypto_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_kms_crypto_key__timeouts *)
+(** timeouts *)
 
-type google_kms_crypto_key__version_template = {
+type version_template = {
   algorithm : string prop;
       (** The algorithm to use when creating a version based on this template.
 See the [algorithm reference](https://cloud.google.com/kms/docs/reference/rest/v1/CryptoKeyVersionAlgorithm) for possible inputs. *)
@@ -22,7 +22,7 @@ See the [algorithm reference](https://cloud.google.com/kms/docs/reference/rest/v
 [@@deriving yojson_of]
 (** A template describing settings for new crypto key versions. *)
 
-type google_kms_crypto_key__primary = {
+type primary = {
   name : string prop;  (** name *)
   state : string prop;  (** state *)
 }
@@ -58,11 +58,36 @@ letter 's' (seconds). It must be greater than a day (ie, 86400). *)
   skip_initial_version_creation : bool prop option; [@option]
       (** If set to true, the request will create a CryptoKey without any CryptoKeyVersions.
 You must use the 'google_kms_key_ring_import_job' resource to import the CryptoKeyVersion. *)
-  timeouts : google_kms_crypto_key__timeouts option;
-  version_template : google_kms_crypto_key__version_template list;
+  timeouts : timeouts option;
+  version_template : version_template list;
 }
 [@@deriving yojson_of]
 (** google_kms_crypto_key *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let version_template ?protection_level ~algorithm () :
+    version_template =
+  { algorithm; protection_level }
+
+let google_kms_crypto_key ?destroy_scheduled_duration ?id
+    ?import_only ?labels ?purpose ?rotation_period
+    ?skip_initial_version_creation ?timeouts ~key_ring ~name
+    ~version_template () : google_kms_crypto_key =
+  {
+    destroy_scheduled_duration;
+    id;
+    import_only;
+    key_ring;
+    labels;
+    name;
+    purpose;
+    rotation_period;
+    skip_initial_version_creation;
+    timeouts;
+    version_template;
+  }
 
 type t = {
   destroy_scheduled_duration : string prop;
@@ -72,35 +97,24 @@ type t = {
   key_ring : string prop;
   labels : (string * string) list prop;
   name : string prop;
-  primary : google_kms_crypto_key__primary list prop;
+  primary : primary list prop;
   purpose : string prop;
   rotation_period : string prop;
   skip_initial_version_creation : bool prop;
   terraform_labels : (string * string) list prop;
 }
 
-let google_kms_crypto_key ?destroy_scheduled_duration ?id
-    ?import_only ?labels ?purpose ?rotation_period
-    ?skip_initial_version_creation ?timeouts ~key_ring ~name
-    ~version_template __resource_id =
+let register ?tf_module ?destroy_scheduled_duration ?id ?import_only
+    ?labels ?purpose ?rotation_period ?skip_initial_version_creation
+    ?timeouts ~key_ring ~name ~version_template __resource_id =
   let __resource_type = "google_kms_crypto_key" in
   let __resource =
-    ({
-       destroy_scheduled_duration;
-       id;
-       import_only;
-       key_ring;
-       labels;
-       name;
-       purpose;
-       rotation_period;
-       skip_initial_version_creation;
-       timeouts;
-       version_template;
-     }
-      : google_kms_crypto_key)
+    google_kms_crypto_key ?destroy_scheduled_duration ?id
+      ?import_only ?labels ?purpose ?rotation_period
+      ?skip_initial_version_creation ?timeouts ~key_ring ~name
+      ~version_template ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_crypto_key __resource);
   let __resource_attributes =
     ({

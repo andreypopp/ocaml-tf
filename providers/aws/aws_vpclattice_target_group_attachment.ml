@@ -4,40 +4,48 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_target_group_attachment__target = {
+type target = {
   id : string prop;  (** id *)
   port : float prop option; [@option]  (** port *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_target_group_attachment__target *)
+(** target *)
 
-type aws_vpclattice_target_group_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_target_group_attachment__timeouts *)
+(** timeouts *)
 
 type aws_vpclattice_target_group_attachment = {
   id : string prop option; [@option]  (** id *)
   target_group_identifier : string prop;
       (** target_group_identifier *)
-  target : aws_vpclattice_target_group_attachment__target list;
-  timeouts : aws_vpclattice_target_group_attachment__timeouts option;
+  target : target list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group_attachment *)
 
-type t = { id : string prop; target_group_identifier : string prop }
+let target ?port ~id () : target = { id; port }
+let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let aws_vpclattice_target_group_attachment ?id ?timeouts
-    ~target_group_identifier ~target __resource_id =
+    ~target_group_identifier ~target () :
+    aws_vpclattice_target_group_attachment =
+  { id; target_group_identifier; target; timeouts }
+
+type t = { id : string prop; target_group_identifier : string prop }
+
+let register ?tf_module ?id ?timeouts ~target_group_identifier
+    ~target __resource_id =
   let __resource_type = "aws_vpclattice_target_group_attachment" in
   let __resource =
-    ({ id; target_group_identifier; target; timeouts }
-      : aws_vpclattice_target_group_attachment)
+    aws_vpclattice_target_group_attachment ?id ?timeouts
+      ~target_group_identifier ~target ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_target_group_attachment __resource);
   let __resource_attributes =
     ({

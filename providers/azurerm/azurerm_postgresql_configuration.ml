@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_postgresql_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_postgresql_configuration__timeouts *)
+(** timeouts *)
 
 type azurerm_postgresql_configuration = {
   id : string prop option; [@option]  (** id *)
@@ -18,10 +18,18 @@ type azurerm_postgresql_configuration = {
   resource_group_name : string prop;  (** resource_group_name *)
   server_name : string prop;  (** server_name *)
   value : string prop;  (** value *)
-  timeouts : azurerm_postgresql_configuration__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_postgresql_configuration *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_postgresql_configuration ?id ?timeouts ~name
+    ~resource_group_name ~server_name ~value () :
+    azurerm_postgresql_configuration =
+  { id; name; resource_group_name; server_name; value; timeouts }
 
 type t = {
   id : string prop;
@@ -31,14 +39,14 @@ type t = {
   value : string prop;
 }
 
-let azurerm_postgresql_configuration ?id ?timeouts ~name
-    ~resource_group_name ~server_name ~value __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~resource_group_name
+    ~server_name ~value __resource_id =
   let __resource_type = "azurerm_postgresql_configuration" in
   let __resource =
-    ({ id; name; resource_group_name; server_name; value; timeouts }
-      : azurerm_postgresql_configuration)
+    azurerm_postgresql_configuration ?id ?timeouts ~name
+      ~resource_group_name ~server_name ~value ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_postgresql_configuration __resource);
   let __resource_attributes =
     ({

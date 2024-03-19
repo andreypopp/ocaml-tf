@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_neptune_cluster_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_neptune_cluster_instance__timeouts *)
+(** timeouts *)
 
 type aws_neptune_cluster_instance = {
   apply_immediately : bool prop option; [@option]
@@ -46,10 +46,45 @@ type aws_neptune_cluster_instance = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_neptune_cluster_instance__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_neptune_cluster_instance *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_neptune_cluster_instance ?apply_immediately
+    ?auto_minor_version_upgrade ?availability_zone ?engine
+    ?engine_version ?id ?identifier ?identifier_prefix
+    ?neptune_parameter_group_name ?neptune_subnet_group_name ?port
+    ?preferred_backup_window ?preferred_maintenance_window
+    ?promotion_tier ?publicly_accessible ?skip_final_snapshot ?tags
+    ?tags_all ?timeouts ~cluster_identifier ~instance_class () :
+    aws_neptune_cluster_instance =
+  {
+    apply_immediately;
+    auto_minor_version_upgrade;
+    availability_zone;
+    cluster_identifier;
+    engine;
+    engine_version;
+    id;
+    identifier;
+    identifier_prefix;
+    instance_class;
+    neptune_parameter_group_name;
+    neptune_subnet_group_name;
+    port;
+    preferred_backup_window;
+    preferred_maintenance_window;
+    promotion_tier;
+    publicly_accessible;
+    skip_final_snapshot;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   address : string prop;
@@ -82,7 +117,7 @@ type t = {
   writer : bool prop;
 }
 
-let aws_neptune_cluster_instance ?apply_immediately
+let register ?tf_module ?apply_immediately
     ?auto_minor_version_upgrade ?availability_zone ?engine
     ?engine_version ?id ?identifier ?identifier_prefix
     ?neptune_parameter_group_name ?neptune_subnet_group_name ?port
@@ -92,32 +127,15 @@ let aws_neptune_cluster_instance ?apply_immediately
     __resource_id =
   let __resource_type = "aws_neptune_cluster_instance" in
   let __resource =
-    ({
-       apply_immediately;
-       auto_minor_version_upgrade;
-       availability_zone;
-       cluster_identifier;
-       engine;
-       engine_version;
-       id;
-       identifier;
-       identifier_prefix;
-       instance_class;
-       neptune_parameter_group_name;
-       neptune_subnet_group_name;
-       port;
-       preferred_backup_window;
-       preferred_maintenance_window;
-       promotion_tier;
-       publicly_accessible;
-       skip_final_snapshot;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_neptune_cluster_instance)
+    aws_neptune_cluster_instance ?apply_immediately
+      ?auto_minor_version_upgrade ?availability_zone ?engine
+      ?engine_version ?id ?identifier ?identifier_prefix
+      ?neptune_parameter_group_name ?neptune_subnet_group_name ?port
+      ?preferred_backup_window ?preferred_maintenance_window
+      ?promotion_tier ?publicly_accessible ?skip_final_snapshot ?tags
+      ?tags_all ?timeouts ~cluster_identifier ~instance_class ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_neptune_cluster_instance __resource);
   let __resource_attributes =
     ({

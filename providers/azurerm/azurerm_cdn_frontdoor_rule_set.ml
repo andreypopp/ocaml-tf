@@ -4,23 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_cdn_frontdoor_rule_set__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_rule_set__timeouts *)
+(** timeouts *)
 
 type azurerm_cdn_frontdoor_rule_set = {
   cdn_frontdoor_profile_id : string prop;
       (** cdn_frontdoor_profile_id *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  timeouts : azurerm_cdn_frontdoor_rule_set__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_rule_set *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_cdn_frontdoor_rule_set ?id ?timeouts
+    ~cdn_frontdoor_profile_id ~name () :
+    azurerm_cdn_frontdoor_rule_set =
+  { cdn_frontdoor_profile_id; id; name; timeouts }
 
 type t = {
   cdn_frontdoor_profile_id : string prop;
@@ -28,14 +36,14 @@ type t = {
   name : string prop;
 }
 
-let azurerm_cdn_frontdoor_rule_set ?id ?timeouts
-    ~cdn_frontdoor_profile_id ~name __resource_id =
+let register ?tf_module ?id ?timeouts ~cdn_frontdoor_profile_id ~name
+    __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_rule_set" in
   let __resource =
-    ({ cdn_frontdoor_profile_id; id; name; timeouts }
-      : azurerm_cdn_frontdoor_rule_set)
+    azurerm_cdn_frontdoor_rule_set ?id ?timeouts
+      ~cdn_frontdoor_profile_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_rule_set __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_eks_pod_identity_association
+
+val aws_eks_pod_identity_association :
+  ?tags:(string * string prop) list ->
+  cluster_name:string prop ->
+  namespace:string prop ->
+  role_arn:string prop ->
+  service_account:string prop ->
+  unit ->
+  aws_eks_pod_identity_association
+
+val yojson_of_aws_eks_pod_identity_association :
+  aws_eks_pod_identity_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   association_arn : string prop;
@@ -16,7 +32,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_eks_pod_identity_association :
+val register :
+  ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
   cluster_name:string prop ->
   namespace:string prop ->

@@ -2,8 +2,43 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_kusto__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_data_factory_linked_service_kusto
+
+val azurerm_data_factory_linked_service_kusto :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?service_principal_id:string prop ->
+  ?service_principal_key:string prop ->
+  ?tenant:string prop ->
+  ?use_managed_identity:bool prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  kusto_database_name:string prop ->
+  kusto_endpoint:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_data_factory_linked_service_kusto
+
+val yojson_of_azurerm_data_factory_linked_service_kusto :
+  azurerm_data_factory_linked_service_kusto -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   additional_properties : (string * string) list prop;
@@ -22,7 +57,8 @@ type t = private {
   use_managed_identity : bool prop;
 }
 
-val azurerm_data_factory_linked_service_kusto :
+val register :
+  ?tf_module:tf_module ->
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
   ?description:string prop ->
@@ -33,7 +69,7 @@ val azurerm_data_factory_linked_service_kusto :
   ?service_principal_key:string prop ->
   ?tenant:string prop ->
   ?use_managed_identity:bool prop ->
-  ?timeouts:azurerm_data_factory_linked_service_kusto__timeouts ->
+  ?timeouts:timeouts ->
   data_factory_id:string prop ->
   kusto_database_name:string prop ->
   kusto_endpoint:string prop ->

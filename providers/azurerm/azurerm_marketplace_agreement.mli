@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_marketplace_agreement__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_marketplace_agreement
+
+val azurerm_marketplace_agreement :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  offer:string prop ->
+  plan:string prop ->
+  publisher:string prop ->
+  unit ->
+  azurerm_marketplace_agreement
+
+val yojson_of_azurerm_marketplace_agreement :
+  azurerm_marketplace_agreement -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,9 +38,10 @@ type t = private {
   publisher : string prop;
 }
 
-val azurerm_marketplace_agreement :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_marketplace_agreement__timeouts ->
+  ?timeouts:timeouts ->
   offer:string prop ->
   plan:string prop ->
   publisher:string prop ->

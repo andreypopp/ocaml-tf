@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_service_networking_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_service_networking_connection__timeouts *)
+(** timeouts *)
 
 type google_service_networking_connection = {
   deletion_policy : string prop option; [@option]
@@ -22,10 +22,25 @@ type google_service_networking_connection = {
       (** Named IP address range(s) of PEERING type reserved for this service provider. Note that invoking this method with a different range when connection is already established will not reallocate already provisioned service producer subnetworks. *)
   service : string prop;
       (** Provider peering service that is managing peering connectivity for a service provider organization. For Google services that support this functionality it is 'servicenetworking.googleapis.com'. *)
-  timeouts : google_service_networking_connection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_service_networking_connection *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_service_networking_connection ?deletion_policy ?id
+    ?timeouts ~network ~reserved_peering_ranges ~service () :
+    google_service_networking_connection =
+  {
+    deletion_policy;
+    id;
+    network;
+    reserved_peering_ranges;
+    service;
+    timeouts;
+  }
 
 type t = {
   deletion_policy : string prop;
@@ -36,22 +51,14 @@ type t = {
   service : string prop;
 }
 
-let google_service_networking_connection ?deletion_policy ?id
-    ?timeouts ~network ~reserved_peering_ranges ~service
-    __resource_id =
+let register ?tf_module ?deletion_policy ?id ?timeouts ~network
+    ~reserved_peering_ranges ~service __resource_id =
   let __resource_type = "google_service_networking_connection" in
   let __resource =
-    ({
-       deletion_policy;
-       id;
-       network;
-       reserved_peering_ranges;
-       service;
-       timeouts;
-     }
-      : google_service_networking_connection)
+    google_service_networking_connection ?deletion_policy ?id
+      ?timeouts ~network ~reserved_peering_ranges ~service ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_service_networking_connection __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_access_context_manager_access_level__basic__conditions__device_policy__os_constraints = {
+type basic__conditions__device_policy__os_constraints = {
   minimum_version : string prop option; [@option]
       (** The minimum allowed OS version. If not set, any version
 of this OS satisfies the constraint.
@@ -18,7 +18,7 @@ Format: major.minor.patch such as 10.5.301, 9.2.1. *)
 (** A list of allowed OS versions.
 An empty list allows all types and all versions. *)
 
-type google_access_context_manager_access_level__basic__conditions__device_policy = {
+type basic__conditions__device_policy = {
   allowed_device_management_levels : string prop list option;
       [@option]
       (** A list of allowed device management levels.
@@ -34,15 +34,14 @@ An empty list allows all statuses. Possible values: [ENCRYPTION_UNSPECIFIED, ENC
       (** Whether or not screenlock is required for the DevicePolicy
 to be true. Defaults to false. *)
   os_constraints :
-    google_access_context_manager_access_level__basic__conditions__device_policy__os_constraints
-    list;
+    basic__conditions__device_policy__os_constraints list;
 }
 [@@deriving yojson_of]
 (** Device specific restrictions, all restrictions must hold for
 the Condition to be true. If not specified, all devices are
 allowed. *)
 
-type google_access_context_manager_access_level__basic__conditions__vpc_network_sources__vpc_subnetwork = {
+type basic__conditions__vpc_network_sources__vpc_subnetwork = {
   network : string prop;
       (** Required. Network name to be allowed by this Access Level. Networks of foreign organizations requires 'compute.network.get' permission to be granted to caller. *)
   vpc_ip_subnetworks : string prop list option; [@option]
@@ -51,15 +50,14 @@ type google_access_context_manager_access_level__basic__conditions__vpc_network_
 [@@deriving yojson_of]
 (** Sub networks within a VPC network. *)
 
-type google_access_context_manager_access_level__basic__conditions__vpc_network_sources = {
+type basic__conditions__vpc_network_sources = {
   vpc_subnetwork :
-    google_access_context_manager_access_level__basic__conditions__vpc_network_sources__vpc_subnetwork
-    list;
+    basic__conditions__vpc_network_sources__vpc_subnetwork list;
 }
 [@@deriving yojson_of]
 (** The request must originate from one of the provided VPC networks in Google Cloud. Cannot specify this field together with 'ip_subnetworks'. *)
 
-type google_access_context_manager_access_level__basic__conditions = {
+type basic__conditions = {
   ip_subnetworks : string prop list option; [@option]
       (** A list of CIDR block IP subnetwork specification. May be IPv4
 or IPv6.
@@ -94,31 +92,25 @@ referenced by resource name. Referencing an AccessLevel which
 does not exist is an error. All access levels listed must be
 granted for the Condition to be true.
 Format: accessPolicies/{policy_id}/accessLevels/{short_name} *)
-  device_policy :
-    google_access_context_manager_access_level__basic__conditions__device_policy
-    list;
-  vpc_network_sources :
-    google_access_context_manager_access_level__basic__conditions__vpc_network_sources
-    list;
+  device_policy : basic__conditions__device_policy list;
+  vpc_network_sources : basic__conditions__vpc_network_sources list;
 }
 [@@deriving yojson_of]
 (** A set of requirements for the AccessLevel to be granted. *)
 
-type google_access_context_manager_access_level__basic = {
+type basic = {
   combining_function : string prop option; [@option]
       (** How the conditions list should be combined to determine if a request
 is granted this AccessLevel. If AND is used, each Condition in
 conditions must be satisfied for the AccessLevel to be applied. If
 OR is used, at least one Condition in conditions must be satisfied
 for the AccessLevel to be applied. Default value: AND Possible values: [AND, OR] *)
-  conditions :
-    google_access_context_manager_access_level__basic__conditions
-    list;
+  conditions : basic__conditions list;
 }
 [@@deriving yojson_of]
 (** A set of predefined conditions for the access level and a combining function. *)
 
-type google_access_context_manager_access_level__custom__expr = {
+type custom__expr = {
   description : string prop option; [@option]
       (** Description of the expression *)
   expression : string prop;
@@ -133,21 +125,17 @@ type google_access_context_manager_access_level__custom__expr = {
 This page details the objects and attributes that are used to the build the CEL expressions for
 custom access levels - https://cloud.google.com/access-context-manager/docs/custom-access-level-spec. *)
 
-type google_access_context_manager_access_level__custom = {
-  expr :
-    google_access_context_manager_access_level__custom__expr list;
-}
-[@@deriving yojson_of]
+type custom = { expr : custom__expr list } [@@deriving yojson_of]
 (** Custom access level conditions are set using the Cloud Common Expression Language to represent the necessary conditions for the level to apply to a request.
 See CEL spec at: https://github.com/google/cel-spec. *)
 
-type google_access_context_manager_access_level__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_access_context_manager_access_level__timeouts *)
+(** timeouts *)
 
 type google_access_context_manager_access_level = {
   description : string prop option; [@option]
@@ -162,13 +150,69 @@ Format: accessPolicies/{policy_id}/accessLevels/{short_name} *)
 Format: accessPolicies/{policy_id} *)
   title : string prop;
       (** Human readable title. Must be unique within the Policy. *)
-  basic : google_access_context_manager_access_level__basic list;
-  custom : google_access_context_manager_access_level__custom list;
-  timeouts :
-    google_access_context_manager_access_level__timeouts option;
+  basic : basic list;
+  custom : custom list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_access_level *)
+
+let basic__conditions__device_policy__os_constraints ?minimum_version
+    ?require_verified_chrome_os ~os_type () :
+    basic__conditions__device_policy__os_constraints =
+  { minimum_version; os_type; require_verified_chrome_os }
+
+let basic__conditions__device_policy
+    ?allowed_device_management_levels ?allowed_encryption_statuses
+    ?require_admin_approval ?require_corp_owned ?require_screen_lock
+    ~os_constraints () : basic__conditions__device_policy =
+  {
+    allowed_device_management_levels;
+    allowed_encryption_statuses;
+    require_admin_approval;
+    require_corp_owned;
+    require_screen_lock;
+    os_constraints;
+  }
+
+let basic__conditions__vpc_network_sources__vpc_subnetwork
+    ?vpc_ip_subnetworks ~network () :
+    basic__conditions__vpc_network_sources__vpc_subnetwork =
+  { network; vpc_ip_subnetworks }
+
+let basic__conditions__vpc_network_sources ~vpc_subnetwork () :
+    basic__conditions__vpc_network_sources =
+  { vpc_subnetwork }
+
+let basic__conditions ?ip_subnetworks ?members ?negate ?regions
+    ?required_access_levels ~device_policy ~vpc_network_sources () :
+    basic__conditions =
+  {
+    ip_subnetworks;
+    members;
+    negate;
+    regions;
+    required_access_levels;
+    device_policy;
+    vpc_network_sources;
+  }
+
+let basic ?combining_function ~conditions () : basic =
+  { combining_function; conditions }
+
+let custom__expr ?description ?location ?title ~expression () :
+    custom__expr =
+  { description; expression; location; title }
+
+let custom ~expr () : custom = { expr }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_access_context_manager_access_level ?description ?id
+    ?timeouts ~name ~parent ~title ~basic ~custom () :
+    google_access_context_manager_access_level =
+  { description; id; name; parent; title; basic; custom; timeouts }
 
 type t = {
   description : string prop;
@@ -178,25 +222,16 @@ type t = {
   title : string prop;
 }
 
-let google_access_context_manager_access_level ?description ?id
-    ?timeouts ~name ~parent ~title ~basic ~custom __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~name ~parent
+    ~title ~basic ~custom __resource_id =
   let __resource_type =
     "google_access_context_manager_access_level"
   in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       parent;
-       title;
-       basic;
-       custom;
-       timeouts;
-     }
-      : google_access_context_manager_access_level)
+    google_access_context_manager_access_level ?description ?id
+      ?timeouts ~name ~parent ~title ~basic ~custom ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_access_level __resource);
   let __resource_attributes =
     ({

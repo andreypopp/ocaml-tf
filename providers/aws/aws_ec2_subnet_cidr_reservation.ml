@@ -14,6 +14,11 @@ type aws_ec2_subnet_cidr_reservation = {
 [@@deriving yojson_of]
 (** aws_ec2_subnet_cidr_reservation *)
 
+let aws_ec2_subnet_cidr_reservation ?description ?id ~cidr_block
+    ~reservation_type ~subnet_id () : aws_ec2_subnet_cidr_reservation
+    =
+  { cidr_block; description; id; reservation_type; subnet_id }
+
 type t = {
   cidr_block : string prop;
   description : string prop;
@@ -23,14 +28,14 @@ type t = {
   subnet_id : string prop;
 }
 
-let aws_ec2_subnet_cidr_reservation ?description ?id ~cidr_block
+let register ?tf_module ?description ?id ~cidr_block
     ~reservation_type ~subnet_id __resource_id =
   let __resource_type = "aws_ec2_subnet_cidr_reservation" in
   let __resource =
-    ({ cidr_block; description; id; reservation_type; subnet_id }
-      : aws_ec2_subnet_cidr_reservation)
+    aws_ec2_subnet_cidr_reservation ?description ?id ~cidr_block
+      ~reservation_type ~subnet_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_subnet_cidr_reservation __resource);
   let __resource_attributes =
     ({

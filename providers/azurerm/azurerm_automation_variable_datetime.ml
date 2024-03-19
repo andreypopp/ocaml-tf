@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_variable_datetime__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_variable_datetime__timeouts *)
+(** timeouts *)
 
 type azurerm_automation_variable_datetime = {
   automation_account_name : string prop;
@@ -22,10 +22,27 @@ type azurerm_automation_variable_datetime = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   value : string prop option; [@option]  (** value *)
-  timeouts : azurerm_automation_variable_datetime__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_variable_datetime *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_automation_variable_datetime ?description ?encrypted ?id
+    ?value ?timeouts ~automation_account_name ~name
+    ~resource_group_name () : azurerm_automation_variable_datetime =
+  {
+    automation_account_name;
+    description;
+    encrypted;
+    id;
+    name;
+    resource_group_name;
+    value;
+    timeouts;
+  }
 
 type t = {
   automation_account_name : string prop;
@@ -37,24 +54,16 @@ type t = {
   value : string prop;
 }
 
-let azurerm_automation_variable_datetime ?description ?encrypted ?id
-    ?value ?timeouts ~automation_account_name ~name
-    ~resource_group_name __resource_id =
+let register ?tf_module ?description ?encrypted ?id ?value ?timeouts
+    ~automation_account_name ~name ~resource_group_name __resource_id
+    =
   let __resource_type = "azurerm_automation_variable_datetime" in
   let __resource =
-    ({
-       automation_account_name;
-       description;
-       encrypted;
-       id;
-       name;
-       resource_group_name;
-       value;
-       timeouts;
-     }
-      : azurerm_automation_variable_datetime)
+    azurerm_automation_variable_datetime ?description ?encrypted ?id
+      ?value ?timeouts ~automation_account_name ~name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_variable_datetime __resource);
   let __resource_attributes =
     ({

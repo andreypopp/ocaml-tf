@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_transcribe_medical_vocabulary__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_transcribe_medical_vocabulary
+
+val aws_transcribe_medical_vocabulary :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  language_code:string prop ->
+  vocabulary_file_uri:string prop ->
+  vocabulary_name:string prop ->
+  unit ->
+  aws_transcribe_medical_vocabulary
+
+val yojson_of_aws_transcribe_medical_vocabulary :
+  aws_transcribe_medical_vocabulary -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,11 +42,12 @@ type t = private {
   vocabulary_name : string prop;
 }
 
-val aws_transcribe_medical_vocabulary :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_transcribe_medical_vocabulary__timeouts ->
+  ?timeouts:timeouts ->
   language_code:string prop ->
   vocabulary_file_uri:string prop ->
   vocabulary_name:string prop ->

@@ -2,9 +2,38 @@
 
 open! Tf.Prelude
 
-type aws_redshiftdata_statement__parameters
-type aws_redshiftdata_statement__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type parameters
+
+val parameters :
+  name:string prop -> value:string prop -> unit -> parameters
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_redshiftdata_statement
+
+val aws_redshiftdata_statement :
+  ?cluster_identifier:string prop ->
+  ?db_user:string prop ->
+  ?id:string prop ->
+  ?secret_arn:string prop ->
+  ?statement_name:string prop ->
+  ?with_event:bool prop ->
+  ?workgroup_name:string prop ->
+  ?timeouts:timeouts ->
+  database:string prop ->
+  sql:string prop ->
+  parameters:parameters list ->
+  unit ->
+  aws_redshiftdata_statement
+
+val yojson_of_aws_redshiftdata_statement :
+  aws_redshiftdata_statement -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_identifier : string prop;
@@ -18,7 +47,8 @@ type t = private {
   workgroup_name : string prop;
 }
 
-val aws_redshiftdata_statement :
+val register :
+  ?tf_module:tf_module ->
   ?cluster_identifier:string prop ->
   ?db_user:string prop ->
   ?id:string prop ->
@@ -26,9 +56,9 @@ val aws_redshiftdata_statement :
   ?statement_name:string prop ->
   ?with_event:bool prop ->
   ?workgroup_name:string prop ->
-  ?timeouts:aws_redshiftdata_statement__timeouts ->
+  ?timeouts:timeouts ->
   database:string prop ->
   sql:string prop ->
-  parameters:aws_redshiftdata_statement__parameters list ->
+  parameters:parameters list ->
   string ->
   t

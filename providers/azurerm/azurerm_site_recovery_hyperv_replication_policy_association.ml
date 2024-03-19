@@ -4,25 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_site_recovery_hyperv_replication_policy_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_site_recovery_hyperv_replication_policy_association__timeouts *)
+(** timeouts *)
 
 type azurerm_site_recovery_hyperv_replication_policy_association = {
   hyperv_site_id : string prop;  (** hyperv_site_id *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   policy_id : string prop;  (** policy_id *)
-  timeouts :
-    azurerm_site_recovery_hyperv_replication_policy_association__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_hyperv_replication_policy_association *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_site_recovery_hyperv_replication_policy_association ?id
+    ?timeouts ~hyperv_site_id ~name ~policy_id () :
+    azurerm_site_recovery_hyperv_replication_policy_association =
+  { hyperv_site_id; id; name; policy_id; timeouts }
 
 type t = {
   hyperv_site_id : string prop;
@@ -31,16 +37,16 @@ type t = {
   policy_id : string prop;
 }
 
-let azurerm_site_recovery_hyperv_replication_policy_association ?id
-    ?timeouts ~hyperv_site_id ~name ~policy_id __resource_id =
+let register ?tf_module ?id ?timeouts ~hyperv_site_id ~name
+    ~policy_id __resource_id =
   let __resource_type =
     "azurerm_site_recovery_hyperv_replication_policy_association"
   in
   let __resource =
-    ({ hyperv_site_id; id; name; policy_id; timeouts }
-      : azurerm_site_recovery_hyperv_replication_policy_association)
+    azurerm_site_recovery_hyperv_replication_policy_association ?id
+      ?timeouts ~hyperv_site_id ~name ~policy_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_site_recovery_hyperv_replication_policy_association
        __resource);
   let __resource_attributes =

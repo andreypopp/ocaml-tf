@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_cloudfunctions_function_iam_member__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_cloudfunctions_function_iam_member__condition *)
+(** condition *)
 
 type google_cloudfunctions_function_iam_member = {
   cloud_function : string prop;  (** cloud_function *)
@@ -19,11 +19,18 @@ type google_cloudfunctions_function_iam_member = {
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]  (** region *)
   role : string prop;  (** role *)
-  condition :
-    google_cloudfunctions_function_iam_member__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_cloudfunctions_function_iam_member *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_cloudfunctions_function_iam_member ?id ?project ?region
+    ~cloud_function ~member ~role ~condition () :
+    google_cloudfunctions_function_iam_member =
+  { cloud_function; id; member; project; region; role; condition }
 
 type t = {
   cloud_function : string prop;
@@ -35,16 +42,16 @@ type t = {
   role : string prop;
 }
 
-let google_cloudfunctions_function_iam_member ?id ?project ?region
-    ~cloud_function ~member ~role ~condition __resource_id =
+let register ?tf_module ?id ?project ?region ~cloud_function ~member
+    ~role ~condition __resource_id =
   let __resource_type =
     "google_cloudfunctions_function_iam_member"
   in
   let __resource =
-    ({ cloud_function; id; member; project; region; role; condition }
-      : google_cloudfunctions_function_iam_member)
+    google_cloudfunctions_function_iam_member ?id ?project ?region
+      ~cloud_function ~member ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudfunctions_function_iam_member __resource);
   let __resource_attributes =
     ({

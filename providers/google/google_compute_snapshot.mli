@@ -2,10 +2,56 @@
 
 open! Tf.Prelude
 
-type google_compute_snapshot__snapshot_encryption_key
-type google_compute_snapshot__source_disk_encryption_key
-type google_compute_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type snapshot_encryption_key
+
+val snapshot_encryption_key :
+  ?kms_key_self_link:string prop ->
+  ?kms_key_service_account:string prop ->
+  ?raw_key:string prop ->
+  unit ->
+  snapshot_encryption_key
+
+type source_disk_encryption_key
+
+val source_disk_encryption_key :
+  ?kms_key_service_account:string prop ->
+  ?raw_key:string prop ->
+  unit ->
+  source_disk_encryption_key
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_snapshot
+
+val google_compute_snapshot :
+  ?chain_name:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?storage_locations:string prop list ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  source_disk:string prop ->
+  snapshot_encryption_key:snapshot_encryption_key list ->
+  source_disk_encryption_key:source_disk_encryption_key list ->
+  unit ->
+  google_compute_snapshot
+
+val yojson_of_google_compute_snapshot :
+  google_compute_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   chain_name : string prop;
@@ -28,7 +74,8 @@ type t = private {
   zone : string prop;
 }
 
-val google_compute_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?chain_name:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -36,12 +83,10 @@ val google_compute_snapshot :
   ?project:string prop ->
   ?storage_locations:string prop list ->
   ?zone:string prop ->
-  ?timeouts:google_compute_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   source_disk:string prop ->
-  snapshot_encryption_key:
-    google_compute_snapshot__snapshot_encryption_key list ->
-  source_disk_encryption_key:
-    google_compute_snapshot__source_disk_encryption_key list ->
+  snapshot_encryption_key:snapshot_encryption_key list ->
+  source_disk_encryption_key:source_disk_encryption_key list ->
   string ->
   t

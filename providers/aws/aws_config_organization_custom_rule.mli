@@ -2,8 +2,40 @@
 
 open! Tf.Prelude
 
-type aws_config_organization_custom_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_config_organization_custom_rule
+
+val aws_config_organization_custom_rule :
+  ?description:string prop ->
+  ?excluded_accounts:string prop list ->
+  ?id:string prop ->
+  ?input_parameters:string prop ->
+  ?maximum_execution_frequency:string prop ->
+  ?resource_id_scope:string prop ->
+  ?resource_types_scope:string prop list ->
+  ?tag_key_scope:string prop ->
+  ?tag_value_scope:string prop ->
+  ?timeouts:timeouts ->
+  lambda_function_arn:string prop ->
+  name:string prop ->
+  trigger_types:string prop list ->
+  unit ->
+  aws_config_organization_custom_rule
+
+val yojson_of_aws_config_organization_custom_rule :
+  aws_config_organization_custom_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,7 +53,8 @@ type t = private {
   trigger_types : string list prop;
 }
 
-val aws_config_organization_custom_rule :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?excluded_accounts:string prop list ->
   ?id:string prop ->
@@ -31,7 +64,7 @@ val aws_config_organization_custom_rule :
   ?resource_types_scope:string prop list ->
   ?tag_key_scope:string prop ->
   ?tag_value_scope:string prop ->
-  ?timeouts:aws_config_organization_custom_rule__timeouts ->
+  ?timeouts:timeouts ->
   lambda_function_arn:string prop ->
   name:string prop ->
   trigger_types:string prop list ->

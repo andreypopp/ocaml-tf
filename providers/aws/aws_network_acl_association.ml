@@ -12,19 +12,23 @@ type aws_network_acl_association = {
 [@@deriving yojson_of]
 (** aws_network_acl_association *)
 
+let aws_network_acl_association ?id ~network_acl_id ~subnet_id () :
+    aws_network_acl_association =
+  { id; network_acl_id; subnet_id }
+
 type t = {
   id : string prop;
   network_acl_id : string prop;
   subnet_id : string prop;
 }
 
-let aws_network_acl_association ?id ~network_acl_id ~subnet_id
-    __resource_id =
+let register ?tf_module ?id ~network_acl_id ~subnet_id __resource_id
+    =
   let __resource_type = "aws_network_acl_association" in
   let __resource =
-    ({ id; network_acl_id; subnet_id } : aws_network_acl_association)
+    aws_network_acl_association ?id ~network_acl_id ~subnet_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_network_acl_association __resource);
   let __resource_attributes =
     ({

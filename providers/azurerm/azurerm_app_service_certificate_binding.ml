@@ -4,23 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_certificate_binding__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_certificate_binding__timeouts *)
+(** timeouts *)
 
 type azurerm_app_service_certificate_binding = {
   certificate_id : string prop;  (** certificate_id *)
   hostname_binding_id : string prop;  (** hostname_binding_id *)
   id : string prop option; [@option]  (** id *)
   ssl_state : string prop;  (** ssl_state *)
-  timeouts : azurerm_app_service_certificate_binding__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_certificate_binding *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_app_service_certificate_binding ?id ?timeouts
+    ~certificate_id ~hostname_binding_id ~ssl_state () :
+    azurerm_app_service_certificate_binding =
+  { certificate_id; hostname_binding_id; id; ssl_state; timeouts }
 
 type t = {
   app_service_name : string prop;
@@ -32,14 +40,14 @@ type t = {
   thumbprint : string prop;
 }
 
-let azurerm_app_service_certificate_binding ?id ?timeouts
-    ~certificate_id ~hostname_binding_id ~ssl_state __resource_id =
+let register ?tf_module ?id ?timeouts ~certificate_id
+    ~hostname_binding_id ~ssl_state __resource_id =
   let __resource_type = "azurerm_app_service_certificate_binding" in
   let __resource =
-    ({ certificate_id; hostname_binding_id; id; ssl_state; timeouts }
-      : azurerm_app_service_certificate_binding)
+    azurerm_app_service_certificate_binding ?id ?timeouts
+      ~certificate_id ~hostname_binding_id ~ssl_state ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_certificate_binding __resource);
   let __resource_attributes =
     ({

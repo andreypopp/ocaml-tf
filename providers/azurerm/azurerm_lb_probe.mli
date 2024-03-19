@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_lb_probe__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_lb_probe
+
+val azurerm_lb_probe :
+  ?id:string prop ->
+  ?interval_in_seconds:float prop ->
+  ?number_of_probes:float prop ->
+  ?probe_threshold:float prop ->
+  ?protocol:string prop ->
+  ?request_path:string prop ->
+  ?timeouts:timeouts ->
+  loadbalancer_id:string prop ->
+  name:string prop ->
+  port:float prop ->
+  unit ->
+  azurerm_lb_probe
+
+val yojson_of_azurerm_lb_probe : azurerm_lb_probe -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -18,14 +47,15 @@ type t = private {
   request_path : string prop;
 }
 
-val azurerm_lb_probe :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?interval_in_seconds:float prop ->
   ?number_of_probes:float prop ->
   ?probe_threshold:float prop ->
   ?protocol:string prop ->
   ?request_path:string prop ->
-  ?timeouts:azurerm_lb_probe__timeouts ->
+  ?timeouts:timeouts ->
   loadbalancer_id:string prop ->
   name:string prop ->
   port:float prop ->

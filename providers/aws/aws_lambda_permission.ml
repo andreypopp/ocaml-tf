@@ -26,6 +26,25 @@ type aws_lambda_permission = {
 [@@deriving yojson_of]
 (** aws_lambda_permission *)
 
+let aws_lambda_permission ?event_source_token ?function_url_auth_type
+    ?id ?principal_org_id ?qualifier ?source_account ?source_arn
+    ?statement_id ?statement_id_prefix ~action ~function_name
+    ~principal () : aws_lambda_permission =
+  {
+    action;
+    event_source_token;
+    function_name;
+    function_url_auth_type;
+    id;
+    principal;
+    principal_org_id;
+    qualifier;
+    source_account;
+    source_arn;
+    statement_id;
+    statement_id_prefix;
+  }
+
 type t = {
   action : string prop;
   event_source_token : string prop;
@@ -41,29 +60,18 @@ type t = {
   statement_id_prefix : string prop;
 }
 
-let aws_lambda_permission ?event_source_token ?function_url_auth_type
+let register ?tf_module ?event_source_token ?function_url_auth_type
     ?id ?principal_org_id ?qualifier ?source_account ?source_arn
     ?statement_id ?statement_id_prefix ~action ~function_name
     ~principal __resource_id =
   let __resource_type = "aws_lambda_permission" in
   let __resource =
-    ({
-       action;
-       event_source_token;
-       function_name;
-       function_url_auth_type;
-       id;
-       principal;
-       principal_org_id;
-       qualifier;
-       source_account;
-       source_arn;
-       statement_id;
-       statement_id_prefix;
-     }
-      : aws_lambda_permission)
+    aws_lambda_permission ?event_source_token ?function_url_auth_type
+      ?id ?principal_org_id ?qualifier ?source_account ?source_arn
+      ?statement_id ?statement_id_prefix ~action ~function_name
+      ~principal ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_permission __resource);
   let __resource_attributes =
     ({

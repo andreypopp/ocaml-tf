@@ -4,11 +4,9 @@
 
 open! Tf.Prelude
 
-type aws_chimesdkvoice_sip_media_application__endpoints = {
-  lambda_arn : string prop;  (** lambda_arn *)
-}
+type endpoints = { lambda_arn : string prop  (** lambda_arn *) }
 [@@deriving yojson_of]
-(** aws_chimesdkvoice_sip_media_application__endpoints *)
+(** endpoints *)
 
 type aws_chimesdkvoice_sip_media_application = {
   aws_region : string prop;  (** aws_region *)
@@ -17,10 +15,17 @@ type aws_chimesdkvoice_sip_media_application = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  endpoints : aws_chimesdkvoice_sip_media_application__endpoints list;
+  endpoints : endpoints list;
 }
 [@@deriving yojson_of]
 (** aws_chimesdkvoice_sip_media_application *)
+
+let endpoints ~lambda_arn () : endpoints = { lambda_arn }
+
+let aws_chimesdkvoice_sip_media_application ?id ?tags ?tags_all
+    ~aws_region ~name ~endpoints () :
+    aws_chimesdkvoice_sip_media_application =
+  { aws_region; id; name; tags; tags_all; endpoints }
 
 type t = {
   arn : string prop;
@@ -31,14 +36,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_chimesdkvoice_sip_media_application ?id ?tags ?tags_all
-    ~aws_region ~name ~endpoints __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~aws_region ~name
+    ~endpoints __resource_id =
   let __resource_type = "aws_chimesdkvoice_sip_media_application" in
   let __resource =
-    ({ aws_region; id; name; tags; tags_all; endpoints }
-      : aws_chimesdkvoice_sip_media_application)
+    aws_chimesdkvoice_sip_media_application ?id ?tags ?tags_all
+      ~aws_region ~name ~endpoints ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chimesdkvoice_sip_media_application __resource);
   let __resource_attributes =
     ({

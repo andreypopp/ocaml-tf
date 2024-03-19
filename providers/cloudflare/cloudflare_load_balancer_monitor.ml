@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_load_balancer_monitor__header = {
+type header = {
   header : string prop;  (** The header name. *)
   values : string prop list;  (** A list of values for the header. *)
 }
@@ -45,7 +45,7 @@ type cloudflare_load_balancer_monitor = {
       (** The timeout (in seconds) before marking the health check as failed. Defaults to `5`. *)
   type_ : string prop option; [@option] [@key "type"]
       (** The protocol to use for the healthcheck. Available values: `http`, `https`, `tcp`, `udp_icmp`, `icmp_ping`, `smtp`. Defaults to `http`. *)
-  header : cloudflare_load_balancer_monitor__header list;
+  header : header list;
 }
 [@@deriving yojson_of]
 (** If Cloudflare's Load Balancing to load-balance across multiple
@@ -53,6 +53,34 @@ origin servers or data centers, you configure one of these Monitors
 to actively check the availability of those servers over HTTP(S) or
 TCP.
  *)
+
+let header ~header ~values () : header = { header; values }
+
+let cloudflare_load_balancer_monitor ?allow_insecure
+    ?consecutive_down ?consecutive_up ?description ?expected_body
+    ?expected_codes ?follow_redirects ?id ?interval ?method_ ?path
+    ?port ?probe_zone ?retries ?timeout ?type_ ~account_id ~header ()
+    : cloudflare_load_balancer_monitor =
+  {
+    account_id;
+    allow_insecure;
+    consecutive_down;
+    consecutive_up;
+    description;
+    expected_body;
+    expected_codes;
+    follow_redirects;
+    id;
+    interval;
+    method_;
+    path;
+    port;
+    probe_zone;
+    retries;
+    timeout;
+    type_;
+    header;
+  }
 
 type t = {
   account_id : string prop;
@@ -76,36 +104,19 @@ type t = {
   type_ : string prop;
 }
 
-let cloudflare_load_balancer_monitor ?allow_insecure
-    ?consecutive_down ?consecutive_up ?description ?expected_body
-    ?expected_codes ?follow_redirects ?id ?interval ?method_ ?path
-    ?port ?probe_zone ?retries ?timeout ?type_ ~account_id ~header
-    __resource_id =
+let register ?tf_module ?allow_insecure ?consecutive_down
+    ?consecutive_up ?description ?expected_body ?expected_codes
+    ?follow_redirects ?id ?interval ?method_ ?path ?port ?probe_zone
+    ?retries ?timeout ?type_ ~account_id ~header __resource_id =
   let __resource_type = "cloudflare_load_balancer_monitor" in
   let __resource =
-    ({
-       account_id;
-       allow_insecure;
-       consecutive_down;
-       consecutive_up;
-       description;
-       expected_body;
-       expected_codes;
-       follow_redirects;
-       id;
-       interval;
-       method_;
-       path;
-       port;
-       probe_zone;
-       retries;
-       timeout;
-       type_;
-       header;
-     }
-      : cloudflare_load_balancer_monitor)
+    cloudflare_load_balancer_monitor ?allow_insecure
+      ?consecutive_down ?consecutive_up ?description ?expected_body
+      ?expected_codes ?follow_redirects ?id ?interval ?method_ ?path
+      ?port ?probe_zone ?retries ?timeout ?type_ ~account_id ~header
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_load_balancer_monitor __resource);
   let __resource_attributes =
     ({

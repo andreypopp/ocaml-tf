@@ -2,9 +2,46 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_solution__plan
-type azurerm_log_analytics_solution__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type plan
+
+val plan :
+  ?promotion_code:string prop ->
+  product:string prop ->
+  publisher:string prop ->
+  unit ->
+  plan
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_log_analytics_solution
+
+val azurerm_log_analytics_solution :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  solution_name:string prop ->
+  workspace_name:string prop ->
+  workspace_resource_id:string prop ->
+  plan:plan list ->
+  unit ->
+  azurerm_log_analytics_solution
+
+val yojson_of_azurerm_log_analytics_solution :
+  azurerm_log_analytics_solution -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -16,15 +53,16 @@ type t = private {
   workspace_resource_id : string prop;
 }
 
-val azurerm_log_analytics_solution :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_log_analytics_solution__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   resource_group_name:string prop ->
   solution_name:string prop ->
   workspace_name:string prop ->
   workspace_resource_id:string prop ->
-  plan:azurerm_log_analytics_solution__plan list ->
+  plan:plan list ->
   string ->
   t

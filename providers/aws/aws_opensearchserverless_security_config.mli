@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_opensearchserverless_security_config__saml_options
+(** RESOURCE SERIALIZATION *)
+
+type saml_options
+
+val saml_options :
+  ?group_attribute:string prop ->
+  ?session_timeout:float prop ->
+  ?user_attribute:string prop ->
+  metadata:string prop ->
+  unit ->
+  saml_options
+
 type aws_opensearchserverless_security_config
+
+val aws_opensearchserverless_security_config :
+  ?description:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  saml_options:saml_options ->
+  unit ->
+  aws_opensearchserverless_security_config
+
+val yojson_of_aws_opensearchserverless_security_config :
+  aws_opensearchserverless_security_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   config_version : string prop;
@@ -13,10 +37,11 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_opensearchserverless_security_config :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   name:string prop ->
   type_:string prop ->
-  saml_options:aws_opensearchserverless_security_config__saml_options ->
+  saml_options:saml_options ->
   string ->
   t

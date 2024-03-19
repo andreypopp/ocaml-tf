@@ -13,6 +13,10 @@ type aws_lakeformation_lf_tag = {
 [@@deriving yojson_of]
 (** aws_lakeformation_lf_tag *)
 
+let aws_lakeformation_lf_tag ?catalog_id ?id ~key ~values () :
+    aws_lakeformation_lf_tag =
+  { catalog_id; id; key; values }
+
 type t = {
   catalog_id : string prop;
   id : string prop;
@@ -20,13 +24,12 @@ type t = {
   values : string list prop;
 }
 
-let aws_lakeformation_lf_tag ?catalog_id ?id ~key ~values
-    __resource_id =
+let register ?tf_module ?catalog_id ?id ~key ~values __resource_id =
   let __resource_type = "aws_lakeformation_lf_tag" in
   let __resource =
-    ({ catalog_id; id; key; values } : aws_lakeformation_lf_tag)
+    aws_lakeformation_lf_tag ?catalog_id ?id ~key ~values ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lakeformation_lf_tag __resource);
   let __resource_attributes =
     ({

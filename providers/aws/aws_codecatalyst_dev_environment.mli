@@ -2,11 +2,54 @@
 
 open! Tf.Prelude
 
-type aws_codecatalyst_dev_environment__ides
-type aws_codecatalyst_dev_environment__persistent_storage
-type aws_codecatalyst_dev_environment__repositories
-type aws_codecatalyst_dev_environment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type ides
+
+val ides : ?name:string prop -> ?runtime:string prop -> unit -> ides
+
+type persistent_storage
+
+val persistent_storage :
+  size:float prop -> unit -> persistent_storage
+
+type repositories
+
+val repositories :
+  ?branch_name:string prop ->
+  repository_name:string prop ->
+  unit ->
+  repositories
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_codecatalyst_dev_environment
+
+val aws_codecatalyst_dev_environment :
+  ?alias:string prop ->
+  ?id:string prop ->
+  ?inactivity_timeout_minutes:float prop ->
+  ?timeouts:timeouts ->
+  instance_type:string prop ->
+  project_name:string prop ->
+  space_name:string prop ->
+  ides:ides list ->
+  persistent_storage:persistent_storage list ->
+  repositories:repositories list ->
+  unit ->
+  aws_codecatalyst_dev_environment
+
+val yojson_of_aws_codecatalyst_dev_environment :
+  aws_codecatalyst_dev_environment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   alias : string prop;
@@ -17,17 +60,17 @@ type t = private {
   space_name : string prop;
 }
 
-val aws_codecatalyst_dev_environment :
+val register :
+  ?tf_module:tf_module ->
   ?alias:string prop ->
   ?id:string prop ->
   ?inactivity_timeout_minutes:float prop ->
-  ?timeouts:aws_codecatalyst_dev_environment__timeouts ->
+  ?timeouts:timeouts ->
   instance_type:string prop ->
   project_name:string prop ->
   space_name:string prop ->
-  ides:aws_codecatalyst_dev_environment__ides list ->
-  persistent_storage:
-    aws_codecatalyst_dev_environment__persistent_storage list ->
-  repositories:aws_codecatalyst_dev_environment__repositories list ->
+  ides:ides list ->
+  persistent_storage:persistent_storage list ->
+  repositories:repositories list ->
   string ->
   t

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_config_conformance_pack__input_parameter = {
+type input_parameter = {
   parameter_name : string prop;  (** parameter_name *)
   parameter_value : string prop;  (** parameter_value *)
 }
 [@@deriving yojson_of]
-(** aws_config_conformance_pack__input_parameter *)
+(** input_parameter *)
 
 type aws_config_conformance_pack = {
   delivery_s3_bucket : string prop option; [@option]
@@ -21,10 +21,27 @@ type aws_config_conformance_pack = {
   template_body : string prop option; [@option]  (** template_body *)
   template_s3_uri : string prop option; [@option]
       (** template_s3_uri *)
-  input_parameter : aws_config_conformance_pack__input_parameter list;
+  input_parameter : input_parameter list;
 }
 [@@deriving yojson_of]
 (** aws_config_conformance_pack *)
+
+let input_parameter ~parameter_name ~parameter_value () :
+    input_parameter =
+  { parameter_name; parameter_value }
+
+let aws_config_conformance_pack ?delivery_s3_bucket
+    ?delivery_s3_key_prefix ?id ?template_body ?template_s3_uri ~name
+    ~input_parameter () : aws_config_conformance_pack =
+  {
+    delivery_s3_bucket;
+    delivery_s3_key_prefix;
+    id;
+    name;
+    template_body;
+    template_s3_uri;
+    input_parameter;
+  }
 
 type t = {
   arn : string prop;
@@ -36,23 +53,16 @@ type t = {
   template_s3_uri : string prop;
 }
 
-let aws_config_conformance_pack ?delivery_s3_bucket
-    ?delivery_s3_key_prefix ?id ?template_body ?template_s3_uri ~name
-    ~input_parameter __resource_id =
+let register ?tf_module ?delivery_s3_bucket ?delivery_s3_key_prefix
+    ?id ?template_body ?template_s3_uri ~name ~input_parameter
+    __resource_id =
   let __resource_type = "aws_config_conformance_pack" in
   let __resource =
-    ({
-       delivery_s3_bucket;
-       delivery_s3_key_prefix;
-       id;
-       name;
-       template_body;
-       template_s3_uri;
-       input_parameter;
-     }
-      : aws_config_conformance_pack)
+    aws_config_conformance_pack ?delivery_s3_bucket
+      ?delivery_s3_key_prefix ?id ?template_body ?template_s3_uri
+      ~name ~input_parameter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_config_conformance_pack __resource);
   let __resource_attributes =
     ({

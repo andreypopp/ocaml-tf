@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_email_routing_settings
+
+val cloudflare_email_routing_settings :
+  ?id:string prop ->
+  ?skip_wizard:bool prop ->
+  enabled:bool prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_email_routing_settings
+
+val yojson_of_cloudflare_email_routing_settings :
+  cloudflare_email_routing_settings -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created : string prop;
@@ -16,7 +31,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_email_routing_settings :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?skip_wizard:bool prop ->
   enabled:bool prop ->

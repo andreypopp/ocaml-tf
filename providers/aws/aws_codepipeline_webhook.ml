@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_codepipeline_webhook__authentication_configuration = {
+type authentication_configuration = {
   allowed_ip_range : string prop option; [@option]
       (** allowed_ip_range *)
   secret_token : string prop option; [@option]  (** secret_token *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline_webhook__authentication_configuration *)
+(** authentication_configuration *)
 
-type aws_codepipeline_webhook__filter = {
+type filter = {
   json_path : string prop;  (** json_path *)
   match_equals : string prop;  (** match_equals *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline_webhook__filter *)
+(** filter *)
 
 type aws_codepipeline_webhook = {
   authentication : string prop;  (** authentication *)
@@ -28,12 +28,34 @@ type aws_codepipeline_webhook = {
       (** tags_all *)
   target_action : string prop;  (** target_action *)
   target_pipeline : string prop;  (** target_pipeline *)
-  authentication_configuration :
-    aws_codepipeline_webhook__authentication_configuration list;
-  filter : aws_codepipeline_webhook__filter list;
+  authentication_configuration : authentication_configuration list;
+  filter : filter list;
 }
 [@@deriving yojson_of]
 (** aws_codepipeline_webhook *)
+
+let authentication_configuration ?allowed_ip_range ?secret_token () :
+    authentication_configuration =
+  { allowed_ip_range; secret_token }
+
+let filter ~json_path ~match_equals () : filter =
+  { json_path; match_equals }
+
+let aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
+    ~name ~target_action ~target_pipeline
+    ~authentication_configuration ~filter () :
+    aws_codepipeline_webhook =
+  {
+    authentication;
+    id;
+    name;
+    tags;
+    tags_all;
+    target_action;
+    target_pipeline;
+    authentication_configuration;
+    filter;
+  }
 
 type t = {
   arn : string prop;
@@ -47,25 +69,16 @@ type t = {
   url : string prop;
 }
 
-let aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
-    ~name ~target_action ~target_pipeline
-    ~authentication_configuration ~filter __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~authentication ~name
+    ~target_action ~target_pipeline ~authentication_configuration
+    ~filter __resource_id =
   let __resource_type = "aws_codepipeline_webhook" in
   let __resource =
-    ({
-       authentication;
-       id;
-       name;
-       tags;
-       tags_all;
-       target_action;
-       target_pipeline;
-       authentication_configuration;
-       filter;
-     }
-      : aws_codepipeline_webhook)
+    aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
+      ~name ~target_action ~target_pipeline
+      ~authentication_configuration ~filter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codepipeline_webhook __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_share_file__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_share_file__timeouts *)
+(** timeouts *)
 
 type azurerm_storage_share_file = {
   content_disposition : string prop option; [@option]
@@ -27,10 +27,30 @@ type azurerm_storage_share_file = {
   path : string prop option; [@option]  (** path *)
   source : string prop option; [@option]  (** source *)
   storage_share_id : string prop;  (** storage_share_id *)
-  timeouts : azurerm_storage_share_file__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_share_file *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_storage_share_file ?content_disposition ?content_encoding
+    ?content_md5 ?content_type ?id ?metadata ?path ?source ?timeouts
+    ~name ~storage_share_id () : azurerm_storage_share_file =
+  {
+    content_disposition;
+    content_encoding;
+    content_md5;
+    content_type;
+    id;
+    metadata;
+    name;
+    path;
+    source;
+    storage_share_id;
+    timeouts;
+  }
 
 type t = {
   content_disposition : string prop;
@@ -46,27 +66,16 @@ type t = {
   storage_share_id : string prop;
 }
 
-let azurerm_storage_share_file ?content_disposition ?content_encoding
+let register ?tf_module ?content_disposition ?content_encoding
     ?content_md5 ?content_type ?id ?metadata ?path ?source ?timeouts
     ~name ~storage_share_id __resource_id =
   let __resource_type = "azurerm_storage_share_file" in
   let __resource =
-    ({
-       content_disposition;
-       content_encoding;
-       content_md5;
-       content_type;
-       id;
-       metadata;
-       name;
-       path;
-       source;
-       storage_share_id;
-       timeouts;
-     }
-      : azurerm_storage_share_file)
+    azurerm_storage_share_file ?content_disposition ?content_encoding
+      ?content_md5 ?content_type ?id ?metadata ?path ?source
+      ?timeouts ~name ~storage_share_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_share_file __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_scc_notification_config__streaming_config = {
+type streaming_config = {
   filter : string prop;
       (** Expression that defines the filter to apply across create/update
 events of assets or findings as specified by the event type. The
@@ -35,13 +35,13 @@ for information on how to write a filter. *)
 [@@deriving yojson_of]
 (** The config for triggering streaming-based notifications. *)
 
-type google_scc_notification_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_scc_notification_config__timeouts *)
+(** timeouts *)
 
 type google_scc_notification_config = {
   config_id : string prop;
@@ -55,12 +55,29 @@ Config lives in. *)
   pubsub_topic : string prop;
       (** The Pub/Sub topic to send notifications to. Its format is
 projects/[project_id]/topics/[topic]. *)
-  streaming_config :
-    google_scc_notification_config__streaming_config list;
-  timeouts : google_scc_notification_config__timeouts option;
+  streaming_config : streaming_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_scc_notification_config *)
+
+let streaming_config ~filter () : streaming_config = { filter }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_scc_notification_config ?description ?id ?timeouts
+    ~config_id ~organization ~pubsub_topic ~streaming_config () :
+    google_scc_notification_config =
+  {
+    config_id;
+    description;
+    id;
+    organization;
+    pubsub_topic;
+    streaming_config;
+    timeouts;
+  }
 
 type t = {
   config_id : string prop;
@@ -72,23 +89,14 @@ type t = {
   service_account : string prop;
 }
 
-let google_scc_notification_config ?description ?id ?timeouts
-    ~config_id ~organization ~pubsub_topic ~streaming_config
-    __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~config_id
+    ~organization ~pubsub_topic ~streaming_config __resource_id =
   let __resource_type = "google_scc_notification_config" in
   let __resource =
-    ({
-       config_id;
-       description;
-       id;
-       organization;
-       pubsub_topic;
-       streaming_config;
-       timeouts;
-     }
-      : google_scc_notification_config)
+    google_scc_notification_config ?description ?id ?timeouts
+      ~config_id ~organization ~pubsub_topic ~streaming_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_notification_config __resource);
   let __resource_attributes =
     ({

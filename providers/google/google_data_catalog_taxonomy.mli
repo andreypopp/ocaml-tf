@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_taxonomy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_data_catalog_taxonomy
+
+val google_data_catalog_taxonomy :
+  ?activated_policy_types:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  unit ->
+  google_data_catalog_taxonomy
+
+val yojson_of_google_data_catalog_taxonomy :
+  google_data_catalog_taxonomy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   activated_policy_types : string list prop;
@@ -15,13 +41,14 @@ type t = private {
   region : string prop;
 }
 
-val google_data_catalog_taxonomy :
+val register :
+  ?tf_module:tf_module ->
   ?activated_policy_types:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?timeouts:google_data_catalog_taxonomy__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   string ->
   t

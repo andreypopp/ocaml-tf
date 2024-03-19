@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_bigquery_dataset_access__dataset__dataset = {
+type dataset__dataset = {
   dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
   project_id : string prop;
@@ -13,16 +13,16 @@ type google_bigquery_dataset_access__dataset__dataset = {
 [@@deriving yojson_of]
 (** The dataset this entry applies to *)
 
-type google_bigquery_dataset_access__dataset = {
+type dataset = {
   target_types : string prop list;
       (** Which resources in the dataset this entry applies to. Currently, only views are supported,
 but additional target types may be added in the future. Possible values: VIEWS *)
-  dataset : google_bigquery_dataset_access__dataset__dataset list;
+  dataset : dataset__dataset list;
 }
 [@@deriving yojson_of]
 (** Grants all resources of particular types in a particular dataset read access to the current dataset. *)
 
-type google_bigquery_dataset_access__routine = {
+type routine = {
   dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
   project_id : string prop;
@@ -39,14 +39,14 @@ this dataset. The role field is not required when this field is
 set. If that routine is updated by any user, access to the routine
 needs to be granted again via an update operation. *)
 
-type google_bigquery_dataset_access__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_dataset_access__timeouts *)
+(** timeouts *)
 
-type google_bigquery_dataset_access__view = {
+type view = {
   dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
   project_id : string prop;
@@ -102,13 +102,47 @@ post-create. See
   user_by_email : string prop option; [@option]
       (** An email address of a user to grant access to. For example:
 fred@example.com *)
-  dataset : google_bigquery_dataset_access__dataset list;
-  routine : google_bigquery_dataset_access__routine list;
-  timeouts : google_bigquery_dataset_access__timeouts option;
-  view : google_bigquery_dataset_access__view list;
+  dataset : dataset list;
+  routine : routine list;
+  timeouts : timeouts option;
+  view : view list;
 }
 [@@deriving yojson_of]
 (** google_bigquery_dataset_access *)
+
+let dataset__dataset ~dataset_id ~project_id () : dataset__dataset =
+  { dataset_id; project_id }
+
+let dataset ~target_types ~dataset () : dataset =
+  { target_types; dataset }
+
+let routine ~dataset_id ~project_id ~routine_id () : routine =
+  { dataset_id; project_id; routine_id }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let view ~dataset_id ~project_id ~table_id () : view =
+  { dataset_id; project_id; table_id }
+
+let google_bigquery_dataset_access ?domain ?group_by_email
+    ?iam_member ?id ?project ?role ?special_group ?user_by_email
+    ?timeouts ~dataset_id ~dataset ~routine ~view () :
+    google_bigquery_dataset_access =
+  {
+    dataset_id;
+    domain;
+    group_by_email;
+    iam_member;
+    id;
+    project;
+    role;
+    special_group;
+    user_by_email;
+    dataset;
+    routine;
+    timeouts;
+    view;
+  }
 
 type t = {
   api_updated_member : bool prop;
@@ -123,29 +157,16 @@ type t = {
   user_by_email : string prop;
 }
 
-let google_bigquery_dataset_access ?domain ?group_by_email
-    ?iam_member ?id ?project ?role ?special_group ?user_by_email
-    ?timeouts ~dataset_id ~dataset ~routine ~view __resource_id =
+let register ?tf_module ?domain ?group_by_email ?iam_member ?id
+    ?project ?role ?special_group ?user_by_email ?timeouts
+    ~dataset_id ~dataset ~routine ~view __resource_id =
   let __resource_type = "google_bigquery_dataset_access" in
   let __resource =
-    ({
-       dataset_id;
-       domain;
-       group_by_email;
-       iam_member;
-       id;
-       project;
-       role;
-       special_group;
-       user_by_email;
-       dataset;
-       routine;
-       timeouts;
-       view;
-     }
-      : google_bigquery_dataset_access)
+    google_bigquery_dataset_access ?domain ?group_by_email
+      ?iam_member ?id ?project ?role ?special_group ?user_by_email
+      ?timeouts ~dataset_id ~dataset ~routine ~view ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_dataset_access __resource);
   let __resource_attributes =
     ({

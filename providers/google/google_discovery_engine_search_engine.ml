@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_discovery_engine_search_engine__common_config = {
+type common_config = {
   company_name : string prop option; [@option]
       (** The name of the company, business or entity that is associated with the engine. Setting this may help improve LLM related features.cd *)
 }
 [@@deriving yojson_of]
 (** Common config spec that specifies the metadata of the engine. *)
 
-type google_discovery_engine_search_engine__search_engine_config = {
+type search_engine_config = {
   search_add_ons : string prop list option; [@option]
       (** The add-on that this search engine enables. Possible values: [SEARCH_ADD_ON_LLM] *)
   search_tier : string prop option; [@option]
@@ -20,13 +20,13 @@ type google_discovery_engine_search_engine__search_engine_config = {
 [@@deriving yojson_of]
 (** Configurations for a Search Engine. *)
 
-type google_discovery_engine_search_engine__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_discovery_engine_search_engine__timeouts *)
+(** timeouts *)
 
 type google_discovery_engine_search_engine = {
   collection_id : string prop;  (** The collection ID. *)
@@ -41,14 +41,39 @@ type google_discovery_engine_search_engine = {
       (** The industry vertical that the engine registers. The restriction of the Engine industry vertical is based on DataStore: If unspecified, default to GENERIC. Vertical on Engine has to match vertical of the DataStore liniked to the engine. Default value: GENERIC Possible values: [GENERIC, MEDIA] *)
   location : string prop;  (** Location. *)
   project : string prop option; [@option]  (** project *)
-  common_config :
-    google_discovery_engine_search_engine__common_config list;
-  search_engine_config :
-    google_discovery_engine_search_engine__search_engine_config list;
-  timeouts : google_discovery_engine_search_engine__timeouts option;
+  common_config : common_config list;
+  search_engine_config : search_engine_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_discovery_engine_search_engine *)
+
+let common_config ?company_name () : common_config = { company_name }
+
+let search_engine_config ?search_add_ons ?search_tier () :
+    search_engine_config =
+  { search_add_ons; search_tier }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_discovery_engine_search_engine ?id ?industry_vertical
+    ?project ?timeouts ~collection_id ~data_store_ids ~display_name
+    ~engine_id ~location ~common_config ~search_engine_config () :
+    google_discovery_engine_search_engine =
+  {
+    collection_id;
+    data_store_ids;
+    display_name;
+    engine_id;
+    id;
+    industry_vertical;
+    location;
+    project;
+    common_config;
+    search_engine_config;
+    timeouts;
+  }
 
 type t = {
   collection_id : string prop;
@@ -64,28 +89,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_discovery_engine_search_engine ?id ?industry_vertical
-    ?project ?timeouts ~collection_id ~data_store_ids ~display_name
-    ~engine_id ~location ~common_config ~search_engine_config
-    __resource_id =
+let register ?tf_module ?id ?industry_vertical ?project ?timeouts
+    ~collection_id ~data_store_ids ~display_name ~engine_id ~location
+    ~common_config ~search_engine_config __resource_id =
   let __resource_type = "google_discovery_engine_search_engine" in
   let __resource =
-    ({
-       collection_id;
-       data_store_ids;
-       display_name;
-       engine_id;
-       id;
-       industry_vertical;
-       location;
-       project;
-       common_config;
-       search_engine_config;
-       timeouts;
-     }
-      : google_discovery_engine_search_engine)
+    google_discovery_engine_search_engine ?id ?industry_vertical
+      ?project ?timeouts ~collection_id ~data_store_ids ~display_name
+      ~engine_id ~location ~common_config ~search_engine_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_discovery_engine_search_engine __resource);
   let __resource_attributes =
     ({

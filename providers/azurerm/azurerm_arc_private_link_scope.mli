@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_arc_private_link_scope__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_arc_private_link_scope
+
+val azurerm_arc_private_link_scope :
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_arc_private_link_scope
+
+val yojson_of_azurerm_arc_private_link_scope :
+  azurerm_arc_private_link_scope -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,11 +41,12 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_arc_private_link_scope :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_arc_private_link_scope__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

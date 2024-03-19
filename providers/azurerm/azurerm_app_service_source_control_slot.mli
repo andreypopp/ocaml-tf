@@ -2,14 +2,66 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_source_control_slot__github_action_configuration__code_configuration
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_app_service_source_control_slot__github_action_configuration__container_configuration
+type github_action_configuration__code_configuration
 
-type azurerm_app_service_source_control_slot__github_action_configuration
+val github_action_configuration__code_configuration :
+  runtime_stack:string prop ->
+  runtime_version:string prop ->
+  unit ->
+  github_action_configuration__code_configuration
 
-type azurerm_app_service_source_control_slot__timeouts
+type github_action_configuration__container_configuration
+
+val github_action_configuration__container_configuration :
+  ?registry_password:string prop ->
+  ?registry_username:string prop ->
+  image_name:string prop ->
+  registry_url:string prop ->
+  unit ->
+  github_action_configuration__container_configuration
+
+type github_action_configuration
+
+val github_action_configuration :
+  ?generate_workflow_file:bool prop ->
+  code_configuration:
+    github_action_configuration__code_configuration list ->
+  container_configuration:
+    github_action_configuration__container_configuration list ->
+  unit ->
+  github_action_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_app_service_source_control_slot
+
+val azurerm_app_service_source_control_slot :
+  ?branch:string prop ->
+  ?id:string prop ->
+  ?repo_url:string prop ->
+  ?rollback_enabled:bool prop ->
+  ?use_local_git:bool prop ->
+  ?use_manual_integration:bool prop ->
+  ?use_mercurial:bool prop ->
+  ?timeouts:timeouts ->
+  slot_id:string prop ->
+  github_action_configuration:github_action_configuration list ->
+  unit ->
+  azurerm_app_service_source_control_slot
+
+val yojson_of_azurerm_app_service_source_control_slot :
+  azurerm_app_service_source_control_slot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   branch : string prop;
@@ -24,7 +76,8 @@ type t = private {
   uses_github_action : bool prop;
 }
 
-val azurerm_app_service_source_control_slot :
+val register :
+  ?tf_module:tf_module ->
   ?branch:string prop ->
   ?id:string prop ->
   ?repo_url:string prop ->
@@ -32,10 +85,8 @@ val azurerm_app_service_source_control_slot :
   ?use_local_git:bool prop ->
   ?use_manual_integration:bool prop ->
   ?use_mercurial:bool prop ->
-  ?timeouts:azurerm_app_service_source_control_slot__timeouts ->
+  ?timeouts:timeouts ->
   slot_id:string prop ->
-  github_action_configuration:
-    azurerm_app_service_source_control_slot__github_action_configuration
-    list ->
+  github_action_configuration:github_action_configuration list ->
   string ->
   t

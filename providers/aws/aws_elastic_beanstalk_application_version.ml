@@ -19,6 +19,21 @@ type aws_elastic_beanstalk_application_version = {
 [@@deriving yojson_of]
 (** aws_elastic_beanstalk_application_version *)
 
+let aws_elastic_beanstalk_application_version ?description
+    ?force_delete ?id ?tags ?tags_all ~application ~bucket ~key ~name
+    () : aws_elastic_beanstalk_application_version =
+  {
+    application;
+    bucket;
+    description;
+    force_delete;
+    id;
+    key;
+    name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   application : string prop;
   arn : string prop;
@@ -32,27 +47,17 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_elastic_beanstalk_application_version ?description
-    ?force_delete ?id ?tags ?tags_all ~application ~bucket ~key ~name
-    __resource_id =
+let register ?tf_module ?description ?force_delete ?id ?tags
+    ?tags_all ~application ~bucket ~key ~name __resource_id =
   let __resource_type =
     "aws_elastic_beanstalk_application_version"
   in
   let __resource =
-    ({
-       application;
-       bucket;
-       description;
-       force_delete;
-       id;
-       key;
-       name;
-       tags;
-       tags_all;
-     }
-      : aws_elastic_beanstalk_application_version)
+    aws_elastic_beanstalk_application_version ?description
+      ?force_delete ?id ?tags ?tags_all ~application ~bucket ~key
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elastic_beanstalk_application_version __resource);
   let __resource_attributes =
     ({

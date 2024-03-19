@@ -40,6 +40,31 @@ type cloudflare_waiting_room_event = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Waiting Room Event resource. *)
 
+let cloudflare_waiting_room_event ?custom_page_html ?description
+    ?disable_session_renewal ?id ?new_users_per_minute
+    ?prequeue_start_time ?queueing_method ?session_duration
+    ?shuffle_at_event_start ?suspended ?total_active_users
+    ~event_end_time ~event_start_time ~name ~waiting_room_id ~zone_id
+    () : cloudflare_waiting_room_event =
+  {
+    custom_page_html;
+    description;
+    disable_session_renewal;
+    event_end_time;
+    event_start_time;
+    id;
+    name;
+    new_users_per_minute;
+    prequeue_start_time;
+    queueing_method;
+    session_duration;
+    shuffle_at_event_start;
+    suspended;
+    total_active_users;
+    waiting_room_id;
+    zone_id;
+  }
+
 type t = {
   created_on : string prop;
   custom_page_html : string prop;
@@ -61,7 +86,7 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_waiting_room_event ?custom_page_html ?description
+let register ?tf_module ?custom_page_html ?description
     ?disable_session_renewal ?id ?new_users_per_minute
     ?prequeue_start_time ?queueing_method ?session_duration
     ?shuffle_at_event_start ?suspended ?total_active_users
@@ -69,27 +94,14 @@ let cloudflare_waiting_room_event ?custom_page_html ?description
     __resource_id =
   let __resource_type = "cloudflare_waiting_room_event" in
   let __resource =
-    ({
-       custom_page_html;
-       description;
-       disable_session_renewal;
-       event_end_time;
-       event_start_time;
-       id;
-       name;
-       new_users_per_minute;
-       prequeue_start_time;
-       queueing_method;
-       session_duration;
-       shuffle_at_event_start;
-       suspended;
-       total_active_users;
-       waiting_room_id;
-       zone_id;
-     }
-      : cloudflare_waiting_room_event)
+    cloudflare_waiting_room_event ?custom_page_html ?description
+      ?disable_session_renewal ?id ?new_users_per_minute
+      ?prequeue_start_time ?queueing_method ?session_duration
+      ?shuffle_at_event_start ?suspended ?total_active_users
+      ~event_end_time ~event_start_time ~name ~waiting_room_id
+      ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_waiting_room_event __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_managed_database__long_term_retention_policy = {
+type long_term_retention_policy = {
   immutable_backups_enabled : bool prop option; [@option]
       (** immutable_backups_enabled *)
   monthly_retention : string prop option; [@option]
@@ -16,23 +16,23 @@ type azurerm_mssql_managed_database__long_term_retention_policy = {
       (** yearly_retention *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_managed_database__long_term_retention_policy *)
+(** long_term_retention_policy *)
 
-type azurerm_mssql_managed_database__point_in_time_restore = {
+type point_in_time_restore = {
   restore_point_in_time : string prop;  (** restore_point_in_time *)
   source_database_id : string prop;  (** source_database_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_managed_database__point_in_time_restore *)
+(** point_in_time_restore *)
 
-type azurerm_mssql_managed_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_managed_database__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_managed_database = {
   id : string prop option; [@option]  (** id *)
@@ -40,14 +40,43 @@ type azurerm_mssql_managed_database = {
   name : string prop;  (** name *)
   short_term_retention_days : float prop option; [@option]
       (** short_term_retention_days *)
-  long_term_retention_policy :
-    azurerm_mssql_managed_database__long_term_retention_policy list;
-  point_in_time_restore :
-    azurerm_mssql_managed_database__point_in_time_restore list;
-  timeouts : azurerm_mssql_managed_database__timeouts option;
+  long_term_retention_policy : long_term_retention_policy list;
+  point_in_time_restore : point_in_time_restore list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_database *)
+
+let long_term_retention_policy ?immutable_backups_enabled
+    ?monthly_retention ?week_of_year ?weekly_retention
+    ?yearly_retention () : long_term_retention_policy =
+  {
+    immutable_backups_enabled;
+    monthly_retention;
+    week_of_year;
+    weekly_retention;
+    yearly_retention;
+  }
+
+let point_in_time_restore ~restore_point_in_time ~source_database_id
+    () : point_in_time_restore =
+  { restore_point_in_time; source_database_id }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_managed_database ?id ?short_term_retention_days
+    ?timeouts ~managed_instance_id ~name ~long_term_retention_policy
+    ~point_in_time_restore () : azurerm_mssql_managed_database =
+  {
+    id;
+    managed_instance_id;
+    name;
+    short_term_retention_days;
+    long_term_retention_policy;
+    point_in_time_restore;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -56,23 +85,16 @@ type t = {
   short_term_retention_days : float prop;
 }
 
-let azurerm_mssql_managed_database ?id ?short_term_retention_days
-    ?timeouts ~managed_instance_id ~name ~long_term_retention_policy
+let register ?tf_module ?id ?short_term_retention_days ?timeouts
+    ~managed_instance_id ~name ~long_term_retention_policy
     ~point_in_time_restore __resource_id =
   let __resource_type = "azurerm_mssql_managed_database" in
   let __resource =
-    ({
-       id;
-       managed_instance_id;
-       name;
-       short_term_retention_days;
-       long_term_retention_policy;
-       point_in_time_restore;
-       timeouts;
-     }
-      : azurerm_mssql_managed_database)
+    azurerm_mssql_managed_database ?id ?short_term_retention_days
+      ?timeouts ~managed_instance_id ~name
+      ~long_term_retention_policy ~point_in_time_restore ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_database __resource);
   let __resource_attributes =
     ({

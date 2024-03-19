@@ -2,8 +2,41 @@
 
 open! Tf.Prelude
 
-type aws_api_gateway_rest_api__endpoint_configuration
+(** RESOURCE SERIALIZATION *)
+
+type endpoint_configuration
+
+val endpoint_configuration :
+  ?vpc_endpoint_ids:string prop list ->
+  types:string prop list ->
+  unit ->
+  endpoint_configuration
+
 type aws_api_gateway_rest_api
+
+val aws_api_gateway_rest_api :
+  ?api_key_source:string prop ->
+  ?binary_media_types:string prop list ->
+  ?body:string prop ->
+  ?description:string prop ->
+  ?disable_execute_api_endpoint:bool prop ->
+  ?fail_on_warnings:bool prop ->
+  ?id:string prop ->
+  ?minimum_compression_size:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?policy:string prop ->
+  ?put_rest_api_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  endpoint_configuration:endpoint_configuration list ->
+  unit ->
+  aws_api_gateway_rest_api
+
+val yojson_of_aws_api_gateway_rest_api :
+  aws_api_gateway_rest_api -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_key_source : string prop;
@@ -26,7 +59,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_api_gateway_rest_api :
+val register :
+  ?tf_module:tf_module ->
   ?api_key_source:string prop ->
   ?binary_media_types:string prop list ->
   ?body:string prop ->
@@ -41,7 +75,6 @@ val aws_api_gateway_rest_api :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  endpoint_configuration:
-    aws_api_gateway_rest_api__endpoint_configuration list ->
+  endpoint_configuration:endpoint_configuration list ->
   string ->
   t

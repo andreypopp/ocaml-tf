@@ -4,73 +4,61 @@
 
 open! Tf.Prelude
 
-type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat__backend_config = {
+type destination_nat__backend_config = {
   port : float prop;  (** port *)
   public_ip_address : string prop;  (** public_ip_address *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat__backend_config *)
+(** destination_nat__backend_config *)
 
-type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat__frontend_config = {
+type destination_nat__frontend_config = {
   port : float prop;  (** port *)
   public_ip_address_id : string prop;  (** public_ip_address_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat__frontend_config *)
+(** destination_nat__frontend_config *)
 
-type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat = {
+type destination_nat = {
   name : string prop;  (** name *)
   protocol : string prop;  (** protocol *)
-  backend_config :
-    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat__backend_config
-    list;
-  frontend_config :
-    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat__frontend_config
-    list;
+  backend_config : destination_nat__backend_config list;
+  frontend_config : destination_nat__frontend_config list;
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat *)
+(** destination_nat *)
 
-type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__dns_settings = {
-  azure_dns_servers : string prop list;  (** azure_dns_servers *)
+type dns_settings = {
   dns_servers : string prop list option; [@option]
       (** dns_servers *)
   use_azure_dns : bool prop option; [@option]  (** use_azure_dns *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__dns_settings *)
+(** dns_settings *)
 
-type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__network_profile = {
+type network_profile = {
   egress_nat_ip_address_ids : string prop list option; [@option]
       (** egress_nat_ip_address_ids *)
-  egress_nat_ip_addresses : string prop list;
-      (** egress_nat_ip_addresses *)
-  ip_of_trust_for_user_defined_routes : string prop;
-      (** ip_of_trust_for_user_defined_routes *)
   network_virtual_appliance_id : string prop;
       (** network_virtual_appliance_id *)
   public_ip_address_ids : string prop list;
       (** public_ip_address_ids *)
-  public_ip_addresses : string prop list;  (** public_ip_addresses *)
   trusted_address_ranges : string prop list option; [@option]
       (** trusted_address_ranges *)
-  trusted_subnet_id : string prop;  (** trusted_subnet_id *)
-  untrusted_subnet_id : string prop;  (** untrusted_subnet_id *)
   virtual_hub_id : string prop;  (** virtual_hub_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__network_profile *)
+(** network_profile *)
 
-type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__timeouts *)
+(** timeouts *)
 
-type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__panorama = {
+type panorama = {
   device_group_name : string prop;  (** device_group_name *)
   host_name : string prop;  (** host_name *)
   name : string prop;  (** name *)
@@ -90,58 +78,84 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama = {
       (** panorama_base64_config *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  destination_nat :
-    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__destination_nat
-    list;
-  dns_settings :
-    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__dns_settings
-    list;
-  network_profile :
-    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__network_profile
-    list;
-  timeouts :
-    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__timeouts
-    option;
+  destination_nat : destination_nat list;
+  dns_settings : dns_settings list;
+  network_profile : network_profile list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama *)
+
+let destination_nat__backend_config ~port ~public_ip_address () :
+    destination_nat__backend_config =
+  { port; public_ip_address }
+
+let destination_nat__frontend_config ~port ~public_ip_address_id () :
+    destination_nat__frontend_config =
+  { port; public_ip_address_id }
+
+let destination_nat ~name ~protocol ~backend_config ~frontend_config
+    () : destination_nat =
+  { name; protocol; backend_config; frontend_config }
+
+let dns_settings ?dns_servers ?use_azure_dns () : dns_settings =
+  { dns_servers; use_azure_dns }
+
+let network_profile ?egress_nat_ip_address_ids
+    ?trusted_address_ranges ~network_virtual_appliance_id
+    ~public_ip_address_ids ~virtual_hub_id () : network_profile =
+  {
+    egress_nat_ip_address_ids;
+    network_virtual_appliance_id;
+    public_ip_address_ids;
+    trusted_address_ranges;
+    virtual_hub_id;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
+    ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
+    ~resource_group_name ~destination_nat ~dns_settings
+    ~network_profile () :
+    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama =
+  {
+    id;
+    location;
+    name;
+    panorama_base64_config;
+    resource_group_name;
+    tags;
+    destination_nat;
+    dns_settings;
+    network_profile;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
   location : string prop;
   name : string prop;
-  panorama :
-    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__panorama
-    list
-    prop;
+  panorama : panorama list prop;
   panorama_base64_config : string prop;
   resource_group_name : string prop;
   tags : (string * string) list prop;
 }
 
-let azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
-    ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
-    ~resource_group_name ~destination_nat ~dns_settings
-    ~network_profile __resource_id =
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~panorama_base64_config ~resource_group_name ~destination_nat
+    ~dns_settings ~network_profile __resource_id =
   let __resource_type =
     "azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama"
   in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       panorama_base64_config;
-       resource_group_name;
-       tags;
-       destination_nat;
-       dns_settings;
-       network_profile;
-       timeouts;
-     }
-      : azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama)
+    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
+      ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
+      ~resource_group_name ~destination_nat ~dns_settings
+      ~network_profile ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
        __resource);
   let __resource_attributes =

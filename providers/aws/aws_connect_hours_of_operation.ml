@@ -4,28 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_connect_hours_of_operation__config__end_time = {
+type config__end_time = {
   hours : float prop;  (** hours *)
   minutes : float prop;  (** minutes *)
 }
 [@@deriving yojson_of]
-(** aws_connect_hours_of_operation__config__end_time *)
+(** config__end_time *)
 
-type aws_connect_hours_of_operation__config__start_time = {
+type config__start_time = {
   hours : float prop;  (** hours *)
   minutes : float prop;  (** minutes *)
 }
 [@@deriving yojson_of]
-(** aws_connect_hours_of_operation__config__start_time *)
+(** config__start_time *)
 
-type aws_connect_hours_of_operation__config = {
+type config = {
   day : string prop;  (** day *)
-  end_time : aws_connect_hours_of_operation__config__end_time list;
-  start_time :
-    aws_connect_hours_of_operation__config__start_time list;
+  end_time : config__end_time list;
+  start_time : config__start_time list;
 }
 [@@deriving yojson_of]
-(** aws_connect_hours_of_operation__config *)
+(** config *)
 
 type aws_connect_hours_of_operation = {
   description : string prop option; [@option]  (** description *)
@@ -36,10 +35,33 @@ type aws_connect_hours_of_operation = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   time_zone : string prop;  (** time_zone *)
-  config : aws_connect_hours_of_operation__config list;
+  config : config list;
 }
 [@@deriving yojson_of]
 (** aws_connect_hours_of_operation *)
+
+let config__end_time ~hours ~minutes () : config__end_time =
+  { hours; minutes }
+
+let config__start_time ~hours ~minutes () : config__start_time =
+  { hours; minutes }
+
+let config ~day ~end_time ~start_time () : config =
+  { day; end_time; start_time }
+
+let aws_connect_hours_of_operation ?description ?id ?tags ?tags_all
+    ~instance_id ~name ~time_zone ~config () :
+    aws_connect_hours_of_operation =
+  {
+    description;
+    id;
+    instance_id;
+    name;
+    tags;
+    tags_all;
+    time_zone;
+    config;
+  }
 
 type t = {
   arn : string prop;
@@ -53,23 +75,14 @@ type t = {
   time_zone : string prop;
 }
 
-let aws_connect_hours_of_operation ?description ?id ?tags ?tags_all
-    ~instance_id ~name ~time_zone ~config __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~instance_id
+    ~name ~time_zone ~config __resource_id =
   let __resource_type = "aws_connect_hours_of_operation" in
   let __resource =
-    ({
-       description;
-       id;
-       instance_id;
-       name;
-       tags;
-       tags_all;
-       time_zone;
-       config;
-     }
-      : aws_connect_hours_of_operation)
+    aws_connect_hours_of_operation ?description ?id ?tags ?tags_all
+      ~instance_id ~name ~time_zone ~config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_hours_of_operation __resource);
   let __resource_attributes =
     ({

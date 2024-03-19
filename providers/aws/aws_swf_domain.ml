@@ -18,6 +18,19 @@ type aws_swf_domain = {
 [@@deriving yojson_of]
 (** aws_swf_domain *)
 
+let aws_swf_domain ?description ?id ?name ?name_prefix ?tags
+    ?tags_all ~workflow_execution_retention_period_in_days () :
+    aws_swf_domain =
+  {
+    description;
+    id;
+    name;
+    name_prefix;
+    tags;
+    tags_all;
+    workflow_execution_retention_period_in_days;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -29,23 +42,15 @@ type t = {
   workflow_execution_retention_period_in_days : string prop;
 }
 
-let aws_swf_domain ?description ?id ?name ?name_prefix ?tags
+let register ?tf_module ?description ?id ?name ?name_prefix ?tags
     ?tags_all ~workflow_execution_retention_period_in_days
     __resource_id =
   let __resource_type = "aws_swf_domain" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       name_prefix;
-       tags;
-       tags_all;
-       workflow_execution_retention_period_in_days;
-     }
-      : aws_swf_domain)
+    aws_swf_domain ?description ?id ?name ?name_prefix ?tags
+      ?tags_all ~workflow_execution_retention_period_in_days ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_swf_domain __resource);
   let __resource_attributes =
     ({

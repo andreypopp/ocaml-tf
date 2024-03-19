@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_s3control_access_grants_instance
+
+val aws_s3control_access_grants_instance :
+  ?account_id:string prop ->
+  ?identity_center_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  unit ->
+  aws_s3control_access_grants_instance
+
+val yojson_of_aws_s3control_access_grants_instance :
+  aws_s3control_access_grants_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_grants_instance_arn : string prop;
@@ -15,7 +29,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_s3control_access_grants_instance :
+val register :
+  ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?identity_center_arn:string prop ->
   ?tags:(string * string prop) list ->

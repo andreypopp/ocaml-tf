@@ -2,31 +2,50 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_certificate_map__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_certificate_manager_certificate_map__gclb_targets__ip_configs = {
+type gclb_targets__ip_configs = {
   ip_address : string prop;  (** ip_address *)
   ports : float prop list;  (** ports *)
 }
 
-type google_certificate_manager_certificate_map__gclb_targets = {
-  ip_configs :
-    google_certificate_manager_certificate_map__gclb_targets__ip_configs
-    list;
-      (** ip_configs *)
+type gclb_targets = {
+  ip_configs : gclb_targets__ip_configs list;  (** ip_configs *)
   target_https_proxy : string prop;  (** target_https_proxy *)
   target_ssl_proxy : string prop;  (** target_ssl_proxy *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_certificate_manager_certificate_map
+
+val google_certificate_manager_certificate_map :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  unit ->
+  google_certificate_manager_certificate_map
+
+val yojson_of_google_certificate_manager_certificate_map :
+  google_certificate_manager_certificate_map -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
-  gclb_targets :
-    google_certificate_manager_certificate_map__gclb_targets list
-    prop;
+  gclb_targets : gclb_targets list prop;
   id : string prop;
   labels : (string * string) list prop;
   name : string prop;
@@ -35,12 +54,13 @@ type t = private {
   update_time : string prop;
 }
 
-val google_certificate_manager_certificate_map :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_certificate_manager_certificate_map__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   string ->
   t

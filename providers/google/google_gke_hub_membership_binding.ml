@@ -4,17 +4,15 @@
 
 open! Tf.Prelude
 
-type google_gke_hub_membership_binding__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gke_hub_membership_binding__timeouts *)
+(** timeouts *)
 
-type google_gke_hub_membership_binding__state = {
-  code : string prop;  (** code *)
-}
+type state = { code : string prop  (** code *) }
 [@@deriving yojson_of]
 
 type google_gke_hub_membership_binding = {
@@ -33,10 +31,27 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   scope : string prop;
       (** A Workspace resource name in the format
 'projects/*/locations/*/scopes/*'. *)
-  timeouts : google_gke_hub_membership_binding__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gke_hub_membership_binding *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gke_hub_membership_binding ?id ?labels ?project ?timeouts
+    ~location ~membership_binding_id ~membership_id ~scope () :
+    google_gke_hub_membership_binding =
+  {
+    id;
+    labels;
+    location;
+    membership_binding_id;
+    membership_id;
+    project;
+    scope;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -50,30 +65,20 @@ type t = {
   name : string prop;
   project : string prop;
   scope : string prop;
-  state : google_gke_hub_membership_binding__state list prop;
+  state : state list prop;
   terraform_labels : (string * string) list prop;
   uid : string prop;
   update_time : string prop;
 }
 
-let google_gke_hub_membership_binding ?id ?labels ?project ?timeouts
-    ~location ~membership_binding_id ~membership_id ~scope
-    __resource_id =
+let register ?tf_module ?id ?labels ?project ?timeouts ~location
+    ~membership_binding_id ~membership_id ~scope __resource_id =
   let __resource_type = "google_gke_hub_membership_binding" in
   let __resource =
-    ({
-       id;
-       labels;
-       location;
-       membership_binding_id;
-       membership_id;
-       project;
-       scope;
-       timeouts;
-     }
-      : google_gke_hub_membership_binding)
+    google_gke_hub_membership_binding ?id ?labels ?project ?timeouts
+      ~location ~membership_binding_id ~membership_id ~scope ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_membership_binding __resource);
   let __resource_attributes =
     ({

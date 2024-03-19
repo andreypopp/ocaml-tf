@@ -2,9 +2,56 @@
 
 open! Tf.Prelude
 
-type aws_dms_replication_config__compute_config
-type aws_dms_replication_config__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type compute_config
+
+val compute_config :
+  ?availability_zone:string prop ->
+  ?dns_name_servers:string prop ->
+  ?kms_key_id:string prop ->
+  ?max_capacity_units:float prop ->
+  ?min_capacity_units:float prop ->
+  ?multi_az:bool prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?vpc_security_group_ids:string prop list ->
+  replication_subnet_group_id:string prop ->
+  unit ->
+  compute_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_dms_replication_config
+
+val aws_dms_replication_config :
+  ?id:string prop ->
+  ?replication_settings:string prop ->
+  ?resource_identifier:string prop ->
+  ?start_replication:bool prop ->
+  ?supplemental_settings:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  replication_config_identifier:string prop ->
+  replication_type:string prop ->
+  source_endpoint_arn:string prop ->
+  table_mappings:string prop ->
+  target_endpoint_arn:string prop ->
+  compute_config:compute_config list ->
+  unit ->
+  aws_dms_replication_config
+
+val yojson_of_aws_dms_replication_config :
+  aws_dms_replication_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -22,7 +69,8 @@ type t = private {
   target_endpoint_arn : string prop;
 }
 
-val aws_dms_replication_config :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?replication_settings:string prop ->
   ?resource_identifier:string prop ->
@@ -30,12 +78,12 @@ val aws_dms_replication_config :
   ?supplemental_settings:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_dms_replication_config__timeouts ->
+  ?timeouts:timeouts ->
   replication_config_identifier:string prop ->
   replication_type:string prop ->
   source_endpoint_arn:string prop ->
   table_mappings:string prop ->
   target_endpoint_arn:string prop ->
-  compute_config:aws_dms_replication_config__compute_config list ->
+  compute_config:compute_config list ->
   string ->
   t

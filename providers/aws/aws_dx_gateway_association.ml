@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_dx_gateway_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_dx_gateway_association__timeouts *)
+(** timeouts *)
 
 type aws_dx_gateway_association = {
   allowed_prefixes : string prop list option; [@option]
@@ -24,10 +24,28 @@ type aws_dx_gateway_association = {
   proposal_id : string prop option; [@option]  (** proposal_id *)
   vpn_gateway_id : string prop option; [@option]
       (** vpn_gateway_id *)
-  timeouts : aws_dx_gateway_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dx_gateway_association *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_dx_gateway_association ?allowed_prefixes
+    ?associated_gateway_id ?associated_gateway_owner_account_id ?id
+    ?proposal_id ?vpn_gateway_id ?timeouts ~dx_gateway_id () :
+    aws_dx_gateway_association =
+  {
+    allowed_prefixes;
+    associated_gateway_id;
+    associated_gateway_owner_account_id;
+    dx_gateway_id;
+    id;
+    proposal_id;
+    vpn_gateway_id;
+    timeouts;
+  }
 
 type t = {
   allowed_prefixes : string list prop;
@@ -42,25 +60,16 @@ type t = {
   vpn_gateway_id : string prop;
 }
 
-let aws_dx_gateway_association ?allowed_prefixes
-    ?associated_gateway_id ?associated_gateway_owner_account_id ?id
-    ?proposal_id ?vpn_gateway_id ?timeouts ~dx_gateway_id
-    __resource_id =
+let register ?tf_module ?allowed_prefixes ?associated_gateway_id
+    ?associated_gateway_owner_account_id ?id ?proposal_id
+    ?vpn_gateway_id ?timeouts ~dx_gateway_id __resource_id =
   let __resource_type = "aws_dx_gateway_association" in
   let __resource =
-    ({
-       allowed_prefixes;
-       associated_gateway_id;
-       associated_gateway_owner_account_id;
-       dx_gateway_id;
-       id;
-       proposal_id;
-       vpn_gateway_id;
-       timeouts;
-     }
-      : aws_dx_gateway_association)
+    aws_dx_gateway_association ?allowed_prefixes
+      ?associated_gateway_id ?associated_gateway_owner_account_id ?id
+      ?proposal_id ?vpn_gateway_id ?timeouts ~dx_gateway_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_gateway_association __resource);
   let __resource_attributes =
     ({

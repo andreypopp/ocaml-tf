@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type google_apigee_envgroup_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_apigee_envgroup_attachment
+
+val google_apigee_envgroup_attachment :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  envgroup_id:string prop ->
+  environment:string prop ->
+  unit ->
+  google_apigee_envgroup_attachment
+
+val yojson_of_google_apigee_envgroup_attachment :
+  google_apigee_envgroup_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   envgroup_id : string prop;
@@ -12,9 +31,10 @@ type t = private {
   name : string prop;
 }
 
-val google_apigee_envgroup_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:google_apigee_envgroup_attachment__timeouts ->
+  ?timeouts:timeouts ->
   envgroup_id:string prop ->
   environment:string prop ->
   string ->

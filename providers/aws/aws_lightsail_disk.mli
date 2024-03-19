@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_lightsail_disk
+
+val aws_lightsail_disk :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  availability_zone:string prop ->
+  name:string prop ->
+  size_in_gb:float prop ->
+  unit ->
+  aws_lightsail_disk
+
+val yojson_of_aws_lightsail_disk : aws_lightsail_disk -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,7 +32,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_lightsail_disk :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

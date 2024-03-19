@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_featurestore__encryption_spec = {
+type encryption_spec = {
   kms_key_name : string prop;
       (** The Cloud KMS resource identifier of the customer managed encryption key used to protect a resource. Has the form: projects/my-project/locations/my-region/keyRings/my-kr/cryptoKeys/my-key. The key needs to be in the same region as where the compute resource is created. *)
 }
 [@@deriving yojson_of]
 (** If set, both of the online and offline data storage will be secured by this key. *)
 
-type google_vertex_ai_featurestore__online_serving_config__scaling = {
+type online_serving_config__scaling = {
   max_node_count : float prop;
       (** The maximum number of nodes to scale up to. Must be greater than minNodeCount, and less than or equal to 10 times of 'minNodeCount'. *)
   min_node_count : float prop;
@@ -20,23 +20,21 @@ type google_vertex_ai_featurestore__online_serving_config__scaling = {
 [@@deriving yojson_of]
 (** Online serving scaling configuration. Only one of fixedNodeCount and scaling can be set. Setting one will reset the other. *)
 
-type google_vertex_ai_featurestore__online_serving_config = {
+type online_serving_config = {
   fixed_node_count : float prop option; [@option]
       (** The number of nodes for each cluster. The number of nodes will not scale automatically but can be scaled manually by providing different values when updating. *)
-  scaling :
-    google_vertex_ai_featurestore__online_serving_config__scaling
-    list;
+  scaling : online_serving_config__scaling list;
 }
 [@@deriving yojson_of]
 (** Config for online serving resources. *)
 
-type google_vertex_ai_featurestore__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vertex_ai_featurestore__timeouts *)
+(** timeouts *)
 
 type google_vertex_ai_featurestore = {
   force_destroy : bool prop option; [@option]
@@ -53,14 +51,41 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** The region of the dataset. eg us-central1 *)
-  encryption_spec :
-    google_vertex_ai_featurestore__encryption_spec list;
-  online_serving_config :
-    google_vertex_ai_featurestore__online_serving_config list;
-  timeouts : google_vertex_ai_featurestore__timeouts option;
+  encryption_spec : encryption_spec list;
+  online_serving_config : online_serving_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_featurestore *)
+
+let encryption_spec ~kms_key_name () : encryption_spec =
+  { kms_key_name }
+
+let online_serving_config__scaling ~max_node_count ~min_node_count ()
+    : online_serving_config__scaling =
+  { max_node_count; min_node_count }
+
+let online_serving_config ?fixed_node_count ~scaling () :
+    online_serving_config =
+  { fixed_node_count; scaling }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vertex_ai_featurestore ?force_destroy ?id ?labels ?name
+    ?project ?region ?timeouts ~encryption_spec
+    ~online_serving_config () : google_vertex_ai_featurestore =
+  {
+    force_destroy;
+    id;
+    labels;
+    name;
+    project;
+    region;
+    encryption_spec;
+    online_serving_config;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -76,25 +101,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_vertex_ai_featurestore ?force_destroy ?id ?labels ?name
-    ?project ?region ?timeouts ~encryption_spec
-    ~online_serving_config __resource_id =
+let register ?tf_module ?force_destroy ?id ?labels ?name ?project
+    ?region ?timeouts ~encryption_spec ~online_serving_config
+    __resource_id =
   let __resource_type = "google_vertex_ai_featurestore" in
   let __resource =
-    ({
-       force_destroy;
-       id;
-       labels;
-       name;
-       project;
-       region;
-       encryption_spec;
-       online_serving_config;
-       timeouts;
-     }
-      : google_vertex_ai_featurestore)
+    google_vertex_ai_featurestore ?force_destroy ?id ?labels ?name
+      ?project ?region ?timeouts ~encryption_spec
+      ~online_serving_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_featurestore __resource);
   let __resource_attributes =
     ({

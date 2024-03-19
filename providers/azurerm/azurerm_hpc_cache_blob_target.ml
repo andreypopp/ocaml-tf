@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_hpc_cache_blob_target__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache_blob_target__timeouts *)
+(** timeouts *)
 
 type azurerm_hpc_cache_blob_target = {
   access_policy_name : string prop option; [@option]
@@ -22,10 +22,27 @@ type azurerm_hpc_cache_blob_target = {
   namespace_path : string prop;  (** namespace_path *)
   resource_group_name : string prop;  (** resource_group_name *)
   storage_container_id : string prop;  (** storage_container_id *)
-  timeouts : azurerm_hpc_cache_blob_target__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_hpc_cache_blob_target *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_hpc_cache_blob_target ?access_policy_name ?id ?timeouts
+    ~cache_name ~name ~namespace_path ~resource_group_name
+    ~storage_container_id () : azurerm_hpc_cache_blob_target =
+  {
+    access_policy_name;
+    cache_name;
+    id;
+    name;
+    namespace_path;
+    resource_group_name;
+    storage_container_id;
+    timeouts;
+  }
 
 type t = {
   access_policy_name : string prop;
@@ -37,24 +54,16 @@ type t = {
   storage_container_id : string prop;
 }
 
-let azurerm_hpc_cache_blob_target ?access_policy_name ?id ?timeouts
-    ~cache_name ~name ~namespace_path ~resource_group_name
-    ~storage_container_id __resource_id =
+let register ?tf_module ?access_policy_name ?id ?timeouts ~cache_name
+    ~name ~namespace_path ~resource_group_name ~storage_container_id
+    __resource_id =
   let __resource_type = "azurerm_hpc_cache_blob_target" in
   let __resource =
-    ({
-       access_policy_name;
-       cache_name;
-       id;
-       name;
-       namespace_path;
-       resource_group_name;
-       storage_container_id;
-       timeouts;
-     }
-      : azurerm_hpc_cache_blob_target)
+    azurerm_hpc_cache_blob_target ?access_policy_name ?id ?timeouts
+      ~cache_name ~name ~namespace_path ~resource_group_name
+      ~storage_container_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_hpc_cache_blob_target __resource);
   let __resource_attributes =
     ({

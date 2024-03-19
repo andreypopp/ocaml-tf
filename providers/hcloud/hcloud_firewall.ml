@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type hcloud_firewall__apply_to = {
+type apply_to = {
   label_selector : string prop option; [@option]
       (** label_selector *)
   server : float prop option; [@option]  (** server *)
 }
 [@@deriving yojson_of]
-(** hcloud_firewall__apply_to *)
+(** apply_to *)
 
-type hcloud_firewall__rule = {
+type rule = {
   description : string prop option; [@option]  (** description *)
   destination_ips : string prop list option; [@option]
       (** destination_ips *)
@@ -22,18 +22,36 @@ type hcloud_firewall__rule = {
   source_ips : string prop list option; [@option]  (** source_ips *)
 }
 [@@deriving yojson_of]
-(** hcloud_firewall__rule *)
+(** rule *)
 
 type hcloud_firewall = {
   id : string prop option; [@option]  (** id *)
   labels : (string * string prop) list option; [@option]
       (** labels *)
   name : string prop;  (** name *)
-  apply_to : hcloud_firewall__apply_to list;
-  rule : hcloud_firewall__rule list;
+  apply_to : apply_to list;
+  rule : rule list;
 }
 [@@deriving yojson_of]
 (** hcloud_firewall *)
+
+let apply_to ?label_selector ?server () : apply_to =
+  { label_selector; server }
+
+let rule ?description ?destination_ips ?port ?source_ips ~direction
+    ~protocol () : rule =
+  {
+    description;
+    destination_ips;
+    direction;
+    port;
+    protocol;
+    source_ips;
+  }
+
+let hcloud_firewall ?id ?labels ~name ~apply_to ~rule () :
+    hcloud_firewall =
+  { id; labels; name; apply_to; rule }
 
 type t = {
   id : string prop;
@@ -41,12 +59,13 @@ type t = {
   name : string prop;
 }
 
-let hcloud_firewall ?id ?labels ~name ~apply_to ~rule __resource_id =
+let register ?tf_module ?id ?labels ~name ~apply_to ~rule
+    __resource_id =
   let __resource_type = "hcloud_firewall" in
   let __resource =
-    ({ id; labels; name; apply_to; rule } : hcloud_firewall)
+    hcloud_firewall ?id ?labels ~name ~apply_to ~rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_firewall __resource);
   let __resource_attributes =
     ({

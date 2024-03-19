@@ -4,24 +4,30 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_tag_option_resource_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_tag_option_resource_association__timeouts *)
+(** timeouts *)
 
 type aws_servicecatalog_tag_option_resource_association = {
   id : string prop option; [@option]  (** id *)
   resource_id : string prop;  (** resource_id *)
   tag_option_id : string prop;  (** tag_option_id *)
-  timeouts :
-    aws_servicecatalog_tag_option_resource_association__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_tag_option_resource_association *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let aws_servicecatalog_tag_option_resource_association ?id ?timeouts
+    ~resource_id ~tag_option_id () :
+    aws_servicecatalog_tag_option_resource_association =
+  { id; resource_id; tag_option_id; timeouts }
 
 type t = {
   id : string prop;
@@ -33,16 +39,16 @@ type t = {
   tag_option_id : string prop;
 }
 
-let aws_servicecatalog_tag_option_resource_association ?id ?timeouts
-    ~resource_id ~tag_option_id __resource_id =
+let register ?tf_module ?id ?timeouts ~resource_id ~tag_option_id
+    __resource_id =
   let __resource_type =
     "aws_servicecatalog_tag_option_resource_association"
   in
   let __resource =
-    ({ id; resource_id; tag_option_id; timeouts }
-      : aws_servicecatalog_tag_option_resource_association)
+    aws_servicecatalog_tag_option_resource_association ?id ?timeouts
+      ~resource_id ~tag_option_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_tag_option_resource_association
        __resource);
   let __resource_attributes =

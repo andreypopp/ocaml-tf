@@ -2,26 +2,84 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_threat_intelligence_indicator__external_reference
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_sentinel_threat_intelligence_indicator__granular_marking
-type azurerm_sentinel_threat_intelligence_indicator__kill_chain_phase
-type azurerm_sentinel_threat_intelligence_indicator__timeouts
-
-type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern__pattern_type_values = {
+type parsed_pattern__pattern_type_values = {
   value : string prop;  (** value *)
   value_type : string prop;  (** value_type *)
 }
 
-type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern = {
+type parsed_pattern = {
   pattern_type_key : string prop;  (** pattern_type_key *)
-  pattern_type_values :
-    azurerm_sentinel_threat_intelligence_indicator__parsed_pattern__pattern_type_values
-    list;
+  pattern_type_values : parsed_pattern__pattern_type_values list;
       (** pattern_type_values *)
 }
 
+type external_reference
+
+val external_reference :
+  ?description:string prop ->
+  ?hashes:(string * string prop) list ->
+  ?source_name:string prop ->
+  ?url:string prop ->
+  unit ->
+  external_reference
+
+type granular_marking
+
+val granular_marking :
+  ?language:string prop ->
+  ?marking_ref:string prop ->
+  ?selectors:string prop list ->
+  unit ->
+  granular_marking
+
+type kill_chain_phase
+
+val kill_chain_phase : ?name:string prop -> unit -> kill_chain_phase
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_sentinel_threat_intelligence_indicator
+
+val azurerm_sentinel_threat_intelligence_indicator :
+  ?confidence:float prop ->
+  ?created_by:string prop ->
+  ?description:string prop ->
+  ?extension:string prop ->
+  ?id:string prop ->
+  ?language:string prop ->
+  ?object_marking_refs:string prop list ->
+  ?pattern_version:string prop ->
+  ?revoked:bool prop ->
+  ?tags:string prop list ->
+  ?threat_types:string prop list ->
+  ?validate_until_utc:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  pattern:string prop ->
+  pattern_type:string prop ->
+  source:string prop ->
+  validate_from_utc:string prop ->
+  workspace_id:string prop ->
+  external_reference:external_reference list ->
+  granular_marking:granular_marking list ->
+  kill_chain_phase:kill_chain_phase list ->
+  unit ->
+  azurerm_sentinel_threat_intelligence_indicator
+
+val yojson_of_azurerm_sentinel_threat_intelligence_indicator :
+  azurerm_sentinel_threat_intelligence_indicator -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   confidence : float prop;
@@ -39,10 +97,7 @@ type t = private {
   language : string prop;
   last_updated_time_utc : string prop;
   object_marking_refs : string list prop;
-  parsed_pattern :
-    azurerm_sentinel_threat_intelligence_indicator__parsed_pattern
-    list
-    prop;
+  parsed_pattern : parsed_pattern list prop;
   pattern : string prop;
   pattern_type : string prop;
   pattern_version : string prop;
@@ -55,7 +110,8 @@ type t = private {
   workspace_id : string prop;
 }
 
-val azurerm_sentinel_threat_intelligence_indicator :
+val register :
+  ?tf_module:tf_module ->
   ?confidence:float prop ->
   ?created_by:string prop ->
   ?description:string prop ->
@@ -68,21 +124,15 @@ val azurerm_sentinel_threat_intelligence_indicator :
   ?tags:string prop list ->
   ?threat_types:string prop list ->
   ?validate_until_utc:string prop ->
-  ?timeouts:azurerm_sentinel_threat_intelligence_indicator__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   pattern:string prop ->
   pattern_type:string prop ->
   source:string prop ->
   validate_from_utc:string prop ->
   workspace_id:string prop ->
-  external_reference:
-    azurerm_sentinel_threat_intelligence_indicator__external_reference
-    list ->
-  granular_marking:
-    azurerm_sentinel_threat_intelligence_indicator__granular_marking
-    list ->
-  kill_chain_phase:
-    azurerm_sentinel_threat_intelligence_indicator__kill_chain_phase
-    list ->
+  external_reference:external_reference list ->
+  granular_marking:granular_marking list ->
+  kill_chain_phase:kill_chain_phase list ->
   string ->
   t

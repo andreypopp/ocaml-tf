@@ -19,6 +19,20 @@ type digitalocean_database_replica = {
 [@@deriving yojson_of]
 (** digitalocean_database_replica *)
 
+let digitalocean_database_replica ?id ?private_network_uuid ?region
+    ?size ?storage_size_mib ?tags ~cluster_id ~name () :
+    digitalocean_database_replica =
+  {
+    cluster_id;
+    id;
+    name;
+    private_network_uuid;
+    region;
+    size;
+    storage_size_mib;
+    tags;
+  }
+
 type t = {
   cluster_id : string prop;
   database : string prop;
@@ -39,23 +53,14 @@ type t = {
   uuid : string prop;
 }
 
-let digitalocean_database_replica ?id ?private_network_uuid ?region
-    ?size ?storage_size_mib ?tags ~cluster_id ~name __resource_id =
+let register ?tf_module ?id ?private_network_uuid ?region ?size
+    ?storage_size_mib ?tags ~cluster_id ~name __resource_id =
   let __resource_type = "digitalocean_database_replica" in
   let __resource =
-    ({
-       cluster_id;
-       id;
-       name;
-       private_network_uuid;
-       region;
-       size;
-       storage_size_mib;
-       tags;
-     }
-      : digitalocean_database_replica)
+    digitalocean_database_replica ?id ?private_network_uuid ?region
+      ?size ?storage_size_mib ?tags ~cluster_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_replica __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type aws_db_snapshot_copy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_db_snapshot_copy
+
+val aws_db_snapshot_copy :
+  ?copy_tags:bool prop ->
+  ?destination_region:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?option_group_name:string prop ->
+  ?presigned_url:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target_custom_availability_zone:string prop ->
+  ?timeouts:timeouts ->
+  source_db_snapshot_identifier:string prop ->
+  target_db_snapshot_identifier:string prop ->
+  unit ->
+  aws_db_snapshot_copy
+
+val yojson_of_aws_db_snapshot_copy : aws_db_snapshot_copy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allocated_storage : float prop;
@@ -32,7 +57,8 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_db_snapshot_copy :
+val register :
+  ?tf_module:tf_module ->
   ?copy_tags:bool prop ->
   ?destination_region:string prop ->
   ?id:string prop ->
@@ -42,7 +68,7 @@ val aws_db_snapshot_copy :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?target_custom_availability_zone:string prop ->
-  ?timeouts:aws_db_snapshot_copy__timeouts ->
+  ?timeouts:timeouts ->
   source_db_snapshot_identifier:string prop ->
   target_db_snapshot_identifier:string prop ->
   string ->

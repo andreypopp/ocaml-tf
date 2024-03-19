@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_emr_instance_fleet__instance_type_configs__configurations = {
+type instance_type_configs__configurations = {
   classification : string prop option; [@option]
       (** classification *)
   properties : (string * string prop) list option; [@option]
       (** properties *)
 }
 [@@deriving yojson_of]
-(** aws_emr_instance_fleet__instance_type_configs__configurations *)
+(** instance_type_configs__configurations *)
 
-type aws_emr_instance_fleet__instance_type_configs__ebs_config = {
+type instance_type_configs__ebs_config = {
   iops : float prop option; [@option]  (** iops *)
   size : float prop;  (** size *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -21,9 +21,9 @@ type aws_emr_instance_fleet__instance_type_configs__ebs_config = {
       (** volumes_per_instance *)
 }
 [@@deriving yojson_of]
-(** aws_emr_instance_fleet__instance_type_configs__ebs_config *)
+(** instance_type_configs__ebs_config *)
 
-type aws_emr_instance_fleet__instance_type_configs = {
+type instance_type_configs = {
   bid_price : string prop option; [@option]  (** bid_price *)
   bid_price_as_percentage_of_on_demand_price : float prop option;
       [@option]
@@ -31,22 +31,19 @@ type aws_emr_instance_fleet__instance_type_configs = {
   instance_type : string prop;  (** instance_type *)
   weighted_capacity : float prop option; [@option]
       (** weighted_capacity *)
-  configurations :
-    aws_emr_instance_fleet__instance_type_configs__configurations
-    list;
-  ebs_config :
-    aws_emr_instance_fleet__instance_type_configs__ebs_config list;
+  configurations : instance_type_configs__configurations list;
+  ebs_config : instance_type_configs__ebs_config list;
 }
 [@@deriving yojson_of]
-(** aws_emr_instance_fleet__instance_type_configs *)
+(** instance_type_configs *)
 
-type aws_emr_instance_fleet__launch_specifications__on_demand_specification = {
+type launch_specifications__on_demand_specification = {
   allocation_strategy : string prop;  (** allocation_strategy *)
 }
 [@@deriving yojson_of]
-(** aws_emr_instance_fleet__launch_specifications__on_demand_specification *)
+(** launch_specifications__on_demand_specification *)
 
-type aws_emr_instance_fleet__launch_specifications__spot_specification = {
+type launch_specifications__spot_specification = {
   allocation_strategy : string prop;  (** allocation_strategy *)
   block_duration_minutes : float prop option; [@option]
       (** block_duration_minutes *)
@@ -55,18 +52,15 @@ type aws_emr_instance_fleet__launch_specifications__spot_specification = {
       (** timeout_duration_minutes *)
 }
 [@@deriving yojson_of]
-(** aws_emr_instance_fleet__launch_specifications__spot_specification *)
+(** launch_specifications__spot_specification *)
 
-type aws_emr_instance_fleet__launch_specifications = {
+type launch_specifications = {
   on_demand_specification :
-    aws_emr_instance_fleet__launch_specifications__on_demand_specification
-    list;
-  spot_specification :
-    aws_emr_instance_fleet__launch_specifications__spot_specification
-    list;
+    launch_specifications__on_demand_specification list;
+  spot_specification : launch_specifications__spot_specification list;
 }
 [@@deriving yojson_of]
-(** aws_emr_instance_fleet__launch_specifications *)
+(** launch_specifications *)
 
 type aws_emr_instance_fleet = {
   cluster_id : string prop;  (** cluster_id *)
@@ -76,13 +70,64 @@ type aws_emr_instance_fleet = {
       (** target_on_demand_capacity *)
   target_spot_capacity : float prop option; [@option]
       (** target_spot_capacity *)
-  instance_type_configs :
-    aws_emr_instance_fleet__instance_type_configs list;
-  launch_specifications :
-    aws_emr_instance_fleet__launch_specifications list;
+  instance_type_configs : instance_type_configs list;
+  launch_specifications : launch_specifications list;
 }
 [@@deriving yojson_of]
 (** aws_emr_instance_fleet *)
+
+let instance_type_configs__configurations ?classification ?properties
+    () : instance_type_configs__configurations =
+  { classification; properties }
+
+let instance_type_configs__ebs_config ?iops ?volumes_per_instance
+    ~size ~type_ () : instance_type_configs__ebs_config =
+  { iops; size; type_; volumes_per_instance }
+
+let instance_type_configs ?bid_price
+    ?bid_price_as_percentage_of_on_demand_price ?weighted_capacity
+    ~instance_type ~configurations ~ebs_config () :
+    instance_type_configs =
+  {
+    bid_price;
+    bid_price_as_percentage_of_on_demand_price;
+    instance_type;
+    weighted_capacity;
+    configurations;
+    ebs_config;
+  }
+
+let launch_specifications__on_demand_specification
+    ~allocation_strategy () :
+    launch_specifications__on_demand_specification =
+  { allocation_strategy }
+
+let launch_specifications__spot_specification ?block_duration_minutes
+    ~allocation_strategy ~timeout_action ~timeout_duration_minutes ()
+    : launch_specifications__spot_specification =
+  {
+    allocation_strategy;
+    block_duration_minutes;
+    timeout_action;
+    timeout_duration_minutes;
+  }
+
+let launch_specifications ~on_demand_specification
+    ~spot_specification () : launch_specifications =
+  { on_demand_specification; spot_specification }
+
+let aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
+    ?target_spot_capacity ~cluster_id ~instance_type_configs
+    ~launch_specifications () : aws_emr_instance_fleet =
+  {
+    cluster_id;
+    id;
+    name;
+    target_on_demand_capacity;
+    target_spot_capacity;
+    instance_type_configs;
+    launch_specifications;
+  }
 
 type t = {
   cluster_id : string prop;
@@ -94,23 +139,16 @@ type t = {
   target_spot_capacity : float prop;
 }
 
-let aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
+let register ?tf_module ?id ?name ?target_on_demand_capacity
     ?target_spot_capacity ~cluster_id ~instance_type_configs
     ~launch_specifications __resource_id =
   let __resource_type = "aws_emr_instance_fleet" in
   let __resource =
-    ({
-       cluster_id;
-       id;
-       name;
-       target_on_demand_capacity;
-       target_spot_capacity;
-       instance_type_configs;
-       launch_specifications;
-     }
-      : aws_emr_instance_fleet)
+    aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
+      ?target_spot_capacity ~cluster_id ~instance_type_configs
+      ~launch_specifications ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_instance_fleet __resource);
   let __resource_attributes =
     ({

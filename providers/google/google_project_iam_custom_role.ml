@@ -21,6 +21,11 @@ type google_project_iam_custom_role = {
 [@@deriving yojson_of]
 (** google_project_iam_custom_role *)
 
+let google_project_iam_custom_role ?description ?id ?project ?stage
+    ~permissions ~role_id ~title () : google_project_iam_custom_role
+    =
+  { description; id; permissions; project; role_id; stage; title }
+
 type t = {
   deleted : bool prop;
   description : string prop;
@@ -33,14 +38,14 @@ type t = {
   title : string prop;
 }
 
-let google_project_iam_custom_role ?description ?id ?project ?stage
-    ~permissions ~role_id ~title __resource_id =
+let register ?tf_module ?description ?id ?project ?stage ~permissions
+    ~role_id ~title __resource_id =
   let __resource_type = "google_project_iam_custom_role" in
   let __resource =
-    ({ description; id; permissions; project; role_id; stage; title }
-      : google_project_iam_custom_role)
+    google_project_iam_custom_role ?description ?id ?project ?stage
+      ~permissions ~role_id ~title ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_iam_custom_role __resource);
   let __resource_attributes =
     ({

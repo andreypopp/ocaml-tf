@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_connect_queue__outbound_caller_config = {
+type outbound_caller_config = {
   outbound_caller_id_name : string prop option; [@option]
       (** outbound_caller_id_name *)
   outbound_caller_id_number_id : string prop option; [@option]
@@ -13,7 +13,7 @@ type aws_connect_queue__outbound_caller_config = {
       (** outbound_flow_id *)
 }
 [@@deriving yojson_of]
-(** aws_connect_queue__outbound_caller_config *)
+(** outbound_caller_config *)
 
 type aws_connect_queue = {
   description : string prop option; [@option]  (** description *)
@@ -28,11 +28,37 @@ type aws_connect_queue = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  outbound_caller_config :
-    aws_connect_queue__outbound_caller_config list;
+  outbound_caller_config : outbound_caller_config list;
 }
 [@@deriving yojson_of]
 (** aws_connect_queue *)
+
+let outbound_caller_config ?outbound_caller_id_name
+    ?outbound_caller_id_number_id ?outbound_flow_id () :
+    outbound_caller_config =
+  {
+    outbound_caller_id_name;
+    outbound_caller_id_number_id;
+    outbound_flow_id;
+  }
+
+let aws_connect_queue ?description ?id ?max_contacts
+    ?quick_connect_ids ?status ?tags ?tags_all ~hours_of_operation_id
+    ~instance_id ~name ~outbound_caller_config () : aws_connect_queue
+    =
+  {
+    description;
+    hours_of_operation_id;
+    id;
+    instance_id;
+    max_contacts;
+    name;
+    quick_connect_ids;
+    status;
+    tags;
+    tags_all;
+    outbound_caller_config;
+  }
 
 type t = {
   arn : string prop;
@@ -49,27 +75,17 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_connect_queue ?description ?id ?max_contacts
+let register ?tf_module ?description ?id ?max_contacts
     ?quick_connect_ids ?status ?tags ?tags_all ~hours_of_operation_id
     ~instance_id ~name ~outbound_caller_config __resource_id =
   let __resource_type = "aws_connect_queue" in
   let __resource =
-    ({
-       description;
-       hours_of_operation_id;
-       id;
-       instance_id;
-       max_contacts;
-       name;
-       quick_connect_ids;
-       status;
-       tags;
-       tags_all;
-       outbound_caller_config;
-     }
-      : aws_connect_queue)
+    aws_connect_queue ?description ?id ?max_contacts
+      ?quick_connect_ids ?status ?tags ?tags_all
+      ~hours_of_operation_id ~instance_id ~name
+      ~outbound_caller_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_queue __resource);
   let __resource_attributes =
     ({

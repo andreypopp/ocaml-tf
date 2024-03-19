@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_ssoadmin_permission_set_inline_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_ssoadmin_permission_set_inline_policy
+
+val aws_ssoadmin_permission_set_inline_policy :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  inline_policy:string prop ->
+  instance_arn:string prop ->
+  permission_set_arn:string prop ->
+  unit ->
+  aws_ssoadmin_permission_set_inline_policy
+
+val yojson_of_aws_ssoadmin_permission_set_inline_policy :
+  aws_ssoadmin_permission_set_inline_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,9 +32,10 @@ type t = private {
   permission_set_arn : string prop;
 }
 
-val aws_ssoadmin_permission_set_inline_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_ssoadmin_permission_set_inline_policy__timeouts ->
+  ?timeouts:timeouts ->
   inline_policy:string prop ->
   instance_arn:string prop ->
   permission_set_arn:string prop ->

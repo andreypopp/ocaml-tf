@@ -12,6 +12,10 @@ type aws_ecrpublic_repository_policy = {
 [@@deriving yojson_of]
 (** aws_ecrpublic_repository_policy *)
 
+let aws_ecrpublic_repository_policy ?id ~policy ~repository_name () :
+    aws_ecrpublic_repository_policy =
+  { id; policy; repository_name }
+
 type t = {
   id : string prop;
   policy : string prop;
@@ -19,14 +23,12 @@ type t = {
   repository_name : string prop;
 }
 
-let aws_ecrpublic_repository_policy ?id ~policy ~repository_name
-    __resource_id =
+let register ?tf_module ?id ~policy ~repository_name __resource_id =
   let __resource_type = "aws_ecrpublic_repository_policy" in
   let __resource =
-    ({ id; policy; repository_name }
-      : aws_ecrpublic_repository_policy)
+    aws_ecrpublic_repository_policy ?id ~policy ~repository_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecrpublic_repository_policy __resource);
   let __resource_attributes =
     ({

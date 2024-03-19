@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ec2_client_vpn_authorization_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_client_vpn_authorization_rule__timeouts *)
+(** timeouts *)
 
 type aws_ec2_client_vpn_authorization_rule = {
   access_group_id : string prop option; [@option]
@@ -21,10 +21,26 @@ type aws_ec2_client_vpn_authorization_rule = {
   description : string prop option; [@option]  (** description *)
   id : string prop option; [@option]  (** id *)
   target_network_cidr : string prop;  (** target_network_cidr *)
-  timeouts : aws_ec2_client_vpn_authorization_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_client_vpn_authorization_rule *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ec2_client_vpn_authorization_rule ?access_group_id
+    ?authorize_all_groups ?description ?id ?timeouts
+    ~client_vpn_endpoint_id ~target_network_cidr () :
+    aws_ec2_client_vpn_authorization_rule =
+  {
+    access_group_id;
+    authorize_all_groups;
+    client_vpn_endpoint_id;
+    description;
+    id;
+    target_network_cidr;
+    timeouts;
+  }
 
 type t = {
   access_group_id : string prop;
@@ -35,23 +51,16 @@ type t = {
   target_network_cidr : string prop;
 }
 
-let aws_ec2_client_vpn_authorization_rule ?access_group_id
-    ?authorize_all_groups ?description ?id ?timeouts
-    ~client_vpn_endpoint_id ~target_network_cidr __resource_id =
+let register ?tf_module ?access_group_id ?authorize_all_groups
+    ?description ?id ?timeouts ~client_vpn_endpoint_id
+    ~target_network_cidr __resource_id =
   let __resource_type = "aws_ec2_client_vpn_authorization_rule" in
   let __resource =
-    ({
-       access_group_id;
-       authorize_all_groups;
-       client_vpn_endpoint_id;
-       description;
-       id;
-       target_network_cidr;
-       timeouts;
-     }
-      : aws_ec2_client_vpn_authorization_rule)
+    aws_ec2_client_vpn_authorization_rule ?access_group_id
+      ?authorize_all_groups ?description ?id ?timeouts
+      ~client_vpn_endpoint_id ~target_network_cidr ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_client_vpn_authorization_rule __resource);
   let __resource_attributes =
     ({

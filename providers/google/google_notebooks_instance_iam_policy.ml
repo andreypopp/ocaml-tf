@@ -14,6 +14,11 @@ type google_notebooks_instance_iam_policy = {
 [@@deriving yojson_of]
 (** google_notebooks_instance_iam_policy *)
 
+let google_notebooks_instance_iam_policy ?id ?location ?project
+    ~instance_name ~policy_data () :
+    google_notebooks_instance_iam_policy =
+  { id; instance_name; location; policy_data; project }
+
 type t = {
   etag : string prop;
   id : string prop;
@@ -23,14 +28,14 @@ type t = {
   project : string prop;
 }
 
-let google_notebooks_instance_iam_policy ?id ?location ?project
-    ~instance_name ~policy_data __resource_id =
+let register ?tf_module ?id ?location ?project ~instance_name
+    ~policy_data __resource_id =
   let __resource_type = "google_notebooks_instance_iam_policy" in
   let __resource =
-    ({ id; instance_name; location; policy_data; project }
-      : google_notebooks_instance_iam_policy)
+    google_notebooks_instance_iam_policy ?id ?location ?project
+      ~instance_name ~policy_data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_notebooks_instance_iam_policy __resource);
   let __resource_attributes =
     ({

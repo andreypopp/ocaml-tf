@@ -2,10 +2,62 @@
 
 open! Tf.Prelude
 
-type google_storage_bucket_object__customer_encryption
-type google_storage_bucket_object__retention
-type google_storage_bucket_object__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type customer_encryption
+
+val customer_encryption :
+  ?encryption_algorithm:string prop ->
+  encryption_key:string prop ->
+  unit ->
+  customer_encryption
+
+type retention
+
+val retention :
+  mode:string prop ->
+  retain_until_time:string prop ->
+  unit ->
+  retention
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_storage_bucket_object
+
+val google_storage_bucket_object :
+  ?cache_control:string prop ->
+  ?content:string prop ->
+  ?content_disposition:string prop ->
+  ?content_encoding:string prop ->
+  ?content_language:string prop ->
+  ?content_type:string prop ->
+  ?detect_md5hash:string prop ->
+  ?event_based_hold:bool prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?source:string prop ->
+  ?storage_class:string prop ->
+  ?temporary_hold:bool prop ->
+  ?timeouts:timeouts ->
+  bucket:string prop ->
+  name:string prop ->
+  customer_encryption:customer_encryption list ->
+  retention:retention list ->
+  unit ->
+  google_storage_bucket_object
+
+val yojson_of_google_storage_bucket_object :
+  google_storage_bucket_object -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket : string prop;
@@ -31,7 +83,8 @@ type t = private {
   temporary_hold : bool prop;
 }
 
-val google_storage_bucket_object :
+val register :
+  ?tf_module:tf_module ->
   ?cache_control:string prop ->
   ?content:string prop ->
   ?content_disposition:string prop ->
@@ -46,11 +99,10 @@ val google_storage_bucket_object :
   ?source:string prop ->
   ?storage_class:string prop ->
   ?temporary_hold:bool prop ->
-  ?timeouts:google_storage_bucket_object__timeouts ->
+  ?timeouts:timeouts ->
   bucket:string prop ->
   name:string prop ->
-  customer_encryption:
-    google_storage_bucket_object__customer_encryption list ->
-  retention:google_storage_bucket_object__retention list ->
+  customer_encryption:customer_encryption list ->
+  retention:retention list ->
   string ->
   t

@@ -4,21 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_dynamodb_contributor_insights__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_contributor_insights__timeouts *)
+(** timeouts *)
 
 type aws_dynamodb_contributor_insights = {
   id : string prop option; [@option]  (** id *)
   index_name : string prop option; [@option]  (** index_name *)
   table_name : string prop;  (** table_name *)
-  timeouts : aws_dynamodb_contributor_insights__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_contributor_insights *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_dynamodb_contributor_insights ?id ?index_name ?timeouts
+    ~table_name () : aws_dynamodb_contributor_insights =
+  { id; index_name; table_name; timeouts }
 
 type t = {
   id : string prop;
@@ -26,14 +32,14 @@ type t = {
   table_name : string prop;
 }
 
-let aws_dynamodb_contributor_insights ?id ?index_name ?timeouts
-    ~table_name __resource_id =
+let register ?tf_module ?id ?index_name ?timeouts ~table_name
+    __resource_id =
   let __resource_type = "aws_dynamodb_contributor_insights" in
   let __resource =
-    ({ id; index_name; table_name; timeouts }
-      : aws_dynamodb_contributor_insights)
+    aws_dynamodb_contributor_insights ?id ?index_name ?timeouts
+      ~table_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_contributor_insights __resource);
   let __resource_attributes =
     ({

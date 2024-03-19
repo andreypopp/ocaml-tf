@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_service_action__definition = {
+type definition = {
   assume_role : string prop option; [@option]  (** assume_role *)
   name : string prop;  (** name *)
   parameters : string prop option; [@option]  (** parameters *)
@@ -12,16 +12,16 @@ type aws_servicecatalog_service_action__definition = {
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_service_action__definition *)
+(** definition *)
 
-type aws_servicecatalog_service_action__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_service_action__timeouts *)
+(** timeouts *)
 
 type aws_servicecatalog_service_action = {
   accept_language : string prop option; [@option]
@@ -29,11 +29,23 @@ type aws_servicecatalog_service_action = {
   description : string prop option; [@option]  (** description *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  definition : aws_servicecatalog_service_action__definition list;
-  timeouts : aws_servicecatalog_service_action__timeouts option;
+  definition : definition list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_service_action *)
+
+let definition ?assume_role ?parameters ?type_ ~name ~version () :
+    definition =
+  { assume_role; name; parameters; type_; version }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let aws_servicecatalog_service_action ?accept_language ?description
+    ?id ?timeouts ~name ~definition () :
+    aws_servicecatalog_service_action =
+  { accept_language; description; id; name; definition; timeouts }
 
 type t = {
   accept_language : string prop;
@@ -42,14 +54,14 @@ type t = {
   name : string prop;
 }
 
-let aws_servicecatalog_service_action ?accept_language ?description
-    ?id ?timeouts ~name ~definition __resource_id =
+let register ?tf_module ?accept_language ?description ?id ?timeouts
+    ~name ~definition __resource_id =
   let __resource_type = "aws_servicecatalog_service_action" in
   let __resource =
-    ({ accept_language; description; id; name; definition; timeouts }
-      : aws_servicecatalog_service_action)
+    aws_servicecatalog_service_action ?accept_language ?description
+      ?id ?timeouts ~name ~definition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_service_action __resource);
   let __resource_attributes =
     ({

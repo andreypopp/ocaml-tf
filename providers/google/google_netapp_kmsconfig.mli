@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type google_netapp_kmsconfig__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_netapp_kmsconfig
+
+val google_netapp_kmsconfig :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  crypto_key_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  unit ->
+  google_netapp_kmsconfig
+
+val yojson_of_google_netapp_kmsconfig :
+  google_netapp_kmsconfig -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   crypto_key_name : string prop;
@@ -19,12 +46,13 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_netapp_kmsconfig :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_netapp_kmsconfig__timeouts ->
+  ?timeouts:timeouts ->
   crypto_key_name:string prop ->
   location:string prop ->
   name:string prop ->

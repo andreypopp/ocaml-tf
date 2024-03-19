@@ -4,19 +4,19 @@
 
 open! Tf.Prelude
 
-type aws_kendra_faq__s3_path = {
+type s3_path = {
   bucket : string prop;  (** bucket *)
   key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
-(** aws_kendra_faq__s3_path *)
+(** s3_path *)
 
-type aws_kendra_faq__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_kendra_faq__timeouts *)
+(** timeouts *)
 
 type aws_kendra_faq = {
   description : string prop option; [@option]  (** description *)
@@ -29,11 +29,31 @@ type aws_kendra_faq = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  s3_path : aws_kendra_faq__s3_path list;
-  timeouts : aws_kendra_faq__timeouts option;
+  s3_path : s3_path list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_kendra_faq *)
+
+let s3_path ~bucket ~key () : s3_path = { bucket; key }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_kendra_faq ?description ?file_format ?id ?language_code ?tags
+    ?tags_all ?timeouts ~index_id ~name ~role_arn ~s3_path () :
+    aws_kendra_faq =
+  {
+    description;
+    file_format;
+    id;
+    index_id;
+    language_code;
+    name;
+    role_arn;
+    tags;
+    tags_all;
+    s3_path;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -53,27 +73,15 @@ type t = {
   updated_at : string prop;
 }
 
-let aws_kendra_faq ?description ?file_format ?id ?language_code ?tags
-    ?tags_all ?timeouts ~index_id ~name ~role_arn ~s3_path
+let register ?tf_module ?description ?file_format ?id ?language_code
+    ?tags ?tags_all ?timeouts ~index_id ~name ~role_arn ~s3_path
     __resource_id =
   let __resource_type = "aws_kendra_faq" in
   let __resource =
-    ({
-       description;
-       file_format;
-       id;
-       index_id;
-       language_code;
-       name;
-       role_arn;
-       tags;
-       tags_all;
-       s3_path;
-       timeouts;
-     }
-      : aws_kendra_faq)
+    aws_kendra_faq ?description ?file_format ?id ?language_code ?tags
+      ?tags_all ?timeouts ~index_id ~name ~role_arn ~s3_path ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kendra_faq __resource);
   let __resource_attributes =
     ({

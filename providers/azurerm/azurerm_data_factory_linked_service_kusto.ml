@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_kusto__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_kusto__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_kusto = {
   additional_properties : (string * string prop) list option;
@@ -36,11 +36,37 @@ type azurerm_data_factory_linked_service_kusto = {
   tenant : string prop option; [@option]  (** tenant *)
   use_managed_identity : bool prop option; [@option]
       (** use_managed_identity *)
-  timeouts :
-    azurerm_data_factory_linked_service_kusto__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_kusto *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_kusto ?additional_properties
+    ?annotations ?description ?id ?integration_runtime_name
+    ?parameters ?service_principal_id ?service_principal_key ?tenant
+    ?use_managed_identity ?timeouts ~data_factory_id
+    ~kusto_database_name ~kusto_endpoint ~name () :
+    azurerm_data_factory_linked_service_kusto =
+  {
+    additional_properties;
+    annotations;
+    data_factory_id;
+    description;
+    id;
+    integration_runtime_name;
+    kusto_database_name;
+    kusto_endpoint;
+    name;
+    parameters;
+    service_principal_id;
+    service_principal_key;
+    tenant;
+    use_managed_identity;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -59,35 +85,22 @@ type t = {
   use_managed_identity : bool prop;
 }
 
-let azurerm_data_factory_linked_service_kusto ?additional_properties
-    ?annotations ?description ?id ?integration_runtime_name
-    ?parameters ?service_principal_id ?service_principal_key ?tenant
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?id ?integration_runtime_name ?parameters
+    ?service_principal_id ?service_principal_key ?tenant
     ?use_managed_identity ?timeouts ~data_factory_id
     ~kusto_database_name ~kusto_endpoint ~name __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_kusto"
   in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       data_factory_id;
-       description;
-       id;
-       integration_runtime_name;
-       kusto_database_name;
-       kusto_endpoint;
-       name;
-       parameters;
-       service_principal_id;
-       service_principal_key;
-       tenant;
-       use_managed_identity;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_kusto)
+    azurerm_data_factory_linked_service_kusto ?additional_properties
+      ?annotations ?description ?id ?integration_runtime_name
+      ?parameters ?service_principal_id ?service_principal_key
+      ?tenant ?use_managed_identity ?timeouts ~data_factory_id
+      ~kusto_database_name ~kusto_endpoint ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_kusto __resource);
   let __resource_attributes =
     ({

@@ -2,9 +2,42 @@
 
 open! Tf.Prelude
 
-type aws_ssoadmin_application__portal_options__sign_in_options
-type aws_ssoadmin_application__portal_options
+(** RESOURCE SERIALIZATION *)
+
+type portal_options__sign_in_options
+
+val portal_options__sign_in_options :
+  ?application_url:string prop ->
+  origin:string prop ->
+  unit ->
+  portal_options__sign_in_options
+
+type portal_options
+
+val portal_options :
+  ?visibility:string prop ->
+  sign_in_options:portal_options__sign_in_options list ->
+  unit ->
+  portal_options
+
 type aws_ssoadmin_application
+
+val aws_ssoadmin_application :
+  ?client_token:string prop ->
+  ?description:string prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  application_provider_arn:string prop ->
+  instance_arn:string prop ->
+  name:string prop ->
+  portal_options:portal_options list ->
+  unit ->
+  aws_ssoadmin_application
+
+val yojson_of_aws_ssoadmin_application :
+  aws_ssoadmin_application -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_account : string prop;
@@ -20,7 +53,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ssoadmin_application :
+val register :
+  ?tf_module:tf_module ->
   ?client_token:string prop ->
   ?description:string prop ->
   ?status:string prop ->
@@ -28,6 +62,6 @@ val aws_ssoadmin_application :
   application_provider_arn:string prop ->
   instance_arn:string prop ->
   name:string prop ->
-  portal_options:aws_ssoadmin_application__portal_options list ->
+  portal_options:portal_options list ->
   string ->
   t

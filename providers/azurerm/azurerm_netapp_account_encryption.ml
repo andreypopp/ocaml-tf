@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_account_encryption__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_account_encryption__timeouts *)
+(** timeouts *)
 
 type azurerm_netapp_account_encryption = {
   encryption_key : string prop;
@@ -24,10 +24,26 @@ type azurerm_netapp_account_encryption = {
       (** The Principal ID of the System Assigned Identity to use for encryption. *)
   user_assigned_identity_id : string prop option; [@option]
       (** The resource ID of the User Assigned Identity to use for encryption. *)
-  timeouts : azurerm_netapp_account_encryption__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_account_encryption *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_netapp_account_encryption ?id
+    ?system_assigned_identity_principal_id ?user_assigned_identity_id
+    ?timeouts ~encryption_key ~netapp_account_id () :
+    azurerm_netapp_account_encryption =
+  {
+    encryption_key;
+    id;
+    netapp_account_id;
+    system_assigned_identity_principal_id;
+    user_assigned_identity_id;
+    timeouts;
+  }
 
 type t = {
   encryption_key : string prop;
@@ -37,22 +53,17 @@ type t = {
   user_assigned_identity_id : string prop;
 }
 
-let azurerm_netapp_account_encryption ?id
-    ?system_assigned_identity_principal_id ?user_assigned_identity_id
-    ?timeouts ~encryption_key ~netapp_account_id __resource_id =
+let register ?tf_module ?id ?system_assigned_identity_principal_id
+    ?user_assigned_identity_id ?timeouts ~encryption_key
+    ~netapp_account_id __resource_id =
   let __resource_type = "azurerm_netapp_account_encryption" in
   let __resource =
-    ({
-       encryption_key;
-       id;
-       netapp_account_id;
-       system_assigned_identity_principal_id;
-       user_assigned_identity_id;
-       timeouts;
-     }
-      : azurerm_netapp_account_encryption)
+    azurerm_netapp_account_encryption ?id
+      ?system_assigned_identity_principal_id
+      ?user_assigned_identity_id ?timeouts ~encryption_key
+      ~netapp_account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_account_encryption __resource);
   let __resource_attributes =
     ({

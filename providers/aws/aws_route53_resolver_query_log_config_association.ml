@@ -13,22 +13,27 @@ type aws_route53_resolver_query_log_config_association = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_query_log_config_association *)
 
+let aws_route53_resolver_query_log_config_association ?id
+    ~resolver_query_log_config_id ~resource_id () :
+    aws_route53_resolver_query_log_config_association =
+  { id; resolver_query_log_config_id; resource_id }
+
 type t = {
   id : string prop;
   resolver_query_log_config_id : string prop;
   resource_id : string prop;
 }
 
-let aws_route53_resolver_query_log_config_association ?id
-    ~resolver_query_log_config_id ~resource_id __resource_id =
+let register ?tf_module ?id ~resolver_query_log_config_id
+    ~resource_id __resource_id =
   let __resource_type =
     "aws_route53_resolver_query_log_config_association"
   in
   let __resource =
-    ({ id; resolver_query_log_config_id; resource_id }
-      : aws_route53_resolver_query_log_config_association)
+    aws_route53_resolver_query_log_config_association ?id
+      ~resolver_query_log_config_id ~resource_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_query_log_config_association
        __resource);
   let __resource_attributes =

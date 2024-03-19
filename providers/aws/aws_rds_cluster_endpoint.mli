@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_rds_cluster_endpoint
+
+val aws_rds_cluster_endpoint :
+  ?excluded_members:string prop list ->
+  ?id:string prop ->
+  ?static_members:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  cluster_endpoint_identifier:string prop ->
+  cluster_identifier:string prop ->
+  custom_endpoint_type:string prop ->
+  unit ->
+  aws_rds_cluster_endpoint
+
+val yojson_of_aws_rds_cluster_endpoint :
+  aws_rds_cluster_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +36,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_rds_cluster_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?excluded_members:string prop list ->
   ?id:string prop ->
   ?static_members:string prop list ->

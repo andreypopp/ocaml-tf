@@ -11,17 +11,20 @@ type aws_sagemaker_servicecatalog_portfolio_status = {
 [@@deriving yojson_of]
 (** aws_sagemaker_servicecatalog_portfolio_status *)
 
+let aws_sagemaker_servicecatalog_portfolio_status ?id ~status () :
+    aws_sagemaker_servicecatalog_portfolio_status =
+  { id; status }
+
 type t = { id : string prop; status : string prop }
 
-let aws_sagemaker_servicecatalog_portfolio_status ?id ~status
-    __resource_id =
+let register ?tf_module ?id ~status __resource_id =
   let __resource_type =
     "aws_sagemaker_servicecatalog_portfolio_status"
   in
   let __resource =
-    ({ id; status } : aws_sagemaker_servicecatalog_portfolio_status)
+    aws_sagemaker_servicecatalog_portfolio_status ?id ~status ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_servicecatalog_portfolio_status
        __resource);
   let __resource_attributes =

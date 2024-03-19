@@ -22,6 +22,25 @@ type aws_storagegateway_cached_iscsi_volume = {
 [@@deriving yojson_of]
 (** aws_storagegateway_cached_iscsi_volume *)
 
+let aws_storagegateway_cached_iscsi_volume ?id ?kms_encrypted
+    ?kms_key ?snapshot_id ?source_volume_arn ?tags ?tags_all
+    ~gateway_arn ~network_interface_id ~target_name
+    ~volume_size_in_bytes () : aws_storagegateway_cached_iscsi_volume
+    =
+  {
+    gateway_arn;
+    id;
+    kms_encrypted;
+    kms_key;
+    network_interface_id;
+    snapshot_id;
+    source_volume_arn;
+    tags;
+    tags_all;
+    target_name;
+    volume_size_in_bytes;
+  }
+
 type t = {
   arn : string prop;
   chap_enabled : bool prop;
@@ -43,28 +62,18 @@ type t = {
   volume_size_in_bytes : float prop;
 }
 
-let aws_storagegateway_cached_iscsi_volume ?id ?kms_encrypted
-    ?kms_key ?snapshot_id ?source_volume_arn ?tags ?tags_all
-    ~gateway_arn ~network_interface_id ~target_name
-    ~volume_size_in_bytes __resource_id =
+let register ?tf_module ?id ?kms_encrypted ?kms_key ?snapshot_id
+    ?source_volume_arn ?tags ?tags_all ~gateway_arn
+    ~network_interface_id ~target_name ~volume_size_in_bytes
+    __resource_id =
   let __resource_type = "aws_storagegateway_cached_iscsi_volume" in
   let __resource =
-    ({
-       gateway_arn;
-       id;
-       kms_encrypted;
-       kms_key;
-       network_interface_id;
-       snapshot_id;
-       source_volume_arn;
-       tags;
-       tags_all;
-       target_name;
-       volume_size_in_bytes;
-     }
-      : aws_storagegateway_cached_iscsi_volume)
+    aws_storagegateway_cached_iscsi_volume ?id ?kms_encrypted
+      ?kms_key ?snapshot_id ?source_volume_arn ?tags ?tags_all
+      ~gateway_arn ~network_interface_id ~target_name
+      ~volume_size_in_bytes ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_storagegateway_cached_iscsi_volume __resource);
   let __resource_attributes =
     ({

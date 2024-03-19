@@ -4,36 +4,36 @@
 
 open! Tf.Prelude
 
-type aws_api_gateway_usage_plan__api_stages__throttle = {
+type api_stages__throttle = {
   burst_limit : float prop option; [@option]  (** burst_limit *)
   path : string prop;  (** path *)
   rate_limit : float prop option; [@option]  (** rate_limit *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_usage_plan__api_stages__throttle *)
+(** api_stages__throttle *)
 
-type aws_api_gateway_usage_plan__api_stages = {
+type api_stages = {
   api_id : string prop;  (** api_id *)
   stage : string prop;  (** stage *)
-  throttle : aws_api_gateway_usage_plan__api_stages__throttle list;
+  throttle : api_stages__throttle list;
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_usage_plan__api_stages *)
+(** api_stages *)
 
-type aws_api_gateway_usage_plan__quota_settings = {
+type quota_settings = {
   limit : float prop;  (** limit *)
   offset : float prop option; [@option]  (** offset *)
   period : string prop;  (** period *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_usage_plan__quota_settings *)
+(** quota_settings *)
 
-type aws_api_gateway_usage_plan__throttle_settings = {
+type throttle_settings = {
   burst_limit : float prop option; [@option]  (** burst_limit *)
   rate_limit : float prop option; [@option]  (** rate_limit *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_usage_plan__throttle_settings *)
+(** throttle_settings *)
 
 type aws_api_gateway_usage_plan = {
   description : string prop option; [@option]  (** description *)
@@ -43,13 +43,41 @@ type aws_api_gateway_usage_plan = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  api_stages : aws_api_gateway_usage_plan__api_stages list;
-  quota_settings : aws_api_gateway_usage_plan__quota_settings list;
-  throttle_settings :
-    aws_api_gateway_usage_plan__throttle_settings list;
+  api_stages : api_stages list;
+  quota_settings : quota_settings list;
+  throttle_settings : throttle_settings list;
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan *)
+
+let api_stages__throttle ?burst_limit ?rate_limit ~path () :
+    api_stages__throttle =
+  { burst_limit; path; rate_limit }
+
+let api_stages ~api_id ~stage ~throttle () : api_stages =
+  { api_id; stage; throttle }
+
+let quota_settings ?offset ~limit ~period () : quota_settings =
+  { limit; offset; period }
+
+let throttle_settings ?burst_limit ?rate_limit () : throttle_settings
+    =
+  { burst_limit; rate_limit }
+
+let aws_api_gateway_usage_plan ?description ?id ?product_code ?tags
+    ?tags_all ~name ~api_stages ~quota_settings ~throttle_settings ()
+    : aws_api_gateway_usage_plan =
+  {
+    description;
+    id;
+    name;
+    product_code;
+    tags;
+    tags_all;
+    api_stages;
+    quota_settings;
+    throttle_settings;
+  }
 
 type t = {
   arn : string prop;
@@ -61,25 +89,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_api_gateway_usage_plan ?description ?id ?product_code ?tags
+let register ?tf_module ?description ?id ?product_code ?tags
     ?tags_all ~name ~api_stages ~quota_settings ~throttle_settings
     __resource_id =
   let __resource_type = "aws_api_gateway_usage_plan" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       product_code;
-       tags;
-       tags_all;
-       api_stages;
-       quota_settings;
-       throttle_settings;
-     }
-      : aws_api_gateway_usage_plan)
+    aws_api_gateway_usage_plan ?description ?id ?product_code ?tags
+      ?tags_all ~name ~api_stages ~quota_settings ~throttle_settings
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_usage_plan __resource);
   let __resource_attributes =
     ({

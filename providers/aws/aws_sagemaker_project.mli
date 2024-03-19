@@ -2,10 +2,43 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_project__service_catalog_provisioning_details__provisioning_parameter
+(** RESOURCE SERIALIZATION *)
 
-type aws_sagemaker_project__service_catalog_provisioning_details
+type service_catalog_provisioning_details__provisioning_parameter
+
+val service_catalog_provisioning_details__provisioning_parameter :
+  ?value:string prop ->
+  key:string prop ->
+  unit ->
+  service_catalog_provisioning_details__provisioning_parameter
+
+type service_catalog_provisioning_details
+
+val service_catalog_provisioning_details :
+  ?path_id:string prop ->
+  ?provisioning_artifact_id:string prop ->
+  product_id:string prop ->
+  provisioning_parameter:
+    service_catalog_provisioning_details__provisioning_parameter list ->
+  unit ->
+  service_catalog_provisioning_details
+
 type aws_sagemaker_project
+
+val aws_sagemaker_project :
+  ?id:string prop ->
+  ?project_description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  project_name:string prop ->
+  service_catalog_provisioning_details:
+    service_catalog_provisioning_details list ->
+  unit ->
+  aws_sagemaker_project
+
+val yojson_of_aws_sagemaker_project : aws_sagemaker_project -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,13 +50,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_sagemaker_project :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project_description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   project_name:string prop ->
   service_catalog_provisioning_details:
-    aws_sagemaker_project__service_catalog_provisioning_details list ->
+    service_catalog_provisioning_details list ->
   string ->
   t

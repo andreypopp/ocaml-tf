@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_budget_resource_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type aws_servicecatalog_budget_resource_association
+
+val aws_servicecatalog_budget_resource_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  budget_name:string prop ->
+  resource_id:string prop ->
+  unit ->
+  aws_servicecatalog_budget_resource_association
+
+val yojson_of_aws_servicecatalog_budget_resource_association :
+  aws_servicecatalog_budget_resource_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   budget_name : string prop;
@@ -11,9 +34,10 @@ type t = private {
   resource_id : string prop;
 }
 
-val aws_servicecatalog_budget_resource_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_servicecatalog_budget_resource_association__timeouts ->
+  ?timeouts:timeouts ->
   budget_name:string prop ->
   resource_id:string prop ->
   string ->

@@ -4,44 +4,53 @@
 
 open! Tf.Prelude
 
-type aws_globalaccelerator_custom_routing_listener__port_range = {
+type port_range = {
   from_port : float prop option; [@option]  (** from_port *)
   to_port : float prop option; [@option]  (** to_port *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_custom_routing_listener__port_range *)
+(** port_range *)
 
-type aws_globalaccelerator_custom_routing_listener__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_custom_routing_listener__timeouts *)
+(** timeouts *)
 
 type aws_globalaccelerator_custom_routing_listener = {
   accelerator_arn : string prop;  (** accelerator_arn *)
   id : string prop option; [@option]  (** id *)
-  port_range :
-    aws_globalaccelerator_custom_routing_listener__port_range list;
-  timeouts :
-    aws_globalaccelerator_custom_routing_listener__timeouts option;
+  port_range : port_range list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_listener *)
 
-type t = { accelerator_arn : string prop; id : string prop }
+let port_range ?from_port ?to_port () : port_range =
+  { from_port; to_port }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
 
 let aws_globalaccelerator_custom_routing_listener ?id ?timeouts
-    ~accelerator_arn ~port_range __resource_id =
+    ~accelerator_arn ~port_range () :
+    aws_globalaccelerator_custom_routing_listener =
+  { accelerator_arn; id; port_range; timeouts }
+
+type t = { accelerator_arn : string prop; id : string prop }
+
+let register ?tf_module ?id ?timeouts ~accelerator_arn ~port_range
+    __resource_id =
   let __resource_type =
     "aws_globalaccelerator_custom_routing_listener"
   in
   let __resource =
-    ({ accelerator_arn; id; port_range; timeouts }
-      : aws_globalaccelerator_custom_routing_listener)
+    aws_globalaccelerator_custom_routing_listener ?id ?timeouts
+      ~accelerator_arn ~port_range ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_custom_routing_listener
        __resource);
   let __resource_attributes =

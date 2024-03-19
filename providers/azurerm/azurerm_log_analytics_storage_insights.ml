@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_storage_insights__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_log_analytics_storage_insights__timeouts *)
+(** timeouts *)
 
 type azurerm_log_analytics_storage_insights = {
   blob_container_names : string prop list option; [@option]
@@ -24,10 +24,29 @@ type azurerm_log_analytics_storage_insights = {
   table_names : string prop list option; [@option]
       (** table_names *)
   workspace_id : string prop;  (** workspace_id *)
-  timeouts : azurerm_log_analytics_storage_insights__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_storage_insights *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_log_analytics_storage_insights ?blob_container_names ?id
+    ?table_names ?timeouts ~name ~resource_group_name
+    ~storage_account_id ~storage_account_key ~workspace_id () :
+    azurerm_log_analytics_storage_insights =
+  {
+    blob_container_names;
+    id;
+    name;
+    resource_group_name;
+    storage_account_id;
+    storage_account_key;
+    table_names;
+    workspace_id;
+    timeouts;
+  }
 
 type t = {
   blob_container_names : string list prop;
@@ -40,26 +59,16 @@ type t = {
   workspace_id : string prop;
 }
 
-let azurerm_log_analytics_storage_insights ?blob_container_names ?id
-    ?table_names ?timeouts ~name ~resource_group_name
-    ~storage_account_id ~storage_account_key ~workspace_id
-    __resource_id =
+let register ?tf_module ?blob_container_names ?id ?table_names
+    ?timeouts ~name ~resource_group_name ~storage_account_id
+    ~storage_account_key ~workspace_id __resource_id =
   let __resource_type = "azurerm_log_analytics_storage_insights" in
   let __resource =
-    ({
-       blob_container_names;
-       id;
-       name;
-       resource_group_name;
-       storage_account_id;
-       storage_account_key;
-       table_names;
-       workspace_id;
-       timeouts;
-     }
-      : azurerm_log_analytics_storage_insights)
+    azurerm_log_analytics_storage_insights ?blob_container_names ?id
+      ?table_names ?timeouts ~name ~resource_group_name
+      ~storage_account_id ~storage_account_key ~workspace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_storage_insights __resource);
   let __resource_attributes =
     ({

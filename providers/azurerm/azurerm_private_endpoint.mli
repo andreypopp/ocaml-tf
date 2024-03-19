@@ -2,22 +2,19 @@
 
 open! Tf.Prelude
 
-type azurerm_private_endpoint__ip_configuration
-type azurerm_private_endpoint__private_dns_zone_group
-type azurerm_private_endpoint__private_service_connection
-type azurerm_private_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_private_endpoint__custom_dns_configs = {
+type custom_dns_configs = {
   fqdn : string prop;  (** fqdn *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
-type azurerm_private_endpoint__network_interface = {
+type network_interface = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
 
-type azurerm_private_endpoint__private_dns_zone_configs__record_sets = {
+type private_dns_zone_configs__record_sets = {
   fqdn : string prop;  (** fqdn *)
   ip_addresses : string prop list;  (** ip_addresses *)
   name : string prop;  (** name *)
@@ -25,47 +22,101 @@ type azurerm_private_endpoint__private_dns_zone_configs__record_sets = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-type azurerm_private_endpoint__private_dns_zone_configs = {
+type private_dns_zone_configs = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
   private_dns_zone_id : string prop;  (** private_dns_zone_id *)
-  record_sets :
-    azurerm_private_endpoint__private_dns_zone_configs__record_sets
-    list;
+  record_sets : private_dns_zone_configs__record_sets list;
       (** record_sets *)
 }
 
-type azurerm_private_endpoint
+type ip_configuration
 
-type t = private {
-  custom_dns_configs :
-    azurerm_private_endpoint__custom_dns_configs list prop;
-  custom_network_interface_name : string prop;
-  id : string prop;
-  location : string prop;
-  name : string prop;
-  network_interface :
-    azurerm_private_endpoint__network_interface list prop;
-  private_dns_zone_configs :
-    azurerm_private_endpoint__private_dns_zone_configs list prop;
-  resource_group_name : string prop;
-  subnet_id : string prop;
-  tags : (string * string) list prop;
-}
+val ip_configuration :
+  ?member_name:string prop ->
+  ?subresource_name:string prop ->
+  name:string prop ->
+  private_ip_address:string prop ->
+  unit ->
+  ip_configuration
+
+type private_dns_zone_group
+
+val private_dns_zone_group :
+  name:string prop ->
+  private_dns_zone_ids:string prop list ->
+  unit ->
+  private_dns_zone_group
+
+type private_service_connection
+
+val private_service_connection :
+  ?private_connection_resource_alias:string prop ->
+  ?private_connection_resource_id:string prop ->
+  ?request_message:string prop ->
+  ?subresource_names:string prop list ->
+  is_manual_connection:bool prop ->
+  name:string prop ->
+  unit ->
+  private_service_connection
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type azurerm_private_endpoint
 
 val azurerm_private_endpoint :
   ?custom_network_interface_name:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_private_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  ip_configuration:azurerm_private_endpoint__ip_configuration list ->
-  private_dns_zone_group:
-    azurerm_private_endpoint__private_dns_zone_group list ->
-  private_service_connection:
-    azurerm_private_endpoint__private_service_connection list ->
+  ip_configuration:ip_configuration list ->
+  private_dns_zone_group:private_dns_zone_group list ->
+  private_service_connection:private_service_connection list ->
+  unit ->
+  azurerm_private_endpoint
+
+val yojson_of_azurerm_private_endpoint :
+  azurerm_private_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  custom_dns_configs : custom_dns_configs list prop;
+  custom_network_interface_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  network_interface : network_interface list prop;
+  private_dns_zone_configs : private_dns_zone_configs list prop;
+  resource_group_name : string prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+}
+
+val register :
+  ?tf_module:tf_module ->
+  ?custom_network_interface_name:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  subnet_id:string prop ->
+  ip_configuration:ip_configuration list ->
+  private_dns_zone_group:private_dns_zone_group list ->
+  private_service_connection:private_service_connection list ->
   string ->
   t

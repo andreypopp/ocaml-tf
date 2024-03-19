@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_codecommit_approval_rule_template
+
+val aws_codecommit_approval_rule_template :
+  ?description:string prop ->
+  ?id:string prop ->
+  content:string prop ->
+  name:string prop ->
+  unit ->
+  aws_codecommit_approval_rule_template
+
+val yojson_of_aws_codecommit_approval_rule_template :
+  aws_codecommit_approval_rule_template -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   approval_rule_template_id : string prop;
@@ -16,7 +31,8 @@ type t = private {
   rule_content_sha256 : string prop;
 }
 
-val aws_codecommit_approval_rule_template :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   content:string prop ->

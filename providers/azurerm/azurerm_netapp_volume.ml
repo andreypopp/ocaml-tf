@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_volume__data_protection_replication = {
+type data_protection_replication = {
   endpoint_type : string prop option; [@option]  (** endpoint_type *)
   remote_volume_location : string prop;
       (** remote_volume_location *)
@@ -13,15 +13,15 @@ type azurerm_netapp_volume__data_protection_replication = {
   replication_frequency : string prop;  (** replication_frequency *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_volume__data_protection_replication *)
+(** data_protection_replication *)
 
-type azurerm_netapp_volume__data_protection_snapshot_policy = {
+type data_protection_snapshot_policy = {
   snapshot_policy_id : string prop;  (** snapshot_policy_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_volume__data_protection_snapshot_policy *)
+(** data_protection_snapshot_policy *)
 
-type azurerm_netapp_volume__export_policy_rule = {
+type export_policy_rule = {
   allowed_clients : string prop list;  (** allowed_clients *)
   protocols_enabled : string prop list option; [@option]
       (** protocols_enabled *)
@@ -33,16 +33,16 @@ type azurerm_netapp_volume__export_policy_rule = {
       (** unix_read_write *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_volume__export_policy_rule *)
+(** export_policy_rule *)
 
-type azurerm_netapp_volume__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_volume__timeouts *)
+(** timeouts *)
 
 type azurerm_netapp_volume = {
   account_name : string prop;  (** account_name *)
@@ -78,16 +78,83 @@ type azurerm_netapp_volume = {
       (** throughput_in_mibps *)
   volume_path : string prop;  (** volume_path *)
   zone : string prop option; [@option]  (** zone *)
-  data_protection_replication :
-    azurerm_netapp_volume__data_protection_replication list;
+  data_protection_replication : data_protection_replication list;
   data_protection_snapshot_policy :
-    azurerm_netapp_volume__data_protection_snapshot_policy list;
-  export_policy_rule :
-    azurerm_netapp_volume__export_policy_rule list;
-  timeouts : azurerm_netapp_volume__timeouts option;
+    data_protection_snapshot_policy list;
+  export_policy_rule : export_policy_rule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_volume *)
+
+let data_protection_replication ?endpoint_type
+    ~remote_volume_location ~remote_volume_resource_id
+    ~replication_frequency () : data_protection_replication =
+  {
+    endpoint_type;
+    remote_volume_location;
+    remote_volume_resource_id;
+    replication_frequency;
+  }
+
+let data_protection_snapshot_policy ~snapshot_policy_id () :
+    data_protection_snapshot_policy =
+  { snapshot_policy_id }
+
+let export_policy_rule ?protocols_enabled ?root_access_enabled
+    ?unix_read_only ?unix_read_write ~allowed_clients ~rule_index ()
+    : export_policy_rule =
+  {
+    allowed_clients;
+    protocols_enabled;
+    root_access_enabled;
+    rule_index;
+    unix_read_only;
+    unix_read_write;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_netapp_volume ?azure_vmware_data_store_enabled
+    ?create_from_snapshot_resource_id ?encryption_key_source ?id
+    ?key_vault_private_endpoint_id ?network_features ?protocols
+    ?security_style ?smb_access_based_enumeration_enabled
+    ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
+    ?throughput_in_mibps ?zone ?timeouts ~account_name ~location
+    ~name ~pool_name ~resource_group_name ~service_level
+    ~storage_quota_in_gb ~subnet_id ~volume_path
+    ~data_protection_replication ~data_protection_snapshot_policy
+    ~export_policy_rule () : azurerm_netapp_volume =
+  {
+    account_name;
+    azure_vmware_data_store_enabled;
+    create_from_snapshot_resource_id;
+    encryption_key_source;
+    id;
+    key_vault_private_endpoint_id;
+    location;
+    name;
+    network_features;
+    pool_name;
+    protocols;
+    resource_group_name;
+    security_style;
+    service_level;
+    smb_access_based_enumeration_enabled;
+    smb_non_browsable_enabled;
+    snapshot_directory_visible;
+    storage_quota_in_gb;
+    subnet_id;
+    tags;
+    throughput_in_mibps;
+    volume_path;
+    zone;
+    data_protection_replication;
+    data_protection_snapshot_policy;
+    export_policy_rule;
+    timeouts;
+  }
 
 type t = {
   account_name : string prop;
@@ -116,7 +183,7 @@ type t = {
   zone : string prop;
 }
 
-let azurerm_netapp_volume ?azure_vmware_data_store_enabled
+let register ?tf_module ?azure_vmware_data_store_enabled
     ?create_from_snapshot_resource_id ?encryption_key_source ?id
     ?key_vault_private_endpoint_id ?network_features ?protocols
     ?security_style ?smb_access_based_enumeration_enabled
@@ -128,38 +195,18 @@ let azurerm_netapp_volume ?azure_vmware_data_store_enabled
     ~export_policy_rule __resource_id =
   let __resource_type = "azurerm_netapp_volume" in
   let __resource =
-    ({
-       account_name;
-       azure_vmware_data_store_enabled;
-       create_from_snapshot_resource_id;
-       encryption_key_source;
-       id;
-       key_vault_private_endpoint_id;
-       location;
-       name;
-       network_features;
-       pool_name;
-       protocols;
-       resource_group_name;
-       security_style;
-       service_level;
-       smb_access_based_enumeration_enabled;
-       smb_non_browsable_enabled;
-       snapshot_directory_visible;
-       storage_quota_in_gb;
-       subnet_id;
-       tags;
-       throughput_in_mibps;
-       volume_path;
-       zone;
-       data_protection_replication;
-       data_protection_snapshot_policy;
-       export_policy_rule;
-       timeouts;
-     }
-      : azurerm_netapp_volume)
+    azurerm_netapp_volume ?azure_vmware_data_store_enabled
+      ?create_from_snapshot_resource_id ?encryption_key_source ?id
+      ?key_vault_private_endpoint_id ?network_features ?protocols
+      ?security_style ?smb_access_based_enumeration_enabled
+      ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
+      ?throughput_in_mibps ?zone ?timeouts ~account_name ~location
+      ~name ~pool_name ~resource_group_name ~service_level
+      ~storage_quota_in_gb ~subnet_id ~volume_path
+      ~data_protection_replication ~data_protection_snapshot_policy
+      ~export_policy_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_volume __resource);
   let __resource_attributes =
     ({

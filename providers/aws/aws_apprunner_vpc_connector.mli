@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_apprunner_vpc_connector
+
+val aws_apprunner_vpc_connector :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  security_groups:string prop list ->
+  subnets:string prop list ->
+  vpc_connector_name:string prop ->
+  unit ->
+  aws_apprunner_vpc_connector
+
+val yojson_of_aws_apprunner_vpc_connector :
+  aws_apprunner_vpc_connector -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,7 +33,8 @@ type t = private {
   vpc_connector_revision : float prop;
 }
 
-val aws_apprunner_vpc_connector :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

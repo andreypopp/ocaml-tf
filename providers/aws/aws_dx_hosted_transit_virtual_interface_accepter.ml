@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_dx_hosted_transit_virtual_interface_accepter__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_dx_hosted_transit_virtual_interface_accepter__timeouts *)
+(** timeouts *)
 
 type aws_dx_hosted_transit_virtual_interface_accepter = {
   dx_gateway_id : string prop;  (** dx_gateway_id *)
@@ -18,11 +18,24 @@ type aws_dx_hosted_transit_virtual_interface_accepter = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   virtual_interface_id : string prop;  (** virtual_interface_id *)
-  timeouts :
-    aws_dx_hosted_transit_virtual_interface_accepter__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dx_hosted_transit_virtual_interface_accepter *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_dx_hosted_transit_virtual_interface_accepter ?id ?tags
+    ?tags_all ?timeouts ~dx_gateway_id ~virtual_interface_id () :
+    aws_dx_hosted_transit_virtual_interface_accepter =
+  {
+    dx_gateway_id;
+    id;
+    tags;
+    tags_all;
+    virtual_interface_id;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -33,24 +46,16 @@ type t = {
   virtual_interface_id : string prop;
 }
 
-let aws_dx_hosted_transit_virtual_interface_accepter ?id ?tags
-    ?tags_all ?timeouts ~dx_gateway_id ~virtual_interface_id
-    __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~dx_gateway_id
+    ~virtual_interface_id __resource_id =
   let __resource_type =
     "aws_dx_hosted_transit_virtual_interface_accepter"
   in
   let __resource =
-    ({
-       dx_gateway_id;
-       id;
-       tags;
-       tags_all;
-       virtual_interface_id;
-       timeouts;
-     }
-      : aws_dx_hosted_transit_virtual_interface_accepter)
+    aws_dx_hosted_transit_virtual_interface_accepter ?id ?tags
+      ?tags_all ?timeouts ~dx_gateway_id ~virtual_interface_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_hosted_transit_virtual_interface_accepter
        __resource);
   let __resource_attributes =

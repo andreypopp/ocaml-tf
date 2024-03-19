@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_eks_cluster__access_config = {
+type access_config = {
   authentication_mode : string prop option; [@option]
       (** authentication_mode *)
   bootstrap_cluster_creator_admin_permissions : bool prop option;
@@ -12,57 +12,54 @@ type aws_eks_cluster__access_config = {
       (** bootstrap_cluster_creator_admin_permissions *)
 }
 [@@deriving yojson_of]
-(** aws_eks_cluster__access_config *)
+(** access_config *)
 
-type aws_eks_cluster__encryption_config__provider = {
+type encryption_config__provider = {
   key_arn : string prop;  (** key_arn *)
 }
 [@@deriving yojson_of]
-(** aws_eks_cluster__encryption_config__provider *)
+(** encryption_config__provider *)
 
-type aws_eks_cluster__encryption_config = {
+type encryption_config = {
   resources : string prop list;  (** resources *)
-  provider : aws_eks_cluster__encryption_config__provider list;
+  provider : encryption_config__provider list;
 }
 [@@deriving yojson_of]
-(** aws_eks_cluster__encryption_config *)
+(** encryption_config *)
 
-type aws_eks_cluster__kubernetes_network_config = {
+type kubernetes_network_config = {
   ip_family : string prop option; [@option]  (** ip_family *)
   service_ipv4_cidr : string prop option; [@option]
       (** service_ipv4_cidr *)
-  service_ipv6_cidr : string prop;  (** service_ipv6_cidr *)
 }
 [@@deriving yojson_of]
-(** aws_eks_cluster__kubernetes_network_config *)
+(** kubernetes_network_config *)
 
-type aws_eks_cluster__outpost_config__control_plane_placement = {
+type outpost_config__control_plane_placement = {
   group_name : string prop;  (** group_name *)
 }
 [@@deriving yojson_of]
-(** aws_eks_cluster__outpost_config__control_plane_placement *)
+(** outpost_config__control_plane_placement *)
 
-type aws_eks_cluster__outpost_config = {
+type outpost_config = {
   control_plane_instance_type : string prop;
       (** control_plane_instance_type *)
   outpost_arns : string prop list;  (** outpost_arns *)
   control_plane_placement :
-    aws_eks_cluster__outpost_config__control_plane_placement list;
+    outpost_config__control_plane_placement list;
 }
 [@@deriving yojson_of]
-(** aws_eks_cluster__outpost_config *)
+(** outpost_config *)
 
-type aws_eks_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_eks_cluster__timeouts *)
+(** timeouts *)
 
-type aws_eks_cluster__vpc_config = {
-  cluster_security_group_id : string prop;
-      (** cluster_security_group_id *)
+type vpc_config = {
   endpoint_private_access : bool prop option; [@option]
       (** endpoint_private_access *)
   endpoint_public_access : bool prop option; [@option]
@@ -72,24 +69,17 @@ type aws_eks_cluster__vpc_config = {
   security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
-  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
-(** aws_eks_cluster__vpc_config *)
+(** vpc_config *)
 
-type aws_eks_cluster__certificate_authority = {
-  data : string prop;  (** data *)
-}
+type certificate_authority = { data : string prop  (** data *) }
 [@@deriving yojson_of]
 
-type aws_eks_cluster__identity__oidc = {
-  issuer : string prop;  (** issuer *)
-}
+type identity__oidc = { issuer : string prop  (** issuer *) }
 [@@deriving yojson_of]
 
-type aws_eks_cluster__identity = {
-  oidc : aws_eks_cluster__identity__oidc list;  (** oidc *)
-}
+type identity = { oidc : identity__oidc list  (** oidc *) }
 [@@deriving yojson_of]
 
 type aws_eks_cluster = {
@@ -102,27 +92,89 @@ type aws_eks_cluster = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   version : string prop option; [@option]  (** version *)
-  access_config : aws_eks_cluster__access_config list;
-  encryption_config : aws_eks_cluster__encryption_config list;
-  kubernetes_network_config :
-    aws_eks_cluster__kubernetes_network_config list;
-  outpost_config : aws_eks_cluster__outpost_config list;
-  timeouts : aws_eks_cluster__timeouts option;
-  vpc_config : aws_eks_cluster__vpc_config list;
+  access_config : access_config list;
+  encryption_config : encryption_config list;
+  kubernetes_network_config : kubernetes_network_config list;
+  outpost_config : outpost_config list;
+  timeouts : timeouts option;
+  vpc_config : vpc_config list;
 }
 [@@deriving yojson_of]
 (** aws_eks_cluster *)
 
+let access_config ?authentication_mode
+    ?bootstrap_cluster_creator_admin_permissions () : access_config =
+  {
+    authentication_mode;
+    bootstrap_cluster_creator_admin_permissions;
+  }
+
+let encryption_config__provider ~key_arn () :
+    encryption_config__provider =
+  { key_arn }
+
+let encryption_config ~resources ~provider () : encryption_config =
+  { resources; provider }
+
+let kubernetes_network_config ?ip_family ?service_ipv4_cidr () :
+    kubernetes_network_config =
+  { ip_family; service_ipv4_cidr }
+
+let outpost_config__control_plane_placement ~group_name () :
+    outpost_config__control_plane_placement =
+  { group_name }
+
+let outpost_config ~control_plane_instance_type ~outpost_arns
+    ~control_plane_placement () : outpost_config =
+  {
+    control_plane_instance_type;
+    outpost_arns;
+    control_plane_placement;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc_config ?endpoint_private_access ?endpoint_public_access
+    ?public_access_cidrs ?security_group_ids ~subnet_ids () :
+    vpc_config =
+  {
+    endpoint_private_access;
+    endpoint_public_access;
+    public_access_cidrs;
+    security_group_ids;
+    subnet_ids;
+  }
+
+let aws_eks_cluster ?enabled_cluster_log_types ?id ?tags ?tags_all
+    ?version ?timeouts ~name ~role_arn ~access_config
+    ~encryption_config ~kubernetes_network_config ~outpost_config
+    ~vpc_config () : aws_eks_cluster =
+  {
+    enabled_cluster_log_types;
+    id;
+    name;
+    role_arn;
+    tags;
+    tags_all;
+    version;
+    access_config;
+    encryption_config;
+    kubernetes_network_config;
+    outpost_config;
+    timeouts;
+    vpc_config;
+  }
+
 type t = {
   arn : string prop;
-  certificate_authority :
-    aws_eks_cluster__certificate_authority list prop;
+  certificate_authority : certificate_authority list prop;
   cluster_id : string prop;
   created_at : string prop;
   enabled_cluster_log_types : string list prop;
   endpoint : string prop;
   id : string prop;
-  identity : aws_eks_cluster__identity list prop;
+  identity : identity list prop;
   name : string prop;
   platform_version : string prop;
   role_arn : string prop;
@@ -132,30 +184,18 @@ type t = {
   version : string prop;
 }
 
-let aws_eks_cluster ?enabled_cluster_log_types ?id ?tags ?tags_all
-    ?version ?timeouts ~name ~role_arn ~access_config
+let register ?tf_module ?enabled_cluster_log_types ?id ?tags
+    ?tags_all ?version ?timeouts ~name ~role_arn ~access_config
     ~encryption_config ~kubernetes_network_config ~outpost_config
     ~vpc_config __resource_id =
   let __resource_type = "aws_eks_cluster" in
   let __resource =
-    ({
-       enabled_cluster_log_types;
-       id;
-       name;
-       role_arn;
-       tags;
-       tags_all;
-       version;
-       access_config;
-       encryption_config;
-       kubernetes_network_config;
-       outpost_config;
-       timeouts;
-       vpc_config;
-     }
-      : aws_eks_cluster)
+    aws_eks_cluster ?enabled_cluster_log_types ?id ?tags ?tags_all
+      ?version ?timeouts ~name ~role_arn ~access_config
+      ~encryption_config ~kubernetes_network_config ~outpost_config
+      ~vpc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_cluster __resource);
   let __resource_attributes =
     ({

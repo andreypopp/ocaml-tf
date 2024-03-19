@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_watchlist__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_sentinel_watchlist
+
+val azurerm_sentinel_watchlist :
+  ?default_duration:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:string prop list ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  item_search_key:string prop ->
+  log_analytics_workspace_id:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_sentinel_watchlist
+
+val yojson_of_azurerm_sentinel_watchlist :
+  azurerm_sentinel_watchlist -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   default_duration : string prop;
@@ -16,12 +44,13 @@ type t = private {
   name : string prop;
 }
 
-val azurerm_sentinel_watchlist :
+val register :
+  ?tf_module:tf_module ->
   ?default_duration:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:string prop list ->
-  ?timeouts:azurerm_sentinel_watchlist__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   item_search_key:string prop ->
   log_analytics_workspace_id:string prop ->

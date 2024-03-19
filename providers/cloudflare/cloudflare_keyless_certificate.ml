@@ -23,6 +23,20 @@ type cloudflare_keyless_certificate = {
 (** Provides a resource, that manages Keyless certificates.
  *)
 
+let cloudflare_keyless_certificate ?bundle_method ?enabled ?id ?name
+    ?port ~certificate ~host ~zone_id () :
+    cloudflare_keyless_certificate =
+  {
+    bundle_method;
+    certificate;
+    enabled;
+    host;
+    id;
+    name;
+    port;
+    zone_id;
+  }
+
 type t = {
   bundle_method : string prop;
   certificate : string prop;
@@ -35,23 +49,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_keyless_certificate ?bundle_method ?enabled ?id ?name
-    ?port ~certificate ~host ~zone_id __resource_id =
+let register ?tf_module ?bundle_method ?enabled ?id ?name ?port
+    ~certificate ~host ~zone_id __resource_id =
   let __resource_type = "cloudflare_keyless_certificate" in
   let __resource =
-    ({
-       bundle_method;
-       certificate;
-       enabled;
-       host;
-       id;
-       name;
-       port;
-       zone_id;
-     }
-      : cloudflare_keyless_certificate)
+    cloudflare_keyless_certificate ?bundle_method ?enabled ?id ?name
+      ?port ~certificate ~host ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_keyless_certificate __resource);
   let __resource_attributes =
     ({

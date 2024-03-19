@@ -2,14 +2,61 @@
 
 open! Tf.Prelude
 
-type aws_ivschat_logging_configuration__destination_configuration__cloudwatch_logs
+(** RESOURCE SERIALIZATION *)
 
-type aws_ivschat_logging_configuration__destination_configuration__firehose
+type destination_configuration__cloudwatch_logs
 
-type aws_ivschat_logging_configuration__destination_configuration__s3
-type aws_ivschat_logging_configuration__destination_configuration
-type aws_ivschat_logging_configuration__timeouts
+val destination_configuration__cloudwatch_logs :
+  log_group_name:string prop ->
+  unit ->
+  destination_configuration__cloudwatch_logs
+
+type destination_configuration__firehose
+
+val destination_configuration__firehose :
+  delivery_stream_name:string prop ->
+  unit ->
+  destination_configuration__firehose
+
+type destination_configuration__s3
+
+val destination_configuration__s3 :
+  bucket_name:string prop -> unit -> destination_configuration__s3
+
+type destination_configuration
+
+val destination_configuration :
+  cloudwatch_logs:destination_configuration__cloudwatch_logs list ->
+  firehose:destination_configuration__firehose list ->
+  s3:destination_configuration__s3 list ->
+  unit ->
+  destination_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_ivschat_logging_configuration
+
+val aws_ivschat_logging_configuration :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  destination_configuration:destination_configuration list ->
+  unit ->
+  aws_ivschat_logging_configuration
+
+val yojson_of_aws_ivschat_logging_configuration :
+  aws_ivschat_logging_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -20,13 +67,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ivschat_logging_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_ivschat_logging_configuration__timeouts ->
-  destination_configuration:
-    aws_ivschat_logging_configuration__destination_configuration list ->
+  ?timeouts:timeouts ->
+  destination_configuration:destination_configuration list ->
   string ->
   t

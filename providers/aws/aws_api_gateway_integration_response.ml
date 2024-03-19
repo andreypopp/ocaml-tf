@@ -22,6 +22,22 @@ type aws_api_gateway_integration_response = {
 [@@deriving yojson_of]
 (** aws_api_gateway_integration_response *)
 
+let aws_api_gateway_integration_response ?content_handling ?id
+    ?response_parameters ?response_templates ?selection_pattern
+    ~http_method ~resource_id ~rest_api_id ~status_code () :
+    aws_api_gateway_integration_response =
+  {
+    content_handling;
+    http_method;
+    id;
+    resource_id;
+    response_parameters;
+    response_templates;
+    rest_api_id;
+    selection_pattern;
+    status_code;
+  }
+
 type t = {
   content_handling : string prop;
   http_method : string prop;
@@ -34,26 +50,16 @@ type t = {
   status_code : string prop;
 }
 
-let aws_api_gateway_integration_response ?content_handling ?id
-    ?response_parameters ?response_templates ?selection_pattern
-    ~http_method ~resource_id ~rest_api_id ~status_code __resource_id
-    =
+let register ?tf_module ?content_handling ?id ?response_parameters
+    ?response_templates ?selection_pattern ~http_method ~resource_id
+    ~rest_api_id ~status_code __resource_id =
   let __resource_type = "aws_api_gateway_integration_response" in
   let __resource =
-    ({
-       content_handling;
-       http_method;
-       id;
-       resource_id;
-       response_parameters;
-       response_templates;
-       rest_api_id;
-       selection_pattern;
-       status_code;
-     }
-      : aws_api_gateway_integration_response)
+    aws_api_gateway_integration_response ?content_handling ?id
+      ?response_parameters ?response_templates ?selection_pattern
+      ~http_method ~resource_id ~rest_api_id ~status_code ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_integration_response __resource);
   let __resource_attributes =
     ({

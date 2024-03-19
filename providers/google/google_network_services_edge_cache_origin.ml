@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_network_services_edge_cache_origin__aws_v4_authentication = {
+type aws_v4_authentication = {
   access_key_id : string prop;
       (** The access key ID your origin uses to identify the key. *)
   origin_region : string prop;
@@ -17,7 +17,7 @@ This is the resource name of the secret version in the format 'projects/*/secret
 [@@deriving yojson_of]
 (** Enable AWS Signature Version 4 origin authentication. *)
 
-type google_network_services_edge_cache_origin__origin_override_action__header_action__request_headers_to_add = {
+type origin_override_action__header_action__request_headers_to_add = {
   header_name : string prop;  (** The name of the header to add. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop option; [@option]
@@ -35,16 +35,16 @@ To overwrite existing values, set 'replace' to 'true'. *)
 
 You may add a maximum of 25 request headers. *)
 
-type google_network_services_edge_cache_origin__origin_override_action__header_action = {
+type origin_override_action__header_action = {
   request_headers_to_add :
-    google_network_services_edge_cache_origin__origin_override_action__header_action__request_headers_to_add
+    origin_override_action__header_action__request_headers_to_add
     list;
 }
 [@@deriving yojson_of]
 (** The header actions, including adding and removing
 headers, for request handled by this origin. *)
 
-type google_network_services_edge_cache_origin__origin_override_action__url_rewrite = {
+type origin_override_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected
 origin, the request's host header is replaced with
@@ -56,19 +56,15 @@ This value must be between 1 and 255 characters. *)
 (** The URL rewrite configuration for request that are
 handled by this origin. *)
 
-type google_network_services_edge_cache_origin__origin_override_action = {
-  header_action :
-    google_network_services_edge_cache_origin__origin_override_action__header_action
-    list;
-  url_rewrite :
-    google_network_services_edge_cache_origin__origin_override_action__url_rewrite
-    list;
+type origin_override_action = {
+  header_action : origin_override_action__header_action list;
+  url_rewrite : origin_override_action__url_rewrite list;
 }
 [@@deriving yojson_of]
 (** The override actions, including url rewrites and header
 additions, for requests that use this origin. *)
 
-type google_network_services_edge_cache_origin__origin_redirect = {
+type origin_redirect = {
   redirect_conditions : string prop list option; [@option]
       (** The set of redirect response codes that the CDN
 follows. Values of
@@ -78,7 +74,7 @@ are accepted. *)
 [@@deriving yojson_of]
 (** Follow redirects from this origin. *)
 
-type google_network_services_edge_cache_origin__timeout = {
+type timeout = {
   connect_timeout : string prop option; [@option]
       (** The maximum duration to wait for a single origin connection to be established, including DNS lookup, TLS handshake and TCP/QUIC connection establishment.
 
@@ -113,13 +109,13 @@ If the response headers have already been written to the connection, the respons
 [@@deriving yojson_of]
 (** The connection and HTTP timeout configuration for this origin. *)
 
-type google_network_services_edge_cache_origin__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_services_edge_cache_origin__timeouts *)
+(** timeouts *)
 
 type google_network_services_edge_cache_origin = {
   description : string prop option; [@option]
@@ -187,20 +183,74 @@ Valid values are:
 - RETRIABLE_4XX: Retry for retriable 4xx response codes, which include HTTP 409 (Conflict) and HTTP 429 (Too Many Requests)
 - NOT_FOUND: Retry if the origin returns a HTTP 404 (Not Found). This can be useful when generating video content, and the segment is not available yet.
 - FORBIDDEN: Retry if the origin returns a HTTP 403 (Forbidden). Possible values: [CONNECT_FAILURE, HTTP_5XX, GATEWAY_ERROR, RETRIABLE_4XX, NOT_FOUND, FORBIDDEN] *)
-  aws_v4_authentication :
-    google_network_services_edge_cache_origin__aws_v4_authentication
-    list;
-  origin_override_action :
-    google_network_services_edge_cache_origin__origin_override_action
-    list;
-  origin_redirect :
-    google_network_services_edge_cache_origin__origin_redirect list;
-  timeout : google_network_services_edge_cache_origin__timeout list;
-  timeouts :
-    google_network_services_edge_cache_origin__timeouts option;
+  aws_v4_authentication : aws_v4_authentication list;
+  origin_override_action : origin_override_action list;
+  origin_redirect : origin_redirect list;
+  timeout : timeout list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_services_edge_cache_origin *)
+
+let aws_v4_authentication ~access_key_id ~origin_region
+    ~secret_access_key_version () : aws_v4_authentication =
+  { access_key_id; origin_region; secret_access_key_version }
+
+let origin_override_action__header_action__request_headers_to_add
+    ?replace ~header_name ~header_value () :
+    origin_override_action__header_action__request_headers_to_add =
+  { header_name; header_value; replace }
+
+let origin_override_action__header_action ~request_headers_to_add ()
+    : origin_override_action__header_action =
+  { request_headers_to_add }
+
+let origin_override_action__url_rewrite ?host_rewrite () :
+    origin_override_action__url_rewrite =
+  { host_rewrite }
+
+let origin_override_action ~header_action ~url_rewrite () :
+    origin_override_action =
+  { header_action; url_rewrite }
+
+let origin_redirect ?redirect_conditions () : origin_redirect =
+  { redirect_conditions }
+
+let timeout ?connect_timeout ?max_attempts_timeout ?read_timeout
+    ?response_timeout () : timeout =
+  {
+    connect_timeout;
+    max_attempts_timeout;
+    read_timeout;
+    response_timeout;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_services_edge_cache_origin ?description
+    ?failover_origin ?id ?labels ?max_attempts ?port ?project
+    ?protocol ?retry_conditions ?timeouts ~name ~origin_address
+    ~aws_v4_authentication ~origin_override_action ~origin_redirect
+    ~timeout () : google_network_services_edge_cache_origin =
+  {
+    description;
+    failover_origin;
+    id;
+    labels;
+    max_attempts;
+    name;
+    origin_address;
+    port;
+    project;
+    protocol;
+    retry_conditions;
+    aws_v4_authentication;
+    origin_override_action;
+    origin_redirect;
+    timeout;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -218,36 +268,21 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_network_services_edge_cache_origin ?description
-    ?failover_origin ?id ?labels ?max_attempts ?port ?project
-    ?protocol ?retry_conditions ?timeouts ~name ~origin_address
-    ~aws_v4_authentication ~origin_override_action ~origin_redirect
-    ~timeout __resource_id =
+let register ?tf_module ?description ?failover_origin ?id ?labels
+    ?max_attempts ?port ?project ?protocol ?retry_conditions
+    ?timeouts ~name ~origin_address ~aws_v4_authentication
+    ~origin_override_action ~origin_redirect ~timeout __resource_id =
   let __resource_type =
     "google_network_services_edge_cache_origin"
   in
   let __resource =
-    ({
-       description;
-       failover_origin;
-       id;
-       labels;
-       max_attempts;
-       name;
-       origin_address;
-       port;
-       project;
-       protocol;
-       retry_conditions;
-       aws_v4_authentication;
-       origin_override_action;
-       origin_redirect;
-       timeout;
-       timeouts;
-     }
-      : google_network_services_edge_cache_origin)
+    google_network_services_edge_cache_origin ?description
+      ?failover_origin ?id ?labels ?max_attempts ?port ?project
+      ?protocol ?retry_conditions ?timeouts ~name ~origin_address
+      ~aws_v4_authentication ~origin_override_action ~origin_redirect
+      ~timeout ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_services_edge_cache_origin __resource);
   let __resource_attributes =
     ({

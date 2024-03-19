@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type digitalocean_loadbalancer__firewall = {
+type firewall = {
   allow : string prop list option; [@option]
       (** the rules for ALLOWING traffic to the LB (strings in the form: 'ip:1.2.3.4' or 'cidr:1.2.0.0/16') *)
   deny : string prop list option; [@option]
       (** the rules for DENYING traffic to the LB (strings in the form: 'ip:1.2.3.4' or 'cidr:1.2.0.0/16') *)
 }
 [@@deriving yojson_of]
-(** digitalocean_loadbalancer__firewall *)
+(** firewall *)
 
-type digitalocean_loadbalancer__forwarding_rule = {
+type forwarding_rule = {
   certificate_id : string prop option; [@option]
       (** certificate_id *)
   certificate_name : string prop option; [@option]
@@ -26,9 +26,9 @@ type digitalocean_loadbalancer__forwarding_rule = {
       (** tls_passthrough *)
 }
 [@@deriving yojson_of]
-(** digitalocean_loadbalancer__forwarding_rule *)
+(** forwarding_rule *)
 
-type digitalocean_loadbalancer__healthcheck = {
+type healthcheck = {
   check_interval_seconds : float prop option; [@option]
       (** check_interval_seconds *)
   healthy_threshold : float prop option; [@option]
@@ -42,16 +42,16 @@ type digitalocean_loadbalancer__healthcheck = {
       (** unhealthy_threshold *)
 }
 [@@deriving yojson_of]
-(** digitalocean_loadbalancer__healthcheck *)
+(** healthcheck *)
 
-type digitalocean_loadbalancer__sticky_sessions = {
+type sticky_sessions = {
   cookie_name : string prop option; [@option]  (** cookie_name *)
   cookie_ttl_seconds : float prop option; [@option]
       (** cookie_ttl_seconds *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** digitalocean_loadbalancer__sticky_sessions *)
+(** sticky_sessions *)
 
 type digitalocean_loadbalancer = {
   algorithm : string prop option; [@option]  (** algorithm *)
@@ -76,13 +76,75 @@ type digitalocean_loadbalancer = {
   type_ : string prop option; [@option] [@key "type"]
       (** the type of the load balancer (GLOBAL or REGIONAL) *)
   vpc_uuid : string prop option; [@option]  (** vpc_uuid *)
-  firewall : digitalocean_loadbalancer__firewall list;
-  forwarding_rule : digitalocean_loadbalancer__forwarding_rule list;
-  healthcheck : digitalocean_loadbalancer__healthcheck list;
-  sticky_sessions : digitalocean_loadbalancer__sticky_sessions list;
+  firewall : firewall list;
+  forwarding_rule : forwarding_rule list;
+  healthcheck : healthcheck list;
+  sticky_sessions : sticky_sessions list;
 }
 [@@deriving yojson_of]
 (** digitalocean_loadbalancer *)
+
+let firewall ?allow ?deny () : firewall = { allow; deny }
+
+let forwarding_rule ?certificate_id ?certificate_name
+    ?tls_passthrough ~entry_port ~entry_protocol ~target_port
+    ~target_protocol () : forwarding_rule =
+  {
+    certificate_id;
+    certificate_name;
+    entry_port;
+    entry_protocol;
+    target_port;
+    target_protocol;
+    tls_passthrough;
+  }
+
+let healthcheck ?check_interval_seconds ?healthy_threshold ?path
+    ?response_timeout_seconds ?unhealthy_threshold ~port ~protocol ()
+    : healthcheck =
+  {
+    check_interval_seconds;
+    healthy_threshold;
+    path;
+    port;
+    protocol;
+    response_timeout_seconds;
+    unhealthy_threshold;
+  }
+
+let sticky_sessions ?cookie_name ?cookie_ttl_seconds ?type_ () :
+    sticky_sessions =
+  { cookie_name; cookie_ttl_seconds; type_ }
+
+let digitalocean_loadbalancer ?algorithm
+    ?disable_lets_encrypt_dns_records ?droplet_ids ?droplet_tag
+    ?enable_backend_keepalive ?enable_proxy_protocol
+    ?http_idle_timeout_seconds ?id ?project_id
+    ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
+    ~name ~firewall ~forwarding_rule ~healthcheck ~sticky_sessions ()
+    : digitalocean_loadbalancer =
+  {
+    algorithm;
+    disable_lets_encrypt_dns_records;
+    droplet_ids;
+    droplet_tag;
+    enable_backend_keepalive;
+    enable_proxy_protocol;
+    http_idle_timeout_seconds;
+    id;
+    name;
+    project_id;
+    redirect_http_to_https;
+    region;
+    size;
+    size_unit;
+    type_;
+    vpc_uuid;
+    firewall;
+    forwarding_rule;
+    healthcheck;
+    sticky_sessions;
+  }
 
 type t = {
   algorithm : string prop;
@@ -106,40 +168,23 @@ type t = {
   vpc_uuid : string prop;
 }
 
-let digitalocean_loadbalancer ?algorithm
-    ?disable_lets_encrypt_dns_records ?droplet_ids ?droplet_tag
-    ?enable_backend_keepalive ?enable_proxy_protocol
-    ?http_idle_timeout_seconds ?id ?project_id
+let register ?tf_module ?algorithm ?disable_lets_encrypt_dns_records
+    ?droplet_ids ?droplet_tag ?enable_backend_keepalive
+    ?enable_proxy_protocol ?http_idle_timeout_seconds ?id ?project_id
     ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
     ~name ~firewall ~forwarding_rule ~healthcheck ~sticky_sessions
     __resource_id =
   let __resource_type = "digitalocean_loadbalancer" in
   let __resource =
-    ({
-       algorithm;
-       disable_lets_encrypt_dns_records;
-       droplet_ids;
-       droplet_tag;
-       enable_backend_keepalive;
-       enable_proxy_protocol;
-       http_idle_timeout_seconds;
-       id;
-       name;
-       project_id;
-       redirect_http_to_https;
-       region;
-       size;
-       size_unit;
-       type_;
-       vpc_uuid;
-       firewall;
-       forwarding_rule;
-       healthcheck;
-       sticky_sessions;
-     }
-      : digitalocean_loadbalancer)
+    digitalocean_loadbalancer ?algorithm
+      ?disable_lets_encrypt_dns_records ?droplet_ids ?droplet_tag
+      ?enable_backend_keepalive ?enable_proxy_protocol
+      ?http_idle_timeout_seconds ?id ?project_id
+      ?redirect_http_to_https ?region ?size ?size_unit ?type_
+      ?vpc_uuid ~name ~firewall ~forwarding_rule ~healthcheck
+      ~sticky_sessions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_loadbalancer __resource);
   let __resource_attributes =
     ({

@@ -16,6 +16,11 @@ type aws_service_discovery_private_dns_namespace = {
 [@@deriving yojson_of]
 (** aws_service_discovery_private_dns_namespace *)
 
+let aws_service_discovery_private_dns_namespace ?description ?id
+    ?tags ?tags_all ~name ~vpc () :
+    aws_service_discovery_private_dns_namespace =
+  { description; id; name; tags; tags_all; vpc }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -27,16 +32,16 @@ type t = {
   vpc : string prop;
 }
 
-let aws_service_discovery_private_dns_namespace ?description ?id
-    ?tags ?tags_all ~name ~vpc __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~name ~vpc
+    __resource_id =
   let __resource_type =
     "aws_service_discovery_private_dns_namespace"
   in
   let __resource =
-    ({ description; id; name; tags; tags_all; vpc }
-      : aws_service_discovery_private_dns_namespace)
+    aws_service_discovery_private_dns_namespace ?description ?id
+      ?tags ?tags_all ~name ~vpc ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_service_discovery_private_dns_namespace __resource);
   let __resource_attributes =
     ({

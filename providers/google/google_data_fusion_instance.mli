@@ -2,12 +2,77 @@
 
 open! Tf.Prelude
 
-type google_data_fusion_instance__accelerators
-type google_data_fusion_instance__crypto_key_config
-type google_data_fusion_instance__event_publish_config
-type google_data_fusion_instance__network_config
-type google_data_fusion_instance__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type accelerators
+
+val accelerators :
+  accelerator_type:string prop ->
+  state:string prop ->
+  unit ->
+  accelerators
+
+type crypto_key_config
+
+val crypto_key_config :
+  key_reference:string prop -> unit -> crypto_key_config
+
+type event_publish_config
+
+val event_publish_config :
+  enabled:bool prop ->
+  topic:string prop ->
+  unit ->
+  event_publish_config
+
+type network_config
+
+val network_config :
+  ip_allocation:string prop ->
+  network:string prop ->
+  unit ->
+  network_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_data_fusion_instance
+
+val google_data_fusion_instance :
+  ?dataproc_service_account:string prop ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?enable_rbac:bool prop ->
+  ?enable_stackdriver_logging:bool prop ->
+  ?enable_stackdriver_monitoring:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?options:(string * string prop) list ->
+  ?private_instance:bool prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?version:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  type_:string prop ->
+  accelerators:accelerators list ->
+  crypto_key_config:crypto_key_config list ->
+  event_publish_config:event_publish_config list ->
+  network_config:network_config list ->
+  unit ->
+  google_data_fusion_instance
+
+val yojson_of_google_data_fusion_instance :
+  google_data_fusion_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_endpoint : string prop;
@@ -39,7 +104,8 @@ type t = private {
   zone : string prop;
 }
 
-val google_data_fusion_instance :
+val register :
+  ?tf_module:tf_module ->
   ?dataproc_service_account:string prop ->
   ?description:string prop ->
   ?display_name:string prop ->
@@ -54,14 +120,12 @@ val google_data_fusion_instance :
   ?region:string prop ->
   ?version:string prop ->
   ?zone:string prop ->
-  ?timeouts:google_data_fusion_instance__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
-  accelerators:google_data_fusion_instance__accelerators list ->
-  crypto_key_config:
-    google_data_fusion_instance__crypto_key_config list ->
-  event_publish_config:
-    google_data_fusion_instance__event_publish_config list ->
-  network_config:google_data_fusion_instance__network_config list ->
+  accelerators:accelerators list ->
+  crypto_key_config:crypto_key_config list ->
+  event_publish_config:event_publish_config list ->
+  network_config:network_config list ->
   string ->
   t

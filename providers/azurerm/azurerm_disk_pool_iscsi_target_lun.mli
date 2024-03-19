@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_disk_pool_iscsi_target_lun__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_disk_pool_iscsi_target_lun
+
+val azurerm_disk_pool_iscsi_target_lun :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  disk_pool_managed_disk_attachment_id:string prop ->
+  iscsi_target_id:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_disk_pool_iscsi_target_lun
+
+val yojson_of_azurerm_disk_pool_iscsi_target_lun :
+  azurerm_disk_pool_iscsi_target_lun -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   disk_pool_managed_disk_attachment_id : string prop;
@@ -13,9 +37,10 @@ type t = private {
   name : string prop;
 }
 
-val azurerm_disk_pool_iscsi_target_lun :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_disk_pool_iscsi_target_lun__timeouts ->
+  ?timeouts:timeouts ->
   disk_pool_managed_disk_attachment_id:string prop ->
   iscsi_target_id:string prop ->
   name:string prop ->

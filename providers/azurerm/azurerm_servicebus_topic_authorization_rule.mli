@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_servicebus_topic_authorization_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_servicebus_topic_authorization_rule
+
+val azurerm_servicebus_topic_authorization_rule :
+  ?id:string prop ->
+  ?listen:bool prop ->
+  ?manage:bool prop ->
+  ?send:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  topic_id:string prop ->
+  unit ->
+  azurerm_servicebus_topic_authorization_rule
+
+val yojson_of_azurerm_servicebus_topic_authorization_rule :
+  azurerm_servicebus_topic_authorization_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -20,12 +47,13 @@ type t = private {
   topic_id : string prop;
 }
 
-val azurerm_servicebus_topic_authorization_rule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?listen:bool prop ->
   ?manage:bool prop ->
   ?send:bool prop ->
-  ?timeouts:azurerm_servicebus_topic_authorization_rule__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   topic_id:string prop ->
   string ->

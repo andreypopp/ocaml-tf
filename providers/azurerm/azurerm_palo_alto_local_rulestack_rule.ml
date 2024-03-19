@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_palo_alto_local_rulestack_rule__category = {
+type category = {
   custom_urls : string prop list;  (** custom_urls *)
   feeds : string prop list option; [@option]  (** feeds *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_local_rulestack_rule__category *)
+(** category *)
 
-type azurerm_palo_alto_local_rulestack_rule__destination = {
+type destination = {
   cidrs : string prop list option; [@option]  (** cidrs *)
   countries : string prop list option; [@option]  (** countries *)
   feeds : string prop list option; [@option]  (** feeds *)
@@ -21,9 +21,9 @@ type azurerm_palo_alto_local_rulestack_rule__destination = {
       (** local_rulestack_prefix_list_ids *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_local_rulestack_rule__destination *)
+(** destination *)
 
-type azurerm_palo_alto_local_rulestack_rule__source = {
+type source = {
   cidrs : string prop list option; [@option]  (** cidrs *)
   countries : string prop list option; [@option]  (** countries *)
   feeds : string prop list option; [@option]  (** feeds *)
@@ -31,16 +31,16 @@ type azurerm_palo_alto_local_rulestack_rule__source = {
       (** local_rulestack_prefix_list_ids *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_local_rulestack_rule__source *)
+(** source *)
 
-type azurerm_palo_alto_local_rulestack_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_local_rulestack_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_palo_alto_local_rulestack_rule = {
   action : string prop;  (** action *)
@@ -65,14 +65,65 @@ type azurerm_palo_alto_local_rulestack_rule = {
       (** protocol_ports *)
   rulestack_id : string prop;  (** rulestack_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  category : azurerm_palo_alto_local_rulestack_rule__category list;
-  destination :
-    azurerm_palo_alto_local_rulestack_rule__destination list;
-  source : azurerm_palo_alto_local_rulestack_rule__source list;
-  timeouts : azurerm_palo_alto_local_rulestack_rule__timeouts option;
+  category : category list;
+  destination : destination list;
+  source : source list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_rule *)
+
+let category ?feeds ~custom_urls () : category =
+  { custom_urls; feeds }
+
+let destination ?cidrs ?countries ?feeds
+    ?local_rulestack_fqdn_list_ids ?local_rulestack_prefix_list_ids
+    () : destination =
+  {
+    cidrs;
+    countries;
+    feeds;
+    local_rulestack_fqdn_list_ids;
+    local_rulestack_prefix_list_ids;
+  }
+
+let source ?cidrs ?countries ?feeds ?local_rulestack_prefix_list_ids
+    () : source =
+  { cidrs; countries; feeds; local_rulestack_prefix_list_ids }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_palo_alto_local_rulestack_rule ?audit_comment
+    ?decryption_rule_type ?description ?enabled ?id
+    ?inspection_certificate_id ?logging_enabled ?negate_destination
+    ?negate_source ?protocol ?protocol_ports ?tags ?timeouts ~action
+    ~applications ~name ~priority ~rulestack_id ~category
+    ~destination ~source () : azurerm_palo_alto_local_rulestack_rule
+    =
+  {
+    action;
+    applications;
+    audit_comment;
+    decryption_rule_type;
+    description;
+    enabled;
+    id;
+    inspection_certificate_id;
+    logging_enabled;
+    name;
+    negate_destination;
+    negate_source;
+    priority;
+    protocol;
+    protocol_ports;
+    rulestack_id;
+    tags;
+    category;
+    destination;
+    source;
+    timeouts;
+  }
 
 type t = {
   action : string prop;
@@ -94,40 +145,22 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_palo_alto_local_rulestack_rule ?audit_comment
-    ?decryption_rule_type ?description ?enabled ?id
-    ?inspection_certificate_id ?logging_enabled ?negate_destination
-    ?negate_source ?protocol ?protocol_ports ?tags ?timeouts ~action
-    ~applications ~name ~priority ~rulestack_id ~category
-    ~destination ~source __resource_id =
+let register ?tf_module ?audit_comment ?decryption_rule_type
+    ?description ?enabled ?id ?inspection_certificate_id
+    ?logging_enabled ?negate_destination ?negate_source ?protocol
+    ?protocol_ports ?tags ?timeouts ~action ~applications ~name
+    ~priority ~rulestack_id ~category ~destination ~source
+    __resource_id =
   let __resource_type = "azurerm_palo_alto_local_rulestack_rule" in
   let __resource =
-    ({
-       action;
-       applications;
-       audit_comment;
-       decryption_rule_type;
-       description;
-       enabled;
-       id;
-       inspection_certificate_id;
-       logging_enabled;
-       name;
-       negate_destination;
-       negate_source;
-       priority;
-       protocol;
-       protocol_ports;
-       rulestack_id;
-       tags;
-       category;
-       destination;
-       source;
-       timeouts;
-     }
-      : azurerm_palo_alto_local_rulestack_rule)
+    azurerm_palo_alto_local_rulestack_rule ?audit_comment
+      ?decryption_rule_type ?description ?enabled ?id
+      ?inspection_certificate_id ?logging_enabled ?negate_destination
+      ?negate_source ?protocol ?protocol_ports ?tags ?timeouts
+      ~action ~applications ~name ~priority ~rulestack_id ~category
+      ~destination ~source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_palo_alto_local_rulestack_rule __resource);
   let __resource_attributes =
     ({

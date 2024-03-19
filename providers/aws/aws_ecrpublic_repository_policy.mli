@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ecrpublic_repository_policy
+
+val aws_ecrpublic_repository_policy :
+  ?id:string prop ->
+  policy:string prop ->
+  repository_name:string prop ->
+  unit ->
+  aws_ecrpublic_repository_policy
+
+val yojson_of_aws_ecrpublic_repository_policy :
+  aws_ecrpublic_repository_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,7 +25,8 @@ type t = private {
   repository_name : string prop;
 }
 
-val aws_ecrpublic_repository_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   policy:string prop ->
   repository_name:string prop ->

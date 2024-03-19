@@ -16,6 +16,17 @@ type aws_load_balancer_listener_policy = {
 [@@deriving yojson_of]
 (** aws_load_balancer_listener_policy *)
 
+let aws_load_balancer_listener_policy ?id ?policy_names ?triggers
+    ~load_balancer_name ~load_balancer_port () :
+    aws_load_balancer_listener_policy =
+  {
+    id;
+    load_balancer_name;
+    load_balancer_port;
+    policy_names;
+    triggers;
+  }
+
 type t = {
   id : string prop;
   load_balancer_name : string prop;
@@ -24,20 +35,14 @@ type t = {
   triggers : (string * string) list prop;
 }
 
-let aws_load_balancer_listener_policy ?id ?policy_names ?triggers
+let register ?tf_module ?id ?policy_names ?triggers
     ~load_balancer_name ~load_balancer_port __resource_id =
   let __resource_type = "aws_load_balancer_listener_policy" in
   let __resource =
-    ({
-       id;
-       load_balancer_name;
-       load_balancer_port;
-       policy_names;
-       triggers;
-     }
-      : aws_load_balancer_listener_policy)
+    aws_load_balancer_listener_policy ?id ?policy_names ?triggers
+      ~load_balancer_name ~load_balancer_port ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_load_balancer_listener_policy __resource);
   let __resource_attributes =
     ({

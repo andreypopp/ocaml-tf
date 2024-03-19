@@ -4,13 +4,11 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_gateway_route_config__open_api = {
-  uri : string prop option; [@option]  (** uri *)
-}
+type open_api = { uri : string prop option [@option]  (** uri *) }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_gateway_route_config__open_api *)
+(** open_api *)
 
-type azurerm_spring_cloud_gateway_route_config__route = {
+type route = {
   classification_tags : string prop list option; [@option]
       (** classification_tags *)
   description : string prop option; [@option]  (** description *)
@@ -24,16 +22,16 @@ type azurerm_spring_cloud_gateway_route_config__route = {
   uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_gateway_route_config__route *)
+(** route *)
 
-type azurerm_spring_cloud_gateway_route_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_gateway_route_config__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_gateway_route_config = {
   filters : string prop list option; [@option]  (** filters *)
@@ -47,14 +45,50 @@ type azurerm_spring_cloud_gateway_route_config = {
       (** spring_cloud_gateway_id *)
   sso_validation_enabled : bool prop option; [@option]
       (** sso_validation_enabled *)
-  open_api :
-    azurerm_spring_cloud_gateway_route_config__open_api list;
-  route : azurerm_spring_cloud_gateway_route_config__route list;
-  timeouts :
-    azurerm_spring_cloud_gateway_route_config__timeouts option;
+  open_api : open_api list;
+  route : route list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway_route_config *)
+
+let open_api ?uri () : open_api = { uri }
+
+let route ?classification_tags ?description ?filters ?predicates
+    ?sso_validation_enabled ?title ?token_relay ?uri ~order () :
+    route =
+  {
+    classification_tags;
+    description;
+    filters;
+    order;
+    predicates;
+    sso_validation_enabled;
+    title;
+    token_relay;
+    uri;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_gateway_route_config ?filters ?id
+    ?predicates ?protocol ?spring_cloud_app_id
+    ?sso_validation_enabled ?timeouts ~name ~spring_cloud_gateway_id
+    ~open_api ~route () : azurerm_spring_cloud_gateway_route_config =
+  {
+    filters;
+    id;
+    name;
+    predicates;
+    protocol;
+    spring_cloud_app_id;
+    spring_cloud_gateway_id;
+    sso_validation_enabled;
+    open_api;
+    route;
+    timeouts;
+  }
 
 type t = {
   filters : string list prop;
@@ -67,30 +101,19 @@ type t = {
   sso_validation_enabled : bool prop;
 }
 
-let azurerm_spring_cloud_gateway_route_config ?filters ?id
-    ?predicates ?protocol ?spring_cloud_app_id
-    ?sso_validation_enabled ?timeouts ~name ~spring_cloud_gateway_id
-    ~open_api ~route __resource_id =
+let register ?tf_module ?filters ?id ?predicates ?protocol
+    ?spring_cloud_app_id ?sso_validation_enabled ?timeouts ~name
+    ~spring_cloud_gateway_id ~open_api ~route __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_gateway_route_config"
   in
   let __resource =
-    ({
-       filters;
-       id;
-       name;
-       predicates;
-       protocol;
-       spring_cloud_app_id;
-       spring_cloud_gateway_id;
-       sso_validation_enabled;
-       open_api;
-       route;
-       timeouts;
-     }
-      : azurerm_spring_cloud_gateway_route_config)
+    azurerm_spring_cloud_gateway_route_config ?filters ?id
+      ?predicates ?protocol ?spring_cloud_app_id
+      ?sso_validation_enabled ?timeouts ~name
+      ~spring_cloud_gateway_id ~open_api ~route ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_gateway_route_config __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_private_dns_zone_virtual_network_link__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_private_dns_zone_virtual_network_link__timeouts *)
+(** timeouts *)
 
 type azurerm_private_dns_zone_virtual_network_link = {
   id : string prop option; [@option]  (** id *)
@@ -22,11 +22,28 @@ type azurerm_private_dns_zone_virtual_network_link = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   virtual_network_id : string prop;  (** virtual_network_id *)
-  timeouts :
-    azurerm_private_dns_zone_virtual_network_link__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_private_dns_zone_virtual_network_link *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_private_dns_zone_virtual_network_link ?id
+    ?registration_enabled ?tags ?timeouts ~name
+    ~private_dns_zone_name ~resource_group_name ~virtual_network_id
+    () : azurerm_private_dns_zone_virtual_network_link =
+  {
+    id;
+    name;
+    private_dns_zone_name;
+    registration_enabled;
+    resource_group_name;
+    tags;
+    virtual_network_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -38,27 +55,19 @@ type t = {
   virtual_network_id : string prop;
 }
 
-let azurerm_private_dns_zone_virtual_network_link ?id
-    ?registration_enabled ?tags ?timeouts ~name
-    ~private_dns_zone_name ~resource_group_name ~virtual_network_id
-    __resource_id =
+let register ?tf_module ?id ?registration_enabled ?tags ?timeouts
+    ~name ~private_dns_zone_name ~resource_group_name
+    ~virtual_network_id __resource_id =
   let __resource_type =
     "azurerm_private_dns_zone_virtual_network_link"
   in
   let __resource =
-    ({
-       id;
-       name;
-       private_dns_zone_name;
-       registration_enabled;
-       resource_group_name;
-       tags;
-       virtual_network_id;
-       timeouts;
-     }
-      : azurerm_private_dns_zone_virtual_network_link)
+    azurerm_private_dns_zone_virtual_network_link ?id
+      ?registration_enabled ?tags ?timeouts ~name
+      ~private_dns_zone_name ~resource_group_name ~virtual_network_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_zone_virtual_network_link
        __resource);
   let __resource_attributes =

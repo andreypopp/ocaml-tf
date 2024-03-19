@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_apigatewayv2_api__cors_configuration = {
+type cors_configuration = {
   allow_credentials : bool prop option; [@option]
       (** allow_credentials *)
   allow_headers : string prop list option; [@option]
@@ -18,7 +18,7 @@ type aws_apigatewayv2_api__cors_configuration = {
   max_age : float prop option; [@option]  (** max_age *)
 }
 [@@deriving yojson_of]
-(** aws_apigatewayv2_api__cors_configuration *)
+(** cors_configuration *)
 
 type aws_apigatewayv2_api = {
   api_key_selection_expression : string prop option; [@option]
@@ -42,10 +42,46 @@ type aws_apigatewayv2_api = {
       (** tags_all *)
   target : string prop option; [@option]  (** target *)
   version : string prop option; [@option]  (** version *)
-  cors_configuration : aws_apigatewayv2_api__cors_configuration list;
+  cors_configuration : cors_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_api *)
+
+let cors_configuration ?allow_credentials ?allow_headers
+    ?allow_methods ?allow_origins ?expose_headers ?max_age () :
+    cors_configuration =
+  {
+    allow_credentials;
+    allow_headers;
+    allow_methods;
+    allow_origins;
+    expose_headers;
+    max_age;
+  }
+
+let aws_apigatewayv2_api ?api_key_selection_expression ?body
+    ?credentials_arn ?description ?disable_execute_api_endpoint
+    ?fail_on_warnings ?id ?route_key ?route_selection_expression
+    ?tags ?tags_all ?target ?version ~name ~protocol_type
+    ~cors_configuration () : aws_apigatewayv2_api =
+  {
+    api_key_selection_expression;
+    body;
+    credentials_arn;
+    description;
+    disable_execute_api_endpoint;
+    fail_on_warnings;
+    id;
+    name;
+    protocol_type;
+    route_key;
+    route_selection_expression;
+    tags;
+    tags_all;
+    target;
+    version;
+    cors_configuration;
+  }
 
 type t = {
   api_endpoint : string prop;
@@ -68,34 +104,20 @@ type t = {
   version : string prop;
 }
 
-let aws_apigatewayv2_api ?api_key_selection_expression ?body
+let register ?tf_module ?api_key_selection_expression ?body
     ?credentials_arn ?description ?disable_execute_api_endpoint
     ?fail_on_warnings ?id ?route_key ?route_selection_expression
     ?tags ?tags_all ?target ?version ~name ~protocol_type
     ~cors_configuration __resource_id =
   let __resource_type = "aws_apigatewayv2_api" in
   let __resource =
-    ({
-       api_key_selection_expression;
-       body;
-       credentials_arn;
-       description;
-       disable_execute_api_endpoint;
-       fail_on_warnings;
-       id;
-       name;
-       protocol_type;
-       route_key;
-       route_selection_expression;
-       tags;
-       tags_all;
-       target;
-       version;
-       cors_configuration;
-     }
-      : aws_apigatewayv2_api)
+    aws_apigatewayv2_api ?api_key_selection_expression ?body
+      ?credentials_arn ?description ?disable_execute_api_endpoint
+      ?fail_on_warnings ?id ?route_key ?route_selection_expression
+      ?tags ?tags_all ?target ?version ~name ~protocol_type
+      ~cors_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_api __resource);
   let __resource_attributes =
     ({

@@ -4,94 +4,83 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_listener_rule__action__fixed_response = {
+type action__fixed_response = {
   status_code : float prop;  (** status_code *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__action__fixed_response *)
+(** action__fixed_response *)
 
-type aws_vpclattice_listener_rule__action__forward__target_groups = {
+type action__forward__target_groups = {
   target_group_identifier : string prop;
       (** target_group_identifier *)
   weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__action__forward__target_groups *)
+(** action__forward__target_groups *)
 
-type aws_vpclattice_listener_rule__action__forward = {
-  target_groups :
-    aws_vpclattice_listener_rule__action__forward__target_groups list;
+type action__forward = {
+  target_groups : action__forward__target_groups list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__action__forward *)
+(** action__forward *)
 
-type aws_vpclattice_listener_rule__action = {
-  fixed_response :
-    aws_vpclattice_listener_rule__action__fixed_response list;
-  forward : aws_vpclattice_listener_rule__action__forward list;
+type action = {
+  fixed_response : action__fixed_response list;
+  forward : action__forward list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__action *)
+(** action *)
 
-type aws_vpclattice_listener_rule__match__http_match__header_matches__match = {
+type match__http_match__header_matches__match = {
   contains : string prop option; [@option]  (** contains *)
   exact : string prop option; [@option]  (** exact *)
   prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__match__http_match__header_matches__match *)
+(** match__http_match__header_matches__match *)
 
-type aws_vpclattice_listener_rule__match__http_match__header_matches = {
+type match__http_match__header_matches = {
   case_sensitive : bool prop option; [@option]  (** case_sensitive *)
   name : string prop;  (** name *)
-  match_ :
-    aws_vpclattice_listener_rule__match__http_match__header_matches__match
-    list;
+  match_ : match__http_match__header_matches__match list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__match__http_match__header_matches *)
+(** match__http_match__header_matches *)
 
-type aws_vpclattice_listener_rule__match__http_match__path_match__match = {
+type match__http_match__path_match__match = {
   exact : string prop option; [@option]  (** exact *)
   prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__match__http_match__path_match__match *)
+(** match__http_match__path_match__match *)
 
-type aws_vpclattice_listener_rule__match__http_match__path_match = {
+type match__http_match__path_match = {
   case_sensitive : bool prop option; [@option]  (** case_sensitive *)
-  match_ :
-    aws_vpclattice_listener_rule__match__http_match__path_match__match
-    list;
+  match_ : match__http_match__path_match__match list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__match__http_match__path_match *)
+(** match__http_match__path_match *)
 
-type aws_vpclattice_listener_rule__match__http_match = {
+type match__http_match = {
   method_ : string prop option; [@option] [@key "method"]
       (** method *)
-  header_matches :
-    aws_vpclattice_listener_rule__match__http_match__header_matches
-    list;
-  path_match :
-    aws_vpclattice_listener_rule__match__http_match__path_match list;
+  header_matches : match__http_match__header_matches list;
+  path_match : match__http_match__path_match list;
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__match__http_match *)
+(** match__http_match *)
 
-type aws_vpclattice_listener_rule__match = {
-  http_match : aws_vpclattice_listener_rule__match__http_match list;
-}
+type match_ = { http_match : match__http_match list }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__match *)
+(** match *)
 
-type aws_vpclattice_listener_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_listener_rule__timeouts *)
+(** timeouts *)
 
 type aws_vpclattice_listener_rule = {
   id : string prop option; [@option]  (** id *)
@@ -102,12 +91,66 @@ type aws_vpclattice_listener_rule = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  action : aws_vpclattice_listener_rule__action list;
-  match_ : aws_vpclattice_listener_rule__match list;
-  timeouts : aws_vpclattice_listener_rule__timeouts option;
+  action : action list;
+  match_ : match_ list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_listener_rule *)
+
+let action__fixed_response ~status_code () : action__fixed_response =
+  { status_code }
+
+let action__forward__target_groups ?weight ~target_group_identifier
+    () : action__forward__target_groups =
+  { target_group_identifier; weight }
+
+let action__forward ~target_groups () : action__forward =
+  { target_groups }
+
+let action ~fixed_response ~forward () : action =
+  { fixed_response; forward }
+
+let match__http_match__header_matches__match ?contains ?exact ?prefix
+    () : match__http_match__header_matches__match =
+  { contains; exact; prefix }
+
+let match__http_match__header_matches ?case_sensitive ~name ~match_
+    () : match__http_match__header_matches =
+  { case_sensitive; name; match_ }
+
+let match__http_match__path_match__match ?exact ?prefix () :
+    match__http_match__path_match__match =
+  { exact; prefix }
+
+let match__http_match__path_match ?case_sensitive ~match_ () :
+    match__http_match__path_match =
+  { case_sensitive; match_ }
+
+let match__http_match ?method_ ~header_matches ~path_match () :
+    match__http_match =
+  { method_; header_matches; path_match }
+
+let match_ ~http_match () : match_ = { http_match }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpclattice_listener_rule ?id ?tags ?tags_all ?timeouts
+    ~listener_identifier ~name ~priority ~service_identifier ~action
+    ~match_ () : aws_vpclattice_listener_rule =
+  {
+    id;
+    listener_identifier;
+    name;
+    priority;
+    service_identifier;
+    tags;
+    tags_all;
+    action;
+    match_;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -121,26 +164,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpclattice_listener_rule ?id ?tags ?tags_all ?timeouts
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
     ~listener_identifier ~name ~priority ~service_identifier ~action
     ~match_ __resource_id =
   let __resource_type = "aws_vpclattice_listener_rule" in
   let __resource =
-    ({
-       id;
-       listener_identifier;
-       name;
-       priority;
-       service_identifier;
-       tags;
-       tags_all;
-       action;
-       match_;
-       timeouts;
-     }
-      : aws_vpclattice_listener_rule)
+    aws_vpclattice_listener_rule ?id ?tags ?tags_all ?timeouts
+      ~listener_identifier ~name ~priority ~service_identifier
+      ~action ~match_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_listener_rule __resource);
   let __resource_attributes =
     ({

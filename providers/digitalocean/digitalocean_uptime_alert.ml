@@ -4,17 +4,17 @@
 
 open! Tf.Prelude
 
-type digitalocean_uptime_alert__notifications__slack = {
+type notifications__slack = {
   channel : string prop;  (** The Slack channel to send alerts to *)
   url : string prop;  (** The webhook URL for Slack *)
 }
 [@@deriving yojson_of]
-(** digitalocean_uptime_alert__notifications__slack *)
+(** notifications__slack *)
 
-type digitalocean_uptime_alert__notifications = {
+type notifications = {
   email : string prop list option; [@option]
       (** List of email addresses to sent notifications to *)
-  slack : digitalocean_uptime_alert__notifications__slack list;
+  slack : notifications__slack list;
 }
 [@@deriving yojson_of]
 (** The notification settings for a trigger alert. *)
@@ -31,10 +31,28 @@ type digitalocean_uptime_alert = {
       (** The threshold at which the alert will enter a trigger state. The specific threshold is dependent on the alert type. *)
   type_ : string prop; [@key "type"]
       (** The type of health check to perform. Enum: 'latency' 'down' 'down_global' 'ssl_expiry' *)
-  notifications : digitalocean_uptime_alert__notifications list;
+  notifications : notifications list;
 }
 [@@deriving yojson_of]
 (** digitalocean_uptime_alert *)
+
+let notifications__slack ~channel ~url () : notifications__slack =
+  { channel; url }
+
+let notifications ?email ~slack () : notifications = { email; slack }
+
+let digitalocean_uptime_alert ?comparison ?period ?threshold
+    ~check_id ~name ~type_ ~notifications () :
+    digitalocean_uptime_alert =
+  {
+    check_id;
+    comparison;
+    name;
+    period;
+    threshold;
+    type_;
+    notifications;
+  }
 
 type t = {
   check_id : string prop;
@@ -46,22 +64,14 @@ type t = {
   type_ : string prop;
 }
 
-let digitalocean_uptime_alert ?comparison ?period ?threshold
-    ~check_id ~name ~type_ ~notifications __resource_id =
+let register ?tf_module ?comparison ?period ?threshold ~check_id
+    ~name ~type_ ~notifications __resource_id =
   let __resource_type = "digitalocean_uptime_alert" in
   let __resource =
-    ({
-       check_id;
-       comparison;
-       name;
-       period;
-       threshold;
-       type_;
-       notifications;
-     }
-      : digitalocean_uptime_alert)
+    digitalocean_uptime_alert ?comparison ?period ?threshold
+      ~check_id ~name ~type_ ~notifications ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_uptime_alert __resource);
   let __resource_attributes =
     ({

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_account__analytical_storage = {
+type analytical_storage = {
   schema_type : string prop;  (** schema_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__analytical_storage *)
+(** analytical_storage *)
 
-type azurerm_cosmosdb_account__backup = {
+type backup = {
   interval_in_minutes : float prop option; [@option]
       (** interval_in_minutes *)
   retention_in_hours : float prop option; [@option]
@@ -21,21 +21,19 @@ type azurerm_cosmosdb_account__backup = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__backup *)
+(** backup *)
 
-type azurerm_cosmosdb_account__capabilities = {
-  name : string prop;  (** name *)
-}
+type capabilities = { name : string prop  (** name *) }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__capabilities *)
+(** capabilities *)
 
-type azurerm_cosmosdb_account__capacity = {
+type capacity = {
   total_throughput_limit : float prop;  (** total_throughput_limit *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__capacity *)
+(** capacity *)
 
-type azurerm_cosmosdb_account__consistency_policy = {
+type consistency_policy = {
   consistency_level : string prop;  (** consistency_level *)
   max_interval_in_seconds : float prop option; [@option]
       (** max_interval_in_seconds *)
@@ -43,9 +41,9 @@ type azurerm_cosmosdb_account__consistency_policy = {
       (** max_staleness_prefix *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__consistency_policy *)
+(** consistency_policy *)
 
-type azurerm_cosmosdb_account__cors_rule = {
+type cors_rule = {
   allowed_headers : string prop list;  (** allowed_headers *)
   allowed_methods : string prop list;  (** allowed_methods *)
   allowed_origins : string prop list;  (** allowed_origins *)
@@ -54,73 +52,69 @@ type azurerm_cosmosdb_account__cors_rule = {
       (** max_age_in_seconds *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__cors_rule *)
+(** cors_rule *)
 
-type azurerm_cosmosdb_account__geo_location = {
+type geo_location = {
   failover_priority : float prop;  (** failover_priority *)
-  id : string prop;  (** id *)
   location : string prop;  (** location *)
   zone_redundant : bool prop option; [@option]  (** zone_redundant *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__geo_location *)
+(** geo_location *)
 
-type azurerm_cosmosdb_account__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__identity *)
+(** identity *)
 
-type azurerm_cosmosdb_account__restore__database = {
+type restore__database = {
   collection_names : string prop list option; [@option]
       (** collection_names *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__restore__database *)
+(** restore__database *)
 
-type azurerm_cosmosdb_account__restore__gremlin_database = {
+type restore__gremlin_database = {
   graph_names : string prop list option; [@option]
       (** graph_names *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__restore__gremlin_database *)
+(** restore__gremlin_database *)
 
-type azurerm_cosmosdb_account__restore = {
+type restore = {
   restore_timestamp_in_utc : string prop;
       (** restore_timestamp_in_utc *)
   source_cosmosdb_account_id : string prop;
       (** source_cosmosdb_account_id *)
   tables_to_restore : string prop list option; [@option]
       (** tables_to_restore *)
-  database : azurerm_cosmosdb_account__restore__database list;
-  gremlin_database :
-    azurerm_cosmosdb_account__restore__gremlin_database list;
+  database : restore__database list;
+  gremlin_database : restore__gremlin_database list;
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__restore *)
+(** restore *)
 
-type azurerm_cosmosdb_account__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__timeouts *)
+(** timeouts *)
 
-type azurerm_cosmosdb_account__virtual_network_rule = {
+type virtual_network_rule = {
   id : string prop;  (** id *)
   ignore_missing_vnet_service_endpoint : bool prop option; [@option]
       (** ignore_missing_vnet_service_endpoint *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_account__virtual_network_rule *)
+(** virtual_network_rule *)
 
 type azurerm_cosmosdb_account = {
   access_key_metadata_writes_enabled : bool prop option; [@option]
@@ -163,23 +157,140 @@ type azurerm_cosmosdb_account = {
       (** public_network_access_enabled *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  analytical_storage :
-    azurerm_cosmosdb_account__analytical_storage list;
-  backup : azurerm_cosmosdb_account__backup list;
-  capabilities : azurerm_cosmosdb_account__capabilities list;
-  capacity : azurerm_cosmosdb_account__capacity list;
-  consistency_policy :
-    azurerm_cosmosdb_account__consistency_policy list;
-  cors_rule : azurerm_cosmosdb_account__cors_rule list;
-  geo_location : azurerm_cosmosdb_account__geo_location list;
-  identity : azurerm_cosmosdb_account__identity list;
-  restore : azurerm_cosmosdb_account__restore list;
-  timeouts : azurerm_cosmosdb_account__timeouts option;
-  virtual_network_rule :
-    azurerm_cosmosdb_account__virtual_network_rule list;
+  analytical_storage : analytical_storage list;
+  backup : backup list;
+  capabilities : capabilities list;
+  capacity : capacity list;
+  consistency_policy : consistency_policy list;
+  cors_rule : cors_rule list;
+  geo_location : geo_location list;
+  identity : identity list;
+  restore : restore list;
+  timeouts : timeouts option;
+  virtual_network_rule : virtual_network_rule list;
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_account *)
+
+let analytical_storage ~schema_type () : analytical_storage =
+  { schema_type }
+
+let backup ?interval_in_minutes ?retention_in_hours
+    ?storage_redundancy ?tier ~type_ () : backup =
+  {
+    interval_in_minutes;
+    retention_in_hours;
+    storage_redundancy;
+    tier;
+    type_;
+  }
+
+let capabilities ~name () : capabilities = { name }
+
+let capacity ~total_throughput_limit () : capacity =
+  { total_throughput_limit }
+
+let consistency_policy ?max_interval_in_seconds ?max_staleness_prefix
+    ~consistency_level () : consistency_policy =
+  {
+    consistency_level;
+    max_interval_in_seconds;
+    max_staleness_prefix;
+  }
+
+let cors_rule ?max_age_in_seconds ~allowed_headers ~allowed_methods
+    ~allowed_origins ~exposed_headers () : cors_rule =
+  {
+    allowed_headers;
+    allowed_methods;
+    allowed_origins;
+    exposed_headers;
+    max_age_in_seconds;
+  }
+
+let geo_location ?zone_redundant ~failover_priority ~location () :
+    geo_location =
+  { failover_priority; location; zone_redundant }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let restore__database ?collection_names ~name () : restore__database
+    =
+  { collection_names; name }
+
+let restore__gremlin_database ?graph_names ~name () :
+    restore__gremlin_database =
+  { graph_names; name }
+
+let restore ?tables_to_restore ~restore_timestamp_in_utc
+    ~source_cosmosdb_account_id ~database ~gremlin_database () :
+    restore =
+  {
+    restore_timestamp_in_utc;
+    source_cosmosdb_account_id;
+    tables_to_restore;
+    database;
+    gremlin_database;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let virtual_network_rule ?ignore_missing_vnet_service_endpoint ~id ()
+    : virtual_network_rule =
+  { id; ignore_missing_vnet_service_endpoint }
+
+let azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
+    ?analytical_storage_enabled ?create_mode ?default_identity_type
+    ?enable_automatic_failover ?enable_free_tier
+    ?enable_multiple_write_locations ?id ?ip_range_filter
+    ?is_virtual_network_filter_enabled ?key_vault_key_id ?kind
+    ?local_authentication_disabled ?minimal_tls_version
+    ?mongo_server_version ?network_acl_bypass_for_azure_services
+    ?network_acl_bypass_ids ?partition_merge_enabled
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~offer_type ~resource_group_name ~analytical_storage ~backup
+    ~capabilities ~capacity ~consistency_policy ~cors_rule
+    ~geo_location ~identity ~restore ~virtual_network_rule () :
+    azurerm_cosmosdb_account =
+  {
+    access_key_metadata_writes_enabled;
+    analytical_storage_enabled;
+    create_mode;
+    default_identity_type;
+    enable_automatic_failover;
+    enable_free_tier;
+    enable_multiple_write_locations;
+    id;
+    ip_range_filter;
+    is_virtual_network_filter_enabled;
+    key_vault_key_id;
+    kind;
+    local_authentication_disabled;
+    location;
+    minimal_tls_version;
+    mongo_server_version;
+    name;
+    network_acl_bypass_for_azure_services;
+    network_acl_bypass_ids;
+    offer_type;
+    partition_merge_enabled;
+    public_network_access_enabled;
+    resource_group_name;
+    tags;
+    analytical_storage;
+    backup;
+    capabilities;
+    capacity;
+    consistency_policy;
+    cors_rule;
+    geo_location;
+    identity;
+    restore;
+    timeouts;
+    virtual_network_rule;
+  }
 
 type t = {
   access_key_metadata_writes_enabled : bool prop;
@@ -224,7 +335,7 @@ type t = {
   write_endpoints : string list prop;
 }
 
-let azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
+let register ?tf_module ?access_key_metadata_writes_enabled
     ?analytical_storage_enabled ?create_mode ?default_identity_type
     ?enable_automatic_failover ?enable_free_tier
     ?enable_multiple_write_locations ?id ?ip_range_filter
@@ -239,46 +350,20 @@ let azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
     __resource_id =
   let __resource_type = "azurerm_cosmosdb_account" in
   let __resource =
-    ({
-       access_key_metadata_writes_enabled;
-       analytical_storage_enabled;
-       create_mode;
-       default_identity_type;
-       enable_automatic_failover;
-       enable_free_tier;
-       enable_multiple_write_locations;
-       id;
-       ip_range_filter;
-       is_virtual_network_filter_enabled;
-       key_vault_key_id;
-       kind;
-       local_authentication_disabled;
-       location;
-       minimal_tls_version;
-       mongo_server_version;
-       name;
-       network_acl_bypass_for_azure_services;
-       network_acl_bypass_ids;
-       offer_type;
-       partition_merge_enabled;
-       public_network_access_enabled;
-       resource_group_name;
-       tags;
-       analytical_storage;
-       backup;
-       capabilities;
-       capacity;
-       consistency_policy;
-       cors_rule;
-       geo_location;
-       identity;
-       restore;
-       timeouts;
-       virtual_network_rule;
-     }
-      : azurerm_cosmosdb_account)
+    azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
+      ?analytical_storage_enabled ?create_mode ?default_identity_type
+      ?enable_automatic_failover ?enable_free_tier
+      ?enable_multiple_write_locations ?id ?ip_range_filter
+      ?is_virtual_network_filter_enabled ?key_vault_key_id ?kind
+      ?local_authentication_disabled ?minimal_tls_version
+      ?mongo_server_version ?network_acl_bypass_for_azure_services
+      ?network_acl_bypass_ids ?partition_merge_enabled
+      ?public_network_access_enabled ?tags ?timeouts ~location ~name
+      ~offer_type ~resource_group_name ~analytical_storage ~backup
+      ~capabilities ~capacity ~consistency_policy ~cors_rule
+      ~geo_location ~identity ~restore ~virtual_network_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_account __resource);
   let __resource_attributes =
     ({

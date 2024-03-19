@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_region_commitment__license_resource = {
+type license_resource = {
   amount : string prop option; [@option]
       (** The number of licenses purchased. *)
   cores_per_license : string prop option; [@option]
@@ -14,7 +14,7 @@ type google_compute_region_commitment__license_resource = {
 [@@deriving yojson_of]
 (** The license specification required as part of a license commitment. *)
 
-type google_compute_region_commitment__resources = {
+type resources = {
   accelerator_type : string prop option; [@option]
       (** Name of the accelerator type resource. Applicable only when the type is ACCELERATOR. *)
   amount : string prop option; [@option]
@@ -30,12 +30,12 @@ Possible values are VCPU, MEMORY, LOCAL_SSD, and ACCELERATOR. *)
 (** A list of commitment amounts for particular resources.
 Note that VCPU and MEMORY resource commitments must occur together. *)
 
-type google_compute_region_commitment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_commitment__timeouts *)
+(** timeouts *)
 
 type google_compute_region_commitment = {
   auto_renew : bool prop option; [@option]
@@ -69,13 +69,40 @@ The type could be one of the following value: 'MEMORY_OPTIMIZED', 'ACCELERATOR_O
 'GENERAL_PURPOSE_N1', 'GENERAL_PURPOSE_N2', 'GENERAL_PURPOSE_N2D', 'GENERAL_PURPOSE_E2',
 'GENERAL_PURPOSE_T2D', 'GENERAL_PURPOSE_C3', 'COMPUTE_OPTIMIZED_C2', 'COMPUTE_OPTIMIZED_C2D' and
 'GRAPHICS_OPTIMIZED_G2' *)
-  license_resource :
-    google_compute_region_commitment__license_resource list;
-  resources : google_compute_region_commitment__resources list;
-  timeouts : google_compute_region_commitment__timeouts option;
+  license_resource : license_resource list;
+  resources : resources list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_commitment *)
+
+let license_resource ?amount ?cores_per_license ~license () :
+    license_resource =
+  { amount; cores_per_license; license }
+
+let resources ?accelerator_type ?amount ?type_ () : resources =
+  { accelerator_type; amount; type_ }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_region_commitment ?auto_renew ?category
+    ?description ?id ?project ?region ?type_ ?timeouts ~name ~plan
+    ~license_resource ~resources () :
+    google_compute_region_commitment =
+  {
+    auto_renew;
+    category;
+    description;
+    id;
+    name;
+    plan;
+    project;
+    region;
+    type_;
+    license_resource;
+    resources;
+    timeouts;
+  }
 
 type t = {
   auto_renew : bool prop;
@@ -96,28 +123,16 @@ type t = {
   type_ : string prop;
 }
 
-let google_compute_region_commitment ?auto_renew ?category
-    ?description ?id ?project ?region ?type_ ?timeouts ~name ~plan
-    ~license_resource ~resources __resource_id =
+let register ?tf_module ?auto_renew ?category ?description ?id
+    ?project ?region ?type_ ?timeouts ~name ~plan ~license_resource
+    ~resources __resource_id =
   let __resource_type = "google_compute_region_commitment" in
   let __resource =
-    ({
-       auto_renew;
-       category;
-       description;
-       id;
-       name;
-       plan;
-       project;
-       region;
-       type_;
-       license_resource;
-       resources;
-       timeouts;
-     }
-      : google_compute_region_commitment)
+    google_compute_region_commitment ?auto_renew ?category
+      ?description ?id ?project ?region ?type_ ?timeouts ~name ~plan
+      ~license_resource ~resources ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_commitment __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cloudfront_function
+
+val aws_cloudfront_function :
+  ?comment:string prop ->
+  ?id:string prop ->
+  ?publish:bool prop ->
+  code:string prop ->
+  name:string prop ->
+  runtime:string prop ->
+  unit ->
+  aws_cloudfront_function
+
+val yojson_of_aws_cloudfront_function :
+  aws_cloudfront_function -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +34,8 @@ type t = private {
   status : string prop;
 }
 
-val aws_cloudfront_function :
+val register :
+  ?tf_module:tf_module ->
   ?comment:string prop ->
   ?id:string prop ->
   ?publish:bool prop ->

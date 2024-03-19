@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_teams_account__antivirus__notification_settings = {
+type antivirus__notification_settings = {
   enabled : bool prop option; [@option]
       (** Enable notification settings. *)
   message : string prop option; [@option]
@@ -15,18 +15,17 @@ type cloudflare_teams_account__antivirus__notification_settings = {
 [@@deriving yojson_of]
 (** Set notifications for antivirus. *)
 
-type cloudflare_teams_account__antivirus = {
+type antivirus = {
   enabled_download_phase : bool prop;  (** Scan on file download. *)
   enabled_upload_phase : bool prop;  (** Scan on file upload. *)
   fail_closed : bool prop;
       (** Block requests for files that cannot be scanned. *)
-  notification_settings :
-    cloudflare_teams_account__antivirus__notification_settings list;
+  notification_settings : antivirus__notification_settings list;
 }
 [@@deriving yojson_of]
 (** Configuration block for antivirus traffic scanning. *)
 
-type cloudflare_teams_account__block_page = {
+type block_page = {
   background_color : string prop option; [@option]
       (** Hex code of block page background color. *)
   enabled : bool prop option; [@option]
@@ -47,78 +46,72 @@ type cloudflare_teams_account__block_page = {
 [@@deriving yojson_of]
 (** Configuration for a custom block page. *)
 
-type cloudflare_teams_account__body_scanning = {
+type body_scanning = {
   inspection_mode : string prop;
       (** Body scanning inspection mode. Available values: `deep`, `shallow`. *)
 }
 [@@deriving yojson_of]
 (** Configuration for body scanning. *)
 
-type cloudflare_teams_account__extended_email_matching = {
+type extended_email_matching = {
   enabled : bool prop;
       (** Whether e-mails should be matched on all variants of user emails (with + or . modifiers) in Firewall policies. *)
 }
 [@@deriving yojson_of]
 (** Configuration for extended e-mail matching. *)
 
-type cloudflare_teams_account__fips = {
+type fips = {
   tls : bool prop option; [@option]
       (** Only allow FIPS-compliant TLS configuration. *)
 }
 [@@deriving yojson_of]
 (** Configure compliance with Federal Information Processing Standards. *)
 
-type cloudflare_teams_account__logging__settings_by_rule_type__dns = {
+type logging__settings_by_rule_type__dns = {
   log_all : bool prop;  (** Whether to log all activity. *)
   log_blocks : bool prop;  (** log_blocks *)
 }
 [@@deriving yojson_of]
 (** Logging configuration for DNS requests. *)
 
-type cloudflare_teams_account__logging__settings_by_rule_type__http = {
+type logging__settings_by_rule_type__http = {
   log_all : bool prop;  (** Whether to log all activity. *)
   log_blocks : bool prop;  (** log_blocks *)
 }
 [@@deriving yojson_of]
 (** Logging configuration for HTTP requests. *)
 
-type cloudflare_teams_account__logging__settings_by_rule_type__l4 = {
+type logging__settings_by_rule_type__l4 = {
   log_all : bool prop;  (** Whether to log all activity. *)
   log_blocks : bool prop;  (** log_blocks *)
 }
 [@@deriving yojson_of]
 (** Logging configuration for layer 4 requests. *)
 
-type cloudflare_teams_account__logging__settings_by_rule_type = {
-  dns :
-    cloudflare_teams_account__logging__settings_by_rule_type__dns
-    list;
-  http :
-    cloudflare_teams_account__logging__settings_by_rule_type__http
-    list;
-  l4 :
-    cloudflare_teams_account__logging__settings_by_rule_type__l4 list;
+type logging__settings_by_rule_type = {
+  dns : logging__settings_by_rule_type__dns list;
+  http : logging__settings_by_rule_type__http list;
+  l4 : logging__settings_by_rule_type__l4 list;
 }
 [@@deriving yojson_of]
 (** Represents whether all requests are logged or only the blocked requests are slogged in DNS, HTTP and L4 filters. *)
 
-type cloudflare_teams_account__logging = {
+type logging = {
   redact_pii : bool prop;
       (** Redact personally identifiable information from activity logging (PII fields are: source IP, user email, user ID, device ID, URL, referrer, user agent). *)
-  settings_by_rule_type :
-    cloudflare_teams_account__logging__settings_by_rule_type list;
+  settings_by_rule_type : logging__settings_by_rule_type list;
 }
 [@@deriving yojson_of]
-(** cloudflare_teams_account__logging *)
+(** logging *)
 
-type cloudflare_teams_account__payload_log = {
+type payload_log = {
   public_key : string prop;
       (** Public key used to encrypt matched payloads. *)
 }
 [@@deriving yojson_of]
 (** Configuration for DLP Payload Logging. *)
 
-type cloudflare_teams_account__proxy = {
+type proxy = {
   root_ca : bool prop;
       (** Whether root ca is enabled account wide for ZT clients. *)
   tcp : bool prop;
@@ -129,7 +122,7 @@ type cloudflare_teams_account__proxy = {
 [@@deriving yojson_of]
 (** Configuration block for specifying which protocols are proxied. *)
 
-type cloudflare_teams_account__ssh_session_log = {
+type ssh_session_log = {
   public_key : string prop;
       (** Public key used to encrypt ssh session. *)
 }
@@ -151,21 +144,104 @@ type cloudflare_teams_account = {
       (** Indicator that decryption of TLS traffic is enabled. *)
   url_browser_isolation_enabled : bool prop option; [@option]
       (** Safely browse websites in Browser Isolation through a URL. Defaults to `false`. *)
-  antivirus : cloudflare_teams_account__antivirus list;
-  block_page : cloudflare_teams_account__block_page list;
-  body_scanning : cloudflare_teams_account__body_scanning list;
-  extended_email_matching :
-    cloudflare_teams_account__extended_email_matching list;
-  fips : cloudflare_teams_account__fips list;
-  logging : cloudflare_teams_account__logging list;
-  payload_log : cloudflare_teams_account__payload_log list;
-  proxy : cloudflare_teams_account__proxy list;
-  ssh_session_log : cloudflare_teams_account__ssh_session_log list;
+  antivirus : antivirus list;
+  block_page : block_page list;
+  body_scanning : body_scanning list;
+  extended_email_matching : extended_email_matching list;
+  fips : fips list;
+  logging : logging list;
+  payload_log : payload_log list;
+  proxy : proxy list;
+  ssh_session_log : ssh_session_log list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Teams Account resource. The Teams Account
 resource defines configuration for secure web gateway.
  *)
+
+let antivirus__notification_settings ?enabled ?message ?support_url
+    () : antivirus__notification_settings =
+  { enabled; message; support_url }
+
+let antivirus ~enabled_download_phase ~enabled_upload_phase
+    ~fail_closed ~notification_settings () : antivirus =
+  {
+    enabled_download_phase;
+    enabled_upload_phase;
+    fail_closed;
+    notification_settings;
+  }
+
+let block_page ?background_color ?enabled ?footer_text ?header_text
+    ?logo_path ?mailto_address ?mailto_subject ?name () : block_page
+    =
+  {
+    background_color;
+    enabled;
+    footer_text;
+    header_text;
+    logo_path;
+    mailto_address;
+    mailto_subject;
+    name;
+  }
+
+let body_scanning ~inspection_mode () : body_scanning =
+  { inspection_mode }
+
+let extended_email_matching ~enabled () : extended_email_matching =
+  { enabled }
+
+let fips ?tls () : fips = { tls }
+
+let logging__settings_by_rule_type__dns ~log_all ~log_blocks () :
+    logging__settings_by_rule_type__dns =
+  { log_all; log_blocks }
+
+let logging__settings_by_rule_type__http ~log_all ~log_blocks () :
+    logging__settings_by_rule_type__http =
+  { log_all; log_blocks }
+
+let logging__settings_by_rule_type__l4 ~log_all ~log_blocks () :
+    logging__settings_by_rule_type__l4 =
+  { log_all; log_blocks }
+
+let logging__settings_by_rule_type ~dns ~http ~l4 () :
+    logging__settings_by_rule_type =
+  { dns; http; l4 }
+
+let logging ~redact_pii ~settings_by_rule_type () : logging =
+  { redact_pii; settings_by_rule_type }
+
+let payload_log ~public_key () : payload_log = { public_key }
+let proxy ~root_ca ~tcp ~udp () : proxy = { root_ca; tcp; udp }
+let ssh_session_log ~public_key () : ssh_session_log = { public_key }
+
+let cloudflare_teams_account ?activity_log_enabled ?id
+    ?non_identity_browser_isolation_enabled
+    ?protocol_detection_enabled ?tls_decrypt_enabled
+    ?url_browser_isolation_enabled ~account_id ~antivirus ~block_page
+    ~body_scanning ~extended_email_matching ~fips ~logging
+    ~payload_log ~proxy ~ssh_session_log () :
+    cloudflare_teams_account =
+  {
+    account_id;
+    activity_log_enabled;
+    id;
+    non_identity_browser_isolation_enabled;
+    protocol_detection_enabled;
+    tls_decrypt_enabled;
+    url_browser_isolation_enabled;
+    antivirus;
+    block_page;
+    body_scanning;
+    extended_email_matching;
+    fips;
+    logging;
+    payload_log;
+    proxy;
+    ssh_session_log;
+  }
 
 type t = {
   account_id : string prop;
@@ -177,7 +253,7 @@ type t = {
   url_browser_isolation_enabled : bool prop;
 }
 
-let cloudflare_teams_account ?activity_log_enabled ?id
+let register ?tf_module ?activity_log_enabled ?id
     ?non_identity_browser_isolation_enabled
     ?protocol_detection_enabled ?tls_decrypt_enabled
     ?url_browser_isolation_enabled ~account_id ~antivirus ~block_page
@@ -185,27 +261,14 @@ let cloudflare_teams_account ?activity_log_enabled ?id
     ~payload_log ~proxy ~ssh_session_log __resource_id =
   let __resource_type = "cloudflare_teams_account" in
   let __resource =
-    ({
-       account_id;
-       activity_log_enabled;
-       id;
-       non_identity_browser_isolation_enabled;
-       protocol_detection_enabled;
-       tls_decrypt_enabled;
-       url_browser_isolation_enabled;
-       antivirus;
-       block_page;
-       body_scanning;
-       extended_email_matching;
-       fips;
-       logging;
-       payload_log;
-       proxy;
-       ssh_session_log;
-     }
-      : cloudflare_teams_account)
+    cloudflare_teams_account ?activity_log_enabled ?id
+      ?non_identity_browser_isolation_enabled
+      ?protocol_detection_enabled ?tls_decrypt_enabled
+      ?url_browser_isolation_enabled ~account_id ~antivirus
+      ~block_page ~body_scanning ~extended_email_matching ~fips
+      ~logging ~payload_log ~proxy ~ssh_session_log ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_account __resource);
   let __resource_attributes =
     ({

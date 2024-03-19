@@ -4,26 +4,25 @@
 
 open! Tf.Prelude
 
-type azurerm_vpn_site__link__bgp = {
+type link__bgp = {
   asn : float prop;  (** asn *)
   peering_address : string prop;  (** peering_address *)
 }
 [@@deriving yojson_of]
-(** azurerm_vpn_site__link__bgp *)
+(** link__bgp *)
 
-type azurerm_vpn_site__link = {
+type link = {
   fqdn : string prop option; [@option]  (** fqdn *)
-  id : string prop;  (** id *)
   ip_address : string prop option; [@option]  (** ip_address *)
   name : string prop;  (** name *)
   provider_name : string prop option; [@option]  (** provider_name *)
   speed_in_mbps : float prop option; [@option]  (** speed_in_mbps *)
-  bgp : azurerm_vpn_site__link__bgp list;
+  bgp : link__bgp list;
 }
 [@@deriving yojson_of]
-(** azurerm_vpn_site__link *)
+(** link *)
 
-type azurerm_vpn_site__o365_policy__traffic_category = {
+type o365_policy__traffic_category = {
   allow_endpoint_enabled : bool prop option; [@option]
       (** allow_endpoint_enabled *)
   default_endpoint_enabled : bool prop option; [@option]
@@ -32,23 +31,22 @@ type azurerm_vpn_site__o365_policy__traffic_category = {
       (** optimize_endpoint_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_vpn_site__o365_policy__traffic_category *)
+(** o365_policy__traffic_category *)
 
-type azurerm_vpn_site__o365_policy = {
-  traffic_category :
-    azurerm_vpn_site__o365_policy__traffic_category list;
+type o365_policy = {
+  traffic_category : o365_policy__traffic_category list;
 }
 [@@deriving yojson_of]
-(** azurerm_vpn_site__o365_policy *)
+(** o365_policy *)
 
-type azurerm_vpn_site__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_vpn_site__timeouts *)
+(** timeouts *)
 
 type azurerm_vpn_site = {
   address_cidrs : string prop list option; [@option]
@@ -61,12 +59,52 @@ type azurerm_vpn_site = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   virtual_wan_id : string prop;  (** virtual_wan_id *)
-  link : azurerm_vpn_site__link list;
-  o365_policy : azurerm_vpn_site__o365_policy list;
-  timeouts : azurerm_vpn_site__timeouts option;
+  link : link list;
+  o365_policy : o365_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_site *)
+
+let link__bgp ~asn ~peering_address () : link__bgp =
+  { asn; peering_address }
+
+let link ?fqdn ?ip_address ?provider_name ?speed_in_mbps ~name ~bgp
+    () : link =
+  { fqdn; ip_address; name; provider_name; speed_in_mbps; bgp }
+
+let o365_policy__traffic_category ?allow_endpoint_enabled
+    ?default_endpoint_enabled ?optimize_endpoint_enabled () :
+    o365_policy__traffic_category =
+  {
+    allow_endpoint_enabled;
+    default_endpoint_enabled;
+    optimize_endpoint_enabled;
+  }
+
+let o365_policy ~traffic_category () : o365_policy =
+  { traffic_category }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor ?id
+    ?tags ?timeouts ~location ~name ~resource_group_name
+    ~virtual_wan_id ~link ~o365_policy () : azurerm_vpn_site =
+  {
+    address_cidrs;
+    device_model;
+    device_vendor;
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    virtual_wan_id;
+    link;
+    o365_policy;
+    timeouts;
+  }
 
 type t = {
   address_cidrs : string list prop;
@@ -80,28 +118,16 @@ type t = {
   virtual_wan_id : string prop;
 }
 
-let azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor ?id
-    ?tags ?timeouts ~location ~name ~resource_group_name
+let register ?tf_module ?address_cidrs ?device_model ?device_vendor
+    ?id ?tags ?timeouts ~location ~name ~resource_group_name
     ~virtual_wan_id ~link ~o365_policy __resource_id =
   let __resource_type = "azurerm_vpn_site" in
   let __resource =
-    ({
-       address_cidrs;
-       device_model;
-       device_vendor;
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       virtual_wan_id;
-       link;
-       o365_policy;
-       timeouts;
-     }
-      : azurerm_vpn_site)
+    azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor ?id
+      ?tags ?timeouts ~location ~name ~resource_group_name
+      ~virtual_wan_id ~link ~o365_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vpn_site __resource);
   let __resource_attributes =
     ({

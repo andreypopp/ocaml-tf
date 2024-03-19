@@ -24,6 +24,25 @@ type aws_cloudwatch_event_rule = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_rule *)
 
+let aws_cloudwatch_event_rule ?description ?event_bus_name
+    ?event_pattern ?id ?is_enabled ?name ?name_prefix ?role_arn
+    ?schedule_expression ?state ?tags ?tags_all () :
+    aws_cloudwatch_event_rule =
+  {
+    description;
+    event_bus_name;
+    event_pattern;
+    id;
+    is_enabled;
+    name;
+    name_prefix;
+    role_arn;
+    schedule_expression;
+    state;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -40,28 +59,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_cloudwatch_event_rule ?description ?event_bus_name
-    ?event_pattern ?id ?is_enabled ?name ?name_prefix ?role_arn
-    ?schedule_expression ?state ?tags ?tags_all __resource_id =
+let register ?tf_module ?description ?event_bus_name ?event_pattern
+    ?id ?is_enabled ?name ?name_prefix ?role_arn ?schedule_expression
+    ?state ?tags ?tags_all __resource_id =
   let __resource_type = "aws_cloudwatch_event_rule" in
   let __resource =
-    ({
-       description;
-       event_bus_name;
-       event_pattern;
-       id;
-       is_enabled;
-       name;
-       name_prefix;
-       role_arn;
-       schedule_expression;
-       state;
-       tags;
-       tags_all;
-     }
-      : aws_cloudwatch_event_rule)
+    aws_cloudwatch_event_rule ?description ?event_bus_name
+      ?event_pattern ?id ?is_enabled ?name ?name_prefix ?role_arn
+      ?schedule_expression ?state ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_rule __resource);
   let __resource_attributes =
     ({

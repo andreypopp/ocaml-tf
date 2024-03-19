@@ -4,22 +4,18 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_cassandra_cluster__identity = {
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
-  type_ : string prop; [@key "type"]  (** type *)
-}
+type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_cassandra_cluster__identity *)
+(** identity *)
 
-type azurerm_cosmosdb_cassandra_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_cassandra_cluster__timeouts *)
+(** timeouts *)
 
 type azurerm_cosmosdb_cassandra_cluster = {
   authentication_method : string prop option; [@option]
@@ -45,11 +41,42 @@ type azurerm_cosmosdb_cassandra_cluster = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   version : string prop option; [@option]  (** version *)
-  identity : azurerm_cosmosdb_cassandra_cluster__identity list;
-  timeouts : azurerm_cosmosdb_cassandra_cluster__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_cluster *)
+
+let identity ~type_ () : identity = { type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cosmosdb_cassandra_cluster ?authentication_method
+    ?client_certificate_pems ?external_gossip_certificate_pems
+    ?external_seed_node_ip_addresses ?hours_between_backups ?id
+    ?repair_enabled ?tags ?version ?timeouts ~default_admin_password
+    ~delegated_management_subnet_id ~location ~name
+    ~resource_group_name ~identity () :
+    azurerm_cosmosdb_cassandra_cluster =
+  {
+    authentication_method;
+    client_certificate_pems;
+    default_admin_password;
+    delegated_management_subnet_id;
+    external_gossip_certificate_pems;
+    external_seed_node_ip_addresses;
+    hours_between_backups;
+    id;
+    location;
+    name;
+    repair_enabled;
+    resource_group_name;
+    tags;
+    version;
+    identity;
+    timeouts;
+  }
 
 type t = {
   authentication_method : string prop;
@@ -68,7 +95,7 @@ type t = {
   version : string prop;
 }
 
-let azurerm_cosmosdb_cassandra_cluster ?authentication_method
+let register ?tf_module ?authentication_method
     ?client_certificate_pems ?external_gossip_certificate_pems
     ?external_seed_node_ip_addresses ?hours_between_backups ?id
     ?repair_enabled ?tags ?version ?timeouts ~default_admin_password
@@ -76,27 +103,14 @@ let azurerm_cosmosdb_cassandra_cluster ?authentication_method
     ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_cosmosdb_cassandra_cluster" in
   let __resource =
-    ({
-       authentication_method;
-       client_certificate_pems;
-       default_admin_password;
-       delegated_management_subnet_id;
-       external_gossip_certificate_pems;
-       external_seed_node_ip_addresses;
-       hours_between_backups;
-       id;
-       location;
-       name;
-       repair_enabled;
-       resource_group_name;
-       tags;
-       version;
-       identity;
-       timeouts;
-     }
-      : azurerm_cosmosdb_cassandra_cluster)
+    azurerm_cosmosdb_cassandra_cluster ?authentication_method
+      ?client_certificate_pems ?external_gossip_certificate_pems
+      ?external_seed_node_ip_addresses ?hours_between_backups ?id
+      ?repair_enabled ?tags ?version ?timeouts
+      ~default_admin_password ~delegated_management_subnet_id
+      ~location ~name ~resource_group_name ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_cassandra_cluster __resource);
   let __resource_attributes =
     ({

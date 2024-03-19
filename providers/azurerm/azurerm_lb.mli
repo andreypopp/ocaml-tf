@@ -2,9 +2,52 @@
 
 open! Tf.Prelude
 
-type azurerm_lb__frontend_ip_configuration
-type azurerm_lb__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type frontend_ip_configuration
+
+val frontend_ip_configuration :
+  ?gateway_load_balancer_frontend_ip_configuration_id:string prop ->
+  ?private_ip_address:string prop ->
+  ?private_ip_address_allocation:string prop ->
+  ?private_ip_address_version:string prop ->
+  ?public_ip_address_id:string prop ->
+  ?public_ip_prefix_id:string prop ->
+  ?subnet_id:string prop ->
+  ?zones:string prop list ->
+  name:string prop ->
+  unit ->
+  frontend_ip_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_lb
+
+val azurerm_lb :
+  ?edge_zone:string prop ->
+  ?id:string prop ->
+  ?sku:string prop ->
+  ?sku_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  frontend_ip_configuration:frontend_ip_configuration list ->
+  unit ->
+  azurerm_lb
+
+val yojson_of_azurerm_lb : azurerm_lb -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   edge_zone : string prop;
@@ -19,17 +62,17 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_lb :
+val register :
+  ?tf_module:tf_module ->
   ?edge_zone:string prop ->
   ?id:string prop ->
   ?sku:string prop ->
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_lb__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  frontend_ip_configuration:
-    azurerm_lb__frontend_ip_configuration list ->
+  frontend_ip_configuration:frontend_ip_configuration list ->
   string ->
   t

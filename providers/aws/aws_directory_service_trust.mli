@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_directory_service_trust
+
+val aws_directory_service_trust :
+  ?conditional_forwarder_ip_addrs:string prop list ->
+  ?delete_associated_conditional_forwarder:bool prop ->
+  ?selective_auth:string prop ->
+  ?trust_type:string prop ->
+  directory_id:string prop ->
+  remote_domain_name:string prop ->
+  trust_direction:string prop ->
+  trust_password:string prop ->
+  unit ->
+  aws_directory_service_trust
+
+val yojson_of_aws_directory_service_trust :
+  aws_directory_service_trust -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   conditional_forwarder_ip_addrs : string list prop;
@@ -21,7 +40,8 @@ type t = private {
   trust_type : string prop;
 }
 
-val aws_directory_service_trust :
+val register :
+  ?tf_module:tf_module ->
   ?conditional_forwarder_ip_addrs:string prop list ->
   ?delete_associated_conditional_forwarder:bool prop ->
   ?selective_auth:string prop ->

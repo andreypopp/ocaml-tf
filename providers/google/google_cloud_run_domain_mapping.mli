@@ -2,51 +2,86 @@
 
 open! Tf.Prelude
 
-type google_cloud_run_domain_mapping__metadata
-type google_cloud_run_domain_mapping__spec
-type google_cloud_run_domain_mapping__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_cloud_run_domain_mapping__status__resource_records = {
+type status__resource_records = {
   name : string prop;  (** name *)
   rrdata : string prop;  (** rrdata *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-type google_cloud_run_domain_mapping__status__conditions = {
+type status__conditions = {
   message : string prop;  (** message *)
   reason : string prop;  (** reason *)
   status : string prop;  (** status *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-type google_cloud_run_domain_mapping__status = {
-  conditions :
-    google_cloud_run_domain_mapping__status__conditions list;
-      (** conditions *)
+type status = {
+  conditions : status__conditions list;  (** conditions *)
   mapped_route_name : string prop;  (** mapped_route_name *)
   observed_generation : float prop;  (** observed_generation *)
-  resource_records :
-    google_cloud_run_domain_mapping__status__resource_records list;
+  resource_records : status__resource_records list;
       (** resource_records *)
 }
 
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?labels:(string * string prop) list ->
+  namespace:string prop ->
+  unit ->
+  metadata
+
+type spec
+
+val spec :
+  ?certificate_mode:string prop ->
+  ?force_override:bool prop ->
+  route_name:string prop ->
+  unit ->
+  spec
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_cloud_run_domain_mapping
+
+val google_cloud_run_domain_mapping :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  metadata:metadata list ->
+  spec:spec list ->
+  unit ->
+  google_cloud_run_domain_mapping
+
+val yojson_of_google_cloud_run_domain_mapping :
+  google_cloud_run_domain_mapping -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  status : google_cloud_run_domain_mapping__status list prop;
+  status : status list prop;
 }
 
-val google_cloud_run_domain_mapping :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_cloud_run_domain_mapping__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  metadata:google_cloud_run_domain_mapping__metadata list ->
-  spec:google_cloud_run_domain_mapping__spec list ->
+  metadata:metadata list ->
+  spec:spec list ->
   string ->
   t

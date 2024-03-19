@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dns_record_set__routing_policy__geo__health_checked_targets__internal_load_balancers = {
+type routing_policy__geo__health_checked_targets__internal_load_balancers = {
   ip_address : string prop;
       (** The frontend IP address of the load balancer. *)
   ip_protocol : string prop;
@@ -23,26 +23,25 @@ type google_dns_record_set__routing_policy__geo__health_checked_targets__interna
 [@@deriving yojson_of]
 (** The list of internal load balancers to health check. *)
 
-type google_dns_record_set__routing_policy__geo__health_checked_targets = {
+type routing_policy__geo__health_checked_targets = {
   internal_load_balancers :
-    google_dns_record_set__routing_policy__geo__health_checked_targets__internal_load_balancers
+    routing_policy__geo__health_checked_targets__internal_load_balancers
     list;
 }
 [@@deriving yojson_of]
 (** For A and AAAA types only. The list of targets to be health checked. These can be specified along with `rrdatas` within this item. *)
 
-type google_dns_record_set__routing_policy__geo = {
+type routing_policy__geo = {
   location : string prop;
       (** The location name defined in Google Cloud. *)
   rrdatas : string prop list option; [@option]  (** rrdatas *)
   health_checked_targets :
-    google_dns_record_set__routing_policy__geo__health_checked_targets
-    list;
+    routing_policy__geo__health_checked_targets list;
 }
 [@@deriving yojson_of]
 (** The configuration for Geo location based routing policy. *)
 
-type google_dns_record_set__routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers = {
+type routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers = {
   ip_address : string prop;
       (** The frontend IP address of the load balancer. *)
   ip_protocol : string prop;
@@ -61,26 +60,26 @@ type google_dns_record_set__routing_policy__primary_backup__backup_geo__health_c
 [@@deriving yojson_of]
 (** The list of internal load balancers to health check. *)
 
-type google_dns_record_set__routing_policy__primary_backup__backup_geo__health_checked_targets = {
+type routing_policy__primary_backup__backup_geo__health_checked_targets = {
   internal_load_balancers :
-    google_dns_record_set__routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
+    routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
     list;
 }
 [@@deriving yojson_of]
 (** For A and AAAA types only. The list of targets to be health checked. These can be specified along with `rrdatas` within this item. *)
 
-type google_dns_record_set__routing_policy__primary_backup__backup_geo = {
+type routing_policy__primary_backup__backup_geo = {
   location : string prop;
       (** The location name defined in Google Cloud. *)
   rrdatas : string prop list option; [@option]  (** rrdatas *)
   health_checked_targets :
-    google_dns_record_set__routing_policy__primary_backup__backup_geo__health_checked_targets
+    routing_policy__primary_backup__backup_geo__health_checked_targets
     list;
 }
 [@@deriving yojson_of]
 (** The backup geo targets, which provide a regional failover policy for the otherwise global primary targets. *)
 
-type google_dns_record_set__routing_policy__primary_backup__primary__internal_load_balancers = {
+type routing_policy__primary_backup__primary__internal_load_balancers = {
   ip_address : string prop;
       (** The frontend IP address of the load balancer. *)
   ip_protocol : string prop;
@@ -99,30 +98,26 @@ type google_dns_record_set__routing_policy__primary_backup__primary__internal_lo
 [@@deriving yojson_of]
 (** The list of internal load balancers to health check. *)
 
-type google_dns_record_set__routing_policy__primary_backup__primary = {
+type routing_policy__primary_backup__primary = {
   internal_load_balancers :
-    google_dns_record_set__routing_policy__primary_backup__primary__internal_load_balancers
+    routing_policy__primary_backup__primary__internal_load_balancers
     list;
 }
 [@@deriving yojson_of]
 (** The list of global primary targets to be health checked. *)
 
-type google_dns_record_set__routing_policy__primary_backup = {
+type routing_policy__primary_backup = {
   enable_geo_fencing_for_backups : bool prop option; [@option]
       (** Specifies whether to enable fencing for backup geo queries. *)
   trickle_ratio : float prop option; [@option]
       (** Specifies the percentage of traffic to send to the backup targets even when the primary targets are healthy. *)
-  backup_geo :
-    google_dns_record_set__routing_policy__primary_backup__backup_geo
-    list;
-  primary :
-    google_dns_record_set__routing_policy__primary_backup__primary
-    list;
+  backup_geo : routing_policy__primary_backup__backup_geo list;
+  primary : routing_policy__primary_backup__primary list;
 }
 [@@deriving yojson_of]
 (** The configuration for a primary-backup policy with global to regional failover. Queries are responded to with the global primary targets, but if none of the primary targets are healthy, then we fallback to a regional failover policy. *)
 
-type google_dns_record_set__routing_policy__wrr__health_checked_targets__internal_load_balancers = {
+type routing_policy__wrr__health_checked_targets__internal_load_balancers = {
   ip_address : string prop;
       (** The frontend IP address of the load balancer. *)
   ip_protocol : string prop;
@@ -141,32 +136,30 @@ type google_dns_record_set__routing_policy__wrr__health_checked_targets__interna
 [@@deriving yojson_of]
 (** The list of internal load balancers to health check. *)
 
-type google_dns_record_set__routing_policy__wrr__health_checked_targets = {
+type routing_policy__wrr__health_checked_targets = {
   internal_load_balancers :
-    google_dns_record_set__routing_policy__wrr__health_checked_targets__internal_load_balancers
+    routing_policy__wrr__health_checked_targets__internal_load_balancers
     list;
 }
 [@@deriving yojson_of]
 (** The list of targets to be health checked. Note that if DNSSEC is enabled for this zone, only one of `rrdatas` or `health_checked_targets` can be set. *)
 
-type google_dns_record_set__routing_policy__wrr = {
+type routing_policy__wrr = {
   rrdatas : string prop list option; [@option]  (** rrdatas *)
   weight : float prop;
       (** The ratio of traffic routed to the target. *)
   health_checked_targets :
-    google_dns_record_set__routing_policy__wrr__health_checked_targets
-    list;
+    routing_policy__wrr__health_checked_targets list;
 }
 [@@deriving yojson_of]
 (** The configuration for Weighted Round Robin based routing policy. *)
 
-type google_dns_record_set__routing_policy = {
+type routing_policy = {
   enable_geo_fencing : bool prop option; [@option]
       (** Specifies whether to enable fencing for geo queries. *)
-  geo : google_dns_record_set__routing_policy__geo list;
-  primary_backup :
-    google_dns_record_set__routing_policy__primary_backup list;
-  wrr : google_dns_record_set__routing_policy__wrr list;
+  geo : routing_policy__geo list;
+  primary_backup : routing_policy__primary_backup list;
+  wrr : routing_policy__wrr list;
 }
 [@@deriving yojson_of]
 (** The configuration for steering traffic based on query. You can specify either Weighted Round Robin(WRR) type or Geolocation(GEO) type. *)
@@ -184,10 +177,130 @@ type google_dns_record_set = {
   ttl : float prop option; [@option]
       (** The time-to-live of this record set (seconds). *)
   type_ : string prop; [@key "type"]  (** The DNS record set type. *)
-  routing_policy : google_dns_record_set__routing_policy list;
+  routing_policy : routing_policy list;
 }
 [@@deriving yojson_of]
 (** google_dns_record_set *)
+
+let routing_policy__geo__health_checked_targets__internal_load_balancers
+    ?region ~ip_address ~ip_protocol ~load_balancer_type ~network_url
+    ~port ~project () :
+    routing_policy__geo__health_checked_targets__internal_load_balancers
+    =
+  {
+    ip_address;
+    ip_protocol;
+    load_balancer_type;
+    network_url;
+    port;
+    project;
+    region;
+  }
+
+let routing_policy__geo__health_checked_targets
+    ~internal_load_balancers () :
+    routing_policy__geo__health_checked_targets =
+  { internal_load_balancers }
+
+let routing_policy__geo ?rrdatas ~location ~health_checked_targets ()
+    : routing_policy__geo =
+  { location; rrdatas; health_checked_targets }
+
+let routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
+    ?region ~ip_address ~ip_protocol ~load_balancer_type ~network_url
+    ~port ~project () :
+    routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
+    =
+  {
+    ip_address;
+    ip_protocol;
+    load_balancer_type;
+    network_url;
+    port;
+    project;
+    region;
+  }
+
+let routing_policy__primary_backup__backup_geo__health_checked_targets
+    ~internal_load_balancers () :
+    routing_policy__primary_backup__backup_geo__health_checked_targets
+    =
+  { internal_load_balancers }
+
+let routing_policy__primary_backup__backup_geo ?rrdatas ~location
+    ~health_checked_targets () :
+    routing_policy__primary_backup__backup_geo =
+  { location; rrdatas; health_checked_targets }
+
+let routing_policy__primary_backup__primary__internal_load_balancers
+    ?region ~ip_address ~ip_protocol ~load_balancer_type ~network_url
+    ~port ~project () :
+    routing_policy__primary_backup__primary__internal_load_balancers
+    =
+  {
+    ip_address;
+    ip_protocol;
+    load_balancer_type;
+    network_url;
+    port;
+    project;
+    region;
+  }
+
+let routing_policy__primary_backup__primary ~internal_load_balancers
+    () : routing_policy__primary_backup__primary =
+  { internal_load_balancers }
+
+let routing_policy__primary_backup ?enable_geo_fencing_for_backups
+    ?trickle_ratio ~backup_geo ~primary () :
+    routing_policy__primary_backup =
+  {
+    enable_geo_fencing_for_backups;
+    trickle_ratio;
+    backup_geo;
+    primary;
+  }
+
+let routing_policy__wrr__health_checked_targets__internal_load_balancers
+    ?region ~ip_address ~ip_protocol ~load_balancer_type ~network_url
+    ~port ~project () :
+    routing_policy__wrr__health_checked_targets__internal_load_balancers
+    =
+  {
+    ip_address;
+    ip_protocol;
+    load_balancer_type;
+    network_url;
+    port;
+    project;
+    region;
+  }
+
+let routing_policy__wrr__health_checked_targets
+    ~internal_load_balancers () :
+    routing_policy__wrr__health_checked_targets =
+  { internal_load_balancers }
+
+let routing_policy__wrr ?rrdatas ~weight ~health_checked_targets () :
+    routing_policy__wrr =
+  { rrdatas; weight; health_checked_targets }
+
+let routing_policy ?enable_geo_fencing ~geo ~primary_backup ~wrr () :
+    routing_policy =
+  { enable_geo_fencing; geo; primary_backup; wrr }
+
+let google_dns_record_set ?id ?project ?rrdatas ?ttl ~managed_zone
+    ~name ~type_ ~routing_policy () : google_dns_record_set =
+  {
+    id;
+    managed_zone;
+    name;
+    project;
+    rrdatas;
+    ttl;
+    type_;
+    routing_policy;
+  }
 
 type t = {
   id : string prop;
@@ -199,23 +312,14 @@ type t = {
   type_ : string prop;
 }
 
-let google_dns_record_set ?id ?project ?rrdatas ?ttl ~managed_zone
+let register ?tf_module ?id ?project ?rrdatas ?ttl ~managed_zone
     ~name ~type_ ~routing_policy __resource_id =
   let __resource_type = "google_dns_record_set" in
   let __resource =
-    ({
-       id;
-       managed_zone;
-       name;
-       project;
-       rrdatas;
-       ttl;
-       type_;
-       routing_policy;
-     }
-      : google_dns_record_set)
+    google_dns_record_set ?id ?project ?rrdatas ?ttl ~managed_zone
+      ~name ~type_ ~routing_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_record_set __resource);
   let __resource_attributes =
     ({

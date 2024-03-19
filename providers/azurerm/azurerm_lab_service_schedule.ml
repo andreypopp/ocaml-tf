@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_lab_service_schedule__recurrence = {
+type recurrence = {
   expiration_date : string prop;  (** expiration_date *)
   frequency : string prop;  (** frequency *)
   interval : float prop option; [@option]  (** interval *)
   week_days : string prop list option; [@option]  (** week_days *)
 }
 [@@deriving yojson_of]
-(** azurerm_lab_service_schedule__recurrence *)
+(** recurrence *)
 
-type azurerm_lab_service_schedule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_lab_service_schedule__timeouts *)
+(** timeouts *)
 
 type azurerm_lab_service_schedule = {
   id : string prop option; [@option]  (** id *)
@@ -30,11 +30,33 @@ type azurerm_lab_service_schedule = {
   start_time : string prop option; [@option]  (** start_time *)
   stop_time : string prop;  (** stop_time *)
   time_zone : string prop;  (** time_zone *)
-  recurrence : azurerm_lab_service_schedule__recurrence list;
-  timeouts : azurerm_lab_service_schedule__timeouts option;
+  recurrence : recurrence list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_schedule *)
+
+let recurrence ?interval ?week_days ~expiration_date ~frequency () :
+    recurrence =
+  { expiration_date; frequency; interval; week_days }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_lab_service_schedule ?id ?notes ?start_time ?timeouts
+    ~lab_id ~name ~stop_time ~time_zone ~recurrence () :
+    azurerm_lab_service_schedule =
+  {
+    id;
+    lab_id;
+    name;
+    notes;
+    start_time;
+    stop_time;
+    time_zone;
+    recurrence;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -46,24 +68,14 @@ type t = {
   time_zone : string prop;
 }
 
-let azurerm_lab_service_schedule ?id ?notes ?start_time ?timeouts
-    ~lab_id ~name ~stop_time ~time_zone ~recurrence __resource_id =
+let register ?tf_module ?id ?notes ?start_time ?timeouts ~lab_id
+    ~name ~stop_time ~time_zone ~recurrence __resource_id =
   let __resource_type = "azurerm_lab_service_schedule" in
   let __resource =
-    ({
-       id;
-       lab_id;
-       name;
-       notes;
-       start_time;
-       stop_time;
-       time_zone;
-       recurrence;
-       timeouts;
-     }
-      : azurerm_lab_service_schedule)
+    azurerm_lab_service_schedule ?id ?notes ?start_time ?timeouts
+      ~lab_id ~name ~stop_time ~time_zone ~recurrence ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lab_service_schedule __resource);
   let __resource_attributes =
     ({

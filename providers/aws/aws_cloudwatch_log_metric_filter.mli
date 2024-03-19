@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type aws_cloudwatch_log_metric_filter__metric_transformation
+(** RESOURCE SERIALIZATION *)
+
+type metric_transformation
+
+val metric_transformation :
+  ?default_value:string prop ->
+  ?dimensions:(string * string prop) list ->
+  ?unit:string prop ->
+  name:string prop ->
+  namespace:string prop ->
+  value:string prop ->
+  unit ->
+  metric_transformation
+
 type aws_cloudwatch_log_metric_filter
+
+val aws_cloudwatch_log_metric_filter :
+  ?id:string prop ->
+  log_group_name:string prop ->
+  name:string prop ->
+  pattern:string prop ->
+  metric_transformation:metric_transformation list ->
+  unit ->
+  aws_cloudwatch_log_metric_filter
+
+val yojson_of_aws_cloudwatch_log_metric_filter :
+  aws_cloudwatch_log_metric_filter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,12 +39,12 @@ type t = private {
   pattern : string prop;
 }
 
-val aws_cloudwatch_log_metric_filter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   log_group_name:string prop ->
   name:string prop ->
   pattern:string prop ->
-  metric_transformation:
-    aws_cloudwatch_log_metric_filter__metric_transformation list ->
+  metric_transformation:metric_transformation list ->
   string ->
   t

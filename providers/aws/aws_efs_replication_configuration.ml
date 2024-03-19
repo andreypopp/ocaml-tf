@@ -4,33 +4,43 @@
 
 open! Tf.Prelude
 
-type aws_efs_replication_configuration__destination = {
+type destination = {
   availability_zone_name : string prop option; [@option]
       (** availability_zone_name *)
   file_system_id : string prop option; [@option]
       (** file_system_id *)
   kms_key_id : string prop option; [@option]  (** kms_key_id *)
   region : string prop option; [@option]  (** region *)
-  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
-(** aws_efs_replication_configuration__destination *)
+(** destination *)
 
-type aws_efs_replication_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_efs_replication_configuration__timeouts *)
+(** timeouts *)
 
 type aws_efs_replication_configuration = {
   id : string prop option; [@option]  (** id *)
   source_file_system_id : string prop;  (** source_file_system_id *)
-  destination : aws_efs_replication_configuration__destination list;
-  timeouts : aws_efs_replication_configuration__timeouts option;
+  destination : destination list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_efs_replication_configuration *)
+
+let destination ?availability_zone_name ?file_system_id ?kms_key_id
+    ?region () : destination =
+  { availability_zone_name; file_system_id; kms_key_id; region }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_efs_replication_configuration ?id ?timeouts
+    ~source_file_system_id ~destination () :
+    aws_efs_replication_configuration =
+  { id; source_file_system_id; destination; timeouts }
 
 type t = {
   creation_time : string prop;
@@ -41,14 +51,14 @@ type t = {
   source_file_system_region : string prop;
 }
 
-let aws_efs_replication_configuration ?id ?timeouts
-    ~source_file_system_id ~destination __resource_id =
+let register ?tf_module ?id ?timeouts ~source_file_system_id
+    ~destination __resource_id =
   let __resource_type = "aws_efs_replication_configuration" in
   let __resource =
-    ({ id; source_file_system_id; destination; timeouts }
-      : aws_efs_replication_configuration)
+    aws_efs_replication_configuration ?id ?timeouts
+      ~source_file_system_id ~destination ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_efs_replication_configuration __resource);
   let __resource_attributes =
     ({

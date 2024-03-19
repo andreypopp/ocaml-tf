@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_postgresql_flexible_server_active_directory_administrator__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_postgresql_flexible_server_active_directory_administrator__timeouts *)
+(** timeouts *)
 
 type azurerm_postgresql_flexible_server_active_directory_administrator = {
   id : string prop option; [@option]  (** id *)
@@ -20,12 +20,29 @@ type azurerm_postgresql_flexible_server_active_directory_administrator = {
   resource_group_name : string prop;  (** resource_group_name *)
   server_name : string prop;  (** server_name *)
   tenant_id : string prop;  (** tenant_id *)
-  timeouts :
-    azurerm_postgresql_flexible_server_active_directory_administrator__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_postgresql_flexible_server_active_directory_administrator *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_postgresql_flexible_server_active_directory_administrator
+    ?id ?timeouts ~object_id ~principal_name ~principal_type
+    ~resource_group_name ~server_name ~tenant_id () :
+    azurerm_postgresql_flexible_server_active_directory_administrator
+    =
+  {
+    id;
+    object_id;
+    principal_name;
+    principal_type;
+    resource_group_name;
+    server_name;
+    tenant_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -37,26 +54,18 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_postgresql_flexible_server_active_directory_administrator
-    ?id ?timeouts ~object_id ~principal_name ~principal_type
-    ~resource_group_name ~server_name ~tenant_id __resource_id =
+let register ?tf_module ?id ?timeouts ~object_id ~principal_name
+    ~principal_type ~resource_group_name ~server_name ~tenant_id
+    __resource_id =
   let __resource_type =
     "azurerm_postgresql_flexible_server_active_directory_administrator"
   in
   let __resource =
-    ({
-       id;
-       object_id;
-       principal_name;
-       principal_type;
-       resource_group_name;
-       server_name;
-       tenant_id;
-       timeouts;
-     }
-      : azurerm_postgresql_flexible_server_active_directory_administrator)
+    azurerm_postgresql_flexible_server_active_directory_administrator
+      ?id ?timeouts ~object_id ~principal_name ~principal_type
+      ~resource_group_name ~server_name ~tenant_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_postgresql_flexible_server_active_directory_administrator
        __resource);
   let __resource_attributes =

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_opsworks_application__app_source = {
+type app_source = {
   password : string prop option; [@option]  (** password *)
   revision : string prop option; [@option]  (** revision *)
   ssh_key : string prop option; [@option]  (** ssh_key *)
@@ -13,23 +13,23 @@ type aws_opsworks_application__app_source = {
   username : string prop option; [@option]  (** username *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_application__app_source *)
+(** app_source *)
 
-type aws_opsworks_application__environment = {
+type environment = {
   key : string prop;  (** key *)
   secure : bool prop option; [@option]  (** secure *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_application__environment *)
+(** environment *)
 
-type aws_opsworks_application__ssl_configuration = {
+type ssl_configuration = {
   certificate : string prop;  (** certificate *)
   chain : string prop option; [@option]  (** chain *)
   private_key : string prop;  (** private_key *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_application__ssl_configuration *)
+(** ssl_configuration *)
 
 type aws_opsworks_application = {
   auto_bundle_on_deploy : string prop option; [@option]
@@ -52,13 +52,50 @@ type aws_opsworks_application = {
   short_name : string prop option; [@option]  (** short_name *)
   stack_id : string prop;  (** stack_id *)
   type_ : string prop; [@key "type"]  (** type *)
-  app_source : aws_opsworks_application__app_source list;
-  environment : aws_opsworks_application__environment list;
-  ssl_configuration :
-    aws_opsworks_application__ssl_configuration list;
+  app_source : app_source list;
+  environment : environment list;
+  ssl_configuration : ssl_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_opsworks_application *)
+
+let app_source ?password ?revision ?ssh_key ?url ?username ~type_ ()
+    : app_source =
+  { password; revision; ssh_key; type_; url; username }
+
+let environment ?secure ~key ~value () : environment =
+  { key; secure; value }
+
+let ssl_configuration ?chain ~certificate ~private_key () :
+    ssl_configuration =
+  { certificate; chain; private_key }
+
+let aws_opsworks_application ?auto_bundle_on_deploy
+    ?aws_flow_ruby_settings ?data_source_arn
+    ?data_source_database_name ?data_source_type ?description
+    ?document_root ?domains ?enable_ssl ?id ?rails_env ?short_name
+    ~name ~stack_id ~type_ ~app_source ~environment
+    ~ssl_configuration () : aws_opsworks_application =
+  {
+    auto_bundle_on_deploy;
+    aws_flow_ruby_settings;
+    data_source_arn;
+    data_source_database_name;
+    data_source_type;
+    description;
+    document_root;
+    domains;
+    enable_ssl;
+    id;
+    name;
+    rails_env;
+    short_name;
+    stack_id;
+    type_;
+    app_source;
+    environment;
+    ssl_configuration;
+  }
 
 type t = {
   auto_bundle_on_deploy : string prop;
@@ -78,7 +115,7 @@ type t = {
   type_ : string prop;
 }
 
-let aws_opsworks_application ?auto_bundle_on_deploy
+let register ?tf_module ?auto_bundle_on_deploy
     ?aws_flow_ruby_settings ?data_source_arn
     ?data_source_database_name ?data_source_type ?description
     ?document_root ?domains ?enable_ssl ?id ?rails_env ?short_name
@@ -86,29 +123,14 @@ let aws_opsworks_application ?auto_bundle_on_deploy
     ~ssl_configuration __resource_id =
   let __resource_type = "aws_opsworks_application" in
   let __resource =
-    ({
-       auto_bundle_on_deploy;
-       aws_flow_ruby_settings;
-       data_source_arn;
-       data_source_database_name;
-       data_source_type;
-       description;
-       document_root;
-       domains;
-       enable_ssl;
-       id;
-       name;
-       rails_env;
-       short_name;
-       stack_id;
-       type_;
-       app_source;
-       environment;
-       ssl_configuration;
-     }
-      : aws_opsworks_application)
+    aws_opsworks_application ?auto_bundle_on_deploy
+      ?aws_flow_ruby_settings ?data_source_arn
+      ?data_source_database_name ?data_source_type ?description
+      ?document_root ?domains ?enable_ssl ?id ?rails_env ?short_name
+      ~name ~stack_id ~type_ ~app_source ~environment
+      ~ssl_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_application __resource);
   let __resource_attributes =
     ({

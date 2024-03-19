@@ -14,6 +14,11 @@ type aws_cognito_user_pool_ui_customization = {
 [@@deriving yojson_of]
 (** aws_cognito_user_pool_ui_customization *)
 
+let aws_cognito_user_pool_ui_customization ?client_id ?css ?id
+    ?image_file ~user_pool_id () :
+    aws_cognito_user_pool_ui_customization =
+  { client_id; css; id; image_file; user_pool_id }
+
 type t = {
   client_id : string prop;
   creation_date : string prop;
@@ -26,14 +31,14 @@ type t = {
   user_pool_id : string prop;
 }
 
-let aws_cognito_user_pool_ui_customization ?client_id ?css ?id
-    ?image_file ~user_pool_id __resource_id =
+let register ?tf_module ?client_id ?css ?id ?image_file ~user_pool_id
+    __resource_id =
   let __resource_type = "aws_cognito_user_pool_ui_customization" in
   let __resource =
-    ({ client_id; css; id; image_file; user_pool_id }
-      : aws_cognito_user_pool_ui_customization)
+    aws_cognito_user_pool_ui_customization ?client_id ?css ?id
+      ?image_file ~user_pool_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_user_pool_ui_customization __resource);
   let __resource_attributes =
     ({

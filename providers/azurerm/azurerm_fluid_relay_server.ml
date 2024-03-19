@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_fluid_relay_server__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_fluid_relay_server__identity *)
+(** identity *)
 
-type azurerm_fluid_relay_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_fluid_relay_server__timeouts *)
+(** timeouts *)
 
 type azurerm_fluid_relay_server = {
   id : string prop option; [@option]  (** id *)
@@ -30,11 +28,31 @@ type azurerm_fluid_relay_server = {
   resource_group_name : string prop;  (** resource_group_name *)
   storage_sku : string prop option; [@option]  (** storage_sku *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity : azurerm_fluid_relay_server__identity list;
-  timeouts : azurerm_fluid_relay_server__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_fluid_relay_server *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_fluid_relay_server ?id ?storage_sku ?tags ?timeouts
+    ~location ~name ~resource_group_name ~identity () :
+    azurerm_fluid_relay_server =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    storage_sku;
+    tags;
+    identity;
+    timeouts;
+  }
 
 type t = {
   frs_tenant_id : string prop;
@@ -51,23 +69,14 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_fluid_relay_server ?id ?storage_sku ?tags ?timeouts
-    ~location ~name ~resource_group_name ~identity __resource_id =
+let register ?tf_module ?id ?storage_sku ?tags ?timeouts ~location
+    ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_fluid_relay_server" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       storage_sku;
-       tags;
-       identity;
-       timeouts;
-     }
-      : azurerm_fluid_relay_server)
+    azurerm_fluid_relay_server ?id ?storage_sku ?tags ?timeouts
+      ~location ~name ~resource_group_name ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_fluid_relay_server __resource);
   let __resource_attributes =
     ({

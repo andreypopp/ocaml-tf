@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_document_ai_processor__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_document_ai_processor__timeouts *)
+(** timeouts *)
 
 type google_document_ai_processor = {
   display_name : string prop;
@@ -21,10 +21,25 @@ type google_document_ai_processor = {
   project : string prop option; [@option]  (** project *)
   type_ : string prop; [@key "type"]
       (** The type of processor. For possible types see the [official list](https://cloud.google.com/document-ai/docs/reference/rest/v1/projects.locations/fetchProcessorTypes#google.cloud.documentai.v1.DocumentProcessorService.FetchProcessorTypes) *)
-  timeouts : google_document_ai_processor__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_document_ai_processor *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_document_ai_processor ?id ?kms_key_name ?project ?timeouts
+    ~display_name ~location ~type_ () : google_document_ai_processor
+    =
+  {
+    display_name;
+    id;
+    kms_key_name;
+    location;
+    project;
+    type_;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -36,22 +51,14 @@ type t = {
   type_ : string prop;
 }
 
-let google_document_ai_processor ?id ?kms_key_name ?project ?timeouts
+let register ?tf_module ?id ?kms_key_name ?project ?timeouts
     ~display_name ~location ~type_ __resource_id =
   let __resource_type = "google_document_ai_processor" in
   let __resource =
-    ({
-       display_name;
-       id;
-       kms_key_name;
-       location;
-       project;
-       type_;
-       timeouts;
-     }
-      : google_document_ai_processor)
+    google_document_ai_processor ?id ?kms_key_name ?project ?timeouts
+      ~display_name ~location ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_document_ai_processor __resource);
   let __resource_attributes =
     ({

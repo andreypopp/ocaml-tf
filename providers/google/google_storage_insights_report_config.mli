@@ -2,22 +2,97 @@
 
 open! Tf.Prelude
 
-type google_storage_insights_report_config__csv_options
+(** RESOURCE SERIALIZATION *)
 
-type google_storage_insights_report_config__frequency_options__end_date
+type csv_options
 
-type google_storage_insights_report_config__frequency_options__start_date
+val csv_options :
+  ?delimiter:string prop ->
+  ?header_required:bool prop ->
+  ?record_separator:string prop ->
+  unit ->
+  csv_options
 
-type google_storage_insights_report_config__frequency_options
+type frequency_options__end_date
 
-type google_storage_insights_report_config__object_metadata_report_options__storage_destination_options
+val frequency_options__end_date :
+  day:float prop ->
+  month:float prop ->
+  year:float prop ->
+  unit ->
+  frequency_options__end_date
 
-type google_storage_insights_report_config__object_metadata_report_options__storage_filters
+type frequency_options__start_date
 
-type google_storage_insights_report_config__object_metadata_report_options
+val frequency_options__start_date :
+  day:float prop ->
+  month:float prop ->
+  year:float prop ->
+  unit ->
+  frequency_options__start_date
 
-type google_storage_insights_report_config__timeouts
+type frequency_options
+
+val frequency_options :
+  frequency:string prop ->
+  end_date:frequency_options__end_date list ->
+  start_date:frequency_options__start_date list ->
+  unit ->
+  frequency_options
+
+type object_metadata_report_options__storage_destination_options
+
+val object_metadata_report_options__storage_destination_options :
+  ?destination_path:string prop ->
+  bucket:string prop ->
+  unit ->
+  object_metadata_report_options__storage_destination_options
+
+type object_metadata_report_options__storage_filters
+
+val object_metadata_report_options__storage_filters :
+  ?bucket:string prop ->
+  unit ->
+  object_metadata_report_options__storage_filters
+
+type object_metadata_report_options
+
+val object_metadata_report_options :
+  metadata_fields:string prop list ->
+  storage_destination_options:
+    object_metadata_report_options__storage_destination_options list ->
+  storage_filters:
+    object_metadata_report_options__storage_filters list ->
+  unit ->
+  object_metadata_report_options
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_storage_insights_report_config
+
+val google_storage_insights_report_config :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  csv_options:csv_options list ->
+  frequency_options:frequency_options list ->
+  object_metadata_report_options:object_metadata_report_options list ->
+  unit ->
+  google_storage_insights_report_config
+
+val yojson_of_google_storage_insights_report_config :
+  google_storage_insights_report_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   display_name : string prop;
@@ -27,17 +102,15 @@ type t = private {
   project : string prop;
 }
 
-val google_storage_insights_report_config :
+val register :
+  ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_storage_insights_report_config__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
-  csv_options:google_storage_insights_report_config__csv_options list ->
-  frequency_options:
-    google_storage_insights_report_config__frequency_options list ->
-  object_metadata_report_options:
-    google_storage_insights_report_config__object_metadata_report_options
-    list ->
+  csv_options:csv_options list ->
+  frequency_options:frequency_options list ->
+  object_metadata_report_options:object_metadata_report_options list ->
   string ->
   t

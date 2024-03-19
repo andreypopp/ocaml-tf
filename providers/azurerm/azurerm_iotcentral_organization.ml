@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_iotcentral_organization__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iotcentral_organization__timeouts *)
+(** timeouts *)
 
 type azurerm_iotcentral_organization = {
   display_name : string prop;  (** display_name *)
@@ -21,10 +21,25 @@ type azurerm_iotcentral_organization = {
   organization_id : string prop;  (** organization_id *)
   parent_organization_id : string prop option; [@option]
       (** parent_organization_id *)
-  timeouts : azurerm_iotcentral_organization__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iotcentral_organization *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iotcentral_organization ?id ?parent_organization_id
+    ?timeouts ~display_name ~iotcentral_application_id
+    ~organization_id () : azurerm_iotcentral_organization =
+  {
+    display_name;
+    id;
+    iotcentral_application_id;
+    organization_id;
+    parent_organization_id;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -34,22 +49,16 @@ type t = {
   parent_organization_id : string prop;
 }
 
-let azurerm_iotcentral_organization ?id ?parent_organization_id
-    ?timeouts ~display_name ~iotcentral_application_id
-    ~organization_id __resource_id =
+let register ?tf_module ?id ?parent_organization_id ?timeouts
+    ~display_name ~iotcentral_application_id ~organization_id
+    __resource_id =
   let __resource_type = "azurerm_iotcentral_organization" in
   let __resource =
-    ({
-       display_name;
-       id;
-       iotcentral_application_id;
-       organization_id;
-       parent_organization_id;
-       timeouts;
-     }
-      : azurerm_iotcentral_organization)
+    azurerm_iotcentral_organization ?id ?parent_organization_id
+      ?timeouts ~display_name ~iotcentral_application_id
+      ~organization_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iotcentral_organization __resource);
   let __resource_attributes =
     ({

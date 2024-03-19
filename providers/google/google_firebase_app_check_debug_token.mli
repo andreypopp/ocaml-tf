@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_firebase_app_check_debug_token__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_firebase_app_check_debug_token
+
+val google_firebase_app_check_debug_token :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  app_id:string prop ->
+  display_name:string prop ->
+  token:string prop ->
+  unit ->
+  google_firebase_app_check_debug_token
+
+val yojson_of_google_firebase_app_check_debug_token :
+  google_firebase_app_check_debug_token -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_id : string prop;
@@ -14,10 +39,11 @@ type t = private {
   token : string prop;
 }
 
-val google_firebase_app_check_debug_token :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_firebase_app_check_debug_token__timeouts ->
+  ?timeouts:timeouts ->
   app_id:string prop ->
   display_name:string prop ->
   token:string prop ->

@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type aws_appintegrations_data_integration__schedule_config
+(** RESOURCE SERIALIZATION *)
+
+type schedule_config
+
+val schedule_config :
+  first_execution_from:string prop ->
+  object_:string prop ->
+  schedule_expression:string prop ->
+  unit ->
+  schedule_config
+
 type aws_appintegrations_data_integration
+
+val aws_appintegrations_data_integration :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  kms_key:string prop ->
+  name:string prop ->
+  source_uri:string prop ->
+  schedule_config:schedule_config list ->
+  unit ->
+  aws_appintegrations_data_integration
+
+val yojson_of_aws_appintegrations_data_integration :
+  aws_appintegrations_data_integration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,7 +43,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_appintegrations_data_integration :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -24,7 +52,6 @@ val aws_appintegrations_data_integration :
   kms_key:string prop ->
   name:string prop ->
   source_uri:string prop ->
-  schedule_config:
-    aws_appintegrations_data_integration__schedule_config list ->
+  schedule_config:schedule_config list ->
   string ->
   t

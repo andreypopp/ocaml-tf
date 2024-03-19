@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_customer_gateway_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_customer_gateway_association__timeouts *)
+(** timeouts *)
 
 type aws_networkmanager_customer_gateway_association = {
   customer_gateway_arn : string prop;  (** customer_gateway_arn *)
@@ -17,11 +17,24 @@ type aws_networkmanager_customer_gateway_association = {
   global_network_id : string prop;  (** global_network_id *)
   id : string prop option; [@option]  (** id *)
   link_id : string prop option; [@option]  (** link_id *)
-  timeouts :
-    aws_networkmanager_customer_gateway_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_customer_gateway_association *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_networkmanager_customer_gateway_association ?id ?link_id
+    ?timeouts ~customer_gateway_arn ~device_id ~global_network_id ()
+    : aws_networkmanager_customer_gateway_association =
+  {
+    customer_gateway_arn;
+    device_id;
+    global_network_id;
+    id;
+    link_id;
+    timeouts;
+  }
 
 type t = {
   customer_gateway_arn : string prop;
@@ -31,24 +44,17 @@ type t = {
   link_id : string prop;
 }
 
-let aws_networkmanager_customer_gateway_association ?id ?link_id
-    ?timeouts ~customer_gateway_arn ~device_id ~global_network_id
-    __resource_id =
+let register ?tf_module ?id ?link_id ?timeouts ~customer_gateway_arn
+    ~device_id ~global_network_id __resource_id =
   let __resource_type =
     "aws_networkmanager_customer_gateway_association"
   in
   let __resource =
-    ({
-       customer_gateway_arn;
-       device_id;
-       global_network_id;
-       id;
-       link_id;
-       timeouts;
-     }
-      : aws_networkmanager_customer_gateway_association)
+    aws_networkmanager_customer_gateway_association ?id ?link_id
+      ?timeouts ~customer_gateway_arn ~device_id ~global_network_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_customer_gateway_association
        __resource);
   let __resource_attributes =

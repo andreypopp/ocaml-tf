@@ -2,10 +2,49 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_table__acl__access_policy
-type azurerm_storage_table__acl
-type azurerm_storage_table__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type acl__access_policy
+
+val acl__access_policy :
+  expiry:string prop ->
+  permissions:string prop ->
+  start:string prop ->
+  unit ->
+  acl__access_policy
+
+type acl
+
+val acl :
+  id:string prop ->
+  access_policy:acl__access_policy list ->
+  unit ->
+  acl
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_storage_table
+
+val azurerm_storage_table :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  storage_account_name:string prop ->
+  acl:acl list ->
+  unit ->
+  azurerm_storage_table
+
+val yojson_of_azurerm_storage_table : azurerm_storage_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,11 +52,12 @@ type t = private {
   storage_account_name : string prop;
 }
 
-val azurerm_storage_table :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_storage_table__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
-  acl:azurerm_storage_table__acl list ->
+  acl:acl list ->
   string ->
   t

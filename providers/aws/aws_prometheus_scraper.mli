@@ -2,12 +2,50 @@
 
 open! Tf.Prelude
 
-type aws_prometheus_scraper__destination__amp
-type aws_prometheus_scraper__destination
-type aws_prometheus_scraper__source__eks
-type aws_prometheus_scraper__source
-type aws_prometheus_scraper__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type destination__amp
+
+val destination__amp :
+  workspace_arn:string prop -> unit -> destination__amp
+
+type destination
+
+val destination : amp:destination__amp list -> unit -> destination
+
+type source__eks
+
+val source__eks :
+  ?security_group_ids:string prop list ->
+  cluster_arn:string prop ->
+  subnet_ids:string prop list ->
+  unit ->
+  source__eks
+
+type source
+
+val source : eks:source__eks list -> unit -> source
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_prometheus_scraper
+
+val aws_prometheus_scraper :
+  ?alias:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  scrape_configuration:string prop ->
+  destination:destination list ->
+  source:source list ->
+  unit ->
+  aws_prometheus_scraper
+
+val yojson_of_aws_prometheus_scraper : aws_prometheus_scraper -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   alias : string prop;
@@ -19,12 +57,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_prometheus_scraper :
+val register :
+  ?tf_module:tf_module ->
   ?alias:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_prometheus_scraper__timeouts ->
+  ?timeouts:timeouts ->
   scrape_configuration:string prop ->
-  destination:aws_prometheus_scraper__destination list ->
-  source:aws_prometheus_scraper__source list ->
+  destination:destination list ->
+  source:source list ->
   string ->
   t

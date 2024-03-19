@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_recaptcha_enterprise_key__android_settings = {
+type android_settings = {
   allow_all_package_names : bool prop option; [@option]
       (** If set to true, it means allowed_package_names will not be enforced. *)
   allowed_package_names : string prop list option; [@option]
@@ -13,7 +13,7 @@ type google_recaptcha_enterprise_key__android_settings = {
 [@@deriving yojson_of]
 (** Settings for keys that can be used by Android apps. *)
 
-type google_recaptcha_enterprise_key__ios_settings = {
+type ios_settings = {
   allow_all_bundle_ids : bool prop option; [@option]
       (** If set to true, it means allowed_bundle_ids will not be enforced. *)
   allowed_bundle_ids : string prop list option; [@option]
@@ -22,7 +22,7 @@ type google_recaptcha_enterprise_key__ios_settings = {
 [@@deriving yojson_of]
 (** Settings for keys that can be used by iOS apps. *)
 
-type google_recaptcha_enterprise_key__testing_options = {
+type testing_options = {
   testing_challenge : string prop option; [@option]
       (** For challenge-based keys only (CHECKBOX, INVISIBLE), all challenge requests for this site will return nocaptcha if NOCAPTCHA, or an unsolvable challenge if UNSOLVABLE_CHALLENGE. Possible values: TESTING_CHALLENGE_UNSPECIFIED, NOCAPTCHA, UNSOLVABLE_CHALLENGE *)
   testing_score : float prop option; [@option]
@@ -31,15 +31,15 @@ type google_recaptcha_enterprise_key__testing_options = {
 [@@deriving yojson_of]
 (** Options for user acceptance testing. *)
 
-type google_recaptcha_enterprise_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_recaptcha_enterprise_key__timeouts *)
+(** timeouts *)
 
-type google_recaptcha_enterprise_key__waf_settings = {
+type waf_settings = {
   waf_feature : string prop;
       (** Supported WAF features. For more information, see https://cloud.google.com/recaptcha-enterprise/docs/usecase#comparison_of_features. Possible values: CHALLENGE_PAGE, SESSION_TOKEN, ACTION_TOKEN, EXPRESS *)
   waf_service : string prop;
@@ -48,7 +48,7 @@ type google_recaptcha_enterprise_key__waf_settings = {
 [@@deriving yojson_of]
 (** Settings specific to keys that can be used for WAF (Web Application Firewall). *)
 
-type google_recaptcha_enterprise_key__web_settings = {
+type web_settings = {
   allow_all_domains : bool prop option; [@option]
       (** If set to true, it means allowed_domains will not be enforced. *)
   allow_amp_traffic : bool prop option; [@option]
@@ -74,17 +74,61 @@ type google_recaptcha_enterprise_key = {
 Please refer to the field `effective_labels` for all of the labels present on the resource. *)
   project : string prop option; [@option]
       (** The project for the resource *)
-  android_settings :
-    google_recaptcha_enterprise_key__android_settings list;
-  ios_settings : google_recaptcha_enterprise_key__ios_settings list;
-  testing_options :
-    google_recaptcha_enterprise_key__testing_options list;
-  timeouts : google_recaptcha_enterprise_key__timeouts option;
-  waf_settings : google_recaptcha_enterprise_key__waf_settings list;
-  web_settings : google_recaptcha_enterprise_key__web_settings list;
+  android_settings : android_settings list;
+  ios_settings : ios_settings list;
+  testing_options : testing_options list;
+  timeouts : timeouts option;
+  waf_settings : waf_settings list;
+  web_settings : web_settings list;
 }
 [@@deriving yojson_of]
 (** google_recaptcha_enterprise_key *)
+
+let android_settings ?allow_all_package_names ?allowed_package_names
+    () : android_settings =
+  { allow_all_package_names; allowed_package_names }
+
+let ios_settings ?allow_all_bundle_ids ?allowed_bundle_ids () :
+    ios_settings =
+  { allow_all_bundle_ids; allowed_bundle_ids }
+
+let testing_options ?testing_challenge ?testing_score () :
+    testing_options =
+  { testing_challenge; testing_score }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let waf_settings ~waf_feature ~waf_service () : waf_settings =
+  { waf_feature; waf_service }
+
+let web_settings ?allow_all_domains ?allow_amp_traffic
+    ?allowed_domains ?challenge_security_preference ~integration_type
+    () : web_settings =
+  {
+    allow_all_domains;
+    allow_amp_traffic;
+    allowed_domains;
+    challenge_security_preference;
+    integration_type;
+  }
+
+let google_recaptcha_enterprise_key ?id ?labels ?project ?timeouts
+    ~display_name ~android_settings ~ios_settings ~testing_options
+    ~waf_settings ~web_settings () : google_recaptcha_enterprise_key
+    =
+  {
+    display_name;
+    id;
+    labels;
+    project;
+    android_settings;
+    ios_settings;
+    testing_options;
+    timeouts;
+    waf_settings;
+    web_settings;
+  }
 
 type t = {
   create_time : string prop;
@@ -97,26 +141,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_recaptcha_enterprise_key ?id ?labels ?project ?timeouts
-    ~display_name ~android_settings ~ios_settings ~testing_options
-    ~waf_settings ~web_settings __resource_id =
+let register ?tf_module ?id ?labels ?project ?timeouts ~display_name
+    ~android_settings ~ios_settings ~testing_options ~waf_settings
+    ~web_settings __resource_id =
   let __resource_type = "google_recaptcha_enterprise_key" in
   let __resource =
-    ({
-       display_name;
-       id;
-       labels;
-       project;
-       android_settings;
-       ios_settings;
-       testing_options;
-       timeouts;
-       waf_settings;
-       web_settings;
-     }
-      : google_recaptcha_enterprise_key)
+    google_recaptcha_enterprise_key ?id ?labels ?project ?timeouts
+      ~display_name ~android_settings ~ios_settings ~testing_options
+      ~waf_settings ~web_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_recaptcha_enterprise_key __resource);
   let __resource_attributes =
     ({

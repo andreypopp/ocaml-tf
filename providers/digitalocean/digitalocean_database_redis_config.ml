@@ -29,6 +29,27 @@ type digitalocean_database_redis_config = {
 [@@deriving yojson_of]
 (** digitalocean_database_redis_config *)
 
+let digitalocean_database_redis_config ?acl_channels_default ?id
+    ?io_threads ?lfu_decay_time ?lfu_log_factor ?maxmemory_policy
+    ?notify_keyspace_events ?number_of_databases ?persistence
+    ?pubsub_client_output_buffer_limit ?ssl ?timeout ~cluster_id () :
+    digitalocean_database_redis_config =
+  {
+    acl_channels_default;
+    cluster_id;
+    id;
+    io_threads;
+    lfu_decay_time;
+    lfu_log_factor;
+    maxmemory_policy;
+    notify_keyspace_events;
+    number_of_databases;
+    persistence;
+    pubsub_client_output_buffer_limit;
+    ssl;
+    timeout;
+  }
+
 type t = {
   acl_channels_default : string prop;
   cluster_id : string prop;
@@ -45,31 +66,19 @@ type t = {
   timeout : float prop;
 }
 
-let digitalocean_database_redis_config ?acl_channels_default ?id
-    ?io_threads ?lfu_decay_time ?lfu_log_factor ?maxmemory_policy
+let register ?tf_module ?acl_channels_default ?id ?io_threads
+    ?lfu_decay_time ?lfu_log_factor ?maxmemory_policy
     ?notify_keyspace_events ?number_of_databases ?persistence
     ?pubsub_client_output_buffer_limit ?ssl ?timeout ~cluster_id
     __resource_id =
   let __resource_type = "digitalocean_database_redis_config" in
   let __resource =
-    ({
-       acl_channels_default;
-       cluster_id;
-       id;
-       io_threads;
-       lfu_decay_time;
-       lfu_log_factor;
-       maxmemory_policy;
-       notify_keyspace_events;
-       number_of_databases;
-       persistence;
-       pubsub_client_output_buffer_limit;
-       ssl;
-       timeout;
-     }
-      : digitalocean_database_redis_config)
+    digitalocean_database_redis_config ?acl_channels_default ?id
+      ?io_threads ?lfu_decay_time ?lfu_log_factor ?maxmemory_policy
+      ?notify_keyspace_events ?number_of_databases ?persistence
+      ?pubsub_client_output_buffer_limit ?ssl ?timeout ~cluster_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_redis_config __resource);
   let __resource_attributes =
     ({

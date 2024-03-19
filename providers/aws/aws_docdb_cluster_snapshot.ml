@@ -4,21 +4,32 @@
 
 open! Tf.Prelude
 
-type aws_docdb_cluster_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_docdb_cluster_snapshot__timeouts *)
+(** timeouts *)
 
 type aws_docdb_cluster_snapshot = {
   db_cluster_identifier : string prop;  (** db_cluster_identifier *)
   db_cluster_snapshot_identifier : string prop;
       (** db_cluster_snapshot_identifier *)
   id : string prop option; [@option]  (** id *)
-  timeouts : aws_docdb_cluster_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_docdb_cluster_snapshot *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_docdb_cluster_snapshot ?id ?timeouts ~db_cluster_identifier
+    ~db_cluster_snapshot_identifier () : aws_docdb_cluster_snapshot =
+  {
+    db_cluster_identifier;
+    db_cluster_snapshot_identifier;
+    id;
+    timeouts;
+  }
 
 type t = {
   availability_zones : string list prop;
@@ -37,19 +48,14 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_docdb_cluster_snapshot ?id ?timeouts ~db_cluster_identifier
+let register ?tf_module ?id ?timeouts ~db_cluster_identifier
     ~db_cluster_snapshot_identifier __resource_id =
   let __resource_type = "aws_docdb_cluster_snapshot" in
   let __resource =
-    ({
-       db_cluster_identifier;
-       db_cluster_snapshot_identifier;
-       id;
-       timeouts;
-     }
-      : aws_docdb_cluster_snapshot)
+    aws_docdb_cluster_snapshot ?id ?timeouts ~db_cluster_identifier
+      ~db_cluster_snapshot_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_docdb_cluster_snapshot __resource);
   let __resource_attributes =
     ({

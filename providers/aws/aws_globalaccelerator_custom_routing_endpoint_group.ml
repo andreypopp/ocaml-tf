@@ -4,44 +4,60 @@
 
 open! Tf.Prelude
 
-type aws_globalaccelerator_custom_routing_endpoint_group__destination_configuration = {
+type destination_configuration = {
   from_port : float prop;  (** from_port *)
   protocols : string prop list;  (** protocols *)
   to_port : float prop;  (** to_port *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_custom_routing_endpoint_group__destination_configuration *)
+(** destination_configuration *)
 
-type aws_globalaccelerator_custom_routing_endpoint_group__endpoint_configuration = {
+type endpoint_configuration = {
   endpoint_id : string prop option; [@option]  (** endpoint_id *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_custom_routing_endpoint_group__endpoint_configuration *)
+(** endpoint_configuration *)
 
-type aws_globalaccelerator_custom_routing_endpoint_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_custom_routing_endpoint_group__timeouts *)
+(** timeouts *)
 
 type aws_globalaccelerator_custom_routing_endpoint_group = {
   endpoint_group_region : string prop option; [@option]
       (** endpoint_group_region *)
   id : string prop option; [@option]  (** id *)
   listener_arn : string prop;  (** listener_arn *)
-  destination_configuration :
-    aws_globalaccelerator_custom_routing_endpoint_group__destination_configuration
-    list;
-  endpoint_configuration :
-    aws_globalaccelerator_custom_routing_endpoint_group__endpoint_configuration
-    list;
-  timeouts :
-    aws_globalaccelerator_custom_routing_endpoint_group__timeouts
-    option;
+  destination_configuration : destination_configuration list;
+  endpoint_configuration : endpoint_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_endpoint_group *)
+
+let destination_configuration ~from_port ~protocols ~to_port () :
+    destination_configuration =
+  { from_port; protocols; to_port }
+
+let endpoint_configuration ?endpoint_id () : endpoint_configuration =
+  { endpoint_id }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_globalaccelerator_custom_routing_endpoint_group
+    ?endpoint_group_region ?id ?timeouts ~listener_arn
+    ~destination_configuration ~endpoint_configuration () :
+    aws_globalaccelerator_custom_routing_endpoint_group =
+  {
+    endpoint_group_region;
+    id;
+    listener_arn;
+    destination_configuration;
+    endpoint_configuration;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -50,25 +66,18 @@ type t = {
   listener_arn : string prop;
 }
 
-let aws_globalaccelerator_custom_routing_endpoint_group
-    ?endpoint_group_region ?id ?timeouts ~listener_arn
-    ~destination_configuration ~endpoint_configuration __resource_id
-    =
+let register ?tf_module ?endpoint_group_region ?id ?timeouts
+    ~listener_arn ~destination_configuration ~endpoint_configuration
+    __resource_id =
   let __resource_type =
     "aws_globalaccelerator_custom_routing_endpoint_group"
   in
   let __resource =
-    ({
-       endpoint_group_region;
-       id;
-       listener_arn;
-       destination_configuration;
-       endpoint_configuration;
-       timeouts;
-     }
-      : aws_globalaccelerator_custom_routing_endpoint_group)
+    aws_globalaccelerator_custom_routing_endpoint_group
+      ?endpoint_group_region ?id ?timeouts ~listener_arn
+      ~destination_configuration ~endpoint_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_custom_routing_endpoint_group
        __resource);
   let __resource_attributes =

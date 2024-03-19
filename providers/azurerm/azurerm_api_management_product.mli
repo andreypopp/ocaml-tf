@@ -2,8 +2,40 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_product__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_api_management_product
+
+val azurerm_api_management_product :
+  ?approval_required:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?subscription_required:bool prop ->
+  ?subscriptions_limit:float prop ->
+  ?terms:string prop ->
+  ?timeouts:timeouts ->
+  api_management_name:string prop ->
+  display_name:string prop ->
+  product_id:string prop ->
+  published:bool prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_api_management_product
+
+val yojson_of_azurerm_api_management_product :
+  azurerm_api_management_product -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_management_name : string prop;
@@ -19,14 +51,15 @@ type t = private {
   terms : string prop;
 }
 
-val azurerm_api_management_product :
+val register :
+  ?tf_module:tf_module ->
   ?approval_required:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?subscription_required:bool prop ->
   ?subscriptions_limit:float prop ->
   ?terms:string prop ->
-  ?timeouts:azurerm_api_management_product__timeouts ->
+  ?timeouts:timeouts ->
   api_management_name:string prop ->
   display_name:string prop ->
   product_id:string prop ->

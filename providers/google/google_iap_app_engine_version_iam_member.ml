@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_iap_app_engine_version_iam_member__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_iap_app_engine_version_iam_member__condition *)
+(** condition *)
 
 type google_iap_app_engine_version_iam_member = {
   app_id : string prop;  (** app_id *)
@@ -20,11 +20,27 @@ type google_iap_app_engine_version_iam_member = {
   role : string prop;  (** role *)
   service : string prop;  (** service *)
   version_id : string prop;  (** version_id *)
-  condition :
-    google_iap_app_engine_version_iam_member__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_iap_app_engine_version_iam_member *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_iap_app_engine_version_iam_member ?id ?project ~app_id
+    ~member ~role ~service ~version_id ~condition () :
+    google_iap_app_engine_version_iam_member =
+  {
+    app_id;
+    id;
+    member;
+    project;
+    role;
+    service;
+    version_id;
+    condition;
+  }
 
 type t = {
   app_id : string prop;
@@ -37,23 +53,14 @@ type t = {
   version_id : string prop;
 }
 
-let google_iap_app_engine_version_iam_member ?id ?project ~app_id
-    ~member ~role ~service ~version_id ~condition __resource_id =
+let register ?tf_module ?id ?project ~app_id ~member ~role ~service
+    ~version_id ~condition __resource_id =
   let __resource_type = "google_iap_app_engine_version_iam_member" in
   let __resource =
-    ({
-       app_id;
-       id;
-       member;
-       project;
-       role;
-       service;
-       version_id;
-       condition;
-     }
-      : google_iap_app_engine_version_iam_member)
+    google_iap_app_engine_version_iam_member ?id ?project ~app_id
+      ~member ~role ~service ~version_id ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_app_engine_version_iam_member __resource);
   let __resource_attributes =
     ({

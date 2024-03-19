@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type google_tpu_node__scheduling_config = {
+type scheduling_config = {
   preemptible : bool prop;
       (** Defines whether the TPU instance is preemptible. *)
 }
 [@@deriving yojson_of]
 (** Sets the scheduling options for this TPU instance. *)
 
-type google_tpu_node__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_tpu_node__timeouts *)
+(** timeouts *)
 
-type google_tpu_node__network_endpoints = {
+type network_endpoints = {
   ip_address : string prop;  (** ip_address *)
   port : float prop;  (** port *)
 }
@@ -62,11 +62,37 @@ cidr_block field should not be specified. If the network that you want to peer t
 TPU Node to is a Shared VPC network, the node must be created with this this field enabled. *)
   zone : string prop option; [@option]
       (** The GCP location for the TPU. If it is not provided, the provider zone is used. *)
-  scheduling_config : google_tpu_node__scheduling_config list;
-  timeouts : google_tpu_node__timeouts option;
+  scheduling_config : scheduling_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_tpu_node *)
+
+let scheduling_config ~preemptible () : scheduling_config =
+  { preemptible }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_tpu_node ?cidr_block ?description ?id ?labels ?network
+    ?project ?use_service_networking ?zone ?timeouts
+    ~accelerator_type ~name ~tensorflow_version ~scheduling_config ()
+    : google_tpu_node =
+  {
+    accelerator_type;
+    cidr_block;
+    description;
+    id;
+    labels;
+    name;
+    network;
+    project;
+    tensorflow_version;
+    use_service_networking;
+    zone;
+    scheduling_config;
+    timeouts;
+  }
 
 type t = {
   accelerator_type : string prop;
@@ -77,7 +103,7 @@ type t = {
   labels : (string * string) list prop;
   name : string prop;
   network : string prop;
-  network_endpoints : google_tpu_node__network_endpoints list prop;
+  network_endpoints : network_endpoints list prop;
   project : string prop;
   service_account : string prop;
   tensorflow_version : string prop;
@@ -86,30 +112,18 @@ type t = {
   zone : string prop;
 }
 
-let google_tpu_node ?cidr_block ?description ?id ?labels ?network
+let register ?tf_module ?cidr_block ?description ?id ?labels ?network
     ?project ?use_service_networking ?zone ?timeouts
     ~accelerator_type ~name ~tensorflow_version ~scheduling_config
     __resource_id =
   let __resource_type = "google_tpu_node" in
   let __resource =
-    ({
-       accelerator_type;
-       cidr_block;
-       description;
-       id;
-       labels;
-       name;
-       network;
-       project;
-       tensorflow_version;
-       use_service_networking;
-       zone;
-       scheduling_config;
-       timeouts;
-     }
-      : google_tpu_node)
+    google_tpu_node ?cidr_block ?description ?id ?labels ?network
+      ?project ?use_service_networking ?zone ?timeouts
+      ~accelerator_type ~name ~tensorflow_version ~scheduling_config
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tpu_node __resource);
   let __resource_attributes =
     ({

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ebs_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ebs_snapshot__timeouts *)
+(** timeouts *)
 
 type aws_ebs_snapshot = {
   description : string prop option; [@option]  (** description *)
@@ -24,10 +24,28 @@ type aws_ebs_snapshot = {
   temporary_restore_days : float prop option; [@option]
       (** temporary_restore_days *)
   volume_id : string prop;  (** volume_id *)
-  timeouts : aws_ebs_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ebs_snapshot *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ebs_snapshot ?description ?id ?outpost_arn ?permanent_restore
+    ?storage_tier ?tags ?tags_all ?temporary_restore_days ?timeouts
+    ~volume_id () : aws_ebs_snapshot =
+  {
+    description;
+    id;
+    outpost_arn;
+    permanent_restore;
+    storage_tier;
+    tags;
+    tags_all;
+    temporary_restore_days;
+    volume_id;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -48,26 +66,16 @@ type t = {
   volume_size : float prop;
 }
 
-let aws_ebs_snapshot ?description ?id ?outpost_arn ?permanent_restore
-    ?storage_tier ?tags ?tags_all ?temporary_restore_days ?timeouts
-    ~volume_id __resource_id =
+let register ?tf_module ?description ?id ?outpost_arn
+    ?permanent_restore ?storage_tier ?tags ?tags_all
+    ?temporary_restore_days ?timeouts ~volume_id __resource_id =
   let __resource_type = "aws_ebs_snapshot" in
   let __resource =
-    ({
-       description;
-       id;
-       outpost_arn;
-       permanent_restore;
-       storage_tier;
-       tags;
-       tags_all;
-       temporary_restore_days;
-       volume_id;
-       timeouts;
-     }
-      : aws_ebs_snapshot)
+    aws_ebs_snapshot ?description ?id ?outpost_arn ?permanent_restore
+      ?storage_tier ?tags ?tags_all ?temporary_restore_days ?timeouts
+      ~volume_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ebs_snapshot __resource);
   let __resource_attributes =
     ({

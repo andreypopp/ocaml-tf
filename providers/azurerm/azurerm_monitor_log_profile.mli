@@ -2,9 +2,41 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_log_profile__retention_policy
-type azurerm_monitor_log_profile__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type retention_policy
+
+val retention_policy :
+  ?days:float prop -> enabled:bool prop -> unit -> retention_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_monitor_log_profile
+
+val azurerm_monitor_log_profile :
+  ?id:string prop ->
+  ?servicebus_rule_id:string prop ->
+  ?storage_account_id:string prop ->
+  ?timeouts:timeouts ->
+  categories:string prop list ->
+  locations:string prop list ->
+  name:string prop ->
+  retention_policy:retention_policy list ->
+  unit ->
+  azurerm_monitor_log_profile
+
+val yojson_of_azurerm_monitor_log_profile :
+  azurerm_monitor_log_profile -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   categories : string list prop;
@@ -15,14 +47,15 @@ type t = private {
   storage_account_id : string prop;
 }
 
-val azurerm_monitor_log_profile :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?servicebus_rule_id:string prop ->
   ?storage_account_id:string prop ->
-  ?timeouts:azurerm_monitor_log_profile__timeouts ->
+  ?timeouts:timeouts ->
   categories:string prop list ->
   locations:string prop list ->
   name:string prop ->
-  retention_policy:azurerm_monitor_log_profile__retention_policy list ->
+  retention_policy:retention_policy list ->
   string ->
   t

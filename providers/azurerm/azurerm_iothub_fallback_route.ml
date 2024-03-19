@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_fallback_route__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_fallback_route__timeouts *)
+(** timeouts *)
 
 type azurerm_iothub_fallback_route = {
   condition : string prop option; [@option]  (** condition *)
@@ -21,10 +21,27 @@ type azurerm_iothub_fallback_route = {
   iothub_name : string prop;  (** iothub_name *)
   resource_group_name : string prop;  (** resource_group_name *)
   source : string prop option; [@option]  (** source *)
-  timeouts : azurerm_iothub_fallback_route__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_fallback_route *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iothub_fallback_route ?condition ?id ?source ?timeouts
+    ~enabled ~endpoint_names ~iothub_name ~resource_group_name () :
+    azurerm_iothub_fallback_route =
+  {
+    condition;
+    enabled;
+    endpoint_names;
+    id;
+    iothub_name;
+    resource_group_name;
+    source;
+    timeouts;
+  }
 
 type t = {
   condition : string prop;
@@ -36,24 +53,14 @@ type t = {
   source : string prop;
 }
 
-let azurerm_iothub_fallback_route ?condition ?id ?source ?timeouts
-    ~enabled ~endpoint_names ~iothub_name ~resource_group_name
-    __resource_id =
+let register ?tf_module ?condition ?id ?source ?timeouts ~enabled
+    ~endpoint_names ~iothub_name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_iothub_fallback_route" in
   let __resource =
-    ({
-       condition;
-       enabled;
-       endpoint_names;
-       id;
-       iothub_name;
-       resource_group_name;
-       source;
-       timeouts;
-     }
-      : azurerm_iothub_fallback_route)
+    azurerm_iothub_fallback_route ?condition ?id ?source ?timeouts
+      ~enabled ~endpoint_names ~iothub_name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_fallback_route __resource);
   let __resource_attributes =
     ({

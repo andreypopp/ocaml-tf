@@ -2,9 +2,36 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipam_pool_cidr__cidr_authorization_context
-type aws_vpc_ipam_pool_cidr__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type cidr_authorization_context
+
+val cidr_authorization_context :
+  ?message:string prop ->
+  ?signature:string prop ->
+  unit ->
+  cidr_authorization_context
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_vpc_ipam_pool_cidr
+
+val aws_vpc_ipam_pool_cidr :
+  ?cidr:string prop ->
+  ?id:string prop ->
+  ?netmask_length:float prop ->
+  ?timeouts:timeouts ->
+  ipam_pool_id:string prop ->
+  cidr_authorization_context:cidr_authorization_context list ->
+  unit ->
+  aws_vpc_ipam_pool_cidr
+
+val yojson_of_aws_vpc_ipam_pool_cidr : aws_vpc_ipam_pool_cidr -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cidr : string prop;
@@ -14,13 +41,13 @@ type t = private {
   netmask_length : float prop;
 }
 
-val aws_vpc_ipam_pool_cidr :
+val register :
+  ?tf_module:tf_module ->
   ?cidr:string prop ->
   ?id:string prop ->
   ?netmask_length:float prop ->
-  ?timeouts:aws_vpc_ipam_pool_cidr__timeouts ->
+  ?timeouts:timeouts ->
   ipam_pool_id:string prop ->
-  cidr_authorization_context:
-    aws_vpc_ipam_pool_cidr__cidr_authorization_context list ->
+  cidr_authorization_context:cidr_authorization_context list ->
   string ->
   t

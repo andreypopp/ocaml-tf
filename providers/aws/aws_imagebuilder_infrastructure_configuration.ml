@@ -4,28 +4,24 @@
 
 open! Tf.Prelude
 
-type aws_imagebuilder_infrastructure_configuration__instance_metadata_options = {
+type instance_metadata_options = {
   http_put_response_hop_limit : float prop option; [@option]
       (** http_put_response_hop_limit *)
   http_tokens : string prop option; [@option]  (** http_tokens *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_infrastructure_configuration__instance_metadata_options *)
+(** instance_metadata_options *)
 
-type aws_imagebuilder_infrastructure_configuration__logging__s3_logs = {
+type logging__s3_logs = {
   s3_bucket_name : string prop;  (** s3_bucket_name *)
   s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_infrastructure_configuration__logging__s3_logs *)
+(** logging__s3_logs *)
 
-type aws_imagebuilder_infrastructure_configuration__logging = {
-  s3_logs :
-    aws_imagebuilder_infrastructure_configuration__logging__s3_logs
-    list;
-}
+type logging = { s3_logs : logging__s3_logs list }
 [@@deriving yojson_of]
-(** aws_imagebuilder_infrastructure_configuration__logging *)
+(** logging *)
 
 type aws_imagebuilder_infrastructure_configuration = {
   description : string prop option; [@option]  (** description *)
@@ -46,14 +42,45 @@ type aws_imagebuilder_infrastructure_configuration = {
       (** tags_all *)
   terminate_instance_on_failure : bool prop option; [@option]
       (** terminate_instance_on_failure *)
-  instance_metadata_options :
-    aws_imagebuilder_infrastructure_configuration__instance_metadata_options
-    list;
-  logging :
-    aws_imagebuilder_infrastructure_configuration__logging list;
+  instance_metadata_options : instance_metadata_options list;
+  logging : logging list;
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_infrastructure_configuration *)
+
+let instance_metadata_options ?http_put_response_hop_limit
+    ?http_tokens () : instance_metadata_options =
+  { http_put_response_hop_limit; http_tokens }
+
+let logging__s3_logs ?s3_key_prefix ~s3_bucket_name () :
+    logging__s3_logs =
+  { s3_bucket_name; s3_key_prefix }
+
+let logging ~s3_logs () : logging = { s3_logs }
+
+let aws_imagebuilder_infrastructure_configuration ?description ?id
+    ?instance_types ?key_pair ?resource_tags ?security_group_ids
+    ?sns_topic_arn ?subnet_id ?tags ?tags_all
+    ?terminate_instance_on_failure ~instance_profile_name ~name
+    ~instance_metadata_options ~logging () :
+    aws_imagebuilder_infrastructure_configuration =
+  {
+    description;
+    id;
+    instance_profile_name;
+    instance_types;
+    key_pair;
+    name;
+    resource_tags;
+    security_group_ids;
+    sns_topic_arn;
+    subnet_id;
+    tags;
+    tags_all;
+    terminate_instance_on_failure;
+    instance_metadata_options;
+    logging;
+  }
 
 type t = {
   arn : string prop;
@@ -74,35 +101,22 @@ type t = {
   terminate_instance_on_failure : bool prop;
 }
 
-let aws_imagebuilder_infrastructure_configuration ?description ?id
-    ?instance_types ?key_pair ?resource_tags ?security_group_ids
-    ?sns_topic_arn ?subnet_id ?tags ?tags_all
-    ?terminate_instance_on_failure ~instance_profile_name ~name
-    ~instance_metadata_options ~logging __resource_id =
+let register ?tf_module ?description ?id ?instance_types ?key_pair
+    ?resource_tags ?security_group_ids ?sns_topic_arn ?subnet_id
+    ?tags ?tags_all ?terminate_instance_on_failure
+    ~instance_profile_name ~name ~instance_metadata_options ~logging
+    __resource_id =
   let __resource_type =
     "aws_imagebuilder_infrastructure_configuration"
   in
   let __resource =
-    ({
-       description;
-       id;
-       instance_profile_name;
-       instance_types;
-       key_pair;
-       name;
-       resource_tags;
-       security_group_ids;
-       sns_topic_arn;
-       subnet_id;
-       tags;
-       tags_all;
-       terminate_instance_on_failure;
-       instance_metadata_options;
-       logging;
-     }
-      : aws_imagebuilder_infrastructure_configuration)
+    aws_imagebuilder_infrastructure_configuration ?description ?id
+      ?instance_types ?key_pair ?resource_tags ?security_group_ids
+      ?sns_topic_arn ?subnet_id ?tags ?tags_all
+      ?terminate_instance_on_failure ~instance_profile_name ~name
+      ~instance_metadata_options ~logging ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_infrastructure_configuration
        __resource);
   let __resource_attributes =

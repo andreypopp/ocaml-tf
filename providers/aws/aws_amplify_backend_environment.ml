@@ -15,6 +15,11 @@ type aws_amplify_backend_environment = {
 [@@deriving yojson_of]
 (** aws_amplify_backend_environment *)
 
+let aws_amplify_backend_environment ?deployment_artifacts ?id
+    ?stack_name ~app_id ~environment_name () :
+    aws_amplify_backend_environment =
+  { app_id; deployment_artifacts; environment_name; id; stack_name }
+
 type t = {
   app_id : string prop;
   arn : string prop;
@@ -24,20 +29,14 @@ type t = {
   stack_name : string prop;
 }
 
-let aws_amplify_backend_environment ?deployment_artifacts ?id
-    ?stack_name ~app_id ~environment_name __resource_id =
+let register ?tf_module ?deployment_artifacts ?id ?stack_name ~app_id
+    ~environment_name __resource_id =
   let __resource_type = "aws_amplify_backend_environment" in
   let __resource =
-    ({
-       app_id;
-       deployment_artifacts;
-       environment_name;
-       id;
-       stack_name;
-     }
-      : aws_amplify_backend_environment)
+    aws_amplify_backend_environment ?deployment_artifacts ?id
+      ?stack_name ~app_id ~environment_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_amplify_backend_environment __resource);
   let __resource_attributes =
     ({

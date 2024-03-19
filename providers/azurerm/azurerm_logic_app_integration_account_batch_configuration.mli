@@ -2,17 +2,76 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule__monthly
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule
+type release_criteria__recurrence__schedule__monthly
 
-type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence
+val release_criteria__recurrence__schedule__monthly :
+  week:float prop ->
+  weekday:string prop ->
+  unit ->
+  release_criteria__recurrence__schedule__monthly
 
-type azurerm_logic_app_integration_account_batch_configuration__release_criteria
+type release_criteria__recurrence__schedule
 
-type azurerm_logic_app_integration_account_batch_configuration__timeouts
+val release_criteria__recurrence__schedule :
+  ?hours:float prop list ->
+  ?minutes:float prop list ->
+  ?month_days:float prop list ->
+  ?week_days:string prop list ->
+  monthly:release_criteria__recurrence__schedule__monthly list ->
+  unit ->
+  release_criteria__recurrence__schedule
+
+type release_criteria__recurrence
+
+val release_criteria__recurrence :
+  ?end_time:string prop ->
+  ?start_time:string prop ->
+  ?time_zone:string prop ->
+  frequency:string prop ->
+  interval:float prop ->
+  schedule:release_criteria__recurrence__schedule list ->
+  unit ->
+  release_criteria__recurrence
+
+type release_criteria
+
+val release_criteria :
+  ?batch_size:float prop ->
+  ?message_count:float prop ->
+  recurrence:release_criteria__recurrence list ->
+  unit ->
+  release_criteria
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type azurerm_logic_app_integration_account_batch_configuration
+
+val azurerm_logic_app_integration_account_batch_configuration :
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  batch_group_name:string prop ->
+  integration_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  release_criteria:release_criteria list ->
+  unit ->
+  azurerm_logic_app_integration_account_batch_configuration
+
+val yojson_of_azurerm_logic_app_integration_account_batch_configuration :
+  azurerm_logic_app_integration_account_batch_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   batch_group_name : string prop;
@@ -23,17 +82,15 @@ type t = private {
   resource_group_name : string prop;
 }
 
-val azurerm_logic_app_integration_account_batch_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
-  ?timeouts:
-    azurerm_logic_app_integration_account_batch_configuration__timeouts ->
+  ?timeouts:timeouts ->
   batch_group_name:string prop ->
   integration_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  release_criteria:
-    azurerm_logic_app_integration_account_batch_configuration__release_criteria
-    list ->
+  release_criteria:release_criteria list ->
   string ->
   t

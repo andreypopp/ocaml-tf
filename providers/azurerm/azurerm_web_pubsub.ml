@@ -4,17 +4,15 @@
 
 open! Tf.Prelude
 
-type azurerm_web_pubsub__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_web_pubsub__identity *)
+(** identity *)
 
-type azurerm_web_pubsub__live_trace = {
+type live_trace = {
   connectivity_logs_enabled : bool prop option; [@option]
       (** connectivity_logs_enabled *)
   enabled : bool prop option; [@option]  (** enabled *)
@@ -24,16 +22,16 @@ type azurerm_web_pubsub__live_trace = {
       (** messaging_logs_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_web_pubsub__live_trace *)
+(** live_trace *)
 
-type azurerm_web_pubsub__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_web_pubsub__timeouts *)
+(** timeouts *)
 
 type azurerm_web_pubsub = {
   aad_auth_enabled : bool prop option; [@option]
@@ -51,12 +49,50 @@ type azurerm_web_pubsub = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tls_client_cert_enabled : bool prop option; [@option]
       (** tls_client_cert_enabled *)
-  identity : azurerm_web_pubsub__identity list;
-  live_trace : azurerm_web_pubsub__live_trace list;
-  timeouts : azurerm_web_pubsub__timeouts option;
+  identity : identity list;
+  live_trace : live_trace list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let live_trace ?connectivity_logs_enabled ?enabled
+    ?http_request_logs_enabled ?messaging_logs_enabled () :
+    live_trace =
+  {
+    connectivity_logs_enabled;
+    enabled;
+    http_request_logs_enabled;
+    messaging_logs_enabled;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
+    ?local_auth_enabled ?public_network_access_enabled ?tags
+    ?tls_client_cert_enabled ?timeouts ~location ~name
+    ~resource_group_name ~sku ~identity ~live_trace () :
+    azurerm_web_pubsub =
+  {
+    aad_auth_enabled;
+    capacity;
+    id;
+    local_auth_enabled;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    sku;
+    tags;
+    tls_client_cert_enabled;
+    identity;
+    live_trace;
+    timeouts;
+  }
 
 type t = {
   aad_auth_enabled : bool prop;
@@ -81,31 +117,18 @@ type t = {
   version : string prop;
 }
 
-let azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
+let register ?tf_module ?aad_auth_enabled ?capacity ?id
     ?local_auth_enabled ?public_network_access_enabled ?tags
     ?tls_client_cert_enabled ?timeouts ~location ~name
     ~resource_group_name ~sku ~identity ~live_trace __resource_id =
   let __resource_type = "azurerm_web_pubsub" in
   let __resource =
-    ({
-       aad_auth_enabled;
-       capacity;
-       id;
-       local_auth_enabled;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       sku;
-       tags;
-       tls_client_cert_enabled;
-       identity;
-       live_trace;
-       timeouts;
-     }
-      : azurerm_web_pubsub)
+    azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
+      ?local_auth_enabled ?public_network_access_enabled ?tags
+      ?tls_client_cert_enabled ?timeouts ~location ~name
+      ~resource_group_name ~sku ~identity ~live_trace ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_web_pubsub __resource);
   let __resource_attributes =
     ({

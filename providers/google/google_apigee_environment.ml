@@ -4,10 +4,7 @@
 
 open! Tf.Prelude
 
-type google_apigee_environment__node_config = {
-  current_aggregate_node_count : string prop;
-      (** The current total number of gateway nodes that each environment currently has across
-all instances. *)
+type node_config = {
   max_node_count : string prop option; [@option]
       (** The maximum total number of gateway nodes that the is reserved for all instances that
 has the specified environment. If not specified, the default is determined by the
@@ -20,13 +17,13 @@ recommended minimum number of nodes for that gateway. *)
 [@@deriving yojson_of]
 (** NodeConfig for setting the min/max number of nodes associated with the environment. *)
 
-type google_apigee_environment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_apigee_environment__timeouts *)
+(** timeouts *)
 
 type google_apigee_environment = {
   api_proxy_type : string prop option; [@option]
@@ -54,11 +51,33 @@ in the format 'organizations/{{org_name}}'. *)
 limited by capability and capacity. Refer to Apigee's public documentation
 to understand about each of these types in details.
 An Apigee org can support heterogeneous Environments. Possible values: [ENVIRONMENT_TYPE_UNSPECIFIED, BASE, INTERMEDIATE, COMPREHENSIVE] *)
-  node_config : google_apigee_environment__node_config list;
-  timeouts : google_apigee_environment__timeouts option;
+  node_config : node_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_environment *)
+
+let node_config ?max_node_count ?min_node_count () : node_config =
+  { max_node_count; min_node_count }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_apigee_environment ?api_proxy_type ?deployment_type
+    ?description ?display_name ?id ?type_ ?timeouts ~name ~org_id
+    ~node_config () : google_apigee_environment =
+  {
+    api_proxy_type;
+    deployment_type;
+    description;
+    display_name;
+    id;
+    name;
+    org_id;
+    type_;
+    node_config;
+    timeouts;
+  }
 
 type t = {
   api_proxy_type : string prop;
@@ -71,26 +90,16 @@ type t = {
   type_ : string prop;
 }
 
-let google_apigee_environment ?api_proxy_type ?deployment_type
-    ?description ?display_name ?id ?type_ ?timeouts ~name ~org_id
-    ~node_config __resource_id =
+let register ?tf_module ?api_proxy_type ?deployment_type ?description
+    ?display_name ?id ?type_ ?timeouts ~name ~org_id ~node_config
+    __resource_id =
   let __resource_type = "google_apigee_environment" in
   let __resource =
-    ({
-       api_proxy_type;
-       deployment_type;
-       description;
-       display_name;
-       id;
-       name;
-       org_id;
-       type_;
-       node_config;
-       timeouts;
-     }
-      : google_apigee_environment)
+    google_apigee_environment ?api_proxy_type ?deployment_type
+      ?description ?display_name ?id ?type_ ?timeouts ~name ~org_id
+      ~node_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_environment __resource);
   let __resource_attributes =
     ({

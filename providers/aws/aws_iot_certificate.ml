@@ -15,6 +15,10 @@ type aws_iot_certificate = {
 [@@deriving yojson_of]
 (** aws_iot_certificate *)
 
+let aws_iot_certificate ?ca_pem ?certificate_pem ?csr ?id ~active ()
+    : aws_iot_certificate =
+  { active; ca_pem; certificate_pem; csr; id }
+
 type t = {
   active : bool prop;
   arn : string prop;
@@ -27,14 +31,13 @@ type t = {
   public_key : string prop;
 }
 
-let aws_iot_certificate ?ca_pem ?certificate_pem ?csr ?id ~active
+let register ?tf_module ?ca_pem ?certificate_pem ?csr ?id ~active
     __resource_id =
   let __resource_type = "aws_iot_certificate" in
   let __resource =
-    ({ active; ca_pem; certificate_pem; csr; id }
-      : aws_iot_certificate)
+    aws_iot_certificate ?ca_pem ?certificate_pem ?csr ?id ~active ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_certificate __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_region_network_endpoint_group__app_engine = {
+type app_engine = {
   service : string prop option; [@option]
       (** Optional serving service.
 The service name must be 1-63 characters long, and comply with RFC1035.
@@ -28,7 +28,7 @@ Example value: v1, v2. *)
 
 Only one of cloud_run, app_engine, cloud_function or serverless_deployment may be set. *)
 
-type google_compute_region_network_endpoint_group__cloud_function = {
+type cloud_function = {
   function_ : string prop option; [@option] [@key "function"]
       (** A user-defined name of the Cloud Function.
 The function name is case-sensitive and must be 1-63 characters long.
@@ -47,7 +47,7 @@ will parse them to { function = function1 } and { function = function2 } respect
 
 Only one of cloud_run, app_engine, cloud_function or serverless_deployment may be set. *)
 
-type google_compute_region_network_endpoint_group__cloud_run = {
+type cloud_run = {
   service : string prop option; [@option]
       (** Cloud Run service is the main resource of Cloud Run.
 The service must be 1-63 characters long, and comply with RFC1035.
@@ -72,12 +72,12 @@ and { service=bar2, tag=foo2 } respectively. *)
 
 Only one of cloud_run, app_engine, cloud_function or serverless_deployment may be set. *)
 
-type google_compute_region_network_endpoint_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_network_endpoint_group__timeouts *)
+(** timeouts *)
 
 type google_compute_region_network_endpoint_group = {
   description : string prop option; [@option]
@@ -111,17 +111,44 @@ a Google API or a PSC Producer Service Attachment. *)
       (** This field is only used for PSC NEGs.
 
 Optional URL of the subnetwork to which all network endpoints in the NEG belong. *)
-  app_engine :
-    google_compute_region_network_endpoint_group__app_engine list;
-  cloud_function :
-    google_compute_region_network_endpoint_group__cloud_function list;
-  cloud_run :
-    google_compute_region_network_endpoint_group__cloud_run list;
-  timeouts :
-    google_compute_region_network_endpoint_group__timeouts option;
+  app_engine : app_engine list;
+  cloud_function : cloud_function list;
+  cloud_run : cloud_run list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_network_endpoint_group *)
+
+let app_engine ?service ?url_mask ?version () : app_engine =
+  { service; url_mask; version }
+
+let cloud_function ?function_ ?url_mask () : cloud_function =
+  { function_; url_mask }
+
+let cloud_run ?service ?tag ?url_mask () : cloud_run =
+  { service; tag; url_mask }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_region_network_endpoint_group ?description ?id
+    ?network ?network_endpoint_type ?project ?psc_target_service
+    ?subnetwork ?timeouts ~name ~region ~app_engine ~cloud_function
+    ~cloud_run () : google_compute_region_network_endpoint_group =
+  {
+    description;
+    id;
+    name;
+    network;
+    network_endpoint_type;
+    project;
+    psc_target_service;
+    region;
+    subnetwork;
+    app_engine;
+    cloud_function;
+    cloud_run;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -136,32 +163,20 @@ type t = {
   subnetwork : string prop;
 }
 
-let google_compute_region_network_endpoint_group ?description ?id
-    ?network ?network_endpoint_type ?project ?psc_target_service
-    ?subnetwork ?timeouts ~name ~region ~app_engine ~cloud_function
-    ~cloud_run __resource_id =
+let register ?tf_module ?description ?id ?network
+    ?network_endpoint_type ?project ?psc_target_service ?subnetwork
+    ?timeouts ~name ~region ~app_engine ~cloud_function ~cloud_run
+    __resource_id =
   let __resource_type =
     "google_compute_region_network_endpoint_group"
   in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       network;
-       network_endpoint_type;
-       project;
-       psc_target_service;
-       region;
-       subnetwork;
-       app_engine;
-       cloud_function;
-       cloud_run;
-       timeouts;
-     }
-      : google_compute_region_network_endpoint_group)
+    google_compute_region_network_endpoint_group ?description ?id
+      ?network ?network_endpoint_type ?project ?psc_target_service
+      ?subnetwork ?timeouts ~name ~region ~app_engine ~cloud_function
+      ~cloud_run ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_network_endpoint_group
        __resource);
   let __resource_attributes =

@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type google_document_ai_processor_default_version__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_document_ai_processor_default_version
+
+val google_document_ai_processor_default_version :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  processor:string prop ->
+  version:string prop ->
+  unit ->
+  google_document_ai_processor_default_version
+
+val yojson_of_google_document_ai_processor_default_version :
+  google_document_ai_processor_default_version -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,9 +30,10 @@ type t = private {
   version : string prop;
 }
 
-val google_document_ai_processor_default_version :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:google_document_ai_processor_default_version__timeouts ->
+  ?timeouts:timeouts ->
   processor:string prop ->
   version:string prop ->
   string ->

@@ -15,6 +15,10 @@ type aws_appconfig_application = {
 [@@deriving yojson_of]
 (** aws_appconfig_application *)
 
+let aws_appconfig_application ?description ?id ?tags ?tags_all ~name
+    () : aws_appconfig_application =
+  { description; id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -24,14 +28,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appconfig_application ?description ?id ?tags ?tags_all ~name
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
     __resource_id =
   let __resource_type = "aws_appconfig_application" in
   let __resource =
-    ({ description; id; name; tags; tags_all }
-      : aws_appconfig_application)
+    aws_appconfig_application ?description ?id ?tags ?tags_all ~name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_application __resource);
   let __resource_attributes =
     ({

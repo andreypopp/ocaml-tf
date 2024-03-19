@@ -2,8 +2,41 @@
 
 open! Tf.Prelude
 
-type azurerm_arc_machine_extension__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_arc_machine_extension
+
+val azurerm_arc_machine_extension :
+  ?automatic_upgrade_enabled:bool prop ->
+  ?force_update_tag:string prop ->
+  ?id:string prop ->
+  ?protected_settings:string prop ->
+  ?settings:string prop ->
+  ?tags:(string * string prop) list ->
+  ?type_handler_version:string prop ->
+  ?timeouts:timeouts ->
+  arc_machine_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  publisher:string prop ->
+  type_:string prop ->
+  unit ->
+  azurerm_arc_machine_extension
+
+val yojson_of_azurerm_arc_machine_extension :
+  azurerm_arc_machine_extension -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arc_machine_id : string prop;
@@ -20,7 +53,8 @@ type t = private {
   type_handler_version : string prop;
 }
 
-val azurerm_arc_machine_extension :
+val register :
+  ?tf_module:tf_module ->
   ?automatic_upgrade_enabled:bool prop ->
   ?force_update_tag:string prop ->
   ?id:string prop ->
@@ -28,7 +62,7 @@ val azurerm_arc_machine_extension :
   ?settings:string prop ->
   ?tags:(string * string prop) list ->
   ?type_handler_version:string prop ->
-  ?timeouts:azurerm_arc_machine_extension__timeouts ->
+  ?timeouts:timeouts ->
   arc_machine_id:string prop ->
   location:string prop ->
   name:string prop ->

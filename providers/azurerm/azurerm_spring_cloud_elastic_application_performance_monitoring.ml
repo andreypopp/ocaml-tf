@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_elastic_application_performance_monitoring = {
   application_packages : string prop list;
@@ -24,12 +24,28 @@ type azurerm_spring_cloud_elastic_application_performance_monitoring = {
   service_name : string prop;  (** service_name *)
   spring_cloud_service_id : string prop;
       (** spring_cloud_service_id *)
-  timeouts :
-    azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_elastic_application_performance_monitoring *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_elastic_application_performance_monitoring
+    ?globally_enabled ?id ?timeouts ~application_packages ~name
+    ~server_url ~service_name ~spring_cloud_service_id () :
+    azurerm_spring_cloud_elastic_application_performance_monitoring =
+  {
+    application_packages;
+    globally_enabled;
+    id;
+    name;
+    server_url;
+    service_name;
+    spring_cloud_service_id;
+    timeouts;
+  }
 
 type t = {
   application_packages : string list prop;
@@ -41,27 +57,18 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
-let azurerm_spring_cloud_elastic_application_performance_monitoring
-    ?globally_enabled ?id ?timeouts ~application_packages ~name
-    ~server_url ~service_name ~spring_cloud_service_id __resource_id
-    =
+let register ?tf_module ?globally_enabled ?id ?timeouts
+    ~application_packages ~name ~server_url ~service_name
+    ~spring_cloud_service_id __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_elastic_application_performance_monitoring"
   in
   let __resource =
-    ({
-       application_packages;
-       globally_enabled;
-       id;
-       name;
-       server_url;
-       service_name;
-       spring_cloud_service_id;
-       timeouts;
-     }
-      : azurerm_spring_cloud_elastic_application_performance_monitoring)
+    azurerm_spring_cloud_elastic_application_performance_monitoring
+      ?globally_enabled ?id ?timeouts ~application_packages ~name
+      ~server_url ~service_name ~spring_cloud_service_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_elastic_application_performance_monitoring
        __resource);
   let __resource_attributes =

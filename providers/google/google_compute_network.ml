@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_network__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_network__timeouts *)
+(** timeouts *)
 
 type google_compute_network = {
   auto_create_subnetworks : bool prop option; [@option]
@@ -60,10 +60,33 @@ network's cloud routers will only advertise routes with subnetworks
 of this network in the same region as the router. If set to 'GLOBAL',
 this network's cloud routers will advertise routes with all
 subnetworks of this network, across regions. Possible values: [REGIONAL, GLOBAL] *)
-  timeouts : google_compute_network__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_network *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_network ?auto_create_subnetworks
+    ?delete_default_routes_on_create ?description
+    ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range ?mtu
+    ?network_firewall_policy_enforcement_order ?project ?routing_mode
+    ?timeouts ~name () : google_compute_network =
+  {
+    auto_create_subnetworks;
+    delete_default_routes_on_create;
+    description;
+    enable_ula_internal_ipv6;
+    id;
+    internal_ipv6_range;
+    mtu;
+    name;
+    network_firewall_policy_enforcement_order;
+    project;
+    routing_mode;
+    timeouts;
+  }
 
 type t = {
   auto_create_subnetworks : bool prop;
@@ -82,30 +105,20 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_network ?auto_create_subnetworks
+let register ?tf_module ?auto_create_subnetworks
     ?delete_default_routes_on_create ?description
     ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range ?mtu
     ?network_firewall_policy_enforcement_order ?project ?routing_mode
     ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_network" in
   let __resource =
-    ({
-       auto_create_subnetworks;
-       delete_default_routes_on_create;
-       description;
-       enable_ula_internal_ipv6;
-       id;
-       internal_ipv6_range;
-       mtu;
-       name;
-       network_firewall_policy_enforcement_order;
-       project;
-       routing_mode;
-       timeouts;
-     }
-      : google_compute_network)
+    google_compute_network ?auto_create_subnetworks
+      ?delete_default_routes_on_create ?description
+      ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range ?mtu
+      ?network_firewall_policy_enforcement_order ?project
+      ?routing_mode ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network __resource);
   let __resource_attributes =
     ({

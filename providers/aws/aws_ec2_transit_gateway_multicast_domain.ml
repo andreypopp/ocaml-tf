@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ec2_transit_gateway_multicast_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_transit_gateway_multicast_domain__timeouts *)
+(** timeouts *)
 
 type aws_ec2_transit_gateway_multicast_domain = {
   auto_accept_shared_associations : string prop option; [@option]
@@ -23,11 +23,28 @@ type aws_ec2_transit_gateway_multicast_domain = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   transit_gateway_id : string prop;  (** transit_gateway_id *)
-  timeouts :
-    aws_ec2_transit_gateway_multicast_domain__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_multicast_domain *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ec2_transit_gateway_multicast_domain
+    ?auto_accept_shared_associations ?id ?igmpv2_support
+    ?static_sources_support ?tags ?tags_all ?timeouts
+    ~transit_gateway_id () : aws_ec2_transit_gateway_multicast_domain
+    =
+  {
+    auto_accept_shared_associations;
+    id;
+    igmpv2_support;
+    static_sources_support;
+    tags;
+    tags_all;
+    transit_gateway_id;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -41,25 +58,17 @@ type t = {
   transit_gateway_id : string prop;
 }
 
-let aws_ec2_transit_gateway_multicast_domain
-    ?auto_accept_shared_associations ?id ?igmpv2_support
-    ?static_sources_support ?tags ?tags_all ?timeouts
+let register ?tf_module ?auto_accept_shared_associations ?id
+    ?igmpv2_support ?static_sources_support ?tags ?tags_all ?timeouts
     ~transit_gateway_id __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_multicast_domain" in
   let __resource =
-    ({
-       auto_accept_shared_associations;
-       id;
-       igmpv2_support;
-       static_sources_support;
-       tags;
-       tags_all;
-       transit_gateway_id;
-       timeouts;
-     }
-      : aws_ec2_transit_gateway_multicast_domain)
+    aws_ec2_transit_gateway_multicast_domain
+      ?auto_accept_shared_associations ?id ?igmpv2_support
+      ?static_sources_support ?tags ?tags_all ?timeouts
+      ~transit_gateway_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_multicast_domain __resource);
   let __resource_attributes =
     ({

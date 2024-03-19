@@ -4,31 +4,29 @@
 
 open! Tf.Prelude
 
-type azurerm_static_web_app__basic_auth = {
+type basic_auth = {
   environments : string prop;  (** environments *)
   password : string prop;  (** password *)
 }
 [@@deriving yojson_of]
-(** azurerm_static_web_app__basic_auth *)
+(** basic_auth *)
 
-type azurerm_static_web_app__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_static_web_app__identity *)
+(** identity *)
 
-type azurerm_static_web_app__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_static_web_app__timeouts *)
+(** timeouts *)
 
 type azurerm_static_web_app = {
   app_settings : (string * string prop) list option; [@option]
@@ -44,12 +42,42 @@ type azurerm_static_web_app = {
   sku_size : string prop option; [@option]  (** sku_size *)
   sku_tier : string prop option; [@option]  (** sku_tier *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  basic_auth : azurerm_static_web_app__basic_auth list;
-  identity : azurerm_static_web_app__identity list;
-  timeouts : azurerm_static_web_app__timeouts option;
+  basic_auth : basic_auth list;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_static_web_app *)
+
+let basic_auth ~environments ~password () : basic_auth =
+  { environments; password }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_static_web_app ?app_settings
+    ?configuration_file_changes_enabled ?id
+    ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
+    ~location ~name ~resource_group_name ~basic_auth ~identity () :
+    azurerm_static_web_app =
+  {
+    app_settings;
+    configuration_file_changes_enabled;
+    id;
+    location;
+    name;
+    preview_environments_enabled;
+    resource_group_name;
+    sku_size;
+    sku_tier;
+    tags;
+    basic_auth;
+    identity;
+    timeouts;
+  }
 
 type t = {
   api_key : string prop;
@@ -66,31 +94,20 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_static_web_app ?app_settings
+let register ?tf_module ?app_settings
     ?configuration_file_changes_enabled ?id
     ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
     ~location ~name ~resource_group_name ~basic_auth ~identity
     __resource_id =
   let __resource_type = "azurerm_static_web_app" in
   let __resource =
-    ({
-       app_settings;
-       configuration_file_changes_enabled;
-       id;
-       location;
-       name;
-       preview_environments_enabled;
-       resource_group_name;
-       sku_size;
-       sku_tier;
-       tags;
-       basic_auth;
-       identity;
-       timeouts;
-     }
-      : azurerm_static_web_app)
+    azurerm_static_web_app ?app_settings
+      ?configuration_file_changes_enabled ?id
+      ?preview_environments_enabled ?sku_size ?sku_tier ?tags
+      ?timeouts ~location ~name ~resource_group_name ~basic_auth
+      ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_static_web_app __resource);
   let __resource_attributes =
     ({

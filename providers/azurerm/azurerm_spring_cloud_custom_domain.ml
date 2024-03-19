@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_custom_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_custom_domain__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_custom_domain = {
   certificate_name : string prop option; [@option]
@@ -20,10 +20,25 @@ type azurerm_spring_cloud_custom_domain = {
   name : string prop;  (** name *)
   spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
   thumbprint : string prop option; [@option]  (** thumbprint *)
-  timeouts : azurerm_spring_cloud_custom_domain__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_custom_domain *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_custom_domain ?certificate_name ?id
+    ?thumbprint ?timeouts ~name ~spring_cloud_app_id () :
+    azurerm_spring_cloud_custom_domain =
+  {
+    certificate_name;
+    id;
+    name;
+    spring_cloud_app_id;
+    thumbprint;
+    timeouts;
+  }
 
 type t = {
   certificate_name : string prop;
@@ -33,21 +48,14 @@ type t = {
   thumbprint : string prop;
 }
 
-let azurerm_spring_cloud_custom_domain ?certificate_name ?id
-    ?thumbprint ?timeouts ~name ~spring_cloud_app_id __resource_id =
+let register ?tf_module ?certificate_name ?id ?thumbprint ?timeouts
+    ~name ~spring_cloud_app_id __resource_id =
   let __resource_type = "azurerm_spring_cloud_custom_domain" in
   let __resource =
-    ({
-       certificate_name;
-       id;
-       name;
-       spring_cloud_app_id;
-       thumbprint;
-       timeouts;
-     }
-      : azurerm_spring_cloud_custom_domain)
+    azurerm_spring_cloud_custom_domain ?certificate_name ?id
+      ?thumbprint ?timeouts ~name ~spring_cloud_app_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_custom_domain __resource);
   let __resource_attributes =
     ({

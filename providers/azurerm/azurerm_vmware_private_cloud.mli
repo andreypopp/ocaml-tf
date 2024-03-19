@@ -2,10 +2,9 @@
 
 open! Tf.Prelude
 
-type azurerm_vmware_private_cloud__management_cluster
-type azurerm_vmware_private_cloud__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_vmware_private_cloud__circuit = {
+type circuit = {
   express_route_id : string prop;  (** express_route_id *)
   express_route_private_peering_id : string prop;
       (** express_route_private_peering_id *)
@@ -13,10 +12,46 @@ type azurerm_vmware_private_cloud__circuit = {
   secondary_subnet_cidr : string prop;  (** secondary_subnet_cidr *)
 }
 
+type management_cluster
+
+val management_cluster :
+  size:float prop -> unit -> management_cluster
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_vmware_private_cloud
 
+val azurerm_vmware_private_cloud :
+  ?id:string prop ->
+  ?internet_connection_enabled:bool prop ->
+  ?nsxt_password:string prop ->
+  ?tags:(string * string prop) list ->
+  ?vcenter_password:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  network_subnet_cidr:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  management_cluster:management_cluster list ->
+  unit ->
+  azurerm_vmware_private_cloud
+
+val yojson_of_azurerm_vmware_private_cloud :
+  azurerm_vmware_private_cloud -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  circuit : azurerm_vmware_private_cloud__circuit list prop;
+  circuit : circuit list prop;
   hcx_cloud_manager_endpoint : string prop;
   id : string prop;
   internet_connection_enabled : bool prop;
@@ -37,19 +72,19 @@ type t = private {
   vmotion_subnet_cidr : string prop;
 }
 
-val azurerm_vmware_private_cloud :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?internet_connection_enabled:bool prop ->
   ?nsxt_password:string prop ->
   ?tags:(string * string prop) list ->
   ?vcenter_password:string prop ->
-  ?timeouts:azurerm_vmware_private_cloud__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   network_subnet_cidr:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  management_cluster:
-    azurerm_vmware_private_cloud__management_cluster list ->
+  management_cluster:management_cluster list ->
   string ->
   t

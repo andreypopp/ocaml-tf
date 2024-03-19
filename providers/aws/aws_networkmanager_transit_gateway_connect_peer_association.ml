@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_transit_gateway_connect_peer_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_transit_gateway_connect_peer_association__timeouts *)
+(** timeouts *)
 
 type aws_networkmanager_transit_gateway_connect_peer_association = {
   device_id : string prop;  (** device_id *)
@@ -18,12 +18,25 @@ type aws_networkmanager_transit_gateway_connect_peer_association = {
   link_id : string prop option; [@option]  (** link_id *)
   transit_gateway_connect_peer_arn : string prop;
       (** transit_gateway_connect_peer_arn *)
-  timeouts :
-    aws_networkmanager_transit_gateway_connect_peer_association__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_transit_gateway_connect_peer_association *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_networkmanager_transit_gateway_connect_peer_association ?id
+    ?link_id ?timeouts ~device_id ~global_network_id
+    ~transit_gateway_connect_peer_arn () :
+    aws_networkmanager_transit_gateway_connect_peer_association =
+  {
+    device_id;
+    global_network_id;
+    id;
+    link_id;
+    transit_gateway_connect_peer_arn;
+    timeouts;
+  }
 
 type t = {
   device_id : string prop;
@@ -33,24 +46,18 @@ type t = {
   transit_gateway_connect_peer_arn : string prop;
 }
 
-let aws_networkmanager_transit_gateway_connect_peer_association ?id
-    ?link_id ?timeouts ~device_id ~global_network_id
-    ~transit_gateway_connect_peer_arn __resource_id =
+let register ?tf_module ?id ?link_id ?timeouts ~device_id
+    ~global_network_id ~transit_gateway_connect_peer_arn
+    __resource_id =
   let __resource_type =
     "aws_networkmanager_transit_gateway_connect_peer_association"
   in
   let __resource =
-    ({
-       device_id;
-       global_network_id;
-       id;
-       link_id;
-       transit_gateway_connect_peer_arn;
-       timeouts;
-     }
-      : aws_networkmanager_transit_gateway_connect_peer_association)
+    aws_networkmanager_transit_gateway_connect_peer_association ?id
+      ?link_id ?timeouts ~device_id ~global_network_id
+      ~transit_gateway_connect_peer_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_transit_gateway_connect_peer_association
        __resource);
   let __resource_attributes =

@@ -17,6 +17,11 @@ type cloudflare_api_shield_operation_schema_validation_settings = {
 (** Provides a resource to manage operation-level settings in API Shield Schema Validation 2.0.
  *)
 
+let cloudflare_api_shield_operation_schema_validation_settings ?id
+    ?mitigation_action ~operation_id ~zone_id () :
+    cloudflare_api_shield_operation_schema_validation_settings =
+  { id; mitigation_action; operation_id; zone_id }
+
 type t = {
   id : string prop;
   mitigation_action : string prop;
@@ -24,16 +29,16 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_api_shield_operation_schema_validation_settings ?id
-    ?mitigation_action ~operation_id ~zone_id __resource_id =
+let register ?tf_module ?id ?mitigation_action ~operation_id ~zone_id
+    __resource_id =
   let __resource_type =
     "cloudflare_api_shield_operation_schema_validation_settings"
   in
   let __resource =
-    ({ id; mitigation_action; operation_id; zone_id }
-      : cloudflare_api_shield_operation_schema_validation_settings)
+    cloudflare_api_shield_operation_schema_validation_settings ?id
+      ?mitigation_action ~operation_id ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_shield_operation_schema_validation_settings
        __resource);
   let __resource_attributes =

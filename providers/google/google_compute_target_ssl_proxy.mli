@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type google_compute_target_ssl_proxy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_target_ssl_proxy
+
+val google_compute_target_ssl_proxy :
+  ?certificate_map:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?proxy_header:string prop ->
+  ?ssl_certificates:string prop list ->
+  ?ssl_policy:string prop ->
+  ?timeouts:timeouts ->
+  backend_service:string prop ->
+  name:string prop ->
+  unit ->
+  google_compute_target_ssl_proxy
+
+val yojson_of_google_compute_target_ssl_proxy :
+  google_compute_target_ssl_proxy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   backend_service : string prop;
@@ -20,7 +49,8 @@ type t = private {
   ssl_policy : string prop;
 }
 
-val google_compute_target_ssl_proxy :
+val register :
+  ?tf_module:tf_module ->
   ?certificate_map:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -28,7 +58,7 @@ val google_compute_target_ssl_proxy :
   ?proxy_header:string prop ->
   ?ssl_certificates:string prop list ->
   ?ssl_policy:string prop ->
-  ?timeouts:google_compute_target_ssl_proxy__timeouts ->
+  ?timeouts:timeouts ->
   backend_service:string prop ->
   name:string prop ->
   string ->

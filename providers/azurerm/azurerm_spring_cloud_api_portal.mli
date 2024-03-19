@@ -2,9 +2,48 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_api_portal__sso
-type azurerm_spring_cloud_api_portal__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type sso
+
+val sso :
+  ?client_id:string prop ->
+  ?client_secret:string prop ->
+  ?issuer_uri:string prop ->
+  ?scope:string prop list ->
+  unit ->
+  sso
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_spring_cloud_api_portal
+
+val azurerm_spring_cloud_api_portal :
+  ?api_try_out_enabled:bool prop ->
+  ?gateway_ids:string prop list ->
+  ?https_only_enabled:bool prop ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
+  sso:sso list ->
+  unit ->
+  azurerm_spring_cloud_api_portal
+
+val yojson_of_azurerm_spring_cloud_api_portal :
+  azurerm_spring_cloud_api_portal -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_try_out_enabled : bool prop;
@@ -18,16 +57,17 @@ type t = private {
   url : string prop;
 }
 
-val azurerm_spring_cloud_api_portal :
+val register :
+  ?tf_module:tf_module ->
   ?api_try_out_enabled:bool prop ->
   ?gateway_ids:string prop list ->
   ?https_only_enabled:bool prop ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?public_network_access_enabled:bool prop ->
-  ?timeouts:azurerm_spring_cloud_api_portal__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
-  sso:azurerm_spring_cloud_api_portal__sso list ->
+  sso:sso list ->
   string ->
   t

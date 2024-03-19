@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_securityposture_posture__policy_sets__policies__compliance_standards = {
+type policy_sets__policies__compliance_standards = {
   control : string prop option; [@option]
       (** Mapping of security controls for the policy. *)
   standard : string prop option; [@option]
@@ -13,7 +13,7 @@ type google_securityposture_posture__policy_sets__policies__compliance_standards
 [@@deriving yojson_of]
 (** Mapping for policy to security standards and controls. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition = {
+type policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition = {
   description : string prop option; [@option]
       (** Description of the expression *)
   expression : string prop;
@@ -28,7 +28,7 @@ type google_securityposture_posture__policy_sets__policies__constraint__org_poli
 This page details the objects and attributes that are used to the build the CEL expressions for
 custom access levels - https://cloud.google.com/access-context-manager/docs/custom-access-level-spec. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules__values = {
+type policy_sets__policies__constraint__org_policy_constraint__policy_rules__values = {
   allowed_values : string prop list option; [@option]
       (** List of values allowed at this resource. *)
   denied_values : string prop list option; [@option]
@@ -37,7 +37,7 @@ type google_securityposture_posture__policy_sets__policies__constraint__org_poli
 [@@deriving yojson_of]
 (** List of values to be used for this policy rule. This field can be set only in policies for list constraints. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules = {
+type policy_sets__policies__constraint__org_policy_constraint__policy_rules = {
   allow_all : bool prop option; [@option]
       (** Setting this to true means that all values are allowed. This field can be set only in policies for list constraints. *)
   deny_all : bool prop option; [@option]
@@ -46,26 +46,26 @@ type google_securityposture_posture__policy_sets__policies__constraint__org_poli
       (** If 'true', then the policy is enforced. If 'false', then any configuration is acceptable.
 This field can be set only in policies for boolean constraints. *)
   condition :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
+    policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
     list;
   values :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
+    policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
     list;
 }
 [@@deriving yojson_of]
 (** Definition of policy rules *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint = {
+type policy_sets__policies__constraint__org_policy_constraint = {
   canned_constraint_id : string prop;
       (** Organization policy canned constraint Id *)
   policy_rules :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules
+    policy_sets__policies__constraint__org_policy_constraint__policy_rules
     list;
 }
 [@@deriving yojson_of]
 (** Organization policy canned constraint definition. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint = {
+type policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint = {
   action_type : string prop;
       (** The action to take if the condition is met. Possible values: [ALLOW, DENY] *)
   condition : string prop;
@@ -84,7 +84,7 @@ type google_securityposture_posture__policy_sets__policies__constraint__org_poli
 [@@deriving yojson_of]
 (** Organization policy custom constraint definition. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition = {
+type policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition = {
   description : string prop option; [@option]
       (** Description of the expression *)
   expression : string prop;
@@ -99,7 +99,7 @@ type google_securityposture_posture__policy_sets__policies__constraint__org_poli
 This page details the objects and attributes that are used to the build the CEL expressions for
 custom access levels - https://cloud.google.com/access-context-manager/docs/custom-access-level-spec. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values = {
+type policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values = {
   allowed_values : string prop list option; [@option]
       (** List of values allowed at this resource. *)
   denied_values : string prop list option; [@option]
@@ -108,7 +108,7 @@ type google_securityposture_posture__policy_sets__policies__constraint__org_poli
 [@@deriving yojson_of]
 (** List of values to be used for this policy rule. This field can be set only in policies for list constraints. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules = {
+type policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules = {
   allow_all : bool prop option; [@option]
       (** Setting this to true means that all values are allowed. This field can be set only in policies for list constraints. *)
   deny_all : bool prop option; [@option]
@@ -117,27 +117,27 @@ type google_securityposture_posture__policy_sets__policies__constraint__org_poli
       (** If 'true', then the policy is enforced. If 'false', then any configuration is acceptable.
 This field can be set only in policies for boolean constraints. *)
   condition :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
+    policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
     list;
   values :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
+    policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
     list;
 }
 [@@deriving yojson_of]
 (** Definition of policy rules *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom = {
+type policy_sets__policies__constraint__org_policy_constraint_custom = {
   custom_constraint :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
+    policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
     list;
   policy_rules :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
+    policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
     list;
 }
 [@@deriving yojson_of]
 (** Organization policy custom constraint policy definition. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression = {
+type policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression = {
   description : string prop option; [@option]
       (** Description of the expression *)
   expression : string prop;
@@ -152,19 +152,19 @@ type google_securityposture_posture__policy_sets__policies__constraint__security
 specified to return the value of the property or a text string enclosed
 in quotation marks. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties = {
+type policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties = {
   name : string prop;
       (** Name of the property for the custom output. *)
   value_expression :
-    google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
     list;
 }
 [@@deriving yojson_of]
 (** A list of custom output properties to add to the finding. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output = {
+type policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output = {
   properties :
-    google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
     list;
 }
 [@@deriving yojson_of]
@@ -173,7 +173,7 @@ return with each finding that is generated by the custom module. The custom
 source properties that are defined here are included in the finding JSON
 under 'sourceProperties'. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate = {
+type policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate = {
   description : string prop option; [@option]
       (** Description of the expression *)
   expression : string prop;
@@ -187,7 +187,7 @@ type google_securityposture_posture__policy_sets__policies__constraint__security
 (** The CEL expression to evaluate to produce findings.When the expression
 evaluates to true against a resource, a finding is generated. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector = {
+type policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector = {
   resource_types : string prop list;
       (** The resource types to run the detector on. *)
 }
@@ -195,7 +195,7 @@ type google_securityposture_posture__policy_sets__policies__constraint__security
 (** The resource types that the custom module operates on. Each custom module
 can specify up to 5 resource types. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config = {
+type policy_sets__policies__constraint__security_health_analytics_custom_module__config = {
   description : string prop option; [@option]
       (** Text that describes the vulnerability or misconfiguration that the custom
 module detects. *)
@@ -205,34 +205,33 @@ resolve the detected issue *)
   severity : string prop;
       (** The severity to assign to findings generated by the module. Possible values: [SEVERITY_UNSPECIFIED, CRITICAL, HIGH, MEDIUM, LOW] *)
   custom_output :
-    google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
     list;
   predicate :
-    google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
     list;
   resource_selector :
-    google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
     list;
 }
 [@@deriving yojson_of]
 (** Custom module details. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module = {
+type policy_sets__policies__constraint__security_health_analytics_custom_module = {
   display_name : string prop option; [@option]
       (** The display name of the Security Health Analytics custom module. This
 display name becomes the finding category for all findings that are
 returned by this custom module. *)
-  id : string prop;  (** A server generated id of custom module. *)
   module_enablement_state : string prop option; [@option]
       (** The state of enablement for the module at its level of the resource hierarchy. Possible values: [ENABLEMENT_STATE_UNSPECIFIED, ENABLED, DISABLED] *)
   config :
-    google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config
     list;
 }
 [@@deriving yojson_of]
 (** Definition of Security Health Analytics Custom Module. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_module = {
+type policy_sets__policies__constraint__security_health_analytics_module = {
   module_enablement_state : string prop option; [@option]
       (** The state of enablement for the module at its level of the resource hierarchy. Possible values: [ENABLEMENT_STATE_UNSPECIFIED, ENABLED, DISABLED] *)
   module_name : string prop;
@@ -241,54 +240,49 @@ type google_securityposture_posture__policy_sets__policies__constraint__security
 [@@deriving yojson_of]
 (** Security Health Analytics built-in detector definition. *)
 
-type google_securityposture_posture__policy_sets__policies__constraint = {
+type policy_sets__policies__constraint = {
   org_policy_constraint :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint
-    list;
+    policy_sets__policies__constraint__org_policy_constraint list;
   org_policy_constraint_custom :
-    google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom
+    policy_sets__policies__constraint__org_policy_constraint_custom
     list;
   security_health_analytics_custom_module :
-    google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module
+    policy_sets__policies__constraint__security_health_analytics_custom_module
     list;
   security_health_analytics_module :
-    google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_module
+    policy_sets__policies__constraint__security_health_analytics_module
     list;
 }
 [@@deriving yojson_of]
 (** Policy constraint definition.It can have the definition of one of following constraints: orgPolicyConstraint orgPolicyConstraintCustom securityHealthAnalyticsModule securityHealthAnalyticsCustomModule *)
 
-type google_securityposture_posture__policy_sets__policies = {
+type policy_sets__policies = {
   description : string prop option; [@option]
       (** Description of the policy. *)
   policy_id : string prop;  (** ID of the policy. *)
   compliance_standards :
-    google_securityposture_posture__policy_sets__policies__compliance_standards
-    list;
-  constraint_ :
-    google_securityposture_posture__policy_sets__policies__constraint
-    list;
+    policy_sets__policies__compliance_standards list;
+  constraint_ : policy_sets__policies__constraint list;
 }
 [@@deriving yojson_of]
 (** List of security policy *)
 
-type google_securityposture_posture__policy_sets = {
+type policy_sets = {
   description : string prop option; [@option]
       (** Description of the policy set. *)
   policy_set_id : string prop;  (** ID of the policy set. *)
-  policies :
-    google_securityposture_posture__policy_sets__policies list;
+  policies : policy_sets__policies list;
 }
 [@@deriving yojson_of]
 (** List of policy sets for the posture. *)
 
-type google_securityposture_posture__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_securityposture_posture__timeouts *)
+(** timeouts *)
 
 type google_securityposture_posture = {
   description : string prop option; [@option]
@@ -303,11 +297,169 @@ type google_securityposture_posture = {
   state : string prop;
       (** State of the posture. Update to state field should not be triggered along with
 with other field updates. Possible values: [DEPRECATED, DRAFT, ACTIVE] *)
-  policy_sets : google_securityposture_posture__policy_sets list;
-  timeouts : google_securityposture_posture__timeouts option;
+  policy_sets : policy_sets list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_securityposture_posture *)
+
+let policy_sets__policies__compliance_standards ?control ?standard ()
+    : policy_sets__policies__compliance_standards =
+  { control; standard }
+
+let policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
+    ?description ?location ?title ~expression () :
+    policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
+    =
+  { description; expression; location; title }
+
+let policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
+    ?allowed_values ?denied_values () :
+    policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
+    =
+  { allowed_values; denied_values }
+
+let policy_sets__policies__constraint__org_policy_constraint__policy_rules
+    ?allow_all ?deny_all ?enforce ~condition ~values () :
+    policy_sets__policies__constraint__org_policy_constraint__policy_rules
+    =
+  { allow_all; deny_all; enforce; condition; values }
+
+let policy_sets__policies__constraint__org_policy_constraint
+    ~canned_constraint_id ~policy_rules () :
+    policy_sets__policies__constraint__org_policy_constraint =
+  { canned_constraint_id; policy_rules }
+
+let policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
+    ?description ?display_name ~action_type ~condition ~method_types
+    ~name ~resource_types () :
+    policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
+    =
+  {
+    action_type;
+    condition;
+    description;
+    display_name;
+    method_types;
+    name;
+    resource_types;
+  }
+
+let policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
+    ?description ?location ?title ~expression () :
+    policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
+    =
+  { description; expression; location; title }
+
+let policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
+    ?allowed_values ?denied_values () :
+    policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
+    =
+  { allowed_values; denied_values }
+
+let policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
+    ?allow_all ?deny_all ?enforce ~condition ~values () :
+    policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
+    =
+  { allow_all; deny_all; enforce; condition; values }
+
+let policy_sets__policies__constraint__org_policy_constraint_custom
+    ~custom_constraint ~policy_rules () :
+    policy_sets__policies__constraint__org_policy_constraint_custom =
+  { custom_constraint; policy_rules }
+
+let policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
+    ?description ?location ?title ~expression () :
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
+    =
+  { description; expression; location; title }
+
+let policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
+    ~name ~value_expression () :
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
+    =
+  { name; value_expression }
+
+let policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
+    ~properties () :
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
+    =
+  { properties }
+
+let policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
+    ?description ?location ?title ~expression () :
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
+    =
+  { description; expression; location; title }
+
+let policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
+    ~resource_types () :
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
+    =
+  { resource_types }
+
+let policy_sets__policies__constraint__security_health_analytics_custom_module__config
+    ?description ?recommendation ~severity ~custom_output ~predicate
+    ~resource_selector () :
+    policy_sets__policies__constraint__security_health_analytics_custom_module__config
+    =
+  {
+    description;
+    recommendation;
+    severity;
+    custom_output;
+    predicate;
+    resource_selector;
+  }
+
+let policy_sets__policies__constraint__security_health_analytics_custom_module
+    ?display_name ?module_enablement_state ~config () :
+    policy_sets__policies__constraint__security_health_analytics_custom_module
+    =
+  { display_name; module_enablement_state; config }
+
+let policy_sets__policies__constraint__security_health_analytics_module
+    ?module_enablement_state ~module_name () :
+    policy_sets__policies__constraint__security_health_analytics_module
+    =
+  { module_enablement_state; module_name }
+
+let policy_sets__policies__constraint ~org_policy_constraint
+    ~org_policy_constraint_custom
+    ~security_health_analytics_custom_module
+    ~security_health_analytics_module () :
+    policy_sets__policies__constraint =
+  {
+    org_policy_constraint;
+    org_policy_constraint_custom;
+    security_health_analytics_custom_module;
+    security_health_analytics_module;
+  }
+
+let policy_sets__policies ?description ~policy_id
+    ~compliance_standards ~constraint_ () : policy_sets__policies =
+  { description; policy_id; compliance_standards; constraint_ }
+
+let policy_sets ?description ~policy_set_id ~policies () :
+    policy_sets =
+  { description; policy_set_id; policies }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_securityposture_posture ?description ?id ?timeouts
+    ~location ~parent ~posture_id ~state ~policy_sets () :
+    google_securityposture_posture =
+  {
+    description;
+    id;
+    location;
+    parent;
+    posture_id;
+    state;
+    policy_sets;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -324,23 +476,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_securityposture_posture ?description ?id ?timeouts
-    ~location ~parent ~posture_id ~state ~policy_sets __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~location ~parent
+    ~posture_id ~state ~policy_sets __resource_id =
   let __resource_type = "google_securityposture_posture" in
   let __resource =
-    ({
-       description;
-       id;
-       location;
-       parent;
-       posture_id;
-       state;
-       policy_sets;
-       timeouts;
-     }
-      : google_securityposture_posture)
+    google_securityposture_posture ?description ?id ?timeouts
+      ~location ~parent ~posture_id ~state ~policy_sets ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_securityposture_posture __resource);
   let __resource_attributes =
     ({

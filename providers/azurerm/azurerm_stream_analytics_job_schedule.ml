@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_job_schedule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_job_schedule__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_job_schedule = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,18 @@ type azurerm_stream_analytics_job_schedule = {
   start_time : string prop option; [@option]  (** start_time *)
   stream_analytics_job_id : string prop;
       (** stream_analytics_job_id *)
-  timeouts : azurerm_stream_analytics_job_schedule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job_schedule *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_job_schedule ?id ?start_time ?timeouts
+    ~start_mode ~stream_analytics_job_id () :
+    azurerm_stream_analytics_job_schedule =
+  { id; start_mode; start_time; stream_analytics_job_id; timeouts }
 
 type t = {
   id : string prop;
@@ -32,20 +40,14 @@ type t = {
   stream_analytics_job_id : string prop;
 }
 
-let azurerm_stream_analytics_job_schedule ?id ?start_time ?timeouts
-    ~start_mode ~stream_analytics_job_id __resource_id =
+let register ?tf_module ?id ?start_time ?timeouts ~start_mode
+    ~stream_analytics_job_id __resource_id =
   let __resource_type = "azurerm_stream_analytics_job_schedule" in
   let __resource =
-    ({
-       id;
-       start_mode;
-       start_time;
-       stream_analytics_job_id;
-       timeouts;
-     }
-      : azurerm_stream_analytics_job_schedule)
+    azurerm_stream_analytics_job_schedule ?id ?start_time ?timeouts
+      ~start_mode ~stream_analytics_job_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_job_schedule __resource);
   let __resource_attributes =
     ({

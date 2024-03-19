@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_certificate__domain_validation_options = {
+type domain_validation_options = {
   domain_name : string prop;  (** domain_name *)
   resource_record_name : string prop;  (** resource_record_name *)
   resource_record_type : string prop;  (** resource_record_type *)
@@ -25,12 +25,23 @@ type aws_lightsail_certificate = {
 [@@deriving yojson_of]
 (** aws_lightsail_certificate *)
 
+let aws_lightsail_certificate ?domain_name ?id
+    ?subject_alternative_names ?tags ?tags_all ~name () :
+    aws_lightsail_certificate =
+  {
+    domain_name;
+    id;
+    name;
+    subject_alternative_names;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   created_at : string prop;
   domain_name : string prop;
-  domain_validation_options :
-    aws_lightsail_certificate__domain_validation_options list prop;
+  domain_validation_options : domain_validation_options list prop;
   id : string prop;
   name : string prop;
   subject_alternative_names : string list prop;
@@ -38,21 +49,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_lightsail_certificate ?domain_name ?id
-    ?subject_alternative_names ?tags ?tags_all ~name __resource_id =
+let register ?tf_module ?domain_name ?id ?subject_alternative_names
+    ?tags ?tags_all ~name __resource_id =
   let __resource_type = "aws_lightsail_certificate" in
   let __resource =
-    ({
-       domain_name;
-       id;
-       name;
-       subject_alternative_names;
-       tags;
-       tags_all;
-     }
-      : aws_lightsail_certificate)
+    aws_lightsail_certificate ?domain_name ?id
+      ?subject_alternative_names ?tags ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_certificate __resource);
   let __resource_attributes =
     ({

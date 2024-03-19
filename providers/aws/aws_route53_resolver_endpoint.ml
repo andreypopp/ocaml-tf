@@ -4,21 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_route53_resolver_endpoint__ip_address = {
+type ip_address = {
   ip : string prop option; [@option]  (** ip *)
-  ip_id : string prop;  (** ip_id *)
   subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** aws_route53_resolver_endpoint__ip_address *)
+(** ip_address *)
 
-type aws_route53_resolver_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_route53_resolver_endpoint__timeouts *)
+(** timeouts *)
 
 type aws_route53_resolver_endpoint = {
   direction : string prop;  (** direction *)
@@ -31,11 +30,33 @@ type aws_route53_resolver_endpoint = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  ip_address : aws_route53_resolver_endpoint__ip_address list;
-  timeouts : aws_route53_resolver_endpoint__timeouts option;
+  ip_address : ip_address list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_endpoint *)
+
+let ip_address ?ip ~subnet_id () : ip_address = { ip; subnet_id }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_route53_resolver_endpoint ?id ?name ?protocols
+    ?resolver_endpoint_type ?tags ?tags_all ?timeouts ~direction
+    ~security_group_ids ~ip_address () :
+    aws_route53_resolver_endpoint =
+  {
+    direction;
+    id;
+    name;
+    protocols;
+    resolver_endpoint_type;
+    security_group_ids;
+    tags;
+    tags_all;
+    ip_address;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -50,26 +71,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_route53_resolver_endpoint ?id ?name ?protocols
-    ?resolver_endpoint_type ?tags ?tags_all ?timeouts ~direction
-    ~security_group_ids ~ip_address __resource_id =
+let register ?tf_module ?id ?name ?protocols ?resolver_endpoint_type
+    ?tags ?tags_all ?timeouts ~direction ~security_group_ids
+    ~ip_address __resource_id =
   let __resource_type = "aws_route53_resolver_endpoint" in
   let __resource =
-    ({
-       direction;
-       id;
-       name;
-       protocols;
-       resolver_endpoint_type;
-       security_group_ids;
-       tags;
-       tags_all;
-       ip_address;
-       timeouts;
-     }
-      : aws_route53_resolver_endpoint)
+    aws_route53_resolver_endpoint ?id ?name ?protocols
+      ?resolver_endpoint_type ?tags ?tags_all ?timeouts ~direction
+      ~security_group_ids ~ip_address ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_endpoint __resource);
   let __resource_attributes =
     ({

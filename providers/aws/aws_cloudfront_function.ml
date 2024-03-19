@@ -15,6 +15,10 @@ type aws_cloudfront_function = {
 [@@deriving yojson_of]
 (** aws_cloudfront_function *)
 
+let aws_cloudfront_function ?comment ?id ?publish ~code ~name
+    ~runtime () : aws_cloudfront_function =
+  { code; comment; id; name; publish; runtime }
+
 type t = {
   arn : string prop;
   code : string prop;
@@ -28,14 +32,14 @@ type t = {
   status : string prop;
 }
 
-let aws_cloudfront_function ?comment ?id ?publish ~code ~name
-    ~runtime __resource_id =
+let register ?tf_module ?comment ?id ?publish ~code ~name ~runtime
+    __resource_id =
   let __resource_type = "aws_cloudfront_function" in
   let __resource =
-    ({ code; comment; id; name; publish; runtime }
-      : aws_cloudfront_function)
+    aws_cloudfront_function ?comment ?id ?publish ~code ~name
+      ~runtime ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_function __resource);
   let __resource_attributes =
     ({

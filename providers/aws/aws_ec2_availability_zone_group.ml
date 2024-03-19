@@ -12,20 +12,23 @@ type aws_ec2_availability_zone_group = {
 [@@deriving yojson_of]
 (** aws_ec2_availability_zone_group *)
 
+let aws_ec2_availability_zone_group ?id ~group_name ~opt_in_status ()
+    : aws_ec2_availability_zone_group =
+  { group_name; id; opt_in_status }
+
 type t = {
   group_name : string prop;
   id : string prop;
   opt_in_status : string prop;
 }
 
-let aws_ec2_availability_zone_group ?id ~group_name ~opt_in_status
-    __resource_id =
+let register ?tf_module ?id ~group_name ~opt_in_status __resource_id
+    =
   let __resource_type = "aws_ec2_availability_zone_group" in
   let __resource =
-    ({ group_name; id; opt_in_status }
-      : aws_ec2_availability_zone_group)
+    aws_ec2_availability_zone_group ?id ~group_name ~opt_in_status ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_availability_zone_group __resource);
   let __resource_attributes =
     ({

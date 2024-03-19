@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_palo_alto_local_rulestack__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_palo_alto_local_rulestack__timeouts *)
+(** timeouts *)
 
 type azurerm_palo_alto_local_rulestack = {
   anti_spyware_profile : string prop option; [@option]
@@ -31,10 +31,33 @@ type azurerm_palo_alto_local_rulestack = {
       (** url_filtering_profile *)
   vulnerability_profile : string prop option; [@option]
       (** vulnerability_profile *)
-  timeouts : azurerm_palo_alto_local_rulestack__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_palo_alto_local_rulestack ?anti_spyware_profile
+    ?anti_virus_profile ?description ?dns_subscription
+    ?file_blocking_profile ?id ?url_filtering_profile
+    ?vulnerability_profile ?timeouts ~location ~name
+    ~resource_group_name () : azurerm_palo_alto_local_rulestack =
+  {
+    anti_spyware_profile;
+    anti_virus_profile;
+    description;
+    dns_subscription;
+    file_blocking_profile;
+    id;
+    location;
+    name;
+    resource_group_name;
+    url_filtering_profile;
+    vulnerability_profile;
+    timeouts;
+  }
 
 type t = {
   anti_spyware_profile : string prop;
@@ -50,30 +73,19 @@ type t = {
   vulnerability_profile : string prop;
 }
 
-let azurerm_palo_alto_local_rulestack ?anti_spyware_profile
-    ?anti_virus_profile ?description ?dns_subscription
-    ?file_blocking_profile ?id ?url_filtering_profile
-    ?vulnerability_profile ?timeouts ~location ~name
-    ~resource_group_name __resource_id =
+let register ?tf_module ?anti_spyware_profile ?anti_virus_profile
+    ?description ?dns_subscription ?file_blocking_profile ?id
+    ?url_filtering_profile ?vulnerability_profile ?timeouts ~location
+    ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_palo_alto_local_rulestack" in
   let __resource =
-    ({
-       anti_spyware_profile;
-       anti_virus_profile;
-       description;
-       dns_subscription;
-       file_blocking_profile;
-       id;
-       location;
-       name;
-       resource_group_name;
-       url_filtering_profile;
-       vulnerability_profile;
-       timeouts;
-     }
-      : azurerm_palo_alto_local_rulestack)
+    azurerm_palo_alto_local_rulestack ?anti_spyware_profile
+      ?anti_virus_profile ?description ?dns_subscription
+      ?file_blocking_profile ?id ?url_filtering_profile
+      ?vulnerability_profile ?timeouts ~location ~name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_palo_alto_local_rulestack __resource);
   let __resource_attributes =
     ({

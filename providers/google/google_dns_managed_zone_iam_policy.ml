@@ -13,6 +13,10 @@ type google_dns_managed_zone_iam_policy = {
 [@@deriving yojson_of]
 (** google_dns_managed_zone_iam_policy *)
 
+let google_dns_managed_zone_iam_policy ?id ?project ~managed_zone
+    ~policy_data () : google_dns_managed_zone_iam_policy =
+  { id; managed_zone; policy_data; project }
+
 type t = {
   etag : string prop;
   id : string prop;
@@ -21,14 +25,14 @@ type t = {
   project : string prop;
 }
 
-let google_dns_managed_zone_iam_policy ?id ?project ~managed_zone
-    ~policy_data __resource_id =
+let register ?tf_module ?id ?project ~managed_zone ~policy_data
+    __resource_id =
   let __resource_type = "google_dns_managed_zone_iam_policy" in
   let __resource =
-    ({ id; managed_zone; policy_data; project }
-      : google_dns_managed_zone_iam_policy)
+    google_dns_managed_zone_iam_policy ?id ?project ~managed_zone
+      ~policy_data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_managed_zone_iam_policy __resource);
   let __resource_attributes =
     ({

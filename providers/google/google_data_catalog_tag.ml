@@ -4,19 +4,14 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_tag__fields = {
+type fields = {
   bool_value : bool prop option; [@option]
       (** Holds the value for a tag field with boolean type. *)
-  display_name : string prop;  (** The display name of this field *)
   double_value : float prop option; [@option]
       (** Holds the value for a tag field with double type. *)
   enum_value : string prop option; [@option]
       (** The display name of the enum value. *)
   field_name : string prop;  (** field_name *)
-  order : float prop;
-      (** The order of this field with respect to other fields in this tag. For example, a higher value can indicate
-a more important field. The value can be negative. Multiple fields can have the same order, and field orders
-within a tag do not have to be sequential. *)
   string_value : string prop option; [@option]
       (** Holds the value for a tag field with string type. *)
   timestamp_value : string prop option; [@option]
@@ -26,13 +21,13 @@ within a tag do not have to be sequential. *)
 (** This maps the ID of a tag field to the value of and additional information about that field.
 Valid field IDs are defined by the tag's template. A tag must have at least 1 field and at most 500 fields. *)
 
-type google_data_catalog_tag__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_data_catalog_tag__timeouts *)
+(** timeouts *)
 
 type google_data_catalog_tag = {
   column : string prop option; [@option]
@@ -49,11 +44,29 @@ all entries in that group. *)
       (** The resource name of the tag template that this tag uses. Example:
 projects/{project_id}/locations/{location}/tagTemplates/{tagTemplateId}
 This field cannot be modified after creation. *)
-  fields : google_data_catalog_tag__fields list;
-  timeouts : google_data_catalog_tag__timeouts option;
+  fields : fields list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_data_catalog_tag *)
+
+let fields ?bool_value ?double_value ?enum_value ?string_value
+    ?timestamp_value ~field_name () : fields =
+  {
+    bool_value;
+    double_value;
+    enum_value;
+    field_name;
+    string_value;
+    timestamp_value;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_data_catalog_tag ?column ?id ?parent ?timeouts ~template
+    ~fields () : google_data_catalog_tag =
+  { column; id; parent; template; fields; timeouts }
 
 type t = {
   column : string prop;
@@ -64,14 +77,14 @@ type t = {
   template_displayname : string prop;
 }
 
-let google_data_catalog_tag ?column ?id ?parent ?timeouts ~template
+let register ?tf_module ?column ?id ?parent ?timeouts ~template
     ~fields __resource_id =
   let __resource_type = "google_data_catalog_tag" in
   let __resource =
-    ({ column; id; parent; template; fields; timeouts }
-      : google_data_catalog_tag)
+    google_data_catalog_tag ?column ?id ?parent ?timeouts ~template
+      ~fields ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_tag __resource);
   let __resource_attributes =
     ({

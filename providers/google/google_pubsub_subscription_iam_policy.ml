@@ -13,6 +13,10 @@ type google_pubsub_subscription_iam_policy = {
 [@@deriving yojson_of]
 (** google_pubsub_subscription_iam_policy *)
 
+let google_pubsub_subscription_iam_policy ?id ?project ~policy_data
+    ~subscription () : google_pubsub_subscription_iam_policy =
+  { id; policy_data; project; subscription }
+
 type t = {
   etag : string prop;
   id : string prop;
@@ -21,14 +25,14 @@ type t = {
   subscription : string prop;
 }
 
-let google_pubsub_subscription_iam_policy ?id ?project ~policy_data
-    ~subscription __resource_id =
+let register ?tf_module ?id ?project ~policy_data ~subscription
+    __resource_id =
   let __resource_type = "google_pubsub_subscription_iam_policy" in
   let __resource =
-    ({ id; policy_data; project; subscription }
-      : google_pubsub_subscription_iam_policy)
+    google_pubsub_subscription_iam_policy ?id ?project ~policy_data
+      ~subscription ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_subscription_iam_policy __resource);
   let __resource_attributes =
     ({

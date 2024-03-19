@@ -2,10 +2,55 @@
 
 open! Tf.Prelude
 
-type azurerm_new_relic_tag_rule__log_tag_filter
-type azurerm_new_relic_tag_rule__metric_tag_filter
-type azurerm_new_relic_tag_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type log_tag_filter
+
+val log_tag_filter :
+  action:string prop ->
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  log_tag_filter
+
+type metric_tag_filter
+
+val metric_tag_filter :
+  action:string prop ->
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  metric_tag_filter
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_new_relic_tag_rule
+
+val azurerm_new_relic_tag_rule :
+  ?activity_log_enabled:bool prop ->
+  ?azure_active_directory_log_enabled:bool prop ->
+  ?id:string prop ->
+  ?metric_enabled:bool prop ->
+  ?subscription_log_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  monitor_id:string prop ->
+  log_tag_filter:log_tag_filter list ->
+  metric_tag_filter:metric_tag_filter list ->
+  unit ->
+  azurerm_new_relic_tag_rule
+
+val yojson_of_azurerm_new_relic_tag_rule :
+  azurerm_new_relic_tag_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   activity_log_enabled : bool prop;
@@ -16,16 +61,16 @@ type t = private {
   subscription_log_enabled : bool prop;
 }
 
-val azurerm_new_relic_tag_rule :
+val register :
+  ?tf_module:tf_module ->
   ?activity_log_enabled:bool prop ->
   ?azure_active_directory_log_enabled:bool prop ->
   ?id:string prop ->
   ?metric_enabled:bool prop ->
   ?subscription_log_enabled:bool prop ->
-  ?timeouts:azurerm_new_relic_tag_rule__timeouts ->
+  ?timeouts:timeouts ->
   monitor_id:string prop ->
-  log_tag_filter:azurerm_new_relic_tag_rule__log_tag_filter list ->
-  metric_tag_filter:
-    azurerm_new_relic_tag_rule__metric_tag_filter list ->
+  log_tag_filter:log_tag_filter list ->
+  metric_tag_filter:metric_tag_filter list ->
   string ->
   t

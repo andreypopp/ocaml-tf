@@ -4,19 +4,25 @@
 
 open! Tf.Prelude
 
-type aws_ses_domain_identity_verification__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_ses_domain_identity_verification__timeouts *)
+(** timeouts *)
 
 type aws_ses_domain_identity_verification = {
   domain : string prop;  (** domain *)
   id : string prop option; [@option]  (** id *)
-  timeouts : aws_ses_domain_identity_verification__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ses_domain_identity_verification *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_ses_domain_identity_verification ?id ?timeouts ~domain () :
+    aws_ses_domain_identity_verification =
+  { domain; id; timeouts }
 
 type t = {
   arn : string prop;
@@ -24,13 +30,12 @@ type t = {
   id : string prop;
 }
 
-let aws_ses_domain_identity_verification ?id ?timeouts ~domain
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~domain __resource_id =
   let __resource_type = "aws_ses_domain_identity_verification" in
   let __resource =
-    ({ domain; id; timeouts } : aws_ses_domain_identity_verification)
+    aws_ses_domain_identity_verification ?id ?timeouts ~domain ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_domain_identity_verification __resource);
   let __resource_attributes =
     ({

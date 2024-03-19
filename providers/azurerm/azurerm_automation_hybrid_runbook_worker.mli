@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_hybrid_runbook_worker__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_automation_hybrid_runbook_worker
+
+val azurerm_automation_hybrid_runbook_worker :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  automation_account_name:string prop ->
+  resource_group_name:string prop ->
+  vm_resource_id:string prop ->
+  worker_group_name:string prop ->
+  worker_id:string prop ->
+  unit ->
+  azurerm_automation_hybrid_runbook_worker
+
+val yojson_of_azurerm_automation_hybrid_runbook_worker :
+  azurerm_automation_hybrid_runbook_worker -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   automation_account_name : string prop;
@@ -19,9 +45,10 @@ type t = private {
   worker_type : string prop;
 }
 
-val azurerm_automation_hybrid_runbook_worker :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_automation_hybrid_runbook_worker__timeouts ->
+  ?timeouts:timeouts ->
   automation_account_name:string prop ->
   resource_group_name:string prop ->
   vm_resource_id:string prop ->

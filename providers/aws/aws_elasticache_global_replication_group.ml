@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_elasticache_global_replication_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_elasticache_global_replication_group__timeouts *)
+(** timeouts *)
 
-type aws_elasticache_global_replication_group__global_node_groups = {
+type global_node_groups = {
   global_node_group_id : string prop;  (** global_node_group_id *)
   slots : string prop;  (** slots *)
 }
@@ -37,11 +37,32 @@ type aws_elasticache_global_replication_group = {
       (** parameter_group_name *)
   primary_replication_group_id : string prop;
       (** primary_replication_group_id *)
-  timeouts :
-    aws_elasticache_global_replication_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_elasticache_global_replication_group *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_elasticache_global_replication_group
+    ?automatic_failover_enabled ?cache_node_type ?engine_version
+    ?global_replication_group_description ?id ?num_node_groups
+    ?parameter_group_name ?timeouts
+    ~global_replication_group_id_suffix ~primary_replication_group_id
+    () : aws_elasticache_global_replication_group =
+  {
+    automatic_failover_enabled;
+    cache_node_type;
+    engine_version;
+    global_replication_group_description;
+    global_replication_group_id_suffix;
+    id;
+    num_node_groups;
+    parameter_group_name;
+    primary_replication_group_id;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -53,9 +74,7 @@ type t = {
   engine : string prop;
   engine_version : string prop;
   engine_version_actual : string prop;
-  global_node_groups :
-    aws_elasticache_global_replication_group__global_node_groups list
-    prop;
+  global_node_groups : global_node_groups list prop;
   global_replication_group_description : string prop;
   global_replication_group_id : string prop;
   global_replication_group_id_suffix : string prop;
@@ -66,29 +85,21 @@ type t = {
   transit_encryption_enabled : bool prop;
 }
 
-let aws_elasticache_global_replication_group
-    ?automatic_failover_enabled ?cache_node_type ?engine_version
-    ?global_replication_group_description ?id ?num_node_groups
-    ?parameter_group_name ?timeouts
+let register ?tf_module ?automatic_failover_enabled ?cache_node_type
+    ?engine_version ?global_replication_group_description ?id
+    ?num_node_groups ?parameter_group_name ?timeouts
     ~global_replication_group_id_suffix ~primary_replication_group_id
     __resource_id =
   let __resource_type = "aws_elasticache_global_replication_group" in
   let __resource =
-    ({
-       automatic_failover_enabled;
-       cache_node_type;
-       engine_version;
-       global_replication_group_description;
-       global_replication_group_id_suffix;
-       id;
-       num_node_groups;
-       parameter_group_name;
-       primary_replication_group_id;
-       timeouts;
-     }
-      : aws_elasticache_global_replication_group)
+    aws_elasticache_global_replication_group
+      ?automatic_failover_enabled ?cache_node_type ?engine_version
+      ?global_replication_group_description ?id ?num_node_groups
+      ?parameter_group_name ?timeouts
+      ~global_replication_group_id_suffix
+      ~primary_replication_group_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticache_global_replication_group __resource);
   let __resource_attributes =
     ({

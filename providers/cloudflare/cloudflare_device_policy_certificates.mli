@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_device_policy_certificates
+
+val cloudflare_device_policy_certificates :
+  ?id:string prop ->
+  enabled:bool prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_device_policy_certificates
+
+val yojson_of_cloudflare_device_policy_certificates :
+  cloudflare_device_policy_certificates -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enabled : bool prop;
@@ -10,7 +24,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_device_policy_certificates :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   enabled:bool prop ->
   zone_id:string prop ->

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_image__data_disk = {
+type data_disk = {
   blob_uri : string prop option; [@option]  (** blob_uri *)
   caching : string prop option; [@option]  (** caching *)
   lun : float prop option; [@option]  (** lun *)
@@ -13,9 +13,9 @@ type azurerm_image__data_disk = {
   size_gb : float prop option; [@option]  (** size_gb *)
 }
 [@@deriving yojson_of]
-(** azurerm_image__data_disk *)
+(** data_disk *)
 
-type azurerm_image__os_disk = {
+type os_disk = {
   blob_uri : string prop option; [@option]  (** blob_uri *)
   caching : string prop option; [@option]  (** caching *)
   disk_encryption_set_id : string prop option; [@option]
@@ -27,16 +27,16 @@ type azurerm_image__os_disk = {
   size_gb : float prop option; [@option]  (** size_gb *)
 }
 [@@deriving yojson_of]
-(** azurerm_image__os_disk *)
+(** os_disk *)
 
-type azurerm_image__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_image__timeouts *)
+(** timeouts *)
 
 type azurerm_image = {
   hyper_v_generation : string prop option; [@option]
@@ -49,12 +49,48 @@ type azurerm_image = {
       (** source_virtual_machine_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   zone_resilient : bool prop option; [@option]  (** zone_resilient *)
-  data_disk : azurerm_image__data_disk list;
-  os_disk : azurerm_image__os_disk list;
-  timeouts : azurerm_image__timeouts option;
+  data_disk : data_disk list;
+  os_disk : os_disk list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_image *)
+
+let data_disk ?blob_uri ?caching ?lun ?managed_disk_id ?size_gb () :
+    data_disk =
+  { blob_uri; caching; lun; managed_disk_id; size_gb }
+
+let os_disk ?blob_uri ?caching ?disk_encryption_set_id
+    ?managed_disk_id ?os_state ?os_type ?size_gb () : os_disk =
+  {
+    blob_uri;
+    caching;
+    disk_encryption_set_id;
+    managed_disk_id;
+    os_state;
+    os_type;
+    size_gb;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_image ?hyper_v_generation ?id ?source_virtual_machine_id
+    ?tags ?zone_resilient ?timeouts ~location ~name
+    ~resource_group_name ~data_disk ~os_disk () : azurerm_image =
+  {
+    hyper_v_generation;
+    id;
+    location;
+    name;
+    resource_group_name;
+    source_virtual_machine_id;
+    tags;
+    zone_resilient;
+    data_disk;
+    os_disk;
+    timeouts;
+  }
 
 type t = {
   hyper_v_generation : string prop;
@@ -67,27 +103,17 @@ type t = {
   zone_resilient : bool prop;
 }
 
-let azurerm_image ?hyper_v_generation ?id ?source_virtual_machine_id
-    ?tags ?zone_resilient ?timeouts ~location ~name
-    ~resource_group_name ~data_disk ~os_disk __resource_id =
+let register ?tf_module ?hyper_v_generation ?id
+    ?source_virtual_machine_id ?tags ?zone_resilient ?timeouts
+    ~location ~name ~resource_group_name ~data_disk ~os_disk
+    __resource_id =
   let __resource_type = "azurerm_image" in
   let __resource =
-    ({
-       hyper_v_generation;
-       id;
-       location;
-       name;
-       resource_group_name;
-       source_virtual_machine_id;
-       tags;
-       zone_resilient;
-       data_disk;
-       os_disk;
-       timeouts;
-     }
-      : azurerm_image)
+    azurerm_image ?hyper_v_generation ?id ?source_virtual_machine_id
+      ?tags ?zone_resilient ?timeouts ~location ~name
+      ~resource_group_name ~data_disk ~os_disk ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_image __resource);
   let __resource_attributes =
     ({

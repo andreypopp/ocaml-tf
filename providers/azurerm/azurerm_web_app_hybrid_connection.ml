@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_web_app_hybrid_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_web_app_hybrid_connection__timeouts *)
+(** timeouts *)
 
 type azurerm_web_app_hybrid_connection = {
   hostname : string prop;  (** The hostname of the endpoint. *)
@@ -23,10 +23,26 @@ type azurerm_web_app_hybrid_connection = {
       (** The name of the Relay key with `Send` permission to use. Defaults to `RootManageSharedAccessKey` *)
   web_app_id : string prop;
       (** The ID of the Web App for this Hybrid Connection. *)
-  timeouts : azurerm_web_app_hybrid_connection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_web_app_hybrid_connection *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_web_app_hybrid_connection ?id ?send_key_name ?timeouts
+    ~hostname ~port ~relay_id ~web_app_id () :
+    azurerm_web_app_hybrid_connection =
+  {
+    hostname;
+    id;
+    port;
+    relay_id;
+    send_key_name;
+    web_app_id;
+    timeouts;
+  }
 
 type t = {
   hostname : string prop;
@@ -42,22 +58,14 @@ type t = {
   web_app_id : string prop;
 }
 
-let azurerm_web_app_hybrid_connection ?id ?send_key_name ?timeouts
-    ~hostname ~port ~relay_id ~web_app_id __resource_id =
+let register ?tf_module ?id ?send_key_name ?timeouts ~hostname ~port
+    ~relay_id ~web_app_id __resource_id =
   let __resource_type = "azurerm_web_app_hybrid_connection" in
   let __resource =
-    ({
-       hostname;
-       id;
-       port;
-       relay_id;
-       send_key_name;
-       web_app_id;
-       timeouts;
-     }
-      : azurerm_web_app_hybrid_connection)
+    azurerm_web_app_hybrid_connection ?id ?send_key_name ?timeouts
+      ~hostname ~port ~relay_id ~web_app_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_web_app_hybrid_connection __resource);
   let __resource_attributes =
     ({

@@ -4,41 +4,39 @@
 
 open! Tf.Prelude
 
-type aws_vpn_connection__tunnel1_log_options__cloudwatch_log_options = {
+type tunnel1_log_options__cloudwatch_log_options = {
   log_enabled : bool prop option; [@option]  (** log_enabled *)
   log_group_arn : string prop option; [@option]  (** log_group_arn *)
   log_output_format : string prop option; [@option]
       (** log_output_format *)
 }
 [@@deriving yojson_of]
-(** aws_vpn_connection__tunnel1_log_options__cloudwatch_log_options *)
+(** tunnel1_log_options__cloudwatch_log_options *)
 
-type aws_vpn_connection__tunnel1_log_options = {
+type tunnel1_log_options = {
   cloudwatch_log_options :
-    aws_vpn_connection__tunnel1_log_options__cloudwatch_log_options
-    list;
+    tunnel1_log_options__cloudwatch_log_options list;
 }
 [@@deriving yojson_of]
-(** aws_vpn_connection__tunnel1_log_options *)
+(** tunnel1_log_options *)
 
-type aws_vpn_connection__tunnel2_log_options__cloudwatch_log_options = {
+type tunnel2_log_options__cloudwatch_log_options = {
   log_enabled : bool prop option; [@option]  (** log_enabled *)
   log_group_arn : string prop option; [@option]  (** log_group_arn *)
   log_output_format : string prop option; [@option]
       (** log_output_format *)
 }
 [@@deriving yojson_of]
-(** aws_vpn_connection__tunnel2_log_options__cloudwatch_log_options *)
+(** tunnel2_log_options__cloudwatch_log_options *)
 
-type aws_vpn_connection__tunnel2_log_options = {
+type tunnel2_log_options = {
   cloudwatch_log_options :
-    aws_vpn_connection__tunnel2_log_options__cloudwatch_log_options
-    list;
+    tunnel2_log_options__cloudwatch_log_options list;
 }
 [@@deriving yojson_of]
-(** aws_vpn_connection__tunnel2_log_options *)
+(** tunnel2_log_options *)
 
-type aws_vpn_connection__routes = {
+type routes = {
   destination_cidr_block : string prop;
       (** destination_cidr_block *)
   source : string prop;  (** source *)
@@ -46,7 +44,7 @@ type aws_vpn_connection__routes = {
 }
 [@@deriving yojson_of]
 
-type aws_vpn_connection__vgw_telemetry = {
+type vgw_telemetry = {
   accepted_route_count : float prop;  (** accepted_route_count *)
   certificate_arn : string prop;  (** certificate_arn *)
   last_status_change : string prop;  (** last_status_change *)
@@ -172,11 +170,120 @@ type aws_vpn_connection = {
   type_ : string prop; [@key "type"]  (** type *)
   vpn_gateway_id : string prop option; [@option]
       (** vpn_gateway_id *)
-  tunnel1_log_options : aws_vpn_connection__tunnel1_log_options list;
-  tunnel2_log_options : aws_vpn_connection__tunnel2_log_options list;
+  tunnel1_log_options : tunnel1_log_options list;
+  tunnel2_log_options : tunnel2_log_options list;
 }
 [@@deriving yojson_of]
 (** aws_vpn_connection *)
+
+let tunnel1_log_options__cloudwatch_log_options ?log_enabled
+    ?log_group_arn ?log_output_format () :
+    tunnel1_log_options__cloudwatch_log_options =
+  { log_enabled; log_group_arn; log_output_format }
+
+let tunnel1_log_options ~cloudwatch_log_options () :
+    tunnel1_log_options =
+  { cloudwatch_log_options }
+
+let tunnel2_log_options__cloudwatch_log_options ?log_enabled
+    ?log_group_arn ?log_output_format () :
+    tunnel2_log_options__cloudwatch_log_options =
+  { log_enabled; log_group_arn; log_output_format }
+
+let tunnel2_log_options ~cloudwatch_log_options () :
+    tunnel2_log_options =
+  { cloudwatch_log_options }
+
+let aws_vpn_connection ?enable_acceleration ?id
+    ?local_ipv4_network_cidr ?local_ipv6_network_cidr
+    ?outside_ip_address_type ?remote_ipv4_network_cidr
+    ?remote_ipv6_network_cidr ?static_routes_only ?tags ?tags_all
+    ?transit_gateway_id ?transport_transit_gateway_attachment_id
+    ?tunnel1_dpd_timeout_action ?tunnel1_dpd_timeout_seconds
+    ?tunnel1_enable_tunnel_lifecycle_control ?tunnel1_ike_versions
+    ?tunnel1_inside_cidr ?tunnel1_inside_ipv6_cidr
+    ?tunnel1_phase1_dh_group_numbers
+    ?tunnel1_phase1_encryption_algorithms
+    ?tunnel1_phase1_integrity_algorithms
+    ?tunnel1_phase1_lifetime_seconds ?tunnel1_phase2_dh_group_numbers
+    ?tunnel1_phase2_encryption_algorithms
+    ?tunnel1_phase2_integrity_algorithms
+    ?tunnel1_phase2_lifetime_seconds ?tunnel1_preshared_key
+    ?tunnel1_rekey_fuzz_percentage ?tunnel1_rekey_margin_time_seconds
+    ?tunnel1_replay_window_size ?tunnel1_startup_action
+    ?tunnel2_dpd_timeout_action ?tunnel2_dpd_timeout_seconds
+    ?tunnel2_enable_tunnel_lifecycle_control ?tunnel2_ike_versions
+    ?tunnel2_inside_cidr ?tunnel2_inside_ipv6_cidr
+    ?tunnel2_phase1_dh_group_numbers
+    ?tunnel2_phase1_encryption_algorithms
+    ?tunnel2_phase1_integrity_algorithms
+    ?tunnel2_phase1_lifetime_seconds ?tunnel2_phase2_dh_group_numbers
+    ?tunnel2_phase2_encryption_algorithms
+    ?tunnel2_phase2_integrity_algorithms
+    ?tunnel2_phase2_lifetime_seconds ?tunnel2_preshared_key
+    ?tunnel2_rekey_fuzz_percentage ?tunnel2_rekey_margin_time_seconds
+    ?tunnel2_replay_window_size ?tunnel2_startup_action
+    ?tunnel_inside_ip_version ?vpn_gateway_id ~customer_gateway_id
+    ~type_ ~tunnel1_log_options ~tunnel2_log_options () :
+    aws_vpn_connection =
+  {
+    customer_gateway_id;
+    enable_acceleration;
+    id;
+    local_ipv4_network_cidr;
+    local_ipv6_network_cidr;
+    outside_ip_address_type;
+    remote_ipv4_network_cidr;
+    remote_ipv6_network_cidr;
+    static_routes_only;
+    tags;
+    tags_all;
+    transit_gateway_id;
+    transport_transit_gateway_attachment_id;
+    tunnel1_dpd_timeout_action;
+    tunnel1_dpd_timeout_seconds;
+    tunnel1_enable_tunnel_lifecycle_control;
+    tunnel1_ike_versions;
+    tunnel1_inside_cidr;
+    tunnel1_inside_ipv6_cidr;
+    tunnel1_phase1_dh_group_numbers;
+    tunnel1_phase1_encryption_algorithms;
+    tunnel1_phase1_integrity_algorithms;
+    tunnel1_phase1_lifetime_seconds;
+    tunnel1_phase2_dh_group_numbers;
+    tunnel1_phase2_encryption_algorithms;
+    tunnel1_phase2_integrity_algorithms;
+    tunnel1_phase2_lifetime_seconds;
+    tunnel1_preshared_key;
+    tunnel1_rekey_fuzz_percentage;
+    tunnel1_rekey_margin_time_seconds;
+    tunnel1_replay_window_size;
+    tunnel1_startup_action;
+    tunnel2_dpd_timeout_action;
+    tunnel2_dpd_timeout_seconds;
+    tunnel2_enable_tunnel_lifecycle_control;
+    tunnel2_ike_versions;
+    tunnel2_inside_cidr;
+    tunnel2_inside_ipv6_cidr;
+    tunnel2_phase1_dh_group_numbers;
+    tunnel2_phase1_encryption_algorithms;
+    tunnel2_phase1_integrity_algorithms;
+    tunnel2_phase1_lifetime_seconds;
+    tunnel2_phase2_dh_group_numbers;
+    tunnel2_phase2_encryption_algorithms;
+    tunnel2_phase2_integrity_algorithms;
+    tunnel2_phase2_lifetime_seconds;
+    tunnel2_preshared_key;
+    tunnel2_rekey_fuzz_percentage;
+    tunnel2_rekey_margin_time_seconds;
+    tunnel2_replay_window_size;
+    tunnel2_startup_action;
+    tunnel_inside_ip_version;
+    type_;
+    vpn_gateway_id;
+    tunnel1_log_options;
+    tunnel2_log_options;
+  }
 
 type t = {
   arn : string prop;
@@ -191,7 +298,7 @@ type t = {
   outside_ip_address_type : string prop;
   remote_ipv4_network_cidr : string prop;
   remote_ipv6_network_cidr : string prop;
-  routes : aws_vpn_connection__routes list prop;
+  routes : routes list prop;
   static_routes_only : bool prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
@@ -248,11 +355,11 @@ type t = {
   tunnel2_vgw_inside_address : string prop;
   tunnel_inside_ip_version : string prop;
   type_ : string prop;
-  vgw_telemetry : aws_vpn_connection__vgw_telemetry list prop;
+  vgw_telemetry : vgw_telemetry list prop;
   vpn_gateway_id : string prop;
 }
 
-let aws_vpn_connection ?enable_acceleration ?id
+let register ?tf_module ?enable_acceleration ?id
     ?local_ipv4_network_cidr ?local_ipv6_network_cidr
     ?outside_ip_address_type ?remote_ipv4_network_cidr
     ?remote_ipv6_network_cidr ?static_routes_only ?tags ?tags_all
@@ -285,67 +392,43 @@ let aws_vpn_connection ?enable_acceleration ?id
     ~type_ ~tunnel1_log_options ~tunnel2_log_options __resource_id =
   let __resource_type = "aws_vpn_connection" in
   let __resource =
-    ({
-       customer_gateway_id;
-       enable_acceleration;
-       id;
-       local_ipv4_network_cidr;
-       local_ipv6_network_cidr;
-       outside_ip_address_type;
-       remote_ipv4_network_cidr;
-       remote_ipv6_network_cidr;
-       static_routes_only;
-       tags;
-       tags_all;
-       transit_gateway_id;
-       transport_transit_gateway_attachment_id;
-       tunnel1_dpd_timeout_action;
-       tunnel1_dpd_timeout_seconds;
-       tunnel1_enable_tunnel_lifecycle_control;
-       tunnel1_ike_versions;
-       tunnel1_inside_cidr;
-       tunnel1_inside_ipv6_cidr;
-       tunnel1_phase1_dh_group_numbers;
-       tunnel1_phase1_encryption_algorithms;
-       tunnel1_phase1_integrity_algorithms;
-       tunnel1_phase1_lifetime_seconds;
-       tunnel1_phase2_dh_group_numbers;
-       tunnel1_phase2_encryption_algorithms;
-       tunnel1_phase2_integrity_algorithms;
-       tunnel1_phase2_lifetime_seconds;
-       tunnel1_preshared_key;
-       tunnel1_rekey_fuzz_percentage;
-       tunnel1_rekey_margin_time_seconds;
-       tunnel1_replay_window_size;
-       tunnel1_startup_action;
-       tunnel2_dpd_timeout_action;
-       tunnel2_dpd_timeout_seconds;
-       tunnel2_enable_tunnel_lifecycle_control;
-       tunnel2_ike_versions;
-       tunnel2_inside_cidr;
-       tunnel2_inside_ipv6_cidr;
-       tunnel2_phase1_dh_group_numbers;
-       tunnel2_phase1_encryption_algorithms;
-       tunnel2_phase1_integrity_algorithms;
-       tunnel2_phase1_lifetime_seconds;
-       tunnel2_phase2_dh_group_numbers;
-       tunnel2_phase2_encryption_algorithms;
-       tunnel2_phase2_integrity_algorithms;
-       tunnel2_phase2_lifetime_seconds;
-       tunnel2_preshared_key;
-       tunnel2_rekey_fuzz_percentage;
-       tunnel2_rekey_margin_time_seconds;
-       tunnel2_replay_window_size;
-       tunnel2_startup_action;
-       tunnel_inside_ip_version;
-       type_;
-       vpn_gateway_id;
-       tunnel1_log_options;
-       tunnel2_log_options;
-     }
-      : aws_vpn_connection)
+    aws_vpn_connection ?enable_acceleration ?id
+      ?local_ipv4_network_cidr ?local_ipv6_network_cidr
+      ?outside_ip_address_type ?remote_ipv4_network_cidr
+      ?remote_ipv6_network_cidr ?static_routes_only ?tags ?tags_all
+      ?transit_gateway_id ?transport_transit_gateway_attachment_id
+      ?tunnel1_dpd_timeout_action ?tunnel1_dpd_timeout_seconds
+      ?tunnel1_enable_tunnel_lifecycle_control ?tunnel1_ike_versions
+      ?tunnel1_inside_cidr ?tunnel1_inside_ipv6_cidr
+      ?tunnel1_phase1_dh_group_numbers
+      ?tunnel1_phase1_encryption_algorithms
+      ?tunnel1_phase1_integrity_algorithms
+      ?tunnel1_phase1_lifetime_seconds
+      ?tunnel1_phase2_dh_group_numbers
+      ?tunnel1_phase2_encryption_algorithms
+      ?tunnel1_phase2_integrity_algorithms
+      ?tunnel1_phase2_lifetime_seconds ?tunnel1_preshared_key
+      ?tunnel1_rekey_fuzz_percentage
+      ?tunnel1_rekey_margin_time_seconds ?tunnel1_replay_window_size
+      ?tunnel1_startup_action ?tunnel2_dpd_timeout_action
+      ?tunnel2_dpd_timeout_seconds
+      ?tunnel2_enable_tunnel_lifecycle_control ?tunnel2_ike_versions
+      ?tunnel2_inside_cidr ?tunnel2_inside_ipv6_cidr
+      ?tunnel2_phase1_dh_group_numbers
+      ?tunnel2_phase1_encryption_algorithms
+      ?tunnel2_phase1_integrity_algorithms
+      ?tunnel2_phase1_lifetime_seconds
+      ?tunnel2_phase2_dh_group_numbers
+      ?tunnel2_phase2_encryption_algorithms
+      ?tunnel2_phase2_integrity_algorithms
+      ?tunnel2_phase2_lifetime_seconds ?tunnel2_preshared_key
+      ?tunnel2_rekey_fuzz_percentage
+      ?tunnel2_rekey_margin_time_seconds ?tunnel2_replay_window_size
+      ?tunnel2_startup_action ?tunnel_inside_ip_version
+      ?vpn_gateway_id ~customer_gateway_id ~type_
+      ~tunnel1_log_options ~tunnel2_log_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpn_connection __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_cassandra_datacenter__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_cassandra_datacenter__timeouts *)
+(** timeouts *)
 
 type azurerm_cosmosdb_cassandra_datacenter = {
   availability_zones_enabled : bool prop option; [@option]
@@ -32,10 +32,36 @@ type azurerm_cosmosdb_cassandra_datacenter = {
   name : string prop;  (** name *)
   node_count : float prop option; [@option]  (** node_count *)
   sku_name : string prop option; [@option]  (** sku_name *)
-  timeouts : azurerm_cosmosdb_cassandra_datacenter__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_datacenter *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
+    ?backup_storage_customer_key_uri ?base64_encoded_yaml_fragment
+    ?disk_count ?disk_sku ?id ?managed_disk_customer_key_uri
+    ?node_count ?sku_name ?timeouts ~cassandra_cluster_id
+    ~delegated_management_subnet_id ~location ~name () :
+    azurerm_cosmosdb_cassandra_datacenter =
+  {
+    availability_zones_enabled;
+    backup_storage_customer_key_uri;
+    base64_encoded_yaml_fragment;
+    cassandra_cluster_id;
+    delegated_management_subnet_id;
+    disk_count;
+    disk_sku;
+    id;
+    location;
+    managed_disk_customer_key_uri;
+    name;
+    node_count;
+    sku_name;
+    timeouts;
+  }
 
 type t = {
   availability_zones_enabled : bool prop;
@@ -54,32 +80,20 @@ type t = {
   sku_name : string prop;
 }
 
-let azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
+let register ?tf_module ?availability_zones_enabled
     ?backup_storage_customer_key_uri ?base64_encoded_yaml_fragment
     ?disk_count ?disk_sku ?id ?managed_disk_customer_key_uri
     ?node_count ?sku_name ?timeouts ~cassandra_cluster_id
     ~delegated_management_subnet_id ~location ~name __resource_id =
   let __resource_type = "azurerm_cosmosdb_cassandra_datacenter" in
   let __resource =
-    ({
-       availability_zones_enabled;
-       backup_storage_customer_key_uri;
-       base64_encoded_yaml_fragment;
-       cassandra_cluster_id;
-       delegated_management_subnet_id;
-       disk_count;
-       disk_sku;
-       id;
-       location;
-       managed_disk_customer_key_uri;
-       name;
-       node_count;
-       sku_name;
-       timeouts;
-     }
-      : azurerm_cosmosdb_cassandra_datacenter)
+    azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
+      ?backup_storage_customer_key_uri ?base64_encoded_yaml_fragment
+      ?disk_count ?disk_sku ?id ?managed_disk_customer_key_uri
+      ?node_count ?sku_name ?timeouts ~cassandra_cluster_id
+      ~delegated_management_subnet_id ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_cassandra_datacenter __resource);
   let __resource_attributes =
     ({

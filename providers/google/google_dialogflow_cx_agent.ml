@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_agent__advanced_settings__audio_export_gcs_destination = {
+type advanced_settings__audio_export_gcs_destination = {
   uri : string prop option; [@option]
       (** The Google Cloud Storage URI for the exported objects. Whether a full object name, or just a prefix, its usage depends on the Dialogflow operation.
 Format: gs://bucket/object-name-or-prefix *)
@@ -14,7 +14,7 @@ Format: gs://bucket/object-name-or-prefix *)
 * Agent level
 * Flow level *)
 
-type google_dialogflow_cx_agent__advanced_settings__dtmf_settings = {
+type advanced_settings__dtmf_settings = {
   enabled : bool prop option; [@option]
       (** If true, incoming audio is processed for DTMF (dual tone multi frequency) events. For example, if the caller presses a button on their telephone keypad and DTMF processing is enabled, Dialogflow will detect the event (e.g. a 3 was pressed) in the incoming audio and pass the event to the bot to drive business logic (e.g. when 3 is pressed, return the account balance). *)
   finish_digit : string prop option; [@option]
@@ -29,18 +29,16 @@ type google_dialogflow_cx_agent__advanced_settings__dtmf_settings = {
 * Page level
 * Parameter level *)
 
-type google_dialogflow_cx_agent__advanced_settings = {
+type advanced_settings = {
   audio_export_gcs_destination :
-    google_dialogflow_cx_agent__advanced_settings__audio_export_gcs_destination
-    list;
-  dtmf_settings :
-    google_dialogflow_cx_agent__advanced_settings__dtmf_settings list;
+    advanced_settings__audio_export_gcs_destination list;
+  dtmf_settings : advanced_settings__dtmf_settings list;
 }
 [@@deriving yojson_of]
 (** Hierarchical advanced settings for this agent. The settings exposed at the lower level overrides the settings exposed at the higher level.
 Hierarchy: Agent->Flow->Page->Fulfillment/Parameter. *)
 
-type google_dialogflow_cx_agent__git_integration_settings__github_settings = {
+type git_integration_settings__github_settings = {
   access_token : string prop option; [@option]
       (** The access token used to authenticate the access to the GitHub repository. *)
   branches : string prop list option; [@option]
@@ -55,22 +53,20 @@ type google_dialogflow_cx_agent__git_integration_settings__github_settings = {
 [@@deriving yojson_of]
 (** Settings of integration with GitHub. *)
 
-type google_dialogflow_cx_agent__git_integration_settings = {
-  github_settings :
-    google_dialogflow_cx_agent__git_integration_settings__github_settings
-    list;
+type git_integration_settings = {
+  github_settings : git_integration_settings__github_settings list;
 }
 [@@deriving yojson_of]
 (** Git integration settings for this agent. *)
 
-type google_dialogflow_cx_agent__speech_to_text_settings = {
+type speech_to_text_settings = {
   enable_speech_adaptation : bool prop option; [@option]
       (** Whether to use speech adaptation for speech recognition. *)
 }
 [@@deriving yojson_of]
 (** Settings related to speech recognition. *)
 
-type google_dialogflow_cx_agent__text_to_speech_settings = {
+type text_to_speech_settings = {
   synthesize_speech_configs : string prop option; [@option]
       (** Configuration of how speech should be synthesized, mapping from [language](https://cloud.google.com/dialogflow/cx/docs/reference/language) to [SynthesizeSpeechConfig](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/projects.locations.agents#synthesizespeechconfig).
 These settings affect:
@@ -80,13 +76,13 @@ These settings affect:
 [@@deriving yojson_of]
 (** Settings related to speech synthesizing. *)
 
-type google_dialogflow_cx_agent__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_cx_agent__timeouts *)
+(** timeouts *)
 
 type google_dialogflow_cx_agent = {
   avatar_uri : string prop option; [@option]
@@ -117,18 +113,79 @@ for a list of the currently supported language codes. This field cannot be updat
   time_zone : string prop;
       (** The time zone of this agent from the [time zone database](https://www.iana.org/time-zones), e.g., America/New_York,
 Europe/Paris. *)
-  advanced_settings :
-    google_dialogflow_cx_agent__advanced_settings list;
-  git_integration_settings :
-    google_dialogflow_cx_agent__git_integration_settings list;
-  speech_to_text_settings :
-    google_dialogflow_cx_agent__speech_to_text_settings list;
-  text_to_speech_settings :
-    google_dialogflow_cx_agent__text_to_speech_settings list;
-  timeouts : google_dialogflow_cx_agent__timeouts option;
+  advanced_settings : advanced_settings list;
+  git_integration_settings : git_integration_settings list;
+  speech_to_text_settings : speech_to_text_settings list;
+  text_to_speech_settings : text_to_speech_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_agent *)
+
+let advanced_settings__audio_export_gcs_destination ?uri () :
+    advanced_settings__audio_export_gcs_destination =
+  { uri }
+
+let advanced_settings__dtmf_settings ?enabled ?finish_digit
+    ?max_digits () : advanced_settings__dtmf_settings =
+  { enabled; finish_digit; max_digits }
+
+let advanced_settings ~audio_export_gcs_destination ~dtmf_settings ()
+    : advanced_settings =
+  { audio_export_gcs_destination; dtmf_settings }
+
+let git_integration_settings__github_settings ?access_token ?branches
+    ?display_name ?repository_uri ?tracking_branch () :
+    git_integration_settings__github_settings =
+  {
+    access_token;
+    branches;
+    display_name;
+    repository_uri;
+    tracking_branch;
+  }
+
+let git_integration_settings ~github_settings () :
+    git_integration_settings =
+  { github_settings }
+
+let speech_to_text_settings ?enable_speech_adaptation () :
+    speech_to_text_settings =
+  { enable_speech_adaptation }
+
+let text_to_speech_settings ?synthesize_speech_configs () :
+    text_to_speech_settings =
+  { synthesize_speech_configs }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_cx_agent ?avatar_uri ?description
+    ?enable_spell_correction ?enable_stackdriver_logging ?id ?project
+    ?security_settings ?supported_language_codes ?timeouts
+    ~default_language_code ~display_name ~location ~time_zone
+    ~advanced_settings ~git_integration_settings
+    ~speech_to_text_settings ~text_to_speech_settings () :
+    google_dialogflow_cx_agent =
+  {
+    avatar_uri;
+    default_language_code;
+    description;
+    display_name;
+    enable_spell_correction;
+    enable_stackdriver_logging;
+    id;
+    location;
+    project;
+    security_settings;
+    supported_language_codes;
+    time_zone;
+    advanced_settings;
+    git_integration_settings;
+    speech_to_text_settings;
+    text_to_speech_settings;
+    timeouts;
+  }
 
 type t = {
   avatar_uri : string prop;
@@ -147,7 +204,7 @@ type t = {
   time_zone : string prop;
 }
 
-let google_dialogflow_cx_agent ?avatar_uri ?description
+let register ?tf_module ?avatar_uri ?description
     ?enable_spell_correction ?enable_stackdriver_logging ?id ?project
     ?security_settings ?supported_language_codes ?timeouts
     ~default_language_code ~display_name ~location ~time_zone
@@ -155,28 +212,14 @@ let google_dialogflow_cx_agent ?avatar_uri ?description
     ~speech_to_text_settings ~text_to_speech_settings __resource_id =
   let __resource_type = "google_dialogflow_cx_agent" in
   let __resource =
-    ({
-       avatar_uri;
-       default_language_code;
-       description;
-       display_name;
-       enable_spell_correction;
-       enable_stackdriver_logging;
-       id;
-       location;
-       project;
-       security_settings;
-       supported_language_codes;
-       time_zone;
-       advanced_settings;
-       git_integration_settings;
-       speech_to_text_settings;
-       text_to_speech_settings;
-       timeouts;
-     }
-      : google_dialogflow_cx_agent)
+    google_dialogflow_cx_agent ?avatar_uri ?description
+      ?enable_spell_correction ?enable_stackdriver_logging ?id
+      ?project ?security_settings ?supported_language_codes ?timeouts
+      ~default_language_code ~display_name ~location ~time_zone
+      ~advanced_settings ~git_integration_settings
+      ~speech_to_text_settings ~text_to_speech_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_agent __resource);
   let __resource_attributes =
     ({

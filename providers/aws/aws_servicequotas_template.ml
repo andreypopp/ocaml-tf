@@ -13,6 +13,10 @@ type aws_servicequotas_template = {
 [@@deriving yojson_of]
 (** aws_servicequotas_template *)
 
+let aws_servicequotas_template ~quota_code ~region ~service_code
+    ~value () : aws_servicequotas_template =
+  { quota_code; region; service_code; value }
+
 type t = {
   global_quota : bool prop;
   id : string prop;
@@ -25,14 +29,14 @@ type t = {
   value : float prop;
 }
 
-let aws_servicequotas_template ~quota_code ~region ~service_code
-    ~value __resource_id =
+let register ?tf_module ~quota_code ~region ~service_code ~value
+    __resource_id =
   let __resource_type = "aws_servicequotas_template" in
   let __resource =
-    ({ quota_code; region; service_code; value }
-      : aws_servicequotas_template)
+    aws_servicequotas_template ~quota_code ~region ~service_code
+      ~value ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicequotas_template __resource);
   let __resource_attributes =
     ({

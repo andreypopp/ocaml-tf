@@ -4,68 +4,67 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_api__contact = {
+type contact = {
   email : string prop option; [@option]  (** email *)
   name : string prop option; [@option]  (** name *)
   url : string prop option; [@option]  (** url *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api__contact *)
+(** contact *)
 
-type azurerm_api_management_api__import__wsdl_selector = {
+type import__wsdl_selector = {
   endpoint_name : string prop;  (** endpoint_name *)
   service_name : string prop;  (** service_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api__import__wsdl_selector *)
+(** import__wsdl_selector *)
 
-type azurerm_api_management_api__import = {
+type import = {
   content_format : string prop;  (** content_format *)
   content_value : string prop;  (** content_value *)
-  wsdl_selector :
-    azurerm_api_management_api__import__wsdl_selector list;
+  wsdl_selector : import__wsdl_selector list;
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api__import *)
+(** import *)
 
-type azurerm_api_management_api__license = {
+type license = {
   name : string prop option; [@option]  (** name *)
   url : string prop option; [@option]  (** url *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api__license *)
+(** license *)
 
-type azurerm_api_management_api__oauth2_authorization = {
+type oauth2_authorization = {
   authorization_server_name : string prop;
       (** authorization_server_name *)
   scope : string prop option; [@option]  (** scope *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api__oauth2_authorization *)
+(** oauth2_authorization *)
 
-type azurerm_api_management_api__openid_authentication = {
+type openid_authentication = {
   bearer_token_sending_methods : string prop list option; [@option]
       (** bearer_token_sending_methods *)
   openid_provider_name : string prop;  (** openid_provider_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api__openid_authentication *)
+(** openid_authentication *)
 
-type azurerm_api_management_api__subscription_key_parameter_names = {
+type subscription_key_parameter_names = {
   header : string prop;  (** header *)
   query : string prop;  (** query *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api__subscription_key_parameter_names *)
+(** subscription_key_parameter_names *)
 
-type azurerm_api_management_api__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_api = {
   api_management_name : string prop;  (** api_management_name *)
@@ -93,19 +92,82 @@ type azurerm_api_management_api = {
       (** version_description *)
   version_set_id : string prop option; [@option]
       (** version_set_id *)
-  contact : azurerm_api_management_api__contact list;
-  import : azurerm_api_management_api__import list;
-  license : azurerm_api_management_api__license list;
-  oauth2_authorization :
-    azurerm_api_management_api__oauth2_authorization list;
-  openid_authentication :
-    azurerm_api_management_api__openid_authentication list;
+  contact : contact list;
+  import : import list;
+  license : license list;
+  oauth2_authorization : oauth2_authorization list;
+  openid_authentication : openid_authentication list;
   subscription_key_parameter_names :
-    azurerm_api_management_api__subscription_key_parameter_names list;
-  timeouts : azurerm_api_management_api__timeouts option;
+    subscription_key_parameter_names list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api *)
+
+let contact ?email ?name ?url () : contact = { email; name; url }
+
+let import__wsdl_selector ~endpoint_name ~service_name () :
+    import__wsdl_selector =
+  { endpoint_name; service_name }
+
+let import ~content_format ~content_value ~wsdl_selector () : import
+    =
+  { content_format; content_value; wsdl_selector }
+
+let license ?name ?url () : license = { name; url }
+
+let oauth2_authorization ?scope ~authorization_server_name () :
+    oauth2_authorization =
+  { authorization_server_name; scope }
+
+let openid_authentication ?bearer_token_sending_methods
+    ~openid_provider_name () : openid_authentication =
+  { bearer_token_sending_methods; openid_provider_name }
+
+let subscription_key_parameter_names ~header ~query () :
+    subscription_key_parameter_names =
+  { header; query }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_api ?api_type ?description ?display_name
+    ?id ?path ?protocols ?revision_description ?service_url
+    ?soap_pass_through ?source_api_id ?subscription_required
+    ?terms_of_service_url ?version ?version_description
+    ?version_set_id ?timeouts ~api_management_name ~name
+    ~resource_group_name ~revision ~contact ~import ~license
+    ~oauth2_authorization ~openid_authentication
+    ~subscription_key_parameter_names () : azurerm_api_management_api
+    =
+  {
+    api_management_name;
+    api_type;
+    description;
+    display_name;
+    id;
+    name;
+    path;
+    protocols;
+    resource_group_name;
+    revision;
+    revision_description;
+    service_url;
+    soap_pass_through;
+    source_api_id;
+    subscription_required;
+    terms_of_service_url;
+    version;
+    version_description;
+    version_set_id;
+    contact;
+    import;
+    license;
+    oauth2_authorization;
+    openid_authentication;
+    subscription_key_parameter_names;
+    timeouts;
+  }
 
 type t = {
   api_management_name : string prop;
@@ -131,8 +193,8 @@ type t = {
   version_set_id : string prop;
 }
 
-let azurerm_api_management_api ?api_type ?description ?display_name
-    ?id ?path ?protocols ?revision_description ?service_url
+let register ?tf_module ?api_type ?description ?display_name ?id
+    ?path ?protocols ?revision_description ?service_url
     ?soap_pass_through ?source_api_id ?subscription_required
     ?terms_of_service_url ?version ?version_description
     ?version_set_id ?timeouts ~api_management_name ~name
@@ -141,37 +203,16 @@ let azurerm_api_management_api ?api_type ?description ?display_name
     ~subscription_key_parameter_names __resource_id =
   let __resource_type = "azurerm_api_management_api" in
   let __resource =
-    ({
-       api_management_name;
-       api_type;
-       description;
-       display_name;
-       id;
-       name;
-       path;
-       protocols;
-       resource_group_name;
-       revision;
-       revision_description;
-       service_url;
-       soap_pass_through;
-       source_api_id;
-       subscription_required;
-       terms_of_service_url;
-       version;
-       version_description;
-       version_set_id;
-       contact;
-       import;
-       license;
-       oauth2_authorization;
-       openid_authentication;
-       subscription_key_parameter_names;
-       timeouts;
-     }
-      : azurerm_api_management_api)
+    azurerm_api_management_api ?api_type ?description ?display_name
+      ?id ?path ?protocols ?revision_description ?service_url
+      ?soap_pass_through ?source_api_id ?subscription_required
+      ?terms_of_service_url ?version ?version_description
+      ?version_set_id ?timeouts ~api_management_name ~name
+      ~resource_group_name ~revision ~contact ~import ~license
+      ~oauth2_authorization ~openid_authentication
+      ~subscription_key_parameter_names ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_api __resource);
   let __resource_attributes =
     ({

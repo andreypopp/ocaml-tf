@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_search_shared_private_link_service__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_search_shared_private_link_service
+
+val azurerm_search_shared_private_link_service :
+  ?id:string prop ->
+  ?request_message:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  search_service_id:string prop ->
+  subresource_name:string prop ->
+  target_resource_id:string prop ->
+  unit ->
+  azurerm_search_shared_private_link_service
+
+val yojson_of_azurerm_search_shared_private_link_service :
+  azurerm_search_shared_private_link_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,10 +42,11 @@ type t = private {
   target_resource_id : string prop;
 }
 
-val azurerm_search_shared_private_link_service :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?request_message:string prop ->
-  ?timeouts:azurerm_search_shared_private_link_service__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   search_service_id:string prop ->
   subresource_name:string prop ->

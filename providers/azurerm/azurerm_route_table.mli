@@ -2,9 +2,9 @@
 
 open! Tf.Prelude
 
-type azurerm_route_table__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_route_table__route = {
+type route = {
   address_prefix : string prop;  (** address_prefix *)
   name : string prop;  (** name *)
   next_hop_in_ip_address : string prop;
@@ -12,7 +12,33 @@ type azurerm_route_table__route = {
   next_hop_type : string prop;  (** next_hop_type *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_route_table
+
+val azurerm_route_table :
+  ?disable_bgp_route_propagation:bool prop ->
+  ?id:string prop ->
+  ?route:route list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_route_table
+
+val yojson_of_azurerm_route_table : azurerm_route_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   disable_bgp_route_propagation : bool prop;
@@ -20,17 +46,18 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  route : azurerm_route_table__route list prop;
+  route : route list prop;
   subnets : string list prop;
   tags : (string * string) list prop;
 }
 
-val azurerm_route_table :
+val register :
+  ?tf_module:tf_module ->
   ?disable_bgp_route_propagation:bool prop ->
   ?id:string prop ->
-  ?route:azurerm_route_table__route list ->
+  ?route:route list ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_route_table__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

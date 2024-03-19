@@ -4,16 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_media_package_channel__hls_ingest__ingest_endpoints = {
+type hls_ingest__ingest_endpoints = {
   password : string prop;  (** password *)
   url : string prop;  (** url *)
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 
-type aws_media_package_channel__hls_ingest = {
-  ingest_endpoints :
-    aws_media_package_channel__hls_ingest__ingest_endpoints list;
+type hls_ingest = {
+  ingest_endpoints : hls_ingest__ingest_endpoints list;
       (** ingest_endpoints *)
 }
 [@@deriving yojson_of]
@@ -29,24 +28,28 @@ type aws_media_package_channel = {
 [@@deriving yojson_of]
 (** aws_media_package_channel *)
 
+let aws_media_package_channel ?description ?id ?tags ?tags_all
+    ~channel_id () : aws_media_package_channel =
+  { channel_id; description; id; tags; tags_all }
+
 type t = {
   arn : string prop;
   channel_id : string prop;
   description : string prop;
-  hls_ingest : aws_media_package_channel__hls_ingest list prop;
+  hls_ingest : hls_ingest list prop;
   id : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
 }
 
-let aws_media_package_channel ?description ?id ?tags ?tags_all
-    ~channel_id __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~channel_id
+    __resource_id =
   let __resource_type = "aws_media_package_channel" in
   let __resource =
-    ({ channel_id; description; id; tags; tags_all }
-      : aws_media_package_channel)
+    aws_media_package_channel ?description ?id ?tags ?tags_all
+      ~channel_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_media_package_channel __resource);
   let __resource_attributes =
     ({

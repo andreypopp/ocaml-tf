@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type google_deployment_manager_deployment__labels = {
+type labels = {
   key : string prop option; [@option]  (** Key for label. *)
   value : string prop option; [@option]  (** Value of label. *)
 }
 [@@deriving yojson_of]
 (** Key-value pairs to apply to this labels. *)
 
-type google_deployment_manager_deployment__target__config = {
+type target__config = {
   content : string prop;
       (** The full YAML contents of your configuration file. *)
 }
 [@@deriving yojson_of]
 (** The root configuration file to use for this deployment. *)
 
-type google_deployment_manager_deployment__target__imports = {
+type target__imports = {
   content : string prop option; [@option]
       (** The full contents of the template that you want to import. *)
   name : string prop option; [@option]
@@ -30,22 +30,21 @@ configuration. *)
 used to import templates or other files. For example, you might
 import a text file in order to use the file in a template. *)
 
-type google_deployment_manager_deployment__target = {
-  config : google_deployment_manager_deployment__target__config list;
-  imports :
-    google_deployment_manager_deployment__target__imports list;
+type target = {
+  config : target__config list;
+  imports : target__imports list;
 }
 [@@deriving yojson_of]
 (** Parameters that define your deployment, including the deployment
 configuration and relevant templates. *)
 
-type google_deployment_manager_deployment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_deployment_manager_deployment__timeouts *)
+(** timeouts *)
 
 type google_deployment_manager_deployment = {
   create_policy : string prop option; [@option]
@@ -75,12 +74,39 @@ of a deployment in preview (unless updating to preview=false). Thus,
 Terraform will force-recreate deployments if either preview is updated
 to true or if other fields are updated while preview is true. *)
   project : string prop option; [@option]  (** project *)
-  labels : google_deployment_manager_deployment__labels list;
-  target : google_deployment_manager_deployment__target list;
-  timeouts : google_deployment_manager_deployment__timeouts option;
+  labels : labels list;
+  target : target list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_deployment_manager_deployment *)
+
+let labels ?key ?value () : labels = { key; value }
+let target__config ~content () : target__config = { content }
+
+let target__imports ?content ?name () : target__imports =
+  { content; name }
+
+let target ~config ~imports () : target = { config; imports }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_deployment_manager_deployment ?create_policy
+    ?delete_policy ?description ?id ?preview ?project ?timeouts ~name
+    ~labels ~target () : google_deployment_manager_deployment =
+  {
+    create_policy;
+    delete_policy;
+    description;
+    id;
+    name;
+    preview;
+    project;
+    labels;
+    target;
+    timeouts;
+  }
 
 type t = {
   create_policy : string prop;
@@ -95,26 +121,16 @@ type t = {
   self_link : string prop;
 }
 
-let google_deployment_manager_deployment ?create_policy
-    ?delete_policy ?description ?id ?preview ?project ?timeouts ~name
-    ~labels ~target __resource_id =
+let register ?tf_module ?create_policy ?delete_policy ?description
+    ?id ?preview ?project ?timeouts ~name ~labels ~target
+    __resource_id =
   let __resource_type = "google_deployment_manager_deployment" in
   let __resource =
-    ({
-       create_policy;
-       delete_policy;
-       description;
-       id;
-       name;
-       preview;
-       project;
-       labels;
-       target;
-       timeouts;
-     }
-      : google_deployment_manager_deployment)
+    google_deployment_manager_deployment ?create_policy
+      ?delete_policy ?description ?id ?preview ?project ?timeouts
+      ~name ~labels ~target ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_deployment_manager_deployment __resource);
   let __resource_attributes =
     ({

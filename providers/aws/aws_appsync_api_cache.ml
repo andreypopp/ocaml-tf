@@ -18,6 +18,19 @@ type aws_appsync_api_cache = {
 [@@deriving yojson_of]
 (** aws_appsync_api_cache *)
 
+let aws_appsync_api_cache ?at_rest_encryption_enabled ?id
+    ?transit_encryption_enabled ~api_caching_behavior ~api_id ~ttl
+    ~type_ () : aws_appsync_api_cache =
+  {
+    api_caching_behavior;
+    api_id;
+    at_rest_encryption_enabled;
+    id;
+    transit_encryption_enabled;
+    ttl;
+    type_;
+  }
+
 type t = {
   api_caching_behavior : string prop;
   api_id : string prop;
@@ -28,23 +41,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_appsync_api_cache ?at_rest_encryption_enabled ?id
+let register ?tf_module ?at_rest_encryption_enabled ?id
     ?transit_encryption_enabled ~api_caching_behavior ~api_id ~ttl
     ~type_ __resource_id =
   let __resource_type = "aws_appsync_api_cache" in
   let __resource =
-    ({
-       api_caching_behavior;
-       api_id;
-       at_rest_encryption_enabled;
-       id;
-       transit_encryption_enabled;
-       ttl;
-       type_;
-     }
-      : aws_appsync_api_cache)
+    aws_appsync_api_cache ?at_rest_encryption_enabled ?id
+      ?transit_encryption_enabled ~api_caching_behavior ~api_id ~ttl
+      ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_api_cache __resource);
   let __resource_attributes =
     ({

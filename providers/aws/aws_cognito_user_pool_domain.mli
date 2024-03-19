@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cognito_user_pool_domain
+
+val aws_cognito_user_pool_domain :
+  ?certificate_arn:string prop ->
+  ?id:string prop ->
+  domain:string prop ->
+  user_pool_id:string prop ->
+  unit ->
+  aws_cognito_user_pool_domain
+
+val yojson_of_aws_cognito_user_pool_domain :
+  aws_cognito_user_pool_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   aws_account_id : string prop;
@@ -17,7 +32,8 @@ type t = private {
   version : string prop;
 }
 
-val aws_cognito_user_pool_domain :
+val register :
+  ?tf_module:tf_module ->
   ?certificate_arn:string prop ->
   ?id:string prop ->
   domain:string prop ->

@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type google_tags_tag_value_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_tags_tag_value_iam_binding__condition *)
+(** condition *)
 
 type google_tags_tag_value_iam_binding = {
   id : string prop option; [@option]  (** id *)
   members : string prop list;  (** members *)
   role : string prop;  (** role *)
   tag_value : string prop;  (** tag_value *)
-  condition : google_tags_tag_value_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_tags_tag_value_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_tags_tag_value_iam_binding ?id ~members ~role ~tag_value
+    ~condition () : google_tags_tag_value_iam_binding =
+  { id; members; role; tag_value; condition }
 
 type t = {
   etag : string prop;
@@ -30,14 +37,14 @@ type t = {
   tag_value : string prop;
 }
 
-let google_tags_tag_value_iam_binding ?id ~members ~role ~tag_value
-    ~condition __resource_id =
+let register ?tf_module ?id ~members ~role ~tag_value ~condition
+    __resource_id =
   let __resource_type = "google_tags_tag_value_iam_binding" in
   let __resource =
-    ({ id; members; role; tag_value; condition }
-      : google_tags_tag_value_iam_binding)
+    google_tags_tag_value_iam_binding ?id ~members ~role ~tag_value
+      ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_value_iam_binding __resource);
   let __resource_attributes =
     ({

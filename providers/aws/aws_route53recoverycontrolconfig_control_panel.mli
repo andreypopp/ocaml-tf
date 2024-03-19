@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53recoverycontrolconfig_control_panel
+
+val aws_route53recoverycontrolconfig_control_panel :
+  ?id:string prop ->
+  cluster_arn:string prop ->
+  name:string prop ->
+  unit ->
+  aws_route53recoverycontrolconfig_control_panel
+
+val yojson_of_aws_route53recoverycontrolconfig_control_panel :
+  aws_route53recoverycontrolconfig_control_panel -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +28,8 @@ type t = private {
   status : string prop;
 }
 
-val aws_route53recoverycontrolconfig_control_panel :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   cluster_arn:string prop ->
   name:string prop ->

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ec2_client_vpn_route__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_client_vpn_route__timeouts *)
+(** timeouts *)
 
 type aws_ec2_client_vpn_route = {
   client_vpn_endpoint_id : string prop;
@@ -19,10 +19,24 @@ type aws_ec2_client_vpn_route = {
       (** destination_cidr_block *)
   id : string prop option; [@option]  (** id *)
   target_vpc_subnet_id : string prop;  (** target_vpc_subnet_id *)
-  timeouts : aws_ec2_client_vpn_route__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_client_vpn_route *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ec2_client_vpn_route ?description ?id ?timeouts
+    ~client_vpn_endpoint_id ~destination_cidr_block
+    ~target_vpc_subnet_id () : aws_ec2_client_vpn_route =
+  {
+    client_vpn_endpoint_id;
+    description;
+    destination_cidr_block;
+    id;
+    target_vpc_subnet_id;
+    timeouts;
+  }
 
 type t = {
   client_vpn_endpoint_id : string prop;
@@ -34,22 +48,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_ec2_client_vpn_route ?description ?id ?timeouts
+let register ?tf_module ?description ?id ?timeouts
     ~client_vpn_endpoint_id ~destination_cidr_block
     ~target_vpc_subnet_id __resource_id =
   let __resource_type = "aws_ec2_client_vpn_route" in
   let __resource =
-    ({
-       client_vpn_endpoint_id;
-       description;
-       destination_cidr_block;
-       id;
-       target_vpc_subnet_id;
-       timeouts;
-     }
-      : aws_ec2_client_vpn_route)
+    aws_ec2_client_vpn_route ?description ?id ?timeouts
+      ~client_vpn_endpoint_id ~destination_cidr_block
+      ~target_vpc_subnet_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_client_vpn_route __resource);
   let __resource_attributes =
     ({

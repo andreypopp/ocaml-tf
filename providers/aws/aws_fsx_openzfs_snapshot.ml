@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_fsx_openzfs_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_openzfs_snapshot__timeouts *)
+(** timeouts *)
 
 type aws_fsx_openzfs_snapshot = {
   id : string prop option; [@option]  (** id *)
@@ -20,10 +20,17 @@ type aws_fsx_openzfs_snapshot = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   volume_id : string prop;  (** volume_id *)
-  timeouts : aws_fsx_openzfs_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_fsx_openzfs_snapshot *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let aws_fsx_openzfs_snapshot ?id ?tags ?tags_all ?timeouts ~name
+    ~volume_id () : aws_fsx_openzfs_snapshot =
+  { id; name; tags; tags_all; volume_id; timeouts }
 
 type t = {
   arn : string prop;
@@ -35,14 +42,14 @@ type t = {
   volume_id : string prop;
 }
 
-let aws_fsx_openzfs_snapshot ?id ?tags ?tags_all ?timeouts ~name
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~name
     ~volume_id __resource_id =
   let __resource_type = "aws_fsx_openzfs_snapshot" in
   let __resource =
-    ({ id; name; tags; tags_all; volume_id; timeouts }
-      : aws_fsx_openzfs_snapshot)
+    aws_fsx_openzfs_snapshot ?id ?tags ?tags_all ?timeouts ~name
+      ~volume_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_openzfs_snapshot __resource);
   let __resource_attributes =
     ({

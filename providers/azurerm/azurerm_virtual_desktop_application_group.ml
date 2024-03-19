@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_desktop_application_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_desktop_application_group__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_desktop_application_group = {
   default_desktop_display_name : string prop option; [@option]
@@ -25,11 +25,32 @@ type azurerm_virtual_desktop_application_group = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   type_ : string prop; [@key "type"]  (** type *)
-  timeouts :
-    azurerm_virtual_desktop_application_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_application_group *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_desktop_application_group
+    ?default_desktop_display_name ?description ?friendly_name ?id
+    ?tags ?timeouts ~host_pool_id ~location ~name
+    ~resource_group_name ~type_ () :
+    azurerm_virtual_desktop_application_group =
+  {
+    default_desktop_display_name;
+    description;
+    friendly_name;
+    host_pool_id;
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    type_;
+    timeouts;
+  }
 
 type t = {
   default_desktop_display_name : string prop;
@@ -44,30 +65,19 @@ type t = {
   type_ : string prop;
 }
 
-let azurerm_virtual_desktop_application_group
-    ?default_desktop_display_name ?description ?friendly_name ?id
-    ?tags ?timeouts ~host_pool_id ~location ~name
+let register ?tf_module ?default_desktop_display_name ?description
+    ?friendly_name ?id ?tags ?timeouts ~host_pool_id ~location ~name
     ~resource_group_name ~type_ __resource_id =
   let __resource_type =
     "azurerm_virtual_desktop_application_group"
   in
   let __resource =
-    ({
-       default_desktop_display_name;
-       description;
-       friendly_name;
-       host_pool_id;
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       type_;
-       timeouts;
-     }
-      : azurerm_virtual_desktop_application_group)
+    azurerm_virtual_desktop_application_group
+      ?default_desktop_display_name ?description ?friendly_name ?id
+      ?tags ?timeouts ~host_pool_id ~location ~name
+      ~resource_group_name ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_desktop_application_group __resource);
   let __resource_attributes =
     ({

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_filestore_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_filestore_snapshot__timeouts *)
+(** timeouts *)
 
 type google_filestore_snapshot = {
   description : string prop option; [@option]
@@ -36,10 +36,27 @@ first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_filestore_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_filestore_snapshot *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_filestore_snapshot ?description ?id ?labels ?project
+    ?timeouts ~instance ~location ~name () :
+    google_filestore_snapshot =
+  {
+    description;
+    id;
+    instance;
+    labels;
+    location;
+    name;
+    project;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -56,23 +73,14 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_filestore_snapshot ?description ?id ?labels ?project
-    ?timeouts ~instance ~location ~name __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~instance ~location ~name __resource_id =
   let __resource_type = "google_filestore_snapshot" in
   let __resource =
-    ({
-       description;
-       id;
-       instance;
-       labels;
-       location;
-       name;
-       project;
-       timeouts;
-     }
-      : google_filestore_snapshot)
+    google_filestore_snapshot ?description ?id ?labels ?project
+      ?timeouts ~instance ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_filestore_snapshot __resource);
   let __resource_attributes =
     ({

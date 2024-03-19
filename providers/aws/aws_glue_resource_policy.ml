@@ -12,19 +12,22 @@ type aws_glue_resource_policy = {
 [@@deriving yojson_of]
 (** aws_glue_resource_policy *)
 
+let aws_glue_resource_policy ?enable_hybrid ?id ~policy () :
+    aws_glue_resource_policy =
+  { enable_hybrid; id; policy }
+
 type t = {
   enable_hybrid : string prop;
   id : string prop;
   policy : string prop;
 }
 
-let aws_glue_resource_policy ?enable_hybrid ?id ~policy __resource_id
-    =
+let register ?tf_module ?enable_hybrid ?id ~policy __resource_id =
   let __resource_type = "aws_glue_resource_policy" in
   let __resource =
-    ({ enable_hybrid; id; policy } : aws_glue_resource_policy)
+    aws_glue_resource_policy ?enable_hybrid ?id ~policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_resource_policy __resource);
   let __resource_attributes =
     ({

@@ -13,6 +13,10 @@ type aws_codecommit_approval_rule_template = {
 [@@deriving yojson_of]
 (** aws_codecommit_approval_rule_template *)
 
+let aws_codecommit_approval_rule_template ?description ?id ~content
+    ~name () : aws_codecommit_approval_rule_template =
+  { content; description; id; name }
+
 type t = {
   approval_rule_template_id : string prop;
   content : string prop;
@@ -25,14 +29,14 @@ type t = {
   rule_content_sha256 : string prop;
 }
 
-let aws_codecommit_approval_rule_template ?description ?id ~content
-    ~name __resource_id =
+let register ?tf_module ?description ?id ~content ~name __resource_id
+    =
   let __resource_type = "aws_codecommit_approval_rule_template" in
   let __resource =
-    ({ content; description; id; name }
-      : aws_codecommit_approval_rule_template)
+    aws_codecommit_approval_rule_template ?description ?id ~content
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecommit_approval_rule_template __resource);
   let __resource_attributes =
     ({

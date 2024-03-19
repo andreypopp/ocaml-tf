@@ -4,17 +4,17 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_nfs__mount_options = {
+type mount_options = {
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_nfs__mount_options *)
+(** mount_options *)
 
-type aws_datasync_location_nfs__on_prem_config = {
+type on_prem_config = {
   agent_arns : string prop list;  (** agent_arns *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_nfs__on_prem_config *)
+(** on_prem_config *)
 
 type aws_datasync_location_nfs = {
   id : string prop option; [@option]  (** id *)
@@ -23,11 +23,27 @@ type aws_datasync_location_nfs = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  mount_options : aws_datasync_location_nfs__mount_options list;
-  on_prem_config : aws_datasync_location_nfs__on_prem_config list;
+  mount_options : mount_options list;
+  on_prem_config : on_prem_config list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_nfs *)
+
+let mount_options ?version () : mount_options = { version }
+let on_prem_config ~agent_arns () : on_prem_config = { agent_arns }
+
+let aws_datasync_location_nfs ?id ?tags ?tags_all ~server_hostname
+    ~subdirectory ~mount_options ~on_prem_config () :
+    aws_datasync_location_nfs =
+  {
+    id;
+    server_hostname;
+    subdirectory;
+    tags;
+    tags_all;
+    mount_options;
+    on_prem_config;
+  }
 
 type t = {
   arn : string prop;
@@ -39,22 +55,14 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_nfs ?id ?tags ?tags_all ~server_hostname
+let register ?tf_module ?id ?tags ?tags_all ~server_hostname
     ~subdirectory ~mount_options ~on_prem_config __resource_id =
   let __resource_type = "aws_datasync_location_nfs" in
   let __resource =
-    ({
-       id;
-       server_hostname;
-       subdirectory;
-       tags;
-       tags_all;
-       mount_options;
-       on_prem_config;
-     }
-      : aws_datasync_location_nfs)
+    aws_datasync_location_nfs ?id ?tags ?tags_all ~server_hostname
+      ~subdirectory ~mount_options ~on_prem_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_nfs __resource);
   let __resource_attributes =
     ({

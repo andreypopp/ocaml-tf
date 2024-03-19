@@ -25,6 +25,25 @@ type aws_lambda_layer_version = {
 [@@deriving yojson_of]
 (** aws_lambda_layer_version *)
 
+let aws_lambda_layer_version ?compatible_architectures
+    ?compatible_runtimes ?description ?filename ?id ?license_info
+    ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
+    ?source_code_hash ~layer_name () : aws_lambda_layer_version =
+  {
+    compatible_architectures;
+    compatible_runtimes;
+    description;
+    filename;
+    id;
+    layer_name;
+    license_info;
+    s3_bucket;
+    s3_key;
+    s3_object_version;
+    skip_destroy;
+    source_code_hash;
+  }
+
 type t = {
   arn : string prop;
   compatible_architectures : string list prop;
@@ -47,29 +66,18 @@ type t = {
   version : string prop;
 }
 
-let aws_lambda_layer_version ?compatible_architectures
+let register ?tf_module ?compatible_architectures
     ?compatible_runtimes ?description ?filename ?id ?license_info
     ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
     ?source_code_hash ~layer_name __resource_id =
   let __resource_type = "aws_lambda_layer_version" in
   let __resource =
-    ({
-       compatible_architectures;
-       compatible_runtimes;
-       description;
-       filename;
-       id;
-       layer_name;
-       license_info;
-       s3_bucket;
-       s3_key;
-       s3_object_version;
-       skip_destroy;
-       source_code_hash;
-     }
-      : aws_lambda_layer_version)
+    aws_lambda_layer_version ?compatible_architectures
+      ?compatible_runtimes ?description ?filename ?id ?license_info
+      ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
+      ?source_code_hash ~layer_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_layer_version __resource);
   let __resource_attributes =
     ({

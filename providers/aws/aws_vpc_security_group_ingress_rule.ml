@@ -21,6 +21,23 @@ type aws_vpc_security_group_ingress_rule = {
 [@@deriving yojson_of]
 (** aws_vpc_security_group_ingress_rule *)
 
+let aws_vpc_security_group_ingress_rule ?cidr_ipv4 ?cidr_ipv6
+    ?description ?from_port ?prefix_list_id
+    ?referenced_security_group_id ?tags ?to_port ~ip_protocol
+    ~security_group_id () : aws_vpc_security_group_ingress_rule =
+  {
+    cidr_ipv4;
+    cidr_ipv6;
+    description;
+    from_port;
+    ip_protocol;
+    prefix_list_id;
+    referenced_security_group_id;
+    security_group_id;
+    tags;
+    to_port;
+  }
+
 type t = {
   arn : string prop;
   cidr_ipv4 : string prop;
@@ -38,27 +55,17 @@ type t = {
   to_port : float prop;
 }
 
-let aws_vpc_security_group_ingress_rule ?cidr_ipv4 ?cidr_ipv6
-    ?description ?from_port ?prefix_list_id
-    ?referenced_security_group_id ?tags ?to_port ~ip_protocol
-    ~security_group_id __resource_id =
+let register ?tf_module ?cidr_ipv4 ?cidr_ipv6 ?description ?from_port
+    ?prefix_list_id ?referenced_security_group_id ?tags ?to_port
+    ~ip_protocol ~security_group_id __resource_id =
   let __resource_type = "aws_vpc_security_group_ingress_rule" in
   let __resource =
-    ({
-       cidr_ipv4;
-       cidr_ipv6;
-       description;
-       from_port;
-       ip_protocol;
-       prefix_list_id;
-       referenced_security_group_id;
-       security_group_id;
-       tags;
-       to_port;
-     }
-      : aws_vpc_security_group_ingress_rule)
+    aws_vpc_security_group_ingress_rule ?cidr_ipv4 ?cidr_ipv6
+      ?description ?from_port ?prefix_list_id
+      ?referenced_security_group_id ?tags ?to_port ~ip_protocol
+      ~security_group_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_security_group_ingress_rule __resource);
   let __resource_attributes =
     ({

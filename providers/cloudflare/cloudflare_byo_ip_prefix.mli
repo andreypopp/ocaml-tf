@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_byo_ip_prefix
+
+val cloudflare_byo_ip_prefix :
+  ?advertisement:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  prefix_id:string prop ->
+  unit ->
+  cloudflare_byo_ip_prefix
+
+val yojson_of_cloudflare_byo_ip_prefix :
+  cloudflare_byo_ip_prefix -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -12,7 +28,8 @@ type t = private {
   prefix_id : string prop;
 }
 
-val cloudflare_byo_ip_prefix :
+val register :
+  ?tf_module:tf_module ->
   ?advertisement:string prop ->
   ?description:string prop ->
   ?id:string prop ->

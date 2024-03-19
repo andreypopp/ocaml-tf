@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_custom_ip_prefix__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_custom_ip_prefix__timeouts *)
+(** timeouts *)
 
 type azurerm_custom_ip_prefix = {
   cidr : string prop;  (** cidr *)
@@ -31,10 +31,34 @@ type azurerm_custom_ip_prefix = {
   wan_validation_signed_message : string prop option; [@option]
       (** wan_validation_signed_message *)
   zones : string prop list option; [@option]  (** zones *)
-  timeouts : azurerm_custom_ip_prefix__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_custom_ip_prefix *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_custom_ip_prefix ?commissioning_enabled ?id
+    ?internet_advertising_disabled ?parent_custom_ip_prefix_id
+    ?roa_validity_end_date ?tags ?wan_validation_signed_message
+    ?zones ?timeouts ~cidr ~location ~name ~resource_group_name () :
+    azurerm_custom_ip_prefix =
+  {
+    cidr;
+    commissioning_enabled;
+    id;
+    internet_advertising_disabled;
+    location;
+    name;
+    parent_custom_ip_prefix_id;
+    resource_group_name;
+    roa_validity_end_date;
+    tags;
+    wan_validation_signed_message;
+    zones;
+    timeouts;
+  }
 
 type t = {
   cidr : string prop;
@@ -51,31 +75,19 @@ type t = {
   zones : string list prop;
 }
 
-let azurerm_custom_ip_prefix ?commissioning_enabled ?id
+let register ?tf_module ?commissioning_enabled ?id
     ?internet_advertising_disabled ?parent_custom_ip_prefix_id
     ?roa_validity_end_date ?tags ?wan_validation_signed_message
     ?zones ?timeouts ~cidr ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_custom_ip_prefix" in
   let __resource =
-    ({
-       cidr;
-       commissioning_enabled;
-       id;
-       internet_advertising_disabled;
-       location;
-       name;
-       parent_custom_ip_prefix_id;
-       resource_group_name;
-       roa_validity_end_date;
-       tags;
-       wan_validation_signed_message;
-       zones;
-       timeouts;
-     }
-      : azurerm_custom_ip_prefix)
+    azurerm_custom_ip_prefix ?commissioning_enabled ?id
+      ?internet_advertising_disabled ?parent_custom_ip_prefix_id
+      ?roa_validity_end_date ?tags ?wan_validation_signed_message
+      ?zones ?timeouts ~cidr ~location ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_custom_ip_prefix __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_gke_backup_backup_plan__backup_config__encryption_key = {
+type backup_config__encryption_key = {
   gcp_kms_encryption_key : string prop;
       (** Google Cloud KMS encryption key. Format: projects/*/locations/*/keyRings/*/cryptoKeys/* *)
 }
@@ -12,7 +12,7 @@ type google_gke_backup_backup_plan__backup_config__encryption_key = {
 (** This defines a customer managed encryption key that will be used to encrypt the config
 portion (the Kubernetes resources) of Backups created via this plan. *)
 
-type google_gke_backup_backup_plan__backup_config__selected_applications__namespaced_names = {
+type backup_config__selected_applications__namespaced_names = {
   name : string prop;  (** The name of a Kubernetes Resource. *)
   namespace : string prop;
       (** The namespace of a Kubernetes Resource. *)
@@ -20,22 +20,21 @@ type google_gke_backup_backup_plan__backup_config__selected_applications__namesp
 [@@deriving yojson_of]
 (** A list of namespaced Kubernetes resources. *)
 
-type google_gke_backup_backup_plan__backup_config__selected_applications = {
+type backup_config__selected_applications = {
   namespaced_names :
-    google_gke_backup_backup_plan__backup_config__selected_applications__namespaced_names
-    list;
+    backup_config__selected_applications__namespaced_names list;
 }
 [@@deriving yojson_of]
 (** A list of namespaced Kubernetes Resources. *)
 
-type google_gke_backup_backup_plan__backup_config__selected_namespaces = {
+type backup_config__selected_namespaces = {
   namespaces : string prop list;
       (** A list of Kubernetes Namespaces. *)
 }
 [@@deriving yojson_of]
 (** If set, include just the resources in the listed namespaces. *)
 
-type google_gke_backup_backup_plan__backup_config = {
+type backup_config = {
   all_namespaces : bool prop option; [@option]
       (** If True, include all namespaced resources. *)
   include_secrets : bool prop option; [@option]
@@ -44,19 +43,14 @@ when they fall into the scope of Backups. *)
   include_volume_data : bool prop option; [@option]
       (** This flag specifies whether volume data should be backed up when PVCs are
 included in the scope of a Backup. *)
-  encryption_key :
-    google_gke_backup_backup_plan__backup_config__encryption_key list;
-  selected_applications :
-    google_gke_backup_backup_plan__backup_config__selected_applications
-    list;
-  selected_namespaces :
-    google_gke_backup_backup_plan__backup_config__selected_namespaces
-    list;
+  encryption_key : backup_config__encryption_key list;
+  selected_applications : backup_config__selected_applications list;
+  selected_namespaces : backup_config__selected_namespaces list;
 }
 [@@deriving yojson_of]
 (** Defines the configuration of Backups created via this BackupPlan. *)
 
-type google_gke_backup_backup_plan__backup_schedule = {
+type backup_schedule = {
   cron_schedule : string prop option; [@option]
       (** A standard cron string that defines a repeating schedule for
 creating Backups via this BackupPlan.
@@ -67,7 +61,7 @@ If this is defined, then backupRetainDays must also be defined. *)
 [@@deriving yojson_of]
 (** Defines a schedule for automatic Backup creation via this BackupPlan. *)
 
-type google_gke_backup_backup_plan__retention_policy = {
+type retention_policy = {
   backup_delete_lock_days : float prop option; [@option]
       (** Minimum age for a Backup created via this BackupPlan (in days).
 Must be an integer value between 0-90 (inclusive).
@@ -94,13 +88,13 @@ the locked field itself. *)
 [@@deriving yojson_of]
 (** RetentionPolicy governs lifecycle of Backups created under this plan. *)
 
-type google_gke_backup_backup_plan__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gke_backup_backup_plan__timeouts *)
+(** timeouts *)
 
 type google_gke_backup_backup_plan = {
   cluster : string prop;
@@ -125,15 +119,71 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string prop;
       (** The full name of the BackupPlan Resource. *)
   project : string prop option; [@option]  (** project *)
-  backup_config : google_gke_backup_backup_plan__backup_config list;
-  backup_schedule :
-    google_gke_backup_backup_plan__backup_schedule list;
-  retention_policy :
-    google_gke_backup_backup_plan__retention_policy list;
-  timeouts : google_gke_backup_backup_plan__timeouts option;
+  backup_config : backup_config list;
+  backup_schedule : backup_schedule list;
+  retention_policy : retention_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gke_backup_backup_plan *)
+
+let backup_config__encryption_key ~gcp_kms_encryption_key () :
+    backup_config__encryption_key =
+  { gcp_kms_encryption_key }
+
+let backup_config__selected_applications__namespaced_names ~name
+    ~namespace () :
+    backup_config__selected_applications__namespaced_names =
+  { name; namespace }
+
+let backup_config__selected_applications ~namespaced_names () :
+    backup_config__selected_applications =
+  { namespaced_names }
+
+let backup_config__selected_namespaces ~namespaces () :
+    backup_config__selected_namespaces =
+  { namespaces }
+
+let backup_config ?all_namespaces ?include_secrets
+    ?include_volume_data ~encryption_key ~selected_applications
+    ~selected_namespaces () : backup_config =
+  {
+    all_namespaces;
+    include_secrets;
+    include_volume_data;
+    encryption_key;
+    selected_applications;
+    selected_namespaces;
+  }
+
+let backup_schedule ?cron_schedule ?paused () : backup_schedule =
+  { cron_schedule; paused }
+
+let retention_policy ?backup_delete_lock_days ?backup_retain_days
+    ?locked () : retention_policy =
+  { backup_delete_lock_days; backup_retain_days; locked }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gke_backup_backup_plan ?deactivated ?description ?id
+    ?labels ?project ?timeouts ~cluster ~location ~name
+    ~backup_config ~backup_schedule ~retention_policy () :
+    google_gke_backup_backup_plan =
+  {
+    cluster;
+    deactivated;
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    backup_config;
+    backup_schedule;
+    retention_policy;
+    timeouts;
+  }
 
 type t = {
   cluster : string prop;
@@ -153,28 +203,16 @@ type t = {
   uid : string prop;
 }
 
-let google_gke_backup_backup_plan ?deactivated ?description ?id
-    ?labels ?project ?timeouts ~cluster ~location ~name
-    ~backup_config ~backup_schedule ~retention_policy __resource_id =
+let register ?tf_module ?deactivated ?description ?id ?labels
+    ?project ?timeouts ~cluster ~location ~name ~backup_config
+    ~backup_schedule ~retention_policy __resource_id =
   let __resource_type = "google_gke_backup_backup_plan" in
   let __resource =
-    ({
-       cluster;
-       deactivated;
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       backup_config;
-       backup_schedule;
-       retention_policy;
-       timeouts;
-     }
-      : google_gke_backup_backup_plan)
+    google_gke_backup_backup_plan ?deactivated ?description ?id
+      ?labels ?project ?timeouts ~cluster ~location ~name
+      ~backup_config ~backup_schedule ~retention_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_backup_backup_plan __resource);
   let __resource_attributes =
     ({

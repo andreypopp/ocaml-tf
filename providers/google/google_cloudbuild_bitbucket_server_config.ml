@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloudbuild_bitbucket_server_config__connected_repositories = {
+type connected_repositories = {
   project_key : string prop;
       (** Identifier for the project storing the repository. *)
   repo_slug : string prop;  (** Identifier for the repository. *)
@@ -12,7 +12,7 @@ type google_cloudbuild_bitbucket_server_config__connected_repositories = {
 [@@deriving yojson_of]
 (** Connected Bitbucket Server repositories for this config. *)
 
-type google_cloudbuild_bitbucket_server_config__secrets = {
+type secrets = {
   admin_access_token_version_name : string prop;
       (** The resource name for the admin access token's secret version. *)
   read_access_token_version_name : string prop;
@@ -24,13 +24,13 @@ Changing this field will result in deleting/ recreating the resource. *)
 [@@deriving yojson_of]
 (** Secret Manager secrets needed by the config. *)
 
-type google_cloudbuild_bitbucket_server_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloudbuild_bitbucket_server_config__timeouts *)
+(** timeouts *)
 
 type google_cloudbuild_bitbucket_server_config = {
   api_key : string prop;
@@ -54,15 +54,47 @@ projects/{project}/global/networks/{network}, where {project} is a project numbe
       (** SSL certificate to use for requests to Bitbucket Server. The format should be PEM format but the extension can be one of .pem, .cer, or .crt. *)
   username : string prop;
       (** Username of the account Cloud Build will use on Bitbucket Server. *)
-  connected_repositories :
-    google_cloudbuild_bitbucket_server_config__connected_repositories
-    list;
-  secrets : google_cloudbuild_bitbucket_server_config__secrets list;
-  timeouts :
-    google_cloudbuild_bitbucket_server_config__timeouts option;
+  connected_repositories : connected_repositories list;
+  secrets : secrets list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloudbuild_bitbucket_server_config *)
+
+let connected_repositories ~project_key ~repo_slug () :
+    connected_repositories =
+  { project_key; repo_slug }
+
+let secrets ~admin_access_token_version_name
+    ~read_access_token_version_name ~webhook_secret_version_name () :
+    secrets =
+  {
+    admin_access_token_version_name;
+    read_access_token_version_name;
+    webhook_secret_version_name;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_cloudbuild_bitbucket_server_config ?id ?peered_network
+    ?project ?ssl_ca ?timeouts ~api_key ~config_id ~host_uri
+    ~location ~username ~connected_repositories ~secrets () :
+    google_cloudbuild_bitbucket_server_config =
+  {
+    api_key;
+    config_id;
+    host_uri;
+    id;
+    location;
+    peered_network;
+    project;
+    ssl_ca;
+    username;
+    connected_repositories;
+    secrets;
+    timeouts;
+  }
 
 type t = {
   api_key : string prop;
@@ -78,31 +110,18 @@ type t = {
   webhook_key : string prop;
 }
 
-let google_cloudbuild_bitbucket_server_config ?id ?peered_network
-    ?project ?ssl_ca ?timeouts ~api_key ~config_id ~host_uri
-    ~location ~username ~connected_repositories ~secrets
-    __resource_id =
+let register ?tf_module ?id ?peered_network ?project ?ssl_ca
+    ?timeouts ~api_key ~config_id ~host_uri ~location ~username
+    ~connected_repositories ~secrets __resource_id =
   let __resource_type =
     "google_cloudbuild_bitbucket_server_config"
   in
   let __resource =
-    ({
-       api_key;
-       config_id;
-       host_uri;
-       id;
-       location;
-       peered_network;
-       project;
-       ssl_ca;
-       username;
-       connected_repositories;
-       secrets;
-       timeouts;
-     }
-      : google_cloudbuild_bitbucket_server_config)
+    google_cloudbuild_bitbucket_server_config ?id ?peered_network
+      ?project ?ssl_ca ?timeouts ~api_key ~config_id ~host_uri
+      ~location ~username ~connected_repositories ~secrets ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudbuild_bitbucket_server_config __resource);
   let __resource_attributes =
     ({

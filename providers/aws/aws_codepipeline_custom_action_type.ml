@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_codepipeline_custom_action_type__configuration_property = {
+type configuration_property = {
   description : string prop option; [@option]  (** description *)
   key : bool prop;  (** key *)
   name : string prop;  (** name *)
@@ -14,23 +14,23 @@ type aws_codepipeline_custom_action_type__configuration_property = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline_custom_action_type__configuration_property *)
+(** configuration_property *)
 
-type aws_codepipeline_custom_action_type__input_artifact_details = {
+type input_artifact_details = {
   maximum_count : float prop;  (** maximum_count *)
   minimum_count : float prop;  (** minimum_count *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline_custom_action_type__input_artifact_details *)
+(** input_artifact_details *)
 
-type aws_codepipeline_custom_action_type__output_artifact_details = {
+type output_artifact_details = {
   maximum_count : float prop;  (** maximum_count *)
   minimum_count : float prop;  (** minimum_count *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline_custom_action_type__output_artifact_details *)
+(** output_artifact_details *)
 
-type aws_codepipeline_custom_action_type__settings = {
+type settings = {
   entity_url_template : string prop option; [@option]
       (** entity_url_template *)
   execution_url_template : string prop option; [@option]
@@ -41,7 +41,7 @@ type aws_codepipeline_custom_action_type__settings = {
       (** third_party_configuration_url *)
 }
 [@@deriving yojson_of]
-(** aws_codepipeline_custom_action_type__settings *)
+(** settings *)
 
 type aws_codepipeline_custom_action_type = {
   category : string prop;  (** category *)
@@ -51,16 +51,52 @@ type aws_codepipeline_custom_action_type = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   version : string prop;  (** version *)
-  configuration_property :
-    aws_codepipeline_custom_action_type__configuration_property list;
-  input_artifact_details :
-    aws_codepipeline_custom_action_type__input_artifact_details list;
-  output_artifact_details :
-    aws_codepipeline_custom_action_type__output_artifact_details list;
-  settings : aws_codepipeline_custom_action_type__settings list;
+  configuration_property : configuration_property list;
+  input_artifact_details : input_artifact_details list;
+  output_artifact_details : output_artifact_details list;
+  settings : settings list;
 }
 [@@deriving yojson_of]
 (** aws_codepipeline_custom_action_type *)
+
+let configuration_property ?description ?queryable ?type_ ~key ~name
+    ~required ~secret () : configuration_property =
+  { description; key; name; queryable; required; secret; type_ }
+
+let input_artifact_details ~maximum_count ~minimum_count () :
+    input_artifact_details =
+  { maximum_count; minimum_count }
+
+let output_artifact_details ~maximum_count ~minimum_count () :
+    output_artifact_details =
+  { maximum_count; minimum_count }
+
+let settings ?entity_url_template ?execution_url_template
+    ?revision_url_template ?third_party_configuration_url () :
+    settings =
+  {
+    entity_url_template;
+    execution_url_template;
+    revision_url_template;
+    third_party_configuration_url;
+  }
+
+let aws_codepipeline_custom_action_type ?id ?tags ?tags_all ~category
+    ~provider_name ~version ~configuration_property
+    ~input_artifact_details ~output_artifact_details ~settings () :
+    aws_codepipeline_custom_action_type =
+  {
+    category;
+    id;
+    provider_name;
+    tags;
+    tags_all;
+    version;
+    configuration_property;
+    input_artifact_details;
+    output_artifact_details;
+    settings;
+  }
 
 type t = {
   arn : string prop;
@@ -73,27 +109,16 @@ type t = {
   version : string prop;
 }
 
-let aws_codepipeline_custom_action_type ?id ?tags ?tags_all ~category
-    ~provider_name ~version ~configuration_property
-    ~input_artifact_details ~output_artifact_details ~settings
-    __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~category ~provider_name
+    ~version ~configuration_property ~input_artifact_details
+    ~output_artifact_details ~settings __resource_id =
   let __resource_type = "aws_codepipeline_custom_action_type" in
   let __resource =
-    ({
-       category;
-       id;
-       provider_name;
-       tags;
-       tags_all;
-       version;
-       configuration_property;
-       input_artifact_details;
-       output_artifact_details;
-       settings;
-     }
-      : aws_codepipeline_custom_action_type)
+    aws_codepipeline_custom_action_type ?id ?tags ?tags_all ~category
+      ~provider_name ~version ~configuration_property
+      ~input_artifact_details ~output_artifact_details ~settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codepipeline_custom_action_type __resource);
   let __resource_attributes =
     ({

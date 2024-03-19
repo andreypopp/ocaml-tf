@@ -2,9 +2,48 @@
 
 open! Tf.Prelude
 
-type azurerm_blueprint_assignment__identity
-type azurerm_blueprint_assignment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_blueprint_assignment
+
+val azurerm_blueprint_assignment :
+  ?id:string prop ->
+  ?lock_exclude_actions:string prop list ->
+  ?lock_exclude_principals:string prop list ->
+  ?lock_mode:string prop ->
+  ?parameter_values:string prop ->
+  ?resource_groups:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  target_subscription_id:string prop ->
+  version_id:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_blueprint_assignment
+
+val yojson_of_azurerm_blueprint_assignment :
+  azurerm_blueprint_assignment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   blueprint_name : string prop;
@@ -23,18 +62,19 @@ type t = private {
   version_id : string prop;
 }
 
-val azurerm_blueprint_assignment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?lock_exclude_actions:string prop list ->
   ?lock_exclude_principals:string prop list ->
   ?lock_mode:string prop ->
   ?parameter_values:string prop ->
   ?resource_groups:string prop ->
-  ?timeouts:azurerm_blueprint_assignment__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   target_subscription_id:string prop ->
   version_id:string prop ->
-  identity:azurerm_blueprint_assignment__identity list ->
+  identity:identity list ->
   string ->
   t

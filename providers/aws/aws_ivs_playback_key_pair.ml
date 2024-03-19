@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ivs_playback_key_pair__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ivs_playback_key_pair__timeouts *)
+(** timeouts *)
 
 type aws_ivs_playback_key_pair = {
   id : string prop option; [@option]  (** id *)
@@ -18,10 +18,16 @@ type aws_ivs_playback_key_pair = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_ivs_playback_key_pair__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ivs_playback_key_pair *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ivs_playback_key_pair ?id ?name ?tags ?tags_all ?timeouts
+    ~public_key () : aws_ivs_playback_key_pair =
+  { id; name; public_key; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -33,14 +39,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ivs_playback_key_pair ?id ?name ?tags ?tags_all ?timeouts
+let register ?tf_module ?id ?name ?tags ?tags_all ?timeouts
     ~public_key __resource_id =
   let __resource_type = "aws_ivs_playback_key_pair" in
   let __resource =
-    ({ id; name; public_key; tags; tags_all; timeouts }
-      : aws_ivs_playback_key_pair)
+    aws_ivs_playback_key_pair ?id ?name ?tags ?tags_all ?timeouts
+      ~public_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ivs_playback_key_pair __resource);
   let __resource_attributes =
     ({

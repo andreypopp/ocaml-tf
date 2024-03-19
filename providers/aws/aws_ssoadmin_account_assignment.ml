@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ssoadmin_account_assignment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ssoadmin_account_assignment__timeouts *)
+(** timeouts *)
 
 type aws_ssoadmin_account_assignment = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,26 @@ type aws_ssoadmin_account_assignment = {
   principal_type : string prop;  (** principal_type *)
   target_id : string prop;  (** target_id *)
   target_type : string prop option; [@option]  (** target_type *)
-  timeouts : aws_ssoadmin_account_assignment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_account_assignment *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ssoadmin_account_assignment ?id ?target_type ?timeouts
+    ~instance_arn ~permission_set_arn ~principal_id ~principal_type
+    ~target_id () : aws_ssoadmin_account_assignment =
+  {
+    id;
+    instance_arn;
+    permission_set_arn;
+    principal_id;
+    principal_type;
+    target_id;
+    target_type;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -34,24 +50,16 @@ type t = {
   target_type : string prop;
 }
 
-let aws_ssoadmin_account_assignment ?id ?target_type ?timeouts
-    ~instance_arn ~permission_set_arn ~principal_id ~principal_type
-    ~target_id __resource_id =
+let register ?tf_module ?id ?target_type ?timeouts ~instance_arn
+    ~permission_set_arn ~principal_id ~principal_type ~target_id
+    __resource_id =
   let __resource_type = "aws_ssoadmin_account_assignment" in
   let __resource =
-    ({
-       id;
-       instance_arn;
-       permission_set_arn;
-       principal_id;
-       principal_type;
-       target_id;
-       target_type;
-       timeouts;
-     }
-      : aws_ssoadmin_account_assignment)
+    aws_ssoadmin_account_assignment ?id ?target_type ?timeouts
+      ~instance_arn ~permission_set_arn ~principal_id ~principal_type
+      ~target_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssoadmin_account_assignment __resource);
   let __resource_attributes =
     ({

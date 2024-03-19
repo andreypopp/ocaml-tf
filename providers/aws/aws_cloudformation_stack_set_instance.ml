@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_cloudformation_stack_set_instance__deployment_targets = {
+type deployment_targets = {
   organizational_unit_ids : string prop list option; [@option]
       (** organizational_unit_ids *)
 }
 [@@deriving yojson_of]
-(** aws_cloudformation_stack_set_instance__deployment_targets *)
+(** deployment_targets *)
 
-type aws_cloudformation_stack_set_instance__operation_preferences = {
+type operation_preferences = {
   failure_tolerance_count : float prop option; [@option]
       (** failure_tolerance_count *)
   failure_tolerance_percentage : float prop option; [@option]
@@ -26,17 +26,17 @@ type aws_cloudformation_stack_set_instance__operation_preferences = {
       (** region_order *)
 }
 [@@deriving yojson_of]
-(** aws_cloudformation_stack_set_instance__operation_preferences *)
+(** operation_preferences *)
 
-type aws_cloudformation_stack_set_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_cloudformation_stack_set_instance__timeouts *)
+(** timeouts *)
 
-type aws_cloudformation_stack_set_instance__stack_instance_summaries = {
+type stack_instance_summaries = {
   account_id : string prop;  (** account_id *)
   organizational_unit_id : string prop;
       (** organizational_unit_id *)
@@ -53,14 +53,49 @@ type aws_cloudformation_stack_set_instance = {
   region : string prop option; [@option]  (** region *)
   retain_stack : bool prop option; [@option]  (** retain_stack *)
   stack_set_name : string prop;  (** stack_set_name *)
-  deployment_targets :
-    aws_cloudformation_stack_set_instance__deployment_targets list;
-  operation_preferences :
-    aws_cloudformation_stack_set_instance__operation_preferences list;
-  timeouts : aws_cloudformation_stack_set_instance__timeouts option;
+  deployment_targets : deployment_targets list;
+  operation_preferences : operation_preferences list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_cloudformation_stack_set_instance *)
+
+let deployment_targets ?organizational_unit_ids () :
+    deployment_targets =
+  { organizational_unit_ids }
+
+let operation_preferences ?failure_tolerance_count
+    ?failure_tolerance_percentage ?max_concurrent_count
+    ?max_concurrent_percentage ?region_concurrency_type ?region_order
+    () : operation_preferences =
+  {
+    failure_tolerance_count;
+    failure_tolerance_percentage;
+    max_concurrent_count;
+    max_concurrent_percentage;
+    region_concurrency_type;
+    region_order;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_cloudformation_stack_set_instance ?account_id ?call_as ?id
+    ?parameter_overrides ?region ?retain_stack ?timeouts
+    ~stack_set_name ~deployment_targets ~operation_preferences () :
+    aws_cloudformation_stack_set_instance =
+  {
+    account_id;
+    call_as;
+    id;
+    parameter_overrides;
+    region;
+    retain_stack;
+    stack_set_name;
+    deployment_targets;
+    operation_preferences;
+    timeouts;
+  }
 
 type t = {
   account_id : string prop;
@@ -71,34 +106,20 @@ type t = {
   region : string prop;
   retain_stack : bool prop;
   stack_id : string prop;
-  stack_instance_summaries :
-    aws_cloudformation_stack_set_instance__stack_instance_summaries
-    list
-    prop;
+  stack_instance_summaries : stack_instance_summaries list prop;
   stack_set_name : string prop;
 }
 
-let aws_cloudformation_stack_set_instance ?account_id ?call_as ?id
-    ?parameter_overrides ?region ?retain_stack ?timeouts
-    ~stack_set_name ~deployment_targets ~operation_preferences
-    __resource_id =
+let register ?tf_module ?account_id ?call_as ?id ?parameter_overrides
+    ?region ?retain_stack ?timeouts ~stack_set_name
+    ~deployment_targets ~operation_preferences __resource_id =
   let __resource_type = "aws_cloudformation_stack_set_instance" in
   let __resource =
-    ({
-       account_id;
-       call_as;
-       id;
-       parameter_overrides;
-       region;
-       retain_stack;
-       stack_set_name;
-       deployment_targets;
-       operation_preferences;
-       timeouts;
-     }
-      : aws_cloudformation_stack_set_instance)
+    aws_cloudformation_stack_set_instance ?account_id ?call_as ?id
+      ?parameter_overrides ?region ?retain_stack ?timeouts
+      ~stack_set_name ~deployment_targets ~operation_preferences ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudformation_stack_set_instance __resource);
   let __resource_attributes =
     ({

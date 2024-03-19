@@ -10,19 +10,22 @@ type aws_servicequotas_template_association = {
 [@@deriving yojson_of]
 (** aws_servicequotas_template_association *)
 
+let aws_servicequotas_template_association ?skip_destroy () :
+    aws_servicequotas_template_association =
+  { skip_destroy }
+
 type t = {
   id : string prop;
   skip_destroy : bool prop;
   status : string prop;
 }
 
-let aws_servicequotas_template_association ?skip_destroy
-    __resource_id =
+let register ?tf_module ?skip_destroy __resource_id =
   let __resource_type = "aws_servicequotas_template_association" in
   let __resource =
-    ({ skip_destroy } : aws_servicequotas_template_association)
+    aws_servicequotas_template_association ?skip_destroy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicequotas_template_association __resource);
   let __resource_attributes =
     ({

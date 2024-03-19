@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_attached_disk__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_attached_disk__timeouts *)
+(** timeouts *)
 
 type google_compute_attached_disk = {
   device_name : string prop option; [@option]
@@ -25,10 +25,17 @@ type google_compute_attached_disk = {
       (** The project that the referenced compute instance is a part of. If instance is referenced by its self_link the project defined in the link will take precedence. *)
   zone : string prop option; [@option]
       (** The zone that the referenced compute instance is located within. If instance is referenced by its self_link the zone defined in the link will take precedence. *)
-  timeouts : google_compute_attached_disk__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_attached_disk *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_attached_disk ?device_name ?id ?mode ?project
+    ?zone ?timeouts ~disk ~instance () : google_compute_attached_disk
+    =
+  { device_name; disk; id; instance; mode; project; zone; timeouts }
 
 type t = {
   device_name : string prop;
@@ -40,23 +47,14 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_attached_disk ?device_name ?id ?mode ?project
-    ?zone ?timeouts ~disk ~instance __resource_id =
+let register ?tf_module ?device_name ?id ?mode ?project ?zone
+    ?timeouts ~disk ~instance __resource_id =
   let __resource_type = "google_compute_attached_disk" in
   let __resource =
-    ({
-       device_name;
-       disk;
-       id;
-       instance;
-       mode;
-       project;
-       zone;
-       timeouts;
-     }
-      : google_compute_attached_disk)
+    google_compute_attached_disk ?device_name ?id ?mode ?project
+      ?zone ?timeouts ~disk ~instance ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_attached_disk __resource);
   let __resource_attributes =
     ({

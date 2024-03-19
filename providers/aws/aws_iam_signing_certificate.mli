@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iam_signing_certificate
+
+val aws_iam_signing_certificate :
+  ?id:string prop ->
+  ?status:string prop ->
+  certificate_body:string prop ->
+  user_name:string prop ->
+  unit ->
+  aws_iam_signing_certificate
+
+val yojson_of_aws_iam_signing_certificate :
+  aws_iam_signing_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate_body : string prop;
@@ -12,7 +27,8 @@ type t = private {
   user_name : string prop;
 }
 
-val aws_iam_signing_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?status:string prop ->
   certificate_body:string prop ->

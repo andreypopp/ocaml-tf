@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_vmware_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_vmware_cluster__timeouts *)
+(** timeouts *)
 
 type azurerm_vmware_cluster = {
   cluster_node_count : float prop;  (** cluster_node_count *)
@@ -19,10 +19,24 @@ type azurerm_vmware_cluster = {
   name : string prop;  (** name *)
   sku_name : string prop;  (** sku_name *)
   vmware_cloud_id : string prop;  (** vmware_cloud_id *)
-  timeouts : azurerm_vmware_cluster__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_vmware_cluster *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_vmware_cluster ?id ?timeouts ~cluster_node_count ~name
+    ~sku_name ~vmware_cloud_id () : azurerm_vmware_cluster =
+  {
+    cluster_node_count;
+    id;
+    name;
+    sku_name;
+    vmware_cloud_id;
+    timeouts;
+  }
 
 type t = {
   cluster_node_count : float prop;
@@ -34,21 +48,14 @@ type t = {
   vmware_cloud_id : string prop;
 }
 
-let azurerm_vmware_cluster ?id ?timeouts ~cluster_node_count ~name
+let register ?tf_module ?id ?timeouts ~cluster_node_count ~name
     ~sku_name ~vmware_cloud_id __resource_id =
   let __resource_type = "azurerm_vmware_cluster" in
   let __resource =
-    ({
-       cluster_node_count;
-       id;
-       name;
-       sku_name;
-       vmware_cloud_id;
-       timeouts;
-     }
-      : azurerm_vmware_cluster)
+    azurerm_vmware_cluster ?id ?timeouts ~cluster_node_count ~name
+      ~sku_name ~vmware_cloud_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vmware_cluster __resource);
   let __resource_attributes =
     ({

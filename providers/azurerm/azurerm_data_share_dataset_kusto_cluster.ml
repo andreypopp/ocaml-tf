@@ -4,24 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_data_share_dataset_kusto_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_share_dataset_kusto_cluster__timeouts *)
+(** timeouts *)
 
 type azurerm_data_share_dataset_kusto_cluster = {
   id : string prop option; [@option]  (** id *)
   kusto_cluster_id : string prop;  (** kusto_cluster_id *)
   name : string prop;  (** name *)
   share_id : string prop;  (** share_id *)
-  timeouts :
-    azurerm_data_share_dataset_kusto_cluster__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_share_dataset_kusto_cluster *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_data_share_dataset_kusto_cluster ?id ?timeouts
+    ~kusto_cluster_id ~name ~share_id () :
+    azurerm_data_share_dataset_kusto_cluster =
+  { id; kusto_cluster_id; name; share_id; timeouts }
 
 type t = {
   display_name : string prop;
@@ -32,14 +39,14 @@ type t = {
   share_id : string prop;
 }
 
-let azurerm_data_share_dataset_kusto_cluster ?id ?timeouts
-    ~kusto_cluster_id ~name ~share_id __resource_id =
+let register ?tf_module ?id ?timeouts ~kusto_cluster_id ~name
+    ~share_id __resource_id =
   let __resource_type = "azurerm_data_share_dataset_kusto_cluster" in
   let __resource =
-    ({ id; kusto_cluster_id; name; share_id; timeouts }
-      : azurerm_data_share_dataset_kusto_cluster)
+    azurerm_data_share_dataset_kusto_cluster ?id ?timeouts
+      ~kusto_cluster_id ~name ~share_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_share_dataset_kusto_cluster __resource);
   let __resource_attributes =
     ({

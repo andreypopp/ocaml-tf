@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_connection_classic_certificate__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_connection_classic_certificate__timeouts *)
+(** timeouts *)
 
 type azurerm_automation_connection_classic_certificate = {
   automation_account_name : string prop;
@@ -24,12 +24,29 @@ type azurerm_automation_connection_classic_certificate = {
   resource_group_name : string prop;  (** resource_group_name *)
   subscription_id : string prop;  (** subscription_id *)
   subscription_name : string prop;  (** subscription_name *)
-  timeouts :
-    azurerm_automation_connection_classic_certificate__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_connection_classic_certificate *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_automation_connection_classic_certificate ?description
+    ?id ?timeouts ~automation_account_name ~certificate_asset_name
+    ~name ~resource_group_name ~subscription_id ~subscription_name ()
+    : azurerm_automation_connection_classic_certificate =
+  {
+    automation_account_name;
+    certificate_asset_name;
+    description;
+    id;
+    name;
+    resource_group_name;
+    subscription_id;
+    subscription_name;
+    timeouts;
+  }
 
 type t = {
   automation_account_name : string prop;
@@ -42,28 +59,20 @@ type t = {
   subscription_name : string prop;
 }
 
-let azurerm_automation_connection_classic_certificate ?description
-    ?id ?timeouts ~automation_account_name ~certificate_asset_name
-    ~name ~resource_group_name ~subscription_id ~subscription_name
+let register ?tf_module ?description ?id ?timeouts
+    ~automation_account_name ~certificate_asset_name ~name
+    ~resource_group_name ~subscription_id ~subscription_name
     __resource_id =
   let __resource_type =
     "azurerm_automation_connection_classic_certificate"
   in
   let __resource =
-    ({
-       automation_account_name;
-       certificate_asset_name;
-       description;
-       id;
-       name;
-       resource_group_name;
-       subscription_id;
-       subscription_name;
-       timeouts;
-     }
-      : azurerm_automation_connection_classic_certificate)
+    azurerm_automation_connection_classic_certificate ?description
+      ?id ?timeouts ~automation_account_name ~certificate_asset_name
+      ~name ~resource_group_name ~subscription_id ~subscription_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_connection_classic_certificate
        __resource);
   let __resource_attributes =

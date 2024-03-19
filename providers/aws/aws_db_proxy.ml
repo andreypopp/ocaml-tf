@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_db_proxy__auth = {
+type auth = {
   auth_scheme : string prop option; [@option]  (** auth_scheme *)
   client_password_auth_type : string prop option; [@option]
       (** client_password_auth_type *)
@@ -14,15 +14,15 @@ type aws_db_proxy__auth = {
   username : string prop option; [@option]  (** username *)
 }
 [@@deriving yojson_of]
-(** aws_db_proxy__auth *)
+(** auth *)
 
-type aws_db_proxy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_db_proxy__timeouts *)
+(** timeouts *)
 
 type aws_db_proxy = {
   debug_logging : bool prop option; [@option]  (** debug_logging *)
@@ -39,11 +39,44 @@ type aws_db_proxy = {
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
   vpc_subnet_ids : string prop list;  (** vpc_subnet_ids *)
-  auth : aws_db_proxy__auth list;
-  timeouts : aws_db_proxy__timeouts option;
+  auth : auth list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_proxy *)
+
+let auth ?auth_scheme ?client_password_auth_type ?description
+    ?iam_auth ?secret_arn ?username () : auth =
+  {
+    auth_scheme;
+    client_password_auth_type;
+    description;
+    iam_auth;
+    secret_arn;
+    username;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_db_proxy ?debug_logging ?id ?idle_client_timeout ?require_tls
+    ?tags ?tags_all ?vpc_security_group_ids ?timeouts ~engine_family
+    ~name ~role_arn ~vpc_subnet_ids ~auth () : aws_db_proxy =
+  {
+    debug_logging;
+    engine_family;
+    id;
+    idle_client_timeout;
+    name;
+    require_tls;
+    role_arn;
+    tags;
+    tags_all;
+    vpc_security_group_ids;
+    vpc_subnet_ids;
+    auth;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -61,29 +94,17 @@ type t = {
   vpc_subnet_ids : string list prop;
 }
 
-let aws_db_proxy ?debug_logging ?id ?idle_client_timeout ?require_tls
-    ?tags ?tags_all ?vpc_security_group_ids ?timeouts ~engine_family
-    ~name ~role_arn ~vpc_subnet_ids ~auth __resource_id =
+let register ?tf_module ?debug_logging ?id ?idle_client_timeout
+    ?require_tls ?tags ?tags_all ?vpc_security_group_ids ?timeouts
+    ~engine_family ~name ~role_arn ~vpc_subnet_ids ~auth
+    __resource_id =
   let __resource_type = "aws_db_proxy" in
   let __resource =
-    ({
-       debug_logging;
-       engine_family;
-       id;
-       idle_client_timeout;
-       name;
-       require_tls;
-       role_arn;
-       tags;
-       tags_all;
-       vpc_security_group_ids;
-       vpc_subnet_ids;
-       auth;
-       timeouts;
-     }
-      : aws_db_proxy)
+    aws_db_proxy ?debug_logging ?id ?idle_client_timeout ?require_tls
+      ?tags ?tags_all ?vpc_security_group_ids ?timeouts
+      ~engine_family ~name ~role_arn ~vpc_subnet_ids ~auth ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_proxy __resource);
   let __resource_attributes =
     ({

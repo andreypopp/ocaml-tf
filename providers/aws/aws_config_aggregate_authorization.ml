@@ -15,6 +15,10 @@ type aws_config_aggregate_authorization = {
 [@@deriving yojson_of]
 (** aws_config_aggregate_authorization *)
 
+let aws_config_aggregate_authorization ?id ?tags ?tags_all
+    ~account_id ~region () : aws_config_aggregate_authorization =
+  { account_id; id; region; tags; tags_all }
+
 type t = {
   account_id : string prop;
   arn : string prop;
@@ -24,14 +28,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_config_aggregate_authorization ?id ?tags ?tags_all
-    ~account_id ~region __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~account_id ~region
+    __resource_id =
   let __resource_type = "aws_config_aggregate_authorization" in
   let __resource =
-    ({ account_id; id; region; tags; tags_all }
-      : aws_config_aggregate_authorization)
+    aws_config_aggregate_authorization ?id ?tags ?tags_all
+      ~account_id ~region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_config_aggregate_authorization __resource);
   let __resource_attributes =
     ({

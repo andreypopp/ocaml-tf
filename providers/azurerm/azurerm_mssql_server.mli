@@ -2,10 +2,62 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_server__azuread_administrator
-type azurerm_mssql_server__identity
-type azurerm_mssql_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type azuread_administrator
+
+val azuread_administrator :
+  ?azuread_authentication_only:bool prop ->
+  ?tenant_id:string prop ->
+  login_username:string prop ->
+  object_id:string prop ->
+  unit ->
+  azuread_administrator
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mssql_server
+
+val azurerm_mssql_server :
+  ?administrator_login:string prop ->
+  ?administrator_login_password:string prop ->
+  ?connection_policy:string prop ->
+  ?id:string prop ->
+  ?minimum_tls_version:string prop ->
+  ?outbound_network_restriction_enabled:bool prop ->
+  ?primary_user_assigned_identity_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?transparent_data_encryption_key_vault_key_id:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  version:string prop ->
+  azuread_administrator:azuread_administrator list ->
+  identity:identity list ->
+  unit ->
+  azurerm_mssql_server
+
+val yojson_of_azurerm_mssql_server : azurerm_mssql_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   administrator_login : string prop;
@@ -26,7 +78,8 @@ type t = private {
   version : string prop;
 }
 
-val azurerm_mssql_server :
+val register :
+  ?tf_module:tf_module ->
   ?administrator_login:string prop ->
   ?administrator_login_password:string prop ->
   ?connection_policy:string prop ->
@@ -37,13 +90,12 @@ val azurerm_mssql_server :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
-  ?timeouts:azurerm_mssql_server__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   version:string prop ->
-  azuread_administrator:
-    azurerm_mssql_server__azuread_administrator list ->
-  identity:azurerm_mssql_server__identity list ->
+  azuread_administrator:azuread_administrator list ->
+  identity:identity list ->
   string ->
   t

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_project_usage_export_bucket__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_project_usage_export_bucket__timeouts *)
+(** timeouts *)
 
 type google_project_usage_export_bucket = {
   bucket_name : string prop;  (** The bucket to store reports in. *)
@@ -18,10 +18,16 @@ type google_project_usage_export_bucket = {
       (** A prefix for the reports, for instance, the project name. *)
   project : string prop option; [@option]
       (** The project to set the export bucket on. If it is not provided, the provider project is used. *)
-  timeouts : google_project_usage_export_bucket__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_project_usage_export_bucket *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_project_usage_export_bucket ?id ?prefix ?project ?timeouts
+    ~bucket_name () : google_project_usage_export_bucket =
+  { bucket_name; id; prefix; project; timeouts }
 
 type t = {
   bucket_name : string prop;
@@ -30,14 +36,14 @@ type t = {
   project : string prop;
 }
 
-let google_project_usage_export_bucket ?id ?prefix ?project ?timeouts
-    ~bucket_name __resource_id =
+let register ?tf_module ?id ?prefix ?project ?timeouts ~bucket_name
+    __resource_id =
   let __resource_type = "google_project_usage_export_bucket" in
   let __resource =
-    ({ bucket_name; id; prefix; project; timeouts }
-      : google_project_usage_export_bucket)
+    google_project_usage_export_bucket ?id ?prefix ?project ?timeouts
+      ~bucket_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_usage_export_bucket __resource);
   let __resource_attributes =
     ({

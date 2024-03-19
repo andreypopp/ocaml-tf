@@ -2,8 +2,40 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_datastore_datalake_gen2__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_machine_learning_datastore_datalake_gen2
+
+val azurerm_machine_learning_datastore_datalake_gen2 :
+  ?authority_url:string prop ->
+  ?client_id:string prop ->
+  ?client_secret:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?service_data_identity:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tenant_id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  storage_container_id:string prop ->
+  workspace_id:string prop ->
+  unit ->
+  azurerm_machine_learning_datastore_datalake_gen2
+
+val yojson_of_azurerm_machine_learning_datastore_datalake_gen2 :
+  azurerm_machine_learning_datastore_datalake_gen2 -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   authority_url : string prop;
@@ -20,7 +52,8 @@ type t = private {
   workspace_id : string prop;
 }
 
-val azurerm_machine_learning_datastore_datalake_gen2 :
+val register :
+  ?tf_module:tf_module ->
   ?authority_url:string prop ->
   ?client_id:string prop ->
   ?client_secret:string prop ->
@@ -29,8 +62,7 @@ val azurerm_machine_learning_datastore_datalake_gen2 :
   ?service_data_identity:string prop ->
   ?tags:(string * string prop) list ->
   ?tenant_id:string prop ->
-  ?timeouts:
-    azurerm_machine_learning_datastore_datalake_gen2__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   storage_container_id:string prop ->
   workspace_id:string prop ->

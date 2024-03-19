@@ -13,6 +13,10 @@ type aws_emr_security_configuration = {
 [@@deriving yojson_of]
 (** aws_emr_security_configuration *)
 
+let aws_emr_security_configuration ?id ?name ?name_prefix
+    ~configuration () : aws_emr_security_configuration =
+  { configuration; id; name; name_prefix }
+
 type t = {
   configuration : string prop;
   creation_date : string prop;
@@ -21,14 +25,14 @@ type t = {
   name_prefix : string prop;
 }
 
-let aws_emr_security_configuration ?id ?name ?name_prefix
-    ~configuration __resource_id =
+let register ?tf_module ?id ?name ?name_prefix ~configuration
+    __resource_id =
   let __resource_type = "aws_emr_security_configuration" in
   let __resource =
-    ({ configuration; id; name; name_prefix }
-      : aws_emr_security_configuration)
+    aws_emr_security_configuration ?id ?name ?name_prefix
+      ~configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_security_configuration __resource);
   let __resource_attributes =
     ({

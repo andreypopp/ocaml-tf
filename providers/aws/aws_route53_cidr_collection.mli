@@ -2,7 +2,17 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_cidr_collection
+
+val aws_route53_cidr_collection :
+  name:string prop -> unit -> aws_route53_cidr_collection
+
+val yojson_of_aws_route53_cidr_collection :
+  aws_route53_cidr_collection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -11,4 +21,5 @@ type t = private {
   version : float prop;
 }
 
-val aws_route53_cidr_collection : name:string prop -> string -> t
+val register :
+  ?tf_module:tf_module -> name:string prop -> string -> t

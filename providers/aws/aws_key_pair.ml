@@ -17,6 +17,10 @@ type aws_key_pair = {
 [@@deriving yojson_of]
 (** aws_key_pair *)
 
+let aws_key_pair ?id ?key_name ?key_name_prefix ?tags ?tags_all
+    ~public_key () : aws_key_pair =
+  { id; key_name; key_name_prefix; public_key; tags; tags_all }
+
 type t = {
   arn : string prop;
   fingerprint : string prop;
@@ -30,14 +34,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_key_pair ?id ?key_name ?key_name_prefix ?tags ?tags_all
-    ~public_key __resource_id =
+let register ?tf_module ?id ?key_name ?key_name_prefix ?tags
+    ?tags_all ~public_key __resource_id =
   let __resource_type = "aws_key_pair" in
   let __resource =
-    ({ id; key_name; key_name_prefix; public_key; tags; tags_all }
-      : aws_key_pair)
+    aws_key_pair ?id ?key_name ?key_name_prefix ?tags ?tags_all
+      ~public_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_key_pair __resource);
   let __resource_attributes =
     ({

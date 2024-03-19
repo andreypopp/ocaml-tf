@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_account
+
+val cloudflare_account :
+  ?enforce_twofactor:bool prop ->
+  ?id:string prop ->
+  ?type_:string prop ->
+  name:string prop ->
+  unit ->
+  cloudflare_account
+
+val yojson_of_cloudflare_account : cloudflare_account -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enforce_twofactor : bool prop;
@@ -11,7 +25,8 @@ type t = private {
   type_ : string prop;
 }
 
-val cloudflare_account :
+val register :
+  ?tf_module:tf_module ->
   ?enforce_twofactor:bool prop ->
   ?id:string prop ->
   ?type_:string prop ->

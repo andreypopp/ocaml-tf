@@ -17,6 +17,10 @@ type aws_lightsail_key_pair = {
 [@@deriving yojson_of]
 (** aws_lightsail_key_pair *)
 
+let aws_lightsail_key_pair ?id ?name ?name_prefix ?pgp_key
+    ?public_key ?tags ?tags_all () : aws_lightsail_key_pair =
+  { id; name; name_prefix; pgp_key; public_key; tags; tags_all }
+
 type t = {
   arn : string prop;
   encrypted_fingerprint : string prop;
@@ -32,14 +36,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_lightsail_key_pair ?id ?name ?name_prefix ?pgp_key
-    ?public_key ?tags ?tags_all __resource_id =
+let register ?tf_module ?id ?name ?name_prefix ?pgp_key ?public_key
+    ?tags ?tags_all __resource_id =
   let __resource_type = "aws_lightsail_key_pair" in
   let __resource =
-    ({ id; name; name_prefix; pgp_key; public_key; tags; tags_all }
-      : aws_lightsail_key_pair)
+    aws_lightsail_key_pair ?id ?name ?name_prefix ?pgp_key
+      ?public_key ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_key_pair __resource);
   let __resource_attributes =
     ({

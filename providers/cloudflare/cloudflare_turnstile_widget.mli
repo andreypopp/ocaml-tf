@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_turnstile_widget
+
+val cloudflare_turnstile_widget :
+  ?bot_fight_mode:bool prop ->
+  ?id:string prop ->
+  ?offlabel:bool prop ->
+  ?region:string prop ->
+  account_id:string prop ->
+  domains:string prop list ->
+  mode:string prop ->
+  name:string prop ->
+  unit ->
+  cloudflare_turnstile_widget
+
+val yojson_of_cloudflare_turnstile_widget :
+  cloudflare_turnstile_widget -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -16,7 +35,8 @@ type t = private {
   secret : string prop;
 }
 
-val cloudflare_turnstile_widget :
+val register :
+  ?tf_module:tf_module ->
   ?bot_fight_mode:bool prop ->
   ?id:string prop ->
   ?offlabel:bool prop ->

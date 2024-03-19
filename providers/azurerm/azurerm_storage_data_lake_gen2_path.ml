@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_data_lake_gen2_path__ace = {
+type ace = {
   id : string prop option; [@option]  (** id *)
   permissions : string prop;  (** permissions *)
   scope : string prop option; [@option]  (** scope *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_data_lake_gen2_path__ace *)
+(** ace *)
 
-type azurerm_storage_data_lake_gen2_path__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_data_lake_gen2_path__timeouts *)
+(** timeouts *)
 
 type azurerm_storage_data_lake_gen2_path = {
   filesystem_name : string prop;  (** filesystem_name *)
@@ -30,11 +30,32 @@ type azurerm_storage_data_lake_gen2_path = {
   path : string prop;  (** path *)
   resource : string prop;  (** resource *)
   storage_account_id : string prop;  (** storage_account_id *)
-  ace : azurerm_storage_data_lake_gen2_path__ace list;
-  timeouts : azurerm_storage_data_lake_gen2_path__timeouts option;
+  ace : ace list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_data_lake_gen2_path *)
+
+let ace ?id ?scope ~permissions ~type_ () : ace =
+  { id; permissions; scope; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_storage_data_lake_gen2_path ?group ?id ?owner ?timeouts
+    ~filesystem_name ~path ~resource ~storage_account_id ~ace () :
+    azurerm_storage_data_lake_gen2_path =
+  {
+    filesystem_name;
+    group;
+    id;
+    owner;
+    path;
+    resource;
+    storage_account_id;
+    ace;
+    timeouts;
+  }
 
 type t = {
   filesystem_name : string prop;
@@ -46,25 +67,14 @@ type t = {
   storage_account_id : string prop;
 }
 
-let azurerm_storage_data_lake_gen2_path ?group ?id ?owner ?timeouts
-    ~filesystem_name ~path ~resource ~storage_account_id ~ace
-    __resource_id =
+let register ?tf_module ?group ?id ?owner ?timeouts ~filesystem_name
+    ~path ~resource ~storage_account_id ~ace __resource_id =
   let __resource_type = "azurerm_storage_data_lake_gen2_path" in
   let __resource =
-    ({
-       filesystem_name;
-       group;
-       id;
-       owner;
-       path;
-       resource;
-       storage_account_id;
-       ace;
-       timeouts;
-     }
-      : azurerm_storage_data_lake_gen2_path)
+    azurerm_storage_data_lake_gen2_path ?group ?id ?owner ?timeouts
+      ~filesystem_name ~path ~resource ~storage_account_id ~ace ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_data_lake_gen2_path __resource);
   let __resource_attributes =
     ({

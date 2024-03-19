@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_container_app_environment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_app_environment__timeouts *)
+(** timeouts *)
 
-type azurerm_container_app_environment__workload_profile = {
+type workload_profile = {
   maximum_count : float prop;  (** maximum_count *)
   minimum_count : float prop;  (** minimum_count *)
   name : string prop;  (** name *)
   workload_profile_type : string prop;  (** workload_profile_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_app_environment__workload_profile *)
+(** workload_profile *)
 
 type azurerm_container_app_environment = {
   dapr_application_insights_connection_string : string prop option;
@@ -42,12 +42,41 @@ type azurerm_container_app_environment = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   zone_redundancy_enabled : bool prop option; [@option]
       (** zone_redundancy_enabled *)
-  timeouts : azurerm_container_app_environment__timeouts option;
-  workload_profile :
-    azurerm_container_app_environment__workload_profile list;
+  timeouts : timeouts option;
+  workload_profile : workload_profile list;
 }
 [@@deriving yojson_of]
 (** azurerm_container_app_environment *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let workload_profile ~maximum_count ~minimum_count ~name
+    ~workload_profile_type () : workload_profile =
+  { maximum_count; minimum_count; name; workload_profile_type }
+
+let azurerm_container_app_environment
+    ?dapr_application_insights_connection_string ?id
+    ?infrastructure_resource_group_name ?infrastructure_subnet_id
+    ?internal_load_balancer_enabled ?log_analytics_workspace_id ?tags
+    ?zone_redundancy_enabled ?timeouts ~location ~name
+    ~resource_group_name ~workload_profile () :
+    azurerm_container_app_environment =
+  {
+    dapr_application_insights_connection_string;
+    id;
+    infrastructure_resource_group_name;
+    infrastructure_subnet_id;
+    internal_load_balancer_enabled;
+    location;
+    log_analytics_workspace_id;
+    name;
+    resource_group_name;
+    tags;
+    zone_redundancy_enabled;
+    timeouts;
+    workload_profile;
+  }
 
 type t = {
   dapr_application_insights_connection_string : string prop;
@@ -68,32 +97,21 @@ type t = {
   zone_redundancy_enabled : bool prop;
 }
 
-let azurerm_container_app_environment
-    ?dapr_application_insights_connection_string ?id
-    ?infrastructure_resource_group_name ?infrastructure_subnet_id
+let register ?tf_module ?dapr_application_insights_connection_string
+    ?id ?infrastructure_resource_group_name ?infrastructure_subnet_id
     ?internal_load_balancer_enabled ?log_analytics_workspace_id ?tags
     ?zone_redundancy_enabled ?timeouts ~location ~name
     ~resource_group_name ~workload_profile __resource_id =
   let __resource_type = "azurerm_container_app_environment" in
   let __resource =
-    ({
-       dapr_application_insights_connection_string;
-       id;
-       infrastructure_resource_group_name;
-       infrastructure_subnet_id;
-       internal_load_balancer_enabled;
-       location;
-       log_analytics_workspace_id;
-       name;
-       resource_group_name;
-       tags;
-       zone_redundancy_enabled;
-       timeouts;
-       workload_profile;
-     }
-      : azurerm_container_app_environment)
+    azurerm_container_app_environment
+      ?dapr_application_insights_connection_string ?id
+      ?infrastructure_resource_group_name ?infrastructure_subnet_id
+      ?internal_load_balancer_enabled ?log_analytics_workspace_id
+      ?tags ?zone_redundancy_enabled ?timeouts ~location ~name
+      ~resource_group_name ~workload_profile ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app_environment __resource);
   let __resource_attributes =
     ({

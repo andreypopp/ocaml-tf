@@ -4,43 +4,51 @@
 
 open! Tf.Prelude
 
-type aws_wafregional_size_constraint_set__size_constraints__field_to_match = {
+type size_constraints__field_to_match = {
   data : string prop option; [@option]  (** data *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_wafregional_size_constraint_set__size_constraints__field_to_match *)
+(** size_constraints__field_to_match *)
 
-type aws_wafregional_size_constraint_set__size_constraints = {
+type size_constraints = {
   comparison_operator : string prop;  (** comparison_operator *)
   size : float prop;  (** size *)
   text_transformation : string prop;  (** text_transformation *)
-  field_to_match :
-    aws_wafregional_size_constraint_set__size_constraints__field_to_match
-    list;
+  field_to_match : size_constraints__field_to_match list;
 }
 [@@deriving yojson_of]
-(** aws_wafregional_size_constraint_set__size_constraints *)
+(** size_constraints *)
 
 type aws_wafregional_size_constraint_set = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  size_constraints :
-    aws_wafregional_size_constraint_set__size_constraints list;
+  size_constraints : size_constraints list;
 }
 [@@deriving yojson_of]
 (** aws_wafregional_size_constraint_set *)
 
-type t = { arn : string prop; id : string prop; name : string prop }
+let size_constraints__field_to_match ?data ~type_ () :
+    size_constraints__field_to_match =
+  { data; type_ }
+
+let size_constraints ~comparison_operator ~size ~text_transformation
+    ~field_to_match () : size_constraints =
+  { comparison_operator; size; text_transformation; field_to_match }
 
 let aws_wafregional_size_constraint_set ?id ~name ~size_constraints
-    __resource_id =
+    () : aws_wafregional_size_constraint_set =
+  { id; name; size_constraints }
+
+type t = { arn : string prop; id : string prop; name : string prop }
+
+let register ?tf_module ?id ~name ~size_constraints __resource_id =
   let __resource_type = "aws_wafregional_size_constraint_set" in
   let __resource =
-    ({ id; name; size_constraints }
-      : aws_wafregional_size_constraint_set)
+    aws_wafregional_size_constraint_set ?id ~name ~size_constraints
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafregional_size_constraint_set __resource);
   let __resource_attributes =
     ({

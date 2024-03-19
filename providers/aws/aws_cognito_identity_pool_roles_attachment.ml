@@ -4,36 +4,51 @@
 
 open! Tf.Prelude
 
-type aws_cognito_identity_pool_roles_attachment__role_mapping__mapping_rule = {
+type role_mapping__mapping_rule = {
   claim : string prop;  (** claim *)
   match_type : string prop;  (** match_type *)
   role_arn : string prop;  (** role_arn *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_cognito_identity_pool_roles_attachment__role_mapping__mapping_rule *)
+(** role_mapping__mapping_rule *)
 
-type aws_cognito_identity_pool_roles_attachment__role_mapping = {
+type role_mapping = {
   ambiguous_role_resolution : string prop option; [@option]
       (** ambiguous_role_resolution *)
   identity_provider : string prop;  (** identity_provider *)
   type_ : string prop; [@key "type"]  (** type *)
-  mapping_rule :
-    aws_cognito_identity_pool_roles_attachment__role_mapping__mapping_rule
-    list;
+  mapping_rule : role_mapping__mapping_rule list;
 }
 [@@deriving yojson_of]
-(** aws_cognito_identity_pool_roles_attachment__role_mapping *)
+(** role_mapping *)
 
 type aws_cognito_identity_pool_roles_attachment = {
   id : string prop option; [@option]  (** id *)
   identity_pool_id : string prop;  (** identity_pool_id *)
   roles : (string * string prop) list;  (** roles *)
-  role_mapping :
-    aws_cognito_identity_pool_roles_attachment__role_mapping list;
+  role_mapping : role_mapping list;
 }
 [@@deriving yojson_of]
 (** aws_cognito_identity_pool_roles_attachment *)
+
+let role_mapping__mapping_rule ~claim ~match_type ~role_arn ~value ()
+    : role_mapping__mapping_rule =
+  { claim; match_type; role_arn; value }
+
+let role_mapping ?ambiguous_role_resolution ~identity_provider ~type_
+    ~mapping_rule () : role_mapping =
+  {
+    ambiguous_role_resolution;
+    identity_provider;
+    type_;
+    mapping_rule;
+  }
+
+let aws_cognito_identity_pool_roles_attachment ?id ~identity_pool_id
+    ~roles ~role_mapping () :
+    aws_cognito_identity_pool_roles_attachment =
+  { id; identity_pool_id; roles; role_mapping }
 
 type t = {
   id : string prop;
@@ -41,16 +56,16 @@ type t = {
   roles : (string * string) list prop;
 }
 
-let aws_cognito_identity_pool_roles_attachment ?id ~identity_pool_id
-    ~roles ~role_mapping __resource_id =
+let register ?tf_module ?id ~identity_pool_id ~roles ~role_mapping
+    __resource_id =
   let __resource_type =
     "aws_cognito_identity_pool_roles_attachment"
   in
   let __resource =
-    ({ id; identity_pool_id; roles; role_mapping }
-      : aws_cognito_identity_pool_roles_attachment)
+    aws_cognito_identity_pool_roles_attachment ?id ~identity_pool_id
+      ~roles ~role_mapping ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_identity_pool_roles_attachment __resource);
   let __resource_attributes =
     ({

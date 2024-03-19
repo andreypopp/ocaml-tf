@@ -18,6 +18,18 @@ type aws_placement_group = {
 [@@deriving yojson_of]
 (** aws_placement_group *)
 
+let aws_placement_group ?id ?partition_count ?spread_level ?tags
+    ?tags_all ~name ~strategy () : aws_placement_group =
+  {
+    id;
+    name;
+    partition_count;
+    spread_level;
+    strategy;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -30,22 +42,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_placement_group ?id ?partition_count ?spread_level ?tags
+let register ?tf_module ?id ?partition_count ?spread_level ?tags
     ?tags_all ~name ~strategy __resource_id =
   let __resource_type = "aws_placement_group" in
   let __resource =
-    ({
-       id;
-       name;
-       partition_count;
-       spread_level;
-       strategy;
-       tags;
-       tags_all;
-     }
-      : aws_placement_group)
+    aws_placement_group ?id ?partition_count ?spread_level ?tags
+      ?tags_all ~name ~strategy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_placement_group __resource);
   let __resource_attributes =
     ({

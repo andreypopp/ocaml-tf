@@ -4,29 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_subnet__delegation__service_delegation = {
+type delegation__service_delegation = {
   actions : string prop list option; [@option]  (** actions *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_subnet__delegation__service_delegation *)
+(** delegation__service_delegation *)
 
-type azurerm_subnet__delegation = {
+type delegation = {
   name : string prop;  (** name *)
-  service_delegation :
-    azurerm_subnet__delegation__service_delegation list;
+  service_delegation : delegation__service_delegation list;
 }
 [@@deriving yojson_of]
-(** azurerm_subnet__delegation *)
+(** delegation *)
 
-type azurerm_subnet__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_subnet__timeouts *)
+(** timeouts *)
 
 type azurerm_subnet = {
   address_prefixes : string prop list;  (** address_prefixes *)
@@ -50,11 +49,44 @@ type azurerm_subnet = {
   service_endpoints : string prop list option; [@option]
       (** service_endpoints *)
   virtual_network_name : string prop;  (** virtual_network_name *)
-  delegation : azurerm_subnet__delegation list;
-  timeouts : azurerm_subnet__timeouts option;
+  delegation : delegation list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_subnet *)
+
+let delegation__service_delegation ?actions ~name () :
+    delegation__service_delegation =
+  { actions; name }
+
+let delegation ~name ~service_delegation () : delegation =
+  { name; service_delegation }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_subnet ?enforce_private_link_endpoint_network_policies
+    ?enforce_private_link_service_network_policies ?id
+    ?private_endpoint_network_policies_enabled
+    ?private_link_service_network_policies_enabled
+    ?service_endpoint_policy_ids ?service_endpoints ?timeouts
+    ~address_prefixes ~name ~resource_group_name
+    ~virtual_network_name ~delegation () : azurerm_subnet =
+  {
+    address_prefixes;
+    enforce_private_link_endpoint_network_policies;
+    enforce_private_link_service_network_policies;
+    id;
+    name;
+    private_endpoint_network_policies_enabled;
+    private_link_service_network_policies_enabled;
+    resource_group_name;
+    service_endpoint_policy_ids;
+    service_endpoints;
+    virtual_network_name;
+    delegation;
+    timeouts;
+  }
 
 type t = {
   address_prefixes : string list prop;
@@ -70,7 +102,8 @@ type t = {
   virtual_network_name : string prop;
 }
 
-let azurerm_subnet ?enforce_private_link_endpoint_network_policies
+let register ?tf_module
+    ?enforce_private_link_endpoint_network_policies
     ?enforce_private_link_service_network_policies ?id
     ?private_endpoint_network_policies_enabled
     ?private_link_service_network_policies_enabled
@@ -79,24 +112,15 @@ let azurerm_subnet ?enforce_private_link_endpoint_network_policies
     ~virtual_network_name ~delegation __resource_id =
   let __resource_type = "azurerm_subnet" in
   let __resource =
-    ({
-       address_prefixes;
-       enforce_private_link_endpoint_network_policies;
-       enforce_private_link_service_network_policies;
-       id;
-       name;
-       private_endpoint_network_policies_enabled;
-       private_link_service_network_policies_enabled;
-       resource_group_name;
-       service_endpoint_policy_ids;
-       service_endpoints;
-       virtual_network_name;
-       delegation;
-       timeouts;
-     }
-      : azurerm_subnet)
+    azurerm_subnet ?enforce_private_link_endpoint_network_policies
+      ?enforce_private_link_service_network_policies ?id
+      ?private_endpoint_network_policies_enabled
+      ?private_link_service_network_policies_enabled
+      ?service_endpoint_policy_ids ?service_endpoints ?timeouts
+      ~address_prefixes ~name ~resource_group_name
+      ~virtual_network_name ~delegation ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_subnet __resource);
   let __resource_attributes =
     ({

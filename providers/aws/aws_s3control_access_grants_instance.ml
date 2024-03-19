@@ -13,6 +13,11 @@ type aws_s3control_access_grants_instance = {
 [@@deriving yojson_of]
 (** aws_s3control_access_grants_instance *)
 
+let aws_s3control_access_grants_instance ?account_id
+    ?identity_center_arn ?tags () :
+    aws_s3control_access_grants_instance =
+  { account_id; identity_center_arn; tags }
+
 type t = {
   access_grants_instance_arn : string prop;
   access_grants_instance_id : string prop;
@@ -24,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_s3control_access_grants_instance ?account_id
-    ?identity_center_arn ?tags __resource_id =
+let register ?tf_module ?account_id ?identity_center_arn ?tags
+    __resource_id =
   let __resource_type = "aws_s3control_access_grants_instance" in
   let __resource =
-    ({ account_id; identity_center_arn; tags }
-      : aws_s3control_access_grants_instance)
+    aws_s3control_access_grants_instance ?account_id
+      ?identity_center_arn ?tags ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_access_grants_instance __resource);
   let __resource_attributes =
     ({

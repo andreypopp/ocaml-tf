@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_network_security_url_lists__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_network_security_url_lists
+
+val google_network_security_url_lists :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  values:string prop list ->
+  unit ->
+  google_network_security_url_lists
+
+val yojson_of_google_network_security_url_lists :
+  google_network_security_url_lists -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -16,11 +42,12 @@ type t = private {
   values : string list prop;
 }
 
-val google_network_security_url_lists :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_network_security_url_lists__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   values:string prop list ->

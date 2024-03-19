@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_desktop_scaling_plan__host_pool = {
+type host_pool = {
   hostpool_id : string prop;  (** hostpool_id *)
   scaling_plan_enabled : bool prop;  (** scaling_plan_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_desktop_scaling_plan__host_pool *)
+(** host_pool *)
 
-type azurerm_virtual_desktop_scaling_plan__schedule = {
+type schedule = {
   days_of_week : string prop list;  (** days_of_week *)
   name : string prop;  (** name *)
   off_peak_load_balancing_algorithm : string prop;
@@ -44,16 +44,16 @@ type azurerm_virtual_desktop_scaling_plan__schedule = {
   ramp_up_start_time : string prop;  (** ramp_up_start_time *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_desktop_scaling_plan__schedule *)
+(** schedule *)
 
-type azurerm_virtual_desktop_scaling_plan__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_desktop_scaling_plan__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_desktop_scaling_plan = {
   description : string prop option; [@option]  (** description *)
@@ -65,12 +65,68 @@ type azurerm_virtual_desktop_scaling_plan = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   time_zone : string prop;  (** time_zone *)
-  host_pool : azurerm_virtual_desktop_scaling_plan__host_pool list;
-  schedule : azurerm_virtual_desktop_scaling_plan__schedule list;
-  timeouts : azurerm_virtual_desktop_scaling_plan__timeouts option;
+  host_pool : host_pool list;
+  schedule : schedule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_scaling_plan *)
+
+let host_pool ~hostpool_id ~scaling_plan_enabled () : host_pool =
+  { hostpool_id; scaling_plan_enabled }
+
+let schedule ?ramp_up_capacity_threshold_percent
+    ?ramp_up_minimum_hosts_percent ~days_of_week ~name
+    ~off_peak_load_balancing_algorithm ~off_peak_start_time
+    ~peak_load_balancing_algorithm ~peak_start_time
+    ~ramp_down_capacity_threshold_percent
+    ~ramp_down_force_logoff_users ~ramp_down_load_balancing_algorithm
+    ~ramp_down_minimum_hosts_percent ~ramp_down_notification_message
+    ~ramp_down_start_time ~ramp_down_stop_hosts_when
+    ~ramp_down_wait_time_minutes ~ramp_up_load_balancing_algorithm
+    ~ramp_up_start_time () : schedule =
+  {
+    days_of_week;
+    name;
+    off_peak_load_balancing_algorithm;
+    off_peak_start_time;
+    peak_load_balancing_algorithm;
+    peak_start_time;
+    ramp_down_capacity_threshold_percent;
+    ramp_down_force_logoff_users;
+    ramp_down_load_balancing_algorithm;
+    ramp_down_minimum_hosts_percent;
+    ramp_down_notification_message;
+    ramp_down_start_time;
+    ramp_down_stop_hosts_when;
+    ramp_down_wait_time_minutes;
+    ramp_up_capacity_threshold_percent;
+    ramp_up_load_balancing_algorithm;
+    ramp_up_minimum_hosts_percent;
+    ramp_up_start_time;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
+    ?friendly_name ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~time_zone ~host_pool ~schedule () :
+    azurerm_virtual_desktop_scaling_plan =
+  {
+    description;
+    exclusion_tag;
+    friendly_name;
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    time_zone;
+    host_pool;
+    schedule;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -84,29 +140,16 @@ type t = {
   time_zone : string prop;
 }
 
-let azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
-    ?friendly_name ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~time_zone ~host_pool ~schedule
-    __resource_id =
+let register ?tf_module ?description ?exclusion_tag ?friendly_name
+    ?id ?tags ?timeouts ~location ~name ~resource_group_name
+    ~time_zone ~host_pool ~schedule __resource_id =
   let __resource_type = "azurerm_virtual_desktop_scaling_plan" in
   let __resource =
-    ({
-       description;
-       exclusion_tag;
-       friendly_name;
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       time_zone;
-       host_pool;
-       schedule;
-       timeouts;
-     }
-      : azurerm_virtual_desktop_scaling_plan)
+    azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
+      ?friendly_name ?id ?tags ?timeouts ~location ~name
+      ~resource_group_name ~time_zone ~host_pool ~schedule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_desktop_scaling_plan __resource);
   let __resource_attributes =
     ({

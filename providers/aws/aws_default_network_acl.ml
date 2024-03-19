@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_default_network_acl__egress = {
+type egress = {
   action : string prop;  (** action *)
   cidr_block : string prop option; [@option]  (** cidr_block *)
   from_port : float prop;  (** from_port *)
@@ -17,9 +17,9 @@ type aws_default_network_acl__egress = {
   to_port : float prop;  (** to_port *)
 }
 [@@deriving yojson_of]
-(** aws_default_network_acl__egress *)
+(** egress *)
 
-type aws_default_network_acl__ingress = {
+type ingress = {
   action : string prop;  (** action *)
   cidr_block : string prop option; [@option]  (** cidr_block *)
   from_port : float prop;  (** from_port *)
@@ -32,7 +32,7 @@ type aws_default_network_acl__ingress = {
   to_port : float prop;  (** to_port *)
 }
 [@@deriving yojson_of]
-(** aws_default_network_acl__ingress *)
+(** ingress *)
 
 type aws_default_network_acl = {
   default_network_acl_id : string prop;
@@ -42,11 +42,52 @@ type aws_default_network_acl = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  egress : aws_default_network_acl__egress list;
-  ingress : aws_default_network_acl__ingress list;
+  egress : egress list;
+  ingress : ingress list;
 }
 [@@deriving yojson_of]
 (** aws_default_network_acl *)
+
+let egress ?cidr_block ?icmp_code ?icmp_type ?ipv6_cidr_block ~action
+    ~from_port ~protocol ~rule_no ~to_port () : egress =
+  {
+    action;
+    cidr_block;
+    from_port;
+    icmp_code;
+    icmp_type;
+    ipv6_cidr_block;
+    protocol;
+    rule_no;
+    to_port;
+  }
+
+let ingress ?cidr_block ?icmp_code ?icmp_type ?ipv6_cidr_block
+    ~action ~from_port ~protocol ~rule_no ~to_port () : ingress =
+  {
+    action;
+    cidr_block;
+    from_port;
+    icmp_code;
+    icmp_type;
+    ipv6_cidr_block;
+    protocol;
+    rule_no;
+    to_port;
+  }
+
+let aws_default_network_acl ?id ?subnet_ids ?tags ?tags_all
+    ~default_network_acl_id ~egress ~ingress () :
+    aws_default_network_acl =
+  {
+    default_network_acl_id;
+    id;
+    subnet_ids;
+    tags;
+    tags_all;
+    egress;
+    ingress;
+  }
 
 type t = {
   arn : string prop;
@@ -59,22 +100,14 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_default_network_acl ?id ?subnet_ids ?tags ?tags_all
+let register ?tf_module ?id ?subnet_ids ?tags ?tags_all
     ~default_network_acl_id ~egress ~ingress __resource_id =
   let __resource_type = "aws_default_network_acl" in
   let __resource =
-    ({
-       default_network_acl_id;
-       id;
-       subnet_ids;
-       tags;
-       tags_all;
-       egress;
-       ingress;
-     }
-      : aws_default_network_acl)
+    aws_default_network_acl ?id ?subnet_ids ?tags ?tags_all
+      ~default_network_acl_id ~egress ~ingress ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_network_acl __resource);
   let __resource_attributes =
     ({

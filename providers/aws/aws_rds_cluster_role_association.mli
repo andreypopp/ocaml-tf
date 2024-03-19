@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_rds_cluster_role_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_rds_cluster_role_association
+
+val aws_rds_cluster_role_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  db_cluster_identifier:string prop ->
+  feature_name:string prop ->
+  role_arn:string prop ->
+  unit ->
+  aws_rds_cluster_role_association
+
+val yojson_of_aws_rds_cluster_role_association :
+  aws_rds_cluster_role_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   db_cluster_identifier : string prop;
@@ -12,9 +32,10 @@ type t = private {
   role_arn : string prop;
 }
 
-val aws_rds_cluster_role_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_rds_cluster_role_association__timeouts ->
+  ?timeouts:timeouts ->
   db_cluster_identifier:string prop ->
   feature_name:string prop ->
   role_arn:string prop ->

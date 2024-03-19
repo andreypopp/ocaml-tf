@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_taxonomy_iam_member__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_data_catalog_taxonomy_iam_member__condition *)
+(** condition *)
 
 type google_data_catalog_taxonomy_iam_member = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,18 @@ type google_data_catalog_taxonomy_iam_member = {
   region : string prop option; [@option]  (** region *)
   role : string prop;  (** role *)
   taxonomy : string prop;  (** taxonomy *)
-  condition : google_data_catalog_taxonomy_iam_member__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_data_catalog_taxonomy_iam_member *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_data_catalog_taxonomy_iam_member ?id ?project ?region
+    ~member ~role ~taxonomy ~condition () :
+    google_data_catalog_taxonomy_iam_member =
+  { id; member; project; region; role; taxonomy; condition }
 
 type t = {
   etag : string prop;
@@ -34,14 +42,14 @@ type t = {
   taxonomy : string prop;
 }
 
-let google_data_catalog_taxonomy_iam_member ?id ?project ?region
-    ~member ~role ~taxonomy ~condition __resource_id =
+let register ?tf_module ?id ?project ?region ~member ~role ~taxonomy
+    ~condition __resource_id =
   let __resource_type = "google_data_catalog_taxonomy_iam_member" in
   let __resource =
-    ({ id; member; project; region; role; taxonomy; condition }
-      : google_data_catalog_taxonomy_iam_member)
+    google_data_catalog_taxonomy_iam_member ?id ?project ?region
+      ~member ~role ~taxonomy ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_taxonomy_iam_member __resource);
   let __resource_attributes =
     ({

@@ -2,10 +2,47 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_function_javascript_uda__input
-type azurerm_stream_analytics_function_javascript_uda__output
-type azurerm_stream_analytics_function_javascript_uda__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type input
+
+val input :
+  ?configuration_parameter:bool prop ->
+  type_:string prop ->
+  unit ->
+  input
+
+type output
+
+val output : type_:string prop -> unit -> output
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_stream_analytics_function_javascript_uda
+
+val azurerm_stream_analytics_function_javascript_uda :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  script:string prop ->
+  stream_analytics_job_id:string prop ->
+  input:input list ->
+  output:output list ->
+  unit ->
+  azurerm_stream_analytics_function_javascript_uda
+
+val yojson_of_azurerm_stream_analytics_function_javascript_uda :
+  azurerm_stream_analytics_function_javascript_uda -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,15 +51,14 @@ type t = private {
   stream_analytics_job_id : string prop;
 }
 
-val azurerm_stream_analytics_function_javascript_uda :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_stream_analytics_function_javascript_uda__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   script:string prop ->
   stream_analytics_job_id:string prop ->
-  input:azurerm_stream_analytics_function_javascript_uda__input list ->
-  output:
-    azurerm_stream_analytics_function_javascript_uda__output list ->
+  input:input list ->
+  output:output list ->
   string ->
   t

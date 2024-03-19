@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_verifiedaccess_group__sse_configuration = {
+type sse_configuration = {
   customer_managed_key_enabled : bool prop option; [@option]
       (** customer_managed_key_enabled *)
   kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
-(** aws_verifiedaccess_group__sse_configuration *)
+(** sse_configuration *)
 
 type aws_verifiedaccess_group = {
   description : string prop option; [@option]  (** description *)
@@ -22,11 +22,27 @@ type aws_verifiedaccess_group = {
       (** tags_all *)
   verifiedaccess_instance_id : string prop;
       (** verifiedaccess_instance_id *)
-  sse_configuration :
-    aws_verifiedaccess_group__sse_configuration list;
+  sse_configuration : sse_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_group *)
+
+let sse_configuration ?customer_managed_key_enabled ?kms_key_arn () :
+    sse_configuration =
+  { customer_managed_key_enabled; kms_key_arn }
+
+let aws_verifiedaccess_group ?description ?id ?policy_document ?tags
+    ?tags_all ~verifiedaccess_instance_id ~sse_configuration () :
+    aws_verifiedaccess_group =
+  {
+    description;
+    id;
+    policy_document;
+    tags;
+    tags_all;
+    verifiedaccess_instance_id;
+    sse_configuration;
+  }
 
 type t = {
   creation_time : string prop;
@@ -43,23 +59,15 @@ type t = {
   verifiedaccess_instance_id : string prop;
 }
 
-let aws_verifiedaccess_group ?description ?id ?policy_document ?tags
+let register ?tf_module ?description ?id ?policy_document ?tags
     ?tags_all ~verifiedaccess_instance_id ~sse_configuration
     __resource_id =
   let __resource_type = "aws_verifiedaccess_group" in
   let __resource =
-    ({
-       description;
-       id;
-       policy_document;
-       tags;
-       tags_all;
-       verifiedaccess_instance_id;
-       sse_configuration;
-     }
-      : aws_verifiedaccess_group)
+    aws_verifiedaccess_group ?description ?id ?policy_document ?tags
+      ?tags_all ~verifiedaccess_instance_id ~sse_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedaccess_group __resource);
   let __resource_attributes =
     ({

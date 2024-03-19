@@ -2,7 +2,33 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ec2_capacity_reservation
+
+val aws_ec2_capacity_reservation :
+  ?ebs_optimized:bool prop ->
+  ?end_date:string prop ->
+  ?end_date_type:string prop ->
+  ?ephemeral_storage:bool prop ->
+  ?id:string prop ->
+  ?instance_match_criteria:string prop ->
+  ?outpost_arn:string prop ->
+  ?placement_group_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tenancy:string prop ->
+  availability_zone:string prop ->
+  instance_count:float prop ->
+  instance_platform:string prop ->
+  instance_type:string prop ->
+  unit ->
+  aws_ec2_capacity_reservation
+
+val yojson_of_aws_ec2_capacity_reservation :
+  aws_ec2_capacity_reservation -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -24,7 +50,8 @@ type t = private {
   tenancy : string prop;
 }
 
-val aws_ec2_capacity_reservation :
+val register :
+  ?tf_module:tf_module ->
   ?ebs_optimized:bool prop ->
   ?end_date:string prop ->
   ?end_date_type:string prop ->

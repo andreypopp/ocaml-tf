@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_nat_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_nat_gateway__timeouts *)
+(** timeouts *)
 
 type aws_nat_gateway = {
   allocation_id : string prop option; [@option]  (** allocation_id *)
@@ -28,10 +28,31 @@ type aws_nat_gateway = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_nat_gateway__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_nat_gateway *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_nat_gateway ?allocation_id ?connectivity_type ?id ?private_ip
+    ?secondary_allocation_ids ?secondary_private_ip_address_count
+    ?secondary_private_ip_addresses ?tags ?tags_all ?timeouts
+    ~subnet_id () : aws_nat_gateway =
+  {
+    allocation_id;
+    connectivity_type;
+    id;
+    private_ip;
+    secondary_allocation_ids;
+    secondary_private_ip_address_count;
+    secondary_private_ip_addresses;
+    subnet_id;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   allocation_id : string prop;
@@ -49,28 +70,19 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_nat_gateway ?allocation_id ?connectivity_type ?id ?private_ip
-    ?secondary_allocation_ids ?secondary_private_ip_address_count
+let register ?tf_module ?allocation_id ?connectivity_type ?id
+    ?private_ip ?secondary_allocation_ids
+    ?secondary_private_ip_address_count
     ?secondary_private_ip_addresses ?tags ?tags_all ?timeouts
     ~subnet_id __resource_id =
   let __resource_type = "aws_nat_gateway" in
   let __resource =
-    ({
-       allocation_id;
-       connectivity_type;
-       id;
-       private_ip;
-       secondary_allocation_ids;
-       secondary_private_ip_address_count;
-       secondary_private_ip_addresses;
-       subnet_id;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_nat_gateway)
+    aws_nat_gateway ?allocation_id ?connectivity_type ?id ?private_ip
+      ?secondary_allocation_ids ?secondary_private_ip_address_count
+      ?secondary_private_ip_addresses ?tags ?tags_all ?timeouts
+      ~subnet_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_nat_gateway __resource);
   let __resource_attributes =
     ({

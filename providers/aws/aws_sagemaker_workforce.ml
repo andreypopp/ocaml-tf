@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_workforce__cognito_config = {
+type cognito_config = {
   client_id : string prop;  (** client_id *)
   user_pool : string prop;  (** user_pool *)
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_workforce__cognito_config *)
+(** cognito_config *)
 
-type aws_sagemaker_workforce__oidc_config = {
+type oidc_config = {
   authorization_endpoint : string prop;
       (** authorization_endpoint *)
   client_id : string prop;  (** client_id *)
@@ -23,35 +23,66 @@ type aws_sagemaker_workforce__oidc_config = {
   user_info_endpoint : string prop;  (** user_info_endpoint *)
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_workforce__oidc_config *)
+(** oidc_config *)
 
-type aws_sagemaker_workforce__source_ip_config = {
-  cidrs : string prop list;  (** cidrs *)
-}
+type source_ip_config = { cidrs : string prop list  (** cidrs *) }
 [@@deriving yojson_of]
-(** aws_sagemaker_workforce__source_ip_config *)
+(** source_ip_config *)
 
-type aws_sagemaker_workforce__workforce_vpc_config = {
+type workforce_vpc_config = {
   security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
   subnets : string prop list option; [@option]  (** subnets *)
-  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   vpc_id : string prop option; [@option]  (** vpc_id *)
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_workforce__workforce_vpc_config *)
+(** workforce_vpc_config *)
 
 type aws_sagemaker_workforce = {
   id : string prop option; [@option]  (** id *)
   workforce_name : string prop;  (** workforce_name *)
-  cognito_config : aws_sagemaker_workforce__cognito_config list;
-  oidc_config : aws_sagemaker_workforce__oidc_config list;
-  source_ip_config : aws_sagemaker_workforce__source_ip_config list;
-  workforce_vpc_config :
-    aws_sagemaker_workforce__workforce_vpc_config list;
+  cognito_config : cognito_config list;
+  oidc_config : oidc_config list;
+  source_ip_config : source_ip_config list;
+  workforce_vpc_config : workforce_vpc_config list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_workforce *)
+
+let cognito_config ~client_id ~user_pool () : cognito_config =
+  { client_id; user_pool }
+
+let oidc_config ~authorization_endpoint ~client_id ~client_secret
+    ~issuer ~jwks_uri ~logout_endpoint ~token_endpoint
+    ~user_info_endpoint () : oidc_config =
+  {
+    authorization_endpoint;
+    client_id;
+    client_secret;
+    issuer;
+    jwks_uri;
+    logout_endpoint;
+    token_endpoint;
+    user_info_endpoint;
+  }
+
+let source_ip_config ~cidrs () : source_ip_config = { cidrs }
+
+let workforce_vpc_config ?security_group_ids ?subnets ?vpc_id () :
+    workforce_vpc_config =
+  { security_group_ids; subnets; vpc_id }
+
+let aws_sagemaker_workforce ?id ~workforce_name ~cognito_config
+    ~oidc_config ~source_ip_config ~workforce_vpc_config () :
+    aws_sagemaker_workforce =
+  {
+    id;
+    workforce_name;
+    cognito_config;
+    oidc_config;
+    source_ip_config;
+    workforce_vpc_config;
+  }
 
 type t = {
   arn : string prop;
@@ -60,22 +91,15 @@ type t = {
   workforce_name : string prop;
 }
 
-let aws_sagemaker_workforce ?id ~workforce_name ~cognito_config
+let register ?tf_module ?id ~workforce_name ~cognito_config
     ~oidc_config ~source_ip_config ~workforce_vpc_config
     __resource_id =
   let __resource_type = "aws_sagemaker_workforce" in
   let __resource =
-    ({
-       id;
-       workforce_name;
-       cognito_config;
-       oidc_config;
-       source_ip_config;
-       workforce_vpc_config;
-     }
-      : aws_sagemaker_workforce)
+    aws_sagemaker_workforce ?id ~workforce_name ~cognito_config
+      ~oidc_config ~source_ip_config ~workforce_vpc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_workforce __resource);
   let __resource_attributes =
     ({

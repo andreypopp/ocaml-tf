@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_zone_dnssec
+
+val cloudflare_zone_dnssec :
+  ?id:string prop ->
+  ?modified_on:string prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_zone_dnssec
+
+val yojson_of_cloudflare_zone_dnssec : cloudflare_zone_dnssec -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   algorithm : string prop;
@@ -20,7 +33,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_zone_dnssec :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?modified_on:string prop ->
   zone_id:string prop ->

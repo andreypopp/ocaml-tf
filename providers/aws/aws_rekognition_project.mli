@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_rekognition_project__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_rekognition_project
+
+val aws_rekognition_project :
+  ?auto_update:string prop ->
+  ?feature:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  unit ->
+  aws_rekognition_project
+
+val yojson_of_aws_rekognition_project :
+  aws_rekognition_project -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,10 +32,11 @@ type t = private {
   name : string prop;
 }
 
-val aws_rekognition_project :
+val register :
+  ?tf_module:tf_module ->
   ?auto_update:string prop ->
   ?feature:string prop ->
-  ?timeouts:aws_rekognition_project__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   string ->
   t

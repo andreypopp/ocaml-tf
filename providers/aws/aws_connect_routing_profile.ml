@@ -4,23 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_connect_routing_profile__media_concurrencies = {
+type media_concurrencies = {
   channel : string prop;  (** channel *)
   concurrency : float prop;  (** concurrency *)
 }
 [@@deriving yojson_of]
-(** aws_connect_routing_profile__media_concurrencies *)
+(** media_concurrencies *)
 
-type aws_connect_routing_profile__queue_configs = {
+type queue_configs = {
   channel : string prop;  (** channel *)
   delay : float prop;  (** delay *)
   priority : float prop;  (** priority *)
-  queue_arn : string prop;  (** queue_arn *)
   queue_id : string prop;  (** queue_id *)
-  queue_name : string prop;  (** queue_name *)
 }
 [@@deriving yojson_of]
-(** aws_connect_routing_profile__queue_configs *)
+(** queue_configs *)
 
 type aws_connect_routing_profile = {
   default_outbound_queue_id : string prop;
@@ -32,12 +30,35 @@ type aws_connect_routing_profile = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  media_concurrencies :
-    aws_connect_routing_profile__media_concurrencies list;
-  queue_configs : aws_connect_routing_profile__queue_configs list;
+  media_concurrencies : media_concurrencies list;
+  queue_configs : queue_configs list;
 }
 [@@deriving yojson_of]
 (** aws_connect_routing_profile *)
+
+let media_concurrencies ~channel ~concurrency () :
+    media_concurrencies =
+  { channel; concurrency }
+
+let queue_configs ~channel ~delay ~priority ~queue_id () :
+    queue_configs =
+  { channel; delay; priority; queue_id }
+
+let aws_connect_routing_profile ?id ?tags ?tags_all
+    ~default_outbound_queue_id ~description ~instance_id ~name
+    ~media_concurrencies ~queue_configs () :
+    aws_connect_routing_profile =
+  {
+    default_outbound_queue_id;
+    description;
+    id;
+    instance_id;
+    name;
+    tags;
+    tags_all;
+    media_concurrencies;
+    queue_configs;
+  }
 
 type t = {
   arn : string prop;
@@ -51,25 +72,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_connect_routing_profile ?id ?tags ?tags_all
+let register ?tf_module ?id ?tags ?tags_all
     ~default_outbound_queue_id ~description ~instance_id ~name
     ~media_concurrencies ~queue_configs __resource_id =
   let __resource_type = "aws_connect_routing_profile" in
   let __resource =
-    ({
-       default_outbound_queue_id;
-       description;
-       id;
-       instance_id;
-       name;
-       tags;
-       tags_all;
-       media_concurrencies;
-       queue_configs;
-     }
-      : aws_connect_routing_profile)
+    aws_connect_routing_profile ?id ?tags ?tags_all
+      ~default_outbound_queue_id ~description ~instance_id ~name
+      ~media_concurrencies ~queue_configs ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_routing_profile __resource);
   let __resource_attributes =
     ({

@@ -11,20 +11,22 @@ type aws_config_retention_configuration = {
 [@@deriving yojson_of]
 (** aws_config_retention_configuration *)
 
+let aws_config_retention_configuration ~retention_period_in_days () :
+    aws_config_retention_configuration =
+  { retention_period_in_days }
+
 type t = {
   id : string prop;
   name : string prop;
   retention_period_in_days : float prop;
 }
 
-let aws_config_retention_configuration ~retention_period_in_days
-    __resource_id =
+let register ?tf_module ~retention_period_in_days __resource_id =
   let __resource_type = "aws_config_retention_configuration" in
   let __resource =
-    ({ retention_period_in_days }
-      : aws_config_retention_configuration)
+    aws_config_retention_configuration ~retention_period_in_days ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_config_retention_configuration __resource);
   let __resource_attributes =
     ({

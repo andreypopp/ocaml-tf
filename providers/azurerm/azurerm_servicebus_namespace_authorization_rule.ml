@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_servicebus_namespace_authorization_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_servicebus_namespace_authorization_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_servicebus_namespace_authorization_rule = {
   id : string prop option; [@option]  (** id *)
@@ -20,11 +20,18 @@ type azurerm_servicebus_namespace_authorization_rule = {
   name : string prop;  (** name *)
   namespace_id : string prop;  (** namespace_id *)
   send : bool prop option; [@option]  (** send *)
-  timeouts :
-    azurerm_servicebus_namespace_authorization_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace_authorization_rule *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_servicebus_namespace_authorization_rule ?id ?listen
+    ?manage ?send ?timeouts ~name ~namespace_id () :
+    azurerm_servicebus_namespace_authorization_rule =
+  { id; listen; manage; name; namespace_id; send; timeouts }
 
 type t = {
   id : string prop;
@@ -41,16 +48,16 @@ type t = {
   send : bool prop;
 }
 
-let azurerm_servicebus_namespace_authorization_rule ?id ?listen
-    ?manage ?send ?timeouts ~name ~namespace_id __resource_id =
+let register ?tf_module ?id ?listen ?manage ?send ?timeouts ~name
+    ~namespace_id __resource_id =
   let __resource_type =
     "azurerm_servicebus_namespace_authorization_rule"
   in
   let __resource =
-    ({ id; listen; manage; name; namespace_id; send; timeouts }
-      : azurerm_servicebus_namespace_authorization_rule)
+    azurerm_servicebus_namespace_authorization_rule ?id ?listen
+      ?manage ?send ?timeouts ~name ~namespace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_servicebus_namespace_authorization_rule
        __resource);
   let __resource_attributes =

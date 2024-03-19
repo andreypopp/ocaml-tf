@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type hcloud_placement_group
+
+val hcloud_placement_group :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  name:string prop ->
+  type_:string prop ->
+  unit ->
+  hcloud_placement_group
+
+val yojson_of_hcloud_placement_group : hcloud_placement_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,7 +26,8 @@ type t = private {
   type_ : string prop;
 }
 
-val hcloud_placement_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   name:string prop ->

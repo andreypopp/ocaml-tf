@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_bigquery_bi_reservation__preferred_tables = {
+type preferred_tables = {
   dataset_id : string prop option; [@option]
       (** The ID of the dataset in the above project. *)
   project_id : string prop option; [@option]
@@ -15,13 +15,13 @@ type google_bigquery_bi_reservation__preferred_tables = {
 [@@deriving yojson_of]
 (** Preferred tables to use BI capacity for. *)
 
-type google_bigquery_bi_reservation__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_bi_reservation__timeouts *)
+(** timeouts *)
 
 type google_bigquery_bi_reservation = {
   id : string prop option; [@option]  (** id *)
@@ -29,12 +29,22 @@ type google_bigquery_bi_reservation = {
   project : string prop option; [@option]  (** project *)
   size : float prop option; [@option]
       (** Size of a reservation, in bytes. *)
-  preferred_tables :
-    google_bigquery_bi_reservation__preferred_tables list;
-  timeouts : google_bigquery_bi_reservation__timeouts option;
+  preferred_tables : preferred_tables list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_bi_reservation *)
+
+let preferred_tables ?dataset_id ?project_id ?table_id () :
+    preferred_tables =
+  { dataset_id; project_id; table_id }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_bigquery_bi_reservation ?id ?project ?size ?timeouts
+    ~location ~preferred_tables () : google_bigquery_bi_reservation =
+  { id; location; project; size; preferred_tables; timeouts }
 
 type t = {
   id : string prop;
@@ -45,14 +55,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_bigquery_bi_reservation ?id ?project ?size ?timeouts
-    ~location ~preferred_tables __resource_id =
+let register ?tf_module ?id ?project ?size ?timeouts ~location
+    ~preferred_tables __resource_id =
   let __resource_type = "google_bigquery_bi_reservation" in
   let __resource =
-    ({ id; location; project; size; preferred_tables; timeouts }
-      : google_bigquery_bi_reservation)
+    google_bigquery_bi_reservation ?id ?project ?size ?timeouts
+      ~location ~preferred_tables ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_bi_reservation __resource);
   let __resource_attributes =
     ({

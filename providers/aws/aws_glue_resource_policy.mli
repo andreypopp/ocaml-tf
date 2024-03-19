@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_glue_resource_policy
+
+val aws_glue_resource_policy :
+  ?enable_hybrid:string prop ->
+  ?id:string prop ->
+  policy:string prop ->
+  unit ->
+  aws_glue_resource_policy
+
+val yojson_of_aws_glue_resource_policy :
+  aws_glue_resource_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enable_hybrid : string prop;
@@ -10,7 +24,8 @@ type t = private {
   policy : string prop;
 }
 
-val aws_glue_resource_policy :
+val register :
+  ?tf_module:tf_module ->
   ?enable_hybrid:string prop ->
   ?id:string prop ->
   policy:string prop ->

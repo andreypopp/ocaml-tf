@@ -2,10 +2,50 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_failover_group__partner_server
-type azurerm_mssql_failover_group__read_write_endpoint_failover_policy
-type azurerm_mssql_failover_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type partner_server
+
+val partner_server : id:string prop -> unit -> partner_server
+
+type read_write_endpoint_failover_policy
+
+val read_write_endpoint_failover_policy :
+  ?grace_minutes:float prop ->
+  mode:string prop ->
+  unit ->
+  read_write_endpoint_failover_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mssql_failover_group
+
+val azurerm_mssql_failover_group :
+  ?databases:string prop list ->
+  ?id:string prop ->
+  ?readonly_endpoint_failover_policy_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  server_id:string prop ->
+  partner_server:partner_server list ->
+  read_write_endpoint_failover_policy:
+    read_write_endpoint_failover_policy list ->
+  unit ->
+  azurerm_mssql_failover_group
+
+val yojson_of_azurerm_mssql_failover_group :
+  azurerm_mssql_failover_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   databases : string list prop;
@@ -16,17 +56,17 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_mssql_failover_group :
+val register :
+  ?tf_module:tf_module ->
   ?databases:string prop list ->
   ?id:string prop ->
   ?readonly_endpoint_failover_policy_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_mssql_failover_group__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   server_id:string prop ->
-  partner_server:azurerm_mssql_failover_group__partner_server list ->
+  partner_server:partner_server list ->
   read_write_endpoint_failover_policy:
-    azurerm_mssql_failover_group__read_write_endpoint_failover_policy
-    list ->
+    read_write_endpoint_failover_policy list ->
   string ->
   t

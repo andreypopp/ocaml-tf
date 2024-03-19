@@ -15,6 +15,10 @@ type aws_shield_protection = {
 [@@deriving yojson_of]
 (** aws_shield_protection *)
 
+let aws_shield_protection ?id ?tags ?tags_all ~name ~resource_arn ()
+    : aws_shield_protection =
+  { id; name; resource_arn; tags; tags_all }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -24,14 +28,13 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_shield_protection ?id ?tags ?tags_all ~name ~resource_arn
+let register ?tf_module ?id ?tags ?tags_all ~name ~resource_arn
     __resource_id =
   let __resource_type = "aws_shield_protection" in
   let __resource =
-    ({ id; name; resource_arn; tags; tags_all }
-      : aws_shield_protection)
+    aws_shield_protection ?id ?tags ?tags_all ~name ~resource_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_protection __resource);
   let __resource_attributes =
     ({

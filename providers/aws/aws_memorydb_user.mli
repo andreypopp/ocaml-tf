@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_memorydb_user__authentication_mode
+(** RESOURCE SERIALIZATION *)
+
+type authentication_mode
+
+val authentication_mode :
+  passwords:string prop list ->
+  type_:string prop ->
+  unit ->
+  authentication_mode
+
 type aws_memorydb_user
+
+val aws_memorydb_user :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  access_string:string prop ->
+  user_name:string prop ->
+  authentication_mode:authentication_mode list ->
+  unit ->
+  aws_memorydb_user
+
+val yojson_of_aws_memorydb_user : aws_memorydb_user -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_string : string prop;
@@ -15,12 +38,13 @@ type t = private {
   user_name : string prop;
 }
 
-val aws_memorydb_user :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   access_string:string prop ->
   user_name:string prop ->
-  authentication_mode:aws_memorydb_user__authentication_mode list ->
+  authentication_mode:authentication_mode list ->
   string ->
   t

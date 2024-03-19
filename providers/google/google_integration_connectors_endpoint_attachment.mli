@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type google_integration_connectors_endpoint_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_integration_connectors_endpoint_attachment
+
+val google_integration_connectors_endpoint_attachment :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  service_attachment:string prop ->
+  unit ->
+  google_integration_connectors_endpoint_attachment
+
+val yojson_of_google_integration_connectors_endpoint_attachment :
+  google_integration_connectors_endpoint_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -20,13 +47,13 @@ type t = private {
   update_time : string prop;
 }
 
-val google_integration_connectors_endpoint_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:
-    google_integration_connectors_endpoint_attachment__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   service_attachment:string prop ->

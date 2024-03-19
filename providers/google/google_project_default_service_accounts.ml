@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_project_default_service_accounts__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** google_project_default_service_accounts__timeouts *)
+(** timeouts *)
 
 type google_project_default_service_accounts = {
   action : string prop;
@@ -22,10 +22,18 @@ type google_project_default_service_accounts = {
   restore_policy : string prop option; [@option]
       (** The action to be performed in the default service accounts on the resource destroy.
 				Valid values are NONE, REVERT and REVERT_AND_IGNORE_FAILURE. It is applied for any action but in the DEPRIVILEGE. *)
-  timeouts : google_project_default_service_accounts__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_project_default_service_accounts *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let google_project_default_service_accounts ?id ?restore_policy
+    ?timeouts ~action ~project () :
+    google_project_default_service_accounts =
+  { action; id; project; restore_policy; timeouts }
 
 type t = {
   action : string prop;
@@ -35,14 +43,14 @@ type t = {
   service_accounts : (string * string) list prop;
 }
 
-let google_project_default_service_accounts ?id ?restore_policy
-    ?timeouts ~action ~project __resource_id =
+let register ?tf_module ?id ?restore_policy ?timeouts ~action
+    ~project __resource_id =
   let __resource_type = "google_project_default_service_accounts" in
   let __resource =
-    ({ action; id; project; restore_policy; timeouts }
-      : google_project_default_service_accounts)
+    google_project_default_service_accounts ?id ?restore_policy
+      ?timeouts ~action ~project ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_default_service_accounts __resource);
   let __resource_attributes =
     ({

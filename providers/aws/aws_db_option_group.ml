@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_db_option_group__option__option_settings = {
+type option__option_settings = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_db_option_group__option__option_settings *)
+(** option__option_settings *)
 
-type aws_db_option_group__option = {
+type option_ = {
   db_security_group_memberships : string prop list option; [@option]
       (** db_security_group_memberships *)
   option_name : string prop;  (** option_name *)
@@ -19,16 +19,16 @@ type aws_db_option_group__option = {
   version : string prop option; [@option]  (** version *)
   vpc_security_group_memberships : string prop list option; [@option]
       (** vpc_security_group_memberships *)
-  option_settings : aws_db_option_group__option__option_settings list;
+  option_settings : option__option_settings list;
 }
 [@@deriving yojson_of]
-(** aws_db_option_group__option *)
+(** option *)
 
-type aws_db_option_group__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_db_option_group__timeouts *)
+(** timeouts *)
 
 type aws_db_option_group = {
   engine_name : string prop;  (** engine_name *)
@@ -41,11 +41,45 @@ type aws_db_option_group = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  option : aws_db_option_group__option list;
-  timeouts : aws_db_option_group__timeouts option;
+  option_ : option_ list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_option_group *)
+
+let option__option_settings ~name ~value () : option__option_settings
+    =
+  { name; value }
+
+let option_ ?db_security_group_memberships ?port ?version
+    ?vpc_security_group_memberships ~option_name ~option_settings ()
+    : option_ =
+  {
+    db_security_group_memberships;
+    option_name;
+    port;
+    version;
+    vpc_security_group_memberships;
+    option_settings;
+  }
+
+let timeouts ?delete () : timeouts = { delete }
+
+let aws_db_option_group ?id ?name ?name_prefix
+    ?option_group_description ?tags ?tags_all ?timeouts ~engine_name
+    ~major_engine_version ~option_ () : aws_db_option_group =
+  {
+    engine_name;
+    id;
+    major_engine_version;
+    name;
+    name_prefix;
+    option_group_description;
+    tags;
+    tags_all;
+    option_;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -59,26 +93,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_db_option_group ?id ?name ?name_prefix
+let register ?tf_module ?id ?name ?name_prefix
     ?option_group_description ?tags ?tags_all ?timeouts ~engine_name
-    ~major_engine_version ~option __resource_id =
+    ~major_engine_version ~option_ __resource_id =
   let __resource_type = "aws_db_option_group" in
   let __resource =
-    ({
-       engine_name;
-       id;
-       major_engine_version;
-       name;
-       name_prefix;
-       option_group_description;
-       tags;
-       tags_all;
-       option;
-       timeouts;
-     }
-      : aws_db_option_group)
+    aws_db_option_group ?id ?name ?name_prefix
+      ?option_group_description ?tags ?tags_all ?timeouts
+      ~engine_name ~major_engine_version ~option_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_option_group __resource);
   let __resource_attributes =
     ({

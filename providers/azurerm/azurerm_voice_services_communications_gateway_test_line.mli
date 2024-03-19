@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_voice_services_communications_gateway_test_line__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_voice_services_communications_gateway_test_line
+
+val azurerm_voice_services_communications_gateway_test_line :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  phone_number:string prop ->
+  purpose:string prop ->
+  voice_services_communications_gateway_id:string prop ->
+  unit ->
+  azurerm_voice_services_communications_gateway_test_line
+
+val yojson_of_azurerm_voice_services_communications_gateway_test_line :
+  azurerm_voice_services_communications_gateway_test_line -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,11 +43,11 @@ type t = private {
   voice_services_communications_gateway_id : string prop;
 }
 
-val azurerm_voice_services_communications_gateway_test_line :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:
-    azurerm_voice_services_communications_gateway_test_line__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   phone_number:string prop ->

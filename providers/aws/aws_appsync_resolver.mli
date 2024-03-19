@@ -2,12 +2,66 @@
 
 open! Tf.Prelude
 
-type aws_appsync_resolver__caching_config
-type aws_appsync_resolver__pipeline_config
-type aws_appsync_resolver__runtime
-type aws_appsync_resolver__sync_config__lambda_conflict_handler_config
-type aws_appsync_resolver__sync_config
+(** RESOURCE SERIALIZATION *)
+
+type caching_config
+
+val caching_config :
+  ?caching_keys:string prop list ->
+  ?ttl:float prop ->
+  unit ->
+  caching_config
+
+type pipeline_config
+
+val pipeline_config :
+  ?functions:string prop list -> unit -> pipeline_config
+
+type runtime
+
+val runtime :
+  name:string prop -> runtime_version:string prop -> unit -> runtime
+
+type sync_config__lambda_conflict_handler_config
+
+val sync_config__lambda_conflict_handler_config :
+  ?lambda_conflict_handler_arn:string prop ->
+  unit ->
+  sync_config__lambda_conflict_handler_config
+
+type sync_config
+
+val sync_config :
+  ?conflict_detection:string prop ->
+  ?conflict_handler:string prop ->
+  lambda_conflict_handler_config:
+    sync_config__lambda_conflict_handler_config list ->
+  unit ->
+  sync_config
+
 type aws_appsync_resolver
+
+val aws_appsync_resolver :
+  ?code:string prop ->
+  ?data_source:string prop ->
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?max_batch_size:float prop ->
+  ?request_template:string prop ->
+  ?response_template:string prop ->
+  api_id:string prop ->
+  field:string prop ->
+  type_:string prop ->
+  caching_config:caching_config list ->
+  pipeline_config:pipeline_config list ->
+  runtime:runtime list ->
+  sync_config:sync_config list ->
+  unit ->
+  aws_appsync_resolver
+
+val yojson_of_aws_appsync_resolver : aws_appsync_resolver -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_id : string prop;
@@ -23,7 +77,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_appsync_resolver :
+val register :
+  ?tf_module:tf_module ->
   ?code:string prop ->
   ?data_source:string prop ->
   ?id:string prop ->
@@ -34,9 +89,9 @@ val aws_appsync_resolver :
   api_id:string prop ->
   field:string prop ->
   type_:string prop ->
-  caching_config:aws_appsync_resolver__caching_config list ->
-  pipeline_config:aws_appsync_resolver__pipeline_config list ->
-  runtime:aws_appsync_resolver__runtime list ->
-  sync_config:aws_appsync_resolver__sync_config list ->
+  caching_config:caching_config list ->
+  pipeline_config:pipeline_config list ->
+  runtime:runtime list ->
+  sync_config:sync_config list ->
   string ->
   t

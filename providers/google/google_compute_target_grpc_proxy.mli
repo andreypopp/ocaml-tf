@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_compute_target_grpc_proxy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_target_grpc_proxy
+
+val google_compute_target_grpc_proxy :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?url_map:string prop ->
+  ?validate_for_proxyless:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  unit ->
+  google_compute_target_grpc_proxy
+
+val yojson_of_google_compute_target_grpc_proxy :
+  google_compute_target_grpc_proxy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_timestamp : string prop;
@@ -18,13 +44,14 @@ type t = private {
   validate_for_proxyless : bool prop;
 }
 
-val google_compute_target_grpc_proxy :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?url_map:string prop ->
   ?validate_for_proxyless:bool prop ->
-  ?timeouts:google_compute_target_grpc_proxy__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   string ->
   t

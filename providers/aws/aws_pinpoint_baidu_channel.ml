@@ -14,6 +14,10 @@ type aws_pinpoint_baidu_channel = {
 [@@deriving yojson_of]
 (** aws_pinpoint_baidu_channel *)
 
+let aws_pinpoint_baidu_channel ?enabled ?id ~api_key ~application_id
+    ~secret_key () : aws_pinpoint_baidu_channel =
+  { api_key; application_id; enabled; id; secret_key }
+
 type t = {
   api_key : string prop;
   application_id : string prop;
@@ -22,14 +26,14 @@ type t = {
   secret_key : string prop;
 }
 
-let aws_pinpoint_baidu_channel ?enabled ?id ~api_key ~application_id
+let register ?tf_module ?enabled ?id ~api_key ~application_id
     ~secret_key __resource_id =
   let __resource_type = "aws_pinpoint_baidu_channel" in
   let __resource =
-    ({ api_key; application_id; enabled; id; secret_key }
-      : aws_pinpoint_baidu_channel)
+    aws_pinpoint_baidu_channel ?enabled ?id ~api_key ~application_id
+      ~secret_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pinpoint_baidu_channel __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type google_edgenetwork_subnet__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_edgenetwork_subnet
+
+val google_edgenetwork_subnet :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ipv4_cidr:string prop list ->
+  ?ipv6_cidr:string prop list ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?vlan_id:float prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  network:string prop ->
+  subnet_id:string prop ->
+  zone:string prop ->
+  unit ->
+  google_edgenetwork_subnet
+
+val yojson_of_google_edgenetwork_subnet :
+  google_edgenetwork_subnet -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -23,7 +50,8 @@ type t = private {
   zone : string prop;
 }
 
-val google_edgenetwork_subnet :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?ipv4_cidr:string prop list ->
@@ -31,7 +59,7 @@ val google_edgenetwork_subnet :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?vlan_id:float prop ->
-  ?timeouts:google_edgenetwork_subnet__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   network:string prop ->
   subnet_id:string prop ->

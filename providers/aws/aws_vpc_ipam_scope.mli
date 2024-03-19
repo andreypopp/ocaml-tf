@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipam_scope__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_vpc_ipam_scope
+
+val aws_vpc_ipam_scope :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  ipam_id:string prop ->
+  unit ->
+  aws_vpc_ipam_scope
+
+val yojson_of_aws_vpc_ipam_scope : aws_vpc_ipam_scope -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,12 +42,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_vpc_ipam_scope :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_vpc_ipam_scope__timeouts ->
+  ?timeouts:timeouts ->
   ipam_id:string prop ->
   string ->
   t

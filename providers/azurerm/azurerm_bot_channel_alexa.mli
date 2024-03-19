@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_bot_channel_alexa__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_bot_channel_alexa
+
+val azurerm_bot_channel_alexa :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  skill_id:string prop ->
+  unit ->
+  azurerm_bot_channel_alexa
+
+val yojson_of_azurerm_bot_channel_alexa :
+  azurerm_bot_channel_alexa -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bot_name : string prop;
@@ -13,9 +39,10 @@ type t = private {
   skill_id : string prop;
 }
 
-val azurerm_bot_channel_alexa :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_bot_channel_alexa__timeouts ->
+  ?timeouts:timeouts ->
   bot_name:string prop ->
   location:string prop ->
   resource_group_name:string prop ->

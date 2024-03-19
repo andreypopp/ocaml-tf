@@ -21,6 +21,21 @@ type aws_kms_replica_key = {
 [@@deriving yojson_of]
 (** aws_kms_replica_key *)
 
+let aws_kms_replica_key ?bypass_policy_lockout_safety_check
+    ?deletion_window_in_days ?description ?enabled ?id ?policy ?tags
+    ?tags_all ~primary_key_arn () : aws_kms_replica_key =
+  {
+    bypass_policy_lockout_safety_check;
+    deletion_window_in_days;
+    description;
+    enabled;
+    id;
+    policy;
+    primary_key_arn;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   bypass_policy_lockout_safety_check : bool prop;
@@ -38,25 +53,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_kms_replica_key ?bypass_policy_lockout_safety_check
+let register ?tf_module ?bypass_policy_lockout_safety_check
     ?deletion_window_in_days ?description ?enabled ?id ?policy ?tags
     ?tags_all ~primary_key_arn __resource_id =
   let __resource_type = "aws_kms_replica_key" in
   let __resource =
-    ({
-       bypass_policy_lockout_safety_check;
-       deletion_window_in_days;
-       description;
-       enabled;
-       id;
-       policy;
-       primary_key_arn;
-       tags;
-       tags_all;
-     }
-      : aws_kms_replica_key)
+    aws_kms_replica_key ?bypass_policy_lockout_safety_check
+      ?deletion_window_in_days ?description ?enabled ?id ?policy
+      ?tags ?tags_all ~primary_key_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kms_replica_key __resource);
   let __resource_attributes =
     ({

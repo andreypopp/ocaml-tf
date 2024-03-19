@@ -16,6 +16,11 @@ type digitalocean_database_connection_pool = {
 [@@deriving yojson_of]
 (** digitalocean_database_connection_pool *)
 
+let digitalocean_database_connection_pool ?id ?user ~cluster_id
+    ~db_name ~mode ~name ~size () :
+    digitalocean_database_connection_pool =
+  { cluster_id; db_name; id; mode; name; size; user }
+
 type t = {
   cluster_id : string prop;
   db_name : string prop;
@@ -32,14 +37,14 @@ type t = {
   user : string prop;
 }
 
-let digitalocean_database_connection_pool ?id ?user ~cluster_id
-    ~db_name ~mode ~name ~size __resource_id =
+let register ?tf_module ?id ?user ~cluster_id ~db_name ~mode ~name
+    ~size __resource_id =
   let __resource_type = "digitalocean_database_connection_pool" in
   let __resource =
-    ({ cluster_id; db_name; id; mode; name; size; user }
-      : digitalocean_database_connection_pool)
+    digitalocean_database_connection_pool ?id ?user ~cluster_id
+      ~db_name ~mode ~name ~size ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_connection_pool __resource);
   let __resource_attributes =
     ({

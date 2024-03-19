@@ -2,39 +2,74 @@
 
 open! Tf.Prelude
 
-type aws_redshiftserverless_workgroup__config_parameter
-type aws_redshiftserverless_workgroup__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type aws_redshiftserverless_workgroup__endpoint__vpc_endpoint__network_interface = {
+type endpoint__vpc_endpoint__network_interface = {
   availability_zone : string prop;  (** availability_zone *)
   network_interface_id : string prop;  (** network_interface_id *)
   private_ip_address : string prop;  (** private_ip_address *)
   subnet_id : string prop;  (** subnet_id *)
 }
 
-type aws_redshiftserverless_workgroup__endpoint__vpc_endpoint = {
-  network_interface :
-    aws_redshiftserverless_workgroup__endpoint__vpc_endpoint__network_interface
-    list;
+type endpoint__vpc_endpoint = {
+  network_interface : endpoint__vpc_endpoint__network_interface list;
       (** network_interface *)
   vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   vpc_id : string prop;  (** vpc_id *)
 }
 
-type aws_redshiftserverless_workgroup__endpoint = {
+type endpoint = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
-  vpc_endpoint :
-    aws_redshiftserverless_workgroup__endpoint__vpc_endpoint list;
-      (** vpc_endpoint *)
+  vpc_endpoint : endpoint__vpc_endpoint list;  (** vpc_endpoint *)
 }
 
+type config_parameter
+
+val config_parameter :
+  parameter_key:string prop ->
+  parameter_value:string prop ->
+  unit ->
+  config_parameter
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_redshiftserverless_workgroup
+
+val aws_redshiftserverless_workgroup :
+  ?base_capacity:float prop ->
+  ?enhanced_vpc_routing:bool prop ->
+  ?id:string prop ->
+  ?max_capacity:float prop ->
+  ?port:float prop ->
+  ?publicly_accessible:bool prop ->
+  ?security_group_ids:string prop list ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  namespace_name:string prop ->
+  workgroup_name:string prop ->
+  config_parameter:config_parameter list ->
+  unit ->
+  aws_redshiftserverless_workgroup
+
+val yojson_of_aws_redshiftserverless_workgroup :
+  aws_redshiftserverless_workgroup -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
   base_capacity : float prop;
-  endpoint : aws_redshiftserverless_workgroup__endpoint list prop;
+  endpoint : endpoint list prop;
   enhanced_vpc_routing : bool prop;
   id : string prop;
   max_capacity : float prop;
@@ -49,7 +84,8 @@ type t = private {
   workgroup_name : string prop;
 }
 
-val aws_redshiftserverless_workgroup :
+val register :
+  ?tf_module:tf_module ->
   ?base_capacity:float prop ->
   ?enhanced_vpc_routing:bool prop ->
   ?id:string prop ->
@@ -60,10 +96,9 @@ val aws_redshiftserverless_workgroup :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_redshiftserverless_workgroup__timeouts ->
+  ?timeouts:timeouts ->
   namespace_name:string prop ->
   workgroup_name:string prop ->
-  config_parameter:
-    aws_redshiftserverless_workgroup__config_parameter list ->
+  config_parameter:config_parameter list ->
   string ->
   t

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_memorydb_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_memorydb_snapshot__timeouts *)
+(** timeouts *)
 
-type aws_memorydb_snapshot__cluster_configuration = {
+type cluster_configuration = {
   description : string prop;  (** description *)
   engine_version : string prop;  (** engine_version *)
   maintenance_window : string prop;  (** maintenance_window *)
@@ -38,15 +38,29 @@ type aws_memorydb_snapshot = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_memorydb_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_memorydb_snapshot *)
 
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_memorydb_snapshot ?id ?kms_key_arn ?name ?name_prefix ?tags
+    ?tags_all ?timeouts ~cluster_name () : aws_memorydb_snapshot =
+  {
+    cluster_name;
+    id;
+    kms_key_arn;
+    name;
+    name_prefix;
+    tags;
+    tags_all;
+    timeouts;
+  }
+
 type t = {
   arn : string prop;
-  cluster_configuration :
-    aws_memorydb_snapshot__cluster_configuration list prop;
+  cluster_configuration : cluster_configuration list prop;
   cluster_name : string prop;
   id : string prop;
   kms_key_arn : string prop;
@@ -57,23 +71,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_memorydb_snapshot ?id ?kms_key_arn ?name ?name_prefix ?tags
+let register ?tf_module ?id ?kms_key_arn ?name ?name_prefix ?tags
     ?tags_all ?timeouts ~cluster_name __resource_id =
   let __resource_type = "aws_memorydb_snapshot" in
   let __resource =
-    ({
-       cluster_name;
-       id;
-       kms_key_arn;
-       name;
-       name_prefix;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_memorydb_snapshot)
+    aws_memorydb_snapshot ?id ?kms_key_arn ?name ?name_prefix ?tags
+      ?tags_all ?timeouts ~cluster_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_memorydb_snapshot __resource);
   let __resource_attributes =
     ({

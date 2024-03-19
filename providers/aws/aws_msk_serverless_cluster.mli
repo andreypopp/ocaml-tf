@@ -2,12 +2,57 @@
 
 open! Tf.Prelude
 
-type aws_msk_serverless_cluster__client_authentication__sasl__iam
-type aws_msk_serverless_cluster__client_authentication__sasl
-type aws_msk_serverless_cluster__client_authentication
-type aws_msk_serverless_cluster__timeouts
-type aws_msk_serverless_cluster__vpc_config
+(** RESOURCE SERIALIZATION *)
+
+type client_authentication__sasl__iam
+
+val client_authentication__sasl__iam :
+  enabled:bool prop -> unit -> client_authentication__sasl__iam
+
+type client_authentication__sasl
+
+val client_authentication__sasl :
+  iam:client_authentication__sasl__iam list ->
+  unit ->
+  client_authentication__sasl
+
+type client_authentication
+
+val client_authentication :
+  sasl:client_authentication__sasl list ->
+  unit ->
+  client_authentication
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
+type vpc_config
+
+val vpc_config :
+  ?security_group_ids:string prop list ->
+  subnet_ids:string prop list ->
+  unit ->
+  vpc_config
+
 type aws_msk_serverless_cluster
+
+val aws_msk_serverless_cluster :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  client_authentication:client_authentication list ->
+  vpc_config:vpc_config list ->
+  unit ->
+  aws_msk_serverless_cluster
+
+val yojson_of_aws_msk_serverless_cluster :
+  aws_msk_serverless_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,14 +63,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_msk_serverless_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_msk_serverless_cluster__timeouts ->
+  ?timeouts:timeouts ->
   cluster_name:string prop ->
-  client_authentication:
-    aws_msk_serverless_cluster__client_authentication list ->
-  vpc_config:aws_msk_serverless_cluster__vpc_config list ->
+  client_authentication:client_authentication list ->
+  vpc_config:vpc_config list ->
   string ->
   t

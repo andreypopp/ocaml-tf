@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_integration_connectors_endpoint_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_integration_connectors_endpoint_attachment__timeouts *)
+(** timeouts *)
 
 type google_integration_connectors_endpoint_attachment = {
   description : string prop option; [@option]
@@ -29,12 +29,28 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   project : string prop option; [@option]  (** project *)
   service_attachment : string prop;
       (** The path of the service attachment. *)
-  timeouts :
-    google_integration_connectors_endpoint_attachment__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_integration_connectors_endpoint_attachment *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_integration_connectors_endpoint_attachment ?description
+    ?id ?labels ?project ?timeouts ~location ~name
+    ~service_attachment () :
+    google_integration_connectors_endpoint_attachment =
+  {
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    service_attachment;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -51,26 +67,17 @@ type t = {
   update_time : string prop;
 }
 
-let google_integration_connectors_endpoint_attachment ?description
-    ?id ?labels ?project ?timeouts ~location ~name
-    ~service_attachment __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~location ~name ~service_attachment __resource_id =
   let __resource_type =
     "google_integration_connectors_endpoint_attachment"
   in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       service_attachment;
-       timeouts;
-     }
-      : google_integration_connectors_endpoint_attachment)
+    google_integration_connectors_endpoint_attachment ?description
+      ?id ?labels ?project ?timeouts ~location ~name
+      ~service_attachment ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_integration_connectors_endpoint_attachment
        __resource);
   let __resource_attributes =

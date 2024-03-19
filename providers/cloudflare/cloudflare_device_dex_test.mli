@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type cloudflare_device_dex_test__data
+(** RESOURCE SERIALIZATION *)
+
+type data
+
+val data :
+  ?method_:string prop ->
+  host:string prop ->
+  kind:string prop ->
+  unit ->
+  data
+
 type cloudflare_device_dex_test
+
+val cloudflare_device_dex_test :
+  ?id:string prop ->
+  account_id:string prop ->
+  description:string prop ->
+  enabled:bool prop ->
+  interval:string prop ->
+  name:string prop ->
+  data:data list ->
+  unit ->
+  cloudflare_device_dex_test
+
+val yojson_of_cloudflare_device_dex_test :
+  cloudflare_device_dex_test -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -16,13 +42,14 @@ type t = private {
   updated : string prop;
 }
 
-val cloudflare_device_dex_test :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   account_id:string prop ->
   description:string prop ->
   enabled:bool prop ->
   interval:string prop ->
   name:string prop ->
-  data:cloudflare_device_dex_test__data list ->
+  data:data list ->
   string ->
   t

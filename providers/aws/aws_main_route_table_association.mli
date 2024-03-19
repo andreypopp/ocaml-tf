@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_main_route_table_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_main_route_table_association
+
+val aws_main_route_table_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  route_table_id:string prop ->
+  vpc_id:string prop ->
+  unit ->
+  aws_main_route_table_association
+
+val yojson_of_aws_main_route_table_association :
+  aws_main_route_table_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,9 +35,10 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_main_route_table_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_main_route_table_association__timeouts ->
+  ?timeouts:timeouts ->
   route_table_id:string prop ->
   vpc_id:string prop ->
   string ->

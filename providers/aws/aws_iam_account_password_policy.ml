@@ -27,6 +27,24 @@ type aws_iam_account_password_policy = {
 [@@deriving yojson_of]
 (** aws_iam_account_password_policy *)
 
+let aws_iam_account_password_policy ?allow_users_to_change_password
+    ?hard_expiry ?id ?max_password_age ?minimum_password_length
+    ?password_reuse_prevention ?require_lowercase_characters
+    ?require_numbers ?require_symbols ?require_uppercase_characters
+    () : aws_iam_account_password_policy =
+  {
+    allow_users_to_change_password;
+    hard_expiry;
+    id;
+    max_password_age;
+    minimum_password_length;
+    password_reuse_prevention;
+    require_lowercase_characters;
+    require_numbers;
+    require_symbols;
+    require_uppercase_characters;
+  }
+
 type t = {
   allow_users_to_change_password : bool prop;
   expire_passwords : bool prop;
@@ -41,28 +59,20 @@ type t = {
   require_uppercase_characters : bool prop;
 }
 
-let aws_iam_account_password_policy ?allow_users_to_change_password
-    ?hard_expiry ?id ?max_password_age ?minimum_password_length
+let register ?tf_module ?allow_users_to_change_password ?hard_expiry
+    ?id ?max_password_age ?minimum_password_length
     ?password_reuse_prevention ?require_lowercase_characters
     ?require_numbers ?require_symbols ?require_uppercase_characters
     __resource_id =
   let __resource_type = "aws_iam_account_password_policy" in
   let __resource =
-    ({
-       allow_users_to_change_password;
-       hard_expiry;
-       id;
-       max_password_age;
-       minimum_password_length;
-       password_reuse_prevention;
-       require_lowercase_characters;
-       require_numbers;
-       require_symbols;
-       require_uppercase_characters;
-     }
-      : aws_iam_account_password_policy)
+    aws_iam_account_password_policy ?allow_users_to_change_password
+      ?hard_expiry ?id ?max_password_age ?minimum_password_length
+      ?password_reuse_prevention ?require_lowercase_characters
+      ?require_numbers ?require_symbols ?require_uppercase_characters
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_account_password_policy __resource);
   let __resource_attributes =
     ({

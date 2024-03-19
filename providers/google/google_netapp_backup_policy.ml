@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_netapp_backup_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_netapp_backup_policy__timeouts *)
+(** timeouts *)
 
 type google_netapp_backup_policy = {
   daily_backup_limit : float prop;
@@ -36,10 +36,31 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   project : string prop option; [@option]  (** project *)
   weekly_backup_limit : float prop;
       (** Number of weekly backups to keep. Note that the sum of daily, weekly and monthly backups should be greater than 1. *)
-  timeouts : google_netapp_backup_policy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_backup_policy *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_netapp_backup_policy ?description ?enabled ?id ?labels
+    ?project ?timeouts ~daily_backup_limit ~location
+    ~monthly_backup_limit ~name ~weekly_backup_limit () :
+    google_netapp_backup_policy =
+  {
+    daily_backup_limit;
+    description;
+    enabled;
+    id;
+    labels;
+    location;
+    monthly_backup_limit;
+    name;
+    project;
+    weekly_backup_limit;
+    timeouts;
+  }
 
 type t = {
   assigned_volume_count : float prop;
@@ -59,27 +80,16 @@ type t = {
   weekly_backup_limit : float prop;
 }
 
-let google_netapp_backup_policy ?description ?enabled ?id ?labels
-    ?project ?timeouts ~daily_backup_limit ~location
-    ~monthly_backup_limit ~name ~weekly_backup_limit __resource_id =
+let register ?tf_module ?description ?enabled ?id ?labels ?project
+    ?timeouts ~daily_backup_limit ~location ~monthly_backup_limit
+    ~name ~weekly_backup_limit __resource_id =
   let __resource_type = "google_netapp_backup_policy" in
   let __resource =
-    ({
-       daily_backup_limit;
-       description;
-       enabled;
-       id;
-       labels;
-       location;
-       monthly_backup_limit;
-       name;
-       project;
-       weekly_backup_limit;
-       timeouts;
-     }
-      : google_netapp_backup_policy)
+    google_netapp_backup_policy ?description ?enabled ?id ?labels
+      ?project ?timeouts ~daily_backup_limit ~location
+      ~monthly_backup_limit ~name ~weekly_backup_limit ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_backup_policy __resource);
   let __resource_attributes =
     ({

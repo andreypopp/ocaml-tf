@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type aws_qldb_stream__kinesis_configuration
-type aws_qldb_stream__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type kinesis_configuration
+
+val kinesis_configuration :
+  ?aggregation_enabled:bool prop ->
+  stream_arn:string prop ->
+  unit ->
+  kinesis_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_qldb_stream
+
+val aws_qldb_stream :
+  ?exclusive_end_time:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  inclusive_start_time:string prop ->
+  ledger_name:string prop ->
+  role_arn:string prop ->
+  stream_name:string prop ->
+  kinesis_configuration:kinesis_configuration list ->
+  unit ->
+  aws_qldb_stream
+
+val yojson_of_aws_qldb_stream : aws_qldb_stream -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,16 +49,17 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_qldb_stream :
+val register :
+  ?tf_module:tf_module ->
   ?exclusive_end_time:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_qldb_stream__timeouts ->
+  ?timeouts:timeouts ->
   inclusive_start_time:string prop ->
   ledger_name:string prop ->
   role_arn:string prop ->
   stream_name:string prop ->
-  kinesis_configuration:aws_qldb_stream__kinesis_configuration list ->
+  kinesis_configuration:kinesis_configuration list ->
   string ->
   t

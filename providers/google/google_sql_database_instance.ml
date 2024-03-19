@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_sql_database_instance__clone = {
+type clone = {
   allocated_ip_range : string prop option; [@option]
       (** The name of the allocated ip range for the private ip CloudSQL instance. For example: google-managed-services-default. If set, the cloned instance ip will be created in the allocated range. The range name must comply with [RFC 1035](https://tools.ietf.org/html/rfc1035). Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]*[a-z0-9])?. *)
   database_names : string prop list option; [@option]
@@ -19,7 +19,7 @@ type google_sql_database_instance__clone = {
 [@@deriving yojson_of]
 (** Configuration for creating a new instance as a clone of another instance. *)
 
-type google_sql_database_instance__replica_configuration = {
+type replica_configuration = {
   ca_certificate : string prop option; [@option]
       (** PEM representation of the trusted CA's x509 certificate. *)
   client_certificate : string prop option; [@option]
@@ -46,7 +46,7 @@ type google_sql_database_instance__replica_configuration = {
 [@@deriving yojson_of]
 (** The configuration for replication. *)
 
-type google_sql_database_instance__restore_backup_context = {
+type restore_backup_context = {
   backup_run_id : float prop;
       (** The ID of the backup run to restore from. *)
   instance_id : string prop option; [@option]
@@ -55,31 +55,31 @@ type google_sql_database_instance__restore_backup_context = {
       (** The full project ID of the source instance. *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__restore_backup_context *)
+(** restore_backup_context *)
 
-type google_sql_database_instance__settings__active_directory_config = {
+type settings__active_directory_config = {
   domain : string prop;
       (** Domain name of the Active Directory for SQL Server (e.g., mydomain.com). *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__active_directory_config *)
+(** settings__active_directory_config *)
 
-type google_sql_database_instance__settings__advanced_machine_features = {
+type settings__advanced_machine_features = {
   threads_per_core : float prop option; [@option]
       (** The number of threads per physical core. Can be 1 or 2. *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__advanced_machine_features *)
+(** settings__advanced_machine_features *)
 
-type google_sql_database_instance__settings__backup_configuration__backup_retention_settings = {
+type settings__backup_configuration__backup_retention_settings = {
   retained_backups : float prop;  (** Number of backups to retain. *)
   retention_unit : string prop option; [@option]
       (** The unit that 'retainedBackups' represents. Defaults to COUNT *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__backup_configuration__backup_retention_settings *)
+(** settings__backup_configuration__backup_retention_settings *)
 
-type google_sql_database_instance__settings__backup_configuration = {
+type settings__backup_configuration = {
   binary_log_enabled : bool prop option; [@option]
       (** True if binary logging is enabled. If settings.backup_configuration.enabled is false, this must be as well. Can only be used with MySQL. *)
   enabled : bool prop option; [@option]
@@ -93,27 +93,26 @@ type google_sql_database_instance__settings__backup_configuration = {
   transaction_log_retention_days : float prop option; [@option]
       (** The number of days of transaction logs we retain for point in time restore, from 1-7. (For PostgreSQL Enterprise Plus instances, from 1 to 35.) *)
   backup_retention_settings :
-    google_sql_database_instance__settings__backup_configuration__backup_retention_settings
-    list;
+    settings__backup_configuration__backup_retention_settings list;
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__backup_configuration *)
+(** settings__backup_configuration *)
 
-type google_sql_database_instance__settings__data_cache_config = {
+type settings__data_cache_config = {
   data_cache_enabled : bool prop option; [@option]
       (** Whether data cache is enabled for the instance. *)
 }
 [@@deriving yojson_of]
 (** Data cache configurations. *)
 
-type google_sql_database_instance__settings__database_flags = {
+type settings__database_flags = {
   name : string prop;  (** Name of the flag. *)
   value : string prop;  (** Value of the flag. *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__database_flags *)
+(** settings__database_flags *)
 
-type google_sql_database_instance__settings__deny_maintenance_period = {
+type settings__deny_maintenance_period = {
   end_date : string prop;
       (** End date before which maintenance will not take place. The date is in format yyyy-mm-dd i.e., 2020-11-01, or mm-dd, i.e., 11-01 *)
   start_date : string prop;
@@ -122,9 +121,9 @@ type google_sql_database_instance__settings__deny_maintenance_period = {
       (** Time in UTC when the deny maintenance period starts on start_date and ends on end_date. The time is in format: HH:mm:SS, i.e., 00:00:00 *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__deny_maintenance_period *)
+(** settings__deny_maintenance_period *)
 
-type google_sql_database_instance__settings__insights_config = {
+type settings__insights_config = {
   query_insights_enabled : bool prop option; [@option]
       (** True if Query Insights feature is enabled. *)
   query_plans_per_minute : float prop option; [@option]
@@ -139,16 +138,16 @@ type google_sql_database_instance__settings__insights_config = {
 [@@deriving yojson_of]
 (** Configuration of Query Insights. *)
 
-type google_sql_database_instance__settings__ip_configuration__authorized_networks = {
+type settings__ip_configuration__authorized_networks = {
   expiration_time : string prop option; [@option]
       (** expiration_time *)
   name : string prop option; [@option]  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__ip_configuration__authorized_networks *)
+(** settings__ip_configuration__authorized_networks *)
 
-type google_sql_database_instance__settings__ip_configuration__psc_config = {
+type settings__ip_configuration__psc_config = {
   allowed_consumer_projects : string prop list option; [@option]
       (** List of consumer projects that are allow-listed for PSC connections to this instance. This instance can be connected to with PSC from any network in these projects. Each consumer project in this list may be represented by a project number (numeric) or by a project id (alphanumeric). *)
   psc_enabled : bool prop option; [@option]
@@ -157,7 +156,7 @@ type google_sql_database_instance__settings__ip_configuration__psc_config = {
 [@@deriving yojson_of]
 (** PSC settings for a Cloud SQL instance. *)
 
-type google_sql_database_instance__settings__ip_configuration = {
+type settings__ip_configuration = {
   allocated_ip_range : string prop option; [@option]
       (** The name of the allocated ip range for the private ip CloudSQL instance. For example: google-managed-services-default. If set, the instance ip will be created in the allocated range. The range name must comply with RFC 1035. Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]*[a-z0-9])?. *)
   enable_private_path_for_google_cloud_services : bool prop option;
@@ -172,16 +171,13 @@ type google_sql_database_instance__settings__ip_configuration = {
   ssl_mode : string prop option; [@option]
       (** Specify how SSL connection should be enforced in DB connections. This field provides more SSL enforcment options compared to require_ssl. To change this field, also set the correspoding value in require_ssl. *)
   authorized_networks :
-    google_sql_database_instance__settings__ip_configuration__authorized_networks
-    list;
-  psc_config :
-    google_sql_database_instance__settings__ip_configuration__psc_config
-    list;
+    settings__ip_configuration__authorized_networks list;
+  psc_config : settings__ip_configuration__psc_config list;
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__ip_configuration *)
+(** settings__ip_configuration *)
 
-type google_sql_database_instance__settings__location_preference = {
+type settings__location_preference = {
   follow_gae_application : string prop option; [@option]
       (** A Google App Engine application whose zone to remain in. Must be in the same region as this instance. *)
   secondary_zone : string prop option; [@option]
@@ -190,9 +186,9 @@ type google_sql_database_instance__settings__location_preference = {
       (** The preferred compute engine zone. *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__location_preference *)
+(** settings__location_preference *)
 
-type google_sql_database_instance__settings__maintenance_window = {
+type settings__maintenance_window = {
   day : float prop option; [@option]
       (** Day of week (1-7), starting on Monday *)
   hour : float prop option; [@option]
@@ -203,7 +199,7 @@ type google_sql_database_instance__settings__maintenance_window = {
 [@@deriving yojson_of]
 (** Declares a one-hour maintenance window when an Instance can automatically restart to apply updates. The maintenance window is specified in UTC time. *)
 
-type google_sql_database_instance__settings__password_validation_policy = {
+type settings__password_validation_policy = {
   complexity : string prop option; [@option]
       (** Password complexity. *)
   disallow_username_substring : bool prop option; [@option]
@@ -218,9 +214,9 @@ type google_sql_database_instance__settings__password_validation_policy = {
       (** Number of previous passwords that cannot be reused. *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__password_validation_policy *)
+(** settings__password_validation_policy *)
 
-type google_sql_database_instance__settings__sql_server_audit_config = {
+type settings__sql_server_audit_config = {
   bucket : string prop option; [@option]
       (** The name of the destination bucket (e.g., gs://mybucket). *)
   retention_interval : string prop option; [@option]
@@ -229,9 +225,9 @@ type google_sql_database_instance__settings__sql_server_audit_config = {
       (** How often to upload generated audit files. A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__settings__sql_server_audit_config *)
+(** settings__sql_server_audit_config *)
 
-type google_sql_database_instance__settings = {
+type settings = {
   activation_policy : string prop option; [@option]
       (** This specifies when the instance should be active. Can be either ALWAYS, NEVER or ON_DEMAND. *)
   availability_type : string prop option; [@option]
@@ -265,57 +261,40 @@ is set to true. Defaults to ZONAL. *)
       (** The time_zone to be used by the database engine (supported only for SQL Server), in SQL Server timezone format. *)
   user_labels : (string * string prop) list option; [@option]
       (** A set of key/value user label pairs to assign to the instance. *)
-  version : float prop;
-      (** Used to make sure changes to the settings block are atomic. *)
-  active_directory_config :
-    google_sql_database_instance__settings__active_directory_config
-    list;
+  active_directory_config : settings__active_directory_config list;
   advanced_machine_features :
-    google_sql_database_instance__settings__advanced_machine_features
-    list;
-  backup_configuration :
-    google_sql_database_instance__settings__backup_configuration list;
-  data_cache_config :
-    google_sql_database_instance__settings__data_cache_config list;
-  database_flags :
-    google_sql_database_instance__settings__database_flags list;
-  deny_maintenance_period :
-    google_sql_database_instance__settings__deny_maintenance_period
-    list;
-  insights_config :
-    google_sql_database_instance__settings__insights_config list;
-  ip_configuration :
-    google_sql_database_instance__settings__ip_configuration list;
-  location_preference :
-    google_sql_database_instance__settings__location_preference list;
-  maintenance_window :
-    google_sql_database_instance__settings__maintenance_window list;
+    settings__advanced_machine_features list;
+  backup_configuration : settings__backup_configuration list;
+  data_cache_config : settings__data_cache_config list;
+  database_flags : settings__database_flags list;
+  deny_maintenance_period : settings__deny_maintenance_period list;
+  insights_config : settings__insights_config list;
+  ip_configuration : settings__ip_configuration list;
+  location_preference : settings__location_preference list;
+  maintenance_window : settings__maintenance_window list;
   password_validation_policy :
-    google_sql_database_instance__settings__password_validation_policy
-    list;
-  sql_server_audit_config :
-    google_sql_database_instance__settings__sql_server_audit_config
-    list;
+    settings__password_validation_policy list;
+  sql_server_audit_config : settings__sql_server_audit_config list;
 }
 [@@deriving yojson_of]
 (** The settings to use for the database. The configuration is detailed below. *)
 
-type google_sql_database_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_sql_database_instance__timeouts *)
+(** timeouts *)
 
-type google_sql_database_instance__ip_address = {
+type ip_address = {
   ip_address : string prop;  (** ip_address *)
   time_to_retire : string prop;  (** time_to_retire *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
-type google_sql_database_instance__server_ca_cert = {
+type server_ca_cert = {
   cert : string prop;  (** cert *)
   common_name : string prop;  (** common_name *)
   create_time : string prop;  (** create_time *)
@@ -346,16 +325,213 @@ type google_sql_database_instance = {
       (** The region the instance will sit in. Note, Cloud SQL is not available in all regions. A valid region must be provided to use this resource. If a region is not provided in the resource definition, the provider region will be used instead, but this will be an apply-time error for instances if the provider region is not supported with Cloud SQL. If you choose not to provide the region argument for this resource, make sure you understand this. *)
   root_password : string prop option; [@option]
       (** Initial root password. Required for MS SQL Server. *)
-  clone : google_sql_database_instance__clone list;
-  replica_configuration :
-    google_sql_database_instance__replica_configuration list;
-  restore_backup_context :
-    google_sql_database_instance__restore_backup_context list;
-  settings : google_sql_database_instance__settings list;
-  timeouts : google_sql_database_instance__timeouts option;
+  clone : clone list;
+  replica_configuration : replica_configuration list;
+  restore_backup_context : restore_backup_context list;
+  settings : settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_sql_database_instance *)
+
+let clone ?allocated_ip_range ?database_names ?point_in_time
+    ?preferred_zone ~source_instance_name () : clone =
+  {
+    allocated_ip_range;
+    database_names;
+    point_in_time;
+    preferred_zone;
+    source_instance_name;
+  }
+
+let replica_configuration ?ca_certificate ?client_certificate
+    ?client_key ?connect_retry_interval ?dump_file_path
+    ?failover_target ?master_heartbeat_period ?password ?ssl_cipher
+    ?username ?verify_server_certificate () : replica_configuration =
+  {
+    ca_certificate;
+    client_certificate;
+    client_key;
+    connect_retry_interval;
+    dump_file_path;
+    failover_target;
+    master_heartbeat_period;
+    password;
+    ssl_cipher;
+    username;
+    verify_server_certificate;
+  }
+
+let restore_backup_context ?instance_id ?project ~backup_run_id () :
+    restore_backup_context =
+  { backup_run_id; instance_id; project }
+
+let settings__active_directory_config ~domain () :
+    settings__active_directory_config =
+  { domain }
+
+let settings__advanced_machine_features ?threads_per_core () :
+    settings__advanced_machine_features =
+  { threads_per_core }
+
+let settings__backup_configuration__backup_retention_settings
+    ?retention_unit ~retained_backups () :
+    settings__backup_configuration__backup_retention_settings =
+  { retained_backups; retention_unit }
+
+let settings__backup_configuration ?binary_log_enabled ?enabled
+    ?location ?point_in_time_recovery_enabled ?start_time
+    ?transaction_log_retention_days ~backup_retention_settings () :
+    settings__backup_configuration =
+  {
+    binary_log_enabled;
+    enabled;
+    location;
+    point_in_time_recovery_enabled;
+    start_time;
+    transaction_log_retention_days;
+    backup_retention_settings;
+  }
+
+let settings__data_cache_config ?data_cache_enabled () :
+    settings__data_cache_config =
+  { data_cache_enabled }
+
+let settings__database_flags ~name ~value () :
+    settings__database_flags =
+  { name; value }
+
+let settings__deny_maintenance_period ~end_date ~start_date ~time ()
+    : settings__deny_maintenance_period =
+  { end_date; start_date; time }
+
+let settings__insights_config ?query_insights_enabled
+    ?query_plans_per_minute ?query_string_length
+    ?record_application_tags ?record_client_address () :
+    settings__insights_config =
+  {
+    query_insights_enabled;
+    query_plans_per_minute;
+    query_string_length;
+    record_application_tags;
+    record_client_address;
+  }
+
+let settings__ip_configuration__authorized_networks ?expiration_time
+    ?name ~value () : settings__ip_configuration__authorized_networks
+    =
+  { expiration_time; name; value }
+
+let settings__ip_configuration__psc_config ?allowed_consumer_projects
+    ?psc_enabled () : settings__ip_configuration__psc_config =
+  { allowed_consumer_projects; psc_enabled }
+
+let settings__ip_configuration ?allocated_ip_range
+    ?enable_private_path_for_google_cloud_services ?ipv4_enabled
+    ?private_network ?require_ssl ?ssl_mode ~authorized_networks
+    ~psc_config () : settings__ip_configuration =
+  {
+    allocated_ip_range;
+    enable_private_path_for_google_cloud_services;
+    ipv4_enabled;
+    private_network;
+    require_ssl;
+    ssl_mode;
+    authorized_networks;
+    psc_config;
+  }
+
+let settings__location_preference ?follow_gae_application
+    ?secondary_zone ?zone () : settings__location_preference =
+  { follow_gae_application; secondary_zone; zone }
+
+let settings__maintenance_window ?day ?hour ?update_track () :
+    settings__maintenance_window =
+  { day; hour; update_track }
+
+let settings__password_validation_policy ?complexity
+    ?disallow_username_substring ?min_length
+    ?password_change_interval ?reuse_interval ~enable_password_policy
+    () : settings__password_validation_policy =
+  {
+    complexity;
+    disallow_username_substring;
+    enable_password_policy;
+    min_length;
+    password_change_interval;
+    reuse_interval;
+  }
+
+let settings__sql_server_audit_config ?bucket ?retention_interval
+    ?upload_interval () : settings__sql_server_audit_config =
+  { bucket; retention_interval; upload_interval }
+
+let settings ?activation_policy ?availability_type ?collation
+    ?connector_enforcement ?deletion_protection_enabled
+    ?disk_autoresize ?disk_autoresize_limit ?disk_size ?disk_type
+    ?edition ?pricing_plan ?time_zone ?user_labels ~tier
+    ~active_directory_config ~advanced_machine_features
+    ~backup_configuration ~data_cache_config ~database_flags
+    ~deny_maintenance_period ~insights_config ~ip_configuration
+    ~location_preference ~maintenance_window
+    ~password_validation_policy ~sql_server_audit_config () :
+    settings =
+  {
+    activation_policy;
+    availability_type;
+    collation;
+    connector_enforcement;
+    deletion_protection_enabled;
+    disk_autoresize;
+    disk_autoresize_limit;
+    disk_size;
+    disk_type;
+    edition;
+    pricing_plan;
+    tier;
+    time_zone;
+    user_labels;
+    active_directory_config;
+    advanced_machine_features;
+    backup_configuration;
+    data_cache_config;
+    database_flags;
+    deny_maintenance_period;
+    insights_config;
+    ip_configuration;
+    location_preference;
+    maintenance_window;
+    password_validation_policy;
+    sql_server_audit_config;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_sql_database_instance ?deletion_protection
+    ?encryption_key_name ?id ?instance_type ?maintenance_version
+    ?master_instance_name ?name ?project ?region ?root_password
+    ?timeouts ~database_version ~clone ~replica_configuration
+    ~restore_backup_context ~settings () :
+    google_sql_database_instance =
+  {
+    database_version;
+    deletion_protection;
+    encryption_key_name;
+    id;
+    instance_type;
+    maintenance_version;
+    master_instance_name;
+    name;
+    project;
+    region;
+    root_password;
+    clone;
+    replica_configuration;
+    restore_backup_context;
+    settings;
+    timeouts;
+  }
 
 type t = {
   available_maintenance_versions : string list prop;
@@ -367,7 +543,7 @@ type t = {
   first_ip_address : string prop;
   id : string prop;
   instance_type : string prop;
-  ip_address : google_sql_database_instance__ip_address list prop;
+  ip_address : ip_address list prop;
   maintenance_version : string prop;
   master_instance_name : string prop;
   name : string prop;
@@ -378,39 +554,24 @@ type t = {
   region : string prop;
   root_password : string prop;
   self_link : string prop;
-  server_ca_cert :
-    google_sql_database_instance__server_ca_cert list prop;
+  server_ca_cert : server_ca_cert list prop;
   service_account_email_address : string prop;
 }
 
-let google_sql_database_instance ?deletion_protection
-    ?encryption_key_name ?id ?instance_type ?maintenance_version
-    ?master_instance_name ?name ?project ?region ?root_password
-    ?timeouts ~database_version ~clone ~replica_configuration
-    ~restore_backup_context ~settings __resource_id =
+let register ?tf_module ?deletion_protection ?encryption_key_name ?id
+    ?instance_type ?maintenance_version ?master_instance_name ?name
+    ?project ?region ?root_password ?timeouts ~database_version
+    ~clone ~replica_configuration ~restore_backup_context ~settings
+    __resource_id =
   let __resource_type = "google_sql_database_instance" in
   let __resource =
-    ({
-       database_version;
-       deletion_protection;
-       encryption_key_name;
-       id;
-       instance_type;
-       maintenance_version;
-       master_instance_name;
-       name;
-       project;
-       region;
-       root_password;
-       clone;
-       replica_configuration;
-       restore_backup_context;
-       settings;
-       timeouts;
-     }
-      : google_sql_database_instance)
+    google_sql_database_instance ?deletion_protection
+      ?encryption_key_name ?id ?instance_type ?maintenance_version
+      ?master_instance_name ?name ?project ?region ?root_password
+      ?timeouts ~database_version ~clone ~replica_configuration
+      ~restore_backup_context ~settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_database_instance __resource);
   let __resource_attributes =
     ({

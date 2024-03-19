@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_compute_global_address__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_global_address
+
+val google_compute_global_address :
+  ?address:string prop ->
+  ?address_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ip_version:string prop ->
+  ?network:string prop ->
+  ?prefix_length:float prop ->
+  ?project:string prop ->
+  ?purpose:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  unit ->
+  google_compute_global_address
+
+val yojson_of_google_compute_global_address :
+  google_compute_global_address -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   address : string prop;
@@ -20,7 +46,8 @@ type t = private {
   self_link : string prop;
 }
 
-val google_compute_global_address :
+val register :
+  ?tf_module:tf_module ->
   ?address:string prop ->
   ?address_type:string prop ->
   ?description:string prop ->
@@ -30,7 +57,7 @@ val google_compute_global_address :
   ?prefix_length:float prop ->
   ?project:string prop ->
   ?purpose:string prop ->
-  ?timeouts:google_compute_global_address__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   string ->
   t

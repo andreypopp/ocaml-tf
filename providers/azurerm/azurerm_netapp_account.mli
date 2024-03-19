@@ -2,10 +2,55 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_account__active_directory
-type azurerm_netapp_account__identity
-type azurerm_netapp_account__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type active_directory
+
+val active_directory :
+  ?organizational_unit:string prop ->
+  dns_servers:string prop list ->
+  domain:string prop ->
+  password:string prop ->
+  smb_server_name:string prop ->
+  username:string prop ->
+  unit ->
+  active_directory
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_netapp_account
+
+val azurerm_netapp_account :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  active_directory:active_directory list ->
+  identity:identity list ->
+  unit ->
+  azurerm_netapp_account
+
+val yojson_of_azurerm_netapp_account : azurerm_netapp_account -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,14 +60,15 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_netapp_account :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_netapp_account__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  active_directory:azurerm_netapp_account__active_directory list ->
-  identity:azurerm_netapp_account__identity list ->
+  active_directory:active_directory list ->
+  identity:identity list ->
   string ->
   t

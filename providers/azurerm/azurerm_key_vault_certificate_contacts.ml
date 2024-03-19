@@ -4,42 +4,52 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault_certificate_contacts__contact = {
+type contact = {
   email : string prop;  (** email *)
   name : string prop option; [@option]  (** name *)
   phone : string prop option; [@option]  (** phone *)
 }
 [@@deriving yojson_of]
-(** azurerm_key_vault_certificate_contacts__contact *)
+(** contact *)
 
-type azurerm_key_vault_certificate_contacts__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_key_vault_certificate_contacts__timeouts *)
+(** timeouts *)
 
 type azurerm_key_vault_certificate_contacts = {
   id : string prop option; [@option]  (** id *)
   key_vault_id : string prop;  (** key_vault_id *)
-  contact : azurerm_key_vault_certificate_contacts__contact list;
-  timeouts : azurerm_key_vault_certificate_contacts__timeouts option;
+  contact : contact list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_contacts *)
 
-type t = { id : string prop; key_vault_id : string prop }
+let contact ?name ?phone ~email () : contact = { email; name; phone }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
 
 let azurerm_key_vault_certificate_contacts ?id ?timeouts
-    ~key_vault_id ~contact __resource_id =
+    ~key_vault_id ~contact () :
+    azurerm_key_vault_certificate_contacts =
+  { id; key_vault_id; contact; timeouts }
+
+type t = { id : string prop; key_vault_id : string prop }
+
+let register ?tf_module ?id ?timeouts ~key_vault_id ~contact
+    __resource_id =
   let __resource_type = "azurerm_key_vault_certificate_contacts" in
   let __resource =
-    ({ id; key_vault_id; contact; timeouts }
-      : azurerm_key_vault_certificate_contacts)
+    azurerm_key_vault_certificate_contacts ?id ?timeouts
+      ~key_vault_id ~contact ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_certificate_contacts __resource);
   let __resource_attributes =
     ({

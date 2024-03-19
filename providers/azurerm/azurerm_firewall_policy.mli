@@ -2,18 +2,141 @@
 
 open! Tf.Prelude
 
-type azurerm_firewall_policy__dns
-type azurerm_firewall_policy__explicit_proxy
-type azurerm_firewall_policy__identity
-type azurerm_firewall_policy__insights__log_analytics_workspace
-type azurerm_firewall_policy__insights
-type azurerm_firewall_policy__intrusion_detection__signature_overrides
-type azurerm_firewall_policy__intrusion_detection__traffic_bypass
-type azurerm_firewall_policy__intrusion_detection
-type azurerm_firewall_policy__threat_intelligence_allowlist
-type azurerm_firewall_policy__timeouts
-type azurerm_firewall_policy__tls_certificate
+(** RESOURCE SERIALIZATION *)
+
+type dns
+
+val dns :
+  ?proxy_enabled:bool prop ->
+  ?servers:string prop list ->
+  unit ->
+  dns
+
+type explicit_proxy
+
+val explicit_proxy :
+  ?enable_pac_file:bool prop ->
+  ?enabled:bool prop ->
+  ?http_port:float prop ->
+  ?https_port:float prop ->
+  ?pac_file:string prop ->
+  ?pac_file_port:float prop ->
+  unit ->
+  explicit_proxy
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type insights__log_analytics_workspace
+
+val insights__log_analytics_workspace :
+  firewall_location:string prop ->
+  id:string prop ->
+  unit ->
+  insights__log_analytics_workspace
+
+type insights
+
+val insights :
+  ?retention_in_days:float prop ->
+  default_log_analytics_workspace_id:string prop ->
+  enabled:bool prop ->
+  log_analytics_workspace:insights__log_analytics_workspace list ->
+  unit ->
+  insights
+
+type intrusion_detection__signature_overrides
+
+val intrusion_detection__signature_overrides :
+  ?id:string prop ->
+  ?state:string prop ->
+  unit ->
+  intrusion_detection__signature_overrides
+
+type intrusion_detection__traffic_bypass
+
+val intrusion_detection__traffic_bypass :
+  ?description:string prop ->
+  ?destination_addresses:string prop list ->
+  ?destination_ip_groups:string prop list ->
+  ?destination_ports:string prop list ->
+  ?source_addresses:string prop list ->
+  ?source_ip_groups:string prop list ->
+  name:string prop ->
+  protocol:string prop ->
+  unit ->
+  intrusion_detection__traffic_bypass
+
+type intrusion_detection
+
+val intrusion_detection :
+  ?mode:string prop ->
+  ?private_ranges:string prop list ->
+  signature_overrides:intrusion_detection__signature_overrides list ->
+  traffic_bypass:intrusion_detection__traffic_bypass list ->
+  unit ->
+  intrusion_detection
+
+type threat_intelligence_allowlist
+
+val threat_intelligence_allowlist :
+  ?fqdns:string prop list ->
+  ?ip_addresses:string prop list ->
+  unit ->
+  threat_intelligence_allowlist
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type tls_certificate
+
+val tls_certificate :
+  key_vault_secret_id:string prop ->
+  name:string prop ->
+  unit ->
+  tls_certificate
+
 type azurerm_firewall_policy
+
+val azurerm_firewall_policy :
+  ?auto_learn_private_ranges_enabled:bool prop ->
+  ?base_policy_id:string prop ->
+  ?id:string prop ->
+  ?private_ip_ranges:string prop list ->
+  ?sku:string prop ->
+  ?sql_redirect_allowed:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?threat_intelligence_mode:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  dns:dns list ->
+  explicit_proxy:explicit_proxy list ->
+  identity:identity list ->
+  insights:insights list ->
+  intrusion_detection:intrusion_detection list ->
+  threat_intelligence_allowlist:threat_intelligence_allowlist list ->
+  tls_certificate:tls_certificate list ->
+  unit ->
+  azurerm_firewall_policy
+
+val yojson_of_azurerm_firewall_policy :
+  azurerm_firewall_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_learn_private_ranges_enabled : bool prop;
@@ -32,7 +155,8 @@ type t = private {
   threat_intelligence_mode : string prop;
 }
 
-val azurerm_firewall_policy :
+val register :
+  ?tf_module:tf_module ->
   ?auto_learn_private_ranges_enabled:bool prop ->
   ?base_policy_id:string prop ->
   ?id:string prop ->
@@ -41,18 +165,16 @@ val azurerm_firewall_policy :
   ?sql_redirect_allowed:bool prop ->
   ?tags:(string * string prop) list ->
   ?threat_intelligence_mode:string prop ->
-  ?timeouts:azurerm_firewall_policy__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  dns:azurerm_firewall_policy__dns list ->
-  explicit_proxy:azurerm_firewall_policy__explicit_proxy list ->
-  identity:azurerm_firewall_policy__identity list ->
-  insights:azurerm_firewall_policy__insights list ->
-  intrusion_detection:
-    azurerm_firewall_policy__intrusion_detection list ->
-  threat_intelligence_allowlist:
-    azurerm_firewall_policy__threat_intelligence_allowlist list ->
-  tls_certificate:azurerm_firewall_policy__tls_certificate list ->
+  dns:dns list ->
+  explicit_proxy:explicit_proxy list ->
+  identity:identity list ->
+  insights:insights list ->
+  intrusion_detection:intrusion_detection list ->
+  threat_intelligence_allowlist:threat_intelligence_allowlist list ->
+  tls_certificate:tls_certificate list ->
   string ->
   t

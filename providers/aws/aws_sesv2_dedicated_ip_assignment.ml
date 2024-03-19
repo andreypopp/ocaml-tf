@@ -4,21 +4,28 @@
 
 open! Tf.Prelude
 
-type aws_sesv2_dedicated_ip_assignment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_sesv2_dedicated_ip_assignment__timeouts *)
+(** timeouts *)
 
 type aws_sesv2_dedicated_ip_assignment = {
   destination_pool_name : string prop;  (** destination_pool_name *)
   id : string prop option; [@option]  (** id *)
   ip : string prop;  (** ip *)
-  timeouts : aws_sesv2_dedicated_ip_assignment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_sesv2_dedicated_ip_assignment *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_sesv2_dedicated_ip_assignment ?id ?timeouts
+    ~destination_pool_name ~ip () : aws_sesv2_dedicated_ip_assignment
+    =
+  { destination_pool_name; id; ip; timeouts }
 
 type t = {
   destination_pool_name : string prop;
@@ -26,14 +33,14 @@ type t = {
   ip : string prop;
 }
 
-let aws_sesv2_dedicated_ip_assignment ?id ?timeouts
-    ~destination_pool_name ~ip __resource_id =
+let register ?tf_module ?id ?timeouts ~destination_pool_name ~ip
+    __resource_id =
   let __resource_type = "aws_sesv2_dedicated_ip_assignment" in
   let __resource =
-    ({ destination_pool_name; id; ip; timeouts }
-      : aws_sesv2_dedicated_ip_assignment)
+    aws_sesv2_dedicated_ip_assignment ?id ?timeouts
+      ~destination_pool_name ~ip ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sesv2_dedicated_ip_assignment __resource);
   let __resource_attributes =
     ({

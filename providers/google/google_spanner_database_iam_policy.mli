@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_spanner_database_iam_policy
+
+val google_spanner_database_iam_policy :
+  ?id:string prop ->
+  ?project:string prop ->
+  database:string prop ->
+  instance:string prop ->
+  policy_data:string prop ->
+  unit ->
+  google_spanner_database_iam_policy
+
+val yojson_of_google_spanner_database_iam_policy :
+  google_spanner_database_iam_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   database : string prop;
@@ -13,7 +29,8 @@ type t = private {
   project : string prop;
 }
 
-val google_spanner_database_iam_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   database:string prop ->

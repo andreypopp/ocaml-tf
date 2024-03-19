@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_verifiedaccess_instance__verified_access_trust_providers = {
+type verified_access_trust_providers = {
   description : string prop;  (** description *)
   device_trust_provider_type : string prop;
       (** device_trust_provider_type *)
@@ -27,6 +27,10 @@ type aws_verifiedaccess_instance = {
 [@@deriving yojson_of]
 (** aws_verifiedaccess_instance *)
 
+let aws_verifiedaccess_instance ?description ?fips_enabled ?id ?tags
+    ?tags_all () : aws_verifiedaccess_instance =
+  { description; fips_enabled; id; tags; tags_all }
+
 type t = {
   creation_time : string prop;
   description : string prop;
@@ -36,18 +40,17 @@ type t = {
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   verified_access_trust_providers :
-    aws_verifiedaccess_instance__verified_access_trust_providers list
-    prop;
+    verified_access_trust_providers list prop;
 }
 
-let aws_verifiedaccess_instance ?description ?fips_enabled ?id ?tags
+let register ?tf_module ?description ?fips_enabled ?id ?tags
     ?tags_all __resource_id =
   let __resource_type = "aws_verifiedaccess_instance" in
   let __resource =
-    ({ description; fips_enabled; id; tags; tags_all }
-      : aws_verifiedaccess_instance)
+    aws_verifiedaccess_instance ?description ?fips_enabled ?id ?tags
+      ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedaccess_instance __resource);
   let __resource_attributes =
     ({

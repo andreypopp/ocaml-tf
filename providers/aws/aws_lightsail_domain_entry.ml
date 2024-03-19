@@ -15,6 +15,10 @@ type aws_lightsail_domain_entry = {
 [@@deriving yojson_of]
 (** aws_lightsail_domain_entry *)
 
+let aws_lightsail_domain_entry ?id ?is_alias ~domain_name ~name
+    ~target ~type_ () : aws_lightsail_domain_entry =
+  { domain_name; id; is_alias; name; target; type_ }
+
 type t = {
   domain_name : string prop;
   id : string prop;
@@ -24,14 +28,14 @@ type t = {
   type_ : string prop;
 }
 
-let aws_lightsail_domain_entry ?id ?is_alias ~domain_name ~name
-    ~target ~type_ __resource_id =
+let register ?tf_module ?id ?is_alias ~domain_name ~name ~target
+    ~type_ __resource_id =
   let __resource_type = "aws_lightsail_domain_entry" in
   let __resource =
-    ({ domain_name; id; is_alias; name; target; type_ }
-      : aws_lightsail_domain_entry)
+    aws_lightsail_domain_entry ?id ?is_alias ~domain_name ~name
+      ~target ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_domain_entry __resource);
   let __resource_attributes =
     ({

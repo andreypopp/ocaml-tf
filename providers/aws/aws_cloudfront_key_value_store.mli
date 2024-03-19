@@ -2,8 +2,25 @@
 
 open! Tf.Prelude
 
-type aws_cloudfront_key_value_store__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_cloudfront_key_value_store
+
+val aws_cloudfront_key_value_store :
+  ?comment:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  unit ->
+  aws_cloudfront_key_value_store
+
+val yojson_of_aws_cloudfront_key_value_store :
+  aws_cloudfront_key_value_store -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,9 +31,10 @@ type t = private {
   name : string prop;
 }
 
-val aws_cloudfront_key_value_store :
+val register :
+  ?tf_module:tf_module ->
   ?comment:string prop ->
-  ?timeouts:aws_cloudfront_key_value_store__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   string ->
   t

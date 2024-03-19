@@ -2,12 +2,72 @@
 
 open! Tf.Prelude
 
-type google_dataproc_autoscaling_policy__basic_algorithm__yarn_config
-type google_dataproc_autoscaling_policy__basic_algorithm
-type google_dataproc_autoscaling_policy__secondary_worker_config
-type google_dataproc_autoscaling_policy__timeouts
-type google_dataproc_autoscaling_policy__worker_config
+(** RESOURCE SERIALIZATION *)
+
+type basic_algorithm__yarn_config
+
+val basic_algorithm__yarn_config :
+  ?scale_down_min_worker_fraction:float prop ->
+  ?scale_up_min_worker_fraction:float prop ->
+  graceful_decommission_timeout:string prop ->
+  scale_down_factor:float prop ->
+  scale_up_factor:float prop ->
+  unit ->
+  basic_algorithm__yarn_config
+
+type basic_algorithm
+
+val basic_algorithm :
+  ?cooldown_period:string prop ->
+  yarn_config:basic_algorithm__yarn_config list ->
+  unit ->
+  basic_algorithm
+
+type secondary_worker_config
+
+val secondary_worker_config :
+  ?max_instances:float prop ->
+  ?min_instances:float prop ->
+  ?weight:float prop ->
+  unit ->
+  secondary_worker_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type worker_config
+
+val worker_config :
+  ?min_instances:float prop ->
+  ?weight:float prop ->
+  max_instances:float prop ->
+  unit ->
+  worker_config
+
 type google_dataproc_autoscaling_policy
+
+val google_dataproc_autoscaling_policy :
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  policy_id:string prop ->
+  basic_algorithm:basic_algorithm list ->
+  secondary_worker_config:secondary_worker_config list ->
+  worker_config:worker_config list ->
+  unit ->
+  google_dataproc_autoscaling_policy
+
+val yojson_of_google_dataproc_autoscaling_policy :
+  google_dataproc_autoscaling_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -17,17 +77,15 @@ type t = private {
   project : string prop;
 }
 
-val google_dataproc_autoscaling_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
-  ?timeouts:google_dataproc_autoscaling_policy__timeouts ->
+  ?timeouts:timeouts ->
   policy_id:string prop ->
-  basic_algorithm:
-    google_dataproc_autoscaling_policy__basic_algorithm list ->
-  secondary_worker_config:
-    google_dataproc_autoscaling_policy__secondary_worker_config list ->
-  worker_config:
-    google_dataproc_autoscaling_policy__worker_config list ->
+  basic_algorithm:basic_algorithm list ->
+  secondary_worker_config:secondary_worker_config list ->
+  worker_config:worker_config list ->
   string ->
   t

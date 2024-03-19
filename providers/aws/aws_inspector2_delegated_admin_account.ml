@@ -4,20 +4,26 @@
 
 open! Tf.Prelude
 
-type aws_inspector2_delegated_admin_account__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_inspector2_delegated_admin_account__timeouts *)
+(** timeouts *)
 
 type aws_inspector2_delegated_admin_account = {
   account_id : string prop;  (** account_id *)
   id : string prop option; [@option]  (** id *)
-  timeouts : aws_inspector2_delegated_admin_account__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_inspector2_delegated_admin_account *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_inspector2_delegated_admin_account ?id ?timeouts ~account_id
+    () : aws_inspector2_delegated_admin_account =
+  { account_id; id; timeouts }
 
 type t = {
   account_id : string prop;
@@ -25,14 +31,13 @@ type t = {
   relationship_status : string prop;
 }
 
-let aws_inspector2_delegated_admin_account ?id ?timeouts ~account_id
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~account_id __resource_id =
   let __resource_type = "aws_inspector2_delegated_admin_account" in
   let __resource =
-    ({ account_id; id; timeouts }
-      : aws_inspector2_delegated_admin_account)
+    aws_inspector2_delegated_admin_account ?id ?timeouts ~account_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_inspector2_delegated_admin_account __resource);
   let __resource_attributes =
     ({

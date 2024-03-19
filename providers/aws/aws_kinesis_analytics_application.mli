@@ -2,49 +2,255 @@
 
 open! Tf.Prelude
 
-type aws_kinesis_analytics_application__cloudwatch_logging_options
-type aws_kinesis_analytics_application__inputs__kinesis_firehose
-type aws_kinesis_analytics_application__inputs__kinesis_stream
-type aws_kinesis_analytics_application__inputs__parallelism
+(** RESOURCE SERIALIZATION *)
 
-type aws_kinesis_analytics_application__inputs__processing_configuration__lambda
+type cloudwatch_logging_options
 
-type aws_kinesis_analytics_application__inputs__processing_configuration
+val cloudwatch_logging_options :
+  log_stream_arn:string prop ->
+  role_arn:string prop ->
+  unit ->
+  cloudwatch_logging_options
 
-type aws_kinesis_analytics_application__inputs__schema__record_columns
+type inputs__kinesis_firehose
 
-type aws_kinesis_analytics_application__inputs__schema__record_format__mapping_parameters__csv
+val inputs__kinesis_firehose :
+  resource_arn:string prop ->
+  role_arn:string prop ->
+  unit ->
+  inputs__kinesis_firehose
 
-type aws_kinesis_analytics_application__inputs__schema__record_format__mapping_parameters__json
+type inputs__kinesis_stream
 
-type aws_kinesis_analytics_application__inputs__schema__record_format__mapping_parameters
+val inputs__kinesis_stream :
+  resource_arn:string prop ->
+  role_arn:string prop ->
+  unit ->
+  inputs__kinesis_stream
 
-type aws_kinesis_analytics_application__inputs__schema__record_format
-type aws_kinesis_analytics_application__inputs__schema
+type inputs__parallelism
 
-type aws_kinesis_analytics_application__inputs__starting_position_configuration
+val inputs__parallelism :
+  ?count:float prop -> unit -> inputs__parallelism
 
-type aws_kinesis_analytics_application__inputs
-type aws_kinesis_analytics_application__outputs__kinesis_firehose
-type aws_kinesis_analytics_application__outputs__kinesis_stream
-type aws_kinesis_analytics_application__outputs__lambda
-type aws_kinesis_analytics_application__outputs__schema
-type aws_kinesis_analytics_application__outputs
-type aws_kinesis_analytics_application__reference_data_sources__s3
+type inputs__processing_configuration__lambda
 
-type aws_kinesis_analytics_application__reference_data_sources__schema__record_columns
+val inputs__processing_configuration__lambda :
+  resource_arn:string prop ->
+  role_arn:string prop ->
+  unit ->
+  inputs__processing_configuration__lambda
 
-type aws_kinesis_analytics_application__reference_data_sources__schema__record_format__mapping_parameters__csv
+type inputs__processing_configuration
 
-type aws_kinesis_analytics_application__reference_data_sources__schema__record_format__mapping_parameters__json
+val inputs__processing_configuration :
+  lambda:inputs__processing_configuration__lambda list ->
+  unit ->
+  inputs__processing_configuration
 
-type aws_kinesis_analytics_application__reference_data_sources__schema__record_format__mapping_parameters
+type inputs__schema__record_columns
 
-type aws_kinesis_analytics_application__reference_data_sources__schema__record_format
+val inputs__schema__record_columns :
+  ?mapping:string prop ->
+  name:string prop ->
+  sql_type:string prop ->
+  unit ->
+  inputs__schema__record_columns
 
-type aws_kinesis_analytics_application__reference_data_sources__schema
-type aws_kinesis_analytics_application__reference_data_sources
+type inputs__schema__record_format__mapping_parameters__csv
+
+val inputs__schema__record_format__mapping_parameters__csv :
+  record_column_delimiter:string prop ->
+  record_row_delimiter:string prop ->
+  unit ->
+  inputs__schema__record_format__mapping_parameters__csv
+
+type inputs__schema__record_format__mapping_parameters__json
+
+val inputs__schema__record_format__mapping_parameters__json :
+  record_row_path:string prop ->
+  unit ->
+  inputs__schema__record_format__mapping_parameters__json
+
+type inputs__schema__record_format__mapping_parameters
+
+val inputs__schema__record_format__mapping_parameters :
+  csv:inputs__schema__record_format__mapping_parameters__csv list ->
+  json:inputs__schema__record_format__mapping_parameters__json list ->
+  unit ->
+  inputs__schema__record_format__mapping_parameters
+
+type inputs__schema__record_format
+
+val inputs__schema__record_format :
+  mapping_parameters:
+    inputs__schema__record_format__mapping_parameters list ->
+  unit ->
+  inputs__schema__record_format
+
+type inputs__schema
+
+val inputs__schema :
+  ?record_encoding:string prop ->
+  record_columns:inputs__schema__record_columns list ->
+  record_format:inputs__schema__record_format list ->
+  unit ->
+  inputs__schema
+
+type inputs__starting_position_configuration
+
+val inputs__starting_position_configuration :
+  ?starting_position:string prop ->
+  unit ->
+  inputs__starting_position_configuration
+
+type inputs
+
+val inputs :
+  name_prefix:string prop ->
+  kinesis_firehose:inputs__kinesis_firehose list ->
+  kinesis_stream:inputs__kinesis_stream list ->
+  parallelism:inputs__parallelism list ->
+  processing_configuration:inputs__processing_configuration list ->
+  schema:inputs__schema list ->
+  starting_position_configuration:
+    inputs__starting_position_configuration list ->
+  unit ->
+  inputs
+
+type outputs__kinesis_firehose
+
+val outputs__kinesis_firehose :
+  resource_arn:string prop ->
+  role_arn:string prop ->
+  unit ->
+  outputs__kinesis_firehose
+
+type outputs__kinesis_stream
+
+val outputs__kinesis_stream :
+  resource_arn:string prop ->
+  role_arn:string prop ->
+  unit ->
+  outputs__kinesis_stream
+
+type outputs__lambda
+
+val outputs__lambda :
+  resource_arn:string prop ->
+  role_arn:string prop ->
+  unit ->
+  outputs__lambda
+
+type outputs__schema
+
+val outputs__schema :
+  record_format_type:string prop -> unit -> outputs__schema
+
+type outputs
+
+val outputs :
+  name:string prop ->
+  kinesis_firehose:outputs__kinesis_firehose list ->
+  kinesis_stream:outputs__kinesis_stream list ->
+  lambda:outputs__lambda list ->
+  schema:outputs__schema list ->
+  unit ->
+  outputs
+
+type reference_data_sources__s3
+
+val reference_data_sources__s3 :
+  bucket_arn:string prop ->
+  file_key:string prop ->
+  role_arn:string prop ->
+  unit ->
+  reference_data_sources__s3
+
+type reference_data_sources__schema__record_columns
+
+val reference_data_sources__schema__record_columns :
+  ?mapping:string prop ->
+  name:string prop ->
+  sql_type:string prop ->
+  unit ->
+  reference_data_sources__schema__record_columns
+
+type reference_data_sources__schema__record_format__mapping_parameters__csv
+
+val reference_data_sources__schema__record_format__mapping_parameters__csv :
+  record_column_delimiter:string prop ->
+  record_row_delimiter:string prop ->
+  unit ->
+  reference_data_sources__schema__record_format__mapping_parameters__csv
+
+type reference_data_sources__schema__record_format__mapping_parameters__json
+
+val reference_data_sources__schema__record_format__mapping_parameters__json :
+  record_row_path:string prop ->
+  unit ->
+  reference_data_sources__schema__record_format__mapping_parameters__json
+
+type reference_data_sources__schema__record_format__mapping_parameters
+
+val reference_data_sources__schema__record_format__mapping_parameters :
+  csv:
+    reference_data_sources__schema__record_format__mapping_parameters__csv
+    list ->
+  json:
+    reference_data_sources__schema__record_format__mapping_parameters__json
+    list ->
+  unit ->
+  reference_data_sources__schema__record_format__mapping_parameters
+
+type reference_data_sources__schema__record_format
+
+val reference_data_sources__schema__record_format :
+  mapping_parameters:
+    reference_data_sources__schema__record_format__mapping_parameters
+    list ->
+  unit ->
+  reference_data_sources__schema__record_format
+
+type reference_data_sources__schema
+
+val reference_data_sources__schema :
+  ?record_encoding:string prop ->
+  record_columns:reference_data_sources__schema__record_columns list ->
+  record_format:reference_data_sources__schema__record_format list ->
+  unit ->
+  reference_data_sources__schema
+
+type reference_data_sources
+
+val reference_data_sources :
+  table_name:string prop ->
+  s3:reference_data_sources__s3 list ->
+  schema:reference_data_sources__schema list ->
+  unit ->
+  reference_data_sources
+
 type aws_kinesis_analytics_application
+
+val aws_kinesis_analytics_application :
+  ?code:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?start_application:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  cloudwatch_logging_options:cloudwatch_logging_options list ->
+  inputs:inputs list ->
+  outputs:outputs list ->
+  reference_data_sources:reference_data_sources list ->
+  unit ->
+  aws_kinesis_analytics_application
+
+val yojson_of_aws_kinesis_analytics_application :
+  aws_kinesis_analytics_application -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -61,7 +267,8 @@ type t = private {
   version : float prop;
 }
 
-val aws_kinesis_analytics_application :
+val register :
+  ?tf_module:tf_module ->
   ?code:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -69,12 +276,9 @@ val aws_kinesis_analytics_application :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  cloudwatch_logging_options:
-    aws_kinesis_analytics_application__cloudwatch_logging_options
-    list ->
-  inputs:aws_kinesis_analytics_application__inputs list ->
-  outputs:aws_kinesis_analytics_application__outputs list ->
-  reference_data_sources:
-    aws_kinesis_analytics_application__reference_data_sources list ->
+  cloudwatch_logging_options:cloudwatch_logging_options list ->
+  inputs:inputs list ->
+  outputs:outputs list ->
+  reference_data_sources:reference_data_sources list ->
   string ->
   t

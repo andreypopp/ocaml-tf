@@ -14,6 +14,10 @@ type aws_pinpoint_sms_channel = {
 [@@deriving yojson_of]
 (** aws_pinpoint_sms_channel *)
 
+let aws_pinpoint_sms_channel ?enabled ?id ?sender_id ?short_code
+    ~application_id () : aws_pinpoint_sms_channel =
+  { application_id; enabled; id; sender_id; short_code }
+
 type t = {
   application_id : string prop;
   enabled : bool prop;
@@ -24,14 +28,14 @@ type t = {
   transactional_messages_per_second : float prop;
 }
 
-let aws_pinpoint_sms_channel ?enabled ?id ?sender_id ?short_code
+let register ?tf_module ?enabled ?id ?sender_id ?short_code
     ~application_id __resource_id =
   let __resource_type = "aws_pinpoint_sms_channel" in
   let __resource =
-    ({ application_id; enabled; id; sender_id; short_code }
-      : aws_pinpoint_sms_channel)
+    aws_pinpoint_sms_channel ?enabled ?id ?sender_id ?short_code
+      ~application_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pinpoint_sms_channel __resource);
   let __resource_attributes =
     ({

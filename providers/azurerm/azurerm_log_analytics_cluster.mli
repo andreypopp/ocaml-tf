@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_cluster__identity
-type azurerm_log_analytics_cluster__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_log_analytics_cluster
+
+val azurerm_log_analytics_cluster :
+  ?id:string prop ->
+  ?size_gb:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_log_analytics_cluster
+
+val yojson_of_azurerm_log_analytics_cluster :
+  azurerm_log_analytics_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_id : string prop;
@@ -16,14 +47,15 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_log_analytics_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?size_gb:float prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_log_analytics_cluster__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_log_analytics_cluster__identity list ->
+  identity:identity list ->
   string ->
   t

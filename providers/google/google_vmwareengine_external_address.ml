@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_external_address__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vmwareengine_external_address__timeouts *)
+(** timeouts *)
 
 type google_vmwareengine_external_address = {
   description : string prop option; [@option]
@@ -23,10 +23,18 @@ type google_vmwareengine_external_address = {
       (** The resource name of the private cloud to create a new external address in.
 Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
 For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
-  timeouts : google_vmwareengine_external_address__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_external_address *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vmwareengine_external_address ?description ?id ?timeouts
+    ~internal_ip ~name ~parent () :
+    google_vmwareengine_external_address =
+  { description; id; internal_ip; name; parent; timeouts }
 
 type t = {
   create_time : string prop;
@@ -41,14 +49,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_vmwareengine_external_address ?description ?id ?timeouts
-    ~internal_ip ~name ~parent __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~internal_ip ~name
+    ~parent __resource_id =
   let __resource_type = "google_vmwareengine_external_address" in
   let __resource =
-    ({ description; id; internal_ip; name; parent; timeouts }
-      : google_vmwareengine_external_address)
+    google_vmwareengine_external_address ?description ?id ?timeouts
+      ~internal_ip ~name ~parent ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_external_address __resource);
   let __resource_attributes =
     ({

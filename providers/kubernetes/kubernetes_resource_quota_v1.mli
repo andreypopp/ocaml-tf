@@ -2,20 +2,71 @@
 
 open! Tf.Prelude
 
-type kubernetes_resource_quota_v1__metadata
+(** RESOURCE SERIALIZATION *)
 
-type kubernetes_resource_quota_v1__spec__scope_selector__match_expression
+type metadata
 
-type kubernetes_resource_quota_v1__spec__scope_selector
-type kubernetes_resource_quota_v1__spec
-type kubernetes_resource_quota_v1__timeouts
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?namespace:string prop ->
+  unit ->
+  metadata
+
+type spec__scope_selector__match_expression
+
+val spec__scope_selector__match_expression :
+  ?values:string prop list ->
+  operator:string prop ->
+  scope_name:string prop ->
+  unit ->
+  spec__scope_selector__match_expression
+
+type spec__scope_selector
+
+val spec__scope_selector :
+  match_expression:spec__scope_selector__match_expression list ->
+  unit ->
+  spec__scope_selector
+
+type spec
+
+val spec :
+  ?hard:(string * string prop) list ->
+  ?scopes:string prop list ->
+  scope_selector:spec__scope_selector list ->
+  unit ->
+  spec
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type kubernetes_resource_quota_v1
-type t = private { id : string prop }
 
 val kubernetes_resource_quota_v1 :
   ?id:string prop ->
-  ?timeouts:kubernetes_resource_quota_v1__timeouts ->
-  metadata:kubernetes_resource_quota_v1__metadata list ->
-  spec:kubernetes_resource_quota_v1__spec list ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  spec:spec list ->
+  unit ->
+  kubernetes_resource_quota_v1
+
+val yojson_of_kubernetes_resource_quota_v1 :
+  kubernetes_resource_quota_v1 -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  spec:spec list ->
   string ->
   t

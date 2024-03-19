@@ -2,22 +2,84 @@
 
 open! Tf.Prelude
 
-type kubernetes_persistent_volume_claim__metadata
-type kubernetes_persistent_volume_claim__spec__resources
+(** RESOURCE SERIALIZATION *)
 
-type kubernetes_persistent_volume_claim__spec__selector__match_expressions
+type metadata
 
-type kubernetes_persistent_volume_claim__spec__selector
-type kubernetes_persistent_volume_claim__spec
-type kubernetes_persistent_volume_claim__timeouts
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?namespace:string prop ->
+  unit ->
+  metadata
+
+type spec__resources
+
+val spec__resources :
+  ?limits:(string * string prop) list ->
+  ?requests:(string * string prop) list ->
+  unit ->
+  spec__resources
+
+type spec__selector__match_expressions
+
+val spec__selector__match_expressions :
+  ?key:string prop ->
+  ?operator:string prop ->
+  ?values:string prop list ->
+  unit ->
+  spec__selector__match_expressions
+
+type spec__selector
+
+val spec__selector :
+  ?match_labels:(string * string prop) list ->
+  match_expressions:spec__selector__match_expressions list ->
+  unit ->
+  spec__selector
+
+type spec
+
+val spec :
+  ?storage_class_name:string prop ->
+  ?volume_mode:string prop ->
+  ?volume_name:string prop ->
+  access_modes:string prop list ->
+  resources:spec__resources list ->
+  selector:spec__selector list ->
+  unit ->
+  spec
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type kubernetes_persistent_volume_claim
-type t = private { id : string prop; wait_until_bound : bool prop }
 
 val kubernetes_persistent_volume_claim :
   ?id:string prop ->
   ?wait_until_bound:bool prop ->
-  ?timeouts:kubernetes_persistent_volume_claim__timeouts ->
-  metadata:kubernetes_persistent_volume_claim__metadata list ->
-  spec:kubernetes_persistent_volume_claim__spec list ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  spec:spec list ->
+  unit ->
+  kubernetes_persistent_volume_claim
+
+val yojson_of_kubernetes_persistent_volume_claim :
+  kubernetes_persistent_volume_claim -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; wait_until_bound : bool prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?wait_until_bound:bool prop ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  spec:spec list ->
   string ->
   t

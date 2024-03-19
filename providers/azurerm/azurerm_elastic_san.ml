@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_elastic_san__sku = {
+type sku = {
   name : string prop;  (** name *)
   tier : string prop option; [@option]  (** tier *)
 }
 [@@deriving yojson_of]
-(** azurerm_elastic_san__sku *)
+(** sku *)
 
-type azurerm_elastic_san__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_elastic_san__timeouts *)
+(** timeouts *)
 
 type azurerm_elastic_san = {
   base_size_in_tib : float prop;  (** base_size_in_tib *)
@@ -30,11 +30,32 @@ type azurerm_elastic_san = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   zones : string prop list option; [@option]  (** zones *)
-  sku : azurerm_elastic_san__sku list;
-  timeouts : azurerm_elastic_san__timeouts option;
+  sku : sku list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_san *)
+
+let sku ?tier ~name () : sku = { name; tier }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_elastic_san ?extended_size_in_tib ?id ?tags ?zones
+    ?timeouts ~base_size_in_tib ~location ~name ~resource_group_name
+    ~sku () : azurerm_elastic_san =
+  {
+    base_size_in_tib;
+    extended_size_in_tib;
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    zones;
+    sku;
+    timeouts;
+  }
 
 type t = {
   base_size_in_tib : float prop;
@@ -52,26 +73,16 @@ type t = {
   zones : string list prop;
 }
 
-let azurerm_elastic_san ?extended_size_in_tib ?id ?tags ?zones
+let register ?tf_module ?extended_size_in_tib ?id ?tags ?zones
     ?timeouts ~base_size_in_tib ~location ~name ~resource_group_name
     ~sku __resource_id =
   let __resource_type = "azurerm_elastic_san" in
   let __resource =
-    ({
-       base_size_in_tib;
-       extended_size_in_tib;
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       zones;
-       sku;
-       timeouts;
-     }
-      : azurerm_elastic_san)
+    azurerm_elastic_san ?extended_size_in_tib ?id ?tags ?zones
+      ?timeouts ~base_size_in_tib ~location ~name
+      ~resource_group_name ~sku ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_elastic_san __resource);
   let __resource_attributes =
     ({

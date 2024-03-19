@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_route__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_route__timeouts *)
+(** timeouts *)
 
 type azurerm_route = {
   address_prefix : string prop;  (** address_prefix *)
@@ -22,10 +22,27 @@ type azurerm_route = {
   next_hop_type : string prop;  (** next_hop_type *)
   resource_group_name : string prop;  (** resource_group_name *)
   route_table_name : string prop;  (** route_table_name *)
-  timeouts : azurerm_route__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_route *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_route ?id ?next_hop_in_ip_address ?timeouts
+    ~address_prefix ~name ~next_hop_type ~resource_group_name
+    ~route_table_name () : azurerm_route =
+  {
+    address_prefix;
+    id;
+    name;
+    next_hop_in_ip_address;
+    next_hop_type;
+    resource_group_name;
+    route_table_name;
+    timeouts;
+  }
 
 type t = {
   address_prefix : string prop;
@@ -37,24 +54,16 @@ type t = {
   route_table_name : string prop;
 }
 
-let azurerm_route ?id ?next_hop_in_ip_address ?timeouts
+let register ?tf_module ?id ?next_hop_in_ip_address ?timeouts
     ~address_prefix ~name ~next_hop_type ~resource_group_name
     ~route_table_name __resource_id =
   let __resource_type = "azurerm_route" in
   let __resource =
-    ({
-       address_prefix;
-       id;
-       name;
-       next_hop_in_ip_address;
-       next_hop_type;
-       resource_group_name;
-       route_table_name;
-       timeouts;
-     }
-      : azurerm_route)
+    azurerm_route ?id ?next_hop_in_ip_address ?timeouts
+      ~address_prefix ~name ~next_hop_type ~resource_group_name
+      ~route_table_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_route __resource);
   let __resource_attributes =
     ({

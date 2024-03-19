@@ -15,6 +15,11 @@ type aws_sesv2_email_identity_mail_from_attributes = {
 [@@deriving yojson_of]
 (** aws_sesv2_email_identity_mail_from_attributes *)
 
+let aws_sesv2_email_identity_mail_from_attributes
+    ?behavior_on_mx_failure ?id ?mail_from_domain ~email_identity ()
+    : aws_sesv2_email_identity_mail_from_attributes =
+  { behavior_on_mx_failure; email_identity; id; mail_from_domain }
+
 type t = {
   behavior_on_mx_failure : string prop;
   email_identity : string prop;
@@ -22,17 +27,17 @@ type t = {
   mail_from_domain : string prop;
 }
 
-let aws_sesv2_email_identity_mail_from_attributes
-    ?behavior_on_mx_failure ?id ?mail_from_domain ~email_identity
-    __resource_id =
+let register ?tf_module ?behavior_on_mx_failure ?id ?mail_from_domain
+    ~email_identity __resource_id =
   let __resource_type =
     "aws_sesv2_email_identity_mail_from_attributes"
   in
   let __resource =
-    ({ behavior_on_mx_failure; email_identity; id; mail_from_domain }
-      : aws_sesv2_email_identity_mail_from_attributes)
+    aws_sesv2_email_identity_mail_from_attributes
+      ?behavior_on_mx_failure ?id ?mail_from_domain ~email_identity
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sesv2_email_identity_mail_from_attributes
        __resource);
   let __resource_attributes =

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_gateway_certificate_authority__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_gateway_certificate_authority__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_gateway_certificate_authority = {
   api_management_id : string prop;  (** api_management_id *)
@@ -19,12 +19,26 @@ type azurerm_api_management_gateway_certificate_authority = {
   gateway_name : string prop;  (** gateway_name *)
   id : string prop option; [@option]  (** id *)
   is_trusted : bool prop option; [@option]  (** is_trusted *)
-  timeouts :
-    azurerm_api_management_gateway_certificate_authority__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway_certificate_authority *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_gateway_certificate_authority ?id
+    ?is_trusted ?timeouts ~api_management_id ~certificate_name
+    ~gateway_name () :
+    azurerm_api_management_gateway_certificate_authority =
+  {
+    api_management_id;
+    certificate_name;
+    gateway_name;
+    id;
+    is_trusted;
+    timeouts;
+  }
 
 type t = {
   api_management_id : string prop;
@@ -34,24 +48,17 @@ type t = {
   is_trusted : bool prop;
 }
 
-let azurerm_api_management_gateway_certificate_authority ?id
-    ?is_trusted ?timeouts ~api_management_id ~certificate_name
-    ~gateway_name __resource_id =
+let register ?tf_module ?id ?is_trusted ?timeouts ~api_management_id
+    ~certificate_name ~gateway_name __resource_id =
   let __resource_type =
     "azurerm_api_management_gateway_certificate_authority"
   in
   let __resource =
-    ({
-       api_management_id;
-       certificate_name;
-       gateway_name;
-       id;
-       is_trusted;
-       timeouts;
-     }
-      : azurerm_api_management_gateway_certificate_authority)
+    azurerm_api_management_gateway_certificate_authority ?id
+      ?is_trusted ?timeouts ~api_management_id ~certificate_name
+      ~gateway_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_gateway_certificate_authority
        __resource);
   let __resource_attributes =

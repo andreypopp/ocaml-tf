@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_rds_global_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_rds_global_cluster__timeouts *)
+(** timeouts *)
 
-type aws_rds_global_cluster__global_cluster_members = {
+type global_cluster_members = {
   db_cluster_arn : string prop;  (** db_cluster_arn *)
   is_writer : bool prop;  (** is_writer *)
 }
@@ -33,10 +33,30 @@ type aws_rds_global_cluster = {
       (** source_db_cluster_identifier *)
   storage_encrypted : bool prop option; [@option]
       (** storage_encrypted *)
-  timeouts : aws_rds_global_cluster__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_rds_global_cluster *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_rds_global_cluster ?database_name ?deletion_protection
+    ?engine ?engine_version ?force_destroy ?id
+    ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+    ~global_cluster_identifier () : aws_rds_global_cluster =
+  {
+    database_name;
+    deletion_protection;
+    engine;
+    engine_version;
+    force_destroy;
+    global_cluster_identifier;
+    id;
+    source_db_cluster_identifier;
+    storage_encrypted;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -47,35 +67,25 @@ type t = {
   engine_version_actual : string prop;
   force_destroy : bool prop;
   global_cluster_identifier : string prop;
-  global_cluster_members :
-    aws_rds_global_cluster__global_cluster_members list prop;
+  global_cluster_members : global_cluster_members list prop;
   global_cluster_resource_id : string prop;
   id : string prop;
   source_db_cluster_identifier : string prop;
   storage_encrypted : bool prop;
 }
 
-let aws_rds_global_cluster ?database_name ?deletion_protection
-    ?engine ?engine_version ?force_destroy ?id
-    ?source_db_cluster_identifier ?storage_encrypted ?timeouts
-    ~global_cluster_identifier __resource_id =
+let register ?tf_module ?database_name ?deletion_protection ?engine
+    ?engine_version ?force_destroy ?id ?source_db_cluster_identifier
+    ?storage_encrypted ?timeouts ~global_cluster_identifier
+    __resource_id =
   let __resource_type = "aws_rds_global_cluster" in
   let __resource =
-    ({
-       database_name;
-       deletion_protection;
-       engine;
-       engine_version;
-       force_destroy;
-       global_cluster_identifier;
-       id;
-       source_db_cluster_identifier;
-       storage_encrypted;
-       timeouts;
-     }
-      : aws_rds_global_cluster)
+    aws_rds_global_cluster ?database_name ?deletion_protection
+      ?engine ?engine_version ?force_destroy ?id
+      ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+      ~global_cluster_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rds_global_cluster __resource);
   let __resource_attributes =
     ({

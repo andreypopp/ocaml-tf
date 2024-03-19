@@ -13,20 +13,25 @@ type aws_sagemaker_model_package_group_policy = {
 [@@deriving yojson_of]
 (** aws_sagemaker_model_package_group_policy *)
 
+let aws_sagemaker_model_package_group_policy ?id
+    ~model_package_group_name ~resource_policy () :
+    aws_sagemaker_model_package_group_policy =
+  { id; model_package_group_name; resource_policy }
+
 type t = {
   id : string prop;
   model_package_group_name : string prop;
   resource_policy : string prop;
 }
 
-let aws_sagemaker_model_package_group_policy ?id
-    ~model_package_group_name ~resource_policy __resource_id =
+let register ?tf_module ?id ~model_package_group_name
+    ~resource_policy __resource_id =
   let __resource_type = "aws_sagemaker_model_package_group_policy" in
   let __resource =
-    ({ id; model_package_group_name; resource_policy }
-      : aws_sagemaker_model_package_group_policy)
+    aws_sagemaker_model_package_group_policy ?id
+      ~model_package_group_name ~resource_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_model_package_group_policy __resource);
   let __resource_attributes =
     ({

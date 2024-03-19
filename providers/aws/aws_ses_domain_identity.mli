@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ses_domain_identity
+
+val aws_ses_domain_identity :
+  ?id:string prop ->
+  domain:string prop ->
+  unit ->
+  aws_ses_domain_identity
+
+val yojson_of_aws_ses_domain_identity :
+  aws_ses_domain_identity -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -11,5 +24,9 @@ type t = private {
   verification_token : string prop;
 }
 
-val aws_ses_domain_identity :
-  ?id:string prop -> domain:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  domain:string prop ->
+  string ->
+  t

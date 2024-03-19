@@ -2,7 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_verifiedaccess_instance__verified_access_trust_providers = {
+(** RESOURCE SERIALIZATION *)
+
+type verified_access_trust_providers = {
   description : string prop;  (** description *)
   device_trust_provider_type : string prop;
       (** device_trust_provider_type *)
@@ -15,6 +17,20 @@ type aws_verifiedaccess_instance__verified_access_trust_providers = {
 
 type aws_verifiedaccess_instance
 
+val aws_verifiedaccess_instance :
+  ?description:string prop ->
+  ?fips_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  unit ->
+  aws_verifiedaccess_instance
+
+val yojson_of_aws_verifiedaccess_instance :
+  aws_verifiedaccess_instance -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   creation_time : string prop;
   description : string prop;
@@ -24,11 +40,11 @@ type t = private {
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   verified_access_trust_providers :
-    aws_verifiedaccess_instance__verified_access_trust_providers list
-    prop;
+    verified_access_trust_providers list prop;
 }
 
-val aws_verifiedaccess_instance :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?fips_enabled:bool prop ->
   ?id:string prop ->

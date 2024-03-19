@@ -4,51 +4,51 @@
 
 open! Tf.Prelude
 
-type aws_lex_bot__abort_statement__message = {
+type abort_statement__message = {
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   group_number : float prop option; [@option]  (** group_number *)
 }
 [@@deriving yojson_of]
-(** aws_lex_bot__abort_statement__message *)
+(** abort_statement__message *)
 
-type aws_lex_bot__abort_statement = {
+type abort_statement = {
   response_card : string prop option; [@option]  (** response_card *)
-  message : aws_lex_bot__abort_statement__message list;
+  message : abort_statement__message list;
 }
 [@@deriving yojson_of]
-(** aws_lex_bot__abort_statement *)
+(** abort_statement *)
 
-type aws_lex_bot__clarification_prompt__message = {
+type clarification_prompt__message = {
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   group_number : float prop option; [@option]  (** group_number *)
 }
 [@@deriving yojson_of]
-(** aws_lex_bot__clarification_prompt__message *)
+(** clarification_prompt__message *)
 
-type aws_lex_bot__clarification_prompt = {
+type clarification_prompt = {
   max_attempts : float prop;  (** max_attempts *)
   response_card : string prop option; [@option]  (** response_card *)
-  message : aws_lex_bot__clarification_prompt__message list;
+  message : clarification_prompt__message list;
 }
 [@@deriving yojson_of]
-(** aws_lex_bot__clarification_prompt *)
+(** clarification_prompt *)
 
-type aws_lex_bot__intent = {
+type intent = {
   intent_name : string prop;  (** intent_name *)
   intent_version : string prop;  (** intent_version *)
 }
 [@@deriving yojson_of]
-(** aws_lex_bot__intent *)
+(** intent *)
 
-type aws_lex_bot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lex_bot__timeouts *)
+(** timeouts *)
 
 type aws_lex_bot = {
   child_directed : bool prop;  (** child_directed *)
@@ -68,13 +68,58 @@ type aws_lex_bot = {
   process_behavior : string prop option; [@option]
       (** process_behavior *)
   voice_id : string prop option; [@option]  (** voice_id *)
-  abort_statement : aws_lex_bot__abort_statement list;
-  clarification_prompt : aws_lex_bot__clarification_prompt list;
-  intent : aws_lex_bot__intent list;
-  timeouts : aws_lex_bot__timeouts option;
+  abort_statement : abort_statement list;
+  clarification_prompt : clarification_prompt list;
+  intent : intent list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lex_bot *)
+
+let abort_statement__message ?group_number ~content ~content_type ()
+    : abort_statement__message =
+  { content; content_type; group_number }
+
+let abort_statement ?response_card ~message () : abort_statement =
+  { response_card; message }
+
+let clarification_prompt__message ?group_number ~content
+    ~content_type () : clarification_prompt__message =
+  { content; content_type; group_number }
+
+let clarification_prompt ?response_card ~max_attempts ~message () :
+    clarification_prompt =
+  { max_attempts; response_card; message }
+
+let intent ~intent_name ~intent_version () : intent =
+  { intent_name; intent_version }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_lex_bot ?create_version ?description ?detect_sentiment
+    ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
+    ?locale ?nlu_intent_confidence_threshold ?process_behavior
+    ?voice_id ?timeouts ~child_directed ~name ~abort_statement
+    ~clarification_prompt ~intent () : aws_lex_bot =
+  {
+    child_directed;
+    create_version;
+    description;
+    detect_sentiment;
+    enable_model_improvements;
+    id;
+    idle_session_ttl_in_seconds;
+    locale;
+    name;
+    nlu_intent_confidence_threshold;
+    process_behavior;
+    voice_id;
+    abort_statement;
+    clarification_prompt;
+    intent;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -98,34 +143,21 @@ type t = {
   voice_id : string prop;
 }
 
-let aws_lex_bot ?create_version ?description ?detect_sentiment
-    ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
-    ?locale ?nlu_intent_confidence_threshold ?process_behavior
-    ?voice_id ?timeouts ~child_directed ~name ~abort_statement
+let register ?tf_module ?create_version ?description
+    ?detect_sentiment ?enable_model_improvements ?id
+    ?idle_session_ttl_in_seconds ?locale
+    ?nlu_intent_confidence_threshold ?process_behavior ?voice_id
+    ?timeouts ~child_directed ~name ~abort_statement
     ~clarification_prompt ~intent __resource_id =
   let __resource_type = "aws_lex_bot" in
   let __resource =
-    ({
-       child_directed;
-       create_version;
-       description;
-       detect_sentiment;
-       enable_model_improvements;
-       id;
-       idle_session_ttl_in_seconds;
-       locale;
-       name;
-       nlu_intent_confidence_threshold;
-       process_behavior;
-       voice_id;
-       abort_statement;
-       clarification_prompt;
-       intent;
-       timeouts;
-     }
-      : aws_lex_bot)
+    aws_lex_bot ?create_version ?description ?detect_sentiment
+      ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
+      ?locale ?nlu_intent_confidence_threshold ?process_behavior
+      ?voice_id ?timeouts ~child_directed ~name ~abort_statement
+      ~clarification_prompt ~intent ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lex_bot __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_vpc_endpoint_route_table_association
+
+val aws_vpc_endpoint_route_table_association :
+  ?id:string prop ->
+  route_table_id:string prop ->
+  vpc_endpoint_id:string prop ->
+  unit ->
+  aws_vpc_endpoint_route_table_association
+
+val yojson_of_aws_vpc_endpoint_route_table_association :
+  aws_vpc_endpoint_route_table_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   vpc_endpoint_id : string prop;
 }
 
-val aws_vpc_endpoint_route_table_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   route_table_id:string prop ->
   vpc_endpoint_id:string prop ->

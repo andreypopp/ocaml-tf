@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_binary_authorization_attestor_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_binary_authorization_attestor_iam_binding__condition *)
+(** condition *)
 
 type google_binary_authorization_attestor_iam_binding = {
   attestor : string prop;  (** attestor *)
@@ -18,11 +18,18 @@ type google_binary_authorization_attestor_iam_binding = {
   members : string prop list;  (** members *)
   project : string prop option; [@option]  (** project *)
   role : string prop;  (** role *)
-  condition :
-    google_binary_authorization_attestor_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_binary_authorization_attestor_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_binary_authorization_attestor_iam_binding ?id ?project
+    ~attestor ~members ~role ~condition () :
+    google_binary_authorization_attestor_iam_binding =
+  { attestor; id; members; project; role; condition }
 
 type t = {
   attestor : string prop;
@@ -33,16 +40,16 @@ type t = {
   role : string prop;
 }
 
-let google_binary_authorization_attestor_iam_binding ?id ?project
-    ~attestor ~members ~role ~condition __resource_id =
+let register ?tf_module ?id ?project ~attestor ~members ~role
+    ~condition __resource_id =
   let __resource_type =
     "google_binary_authorization_attestor_iam_binding"
   in
   let __resource =
-    ({ attestor; id; members; project; role; condition }
-      : google_binary_authorization_attestor_iam_binding)
+    google_binary_authorization_attestor_iam_binding ?id ?project
+      ~attestor ~members ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_binary_authorization_attestor_iam_binding
        __resource);
   let __resource_attributes =

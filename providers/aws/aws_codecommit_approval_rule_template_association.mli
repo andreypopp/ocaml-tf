@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_codecommit_approval_rule_template_association
+
+val aws_codecommit_approval_rule_template_association :
+  ?id:string prop ->
+  approval_rule_template_name:string prop ->
+  repository_name:string prop ->
+  unit ->
+  aws_codecommit_approval_rule_template_association
+
+val yojson_of_aws_codecommit_approval_rule_template_association :
+  aws_codecommit_approval_rule_template_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   approval_rule_template_name : string prop;
@@ -10,7 +24,8 @@ type t = private {
   repository_name : string prop;
 }
 
-val aws_codecommit_approval_rule_template_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   approval_rule_template_name:string prop ->
   repository_name:string prop ->

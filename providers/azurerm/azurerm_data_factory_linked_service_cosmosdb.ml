@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_cosmosdb__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_cosmosdb__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_cosmosdb = {
   account_endpoint : string prop option; [@option]
@@ -33,11 +33,34 @@ type azurerm_data_factory_linked_service_cosmosdb = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  timeouts :
-    azurerm_data_factory_linked_service_cosmosdb__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_cosmosdb *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_cosmosdb ?account_endpoint
+    ?account_key ?additional_properties ?annotations
+    ?connection_string ?database ?description ?id
+    ?integration_runtime_name ?parameters ?timeouts ~data_factory_id
+    ~name () : azurerm_data_factory_linked_service_cosmosdb =
+  {
+    account_endpoint;
+    account_key;
+    additional_properties;
+    annotations;
+    connection_string;
+    data_factory_id;
+    database;
+    description;
+    id;
+    integration_runtime_name;
+    name;
+    parameters;
+    timeouts;
+  }
 
 type t = {
   account_endpoint : string prop;
@@ -54,33 +77,21 @@ type t = {
   parameters : (string * string) list prop;
 }
 
-let azurerm_data_factory_linked_service_cosmosdb ?account_endpoint
-    ?account_key ?additional_properties ?annotations
-    ?connection_string ?database ?description ?id
-    ?integration_runtime_name ?parameters ?timeouts ~data_factory_id
-    ~name __resource_id =
+let register ?tf_module ?account_endpoint ?account_key
+    ?additional_properties ?annotations ?connection_string ?database
+    ?description ?id ?integration_runtime_name ?parameters ?timeouts
+    ~data_factory_id ~name __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_cosmosdb"
   in
   let __resource =
-    ({
-       account_endpoint;
-       account_key;
-       additional_properties;
-       annotations;
-       connection_string;
-       data_factory_id;
-       database;
-       description;
-       id;
-       integration_runtime_name;
-       name;
-       parameters;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_cosmosdb)
+    azurerm_data_factory_linked_service_cosmosdb ?account_endpoint
+      ?account_key ?additional_properties ?annotations
+      ?connection_string ?database ?description ?id
+      ?integration_runtime_name ?parameters ?timeouts
+      ~data_factory_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_cosmosdb
        __resource);
   let __resource_attributes =

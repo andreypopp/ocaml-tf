@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_signalr_service_custom_certificate__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_signalr_service_custom_certificate
+
+val azurerm_signalr_service_custom_certificate :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  custom_certificate_id:string prop ->
+  name:string prop ->
+  signalr_service_id:string prop ->
+  unit ->
+  azurerm_signalr_service_custom_certificate
+
+val yojson_of_azurerm_signalr_service_custom_certificate :
+  azurerm_signalr_service_custom_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate_version : string prop;
@@ -13,9 +37,10 @@ type t = private {
   signalr_service_id : string prop;
 }
 
-val azurerm_signalr_service_custom_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_signalr_service_custom_certificate__timeouts ->
+  ?timeouts:timeouts ->
   custom_certificate_id:string prop ->
   name:string prop ->
   signalr_service_id:string prop ->

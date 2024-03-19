@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_relay_namespace__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_relay_namespace
+
+val azurerm_relay_namespace :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  unit ->
+  azurerm_relay_namespace
+
+val yojson_of_azurerm_relay_namespace :
+  azurerm_relay_namespace -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -19,10 +46,11 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_relay_namespace :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_relay_namespace__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

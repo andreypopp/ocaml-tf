@@ -4,27 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_transfer_user__home_directory_mappings = {
+type home_directory_mappings = {
   entry : string prop;  (** entry *)
   target : string prop;  (** target *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_user__home_directory_mappings *)
+(** home_directory_mappings *)
 
-type aws_transfer_user__posix_profile = {
+type posix_profile = {
   gid : float prop;  (** gid *)
   secondary_gids : float prop list option; [@option]
       (** secondary_gids *)
   uid : float prop;  (** uid *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_user__posix_profile *)
+(** posix_profile *)
 
-type aws_transfer_user__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_user__timeouts *)
+(** timeouts *)
 
 type aws_transfer_user = {
   home_directory : string prop option; [@option]
@@ -39,13 +39,39 @@ type aws_transfer_user = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   user_name : string prop;  (** user_name *)
-  home_directory_mappings :
-    aws_transfer_user__home_directory_mappings list;
-  posix_profile : aws_transfer_user__posix_profile list;
-  timeouts : aws_transfer_user__timeouts option;
+  home_directory_mappings : home_directory_mappings list;
+  posix_profile : posix_profile list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_transfer_user *)
+
+let home_directory_mappings ~entry ~target () :
+    home_directory_mappings =
+  { entry; target }
+
+let posix_profile ?secondary_gids ~gid ~uid () : posix_profile =
+  { gid; secondary_gids; uid }
+
+let timeouts ?delete () : timeouts = { delete }
+
+let aws_transfer_user ?home_directory ?home_directory_type ?id
+    ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
+    ~home_directory_mappings ~posix_profile () : aws_transfer_user =
+  {
+    home_directory;
+    home_directory_type;
+    id;
+    policy;
+    role;
+    server_id;
+    tags;
+    tags_all;
+    user_name;
+    home_directory_mappings;
+    posix_profile;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -60,28 +86,16 @@ type t = {
   user_name : string prop;
 }
 
-let aws_transfer_user ?home_directory ?home_directory_type ?id
+let register ?tf_module ?home_directory ?home_directory_type ?id
     ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
     ~home_directory_mappings ~posix_profile __resource_id =
   let __resource_type = "aws_transfer_user" in
   let __resource =
-    ({
-       home_directory;
-       home_directory_type;
-       id;
-       policy;
-       role;
-       server_id;
-       tags;
-       tags_all;
-       user_name;
-       home_directory_mappings;
-       posix_profile;
-       timeouts;
-     }
-      : aws_transfer_user)
+    aws_transfer_user ?home_directory ?home_directory_type ?id
+      ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
+      ~home_directory_mappings ~posix_profile ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_user __resource);
   let __resource_attributes =
     ({

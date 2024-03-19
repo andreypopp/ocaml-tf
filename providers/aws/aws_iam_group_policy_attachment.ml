@@ -12,19 +12,22 @@ type aws_iam_group_policy_attachment = {
 [@@deriving yojson_of]
 (** aws_iam_group_policy_attachment *)
 
+let aws_iam_group_policy_attachment ?id ~group ~policy_arn () :
+    aws_iam_group_policy_attachment =
+  { group; id; policy_arn }
+
 type t = {
   group : string prop;
   id : string prop;
   policy_arn : string prop;
 }
 
-let aws_iam_group_policy_attachment ?id ~group ~policy_arn
-    __resource_id =
+let register ?tf_module ?id ~group ~policy_arn __resource_id =
   let __resource_type = "aws_iam_group_policy_attachment" in
   let __resource =
-    ({ group; id; policy_arn } : aws_iam_group_policy_attachment)
+    aws_iam_group_policy_attachment ?id ~group ~policy_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_group_policy_attachment __resource);
   let __resource_attributes =
     ({

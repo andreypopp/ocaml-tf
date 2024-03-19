@@ -15,6 +15,16 @@ type aws_rum_metrics_destination = {
 [@@deriving yojson_of]
 (** aws_rum_metrics_destination *)
 
+let aws_rum_metrics_destination ?destination_arn ?iam_role_arn ?id
+    ~app_monitor_name ~destination () : aws_rum_metrics_destination =
+  {
+    app_monitor_name;
+    destination;
+    destination_arn;
+    iam_role_arn;
+    id;
+  }
+
 type t = {
   app_monitor_name : string prop;
   destination : string prop;
@@ -23,20 +33,14 @@ type t = {
   id : string prop;
 }
 
-let aws_rum_metrics_destination ?destination_arn ?iam_role_arn ?id
+let register ?tf_module ?destination_arn ?iam_role_arn ?id
     ~app_monitor_name ~destination __resource_id =
   let __resource_type = "aws_rum_metrics_destination" in
   let __resource =
-    ({
-       app_monitor_name;
-       destination;
-       destination_arn;
-       iam_role_arn;
-       id;
-     }
-      : aws_rum_metrics_destination)
+    aws_rum_metrics_destination ?destination_arn ?iam_role_arn ?id
+      ~app_monitor_name ~destination ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rum_metrics_destination __resource);
   let __resource_attributes =
     ({

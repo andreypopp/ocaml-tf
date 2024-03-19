@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_apigee_envgroup_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_apigee_envgroup_attachment__timeouts *)
+(** timeouts *)
 
 type google_apigee_envgroup_attachment = {
   envgroup_id : string prop;
@@ -18,10 +18,16 @@ in the format 'organizations/{{org_name}}/envgroups/{{envgroup_name}}'. *)
   environment : string prop;
       (** The resource ID of the environment. *)
   id : string prop option; [@option]  (** id *)
-  timeouts : google_apigee_envgroup_attachment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_envgroup_attachment *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_apigee_envgroup_attachment ?id ?timeouts ~envgroup_id
+    ~environment () : google_apigee_envgroup_attachment =
+  { envgroup_id; environment; id; timeouts }
 
 type t = {
   envgroup_id : string prop;
@@ -30,14 +36,14 @@ type t = {
   name : string prop;
 }
 
-let google_apigee_envgroup_attachment ?id ?timeouts ~envgroup_id
-    ~environment __resource_id =
+let register ?tf_module ?id ?timeouts ~envgroup_id ~environment
+    __resource_id =
   let __resource_type = "google_apigee_envgroup_attachment" in
   let __resource =
-    ({ envgroup_id; environment; id; timeouts }
-      : google_apigee_envgroup_attachment)
+    google_apigee_envgroup_attachment ?id ?timeouts ~envgroup_id
+      ~environment ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_envgroup_attachment __resource);
   let __resource_attributes =
     ({

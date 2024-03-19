@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_opsworks_stack__custom_cookbooks_source = {
+type custom_cookbooks_source = {
   password : string prop option; [@option]  (** password *)
   revision : string prop option; [@option]  (** revision *)
   ssh_key : string prop option; [@option]  (** ssh_key *)
@@ -13,13 +13,13 @@ type aws_opsworks_stack__custom_cookbooks_source = {
   username : string prop option; [@option]  (** username *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_stack__custom_cookbooks_source *)
+(** custom_cookbooks_source *)
 
-type aws_opsworks_stack__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_stack__timeouts *)
+(** timeouts *)
 
 type aws_opsworks_stack = {
   agent_version : string prop option; [@option]  (** agent_version *)
@@ -58,12 +58,54 @@ type aws_opsworks_stack = {
   use_opsworks_security_groups : bool prop option; [@option]
       (** use_opsworks_security_groups *)
   vpc_id : string prop option; [@option]  (** vpc_id *)
-  custom_cookbooks_source :
-    aws_opsworks_stack__custom_cookbooks_source list;
-  timeouts : aws_opsworks_stack__timeouts option;
+  custom_cookbooks_source : custom_cookbooks_source list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_opsworks_stack *)
+
+let custom_cookbooks_source ?password ?revision ?ssh_key ?username
+    ~type_ ~url () : custom_cookbooks_source =
+  { password; revision; ssh_key; type_; url; username }
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_opsworks_stack ?agent_version ?berkshelf_version ?color
+    ?configuration_manager_name ?configuration_manager_version
+    ?custom_json ?default_availability_zone ?default_os
+    ?default_root_device_type ?default_ssh_key_name
+    ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
+    ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
+    ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
+    ~service_role_arn ~custom_cookbooks_source () :
+    aws_opsworks_stack =
+  {
+    agent_version;
+    berkshelf_version;
+    color;
+    configuration_manager_name;
+    configuration_manager_version;
+    custom_json;
+    default_availability_zone;
+    default_instance_profile_arn;
+    default_os;
+    default_root_device_type;
+    default_ssh_key_name;
+    default_subnet_id;
+    hostname_theme;
+    id;
+    manage_berkshelf;
+    name;
+    region;
+    service_role_arn;
+    tags;
+    tags_all;
+    use_custom_cookbooks;
+    use_opsworks_security_groups;
+    vpc_id;
+    custom_cookbooks_source;
+    timeouts;
+  }
 
 type t = {
   agent_version : string prop;
@@ -93,7 +135,7 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_opsworks_stack ?agent_version ?berkshelf_version ?color
+let register ?tf_module ?agent_version ?berkshelf_version ?color
     ?configuration_manager_name ?configuration_manager_version
     ?custom_json ?default_availability_zone ?default_os
     ?default_root_device_type ?default_ssh_key_name
@@ -103,36 +145,16 @@ let aws_opsworks_stack ?agent_version ?berkshelf_version ?color
     ~service_role_arn ~custom_cookbooks_source __resource_id =
   let __resource_type = "aws_opsworks_stack" in
   let __resource =
-    ({
-       agent_version;
-       berkshelf_version;
-       color;
-       configuration_manager_name;
-       configuration_manager_version;
-       custom_json;
-       default_availability_zone;
-       default_instance_profile_arn;
-       default_os;
-       default_root_device_type;
-       default_ssh_key_name;
-       default_subnet_id;
-       hostname_theme;
-       id;
-       manage_berkshelf;
-       name;
-       region;
-       service_role_arn;
-       tags;
-       tags_all;
-       use_custom_cookbooks;
-       use_opsworks_security_groups;
-       vpc_id;
-       custom_cookbooks_source;
-       timeouts;
-     }
-      : aws_opsworks_stack)
+    aws_opsworks_stack ?agent_version ?berkshelf_version ?color
+      ?configuration_manager_name ?configuration_manager_version
+      ?custom_json ?default_availability_zone ?default_os
+      ?default_root_device_type ?default_ssh_key_name
+      ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
+      ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
+      ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
+      ~service_role_arn ~custom_cookbooks_source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_stack __resource);
   let __resource_attributes =
     ({

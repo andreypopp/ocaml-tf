@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_globalaccelerator_accelerator__attributes = {
+type attributes = {
   flow_logs_enabled : bool prop option; [@option]
       (** flow_logs_enabled *)
   flow_logs_s3_bucket : string prop option; [@option]
@@ -13,16 +13,16 @@ type aws_globalaccelerator_accelerator__attributes = {
       (** flow_logs_s3_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_accelerator__attributes *)
+(** attributes *)
 
-type aws_globalaccelerator_accelerator__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_accelerator__timeouts *)
+(** timeouts *)
 
-type aws_globalaccelerator_accelerator__ip_sets = {
+type ip_sets = {
   ip_addresses : string prop list;  (** ip_addresses *)
   ip_family : string prop;  (** ip_family *)
 }
@@ -39,11 +39,32 @@ type aws_globalaccelerator_accelerator = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  attributes : aws_globalaccelerator_accelerator__attributes list;
-  timeouts : aws_globalaccelerator_accelerator__timeouts option;
+  attributes : attributes list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_accelerator *)
+
+let attributes ?flow_logs_enabled ?flow_logs_s3_bucket
+    ?flow_logs_s3_prefix () : attributes =
+  { flow_logs_enabled; flow_logs_s3_bucket; flow_logs_s3_prefix }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_globalaccelerator_accelerator ?enabled ?id ?ip_address_type
+    ?ip_addresses ?tags ?tags_all ?timeouts ~name ~attributes () :
+    aws_globalaccelerator_accelerator =
+  {
+    enabled;
+    id;
+    ip_address_type;
+    ip_addresses;
+    name;
+    tags;
+    tags_all;
+    attributes;
+    timeouts;
+  }
 
 type t = {
   dns_name : string prop;
@@ -53,31 +74,20 @@ type t = {
   id : string prop;
   ip_address_type : string prop;
   ip_addresses : string list prop;
-  ip_sets : aws_globalaccelerator_accelerator__ip_sets list prop;
+  ip_sets : ip_sets list prop;
   name : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
 }
 
-let aws_globalaccelerator_accelerator ?enabled ?id ?ip_address_type
-    ?ip_addresses ?tags ?tags_all ?timeouts ~name ~attributes
-    __resource_id =
+let register ?tf_module ?enabled ?id ?ip_address_type ?ip_addresses
+    ?tags ?tags_all ?timeouts ~name ~attributes __resource_id =
   let __resource_type = "aws_globalaccelerator_accelerator" in
   let __resource =
-    ({
-       enabled;
-       id;
-       ip_address_type;
-       ip_addresses;
-       name;
-       tags;
-       tags_all;
-       attributes;
-       timeouts;
-     }
-      : aws_globalaccelerator_accelerator)
+    aws_globalaccelerator_accelerator ?enabled ?id ?ip_address_type
+      ?ip_addresses ?tags ?tags_all ?timeouts ~name ~attributes ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_accelerator __resource);
   let __resource_attributes =
     ({

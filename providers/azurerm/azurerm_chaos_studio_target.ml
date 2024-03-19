@@ -4,23 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_chaos_studio_target__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_chaos_studio_target__timeouts *)
+(** timeouts *)
 
 type azurerm_chaos_studio_target = {
   id : string prop option; [@option]  (** id *)
   location : string prop;  (** location *)
   target_resource_id : string prop;  (** target_resource_id *)
   target_type : string prop;  (** target_type *)
-  timeouts : azurerm_chaos_studio_target__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_target *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_chaos_studio_target ?id ?timeouts ~location
+    ~target_resource_id ~target_type () : azurerm_chaos_studio_target
+    =
+  { id; location; target_resource_id; target_type; timeouts }
 
 type t = {
   id : string prop;
@@ -29,14 +37,14 @@ type t = {
   target_type : string prop;
 }
 
-let azurerm_chaos_studio_target ?id ?timeouts ~location
-    ~target_resource_id ~target_type __resource_id =
+let register ?tf_module ?id ?timeouts ~location ~target_resource_id
+    ~target_type __resource_id =
   let __resource_type = "azurerm_chaos_studio_target" in
   let __resource =
-    ({ id; location; target_resource_id; target_type; timeouts }
-      : azurerm_chaos_studio_target)
+    azurerm_chaos_studio_target ?id ?timeouts ~location
+      ~target_resource_id ~target_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_chaos_studio_target __resource);
   let __resource_attributes =
     ({

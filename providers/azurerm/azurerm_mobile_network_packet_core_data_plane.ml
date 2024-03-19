@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_mobile_network_packet_core_data_plane__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mobile_network_packet_core_data_plane__timeouts *)
+(** timeouts *)
 
 type azurerm_mobile_network_packet_core_data_plane = {
   id : string prop option; [@option]  (** id *)
@@ -28,11 +28,31 @@ type azurerm_mobile_network_packet_core_data_plane = {
       (** user_plane_access_ipv4_subnet *)
   user_plane_access_name : string prop option; [@option]
       (** user_plane_access_name *)
-  timeouts :
-    azurerm_mobile_network_packet_core_data_plane__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_packet_core_data_plane *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mobile_network_packet_core_data_plane ?id ?tags
+    ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
+    ?user_plane_access_ipv4_subnet ?user_plane_access_name ?timeouts
+    ~location ~mobile_network_packet_core_control_plane_id ~name () :
+    azurerm_mobile_network_packet_core_data_plane =
+  {
+    id;
+    location;
+    mobile_network_packet_core_control_plane_id;
+    name;
+    tags;
+    user_plane_access_ipv4_address;
+    user_plane_access_ipv4_gateway;
+    user_plane_access_ipv4_subnet;
+    user_plane_access_name;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -46,30 +66,22 @@ type t = {
   user_plane_access_name : string prop;
 }
 
-let azurerm_mobile_network_packet_core_data_plane ?id ?tags
-    ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
-    ?user_plane_access_ipv4_subnet ?user_plane_access_name ?timeouts
-    ~location ~mobile_network_packet_core_control_plane_id ~name
-    __resource_id =
+let register ?tf_module ?id ?tags ?user_plane_access_ipv4_address
+    ?user_plane_access_ipv4_gateway ?user_plane_access_ipv4_subnet
+    ?user_plane_access_name ?timeouts ~location
+    ~mobile_network_packet_core_control_plane_id ~name __resource_id
+    =
   let __resource_type =
     "azurerm_mobile_network_packet_core_data_plane"
   in
   let __resource =
-    ({
-       id;
-       location;
-       mobile_network_packet_core_control_plane_id;
-       name;
-       tags;
-       user_plane_access_ipv4_address;
-       user_plane_access_ipv4_gateway;
-       user_plane_access_ipv4_subnet;
-       user_plane_access_name;
-       timeouts;
-     }
-      : azurerm_mobile_network_packet_core_data_plane)
+    azurerm_mobile_network_packet_core_data_plane ?id ?tags
+      ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
+      ?user_plane_access_ipv4_subnet ?user_plane_access_name
+      ?timeouts ~location
+      ~mobile_network_packet_core_control_plane_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_packet_core_data_plane
        __resource);
   let __resource_attributes =

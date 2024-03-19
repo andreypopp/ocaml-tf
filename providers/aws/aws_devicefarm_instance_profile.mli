@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_devicefarm_instance_profile
+
+val aws_devicefarm_instance_profile :
+  ?description:string prop ->
+  ?exclude_app_packages_from_cleanup:string prop list ->
+  ?id:string prop ->
+  ?package_cleanup:bool prop ->
+  ?reboot_after_use:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  aws_devicefarm_instance_profile
+
+val yojson_of_aws_devicefarm_instance_profile :
+  aws_devicefarm_instance_profile -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,7 +35,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_devicefarm_instance_profile :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?exclude_app_packages_from_cleanup:string prop list ->
   ?id:string prop ->

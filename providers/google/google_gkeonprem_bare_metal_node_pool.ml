@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_gkeonprem_bare_metal_node_pool__node_pool_config__node_configs = {
+type node_pool_config__node_configs = {
   labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
@@ -23,7 +23,7 @@ Example: 192.168.0.1 *)
 [@@deriving yojson_of]
 (** The list of machine addresses in the Bare Metal Node Pool. *)
 
-type google_gkeonprem_bare_metal_node_pool__node_pool_config__taints = {
+type node_pool_config__taints = {
   effect : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
   key : string prop option; [@option]
@@ -34,7 +34,7 @@ type google_gkeonprem_bare_metal_node_pool__node_pool_config__taints = {
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
-type google_gkeonprem_bare_metal_node_pool__node_pool_config = {
+type node_pool_config = {
   labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
@@ -48,25 +48,21 @@ An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   operating_system : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). *)
-  node_configs :
-    google_gkeonprem_bare_metal_node_pool__node_pool_config__node_configs
-    list;
-  taints :
-    google_gkeonprem_bare_metal_node_pool__node_pool_config__taints
-    list;
+  node_configs : node_pool_config__node_configs list;
+  taints : node_pool_config__taints list;
 }
 [@@deriving yojson_of]
 (** Node pool configuration. *)
 
-type google_gkeonprem_bare_metal_node_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gkeonprem_bare_metal_node_pool__timeouts *)
+(** timeouts *)
 
-type google_gkeonprem_bare_metal_node_pool__status__conditions = {
+type status__conditions = {
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
   reason : string prop;  (** reason *)
@@ -75,10 +71,8 @@ type google_gkeonprem_bare_metal_node_pool__status__conditions = {
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_bare_metal_node_pool__status = {
-  conditions :
-    google_gkeonprem_bare_metal_node_pool__status__conditions list;
-      (** conditions *)
+type status = {
+  conditions : status__conditions list;  (** conditions *)
   error_message : string prop;  (** error_message *)
 }
 [@@deriving yojson_of]
@@ -105,12 +99,41 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
   location : string prop;  (** The location of the resource. *)
   name : string prop;  (** The bare metal node pool name. *)
   project : string prop option; [@option]  (** project *)
-  node_pool_config :
-    google_gkeonprem_bare_metal_node_pool__node_pool_config list;
-  timeouts : google_gkeonprem_bare_metal_node_pool__timeouts option;
+  node_pool_config : node_pool_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gkeonprem_bare_metal_node_pool *)
+
+let node_pool_config__node_configs ?labels ?node_ip () :
+    node_pool_config__node_configs =
+  { labels; node_ip }
+
+let node_pool_config__taints ?effect ?key ?value () :
+    node_pool_config__taints =
+  { effect; key; value }
+
+let node_pool_config ?labels ?operating_system ~node_configs ~taints
+    () : node_pool_config =
+  { labels; operating_system; node_configs; taints }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gkeonprem_bare_metal_node_pool ?annotations ?display_name
+    ?id ?project ?timeouts ~bare_metal_cluster ~location ~name
+    ~node_pool_config () : google_gkeonprem_bare_metal_node_pool =
+  {
+    annotations;
+    bare_metal_cluster;
+    display_name;
+    id;
+    location;
+    name;
+    project;
+    node_pool_config;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -126,30 +149,21 @@ type t = {
   project : string prop;
   reconciling : bool prop;
   state : string prop;
-  status : google_gkeonprem_bare_metal_node_pool__status list prop;
+  status : status list prop;
   uid : string prop;
   update_time : string prop;
 }
 
-let google_gkeonprem_bare_metal_node_pool ?annotations ?display_name
-    ?id ?project ?timeouts ~bare_metal_cluster ~location ~name
-    ~node_pool_config __resource_id =
+let register ?tf_module ?annotations ?display_name ?id ?project
+    ?timeouts ~bare_metal_cluster ~location ~name ~node_pool_config
+    __resource_id =
   let __resource_type = "google_gkeonprem_bare_metal_node_pool" in
   let __resource =
-    ({
-       annotations;
-       bare_metal_cluster;
-       display_name;
-       id;
-       location;
-       name;
-       project;
-       node_pool_config;
-       timeouts;
-     }
-      : google_gkeonprem_bare_metal_node_pool)
+    google_gkeonprem_bare_metal_node_pool ?annotations ?display_name
+      ?id ?project ?timeouts ~bare_metal_cluster ~location ~name
+      ~node_pool_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gkeonprem_bare_metal_node_pool __resource);
   let __resource_attributes =
     ({

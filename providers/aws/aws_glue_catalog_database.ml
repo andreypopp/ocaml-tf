@@ -4,38 +4,36 @@
 
 open! Tf.Prelude
 
-type aws_glue_catalog_database__create_table_default_permission__principal = {
+type create_table_default_permission__principal = {
   data_lake_principal_identifier : string prop option; [@option]
       (** data_lake_principal_identifier *)
 }
 [@@deriving yojson_of]
-(** aws_glue_catalog_database__create_table_default_permission__principal *)
+(** create_table_default_permission__principal *)
 
-type aws_glue_catalog_database__create_table_default_permission = {
+type create_table_default_permission = {
   permissions : string prop list option; [@option]
       (** permissions *)
-  principal :
-    aws_glue_catalog_database__create_table_default_permission__principal
-    list;
+  principal : create_table_default_permission__principal list;
 }
 [@@deriving yojson_of]
-(** aws_glue_catalog_database__create_table_default_permission *)
+(** create_table_default_permission *)
 
-type aws_glue_catalog_database__federated_database = {
+type federated_database = {
   connection_name : string prop option; [@option]
       (** connection_name *)
   identifier : string prop option; [@option]  (** identifier *)
 }
 [@@deriving yojson_of]
-(** aws_glue_catalog_database__federated_database *)
+(** federated_database *)
 
-type aws_glue_catalog_database__target_database = {
+type target_database = {
   catalog_id : string prop;  (** catalog_id *)
   database_name : string prop;  (** database_name *)
   region : string prop option; [@option]  (** region *)
 }
 [@@deriving yojson_of]
-(** aws_glue_catalog_database__target_database *)
+(** target_database *)
 
 type aws_glue_catalog_database = {
   catalog_id : string prop option; [@option]  (** catalog_id *)
@@ -49,13 +47,47 @@ type aws_glue_catalog_database = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   create_table_default_permission :
-    aws_glue_catalog_database__create_table_default_permission list;
-  federated_database :
-    aws_glue_catalog_database__federated_database list;
-  target_database : aws_glue_catalog_database__target_database list;
+    create_table_default_permission list;
+  federated_database : federated_database list;
+  target_database : target_database list;
 }
 [@@deriving yojson_of]
 (** aws_glue_catalog_database *)
+
+let create_table_default_permission__principal
+    ?data_lake_principal_identifier () :
+    create_table_default_permission__principal =
+  { data_lake_principal_identifier }
+
+let create_table_default_permission ?permissions ~principal () :
+    create_table_default_permission =
+  { permissions; principal }
+
+let federated_database ?connection_name ?identifier () :
+    federated_database =
+  { connection_name; identifier }
+
+let target_database ?region ~catalog_id ~database_name () :
+    target_database =
+  { catalog_id; database_name; region }
+
+let aws_glue_catalog_database ?catalog_id ?description ?id
+    ?location_uri ?parameters ?tags ?tags_all ~name
+    ~create_table_default_permission ~federated_database
+    ~target_database () : aws_glue_catalog_database =
+  {
+    catalog_id;
+    description;
+    id;
+    location_uri;
+    name;
+    parameters;
+    tags;
+    tags_all;
+    create_table_default_permission;
+    federated_database;
+    target_database;
+  }
 
 type t = {
   arn : string prop;
@@ -69,28 +101,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_glue_catalog_database ?catalog_id ?description ?id
-    ?location_uri ?parameters ?tags ?tags_all ~name
+let register ?tf_module ?catalog_id ?description ?id ?location_uri
+    ?parameters ?tags ?tags_all ~name
     ~create_table_default_permission ~federated_database
     ~target_database __resource_id =
   let __resource_type = "aws_glue_catalog_database" in
   let __resource =
-    ({
-       catalog_id;
-       description;
-       id;
-       location_uri;
-       name;
-       parameters;
-       tags;
-       tags_all;
-       create_table_default_permission;
-       federated_database;
-       target_database;
-     }
-      : aws_glue_catalog_database)
+    aws_glue_catalog_database ?catalog_id ?description ?id
+      ?location_uri ?parameters ?tags ?tags_all ~name
+      ~create_table_default_permission ~federated_database
+      ~target_database ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_catalog_database __resource);
   let __resource_attributes =
     ({

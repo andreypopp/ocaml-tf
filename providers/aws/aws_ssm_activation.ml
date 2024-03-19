@@ -20,6 +20,20 @@ type aws_ssm_activation = {
 [@@deriving yojson_of]
 (** aws_ssm_activation *)
 
+let aws_ssm_activation ?description ?expiration_date ?id ?name
+    ?registration_limit ?tags ?tags_all ~iam_role () :
+    aws_ssm_activation =
+  {
+    description;
+    expiration_date;
+    iam_role;
+    id;
+    name;
+    registration_limit;
+    tags;
+    tags_all;
+  }
+
 type t = {
   activation_code : string prop;
   description : string prop;
@@ -34,23 +48,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ssm_activation ?description ?expiration_date ?id ?name
+let register ?tf_module ?description ?expiration_date ?id ?name
     ?registration_limit ?tags ?tags_all ~iam_role __resource_id =
   let __resource_type = "aws_ssm_activation" in
   let __resource =
-    ({
-       description;
-       expiration_date;
-       iam_role;
-       id;
-       name;
-       registration_limit;
-       tags;
-       tags_all;
-     }
-      : aws_ssm_activation)
+    aws_ssm_activation ?description ?expiration_date ?id ?name
+      ?registration_limit ?tags ?tags_all ~iam_role ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_activation __resource);
   let __resource_attributes =
     ({

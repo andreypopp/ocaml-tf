@@ -2,8 +2,25 @@
 
 open! Tf.Prelude
 
-type aws_rekognition_collection__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_rekognition_collection
+
+val aws_rekognition_collection :
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  collection_id:string prop ->
+  unit ->
+  aws_rekognition_collection
+
+val yojson_of_aws_rekognition_collection :
+  aws_rekognition_collection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,9 +31,10 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_rekognition_collection :
+val register :
+  ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_rekognition_collection__timeouts ->
+  ?timeouts:timeouts ->
   collection_id:string prop ->
   string ->
   t

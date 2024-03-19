@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_biglake_catalog__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_biglake_catalog__timeouts *)
+(** timeouts *)
 
 type google_biglake_catalog = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,16 @@ type google_biglake_catalog = {
       (** The name of the Catalog. Format:
 projects/{project_id_or_number}/locations/{locationId}/catalogs/{catalogId} *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_biglake_catalog__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_biglake_catalog *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_biglake_catalog ?id ?project ?timeouts ~location ~name ()
+    : google_biglake_catalog =
+  { id; location; name; project; timeouts }
 
 type t = {
   create_time : string prop;
@@ -35,14 +41,13 @@ type t = {
   update_time : string prop;
 }
 
-let google_biglake_catalog ?id ?project ?timeouts ~location ~name
+let register ?tf_module ?id ?project ?timeouts ~location ~name
     __resource_id =
   let __resource_type = "google_biglake_catalog" in
   let __resource =
-    ({ id; location; name; project; timeouts }
-      : google_biglake_catalog)
+    google_biglake_catalog ?id ?project ?timeouts ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_biglake_catalog __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_location_geofence_collection__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_location_geofence_collection
+
+val aws_location_geofence_collection :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  collection_name:string prop ->
+  unit ->
+  aws_location_geofence_collection
+
+val yojson_of_aws_location_geofence_collection :
+  aws_location_geofence_collection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   collection_arn : string prop;
@@ -17,13 +43,14 @@ type t = private {
   update_time : string prop;
 }
 
-val aws_location_geofence_collection :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_location_geofence_collection__timeouts ->
+  ?timeouts:timeouts ->
   collection_name:string prop ->
   string ->
   t

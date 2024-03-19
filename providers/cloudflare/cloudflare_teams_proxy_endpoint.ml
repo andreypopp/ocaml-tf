@@ -18,6 +18,10 @@ Endpoints are used for pointing proxy clients at Cloudflare Secure
 Gateway.
  *)
 
+let cloudflare_teams_proxy_endpoint ?id ~account_id ~ips ~name () :
+    cloudflare_teams_proxy_endpoint =
+  { account_id; id; ips; name }
+
 type t = {
   account_id : string prop;
   id : string prop;
@@ -26,13 +30,12 @@ type t = {
   subdomain : string prop;
 }
 
-let cloudflare_teams_proxy_endpoint ?id ~account_id ~ips ~name
-    __resource_id =
+let register ?tf_module ?id ~account_id ~ips ~name __resource_id =
   let __resource_type = "cloudflare_teams_proxy_endpoint" in
   let __resource =
-    ({ account_id; id; ips; name } : cloudflare_teams_proxy_endpoint)
+    cloudflare_teams_proxy_endpoint ?id ~account_id ~ips ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_proxy_endpoint __resource);
   let __resource_attributes =
     ({

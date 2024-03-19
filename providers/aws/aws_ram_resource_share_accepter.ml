@@ -4,20 +4,26 @@
 
 open! Tf.Prelude
 
-type aws_ram_resource_share_accepter__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ram_resource_share_accepter__timeouts *)
+(** timeouts *)
 
 type aws_ram_resource_share_accepter = {
   id : string prop option; [@option]  (** id *)
   share_arn : string prop;  (** share_arn *)
-  timeouts : aws_ram_resource_share_accepter__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ram_resource_share_accepter *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ram_resource_share_accepter ?id ?timeouts ~share_arn () :
+    aws_ram_resource_share_accepter =
+  { id; share_arn; timeouts }
 
 type t = {
   id : string prop;
@@ -31,13 +37,12 @@ type t = {
   status : string prop;
 }
 
-let aws_ram_resource_share_accepter ?id ?timeouts ~share_arn
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~share_arn __resource_id =
   let __resource_type = "aws_ram_resource_share_accepter" in
   let __resource =
-    ({ id; share_arn; timeouts } : aws_ram_resource_share_accepter)
+    aws_ram_resource_share_accepter ?id ?timeouts ~share_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ram_resource_share_accepter __resource);
   let __resource_attributes =
     ({

@@ -15,6 +15,10 @@ type aws_s3control_bucket = {
 [@@deriving yojson_of]
 (** aws_s3control_bucket *)
 
+let aws_s3control_bucket ?id ?tags ?tags_all ~bucket ~outpost_id () :
+    aws_s3control_bucket =
+  { bucket; id; outpost_id; tags; tags_all }
+
 type t = {
   arn : string prop;
   bucket : string prop;
@@ -26,14 +30,13 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_s3control_bucket ?id ?tags ?tags_all ~bucket ~outpost_id
+let register ?tf_module ?id ?tags ?tags_all ~bucket ~outpost_id
     __resource_id =
   let __resource_type = "aws_s3control_bucket" in
   let __resource =
-    ({ bucket; id; outpost_id; tags; tags_all }
-      : aws_s3control_bucket)
+    aws_s3control_bucket ?id ?tags ?tags_all ~bucket ~outpost_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_bucket __resource);
   let __resource_attributes =
     ({

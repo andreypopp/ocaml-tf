@@ -4,33 +4,33 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_scheduled_query_rules_alert_v2__action = {
+type action = {
   action_groups : string prop list option; [@option]
       (** action_groups *)
   custom_properties : (string * string prop) list option; [@option]
       (** custom_properties *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert_v2__action *)
+(** action *)
 
-type azurerm_monitor_scheduled_query_rules_alert_v2__criteria__dimension = {
+type criteria__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert_v2__criteria__dimension *)
+(** criteria__dimension *)
 
-type azurerm_monitor_scheduled_query_rules_alert_v2__criteria__failing_periods = {
+type criteria__failing_periods = {
   minimum_failing_periods_to_trigger_alert : float prop;
       (** minimum_failing_periods_to_trigger_alert *)
   number_of_evaluation_periods : float prop;
       (** number_of_evaluation_periods *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert_v2__criteria__failing_periods *)
+(** criteria__failing_periods *)
 
-type azurerm_monitor_scheduled_query_rules_alert_v2__criteria = {
+type criteria = {
   metric_measure_column : string prop option; [@option]
       (** metric_measure_column *)
   operator : string prop;  (** operator *)
@@ -40,24 +40,20 @@ type azurerm_monitor_scheduled_query_rules_alert_v2__criteria = {
   threshold : float prop;  (** threshold *)
   time_aggregation_method : string prop;
       (** time_aggregation_method *)
-  dimension :
-    azurerm_monitor_scheduled_query_rules_alert_v2__criteria__dimension
-    list;
-  failing_periods :
-    azurerm_monitor_scheduled_query_rules_alert_v2__criteria__failing_periods
-    list;
+  dimension : criteria__dimension list;
+  failing_periods : criteria__failing_periods list;
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert_v2__criteria *)
+(** criteria *)
 
-type azurerm_monitor_scheduled_query_rules_alert_v2__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert_v2__timeouts *)
+(** timeouts *)
 
 type azurerm_monitor_scheduled_query_rules_alert_v2 = {
   auto_mitigation_enabled : bool prop option; [@option]
@@ -85,15 +81,76 @@ type azurerm_monitor_scheduled_query_rules_alert_v2 = {
   window_duration : string prop;  (** window_duration *)
   workspace_alerts_storage_enabled : bool prop option; [@option]
       (** workspace_alerts_storage_enabled *)
-  action :
-    azurerm_monitor_scheduled_query_rules_alert_v2__action list;
-  criteria :
-    azurerm_monitor_scheduled_query_rules_alert_v2__criteria list;
-  timeouts :
-    azurerm_monitor_scheduled_query_rules_alert_v2__timeouts option;
+  action : action list;
+  criteria : criteria list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_scheduled_query_rules_alert_v2 *)
+
+let action ?action_groups ?custom_properties () : action =
+  { action_groups; custom_properties }
+
+let criteria__dimension ~name ~operator ~values () :
+    criteria__dimension =
+  { name; operator; values }
+
+let criteria__failing_periods
+    ~minimum_failing_periods_to_trigger_alert
+    ~number_of_evaluation_periods () : criteria__failing_periods =
+  {
+    minimum_failing_periods_to_trigger_alert;
+    number_of_evaluation_periods;
+  }
+
+let criteria ?metric_measure_column ?resource_id_column ~operator
+    ~query ~threshold ~time_aggregation_method ~dimension
+    ~failing_periods () : criteria =
+  {
+    metric_measure_column;
+    operator;
+    query;
+    resource_id_column;
+    threshold;
+    time_aggregation_method;
+    dimension;
+    failing_periods;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_monitor_scheduled_query_rules_alert_v2
+    ?auto_mitigation_enabled ?description ?display_name ?enabled
+    ?evaluation_frequency ?id ?mute_actions_after_alert_duration
+    ?query_time_range_override ?skip_query_validation ?tags
+    ?target_resource_types ?workspace_alerts_storage_enabled
+    ?timeouts ~location ~name ~resource_group_name ~scopes ~severity
+    ~window_duration ~action ~criteria () :
+    azurerm_monitor_scheduled_query_rules_alert_v2 =
+  {
+    auto_mitigation_enabled;
+    description;
+    display_name;
+    enabled;
+    evaluation_frequency;
+    id;
+    location;
+    mute_actions_after_alert_duration;
+    name;
+    query_time_range_override;
+    resource_group_name;
+    scopes;
+    severity;
+    skip_query_validation;
+    tags;
+    target_resource_types;
+    window_duration;
+    workspace_alerts_storage_enabled;
+    action;
+    criteria;
+    timeouts;
+  }
 
 type t = {
   auto_mitigation_enabled : bool prop;
@@ -119,43 +176,26 @@ type t = {
   workspace_alerts_storage_enabled : bool prop;
 }
 
-let azurerm_monitor_scheduled_query_rules_alert_v2
-    ?auto_mitigation_enabled ?description ?display_name ?enabled
-    ?evaluation_frequency ?id ?mute_actions_after_alert_duration
-    ?query_time_range_override ?skip_query_validation ?tags
-    ?target_resource_types ?workspace_alerts_storage_enabled
-    ?timeouts ~location ~name ~resource_group_name ~scopes ~severity
-    ~window_duration ~action ~criteria __resource_id =
+let register ?tf_module ?auto_mitigation_enabled ?description
+    ?display_name ?enabled ?evaluation_frequency ?id
+    ?mute_actions_after_alert_duration ?query_time_range_override
+    ?skip_query_validation ?tags ?target_resource_types
+    ?workspace_alerts_storage_enabled ?timeouts ~location ~name
+    ~resource_group_name ~scopes ~severity ~window_duration ~action
+    ~criteria __resource_id =
   let __resource_type =
     "azurerm_monitor_scheduled_query_rules_alert_v2"
   in
   let __resource =
-    ({
-       auto_mitigation_enabled;
-       description;
-       display_name;
-       enabled;
-       evaluation_frequency;
-       id;
-       location;
-       mute_actions_after_alert_duration;
-       name;
-       query_time_range_override;
-       resource_group_name;
-       scopes;
-       severity;
-       skip_query_validation;
-       tags;
-       target_resource_types;
-       window_duration;
-       workspace_alerts_storage_enabled;
-       action;
-       criteria;
-       timeouts;
-     }
-      : azurerm_monitor_scheduled_query_rules_alert_v2)
+    azurerm_monitor_scheduled_query_rules_alert_v2
+      ?auto_mitigation_enabled ?description ?display_name ?enabled
+      ?evaluation_frequency ?id ?mute_actions_after_alert_duration
+      ?query_time_range_override ?skip_query_validation ?tags
+      ?target_resource_types ?workspace_alerts_storage_enabled
+      ?timeouts ~location ~name ~resource_group_name ~scopes
+      ~severity ~window_duration ~action ~criteria ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2
        __resource);
   let __resource_attributes =

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_storage_bucket__autoclass = {
+type autoclass = {
   enabled : bool prop;
       (** While set to true, autoclass automatically transitions objects in your bucket to appropriate storage classes based on each object's access pattern. *)
   terminal_storage_class : string prop option; [@option]
@@ -13,7 +13,7 @@ type google_storage_bucket__autoclass = {
 [@@deriving yojson_of]
 (** The bucket's autoclass configuration. *)
 
-type google_storage_bucket__cors = {
+type cors = {
   max_age_seconds : float prop option; [@option]
       (** The value, in seconds, to return in the Access-Control-Max-Age header used in preflight responses. *)
   method_ : string prop list option; [@option] [@key "method"]
@@ -26,21 +26,21 @@ type google_storage_bucket__cors = {
 [@@deriving yojson_of]
 (** The bucket's Cross-Origin Resource Sharing (CORS) configuration. *)
 
-type google_storage_bucket__custom_placement_config = {
+type custom_placement_config = {
   data_locations : string prop list;
       (** The list of individual regions that comprise a dual-region bucket. See the docs for a list of acceptable regions. Note: If any of the data_locations changes, it will recreate the bucket. *)
 }
 [@@deriving yojson_of]
 (** The bucket's custom location configuration, which specifies the individual regions that comprise a dual-region bucket. If the bucket is designated a single or multi-region, the parameters are empty. *)
 
-type google_storage_bucket__encryption = {
+type encryption = {
   default_kms_key_name : string prop;
       (** A Cloud KMS key that will be used to encrypt objects inserted into this bucket, if no encryption method is specified. You must pay attention to whether the crypto key is available in the location that this bucket is created in. See the docs for more details. *)
 }
 [@@deriving yojson_of]
 (** The bucket's encryption configuration. *)
 
-type google_storage_bucket__lifecycle_rule__action = {
+type lifecycle_rule__action = {
   storage_class : string prop option; [@option]
       (** The target Storage Class of objects affected by this Lifecycle Rule. Supported values include: MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE. *)
   type_ : string prop; [@key "type"]
@@ -49,7 +49,7 @@ type google_storage_bucket__lifecycle_rule__action = {
 [@@deriving yojson_of]
 (** The Lifecycle Rule's action configuration. A single block of this type is supported. *)
 
-type google_storage_bucket__lifecycle_rule__condition = {
+type lifecycle_rule__condition = {
   age : float prop option; [@option]
       (** Minimum age of an object in days to satisfy this condition. *)
   created_before : string prop option; [@option]
@@ -79,14 +79,14 @@ type google_storage_bucket__lifecycle_rule__condition = {
 [@@deriving yojson_of]
 (** The Lifecycle Rule's condition configuration. *)
 
-type google_storage_bucket__lifecycle_rule = {
-  action : google_storage_bucket__lifecycle_rule__action list;
-  condition : google_storage_bucket__lifecycle_rule__condition list;
+type lifecycle_rule = {
+  action : lifecycle_rule__action list;
+  condition : lifecycle_rule__condition list;
 }
 [@@deriving yojson_of]
 (** The bucket's Lifecycle Rules configuration. *)
 
-type google_storage_bucket__logging = {
+type logging = {
   log_bucket : string prop;
       (** The bucket that will receive log objects. *)
   log_object_prefix : string prop option; [@option]
@@ -95,7 +95,7 @@ type google_storage_bucket__logging = {
 [@@deriving yojson_of]
 (** The bucket's Access & Storage Logs configuration. *)
 
-type google_storage_bucket__retention_policy = {
+type retention_policy = {
   is_locked : bool prop option; [@option]
       (** If set to true, the bucket will be locked and permanently restrict edits to the bucket's retention policy.  Caution: Locking a bucket is an irreversible action. *)
   retention_period : float prop;
@@ -104,22 +104,22 @@ type google_storage_bucket__retention_policy = {
 [@@deriving yojson_of]
 (** Configuration of the bucket's data retention policy for how long objects in the bucket should be retained. *)
 
-type google_storage_bucket__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_storage_bucket__timeouts *)
+(** timeouts *)
 
-type google_storage_bucket__versioning = {
+type versioning = {
   enabled : bool prop;
       (** While set to true, versioning is fully enabled for this bucket. *)
 }
 [@@deriving yojson_of]
 (** The bucket's Versioning configuration. *)
 
-type google_storage_bucket__website = {
+type website = {
   main_page_suffix : string prop option; [@option]
       (** Behaves as the bucket's directory index where missing objects are treated as potential directories. *)
   not_found_page : string prop option; [@option]
@@ -152,20 +152,109 @@ type google_storage_bucket = {
       (** The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE. *)
   uniform_bucket_level_access : bool prop option; [@option]
       (** Enables uniform bucket-level access on a bucket. *)
-  autoclass : google_storage_bucket__autoclass list;
-  cors : google_storage_bucket__cors list;
-  custom_placement_config :
-    google_storage_bucket__custom_placement_config list;
-  encryption : google_storage_bucket__encryption list;
-  lifecycle_rule : google_storage_bucket__lifecycle_rule list;
-  logging : google_storage_bucket__logging list;
-  retention_policy : google_storage_bucket__retention_policy list;
-  timeouts : google_storage_bucket__timeouts option;
-  versioning : google_storage_bucket__versioning list;
-  website : google_storage_bucket__website list;
+  autoclass : autoclass list;
+  cors : cors list;
+  custom_placement_config : custom_placement_config list;
+  encryption : encryption list;
+  lifecycle_rule : lifecycle_rule list;
+  logging : logging list;
+  retention_policy : retention_policy list;
+  timeouts : timeouts option;
+  versioning : versioning list;
+  website : website list;
 }
 [@@deriving yojson_of]
 (** google_storage_bucket *)
+
+let autoclass ?terminal_storage_class ~enabled () : autoclass =
+  { enabled; terminal_storage_class }
+
+let cors ?max_age_seconds ?method_ ?origin ?response_header () : cors
+    =
+  { max_age_seconds; method_; origin; response_header }
+
+let custom_placement_config ~data_locations () :
+    custom_placement_config =
+  { data_locations }
+
+let encryption ~default_kms_key_name () : encryption =
+  { default_kms_key_name }
+
+let lifecycle_rule__action ?storage_class ~type_ () :
+    lifecycle_rule__action =
+  { storage_class; type_ }
+
+let lifecycle_rule__condition ?age ?created_before
+    ?custom_time_before ?days_since_custom_time
+    ?days_since_noncurrent_time ?matches_prefix
+    ?matches_storage_class ?matches_suffix ?no_age
+    ?noncurrent_time_before ?num_newer_versions ?with_state () :
+    lifecycle_rule__condition =
+  {
+    age;
+    created_before;
+    custom_time_before;
+    days_since_custom_time;
+    days_since_noncurrent_time;
+    matches_prefix;
+    matches_storage_class;
+    matches_suffix;
+    no_age;
+    noncurrent_time_before;
+    num_newer_versions;
+    with_state;
+  }
+
+let lifecycle_rule ~action ~condition () : lifecycle_rule =
+  { action; condition }
+
+let logging ?log_object_prefix ~log_bucket () : logging =
+  { log_bucket; log_object_prefix }
+
+let retention_policy ?is_locked ~retention_period () :
+    retention_policy =
+  { is_locked; retention_period }
+
+let timeouts ?create ?read ?update () : timeouts =
+  { create; read; update }
+
+let versioning ~enabled () : versioning = { enabled }
+
+let website ?main_page_suffix ?not_found_page () : website =
+  { main_page_suffix; not_found_page }
+
+let google_storage_bucket ?default_event_based_hold
+    ?enable_object_retention ?force_destroy ?id ?labels ?project
+    ?public_access_prevention ?requester_pays ?rpo ?storage_class
+    ?uniform_bucket_level_access ?timeouts ~location ~name ~autoclass
+    ~cors ~custom_placement_config ~encryption ~lifecycle_rule
+    ~logging ~retention_policy ~versioning ~website () :
+    google_storage_bucket =
+  {
+    default_event_based_hold;
+    enable_object_retention;
+    force_destroy;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    public_access_prevention;
+    requester_pays;
+    rpo;
+    storage_class;
+    uniform_bucket_level_access;
+    autoclass;
+    cors;
+    custom_placement_config;
+    encryption;
+    lifecycle_rule;
+    logging;
+    retention_policy;
+    timeouts;
+    versioning;
+    website;
+  }
 
 type t = {
   default_event_based_hold : bool prop;
@@ -187,7 +276,7 @@ type t = {
   url : string prop;
 }
 
-let google_storage_bucket ?default_event_based_hold
+let register ?tf_module ?default_event_based_hold
     ?enable_object_retention ?force_destroy ?id ?labels ?project
     ?public_access_prevention ?requester_pays ?rpo ?storage_class
     ?uniform_bucket_level_access ?timeouts ~location ~name ~autoclass
@@ -195,34 +284,15 @@ let google_storage_bucket ?default_event_based_hold
     ~logging ~retention_policy ~versioning ~website __resource_id =
   let __resource_type = "google_storage_bucket" in
   let __resource =
-    ({
-       default_event_based_hold;
-       enable_object_retention;
-       force_destroy;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       public_access_prevention;
-       requester_pays;
-       rpo;
-       storage_class;
-       uniform_bucket_level_access;
-       autoclass;
-       cors;
-       custom_placement_config;
-       encryption;
-       lifecycle_rule;
-       logging;
-       retention_policy;
-       timeouts;
-       versioning;
-       website;
-     }
-      : google_storage_bucket)
+    google_storage_bucket ?default_event_based_hold
+      ?enable_object_retention ?force_destroy ?id ?labels ?project
+      ?public_access_prevention ?requester_pays ?rpo ?storage_class
+      ?uniform_bucket_level_access ?timeouts ~location ~name
+      ~autoclass ~cors ~custom_placement_config ~encryption
+      ~lifecycle_rule ~logging ~retention_policy ~versioning ~website
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_bucket __resource);
   let __resource_attributes =
     ({

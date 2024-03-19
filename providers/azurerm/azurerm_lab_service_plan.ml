@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_lab_service_plan__default_auto_shutdown = {
+type default_auto_shutdown = {
   disconnect_delay : string prop option; [@option]
       (** disconnect_delay *)
   idle_delay : string prop option; [@option]  (** idle_delay *)
@@ -14,9 +14,9 @@ type azurerm_lab_service_plan__default_auto_shutdown = {
       (** shutdown_on_idle *)
 }
 [@@deriving yojson_of]
-(** azurerm_lab_service_plan__default_auto_shutdown *)
+(** default_auto_shutdown *)
 
-type azurerm_lab_service_plan__default_connection = {
+type default_connection = {
   client_rdp_access : string prop option; [@option]
       (** client_rdp_access *)
   client_ssh_access : string prop option; [@option]
@@ -27,25 +27,25 @@ type azurerm_lab_service_plan__default_connection = {
       (** web_ssh_access *)
 }
 [@@deriving yojson_of]
-(** azurerm_lab_service_plan__default_connection *)
+(** default_connection *)
 
-type azurerm_lab_service_plan__support = {
+type support = {
   email : string prop option; [@option]  (** email *)
   instructions : string prop option; [@option]  (** instructions *)
   phone : string prop option; [@option]  (** phone *)
   url : string prop option; [@option]  (** url *)
 }
 [@@deriving yojson_of]
-(** azurerm_lab_service_plan__support *)
+(** support *)
 
-type azurerm_lab_service_plan__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_lab_service_plan__timeouts *)
+(** timeouts *)
 
 type azurerm_lab_service_plan = {
   allowed_regions : string prop list;  (** allowed_regions *)
@@ -58,15 +58,56 @@ type azurerm_lab_service_plan = {
   shared_gallery_id : string prop option; [@option]
       (** shared_gallery_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  default_auto_shutdown :
-    azurerm_lab_service_plan__default_auto_shutdown list;
-  default_connection :
-    azurerm_lab_service_plan__default_connection list;
-  support : azurerm_lab_service_plan__support list;
-  timeouts : azurerm_lab_service_plan__timeouts option;
+  default_auto_shutdown : default_auto_shutdown list;
+  default_connection : default_connection list;
+  support : support list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_plan *)
+
+let default_auto_shutdown ?disconnect_delay ?idle_delay
+    ?no_connect_delay ?shutdown_on_idle () : default_auto_shutdown =
+  {
+    disconnect_delay;
+    idle_delay;
+    no_connect_delay;
+    shutdown_on_idle;
+  }
+
+let default_connection ?client_rdp_access ?client_ssh_access
+    ?web_rdp_access ?web_ssh_access () : default_connection =
+  {
+    client_rdp_access;
+    client_ssh_access;
+    web_rdp_access;
+    web_ssh_access;
+  }
+
+let support ?email ?instructions ?phone ?url () : support =
+  { email; instructions; phone; url }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_lab_service_plan ?default_network_subnet_id ?id
+    ?shared_gallery_id ?tags ?timeouts ~allowed_regions ~location
+    ~name ~resource_group_name ~default_auto_shutdown
+    ~default_connection ~support () : azurerm_lab_service_plan =
+  {
+    allowed_regions;
+    default_network_subnet_id;
+    id;
+    location;
+    name;
+    resource_group_name;
+    shared_gallery_id;
+    tags;
+    default_auto_shutdown;
+    default_connection;
+    support;
+    timeouts;
+  }
 
 type t = {
   allowed_regions : string list prop;
@@ -79,29 +120,18 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_lab_service_plan ?default_network_subnet_id ?id
+let register ?tf_module ?default_network_subnet_id ?id
     ?shared_gallery_id ?tags ?timeouts ~allowed_regions ~location
     ~name ~resource_group_name ~default_auto_shutdown
     ~default_connection ~support __resource_id =
   let __resource_type = "azurerm_lab_service_plan" in
   let __resource =
-    ({
-       allowed_regions;
-       default_network_subnet_id;
-       id;
-       location;
-       name;
-       resource_group_name;
-       shared_gallery_id;
-       tags;
-       default_auto_shutdown;
-       default_connection;
-       support;
-       timeouts;
-     }
-      : azurerm_lab_service_plan)
+    azurerm_lab_service_plan ?default_network_subnet_id ?id
+      ?shared_gallery_id ?tags ?timeouts ~allowed_regions ~location
+      ~name ~resource_group_name ~default_auto_shutdown
+      ~default_connection ~support ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lab_service_plan __resource);
   let __resource_attributes =
     ({

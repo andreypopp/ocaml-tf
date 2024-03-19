@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_bot_channel_ms_teams__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_bot_channel_ms_teams
+
+val azurerm_bot_channel_ms_teams :
+  ?calling_web_hook:string prop ->
+  ?deployment_environment:string prop ->
+  ?enable_calling:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_bot_channel_ms_teams
+
+val yojson_of_azurerm_bot_channel_ms_teams :
+  azurerm_bot_channel_ms_teams -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bot_name : string prop;
@@ -15,12 +43,13 @@ type t = private {
   resource_group_name : string prop;
 }
 
-val azurerm_bot_channel_ms_teams :
+val register :
+  ?tf_module:tf_module ->
   ?calling_web_hook:string prop ->
   ?deployment_environment:string prop ->
   ?enable_calling:bool prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_bot_channel_ms_teams__timeouts ->
+  ?timeouts:timeouts ->
   bot_name:string prop ->
   location:string prop ->
   resource_group_name:string prop ->

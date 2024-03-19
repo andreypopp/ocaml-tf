@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_odbc__basic_authentication = {
+type basic_authentication = {
   password : string prop;  (** password *)
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_odbc__basic_authentication *)
+(** basic_authentication *)
 
-type azurerm_data_factory_linked_service_odbc__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_odbc__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_odbc = {
   additional_properties : (string * string prop) list option;
@@ -35,14 +35,37 @@ type azurerm_data_factory_linked_service_odbc = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  basic_authentication :
-    azurerm_data_factory_linked_service_odbc__basic_authentication
-    list;
-  timeouts :
-    azurerm_data_factory_linked_service_odbc__timeouts option;
+  basic_authentication : basic_authentication list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_odbc *)
+
+let basic_authentication ~password ~username () :
+    basic_authentication =
+  { password; username }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_odbc ?additional_properties
+    ?annotations ?description ?id ?integration_runtime_name
+    ?parameters ?timeouts ~connection_string ~data_factory_id ~name
+    ~basic_authentication () :
+    azurerm_data_factory_linked_service_odbc =
+  {
+    additional_properties;
+    annotations;
+    connection_string;
+    data_factory_id;
+    description;
+    id;
+    integration_runtime_name;
+    name;
+    parameters;
+    basic_authentication;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -56,28 +79,18 @@ type t = {
   parameters : (string * string) list prop;
 }
 
-let azurerm_data_factory_linked_service_odbc ?additional_properties
-    ?annotations ?description ?id ?integration_runtime_name
-    ?parameters ?timeouts ~connection_string ~data_factory_id ~name
-    ~basic_authentication __resource_id =
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?id ?integration_runtime_name ?parameters ?timeouts
+    ~connection_string ~data_factory_id ~name ~basic_authentication
+    __resource_id =
   let __resource_type = "azurerm_data_factory_linked_service_odbc" in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       connection_string;
-       data_factory_id;
-       description;
-       id;
-       integration_runtime_name;
-       name;
-       parameters;
-       basic_authentication;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_odbc)
+    azurerm_data_factory_linked_service_odbc ?additional_properties
+      ?annotations ?description ?id ?integration_runtime_name
+      ?parameters ?timeouts ~connection_string ~data_factory_id ~name
+      ~basic_authentication ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_odbc __resource);
   let __resource_attributes =
     ({

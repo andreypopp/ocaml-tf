@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_managed_ssl_certificate__managed = {
+type managed = {
   domains : string prop list;
       (** Domains for which a managed SSL certificate will be valid.  Currently,
 there can be up to 100 domains in this list. *)
@@ -13,12 +13,12 @@ there can be up to 100 domains in this list. *)
 (** Properties relevant to a managed certificate.  These will be used if the
 certificate is managed (as indicated by a value of 'MANAGED' in 'type'). *)
 
-type google_compute_managed_ssl_certificate__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_managed_ssl_certificate__timeouts *)
+(** timeouts *)
 
 type google_compute_managed_ssl_certificate = {
   certificate_id : float prop option; [@option]
@@ -41,11 +41,28 @@ These are in the same namespace as the managed SSL certificates. *)
   type_ : string prop option; [@option] [@key "type"]
       (** Enum field whose value is always 'MANAGED' - used to signal to the API
 which type this is. Default value: MANAGED Possible values: [MANAGED] *)
-  managed : google_compute_managed_ssl_certificate__managed list;
-  timeouts : google_compute_managed_ssl_certificate__timeouts option;
+  managed : managed list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_managed_ssl_certificate *)
+
+let managed ~domains () : managed = { domains }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_managed_ssl_certificate ?certificate_id
+    ?description ?id ?name ?project ?type_ ?timeouts ~managed () :
+    google_compute_managed_ssl_certificate =
+  {
+    certificate_id;
+    description;
+    id;
+    name;
+    project;
+    type_;
+    managed;
+    timeouts;
+  }
 
 type t = {
   certificate_id : float prop;
@@ -60,24 +77,14 @@ type t = {
   type_ : string prop;
 }
 
-let google_compute_managed_ssl_certificate ?certificate_id
-    ?description ?id ?name ?project ?type_ ?timeouts ~managed
-    __resource_id =
+let register ?tf_module ?certificate_id ?description ?id ?name
+    ?project ?type_ ?timeouts ~managed __resource_id =
   let __resource_type = "google_compute_managed_ssl_certificate" in
   let __resource =
-    ({
-       certificate_id;
-       description;
-       id;
-       name;
-       project;
-       type_;
-       managed;
-       timeouts;
-     }
-      : google_compute_managed_ssl_certificate)
+    google_compute_managed_ssl_certificate ?certificate_id
+      ?description ?id ?name ?project ?type_ ?timeouts ~managed ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_managed_ssl_certificate __resource);
   let __resource_attributes =
     ({

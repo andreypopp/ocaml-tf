@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_fulfillment__features = {
+type features = {
   type_ : string prop; [@key "type"]
       (** The type of the feature that enabled for fulfillment.
 * SMALLTALK: Fulfillment is enabled for SmallTalk. Possible values: [SMALLTALK] *)
@@ -12,7 +12,7 @@ type google_dialogflow_fulfillment__features = {
 [@@deriving yojson_of]
 (** The field defines whether the fulfillment is enabled for certain features. *)
 
-type google_dialogflow_fulfillment__generic_web_service = {
+type generic_web_service = {
   password : string prop option; [@option]
       (** The password for HTTP Basic authentication. *)
   request_headers : (string * string prop) list option; [@option]
@@ -25,13 +25,13 @@ type google_dialogflow_fulfillment__generic_web_service = {
 [@@deriving yojson_of]
 (** Represents configuration for a generic web service. Dialogflow supports two mechanisms for authentications: - Basic authentication with username and password. - Authentication with additional authentication headers. *)
 
-type google_dialogflow_fulfillment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_fulfillment__timeouts *)
+(** timeouts *)
 
 type google_dialogflow_fulfillment = {
   display_name : string prop;
@@ -40,13 +40,34 @@ type google_dialogflow_fulfillment = {
       (** Whether fulfillment is enabled. *)
   id : string prop option; [@option]  (** id *)
   project : string prop option; [@option]  (** project *)
-  features : google_dialogflow_fulfillment__features list;
-  generic_web_service :
-    google_dialogflow_fulfillment__generic_web_service list;
-  timeouts : google_dialogflow_fulfillment__timeouts option;
+  features : features list;
+  generic_web_service : generic_web_service list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_fulfillment *)
+
+let features ~type_ () : features = { type_ }
+
+let generic_web_service ?password ?request_headers ?username ~uri ()
+    : generic_web_service =
+  { password; request_headers; uri; username }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_fulfillment ?enabled ?id ?project ?timeouts
+    ~display_name ~features ~generic_web_service () :
+    google_dialogflow_fulfillment =
+  {
+    display_name;
+    enabled;
+    id;
+    project;
+    features;
+    generic_web_service;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -56,22 +77,14 @@ type t = {
   project : string prop;
 }
 
-let google_dialogflow_fulfillment ?enabled ?id ?project ?timeouts
-    ~display_name ~features ~generic_web_service __resource_id =
+let register ?tf_module ?enabled ?id ?project ?timeouts ~display_name
+    ~features ~generic_web_service __resource_id =
   let __resource_type = "google_dialogflow_fulfillment" in
   let __resource =
-    ({
-       display_name;
-       enabled;
-       id;
-       project;
-       features;
-       generic_web_service;
-       timeouts;
-     }
-      : google_dialogflow_fulfillment)
+    google_dialogflow_fulfillment ?enabled ?id ?project ?timeouts
+      ~display_name ~features ~generic_web_service ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_fulfillment __resource);
   let __resource_attributes =
     ({

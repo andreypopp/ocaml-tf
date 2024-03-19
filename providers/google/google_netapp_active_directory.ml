@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_netapp_active_directory__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_netapp_active_directory__timeouts *)
+(** timeouts *)
 
 type google_netapp_active_directory = {
   aes_encryption : bool prop option; [@option]
@@ -62,10 +62,44 @@ Defaults to 'CN=Computers' if left empty. *)
 Use when Active Directory domain controllers in multiple regions are configured. Defaults to 'Default-First-Site-Name' if left empty. *)
   username : string prop;
       (** Username for the Active Directory account with permissions to create the compute account within the specified organizational unit. *)
-  timeouts : google_netapp_active_directory__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_active_directory *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_netapp_active_directory ?aes_encryption ?backup_operators
+    ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
+    ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
+    ?project ?security_operators ?site ?timeouts ~dns ~domain
+    ~location ~name ~net_bios_prefix ~password ~username () :
+    google_netapp_active_directory =
+  {
+    aes_encryption;
+    backup_operators;
+    description;
+    dns;
+    domain;
+    encrypt_dc_connections;
+    id;
+    kdc_hostname;
+    kdc_ip;
+    labels;
+    ldap_signing;
+    location;
+    name;
+    net_bios_prefix;
+    nfs_users_with_ldap;
+    organizational_unit;
+    password;
+    project;
+    security_operators;
+    site;
+    username;
+    timeouts;
+  }
 
 type t = {
   aes_encryption : bool prop;
@@ -96,7 +130,7 @@ type t = {
   username : string prop;
 }
 
-let google_netapp_active_directory ?aes_encryption ?backup_operators
+let register ?tf_module ?aes_encryption ?backup_operators
     ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
     ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
     ?project ?security_operators ?site ?timeouts ~dns ~domain
@@ -104,33 +138,13 @@ let google_netapp_active_directory ?aes_encryption ?backup_operators
     __resource_id =
   let __resource_type = "google_netapp_active_directory" in
   let __resource =
-    ({
-       aes_encryption;
-       backup_operators;
-       description;
-       dns;
-       domain;
-       encrypt_dc_connections;
-       id;
-       kdc_hostname;
-       kdc_ip;
-       labels;
-       ldap_signing;
-       location;
-       name;
-       net_bios_prefix;
-       nfs_users_with_ldap;
-       organizational_unit;
-       password;
-       project;
-       security_operators;
-       site;
-       username;
-       timeouts;
-     }
-      : google_netapp_active_directory)
+    google_netapp_active_directory ?aes_encryption ?backup_operators
+      ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
+      ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
+      ?project ?security_operators ?site ?timeouts ~dns ~domain
+      ~location ~name ~net_bios_prefix ~password ~username ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_active_directory __resource);
   let __resource_attributes =
     ({

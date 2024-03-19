@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_inspector2_member_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_inspector2_member_association
+
+val aws_inspector2_member_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  account_id:string prop ->
+  unit ->
+  aws_inspector2_member_association
+
+val yojson_of_aws_inspector2_member_association :
+  aws_inspector2_member_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -13,9 +31,10 @@ type t = private {
   updated_at : string prop;
 }
 
-val aws_inspector2_member_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_inspector2_member_association__timeouts ->
+  ?timeouts:timeouts ->
   account_id:string prop ->
   string ->
   t

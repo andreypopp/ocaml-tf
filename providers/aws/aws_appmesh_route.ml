@@ -4,68 +4,63 @@
 
 open! Tf.Prelude
 
-type aws_appmesh_route__spec__grpc_route__action__weighted_target = {
+type spec__grpc_route__action__weighted_target = {
   port : float prop option; [@option]  (** port *)
   virtual_node : string prop;  (** virtual_node *)
   weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__action__weighted_target *)
+(** spec__grpc_route__action__weighted_target *)
 
-type aws_appmesh_route__spec__grpc_route__action = {
-  weighted_target :
-    aws_appmesh_route__spec__grpc_route__action__weighted_target list;
+type spec__grpc_route__action = {
+  weighted_target : spec__grpc_route__action__weighted_target list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__action *)
+(** spec__grpc_route__action *)
 
-type aws_appmesh_route__spec__grpc_route__match__metadata__match__range = {
+type spec__grpc_route__match__metadata__match__range = {
   end_ : float prop; [@key "end"]  (** end *)
   start : float prop;  (** start *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__match__metadata__match__range *)
+(** spec__grpc_route__match__metadata__match__range *)
 
-type aws_appmesh_route__spec__grpc_route__match__metadata__match = {
+type spec__grpc_route__match__metadata__match = {
   exact : string prop option; [@option]  (** exact *)
   prefix : string prop option; [@option]  (** prefix *)
   regex : string prop option; [@option]  (** regex *)
   suffix : string prop option; [@option]  (** suffix *)
-  range :
-    aws_appmesh_route__spec__grpc_route__match__metadata__match__range
-    list;
+  range : spec__grpc_route__match__metadata__match__range list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__match__metadata__match *)
+(** spec__grpc_route__match__metadata__match *)
 
-type aws_appmesh_route__spec__grpc_route__match__metadata = {
+type spec__grpc_route__match__metadata = {
   invert : bool prop option; [@option]  (** invert *)
   name : string prop;  (** name *)
-  match_ :
-    aws_appmesh_route__spec__grpc_route__match__metadata__match list;
+  match_ : spec__grpc_route__match__metadata__match list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__match__metadata *)
+(** spec__grpc_route__match__metadata *)
 
-type aws_appmesh_route__spec__grpc_route__match = {
+type spec__grpc_route__match = {
   method_name : string prop option; [@option]  (** method_name *)
   port : float prop option; [@option]  (** port *)
   prefix : string prop option; [@option]  (** prefix *)
   service_name : string prop option; [@option]  (** service_name *)
-  metadata :
-    aws_appmesh_route__spec__grpc_route__match__metadata list;
+  metadata : spec__grpc_route__match__metadata list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__match *)
+(** spec__grpc_route__match *)
 
-type aws_appmesh_route__spec__grpc_route__retry_policy__per_retry_timeout = {
+type spec__grpc_route__retry_policy__per_retry_timeout = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__retry_policy__per_retry_timeout *)
+(** spec__grpc_route__retry_policy__per_retry_timeout *)
 
-type aws_appmesh_route__spec__grpc_route__retry_policy = {
+type spec__grpc_route__retry_policy = {
   grpc_retry_events : string prop list option; [@option]
       (** grpc_retry_events *)
   http_retry_events : string prop list option; [@option]
@@ -74,358 +69,333 @@ type aws_appmesh_route__spec__grpc_route__retry_policy = {
   tcp_retry_events : string prop list option; [@option]
       (** tcp_retry_events *)
   per_retry_timeout :
-    aws_appmesh_route__spec__grpc_route__retry_policy__per_retry_timeout
-    list;
+    spec__grpc_route__retry_policy__per_retry_timeout list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__retry_policy *)
+(** spec__grpc_route__retry_policy *)
 
-type aws_appmesh_route__spec__grpc_route__timeout__idle = {
+type spec__grpc_route__timeout__idle = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__timeout__idle *)
+(** spec__grpc_route__timeout__idle *)
 
-type aws_appmesh_route__spec__grpc_route__timeout__per_request = {
+type spec__grpc_route__timeout__per_request = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__timeout__per_request *)
+(** spec__grpc_route__timeout__per_request *)
 
-type aws_appmesh_route__spec__grpc_route__timeout = {
-  idle : aws_appmesh_route__spec__grpc_route__timeout__idle list;
-  per_request :
-    aws_appmesh_route__spec__grpc_route__timeout__per_request list;
+type spec__grpc_route__timeout = {
+  idle : spec__grpc_route__timeout__idle list;
+  per_request : spec__grpc_route__timeout__per_request list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route__timeout *)
+(** spec__grpc_route__timeout *)
 
-type aws_appmesh_route__spec__grpc_route = {
-  action : aws_appmesh_route__spec__grpc_route__action list;
-  match_ : aws_appmesh_route__spec__grpc_route__match list;
-  retry_policy :
-    aws_appmesh_route__spec__grpc_route__retry_policy list;
-  timeout : aws_appmesh_route__spec__grpc_route__timeout list;
+type spec__grpc_route = {
+  action : spec__grpc_route__action list;
+  match_ : spec__grpc_route__match list;
+  retry_policy : spec__grpc_route__retry_policy list;
+  timeout : spec__grpc_route__timeout list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__grpc_route *)
+(** spec__grpc_route *)
 
-type aws_appmesh_route__spec__http2_route__action__weighted_target = {
+type spec__http2_route__action__weighted_target = {
   port : float prop option; [@option]  (** port *)
   virtual_node : string prop;  (** virtual_node *)
   weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__action__weighted_target *)
+(** spec__http2_route__action__weighted_target *)
 
-type aws_appmesh_route__spec__http2_route__action = {
-  weighted_target :
-    aws_appmesh_route__spec__http2_route__action__weighted_target
-    list;
+type spec__http2_route__action = {
+  weighted_target : spec__http2_route__action__weighted_target list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__action *)
+(** spec__http2_route__action *)
 
-type aws_appmesh_route__spec__http2_route__match__header__match__range = {
+type spec__http2_route__match__header__match__range = {
   end_ : float prop; [@key "end"]  (** end *)
   start : float prop;  (** start *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__match__header__match__range *)
+(** spec__http2_route__match__header__match__range *)
 
-type aws_appmesh_route__spec__http2_route__match__header__match = {
+type spec__http2_route__match__header__match = {
   exact : string prop option; [@option]  (** exact *)
   prefix : string prop option; [@option]  (** prefix *)
   regex : string prop option; [@option]  (** regex *)
   suffix : string prop option; [@option]  (** suffix *)
-  range :
-    aws_appmesh_route__spec__http2_route__match__header__match__range
-    list;
+  range : spec__http2_route__match__header__match__range list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__match__header__match *)
+(** spec__http2_route__match__header__match *)
 
-type aws_appmesh_route__spec__http2_route__match__header = {
+type spec__http2_route__match__header = {
   invert : bool prop option; [@option]  (** invert *)
   name : string prop;  (** name *)
-  match_ :
-    aws_appmesh_route__spec__http2_route__match__header__match list;
+  match_ : spec__http2_route__match__header__match list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__match__header *)
+(** spec__http2_route__match__header *)
 
-type aws_appmesh_route__spec__http2_route__match__path = {
+type spec__http2_route__match__path = {
   exact : string prop option; [@option]  (** exact *)
   regex : string prop option; [@option]  (** regex *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__match__path *)
+(** spec__http2_route__match__path *)
 
-type aws_appmesh_route__spec__http2_route__match__query_parameter__match = {
+type spec__http2_route__match__query_parameter__match = {
   exact : string prop option; [@option]  (** exact *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__match__query_parameter__match *)
+(** spec__http2_route__match__query_parameter__match *)
 
-type aws_appmesh_route__spec__http2_route__match__query_parameter = {
+type spec__http2_route__match__query_parameter = {
   name : string prop;  (** name *)
-  match_ :
-    aws_appmesh_route__spec__http2_route__match__query_parameter__match
-    list;
+  match_ : spec__http2_route__match__query_parameter__match list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__match__query_parameter *)
+(** spec__http2_route__match__query_parameter *)
 
-type aws_appmesh_route__spec__http2_route__match = {
+type spec__http2_route__match = {
   method_ : string prop option; [@option] [@key "method"]
       (** method *)
   port : float prop option; [@option]  (** port *)
   prefix : string prop option; [@option]  (** prefix *)
   scheme : string prop option; [@option]  (** scheme *)
-  header : aws_appmesh_route__spec__http2_route__match__header list;
-  path : aws_appmesh_route__spec__http2_route__match__path list;
-  query_parameter :
-    aws_appmesh_route__spec__http2_route__match__query_parameter list;
+  header : spec__http2_route__match__header list;
+  path : spec__http2_route__match__path list;
+  query_parameter : spec__http2_route__match__query_parameter list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__match *)
+(** spec__http2_route__match *)
 
-type aws_appmesh_route__spec__http2_route__retry_policy__per_retry_timeout = {
+type spec__http2_route__retry_policy__per_retry_timeout = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__retry_policy__per_retry_timeout *)
+(** spec__http2_route__retry_policy__per_retry_timeout *)
 
-type aws_appmesh_route__spec__http2_route__retry_policy = {
+type spec__http2_route__retry_policy = {
   http_retry_events : string prop list option; [@option]
       (** http_retry_events *)
   max_retries : float prop;  (** max_retries *)
   tcp_retry_events : string prop list option; [@option]
       (** tcp_retry_events *)
   per_retry_timeout :
-    aws_appmesh_route__spec__http2_route__retry_policy__per_retry_timeout
-    list;
+    spec__http2_route__retry_policy__per_retry_timeout list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__retry_policy *)
+(** spec__http2_route__retry_policy *)
 
-type aws_appmesh_route__spec__http2_route__timeout__idle = {
+type spec__http2_route__timeout__idle = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__timeout__idle *)
+(** spec__http2_route__timeout__idle *)
 
-type aws_appmesh_route__spec__http2_route__timeout__per_request = {
+type spec__http2_route__timeout__per_request = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__timeout__per_request *)
+(** spec__http2_route__timeout__per_request *)
 
-type aws_appmesh_route__spec__http2_route__timeout = {
-  idle : aws_appmesh_route__spec__http2_route__timeout__idle list;
-  per_request :
-    aws_appmesh_route__spec__http2_route__timeout__per_request list;
+type spec__http2_route__timeout = {
+  idle : spec__http2_route__timeout__idle list;
+  per_request : spec__http2_route__timeout__per_request list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route__timeout *)
+(** spec__http2_route__timeout *)
 
-type aws_appmesh_route__spec__http2_route = {
-  action : aws_appmesh_route__spec__http2_route__action list;
-  match_ : aws_appmesh_route__spec__http2_route__match list;
-  retry_policy :
-    aws_appmesh_route__spec__http2_route__retry_policy list;
-  timeout : aws_appmesh_route__spec__http2_route__timeout list;
+type spec__http2_route = {
+  action : spec__http2_route__action list;
+  match_ : spec__http2_route__match list;
+  retry_policy : spec__http2_route__retry_policy list;
+  timeout : spec__http2_route__timeout list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http2_route *)
+(** spec__http2_route *)
 
-type aws_appmesh_route__spec__http_route__action__weighted_target = {
+type spec__http_route__action__weighted_target = {
   port : float prop option; [@option]  (** port *)
   virtual_node : string prop;  (** virtual_node *)
   weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__action__weighted_target *)
+(** spec__http_route__action__weighted_target *)
 
-type aws_appmesh_route__spec__http_route__action = {
-  weighted_target :
-    aws_appmesh_route__spec__http_route__action__weighted_target list;
+type spec__http_route__action = {
+  weighted_target : spec__http_route__action__weighted_target list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__action *)
+(** spec__http_route__action *)
 
-type aws_appmesh_route__spec__http_route__match__header__match__range = {
+type spec__http_route__match__header__match__range = {
   end_ : float prop; [@key "end"]  (** end *)
   start : float prop;  (** start *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__match__header__match__range *)
+(** spec__http_route__match__header__match__range *)
 
-type aws_appmesh_route__spec__http_route__match__header__match = {
+type spec__http_route__match__header__match = {
   exact : string prop option; [@option]  (** exact *)
   prefix : string prop option; [@option]  (** prefix *)
   regex : string prop option; [@option]  (** regex *)
   suffix : string prop option; [@option]  (** suffix *)
-  range :
-    aws_appmesh_route__spec__http_route__match__header__match__range
-    list;
+  range : spec__http_route__match__header__match__range list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__match__header__match *)
+(** spec__http_route__match__header__match *)
 
-type aws_appmesh_route__spec__http_route__match__header = {
+type spec__http_route__match__header = {
   invert : bool prop option; [@option]  (** invert *)
   name : string prop;  (** name *)
-  match_ :
-    aws_appmesh_route__spec__http_route__match__header__match list;
+  match_ : spec__http_route__match__header__match list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__match__header *)
+(** spec__http_route__match__header *)
 
-type aws_appmesh_route__spec__http_route__match__path = {
+type spec__http_route__match__path = {
   exact : string prop option; [@option]  (** exact *)
   regex : string prop option; [@option]  (** regex *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__match__path *)
+(** spec__http_route__match__path *)
 
-type aws_appmesh_route__spec__http_route__match__query_parameter__match = {
+type spec__http_route__match__query_parameter__match = {
   exact : string prop option; [@option]  (** exact *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__match__query_parameter__match *)
+(** spec__http_route__match__query_parameter__match *)
 
-type aws_appmesh_route__spec__http_route__match__query_parameter = {
+type spec__http_route__match__query_parameter = {
   name : string prop;  (** name *)
-  match_ :
-    aws_appmesh_route__spec__http_route__match__query_parameter__match
-    list;
+  match_ : spec__http_route__match__query_parameter__match list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__match__query_parameter *)
+(** spec__http_route__match__query_parameter *)
 
-type aws_appmesh_route__spec__http_route__match = {
+type spec__http_route__match = {
   method_ : string prop option; [@option] [@key "method"]
       (** method *)
   port : float prop option; [@option]  (** port *)
   prefix : string prop option; [@option]  (** prefix *)
   scheme : string prop option; [@option]  (** scheme *)
-  header : aws_appmesh_route__spec__http_route__match__header list;
-  path : aws_appmesh_route__spec__http_route__match__path list;
-  query_parameter :
-    aws_appmesh_route__spec__http_route__match__query_parameter list;
+  header : spec__http_route__match__header list;
+  path : spec__http_route__match__path list;
+  query_parameter : spec__http_route__match__query_parameter list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__match *)
+(** spec__http_route__match *)
 
-type aws_appmesh_route__spec__http_route__retry_policy__per_retry_timeout = {
+type spec__http_route__retry_policy__per_retry_timeout = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__retry_policy__per_retry_timeout *)
+(** spec__http_route__retry_policy__per_retry_timeout *)
 
-type aws_appmesh_route__spec__http_route__retry_policy = {
+type spec__http_route__retry_policy = {
   http_retry_events : string prop list option; [@option]
       (** http_retry_events *)
   max_retries : float prop;  (** max_retries *)
   tcp_retry_events : string prop list option; [@option]
       (** tcp_retry_events *)
   per_retry_timeout :
-    aws_appmesh_route__spec__http_route__retry_policy__per_retry_timeout
-    list;
+    spec__http_route__retry_policy__per_retry_timeout list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__retry_policy *)
+(** spec__http_route__retry_policy *)
 
-type aws_appmesh_route__spec__http_route__timeout__idle = {
+type spec__http_route__timeout__idle = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__timeout__idle *)
+(** spec__http_route__timeout__idle *)
 
-type aws_appmesh_route__spec__http_route__timeout__per_request = {
+type spec__http_route__timeout__per_request = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__timeout__per_request *)
+(** spec__http_route__timeout__per_request *)
 
-type aws_appmesh_route__spec__http_route__timeout = {
-  idle : aws_appmesh_route__spec__http_route__timeout__idle list;
-  per_request :
-    aws_appmesh_route__spec__http_route__timeout__per_request list;
+type spec__http_route__timeout = {
+  idle : spec__http_route__timeout__idle list;
+  per_request : spec__http_route__timeout__per_request list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route__timeout *)
+(** spec__http_route__timeout *)
 
-type aws_appmesh_route__spec__http_route = {
-  action : aws_appmesh_route__spec__http_route__action list;
-  match_ : aws_appmesh_route__spec__http_route__match list;
-  retry_policy :
-    aws_appmesh_route__spec__http_route__retry_policy list;
-  timeout : aws_appmesh_route__spec__http_route__timeout list;
+type spec__http_route = {
+  action : spec__http_route__action list;
+  match_ : spec__http_route__match list;
+  retry_policy : spec__http_route__retry_policy list;
+  timeout : spec__http_route__timeout list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__http_route *)
+(** spec__http_route *)
 
-type aws_appmesh_route__spec__tcp_route__action__weighted_target = {
+type spec__tcp_route__action__weighted_target = {
   port : float prop option; [@option]  (** port *)
   virtual_node : string prop;  (** virtual_node *)
   weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__tcp_route__action__weighted_target *)
+(** spec__tcp_route__action__weighted_target *)
 
-type aws_appmesh_route__spec__tcp_route__action = {
-  weighted_target :
-    aws_appmesh_route__spec__tcp_route__action__weighted_target list;
+type spec__tcp_route__action = {
+  weighted_target : spec__tcp_route__action__weighted_target list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__tcp_route__action *)
+(** spec__tcp_route__action *)
 
-type aws_appmesh_route__spec__tcp_route__match = {
+type spec__tcp_route__match = {
   port : float prop option; [@option]  (** port *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__tcp_route__match *)
+(** spec__tcp_route__match *)
 
-type aws_appmesh_route__spec__tcp_route__timeout__idle = {
+type spec__tcp_route__timeout__idle = {
   unit : string prop;  (** unit *)
   value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__tcp_route__timeout__idle *)
+(** spec__tcp_route__timeout__idle *)
 
-type aws_appmesh_route__spec__tcp_route__timeout = {
-  idle : aws_appmesh_route__spec__tcp_route__timeout__idle list;
+type spec__tcp_route__timeout = {
+  idle : spec__tcp_route__timeout__idle list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__tcp_route__timeout *)
+(** spec__tcp_route__timeout *)
 
-type aws_appmesh_route__spec__tcp_route = {
-  action : aws_appmesh_route__spec__tcp_route__action list;
-  match_ : aws_appmesh_route__spec__tcp_route__match list;
-  timeout : aws_appmesh_route__spec__tcp_route__timeout list;
+type spec__tcp_route = {
+  action : spec__tcp_route__action list;
+  match_ : spec__tcp_route__match list;
+  timeout : spec__tcp_route__timeout list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec__tcp_route *)
+(** spec__tcp_route *)
 
-type aws_appmesh_route__spec = {
+type spec = {
   priority : float prop option; [@option]  (** priority *)
-  grpc_route : aws_appmesh_route__spec__grpc_route list;
-  http2_route : aws_appmesh_route__spec__http2_route list;
-  http_route : aws_appmesh_route__spec__http_route list;
-  tcp_route : aws_appmesh_route__spec__tcp_route list;
+  grpc_route : spec__grpc_route list;
+  http2_route : spec__http2_route list;
+  http_route : spec__http_route list;
+  tcp_route : spec__tcp_route list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_route__spec *)
+(** spec *)
 
 type aws_appmesh_route = {
   id : string prop option; [@option]  (** id *)
@@ -436,10 +406,235 @@ type aws_appmesh_route = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   virtual_router_name : string prop;  (** virtual_router_name *)
-  spec : aws_appmesh_route__spec list;
+  spec : spec list;
 }
 [@@deriving yojson_of]
 (** aws_appmesh_route *)
+
+let spec__grpc_route__action__weighted_target ?port ~virtual_node
+    ~weight () : spec__grpc_route__action__weighted_target =
+  { port; virtual_node; weight }
+
+let spec__grpc_route__action ~weighted_target () :
+    spec__grpc_route__action =
+  { weighted_target }
+
+let spec__grpc_route__match__metadata__match__range ~end_ ~start () :
+    spec__grpc_route__match__metadata__match__range =
+  { end_; start }
+
+let spec__grpc_route__match__metadata__match ?exact ?prefix ?regex
+    ?suffix ~range () : spec__grpc_route__match__metadata__match =
+  { exact; prefix; regex; suffix; range }
+
+let spec__grpc_route__match__metadata ?invert ~name ~match_ () :
+    spec__grpc_route__match__metadata =
+  { invert; name; match_ }
+
+let spec__grpc_route__match ?method_name ?port ?prefix ?service_name
+    ~metadata () : spec__grpc_route__match =
+  { method_name; port; prefix; service_name; metadata }
+
+let spec__grpc_route__retry_policy__per_retry_timeout ~unit ~value ()
+    : spec__grpc_route__retry_policy__per_retry_timeout =
+  { unit; value }
+
+let spec__grpc_route__retry_policy ?grpc_retry_events
+    ?http_retry_events ?tcp_retry_events ~max_retries
+    ~per_retry_timeout () : spec__grpc_route__retry_policy =
+  {
+    grpc_retry_events;
+    http_retry_events;
+    max_retries;
+    tcp_retry_events;
+    per_retry_timeout;
+  }
+
+let spec__grpc_route__timeout__idle ~unit ~value () :
+    spec__grpc_route__timeout__idle =
+  { unit; value }
+
+let spec__grpc_route__timeout__per_request ~unit ~value () :
+    spec__grpc_route__timeout__per_request =
+  { unit; value }
+
+let spec__grpc_route__timeout ~idle ~per_request () :
+    spec__grpc_route__timeout =
+  { idle; per_request }
+
+let spec__grpc_route ~action ~match_ ~retry_policy ~timeout () :
+    spec__grpc_route =
+  { action; match_; retry_policy; timeout }
+
+let spec__http2_route__action__weighted_target ?port ~virtual_node
+    ~weight () : spec__http2_route__action__weighted_target =
+  { port; virtual_node; weight }
+
+let spec__http2_route__action ~weighted_target () :
+    spec__http2_route__action =
+  { weighted_target }
+
+let spec__http2_route__match__header__match__range ~end_ ~start () :
+    spec__http2_route__match__header__match__range =
+  { end_; start }
+
+let spec__http2_route__match__header__match ?exact ?prefix ?regex
+    ?suffix ~range () : spec__http2_route__match__header__match =
+  { exact; prefix; regex; suffix; range }
+
+let spec__http2_route__match__header ?invert ~name ~match_ () :
+    spec__http2_route__match__header =
+  { invert; name; match_ }
+
+let spec__http2_route__match__path ?exact ?regex () :
+    spec__http2_route__match__path =
+  { exact; regex }
+
+let spec__http2_route__match__query_parameter__match ?exact () :
+    spec__http2_route__match__query_parameter__match =
+  { exact }
+
+let spec__http2_route__match__query_parameter ~name ~match_ () :
+    spec__http2_route__match__query_parameter =
+  { name; match_ }
+
+let spec__http2_route__match ?method_ ?port ?prefix ?scheme ~header
+    ~path ~query_parameter () : spec__http2_route__match =
+  { method_; port; prefix; scheme; header; path; query_parameter }
+
+let spec__http2_route__retry_policy__per_retry_timeout ~unit ~value
+    () : spec__http2_route__retry_policy__per_retry_timeout =
+  { unit; value }
+
+let spec__http2_route__retry_policy ?http_retry_events
+    ?tcp_retry_events ~max_retries ~per_retry_timeout () :
+    spec__http2_route__retry_policy =
+  {
+    http_retry_events;
+    max_retries;
+    tcp_retry_events;
+    per_retry_timeout;
+  }
+
+let spec__http2_route__timeout__idle ~unit ~value () :
+    spec__http2_route__timeout__idle =
+  { unit; value }
+
+let spec__http2_route__timeout__per_request ~unit ~value () :
+    spec__http2_route__timeout__per_request =
+  { unit; value }
+
+let spec__http2_route__timeout ~idle ~per_request () :
+    spec__http2_route__timeout =
+  { idle; per_request }
+
+let spec__http2_route ~action ~match_ ~retry_policy ~timeout () :
+    spec__http2_route =
+  { action; match_; retry_policy; timeout }
+
+let spec__http_route__action__weighted_target ?port ~virtual_node
+    ~weight () : spec__http_route__action__weighted_target =
+  { port; virtual_node; weight }
+
+let spec__http_route__action ~weighted_target () :
+    spec__http_route__action =
+  { weighted_target }
+
+let spec__http_route__match__header__match__range ~end_ ~start () :
+    spec__http_route__match__header__match__range =
+  { end_; start }
+
+let spec__http_route__match__header__match ?exact ?prefix ?regex
+    ?suffix ~range () : spec__http_route__match__header__match =
+  { exact; prefix; regex; suffix; range }
+
+let spec__http_route__match__header ?invert ~name ~match_ () :
+    spec__http_route__match__header =
+  { invert; name; match_ }
+
+let spec__http_route__match__path ?exact ?regex () :
+    spec__http_route__match__path =
+  { exact; regex }
+
+let spec__http_route__match__query_parameter__match ?exact () :
+    spec__http_route__match__query_parameter__match =
+  { exact }
+
+let spec__http_route__match__query_parameter ~name ~match_ () :
+    spec__http_route__match__query_parameter =
+  { name; match_ }
+
+let spec__http_route__match ?method_ ?port ?prefix ?scheme ~header
+    ~path ~query_parameter () : spec__http_route__match =
+  { method_; port; prefix; scheme; header; path; query_parameter }
+
+let spec__http_route__retry_policy__per_retry_timeout ~unit ~value ()
+    : spec__http_route__retry_policy__per_retry_timeout =
+  { unit; value }
+
+let spec__http_route__retry_policy ?http_retry_events
+    ?tcp_retry_events ~max_retries ~per_retry_timeout () :
+    spec__http_route__retry_policy =
+  {
+    http_retry_events;
+    max_retries;
+    tcp_retry_events;
+    per_retry_timeout;
+  }
+
+let spec__http_route__timeout__idle ~unit ~value () :
+    spec__http_route__timeout__idle =
+  { unit; value }
+
+let spec__http_route__timeout__per_request ~unit ~value () :
+    spec__http_route__timeout__per_request =
+  { unit; value }
+
+let spec__http_route__timeout ~idle ~per_request () :
+    spec__http_route__timeout =
+  { idle; per_request }
+
+let spec__http_route ~action ~match_ ~retry_policy ~timeout () :
+    spec__http_route =
+  { action; match_; retry_policy; timeout }
+
+let spec__tcp_route__action__weighted_target ?port ~virtual_node
+    ~weight () : spec__tcp_route__action__weighted_target =
+  { port; virtual_node; weight }
+
+let spec__tcp_route__action ~weighted_target () :
+    spec__tcp_route__action =
+  { weighted_target }
+
+let spec__tcp_route__match ?port () : spec__tcp_route__match =
+  { port }
+
+let spec__tcp_route__timeout__idle ~unit ~value () :
+    spec__tcp_route__timeout__idle =
+  { unit; value }
+
+let spec__tcp_route__timeout ~idle () : spec__tcp_route__timeout =
+  { idle }
+
+let spec__tcp_route ~action ~match_ ~timeout () : spec__tcp_route =
+  { action; match_; timeout }
+
+let spec ?priority ~grpc_route ~http2_route ~http_route ~tcp_route ()
+    : spec =
+  { priority; grpc_route; http2_route; http_route; tcp_route }
+
+let aws_appmesh_route ?id ?mesh_owner ?tags ?tags_all ~mesh_name
+    ~name ~virtual_router_name ~spec () : aws_appmesh_route =
+  {
+    id;
+    mesh_name;
+    mesh_owner;
+    name;
+    tags;
+    tags_all;
+    virtual_router_name;
+    spec;
+  }
 
 type t = {
   arn : string prop;
@@ -455,23 +650,14 @@ type t = {
   virtual_router_name : string prop;
 }
 
-let aws_appmesh_route ?id ?mesh_owner ?tags ?tags_all ~mesh_name
+let register ?tf_module ?id ?mesh_owner ?tags ?tags_all ~mesh_name
     ~name ~virtual_router_name ~spec __resource_id =
   let __resource_type = "aws_appmesh_route" in
   let __resource =
-    ({
-       id;
-       mesh_name;
-       mesh_owner;
-       name;
-       tags;
-       tags_all;
-       virtual_router_name;
-       spec;
-     }
-      : aws_appmesh_route)
+    aws_appmesh_route ?id ?mesh_owner ?tags ?tags_all ~mesh_name
+      ~name ~virtual_router_name ~spec ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appmesh_route __resource);
   let __resource_attributes =
     ({

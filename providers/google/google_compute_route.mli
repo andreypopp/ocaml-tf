@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type google_compute_route__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_route
+
+val google_compute_route :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?next_hop_gateway:string prop ->
+  ?next_hop_ilb:string prop ->
+  ?next_hop_instance:string prop ->
+  ?next_hop_instance_zone:string prop ->
+  ?next_hop_ip:string prop ->
+  ?next_hop_vpn_tunnel:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
+  ?tags:string prop list ->
+  ?timeouts:timeouts ->
+  dest_range:string prop ->
+  name:string prop ->
+  network:string prop ->
+  unit ->
+  google_compute_route
+
+val yojson_of_google_compute_route : google_compute_route -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -24,7 +53,8 @@ type t = private {
   tags : string list prop;
 }
 
-val google_compute_route :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?next_hop_gateway:string prop ->
@@ -36,7 +66,7 @@ val google_compute_route :
   ?priority:float prop ->
   ?project:string prop ->
   ?tags:string prop list ->
-  ?timeouts:google_compute_route__timeouts ->
+  ?timeouts:timeouts ->
   dest_range:string prop ->
   name:string prop ->
   network:string prop ->

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_app__custom_persistent_disk = {
+type custom_persistent_disk = {
   mount_options : string prop list option; [@option]
       (** mount_options *)
   mount_path : string prop;  (** mount_path *)
@@ -14,19 +14,17 @@ type azurerm_spring_cloud_app__custom_persistent_disk = {
   storage_name : string prop;  (** storage_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_app__custom_persistent_disk *)
+(** custom_persistent_disk *)
 
-type azurerm_spring_cloud_app__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_app__identity *)
+(** identity *)
 
-type azurerm_spring_cloud_app__ingress_settings = {
+type ingress_settings = {
   backend_protocol : string prop option; [@option]
       (** backend_protocol *)
   read_timeout_in_seconds : float prop option; [@option]
@@ -39,23 +37,23 @@ type azurerm_spring_cloud_app__ingress_settings = {
       (** session_cookie_max_age *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_app__ingress_settings *)
+(** ingress_settings *)
 
-type azurerm_spring_cloud_app__persistent_disk = {
+type persistent_disk = {
   mount_path : string prop option; [@option]  (** mount_path *)
   size_in_gb : float prop;  (** size_in_gb *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_app__persistent_disk *)
+(** persistent_disk *)
 
-type azurerm_spring_cloud_app__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_app__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_app = {
   addon_json : string prop option; [@option]  (** addon_json *)
@@ -68,15 +66,67 @@ type azurerm_spring_cloud_app = {
   resource_group_name : string prop;  (** resource_group_name *)
   service_name : string prop;  (** service_name *)
   tls_enabled : bool prop option; [@option]  (** tls_enabled *)
-  custom_persistent_disk :
-    azurerm_spring_cloud_app__custom_persistent_disk list;
-  identity : azurerm_spring_cloud_app__identity list;
-  ingress_settings : azurerm_spring_cloud_app__ingress_settings list;
-  persistent_disk : azurerm_spring_cloud_app__persistent_disk list;
-  timeouts : azurerm_spring_cloud_app__timeouts option;
+  custom_persistent_disk : custom_persistent_disk list;
+  identity : identity list;
+  ingress_settings : ingress_settings list;
+  persistent_disk : persistent_disk list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app *)
+
+let custom_persistent_disk ?mount_options ?read_only_enabled
+    ~mount_path ~share_name ~storage_name () : custom_persistent_disk
+    =
+  {
+    mount_options;
+    mount_path;
+    read_only_enabled;
+    share_name;
+    storage_name;
+  }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let ingress_settings ?backend_protocol ?read_timeout_in_seconds
+    ?send_timeout_in_seconds ?session_affinity
+    ?session_cookie_max_age () : ingress_settings =
+  {
+    backend_protocol;
+    read_timeout_in_seconds;
+    send_timeout_in_seconds;
+    session_affinity;
+    session_cookie_max_age;
+  }
+
+let persistent_disk ?mount_path ~size_in_gb () : persistent_disk =
+  { mount_path; size_in_gb }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_app ?addon_json ?https_only ?id ?is_public
+    ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
+    ~resource_group_name ~service_name ~custom_persistent_disk
+    ~identity ~ingress_settings ~persistent_disk () :
+    azurerm_spring_cloud_app =
+  {
+    addon_json;
+    https_only;
+    id;
+    is_public;
+    name;
+    public_endpoint_enabled;
+    resource_group_name;
+    service_name;
+    tls_enabled;
+    custom_persistent_disk;
+    identity;
+    ingress_settings;
+    persistent_disk;
+    timeouts;
+  }
 
 type t = {
   addon_json : string prop;
@@ -92,31 +142,18 @@ type t = {
   url : string prop;
 }
 
-let azurerm_spring_cloud_app ?addon_json ?https_only ?id ?is_public
+let register ?tf_module ?addon_json ?https_only ?id ?is_public
     ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
     ~resource_group_name ~service_name ~custom_persistent_disk
     ~identity ~ingress_settings ~persistent_disk __resource_id =
   let __resource_type = "azurerm_spring_cloud_app" in
   let __resource =
-    ({
-       addon_json;
-       https_only;
-       id;
-       is_public;
-       name;
-       public_endpoint_enabled;
-       resource_group_name;
-       service_name;
-       tls_enabled;
-       custom_persistent_disk;
-       identity;
-       ingress_settings;
-       persistent_disk;
-       timeouts;
-     }
-      : azurerm_spring_cloud_app)
+    azurerm_spring_cloud_app ?addon_json ?https_only ?id ?is_public
+      ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
+      ~resource_group_name ~service_name ~custom_persistent_disk
+      ~identity ~ingress_settings ~persistent_disk ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_app __resource);
   let __resource_attributes =
     ({

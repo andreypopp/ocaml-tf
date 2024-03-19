@@ -18,6 +18,11 @@ type google_logging_billing_account_exclusion = {
 [@@deriving yojson_of]
 (** google_logging_billing_account_exclusion *)
 
+let google_logging_billing_account_exclusion ?description ?disabled
+    ?id ~billing_account ~filter ~name () :
+    google_logging_billing_account_exclusion =
+  { billing_account; description; disabled; filter; id; name }
+
 type t = {
   billing_account : string prop;
   description : string prop;
@@ -27,14 +32,14 @@ type t = {
   name : string prop;
 }
 
-let google_logging_billing_account_exclusion ?description ?disabled
-    ?id ~billing_account ~filter ~name __resource_id =
+let register ?tf_module ?description ?disabled ?id ~billing_account
+    ~filter ~name __resource_id =
   let __resource_type = "google_logging_billing_account_exclusion" in
   let __resource =
-    ({ billing_account; description; disabled; filter; id; name }
-      : google_logging_billing_account_exclusion)
+    google_logging_billing_account_exclusion ?description ?disabled
+      ?id ~billing_account ~filter ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_billing_account_exclusion __resource);
   let __resource_attributes =
     ({

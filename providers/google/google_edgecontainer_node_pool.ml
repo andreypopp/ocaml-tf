@@ -4,33 +4,28 @@
 
 open! Tf.Prelude
 
-type google_edgecontainer_node_pool__local_disk_encryption = {
+type local_disk_encryption = {
   kms_key : string prop option; [@option]
       (** The Cloud KMS CryptoKey e.g. projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey} to use for protecting node local disks.
 If not specified, a Google-managed key will be used instead. *)
-  kms_key_active_version : string prop;
-      (** The Cloud KMS CryptoKeyVersion currently in use for protecting node local disks. Only applicable if kmsKey is set. *)
-  kms_key_state : string prop;
-      (** Availability of the Cloud KMS CryptoKey. If not KEY_AVAILABLE, then nodes may go offline as they cannot access their local data.
-This can be caused by a lack of permissions to use the key, or if the key is disabled or deleted. *)
 }
 [@@deriving yojson_of]
 (** Local disk encryption options. This field is only used when enabling CMEK support. *)
 
-type google_edgecontainer_node_pool__node_config = {
+type node_config = {
   labels : (string * string prop) list option; [@option]
       (** The Kubernetes node labels *)
 }
 [@@deriving yojson_of]
 (** Configuration for each node in the NodePool *)
 
-type google_edgecontainer_node_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_edgecontainer_node_pool__timeouts *)
+(** timeouts *)
 
 type google_edgecontainer_node_pool = {
   cluster : string prop;
@@ -51,13 +46,39 @@ documented in more detail in [AIP-160](https://google.aip.dev/160). *)
   node_location : string prop;
       (** Name of the Google Distributed Cloud Edge zone where this node pool will be created. For example: 'us-central1-edge-customer-a'. *)
   project : string prop option; [@option]  (** project *)
-  local_disk_encryption :
-    google_edgecontainer_node_pool__local_disk_encryption list;
-  node_config : google_edgecontainer_node_pool__node_config list;
-  timeouts : google_edgecontainer_node_pool__timeouts option;
+  local_disk_encryption : local_disk_encryption list;
+  node_config : node_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_edgecontainer_node_pool *)
+
+let local_disk_encryption ?kms_key () : local_disk_encryption =
+  { kms_key }
+
+let node_config ?labels () : node_config = { labels }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_edgecontainer_node_pool ?id ?labels ?machine_filter
+    ?project ?timeouts ~cluster ~location ~name ~node_count
+    ~node_location ~local_disk_encryption ~node_config () :
+    google_edgecontainer_node_pool =
+  {
+    cluster;
+    id;
+    labels;
+    location;
+    machine_filter;
+    name;
+    node_count;
+    node_location;
+    project;
+    local_disk_encryption;
+    node_config;
+    timeouts;
+  }
 
 type t = {
   cluster : string prop;
@@ -76,29 +97,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_edgecontainer_node_pool ?id ?labels ?machine_filter
-    ?project ?timeouts ~cluster ~location ~name ~node_count
-    ~node_location ~local_disk_encryption ~node_config __resource_id
-    =
+let register ?tf_module ?id ?labels ?machine_filter ?project
+    ?timeouts ~cluster ~location ~name ~node_count ~node_location
+    ~local_disk_encryption ~node_config __resource_id =
   let __resource_type = "google_edgecontainer_node_pool" in
   let __resource =
-    ({
-       cluster;
-       id;
-       labels;
-       location;
-       machine_filter;
-       name;
-       node_count;
-       node_location;
-       project;
-       local_disk_encryption;
-       node_config;
-       timeouts;
-     }
-      : google_edgecontainer_node_pool)
+    google_edgecontainer_node_pool ?id ?labels ?machine_filter
+      ?project ?timeouts ~cluster ~location ~name ~node_count
+      ~node_location ~local_disk_encryption ~node_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_edgecontainer_node_pool __resource);
   let __resource_attributes =
     ({

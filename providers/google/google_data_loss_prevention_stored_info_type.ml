@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_data_loss_prevention_stored_info_type__dictionary__cloud_storage_path = {
+type dictionary__cloud_storage_path = {
   path : string prop;
       (** A url representing a file or path (no wildcards) in Cloud Storage. Example: 'gs://[BUCKET_NAME]/dictionary.txt' *)
 }
 [@@deriving yojson_of]
 (** Newline-delimited file of words in Cloud Storage. Only a single file is accepted. *)
 
-type google_data_loss_prevention_stored_info_type__dictionary__word_list = {
+type dictionary__word_list = {
   words : string prop list;
       (** Words or phrases defining the dictionary. The dictionary must contain at least one
 phrase and every phrase must contain at least 2 characters that are letters or digits. *)
@@ -19,24 +19,20 @@ phrase and every phrase must contain at least 2 characters that are letters or d
 [@@deriving yojson_of]
 (** List of words or phrases to search for. *)
 
-type google_data_loss_prevention_stored_info_type__dictionary = {
-  cloud_storage_path :
-    google_data_loss_prevention_stored_info_type__dictionary__cloud_storage_path
-    list;
-  word_list :
-    google_data_loss_prevention_stored_info_type__dictionary__word_list
-    list;
+type dictionary = {
+  cloud_storage_path : dictionary__cloud_storage_path list;
+  word_list : dictionary__word_list list;
 }
 [@@deriving yojson_of]
 (** Dictionary which defines the rule. *)
 
-type google_data_loss_prevention_stored_info_type__large_custom_dictionary__big_query_field__field = {
+type large_custom_dictionary__big_query_field__field = {
   name : string prop;  (** Name describing the field. *)
 }
 [@@deriving yojson_of]
 (** Designated field in the BigQuery table. *)
 
-type google_data_loss_prevention_stored_info_type__large_custom_dictionary__big_query_field__table = {
+type large_custom_dictionary__big_query_field__table = {
   dataset_id : string prop;  (** The dataset ID of the table. *)
   project_id : string prop;
       (** The Google Cloud Platform project ID of the project containing the table. *)
@@ -45,25 +41,21 @@ type google_data_loss_prevention_stored_info_type__large_custom_dictionary__big_
 [@@deriving yojson_of]
 (** Field in a BigQuery table where each cell represents a dictionary phrase. *)
 
-type google_data_loss_prevention_stored_info_type__large_custom_dictionary__big_query_field = {
-  field :
-    google_data_loss_prevention_stored_info_type__large_custom_dictionary__big_query_field__field
-    list;
-  table :
-    google_data_loss_prevention_stored_info_type__large_custom_dictionary__big_query_field__table
-    list;
+type large_custom_dictionary__big_query_field = {
+  field : large_custom_dictionary__big_query_field__field list;
+  table : large_custom_dictionary__big_query_field__table list;
 }
 [@@deriving yojson_of]
 (** Field in a BigQuery table where each cell represents a dictionary phrase. *)
 
-type google_data_loss_prevention_stored_info_type__large_custom_dictionary__cloud_storage_file_set = {
+type large_custom_dictionary__cloud_storage_file_set = {
   url : string prop;
       (** The url, in the format 'gs://<bucket>/<path>'. Trailing wildcard in the path is allowed. *)
 }
 [@@deriving yojson_of]
 (** Set of files containing newline-delimited lists of dictionary phrases. *)
 
-type google_data_loss_prevention_stored_info_type__large_custom_dictionary__output_path = {
+type large_custom_dictionary__output_path = {
   path : string prop;
       (** A url representing a file or path (no wildcards) in Cloud Storage. Example: 'gs://[BUCKET_NAME]/dictionary.txt' *)
 }
@@ -71,21 +63,16 @@ type google_data_loss_prevention_stored_info_type__large_custom_dictionary__outp
 (** Location to store dictionary artifacts in Google Cloud Storage. These files will only be accessible by project owners and the DLP API.
 If any of these artifacts are modified, the dictionary is considered invalid and can no longer be used. *)
 
-type google_data_loss_prevention_stored_info_type__large_custom_dictionary = {
-  big_query_field :
-    google_data_loss_prevention_stored_info_type__large_custom_dictionary__big_query_field
-    list;
+type large_custom_dictionary = {
+  big_query_field : large_custom_dictionary__big_query_field list;
   cloud_storage_file_set :
-    google_data_loss_prevention_stored_info_type__large_custom_dictionary__cloud_storage_file_set
-    list;
-  output_path :
-    google_data_loss_prevention_stored_info_type__large_custom_dictionary__output_path
-    list;
+    large_custom_dictionary__cloud_storage_file_set list;
+  output_path : large_custom_dictionary__output_path list;
 }
 [@@deriving yojson_of]
 (** Dictionary which defines the rule. *)
 
-type google_data_loss_prevention_stored_info_type__regex = {
+type regex = {
   group_indexes : float prop list option; [@option]
       (** The index of the submatch to extract as findings. When not specified, the entire match is returned. No more than 3 may be included. *)
   pattern : string prop;
@@ -95,13 +82,13 @@ Its syntax (https://github.com/google/re2/wiki/Syntax) can be found under the go
 [@@deriving yojson_of]
 (** Regular expression which defines the rule. *)
 
-type google_data_loss_prevention_stored_info_type__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_data_loss_prevention_stored_info_type__timeouts *)
+(** timeouts *)
 
 type google_data_loss_prevention_stored_info_type = {
   description : string prop option; [@option]
@@ -120,17 +107,70 @@ type google_data_loss_prevention_stored_info_type = {
       (** The storedInfoType ID can contain uppercase and lowercase letters, numbers, and hyphens;
 that is, it must match the regular expression: [a-zA-Z\d-_]+. The maximum length is 100
 characters. Can be empty to allow the system to generate one. *)
-  dictionary :
-    google_data_loss_prevention_stored_info_type__dictionary list;
-  large_custom_dictionary :
-    google_data_loss_prevention_stored_info_type__large_custom_dictionary
-    list;
-  regex : google_data_loss_prevention_stored_info_type__regex list;
-  timeouts :
-    google_data_loss_prevention_stored_info_type__timeouts option;
+  dictionary : dictionary list;
+  large_custom_dictionary : large_custom_dictionary list;
+  regex : regex list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_data_loss_prevention_stored_info_type *)
+
+let dictionary__cloud_storage_path ~path () :
+    dictionary__cloud_storage_path =
+  { path }
+
+let dictionary__word_list ~words () : dictionary__word_list =
+  { words }
+
+let dictionary ~cloud_storage_path ~word_list () : dictionary =
+  { cloud_storage_path; word_list }
+
+let large_custom_dictionary__big_query_field__field ~name () :
+    large_custom_dictionary__big_query_field__field =
+  { name }
+
+let large_custom_dictionary__big_query_field__table ~dataset_id
+    ~project_id ~table_id () :
+    large_custom_dictionary__big_query_field__table =
+  { dataset_id; project_id; table_id }
+
+let large_custom_dictionary__big_query_field ~field ~table () :
+    large_custom_dictionary__big_query_field =
+  { field; table }
+
+let large_custom_dictionary__cloud_storage_file_set ~url () :
+    large_custom_dictionary__cloud_storage_file_set =
+  { url }
+
+let large_custom_dictionary__output_path ~path () :
+    large_custom_dictionary__output_path =
+  { path }
+
+let large_custom_dictionary ~big_query_field ~cloud_storage_file_set
+    ~output_path () : large_custom_dictionary =
+  { big_query_field; cloud_storage_file_set; output_path }
+
+let regex ?group_indexes ~pattern () : regex =
+  { group_indexes; pattern }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_data_loss_prevention_stored_info_type ?description
+    ?display_name ?id ?stored_info_type_id ?timeouts ~parent
+    ~dictionary ~large_custom_dictionary ~regex () :
+    google_data_loss_prevention_stored_info_type =
+  {
+    description;
+    display_name;
+    id;
+    parent;
+    stored_info_type_id;
+    dictionary;
+    large_custom_dictionary;
+    regex;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -141,27 +181,18 @@ type t = {
   stored_info_type_id : string prop;
 }
 
-let google_data_loss_prevention_stored_info_type ?description
-    ?display_name ?id ?stored_info_type_id ?timeouts ~parent
-    ~dictionary ~large_custom_dictionary ~regex __resource_id =
+let register ?tf_module ?description ?display_name ?id
+    ?stored_info_type_id ?timeouts ~parent ~dictionary
+    ~large_custom_dictionary ~regex __resource_id =
   let __resource_type =
     "google_data_loss_prevention_stored_info_type"
   in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       parent;
-       stored_info_type_id;
-       dictionary;
-       large_custom_dictionary;
-       regex;
-       timeouts;
-     }
-      : google_data_loss_prevention_stored_info_type)
+    google_data_loss_prevention_stored_info_type ?description
+      ?display_name ?id ?stored_info_type_id ?timeouts ~parent
+      ~dictionary ~large_custom_dictionary ~regex ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_loss_prevention_stored_info_type
        __resource);
   let __resource_attributes =

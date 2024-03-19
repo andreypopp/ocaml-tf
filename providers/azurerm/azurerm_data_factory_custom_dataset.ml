@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_custom_dataset__linked_service = {
+type linked_service = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_custom_dataset__linked_service *)
+(** linked_service *)
 
-type azurerm_data_factory_custom_dataset__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_custom_dataset__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_custom_dataset = {
   additional_properties : (string * string prop) list option;
@@ -37,12 +37,37 @@ type azurerm_data_factory_custom_dataset = {
   schema_json : string prop option; [@option]  (** schema_json *)
   type_ : string prop; [@key "type"]  (** type *)
   type_properties_json : string prop;  (** type_properties_json *)
-  linked_service :
-    azurerm_data_factory_custom_dataset__linked_service list;
-  timeouts : azurerm_data_factory_custom_dataset__timeouts option;
+  linked_service : linked_service list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_custom_dataset *)
+
+let linked_service ?parameters ~name () : linked_service =
+  { name; parameters }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_custom_dataset ?additional_properties
+    ?annotations ?description ?folder ?id ?parameters ?schema_json
+    ?timeouts ~data_factory_id ~name ~type_ ~type_properties_json
+    ~linked_service () : azurerm_data_factory_custom_dataset =
+  {
+    additional_properties;
+    annotations;
+    data_factory_id;
+    description;
+    folder;
+    id;
+    name;
+    parameters;
+    schema_json;
+    type_;
+    type_properties_json;
+    linked_service;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -58,30 +83,18 @@ type t = {
   type_properties_json : string prop;
 }
 
-let azurerm_data_factory_custom_dataset ?additional_properties
-    ?annotations ?description ?folder ?id ?parameters ?schema_json
-    ?timeouts ~data_factory_id ~name ~type_ ~type_properties_json
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?folder ?id ?parameters ?schema_json ?timeouts
+    ~data_factory_id ~name ~type_ ~type_properties_json
     ~linked_service __resource_id =
   let __resource_type = "azurerm_data_factory_custom_dataset" in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       data_factory_id;
-       description;
-       folder;
-       id;
-       name;
-       parameters;
-       schema_json;
-       type_;
-       type_properties_json;
-       linked_service;
-       timeouts;
-     }
-      : azurerm_data_factory_custom_dataset)
+    azurerm_data_factory_custom_dataset ?additional_properties
+      ?annotations ?description ?folder ?id ?parameters ?schema_json
+      ?timeouts ~data_factory_id ~name ~type_ ~type_properties_json
+      ~linked_service ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_custom_dataset __resource);
   let __resource_attributes =
     ({

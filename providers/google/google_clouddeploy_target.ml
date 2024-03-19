@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_clouddeploy_target__anthos_cluster = {
+type anthos_cluster = {
   membership : string prop option; [@option]
       (** Membership of the GKE Hub-registered cluster to which to apply the Skaffold configuration. Format is `projects/{project}/locations/{location}/memberships/{membership_name}`. *)
 }
 [@@deriving yojson_of]
 (** Information specifying an Anthos Cluster. *)
 
-type google_clouddeploy_target__execution_configs = {
+type execution_configs = {
   artifact_storage : string prop option; [@option]
       (** Optional. Cloud Storage location in which to store execution outputs. This can either be a bucket (gs://my-bucket) or a path within a bucket (gs://my-bucket/my-dir). If unspecified, a default bucket located in the same region will be used. *)
   execution_timeout : string prop option; [@option]
@@ -26,7 +26,7 @@ type google_clouddeploy_target__execution_configs = {
 [@@deriving yojson_of]
 (** Configurations for all execution that relates to this `Target`. Each `ExecutionEnvironmentUsage` value may only be used in a single configuration; using the same value multiple times is an error. When one or more configurations are specified, they must include the `RENDER` and `DEPLOY` `ExecutionEnvironmentUsage` values. When no configurations are specified, execution will use the default specified in `DefaultPool`. *)
 
-type google_clouddeploy_target__gke = {
+type gke = {
   cluster : string prop option; [@option]
       (** Information specifying a GKE Cluster. Format is `projects/{project_id}/locations/{location_id}/clusters/{cluster_id}. *)
   internal_ip : bool prop option; [@option]
@@ -35,27 +35,27 @@ type google_clouddeploy_target__gke = {
 [@@deriving yojson_of]
 (** Information specifying a GKE Cluster. *)
 
-type google_clouddeploy_target__multi_target = {
+type multi_target = {
   target_ids : string prop list;
       (** Required. The target_ids of this multiTarget. *)
 }
 [@@deriving yojson_of]
 (** Information specifying a multiTarget. *)
 
-type google_clouddeploy_target__run = {
+type run = {
   location : string prop;
       (** Required. The location where the Cloud Run Service should be located. Format is `projects/{project}/locations/{location}`. *)
 }
 [@@deriving yojson_of]
 (** Information specifying a Cloud Run deployment target. *)
 
-type google_clouddeploy_target__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_clouddeploy_target__timeouts *)
+(** timeouts *)
 
 type google_clouddeploy_target = {
   annotations : (string * string prop) list option; [@option]
@@ -80,16 +80,56 @@ Please refer to the field `effective_labels` for all of the labels present on th
       (** The project for the resource *)
   require_approval : bool prop option; [@option]
       (** Optional. Whether or not the `Target` requires approval. *)
-  anthos_cluster : google_clouddeploy_target__anthos_cluster list;
-  execution_configs :
-    google_clouddeploy_target__execution_configs list;
-  gke : google_clouddeploy_target__gke list;
-  multi_target : google_clouddeploy_target__multi_target list;
-  run : google_clouddeploy_target__run list;
-  timeouts : google_clouddeploy_target__timeouts option;
+  anthos_cluster : anthos_cluster list;
+  execution_configs : execution_configs list;
+  gke : gke list;
+  multi_target : multi_target list;
+  run : run list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_clouddeploy_target *)
+
+let anthos_cluster ?membership () : anthos_cluster = { membership }
+
+let execution_configs ?artifact_storage ?execution_timeout
+    ?service_account ?worker_pool ~usages () : execution_configs =
+  {
+    artifact_storage;
+    execution_timeout;
+    service_account;
+    usages;
+    worker_pool;
+  }
+
+let gke ?cluster ?internal_ip () : gke = { cluster; internal_ip }
+let multi_target ~target_ids () : multi_target = { target_ids }
+let run ~location () : run = { location }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_clouddeploy_target ?annotations ?deploy_parameters
+    ?description ?id ?labels ?project ?require_approval ?timeouts
+    ~location ~name ~anthos_cluster ~execution_configs ~gke
+    ~multi_target ~run () : google_clouddeploy_target =
+  {
+    annotations;
+    deploy_parameters;
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    require_approval;
+    anthos_cluster;
+    execution_configs;
+    gke;
+    multi_target;
+    run;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -111,32 +151,18 @@ type t = {
   update_time : string prop;
 }
 
-let google_clouddeploy_target ?annotations ?deploy_parameters
-    ?description ?id ?labels ?project ?require_approval ?timeouts
-    ~location ~name ~anthos_cluster ~execution_configs ~gke
-    ~multi_target ~run __resource_id =
+let register ?tf_module ?annotations ?deploy_parameters ?description
+    ?id ?labels ?project ?require_approval ?timeouts ~location ~name
+    ~anthos_cluster ~execution_configs ~gke ~multi_target ~run
+    __resource_id =
   let __resource_type = "google_clouddeploy_target" in
   let __resource =
-    ({
-       annotations;
-       deploy_parameters;
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       require_approval;
-       anthos_cluster;
-       execution_configs;
-       gke;
-       multi_target;
-       run;
-       timeouts;
-     }
-      : google_clouddeploy_target)
+    google_clouddeploy_target ?annotations ?deploy_parameters
+      ?description ?id ?labels ?project ?require_approval ?timeouts
+      ~location ~name ~anthos_cluster ~execution_configs ~gke
+      ~multi_target ~run ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_clouddeploy_target __resource);
   let __resource_attributes =
     ({

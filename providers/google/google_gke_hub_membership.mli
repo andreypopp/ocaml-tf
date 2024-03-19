@@ -2,11 +2,49 @@
 
 open! Tf.Prelude
 
-type google_gke_hub_membership__authority
-type google_gke_hub_membership__endpoint__gke_cluster
-type google_gke_hub_membership__endpoint
-type google_gke_hub_membership__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type authority
+
+val authority : issuer:string prop -> unit -> authority
+
+type endpoint__gke_cluster
+
+val endpoint__gke_cluster :
+  resource_link:string prop -> unit -> endpoint__gke_cluster
+
+type endpoint
+
+val endpoint :
+  gke_cluster:endpoint__gke_cluster list -> unit -> endpoint
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_gke_hub_membership
+
+val google_gke_hub_membership :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  membership_id:string prop ->
+  authority:authority list ->
+  endpoint:endpoint list ->
+  unit ->
+  google_gke_hub_membership
+
+val yojson_of_google_gke_hub_membership :
+  google_gke_hub_membership -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   effective_labels : (string * string) list prop;
@@ -19,14 +57,15 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_gke_hub_membership :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
-  ?timeouts:google_gke_hub_membership__timeouts ->
+  ?timeouts:timeouts ->
   membership_id:string prop ->
-  authority:google_gke_hub_membership__authority list ->
-  endpoint:google_gke_hub_membership__endpoint list ->
+  authority:authority list ->
+  endpoint:endpoint list ->
   string ->
   t

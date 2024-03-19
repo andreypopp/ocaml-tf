@@ -20,6 +20,22 @@ type aws_connect_contact_flow = {
 [@@deriving yojson_of]
 (** aws_connect_contact_flow *)
 
+let aws_connect_contact_flow ?content ?content_hash ?description
+    ?filename ?id ?tags ?tags_all ?type_ ~instance_id ~name () :
+    aws_connect_contact_flow =
+  {
+    content;
+    content_hash;
+    description;
+    filename;
+    id;
+    instance_id;
+    name;
+    tags;
+    tags_all;
+    type_;
+  }
+
 type t = {
   arn : string prop;
   contact_flow_id : string prop;
@@ -35,26 +51,14 @@ type t = {
   type_ : string prop;
 }
 
-let aws_connect_contact_flow ?content ?content_hash ?description
-    ?filename ?id ?tags ?tags_all ?type_ ~instance_id ~name
-    __resource_id =
+let register ?tf_module ?content ?content_hash ?description ?filename
+    ?id ?tags ?tags_all ?type_ ~instance_id ~name __resource_id =
   let __resource_type = "aws_connect_contact_flow" in
   let __resource =
-    ({
-       content;
-       content_hash;
-       description;
-       filename;
-       id;
-       instance_id;
-       name;
-       tags;
-       tags_all;
-       type_;
-     }
-      : aws_connect_contact_flow)
+    aws_connect_contact_flow ?content ?content_hash ?description
+      ?filename ?id ?tags ?tags_all ?type_ ~instance_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_contact_flow __resource);
   let __resource_attributes =
     ({

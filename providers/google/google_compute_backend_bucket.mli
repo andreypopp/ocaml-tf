@@ -2,15 +2,79 @@
 
 open! Tf.Prelude
 
-type google_compute_backend_bucket__cdn_policy__bypass_cache_on_request_headers
+(** RESOURCE SERIALIZATION *)
 
-type google_compute_backend_bucket__cdn_policy__cache_key_policy
+type cdn_policy__bypass_cache_on_request_headers
 
-type google_compute_backend_bucket__cdn_policy__negative_caching_policy
+val cdn_policy__bypass_cache_on_request_headers :
+  ?header_name:string prop ->
+  unit ->
+  cdn_policy__bypass_cache_on_request_headers
 
-type google_compute_backend_bucket__cdn_policy
-type google_compute_backend_bucket__timeouts
+type cdn_policy__cache_key_policy
+
+val cdn_policy__cache_key_policy :
+  ?include_http_headers:string prop list ->
+  ?query_string_whitelist:string prop list ->
+  unit ->
+  cdn_policy__cache_key_policy
+
+type cdn_policy__negative_caching_policy
+
+val cdn_policy__negative_caching_policy :
+  ?code:float prop ->
+  ?ttl:float prop ->
+  unit ->
+  cdn_policy__negative_caching_policy
+
+type cdn_policy
+
+val cdn_policy :
+  ?cache_mode:string prop ->
+  ?client_ttl:float prop ->
+  ?default_ttl:float prop ->
+  ?max_ttl:float prop ->
+  ?negative_caching:bool prop ->
+  ?request_coalescing:bool prop ->
+  ?serve_while_stale:float prop ->
+  ?signed_url_cache_max_age_sec:float prop ->
+  bypass_cache_on_request_headers:
+    cdn_policy__bypass_cache_on_request_headers list ->
+  cache_key_policy:cdn_policy__cache_key_policy list ->
+  negative_caching_policy:cdn_policy__negative_caching_policy list ->
+  unit ->
+  cdn_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_backend_bucket
+
+val google_compute_backend_bucket :
+  ?compression_mode:string prop ->
+  ?custom_response_headers:string prop list ->
+  ?description:string prop ->
+  ?edge_security_policy:string prop ->
+  ?enable_cdn:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  bucket_name:string prop ->
+  name:string prop ->
+  cdn_policy:cdn_policy list ->
+  unit ->
+  google_compute_backend_bucket
+
+val yojson_of_google_compute_backend_bucket :
+  google_compute_backend_bucket -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket_name : string prop;
@@ -26,7 +90,8 @@ type t = private {
   self_link : string prop;
 }
 
-val google_compute_backend_bucket :
+val register :
+  ?tf_module:tf_module ->
   ?compression_mode:string prop ->
   ?custom_response_headers:string prop list ->
   ?description:string prop ->
@@ -34,9 +99,9 @@ val google_compute_backend_bucket :
   ?enable_cdn:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_compute_backend_bucket__timeouts ->
+  ?timeouts:timeouts ->
   bucket_name:string prop ->
   name:string prop ->
-  cdn_policy:google_compute_backend_bucket__cdn_policy list ->
+  cdn_policy:cdn_policy list ->
   string ->
   t

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_account__active_directory = {
+type active_directory = {
   dns_servers : string prop list;  (** dns_servers *)
   domain : string prop;  (** domain *)
   organizational_unit : string prop option; [@option]
@@ -14,26 +14,24 @@ type azurerm_netapp_account__active_directory = {
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_account__active_directory *)
+(** active_directory *)
 
-type azurerm_netapp_account__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_account__identity *)
+(** identity *)
 
-type azurerm_netapp_account__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_netapp_account__timeouts *)
+(** timeouts *)
 
 type azurerm_netapp_account = {
   id : string prop option; [@option]  (** id *)
@@ -41,12 +39,43 @@ type azurerm_netapp_account = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  active_directory : azurerm_netapp_account__active_directory list;
-  identity : azurerm_netapp_account__identity list;
-  timeouts : azurerm_netapp_account__timeouts option;
+  active_directory : active_directory list;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_account *)
+
+let active_directory ?organizational_unit ~dns_servers ~domain
+    ~password ~smb_server_name ~username () : active_directory =
+  {
+    dns_servers;
+    domain;
+    organizational_unit;
+    password;
+    smb_server_name;
+    username;
+  }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_netapp_account ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~active_directory ~identity () :
+    azurerm_netapp_account =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    active_directory;
+    identity;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -56,23 +85,14 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_netapp_account ?id ?tags ?timeouts ~location ~name
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~active_directory ~identity __resource_id =
   let __resource_type = "azurerm_netapp_account" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       active_directory;
-       identity;
-       timeouts;
-     }
-      : azurerm_netapp_account)
+    azurerm_netapp_account ?id ?tags ?timeouts ~location ~name
+      ~resource_group_name ~active_directory ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_account __resource);
   let __resource_attributes =
     ({

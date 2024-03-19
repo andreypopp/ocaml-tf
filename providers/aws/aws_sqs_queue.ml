@@ -42,6 +42,36 @@ type aws_sqs_queue = {
 [@@deriving yojson_of]
 (** aws_sqs_queue *)
 
+let aws_sqs_queue ?content_based_deduplication ?deduplication_scope
+    ?delay_seconds ?fifo_queue ?fifo_throughput_limit ?id
+    ?kms_data_key_reuse_period_seconds ?kms_master_key_id
+    ?max_message_size ?message_retention_seconds ?name ?name_prefix
+    ?policy ?receive_wait_time_seconds ?redrive_allow_policy
+    ?redrive_policy ?sqs_managed_sse_enabled ?tags ?tags_all
+    ?visibility_timeout_seconds () : aws_sqs_queue =
+  {
+    content_based_deduplication;
+    deduplication_scope;
+    delay_seconds;
+    fifo_queue;
+    fifo_throughput_limit;
+    id;
+    kms_data_key_reuse_period_seconds;
+    kms_master_key_id;
+    max_message_size;
+    message_retention_seconds;
+    name;
+    name_prefix;
+    policy;
+    receive_wait_time_seconds;
+    redrive_allow_policy;
+    redrive_policy;
+    sqs_managed_sse_enabled;
+    tags;
+    tags_all;
+    visibility_timeout_seconds;
+  }
+
 type t = {
   arn : string prop;
   content_based_deduplication : bool prop;
@@ -67,40 +97,24 @@ type t = {
   visibility_timeout_seconds : float prop;
 }
 
-let aws_sqs_queue ?content_based_deduplication ?deduplication_scope
-    ?delay_seconds ?fifo_queue ?fifo_throughput_limit ?id
-    ?kms_data_key_reuse_period_seconds ?kms_master_key_id
-    ?max_message_size ?message_retention_seconds ?name ?name_prefix
-    ?policy ?receive_wait_time_seconds ?redrive_allow_policy
-    ?redrive_policy ?sqs_managed_sse_enabled ?tags ?tags_all
-    ?visibility_timeout_seconds __resource_id =
+let register ?tf_module ?content_based_deduplication
+    ?deduplication_scope ?delay_seconds ?fifo_queue
+    ?fifo_throughput_limit ?id ?kms_data_key_reuse_period_seconds
+    ?kms_master_key_id ?max_message_size ?message_retention_seconds
+    ?name ?name_prefix ?policy ?receive_wait_time_seconds
+    ?redrive_allow_policy ?redrive_policy ?sqs_managed_sse_enabled
+    ?tags ?tags_all ?visibility_timeout_seconds __resource_id =
   let __resource_type = "aws_sqs_queue" in
   let __resource =
-    ({
-       content_based_deduplication;
-       deduplication_scope;
-       delay_seconds;
-       fifo_queue;
-       fifo_throughput_limit;
-       id;
-       kms_data_key_reuse_period_seconds;
-       kms_master_key_id;
-       max_message_size;
-       message_retention_seconds;
-       name;
-       name_prefix;
-       policy;
-       receive_wait_time_seconds;
-       redrive_allow_policy;
-       redrive_policy;
-       sqs_managed_sse_enabled;
-       tags;
-       tags_all;
-       visibility_timeout_seconds;
-     }
-      : aws_sqs_queue)
+    aws_sqs_queue ?content_based_deduplication ?deduplication_scope
+      ?delay_seconds ?fifo_queue ?fifo_throughput_limit ?id
+      ?kms_data_key_reuse_period_seconds ?kms_master_key_id
+      ?max_message_size ?message_retention_seconds ?name ?name_prefix
+      ?policy ?receive_wait_time_seconds ?redrive_allow_policy
+      ?redrive_policy ?sqs_managed_sse_enabled ?tags ?tags_all
+      ?visibility_timeout_seconds ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sqs_queue __resource);
   let __resource_attributes =
     ({

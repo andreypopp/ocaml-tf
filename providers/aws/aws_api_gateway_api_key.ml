@@ -18,6 +18,19 @@ type aws_api_gateway_api_key = {
 [@@deriving yojson_of]
 (** aws_api_gateway_api_key *)
 
+let aws_api_gateway_api_key ?customer_id ?description ?enabled ?id
+    ?tags ?tags_all ?value ~name () : aws_api_gateway_api_key =
+  {
+    customer_id;
+    description;
+    enabled;
+    id;
+    name;
+    tags;
+    tags_all;
+    value;
+  }
+
 type t = {
   arn : string prop;
   created_date : string prop;
@@ -32,23 +45,14 @@ type t = {
   value : string prop;
 }
 
-let aws_api_gateway_api_key ?customer_id ?description ?enabled ?id
-    ?tags ?tags_all ?value ~name __resource_id =
+let register ?tf_module ?customer_id ?description ?enabled ?id ?tags
+    ?tags_all ?value ~name __resource_id =
   let __resource_type = "aws_api_gateway_api_key" in
   let __resource =
-    ({
-       customer_id;
-       description;
-       enabled;
-       id;
-       name;
-       tags;
-       tags_all;
-       value;
-     }
-      : aws_api_gateway_api_key)
+    aws_api_gateway_api_key ?customer_id ?description ?enabled ?id
+      ?tags ?tags_all ?value ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_api_key __resource);
   let __resource_attributes =
     ({

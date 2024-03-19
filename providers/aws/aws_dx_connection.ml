@@ -21,6 +21,22 @@ type aws_dx_connection = {
 [@@deriving yojson_of]
 (** aws_dx_connection *)
 
+let aws_dx_connection ?encryption_mode ?id ?provider_name
+    ?request_macsec ?skip_destroy ?tags ?tags_all ~bandwidth
+    ~location ~name () : aws_dx_connection =
+  {
+    bandwidth;
+    encryption_mode;
+    id;
+    location;
+    name;
+    provider_name;
+    request_macsec;
+    skip_destroy;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   aws_device : string prop;
@@ -43,26 +59,16 @@ type t = {
   vlan_id : float prop;
 }
 
-let aws_dx_connection ?encryption_mode ?id ?provider_name
+let register ?tf_module ?encryption_mode ?id ?provider_name
     ?request_macsec ?skip_destroy ?tags ?tags_all ~bandwidth
     ~location ~name __resource_id =
   let __resource_type = "aws_dx_connection" in
   let __resource =
-    ({
-       bandwidth;
-       encryption_mode;
-       id;
-       location;
-       name;
-       provider_name;
-       request_macsec;
-       skip_destroy;
-       tags;
-       tags_all;
-     }
-      : aws_dx_connection)
+    aws_dx_connection ?encryption_mode ?id ?provider_name
+      ?request_macsec ?skip_destroy ?tags ?tags_all ~bandwidth
+      ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_connection __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_config_aggregate_authorization
+
+val aws_config_aggregate_authorization :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  account_id:string prop ->
+  region:string prop ->
+  unit ->
+  aws_config_aggregate_authorization
+
+val yojson_of_aws_config_aggregate_authorization :
+  aws_config_aggregate_authorization -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -13,7 +29,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_config_aggregate_authorization :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

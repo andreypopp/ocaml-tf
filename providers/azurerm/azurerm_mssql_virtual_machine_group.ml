@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_virtual_machine_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_virtual_machine_group__timeouts *)
+(** timeouts *)
 
-type azurerm_mssql_virtual_machine_group__wsfc_domain_profile = {
+type wsfc_domain_profile = {
   cluster_bootstrap_account_name : string prop option; [@option]
       (** cluster_bootstrap_account_name *)
   cluster_operator_account_name : string prop option; [@option]
@@ -30,7 +30,7 @@ type azurerm_mssql_virtual_machine_group__wsfc_domain_profile = {
       (** storage_account_url *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_virtual_machine_group__wsfc_domain_profile *)
+(** wsfc_domain_profile *)
 
 type azurerm_mssql_virtual_machine_group = {
   id : string prop option; [@option]  (** id *)
@@ -40,12 +40,45 @@ type azurerm_mssql_virtual_machine_group = {
   sql_image_offer : string prop;  (** sql_image_offer *)
   sql_image_sku : string prop;  (** sql_image_sku *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_mssql_virtual_machine_group__timeouts option;
-  wsfc_domain_profile :
-    azurerm_mssql_virtual_machine_group__wsfc_domain_profile list;
+  timeouts : timeouts option;
+  wsfc_domain_profile : wsfc_domain_profile list;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine_group *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let wsfc_domain_profile ?cluster_bootstrap_account_name
+    ?cluster_operator_account_name ?organizational_unit_path
+    ?sql_service_account_name ?storage_account_primary_key
+    ?storage_account_url ~cluster_subnet_type ~fqdn () :
+    wsfc_domain_profile =
+  {
+    cluster_bootstrap_account_name;
+    cluster_operator_account_name;
+    cluster_subnet_type;
+    fqdn;
+    organizational_unit_path;
+    sql_service_account_name;
+    storage_account_primary_key;
+    storage_account_url;
+  }
+
+let azurerm_mssql_virtual_machine_group ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~sql_image_offer ~sql_image_sku
+    ~wsfc_domain_profile () : azurerm_mssql_virtual_machine_group =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    sql_image_offer;
+    sql_image_sku;
+    tags;
+    timeouts;
+    wsfc_domain_profile;
+  }
 
 type t = {
   id : string prop;
@@ -57,25 +90,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_mssql_virtual_machine_group ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~sql_image_offer ~sql_image_sku
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sql_image_offer ~sql_image_sku
     ~wsfc_domain_profile __resource_id =
   let __resource_type = "azurerm_mssql_virtual_machine_group" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       sql_image_offer;
-       sql_image_sku;
-       tags;
-       timeouts;
-       wsfc_domain_profile;
-     }
-      : azurerm_mssql_virtual_machine_group)
+    azurerm_mssql_virtual_machine_group ?id ?tags ?timeouts ~location
+      ~name ~resource_group_name ~sql_image_offer ~sql_image_sku
+      ~wsfc_domain_profile ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_virtual_machine_group __resource);
   let __resource_attributes =
     ({

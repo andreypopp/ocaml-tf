@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_batch_job_queue__compute_environment_order = {
+type compute_environment_order = {
   compute_environment : string prop;  (** compute_environment *)
   order : float prop;  (** order *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_queue__compute_environment_order *)
+(** compute_environment_order *)
 
-type aws_batch_job_queue__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
@@ -20,7 +20,7 @@ type aws_batch_job_queue__timeouts = {
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_queue__timeouts *)
+(** timeouts *)
 
 type aws_batch_job_queue = {
   compute_environments : string prop list option; [@option]
@@ -31,12 +31,32 @@ type aws_batch_job_queue = {
       (** scheduling_policy_arn *)
   state : string prop;  (** state *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  compute_environment_order :
-    aws_batch_job_queue__compute_environment_order list;
-  timeouts : aws_batch_job_queue__timeouts option;
+  compute_environment_order : compute_environment_order list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_batch_job_queue *)
+
+let compute_environment_order ~compute_environment ~order () :
+    compute_environment_order =
+  { compute_environment; order }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_batch_job_queue ?compute_environments ?scheduling_policy_arn
+    ?tags ?timeouts ~name ~priority ~state ~compute_environment_order
+    () : aws_batch_job_queue =
+  {
+    compute_environments;
+    name;
+    priority;
+    scheduling_policy_arn;
+    state;
+    tags;
+    compute_environment_order;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -50,24 +70,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_batch_job_queue ?compute_environments ?scheduling_policy_arn
+let register ?tf_module ?compute_environments ?scheduling_policy_arn
     ?tags ?timeouts ~name ~priority ~state ~compute_environment_order
     __resource_id =
   let __resource_type = "aws_batch_job_queue" in
   let __resource =
-    ({
-       compute_environments;
-       name;
-       priority;
-       scheduling_policy_arn;
-       state;
-       tags;
-       compute_environment_order;
-       timeouts;
-     }
-      : aws_batch_job_queue)
+    aws_batch_job_queue ?compute_environments ?scheduling_policy_arn
+      ?tags ?timeouts ~name ~priority ~state
+      ~compute_environment_order ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_batch_job_queue __resource);
   let __resource_attributes =
     ({

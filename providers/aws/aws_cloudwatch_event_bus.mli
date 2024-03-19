@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cloudwatch_event_bus
+
+val aws_cloudwatch_event_bus :
+  ?event_source_name:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  aws_cloudwatch_event_bus
+
+val yojson_of_aws_cloudwatch_event_bus :
+  aws_cloudwatch_event_bus -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +29,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_cloudwatch_event_bus :
+val register :
+  ?tf_module:tf_module ->
   ?event_source_name:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

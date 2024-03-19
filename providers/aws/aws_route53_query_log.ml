@@ -13,6 +13,10 @@ type aws_route53_query_log = {
 [@@deriving yojson_of]
 (** aws_route53_query_log *)
 
+let aws_route53_query_log ?id ~cloudwatch_log_group_arn ~zone_id () :
+    aws_route53_query_log =
+  { cloudwatch_log_group_arn; id; zone_id }
+
 type t = {
   arn : string prop;
   cloudwatch_log_group_arn : string prop;
@@ -20,14 +24,13 @@ type t = {
   zone_id : string prop;
 }
 
-let aws_route53_query_log ?id ~cloudwatch_log_group_arn ~zone_id
+let register ?tf_module ?id ~cloudwatch_log_group_arn ~zone_id
     __resource_id =
   let __resource_type = "aws_route53_query_log" in
   let __resource =
-    ({ cloudwatch_log_group_arn; id; zone_id }
-      : aws_route53_query_log)
+    aws_route53_query_log ?id ~cloudwatch_log_group_arn ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_query_log __resource);
   let __resource_attributes =
     ({

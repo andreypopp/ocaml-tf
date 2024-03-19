@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_digital_twins_endpoint_eventgrid__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_digital_twins_endpoint_eventgrid
+
+val azurerm_digital_twins_endpoint_eventgrid :
+  ?dead_letter_storage_secret:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  digital_twins_id:string prop ->
+  eventgrid_topic_endpoint:string prop ->
+  eventgrid_topic_primary_access_key:string prop ->
+  eventgrid_topic_secondary_access_key:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_digital_twins_endpoint_eventgrid
+
+val yojson_of_azurerm_digital_twins_endpoint_eventgrid :
+  azurerm_digital_twins_endpoint_eventgrid -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dead_letter_storage_secret : string prop;
@@ -15,10 +43,11 @@ type t = private {
   name : string prop;
 }
 
-val azurerm_digital_twins_endpoint_eventgrid :
+val register :
+  ?tf_module:tf_module ->
   ?dead_letter_storage_secret:string prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_digital_twins_endpoint_eventgrid__timeouts ->
+  ?timeouts:timeouts ->
   digital_twins_id:string prop ->
   eventgrid_topic_endpoint:string prop ->
   eventgrid_topic_primary_access_key:string prop ->

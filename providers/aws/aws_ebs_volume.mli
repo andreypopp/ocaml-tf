@@ -2,8 +2,41 @@
 
 open! Tf.Prelude
 
-type aws_ebs_volume__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_ebs_volume
+
+val aws_ebs_volume :
+  ?encrypted:bool prop ->
+  ?final_snapshot:bool prop ->
+  ?id:string prop ->
+  ?iops:float prop ->
+  ?kms_key_id:string prop ->
+  ?multi_attach_enabled:bool prop ->
+  ?outpost_arn:string prop ->
+  ?size:float prop ->
+  ?snapshot_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?throughput:float prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  availability_zone:string prop ->
+  unit ->
+  aws_ebs_volume
+
+val yojson_of_aws_ebs_volume : aws_ebs_volume -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -23,7 +56,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_ebs_volume :
+val register :
+  ?tf_module:tf_module ->
   ?encrypted:bool prop ->
   ?final_snapshot:bool prop ->
   ?id:string prop ->
@@ -37,7 +71,7 @@ val aws_ebs_volume :
   ?tags_all:(string * string prop) list ->
   ?throughput:float prop ->
   ?type_:string prop ->
-  ?timeouts:aws_ebs_volume__timeouts ->
+  ?timeouts:timeouts ->
   availability_zone:string prop ->
   string ->
   t

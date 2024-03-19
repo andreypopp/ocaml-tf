@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_active_directory_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_active_directory_domain__timeouts *)
+(** timeouts *)
 
 type google_active_directory_domain = {
   admin : string prop option; [@option]
@@ -35,10 +35,28 @@ e.g. us-west1 or us-east4 Service supports up to 4 locations at once. Each locat
   reserved_ip_range : string prop;
       (** The CIDR range of internal addresses that are reserved for this domain. Reserved networks must be /24 or larger.
 Ranges must be unique and non-overlapping with existing subnets in authorizedNetworks *)
-  timeouts : google_active_directory_domain__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_active_directory_domain *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_active_directory_domain ?admin ?authorized_networks ?id
+    ?labels ?project ?timeouts ~domain_name ~locations
+    ~reserved_ip_range () : google_active_directory_domain =
+  {
+    admin;
+    authorized_networks;
+    domain_name;
+    id;
+    labels;
+    locations;
+    project;
+    reserved_ip_range;
+    timeouts;
+  }
 
 type t = {
   admin : string prop;
@@ -55,25 +73,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_active_directory_domain ?admin ?authorized_networks ?id
-    ?labels ?project ?timeouts ~domain_name ~locations
-    ~reserved_ip_range __resource_id =
+let register ?tf_module ?admin ?authorized_networks ?id ?labels
+    ?project ?timeouts ~domain_name ~locations ~reserved_ip_range
+    __resource_id =
   let __resource_type = "google_active_directory_domain" in
   let __resource =
-    ({
-       admin;
-       authorized_networks;
-       domain_name;
-       id;
-       labels;
-       locations;
-       project;
-       reserved_ip_range;
-       timeouts;
-     }
-      : google_active_directory_domain)
+    google_active_directory_domain ?admin ?authorized_networks ?id
+      ?labels ?project ?timeouts ~domain_name ~locations
+      ~reserved_ip_range ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_active_directory_domain __resource);
   let __resource_attributes =
     ({

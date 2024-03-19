@@ -28,6 +28,29 @@ type aws_emr_studio = {
 [@@deriving yojson_of]
 (** aws_emr_studio *)
 
+let aws_emr_studio ?description ?id ?idp_auth_url
+    ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role
+    ~auth_mode ~default_s3_location ~engine_security_group_id ~name
+    ~service_role ~subnet_ids ~vpc_id ~workspace_security_group_id ()
+    : aws_emr_studio =
+  {
+    auth_mode;
+    default_s3_location;
+    description;
+    engine_security_group_id;
+    id;
+    idp_auth_url;
+    idp_relay_state_parameter_name;
+    name;
+    service_role;
+    subnet_ids;
+    tags;
+    tags_all;
+    user_role;
+    vpc_id;
+    workspace_security_group_id;
+  }
+
 type t = {
   arn : string prop;
   auth_mode : string prop;
@@ -48,33 +71,20 @@ type t = {
   workspace_security_group_id : string prop;
 }
 
-let aws_emr_studio ?description ?id ?idp_auth_url
+let register ?tf_module ?description ?id ?idp_auth_url
     ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role
     ~auth_mode ~default_s3_location ~engine_security_group_id ~name
     ~service_role ~subnet_ids ~vpc_id ~workspace_security_group_id
     __resource_id =
   let __resource_type = "aws_emr_studio" in
   let __resource =
-    ({
-       auth_mode;
-       default_s3_location;
-       description;
-       engine_security_group_id;
-       id;
-       idp_auth_url;
-       idp_relay_state_parameter_name;
-       name;
-       service_role;
-       subnet_ids;
-       tags;
-       tags_all;
-       user_role;
-       vpc_id;
-       workspace_security_group_id;
-     }
-      : aws_emr_studio)
+    aws_emr_studio ?description ?id ?idp_auth_url
+      ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role
+      ~auth_mode ~default_s3_location ~engine_security_group_id ~name
+      ~service_role ~subnet_ids ~vpc_id ~workspace_security_group_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_studio __resource);
   let __resource_attributes =
     ({

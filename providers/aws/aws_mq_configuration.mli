@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_mq_configuration
+
+val aws_mq_configuration :
+  ?authentication_strategy:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  data:string prop ->
+  engine_type:string prop ->
+  engine_version:string prop ->
+  name:string prop ->
+  unit ->
+  aws_mq_configuration
+
+val yojson_of_aws_mq_configuration : aws_mq_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,7 +37,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_mq_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?authentication_strategy:string prop ->
   ?description:string prop ->
   ?id:string prop ->

@@ -2,35 +2,197 @@
 
 open! Tf.Prelude
 
-type aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy__encryption_configuration
+(** RESOURCE SERIALIZATION *)
 
-type aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy__retain_rule
+type policy_details__action__cross_region_copy__encryption_configuration
 
-type aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy
+val policy_details__action__cross_region_copy__encryption_configuration :
+  ?cmk_arn:string prop ->
+  ?encrypted:bool prop ->
+  unit ->
+  policy_details__action__cross_region_copy__encryption_configuration
 
-type aws_dlm_lifecycle_policy__policy_details__action
+type policy_details__action__cross_region_copy__retain_rule
 
-type aws_dlm_lifecycle_policy__policy_details__event_source__parameters
+val policy_details__action__cross_region_copy__retain_rule :
+  interval:float prop ->
+  interval_unit:string prop ->
+  unit ->
+  policy_details__action__cross_region_copy__retain_rule
 
-type aws_dlm_lifecycle_policy__policy_details__event_source
-type aws_dlm_lifecycle_policy__policy_details__parameters
-type aws_dlm_lifecycle_policy__policy_details__schedule__create_rule
+type policy_details__action__cross_region_copy
 
-type aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule__deprecate_rule
+val policy_details__action__cross_region_copy :
+  target:string prop ->
+  encryption_configuration:
+    policy_details__action__cross_region_copy__encryption_configuration
+    list ->
+  retain_rule:
+    policy_details__action__cross_region_copy__retain_rule list ->
+  unit ->
+  policy_details__action__cross_region_copy
 
-type aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule__retain_rule
+type policy_details__action
 
-type aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule
+val policy_details__action :
+  name:string prop ->
+  cross_region_copy:policy_details__action__cross_region_copy list ->
+  unit ->
+  policy_details__action
 
-type aws_dlm_lifecycle_policy__policy_details__schedule__deprecate_rule
+type policy_details__event_source__parameters
 
-type aws_dlm_lifecycle_policy__policy_details__schedule__fast_restore_rule
+val policy_details__event_source__parameters :
+  description_regex:string prop ->
+  event_type:string prop ->
+  snapshot_owner:string prop list ->
+  unit ->
+  policy_details__event_source__parameters
 
-type aws_dlm_lifecycle_policy__policy_details__schedule__retain_rule
-type aws_dlm_lifecycle_policy__policy_details__schedule__share_rule
-type aws_dlm_lifecycle_policy__policy_details__schedule
-type aws_dlm_lifecycle_policy__policy_details
+type policy_details__event_source
+
+val policy_details__event_source :
+  type_:string prop ->
+  parameters:policy_details__event_source__parameters list ->
+  unit ->
+  policy_details__event_source
+
+type policy_details__parameters
+
+val policy_details__parameters :
+  ?exclude_boot_volume:bool prop ->
+  ?no_reboot:bool prop ->
+  unit ->
+  policy_details__parameters
+
+type policy_details__schedule__create_rule
+
+val policy_details__schedule__create_rule :
+  ?cron_expression:string prop ->
+  ?interval:float prop ->
+  ?interval_unit:string prop ->
+  ?location:string prop ->
+  ?times:string prop list ->
+  unit ->
+  policy_details__schedule__create_rule
+
+type policy_details__schedule__cross_region_copy_rule__deprecate_rule
+
+val policy_details__schedule__cross_region_copy_rule__deprecate_rule :
+  interval:float prop ->
+  interval_unit:string prop ->
+  unit ->
+  policy_details__schedule__cross_region_copy_rule__deprecate_rule
+
+type policy_details__schedule__cross_region_copy_rule__retain_rule
+
+val policy_details__schedule__cross_region_copy_rule__retain_rule :
+  interval:float prop ->
+  interval_unit:string prop ->
+  unit ->
+  policy_details__schedule__cross_region_copy_rule__retain_rule
+
+type policy_details__schedule__cross_region_copy_rule
+
+val policy_details__schedule__cross_region_copy_rule :
+  ?cmk_arn:string prop ->
+  ?copy_tags:bool prop ->
+  encrypted:bool prop ->
+  target:string prop ->
+  deprecate_rule:
+    policy_details__schedule__cross_region_copy_rule__deprecate_rule
+    list ->
+  retain_rule:
+    policy_details__schedule__cross_region_copy_rule__retain_rule
+    list ->
+  unit ->
+  policy_details__schedule__cross_region_copy_rule
+
+type policy_details__schedule__deprecate_rule
+
+val policy_details__schedule__deprecate_rule :
+  ?count:float prop ->
+  ?interval:float prop ->
+  ?interval_unit:string prop ->
+  unit ->
+  policy_details__schedule__deprecate_rule
+
+type policy_details__schedule__fast_restore_rule
+
+val policy_details__schedule__fast_restore_rule :
+  ?count:float prop ->
+  ?interval:float prop ->
+  ?interval_unit:string prop ->
+  availability_zones:string prop list ->
+  unit ->
+  policy_details__schedule__fast_restore_rule
+
+type policy_details__schedule__retain_rule
+
+val policy_details__schedule__retain_rule :
+  ?count:float prop ->
+  ?interval:float prop ->
+  ?interval_unit:string prop ->
+  unit ->
+  policy_details__schedule__retain_rule
+
+type policy_details__schedule__share_rule
+
+val policy_details__schedule__share_rule :
+  ?unshare_interval:float prop ->
+  ?unshare_interval_unit:string prop ->
+  target_accounts:string prop list ->
+  unit ->
+  policy_details__schedule__share_rule
+
+type policy_details__schedule
+
+val policy_details__schedule :
+  ?copy_tags:bool prop ->
+  ?tags_to_add:(string * string prop) list ->
+  ?variable_tags:(string * string prop) list ->
+  name:string prop ->
+  create_rule:policy_details__schedule__create_rule list ->
+  cross_region_copy_rule:
+    policy_details__schedule__cross_region_copy_rule list ->
+  deprecate_rule:policy_details__schedule__deprecate_rule list ->
+  fast_restore_rule:policy_details__schedule__fast_restore_rule list ->
+  retain_rule:policy_details__schedule__retain_rule list ->
+  share_rule:policy_details__schedule__share_rule list ->
+  unit ->
+  policy_details__schedule
+
+type policy_details
+
+val policy_details :
+  ?policy_type:string prop ->
+  ?resource_locations:string prop list ->
+  ?resource_types:string prop list ->
+  ?target_tags:(string * string prop) list ->
+  action:policy_details__action list ->
+  event_source:policy_details__event_source list ->
+  parameters:policy_details__parameters list ->
+  schedule:policy_details__schedule list ->
+  unit ->
+  policy_details
+
 type aws_dlm_lifecycle_policy
+
+val aws_dlm_lifecycle_policy :
+  ?id:string prop ->
+  ?state:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  description:string prop ->
+  execution_role_arn:string prop ->
+  policy_details:policy_details list ->
+  unit ->
+  aws_dlm_lifecycle_policy
+
+val yojson_of_aws_dlm_lifecycle_policy :
+  aws_dlm_lifecycle_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -42,13 +204,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_dlm_lifecycle_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?state:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   description:string prop ->
   execution_role_arn:string prop ->
-  policy_details:aws_dlm_lifecycle_policy__policy_details list ->
+  policy_details:policy_details list ->
   string ->
   t

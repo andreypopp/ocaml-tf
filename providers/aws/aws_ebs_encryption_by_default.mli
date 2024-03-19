@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ebs_encryption_by_default
-type t = private { enabled : bool prop; id : string prop }
 
 val aws_ebs_encryption_by_default :
-  ?enabled:bool prop -> ?id:string prop -> string -> t
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  unit ->
+  aws_ebs_encryption_by_default
+
+val yojson_of_aws_ebs_encryption_by_default :
+  aws_ebs_encryption_by_default -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { enabled : bool prop; id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  string ->
+  t

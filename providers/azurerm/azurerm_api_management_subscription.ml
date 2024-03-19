@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_subscription__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_subscription__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_subscription = {
   allow_tracing : bool prop option; [@option]  (** allow_tracing *)
@@ -27,10 +27,33 @@ type azurerm_api_management_subscription = {
   subscription_id : string prop option; [@option]
       (** subscription_id *)
   user_id : string prop option; [@option]  (** user_id *)
-  timeouts : azurerm_api_management_subscription__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_subscription *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_subscription ?allow_tracing ?api_id ?id
+    ?primary_key ?product_id ?secondary_key ?state ?subscription_id
+    ?user_id ?timeouts ~api_management_name ~display_name
+    ~resource_group_name () : azurerm_api_management_subscription =
+  {
+    allow_tracing;
+    api_id;
+    api_management_name;
+    display_name;
+    id;
+    primary_key;
+    product_id;
+    resource_group_name;
+    secondary_key;
+    state;
+    subscription_id;
+    user_id;
+    timeouts;
+  }
 
 type t = {
   allow_tracing : bool prop;
@@ -47,30 +70,18 @@ type t = {
   user_id : string prop;
 }
 
-let azurerm_api_management_subscription ?allow_tracing ?api_id ?id
-    ?primary_key ?product_id ?secondary_key ?state ?subscription_id
-    ?user_id ?timeouts ~api_management_name ~display_name
-    ~resource_group_name __resource_id =
+let register ?tf_module ?allow_tracing ?api_id ?id ?primary_key
+    ?product_id ?secondary_key ?state ?subscription_id ?user_id
+    ?timeouts ~api_management_name ~display_name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_api_management_subscription" in
   let __resource =
-    ({
-       allow_tracing;
-       api_id;
-       api_management_name;
-       display_name;
-       id;
-       primary_key;
-       product_id;
-       resource_group_name;
-       secondary_key;
-       state;
-       subscription_id;
-       user_id;
-       timeouts;
-     }
-      : azurerm_api_management_subscription)
+    azurerm_api_management_subscription ?allow_tracing ?api_id ?id
+      ?primary_key ?product_id ?secondary_key ?state ?subscription_id
+      ?user_id ?timeouts ~api_management_name ~display_name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_subscription __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_shared_access_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_iothub_shared_access_policy
+
+val azurerm_iothub_shared_access_policy :
+  ?device_connect:bool prop ->
+  ?id:string prop ->
+  ?registry_read:bool prop ->
+  ?registry_write:bool prop ->
+  ?service_connect:bool prop ->
+  ?timeouts:timeouts ->
+  iothub_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_iothub_shared_access_policy
+
+val yojson_of_azurerm_iothub_shared_access_policy :
+  azurerm_iothub_shared_access_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   device_connect : bool prop;
@@ -20,13 +49,14 @@ type t = private {
   service_connect : bool prop;
 }
 
-val azurerm_iothub_shared_access_policy :
+val register :
+  ?tf_module:tf_module ->
   ?device_connect:bool prop ->
   ?id:string prop ->
   ?registry_read:bool prop ->
   ?registry_write:bool prop ->
   ?service_connect:bool prop ->
-  ?timeouts:azurerm_iothub_shared_access_policy__timeouts ->
+  ?timeouts:timeouts ->
   iothub_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

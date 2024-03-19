@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_communication_service__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_communication_service
+
+val azurerm_communication_service :
+  ?data_location:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_communication_service
+
+val yojson_of_azurerm_communication_service :
+  azurerm_communication_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   data_location : string prop;
@@ -17,11 +43,12 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_communication_service :
+val register :
+  ?tf_module:tf_module ->
   ?data_location:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_communication_service__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   string ->

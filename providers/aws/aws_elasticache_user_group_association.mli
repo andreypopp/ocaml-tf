@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_elasticache_user_group_association
+
+val aws_elasticache_user_group_association :
+  ?id:string prop ->
+  user_group_id:string prop ->
+  user_id:string prop ->
+  unit ->
+  aws_elasticache_user_group_association
+
+val yojson_of_aws_elasticache_user_group_association :
+  aws_elasticache_user_group_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   user_id : string prop;
 }
 
-val aws_elasticache_user_group_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   user_group_id:string prop ->
   user_id:string prop ->

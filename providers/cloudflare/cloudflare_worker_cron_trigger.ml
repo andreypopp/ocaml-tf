@@ -20,6 +20,10 @@ schedule. Worker Cron Triggers are ideal for running periodic jobs for
 maintenance or calling third-party APIs to collect up-to-date data.
  *)
 
+let cloudflare_worker_cron_trigger ?id ~account_id ~schedules
+    ~script_name () : cloudflare_worker_cron_trigger =
+  { account_id; id; schedules; script_name }
+
 type t = {
   account_id : string prop;
   id : string prop;
@@ -27,14 +31,14 @@ type t = {
   script_name : string prop;
 }
 
-let cloudflare_worker_cron_trigger ?id ~account_id ~schedules
-    ~script_name __resource_id =
+let register ?tf_module ?id ~account_id ~schedules ~script_name
+    __resource_id =
   let __resource_type = "cloudflare_worker_cron_trigger" in
   let __resource =
-    ({ account_id; id; schedules; script_name }
-      : cloudflare_worker_cron_trigger)
+    cloudflare_worker_cron_trigger ?id ~account_id ~schedules
+      ~script_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_worker_cron_trigger __resource);
   let __resource_attributes =
     ({

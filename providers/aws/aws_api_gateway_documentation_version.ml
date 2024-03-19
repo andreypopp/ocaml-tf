@@ -13,6 +13,11 @@ type aws_api_gateway_documentation_version = {
 [@@deriving yojson_of]
 (** aws_api_gateway_documentation_version *)
 
+let aws_api_gateway_documentation_version ?description ?id
+    ~rest_api_id ~version () : aws_api_gateway_documentation_version
+    =
+  { description; id; rest_api_id; version }
+
 type t = {
   description : string prop;
   id : string prop;
@@ -20,14 +25,14 @@ type t = {
   version : string prop;
 }
 
-let aws_api_gateway_documentation_version ?description ?id
-    ~rest_api_id ~version __resource_id =
+let register ?tf_module ?description ?id ~rest_api_id ~version
+    __resource_id =
   let __resource_type = "aws_api_gateway_documentation_version" in
   let __resource =
-    ({ description; id; rest_api_id; version }
-      : aws_api_gateway_documentation_version)
+    aws_api_gateway_documentation_version ?description ?id
+      ~rest_api_id ~version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_documentation_version __resource);
   let __resource_attributes =
     ({

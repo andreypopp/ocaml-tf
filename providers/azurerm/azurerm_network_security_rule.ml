@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_network_security_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_security_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_network_security_rule = {
   access : string prop;  (** access *)
@@ -47,10 +47,45 @@ type azurerm_network_security_rule = {
       (** source_port_range *)
   source_port_ranges : string prop list option; [@option]
       (** source_port_ranges *)
-  timeouts : azurerm_network_security_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_security_rule *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_security_rule ?description
+    ?destination_address_prefix ?destination_address_prefixes
+    ?destination_application_security_group_ids
+    ?destination_port_range ?destination_port_ranges ?id
+    ?source_address_prefix ?source_address_prefixes
+    ?source_application_security_group_ids ?source_port_range
+    ?source_port_ranges ?timeouts ~access ~direction ~name
+    ~network_security_group_name ~priority ~protocol
+    ~resource_group_name () : azurerm_network_security_rule =
+  {
+    access;
+    description;
+    destination_address_prefix;
+    destination_address_prefixes;
+    destination_application_security_group_ids;
+    destination_port_range;
+    destination_port_ranges;
+    direction;
+    id;
+    name;
+    network_security_group_name;
+    priority;
+    protocol;
+    resource_group_name;
+    source_address_prefix;
+    source_address_prefixes;
+    source_application_security_group_ids;
+    source_port_range;
+    source_port_ranges;
+    timeouts;
+  }
 
 type t = {
   access : string prop;
@@ -74,8 +109,8 @@ type t = {
   source_port_ranges : string list prop;
 }
 
-let azurerm_network_security_rule ?description
-    ?destination_address_prefix ?destination_address_prefixes
+let register ?tf_module ?description ?destination_address_prefix
+    ?destination_address_prefixes
     ?destination_application_security_group_ids
     ?destination_port_range ?destination_port_ranges ?id
     ?source_address_prefix ?source_address_prefixes
@@ -85,31 +120,17 @@ let azurerm_network_security_rule ?description
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_network_security_rule" in
   let __resource =
-    ({
-       access;
-       description;
-       destination_address_prefix;
-       destination_address_prefixes;
-       destination_application_security_group_ids;
-       destination_port_range;
-       destination_port_ranges;
-       direction;
-       id;
-       name;
-       network_security_group_name;
-       priority;
-       protocol;
-       resource_group_name;
-       source_address_prefix;
-       source_address_prefixes;
-       source_application_security_group_ids;
-       source_port_range;
-       source_port_ranges;
-       timeouts;
-     }
-      : azurerm_network_security_rule)
+    azurerm_network_security_rule ?description
+      ?destination_address_prefix ?destination_address_prefixes
+      ?destination_application_security_group_ids
+      ?destination_port_range ?destination_port_ranges ?id
+      ?source_address_prefix ?source_address_prefixes
+      ?source_application_security_group_ids ?source_port_range
+      ?source_port_ranges ?timeouts ~access ~direction ~name
+      ~network_security_group_name ~priority ~protocol
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_security_rule __resource);
   let __resource_attributes =
     ({

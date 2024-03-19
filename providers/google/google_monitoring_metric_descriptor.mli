@@ -2,10 +2,56 @@
 
 open! Tf.Prelude
 
-type google_monitoring_metric_descriptor__labels
-type google_monitoring_metric_descriptor__metadata
-type google_monitoring_metric_descriptor__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type labels
+
+val labels :
+  ?description:string prop ->
+  ?value_type:string prop ->
+  key:string prop ->
+  unit ->
+  labels
+
+type metadata
+
+val metadata :
+  ?ingest_delay:string prop ->
+  ?sample_period:string prop ->
+  unit ->
+  metadata
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_monitoring_metric_descriptor
+
+val google_monitoring_metric_descriptor :
+  ?id:string prop ->
+  ?launch_stage:string prop ->
+  ?project:string prop ->
+  ?unit:string prop ->
+  ?timeouts:timeouts ->
+  description:string prop ->
+  display_name:string prop ->
+  metric_kind:string prop ->
+  type_:string prop ->
+  value_type:string prop ->
+  labels:labels list ->
+  metadata:metadata list ->
+  unit ->
+  google_monitoring_metric_descriptor
+
+val yojson_of_google_monitoring_metric_descriptor :
+  google_monitoring_metric_descriptor -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -21,18 +67,19 @@ type t = private {
   value_type : string prop;
 }
 
-val google_monitoring_metric_descriptor :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?launch_stage:string prop ->
   ?project:string prop ->
   ?unit:string prop ->
-  ?timeouts:google_monitoring_metric_descriptor__timeouts ->
+  ?timeouts:timeouts ->
   description:string prop ->
   display_name:string prop ->
   metric_kind:string prop ->
   type_:string prop ->
   value_type:string prop ->
-  labels:google_monitoring_metric_descriptor__labels list ->
-  metadata:google_monitoring_metric_descriptor__metadata list ->
+  labels:labels list ->
+  metadata:metadata list ->
   string ->
   t

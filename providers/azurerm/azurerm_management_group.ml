@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_management_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_management_group__timeouts *)
+(** timeouts *)
 
 type azurerm_management_group = {
   display_name : string prop option; [@option]  (** display_name *)
@@ -21,10 +21,25 @@ type azurerm_management_group = {
       (** parent_management_group_id *)
   subscription_ids : string prop list option; [@option]
       (** subscription_ids *)
-  timeouts : azurerm_management_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_management_group *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_management_group ?display_name ?id ?name
+    ?parent_management_group_id ?subscription_ids ?timeouts () :
+    azurerm_management_group =
+  {
+    display_name;
+    id;
+    name;
+    parent_management_group_id;
+    subscription_ids;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -34,22 +49,15 @@ type t = {
   subscription_ids : string list prop;
 }
 
-let azurerm_management_group ?display_name ?id ?name
+let register ?tf_module ?display_name ?id ?name
     ?parent_management_group_id ?subscription_ids ?timeouts
     __resource_id =
   let __resource_type = "azurerm_management_group" in
   let __resource =
-    ({
-       display_name;
-       id;
-       name;
-       parent_management_group_id;
-       subscription_ids;
-       timeouts;
-     }
-      : azurerm_management_group)
+    azurerm_management_group ?display_name ?id ?name
+      ?parent_management_group_id ?subscription_ids ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_management_group __resource);
   let __resource_attributes =
     ({

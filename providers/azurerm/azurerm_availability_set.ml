@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_availability_set__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_availability_set__timeouts *)
+(** timeouts *)
 
 type azurerm_availability_set = {
   id : string prop option; [@option]  (** id *)
@@ -26,10 +26,30 @@ type azurerm_availability_set = {
       (** proximity_placement_group_id *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_availability_set__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_availability_set *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_availability_set ?id ?managed
+    ?platform_fault_domain_count ?platform_update_domain_count
+    ?proximity_placement_group_id ?tags ?timeouts ~location ~name
+    ~resource_group_name () : azurerm_availability_set =
+  {
+    id;
+    location;
+    managed;
+    name;
+    platform_fault_domain_count;
+    platform_update_domain_count;
+    proximity_placement_group_id;
+    resource_group_name;
+    tags;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -43,27 +63,17 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_availability_set ?id ?managed
-    ?platform_fault_domain_count ?platform_update_domain_count
-    ?proximity_placement_group_id ?tags ?timeouts ~location ~name
-    ~resource_group_name __resource_id =
+let register ?tf_module ?id ?managed ?platform_fault_domain_count
+    ?platform_update_domain_count ?proximity_placement_group_id ?tags
+    ?timeouts ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_availability_set" in
   let __resource =
-    ({
-       id;
-       location;
-       managed;
-       name;
-       platform_fault_domain_count;
-       platform_update_domain_count;
-       proximity_placement_group_id;
-       resource_group_name;
-       tags;
-       timeouts;
-     }
-      : azurerm_availability_set)
+    azurerm_availability_set ?id ?managed
+      ?platform_fault_domain_count ?platform_update_domain_count
+      ?proximity_placement_group_id ?tags ?timeouts ~location ~name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_availability_set __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ce_cost_allocation_tag
+
+val aws_ce_cost_allocation_tag :
+  ?id:string prop ->
+  status:string prop ->
+  tag_key:string prop ->
+  unit ->
+  aws_ce_cost_allocation_tag
+
+val yojson_of_aws_ce_cost_allocation_tag :
+  aws_ce_cost_allocation_tag -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,7 +25,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_ce_cost_allocation_tag :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   status:string prop ->
   tag_key:string prop ->

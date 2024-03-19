@@ -2,10 +2,51 @@
 
 open! Tf.Prelude
 
-type aws_lex_bot_alias__conversation_logs__log_settings
-type aws_lex_bot_alias__conversation_logs
-type aws_lex_bot_alias__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type conversation_logs__log_settings
+
+val conversation_logs__log_settings :
+  ?kms_key_arn:string prop ->
+  destination:string prop ->
+  log_type:string prop ->
+  resource_arn:string prop ->
+  unit ->
+  conversation_logs__log_settings
+
+type conversation_logs
+
+val conversation_logs :
+  iam_role_arn:string prop ->
+  log_settings:conversation_logs__log_settings list ->
+  unit ->
+  conversation_logs
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_lex_bot_alias
+
+val aws_lex_bot_alias :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  bot_version:string prop ->
+  name:string prop ->
+  conversation_logs:conversation_logs list ->
+  unit ->
+  aws_lex_bot_alias
+
+val yojson_of_aws_lex_bot_alias : aws_lex_bot_alias -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,13 +60,14 @@ type t = private {
   name : string prop;
 }
 
-val aws_lex_bot_alias :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:aws_lex_bot_alias__timeouts ->
+  ?timeouts:timeouts ->
   bot_name:string prop ->
   bot_version:string prop ->
   name:string prop ->
-  conversation_logs:aws_lex_bot_alias__conversation_logs list ->
+  conversation_logs:conversation_logs list ->
   string ->
   t

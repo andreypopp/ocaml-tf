@@ -2,22 +2,52 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_certificate_order__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_app_service_certificate_order__certificates = {
+type certificates = {
   certificate_name : string prop;  (** certificate_name *)
   key_vault_id : string prop;  (** key_vault_id *)
   key_vault_secret_name : string prop;  (** key_vault_secret_name *)
   provisioning_state : string prop;  (** provisioning_state *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_app_service_certificate_order
+
+val azurerm_app_service_certificate_order :
+  ?auto_renew:bool prop ->
+  ?csr:string prop ->
+  ?distinguished_name:string prop ->
+  ?id:string prop ->
+  ?key_size:float prop ->
+  ?product_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?validity_in_years:float prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_app_service_certificate_order
+
+val yojson_of_azurerm_app_service_certificate_order :
+  azurerm_app_service_certificate_order -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_service_certificate_not_renewable_reasons : string list prop;
   auto_renew : bool prop;
-  certificates :
-    azurerm_app_service_certificate_order__certificates list prop;
+  certificates : certificates list prop;
   csr : string prop;
   distinguished_name : string prop;
   domain_verification_token : string prop;
@@ -37,7 +67,8 @@ type t = private {
   validity_in_years : float prop;
 }
 
-val azurerm_app_service_certificate_order :
+val register :
+  ?tf_module:tf_module ->
   ?auto_renew:bool prop ->
   ?csr:string prop ->
   ?distinguished_name:string prop ->
@@ -46,7 +77,7 @@ val azurerm_app_service_certificate_order :
   ?product_type:string prop ->
   ?tags:(string * string prop) list ->
   ?validity_in_years:float prop ->
-  ?timeouts:azurerm_app_service_certificate_order__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

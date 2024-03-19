@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_bigquery_analytics_hub_listing__bigquery_dataset = {
+type bigquery_dataset = {
   dataset : string prop;
       (** Resource name of the dataset source for this listing. e.g. projects/myproject/datasets/123 *)
 }
 [@@deriving yojson_of]
 (** Shared dataset i.e. BigQuery dataset source. *)
 
-type google_bigquery_analytics_hub_listing__data_provider = {
+type data_provider = {
   name : string prop;  (** Name of the data provider. *)
   primary_contact : string prop option; [@option]
       (** Email or URL of the data provider. *)
@@ -19,7 +19,7 @@ type google_bigquery_analytics_hub_listing__data_provider = {
 [@@deriving yojson_of]
 (** Details of the data provider who owns the source data. *)
 
-type google_bigquery_analytics_hub_listing__publisher = {
+type publisher = {
   name : string prop;  (** Name of the listing publisher. *)
   primary_contact : string prop option; [@option]
       (** Email or URL of the listing publisher. *)
@@ -27,7 +27,7 @@ type google_bigquery_analytics_hub_listing__publisher = {
 [@@deriving yojson_of]
 (** Details of the publisher who owns the listing and who can share the source data. *)
 
-type google_bigquery_analytics_hub_listing__restricted_export_config = {
+type restricted_export_config = {
   enabled : bool prop option; [@option]
       (** If true, enable restricted export. *)
   restrict_query_result : bool prop option; [@option]
@@ -36,13 +36,13 @@ type google_bigquery_analytics_hub_listing__restricted_export_config = {
 [@@deriving yojson_of]
 (** If set, restricted export configuration will be propagated and enforced on the linked dataset. *)
 
-type google_bigquery_analytics_hub_listing__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_analytics_hub_listing__timeouts *)
+(** timeouts *)
 
 type google_bigquery_analytics_hub_listing = {
   categories : string prop list option; [@option]
@@ -67,18 +67,55 @@ type google_bigquery_analytics_hub_listing = {
   project : string prop option; [@option]  (** project *)
   request_access : string prop option; [@option]
       (** Email or URL of the request access of the listing. Subscribers can use this reference to request access. *)
-  bigquery_dataset :
-    google_bigquery_analytics_hub_listing__bigquery_dataset list;
-  data_provider :
-    google_bigquery_analytics_hub_listing__data_provider list;
-  publisher : google_bigquery_analytics_hub_listing__publisher list;
-  restricted_export_config :
-    google_bigquery_analytics_hub_listing__restricted_export_config
-    list;
-  timeouts : google_bigquery_analytics_hub_listing__timeouts option;
+  bigquery_dataset : bigquery_dataset list;
+  data_provider : data_provider list;
+  publisher : publisher list;
+  restricted_export_config : restricted_export_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_analytics_hub_listing *)
+
+let bigquery_dataset ~dataset () : bigquery_dataset = { dataset }
+
+let data_provider ?primary_contact ~name () : data_provider =
+  { name; primary_contact }
+
+let publisher ?primary_contact ~name () : publisher =
+  { name; primary_contact }
+
+let restricted_export_config ?enabled ?restrict_query_result () :
+    restricted_export_config =
+  { enabled; restrict_query_result }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_bigquery_analytics_hub_listing ?categories ?description
+    ?documentation ?icon ?id ?primary_contact ?project
+    ?request_access ?timeouts ~data_exchange_id ~display_name
+    ~listing_id ~location ~bigquery_dataset ~data_provider ~publisher
+    ~restricted_export_config () :
+    google_bigquery_analytics_hub_listing =
+  {
+    categories;
+    data_exchange_id;
+    description;
+    display_name;
+    documentation;
+    icon;
+    id;
+    listing_id;
+    location;
+    primary_contact;
+    project;
+    request_access;
+    bigquery_dataset;
+    data_provider;
+    publisher;
+    restricted_export_config;
+    timeouts;
+  }
 
 type t = {
   categories : string list prop;
@@ -96,35 +133,20 @@ type t = {
   request_access : string prop;
 }
 
-let google_bigquery_analytics_hub_listing ?categories ?description
-    ?documentation ?icon ?id ?primary_contact ?project
-    ?request_access ?timeouts ~data_exchange_id ~display_name
-    ~listing_id ~location ~bigquery_dataset ~data_provider ~publisher
+let register ?tf_module ?categories ?description ?documentation ?icon
+    ?id ?primary_contact ?project ?request_access ?timeouts
+    ~data_exchange_id ~display_name ~listing_id ~location
+    ~bigquery_dataset ~data_provider ~publisher
     ~restricted_export_config __resource_id =
   let __resource_type = "google_bigquery_analytics_hub_listing" in
   let __resource =
-    ({
-       categories;
-       data_exchange_id;
-       description;
-       display_name;
-       documentation;
-       icon;
-       id;
-       listing_id;
-       location;
-       primary_contact;
-       project;
-       request_access;
-       bigquery_dataset;
-       data_provider;
-       publisher;
-       restricted_export_config;
-       timeouts;
-     }
-      : google_bigquery_analytics_hub_listing)
+    google_bigquery_analytics_hub_listing ?categories ?description
+      ?documentation ?icon ?id ?primary_contact ?project
+      ?request_access ?timeouts ~data_exchange_id ~display_name
+      ~listing_id ~location ~bigquery_dataset ~data_provider
+      ~publisher ~restricted_export_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_analytics_hub_listing __resource);
   let __resource_attributes =
     ({

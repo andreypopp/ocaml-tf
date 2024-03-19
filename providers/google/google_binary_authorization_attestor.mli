@@ -2,13 +2,60 @@
 
 open! Tf.Prelude
 
-type google_binary_authorization_attestor__attestation_authority_note__public_keys__pkix_public_key
+(** RESOURCE SERIALIZATION *)
 
-type google_binary_authorization_attestor__attestation_authority_note__public_keys
+type attestation_authority_note__public_keys__pkix_public_key
 
-type google_binary_authorization_attestor__attestation_authority_note
-type google_binary_authorization_attestor__timeouts
+val attestation_authority_note__public_keys__pkix_public_key :
+  ?public_key_pem:string prop ->
+  ?signature_algorithm:string prop ->
+  unit ->
+  attestation_authority_note__public_keys__pkix_public_key
+
+type attestation_authority_note__public_keys
+
+val attestation_authority_note__public_keys :
+  ?ascii_armored_pgp_public_key:string prop ->
+  ?comment:string prop ->
+  ?id:string prop ->
+  pkix_public_key:
+    attestation_authority_note__public_keys__pkix_public_key list ->
+  unit ->
+  attestation_authority_note__public_keys
+
+type attestation_authority_note
+
+val attestation_authority_note :
+  note_reference:string prop ->
+  public_keys:attestation_authority_note__public_keys list ->
+  unit ->
+  attestation_authority_note
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_binary_authorization_attestor
+
+val google_binary_authorization_attestor :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  attestation_authority_note:attestation_authority_note list ->
+  unit ->
+  google_binary_authorization_attestor
+
+val yojson_of_google_binary_authorization_attestor :
+  google_binary_authorization_attestor -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -17,14 +64,13 @@ type t = private {
   project : string prop;
 }
 
-val google_binary_authorization_attestor :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_binary_authorization_attestor__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  attestation_authority_note:
-    google_binary_authorization_attestor__attestation_authority_note
-    list ->
+  attestation_authority_note:attestation_authority_note list ->
   string ->
   t

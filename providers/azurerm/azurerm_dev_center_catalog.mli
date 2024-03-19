@@ -2,10 +2,55 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_center_catalog__catalog_adogit
-type azurerm_dev_center_catalog__catalog_github
-type azurerm_dev_center_catalog__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type catalog_adogit
+
+val catalog_adogit :
+  branch:string prop ->
+  key_vault_key_url:string prop ->
+  path:string prop ->
+  uri:string prop ->
+  unit ->
+  catalog_adogit
+
+type catalog_github
+
+val catalog_github :
+  branch:string prop ->
+  key_vault_key_url:string prop ->
+  path:string prop ->
+  uri:string prop ->
+  unit ->
+  catalog_github
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_dev_center_catalog
+
+val azurerm_dev_center_catalog :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  dev_center_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  catalog_adogit:catalog_adogit list ->
+  catalog_github:catalog_github list ->
+  unit ->
+  azurerm_dev_center_catalog
+
+val yojson_of_azurerm_dev_center_catalog :
+  azurerm_dev_center_catalog -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dev_center_id : string prop;
@@ -14,13 +59,14 @@ type t = private {
   resource_group_name : string prop;
 }
 
-val azurerm_dev_center_catalog :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_dev_center_catalog__timeouts ->
+  ?timeouts:timeouts ->
   dev_center_id:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  catalog_adogit:azurerm_dev_center_catalog__catalog_adogit list ->
-  catalog_github:azurerm_dev_center_catalog__catalog_github list ->
+  catalog_adogit:catalog_adogit list ->
+  catalog_github:catalog_github list ->
   string ->
   t

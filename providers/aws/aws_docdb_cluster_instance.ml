@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_docdb_cluster_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_docdb_cluster_instance__timeouts *)
+(** timeouts *)
 
 type aws_docdb_cluster_instance = {
   apply_immediately : bool prop option; [@option]
@@ -41,10 +41,42 @@ type aws_docdb_cluster_instance = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_docdb_cluster_instance__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_docdb_cluster_instance *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_docdb_cluster_instance ?apply_immediately
+    ?auto_minor_version_upgrade ?availability_zone
+    ?ca_cert_identifier ?copy_tags_to_snapshot
+    ?enable_performance_insights ?engine ?id ?identifier
+    ?identifier_prefix ?performance_insights_kms_key_id
+    ?preferred_maintenance_window ?promotion_tier ?tags ?tags_all
+    ?timeouts ~cluster_identifier ~instance_class () :
+    aws_docdb_cluster_instance =
+  {
+    apply_immediately;
+    auto_minor_version_upgrade;
+    availability_zone;
+    ca_cert_identifier;
+    cluster_identifier;
+    copy_tags_to_snapshot;
+    enable_performance_insights;
+    engine;
+    id;
+    identifier;
+    identifier_prefix;
+    instance_class;
+    performance_insights_kms_key_id;
+    preferred_maintenance_window;
+    promotion_tier;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   apply_immediately : bool prop;
@@ -77,7 +109,7 @@ type t = {
   writer : bool prop;
 }
 
-let aws_docdb_cluster_instance ?apply_immediately
+let register ?tf_module ?apply_immediately
     ?auto_minor_version_upgrade ?availability_zone
     ?ca_cert_identifier ?copy_tags_to_snapshot
     ?enable_performance_insights ?engine ?id ?identifier
@@ -86,29 +118,15 @@ let aws_docdb_cluster_instance ?apply_immediately
     ?timeouts ~cluster_identifier ~instance_class __resource_id =
   let __resource_type = "aws_docdb_cluster_instance" in
   let __resource =
-    ({
-       apply_immediately;
-       auto_minor_version_upgrade;
-       availability_zone;
-       ca_cert_identifier;
-       cluster_identifier;
-       copy_tags_to_snapshot;
-       enable_performance_insights;
-       engine;
-       id;
-       identifier;
-       identifier_prefix;
-       instance_class;
-       performance_insights_kms_key_id;
-       preferred_maintenance_window;
-       promotion_tier;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_docdb_cluster_instance)
+    aws_docdb_cluster_instance ?apply_immediately
+      ?auto_minor_version_upgrade ?availability_zone
+      ?ca_cert_identifier ?copy_tags_to_snapshot
+      ?enable_performance_insights ?engine ?id ?identifier
+      ?identifier_prefix ?performance_insights_kms_key_id
+      ?preferred_maintenance_window ?promotion_tier ?tags ?tags_all
+      ?timeouts ~cluster_identifier ~instance_class ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_docdb_cluster_instance __resource);
   let __resource_attributes =
     ({

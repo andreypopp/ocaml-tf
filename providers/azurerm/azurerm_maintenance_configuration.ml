@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_maintenance_configuration__install_patches__linux = {
+type install_patches__linux = {
   classifications_to_include : string prop list option; [@option]
       (** classifications_to_include *)
   package_names_mask_to_exclude : string prop list option; [@option]
@@ -13,9 +13,9 @@ type azurerm_maintenance_configuration__install_patches__linux = {
       (** package_names_mask_to_include *)
 }
 [@@deriving yojson_of]
-(** azurerm_maintenance_configuration__install_patches__linux *)
+(** install_patches__linux *)
 
-type azurerm_maintenance_configuration__install_patches__windows = {
+type install_patches__windows = {
   classifications_to_include : string prop list option; [@option]
       (** classifications_to_include *)
   kb_numbers_to_exclude : string prop list option; [@option]
@@ -24,28 +24,26 @@ type azurerm_maintenance_configuration__install_patches__windows = {
       (** kb_numbers_to_include *)
 }
 [@@deriving yojson_of]
-(** azurerm_maintenance_configuration__install_patches__windows *)
+(** install_patches__windows *)
 
-type azurerm_maintenance_configuration__install_patches = {
+type install_patches = {
   reboot : string prop option; [@option]  (** reboot *)
-  linux :
-    azurerm_maintenance_configuration__install_patches__linux list;
-  windows :
-    azurerm_maintenance_configuration__install_patches__windows list;
+  linux : install_patches__linux list;
+  windows : install_patches__windows list;
 }
 [@@deriving yojson_of]
-(** azurerm_maintenance_configuration__install_patches *)
+(** install_patches *)
 
-type azurerm_maintenance_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_maintenance_configuration__timeouts *)
+(** timeouts *)
 
-type azurerm_maintenance_configuration__window = {
+type window = {
   duration : string prop option; [@option]  (** duration *)
   expiration_date_time : string prop option; [@option]
       (** expiration_date_time *)
@@ -54,7 +52,7 @@ type azurerm_maintenance_configuration__window = {
   time_zone : string prop;  (** time_zone *)
 }
 [@@deriving yojson_of]
-(** azurerm_maintenance_configuration__window *)
+(** window *)
 
 type azurerm_maintenance_configuration = {
   id : string prop option; [@option]  (** id *)
@@ -68,13 +66,65 @@ type azurerm_maintenance_configuration = {
   scope : string prop;  (** scope *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   visibility : string prop option; [@option]  (** visibility *)
-  install_patches :
-    azurerm_maintenance_configuration__install_patches list;
-  timeouts : azurerm_maintenance_configuration__timeouts option;
-  window : azurerm_maintenance_configuration__window list;
+  install_patches : install_patches list;
+  timeouts : timeouts option;
+  window : window list;
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_configuration *)
+
+let install_patches__linux ?classifications_to_include
+    ?package_names_mask_to_exclude ?package_names_mask_to_include ()
+    : install_patches__linux =
+  {
+    classifications_to_include;
+    package_names_mask_to_exclude;
+    package_names_mask_to_include;
+  }
+
+let install_patches__windows ?classifications_to_include
+    ?kb_numbers_to_exclude ?kb_numbers_to_include () :
+    install_patches__windows =
+  {
+    classifications_to_include;
+    kb_numbers_to_exclude;
+    kb_numbers_to_include;
+  }
+
+let install_patches ?reboot ~linux ~windows () : install_patches =
+  { reboot; linux; windows }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let window ?duration ?expiration_date_time ?recur_every
+    ~start_date_time ~time_zone () : window =
+  {
+    duration;
+    expiration_date_time;
+    recur_every;
+    start_date_time;
+    time_zone;
+  }
+
+let azurerm_maintenance_configuration ?id ?in_guest_user_patch_mode
+    ?properties ?tags ?visibility ?timeouts ~location ~name
+    ~resource_group_name ~scope ~install_patches ~window () :
+    azurerm_maintenance_configuration =
+  {
+    id;
+    in_guest_user_patch_mode;
+    location;
+    name;
+    properties;
+    resource_group_name;
+    scope;
+    tags;
+    visibility;
+    install_patches;
+    timeouts;
+    window;
+  }
 
 type t = {
   id : string prop;
@@ -88,29 +138,16 @@ type t = {
   visibility : string prop;
 }
 
-let azurerm_maintenance_configuration ?id ?in_guest_user_patch_mode
-    ?properties ?tags ?visibility ?timeouts ~location ~name
-    ~resource_group_name ~scope ~install_patches ~window
-    __resource_id =
+let register ?tf_module ?id ?in_guest_user_patch_mode ?properties
+    ?tags ?visibility ?timeouts ~location ~name ~resource_group_name
+    ~scope ~install_patches ~window __resource_id =
   let __resource_type = "azurerm_maintenance_configuration" in
   let __resource =
-    ({
-       id;
-       in_guest_user_patch_mode;
-       location;
-       name;
-       properties;
-       resource_group_name;
-       scope;
-       tags;
-       visibility;
-       install_patches;
-       timeouts;
-       window;
-     }
-      : azurerm_maintenance_configuration)
+    azurerm_maintenance_configuration ?id ?in_guest_user_patch_mode
+      ?properties ?tags ?visibility ?timeouts ~location ~name
+      ~resource_group_name ~scope ~install_patches ~window ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_maintenance_configuration __resource);
   let __resource_attributes =
     ({

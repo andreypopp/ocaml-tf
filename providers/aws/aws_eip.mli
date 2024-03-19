@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type aws_eip__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_eip
+
+val aws_eip :
+  ?address:string prop ->
+  ?associate_with_private_ip:string prop ->
+  ?customer_owned_ipv4_pool:string prop ->
+  ?domain:string prop ->
+  ?id:string prop ->
+  ?instance:string prop ->
+  ?network_border_group:string prop ->
+  ?network_interface:string prop ->
+  ?public_ipv4_pool:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc:bool prop ->
+  ?timeouts:timeouts ->
+  unit ->
+  aws_eip
+
+val yojson_of_aws_eip : aws_eip -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   address : string prop;
@@ -28,7 +59,8 @@ type t = private {
   vpc : bool prop;
 }
 
-val aws_eip :
+val register :
+  ?tf_module:tf_module ->
   ?address:string prop ->
   ?associate_with_private_ip:string prop ->
   ?customer_owned_ipv4_pool:string prop ->
@@ -41,6 +73,6 @@ val aws_eip :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc:bool prop ->
-  ?timeouts:aws_eip__timeouts ->
+  ?timeouts:timeouts ->
   string ->
   t

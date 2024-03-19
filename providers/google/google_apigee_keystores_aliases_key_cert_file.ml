@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_apigee_keystores_aliases_key_cert_file__certs_info__cert_info = {
+type certs_info__cert_info = {
   basic_constraints : string prop option; [@option]
       (** X.509 basic constraints extension. *)
   expiry_date : string prop option; [@option]
@@ -29,22 +29,18 @@ Flag is set to Yes if the certificate is valid, No if expired, or Not yet if not
 [@@deriving yojson_of]
 (** List of all properties in the object. *)
 
-type google_apigee_keystores_aliases_key_cert_file__certs_info = {
-  cert_info :
-    google_apigee_keystores_aliases_key_cert_file__certs_info__cert_info
-    list;
-}
+type certs_info = { cert_info : certs_info__cert_info list }
 [@@deriving yojson_of]
 (** Chain of certificates under this alias. *)
 
-type google_apigee_keystores_aliases_key_cert_file__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_apigee_keystores_aliases_key_cert_file__timeouts *)
+(** timeouts *)
 
 type google_apigee_keystores_aliases_key_cert_file = {
   alias : string prop;  (** Alias Name *)
@@ -59,13 +55,50 @@ type google_apigee_keystores_aliases_key_cert_file = {
       (** Organization ID associated with the alias *)
   password : string prop option; [@option]
       (** Password for the Private Key if it's encrypted *)
-  certs_info :
-    google_apigee_keystores_aliases_key_cert_file__certs_info list;
-  timeouts :
-    google_apigee_keystores_aliases_key_cert_file__timeouts option;
+  certs_info : certs_info list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_key_cert_file *)
+
+let certs_info__cert_info ?basic_constraints ?expiry_date ?is_valid
+    ?issuer ?public_key ?serial_number ?sig_alg_name ?subject
+    ?subject_alternative_names ?valid_from ?version () :
+    certs_info__cert_info =
+  {
+    basic_constraints;
+    expiry_date;
+    is_valid;
+    issuer;
+    public_key;
+    serial_number;
+    sig_alg_name;
+    subject;
+    subject_alternative_names;
+    valid_from;
+    version;
+  }
+
+let certs_info ~cert_info () : certs_info = { cert_info }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let google_apigee_keystores_aliases_key_cert_file ?id ?key ?password
+    ?timeouts ~alias ~cert ~environment ~keystore ~org_id ~certs_info
+    () : google_apigee_keystores_aliases_key_cert_file =
+  {
+    alias;
+    cert;
+    environment;
+    id;
+    key;
+    keystore;
+    org_id;
+    password;
+    certs_info;
+    timeouts;
+  }
 
 type t = {
   alias : string prop;
@@ -79,28 +112,17 @@ type t = {
   type_ : string prop;
 }
 
-let google_apigee_keystores_aliases_key_cert_file ?id ?key ?password
-    ?timeouts ~alias ~cert ~environment ~keystore ~org_id ~certs_info
-    __resource_id =
+let register ?tf_module ?id ?key ?password ?timeouts ~alias ~cert
+    ~environment ~keystore ~org_id ~certs_info __resource_id =
   let __resource_type =
     "google_apigee_keystores_aliases_key_cert_file"
   in
   let __resource =
-    ({
-       alias;
-       cert;
-       environment;
-       id;
-       key;
-       keystore;
-       org_id;
-       password;
-       certs_info;
-       timeouts;
-     }
-      : google_apigee_keystores_aliases_key_cert_file)
+    google_apigee_keystores_aliases_key_cert_file ?id ?key ?password
+      ?timeouts ~alias ~cert ~environment ~keystore ~org_id
+      ~certs_info ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_keystores_aliases_key_cert_file
        __resource);
   let __resource_attributes =

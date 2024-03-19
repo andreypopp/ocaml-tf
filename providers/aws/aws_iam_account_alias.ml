@@ -11,12 +11,16 @@ type aws_iam_account_alias = {
 [@@deriving yojson_of]
 (** aws_iam_account_alias *)
 
+let aws_iam_account_alias ?id ~account_alias () :
+    aws_iam_account_alias =
+  { account_alias; id }
+
 type t = { account_alias : string prop; id : string prop }
 
-let aws_iam_account_alias ?id ~account_alias __resource_id =
+let register ?tf_module ?id ~account_alias __resource_id =
   let __resource_type = "aws_iam_account_alias" in
-  let __resource = ({ account_alias; id } : aws_iam_account_alias) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_iam_account_alias ?id ~account_alias () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_account_alias __resource);
   let __resource_attributes =
     ({

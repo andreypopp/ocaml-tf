@@ -2,16 +2,39 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_version__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_dialogflow_cx_version__nlu_settings = {
+type nlu_settings = {
   classification_threshold : float prop;
       (** classification_threshold *)
   model_training_mode : string prop;  (** model_training_mode *)
   model_type : string prop;  (** model_type *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_dialogflow_cx_version
+
+val google_dialogflow_cx_version :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?parent:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  unit ->
+  google_dialogflow_cx_version
+
+val yojson_of_google_dialogflow_cx_version :
+  google_dialogflow_cx_version -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -19,17 +42,17 @@ type t = private {
   display_name : string prop;
   id : string prop;
   name : string prop;
-  nlu_settings :
-    google_dialogflow_cx_version__nlu_settings list prop;
+  nlu_settings : nlu_settings list prop;
   parent : string prop;
   state : string prop;
 }
 
-val google_dialogflow_cx_version :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?parent:string prop ->
-  ?timeouts:google_dialogflow_cx_version__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   string ->
   t

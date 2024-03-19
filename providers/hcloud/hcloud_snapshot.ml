@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type hcloud_snapshot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** hcloud_snapshot__timeouts *)
+(** timeouts *)
 
 type hcloud_snapshot = {
   description : string prop option; [@option]  (** description *)
@@ -16,10 +16,16 @@ type hcloud_snapshot = {
   labels : (string * string prop) list option; [@option]
       (** labels *)
   server_id : float prop;  (** server_id *)
-  timeouts : hcloud_snapshot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** hcloud_snapshot *)
+
+let timeouts ?create () : timeouts = { create }
+
+let hcloud_snapshot ?description ?id ?labels ?timeouts ~server_id ()
+    : hcloud_snapshot =
+  { description; id; labels; server_id; timeouts }
 
 type t = {
   description : string prop;
@@ -28,14 +34,13 @@ type t = {
   server_id : float prop;
 }
 
-let hcloud_snapshot ?description ?id ?labels ?timeouts ~server_id
+let register ?tf_module ?description ?id ?labels ?timeouts ~server_id
     __resource_id =
   let __resource_type = "hcloud_snapshot" in
   let __resource =
-    ({ description; id; labels; server_id; timeouts }
-      : hcloud_snapshot)
+    hcloud_snapshot ?description ?id ?labels ?timeouts ~server_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_snapshot __resource);
   let __resource_attributes =
     ({

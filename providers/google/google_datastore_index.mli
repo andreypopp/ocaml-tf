@@ -2,9 +2,33 @@
 
 open! Tf.Prelude
 
-type google_datastore_index__properties
-type google_datastore_index__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type properties
+
+val properties :
+  direction:string prop -> name:string prop -> unit -> properties
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_datastore_index
+
+val google_datastore_index :
+  ?ancestor:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  kind:string prop ->
+  properties:properties list ->
+  unit ->
+  google_datastore_index
+
+val yojson_of_google_datastore_index : google_datastore_index -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   ancestor : string prop;
@@ -14,12 +38,13 @@ type t = private {
   project : string prop;
 }
 
-val google_datastore_index :
+val register :
+  ?tf_module:tf_module ->
   ?ancestor:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_datastore_index__timeouts ->
+  ?timeouts:timeouts ->
   kind:string prop ->
-  properties:google_datastore_index__properties list ->
+  properties:properties list ->
   string ->
   t

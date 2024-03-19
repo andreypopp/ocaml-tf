@@ -4,37 +4,37 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_trigger_tumbling_window__pipeline = {
+type pipeline = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_tumbling_window__pipeline *)
+(** pipeline *)
 
-type azurerm_data_factory_trigger_tumbling_window__retry = {
+type retry = {
   count : float prop;  (** count *)
   interval : float prop option; [@option]  (** interval *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_tumbling_window__retry *)
+(** retry *)
 
-type azurerm_data_factory_trigger_tumbling_window__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_tumbling_window__timeouts *)
+(** timeouts *)
 
-type azurerm_data_factory_trigger_tumbling_window__trigger_dependency = {
+type trigger_dependency = {
   offset : string prop option; [@option]  (** offset *)
   size : string prop option; [@option]  (** size *)
   trigger_name : string prop option; [@option]  (** trigger_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_tumbling_window__trigger_dependency *)
+(** trigger_dependency *)
 
 type azurerm_data_factory_trigger_tumbling_window = {
   activated : bool prop option; [@option]  (** activated *)
@@ -54,17 +54,48 @@ type azurerm_data_factory_trigger_tumbling_window = {
       (** max_concurrency *)
   name : string prop;  (** name *)
   start_time : string prop;  (** start_time *)
-  pipeline :
-    azurerm_data_factory_trigger_tumbling_window__pipeline list;
-  retry : azurerm_data_factory_trigger_tumbling_window__retry list;
-  timeouts :
-    azurerm_data_factory_trigger_tumbling_window__timeouts option;
-  trigger_dependency :
-    azurerm_data_factory_trigger_tumbling_window__trigger_dependency
-    list;
+  pipeline : pipeline list;
+  retry : retry list;
+  timeouts : timeouts option;
+  trigger_dependency : trigger_dependency list;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_tumbling_window *)
+
+let pipeline ?parameters ~name () : pipeline = { name; parameters }
+let retry ?interval ~count () : retry = { count; interval }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let trigger_dependency ?offset ?size ?trigger_name () :
+    trigger_dependency =
+  { offset; size; trigger_name }
+
+let azurerm_data_factory_trigger_tumbling_window ?activated
+    ?additional_properties ?annotations ?delay ?description ?end_time
+    ?id ?max_concurrency ?timeouts ~data_factory_id ~frequency
+    ~interval ~name ~start_time ~pipeline ~retry ~trigger_dependency
+    () : azurerm_data_factory_trigger_tumbling_window =
+  {
+    activated;
+    additional_properties;
+    annotations;
+    data_factory_id;
+    delay;
+    description;
+    end_time;
+    frequency;
+    id;
+    interval;
+    max_concurrency;
+    name;
+    start_time;
+    pipeline;
+    retry;
+    timeouts;
+    trigger_dependency;
+  }
 
 type t = {
   activated : bool prop;
@@ -82,37 +113,21 @@ type t = {
   start_time : string prop;
 }
 
-let azurerm_data_factory_trigger_tumbling_window ?activated
-    ?additional_properties ?annotations ?delay ?description ?end_time
-    ?id ?max_concurrency ?timeouts ~data_factory_id ~frequency
-    ~interval ~name ~start_time ~pipeline ~retry ~trigger_dependency
-    __resource_id =
+let register ?tf_module ?activated ?additional_properties
+    ?annotations ?delay ?description ?end_time ?id ?max_concurrency
+    ?timeouts ~data_factory_id ~frequency ~interval ~name ~start_time
+    ~pipeline ~retry ~trigger_dependency __resource_id =
   let __resource_type =
     "azurerm_data_factory_trigger_tumbling_window"
   in
   let __resource =
-    ({
-       activated;
-       additional_properties;
-       annotations;
-       data_factory_id;
-       delay;
-       description;
-       end_time;
-       frequency;
-       id;
-       interval;
-       max_concurrency;
-       name;
-       start_time;
-       pipeline;
-       retry;
-       timeouts;
-       trigger_dependency;
-     }
-      : azurerm_data_factory_trigger_tumbling_window)
+    azurerm_data_factory_trigger_tumbling_window ?activated
+      ?additional_properties ?annotations ?delay ?description
+      ?end_time ?id ?max_concurrency ?timeouts ~data_factory_id
+      ~frequency ~interval ~name ~start_time ~pipeline ~retry
+      ~trigger_dependency ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_trigger_tumbling_window
        __resource);
   let __resource_attributes =

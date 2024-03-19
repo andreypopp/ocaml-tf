@@ -4,29 +4,34 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_ownership_controls__rule = {
+type rule = {
   object_ownership : string prop;  (** object_ownership *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_ownership_controls__rule *)
+(** rule *)
 
 type aws_s3_bucket_ownership_controls = {
   bucket : string prop;  (** bucket *)
   id : string prop option; [@option]  (** id *)
-  rule : aws_s3_bucket_ownership_controls__rule list;
+  rule : rule list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_ownership_controls *)
 
+let rule ~object_ownership () : rule = { object_ownership }
+
+let aws_s3_bucket_ownership_controls ?id ~bucket ~rule () :
+    aws_s3_bucket_ownership_controls =
+  { bucket; id; rule }
+
 type t = { bucket : string prop; id : string prop }
 
-let aws_s3_bucket_ownership_controls ?id ~bucket ~rule __resource_id
-    =
+let register ?tf_module ?id ~bucket ~rule __resource_id =
   let __resource_type = "aws_s3_bucket_ownership_controls" in
   let __resource =
-    ({ bucket; id; rule } : aws_s3_bucket_ownership_controls)
+    aws_s3_bucket_ownership_controls ?id ~bucket ~rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_ownership_controls __resource);
   let __resource_attributes =
     ({

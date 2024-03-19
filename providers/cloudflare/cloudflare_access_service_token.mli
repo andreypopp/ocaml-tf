@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_access_service_token
+
+val cloudflare_access_service_token :
+  ?account_id:string prop ->
+  ?duration:string prop ->
+  ?id:string prop ->
+  ?min_days_for_renewal:float prop ->
+  ?zone_id:string prop ->
+  name:string prop ->
+  unit ->
+  cloudflare_access_service_token
+
+val yojson_of_cloudflare_access_service_token :
+  cloudflare_access_service_token -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -16,7 +33,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_access_service_token :
+val register :
+  ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?duration:string prop ->
   ?id:string prop ->

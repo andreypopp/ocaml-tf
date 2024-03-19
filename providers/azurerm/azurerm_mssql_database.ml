@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_database__identity = {
+type identity = {
   identity_ids : string prop list;  (** identity_ids *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_database__identity *)
+(** identity *)
 
-type azurerm_mssql_database__import = {
+type import = {
   administrator_login : string prop;  (** administrator_login *)
   administrator_login_password : string prop;
       (** administrator_login_password *)
@@ -23,9 +23,9 @@ type azurerm_mssql_database__import = {
   storage_uri : string prop;  (** storage_uri *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_database__import *)
+(** import *)
 
-type azurerm_mssql_database__long_term_retention_policy = {
+type long_term_retention_policy = {
   immutable_backups_enabled : bool prop option; [@option]
       (** immutable_backups_enabled *)
   monthly_retention : string prop option; [@option]
@@ -37,17 +37,17 @@ type azurerm_mssql_database__long_term_retention_policy = {
       (** yearly_retention *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_database__long_term_retention_policy *)
+(** long_term_retention_policy *)
 
-type azurerm_mssql_database__short_term_retention_policy = {
+type short_term_retention_policy = {
   backup_interval_in_hours : float prop option; [@option]
       (** backup_interval_in_hours *)
   retention_days : float prop;  (** retention_days *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_database__short_term_retention_policy *)
+(** short_term_retention_policy *)
 
-type azurerm_mssql_database__threat_detection_policy = {
+type threat_detection_policy = {
   disabled_alerts : string prop list option; [@option]
       (** disabled_alerts *)
   email_account_admins : string prop option; [@option]
@@ -63,16 +63,16 @@ type azurerm_mssql_database__threat_detection_policy = {
       (** storage_endpoint *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_database__threat_detection_policy *)
+(** threat_detection_policy *)
 
-type azurerm_mssql_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_database__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_database = {
   auto_pause_delay_in_minutes : float prop option; [@option]
@@ -124,18 +124,117 @@ type azurerm_mssql_database = {
       [@option]
       (** transparent_data_encryption_key_vault_key_id *)
   zone_redundant : bool prop option; [@option]  (** zone_redundant *)
-  identity : azurerm_mssql_database__identity list;
-  import : azurerm_mssql_database__import list;
-  long_term_retention_policy :
-    azurerm_mssql_database__long_term_retention_policy list;
-  short_term_retention_policy :
-    azurerm_mssql_database__short_term_retention_policy list;
-  threat_detection_policy :
-    azurerm_mssql_database__threat_detection_policy list;
-  timeouts : azurerm_mssql_database__timeouts option;
+  identity : identity list;
+  import : import list;
+  long_term_retention_policy : long_term_retention_policy list;
+  short_term_retention_policy : short_term_retention_policy list;
+  threat_detection_policy : threat_detection_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database *)
+
+let identity ~identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let import ?storage_account_id ~administrator_login
+    ~administrator_login_password ~authentication_type ~storage_key
+    ~storage_key_type ~storage_uri () : import =
+  {
+    administrator_login;
+    administrator_login_password;
+    authentication_type;
+    storage_account_id;
+    storage_key;
+    storage_key_type;
+    storage_uri;
+  }
+
+let long_term_retention_policy ?immutable_backups_enabled
+    ?monthly_retention ?week_of_year ?weekly_retention
+    ?yearly_retention () : long_term_retention_policy =
+  {
+    immutable_backups_enabled;
+    monthly_retention;
+    week_of_year;
+    weekly_retention;
+    yearly_retention;
+  }
+
+let short_term_retention_policy ?backup_interval_in_hours
+    ~retention_days () : short_term_retention_policy =
+  { backup_interval_in_hours; retention_days }
+
+let threat_detection_policy ?disabled_alerts ?email_account_admins
+    ?email_addresses ?retention_days ?state
+    ?storage_account_access_key ?storage_endpoint () :
+    threat_detection_policy =
+  {
+    disabled_alerts;
+    email_account_admins;
+    email_addresses;
+    retention_days;
+    state;
+    storage_account_access_key;
+    storage_endpoint;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
+    ?create_mode ?creation_source_database_id ?elastic_pool_id
+    ?enclave_type ?geo_backup_enabled ?id ?ledger_enabled
+    ?license_type ?maintenance_configuration_name ?max_size_gb
+    ?min_capacity ?read_replica_count ?read_scale
+    ?recover_database_id ?recovery_point_id
+    ?restore_dropped_database_id
+    ?restore_long_term_retention_backup_id ?restore_point_in_time
+    ?sample_name ?sku_name ?storage_account_type ?tags
+    ?transparent_data_encryption_enabled
+    ?transparent_data_encryption_key_automatic_rotation_enabled
+    ?transparent_data_encryption_key_vault_key_id ?zone_redundant
+    ?timeouts ~name ~server_id ~identity ~import
+    ~long_term_retention_policy ~short_term_retention_policy
+    ~threat_detection_policy () : azurerm_mssql_database =
+  {
+    auto_pause_delay_in_minutes;
+    collation;
+    create_mode;
+    creation_source_database_id;
+    elastic_pool_id;
+    enclave_type;
+    geo_backup_enabled;
+    id;
+    ledger_enabled;
+    license_type;
+    maintenance_configuration_name;
+    max_size_gb;
+    min_capacity;
+    name;
+    read_replica_count;
+    read_scale;
+    recover_database_id;
+    recovery_point_id;
+    restore_dropped_database_id;
+    restore_long_term_retention_backup_id;
+    restore_point_in_time;
+    sample_name;
+    server_id;
+    sku_name;
+    storage_account_type;
+    tags;
+    transparent_data_encryption_enabled;
+    transparent_data_encryption_key_automatic_rotation_enabled;
+    transparent_data_encryption_key_vault_key_id;
+    zone_redundant;
+    identity;
+    import;
+    long_term_retention_policy;
+    short_term_retention_policy;
+    threat_detection_policy;
+    timeouts;
+  }
 
 type t = {
   auto_pause_delay_in_minutes : float prop;
@@ -171,7 +270,7 @@ type t = {
   zone_redundant : bool prop;
 }
 
-let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
+let register ?tf_module ?auto_pause_delay_in_minutes ?collation
     ?create_mode ?creation_source_database_id ?elastic_pool_id
     ?enclave_type ?geo_backup_enabled ?id ?ledger_enabled
     ?license_type ?maintenance_configuration_name ?max_size_gb
@@ -188,47 +287,23 @@ let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
     ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_mssql_database" in
   let __resource =
-    ({
-       auto_pause_delay_in_minutes;
-       collation;
-       create_mode;
-       creation_source_database_id;
-       elastic_pool_id;
-       enclave_type;
-       geo_backup_enabled;
-       id;
-       ledger_enabled;
-       license_type;
-       maintenance_configuration_name;
-       max_size_gb;
-       min_capacity;
-       name;
-       read_replica_count;
-       read_scale;
-       recover_database_id;
-       recovery_point_id;
-       restore_dropped_database_id;
-       restore_long_term_retention_backup_id;
-       restore_point_in_time;
-       sample_name;
-       server_id;
-       sku_name;
-       storage_account_type;
-       tags;
-       transparent_data_encryption_enabled;
-       transparent_data_encryption_key_automatic_rotation_enabled;
-       transparent_data_encryption_key_vault_key_id;
-       zone_redundant;
-       identity;
-       import;
-       long_term_retention_policy;
-       short_term_retention_policy;
-       threat_detection_policy;
-       timeouts;
-     }
-      : azurerm_mssql_database)
+    azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
+      ?create_mode ?creation_source_database_id ?elastic_pool_id
+      ?enclave_type ?geo_backup_enabled ?id ?ledger_enabled
+      ?license_type ?maintenance_configuration_name ?max_size_gb
+      ?min_capacity ?read_replica_count ?read_scale
+      ?recover_database_id ?recovery_point_id
+      ?restore_dropped_database_id
+      ?restore_long_term_retention_backup_id ?restore_point_in_time
+      ?sample_name ?sku_name ?storage_account_type ?tags
+      ?transparent_data_encryption_enabled
+      ?transparent_data_encryption_key_automatic_rotation_enabled
+      ?transparent_data_encryption_key_vault_key_id ?zone_redundant
+      ?timeouts ~name ~server_id ~identity ~import
+      ~long_term_retention_policy ~short_term_retention_policy
+      ~threat_detection_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_database __resource);
   let __resource_attributes =
     ({

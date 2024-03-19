@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_transfer_access__home_directory_mappings = {
+type home_directory_mappings = {
   entry : string prop;  (** entry *)
   target : string prop;  (** target *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_access__home_directory_mappings *)
+(** home_directory_mappings *)
 
-type aws_transfer_access__posix_profile = {
+type posix_profile = {
   gid : float prop;  (** gid *)
   secondary_gids : float prop list option; [@option]
       (** secondary_gids *)
   uid : float prop;  (** uid *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_access__posix_profile *)
+(** posix_profile *)
 
 type aws_transfer_access = {
   external_id : string prop;  (** external_id *)
@@ -30,12 +30,33 @@ type aws_transfer_access = {
   policy : string prop option; [@option]  (** policy *)
   role : string prop option; [@option]  (** role *)
   server_id : string prop;  (** server_id *)
-  home_directory_mappings :
-    aws_transfer_access__home_directory_mappings list;
-  posix_profile : aws_transfer_access__posix_profile list;
+  home_directory_mappings : home_directory_mappings list;
+  posix_profile : posix_profile list;
 }
 [@@deriving yojson_of]
 (** aws_transfer_access *)
+
+let home_directory_mappings ~entry ~target () :
+    home_directory_mappings =
+  { entry; target }
+
+let posix_profile ?secondary_gids ~gid ~uid () : posix_profile =
+  { gid; secondary_gids; uid }
+
+let aws_transfer_access ?home_directory ?home_directory_type ?id
+    ?policy ?role ~external_id ~server_id ~home_directory_mappings
+    ~posix_profile () : aws_transfer_access =
+  {
+    external_id;
+    home_directory;
+    home_directory_type;
+    id;
+    policy;
+    role;
+    server_id;
+    home_directory_mappings;
+    posix_profile;
+  }
 
 type t = {
   external_id : string prop;
@@ -47,25 +68,16 @@ type t = {
   server_id : string prop;
 }
 
-let aws_transfer_access ?home_directory ?home_directory_type ?id
+let register ?tf_module ?home_directory ?home_directory_type ?id
     ?policy ?role ~external_id ~server_id ~home_directory_mappings
     ~posix_profile __resource_id =
   let __resource_type = "aws_transfer_access" in
   let __resource =
-    ({
-       external_id;
-       home_directory;
-       home_directory_type;
-       id;
-       policy;
-       role;
-       server_id;
-       home_directory_mappings;
-       posix_profile;
-     }
-      : aws_transfer_access)
+    aws_transfer_access ?home_directory ?home_directory_type ?id
+      ?policy ?role ~external_id ~server_id ~home_directory_mappings
+      ~posix_profile ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_access __resource);
   let __resource_attributes =
     ({

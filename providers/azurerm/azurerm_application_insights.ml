@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_application_insights__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_application_insights__timeouts *)
+(** timeouts *)
 
 type azurerm_application_insights = {
   application_type : string prop;  (** application_type *)
@@ -39,10 +39,41 @@ type azurerm_application_insights = {
       (** sampling_percentage *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   workspace_id : string prop option; [@option]  (** workspace_id *)
-  timeouts : azurerm_application_insights__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_application_insights ?daily_data_cap_in_gb
+    ?daily_data_cap_notifications_disabled ?disable_ip_masking
+    ?force_customer_storage_for_profiler ?id
+    ?internet_ingestion_enabled ?internet_query_enabled
+    ?local_authentication_disabled ?retention_in_days
+    ?sampling_percentage ?tags ?workspace_id ?timeouts
+    ~application_type ~location ~name ~resource_group_name () :
+    azurerm_application_insights =
+  {
+    application_type;
+    daily_data_cap_in_gb;
+    daily_data_cap_notifications_disabled;
+    disable_ip_masking;
+    force_customer_storage_for_profiler;
+    id;
+    internet_ingestion_enabled;
+    internet_query_enabled;
+    local_authentication_disabled;
+    location;
+    name;
+    resource_group_name;
+    retention_in_days;
+    sampling_percentage;
+    tags;
+    workspace_id;
+    timeouts;
+  }
 
 type t = {
   app_id : string prop;
@@ -66,7 +97,7 @@ type t = {
   workspace_id : string prop;
 }
 
-let azurerm_application_insights ?daily_data_cap_in_gb
+let register ?tf_module ?daily_data_cap_in_gb
     ?daily_data_cap_notifications_disabled ?disable_ip_masking
     ?force_customer_storage_for_profiler ?id
     ?internet_ingestion_enabled ?internet_query_enabled
@@ -76,28 +107,15 @@ let azurerm_application_insights ?daily_data_cap_in_gb
     __resource_id =
   let __resource_type = "azurerm_application_insights" in
   let __resource =
-    ({
-       application_type;
-       daily_data_cap_in_gb;
-       daily_data_cap_notifications_disabled;
-       disable_ip_masking;
-       force_customer_storage_for_profiler;
-       id;
-       internet_ingestion_enabled;
-       internet_query_enabled;
-       local_authentication_disabled;
-       location;
-       name;
-       resource_group_name;
-       retention_in_days;
-       sampling_percentage;
-       tags;
-       workspace_id;
-       timeouts;
-     }
-      : azurerm_application_insights)
+    azurerm_application_insights ?daily_data_cap_in_gb
+      ?daily_data_cap_notifications_disabled ?disable_ip_masking
+      ?force_customer_storage_for_profiler ?id
+      ?internet_ingestion_enabled ?internet_query_enabled
+      ?local_authentication_disabled ?retention_in_days
+      ?sampling_percentage ?tags ?workspace_id ?timeouts
+      ~application_type ~location ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_insights __resource);
   let __resource_attributes =
     ({

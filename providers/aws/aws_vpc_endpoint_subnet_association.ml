@@ -4,21 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_vpc_endpoint_subnet_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_endpoint_subnet_association__timeouts *)
+(** timeouts *)
 
 type aws_vpc_endpoint_subnet_association = {
   id : string prop option; [@option]  (** id *)
   subnet_id : string prop;  (** subnet_id *)
   vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
-  timeouts : aws_vpc_endpoint_subnet_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_subnet_association *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_vpc_endpoint_subnet_association ?id ?timeouts ~subnet_id
+    ~vpc_endpoint_id () : aws_vpc_endpoint_subnet_association =
+  { id; subnet_id; vpc_endpoint_id; timeouts }
 
 type t = {
   id : string prop;
@@ -26,14 +32,14 @@ type t = {
   vpc_endpoint_id : string prop;
 }
 
-let aws_vpc_endpoint_subnet_association ?id ?timeouts ~subnet_id
-    ~vpc_endpoint_id __resource_id =
+let register ?tf_module ?id ?timeouts ~subnet_id ~vpc_endpoint_id
+    __resource_id =
   let __resource_type = "aws_vpc_endpoint_subnet_association" in
   let __resource =
-    ({ id; subnet_id; vpc_endpoint_id; timeouts }
-      : aws_vpc_endpoint_subnet_association)
+    aws_vpc_endpoint_subnet_association ?id ?timeouts ~subnet_id
+      ~vpc_endpoint_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_endpoint_subnet_association __resource);
   let __resource_attributes =
     ({

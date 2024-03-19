@@ -16,6 +16,17 @@ type aws_iam_service_linked_role = {
 [@@deriving yojson_of]
 (** aws_iam_service_linked_role *)
 
+let aws_iam_service_linked_role ?custom_suffix ?description ?id ?tags
+    ?tags_all ~aws_service_name () : aws_iam_service_linked_role =
+  {
+    aws_service_name;
+    custom_suffix;
+    description;
+    id;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   aws_service_name : string prop;
@@ -30,21 +41,14 @@ type t = {
   unique_id : string prop;
 }
 
-let aws_iam_service_linked_role ?custom_suffix ?description ?id ?tags
+let register ?tf_module ?custom_suffix ?description ?id ?tags
     ?tags_all ~aws_service_name __resource_id =
   let __resource_type = "aws_iam_service_linked_role" in
   let __resource =
-    ({
-       aws_service_name;
-       custom_suffix;
-       description;
-       id;
-       tags;
-       tags_all;
-     }
-      : aws_iam_service_linked_role)
+    aws_iam_service_linked_role ?custom_suffix ?description ?id ?tags
+      ?tags_all ~aws_service_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_service_linked_role __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_eventhub_consumer_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_eventhub_consumer_group
+
+val azurerm_eventhub_consumer_group :
+  ?id:string prop ->
+  ?user_metadata:string prop ->
+  ?timeouts:timeouts ->
+  eventhub_name:string prop ->
+  name:string prop ->
+  namespace_name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_eventhub_consumer_group
+
+val yojson_of_azurerm_eventhub_consumer_group :
+  azurerm_eventhub_consumer_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   eventhub_name : string prop;
@@ -14,10 +41,11 @@ type t = private {
   user_metadata : string prop;
 }
 
-val azurerm_eventhub_consumer_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?user_metadata:string prop ->
-  ?timeouts:azurerm_eventhub_consumer_group__timeouts ->
+  ?timeouts:timeouts ->
   eventhub_name:string prop ->
   name:string prop ->
   namespace_name:string prop ->

@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_eventhub__capture_description__destination = {
+type capture_description__destination = {
   archive_name_format : string prop;  (** archive_name_format *)
   blob_container_name : string prop;  (** blob_container_name *)
   name : string prop;  (** name *)
   storage_account_id : string prop;  (** storage_account_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventhub__capture_description__destination *)
+(** capture_description__destination *)
 
-type azurerm_eventhub__capture_description = {
+type capture_description = {
   enabled : bool prop;  (** enabled *)
   encoding : string prop;  (** encoding *)
   interval_in_seconds : float prop option; [@option]
@@ -22,20 +22,19 @@ type azurerm_eventhub__capture_description = {
       (** size_limit_in_bytes *)
   skip_empty_archives : bool prop option; [@option]
       (** skip_empty_archives *)
-  destination :
-    azurerm_eventhub__capture_description__destination list;
+  destination : capture_description__destination list;
 }
 [@@deriving yojson_of]
-(** azurerm_eventhub__capture_description *)
+(** capture_description *)
 
-type azurerm_eventhub__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventhub__timeouts *)
+(** timeouts *)
 
 type azurerm_eventhub = {
   id : string prop option; [@option]  (** id *)
@@ -45,11 +44,51 @@ type azurerm_eventhub = {
   partition_count : float prop;  (** partition_count *)
   resource_group_name : string prop;  (** resource_group_name *)
   status : string prop option; [@option]  (** status *)
-  capture_description : azurerm_eventhub__capture_description list;
-  timeouts : azurerm_eventhub__timeouts option;
+  capture_description : capture_description list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub *)
+
+let capture_description__destination ~archive_name_format
+    ~blob_container_name ~name ~storage_account_id () :
+    capture_description__destination =
+  {
+    archive_name_format;
+    blob_container_name;
+    name;
+    storage_account_id;
+  }
+
+let capture_description ?interval_in_seconds ?size_limit_in_bytes
+    ?skip_empty_archives ~enabled ~encoding ~destination () :
+    capture_description =
+  {
+    enabled;
+    encoding;
+    interval_in_seconds;
+    size_limit_in_bytes;
+    skip_empty_archives;
+    destination;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_eventhub ?id ?status ?timeouts ~message_retention ~name
+    ~namespace_name ~partition_count ~resource_group_name
+    ~capture_description () : azurerm_eventhub =
+  {
+    id;
+    message_retention;
+    name;
+    namespace_name;
+    partition_count;
+    resource_group_name;
+    status;
+    capture_description;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -62,25 +101,16 @@ type t = {
   status : string prop;
 }
 
-let azurerm_eventhub ?id ?status ?timeouts ~message_retention ~name
-    ~namespace_name ~partition_count ~resource_group_name
+let register ?tf_module ?id ?status ?timeouts ~message_retention
+    ~name ~namespace_name ~partition_count ~resource_group_name
     ~capture_description __resource_id =
   let __resource_type = "azurerm_eventhub" in
   let __resource =
-    ({
-       id;
-       message_retention;
-       name;
-       namespace_name;
-       partition_count;
-       resource_group_name;
-       status;
-       capture_description;
-       timeouts;
-     }
-      : azurerm_eventhub)
+    azurerm_eventhub ?id ?status ?timeouts ~message_retention ~name
+      ~namespace_name ~partition_count ~resource_group_name
+      ~capture_description ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventhub __resource);
   let __resource_attributes =
     ({

@@ -19,6 +19,18 @@ type aws_lightsail_lb = {
 [@@deriving yojson_of]
 (** aws_lightsail_lb *)
 
+let aws_lightsail_lb ?health_check_path ?id ?ip_address_type ?tags
+    ?tags_all ~instance_port ~name () : aws_lightsail_lb =
+  {
+    health_check_path;
+    id;
+    instance_port;
+    ip_address_type;
+    name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   created_at : string prop;
@@ -35,22 +47,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_lightsail_lb ?health_check_path ?id ?ip_address_type ?tags
+let register ?tf_module ?health_check_path ?id ?ip_address_type ?tags
     ?tags_all ~instance_port ~name __resource_id =
   let __resource_type = "aws_lightsail_lb" in
   let __resource =
-    ({
-       health_check_path;
-       id;
-       instance_port;
-       ip_address_type;
-       name;
-       tags;
-       tags_all;
-     }
-      : aws_lightsail_lb)
+    aws_lightsail_lb ?health_check_path ?id ?ip_address_type ?tags
+      ?tags_all ~instance_port ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_lb __resource);
   let __resource_attributes =
     ({

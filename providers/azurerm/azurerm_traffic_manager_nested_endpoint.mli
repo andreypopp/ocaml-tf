@@ -2,10 +2,57 @@
 
 open! Tf.Prelude
 
-type azurerm_traffic_manager_nested_endpoint__custom_header
-type azurerm_traffic_manager_nested_endpoint__subnet
-type azurerm_traffic_manager_nested_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type custom_header
+
+val custom_header :
+  name:string prop -> value:string prop -> unit -> custom_header
+
+type subnet
+
+val subnet :
+  ?last:string prop ->
+  ?scope:float prop ->
+  first:string prop ->
+  unit ->
+  subnet
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_traffic_manager_nested_endpoint
+
+val azurerm_traffic_manager_nested_endpoint :
+  ?enabled:bool prop ->
+  ?endpoint_location:string prop ->
+  ?geo_mappings:string prop list ->
+  ?id:string prop ->
+  ?minimum_required_child_endpoints_ipv4:float prop ->
+  ?minimum_required_child_endpoints_ipv6:float prop ->
+  ?priority:float prop ->
+  ?weight:float prop ->
+  ?timeouts:timeouts ->
+  minimum_child_endpoints:float prop ->
+  name:string prop ->
+  profile_id:string prop ->
+  target_resource_id:string prop ->
+  custom_header:custom_header list ->
+  subnet:subnet list ->
+  unit ->
+  azurerm_traffic_manager_nested_endpoint
+
+val yojson_of_azurerm_traffic_manager_nested_endpoint :
+  azurerm_traffic_manager_nested_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enabled : bool prop;
@@ -22,7 +69,8 @@ type t = private {
   weight : float prop;
 }
 
-val azurerm_traffic_manager_nested_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?endpoint_location:string prop ->
   ?geo_mappings:string prop list ->
@@ -31,13 +79,12 @@ val azurerm_traffic_manager_nested_endpoint :
   ?minimum_required_child_endpoints_ipv6:float prop ->
   ?priority:float prop ->
   ?weight:float prop ->
-  ?timeouts:azurerm_traffic_manager_nested_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   minimum_child_endpoints:float prop ->
   name:string prop ->
   profile_id:string prop ->
   target_resource_id:string prop ->
-  custom_header:
-    azurerm_traffic_manager_nested_endpoint__custom_header list ->
-  subnet:azurerm_traffic_manager_nested_endpoint__subnet list ->
+  custom_header:custom_header list ->
+  subnet:subnet list ->
   string ->
   t

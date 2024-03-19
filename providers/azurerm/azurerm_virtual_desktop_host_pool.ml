@@ -4,33 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_desktop_host_pool__scheduled_agent_updates__schedule = {
+type scheduled_agent_updates__schedule = {
   day_of_week : string prop;  (** day_of_week *)
   hour_of_day : float prop;  (** hour_of_day *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_desktop_host_pool__scheduled_agent_updates__schedule *)
+(** scheduled_agent_updates__schedule *)
 
-type azurerm_virtual_desktop_host_pool__scheduled_agent_updates = {
+type scheduled_agent_updates = {
   enabled : bool prop option; [@option]  (** enabled *)
   timezone : string prop option; [@option]  (** timezone *)
   use_session_host_timezone : bool prop option; [@option]
       (** use_session_host_timezone *)
-  schedule :
-    azurerm_virtual_desktop_host_pool__scheduled_agent_updates__schedule
-    list;
+  schedule : scheduled_agent_updates__schedule list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_desktop_host_pool__scheduled_agent_updates *)
+(** scheduled_agent_updates *)
 
-type azurerm_virtual_desktop_host_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_desktop_host_pool__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_desktop_host_pool = {
   custom_rdp_properties : string prop option; [@option]
@@ -55,12 +53,51 @@ type azurerm_virtual_desktop_host_pool = {
   validate_environment : bool prop option; [@option]
       (** validate_environment *)
   vm_template : string prop option; [@option]  (** vm_template *)
-  scheduled_agent_updates :
-    azurerm_virtual_desktop_host_pool__scheduled_agent_updates list;
-  timeouts : azurerm_virtual_desktop_host_pool__timeouts option;
+  scheduled_agent_updates : scheduled_agent_updates list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_host_pool *)
+
+let scheduled_agent_updates__schedule ~day_of_week ~hour_of_day () :
+    scheduled_agent_updates__schedule =
+  { day_of_week; hour_of_day }
+
+let scheduled_agent_updates ?enabled ?timezone
+    ?use_session_host_timezone ~schedule () : scheduled_agent_updates
+    =
+  { enabled; timezone; use_session_host_timezone; schedule }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
+    ?description ?friendly_name ?id ?maximum_sessions_allowed
+    ?personal_desktop_assignment_type ?preferred_app_group_type
+    ?start_vm_on_connect ?tags ?validate_environment ?vm_template
+    ?timeouts ~load_balancer_type ~location ~name
+    ~resource_group_name ~type_ ~scheduled_agent_updates () :
+    azurerm_virtual_desktop_host_pool =
+  {
+    custom_rdp_properties;
+    description;
+    friendly_name;
+    id;
+    load_balancer_type;
+    location;
+    maximum_sessions_allowed;
+    name;
+    personal_desktop_assignment_type;
+    preferred_app_group_type;
+    resource_group_name;
+    start_vm_on_connect;
+    tags;
+    type_;
+    validate_environment;
+    vm_template;
+    scheduled_agent_updates;
+    timeouts;
+  }
 
 type t = {
   custom_rdp_properties : string prop;
@@ -81,8 +118,8 @@ type t = {
   vm_template : string prop;
 }
 
-let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
-    ?description ?friendly_name ?id ?maximum_sessions_allowed
+let register ?tf_module ?custom_rdp_properties ?description
+    ?friendly_name ?id ?maximum_sessions_allowed
     ?personal_desktop_assignment_type ?preferred_app_group_type
     ?start_vm_on_connect ?tags ?validate_environment ?vm_template
     ?timeouts ~load_balancer_type ~location ~name
@@ -90,29 +127,14 @@ let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
     __resource_id =
   let __resource_type = "azurerm_virtual_desktop_host_pool" in
   let __resource =
-    ({
-       custom_rdp_properties;
-       description;
-       friendly_name;
-       id;
-       load_balancer_type;
-       location;
-       maximum_sessions_allowed;
-       name;
-       personal_desktop_assignment_type;
-       preferred_app_group_type;
-       resource_group_name;
-       start_vm_on_connect;
-       tags;
-       type_;
-       validate_environment;
-       vm_template;
-       scheduled_agent_updates;
-       timeouts;
-     }
-      : azurerm_virtual_desktop_host_pool)
+    azurerm_virtual_desktop_host_pool ?custom_rdp_properties
+      ?description ?friendly_name ?id ?maximum_sessions_allowed
+      ?personal_desktop_assignment_type ?preferred_app_group_type
+      ?start_vm_on_connect ?tags ?validate_environment ?vm_template
+      ?timeouts ~load_balancer_type ~location ~name
+      ~resource_group_name ~type_ ~scheduled_agent_updates ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_desktop_host_pool __resource);
   let __resource_attributes =
     ({

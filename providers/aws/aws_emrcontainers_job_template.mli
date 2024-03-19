@@ -2,26 +2,127 @@
 
 open! Tf.Prelude
 
-type aws_emrcontainers_job_template__job_template_data__configuration_overrides__application_configuration__configurations
+(** RESOURCE SERIALIZATION *)
 
-type aws_emrcontainers_job_template__job_template_data__configuration_overrides__application_configuration
+type job_template_data__configuration_overrides__application_configuration__configurations
 
-type aws_emrcontainers_job_template__job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration
+val job_template_data__configuration_overrides__application_configuration__configurations :
+  ?classification:string prop ->
+  ?properties:(string * string prop) list ->
+  unit ->
+  job_template_data__configuration_overrides__application_configuration__configurations
 
-type aws_emrcontainers_job_template__job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration
+type job_template_data__configuration_overrides__application_configuration
 
-type aws_emrcontainers_job_template__job_template_data__configuration_overrides__monitoring_configuration
+val job_template_data__configuration_overrides__application_configuration :
+  ?properties:(string * string prop) list ->
+  classification:string prop ->
+  configurations:
+    job_template_data__configuration_overrides__application_configuration__configurations
+    list ->
+  unit ->
+  job_template_data__configuration_overrides__application_configuration
 
-type aws_emrcontainers_job_template__job_template_data__configuration_overrides
+type job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration
 
-type aws_emrcontainers_job_template__job_template_data__job_driver__spark_sql_job_driver
+val job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration :
+  ?log_stream_name_prefix:string prop ->
+  log_group_name:string prop ->
+  unit ->
+  job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration
 
-type aws_emrcontainers_job_template__job_template_data__job_driver__spark_submit_job_driver
+type job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration
 
-type aws_emrcontainers_job_template__job_template_data__job_driver
-type aws_emrcontainers_job_template__job_template_data
-type aws_emrcontainers_job_template__timeouts
+val job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration :
+  log_uri:string prop ->
+  unit ->
+  job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration
+
+type job_template_data__configuration_overrides__monitoring_configuration
+
+val job_template_data__configuration_overrides__monitoring_configuration :
+  ?persistent_app_ui:string prop ->
+  cloud_watch_monitoring_configuration:
+    job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration
+    list ->
+  s3_monitoring_configuration:
+    job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration
+    list ->
+  unit ->
+  job_template_data__configuration_overrides__monitoring_configuration
+
+type job_template_data__configuration_overrides
+
+val job_template_data__configuration_overrides :
+  application_configuration:
+    job_template_data__configuration_overrides__application_configuration
+    list ->
+  monitoring_configuration:
+    job_template_data__configuration_overrides__monitoring_configuration
+    list ->
+  unit ->
+  job_template_data__configuration_overrides
+
+type job_template_data__job_driver__spark_sql_job_driver
+
+val job_template_data__job_driver__spark_sql_job_driver :
+  ?entry_point:string prop ->
+  ?spark_sql_parameters:string prop ->
+  unit ->
+  job_template_data__job_driver__spark_sql_job_driver
+
+type job_template_data__job_driver__spark_submit_job_driver
+
+val job_template_data__job_driver__spark_submit_job_driver :
+  ?entry_point_arguments:string prop list ->
+  ?spark_submit_parameters:string prop ->
+  entry_point:string prop ->
+  unit ->
+  job_template_data__job_driver__spark_submit_job_driver
+
+type job_template_data__job_driver
+
+val job_template_data__job_driver :
+  spark_sql_job_driver:
+    job_template_data__job_driver__spark_sql_job_driver list ->
+  spark_submit_job_driver:
+    job_template_data__job_driver__spark_submit_job_driver list ->
+  unit ->
+  job_template_data__job_driver
+
+type job_template_data
+
+val job_template_data :
+  ?job_tags:(string * string prop) list ->
+  execution_role_arn:string prop ->
+  release_label:string prop ->
+  configuration_overrides:
+    job_template_data__configuration_overrides list ->
+  job_driver:job_template_data__job_driver list ->
+  unit ->
+  job_template_data
+
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_emrcontainers_job_template
+
+val aws_emrcontainers_job_template :
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  job_template_data:job_template_data list ->
+  unit ->
+  aws_emrcontainers_job_template
+
+val yojson_of_aws_emrcontainers_job_template :
+  aws_emrcontainers_job_template -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -32,14 +133,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_emrcontainers_job_template :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_emrcontainers_job_template__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  job_template_data:
-    aws_emrcontainers_job_template__job_template_data list ->
+  job_template_data:job_template_data list ->
   string ->
   t

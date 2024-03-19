@@ -2,10 +2,48 @@
 
 open! Tf.Prelude
 
-type aws_ami_copy__ebs_block_device
-type aws_ami_copy__ephemeral_block_device
-type aws_ami_copy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type ebs_block_device
+
+val ebs_block_device : unit -> ebs_block_device
+
+type ephemeral_block_device
+
+val ephemeral_block_device : unit -> ephemeral_block_device
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_ami_copy
+
+val aws_ami_copy :
+  ?deprecation_time:string prop ->
+  ?description:string prop ->
+  ?destination_outpost_arn:string prop ->
+  ?encrypted:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  source_ami_id:string prop ->
+  source_ami_region:string prop ->
+  ebs_block_device:ebs_block_device list ->
+  ephemeral_block_device:ephemeral_block_device list ->
+  unit ->
+  aws_ami_copy
+
+val yojson_of_aws_ami_copy : aws_ami_copy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   architecture : string prop;
@@ -43,7 +81,8 @@ type t = private {
   virtualization_type : string prop;
 }
 
-val aws_ami_copy :
+val register :
+  ?tf_module:tf_module ->
   ?deprecation_time:string prop ->
   ?description:string prop ->
   ?destination_outpost_arn:string prop ->
@@ -52,11 +91,11 @@ val aws_ami_copy :
   ?kms_key_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_ami_copy__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   source_ami_id:string prop ->
   source_ami_region:string prop ->
-  ebs_block_device:aws_ami_copy__ebs_block_device list ->
-  ephemeral_block_device:aws_ami_copy__ephemeral_block_device list ->
+  ebs_block_device:ebs_block_device list ->
+  ephemeral_block_device:ephemeral_block_device list ->
   string ->
   t

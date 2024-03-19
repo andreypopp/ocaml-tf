@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_synapse_sql_pool__restore = {
+type restore = {
   point_in_time : string prop;  (** point_in_time *)
   source_database_id : string prop;  (** source_database_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_synapse_sql_pool__restore *)
+(** restore *)
 
-type azurerm_synapse_sql_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_synapse_sql_pool__timeouts *)
+(** timeouts *)
 
 type azurerm_synapse_sql_pool = {
   collation : string prop option; [@option]  (** collation *)
@@ -35,11 +35,37 @@ type azurerm_synapse_sql_pool = {
       (** storage_account_type *)
   synapse_workspace_id : string prop;  (** synapse_workspace_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  restore : azurerm_synapse_sql_pool__restore list;
-  timeouts : azurerm_synapse_sql_pool__timeouts option;
+  restore : restore list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_sql_pool *)
+
+let restore ~point_in_time ~source_database_id () : restore =
+  { point_in_time; source_database_id }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_synapse_sql_pool ?collation ?create_mode ?data_encrypted
+    ?geo_backup_policy_enabled ?id ?recovery_database_id
+    ?storage_account_type ?tags ?timeouts ~name ~sku_name
+    ~synapse_workspace_id ~restore () : azurerm_synapse_sql_pool =
+  {
+    collation;
+    create_mode;
+    data_encrypted;
+    geo_backup_policy_enabled;
+    id;
+    name;
+    recovery_database_id;
+    sku_name;
+    storage_account_type;
+    synapse_workspace_id;
+    tags;
+    restore;
+    timeouts;
+  }
 
 type t = {
   collation : string prop;
@@ -55,30 +81,18 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_synapse_sql_pool ?collation ?create_mode ?data_encrypted
+let register ?tf_module ?collation ?create_mode ?data_encrypted
     ?geo_backup_policy_enabled ?id ?recovery_database_id
     ?storage_account_type ?tags ?timeouts ~name ~sku_name
     ~synapse_workspace_id ~restore __resource_id =
   let __resource_type = "azurerm_synapse_sql_pool" in
   let __resource =
-    ({
-       collation;
-       create_mode;
-       data_encrypted;
-       geo_backup_policy_enabled;
-       id;
-       name;
-       recovery_database_id;
-       sku_name;
-       storage_account_type;
-       synapse_workspace_id;
-       tags;
-       restore;
-       timeouts;
-     }
-      : azurerm_synapse_sql_pool)
+    azurerm_synapse_sql_pool ?collation ?create_mode ?data_encrypted
+      ?geo_backup_policy_enabled ?id ?recovery_database_id
+      ?storage_account_type ?tags ?timeouts ~name ~sku_name
+      ~synapse_workspace_id ~restore ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_sql_pool __resource);
   let __resource_attributes =
     ({

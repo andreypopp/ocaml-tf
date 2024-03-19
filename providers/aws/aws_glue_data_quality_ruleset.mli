@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_glue_data_quality_ruleset__target_table
+(** RESOURCE SERIALIZATION *)
+
+type target_table
+
+val target_table :
+  ?catalog_id:string prop ->
+  database_name:string prop ->
+  table_name:string prop ->
+  unit ->
+  target_table
+
 type aws_glue_data_quality_ruleset
+
+val aws_glue_data_quality_ruleset :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  ruleset:string prop ->
+  target_table:target_table list ->
+  unit ->
+  aws_glue_data_quality_ruleset
+
+val yojson_of_aws_glue_data_quality_ruleset :
+  aws_glue_data_quality_ruleset -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,13 +44,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_glue_data_quality_ruleset :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
   ruleset:string prop ->
-  target_table:aws_glue_data_quality_ruleset__target_table list ->
+  target_table:target_table list ->
   string ->
   t

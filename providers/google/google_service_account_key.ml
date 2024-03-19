@@ -22,6 +22,19 @@ type google_service_account_key = {
 [@@deriving yojson_of]
 (** google_service_account_key *)
 
+let google_service_account_key ?id ?keepers ?key_algorithm
+    ?private_key_type ?public_key_data ?public_key_type
+    ~service_account_id () : google_service_account_key =
+  {
+    id;
+    keepers;
+    key_algorithm;
+    private_key_type;
+    public_key_data;
+    public_key_type;
+    service_account_id;
+  }
+
 type t = {
   id : string prop;
   keepers : (string * string) list prop;
@@ -37,23 +50,16 @@ type t = {
   valid_before : string prop;
 }
 
-let google_service_account_key ?id ?keepers ?key_algorithm
-    ?private_key_type ?public_key_data ?public_key_type
-    ~service_account_id __resource_id =
+let register ?tf_module ?id ?keepers ?key_algorithm ?private_key_type
+    ?public_key_data ?public_key_type ~service_account_id
+    __resource_id =
   let __resource_type = "google_service_account_key" in
   let __resource =
-    ({
-       id;
-       keepers;
-       key_algorithm;
-       private_key_type;
-       public_key_data;
-       public_key_type;
-       service_account_id;
-     }
-      : google_service_account_key)
+    google_service_account_key ?id ?keepers ?key_algorithm
+      ?private_key_type ?public_key_data ?public_key_type
+      ~service_account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_service_account_key __resource);
   let __resource_attributes =
     ({

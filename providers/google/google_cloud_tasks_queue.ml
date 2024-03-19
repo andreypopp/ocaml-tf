@@ -4,8 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloud_tasks_queue__app_engine_routing_override = {
-  host : string prop;  (** The host that the task is sent to. *)
+type app_engine_routing_override = {
   instance : string prop option; [@option]
       (** App instance.
 
@@ -23,14 +22,7 @@ By default, the task is sent to the version which is the default version when th
 (** Overrides for task-level appEngineRouting. These settings apply only
 to App Engine tasks in this queue *)
 
-type google_cloud_tasks_queue__rate_limits = {
-  max_burst_size : float prop;
-      (** The max burst size.
-
-Max burst size limits how fast tasks in queue are processed when many tasks are
-in the queue and the rate is high. This field allows the queue to have a high
-rate so processing starts shortly after a task is enqueued, but still limits
-resource usage when many tasks are enqueued in a short period of time. *)
+type rate_limits = {
   max_concurrent_dispatches : float prop option; [@option]
       (** The maximum number of concurrent tasks that Cloud Tasks allows to
 be dispatched for this queue. After this threshold has been
@@ -52,7 +44,7 @@ The queue's actual dispatch rate is the result of:
   Unavailable) responses from the worker, high error rates, or to
   smooth sudden large traffic spikes. *)
 
-type google_cloud_tasks_queue__retry_config = {
+type retry_config = {
   max_attempts : float prop option; [@option]
       (** Number of attempts per task.
 
@@ -90,7 +82,7 @@ specifies that the task should be retried. *)
 [@@deriving yojson_of]
 (** Settings that determine the retry behavior. *)
 
-type google_cloud_tasks_queue__stackdriver_logging_config = {
+type stackdriver_logging_config = {
   sampling_ratio : float prop;
       (** Specifies the fraction of operations to write to Stackdriver Logging.
 This field may contain any value between 0.0 and 1.0, inclusive. 0.0 is the
@@ -99,29 +91,67 @@ default and means that no operations are logged. *)
 [@@deriving yojson_of]
 (** Configuration options for writing logs to Stackdriver Logging. *)
 
-type google_cloud_tasks_queue__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloud_tasks_queue__timeouts *)
+(** timeouts *)
 
 type google_cloud_tasks_queue = {
   id : string prop option; [@option]  (** id *)
   location : string prop;  (** The location of the queue *)
   name : string prop option; [@option]  (** The queue name. *)
   project : string prop option; [@option]  (** project *)
-  app_engine_routing_override :
-    google_cloud_tasks_queue__app_engine_routing_override list;
-  rate_limits : google_cloud_tasks_queue__rate_limits list;
-  retry_config : google_cloud_tasks_queue__retry_config list;
-  stackdriver_logging_config :
-    google_cloud_tasks_queue__stackdriver_logging_config list;
-  timeouts : google_cloud_tasks_queue__timeouts option;
+  app_engine_routing_override : app_engine_routing_override list;
+  rate_limits : rate_limits list;
+  retry_config : retry_config list;
+  stackdriver_logging_config : stackdriver_logging_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloud_tasks_queue *)
+
+let app_engine_routing_override ?instance ?service ?version () :
+    app_engine_routing_override =
+  { instance; service; version }
+
+let rate_limits ?max_concurrent_dispatches ?max_dispatches_per_second
+    () : rate_limits =
+  { max_concurrent_dispatches; max_dispatches_per_second }
+
+let retry_config ?max_attempts ?max_backoff ?max_doublings
+    ?max_retry_duration ?min_backoff () : retry_config =
+  {
+    max_attempts;
+    max_backoff;
+    max_doublings;
+    max_retry_duration;
+    min_backoff;
+  }
+
+let stackdriver_logging_config ~sampling_ratio () :
+    stackdriver_logging_config =
+  { sampling_ratio }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_cloud_tasks_queue ?id ?name ?project ?timeouts ~location
+    ~app_engine_routing_override ~rate_limits ~retry_config
+    ~stackdriver_logging_config () : google_cloud_tasks_queue =
+  {
+    id;
+    location;
+    name;
+    project;
+    app_engine_routing_override;
+    rate_limits;
+    retry_config;
+    stackdriver_logging_config;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -130,25 +160,16 @@ type t = {
   project : string prop;
 }
 
-let google_cloud_tasks_queue ?id ?name ?project ?timeouts ~location
+let register ?tf_module ?id ?name ?project ?timeouts ~location
     ~app_engine_routing_override ~rate_limits ~retry_config
     ~stackdriver_logging_config __resource_id =
   let __resource_type = "google_cloud_tasks_queue" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       project;
-       app_engine_routing_override;
-       rate_limits;
-       retry_config;
-       stackdriver_logging_config;
-       timeouts;
-     }
-      : google_cloud_tasks_queue)
+    google_cloud_tasks_queue ?id ?name ?project ?timeouts ~location
+      ~app_engine_routing_override ~rate_limits ~retry_config
+      ~stackdriver_logging_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_tasks_queue __resource);
   let __resource_attributes =
     ({

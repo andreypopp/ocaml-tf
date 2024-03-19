@@ -2,16 +2,83 @@
 
 open! Tf.Prelude
 
-type aws_fms_policy__exclude_map
-type aws_fms_policy__include_map
+(** RESOURCE SERIALIZATION *)
 
-type aws_fms_policy__security_service_policy_data__policy_option__network_firewall_policy
+type exclude_map
 
-type aws_fms_policy__security_service_policy_data__policy_option__third_party_firewall_policy
+val exclude_map :
+  ?account:string prop list ->
+  ?orgunit:string prop list ->
+  unit ->
+  exclude_map
 
-type aws_fms_policy__security_service_policy_data__policy_option
-type aws_fms_policy__security_service_policy_data
+type include_map
+
+val include_map :
+  ?account:string prop list ->
+  ?orgunit:string prop list ->
+  unit ->
+  include_map
+
+type security_service_policy_data__policy_option__network_firewall_policy
+
+val security_service_policy_data__policy_option__network_firewall_policy :
+  ?firewall_deployment_model:string prop ->
+  unit ->
+  security_service_policy_data__policy_option__network_firewall_policy
+
+type security_service_policy_data__policy_option__third_party_firewall_policy
+
+val security_service_policy_data__policy_option__third_party_firewall_policy :
+  ?firewall_deployment_model:string prop ->
+  unit ->
+  security_service_policy_data__policy_option__third_party_firewall_policy
+
+type security_service_policy_data__policy_option
+
+val security_service_policy_data__policy_option :
+  network_firewall_policy:
+    security_service_policy_data__policy_option__network_firewall_policy
+    list ->
+  third_party_firewall_policy:
+    security_service_policy_data__policy_option__third_party_firewall_policy
+    list ->
+  unit ->
+  security_service_policy_data__policy_option
+
+type security_service_policy_data
+
+val security_service_policy_data :
+  ?managed_service_data:string prop ->
+  type_:string prop ->
+  policy_option:security_service_policy_data__policy_option list ->
+  unit ->
+  security_service_policy_data
+
 type aws_fms_policy
+
+val aws_fms_policy :
+  ?delete_all_policy_resources:bool prop ->
+  ?delete_unused_fm_managed_resources:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?remediation_enabled:bool prop ->
+  ?resource_tags:(string * string prop) list ->
+  ?resource_type:string prop ->
+  ?resource_type_list:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  exclude_resource_tags:bool prop ->
+  name:string prop ->
+  exclude_map:exclude_map list ->
+  include_map:include_map list ->
+  security_service_policy_data:security_service_policy_data list ->
+  unit ->
+  aws_fms_policy
+
+val yojson_of_aws_fms_policy : aws_fms_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -30,7 +97,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_fms_policy :
+val register :
+  ?tf_module:tf_module ->
   ?delete_all_policy_resources:bool prop ->
   ?delete_unused_fm_managed_resources:bool prop ->
   ?description:string prop ->
@@ -43,9 +111,8 @@ val aws_fms_policy :
   ?tags_all:(string * string prop) list ->
   exclude_resource_tags:bool prop ->
   name:string prop ->
-  exclude_map:aws_fms_policy__exclude_map list ->
-  include_map:aws_fms_policy__include_map list ->
-  security_service_policy_data:
-    aws_fms_policy__security_service_policy_data list ->
+  exclude_map:exclude_map list ->
+  include_map:include_map list ->
+  security_service_policy_data:security_service_policy_data list ->
   string ->
   t

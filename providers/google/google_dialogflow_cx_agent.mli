@@ -2,18 +2,101 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_agent__advanced_settings__audio_export_gcs_destination
+(** RESOURCE SERIALIZATION *)
 
-type google_dialogflow_cx_agent__advanced_settings__dtmf_settings
-type google_dialogflow_cx_agent__advanced_settings
+type advanced_settings__audio_export_gcs_destination
 
-type google_dialogflow_cx_agent__git_integration_settings__github_settings
+val advanced_settings__audio_export_gcs_destination :
+  ?uri:string prop ->
+  unit ->
+  advanced_settings__audio_export_gcs_destination
 
-type google_dialogflow_cx_agent__git_integration_settings
-type google_dialogflow_cx_agent__speech_to_text_settings
-type google_dialogflow_cx_agent__text_to_speech_settings
-type google_dialogflow_cx_agent__timeouts
+type advanced_settings__dtmf_settings
+
+val advanced_settings__dtmf_settings :
+  ?enabled:bool prop ->
+  ?finish_digit:string prop ->
+  ?max_digits:float prop ->
+  unit ->
+  advanced_settings__dtmf_settings
+
+type advanced_settings
+
+val advanced_settings :
+  audio_export_gcs_destination:
+    advanced_settings__audio_export_gcs_destination list ->
+  dtmf_settings:advanced_settings__dtmf_settings list ->
+  unit ->
+  advanced_settings
+
+type git_integration_settings__github_settings
+
+val git_integration_settings__github_settings :
+  ?access_token:string prop ->
+  ?branches:string prop list ->
+  ?display_name:string prop ->
+  ?repository_uri:string prop ->
+  ?tracking_branch:string prop ->
+  unit ->
+  git_integration_settings__github_settings
+
+type git_integration_settings
+
+val git_integration_settings :
+  github_settings:git_integration_settings__github_settings list ->
+  unit ->
+  git_integration_settings
+
+type speech_to_text_settings
+
+val speech_to_text_settings :
+  ?enable_speech_adaptation:bool prop ->
+  unit ->
+  speech_to_text_settings
+
+type text_to_speech_settings
+
+val text_to_speech_settings :
+  ?synthesize_speech_configs:string prop ->
+  unit ->
+  text_to_speech_settings
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_dialogflow_cx_agent
+
+val google_dialogflow_cx_agent :
+  ?avatar_uri:string prop ->
+  ?description:string prop ->
+  ?enable_spell_correction:bool prop ->
+  ?enable_stackdriver_logging:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?security_settings:string prop ->
+  ?supported_language_codes:string prop list ->
+  ?timeouts:timeouts ->
+  default_language_code:string prop ->
+  display_name:string prop ->
+  location:string prop ->
+  time_zone:string prop ->
+  advanced_settings:advanced_settings list ->
+  git_integration_settings:git_integration_settings list ->
+  speech_to_text_settings:speech_to_text_settings list ->
+  text_to_speech_settings:text_to_speech_settings list ->
+  unit ->
+  google_dialogflow_cx_agent
+
+val yojson_of_google_dialogflow_cx_agent :
+  google_dialogflow_cx_agent -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   avatar_uri : string prop;
@@ -32,7 +115,8 @@ type t = private {
   time_zone : string prop;
 }
 
-val google_dialogflow_cx_agent :
+val register :
+  ?tf_module:tf_module ->
   ?avatar_uri:string prop ->
   ?description:string prop ->
   ?enable_spell_correction:bool prop ->
@@ -41,18 +125,14 @@ val google_dialogflow_cx_agent :
   ?project:string prop ->
   ?security_settings:string prop ->
   ?supported_language_codes:string prop list ->
-  ?timeouts:google_dialogflow_cx_agent__timeouts ->
+  ?timeouts:timeouts ->
   default_language_code:string prop ->
   display_name:string prop ->
   location:string prop ->
   time_zone:string prop ->
-  advanced_settings:
-    google_dialogflow_cx_agent__advanced_settings list ->
-  git_integration_settings:
-    google_dialogflow_cx_agent__git_integration_settings list ->
-  speech_to_text_settings:
-    google_dialogflow_cx_agent__speech_to_text_settings list ->
-  text_to_speech_settings:
-    google_dialogflow_cx_agent__text_to_speech_settings list ->
+  advanced_settings:advanced_settings list ->
+  git_integration_settings:git_integration_settings list ->
+  speech_to_text_settings:speech_to_text_settings list ->
+  text_to_speech_settings:text_to_speech_settings list ->
   string ->
   t

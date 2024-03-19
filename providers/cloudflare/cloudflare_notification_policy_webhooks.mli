@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_notification_policy_webhooks
+
+val cloudflare_notification_policy_webhooks :
+  ?id:string prop ->
+  ?secret:string prop ->
+  ?url:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  unit ->
+  cloudflare_notification_policy_webhooks
+
+val yojson_of_cloudflare_notification_policy_webhooks :
+  cloudflare_notification_policy_webhooks -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -16,7 +32,8 @@ type t = private {
   url : string prop;
 }
 
-val cloudflare_notification_policy_webhooks :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?secret:string prop ->
   ?url:string prop ->

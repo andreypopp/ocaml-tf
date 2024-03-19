@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_security_center_contact__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_security_center_contact__timeouts *)
+(** timeouts *)
 
 type azurerm_security_center_contact = {
   alert_notifications : bool prop;  (** alert_notifications *)
@@ -20,10 +20,26 @@ type azurerm_security_center_contact = {
   id : string prop option; [@option]  (** id *)
   name : string prop option; [@option]  (** name *)
   phone : string prop option; [@option]  (** phone *)
-  timeouts : azurerm_security_center_contact__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_contact *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_security_center_contact ?id ?name ?phone ?timeouts
+    ~alert_notifications ~alerts_to_admins ~email () :
+    azurerm_security_center_contact =
+  {
+    alert_notifications;
+    alerts_to_admins;
+    email;
+    id;
+    name;
+    phone;
+    timeouts;
+  }
 
 type t = {
   alert_notifications : bool prop;
@@ -34,22 +50,14 @@ type t = {
   phone : string prop;
 }
 
-let azurerm_security_center_contact ?id ?name ?phone ?timeouts
+let register ?tf_module ?id ?name ?phone ?timeouts
     ~alert_notifications ~alerts_to_admins ~email __resource_id =
   let __resource_type = "azurerm_security_center_contact" in
   let __resource =
-    ({
-       alert_notifications;
-       alerts_to_admins;
-       email;
-       id;
-       name;
-       phone;
-       timeouts;
-     }
-      : azurerm_security_center_contact)
+    azurerm_security_center_contact ?id ?name ?phone ?timeouts
+      ~alert_notifications ~alerts_to_admins ~email ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_contact __resource);
   let __resource_attributes =
     ({

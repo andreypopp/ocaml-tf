@@ -21,6 +21,20 @@ type aws_ec2_transit_gateway_vpc_attachment_accepter = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_vpc_attachment_accepter *)
 
+let aws_ec2_transit_gateway_vpc_attachment_accepter ?id ?tags
+    ?tags_all ?transit_gateway_default_route_table_association
+    ?transit_gateway_default_route_table_propagation
+    ~transit_gateway_attachment_id () :
+    aws_ec2_transit_gateway_vpc_attachment_accepter =
+  {
+    id;
+    tags;
+    tags_all;
+    transit_gateway_attachment_id;
+    transit_gateway_default_route_table_association;
+    transit_gateway_default_route_table_propagation;
+  }
+
 type t = {
   appliance_mode_support : string prop;
   dns_support : string prop;
@@ -37,25 +51,20 @@ type t = {
   vpc_owner_id : string prop;
 }
 
-let aws_ec2_transit_gateway_vpc_attachment_accepter ?id ?tags
-    ?tags_all ?transit_gateway_default_route_table_association
+let register ?tf_module ?id ?tags ?tags_all
+    ?transit_gateway_default_route_table_association
     ?transit_gateway_default_route_table_propagation
     ~transit_gateway_attachment_id __resource_id =
   let __resource_type =
     "aws_ec2_transit_gateway_vpc_attachment_accepter"
   in
   let __resource =
-    ({
-       id;
-       tags;
-       tags_all;
-       transit_gateway_attachment_id;
-       transit_gateway_default_route_table_association;
-       transit_gateway_default_route_table_propagation;
-     }
-      : aws_ec2_transit_gateway_vpc_attachment_accepter)
+    aws_ec2_transit_gateway_vpc_attachment_accepter ?id ?tags
+      ?tags_all ?transit_gateway_default_route_table_association
+      ?transit_gateway_default_route_table_propagation
+      ~transit_gateway_attachment_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_vpc_attachment_accepter
        __resource);
   let __resource_attributes =

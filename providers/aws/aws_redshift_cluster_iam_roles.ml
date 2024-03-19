@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_redshift_cluster_iam_roles__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_redshift_cluster_iam_roles__timeouts *)
+(** timeouts *)
 
 type aws_redshift_cluster_iam_roles = {
   cluster_identifier : string prop;  (** cluster_identifier *)
@@ -19,10 +19,24 @@ type aws_redshift_cluster_iam_roles = {
   iam_role_arns : string prop list option; [@option]
       (** iam_role_arns *)
   id : string prop option; [@option]  (** id *)
-  timeouts : aws_redshift_cluster_iam_roles__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_redshift_cluster_iam_roles *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_redshift_cluster_iam_roles ?default_iam_role_arn
+    ?iam_role_arns ?id ?timeouts ~cluster_identifier () :
+    aws_redshift_cluster_iam_roles =
+  {
+    cluster_identifier;
+    default_iam_role_arn;
+    iam_role_arns;
+    id;
+    timeouts;
+  }
 
 type t = {
   cluster_identifier : string prop;
@@ -31,20 +45,14 @@ type t = {
   id : string prop;
 }
 
-let aws_redshift_cluster_iam_roles ?default_iam_role_arn
-    ?iam_role_arns ?id ?timeouts ~cluster_identifier __resource_id =
+let register ?tf_module ?default_iam_role_arn ?iam_role_arns ?id
+    ?timeouts ~cluster_identifier __resource_id =
   let __resource_type = "aws_redshift_cluster_iam_roles" in
   let __resource =
-    ({
-       cluster_identifier;
-       default_iam_role_arn;
-       iam_role_arns;
-       id;
-       timeouts;
-     }
-      : aws_redshift_cluster_iam_roles)
+    aws_redshift_cluster_iam_roles ?default_iam_role_arn
+      ?iam_role_arns ?id ?timeouts ~cluster_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_cluster_iam_roles __resource);
   let __resource_attributes =
     ({

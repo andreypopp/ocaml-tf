@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_azure_blob__sas_configuration
+(** RESOURCE SERIALIZATION *)
+
+type sas_configuration
+
+val sas_configuration :
+  token:string prop -> unit -> sas_configuration
+
 type aws_datasync_location_azure_blob
+
+val aws_datasync_location_azure_blob :
+  ?access_tier:string prop ->
+  ?blob_type:string prop ->
+  ?id:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  agent_arns:string prop list ->
+  authentication_type:string prop ->
+  container_url:string prop ->
+  sas_configuration:sas_configuration list ->
+  unit ->
+  aws_datasync_location_azure_blob
+
+val yojson_of_aws_datasync_location_azure_blob :
+  aws_datasync_location_azure_blob -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_tier : string prop;
@@ -19,7 +44,8 @@ type t = private {
   uri : string prop;
 }
 
-val aws_datasync_location_azure_blob :
+val register :
+  ?tf_module:tf_module ->
   ?access_tier:string prop ->
   ?blob_type:string prop ->
   ?id:string prop ->
@@ -29,7 +55,6 @@ val aws_datasync_location_azure_blob :
   agent_arns:string prop list ->
   authentication_type:string prop ->
   container_url:string prop ->
-  sas_configuration:
-    aws_datasync_location_azure_blob__sas_configuration list ->
+  sas_configuration:sas_configuration list ->
   string ->
   t

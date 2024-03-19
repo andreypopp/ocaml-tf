@@ -2,20 +2,46 @@
 
 open! Tf.Prelude
 
-type aws_autoscaling_traffic_source_attachment__timeouts
-type aws_autoscaling_traffic_source_attachment__traffic_source
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
+type traffic_source
+
+val traffic_source :
+  identifier:string prop ->
+  type_:string prop ->
+  unit ->
+  traffic_source
+
 type aws_autoscaling_traffic_source_attachment
+
+val aws_autoscaling_traffic_source_attachment :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  autoscaling_group_name:string prop ->
+  traffic_source:traffic_source list ->
+  unit ->
+  aws_autoscaling_traffic_source_attachment
+
+val yojson_of_aws_autoscaling_traffic_source_attachment :
+  aws_autoscaling_traffic_source_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   autoscaling_group_name : string prop;
   id : string prop;
 }
 
-val aws_autoscaling_traffic_source_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_autoscaling_traffic_source_attachment__timeouts ->
+  ?timeouts:timeouts ->
   autoscaling_group_name:string prop ->
-  traffic_source:
-    aws_autoscaling_traffic_source_attachment__traffic_source list ->
+  traffic_source:traffic_source list ->
   string ->
   t

@@ -4,23 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_dashboard_grafana__azure_monitor_workspace_integrations = {
+type azure_monitor_workspace_integrations = {
   resource_id : string prop;  (** resource_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_dashboard_grafana__azure_monitor_workspace_integrations *)
+(** azure_monitor_workspace_integrations *)
 
-type azurerm_dashboard_grafana__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_dashboard_grafana__identity *)
+(** identity *)
 
-type azurerm_dashboard_grafana__smtp = {
+type smtp = {
   enabled : bool prop option; [@option]  (** enabled *)
   from_address : string prop;  (** from_address *)
   from_name : string prop option; [@option]  (** from_name *)
@@ -32,16 +30,16 @@ type azurerm_dashboard_grafana__smtp = {
       (** verification_skip_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_dashboard_grafana__smtp *)
+(** smtp *)
 
-type azurerm_dashboard_grafana__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_dashboard_grafana__timeouts *)
+(** timeouts *)
 
 type azurerm_dashboard_grafana = {
   api_key_enabled : bool prop option; [@option]
@@ -64,14 +62,62 @@ type azurerm_dashboard_grafana = {
   zone_redundancy_enabled : bool prop option; [@option]
       (** zone_redundancy_enabled *)
   azure_monitor_workspace_integrations :
-    azurerm_dashboard_grafana__azure_monitor_workspace_integrations
-    list;
-  identity : azurerm_dashboard_grafana__identity list;
-  smtp : azurerm_dashboard_grafana__smtp list;
-  timeouts : azurerm_dashboard_grafana__timeouts option;
+    azure_monitor_workspace_integrations list;
+  identity : identity list;
+  smtp : smtp list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_dashboard_grafana *)
+
+let azure_monitor_workspace_integrations ~resource_id () :
+    azure_monitor_workspace_integrations =
+  { resource_id }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let smtp ?enabled ?from_name ?verification_skip_enabled ~from_address
+    ~host ~password ~start_tls_policy ~user () : smtp =
+  {
+    enabled;
+    from_address;
+    from_name;
+    host;
+    password;
+    start_tls_policy;
+    user;
+    verification_skip_enabled;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_dashboard_grafana ?api_key_enabled
+    ?auto_generated_domain_name_label_scope
+    ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
+    ?public_network_access_enabled ?sku ?tags
+    ?zone_redundancy_enabled ?timeouts ~location ~name
+    ~resource_group_name ~azure_monitor_workspace_integrations
+    ~identity ~smtp () : azurerm_dashboard_grafana =
+  {
+    api_key_enabled;
+    auto_generated_domain_name_label_scope;
+    deterministic_outbound_ip_enabled;
+    grafana_major_version;
+    id;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    sku;
+    tags;
+    zone_redundancy_enabled;
+    azure_monitor_workspace_integrations;
+    identity;
+    smtp;
+    timeouts;
+  }
 
 type t = {
   api_key_enabled : bool prop;
@@ -91,7 +137,7 @@ type t = {
   zone_redundancy_enabled : bool prop;
 }
 
-let azurerm_dashboard_grafana ?api_key_enabled
+let register ?tf_module ?api_key_enabled
     ?auto_generated_domain_name_label_scope
     ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
     ?public_network_access_enabled ?sku ?tags
@@ -100,27 +146,15 @@ let azurerm_dashboard_grafana ?api_key_enabled
     ~identity ~smtp __resource_id =
   let __resource_type = "azurerm_dashboard_grafana" in
   let __resource =
-    ({
-       api_key_enabled;
-       auto_generated_domain_name_label_scope;
-       deterministic_outbound_ip_enabled;
-       grafana_major_version;
-       id;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       sku;
-       tags;
-       zone_redundancy_enabled;
-       azure_monitor_workspace_integrations;
-       identity;
-       smtp;
-       timeouts;
-     }
-      : azurerm_dashboard_grafana)
+    azurerm_dashboard_grafana ?api_key_enabled
+      ?auto_generated_domain_name_label_scope
+      ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
+      ?public_network_access_enabled ?sku ?tags
+      ?zone_redundancy_enabled ?timeouts ~location ~name
+      ~resource_group_name ~azure_monitor_workspace_integrations
+      ~identity ~smtp ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dashboard_grafana __resource);
   let __resource_attributes =
     ({

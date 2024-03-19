@@ -2,10 +2,60 @@
 
 open! Tf.Prelude
 
-type google_network_management_connectivity_test__destination
-type google_network_management_connectivity_test__source
-type google_network_management_connectivity_test__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type destination
+
+val destination :
+  ?instance:string prop ->
+  ?ip_address:string prop ->
+  ?network:string prop ->
+  ?port:float prop ->
+  ?project_id:string prop ->
+  unit ->
+  destination
+
+type source
+
+val source :
+  ?instance:string prop ->
+  ?ip_address:string prop ->
+  ?network:string prop ->
+  ?network_type:string prop ->
+  ?port:float prop ->
+  ?project_id:string prop ->
+  unit ->
+  source
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_network_management_connectivity_test
+
+val google_network_management_connectivity_test :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?protocol:string prop ->
+  ?related_projects:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  destination:destination list ->
+  source:source list ->
+  unit ->
+  google_network_management_connectivity_test
+
+val yojson_of_google_network_management_connectivity_test :
+  google_network_management_connectivity_test -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -19,17 +69,17 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_network_management_connectivity_test :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?protocol:string prop ->
   ?related_projects:string prop list ->
-  ?timeouts:google_network_management_connectivity_test__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  destination:
-    google_network_management_connectivity_test__destination list ->
-  source:google_network_management_connectivity_test__source list ->
+  destination:destination list ->
+  source:source list ->
   string ->
   t

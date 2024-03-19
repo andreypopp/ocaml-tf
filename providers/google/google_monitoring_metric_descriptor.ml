@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_monitoring_metric_descriptor__labels = {
+type labels = {
   description : string prop option; [@option]
       (** A human-readable description for the label. *)
   key : string prop;
@@ -15,7 +15,7 @@ type google_monitoring_metric_descriptor__labels = {
 [@@deriving yojson_of]
 (** The set of labels that can be used to describe a specific instance of this metric type. In order to delete a label, the entire resource must be deleted, then created with the desired labels. *)
 
-type google_monitoring_metric_descriptor__metadata = {
+type metadata = {
   ingest_delay : string prop option; [@option]
       (** The delay of data points caused by ingestion. Data points older than this age are guaranteed to be ingested and available to be read, excluding data loss due to errors. In '[duration format](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf?&_ga=2.264881487.1507873253.1593446723-935052455.1591817775#google.protobuf.Duration)'. *)
   sample_period : string prop option; [@option]
@@ -24,13 +24,13 @@ type google_monitoring_metric_descriptor__metadata = {
 [@@deriving yojson_of]
 (** Metadata which can be used to guide usage of the metric. *)
 
-type google_monitoring_metric_descriptor__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_monitoring_metric_descriptor__timeouts *)
+(** timeouts *)
 
 type google_monitoring_metric_descriptor = {
   description : string prop;
@@ -68,12 +68,40 @@ More info can be found in the API documentation
 (https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.metricDescriptors). *)
   value_type : string prop;
       (** Whether the measurement is an integer, a floating-point number, etc. Some combinations of metricKind and valueType might not be supported. Possible values: [BOOL, INT64, DOUBLE, STRING, DISTRIBUTION] *)
-  labels : google_monitoring_metric_descriptor__labels list;
-  metadata : google_monitoring_metric_descriptor__metadata list;
-  timeouts : google_monitoring_metric_descriptor__timeouts option;
+  labels : labels list;
+  metadata : metadata list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_monitoring_metric_descriptor *)
+
+let labels ?description ?value_type ~key () : labels =
+  { description; key; value_type }
+
+let metadata ?ingest_delay ?sample_period () : metadata =
+  { ingest_delay; sample_period }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_monitoring_metric_descriptor ?id ?launch_stage ?project
+    ?unit ?timeouts ~description ~display_name ~metric_kind ~type_
+    ~value_type ~labels ~metadata () :
+    google_monitoring_metric_descriptor =
+  {
+    description;
+    display_name;
+    id;
+    launch_stage;
+    metric_kind;
+    project;
+    type_;
+    unit;
+    value_type;
+    labels;
+    metadata;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -89,28 +117,16 @@ type t = {
   value_type : string prop;
 }
 
-let google_monitoring_metric_descriptor ?id ?launch_stage ?project
-    ?unit ?timeouts ~description ~display_name ~metric_kind ~type_
-    ~value_type ~labels ~metadata __resource_id =
+let register ?tf_module ?id ?launch_stage ?project ?unit ?timeouts
+    ~description ~display_name ~metric_kind ~type_ ~value_type
+    ~labels ~metadata __resource_id =
   let __resource_type = "google_monitoring_metric_descriptor" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       launch_stage;
-       metric_kind;
-       project;
-       type_;
-       unit;
-       value_type;
-       labels;
-       metadata;
-       timeouts;
-     }
-      : google_monitoring_metric_descriptor)
+    google_monitoring_metric_descriptor ?id ?launch_stage ?project
+      ?unit ?timeouts ~description ~display_name ~metric_kind ~type_
+      ~value_type ~labels ~metadata ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_metric_descriptor __resource);
   let __resource_attributes =
     ({

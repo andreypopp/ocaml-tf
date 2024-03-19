@@ -12,20 +12,23 @@ type aws_wafregional_web_acl_association = {
 [@@deriving yojson_of]
 (** aws_wafregional_web_acl_association *)
 
+let aws_wafregional_web_acl_association ?id ~resource_arn ~web_acl_id
+    () : aws_wafregional_web_acl_association =
+  { id; resource_arn; web_acl_id }
+
 type t = {
   id : string prop;
   resource_arn : string prop;
   web_acl_id : string prop;
 }
 
-let aws_wafregional_web_acl_association ?id ~resource_arn ~web_acl_id
-    __resource_id =
+let register ?tf_module ?id ~resource_arn ~web_acl_id __resource_id =
   let __resource_type = "aws_wafregional_web_acl_association" in
   let __resource =
-    ({ id; resource_arn; web_acl_id }
-      : aws_wafregional_web_acl_association)
+    aws_wafregional_web_acl_association ?id ~resource_arn ~web_acl_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafregional_web_acl_association __resource);
   let __resource_attributes =
     ({

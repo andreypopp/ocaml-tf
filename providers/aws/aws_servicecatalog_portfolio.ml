@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_portfolio__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_portfolio__timeouts *)
+(** timeouts *)
 
 type aws_servicecatalog_portfolio = {
   description : string prop option; [@option]  (** description *)
@@ -21,10 +21,18 @@ type aws_servicecatalog_portfolio = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_servicecatalog_portfolio__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_portfolio *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let aws_servicecatalog_portfolio ?description ?id ?tags ?tags_all
+    ?timeouts ~name ~provider_name () : aws_servicecatalog_portfolio
+    =
+  { description; id; name; provider_name; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -37,22 +45,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_servicecatalog_portfolio ?description ?id ?tags ?tags_all
-    ?timeouts ~name ~provider_name __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~name ~provider_name __resource_id =
   let __resource_type = "aws_servicecatalog_portfolio" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       provider_name;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_servicecatalog_portfolio)
+    aws_servicecatalog_portfolio ?description ?id ?tags ?tags_all
+      ?timeouts ~name ~provider_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_portfolio __resource);
   let __resource_attributes =
     ({

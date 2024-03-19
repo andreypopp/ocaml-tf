@@ -2,18 +2,14 @@
 
 open! Tf.Prelude
 
-type aws_imagebuilder_image__image_scanning_configuration__ecr_configuration
+(** RESOURCE SERIALIZATION *)
 
-type aws_imagebuilder_image__image_scanning_configuration
-type aws_imagebuilder_image__image_tests_configuration
-type aws_imagebuilder_image__timeouts
-
-type aws_imagebuilder_image__output_resources__containers = {
+type output_resources__containers = {
   image_uris : string prop list;  (** image_uris *)
   region : string prop;  (** region *)
 }
 
-type aws_imagebuilder_image__output_resources__amis = {
+type output_resources__amis = {
   account_id : string prop;  (** account_id *)
   description : string prop;  (** description *)
   image : string prop;  (** image *)
@@ -21,15 +17,60 @@ type aws_imagebuilder_image__output_resources__amis = {
   region : string prop;  (** region *)
 }
 
-type aws_imagebuilder_image__output_resources = {
-  amis : aws_imagebuilder_image__output_resources__amis list;
-      (** amis *)
-  containers :
-    aws_imagebuilder_image__output_resources__containers list;
-      (** containers *)
+type output_resources = {
+  amis : output_resources__amis list;  (** amis *)
+  containers : output_resources__containers list;  (** containers *)
 }
 
+type image_scanning_configuration__ecr_configuration
+
+val image_scanning_configuration__ecr_configuration :
+  ?container_tags:string prop list ->
+  ?repository_name:string prop ->
+  unit ->
+  image_scanning_configuration__ecr_configuration
+
+type image_scanning_configuration
+
+val image_scanning_configuration :
+  ?image_scanning_enabled:bool prop ->
+  ecr_configuration:
+    image_scanning_configuration__ecr_configuration list ->
+  unit ->
+  image_scanning_configuration
+
+type image_tests_configuration
+
+val image_tests_configuration :
+  ?image_tests_enabled:bool prop ->
+  ?timeout_minutes:float prop ->
+  unit ->
+  image_tests_configuration
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_imagebuilder_image
+
+val aws_imagebuilder_image :
+  ?container_recipe_arn:string prop ->
+  ?distribution_configuration_arn:string prop ->
+  ?enhanced_image_metadata_enabled:bool prop ->
+  ?id:string prop ->
+  ?image_recipe_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  infrastructure_configuration_arn:string prop ->
+  image_scanning_configuration:image_scanning_configuration list ->
+  image_tests_configuration:image_tests_configuration list ->
+  unit ->
+  aws_imagebuilder_image
+
+val yojson_of_aws_imagebuilder_image : aws_imagebuilder_image -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -42,15 +83,15 @@ type t = private {
   infrastructure_configuration_arn : string prop;
   name : string prop;
   os_version : string prop;
-  output_resources :
-    aws_imagebuilder_image__output_resources list prop;
+  output_resources : output_resources list prop;
   platform : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   version : string prop;
 }
 
-val aws_imagebuilder_image :
+val register :
+  ?tf_module:tf_module ->
   ?container_recipe_arn:string prop ->
   ?distribution_configuration_arn:string prop ->
   ?enhanced_image_metadata_enabled:bool prop ->
@@ -58,11 +99,9 @@ val aws_imagebuilder_image :
   ?image_recipe_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_imagebuilder_image__timeouts ->
+  ?timeouts:timeouts ->
   infrastructure_configuration_arn:string prop ->
-  image_scanning_configuration:
-    aws_imagebuilder_image__image_scanning_configuration list ->
-  image_tests_configuration:
-    aws_imagebuilder_image__image_tests_configuration list ->
+  image_scanning_configuration:image_scanning_configuration list ->
+  image_tests_configuration:image_tests_configuration list ->
   string ->
   t

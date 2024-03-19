@@ -2,9 +2,33 @@
 
 open! Tf.Prelude
 
-type cloudflare_email_routing_catch_all__action
-type cloudflare_email_routing_catch_all__matcher
+(** RESOURCE SERIALIZATION *)
+
+type action
+
+val action :
+  type_:string prop -> value:string prop list -> unit -> action
+
+type matcher
+
+val matcher : type_:string prop -> unit -> matcher
+
 type cloudflare_email_routing_catch_all
+
+val cloudflare_email_routing_catch_all :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  name:string prop ->
+  zone_id:string prop ->
+  action:action list ->
+  matcher:matcher list ->
+  unit ->
+  cloudflare_email_routing_catch_all
+
+val yojson_of_cloudflare_email_routing_catch_all :
+  cloudflare_email_routing_catch_all -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enabled : bool prop;
@@ -14,12 +38,13 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_email_routing_catch_all :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
   name:string prop ->
   zone_id:string prop ->
-  action:cloudflare_email_routing_catch_all__action list ->
-  matcher:cloudflare_email_routing_catch_all__matcher list ->
+  action:action list ->
+  matcher:matcher list ->
   string ->
   t

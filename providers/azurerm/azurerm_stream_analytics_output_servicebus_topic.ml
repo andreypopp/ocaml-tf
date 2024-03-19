@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_output_servicebus_topic__serialization = {
+type serialization = {
   encoding : string prop option; [@option]  (** encoding *)
   field_delimiter : string prop option; [@option]
       (** field_delimiter *)
@@ -12,16 +12,16 @@ type azurerm_stream_analytics_output_servicebus_topic__serialization = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_output_servicebus_topic__serialization *)
+(** serialization *)
 
-type azurerm_stream_analytics_output_servicebus_topic__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_output_servicebus_topic__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_output_servicebus_topic = {
   authentication_mode : string prop option; [@option]
@@ -42,14 +42,41 @@ type azurerm_stream_analytics_output_servicebus_topic = {
       [@option]
       (** system_property_columns *)
   topic_name : string prop;  (** topic_name *)
-  serialization :
-    azurerm_stream_analytics_output_servicebus_topic__serialization
-    list;
-  timeouts :
-    azurerm_stream_analytics_output_servicebus_topic__timeouts option;
+  serialization : serialization list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_servicebus_topic *)
+
+let serialization ?encoding ?field_delimiter ?format ~type_ () :
+    serialization =
+  { encoding; field_delimiter; format; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_output_servicebus_topic
+    ?authentication_mode ?id ?property_columns
+    ?shared_access_policy_key ?shared_access_policy_name
+    ?system_property_columns ?timeouts ~name ~resource_group_name
+    ~servicebus_namespace ~stream_analytics_job_name ~topic_name
+    ~serialization () :
+    azurerm_stream_analytics_output_servicebus_topic =
+  {
+    authentication_mode;
+    id;
+    name;
+    property_columns;
+    resource_group_name;
+    servicebus_namespace;
+    shared_access_policy_key;
+    shared_access_policy_name;
+    stream_analytics_job_name;
+    system_property_columns;
+    topic_name;
+    serialization;
+    timeouts;
+  }
 
 type t = {
   authentication_mode : string prop;
@@ -65,8 +92,7 @@ type t = {
   topic_name : string prop;
 }
 
-let azurerm_stream_analytics_output_servicebus_topic
-    ?authentication_mode ?id ?property_columns
+let register ?tf_module ?authentication_mode ?id ?property_columns
     ?shared_access_policy_key ?shared_access_policy_name
     ?system_property_columns ?timeouts ~name ~resource_group_name
     ~servicebus_namespace ~stream_analytics_job_name ~topic_name
@@ -75,24 +101,14 @@ let azurerm_stream_analytics_output_servicebus_topic
     "azurerm_stream_analytics_output_servicebus_topic"
   in
   let __resource =
-    ({
-       authentication_mode;
-       id;
-       name;
-       property_columns;
-       resource_group_name;
-       servicebus_namespace;
-       shared_access_policy_key;
-       shared_access_policy_name;
-       stream_analytics_job_name;
-       system_property_columns;
-       topic_name;
-       serialization;
-       timeouts;
-     }
-      : azurerm_stream_analytics_output_servicebus_topic)
+    azurerm_stream_analytics_output_servicebus_topic
+      ?authentication_mode ?id ?property_columns
+      ?shared_access_policy_key ?shared_access_policy_name
+      ?system_property_columns ?timeouts ~name ~resource_group_name
+      ~servicebus_namespace ~stream_analytics_job_name ~topic_name
+      ~serialization ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_servicebus_topic
        __resource);
   let __resource_attributes =

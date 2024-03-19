@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_data_protection_resource_guard__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_resource_guard__timeouts *)
+(** timeouts *)
 
 type azurerm_data_protection_resource_guard = {
   id : string prop option; [@option]  (** id *)
@@ -22,10 +22,27 @@ type azurerm_data_protection_resource_guard = {
   vault_critical_operation_exclusion_list : string prop list option;
       [@option]
       (** vault_critical_operation_exclusion_list *)
-  timeouts : azurerm_data_protection_resource_guard__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_resource_guard *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_protection_resource_guard ?id ?tags
+    ?vault_critical_operation_exclusion_list ?timeouts ~location
+    ~name ~resource_group_name () :
+    azurerm_data_protection_resource_guard =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    vault_critical_operation_exclusion_list;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -36,23 +53,16 @@ type t = {
   vault_critical_operation_exclusion_list : string list prop;
 }
 
-let azurerm_data_protection_resource_guard ?id ?tags
+let register ?tf_module ?id ?tags
     ?vault_critical_operation_exclusion_list ?timeouts ~location
     ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_data_protection_resource_guard" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       vault_critical_operation_exclusion_list;
-       timeouts;
-     }
-      : azurerm_data_protection_resource_guard)
+    azurerm_data_protection_resource_guard ?id ?tags
+      ?vault_critical_operation_exclusion_list ?timeouts ~location
+      ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_resource_guard __resource);
   let __resource_attributes =
     ({

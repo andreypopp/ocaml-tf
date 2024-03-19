@@ -12,6 +12,10 @@ type digitalocean_domain = {
 [@@deriving yojson_of]
 (** digitalocean_domain *)
 
+let digitalocean_domain ?id ?ip_address ~name () :
+    digitalocean_domain =
+  { id; ip_address; name }
+
 type t = {
   id : string prop;
   ip_address : string prop;
@@ -20,12 +24,10 @@ type t = {
   urn : string prop;
 }
 
-let digitalocean_domain ?id ?ip_address ~name __resource_id =
+let register ?tf_module ?id ?ip_address ~name __resource_id =
   let __resource_type = "digitalocean_domain" in
-  let __resource =
-    ({ id; ip_address; name } : digitalocean_domain)
-  in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = digitalocean_domain ?id ?ip_address ~name () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_domain __resource);
   let __resource_attributes =
     ({

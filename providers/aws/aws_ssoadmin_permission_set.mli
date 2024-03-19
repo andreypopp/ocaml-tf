@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_ssoadmin_permission_set__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?update:string prop -> unit -> timeouts
+
 type aws_ssoadmin_permission_set
+
+val aws_ssoadmin_permission_set :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?relay_state:string prop ->
+  ?session_duration:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  instance_arn:string prop ->
+  name:string prop ->
+  unit ->
+  aws_ssoadmin_permission_set
+
+val yojson_of_aws_ssoadmin_permission_set :
+  aws_ssoadmin_permission_set -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,14 +41,15 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ssoadmin_permission_set :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?relay_state:string prop ->
   ?session_duration:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_ssoadmin_permission_set__timeouts ->
+  ?timeouts:timeouts ->
   instance_arn:string prop ->
   name:string prop ->
   string ->

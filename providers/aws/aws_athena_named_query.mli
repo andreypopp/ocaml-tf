@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_athena_named_query
+
+val aws_athena_named_query :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?workgroup:string prop ->
+  database:string prop ->
+  name:string prop ->
+  query:string prop ->
+  unit ->
+  aws_athena_named_query
+
+val yojson_of_aws_athena_named_query : aws_athena_named_query -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   database : string prop;
@@ -13,7 +29,8 @@ type t = private {
   workgroup : string prop;
 }
 
-val aws_athena_named_query :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?workgroup:string prop ->

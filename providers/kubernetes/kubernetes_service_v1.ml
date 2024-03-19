@@ -4,28 +4,22 @@
 
 open! Tf.Prelude
 
-type kubernetes_service_v1__metadata = {
+type metadata = {
   annotations : (string * string prop) list option; [@option]
       (** An unstructured key value map stored with the service that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
       (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
-  generation : float prop;
-      (** A sequence number representing a specific generation of the desired state. *)
   labels : (string * string prop) list option; [@option]
       (** Map of string keys and values that can be used to organize and categorize (scope and select) the service. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
       (** Name of the service, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
       (** Namespace defines the space within which name of the service must be unique. *)
-  resource_version : string prop;
-      (** An opaque value that represents the internal version of this service that can be used by clients to determine when service has changed. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency *)
-  uid : string prop;
-      (** The unique in time and space value for this service. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids *)
 }
 [@@deriving yojson_of]
 (** Standard service's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
 
-type kubernetes_service_v1__spec__port = {
+type spec__port = {
   app_protocol : string prop option; [@option]
       (** The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. *)
   name : string prop option; [@option]
@@ -42,22 +36,20 @@ type kubernetes_service_v1__spec__port = {
 [@@deriving yojson_of]
 (** The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies *)
 
-type kubernetes_service_v1__spec__session_affinity_config__client_ip = {
+type spec__session_affinity_config__client_ip = {
   timeout_seconds : float prop option; [@option]
       (** Specifies the seconds of `ClientIP` type session sticky time. The value must be > 0 and <= 86400(for 1 day) if `ServiceAffinity` == `ClientIP`. *)
 }
 [@@deriving yojson_of]
 (** Contains the configurations of Client IP based session affinity. *)
 
-type kubernetes_service_v1__spec__session_affinity_config = {
-  client_ip :
-    kubernetes_service_v1__spec__session_affinity_config__client_ip
-    list;
+type spec__session_affinity_config = {
+  client_ip : spec__session_affinity_config__client_ip list;
 }
 [@@deriving yojson_of]
 (** Contains the configurations of session affinity. More info: https://kubernetes.io/docs/concepts/services-networking/service/#proxy-mode-ipvs *)
 
-type kubernetes_service_v1__spec = {
+type spec = {
   allocate_load_balancer_node_ports : bool prop option; [@option]
       (** Defines if `NodePorts` will be automatically allocated for services with type `LoadBalancer`. It may be set to `false` if the cluster load-balancer does not rely on `NodePorts`.  If the caller requests specific `NodePorts` (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type `LoadBalancer`. Default is `true`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation *)
   cluster_ip : string prop option; [@option]
@@ -92,35 +84,31 @@ type kubernetes_service_v1__spec = {
       (** Used to maintain session affinity. Supports `ClientIP` and `None`. Defaults to `None`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies *)
   type_ : string prop option; [@option] [@key "type"]
       (** Determines how the service is exposed. Defaults to `ClusterIP`. Valid options are `ExternalName`, `ClusterIP`, `NodePort`, and `LoadBalancer`. `ExternalName` maps to the specified `external_name`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types *)
-  port : kubernetes_service_v1__spec__port list;
-  session_affinity_config :
-    kubernetes_service_v1__spec__session_affinity_config list;
+  port : spec__port list;
+  session_affinity_config : spec__session_affinity_config list;
 }
 [@@deriving yojson_of]
 (** Spec defines the behavior of a service. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
 
-type kubernetes_service_v1__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** kubernetes_service_v1__timeouts *)
+(** timeouts *)
 
-type kubernetes_service_v1__status__load_balancer__ingress = {
+type status__load_balancer__ingress = {
   hostname : string prop;  (** hostname *)
   ip : string prop;  (** ip *)
 }
 [@@deriving yojson_of]
 
-type kubernetes_service_v1__status__load_balancer = {
-  ingress :
-    kubernetes_service_v1__status__load_balancer__ingress list;
-      (** ingress *)
+type status__load_balancer = {
+  ingress : status__load_balancer__ingress list;  (** ingress *)
 }
 [@@deriving yojson_of]
 
-type kubernetes_service_v1__status = {
-  load_balancer : kubernetes_service_v1__status__load_balancer list;
-      (** load_balancer *)
+type status = {
+  load_balancer : status__load_balancer list;  (** load_balancer *)
 }
 [@@deriving yojson_of]
 
@@ -128,27 +116,78 @@ type kubernetes_service_v1 = {
   id : string prop option; [@option]  (** id *)
   wait_for_load_balancer : bool prop option; [@option]
       (** Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created. *)
-  metadata : kubernetes_service_v1__metadata list;
-  spec : kubernetes_service_v1__spec list;
-  timeouts : kubernetes_service_v1__timeouts option;
+  metadata : metadata list;
+  spec : spec list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** kubernetes_service_v1 *)
 
+let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
+    : metadata =
+  { annotations; generate_name; labels; name; namespace }
+
+let spec__port ?app_protocol ?name ?node_port ?protocol ?target_port
+    ~port () : spec__port =
+  { app_protocol; name; node_port; port; protocol; target_port }
+
+let spec__session_affinity_config__client_ip ?timeout_seconds () :
+    spec__session_affinity_config__client_ip =
+  { timeout_seconds }
+
+let spec__session_affinity_config ~client_ip () :
+    spec__session_affinity_config =
+  { client_ip }
+
+let spec ?allocate_load_balancer_node_ports ?cluster_ip ?cluster_ips
+    ?external_ips ?external_name ?external_traffic_policy
+    ?health_check_node_port ?internal_traffic_policy ?ip_families
+    ?ip_family_policy ?load_balancer_class ?load_balancer_ip
+    ?load_balancer_source_ranges ?publish_not_ready_addresses
+    ?selector ?session_affinity ?type_ ~port ~session_affinity_config
+    () : spec =
+  {
+    allocate_load_balancer_node_ports;
+    cluster_ip;
+    cluster_ips;
+    external_ips;
+    external_name;
+    external_traffic_policy;
+    health_check_node_port;
+    internal_traffic_policy;
+    ip_families;
+    ip_family_policy;
+    load_balancer_class;
+    load_balancer_ip;
+    load_balancer_source_ranges;
+    publish_not_ready_addresses;
+    selector;
+    session_affinity;
+    type_;
+    port;
+    session_affinity_config;
+  }
+
+let timeouts ?create () : timeouts = { create }
+
+let kubernetes_service_v1 ?id ?wait_for_load_balancer ?timeouts
+    ~metadata ~spec () : kubernetes_service_v1 =
+  { id; wait_for_load_balancer; metadata; spec; timeouts }
+
 type t = {
   id : string prop;
-  status : kubernetes_service_v1__status list prop;
+  status : status list prop;
   wait_for_load_balancer : bool prop;
 }
 
-let kubernetes_service_v1 ?id ?wait_for_load_balancer ?timeouts
+let register ?tf_module ?id ?wait_for_load_balancer ?timeouts
     ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_service_v1" in
   let __resource =
-    ({ id; wait_for_load_balancer; metadata; spec; timeouts }
-      : kubernetes_service_v1)
+    kubernetes_service_v1 ?id ?wait_for_load_balancer ?timeouts
+      ~metadata ~spec ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_service_v1 __resource);
   let __resource_attributes =
     ({

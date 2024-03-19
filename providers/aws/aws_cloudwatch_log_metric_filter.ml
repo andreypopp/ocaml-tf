@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_cloudwatch_log_metric_filter__metric_transformation = {
+type metric_transformation = {
   default_value : string prop option; [@option]  (** default_value *)
   dimensions : (string * string prop) list option; [@option]
       (** dimensions *)
@@ -14,18 +14,26 @@ type aws_cloudwatch_log_metric_filter__metric_transformation = {
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_cloudwatch_log_metric_filter__metric_transformation *)
+(** metric_transformation *)
 
 type aws_cloudwatch_log_metric_filter = {
   id : string prop option; [@option]  (** id *)
   log_group_name : string prop;  (** log_group_name *)
   name : string prop;  (** name *)
   pattern : string prop;  (** pattern *)
-  metric_transformation :
-    aws_cloudwatch_log_metric_filter__metric_transformation list;
+  metric_transformation : metric_transformation list;
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_metric_filter *)
+
+let metric_transformation ?default_value ?dimensions ?unit ~name
+    ~namespace ~value () : metric_transformation =
+  { default_value; dimensions; name; namespace; unit; value }
+
+let aws_cloudwatch_log_metric_filter ?id ~log_group_name ~name
+    ~pattern ~metric_transformation () :
+    aws_cloudwatch_log_metric_filter =
+  { id; log_group_name; name; pattern; metric_transformation }
 
 type t = {
   id : string prop;
@@ -34,14 +42,14 @@ type t = {
   pattern : string prop;
 }
 
-let aws_cloudwatch_log_metric_filter ?id ~log_group_name ~name
-    ~pattern ~metric_transformation __resource_id =
+let register ?tf_module ?id ~log_group_name ~name ~pattern
+    ~metric_transformation __resource_id =
   let __resource_type = "aws_cloudwatch_log_metric_filter" in
   let __resource =
-    ({ id; log_group_name; name; pattern; metric_transformation }
-      : aws_cloudwatch_log_metric_filter)
+    aws_cloudwatch_log_metric_filter ?id ~log_group_name ~name
+      ~pattern ~metric_transformation ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_log_metric_filter __resource);
   let __resource_attributes =
     ({

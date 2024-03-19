@@ -17,6 +17,19 @@ type aws_redshift_cluster_snapshot = {
 [@@deriving yojson_of]
 (** aws_redshift_cluster_snapshot *)
 
+let aws_redshift_cluster_snapshot ?id
+    ?manual_snapshot_retention_period ?tags ?tags_all
+    ~cluster_identifier ~snapshot_identifier () :
+    aws_redshift_cluster_snapshot =
+  {
+    cluster_identifier;
+    id;
+    manual_snapshot_retention_period;
+    snapshot_identifier;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   cluster_identifier : string prop;
@@ -29,22 +42,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_redshift_cluster_snapshot ?id
-    ?manual_snapshot_retention_period ?tags ?tags_all
-    ~cluster_identifier ~snapshot_identifier __resource_id =
+let register ?tf_module ?id ?manual_snapshot_retention_period ?tags
+    ?tags_all ~cluster_identifier ~snapshot_identifier __resource_id
+    =
   let __resource_type = "aws_redshift_cluster_snapshot" in
   let __resource =
-    ({
-       cluster_identifier;
-       id;
-       manual_snapshot_retention_period;
-       snapshot_identifier;
-       tags;
-       tags_all;
-     }
-      : aws_redshift_cluster_snapshot)
+    aws_redshift_cluster_snapshot ?id
+      ?manual_snapshot_retention_period ?tags ?tags_all
+      ~cluster_identifier ~snapshot_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_cluster_snapshot __resource);
   let __resource_attributes =
     ({

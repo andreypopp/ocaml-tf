@@ -16,6 +16,18 @@ type aws_codeartifact_repository_permissions_policy = {
 [@@deriving yojson_of]
 (** aws_codeartifact_repository_permissions_policy *)
 
+let aws_codeartifact_repository_permissions_policy ?domain_owner ?id
+    ?policy_revision ~domain ~policy_document ~repository () :
+    aws_codeartifact_repository_permissions_policy =
+  {
+    domain;
+    domain_owner;
+    id;
+    policy_document;
+    policy_revision;
+    repository;
+  }
+
 type t = {
   domain : string prop;
   domain_owner : string prop;
@@ -26,24 +38,16 @@ type t = {
   resource_arn : string prop;
 }
 
-let aws_codeartifact_repository_permissions_policy ?domain_owner ?id
-    ?policy_revision ~domain ~policy_document ~repository
-    __resource_id =
+let register ?tf_module ?domain_owner ?id ?policy_revision ~domain
+    ~policy_document ~repository __resource_id =
   let __resource_type =
     "aws_codeartifact_repository_permissions_policy"
   in
   let __resource =
-    ({
-       domain;
-       domain_owner;
-       id;
-       policy_document;
-       policy_revision;
-       repository;
-     }
-      : aws_codeartifact_repository_permissions_policy)
+    aws_codeartifact_repository_permissions_policy ?domain_owner ?id
+      ?policy_revision ~domain ~policy_document ~repository ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codeartifact_repository_permissions_policy
        __resource);
   let __resource_attributes =

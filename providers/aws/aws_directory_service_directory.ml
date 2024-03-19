@@ -4,32 +4,29 @@
 
 open! Tf.Prelude
 
-type aws_directory_service_directory__connect_settings = {
-  availability_zones : string prop list;  (** availability_zones *)
-  connect_ips : string prop list;  (** connect_ips *)
+type connect_settings = {
   customer_dns_ips : string prop list;  (** customer_dns_ips *)
   customer_username : string prop;  (** customer_username *)
   subnet_ids : string prop list;  (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
-(** aws_directory_service_directory__connect_settings *)
+(** connect_settings *)
 
-type aws_directory_service_directory__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_directory_service_directory__timeouts *)
+(** timeouts *)
 
-type aws_directory_service_directory__vpc_settings = {
-  availability_zones : string prop list;  (** availability_zones *)
+type vpc_settings = {
   subnet_ids : string prop list;  (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
-(** aws_directory_service_directory__vpc_settings *)
+(** vpc_settings *)
 
 type aws_directory_service_directory = {
   alias : string prop option; [@option]  (** alias *)
@@ -47,13 +44,46 @@ type aws_directory_service_directory = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  connect_settings :
-    aws_directory_service_directory__connect_settings list;
-  timeouts : aws_directory_service_directory__timeouts option;
-  vpc_settings : aws_directory_service_directory__vpc_settings list;
+  connect_settings : connect_settings list;
+  timeouts : timeouts option;
+  vpc_settings : vpc_settings list;
 }
 [@@deriving yojson_of]
 (** aws_directory_service_directory *)
+
+let connect_settings ~customer_dns_ips ~customer_username ~subnet_ids
+    ~vpc_id () : connect_settings =
+  { customer_dns_ips; customer_username; subnet_ids; vpc_id }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc_settings ~subnet_ids ~vpc_id () : vpc_settings =
+  { subnet_ids; vpc_id }
+
+let aws_directory_service_directory ?alias ?description
+    ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
+    ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
+    ~password ~connect_settings ~vpc_settings () :
+    aws_directory_service_directory =
+  {
+    alias;
+    description;
+    desired_number_of_domain_controllers;
+    edition;
+    enable_sso;
+    id;
+    name;
+    password;
+    short_name;
+    size;
+    tags;
+    tags_all;
+    type_;
+    connect_settings;
+    timeouts;
+    vpc_settings;
+  }
 
 type t = {
   access_url : string prop;
@@ -74,33 +104,18 @@ type t = {
   type_ : string prop;
 }
 
-let aws_directory_service_directory ?alias ?description
+let register ?tf_module ?alias ?description
     ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
     ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
     ~password ~connect_settings ~vpc_settings __resource_id =
   let __resource_type = "aws_directory_service_directory" in
   let __resource =
-    ({
-       alias;
-       description;
-       desired_number_of_domain_controllers;
-       edition;
-       enable_sso;
-       id;
-       name;
-       password;
-       short_name;
-       size;
-       tags;
-       tags_all;
-       type_;
-       connect_settings;
-       timeouts;
-       vpc_settings;
-     }
-      : aws_directory_service_directory)
+    aws_directory_service_directory ?alias ?description
+      ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
+      ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
+      ~password ~connect_settings ~vpc_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_directory_service_directory __resource);
   let __resource_attributes =
     ({

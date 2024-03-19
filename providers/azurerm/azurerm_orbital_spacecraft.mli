@@ -2,9 +2,49 @@
 
 open! Tf.Prelude
 
-type azurerm_orbital_spacecraft__links
-type azurerm_orbital_spacecraft__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type links
+
+val links :
+  bandwidth_mhz:float prop ->
+  center_frequency_mhz:float prop ->
+  direction:string prop ->
+  name:string prop ->
+  polarization:string prop ->
+  unit ->
+  links
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_orbital_spacecraft
+
+val azurerm_orbital_spacecraft :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  norad_id:string prop ->
+  resource_group_name:string prop ->
+  title_line:string prop ->
+  two_line_elements:string prop list ->
+  links:links list ->
+  unit ->
+  azurerm_orbital_spacecraft
+
+val yojson_of_azurerm_orbital_spacecraft :
+  azurerm_orbital_spacecraft -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -17,16 +57,17 @@ type t = private {
   two_line_elements : string list prop;
 }
 
-val azurerm_orbital_spacecraft :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_orbital_spacecraft__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   norad_id:string prop ->
   resource_group_name:string prop ->
   title_line:string prop ->
   two_line_elements:string prop list ->
-  links:azurerm_orbital_spacecraft__links list ->
+  links:links list ->
   string ->
   t

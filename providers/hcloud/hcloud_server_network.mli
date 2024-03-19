@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type hcloud_server_network
+
+val hcloud_server_network :
+  ?alias_ips:string prop list ->
+  ?id:string prop ->
+  ?ip:string prop ->
+  ?network_id:float prop ->
+  ?subnet_id:string prop ->
+  server_id:float prop ->
+  unit ->
+  hcloud_server_network
+
+val yojson_of_hcloud_server_network : hcloud_server_network -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   alias_ips : string list prop;
@@ -14,7 +30,8 @@ type t = private {
   subnet_id : string prop;
 }
 
-val hcloud_server_network :
+val register :
+  ?tf_module:tf_module ->
   ?alias_ips:string prop list ->
   ?id:string prop ->
   ?ip:string prop ->

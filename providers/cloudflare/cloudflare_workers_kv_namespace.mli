@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_workers_kv_namespace
+
+val cloudflare_workers_kv_namespace :
+  ?id:string prop ->
+  account_id:string prop ->
+  title:string prop ->
+  unit ->
+  cloudflare_workers_kv_namespace
+
+val yojson_of_cloudflare_workers_kv_namespace :
+  cloudflare_workers_kv_namespace -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   title : string prop;
 }
 
-val cloudflare_workers_kv_namespace :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   account_id:string prop ->
   title:string prop ->

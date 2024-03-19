@@ -15,6 +15,10 @@ type aws_vpclattice_service_network = {
 [@@deriving yojson_of]
 (** aws_vpclattice_service_network *)
 
+let aws_vpclattice_service_network ?auth_type ?id ?tags ?tags_all
+    ~name () : aws_vpclattice_service_network =
+  { auth_type; id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   auth_type : string prop;
@@ -24,14 +28,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpclattice_service_network ?auth_type ?id ?tags ?tags_all
-    ~name __resource_id =
+let register ?tf_module ?auth_type ?id ?tags ?tags_all ~name
+    __resource_id =
   let __resource_type = "aws_vpclattice_service_network" in
   let __resource =
-    ({ auth_type; id; name; tags; tags_all }
-      : aws_vpclattice_service_network)
+    aws_vpclattice_service_network ?auth_type ?id ?tags ?tags_all
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_service_network __resource);
   let __resource_attributes =
     ({

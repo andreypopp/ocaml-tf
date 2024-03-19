@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_nginx_certificate__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_nginx_certificate
+
+val azurerm_nginx_certificate :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  certificate_virtual_path:string prop ->
+  key_vault_secret_id:string prop ->
+  key_virtual_path:string prop ->
+  name:string prop ->
+  nginx_deployment_id:string prop ->
+  unit ->
+  azurerm_nginx_certificate
+
+val yojson_of_azurerm_nginx_certificate :
+  azurerm_nginx_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate_virtual_path : string prop;
@@ -14,9 +41,10 @@ type t = private {
   nginx_deployment_id : string prop;
 }
 
-val azurerm_nginx_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_nginx_certificate__timeouts ->
+  ?timeouts:timeouts ->
   certificate_virtual_path:string prop ->
   key_vault_secret_id:string prop ->
   key_virtual_path:string prop ->

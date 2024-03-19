@@ -16,6 +16,10 @@ type cloudflare_worker_route = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare worker route resource. A route will also require a `cloudflare_worker_script`. *)
 
+let cloudflare_worker_route ?id ?script_name ~pattern ~zone_id () :
+    cloudflare_worker_route =
+  { id; pattern; script_name; zone_id }
+
 type t = {
   id : string prop;
   pattern : string prop;
@@ -23,13 +27,13 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_worker_route ?id ?script_name ~pattern ~zone_id
+let register ?tf_module ?id ?script_name ~pattern ~zone_id
     __resource_id =
   let __resource_type = "cloudflare_worker_route" in
   let __resource =
-    ({ id; pattern; script_name; zone_id } : cloudflare_worker_route)
+    cloudflare_worker_route ?id ?script_name ~pattern ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_worker_route __resource);
   let __resource_attributes =
     ({

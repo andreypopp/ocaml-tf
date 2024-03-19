@@ -2,12 +2,69 @@
 
 open! Tf.Prelude
 
-type google_cloud_tasks_queue__app_engine_routing_override
-type google_cloud_tasks_queue__rate_limits
-type google_cloud_tasks_queue__retry_config
-type google_cloud_tasks_queue__stackdriver_logging_config
-type google_cloud_tasks_queue__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type app_engine_routing_override
+
+val app_engine_routing_override :
+  ?instance:string prop ->
+  ?service:string prop ->
+  ?version:string prop ->
+  unit ->
+  app_engine_routing_override
+
+type rate_limits
+
+val rate_limits :
+  ?max_concurrent_dispatches:float prop ->
+  ?max_dispatches_per_second:float prop ->
+  unit ->
+  rate_limits
+
+type retry_config
+
+val retry_config :
+  ?max_attempts:float prop ->
+  ?max_backoff:string prop ->
+  ?max_doublings:float prop ->
+  ?max_retry_duration:string prop ->
+  ?min_backoff:string prop ->
+  unit ->
+  retry_config
+
+type stackdriver_logging_config
+
+val stackdriver_logging_config :
+  sampling_ratio:float prop -> unit -> stackdriver_logging_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_cloud_tasks_queue
+
+val google_cloud_tasks_queue :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  app_engine_routing_override:app_engine_routing_override list ->
+  rate_limits:rate_limits list ->
+  retry_config:retry_config list ->
+  stackdriver_logging_config:stackdriver_logging_config list ->
+  unit ->
+  google_cloud_tasks_queue
+
+val yojson_of_google_cloud_tasks_queue :
+  google_cloud_tasks_queue -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -16,17 +73,16 @@ type t = private {
   project : string prop;
 }
 
-val google_cloud_tasks_queue :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?project:string prop ->
-  ?timeouts:google_cloud_tasks_queue__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
-  app_engine_routing_override:
-    google_cloud_tasks_queue__app_engine_routing_override list ->
-  rate_limits:google_cloud_tasks_queue__rate_limits list ->
-  retry_config:google_cloud_tasks_queue__retry_config list ->
-  stackdriver_logging_config:
-    google_cloud_tasks_queue__stackdriver_logging_config list ->
+  app_engine_routing_override:app_engine_routing_override list ->
+  rate_limits:rate_limits list ->
+  retry_config:retry_config list ->
+  stackdriver_logging_config:stackdriver_logging_config list ->
   string ->
   t

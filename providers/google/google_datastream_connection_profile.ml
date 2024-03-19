@@ -4,10 +4,9 @@
 
 open! Tf.Prelude
 
-type google_datastream_connection_profile__bigquery_profile = unit
-[@@deriving yojson_of]
+type bigquery_profile = unit [@@deriving yojson_of]
 
-type google_datastream_connection_profile__forward_ssh_connectivity = {
+type forward_ssh_connectivity = {
   hostname : string prop;  (** Hostname for the SSH tunnel. *)
   password : string prop option; [@option]  (** SSH password. *)
   port : float prop option; [@option]
@@ -19,7 +18,7 @@ type google_datastream_connection_profile__forward_ssh_connectivity = {
 [@@deriving yojson_of]
 (** Forward SSH tunnel connectivity. *)
 
-type google_datastream_connection_profile__gcs_profile = {
+type gcs_profile = {
   bucket : string prop;  (** The Cloud Storage bucket name. *)
   root_path : string prop option; [@option]
       (** The root path inside the Cloud Storage bucket. *)
@@ -27,43 +26,35 @@ type google_datastream_connection_profile__gcs_profile = {
 [@@deriving yojson_of]
 (** Cloud Storage bucket profile. *)
 
-type google_datastream_connection_profile__mysql_profile__ssl_config = {
+type mysql_profile__ssl_config = {
   ca_certificate : string prop option; [@option]
       (** PEM-encoded certificate of the CA that signed the source database
 server's certificate. *)
-  ca_certificate_set : bool prop;
-      (** Indicates whether the clientKey field is set. *)
   client_certificate : string prop option; [@option]
       (** PEM-encoded certificate that will be used by the replica to
 authenticate against the source database server. If this field
 is used then the 'clientKey' and the 'caCertificate' fields are
 mandatory. *)
-  client_certificate_set : bool prop;
-      (** Indicates whether the clientCertificate field is set. *)
   client_key : string prop option; [@option]
       (** PEM-encoded private key associated with the Client Certificate.
 If this field is used then the 'client_certificate' and the
 'ca_certificate' fields are mandatory. *)
-  client_key_set : bool prop;
-      (** Indicates whether the clientKey field is set. *)
 }
 [@@deriving yojson_of]
 (** SSL configuration for the MySQL connection. *)
 
-type google_datastream_connection_profile__mysql_profile = {
+type mysql_profile = {
   hostname : string prop;  (** Hostname for the MySQL connection. *)
   password : string prop;  (** Password for the MySQL connection. *)
   port : float prop option; [@option]
       (** Port for the MySQL connection. *)
   username : string prop;  (** Username for the MySQL connection. *)
-  ssl_config :
-    google_datastream_connection_profile__mysql_profile__ssl_config
-    list;
+  ssl_config : mysql_profile__ssl_config list;
 }
 [@@deriving yojson_of]
 (** MySQL database profile. *)
 
-type google_datastream_connection_profile__oracle_profile = {
+type oracle_profile = {
   connection_attributes : (string * string prop) list option;
       [@option]
       (** Connection string attributes *)
@@ -78,7 +69,7 @@ type google_datastream_connection_profile__oracle_profile = {
 [@@deriving yojson_of]
 (** Oracle database profile. *)
 
-type google_datastream_connection_profile__postgresql_profile = {
+type postgresql_profile = {
   database : string prop;
       (** Database for the PostgreSQL connection. *)
   hostname : string prop;
@@ -93,20 +84,20 @@ type google_datastream_connection_profile__postgresql_profile = {
 [@@deriving yojson_of]
 (** PostgreSQL database profile. *)
 
-type google_datastream_connection_profile__private_connectivity = {
+type private_connectivity = {
   private_connection : string prop;
       (** A reference to a private connection resource. Format: 'projects/{project}/locations/{location}/privateConnections/{name}' *)
 }
 [@@deriving yojson_of]
 (** Private connectivity. *)
 
-type google_datastream_connection_profile__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_datastream_connection_profile__timeouts *)
+(** timeouts *)
 
 type google_datastream_connection_profile = {
   connection_profile_id : string prop;
@@ -121,25 +112,78 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string prop;
       (** The name of the location this connection profile is located in. *)
   project : string prop option; [@option]  (** project *)
-  bigquery_profile :
-    google_datastream_connection_profile__bigquery_profile list;
-  forward_ssh_connectivity :
-    google_datastream_connection_profile__forward_ssh_connectivity
-    list;
-  gcs_profile :
-    google_datastream_connection_profile__gcs_profile list;
-  mysql_profile :
-    google_datastream_connection_profile__mysql_profile list;
-  oracle_profile :
-    google_datastream_connection_profile__oracle_profile list;
-  postgresql_profile :
-    google_datastream_connection_profile__postgresql_profile list;
-  private_connectivity :
-    google_datastream_connection_profile__private_connectivity list;
-  timeouts : google_datastream_connection_profile__timeouts option;
+  bigquery_profile : bigquery_profile list;
+  forward_ssh_connectivity : forward_ssh_connectivity list;
+  gcs_profile : gcs_profile list;
+  mysql_profile : mysql_profile list;
+  oracle_profile : oracle_profile list;
+  postgresql_profile : postgresql_profile list;
+  private_connectivity : private_connectivity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_datastream_connection_profile *)
+
+let bigquery_profile () = ()
+
+let forward_ssh_connectivity ?password ?port ?private_key ~hostname
+    ~username () : forward_ssh_connectivity =
+  { hostname; password; port; private_key; username }
+
+let gcs_profile ?root_path ~bucket () : gcs_profile =
+  { bucket; root_path }
+
+let mysql_profile__ssl_config ?ca_certificate ?client_certificate
+    ?client_key () : mysql_profile__ssl_config =
+  { ca_certificate; client_certificate; client_key }
+
+let mysql_profile ?port ~hostname ~password ~username ~ssl_config ()
+    : mysql_profile =
+  { hostname; password; port; username; ssl_config }
+
+let oracle_profile ?connection_attributes ?port ~database_service
+    ~hostname ~password ~username () : oracle_profile =
+  {
+    connection_attributes;
+    database_service;
+    hostname;
+    password;
+    port;
+    username;
+  }
+
+let postgresql_profile ?port ~database ~hostname ~password ~username
+    () : postgresql_profile =
+  { database; hostname; password; port; username }
+
+let private_connectivity ~private_connection () :
+    private_connectivity =
+  { private_connection }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_datastream_connection_profile ?id ?labels ?project
+    ?timeouts ~connection_profile_id ~display_name ~location
+    ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
+    ~mysql_profile ~oracle_profile ~postgresql_profile
+    ~private_connectivity () : google_datastream_connection_profile =
+  {
+    connection_profile_id;
+    display_name;
+    id;
+    labels;
+    location;
+    project;
+    bigquery_profile;
+    forward_ssh_connectivity;
+    gcs_profile;
+    mysql_profile;
+    oracle_profile;
+    postgresql_profile;
+    private_connectivity;
+    timeouts;
+  }
 
 type t = {
   connection_profile_id : string prop;
@@ -153,32 +197,20 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_datastream_connection_profile ?id ?labels ?project
-    ?timeouts ~connection_profile_id ~display_name ~location
-    ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
-    ~mysql_profile ~oracle_profile ~postgresql_profile
-    ~private_connectivity __resource_id =
+let register ?tf_module ?id ?labels ?project ?timeouts
+    ~connection_profile_id ~display_name ~location ~bigquery_profile
+    ~forward_ssh_connectivity ~gcs_profile ~mysql_profile
+    ~oracle_profile ~postgresql_profile ~private_connectivity
+    __resource_id =
   let __resource_type = "google_datastream_connection_profile" in
   let __resource =
-    ({
-       connection_profile_id;
-       display_name;
-       id;
-       labels;
-       location;
-       project;
-       bigquery_profile;
-       forward_ssh_connectivity;
-       gcs_profile;
-       mysql_profile;
-       oracle_profile;
-       postgresql_profile;
-       private_connectivity;
-       timeouts;
-     }
-      : google_datastream_connection_profile)
+    google_datastream_connection_profile ?id ?labels ?project
+      ?timeouts ~connection_profile_id ~display_name ~location
+      ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
+      ~mysql_profile ~oracle_profile ~postgresql_profile
+      ~private_connectivity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_datastream_connection_profile __resource);
   let __resource_attributes =
     ({

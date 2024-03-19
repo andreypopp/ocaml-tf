@@ -2,15 +2,88 @@
 
 open! Tf.Prelude
 
-type google_container_azure_node_pool__autoscaling
-type google_container_azure_node_pool__config__proxy_config
-type google_container_azure_node_pool__config__root_volume
-type google_container_azure_node_pool__config__ssh_config
-type google_container_azure_node_pool__config
-type google_container_azure_node_pool__management
-type google_container_azure_node_pool__max_pods_constraint
-type google_container_azure_node_pool__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type autoscaling
+
+val autoscaling :
+  max_node_count:float prop ->
+  min_node_count:float prop ->
+  unit ->
+  autoscaling
+
+type config__proxy_config
+
+val config__proxy_config :
+  resource_group_id:string prop ->
+  secret_id:string prop ->
+  unit ->
+  config__proxy_config
+
+type config__root_volume
+
+val config__root_volume :
+  ?size_gib:float prop -> unit -> config__root_volume
+
+type config__ssh_config
+
+val config__ssh_config :
+  authorized_key:string prop -> unit -> config__ssh_config
+
+type config
+
+val config :
+  ?labels:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?vm_size:string prop ->
+  proxy_config:config__proxy_config list ->
+  root_volume:config__root_volume list ->
+  ssh_config:config__ssh_config list ->
+  unit ->
+  config
+
+type management
+
+val management : ?auto_repair:bool prop -> unit -> management
+
+type max_pods_constraint
+
+val max_pods_constraint :
+  max_pods_per_node:float prop -> unit -> max_pods_constraint
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_container_azure_node_pool
+
+val google_container_azure_node_pool :
+  ?annotations:(string * string prop) list ->
+  ?azure_availability_zone:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  location:string prop ->
+  name:string prop ->
+  subnet_id:string prop ->
+  version:string prop ->
+  autoscaling:autoscaling list ->
+  config:config list ->
+  management:management list ->
+  max_pods_constraint:max_pods_constraint list ->
+  unit ->
+  google_container_azure_node_pool
+
+val yojson_of_google_container_azure_node_pool :
+  google_container_azure_node_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   annotations : (string * string) list prop;
@@ -31,21 +104,21 @@ type t = private {
   version : string prop;
 }
 
-val google_container_azure_node_pool :
+val register :
+  ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?azure_availability_zone:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_container_azure_node_pool__timeouts ->
+  ?timeouts:timeouts ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
   subnet_id:string prop ->
   version:string prop ->
-  autoscaling:google_container_azure_node_pool__autoscaling list ->
-  config:google_container_azure_node_pool__config list ->
-  management:google_container_azure_node_pool__management list ->
-  max_pods_constraint:
-    google_container_azure_node_pool__max_pods_constraint list ->
+  autoscaling:autoscaling list ->
+  config:config list ->
+  management:management list ->
+  max_pods_constraint:max_pods_constraint list ->
   string ->
   t

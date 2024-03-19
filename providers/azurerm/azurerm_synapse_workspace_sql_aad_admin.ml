@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_synapse_workspace_sql_aad_admin__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_synapse_workspace_sql_aad_admin__timeouts *)
+(** timeouts *)
 
 type azurerm_synapse_workspace_sql_aad_admin = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,18 @@ type azurerm_synapse_workspace_sql_aad_admin = {
   object_id : string prop;  (** object_id *)
   synapse_workspace_id : string prop;  (** synapse_workspace_id *)
   tenant_id : string prop;  (** tenant_id *)
-  timeouts : azurerm_synapse_workspace_sql_aad_admin__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_workspace_sql_aad_admin *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_synapse_workspace_sql_aad_admin ?id ?timeouts ~login
+    ~object_id ~synapse_workspace_id ~tenant_id () :
+    azurerm_synapse_workspace_sql_aad_admin =
+  { id; login; object_id; synapse_workspace_id; tenant_id; timeouts }
 
 type t = {
   id : string prop;
@@ -32,21 +40,14 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_synapse_workspace_sql_aad_admin ?id ?timeouts ~login
-    ~object_id ~synapse_workspace_id ~tenant_id __resource_id =
+let register ?tf_module ?id ?timeouts ~login ~object_id
+    ~synapse_workspace_id ~tenant_id __resource_id =
   let __resource_type = "azurerm_synapse_workspace_sql_aad_admin" in
   let __resource =
-    ({
-       id;
-       login;
-       object_id;
-       synapse_workspace_id;
-       tenant_id;
-       timeouts;
-     }
-      : azurerm_synapse_workspace_sql_aad_admin)
+    azurerm_synapse_workspace_sql_aad_admin ?id ?timeouts ~login
+      ~object_id ~synapse_workspace_id ~tenant_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_workspace_sql_aad_admin __resource);
   let __resource_attributes =
     ({

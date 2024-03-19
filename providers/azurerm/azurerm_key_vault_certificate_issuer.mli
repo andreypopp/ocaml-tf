@@ -2,9 +2,47 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault_certificate_issuer__admin
-type azurerm_key_vault_certificate_issuer__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type admin
+
+val admin :
+  ?first_name:string prop ->
+  ?last_name:string prop ->
+  ?phone:string prop ->
+  email_address:string prop ->
+  unit ->
+  admin
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_key_vault_certificate_issuer
+
+val azurerm_key_vault_certificate_issuer :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?org_id:string prop ->
+  ?password:string prop ->
+  ?timeouts:timeouts ->
+  key_vault_id:string prop ->
+  name:string prop ->
+  provider_name:string prop ->
+  admin:admin list ->
+  unit ->
+  azurerm_key_vault_certificate_issuer
+
+val yojson_of_azurerm_key_vault_certificate_issuer :
+  azurerm_key_vault_certificate_issuer -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -16,15 +54,16 @@ type t = private {
   provider_name : string prop;
 }
 
-val azurerm_key_vault_certificate_issuer :
+val register :
+  ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?id:string prop ->
   ?org_id:string prop ->
   ?password:string prop ->
-  ?timeouts:azurerm_key_vault_certificate_issuer__timeouts ->
+  ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
   provider_name:string prop ->
-  admin:azurerm_key_vault_certificate_issuer__admin list ->
+  admin:admin list ->
   string ->
   t

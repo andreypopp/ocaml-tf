@@ -13,6 +13,10 @@ type aws_storagegateway_upload_buffer = {
 [@@deriving yojson_of]
 (** aws_storagegateway_upload_buffer *)
 
+let aws_storagegateway_upload_buffer ?disk_id ?disk_path ?id
+    ~gateway_arn () : aws_storagegateway_upload_buffer =
+  { disk_id; disk_path; gateway_arn; id }
+
 type t = {
   disk_id : string prop;
   disk_path : string prop;
@@ -20,14 +24,14 @@ type t = {
   id : string prop;
 }
 
-let aws_storagegateway_upload_buffer ?disk_id ?disk_path ?id
-    ~gateway_arn __resource_id =
+let register ?tf_module ?disk_id ?disk_path ?id ~gateway_arn
+    __resource_id =
   let __resource_type = "aws_storagegateway_upload_buffer" in
   let __resource =
-    ({ disk_id; disk_path; gateway_arn; id }
-      : aws_storagegateway_upload_buffer)
+    aws_storagegateway_upload_buffer ?disk_id ?disk_path ?id
+      ~gateway_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_storagegateway_upload_buffer __resource);
   let __resource_attributes =
     ({

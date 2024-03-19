@@ -4,32 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_healthcare_dicom_service__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_dicom_service__identity *)
+(** identity *)
 
-type azurerm_healthcare_dicom_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_dicom_service__timeouts *)
+(** timeouts *)
 
-type azurerm_healthcare_dicom_service__authentication = {
+type authentication = {
   audience : string prop list;  (** audience *)
   authority : string prop;  (** authority *)
 }
 [@@deriving yojson_of]
 
-type azurerm_healthcare_dicom_service__private_endpoint = {
+type private_endpoint = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
@@ -43,44 +41,53 @@ type azurerm_healthcare_dicom_service = {
       (** public_network_access_enabled *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   workspace_id : string prop;  (** workspace_id *)
-  identity : azurerm_healthcare_dicom_service__identity list;
-  timeouts : azurerm_healthcare_dicom_service__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_dicom_service *)
 
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_healthcare_dicom_service ?id
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~workspace_id ~identity () : azurerm_healthcare_dicom_service =
+  {
+    id;
+    location;
+    name;
+    public_network_access_enabled;
+    tags;
+    workspace_id;
+    identity;
+    timeouts;
+  }
+
 type t = {
-  authentication :
-    azurerm_healthcare_dicom_service__authentication list prop;
+  authentication : authentication list prop;
   id : string prop;
   location : string prop;
   name : string prop;
-  private_endpoint :
-    azurerm_healthcare_dicom_service__private_endpoint list prop;
+  private_endpoint : private_endpoint list prop;
   public_network_access_enabled : bool prop;
   service_url : string prop;
   tags : (string * string) list prop;
   workspace_id : string prop;
 }
 
-let azurerm_healthcare_dicom_service ?id
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~workspace_id ~identity __resource_id =
+let register ?tf_module ?id ?public_network_access_enabled ?tags
+    ?timeouts ~location ~name ~workspace_id ~identity __resource_id =
   let __resource_type = "azurerm_healthcare_dicom_service" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       public_network_access_enabled;
-       tags;
-       workspace_id;
-       identity;
-       timeouts;
-     }
-      : azurerm_healthcare_dicom_service)
+    azurerm_healthcare_dicom_service ?id
+      ?public_network_access_enabled ?tags ?timeouts ~location ~name
+      ~workspace_id ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_healthcare_dicom_service __resource);
   let __resource_attributes =
     ({

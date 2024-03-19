@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_disk_pool_iscsi_target_lun__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_disk_pool_iscsi_target_lun__timeouts *)
+(** timeouts *)
 
 type azurerm_disk_pool_iscsi_target_lun = {
   disk_pool_managed_disk_attachment_id : string prop;
@@ -18,10 +18,24 @@ type azurerm_disk_pool_iscsi_target_lun = {
   id : string prop option; [@option]  (** id *)
   iscsi_target_id : string prop;  (** iscsi_target_id *)
   name : string prop;  (** name *)
-  timeouts : azurerm_disk_pool_iscsi_target_lun__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_disk_pool_iscsi_target_lun *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_disk_pool_iscsi_target_lun ?id ?timeouts
+    ~disk_pool_managed_disk_attachment_id ~iscsi_target_id ~name () :
+    azurerm_disk_pool_iscsi_target_lun =
+  {
+    disk_pool_managed_disk_attachment_id;
+    id;
+    iscsi_target_id;
+    name;
+    timeouts;
+  }
 
 type t = {
   disk_pool_managed_disk_attachment_id : string prop;
@@ -31,21 +45,15 @@ type t = {
   name : string prop;
 }
 
-let azurerm_disk_pool_iscsi_target_lun ?id ?timeouts
+let register ?tf_module ?id ?timeouts
     ~disk_pool_managed_disk_attachment_id ~iscsi_target_id ~name
     __resource_id =
   let __resource_type = "azurerm_disk_pool_iscsi_target_lun" in
   let __resource =
-    ({
-       disk_pool_managed_disk_attachment_id;
-       id;
-       iscsi_target_id;
-       name;
-       timeouts;
-     }
-      : azurerm_disk_pool_iscsi_target_lun)
+    azurerm_disk_pool_iscsi_target_lun ?id ?timeouts
+      ~disk_pool_managed_disk_attachment_id ~iscsi_target_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_disk_pool_iscsi_target_lun __resource);
   let __resource_attributes =
     ({

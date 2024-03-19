@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_gkeonprem_vmware_node_pool__config__taints = {
+type config__taints = {
   effect : string prop option; [@option]
       (** Available taint effects. Possible values: [EFFECT_UNSPECIFIED, NO_SCHEDULE, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
   key : string prop;  (** Key associated with the effect. *)
@@ -13,7 +13,7 @@ type google_gkeonprem_vmware_node_pool__config__taints = {
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
-type google_gkeonprem_vmware_node_pool__config__vsphere_config__tags = {
+type config__vsphere_config__tags = {
   category : string prop option; [@option]
       (** The Vsphere tag category. *)
   tag : string prop option; [@option]  (** The Vsphere tag name. *)
@@ -21,19 +21,17 @@ type google_gkeonprem_vmware_node_pool__config__vsphere_config__tags = {
 [@@deriving yojson_of]
 (** Tags to apply to VMs. *)
 
-type google_gkeonprem_vmware_node_pool__config__vsphere_config = {
+type config__vsphere_config = {
   datastore : string prop option; [@option]
       (** The name of the vCenter datastore. Inherited from the user cluster. *)
   host_groups : string prop list option; [@option]
       (** Vsphere host groups to apply to all VMs in the node pool *)
-  tags :
-    google_gkeonprem_vmware_node_pool__config__vsphere_config__tags
-    list;
+  tags : config__vsphere_config__tags list;
 }
 [@@deriving yojson_of]
 (** Specifies the vSphere config for node pool. *)
 
-type google_gkeonprem_vmware_node_pool__config = {
+type config = {
   boot_disk_size_gb : float prop option; [@option]
       (** VMware disk size to be used during creation. *)
   cpus : float prop option; [@option]
@@ -57,14 +55,13 @@ and conflicts should be avoided. *)
       (** The megabytes of memory for each node in the node pool. *)
   replicas : float prop option; [@option]
       (** The number of nodes in the node pool. *)
-  taints : google_gkeonprem_vmware_node_pool__config__taints list;
-  vsphere_config :
-    google_gkeonprem_vmware_node_pool__config__vsphere_config list;
+  taints : config__taints list;
+  vsphere_config : config__vsphere_config list;
 }
 [@@deriving yojson_of]
 (** The node configuration of the node pool. *)
 
-type google_gkeonprem_vmware_node_pool__node_pool_autoscaling = {
+type node_pool_autoscaling = {
   max_replicas : float prop;
       (** Maximum number of replicas in the NodePool. *)
   min_replicas : float prop;
@@ -73,15 +70,15 @@ type google_gkeonprem_vmware_node_pool__node_pool_autoscaling = {
 [@@deriving yojson_of]
 (** Node Pool autoscaling config for the node pool. *)
 
-type google_gkeonprem_vmware_node_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gkeonprem_vmware_node_pool__timeouts *)
+(** timeouts *)
 
-type google_gkeonprem_vmware_node_pool__status__conditions = {
+type status__conditions = {
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
   reason : string prop;  (** reason *)
@@ -90,10 +87,8 @@ type google_gkeonprem_vmware_node_pool__status__conditions = {
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_vmware_node_pool__status = {
-  conditions :
-    google_gkeonprem_vmware_node_pool__status__conditions list;
-      (** conditions *)
+type status = {
+  conditions : status__conditions list;  (** conditions *)
   error_message : string prop;  (** error_message *)
 }
 [@@deriving yojson_of]
@@ -120,13 +115,62 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
   project : string prop option; [@option]  (** project *)
   vmware_cluster : string prop;
       (** The cluster this node pool belongs to. *)
-  config : google_gkeonprem_vmware_node_pool__config list;
-  node_pool_autoscaling :
-    google_gkeonprem_vmware_node_pool__node_pool_autoscaling list;
-  timeouts : google_gkeonprem_vmware_node_pool__timeouts option;
+  config : config list;
+  node_pool_autoscaling : node_pool_autoscaling list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gkeonprem_vmware_node_pool *)
+
+let config__taints ?effect ~key ~value () : config__taints =
+  { effect; key; value }
+
+let config__vsphere_config__tags ?category ?tag () :
+    config__vsphere_config__tags =
+  { category; tag }
+
+let config__vsphere_config ?datastore ?host_groups ~tags () :
+    config__vsphere_config =
+  { datastore; host_groups; tags }
+
+let config ?boot_disk_size_gb ?cpus ?enable_load_balancer ?image
+    ?labels ?memory_mb ?replicas ~image_type ~taints ~vsphere_config
+    () : config =
+  {
+    boot_disk_size_gb;
+    cpus;
+    enable_load_balancer;
+    image;
+    image_type;
+    labels;
+    memory_mb;
+    replicas;
+    taints;
+    vsphere_config;
+  }
+
+let node_pool_autoscaling ~max_replicas ~min_replicas () :
+    node_pool_autoscaling =
+  { max_replicas; min_replicas }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gkeonprem_vmware_node_pool ?annotations ?display_name ?id
+    ?project ?timeouts ~location ~name ~vmware_cluster ~config
+    ~node_pool_autoscaling () : google_gkeonprem_vmware_node_pool =
+  {
+    annotations;
+    display_name;
+    id;
+    location;
+    name;
+    project;
+    vmware_cluster;
+    config;
+    node_pool_autoscaling;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -142,32 +186,22 @@ type t = {
   project : string prop;
   reconciling : bool prop;
   state : string prop;
-  status : google_gkeonprem_vmware_node_pool__status list prop;
+  status : status list prop;
   uid : string prop;
   update_time : string prop;
   vmware_cluster : string prop;
 }
 
-let google_gkeonprem_vmware_node_pool ?annotations ?display_name ?id
-    ?project ?timeouts ~location ~name ~vmware_cluster ~config
+let register ?tf_module ?annotations ?display_name ?id ?project
+    ?timeouts ~location ~name ~vmware_cluster ~config
     ~node_pool_autoscaling __resource_id =
   let __resource_type = "google_gkeonprem_vmware_node_pool" in
   let __resource =
-    ({
-       annotations;
-       display_name;
-       id;
-       location;
-       name;
-       project;
-       vmware_cluster;
-       config;
-       node_pool_autoscaling;
-       timeouts;
-     }
-      : google_gkeonprem_vmware_node_pool)
+    google_gkeonprem_vmware_node_pool ?annotations ?display_name ?id
+      ?project ?timeouts ~location ~name ~vmware_cluster ~config
+      ~node_pool_autoscaling ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gkeonprem_vmware_node_pool __resource);
   let __resource_attributes =
     ({

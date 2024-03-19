@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_sql_managed_instance_failover_group__read_write_endpoint_failover_policy = {
+type read_write_endpoint_failover_policy = {
   grace_minutes : float prop option; [@option]  (** grace_minutes *)
   mode : string prop;  (** mode *)
 }
 [@@deriving yojson_of]
-(** azurerm_sql_managed_instance_failover_group__read_write_endpoint_failover_policy *)
+(** read_write_endpoint_failover_policy *)
 
-type azurerm_sql_managed_instance_failover_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sql_managed_instance_failover_group__timeouts *)
+(** timeouts *)
 
-type azurerm_sql_managed_instance_failover_group__partner_region = {
+type partner_region = {
   location : string prop;  (** location *)
   role : string prop;  (** role *)
 }
@@ -38,13 +38,35 @@ type azurerm_sql_managed_instance_failover_group = {
       (** readonly_endpoint_failover_policy_enabled *)
   resource_group_name : string prop;  (** resource_group_name *)
   read_write_endpoint_failover_policy :
-    azurerm_sql_managed_instance_failover_group__read_write_endpoint_failover_policy
-    list;
-  timeouts :
-    azurerm_sql_managed_instance_failover_group__timeouts option;
+    read_write_endpoint_failover_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sql_managed_instance_failover_group *)
+
+let read_write_endpoint_failover_policy ?grace_minutes ~mode () :
+    read_write_endpoint_failover_policy =
+  { grace_minutes; mode }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sql_managed_instance_failover_group ?id
+    ?readonly_endpoint_failover_policy_enabled ?timeouts ~location
+    ~managed_instance_name ~name ~partner_managed_instance_id
+    ~resource_group_name ~read_write_endpoint_failover_policy () :
+    azurerm_sql_managed_instance_failover_group =
+  {
+    id;
+    location;
+    managed_instance_name;
+    name;
+    partner_managed_instance_id;
+    readonly_endpoint_failover_policy_enabled;
+    resource_group_name;
+    read_write_endpoint_failover_policy;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -52,15 +74,13 @@ type t = {
   managed_instance_name : string prop;
   name : string prop;
   partner_managed_instance_id : string prop;
-  partner_region :
-    azurerm_sql_managed_instance_failover_group__partner_region list
-    prop;
+  partner_region : partner_region list prop;
   readonly_endpoint_failover_policy_enabled : bool prop;
   resource_group_name : string prop;
   role : string prop;
 }
 
-let azurerm_sql_managed_instance_failover_group ?id
+let register ?tf_module ?id
     ?readonly_endpoint_failover_policy_enabled ?timeouts ~location
     ~managed_instance_name ~name ~partner_managed_instance_id
     ~resource_group_name ~read_write_endpoint_failover_policy
@@ -69,20 +89,12 @@ let azurerm_sql_managed_instance_failover_group ?id
     "azurerm_sql_managed_instance_failover_group"
   in
   let __resource =
-    ({
-       id;
-       location;
-       managed_instance_name;
-       name;
-       partner_managed_instance_id;
-       readonly_endpoint_failover_policy_enabled;
-       resource_group_name;
-       read_write_endpoint_failover_policy;
-       timeouts;
-     }
-      : azurerm_sql_managed_instance_failover_group)
+    azurerm_sql_managed_instance_failover_group ?id
+      ?readonly_endpoint_failover_policy_enabled ?timeouts ~location
+      ~managed_instance_name ~name ~partner_managed_instance_id
+      ~resource_group_name ~read_write_endpoint_failover_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sql_managed_instance_failover_group __resource);
   let __resource_attributes =
     ({

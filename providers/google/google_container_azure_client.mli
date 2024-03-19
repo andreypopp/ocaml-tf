@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type google_container_azure_client__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_container_azure_client
+
+val google_container_azure_client :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  application_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  tenant_id:string prop ->
+  unit ->
+  google_container_azure_client
+
+val yojson_of_google_container_azure_client :
+  google_container_azure_client -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -17,10 +39,11 @@ type t = private {
   uid : string prop;
 }
 
-val google_container_azure_client :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_container_azure_client__timeouts ->
+  ?timeouts:timeouts ->
   application_id:string prop ->
   location:string prop ->
   name:string prop ->

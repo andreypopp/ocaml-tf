@@ -2,19 +2,108 @@
 
 open! Tf.Prelude
 
-type aws_fsx_ontap_volume__snaplock_configuration__autocommit_period
+(** RESOURCE SERIALIZATION *)
 
-type aws_fsx_ontap_volume__snaplock_configuration__retention_period__default_retention
+type snaplock_configuration__autocommit_period
 
-type aws_fsx_ontap_volume__snaplock_configuration__retention_period__maximum_retention
+val snaplock_configuration__autocommit_period :
+  ?type_:string prop ->
+  ?value:float prop ->
+  unit ->
+  snaplock_configuration__autocommit_period
 
-type aws_fsx_ontap_volume__snaplock_configuration__retention_period__minimum_retention
+type snaplock_configuration__retention_period__default_retention
 
-type aws_fsx_ontap_volume__snaplock_configuration__retention_period
-type aws_fsx_ontap_volume__snaplock_configuration
-type aws_fsx_ontap_volume__tiering_policy
-type aws_fsx_ontap_volume__timeouts
+val snaplock_configuration__retention_period__default_retention :
+  ?type_:string prop ->
+  ?value:float prop ->
+  unit ->
+  snaplock_configuration__retention_period__default_retention
+
+type snaplock_configuration__retention_period__maximum_retention
+
+val snaplock_configuration__retention_period__maximum_retention :
+  ?type_:string prop ->
+  ?value:float prop ->
+  unit ->
+  snaplock_configuration__retention_period__maximum_retention
+
+type snaplock_configuration__retention_period__minimum_retention
+
+val snaplock_configuration__retention_period__minimum_retention :
+  ?type_:string prop ->
+  ?value:float prop ->
+  unit ->
+  snaplock_configuration__retention_period__minimum_retention
+
+type snaplock_configuration__retention_period
+
+val snaplock_configuration__retention_period :
+  default_retention:
+    snaplock_configuration__retention_period__default_retention list ->
+  maximum_retention:
+    snaplock_configuration__retention_period__maximum_retention list ->
+  minimum_retention:
+    snaplock_configuration__retention_period__minimum_retention list ->
+  unit ->
+  snaplock_configuration__retention_period
+
+type snaplock_configuration
+
+val snaplock_configuration :
+  ?audit_log_volume:bool prop ->
+  ?privileged_delete:string prop ->
+  ?volume_append_mode_enabled:bool prop ->
+  snaplock_type:string prop ->
+  autocommit_period:snaplock_configuration__autocommit_period list ->
+  retention_period:snaplock_configuration__retention_period list ->
+  unit ->
+  snaplock_configuration
+
+type tiering_policy
+
+val tiering_policy :
+  ?cooling_period:float prop ->
+  ?name:string prop ->
+  unit ->
+  tiering_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_fsx_ontap_volume
+
+val aws_fsx_ontap_volume :
+  ?bypass_snaplock_enterprise_retention:bool prop ->
+  ?copy_tags_to_backups:bool prop ->
+  ?id:string prop ->
+  ?junction_path:string prop ->
+  ?ontap_volume_type:string prop ->
+  ?security_style:string prop ->
+  ?skip_final_backup:bool prop ->
+  ?snapshot_policy:string prop ->
+  ?storage_efficiency_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?volume_type:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  size_in_megabytes:float prop ->
+  storage_virtual_machine_id:string prop ->
+  snaplock_configuration:snaplock_configuration list ->
+  tiering_policy:tiering_policy list ->
+  unit ->
+  aws_fsx_ontap_volume
+
+val yojson_of_aws_fsx_ontap_volume : aws_fsx_ontap_volume -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -38,7 +127,8 @@ type t = private {
   volume_type : string prop;
 }
 
-val aws_fsx_ontap_volume :
+val register :
+  ?tf_module:tf_module ->
   ?bypass_snaplock_enterprise_retention:bool prop ->
   ?copy_tags_to_backups:bool prop ->
   ?id:string prop ->
@@ -51,12 +141,11 @@ val aws_fsx_ontap_volume :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_type:string prop ->
-  ?timeouts:aws_fsx_ontap_volume__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   size_in_megabytes:float prop ->
   storage_virtual_machine_id:string prop ->
-  snaplock_configuration:
-    aws_fsx_ontap_volume__snaplock_configuration list ->
-  tiering_policy:aws_fsx_ontap_volume__tiering_policy list ->
+  snaplock_configuration:snaplock_configuration list ->
+  tiering_policy:tiering_policy list ->
   string ->
   t

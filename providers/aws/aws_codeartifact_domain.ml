@@ -16,6 +16,10 @@ type aws_codeartifact_domain = {
 [@@deriving yojson_of]
 (** aws_codeartifact_domain *)
 
+let aws_codeartifact_domain ?encryption_key ?id ?tags ?tags_all
+    ~domain () : aws_codeartifact_domain =
+  { domain; encryption_key; id; tags; tags_all }
+
 type t = {
   arn : string prop;
   asset_size_bytes : string prop;
@@ -30,14 +34,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_codeartifact_domain ?encryption_key ?id ?tags ?tags_all
-    ~domain __resource_id =
+let register ?tf_module ?encryption_key ?id ?tags ?tags_all ~domain
+    __resource_id =
   let __resource_type = "aws_codeartifact_domain" in
   let __resource =
-    ({ domain; encryption_key; id; tags; tags_all }
-      : aws_codeartifact_domain)
+    aws_codeartifact_domain ?encryption_key ?id ?tags ?tags_all
+      ~domain ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codeartifact_domain __resource);
   let __resource_attributes =
     ({

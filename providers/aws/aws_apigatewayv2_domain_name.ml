@@ -4,33 +4,31 @@
 
 open! Tf.Prelude
 
-type aws_apigatewayv2_domain_name__domain_name_configuration = {
+type domain_name_configuration = {
   certificate_arn : string prop;  (** certificate_arn *)
   endpoint_type : string prop;  (** endpoint_type *)
-  hosted_zone_id : string prop;  (** hosted_zone_id *)
   ownership_verification_certificate_arn : string prop option;
       [@option]
       (** ownership_verification_certificate_arn *)
   security_policy : string prop;  (** security_policy *)
-  target_domain_name : string prop;  (** target_domain_name *)
 }
 [@@deriving yojson_of]
-(** aws_apigatewayv2_domain_name__domain_name_configuration *)
+(** domain_name_configuration *)
 
-type aws_apigatewayv2_domain_name__mutual_tls_authentication = {
+type mutual_tls_authentication = {
   truststore_uri : string prop;  (** truststore_uri *)
   truststore_version : string prop option; [@option]
       (** truststore_version *)
 }
 [@@deriving yojson_of]
-(** aws_apigatewayv2_domain_name__mutual_tls_authentication *)
+(** mutual_tls_authentication *)
 
-type aws_apigatewayv2_domain_name__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_apigatewayv2_domain_name__timeouts *)
+(** timeouts *)
 
 type aws_apigatewayv2_domain_name = {
   domain_name : string prop;  (** domain_name *)
@@ -38,14 +36,41 @@ type aws_apigatewayv2_domain_name = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  domain_name_configuration :
-    aws_apigatewayv2_domain_name__domain_name_configuration list;
-  mutual_tls_authentication :
-    aws_apigatewayv2_domain_name__mutual_tls_authentication list;
-  timeouts : aws_apigatewayv2_domain_name__timeouts option;
+  domain_name_configuration : domain_name_configuration list;
+  mutual_tls_authentication : mutual_tls_authentication list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_domain_name *)
+
+let domain_name_configuration ?ownership_verification_certificate_arn
+    ~certificate_arn ~endpoint_type ~security_policy () :
+    domain_name_configuration =
+  {
+    certificate_arn;
+    endpoint_type;
+    ownership_verification_certificate_arn;
+    security_policy;
+  }
+
+let mutual_tls_authentication ?truststore_version ~truststore_uri ()
+    : mutual_tls_authentication =
+  { truststore_uri; truststore_version }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_apigatewayv2_domain_name ?id ?tags ?tags_all ?timeouts
+    ~domain_name ~domain_name_configuration
+    ~mutual_tls_authentication () : aws_apigatewayv2_domain_name =
+  {
+    domain_name;
+    id;
+    tags;
+    tags_all;
+    domain_name_configuration;
+    mutual_tls_authentication;
+    timeouts;
+  }
 
 type t = {
   api_mapping_selection_expression : string prop;
@@ -56,23 +81,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_apigatewayv2_domain_name ?id ?tags ?tags_all ?timeouts
-    ~domain_name ~domain_name_configuration
-    ~mutual_tls_authentication __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~domain_name
+    ~domain_name_configuration ~mutual_tls_authentication
+    __resource_id =
   let __resource_type = "aws_apigatewayv2_domain_name" in
   let __resource =
-    ({
-       domain_name;
-       id;
-       tags;
-       tags_all;
-       domain_name_configuration;
-       mutual_tls_authentication;
-       timeouts;
-     }
-      : aws_apigatewayv2_domain_name)
+    aws_apigatewayv2_domain_name ?id ?tags ?tags_all ?timeouts
+      ~domain_name ~domain_name_configuration
+      ~mutual_tls_authentication ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_domain_name __resource);
   let __resource_attributes =
     ({

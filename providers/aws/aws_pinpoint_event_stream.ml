@@ -14,6 +14,11 @@ type aws_pinpoint_event_stream = {
 [@@deriving yojson_of]
 (** aws_pinpoint_event_stream *)
 
+let aws_pinpoint_event_stream ?id ~application_id
+    ~destination_stream_arn ~role_arn () : aws_pinpoint_event_stream
+    =
+  { application_id; destination_stream_arn; id; role_arn }
+
 type t = {
   application_id : string prop;
   destination_stream_arn : string prop;
@@ -21,14 +26,14 @@ type t = {
   role_arn : string prop;
 }
 
-let aws_pinpoint_event_stream ?id ~application_id
-    ~destination_stream_arn ~role_arn __resource_id =
+let register ?tf_module ?id ~application_id ~destination_stream_arn
+    ~role_arn __resource_id =
   let __resource_type = "aws_pinpoint_event_stream" in
   let __resource =
-    ({ application_id; destination_stream_arn; id; role_arn }
-      : aws_pinpoint_event_stream)
+    aws_pinpoint_event_stream ?id ~application_id
+      ~destination_stream_arn ~role_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pinpoint_event_stream __resource);
   let __resource_attributes =
     ({

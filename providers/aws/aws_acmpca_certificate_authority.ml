@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_acmpca_certificate_authority__certificate_authority_configuration__subject = {
+type certificate_authority_configuration__subject = {
   common_name : string prop option; [@option]  (** common_name *)
   country : string prop option; [@option]  (** country *)
   distinguished_name_qualifier : string prop option; [@option]
@@ -23,19 +23,17 @@ type aws_acmpca_certificate_authority__certificate_authority_configuration__subj
   title : string prop option; [@option]  (** title *)
 }
 [@@deriving yojson_of]
-(** aws_acmpca_certificate_authority__certificate_authority_configuration__subject *)
+(** certificate_authority_configuration__subject *)
 
-type aws_acmpca_certificate_authority__certificate_authority_configuration = {
+type certificate_authority_configuration = {
   key_algorithm : string prop;  (** key_algorithm *)
   signing_algorithm : string prop;  (** signing_algorithm *)
-  subject :
-    aws_acmpca_certificate_authority__certificate_authority_configuration__subject
-    list;
+  subject : certificate_authority_configuration__subject list;
 }
 [@@deriving yojson_of]
-(** aws_acmpca_certificate_authority__certificate_authority_configuration *)
+(** certificate_authority_configuration *)
 
-type aws_acmpca_certificate_authority__revocation_configuration__crl_configuration = {
+type revocation_configuration__crl_configuration = {
   custom_cname : string prop option; [@option]  (** custom_cname *)
   enabled : bool prop option; [@option]  (** enabled *)
   expiration_in_days : float prop option; [@option]
@@ -45,32 +43,30 @@ type aws_acmpca_certificate_authority__revocation_configuration__crl_configurati
   s3_object_acl : string prop option; [@option]  (** s3_object_acl *)
 }
 [@@deriving yojson_of]
-(** aws_acmpca_certificate_authority__revocation_configuration__crl_configuration *)
+(** revocation_configuration__crl_configuration *)
 
-type aws_acmpca_certificate_authority__revocation_configuration__ocsp_configuration = {
+type revocation_configuration__ocsp_configuration = {
   enabled : bool prop;  (** enabled *)
   ocsp_custom_cname : string prop option; [@option]
       (** ocsp_custom_cname *)
 }
 [@@deriving yojson_of]
-(** aws_acmpca_certificate_authority__revocation_configuration__ocsp_configuration *)
+(** revocation_configuration__ocsp_configuration *)
 
-type aws_acmpca_certificate_authority__revocation_configuration = {
+type revocation_configuration = {
   crl_configuration :
-    aws_acmpca_certificate_authority__revocation_configuration__crl_configuration
-    list;
+    revocation_configuration__crl_configuration list;
   ocsp_configuration :
-    aws_acmpca_certificate_authority__revocation_configuration__ocsp_configuration
-    list;
+    revocation_configuration__ocsp_configuration list;
 }
 [@@deriving yojson_of]
-(** aws_acmpca_certificate_authority__revocation_configuration *)
+(** revocation_configuration *)
 
-type aws_acmpca_certificate_authority__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_acmpca_certificate_authority__timeouts *)
+(** timeouts *)
 
 type aws_acmpca_certificate_authority = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -85,14 +81,78 @@ type aws_acmpca_certificate_authority = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   usage_mode : string prop option; [@option]  (** usage_mode *)
   certificate_authority_configuration :
-    aws_acmpca_certificate_authority__certificate_authority_configuration
-    list;
-  revocation_configuration :
-    aws_acmpca_certificate_authority__revocation_configuration list;
-  timeouts : aws_acmpca_certificate_authority__timeouts option;
+    certificate_authority_configuration list;
+  revocation_configuration : revocation_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_acmpca_certificate_authority *)
+
+let certificate_authority_configuration__subject ?common_name
+    ?country ?distinguished_name_qualifier ?generation_qualifier
+    ?given_name ?initials ?locality ?organization
+    ?organizational_unit ?pseudonym ?state ?surname ?title () :
+    certificate_authority_configuration__subject =
+  {
+    common_name;
+    country;
+    distinguished_name_qualifier;
+    generation_qualifier;
+    given_name;
+    initials;
+    locality;
+    organization;
+    organizational_unit;
+    pseudonym;
+    state;
+    surname;
+    title;
+  }
+
+let certificate_authority_configuration ~key_algorithm
+    ~signing_algorithm ~subject () :
+    certificate_authority_configuration =
+  { key_algorithm; signing_algorithm; subject }
+
+let revocation_configuration__crl_configuration ?custom_cname
+    ?enabled ?expiration_in_days ?s3_bucket_name ?s3_object_acl () :
+    revocation_configuration__crl_configuration =
+  {
+    custom_cname;
+    enabled;
+    expiration_in_days;
+    s3_bucket_name;
+    s3_object_acl;
+  }
+
+let revocation_configuration__ocsp_configuration ?ocsp_custom_cname
+    ~enabled () : revocation_configuration__ocsp_configuration =
+  { enabled; ocsp_custom_cname }
+
+let revocation_configuration ~crl_configuration ~ocsp_configuration
+    () : revocation_configuration =
+  { crl_configuration; ocsp_configuration }
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_acmpca_certificate_authority ?enabled ?id
+    ?key_storage_security_standard ?permanent_deletion_time_in_days
+    ?tags ?tags_all ?type_ ?usage_mode ?timeouts
+    ~certificate_authority_configuration ~revocation_configuration ()
+    : aws_acmpca_certificate_authority =
+  {
+    enabled;
+    id;
+    key_storage_security_standard;
+    permanent_deletion_time_in_days;
+    tags;
+    tags_all;
+    type_;
+    usage_mode;
+    certificate_authority_configuration;
+    revocation_configuration;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -112,29 +172,19 @@ type t = {
   usage_mode : string prop;
 }
 
-let aws_acmpca_certificate_authority ?enabled ?id
-    ?key_storage_security_standard ?permanent_deletion_time_in_days
-    ?tags ?tags_all ?type_ ?usage_mode ?timeouts
-    ~certificate_authority_configuration ~revocation_configuration
-    __resource_id =
+let register ?tf_module ?enabled ?id ?key_storage_security_standard
+    ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
+    ?usage_mode ?timeouts ~certificate_authority_configuration
+    ~revocation_configuration __resource_id =
   let __resource_type = "aws_acmpca_certificate_authority" in
   let __resource =
-    ({
-       enabled;
-       id;
-       key_storage_security_standard;
-       permanent_deletion_time_in_days;
-       tags;
-       tags_all;
-       type_;
-       usage_mode;
-       certificate_authority_configuration;
-       revocation_configuration;
-       timeouts;
-     }
-      : aws_acmpca_certificate_authority)
+    aws_acmpca_certificate_authority ?enabled ?id
+      ?key_storage_security_standard ?permanent_deletion_time_in_days
+      ?tags ?tags_all ?type_ ?usage_mode ?timeouts
+      ~certificate_authority_configuration ~revocation_configuration
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_acmpca_certificate_authority __resource);
   let __resource_attributes =
     ({

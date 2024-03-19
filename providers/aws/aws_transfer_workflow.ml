@@ -4,46 +4,46 @@
 
 open! Tf.Prelude
 
-type aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location__efs_file_location = {
+type on_exception_steps__copy_step_details__destination_file_location__efs_file_location = {
   file_system_id : string prop option; [@option]
       (** file_system_id *)
   path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location__efs_file_location *)
+(** on_exception_steps__copy_step_details__destination_file_location__efs_file_location *)
 
-type aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location__s3_file_location = {
+type on_exception_steps__copy_step_details__destination_file_location__s3_file_location = {
   bucket : string prop option; [@option]  (** bucket *)
   key : string prop option; [@option]  (** key *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location__s3_file_location *)
+(** on_exception_steps__copy_step_details__destination_file_location__s3_file_location *)
 
-type aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location = {
+type on_exception_steps__copy_step_details__destination_file_location = {
   efs_file_location :
-    aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location__efs_file_location
+    on_exception_steps__copy_step_details__destination_file_location__efs_file_location
     list;
   s3_file_location :
-    aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location__s3_file_location
+    on_exception_steps__copy_step_details__destination_file_location__s3_file_location
     list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location *)
+(** on_exception_steps__copy_step_details__destination_file_location *)
 
-type aws_transfer_workflow__on_exception_steps__copy_step_details = {
+type on_exception_steps__copy_step_details = {
   name : string prop option; [@option]  (** name *)
   overwrite_existing : string prop option; [@option]
       (** overwrite_existing *)
   source_file_location : string prop option; [@option]
       (** source_file_location *)
   destination_file_location :
-    aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location
+    on_exception_steps__copy_step_details__destination_file_location
     list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__copy_step_details *)
+(** on_exception_steps__copy_step_details *)
 
-type aws_transfer_workflow__on_exception_steps__custom_step_details = {
+type on_exception_steps__custom_step_details = {
   name : string prop option; [@option]  (** name *)
   source_file_location : string prop option; [@option]
       (** source_file_location *)
@@ -52,35 +52,35 @@ type aws_transfer_workflow__on_exception_steps__custom_step_details = {
       (** timeout_seconds *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__custom_step_details *)
+(** on_exception_steps__custom_step_details *)
 
-type aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location = {
+type on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location = {
   file_system_id : string prop option; [@option]
       (** file_system_id *)
   path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location *)
+(** on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location *)
 
-type aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location = {
+type on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location = {
   bucket : string prop option; [@option]  (** bucket *)
   key : string prop option; [@option]  (** key *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location *)
+(** on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location *)
 
-type aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location = {
+type on_exception_steps__decrypt_step_details__destination_file_location = {
   efs_file_location :
-    aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location
+    on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location
     list;
   s3_file_location :
-    aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location
+    on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location
     list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location *)
+(** on_exception_steps__decrypt_step_details__destination_file_location *)
 
-type aws_transfer_workflow__on_exception_steps__decrypt_step_details = {
+type on_exception_steps__decrypt_step_details = {
   name : string prop option; [@option]  (** name *)
   overwrite_existing : string prop option; [@option]
       (** overwrite_existing *)
@@ -88,97 +88,87 @@ type aws_transfer_workflow__on_exception_steps__decrypt_step_details = {
       (** source_file_location *)
   type_ : string prop; [@key "type"]  (** type *)
   destination_file_location :
-    aws_transfer_workflow__on_exception_steps__decrypt_step_details__destination_file_location
+    on_exception_steps__decrypt_step_details__destination_file_location
     list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__decrypt_step_details *)
+(** on_exception_steps__decrypt_step_details *)
 
-type aws_transfer_workflow__on_exception_steps__delete_step_details = {
+type on_exception_steps__delete_step_details = {
   name : string prop option; [@option]  (** name *)
   source_file_location : string prop option; [@option]
       (** source_file_location *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__delete_step_details *)
+(** on_exception_steps__delete_step_details *)
 
-type aws_transfer_workflow__on_exception_steps__tag_step_details__tags = {
+type on_exception_steps__tag_step_details__tags = {
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__tag_step_details__tags *)
+(** on_exception_steps__tag_step_details__tags *)
 
-type aws_transfer_workflow__on_exception_steps__tag_step_details = {
+type on_exception_steps__tag_step_details = {
   name : string prop option; [@option]  (** name *)
   source_file_location : string prop option; [@option]
       (** source_file_location *)
-  tags :
-    aws_transfer_workflow__on_exception_steps__tag_step_details__tags
-    list;
+  tags : on_exception_steps__tag_step_details__tags list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps__tag_step_details *)
+(** on_exception_steps__tag_step_details *)
 
-type aws_transfer_workflow__on_exception_steps = {
+type on_exception_steps = {
   type_ : string prop; [@key "type"]  (** type *)
-  copy_step_details :
-    aws_transfer_workflow__on_exception_steps__copy_step_details list;
-  custom_step_details :
-    aws_transfer_workflow__on_exception_steps__custom_step_details
-    list;
+  copy_step_details : on_exception_steps__copy_step_details list;
+  custom_step_details : on_exception_steps__custom_step_details list;
   decrypt_step_details :
-    aws_transfer_workflow__on_exception_steps__decrypt_step_details
-    list;
-  delete_step_details :
-    aws_transfer_workflow__on_exception_steps__delete_step_details
-    list;
-  tag_step_details :
-    aws_transfer_workflow__on_exception_steps__tag_step_details list;
+    on_exception_steps__decrypt_step_details list;
+  delete_step_details : on_exception_steps__delete_step_details list;
+  tag_step_details : on_exception_steps__tag_step_details list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__on_exception_steps *)
+(** on_exception_steps *)
 
-type aws_transfer_workflow__steps__copy_step_details__destination_file_location__efs_file_location = {
+type steps__copy_step_details__destination_file_location__efs_file_location = {
   file_system_id : string prop option; [@option]
       (** file_system_id *)
   path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__copy_step_details__destination_file_location__efs_file_location *)
+(** steps__copy_step_details__destination_file_location__efs_file_location *)
 
-type aws_transfer_workflow__steps__copy_step_details__destination_file_location__s3_file_location = {
+type steps__copy_step_details__destination_file_location__s3_file_location = {
   bucket : string prop option; [@option]  (** bucket *)
   key : string prop option; [@option]  (** key *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__copy_step_details__destination_file_location__s3_file_location *)
+(** steps__copy_step_details__destination_file_location__s3_file_location *)
 
-type aws_transfer_workflow__steps__copy_step_details__destination_file_location = {
+type steps__copy_step_details__destination_file_location = {
   efs_file_location :
-    aws_transfer_workflow__steps__copy_step_details__destination_file_location__efs_file_location
+    steps__copy_step_details__destination_file_location__efs_file_location
     list;
   s3_file_location :
-    aws_transfer_workflow__steps__copy_step_details__destination_file_location__s3_file_location
+    steps__copy_step_details__destination_file_location__s3_file_location
     list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__copy_step_details__destination_file_location *)
+(** steps__copy_step_details__destination_file_location *)
 
-type aws_transfer_workflow__steps__copy_step_details = {
+type steps__copy_step_details = {
   name : string prop option; [@option]  (** name *)
   overwrite_existing : string prop option; [@option]
       (** overwrite_existing *)
   source_file_location : string prop option; [@option]
       (** source_file_location *)
   destination_file_location :
-    aws_transfer_workflow__steps__copy_step_details__destination_file_location
-    list;
+    steps__copy_step_details__destination_file_location list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__copy_step_details *)
+(** steps__copy_step_details *)
 
-type aws_transfer_workflow__steps__custom_step_details = {
+type steps__custom_step_details = {
   name : string prop option; [@option]  (** name *)
   source_file_location : string prop option; [@option]
       (** source_file_location *)
@@ -187,35 +177,35 @@ type aws_transfer_workflow__steps__custom_step_details = {
       (** timeout_seconds *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__custom_step_details *)
+(** steps__custom_step_details *)
 
-type aws_transfer_workflow__steps__decrypt_step_details__destination_file_location__efs_file_location = {
+type steps__decrypt_step_details__destination_file_location__efs_file_location = {
   file_system_id : string prop option; [@option]
       (** file_system_id *)
   path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__decrypt_step_details__destination_file_location__efs_file_location *)
+(** steps__decrypt_step_details__destination_file_location__efs_file_location *)
 
-type aws_transfer_workflow__steps__decrypt_step_details__destination_file_location__s3_file_location = {
+type steps__decrypt_step_details__destination_file_location__s3_file_location = {
   bucket : string prop option; [@option]  (** bucket *)
   key : string prop option; [@option]  (** key *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__decrypt_step_details__destination_file_location__s3_file_location *)
+(** steps__decrypt_step_details__destination_file_location__s3_file_location *)
 
-type aws_transfer_workflow__steps__decrypt_step_details__destination_file_location = {
+type steps__decrypt_step_details__destination_file_location = {
   efs_file_location :
-    aws_transfer_workflow__steps__decrypt_step_details__destination_file_location__efs_file_location
+    steps__decrypt_step_details__destination_file_location__efs_file_location
     list;
   s3_file_location :
-    aws_transfer_workflow__steps__decrypt_step_details__destination_file_location__s3_file_location
+    steps__decrypt_step_details__destination_file_location__s3_file_location
     list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__decrypt_step_details__destination_file_location *)
+(** steps__decrypt_step_details__destination_file_location *)
 
-type aws_transfer_workflow__steps__decrypt_step_details = {
+type steps__decrypt_step_details = {
   name : string prop option; [@option]  (** name *)
   overwrite_existing : string prop option; [@option]
       (** overwrite_existing *)
@@ -223,51 +213,45 @@ type aws_transfer_workflow__steps__decrypt_step_details = {
       (** source_file_location *)
   type_ : string prop; [@key "type"]  (** type *)
   destination_file_location :
-    aws_transfer_workflow__steps__decrypt_step_details__destination_file_location
-    list;
+    steps__decrypt_step_details__destination_file_location list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__decrypt_step_details *)
+(** steps__decrypt_step_details *)
 
-type aws_transfer_workflow__steps__delete_step_details = {
+type steps__delete_step_details = {
   name : string prop option; [@option]  (** name *)
   source_file_location : string prop option; [@option]
       (** source_file_location *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__delete_step_details *)
+(** steps__delete_step_details *)
 
-type aws_transfer_workflow__steps__tag_step_details__tags = {
+type steps__tag_step_details__tags = {
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__tag_step_details__tags *)
+(** steps__tag_step_details__tags *)
 
-type aws_transfer_workflow__steps__tag_step_details = {
+type steps__tag_step_details = {
   name : string prop option; [@option]  (** name *)
   source_file_location : string prop option; [@option]
       (** source_file_location *)
-  tags : aws_transfer_workflow__steps__tag_step_details__tags list;
+  tags : steps__tag_step_details__tags list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps__tag_step_details *)
+(** steps__tag_step_details *)
 
-type aws_transfer_workflow__steps = {
+type steps = {
   type_ : string prop; [@key "type"]  (** type *)
-  copy_step_details :
-    aws_transfer_workflow__steps__copy_step_details list;
-  custom_step_details :
-    aws_transfer_workflow__steps__custom_step_details list;
-  decrypt_step_details :
-    aws_transfer_workflow__steps__decrypt_step_details list;
-  delete_step_details :
-    aws_transfer_workflow__steps__delete_step_details list;
-  tag_step_details :
-    aws_transfer_workflow__steps__tag_step_details list;
+  copy_step_details : steps__copy_step_details list;
+  custom_step_details : steps__custom_step_details list;
+  decrypt_step_details : steps__decrypt_step_details list;
+  delete_step_details : steps__delete_step_details list;
+  tag_step_details : steps__tag_step_details list;
 }
 [@@deriving yojson_of]
-(** aws_transfer_workflow__steps *)
+(** steps *)
 
 type aws_transfer_workflow = {
   description : string prop option; [@option]  (** description *)
@@ -275,12 +259,186 @@ type aws_transfer_workflow = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  on_exception_steps :
-    aws_transfer_workflow__on_exception_steps list;
-  steps : aws_transfer_workflow__steps list;
+  on_exception_steps : on_exception_steps list;
+  steps : steps list;
 }
 [@@deriving yojson_of]
 (** aws_transfer_workflow *)
+
+let on_exception_steps__copy_step_details__destination_file_location__efs_file_location
+    ?file_system_id ?path () :
+    on_exception_steps__copy_step_details__destination_file_location__efs_file_location
+    =
+  { file_system_id; path }
+
+let on_exception_steps__copy_step_details__destination_file_location__s3_file_location
+    ?bucket ?key () :
+    on_exception_steps__copy_step_details__destination_file_location__s3_file_location
+    =
+  { bucket; key }
+
+let on_exception_steps__copy_step_details__destination_file_location
+    ~efs_file_location ~s3_file_location () :
+    on_exception_steps__copy_step_details__destination_file_location
+    =
+  { efs_file_location; s3_file_location }
+
+let on_exception_steps__copy_step_details ?name ?overwrite_existing
+    ?source_file_location ~destination_file_location () :
+    on_exception_steps__copy_step_details =
+  {
+    name;
+    overwrite_existing;
+    source_file_location;
+    destination_file_location;
+  }
+
+let on_exception_steps__custom_step_details ?name
+    ?source_file_location ?target ?timeout_seconds () :
+    on_exception_steps__custom_step_details =
+  { name; source_file_location; target; timeout_seconds }
+
+let on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location
+    ?file_system_id ?path () :
+    on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location
+    =
+  { file_system_id; path }
+
+let on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location
+    ?bucket ?key () :
+    on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location
+    =
+  { bucket; key }
+
+let on_exception_steps__decrypt_step_details__destination_file_location
+    ~efs_file_location ~s3_file_location () :
+    on_exception_steps__decrypt_step_details__destination_file_location
+    =
+  { efs_file_location; s3_file_location }
+
+let on_exception_steps__decrypt_step_details ?name
+    ?overwrite_existing ?source_file_location ~type_
+    ~destination_file_location () :
+    on_exception_steps__decrypt_step_details =
+  {
+    name;
+    overwrite_existing;
+    source_file_location;
+    type_;
+    destination_file_location;
+  }
+
+let on_exception_steps__delete_step_details ?name
+    ?source_file_location () :
+    on_exception_steps__delete_step_details =
+  { name; source_file_location }
+
+let on_exception_steps__tag_step_details__tags ~key ~value () :
+    on_exception_steps__tag_step_details__tags =
+  { key; value }
+
+let on_exception_steps__tag_step_details ?name ?source_file_location
+    ~tags () : on_exception_steps__tag_step_details =
+  { name; source_file_location; tags }
+
+let on_exception_steps ~type_ ~copy_step_details ~custom_step_details
+    ~decrypt_step_details ~delete_step_details ~tag_step_details () :
+    on_exception_steps =
+  {
+    type_;
+    copy_step_details;
+    custom_step_details;
+    decrypt_step_details;
+    delete_step_details;
+    tag_step_details;
+  }
+
+let steps__copy_step_details__destination_file_location__efs_file_location
+    ?file_system_id ?path () :
+    steps__copy_step_details__destination_file_location__efs_file_location
+    =
+  { file_system_id; path }
+
+let steps__copy_step_details__destination_file_location__s3_file_location
+    ?bucket ?key () :
+    steps__copy_step_details__destination_file_location__s3_file_location
+    =
+  { bucket; key }
+
+let steps__copy_step_details__destination_file_location
+    ~efs_file_location ~s3_file_location () :
+    steps__copy_step_details__destination_file_location =
+  { efs_file_location; s3_file_location }
+
+let steps__copy_step_details ?name ?overwrite_existing
+    ?source_file_location ~destination_file_location () :
+    steps__copy_step_details =
+  {
+    name;
+    overwrite_existing;
+    source_file_location;
+    destination_file_location;
+  }
+
+let steps__custom_step_details ?name ?source_file_location ?target
+    ?timeout_seconds () : steps__custom_step_details =
+  { name; source_file_location; target; timeout_seconds }
+
+let steps__decrypt_step_details__destination_file_location__efs_file_location
+    ?file_system_id ?path () :
+    steps__decrypt_step_details__destination_file_location__efs_file_location
+    =
+  { file_system_id; path }
+
+let steps__decrypt_step_details__destination_file_location__s3_file_location
+    ?bucket ?key () :
+    steps__decrypt_step_details__destination_file_location__s3_file_location
+    =
+  { bucket; key }
+
+let steps__decrypt_step_details__destination_file_location
+    ~efs_file_location ~s3_file_location () :
+    steps__decrypt_step_details__destination_file_location =
+  { efs_file_location; s3_file_location }
+
+let steps__decrypt_step_details ?name ?overwrite_existing
+    ?source_file_location ~type_ ~destination_file_location () :
+    steps__decrypt_step_details =
+  {
+    name;
+    overwrite_existing;
+    source_file_location;
+    type_;
+    destination_file_location;
+  }
+
+let steps__delete_step_details ?name ?source_file_location () :
+    steps__delete_step_details =
+  { name; source_file_location }
+
+let steps__tag_step_details__tags ~key ~value () :
+    steps__tag_step_details__tags =
+  { key; value }
+
+let steps__tag_step_details ?name ?source_file_location ~tags () :
+    steps__tag_step_details =
+  { name; source_file_location; tags }
+
+let steps ~type_ ~copy_step_details ~custom_step_details
+    ~decrypt_step_details ~delete_step_details ~tag_step_details () :
+    steps =
+  {
+    type_;
+    copy_step_details;
+    custom_step_details;
+    decrypt_step_details;
+    delete_step_details;
+    tag_step_details;
+  }
+
+let aws_transfer_workflow ?description ?id ?tags ?tags_all
+    ~on_exception_steps ~steps () : aws_transfer_workflow =
+  { description; id; tags; tags_all; on_exception_steps; steps }
 
 type t = {
   arn : string prop;
@@ -290,14 +448,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_transfer_workflow ?description ?id ?tags ?tags_all
+let register ?tf_module ?description ?id ?tags ?tags_all
     ~on_exception_steps ~steps __resource_id =
   let __resource_type = "aws_transfer_workflow" in
   let __resource =
-    ({ description; id; tags; tags_all; on_exception_steps; steps }
-      : aws_transfer_workflow)
+    aws_transfer_workflow ?description ?id ?tags ?tags_all
+      ~on_exception_steps ~steps ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_workflow __resource);
   let __resource_attributes =
     ({

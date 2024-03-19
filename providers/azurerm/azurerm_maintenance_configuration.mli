@@ -2,12 +2,78 @@
 
 open! Tf.Prelude
 
-type azurerm_maintenance_configuration__install_patches__linux
-type azurerm_maintenance_configuration__install_patches__windows
-type azurerm_maintenance_configuration__install_patches
-type azurerm_maintenance_configuration__timeouts
-type azurerm_maintenance_configuration__window
+(** RESOURCE SERIALIZATION *)
+
+type install_patches__linux
+
+val install_patches__linux :
+  ?classifications_to_include:string prop list ->
+  ?package_names_mask_to_exclude:string prop list ->
+  ?package_names_mask_to_include:string prop list ->
+  unit ->
+  install_patches__linux
+
+type install_patches__windows
+
+val install_patches__windows :
+  ?classifications_to_include:string prop list ->
+  ?kb_numbers_to_exclude:string prop list ->
+  ?kb_numbers_to_include:string prop list ->
+  unit ->
+  install_patches__windows
+
+type install_patches
+
+val install_patches :
+  ?reboot:string prop ->
+  linux:install_patches__linux list ->
+  windows:install_patches__windows list ->
+  unit ->
+  install_patches
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type window
+
+val window :
+  ?duration:string prop ->
+  ?expiration_date_time:string prop ->
+  ?recur_every:string prop ->
+  start_date_time:string prop ->
+  time_zone:string prop ->
+  unit ->
+  window
+
 type azurerm_maintenance_configuration
+
+val azurerm_maintenance_configuration :
+  ?id:string prop ->
+  ?in_guest_user_patch_mode:string prop ->
+  ?properties:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?visibility:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scope:string prop ->
+  install_patches:install_patches list ->
+  window:window list ->
+  unit ->
+  azurerm_maintenance_configuration
+
+val yojson_of_azurerm_maintenance_configuration :
+  azurerm_maintenance_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -21,19 +87,19 @@ type t = private {
   visibility : string prop;
 }
 
-val azurerm_maintenance_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?in_guest_user_patch_mode:string prop ->
   ?properties:(string * string prop) list ->
   ?tags:(string * string prop) list ->
   ?visibility:string prop ->
-  ?timeouts:azurerm_maintenance_configuration__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scope:string prop ->
-  install_patches:
-    azurerm_maintenance_configuration__install_patches list ->
-  window:azurerm_maintenance_configuration__window list ->
+  install_patches:install_patches list ->
+  window:window list ->
   string ->
   t

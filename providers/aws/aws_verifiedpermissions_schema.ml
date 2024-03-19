@@ -4,18 +4,22 @@
 
 open! Tf.Prelude
 
-type aws_verifiedpermissions_schema__definition = {
-  value : string prop;  (** value *)
-}
+type definition = { value : string prop  (** value *) }
 [@@deriving yojson_of]
-(** aws_verifiedpermissions_schema__definition *)
+(** definition *)
 
 type aws_verifiedpermissions_schema = {
   policy_store_id : string prop;  (** policy_store_id *)
-  definition : aws_verifiedpermissions_schema__definition;
+  definition : definition;
 }
 [@@deriving yojson_of]
 (** aws_verifiedpermissions_schema *)
+
+let definition ~value () : definition = { value }
+
+let aws_verifiedpermissions_schema ~policy_store_id ~definition () :
+    aws_verifiedpermissions_schema =
+  { policy_store_id; definition }
 
 type t = {
   id : string prop;
@@ -23,14 +27,12 @@ type t = {
   policy_store_id : string prop;
 }
 
-let aws_verifiedpermissions_schema ~policy_store_id ~definition
-    __resource_id =
+let register ?tf_module ~policy_store_id ~definition __resource_id =
   let __resource_type = "aws_verifiedpermissions_schema" in
   let __resource =
-    ({ policy_store_id; definition }
-      : aws_verifiedpermissions_schema)
+    aws_verifiedpermissions_schema ~policy_store_id ~definition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedpermissions_schema __resource);
   let __resource_attributes =
     ({

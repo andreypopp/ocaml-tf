@@ -16,6 +16,19 @@ type aws_cloudwatch_log_subscription_filter = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_subscription_filter *)
 
+let aws_cloudwatch_log_subscription_filter ?distribution ?id
+    ?role_arn ~destination_arn ~filter_pattern ~log_group_name ~name
+    () : aws_cloudwatch_log_subscription_filter =
+  {
+    destination_arn;
+    distribution;
+    filter_pattern;
+    id;
+    log_group_name;
+    name;
+    role_arn;
+  }
+
 type t = {
   destination_arn : string prop;
   distribution : string prop;
@@ -26,23 +39,15 @@ type t = {
   role_arn : string prop;
 }
 
-let aws_cloudwatch_log_subscription_filter ?distribution ?id
-    ?role_arn ~destination_arn ~filter_pattern ~log_group_name ~name
-    __resource_id =
+let register ?tf_module ?distribution ?id ?role_arn ~destination_arn
+    ~filter_pattern ~log_group_name ~name __resource_id =
   let __resource_type = "aws_cloudwatch_log_subscription_filter" in
   let __resource =
-    ({
-       destination_arn;
-       distribution;
-       filter_pattern;
-       id;
-       log_group_name;
-       name;
-       role_arn;
-     }
-      : aws_cloudwatch_log_subscription_filter)
+    aws_cloudwatch_log_subscription_filter ?distribution ?id
+      ?role_arn ~destination_arn ~filter_pattern ~log_group_name
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_log_subscription_filter __resource);
   let __resource_attributes =
     ({

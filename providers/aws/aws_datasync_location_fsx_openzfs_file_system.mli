@@ -2,11 +2,41 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_fsx_openzfs_file_system__protocol__nfs__mount_options
+(** RESOURCE SERIALIZATION *)
 
-type aws_datasync_location_fsx_openzfs_file_system__protocol__nfs
-type aws_datasync_location_fsx_openzfs_file_system__protocol
+type protocol__nfs__mount_options
+
+val protocol__nfs__mount_options :
+  ?version:string prop -> unit -> protocol__nfs__mount_options
+
+type protocol__nfs
+
+val protocol__nfs :
+  mount_options:protocol__nfs__mount_options list ->
+  unit ->
+  protocol__nfs
+
+type protocol
+
+val protocol : nfs:protocol__nfs list -> unit -> protocol
+
 type aws_datasync_location_fsx_openzfs_file_system
+
+val aws_datasync_location_fsx_openzfs_file_system :
+  ?id:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  fsx_filesystem_arn:string prop ->
+  security_group_arns:string prop list ->
+  protocol:protocol list ->
+  unit ->
+  aws_datasync_location_fsx_openzfs_file_system
+
+val yojson_of_aws_datasync_location_fsx_openzfs_file_system :
+  aws_datasync_location_fsx_openzfs_file_system -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -20,14 +50,14 @@ type t = private {
   uri : string prop;
 }
 
-val aws_datasync_location_fsx_openzfs_file_system :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?subdirectory:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   fsx_filesystem_arn:string prop ->
   security_group_arns:string prop list ->
-  protocol:
-    aws_datasync_location_fsx_openzfs_file_system__protocol list ->
+  protocol:protocol list ->
   string ->
   t

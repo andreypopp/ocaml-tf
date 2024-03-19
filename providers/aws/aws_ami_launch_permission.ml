@@ -17,6 +17,18 @@ type aws_ami_launch_permission = {
 [@@deriving yojson_of]
 (** aws_ami_launch_permission *)
 
+let aws_ami_launch_permission ?account_id ?group ?id
+    ?organization_arn ?organizational_unit_arn ~image_id () :
+    aws_ami_launch_permission =
+  {
+    account_id;
+    group;
+    id;
+    image_id;
+    organization_arn;
+    organizational_unit_arn;
+  }
+
 type t = {
   account_id : string prop;
   group : string prop;
@@ -26,22 +38,14 @@ type t = {
   organizational_unit_arn : string prop;
 }
 
-let aws_ami_launch_permission ?account_id ?group ?id
-    ?organization_arn ?organizational_unit_arn ~image_id
-    __resource_id =
+let register ?tf_module ?account_id ?group ?id ?organization_arn
+    ?organizational_unit_arn ~image_id __resource_id =
   let __resource_type = "aws_ami_launch_permission" in
   let __resource =
-    ({
-       account_id;
-       group;
-       id;
-       image_id;
-       organization_arn;
-       organizational_unit_arn;
-     }
-      : aws_ami_launch_permission)
+    aws_ami_launch_permission ?account_id ?group ?id
+      ?organization_arn ?organizational_unit_arn ~image_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ami_launch_permission __resource);
   let __resource_attributes =
     ({

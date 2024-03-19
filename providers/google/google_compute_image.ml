@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_image__guest_os_features = {
+type guest_os_features = {
   type_ : string prop; [@key "type"]
       (** The type of supported feature. Read [Enabling guest operating system features](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#guest-os-features) to see a list of available options. Possible values: [MULTI_IP_SUBNET, SECURE_BOOT, SEV_CAPABLE, UEFI_COMPATIBLE, VIRTIO_SCSI_MULTIQUEUE, WINDOWS, GVNIC, SEV_LIVE_MIGRATABLE, SEV_SNP_CAPABLE, SUSPEND_RESUME_COMPATIBLE, TDX_CAPABLE, SEV_LIVE_MIGRATABLE_V2] *)
 }
@@ -12,7 +12,7 @@ type google_compute_image__guest_os_features = {
 (** A list of features to enable on the guest operating system.
 Applicable only for bootable images. *)
 
-type google_compute_image__image_encryption_key = {
+type image_encryption_key = {
   kms_key_self_link : string prop option; [@option]
       (** The self link of the encryption key that is stored in Google Cloud
 KMS. *)
@@ -28,7 +28,7 @@ After you encrypt an image with a customer-supplied key, you must
 provide the same key if you use the image later (e.g. to create a
 disk from the image) *)
 
-type google_compute_image__raw_disk = {
+type raw_disk = {
   container_type : string prop option; [@option]
       (** The format used to encode and transmit the block device, which
 should be TAR. This is just a container and transmission format
@@ -45,13 +45,13 @@ but not both. *)
 [@@deriving yojson_of]
 (** The parameters of the raw disk image. *)
 
-type google_compute_image__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_image__timeouts *)
+(** timeouts *)
 
 type google_compute_image = {
   description : string prop option; [@option]
@@ -108,14 +108,49 @@ In order to create an image, you must provide the full or partial URL of one of 
       (** Cloud Storage bucket storage location of the image
 (regional or multi-regional).
 Reference link: https://cloud.google.com/compute/docs/reference/rest/v1/images *)
-  guest_os_features : google_compute_image__guest_os_features list;
-  image_encryption_key :
-    google_compute_image__image_encryption_key list;
-  raw_disk : google_compute_image__raw_disk list;
-  timeouts : google_compute_image__timeouts option;
+  guest_os_features : guest_os_features list;
+  image_encryption_key : image_encryption_key list;
+  raw_disk : raw_disk list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_image *)
+
+let guest_os_features ~type_ () : guest_os_features = { type_ }
+
+let image_encryption_key ?kms_key_self_link ?kms_key_service_account
+    () : image_encryption_key =
+  { kms_key_self_link; kms_key_service_account }
+
+let raw_disk ?container_type ?sha1 ~source () : raw_disk =
+  { container_type; sha1; source }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_image ?description ?disk_size_gb ?family ?id
+    ?labels ?licenses ?project ?source_disk ?source_image
+    ?source_snapshot ?storage_locations ?timeouts ~name
+    ~guest_os_features ~image_encryption_key ~raw_disk () :
+    google_compute_image =
+  {
+    description;
+    disk_size_gb;
+    family;
+    id;
+    labels;
+    licenses;
+    name;
+    project;
+    source_disk;
+    source_image;
+    source_snapshot;
+    storage_locations;
+    guest_os_features;
+    image_encryption_key;
+    raw_disk;
+    timeouts;
+  }
 
 type t = {
   archive_size_bytes : float prop;
@@ -138,34 +173,19 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_compute_image ?description ?disk_size_gb ?family ?id
+let register ?tf_module ?description ?disk_size_gb ?family ?id
     ?labels ?licenses ?project ?source_disk ?source_image
     ?source_snapshot ?storage_locations ?timeouts ~name
     ~guest_os_features ~image_encryption_key ~raw_disk __resource_id
     =
   let __resource_type = "google_compute_image" in
   let __resource =
-    ({
-       description;
-       disk_size_gb;
-       family;
-       id;
-       labels;
-       licenses;
-       name;
-       project;
-       source_disk;
-       source_image;
-       source_snapshot;
-       storage_locations;
-       guest_os_features;
-       image_encryption_key;
-       raw_disk;
-       timeouts;
-     }
-      : google_compute_image)
+    google_compute_image ?description ?disk_size_gb ?family ?id
+      ?labels ?licenses ?project ?source_disk ?source_image
+      ?source_snapshot ?storage_locations ?timeouts ~name
+      ~guest_os_features ~image_encryption_key ~raw_disk ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_image __resource);
   let __resource_attributes =
     ({

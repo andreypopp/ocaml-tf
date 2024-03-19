@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_logging_billing_account_exclusion
+
+val google_logging_billing_account_exclusion :
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  billing_account:string prop ->
+  filter:string prop ->
+  name:string prop ->
+  unit ->
+  google_logging_billing_account_exclusion
+
+val yojson_of_google_logging_billing_account_exclusion :
+  google_logging_billing_account_exclusion -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   billing_account : string prop;
@@ -13,7 +30,8 @@ type t = private {
   name : string prop;
 }
 
-val google_logging_billing_account_exclusion :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?disabled:bool prop ->
   ?id:string prop ->

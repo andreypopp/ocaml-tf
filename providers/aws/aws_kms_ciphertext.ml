@@ -14,6 +14,10 @@ type aws_kms_ciphertext = {
 [@@deriving yojson_of]
 (** aws_kms_ciphertext *)
 
+let aws_kms_ciphertext ?context ?id ~key_id ~plaintext () :
+    aws_kms_ciphertext =
+  { context; id; key_id; plaintext }
+
 type t = {
   ciphertext_blob : string prop;
   context : (string * string) list prop;
@@ -22,13 +26,13 @@ type t = {
   plaintext : string prop;
 }
 
-let aws_kms_ciphertext ?context ?id ~key_id ~plaintext __resource_id
+let register ?tf_module ?context ?id ~key_id ~plaintext __resource_id
     =
   let __resource_type = "aws_kms_ciphertext" in
   let __resource =
-    ({ context; id; key_id; plaintext } : aws_kms_ciphertext)
+    aws_kms_ciphertext ?context ?id ~key_id ~plaintext ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kms_ciphertext __resource);
   let __resource_attributes =
     ({

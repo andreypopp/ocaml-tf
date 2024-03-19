@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_logpush_ownership_challenge
+
+val cloudflare_logpush_ownership_challenge :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?zone_id:string prop ->
+  destination_conf:string prop ->
+  unit ->
+  cloudflare_logpush_ownership_challenge
+
+val yojson_of_cloudflare_logpush_ownership_challenge :
+  cloudflare_logpush_ownership_challenge -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -12,7 +27,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_logpush_ownership_challenge :
+val register :
+  ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?id:string prop ->
   ?zone_id:string prop ->

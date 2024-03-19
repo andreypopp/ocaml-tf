@@ -18,6 +18,19 @@ type digitalocean_certificate = {
 [@@deriving yojson_of]
 (** digitalocean_certificate *)
 
+let digitalocean_certificate ?certificate_chain ?domains ?id
+    ?leaf_certificate ?private_key ?type_ ~name () :
+    digitalocean_certificate =
+  {
+    certificate_chain;
+    domains;
+    id;
+    leaf_certificate;
+    name;
+    private_key;
+    type_;
+  }
+
 type t = {
   certificate_chain : string prop;
   domains : string list prop;
@@ -32,22 +45,14 @@ type t = {
   uuid : string prop;
 }
 
-let digitalocean_certificate ?certificate_chain ?domains ?id
+let register ?tf_module ?certificate_chain ?domains ?id
     ?leaf_certificate ?private_key ?type_ ~name __resource_id =
   let __resource_type = "digitalocean_certificate" in
   let __resource =
-    ({
-       certificate_chain;
-       domains;
-       id;
-       leaf_certificate;
-       name;
-       private_key;
-       type_;
-     }
-      : digitalocean_certificate)
+    digitalocean_certificate ?certificate_chain ?domains ?id
+      ?leaf_certificate ?private_key ?type_ ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_certificate __resource);
   let __resource_attributes =
     ({

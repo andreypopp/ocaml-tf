@@ -28,6 +28,29 @@ type aws_ec2_capacity_reservation = {
 [@@deriving yojson_of]
 (** aws_ec2_capacity_reservation *)
 
+let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
+    ?end_date_type ?ephemeral_storage ?id ?instance_match_criteria
+    ?outpost_arn ?placement_group_arn ?tags ?tags_all ?tenancy
+    ~availability_zone ~instance_count ~instance_platform
+    ~instance_type () : aws_ec2_capacity_reservation =
+  {
+    availability_zone;
+    ebs_optimized;
+    end_date;
+    end_date_type;
+    ephemeral_storage;
+    id;
+    instance_count;
+    instance_match_criteria;
+    instance_platform;
+    instance_type;
+    outpost_arn;
+    placement_group_arn;
+    tags;
+    tags_all;
+    tenancy;
+  }
+
 type t = {
   arn : string prop;
   availability_zone : string prop;
@@ -48,33 +71,19 @@ type t = {
   tenancy : string prop;
 }
 
-let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
-    ?end_date_type ?ephemeral_storage ?id ?instance_match_criteria
-    ?outpost_arn ?placement_group_arn ?tags ?tags_all ?tenancy
-    ~availability_zone ~instance_count ~instance_platform
-    ~instance_type __resource_id =
+let register ?tf_module ?ebs_optimized ?end_date ?end_date_type
+    ?ephemeral_storage ?id ?instance_match_criteria ?outpost_arn
+    ?placement_group_arn ?tags ?tags_all ?tenancy ~availability_zone
+    ~instance_count ~instance_platform ~instance_type __resource_id =
   let __resource_type = "aws_ec2_capacity_reservation" in
   let __resource =
-    ({
-       availability_zone;
-       ebs_optimized;
-       end_date;
-       end_date_type;
-       ephemeral_storage;
-       id;
-       instance_count;
-       instance_match_criteria;
-       instance_platform;
-       instance_type;
-       outpost_arn;
-       placement_group_arn;
-       tags;
-       tags_all;
-       tenancy;
-     }
-      : aws_ec2_capacity_reservation)
+    aws_ec2_capacity_reservation ?ebs_optimized ?end_date
+      ?end_date_type ?ephemeral_storage ?id ?instance_match_criteria
+      ?outpost_arn ?placement_group_arn ?tags ?tags_all ?tenancy
+      ~availability_zone ~instance_count ~instance_platform
+      ~instance_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_capacity_reservation __resource);
   let __resource_attributes =
     ({

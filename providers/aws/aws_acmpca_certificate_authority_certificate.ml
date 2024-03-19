@@ -15,6 +15,11 @@ type aws_acmpca_certificate_authority_certificate = {
 [@@deriving yojson_of]
 (** aws_acmpca_certificate_authority_certificate *)
 
+let aws_acmpca_certificate_authority_certificate ?certificate_chain
+    ?id ~certificate ~certificate_authority_arn () :
+    aws_acmpca_certificate_authority_certificate =
+  { certificate; certificate_authority_arn; certificate_chain; id }
+
 type t = {
   certificate : string prop;
   certificate_authority_arn : string prop;
@@ -22,21 +27,16 @@ type t = {
   id : string prop;
 }
 
-let aws_acmpca_certificate_authority_certificate ?certificate_chain
-    ?id ~certificate ~certificate_authority_arn __resource_id =
+let register ?tf_module ?certificate_chain ?id ~certificate
+    ~certificate_authority_arn __resource_id =
   let __resource_type =
     "aws_acmpca_certificate_authority_certificate"
   in
   let __resource =
-    ({
-       certificate;
-       certificate_authority_arn;
-       certificate_chain;
-       id;
-     }
-      : aws_acmpca_certificate_authority_certificate)
+    aws_acmpca_certificate_authority_certificate ?certificate_chain
+      ?id ~certificate ~certificate_authority_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_acmpca_certificate_authority_certificate
        __resource);
   let __resource_attributes =

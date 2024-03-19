@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_default_security_group__egress = {
+type egress = {
   cidr_blocks : string prop list;  (** cidr_blocks *)
   description : string prop;  (** description *)
   from_port : float prop;  (** from_port *)
@@ -17,7 +17,7 @@ type aws_default_security_group__egress = {
 }
 [@@deriving yojson_of]
 
-type aws_default_security_group__ingress = {
+type ingress = {
   cidr_blocks : string prop list;  (** cidr_blocks *)
   description : string prop;  (** description *)
   from_port : float prop;  (** from_port *)
@@ -31,12 +31,9 @@ type aws_default_security_group__ingress = {
 [@@deriving yojson_of]
 
 type aws_default_security_group = {
-  egress : aws_default_security_group__egress list option; [@option]
-      (** egress *)
+  egress : egress list option; [@option]  (** egress *)
   id : string prop option; [@option]  (** id *)
-  ingress : aws_default_security_group__ingress list option;
-      [@option]
-      (** ingress *)
+  ingress : ingress list option; [@option]  (** ingress *)
   revoke_rules_on_delete : bool prop option; [@option]
       (** revoke_rules_on_delete *)
   tags : (string * string prop) list option; [@option]  (** tags *)
@@ -47,12 +44,25 @@ type aws_default_security_group = {
 [@@deriving yojson_of]
 (** aws_default_security_group *)
 
+let aws_default_security_group ?egress ?id ?ingress
+    ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id () :
+    aws_default_security_group =
+  {
+    egress;
+    id;
+    ingress;
+    revoke_rules_on_delete;
+    tags;
+    tags_all;
+    vpc_id;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
-  egress : aws_default_security_group__egress list prop;
+  egress : egress list prop;
   id : string prop;
-  ingress : aws_default_security_group__ingress list prop;
+  ingress : ingress list prop;
   name : string prop;
   name_prefix : string prop;
   owner_id : string prop;
@@ -62,22 +72,14 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_default_security_group ?egress ?id ?ingress
-    ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id __resource_id =
+let register ?tf_module ?egress ?id ?ingress ?revoke_rules_on_delete
+    ?tags ?tags_all ?vpc_id __resource_id =
   let __resource_type = "aws_default_security_group" in
   let __resource =
-    ({
-       egress;
-       id;
-       ingress;
-       revoke_rules_on_delete;
-       tags;
-       tags_all;
-       vpc_id;
-     }
-      : aws_default_security_group)
+    aws_default_security_group ?egress ?id ?ingress
+      ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_security_group __resource);
   let __resource_attributes =
     ({

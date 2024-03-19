@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_network_peering__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vmwareengine_network_peering
+
+val google_vmwareengine_network_peering :
+  ?description:string prop ->
+  ?export_custom_routes:bool prop ->
+  ?export_custom_routes_with_public_ip:bool prop ->
+  ?id:string prop ->
+  ?import_custom_routes:bool prop ->
+  ?import_custom_routes_with_public_ip:bool prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  peer_network:string prop ->
+  peer_network_type:string prop ->
+  vmware_engine_network:string prop ->
+  unit ->
+  google_vmwareengine_network_peering
+
+val yojson_of_google_vmwareengine_network_peering :
+  google_vmwareengine_network_peering -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -25,7 +56,8 @@ type t = private {
   vmware_engine_network_canonical : string prop;
 }
 
-val google_vmwareengine_network_peering :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?export_custom_routes:bool prop ->
   ?export_custom_routes_with_public_ip:bool prop ->
@@ -33,7 +65,7 @@ val google_vmwareengine_network_peering :
   ?import_custom_routes:bool prop ->
   ?import_custom_routes_with_public_ip:bool prop ->
   ?project:string prop ->
-  ?timeouts:google_vmwareengine_network_peering__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   peer_network:string prop ->
   peer_network_type:string prop ->

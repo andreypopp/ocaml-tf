@@ -2,11 +2,70 @@
 
 open! Tf.Prelude
 
-type azurerm_firewall__ip_configuration
-type azurerm_firewall__management_ip_configuration
-type azurerm_firewall__timeouts
-type azurerm_firewall__virtual_hub
+(** RESOURCE SERIALIZATION *)
+
+type ip_configuration
+
+val ip_configuration :
+  ?public_ip_address_id:string prop ->
+  ?subnet_id:string prop ->
+  name:string prop ->
+  unit ->
+  ip_configuration
+
+type management_ip_configuration
+
+val management_ip_configuration :
+  name:string prop ->
+  public_ip_address_id:string prop ->
+  subnet_id:string prop ->
+  unit ->
+  management_ip_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type virtual_hub
+
+val virtual_hub :
+  ?public_ip_count:float prop ->
+  virtual_hub_id:string prop ->
+  unit ->
+  virtual_hub
+
 type azurerm_firewall
+
+val azurerm_firewall :
+  ?dns_proxy_enabled:bool prop ->
+  ?dns_servers:string prop list ->
+  ?firewall_policy_id:string prop ->
+  ?id:string prop ->
+  ?private_ip_ranges:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?threat_intel_mode:string prop ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  sku_tier:string prop ->
+  ip_configuration:ip_configuration list ->
+  management_ip_configuration:management_ip_configuration list ->
+  virtual_hub:virtual_hub list ->
+  unit ->
+  azurerm_firewall
+
+val yojson_of_azurerm_firewall : azurerm_firewall -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dns_proxy_enabled : bool prop;
@@ -24,7 +83,8 @@ type t = private {
   zones : string list prop;
 }
 
-val azurerm_firewall :
+val register :
+  ?tf_module:tf_module ->
   ?dns_proxy_enabled:bool prop ->
   ?dns_servers:string prop list ->
   ?firewall_policy_id:string prop ->
@@ -33,15 +93,14 @@ val azurerm_firewall :
   ?tags:(string * string prop) list ->
   ?threat_intel_mode:string prop ->
   ?zones:string prop list ->
-  ?timeouts:azurerm_firewall__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
   sku_tier:string prop ->
-  ip_configuration:azurerm_firewall__ip_configuration list ->
-  management_ip_configuration:
-    azurerm_firewall__management_ip_configuration list ->
-  virtual_hub:azurerm_firewall__virtual_hub list ->
+  ip_configuration:ip_configuration list ->
+  management_ip_configuration:management_ip_configuration list ->
+  virtual_hub:virtual_hub list ->
   string ->
   t

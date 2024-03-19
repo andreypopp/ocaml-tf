@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_elasticache_parameter_group__parameter = {
+type parameter = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_elasticache_parameter_group__parameter *)
+(** parameter *)
 
 type aws_elasticache_parameter_group = {
   description : string prop option; [@option]  (** description *)
@@ -19,10 +19,16 @@ type aws_elasticache_parameter_group = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  parameter : aws_elasticache_parameter_group__parameter list;
+  parameter : parameter list;
 }
 [@@deriving yojson_of]
 (** aws_elasticache_parameter_group *)
+
+let parameter ~name ~value () : parameter = { name; value }
+
+let aws_elasticache_parameter_group ?description ?id ?tags ?tags_all
+    ~family ~name ~parameter () : aws_elasticache_parameter_group =
+  { description; family; id; name; tags; tags_all; parameter }
 
 type t = {
   arn : string prop;
@@ -34,14 +40,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_elasticache_parameter_group ?description ?id ?tags ?tags_all
-    ~family ~name ~parameter __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~family
+    ~name ~parameter __resource_id =
   let __resource_type = "aws_elasticache_parameter_group" in
   let __resource =
-    ({ description; family; id; name; tags; tags_all; parameter }
-      : aws_elasticache_parameter_group)
+    aws_elasticache_parameter_group ?description ?id ?tags ?tags_all
+      ~family ~name ~parameter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticache_parameter_group __resource);
   let __resource_attributes =
     ({

@@ -47,6 +47,43 @@ type aws_s3_bucket_object = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_object *)
 
+let aws_s3_bucket_object ?acl ?bucket_key_enabled ?cache_control
+    ?content ?content_base64 ?content_disposition ?content_encoding
+    ?content_language ?content_type ?etag ?force_destroy ?id
+    ?kms_key_id ?metadata ?object_lock_legal_hold_status
+    ?object_lock_mode ?object_lock_retain_until_date
+    ?server_side_encryption ?source ?source_hash ?storage_class ?tags
+    ?tags_all ?website_redirect ~bucket ~key () :
+    aws_s3_bucket_object =
+  {
+    acl;
+    bucket;
+    bucket_key_enabled;
+    cache_control;
+    content;
+    content_base64;
+    content_disposition;
+    content_encoding;
+    content_language;
+    content_type;
+    etag;
+    force_destroy;
+    id;
+    key;
+    kms_key_id;
+    metadata;
+    object_lock_legal_hold_status;
+    object_lock_mode;
+    object_lock_retain_until_date;
+    server_side_encryption;
+    source;
+    source_hash;
+    storage_class;
+    tags;
+    tags_all;
+    website_redirect;
+  }
+
 type t = {
   acl : string prop;
   arn : string prop;
@@ -78,7 +115,7 @@ type t = {
   website_redirect : string prop;
 }
 
-let aws_s3_bucket_object ?acl ?bucket_key_enabled ?cache_control
+let register ?tf_module ?acl ?bucket_key_enabled ?cache_control
     ?content ?content_base64 ?content_disposition ?content_encoding
     ?content_language ?content_type ?etag ?force_destroy ?id
     ?kms_key_id ?metadata ?object_lock_legal_hold_status
@@ -87,37 +124,15 @@ let aws_s3_bucket_object ?acl ?bucket_key_enabled ?cache_control
     ?tags_all ?website_redirect ~bucket ~key __resource_id =
   let __resource_type = "aws_s3_bucket_object" in
   let __resource =
-    ({
-       acl;
-       bucket;
-       bucket_key_enabled;
-       cache_control;
-       content;
-       content_base64;
-       content_disposition;
-       content_encoding;
-       content_language;
-       content_type;
-       etag;
-       force_destroy;
-       id;
-       key;
-       kms_key_id;
-       metadata;
-       object_lock_legal_hold_status;
-       object_lock_mode;
-       object_lock_retain_until_date;
-       server_side_encryption;
-       source;
-       source_hash;
-       storage_class;
-       tags;
-       tags_all;
-       website_redirect;
-     }
-      : aws_s3_bucket_object)
+    aws_s3_bucket_object ?acl ?bucket_key_enabled ?cache_control
+      ?content ?content_base64 ?content_disposition ?content_encoding
+      ?content_language ?content_type ?etag ?force_destroy ?id
+      ?kms_key_id ?metadata ?object_lock_legal_hold_status
+      ?object_lock_mode ?object_lock_retain_until_date
+      ?server_side_encryption ?source ?source_hash ?storage_class
+      ?tags ?tags_all ?website_redirect ~bucket ~key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_object __resource);
   let __resource_attributes =
     ({

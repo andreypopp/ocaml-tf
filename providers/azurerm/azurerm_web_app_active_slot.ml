@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_web_app_active_slot__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_web_app_active_slot__timeouts *)
+(** timeouts *)
 
 type azurerm_web_app_active_slot = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,17 @@ type azurerm_web_app_active_slot = {
       (** The swap action should overwrite the Production slot's network configuration with the configuration from this slot. Defaults to `true`. *)
   slot_id : string prop;
       (** The ID of the Slot to swap with `Production`. *)
-  timeouts : azurerm_web_app_active_slot__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_web_app_active_slot *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_web_app_active_slot ?id ?overwrite_network_config
+    ?timeouts ~slot_id () : azurerm_web_app_active_slot =
+  { id; overwrite_network_config; slot_id; timeouts }
 
 type t = {
   id : string prop;
@@ -31,14 +38,14 @@ type t = {
   slot_id : string prop;
 }
 
-let azurerm_web_app_active_slot ?id ?overwrite_network_config
-    ?timeouts ~slot_id __resource_id =
+let register ?tf_module ?id ?overwrite_network_config ?timeouts
+    ~slot_id __resource_id =
   let __resource_type = "azurerm_web_app_active_slot" in
   let __resource =
-    ({ id; overwrite_network_config; slot_id; timeouts }
-      : azurerm_web_app_active_slot)
+    azurerm_web_app_active_slot ?id ?overwrite_network_config
+      ?timeouts ~slot_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_web_app_active_slot __resource);
   let __resource_attributes =
     ({

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_global_network_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_global_network_endpoint__timeouts *)
+(** timeouts *)
 
 type google_compute_global_network_endpoint = {
   fqdn : string prop option; [@option]
@@ -22,10 +22,25 @@ This can only be specified when network_endpoint_type of the NEG is INTERNET_FQD
       (** IPv4 address external endpoint. *)
   port : float prop;  (** Port number of the external endpoint. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_compute_global_network_endpoint__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_global_network_endpoint *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_global_network_endpoint ?fqdn ?id ?ip_address
+    ?project ?timeouts ~global_network_endpoint_group ~port () :
+    google_compute_global_network_endpoint =
+  {
+    fqdn;
+    global_network_endpoint_group;
+    id;
+    ip_address;
+    port;
+    project;
+    timeouts;
+  }
 
 type t = {
   fqdn : string prop;
@@ -36,23 +51,14 @@ type t = {
   project : string prop;
 }
 
-let google_compute_global_network_endpoint ?fqdn ?id ?ip_address
-    ?project ?timeouts ~global_network_endpoint_group ~port
-    __resource_id =
+let register ?tf_module ?fqdn ?id ?ip_address ?project ?timeouts
+    ~global_network_endpoint_group ~port __resource_id =
   let __resource_type = "google_compute_global_network_endpoint" in
   let __resource =
-    ({
-       fqdn;
-       global_network_endpoint_group;
-       id;
-       ip_address;
-       port;
-       project;
-       timeouts;
-     }
-      : google_compute_global_network_endpoint)
+    google_compute_global_network_endpoint ?fqdn ?id ?ip_address
+      ?project ?timeouts ~global_network_endpoint_group ~port ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_global_network_endpoint __resource);
   let __resource_attributes =
     ({

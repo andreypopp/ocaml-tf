@@ -13,6 +13,10 @@ type aws_api_gateway_usage_plan_key = {
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan_key *)
 
+let aws_api_gateway_usage_plan_key ?id ~key_id ~key_type
+    ~usage_plan_id () : aws_api_gateway_usage_plan_key =
+  { id; key_id; key_type; usage_plan_id }
+
 type t = {
   id : string prop;
   key_id : string prop;
@@ -22,14 +26,14 @@ type t = {
   value : string prop;
 }
 
-let aws_api_gateway_usage_plan_key ?id ~key_id ~key_type
-    ~usage_plan_id __resource_id =
+let register ?tf_module ?id ~key_id ~key_type ~usage_plan_id
+    __resource_id =
   let __resource_type = "aws_api_gateway_usage_plan_key" in
   let __resource =
-    ({ id; key_id; key_type; usage_plan_id }
-      : aws_api_gateway_usage_plan_key)
+    aws_api_gateway_usage_plan_key ?id ~key_id ~key_type
+      ~usage_plan_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_usage_plan_key __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_security_settings__audio_export_settings = {
+type audio_export_settings = {
   audio_export_pattern : string prop option; [@option]
       (** Filename pattern for exported audio. *)
   audio_format : string prop option; [@option]
@@ -23,7 +23,7 @@ If retention_strategy is set to REMOVE_AFTER_CONVERSATION or gcs_bucket is empty
 If audio export is enabled, audio is recorded and saved to gcs_bucket, subject to retention policy of gcs_bucket.
 This setting won't effect audio input for implicit sessions via [Sessions.DetectIntent](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/projects.locations.agents.sessions/detectIntent#google.cloud.dialogflow.cx.v3.Sessions.DetectIntent). *)
 
-type google_dialogflow_cx_security_settings__insights_export_settings = {
+type insights_export_settings = {
   enable_insights_export : bool prop;
       (** If enabled, we will automatically exports conversations to Insights and Insights runs its analyzers. *)
 }
@@ -31,13 +31,13 @@ type google_dialogflow_cx_security_settings__insights_export_settings = {
 (** Controls conversation exporting settings to Insights after conversation is completed.
 If retentionStrategy is set to REMOVE_AFTER_CONVERSATION, Insights export is disabled no matter what you configure here. *)
 
-type google_dialogflow_cx_security_settings__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_cx_security_settings__timeouts *)
+(** timeouts *)
 
 type google_dialogflow_cx_security_settings = {
   deidentify_template : string prop option; [@option]
@@ -69,16 +69,51 @@ See [Available Regions](https://cloud.google.com/dialogflow/cx/docs/concept/regi
   retention_window_days : float prop option; [@option]
       (** Retains the data for the specified number of days. User must set a value lower than Dialogflow's default 365d TTL (30 days for Agent Assist traffic), higher value will be ignored and use default. Setting a value higher than that has no effect. A missing value or setting to 0 also means we use default TTL.
 Only one of 'retention_window_days' and 'retention_strategy' may be set. *)
-  audio_export_settings :
-    google_dialogflow_cx_security_settings__audio_export_settings
-    list;
-  insights_export_settings :
-    google_dialogflow_cx_security_settings__insights_export_settings
-    list;
-  timeouts : google_dialogflow_cx_security_settings__timeouts option;
+  audio_export_settings : audio_export_settings list;
+  insights_export_settings : insights_export_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_security_settings *)
+
+let audio_export_settings ?audio_export_pattern ?audio_format
+    ?enable_audio_redaction ?gcs_bucket () : audio_export_settings =
+  {
+    audio_export_pattern;
+    audio_format;
+    enable_audio_redaction;
+    gcs_bucket;
+  }
+
+let insights_export_settings ~enable_insights_export () :
+    insights_export_settings =
+  { enable_insights_export }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_cx_security_settings ?deidentify_template ?id
+    ?inspect_template ?project ?purge_data_types ?redaction_scope
+    ?redaction_strategy ?retention_strategy ?retention_window_days
+    ?timeouts ~display_name ~location ~audio_export_settings
+    ~insights_export_settings () :
+    google_dialogflow_cx_security_settings =
+  {
+    deidentify_template;
+    display_name;
+    id;
+    inspect_template;
+    location;
+    project;
+    purge_data_types;
+    redaction_scope;
+    redaction_strategy;
+    retention_strategy;
+    retention_window_days;
+    audio_export_settings;
+    insights_export_settings;
+    timeouts;
+  }
 
 type t = {
   deidentify_template : string prop;
@@ -95,32 +130,20 @@ type t = {
   retention_window_days : float prop;
 }
 
-let google_dialogflow_cx_security_settings ?deidentify_template ?id
-    ?inspect_template ?project ?purge_data_types ?redaction_scope
-    ?redaction_strategy ?retention_strategy ?retention_window_days
-    ?timeouts ~display_name ~location ~audio_export_settings
+let register ?tf_module ?deidentify_template ?id ?inspect_template
+    ?project ?purge_data_types ?redaction_scope ?redaction_strategy
+    ?retention_strategy ?retention_window_days ?timeouts
+    ~display_name ~location ~audio_export_settings
     ~insights_export_settings __resource_id =
   let __resource_type = "google_dialogflow_cx_security_settings" in
   let __resource =
-    ({
-       deidentify_template;
-       display_name;
-       id;
-       inspect_template;
-       location;
-       project;
-       purge_data_types;
-       redaction_scope;
-       redaction_strategy;
-       retention_strategy;
-       retention_window_days;
-       audio_export_settings;
-       insights_export_settings;
-       timeouts;
-     }
-      : google_dialogflow_cx_security_settings)
+    google_dialogflow_cx_security_settings ?deidentify_template ?id
+      ?inspect_template ?project ?purge_data_types ?redaction_scope
+      ?redaction_strategy ?retention_strategy ?retention_window_days
+      ?timeouts ~display_name ~location ~audio_export_settings
+      ~insights_export_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_security_settings __resource);
   let __resource_attributes =
     ({

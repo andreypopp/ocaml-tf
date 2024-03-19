@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_web_app_active_slot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_web_app_active_slot
+
+val azurerm_web_app_active_slot :
+  ?id:string prop ->
+  ?overwrite_network_config:bool prop ->
+  ?timeouts:timeouts ->
+  slot_id:string prop ->
+  unit ->
+  azurerm_web_app_active_slot
+
+val yojson_of_azurerm_web_app_active_slot :
+  azurerm_web_app_active_slot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,10 +36,11 @@ type t = private {
   slot_id : string prop;
 }
 
-val azurerm_web_app_active_slot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?overwrite_network_config:bool prop ->
-  ?timeouts:azurerm_web_app_active_slot__timeouts ->
+  ?timeouts:timeouts ->
   slot_id:string prop ->
   string ->
   t

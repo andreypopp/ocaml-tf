@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_chime_voice_connector_origination__route = {
+type route = {
   host : string prop;  (** host *)
   port : float prop option; [@option]  (** port *)
   priority : float prop;  (** priority *)
@@ -12,16 +12,24 @@ type aws_chime_voice_connector_origination__route = {
   weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_chime_voice_connector_origination__route *)
+(** route *)
 
 type aws_chime_voice_connector_origination = {
   disabled : bool prop option; [@option]  (** disabled *)
   id : string prop option; [@option]  (** id *)
   voice_connector_id : string prop;  (** voice_connector_id *)
-  route : aws_chime_voice_connector_origination__route list;
+  route : route list;
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_origination *)
+
+let route ?port ~host ~priority ~protocol ~weight () : route =
+  { host; port; priority; protocol; weight }
+
+let aws_chime_voice_connector_origination ?disabled ?id
+    ~voice_connector_id ~route () :
+    aws_chime_voice_connector_origination =
+  { disabled; id; voice_connector_id; route }
 
 type t = {
   disabled : bool prop;
@@ -29,14 +37,14 @@ type t = {
   voice_connector_id : string prop;
 }
 
-let aws_chime_voice_connector_origination ?disabled ?id
-    ~voice_connector_id ~route __resource_id =
+let register ?tf_module ?disabled ?id ~voice_connector_id ~route
+    __resource_id =
   let __resource_type = "aws_chime_voice_connector_origination" in
   let __resource =
-    ({ disabled; id; voice_connector_id; route }
-      : aws_chime_voice_connector_origination)
+    aws_chime_voice_connector_origination ?disabled ?id
+      ~voice_connector_id ~route ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chime_voice_connector_origination __resource);
   let __resource_attributes =
     ({

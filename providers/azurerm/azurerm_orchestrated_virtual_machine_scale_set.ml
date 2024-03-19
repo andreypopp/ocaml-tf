@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_orchestrated_virtual_machine_scale_set__additional_capabilities = {
+type additional_capabilities = {
   ultra_ssd_enabled : bool prop option; [@option]
       (** ultra_ssd_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__additional_capabilities *)
+(** additional_capabilities *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__automatic_instance_repair = {
+type automatic_instance_repair = {
   enabled : bool prop;  (** enabled *)
   grace_period : string prop option; [@option]  (** grace_period *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__automatic_instance_repair *)
+(** automatic_instance_repair *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__boot_diagnostics = {
+type boot_diagnostics = {
   storage_account_uri : string prop option; [@option]
       (** storage_account_uri *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__boot_diagnostics *)
+(** boot_diagnostics *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__data_disk = {
+type data_disk = {
   caching : string prop;  (** caching *)
   create_option : string prop option; [@option]  (** create_option *)
   disk_encryption_set_id : string prop option; [@option]
@@ -41,16 +41,16 @@ type azurerm_orchestrated_virtual_machine_scale_set__data_disk = {
       (** write_accelerator_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__data_disk *)
+(** data_disk *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__extension__protected_settings_from_key_vault = {
+type extension__protected_settings_from_key_vault = {
   secret_url : string prop;  (** secret_url *)
   source_vault_id : string prop;  (** source_vault_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__extension__protected_settings_from_key_vault *)
+(** extension__protected_settings_from_key_vault *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__extension = {
+type extension = {
   auto_upgrade_minor_version_enabled : bool prop option; [@option]
       (** auto_upgrade_minor_version_enabled *)
   extensions_to_provision_after_vm_creation :
@@ -69,27 +69,26 @@ type azurerm_orchestrated_virtual_machine_scale_set__extension = {
   type_ : string prop; [@key "type"]  (** type *)
   type_handler_version : string prop;  (** type_handler_version *)
   protected_settings_from_key_vault :
-    azurerm_orchestrated_virtual_machine_scale_set__extension__protected_settings_from_key_vault
-    list;
+    extension__protected_settings_from_key_vault list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__extension *)
+(** extension *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__identity = {
+type identity = {
   identity_ids : string prop list;  (** identity_ids *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__identity *)
+(** identity *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration__public_ip_address__ip_tag = {
+type network_interface__ip_configuration__public_ip_address__ip_tag = {
   tag : string prop;  (** tag *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration__public_ip_address__ip_tag *)
+(** network_interface__ip_configuration__public_ip_address__ip_tag *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration__public_ip_address = {
+type network_interface__ip_configuration__public_ip_address = {
   domain_name_label : string prop option; [@option]
       (** domain_name_label *)
   idle_timeout_in_minutes : float prop option; [@option]
@@ -100,13 +99,13 @@ type azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_confi
   sku_name : string prop option; [@option]  (** sku_name *)
   version : string prop option; [@option]  (** version *)
   ip_tag :
-    azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration__public_ip_address__ip_tag
+    network_interface__ip_configuration__public_ip_address__ip_tag
     list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration__public_ip_address *)
+(** network_interface__ip_configuration__public_ip_address *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration = {
+type network_interface__ip_configuration = {
   application_gateway_backend_address_pool_ids :
     string prop list option;
       [@option]
@@ -121,13 +120,12 @@ type azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_confi
   subnet_id : string prop option; [@option]  (** subnet_id *)
   version : string prop option; [@option]  (** version *)
   public_ip_address :
-    azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration__public_ip_address
-    list;
+    network_interface__ip_configuration__public_ip_address list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration *)
+(** network_interface__ip_configuration *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__network_interface = {
+type network_interface = {
   dns_servers : string prop list option; [@option]
       (** dns_servers *)
   enable_accelerated_networking : bool prop option; [@option]
@@ -138,21 +136,19 @@ type azurerm_orchestrated_virtual_machine_scale_set__network_interface = {
   network_security_group_id : string prop option; [@option]
       (** network_security_group_id *)
   primary : bool prop option; [@option]  (** primary *)
-  ip_configuration :
-    azurerm_orchestrated_virtual_machine_scale_set__network_interface__ip_configuration
-    list;
+  ip_configuration : network_interface__ip_configuration list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__network_interface *)
+(** network_interface *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_disk__diff_disk_settings = {
-  option : string prop;  (** option *)
+type os_disk__diff_disk_settings = {
+  option_ : string prop; [@key "option"]  (** option *)
   placement : string prop option; [@option]  (** placement *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_disk__diff_disk_settings *)
+(** os_disk__diff_disk_settings *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_disk = {
+type os_disk = {
   caching : string prop;  (** caching *)
   disk_encryption_set_id : string prop option; [@option]
       (** disk_encryption_set_id *)
@@ -160,36 +156,33 @@ type azurerm_orchestrated_virtual_machine_scale_set__os_disk = {
   storage_account_type : string prop;  (** storage_account_type *)
   write_accelerator_enabled : bool prop option; [@option]
       (** write_accelerator_enabled *)
-  diff_disk_settings :
-    azurerm_orchestrated_virtual_machine_scale_set__os_disk__diff_disk_settings
-    list;
+  diff_disk_settings : os_disk__diff_disk_settings list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_disk *)
+(** os_disk *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__admin_ssh_key = {
+type os_profile__linux_configuration__admin_ssh_key = {
   public_key : string prop;  (** public_key *)
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__admin_ssh_key *)
+(** os_profile__linux_configuration__admin_ssh_key *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__secret__certificate = {
+type os_profile__linux_configuration__secret__certificate = {
   url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__secret__certificate *)
+(** os_profile__linux_configuration__secret__certificate *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__secret = {
+type os_profile__linux_configuration__secret = {
   key_vault_id : string prop;  (** key_vault_id *)
   certificate :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__secret__certificate
-    list;
+    os_profile__linux_configuration__secret__certificate list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__secret *)
+(** os_profile__linux_configuration__secret *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration = {
+type os_profile__linux_configuration = {
   admin_password : string prop option; [@option]
       (** admin_password *)
   admin_username : string prop;  (** admin_username *)
@@ -203,47 +196,43 @@ type azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configura
   provision_vm_agent : bool prop option; [@option]
       (** provision_vm_agent *)
   admin_ssh_key :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__admin_ssh_key
-    list;
-  secret :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration__secret
-    list;
+    os_profile__linux_configuration__admin_ssh_key list;
+  secret : os_profile__linux_configuration__secret list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration *)
+(** os_profile__linux_configuration *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__additional_unattend_content = {
+type os_profile__windows_configuration__additional_unattend_content = {
   content : string prop;  (** content *)
   setting : string prop;  (** setting *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__additional_unattend_content *)
+(** os_profile__windows_configuration__additional_unattend_content *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__secret__certificate = {
+type os_profile__windows_configuration__secret__certificate = {
   store : string prop;  (** store *)
   url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__secret__certificate *)
+(** os_profile__windows_configuration__secret__certificate *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__secret = {
+type os_profile__windows_configuration__secret = {
   key_vault_id : string prop;  (** key_vault_id *)
   certificate :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__secret__certificate
-    list;
+    os_profile__windows_configuration__secret__certificate list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__secret *)
+(** os_profile__windows_configuration__secret *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__winrm_listener = {
+type os_profile__windows_configuration__winrm_listener = {
   certificate_url : string prop option; [@option]
       (** certificate_url *)
   protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__winrm_listener *)
+(** os_profile__windows_configuration__winrm_listener *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration = {
+type os_profile__windows_configuration = {
   admin_password : string prop;  (** admin_password *)
   admin_username : string prop;  (** admin_username *)
   computer_name_prefix : string prop option; [@option]
@@ -259,71 +248,64 @@ type azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configu
       (** provision_vm_agent *)
   timezone : string prop option; [@option]  (** timezone *)
   additional_unattend_content :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__additional_unattend_content
+    os_profile__windows_configuration__additional_unattend_content
     list;
-  secret :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__secret
-    list;
+  secret : os_profile__windows_configuration__secret list;
   winrm_listener :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration__winrm_listener
-    list;
+    os_profile__windows_configuration__winrm_listener list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration *)
+(** os_profile__windows_configuration *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__os_profile = {
+type os_profile = {
   custom_data : string prop option; [@option]  (** custom_data *)
-  linux_configuration :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__linux_configuration
-    list;
-  windows_configuration :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile__windows_configuration
-    list;
+  linux_configuration : os_profile__linux_configuration list;
+  windows_configuration : os_profile__windows_configuration list;
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__os_profile *)
+(** os_profile *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__plan = {
+type plan = {
   name : string prop;  (** name *)
   product : string prop;  (** product *)
   publisher : string prop;  (** publisher *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__plan *)
+(** plan *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__priority_mix = {
+type priority_mix = {
   base_regular_count : float prop option; [@option]
       (** base_regular_count *)
   regular_percentage_above_base : float prop option; [@option]
       (** regular_percentage_above_base *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__priority_mix *)
+(** priority_mix *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__source_image_reference = {
+type source_image_reference = {
   offer : string prop;  (** offer *)
   publisher : string prop;  (** publisher *)
   sku : string prop;  (** sku *)
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__source_image_reference *)
+(** source_image_reference *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__termination_notification = {
+type termination_notification = {
   enabled : bool prop;  (** enabled *)
   timeout : string prop option; [@option]  (** timeout *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__termination_notification *)
+(** termination_notification *)
 
-type azurerm_orchestrated_virtual_machine_scale_set__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_orchestrated_virtual_machine_scale_set__timeouts *)
+(** timeouts *)
 
 type azurerm_orchestrated_virtual_machine_scale_set = {
   capacity_reservation_group_id : string prop option; [@option]
@@ -358,42 +340,285 @@ type azurerm_orchestrated_virtual_machine_scale_set = {
       (** user_data_base64 *)
   zone_balance : bool prop option; [@option]  (** zone_balance *)
   zones : string prop list option; [@option]  (** zones *)
-  additional_capabilities :
-    azurerm_orchestrated_virtual_machine_scale_set__additional_capabilities
-    list;
-  automatic_instance_repair :
-    azurerm_orchestrated_virtual_machine_scale_set__automatic_instance_repair
-    list;
-  boot_diagnostics :
-    azurerm_orchestrated_virtual_machine_scale_set__boot_diagnostics
-    list;
-  data_disk :
-    azurerm_orchestrated_virtual_machine_scale_set__data_disk list;
-  extension :
-    azurerm_orchestrated_virtual_machine_scale_set__extension list;
-  identity :
-    azurerm_orchestrated_virtual_machine_scale_set__identity list;
-  network_interface :
-    azurerm_orchestrated_virtual_machine_scale_set__network_interface
-    list;
-  os_disk :
-    azurerm_orchestrated_virtual_machine_scale_set__os_disk list;
-  os_profile :
-    azurerm_orchestrated_virtual_machine_scale_set__os_profile list;
-  plan : azurerm_orchestrated_virtual_machine_scale_set__plan list;
-  priority_mix :
-    azurerm_orchestrated_virtual_machine_scale_set__priority_mix list;
-  source_image_reference :
-    azurerm_orchestrated_virtual_machine_scale_set__source_image_reference
-    list;
-  termination_notification :
-    azurerm_orchestrated_virtual_machine_scale_set__termination_notification
-    list;
-  timeouts :
-    azurerm_orchestrated_virtual_machine_scale_set__timeouts option;
+  additional_capabilities : additional_capabilities list;
+  automatic_instance_repair : automatic_instance_repair list;
+  boot_diagnostics : boot_diagnostics list;
+  data_disk : data_disk list;
+  extension : extension list;
+  identity : identity list;
+  network_interface : network_interface list;
+  os_disk : os_disk list;
+  os_profile : os_profile list;
+  plan : plan list;
+  priority_mix : priority_mix list;
+  source_image_reference : source_image_reference list;
+  termination_notification : termination_notification list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_orchestrated_virtual_machine_scale_set *)
+
+let additional_capabilities ?ultra_ssd_enabled () :
+    additional_capabilities =
+  { ultra_ssd_enabled }
+
+let automatic_instance_repair ?grace_period ~enabled () :
+    automatic_instance_repair =
+  { enabled; grace_period }
+
+let boot_diagnostics ?storage_account_uri () : boot_diagnostics =
+  { storage_account_uri }
+
+let data_disk ?create_option ?disk_encryption_set_id ?disk_size_gb
+    ?lun ?ultra_ssd_disk_iops_read_write
+    ?ultra_ssd_disk_mbps_read_write ?write_accelerator_enabled
+    ~caching ~storage_account_type () : data_disk =
+  {
+    caching;
+    create_option;
+    disk_encryption_set_id;
+    disk_size_gb;
+    lun;
+    storage_account_type;
+    ultra_ssd_disk_iops_read_write;
+    ultra_ssd_disk_mbps_read_write;
+    write_accelerator_enabled;
+  }
+
+let extension__protected_settings_from_key_vault ~secret_url
+    ~source_vault_id () :
+    extension__protected_settings_from_key_vault =
+  { secret_url; source_vault_id }
+
+let extension ?auto_upgrade_minor_version_enabled
+    ?extensions_to_provision_after_vm_creation
+    ?failure_suppression_enabled ?force_extension_execution_on_change
+    ?protected_settings ?settings ~name ~publisher ~type_
+    ~type_handler_version ~protected_settings_from_key_vault () :
+    extension =
+  {
+    auto_upgrade_minor_version_enabled;
+    extensions_to_provision_after_vm_creation;
+    failure_suppression_enabled;
+    force_extension_execution_on_change;
+    name;
+    protected_settings;
+    publisher;
+    settings;
+    type_;
+    type_handler_version;
+    protected_settings_from_key_vault;
+  }
+
+let identity ~identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let network_interface__ip_configuration__public_ip_address__ip_tag
+    ~tag ~type_ () :
+    network_interface__ip_configuration__public_ip_address__ip_tag =
+  { tag; type_ }
+
+let network_interface__ip_configuration__public_ip_address
+    ?domain_name_label ?idle_timeout_in_minutes ?public_ip_prefix_id
+    ?sku_name ?version ~name ~ip_tag () :
+    network_interface__ip_configuration__public_ip_address =
+  {
+    domain_name_label;
+    idle_timeout_in_minutes;
+    name;
+    public_ip_prefix_id;
+    sku_name;
+    version;
+    ip_tag;
+  }
+
+let network_interface__ip_configuration
+    ?application_gateway_backend_address_pool_ids
+    ?application_security_group_ids
+    ?load_balancer_backend_address_pool_ids ?primary ?subnet_id
+    ?version ~name ~public_ip_address () :
+    network_interface__ip_configuration =
+  {
+    application_gateway_backend_address_pool_ids;
+    application_security_group_ids;
+    load_balancer_backend_address_pool_ids;
+    name;
+    primary;
+    subnet_id;
+    version;
+    public_ip_address;
+  }
+
+let network_interface ?dns_servers ?enable_accelerated_networking
+    ?enable_ip_forwarding ?network_security_group_id ?primary ~name
+    ~ip_configuration () : network_interface =
+  {
+    dns_servers;
+    enable_accelerated_networking;
+    enable_ip_forwarding;
+    name;
+    network_security_group_id;
+    primary;
+    ip_configuration;
+  }
+
+let os_disk__diff_disk_settings ?placement ~option_ () :
+    os_disk__diff_disk_settings =
+  { option_; placement }
+
+let os_disk ?disk_encryption_set_id ?disk_size_gb
+    ?write_accelerator_enabled ~caching ~storage_account_type
+    ~diff_disk_settings () : os_disk =
+  {
+    caching;
+    disk_encryption_set_id;
+    disk_size_gb;
+    storage_account_type;
+    write_accelerator_enabled;
+    diff_disk_settings;
+  }
+
+let os_profile__linux_configuration__admin_ssh_key ~public_key
+    ~username () : os_profile__linux_configuration__admin_ssh_key =
+  { public_key; username }
+
+let os_profile__linux_configuration__secret__certificate ~url () :
+    os_profile__linux_configuration__secret__certificate =
+  { url }
+
+let os_profile__linux_configuration__secret ~key_vault_id
+    ~certificate () : os_profile__linux_configuration__secret =
+  { key_vault_id; certificate }
+
+let os_profile__linux_configuration ?admin_password
+    ?computer_name_prefix ?disable_password_authentication
+    ?patch_assessment_mode ?patch_mode ?provision_vm_agent
+    ~admin_username ~admin_ssh_key ~secret () :
+    os_profile__linux_configuration =
+  {
+    admin_password;
+    admin_username;
+    computer_name_prefix;
+    disable_password_authentication;
+    patch_assessment_mode;
+    patch_mode;
+    provision_vm_agent;
+    admin_ssh_key;
+    secret;
+  }
+
+let os_profile__windows_configuration__additional_unattend_content
+    ~content ~setting () :
+    os_profile__windows_configuration__additional_unattend_content =
+  { content; setting }
+
+let os_profile__windows_configuration__secret__certificate ~store
+    ~url () : os_profile__windows_configuration__secret__certificate
+    =
+  { store; url }
+
+let os_profile__windows_configuration__secret ~key_vault_id
+    ~certificate () : os_profile__windows_configuration__secret =
+  { key_vault_id; certificate }
+
+let os_profile__windows_configuration__winrm_listener
+    ?certificate_url ~protocol () :
+    os_profile__windows_configuration__winrm_listener =
+  { certificate_url; protocol }
+
+let os_profile__windows_configuration ?computer_name_prefix
+    ?enable_automatic_updates ?hotpatching_enabled
+    ?patch_assessment_mode ?patch_mode ?provision_vm_agent ?timezone
+    ~admin_password ~admin_username ~additional_unattend_content
+    ~secret ~winrm_listener () : os_profile__windows_configuration =
+  {
+    admin_password;
+    admin_username;
+    computer_name_prefix;
+    enable_automatic_updates;
+    hotpatching_enabled;
+    patch_assessment_mode;
+    patch_mode;
+    provision_vm_agent;
+    timezone;
+    additional_unattend_content;
+    secret;
+    winrm_listener;
+  }
+
+let os_profile ?custom_data ~linux_configuration
+    ~windows_configuration () : os_profile =
+  { custom_data; linux_configuration; windows_configuration }
+
+let plan ~name ~product ~publisher () : plan =
+  { name; product; publisher }
+
+let priority_mix ?base_regular_count ?regular_percentage_above_base
+    () : priority_mix =
+  { base_regular_count; regular_percentage_above_base }
+
+let source_image_reference ~offer ~publisher ~sku ~version () :
+    source_image_reference =
+  { offer; publisher; sku; version }
+
+let termination_notification ?timeout ~enabled () :
+    termination_notification =
+  { enabled; timeout }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_orchestrated_virtual_machine_scale_set
+    ?capacity_reservation_group_id ?encryption_at_host_enabled
+    ?eviction_policy ?extension_operations_enabled
+    ?extensions_time_budget ?id ?instances ?license_type
+    ?max_bid_price ?priority ?proximity_placement_group_id
+    ?single_placement_group ?sku_name ?source_image_id ?tags
+    ?user_data_base64 ?zone_balance ?zones ?timeouts ~location ~name
+    ~platform_fault_domain_count ~resource_group_name
+    ~additional_capabilities ~automatic_instance_repair
+    ~boot_diagnostics ~data_disk ~extension ~identity
+    ~network_interface ~os_disk ~os_profile ~plan ~priority_mix
+    ~source_image_reference ~termination_notification () :
+    azurerm_orchestrated_virtual_machine_scale_set =
+  {
+    capacity_reservation_group_id;
+    encryption_at_host_enabled;
+    eviction_policy;
+    extension_operations_enabled;
+    extensions_time_budget;
+    id;
+    instances;
+    license_type;
+    location;
+    max_bid_price;
+    name;
+    platform_fault_domain_count;
+    priority;
+    proximity_placement_group_id;
+    resource_group_name;
+    single_placement_group;
+    sku_name;
+    source_image_id;
+    tags;
+    user_data_base64;
+    zone_balance;
+    zones;
+    additional_capabilities;
+    automatic_instance_repair;
+    boot_diagnostics;
+    data_disk;
+    extension;
+    identity;
+    network_interface;
+    os_disk;
+    os_profile;
+    plan;
+    priority_mix;
+    source_image_reference;
+    termination_notification;
+    timeouts;
+  }
 
 type t = {
   capacity_reservation_group_id : string prop;
@@ -421,63 +646,36 @@ type t = {
   zones : string list prop;
 }
 
-let azurerm_orchestrated_virtual_machine_scale_set
-    ?capacity_reservation_group_id ?encryption_at_host_enabled
-    ?eviction_policy ?extension_operations_enabled
-    ?extensions_time_budget ?id ?instances ?license_type
-    ?max_bid_price ?priority ?proximity_placement_group_id
-    ?single_placement_group ?sku_name ?source_image_id ?tags
-    ?user_data_base64 ?zone_balance ?zones ?timeouts ~location ~name
-    ~platform_fault_domain_count ~resource_group_name
-    ~additional_capabilities ~automatic_instance_repair
-    ~boot_diagnostics ~data_disk ~extension ~identity
-    ~network_interface ~os_disk ~os_profile ~plan ~priority_mix
-    ~source_image_reference ~termination_notification __resource_id =
+let register ?tf_module ?capacity_reservation_group_id
+    ?encryption_at_host_enabled ?eviction_policy
+    ?extension_operations_enabled ?extensions_time_budget ?id
+    ?instances ?license_type ?max_bid_price ?priority
+    ?proximity_placement_group_id ?single_placement_group ?sku_name
+    ?source_image_id ?tags ?user_data_base64 ?zone_balance ?zones
+    ?timeouts ~location ~name ~platform_fault_domain_count
+    ~resource_group_name ~additional_capabilities
+    ~automatic_instance_repair ~boot_diagnostics ~data_disk
+    ~extension ~identity ~network_interface ~os_disk ~os_profile
+    ~plan ~priority_mix ~source_image_reference
+    ~termination_notification __resource_id =
   let __resource_type =
     "azurerm_orchestrated_virtual_machine_scale_set"
   in
   let __resource =
-    ({
-       capacity_reservation_group_id;
-       encryption_at_host_enabled;
-       eviction_policy;
-       extension_operations_enabled;
-       extensions_time_budget;
-       id;
-       instances;
-       license_type;
-       location;
-       max_bid_price;
-       name;
-       platform_fault_domain_count;
-       priority;
-       proximity_placement_group_id;
-       resource_group_name;
-       single_placement_group;
-       sku_name;
-       source_image_id;
-       tags;
-       user_data_base64;
-       zone_balance;
-       zones;
-       additional_capabilities;
-       automatic_instance_repair;
-       boot_diagnostics;
-       data_disk;
-       extension;
-       identity;
-       network_interface;
-       os_disk;
-       os_profile;
-       plan;
-       priority_mix;
-       source_image_reference;
-       termination_notification;
-       timeouts;
-     }
-      : azurerm_orchestrated_virtual_machine_scale_set)
+    azurerm_orchestrated_virtual_machine_scale_set
+      ?capacity_reservation_group_id ?encryption_at_host_enabled
+      ?eviction_policy ?extension_operations_enabled
+      ?extensions_time_budget ?id ?instances ?license_type
+      ?max_bid_price ?priority ?proximity_placement_group_id
+      ?single_placement_group ?sku_name ?source_image_id ?tags
+      ?user_data_base64 ?zone_balance ?zones ?timeouts ~location
+      ~name ~platform_fault_domain_count ~resource_group_name
+      ~additional_capabilities ~automatic_instance_repair
+      ~boot_diagnostics ~data_disk ~extension ~identity
+      ~network_interface ~os_disk ~os_profile ~plan ~priority_mix
+      ~source_image_reference ~termination_notification ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_orchestrated_virtual_machine_scale_set
        __resource);
   let __resource_attributes =

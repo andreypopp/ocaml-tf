@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_scheduler_schedule_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_scheduler_schedule_group__timeouts *)
+(** timeouts *)
 
 type aws_scheduler_schedule_group = {
   id : string prop option; [@option]  (** id *)
@@ -18,10 +18,16 @@ type aws_scheduler_schedule_group = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_scheduler_schedule_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_scheduler_schedule_group *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_scheduler_schedule_group ?id ?name ?name_prefix ?tags
+    ?tags_all ?timeouts () : aws_scheduler_schedule_group =
+  { id; name; name_prefix; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -35,14 +41,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_scheduler_schedule_group ?id ?name ?name_prefix ?tags
-    ?tags_all ?timeouts __resource_id =
+let register ?tf_module ?id ?name ?name_prefix ?tags ?tags_all
+    ?timeouts __resource_id =
   let __resource_type = "aws_scheduler_schedule_group" in
   let __resource =
-    ({ id; name; name_prefix; tags; tags_all; timeouts }
-      : aws_scheduler_schedule_group)
+    aws_scheduler_schedule_group ?id ?name ?name_prefix ?tags
+      ?tags_all ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_scheduler_schedule_group __resource);
   let __resource_attributes =
     ({

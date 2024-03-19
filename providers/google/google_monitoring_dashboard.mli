@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type google_monitoring_dashboard__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_monitoring_dashboard
+
+val google_monitoring_dashboard :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  dashboard_json:string prop ->
+  unit ->
+  google_monitoring_dashboard
+
+val yojson_of_google_monitoring_dashboard :
+  google_monitoring_dashboard -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dashboard_json : string prop;
@@ -11,10 +34,11 @@ type t = private {
   project : string prop;
 }
 
-val google_monitoring_dashboard :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_monitoring_dashboard__timeouts ->
+  ?timeouts:timeouts ->
   dashboard_json:string prop ->
   string ->
   t

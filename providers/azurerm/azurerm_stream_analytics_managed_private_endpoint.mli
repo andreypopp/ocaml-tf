@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_managed_private_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_stream_analytics_managed_private_endpoint
+
+val azurerm_stream_analytics_managed_private_endpoint :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  stream_analytics_cluster_name:string prop ->
+  subresource_name:string prop ->
+  target_resource_id:string prop ->
+  unit ->
+  azurerm_stream_analytics_managed_private_endpoint
+
+val yojson_of_azurerm_stream_analytics_managed_private_endpoint :
+  azurerm_stream_analytics_managed_private_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,10 +40,10 @@ type t = private {
   target_resource_id : string prop;
 }
 
-val azurerm_stream_analytics_managed_private_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_stream_analytics_managed_private_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   stream_analytics_cluster_name:string prop ->

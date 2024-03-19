@@ -4,25 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_appmesh_virtual_router__spec__listener__port_mapping = {
+type spec__listener__port_mapping = {
   port : float prop;  (** port *)
   protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_virtual_router__spec__listener__port_mapping *)
+(** spec__listener__port_mapping *)
 
-type aws_appmesh_virtual_router__spec__listener = {
-  port_mapping :
-    aws_appmesh_virtual_router__spec__listener__port_mapping list;
+type spec__listener = {
+  port_mapping : spec__listener__port_mapping list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_virtual_router__spec__listener *)
+(** spec__listener *)
 
-type aws_appmesh_virtual_router__spec = {
-  listener : aws_appmesh_virtual_router__spec__listener list;
-}
-[@@deriving yojson_of]
-(** aws_appmesh_virtual_router__spec *)
+type spec = { listener : spec__listener list } [@@deriving yojson_of]
+(** spec *)
 
 type aws_appmesh_virtual_router = {
   id : string prop option; [@option]  (** id *)
@@ -32,10 +28,23 @@ type aws_appmesh_virtual_router = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  spec : aws_appmesh_virtual_router__spec list;
+  spec : spec list;
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_router *)
+
+let spec__listener__port_mapping ~port ~protocol () :
+    spec__listener__port_mapping =
+  { port; protocol }
+
+let spec__listener ~port_mapping () : spec__listener =
+  { port_mapping }
+
+let spec ~listener () : spec = { listener }
+
+let aws_appmesh_virtual_router ?id ?mesh_owner ?tags ?tags_all
+    ~mesh_name ~name ~spec () : aws_appmesh_virtual_router =
+  { id; mesh_name; mesh_owner; name; tags; tags_all; spec }
 
 type t = {
   arn : string prop;
@@ -50,14 +59,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appmesh_virtual_router ?id ?mesh_owner ?tags ?tags_all
-    ~mesh_name ~name ~spec __resource_id =
+let register ?tf_module ?id ?mesh_owner ?tags ?tags_all ~mesh_name
+    ~name ~spec __resource_id =
   let __resource_type = "aws_appmesh_virtual_router" in
   let __resource =
-    ({ id; mesh_name; mesh_owner; name; tags; tags_all; spec }
-      : aws_appmesh_virtual_router)
+    aws_appmesh_virtual_router ?id ?mesh_owner ?tags ?tags_all
+      ~mesh_name ~name ~spec ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appmesh_virtual_router __resource);
   let __resource_attributes =
     ({

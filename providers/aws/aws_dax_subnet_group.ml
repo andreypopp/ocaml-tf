@@ -13,6 +13,10 @@ type aws_dax_subnet_group = {
 [@@deriving yojson_of]
 (** aws_dax_subnet_group *)
 
+let aws_dax_subnet_group ?description ?id ~name ~subnet_ids () :
+    aws_dax_subnet_group =
+  { description; id; name; subnet_ids }
+
 type t = {
   description : string prop;
   id : string prop;
@@ -21,13 +25,13 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_dax_subnet_group ?description ?id ~name ~subnet_ids
+let register ?tf_module ?description ?id ~name ~subnet_ids
     __resource_id =
   let __resource_type = "aws_dax_subnet_group" in
   let __resource =
-    ({ description; id; name; subnet_ids } : aws_dax_subnet_group)
+    aws_dax_subnet_group ?description ?id ~name ~subnet_ids ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dax_subnet_group __resource);
   let __resource_attributes =
     ({

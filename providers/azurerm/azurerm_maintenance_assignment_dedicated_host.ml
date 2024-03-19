@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_maintenance_assignment_dedicated_host__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_maintenance_assignment_dedicated_host__timeouts *)
+(** timeouts *)
 
 type azurerm_maintenance_assignment_dedicated_host = {
   dedicated_host_id : string prop;  (** dedicated_host_id *)
@@ -18,11 +18,24 @@ type azurerm_maintenance_assignment_dedicated_host = {
   location : string prop;  (** location *)
   maintenance_configuration_id : string prop;
       (** maintenance_configuration_id *)
-  timeouts :
-    azurerm_maintenance_assignment_dedicated_host__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_assignment_dedicated_host *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_maintenance_assignment_dedicated_host ?id ?timeouts
+    ~dedicated_host_id ~location ~maintenance_configuration_id () :
+    azurerm_maintenance_assignment_dedicated_host =
+  {
+    dedicated_host_id;
+    id;
+    location;
+    maintenance_configuration_id;
+    timeouts;
+  }
 
 type t = {
   dedicated_host_id : string prop;
@@ -31,23 +44,16 @@ type t = {
   maintenance_configuration_id : string prop;
 }
 
-let azurerm_maintenance_assignment_dedicated_host ?id ?timeouts
-    ~dedicated_host_id ~location ~maintenance_configuration_id
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~dedicated_host_id ~location
+    ~maintenance_configuration_id __resource_id =
   let __resource_type =
     "azurerm_maintenance_assignment_dedicated_host"
   in
   let __resource =
-    ({
-       dedicated_host_id;
-       id;
-       location;
-       maintenance_configuration_id;
-       timeouts;
-     }
-      : azurerm_maintenance_assignment_dedicated_host)
+    azurerm_maintenance_assignment_dedicated_host ?id ?timeouts
+      ~dedicated_host_id ~location ~maintenance_configuration_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_maintenance_assignment_dedicated_host
        __resource);
   let __resource_attributes =

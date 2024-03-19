@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_dms_replication_subnet_group
+
+val aws_dms_replication_subnet_group :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  replication_subnet_group_description:string prop ->
+  replication_subnet_group_id:string prop ->
+  subnet_ids:string prop list ->
+  unit ->
+  aws_dms_replication_subnet_group
+
+val yojson_of_aws_dms_replication_subnet_group :
+  aws_dms_replication_subnet_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,7 +32,8 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_dms_replication_subnet_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

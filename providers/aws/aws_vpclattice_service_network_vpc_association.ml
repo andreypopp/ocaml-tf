@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_service_network_vpc_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpclattice_service_network_vpc_association__timeouts *)
+(** timeouts *)
 
 type aws_vpclattice_service_network_vpc_association = {
   id : string prop option; [@option]  (** id *)
@@ -22,11 +22,27 @@ type aws_vpclattice_service_network_vpc_association = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   vpc_identifier : string prop;  (** vpc_identifier *)
-  timeouts :
-    aws_vpclattice_service_network_vpc_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_service_network_vpc_association *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpclattice_service_network_vpc_association ?id
+    ?security_group_ids ?tags ?tags_all ?timeouts
+    ~service_network_identifier ~vpc_identifier () :
+    aws_vpclattice_service_network_vpc_association =
+  {
+    id;
+    security_group_ids;
+    service_network_identifier;
+    tags;
+    tags_all;
+    vpc_identifier;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -40,25 +56,18 @@ type t = {
   vpc_identifier : string prop;
 }
 
-let aws_vpclattice_service_network_vpc_association ?id
-    ?security_group_ids ?tags ?tags_all ?timeouts
-    ~service_network_identifier ~vpc_identifier __resource_id =
+let register ?tf_module ?id ?security_group_ids ?tags ?tags_all
+    ?timeouts ~service_network_identifier ~vpc_identifier
+    __resource_id =
   let __resource_type =
     "aws_vpclattice_service_network_vpc_association"
   in
   let __resource =
-    ({
-       id;
-       security_group_ids;
-       service_network_identifier;
-       tags;
-       tags_all;
-       vpc_identifier;
-       timeouts;
-     }
-      : aws_vpclattice_service_network_vpc_association)
+    aws_vpclattice_service_network_vpc_association ?id
+      ?security_group_ids ?tags ?tags_all ?timeouts
+      ~service_network_identifier ~vpc_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_service_network_vpc_association
        __resource);
   let __resource_attributes =

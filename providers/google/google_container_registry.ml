@@ -14,6 +14,10 @@ type google_container_registry = {
 [@@deriving yojson_of]
 (** google_container_registry *)
 
+let google_container_registry ?id ?location ?project () :
+    google_container_registry =
+  { id; location; project }
+
 type t = {
   bucket_self_link : string prop;
   id : string prop;
@@ -21,12 +25,12 @@ type t = {
   project : string prop;
 }
 
-let google_container_registry ?id ?location ?project __resource_id =
+let register ?tf_module ?id ?location ?project __resource_id =
   let __resource_type = "google_container_registry" in
   let __resource =
-    ({ id; location; project } : google_container_registry)
+    google_container_registry ?id ?location ?project ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_registry __resource);
   let __resource_attributes =
     ({

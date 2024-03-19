@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_security_admin_configuration__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_network_manager_security_admin_configuration
+
+val azurerm_network_manager_security_admin_configuration :
+  ?apply_on_network_intent_policy_based_services:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network_manager_id:string prop ->
+  unit ->
+  azurerm_network_manager_security_admin_configuration
+
+val yojson_of_azurerm_network_manager_security_admin_configuration :
+  azurerm_network_manager_security_admin_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   apply_on_network_intent_policy_based_services : string list prop;
@@ -13,12 +39,12 @@ type t = private {
   network_manager_id : string prop;
 }
 
-val azurerm_network_manager_security_admin_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?apply_on_network_intent_policy_based_services:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_network_manager_security_admin_configuration__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   network_manager_id:string prop ->
   string ->

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_deployment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_deployment__timeouts *)
+(** timeouts *)
 
 type azurerm_network_manager_deployment = {
   configuration_ids : string prop list;  (** configuration_ids *)
@@ -21,10 +21,26 @@ type azurerm_network_manager_deployment = {
   scope_access : string prop;  (** scope_access *)
   triggers : (string * string prop) list option; [@option]
       (** triggers *)
-  timeouts : azurerm_network_manager_deployment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_deployment *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_manager_deployment ?id ?triggers ?timeouts
+    ~configuration_ids ~location ~network_manager_id ~scope_access ()
+    : azurerm_network_manager_deployment =
+  {
+    configuration_ids;
+    id;
+    location;
+    network_manager_id;
+    scope_access;
+    triggers;
+    timeouts;
+  }
 
 type t = {
   configuration_ids : string list prop;
@@ -35,23 +51,15 @@ type t = {
   triggers : (string * string) list prop;
 }
 
-let azurerm_network_manager_deployment ?id ?triggers ?timeouts
-    ~configuration_ids ~location ~network_manager_id ~scope_access
-    __resource_id =
+let register ?tf_module ?id ?triggers ?timeouts ~configuration_ids
+    ~location ~network_manager_id ~scope_access __resource_id =
   let __resource_type = "azurerm_network_manager_deployment" in
   let __resource =
-    ({
-       configuration_ids;
-       id;
-       location;
-       network_manager_id;
-       scope_access;
-       triggers;
-       timeouts;
-     }
-      : azurerm_network_manager_deployment)
+    azurerm_network_manager_deployment ?id ?triggers ?timeouts
+      ~configuration_ids ~location ~network_manager_id ~scope_access
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_deployment __resource);
   let __resource_attributes =
     ({

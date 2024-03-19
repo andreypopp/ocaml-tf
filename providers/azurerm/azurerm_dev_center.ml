@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_center__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_center__identity *)
+(** identity *)
 
-type azurerm_dev_center__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_center__timeouts *)
+(** timeouts *)
 
 type azurerm_dev_center = {
   id : string prop option; [@option]  (** id *)
@@ -29,11 +27,29 @@ type azurerm_dev_center = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity : azurerm_dev_center__identity list;
-  timeouts : azurerm_dev_center__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_dev_center *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_dev_center ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~identity () : azurerm_dev_center =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    identity;
+    timeouts;
+  }
 
 type t = {
   dev_center_uri : string prop;
@@ -44,22 +60,14 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_dev_center ?id ?tags ?timeouts ~location ~name
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_dev_center" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       identity;
-       timeouts;
-     }
-      : azurerm_dev_center)
+    azurerm_dev_center ?id ?tags ?timeouts ~location ~name
+      ~resource_group_name ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_center __resource);
   let __resource_attributes =
     ({

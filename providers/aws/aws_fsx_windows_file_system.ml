@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_fsx_windows_file_system__audit_log_configuration = {
+type audit_log_configuration = {
   audit_log_destination : string prop option; [@option]
       (** audit_log_destination *)
   file_access_audit_log_level : string prop option; [@option]
@@ -13,16 +13,16 @@ type aws_fsx_windows_file_system__audit_log_configuration = {
       (** file_share_access_audit_log_level *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_windows_file_system__audit_log_configuration *)
+(** audit_log_configuration *)
 
-type aws_fsx_windows_file_system__disk_iops_configuration = {
+type disk_iops_configuration = {
   iops : float prop option; [@option]  (** iops *)
   mode : string prop option; [@option]  (** mode *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_windows_file_system__disk_iops_configuration *)
+(** disk_iops_configuration *)
 
-type aws_fsx_windows_file_system__self_managed_active_directory = {
+type self_managed_active_directory = {
   dns_ips : string prop list;  (** dns_ips *)
   domain_name : string prop;  (** domain_name *)
   file_system_administrators_group : string prop option; [@option]
@@ -34,15 +34,15 @@ type aws_fsx_windows_file_system__self_managed_active_directory = {
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_windows_file_system__self_managed_active_directory *)
+(** self_managed_active_directory *)
 
-type aws_fsx_windows_file_system__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_windows_file_system__timeouts *)
+(** timeouts *)
 
 type aws_fsx_windows_file_system = {
   active_directory_id : string prop option; [@option]
@@ -75,16 +75,76 @@ type aws_fsx_windows_file_system = {
   throughput_capacity : float prop;  (** throughput_capacity *)
   weekly_maintenance_start_time : string prop option; [@option]
       (** weekly_maintenance_start_time *)
-  audit_log_configuration :
-    aws_fsx_windows_file_system__audit_log_configuration list;
-  disk_iops_configuration :
-    aws_fsx_windows_file_system__disk_iops_configuration list;
-  self_managed_active_directory :
-    aws_fsx_windows_file_system__self_managed_active_directory list;
-  timeouts : aws_fsx_windows_file_system__timeouts option;
+  audit_log_configuration : audit_log_configuration list;
+  disk_iops_configuration : disk_iops_configuration list;
+  self_managed_active_directory : self_managed_active_directory list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_fsx_windows_file_system *)
+
+let audit_log_configuration ?audit_log_destination
+    ?file_access_audit_log_level ?file_share_access_audit_log_level
+    () : audit_log_configuration =
+  {
+    audit_log_destination;
+    file_access_audit_log_level;
+    file_share_access_audit_log_level;
+  }
+
+let disk_iops_configuration ?iops ?mode () : disk_iops_configuration
+    =
+  { iops; mode }
+
+let self_managed_active_directory ?file_system_administrators_group
+    ?organizational_unit_distinguished_name ~dns_ips ~domain_name
+    ~password ~username () : self_managed_active_directory =
+  {
+    dns_ips;
+    domain_name;
+    file_system_administrators_group;
+    organizational_unit_distinguished_name;
+    password;
+    username;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_fsx_windows_file_system ?active_directory_id ?aliases
+    ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
+    ?daily_automatic_backup_start_time ?deployment_type ?id
+    ?kms_key_id ?preferred_subnet_id ?security_group_ids
+    ?skip_final_backup ?storage_capacity ?storage_type ?tags
+    ?tags_all ?weekly_maintenance_start_time ?timeouts ~subnet_ids
+    ~throughput_capacity ~audit_log_configuration
+    ~disk_iops_configuration ~self_managed_active_directory () :
+    aws_fsx_windows_file_system =
+  {
+    active_directory_id;
+    aliases;
+    automatic_backup_retention_days;
+    backup_id;
+    copy_tags_to_backups;
+    daily_automatic_backup_start_time;
+    deployment_type;
+    id;
+    kms_key_id;
+    preferred_subnet_id;
+    security_group_ids;
+    skip_final_backup;
+    storage_capacity;
+    storage_type;
+    subnet_ids;
+    tags;
+    tags_all;
+    throughput_capacity;
+    weekly_maintenance_start_time;
+    audit_log_configuration;
+    disk_iops_configuration;
+    self_managed_active_directory;
+    timeouts;
+  }
 
 type t = {
   active_directory_id : string prop;
@@ -115,7 +175,7 @@ type t = {
   weekly_maintenance_start_time : string prop;
 }
 
-let aws_fsx_windows_file_system ?active_directory_id ?aliases
+let register ?tf_module ?active_directory_id ?aliases
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
     ?daily_automatic_backup_start_time ?deployment_type ?id
     ?kms_key_id ?preferred_subnet_id ?security_group_ids
@@ -126,34 +186,17 @@ let aws_fsx_windows_file_system ?active_directory_id ?aliases
     __resource_id =
   let __resource_type = "aws_fsx_windows_file_system" in
   let __resource =
-    ({
-       active_directory_id;
-       aliases;
-       automatic_backup_retention_days;
-       backup_id;
-       copy_tags_to_backups;
-       daily_automatic_backup_start_time;
-       deployment_type;
-       id;
-       kms_key_id;
-       preferred_subnet_id;
-       security_group_ids;
-       skip_final_backup;
-       storage_capacity;
-       storage_type;
-       subnet_ids;
-       tags;
-       tags_all;
-       throughput_capacity;
-       weekly_maintenance_start_time;
-       audit_log_configuration;
-       disk_iops_configuration;
-       self_managed_active_directory;
-       timeouts;
-     }
-      : aws_fsx_windows_file_system)
+    aws_fsx_windows_file_system ?active_directory_id ?aliases
+      ?automatic_backup_retention_days ?backup_id
+      ?copy_tags_to_backups ?daily_automatic_backup_start_time
+      ?deployment_type ?id ?kms_key_id ?preferred_subnet_id
+      ?security_group_ids ?skip_final_backup ?storage_capacity
+      ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
+      ?timeouts ~subnet_ids ~throughput_capacity
+      ~audit_log_configuration ~disk_iops_configuration
+      ~self_managed_active_directory ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_windows_file_system __resource);
   let __resource_attributes =
     ({

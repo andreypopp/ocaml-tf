@@ -2,9 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_recovery_services_vault_resource_guard_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
 
 type azurerm_recovery_services_vault_resource_guard_association
+
+val azurerm_recovery_services_vault_resource_guard_association :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?timeouts:timeouts ->
+  resource_guard_id:string prop ->
+  vault_id:string prop ->
+  unit ->
+  azurerm_recovery_services_vault_resource_guard_association
+
+val yojson_of_azurerm_recovery_services_vault_resource_guard_association :
+  azurerm_recovery_services_vault_resource_guard_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,11 +36,11 @@ type t = private {
   vault_id : string prop;
 }
 
-val azurerm_recovery_services_vault_resource_guard_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?timeouts:
-    azurerm_recovery_services_vault_resource_guard_association__timeouts ->
+  ?timeouts:timeouts ->
   resource_guard_id:string prop ->
   vault_id:string prop ->
   string ->

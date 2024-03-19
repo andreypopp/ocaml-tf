@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_data_share__snapshot_schedule
-type azurerm_data_share__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type snapshot_schedule
+
+val snapshot_schedule :
+  name:string prop ->
+  recurrence:string prop ->
+  start_time:string prop ->
+  unit ->
+  snapshot_schedule
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_data_share
+
+val azurerm_data_share :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?terms:string prop ->
+  ?timeouts:timeouts ->
+  account_id:string prop ->
+  kind:string prop ->
+  name:string prop ->
+  snapshot_schedule:snapshot_schedule list ->
+  unit ->
+  azurerm_data_share
+
+val yojson_of_azurerm_data_share : azurerm_data_share -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -15,14 +50,15 @@ type t = private {
   terms : string prop;
 }
 
-val azurerm_data_share :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?terms:string prop ->
-  ?timeouts:azurerm_data_share__timeouts ->
+  ?timeouts:timeouts ->
   account_id:string prop ->
   kind:string prop ->
   name:string prop ->
-  snapshot_schedule:azurerm_data_share__snapshot_schedule list ->
+  snapshot_schedule:snapshot_schedule list ->
   string ->
   t

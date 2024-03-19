@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_inspector_resource_group
+
+val aws_inspector_resource_group :
+  ?id:string prop ->
+  tags:(string * string prop) list ->
+  unit ->
+  aws_inspector_resource_group
+
+val yojson_of_aws_inspector_resource_group :
+  aws_inspector_resource_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -10,5 +23,9 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val aws_inspector_resource_group :
-  ?id:string prop -> tags:(string * string prop) list -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  tags:(string * string prop) list ->
+  string ->
+  t

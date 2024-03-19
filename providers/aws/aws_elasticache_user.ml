@@ -4,22 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_elasticache_user__authentication_mode = {
-  password_count : float prop;  (** password_count *)
+type authentication_mode = {
   passwords : string prop list option; [@option]  (** passwords *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_elasticache_user__authentication_mode *)
+(** authentication_mode *)
 
-type aws_elasticache_user__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_elasticache_user__timeouts *)
+(** timeouts *)
 
 type aws_elasticache_user = {
   access_string : string prop;  (** access_string *)
@@ -33,12 +32,34 @@ type aws_elasticache_user = {
       (** tags_all *)
   user_id : string prop;  (** user_id *)
   user_name : string prop;  (** user_name *)
-  authentication_mode :
-    aws_elasticache_user__authentication_mode list;
-  timeouts : aws_elasticache_user__timeouts option;
+  authentication_mode : authentication_mode list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_elasticache_user *)
+
+let authentication_mode ?passwords ~type_ () : authentication_mode =
+  { passwords; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let aws_elasticache_user ?id ?no_password_required ?passwords ?tags
+    ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
+    ~authentication_mode () : aws_elasticache_user =
+  {
+    access_string;
+    engine;
+    id;
+    no_password_required;
+    passwords;
+    tags;
+    tags_all;
+    user_id;
+    user_name;
+    authentication_mode;
+    timeouts;
+  }
 
 type t = {
   access_string : string prop;
@@ -53,27 +74,16 @@ type t = {
   user_name : string prop;
 }
 
-let aws_elasticache_user ?id ?no_password_required ?passwords ?tags
+let register ?tf_module ?id ?no_password_required ?passwords ?tags
     ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
     ~authentication_mode __resource_id =
   let __resource_type = "aws_elasticache_user" in
   let __resource =
-    ({
-       access_string;
-       engine;
-       id;
-       no_password_required;
-       passwords;
-       tags;
-       tags_all;
-       user_id;
-       user_name;
-       authentication_mode;
-       timeouts;
-     }
-      : aws_elasticache_user)
+    aws_elasticache_user ?id ?no_password_required ?passwords ?tags
+      ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
+      ~authentication_mode ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticache_user __resource);
   let __resource_attributes =
     ({

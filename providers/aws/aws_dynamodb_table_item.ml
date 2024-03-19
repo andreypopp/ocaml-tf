@@ -14,6 +14,10 @@ type aws_dynamodb_table_item = {
 [@@deriving yojson_of]
 (** aws_dynamodb_table_item *)
 
+let aws_dynamodb_table_item ?id ?range_key ~hash_key ~item
+    ~table_name () : aws_dynamodb_table_item =
+  { hash_key; id; item; range_key; table_name }
+
 type t = {
   hash_key : string prop;
   id : string prop;
@@ -22,14 +26,14 @@ type t = {
   table_name : string prop;
 }
 
-let aws_dynamodb_table_item ?id ?range_key ~hash_key ~item
-    ~table_name __resource_id =
+let register ?tf_module ?id ?range_key ~hash_key ~item ~table_name
+    __resource_id =
   let __resource_type = "aws_dynamodb_table_item" in
   let __resource =
-    ({ hash_key; id; item; range_key; table_name }
-      : aws_dynamodb_table_item)
+    aws_dynamodb_table_item ?id ?range_key ~hash_key ~item
+      ~table_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_table_item __resource);
   let __resource_attributes =
     ({

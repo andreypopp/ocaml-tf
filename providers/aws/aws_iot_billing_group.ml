@@ -4,15 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_iot_billing_group__properties = {
+type properties = {
   description : string prop option; [@option]  (** description *)
 }
 [@@deriving yojson_of]
-(** aws_iot_billing_group__properties *)
+(** properties *)
 
-type aws_iot_billing_group__metadata = {
-  creation_date : string prop;  (** creation_date *)
-}
+type metadata = { creation_date : string prop  (** creation_date *) }
 [@@deriving yojson_of]
 
 type aws_iot_billing_group = {
@@ -21,29 +19,34 @@ type aws_iot_billing_group = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  properties : aws_iot_billing_group__properties list;
+  properties : properties list;
 }
 [@@deriving yojson_of]
 (** aws_iot_billing_group *)
 
+let properties ?description () : properties = { description }
+
+let aws_iot_billing_group ?id ?tags ?tags_all ~name ~properties () :
+    aws_iot_billing_group =
+  { id; name; tags; tags_all; properties }
+
 type t = {
   arn : string prop;
   id : string prop;
-  metadata : aws_iot_billing_group__metadata list prop;
+  metadata : metadata list prop;
   name : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   version : float prop;
 }
 
-let aws_iot_billing_group ?id ?tags ?tags_all ~name ~properties
+let register ?tf_module ?id ?tags ?tags_all ~name ~properties
     __resource_id =
   let __resource_type = "aws_iot_billing_group" in
   let __resource =
-    ({ id; name; tags; tags_all; properties }
-      : aws_iot_billing_group)
+    aws_iot_billing_group ?id ?tags ?tags_all ~name ~properties ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_billing_group __resource);
   let __resource_attributes =
     ({

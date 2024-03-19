@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_synapse_role_assignment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_synapse_role_assignment
+
+val azurerm_synapse_role_assignment :
+  ?id:string prop ->
+  ?principal_type:string prop ->
+  ?synapse_spark_pool_id:string prop ->
+  ?synapse_workspace_id:string prop ->
+  ?timeouts:timeouts ->
+  principal_id:string prop ->
+  role_name:string prop ->
+  unit ->
+  azurerm_synapse_role_assignment
+
+val yojson_of_azurerm_synapse_role_assignment :
+  azurerm_synapse_role_assignment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,12 +40,13 @@ type t = private {
   synapse_workspace_id : string prop;
 }
 
-val azurerm_synapse_role_assignment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?principal_type:string prop ->
   ?synapse_spark_pool_id:string prop ->
   ?synapse_workspace_id:string prop ->
-  ?timeouts:azurerm_synapse_role_assignment__timeouts ->
+  ?timeouts:timeouts ->
   principal_id:string prop ->
   role_name:string prop ->
   string ->

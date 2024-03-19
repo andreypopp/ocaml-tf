@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_securityhub_configuration_policy_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_securityhub_configuration_policy_association__timeouts *)
+(** timeouts *)
 
 type aws_securityhub_configuration_policy_association = {
   id : string prop option; [@option]  (** id *)
@@ -17,11 +17,17 @@ type aws_securityhub_configuration_policy_association = {
       (** The universally unique identifier (UUID) of the configuration policy. *)
   target_id : string prop;
       (** The identifier of the target account, organizational unit, or the root to associate with the specified configuration. *)
-  timeouts :
-    aws_securityhub_configuration_policy_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_securityhub_configuration_policy_association *)
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_securityhub_configuration_policy_association ?id ?timeouts
+    ~policy_id ~target_id () :
+    aws_securityhub_configuration_policy_association =
+  { id; policy_id; target_id; timeouts }
 
 type t = {
   id : string prop;
@@ -29,16 +35,16 @@ type t = {
   target_id : string prop;
 }
 
-let aws_securityhub_configuration_policy_association ?id ?timeouts
-    ~policy_id ~target_id __resource_id =
+let register ?tf_module ?id ?timeouts ~policy_id ~target_id
+    __resource_id =
   let __resource_type =
     "aws_securityhub_configuration_policy_association"
   in
   let __resource =
-    ({ id; policy_id; target_id; timeouts }
-      : aws_securityhub_configuration_policy_association)
+    aws_securityhub_configuration_policy_association ?id ?timeouts
+      ~policy_id ~target_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_configuration_policy_association
        __resource);
   let __resource_attributes =

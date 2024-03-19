@@ -14,6 +14,10 @@ type aws_iam_user_ssh_key = {
 [@@deriving yojson_of]
 (** aws_iam_user_ssh_key *)
 
+let aws_iam_user_ssh_key ?id ?status ~encoding ~public_key ~username
+    () : aws_iam_user_ssh_key =
+  { encoding; id; public_key; status; username }
+
 type t = {
   encoding : string prop;
   fingerprint : string prop;
@@ -24,14 +28,14 @@ type t = {
   username : string prop;
 }
 
-let aws_iam_user_ssh_key ?id ?status ~encoding ~public_key ~username
+let register ?tf_module ?id ?status ~encoding ~public_key ~username
     __resource_id =
   let __resource_type = "aws_iam_user_ssh_key" in
   let __resource =
-    ({ encoding; id; public_key; status; username }
-      : aws_iam_user_ssh_key)
+    aws_iam_user_ssh_key ?id ?status ~encoding ~public_key ~username
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_user_ssh_key __resource);
   let __resource_attributes =
     ({

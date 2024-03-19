@@ -2,10 +2,52 @@
 
 open! Tf.Prelude
 
-type azurerm_notification_hub__apns_credential
-type azurerm_notification_hub__gcm_credential
-type azurerm_notification_hub__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type apns_credential
+
+val apns_credential :
+  application_mode:string prop ->
+  bundle_id:string prop ->
+  key_id:string prop ->
+  team_id:string prop ->
+  token:string prop ->
+  unit ->
+  apns_credential
+
+type gcm_credential
+
+val gcm_credential : api_key:string prop -> unit -> gcm_credential
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_notification_hub
+
+val azurerm_notification_hub :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  namespace_name:string prop ->
+  resource_group_name:string prop ->
+  apns_credential:apns_credential list ->
+  gcm_credential:gcm_credential list ->
+  unit ->
+  azurerm_notification_hub
+
+val yojson_of_azurerm_notification_hub :
+  azurerm_notification_hub -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -16,15 +58,16 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_notification_hub :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_notification_hub__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   namespace_name:string prop ->
   resource_group_name:string prop ->
-  apns_credential:azurerm_notification_hub__apns_credential list ->
-  gcm_credential:azurerm_notification_hub__gcm_credential list ->
+  apns_credential:apns_credential list ->
+  gcm_credential:gcm_credential list ->
   string ->
   t

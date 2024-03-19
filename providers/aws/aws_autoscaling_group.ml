@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_autoscaling_group__initial_lifecycle_hook = {
+type initial_lifecycle_hook = {
   default_result : string prop option; [@option]
       (** default_result *)
   heartbeat_timeout : float prop option; [@option]
@@ -18,16 +18,16 @@ type aws_autoscaling_group__initial_lifecycle_hook = {
   role_arn : string prop option; [@option]  (** role_arn *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__initial_lifecycle_hook *)
+(** initial_lifecycle_hook *)
 
-type aws_autoscaling_group__instance_maintenance_policy = {
+type instance_maintenance_policy = {
   max_healthy_percentage : float prop;  (** max_healthy_percentage *)
   min_healthy_percentage : float prop;  (** min_healthy_percentage *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__instance_maintenance_policy *)
+(** instance_maintenance_policy *)
 
-type aws_autoscaling_group__instance_refresh__preferences = {
+type instance_refresh__preferences = {
   auto_rollback : bool prop option; [@option]  (** auto_rollback *)
   checkpoint_delay : string prop option; [@option]
       (** checkpoint_delay *)
@@ -46,26 +46,25 @@ type aws_autoscaling_group__instance_refresh__preferences = {
       (** standby_instances *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__instance_refresh__preferences *)
+(** instance_refresh__preferences *)
 
-type aws_autoscaling_group__instance_refresh = {
+type instance_refresh = {
   strategy : string prop;  (** strategy *)
   triggers : string prop list option; [@option]  (** triggers *)
-  preferences :
-    aws_autoscaling_group__instance_refresh__preferences list;
+  preferences : instance_refresh__preferences list;
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__instance_refresh *)
+(** instance_refresh *)
 
-type aws_autoscaling_group__launch_template = {
+type launch_template = {
   id : string prop option; [@option]  (** id *)
   name : string prop option; [@option]  (** name *)
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__launch_template *)
+(** launch_template *)
 
-type aws_autoscaling_group__mixed_instances_policy__instances_distribution = {
+type mixed_instances_policy__instances_distribution = {
   on_demand_allocation_strategy : string prop option; [@option]
       (** on_demand_allocation_strategy *)
   on_demand_base_capacity : float prop option; [@option]
@@ -81,9 +80,9 @@ type aws_autoscaling_group__mixed_instances_policy__instances_distribution = {
       (** spot_max_price *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__instances_distribution *)
+(** mixed_instances_policy__instances_distribution *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__launch_template_specification = {
+type mixed_instances_policy__launch_template__launch_template_specification = {
   launch_template_id : string prop option; [@option]
       (** launch_template_id *)
   launch_template_name : string prop option; [@option]
@@ -91,72 +90,72 @@ type aws_autoscaling_group__mixed_instances_policy__launch_template__launch_temp
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__launch_template_specification *)
+(** mixed_instances_policy__launch_template__launch_template_specification *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count = {
+type mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib = {
+type mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps = {
+type mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu = {
+type mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_mib = {
+type mixed_instances_policy__launch_template__override__instance_requirements__memory_mib = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_mib *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__memory_mib *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps = {
+type mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count = {
+type mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb = {
+type mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count = {
+type mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count *)
+(** mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements = {
+type mixed_instances_policy__launch_template__override__instance_requirements = {
   accelerator_manufacturers : string prop list option; [@option]
       (** accelerator_manufacturers *)
   accelerator_names : string prop list option; [@option]
@@ -187,37 +186,37 @@ type aws_autoscaling_group__mixed_instances_policy__launch_template__override__i
       [@option]
       (** spot_max_price_percentage_over_lowest_price *)
   accelerator_count :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count
+    mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count
     list;
   accelerator_total_memory_mib :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib
+    mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib
     list;
   baseline_ebs_bandwidth_mbps :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps
+    mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps
     list;
   memory_gib_per_vcpu :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
+    mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
     list;
   memory_mib :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_mib
+    mixed_instances_policy__launch_template__override__instance_requirements__memory_mib
     list;
   network_bandwidth_gbps :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps
+    mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps
     list;
   network_interface_count :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count
+    mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count
     list;
   total_local_storage_gb :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb
+    mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb
     list;
   vcpu_count :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count
+    mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count
     list;
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements *)
+(** mixed_instances_policy__launch_template__override__instance_requirements *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override__launch_template_specification = {
+type mixed_instances_policy__launch_template__override__launch_template_specification = {
   launch_template_id : string prop option; [@option]
       (** launch_template_id *)
   launch_template_name : string prop option; [@option]
@@ -225,83 +224,77 @@ type aws_autoscaling_group__mixed_instances_policy__launch_template__override__l
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override__launch_template_specification *)
+(** mixed_instances_policy__launch_template__override__launch_template_specification *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template__override = {
+type mixed_instances_policy__launch_template__override = {
   instance_type : string prop option; [@option]  (** instance_type *)
   weighted_capacity : string prop option; [@option]
       (** weighted_capacity *)
   instance_requirements :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements
+    mixed_instances_policy__launch_template__override__instance_requirements
     list;
   launch_template_specification :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override__launch_template_specification
+    mixed_instances_policy__launch_template__override__launch_template_specification
     list;
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template__override *)
+(** mixed_instances_policy__launch_template__override *)
 
-type aws_autoscaling_group__mixed_instances_policy__launch_template = {
+type mixed_instances_policy__launch_template = {
   launch_template_specification :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__launch_template_specification
+    mixed_instances_policy__launch_template__launch_template_specification
     list;
-  override :
-    aws_autoscaling_group__mixed_instances_policy__launch_template__override
-    list;
+  override : mixed_instances_policy__launch_template__override list;
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy__launch_template *)
+(** mixed_instances_policy__launch_template *)
 
-type aws_autoscaling_group__mixed_instances_policy = {
+type mixed_instances_policy = {
   instances_distribution :
-    aws_autoscaling_group__mixed_instances_policy__instances_distribution
-    list;
-  launch_template :
-    aws_autoscaling_group__mixed_instances_policy__launch_template
-    list;
+    mixed_instances_policy__instances_distribution list;
+  launch_template : mixed_instances_policy__launch_template list;
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__mixed_instances_policy *)
+(** mixed_instances_policy *)
 
-type aws_autoscaling_group__tag = {
+type tag = {
   key : string prop;  (** key *)
   propagate_at_launch : bool prop;  (** propagate_at_launch *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__tag *)
+(** tag *)
 
-type aws_autoscaling_group__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__timeouts *)
+(** timeouts *)
 
-type aws_autoscaling_group__traffic_source = {
+type traffic_source = {
   identifier : string prop;  (** identifier *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__traffic_source *)
+(** traffic_source *)
 
-type aws_autoscaling_group__warm_pool__instance_reuse_policy = {
+type warm_pool__instance_reuse_policy = {
   reuse_on_scale_in : bool prop option; [@option]
       (** reuse_on_scale_in *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__warm_pool__instance_reuse_policy *)
+(** warm_pool__instance_reuse_policy *)
 
-type aws_autoscaling_group__warm_pool = {
+type warm_pool = {
   max_group_prepared_capacity : float prop option; [@option]
       (** max_group_prepared_capacity *)
   min_size : float prop option; [@option]  (** min_size *)
   pool_state : string prop option; [@option]  (** pool_state *)
-  instance_reuse_policy :
-    aws_autoscaling_group__warm_pool__instance_reuse_policy list;
+  instance_reuse_policy : warm_pool__instance_reuse_policy list;
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_group__warm_pool *)
+(** warm_pool *)
 
 type aws_autoscaling_group = {
   availability_zones : string prop list option; [@option]
@@ -361,21 +354,277 @@ type aws_autoscaling_group = {
       (** wait_for_capacity_timeout *)
   wait_for_elb_capacity : float prop option; [@option]
       (** wait_for_elb_capacity *)
-  initial_lifecycle_hook :
-    aws_autoscaling_group__initial_lifecycle_hook list;
-  instance_maintenance_policy :
-    aws_autoscaling_group__instance_maintenance_policy list;
-  instance_refresh : aws_autoscaling_group__instance_refresh list;
-  launch_template : aws_autoscaling_group__launch_template list;
-  mixed_instances_policy :
-    aws_autoscaling_group__mixed_instances_policy list;
-  tag : aws_autoscaling_group__tag list;
-  timeouts : aws_autoscaling_group__timeouts option;
-  traffic_source : aws_autoscaling_group__traffic_source list;
-  warm_pool : aws_autoscaling_group__warm_pool list;
+  initial_lifecycle_hook : initial_lifecycle_hook list;
+  instance_maintenance_policy : instance_maintenance_policy list;
+  instance_refresh : instance_refresh list;
+  launch_template : launch_template list;
+  mixed_instances_policy : mixed_instances_policy list;
+  tag : tag list;
+  timeouts : timeouts option;
+  traffic_source : traffic_source list;
+  warm_pool : warm_pool list;
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group *)
+
+let initial_lifecycle_hook ?default_result ?heartbeat_timeout
+    ?notification_metadata ?notification_target_arn ?role_arn
+    ~lifecycle_transition ~name () : initial_lifecycle_hook =
+  {
+    default_result;
+    heartbeat_timeout;
+    lifecycle_transition;
+    name;
+    notification_metadata;
+    notification_target_arn;
+    role_arn;
+  }
+
+let instance_maintenance_policy ~max_healthy_percentage
+    ~min_healthy_percentage () : instance_maintenance_policy =
+  { max_healthy_percentage; min_healthy_percentage }
+
+let instance_refresh__preferences ?auto_rollback ?checkpoint_delay
+    ?checkpoint_percentages ?instance_warmup ?max_healthy_percentage
+    ?min_healthy_percentage ?scale_in_protected_instances
+    ?skip_matching ?standby_instances () :
+    instance_refresh__preferences =
+  {
+    auto_rollback;
+    checkpoint_delay;
+    checkpoint_percentages;
+    instance_warmup;
+    max_healthy_percentage;
+    min_healthy_percentage;
+    scale_in_protected_instances;
+    skip_matching;
+    standby_instances;
+  }
+
+let instance_refresh ?triggers ~strategy ~preferences () :
+    instance_refresh =
+  { strategy; triggers; preferences }
+
+let launch_template ?id ?name ?version () : launch_template =
+  { id; name; version }
+
+let mixed_instances_policy__instances_distribution
+    ?on_demand_allocation_strategy ?on_demand_base_capacity
+    ?on_demand_percentage_above_base_capacity
+    ?spot_allocation_strategy ?spot_instance_pools ?spot_max_price ()
+    : mixed_instances_policy__instances_distribution =
+  {
+    on_demand_allocation_strategy;
+    on_demand_base_capacity;
+    on_demand_percentage_above_base_capacity;
+    spot_allocation_strategy;
+    spot_instance_pools;
+    spot_max_price;
+  }
+
+let mixed_instances_policy__launch_template__launch_template_specification
+    ?launch_template_id ?launch_template_name ?version () :
+    mixed_instances_policy__launch_template__launch_template_specification
+    =
+  { launch_template_id; launch_template_name; version }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__memory_mib
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__memory_mib
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count
+    ?max ?min () :
+    mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count
+    =
+  { max; min }
+
+let mixed_instances_policy__launch_template__override__instance_requirements
+    ?accelerator_manufacturers ?accelerator_names ?accelerator_types
+    ?allowed_instance_types ?bare_metal ?burstable_performance
+    ?cpu_manufacturers ?excluded_instance_types ?instance_generations
+    ?local_storage ?local_storage_types
+    ?on_demand_max_price_percentage_over_lowest_price
+    ?require_hibernate_support
+    ?spot_max_price_percentage_over_lowest_price ~accelerator_count
+    ~accelerator_total_memory_mib ~baseline_ebs_bandwidth_mbps
+    ~memory_gib_per_vcpu ~memory_mib ~network_bandwidth_gbps
+    ~network_interface_count ~total_local_storage_gb ~vcpu_count () :
+    mixed_instances_policy__launch_template__override__instance_requirements
+    =
+  {
+    accelerator_manufacturers;
+    accelerator_names;
+    accelerator_types;
+    allowed_instance_types;
+    bare_metal;
+    burstable_performance;
+    cpu_manufacturers;
+    excluded_instance_types;
+    instance_generations;
+    local_storage;
+    local_storage_types;
+    on_demand_max_price_percentage_over_lowest_price;
+    require_hibernate_support;
+    spot_max_price_percentage_over_lowest_price;
+    accelerator_count;
+    accelerator_total_memory_mib;
+    baseline_ebs_bandwidth_mbps;
+    memory_gib_per_vcpu;
+    memory_mib;
+    network_bandwidth_gbps;
+    network_interface_count;
+    total_local_storage_gb;
+    vcpu_count;
+  }
+
+let mixed_instances_policy__launch_template__override__launch_template_specification
+    ?launch_template_id ?launch_template_name ?version () :
+    mixed_instances_policy__launch_template__override__launch_template_specification
+    =
+  { launch_template_id; launch_template_name; version }
+
+let mixed_instances_policy__launch_template__override ?instance_type
+    ?weighted_capacity ~instance_requirements
+    ~launch_template_specification () :
+    mixed_instances_policy__launch_template__override =
+  {
+    instance_type;
+    weighted_capacity;
+    instance_requirements;
+    launch_template_specification;
+  }
+
+let mixed_instances_policy__launch_template
+    ~launch_template_specification ~override () :
+    mixed_instances_policy__launch_template =
+  { launch_template_specification; override }
+
+let mixed_instances_policy ~instances_distribution ~launch_template
+    () : mixed_instances_policy =
+  { instances_distribution; launch_template }
+
+let tag ~key ~propagate_at_launch ~value () : tag =
+  { key; propagate_at_launch; value }
+
+let timeouts ?delete ?update () : timeouts = { delete; update }
+
+let traffic_source ?type_ ~identifier () : traffic_source =
+  { identifier; type_ }
+
+let warm_pool__instance_reuse_policy ?reuse_on_scale_in () :
+    warm_pool__instance_reuse_policy =
+  { reuse_on_scale_in }
+
+let warm_pool ?max_group_prepared_capacity ?min_size ?pool_state
+    ~instance_reuse_policy () : warm_pool =
+  {
+    max_group_prepared_capacity;
+    min_size;
+    pool_state;
+    instance_reuse_policy;
+  }
+
+let aws_autoscaling_group ?availability_zones ?capacity_rebalance
+    ?context ?default_cooldown ?default_instance_warmup
+    ?desired_capacity ?desired_capacity_type ?enabled_metrics
+    ?force_delete ?force_delete_warm_pool ?health_check_grace_period
+    ?health_check_type ?id ?ignore_failed_scaling_activities
+    ?launch_configuration ?load_balancers ?max_instance_lifetime
+    ?metrics_granularity ?min_elb_capacity ?name ?name_prefix
+    ?placement_group ?protect_from_scale_in ?service_linked_role_arn
+    ?suspended_processes ?target_group_arns ?termination_policies
+    ?vpc_zone_identifier ?wait_for_capacity_timeout
+    ?wait_for_elb_capacity ?timeouts ~max_size ~min_size
+    ~initial_lifecycle_hook ~instance_maintenance_policy
+    ~instance_refresh ~launch_template ~mixed_instances_policy ~tag
+    ~traffic_source ~warm_pool () : aws_autoscaling_group =
+  {
+    availability_zones;
+    capacity_rebalance;
+    context;
+    default_cooldown;
+    default_instance_warmup;
+    desired_capacity;
+    desired_capacity_type;
+    enabled_metrics;
+    force_delete;
+    force_delete_warm_pool;
+    health_check_grace_period;
+    health_check_type;
+    id;
+    ignore_failed_scaling_activities;
+    launch_configuration;
+    load_balancers;
+    max_instance_lifetime;
+    max_size;
+    metrics_granularity;
+    min_elb_capacity;
+    min_size;
+    name;
+    name_prefix;
+    placement_group;
+    protect_from_scale_in;
+    service_linked_role_arn;
+    suspended_processes;
+    target_group_arns;
+    termination_policies;
+    vpc_zone_identifier;
+    wait_for_capacity_timeout;
+    wait_for_elb_capacity;
+    initial_lifecycle_hook;
+    instance_maintenance_policy;
+    instance_refresh;
+    launch_template;
+    mixed_instances_policy;
+    tag;
+    timeouts;
+    traffic_source;
+    warm_pool;
+  }
 
 type t = {
   arn : string prop;
@@ -415,7 +664,7 @@ type t = {
   warm_pool_size : float prop;
 }
 
-let aws_autoscaling_group ?availability_zones ?capacity_rebalance
+let register ?tf_module ?availability_zones ?capacity_rebalance
     ?context ?default_cooldown ?default_instance_warmup
     ?desired_capacity ?desired_capacity_type ?enabled_metrics
     ?force_delete ?force_delete_warm_pool ?health_check_grace_period
@@ -431,52 +680,23 @@ let aws_autoscaling_group ?availability_zones ?capacity_rebalance
     ~traffic_source ~warm_pool __resource_id =
   let __resource_type = "aws_autoscaling_group" in
   let __resource =
-    ({
-       availability_zones;
-       capacity_rebalance;
-       context;
-       default_cooldown;
-       default_instance_warmup;
-       desired_capacity;
-       desired_capacity_type;
-       enabled_metrics;
-       force_delete;
-       force_delete_warm_pool;
-       health_check_grace_period;
-       health_check_type;
-       id;
-       ignore_failed_scaling_activities;
-       launch_configuration;
-       load_balancers;
-       max_instance_lifetime;
-       max_size;
-       metrics_granularity;
-       min_elb_capacity;
-       min_size;
-       name;
-       name_prefix;
-       placement_group;
-       protect_from_scale_in;
-       service_linked_role_arn;
-       suspended_processes;
-       target_group_arns;
-       termination_policies;
-       vpc_zone_identifier;
-       wait_for_capacity_timeout;
-       wait_for_elb_capacity;
-       initial_lifecycle_hook;
-       instance_maintenance_policy;
-       instance_refresh;
-       launch_template;
-       mixed_instances_policy;
-       tag;
-       timeouts;
-       traffic_source;
-       warm_pool;
-     }
-      : aws_autoscaling_group)
+    aws_autoscaling_group ?availability_zones ?capacity_rebalance
+      ?context ?default_cooldown ?default_instance_warmup
+      ?desired_capacity ?desired_capacity_type ?enabled_metrics
+      ?force_delete ?force_delete_warm_pool
+      ?health_check_grace_period ?health_check_type ?id
+      ?ignore_failed_scaling_activities ?launch_configuration
+      ?load_balancers ?max_instance_lifetime ?metrics_granularity
+      ?min_elb_capacity ?name ?name_prefix ?placement_group
+      ?protect_from_scale_in ?service_linked_role_arn
+      ?suspended_processes ?target_group_arns ?termination_policies
+      ?vpc_zone_identifier ?wait_for_capacity_timeout
+      ?wait_for_elb_capacity ?timeouts ~max_size ~min_size
+      ~initial_lifecycle_hook ~instance_maintenance_policy
+      ~instance_refresh ~launch_template ~mixed_instances_policy ~tag
+      ~traffic_source ~warm_pool ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_group __resource);
   let __resource_attributes =
     ({

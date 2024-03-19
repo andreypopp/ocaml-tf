@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_device__aws_location = {
+type aws_location = {
   subnet_arn : string prop option; [@option]  (** subnet_arn *)
   zone : string prop option; [@option]  (** zone *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_device__aws_location *)
+(** aws_location *)
 
-type aws_networkmanager_device__location = {
+type location = {
   address : string prop option; [@option]  (** address *)
   latitude : string prop option; [@option]  (** latitude *)
   longitude : string prop option; [@option]  (** longitude *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_device__location *)
+(** location *)
 
-type aws_networkmanager_device__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_device__timeouts *)
+(** timeouts *)
 
 type aws_networkmanager_device = {
   description : string prop option; [@option]  (** description *)
@@ -39,12 +39,41 @@ type aws_networkmanager_device = {
       (** tags_all *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   vendor : string prop option; [@option]  (** vendor *)
-  aws_location : aws_networkmanager_device__aws_location list;
-  location : aws_networkmanager_device__location list;
-  timeouts : aws_networkmanager_device__timeouts option;
+  aws_location : aws_location list;
+  location : location list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_device *)
+
+let aws_location ?subnet_arn ?zone () : aws_location =
+  { subnet_arn; zone }
+
+let location ?address ?latitude ?longitude () : location =
+  { address; latitude; longitude }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_networkmanager_device ?description ?id ?model ?serial_number
+    ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
+    ~global_network_id ~aws_location ~location () :
+    aws_networkmanager_device =
+  {
+    description;
+    global_network_id;
+    id;
+    model;
+    serial_number;
+    site_id;
+    tags;
+    tags_all;
+    type_;
+    vendor;
+    aws_location;
+    location;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -60,29 +89,16 @@ type t = {
   vendor : string prop;
 }
 
-let aws_networkmanager_device ?description ?id ?model ?serial_number
+let register ?tf_module ?description ?id ?model ?serial_number
     ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
     ~global_network_id ~aws_location ~location __resource_id =
   let __resource_type = "aws_networkmanager_device" in
   let __resource =
-    ({
-       description;
-       global_network_id;
-       id;
-       model;
-       serial_number;
-       site_id;
-       tags;
-       tags_all;
-       type_;
-       vendor;
-       aws_location;
-       location;
-       timeouts;
-     }
-      : aws_networkmanager_device)
+    aws_networkmanager_device ?description ?id ?model ?serial_number
+      ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
+      ~global_network_id ~aws_location ~location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_device __resource);
   let __resource_attributes =
     ({

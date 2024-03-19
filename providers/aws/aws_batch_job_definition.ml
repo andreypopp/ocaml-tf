@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type aws_batch_job_definition__eks_properties__pod_properties__containers__env = {
+type eks_properties__pod_properties__containers__env = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__containers__env *)
+(** eks_properties__pod_properties__containers__env *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__containers__resources = {
+type eks_properties__pod_properties__containers__resources = {
   limits : (string * string prop) list option; [@option]
       (** limits *)
   requests : (string * string prop) list option; [@option]
       (** requests *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__containers__resources *)
+(** eks_properties__pod_properties__containers__resources *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__containers__security_context = {
+type eks_properties__pod_properties__containers__security_context = {
   privileged : bool prop option; [@option]  (** privileged *)
   read_only_root_file_system : bool prop option; [@option]
       (** read_only_root_file_system *)
@@ -30,107 +30,91 @@ type aws_batch_job_definition__eks_properties__pod_properties__containers__secur
   run_as_user : float prop option; [@option]  (** run_as_user *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__containers__security_context *)
+(** eks_properties__pod_properties__containers__security_context *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__containers__volume_mounts = {
+type eks_properties__pod_properties__containers__volume_mounts = {
   mount_path : string prop;  (** mount_path *)
   name : string prop;  (** name *)
   read_only : bool prop option; [@option]  (** read_only *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__containers__volume_mounts *)
+(** eks_properties__pod_properties__containers__volume_mounts *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__containers = {
+type eks_properties__pod_properties__containers = {
   args : string prop list option; [@option]  (** args *)
   command : string prop list option; [@option]  (** command *)
   image : string prop;  (** image *)
   image_pull_policy : string prop option; [@option]
       (** image_pull_policy *)
   name : string prop option; [@option]  (** name *)
-  env :
-    aws_batch_job_definition__eks_properties__pod_properties__containers__env
-    list;
+  env : eks_properties__pod_properties__containers__env list;
   resources :
-    aws_batch_job_definition__eks_properties__pod_properties__containers__resources
-    list;
+    eks_properties__pod_properties__containers__resources list;
   security_context :
-    aws_batch_job_definition__eks_properties__pod_properties__containers__security_context
-    list;
+    eks_properties__pod_properties__containers__security_context list;
   volume_mounts :
-    aws_batch_job_definition__eks_properties__pod_properties__containers__volume_mounts
-    list;
+    eks_properties__pod_properties__containers__volume_mounts list;
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__containers *)
+(** eks_properties__pod_properties__containers *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__metadata = {
+type eks_properties__pod_properties__metadata = {
   labels : (string * string prop) list option; [@option]
       (** labels *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__metadata *)
+(** eks_properties__pod_properties__metadata *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__volumes__empty_dir = {
+type eks_properties__pod_properties__volumes__empty_dir = {
   medium : string prop option; [@option]  (** medium *)
   size_limit : string prop;  (** size_limit *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__volumes__empty_dir *)
+(** eks_properties__pod_properties__volumes__empty_dir *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__volumes__host_path = {
+type eks_properties__pod_properties__volumes__host_path = {
   path : string prop;  (** path *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__volumes__host_path *)
+(** eks_properties__pod_properties__volumes__host_path *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__volumes__secret = {
+type eks_properties__pod_properties__volumes__secret = {
   optional : bool prop option; [@option]  (** optional *)
   secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__volumes__secret *)
+(** eks_properties__pod_properties__volumes__secret *)
 
-type aws_batch_job_definition__eks_properties__pod_properties__volumes = {
+type eks_properties__pod_properties__volumes = {
   name : string prop option; [@option]  (** name *)
   empty_dir :
-    aws_batch_job_definition__eks_properties__pod_properties__volumes__empty_dir
-    list;
+    eks_properties__pod_properties__volumes__empty_dir list;
   host_path :
-    aws_batch_job_definition__eks_properties__pod_properties__volumes__host_path
-    list;
-  secret :
-    aws_batch_job_definition__eks_properties__pod_properties__volumes__secret
-    list;
+    eks_properties__pod_properties__volumes__host_path list;
+  secret : eks_properties__pod_properties__volumes__secret list;
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties__volumes *)
+(** eks_properties__pod_properties__volumes *)
 
-type aws_batch_job_definition__eks_properties__pod_properties = {
+type eks_properties__pod_properties = {
   dns_policy : string prop option; [@option]  (** dns_policy *)
   host_network : bool prop option; [@option]  (** host_network *)
   service_account_name : string prop option; [@option]
       (** service_account_name *)
-  containers :
-    aws_batch_job_definition__eks_properties__pod_properties__containers
-    list;
-  metadata :
-    aws_batch_job_definition__eks_properties__pod_properties__metadata
-    list;
-  volumes :
-    aws_batch_job_definition__eks_properties__pod_properties__volumes
-    list;
+  containers : eks_properties__pod_properties__containers list;
+  metadata : eks_properties__pod_properties__metadata list;
+  volumes : eks_properties__pod_properties__volumes list;
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties__pod_properties *)
+(** eks_properties__pod_properties *)
 
-type aws_batch_job_definition__eks_properties = {
-  pod_properties :
-    aws_batch_job_definition__eks_properties__pod_properties list;
+type eks_properties = {
+  pod_properties : eks_properties__pod_properties list;
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__eks_properties *)
+(** eks_properties *)
 
-type aws_batch_job_definition__retry_strategy__evaluate_on_exit = {
+type retry_strategy__evaluate_on_exit = {
   action : string prop;  (** action *)
   on_exit_code : string prop option; [@option]  (** on_exit_code *)
   on_reason : string prop option; [@option]  (** on_reason *)
@@ -138,22 +122,21 @@ type aws_batch_job_definition__retry_strategy__evaluate_on_exit = {
       (** on_status_reason *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__retry_strategy__evaluate_on_exit *)
+(** retry_strategy__evaluate_on_exit *)
 
-type aws_batch_job_definition__retry_strategy = {
+type retry_strategy = {
   attempts : float prop option; [@option]  (** attempts *)
-  evaluate_on_exit :
-    aws_batch_job_definition__retry_strategy__evaluate_on_exit list;
+  evaluate_on_exit : retry_strategy__evaluate_on_exit list;
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__retry_strategy *)
+(** retry_strategy *)
 
-type aws_batch_job_definition__timeout = {
+type timeout = {
   attempt_duration_seconds : float prop option; [@option]
       (** attempt_duration_seconds *)
 }
 [@@deriving yojson_of]
-(** aws_batch_job_definition__timeout *)
+(** timeout *)
 
 type aws_batch_job_definition = {
   container_properties : string prop option; [@option]
@@ -173,12 +156,122 @@ type aws_batch_job_definition = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop; [@key "type"]  (** type *)
-  eks_properties : aws_batch_job_definition__eks_properties list;
-  retry_strategy : aws_batch_job_definition__retry_strategy list;
-  timeout : aws_batch_job_definition__timeout list;
+  eks_properties : eks_properties list;
+  retry_strategy : retry_strategy list;
+  timeout : timeout list;
 }
 [@@deriving yojson_of]
 (** aws_batch_job_definition *)
+
+let eks_properties__pod_properties__containers__env ~name ~value () :
+    eks_properties__pod_properties__containers__env =
+  { name; value }
+
+let eks_properties__pod_properties__containers__resources ?limits
+    ?requests () :
+    eks_properties__pod_properties__containers__resources =
+  { limits; requests }
+
+let eks_properties__pod_properties__containers__security_context
+    ?privileged ?read_only_root_file_system ?run_as_group
+    ?run_as_non_root ?run_as_user () :
+    eks_properties__pod_properties__containers__security_context =
+  {
+    privileged;
+    read_only_root_file_system;
+    run_as_group;
+    run_as_non_root;
+    run_as_user;
+  }
+
+let eks_properties__pod_properties__containers__volume_mounts
+    ?read_only ~mount_path ~name () :
+    eks_properties__pod_properties__containers__volume_mounts =
+  { mount_path; name; read_only }
+
+let eks_properties__pod_properties__containers ?args ?command
+    ?image_pull_policy ?name ~image ~env ~resources ~security_context
+    ~volume_mounts () : eks_properties__pod_properties__containers =
+  {
+    args;
+    command;
+    image;
+    image_pull_policy;
+    name;
+    env;
+    resources;
+    security_context;
+    volume_mounts;
+  }
+
+let eks_properties__pod_properties__metadata ?labels () :
+    eks_properties__pod_properties__metadata =
+  { labels }
+
+let eks_properties__pod_properties__volumes__empty_dir ?medium
+    ~size_limit () :
+    eks_properties__pod_properties__volumes__empty_dir =
+  { medium; size_limit }
+
+let eks_properties__pod_properties__volumes__host_path ~path () :
+    eks_properties__pod_properties__volumes__host_path =
+  { path }
+
+let eks_properties__pod_properties__volumes__secret ?optional
+    ~secret_name () : eks_properties__pod_properties__volumes__secret
+    =
+  { optional; secret_name }
+
+let eks_properties__pod_properties__volumes ?name ~empty_dir
+    ~host_path ~secret () : eks_properties__pod_properties__volumes =
+  { name; empty_dir; host_path; secret }
+
+let eks_properties__pod_properties ?dns_policy ?host_network
+    ?service_account_name ~containers ~metadata ~volumes () :
+    eks_properties__pod_properties =
+  {
+    dns_policy;
+    host_network;
+    service_account_name;
+    containers;
+    metadata;
+    volumes;
+  }
+
+let eks_properties ~pod_properties () : eks_properties =
+  { pod_properties }
+
+let retry_strategy__evaluate_on_exit ?on_exit_code ?on_reason
+    ?on_status_reason ~action () : retry_strategy__evaluate_on_exit =
+  { action; on_exit_code; on_reason; on_status_reason }
+
+let retry_strategy ?attempts ~evaluate_on_exit () : retry_strategy =
+  { attempts; evaluate_on_exit }
+
+let timeout ?attempt_duration_seconds () : timeout =
+  { attempt_duration_seconds }
+
+let aws_batch_job_definition ?container_properties ?id
+    ?node_properties ?parameters ?platform_capabilities
+    ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name ~type_
+    ~eks_properties ~retry_strategy ~timeout () :
+    aws_batch_job_definition =
+  {
+    container_properties;
+    id;
+    name;
+    node_properties;
+    parameters;
+    platform_capabilities;
+    propagate_tags;
+    scheduling_priority;
+    tags;
+    tags_all;
+    type_;
+    eks_properties;
+    retry_strategy;
+    timeout;
+  }
 
 type t = {
   arn : string prop;
@@ -197,31 +290,18 @@ type t = {
   type_ : string prop;
 }
 
-let aws_batch_job_definition ?container_properties ?id
-    ?node_properties ?parameters ?platform_capabilities
-    ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name ~type_
-    ~eks_properties ~retry_strategy ~timeout __resource_id =
+let register ?tf_module ?container_properties ?id ?node_properties
+    ?parameters ?platform_capabilities ?propagate_tags
+    ?scheduling_priority ?tags ?tags_all ~name ~type_ ~eks_properties
+    ~retry_strategy ~timeout __resource_id =
   let __resource_type = "aws_batch_job_definition" in
   let __resource =
-    ({
-       container_properties;
-       id;
-       name;
-       node_properties;
-       parameters;
-       platform_capabilities;
-       propagate_tags;
-       scheduling_priority;
-       tags;
-       tags_all;
-       type_;
-       eks_properties;
-       retry_strategy;
-       timeout;
-     }
-      : aws_batch_job_definition)
+    aws_batch_job_definition ?container_properties ?id
+      ?node_properties ?parameters ?platform_capabilities
+      ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name
+      ~type_ ~eks_properties ~retry_strategy ~timeout ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_batch_job_definition __resource);
   let __resource_attributes =
     ({

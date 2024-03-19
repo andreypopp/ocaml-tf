@@ -18,6 +18,19 @@ type aws_schemas_schema = {
 [@@deriving yojson_of]
 (** aws_schemas_schema *)
 
+let aws_schemas_schema ?description ?id ?tags ?tags_all ~content
+    ~name ~registry_name ~type_ () : aws_schemas_schema =
+  {
+    content;
+    description;
+    id;
+    name;
+    registry_name;
+    tags;
+    tags_all;
+    type_;
+  }
+
 type t = {
   arn : string prop;
   content : string prop;
@@ -33,23 +46,14 @@ type t = {
   version_created_date : string prop;
 }
 
-let aws_schemas_schema ?description ?id ?tags ?tags_all ~content
+let register ?tf_module ?description ?id ?tags ?tags_all ~content
     ~name ~registry_name ~type_ __resource_id =
   let __resource_type = "aws_schemas_schema" in
   let __resource =
-    ({
-       content;
-       description;
-       id;
-       name;
-       registry_name;
-       tags;
-       tags_all;
-       type_;
-     }
-      : aws_schemas_schema)
+    aws_schemas_schema ?description ?id ?tags ?tags_all ~content
+      ~name ~registry_name ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_schemas_schema __resource);
   let __resource_attributes =
     ({

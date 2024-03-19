@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_app_mysql_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_spring_cloud_app_mysql_association
+
+val azurerm_spring_cloud_app_mysql_association :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  database_name:string prop ->
+  mysql_server_id:string prop ->
+  name:string prop ->
+  password:string prop ->
+  spring_cloud_app_id:string prop ->
+  username:string prop ->
+  unit ->
+  azurerm_spring_cloud_app_mysql_association
+
+val yojson_of_azurerm_spring_cloud_app_mysql_association :
+  azurerm_spring_cloud_app_mysql_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   database_name : string prop;
@@ -15,9 +43,10 @@ type t = private {
   username : string prop;
 }
 
-val azurerm_spring_cloud_app_mysql_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_spring_cloud_app_mysql_association__timeouts ->
+  ?timeouts:timeouts ->
   database_name:string prop ->
   mysql_server_id:string prop ->
   name:string prop ->

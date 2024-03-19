@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_resolver_config
+
+val aws_route53_resolver_config :
+  ?id:string prop ->
+  autodefined_reverse_flag:string prop ->
+  resource_id:string prop ->
+  unit ->
+  aws_route53_resolver_config
+
+val yojson_of_aws_route53_resolver_config :
+  aws_route53_resolver_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   autodefined_reverse_flag : string prop;
@@ -11,7 +25,8 @@ type t = private {
   resource_id : string prop;
 }
 
-val aws_route53_resolver_config :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   autodefined_reverse_flag:string prop ->
   resource_id:string prop ->

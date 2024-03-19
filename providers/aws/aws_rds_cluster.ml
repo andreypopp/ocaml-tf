@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_rds_cluster__restore_to_point_in_time = {
+type restore_to_point_in_time = {
   restore_to_time : string prop option; [@option]
       (** restore_to_time *)
   restore_type : string prop option; [@option]  (** restore_type *)
@@ -14,9 +14,9 @@ type aws_rds_cluster__restore_to_point_in_time = {
       (** use_latest_restorable_time *)
 }
 [@@deriving yojson_of]
-(** aws_rds_cluster__restore_to_point_in_time *)
+(** restore_to_point_in_time *)
 
-type aws_rds_cluster__s3_import = {
+type s3_import = {
   bucket_name : string prop;  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   ingestion_role : string prop;  (** ingestion_role *)
@@ -24,9 +24,9 @@ type aws_rds_cluster__s3_import = {
   source_engine_version : string prop;  (** source_engine_version *)
 }
 [@@deriving yojson_of]
-(** aws_rds_cluster__s3_import *)
+(** s3_import *)
 
-type aws_rds_cluster__scaling_configuration = {
+type scaling_configuration = {
   auto_pause : bool prop option; [@option]  (** auto_pause *)
   max_capacity : float prop option; [@option]  (** max_capacity *)
   min_capacity : float prop option; [@option]  (** min_capacity *)
@@ -36,24 +36,24 @@ type aws_rds_cluster__scaling_configuration = {
       (** timeout_action *)
 }
 [@@deriving yojson_of]
-(** aws_rds_cluster__scaling_configuration *)
+(** scaling_configuration *)
 
-type aws_rds_cluster__serverlessv2_scaling_configuration = {
+type serverlessv2_scaling_configuration = {
   max_capacity : float prop;  (** max_capacity *)
   min_capacity : float prop;  (** min_capacity *)
 }
 [@@deriving yojson_of]
-(** aws_rds_cluster__serverlessv2_scaling_configuration *)
+(** serverlessv2_scaling_configuration *)
 
-type aws_rds_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_rds_cluster__timeouts *)
+(** timeouts *)
 
-type aws_rds_cluster__master_user_secret = {
+type master_user_secret = {
   kms_key_id : string prop;  (** kms_key_id *)
   secret_arn : string prop;  (** secret_arn *)
   secret_status : string prop;  (** secret_status *)
@@ -148,17 +148,132 @@ type aws_rds_cluster = {
       (** tags_all *)
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  restore_to_point_in_time :
-    aws_rds_cluster__restore_to_point_in_time list;
-  s3_import : aws_rds_cluster__s3_import list;
-  scaling_configuration :
-    aws_rds_cluster__scaling_configuration list;
+  restore_to_point_in_time : restore_to_point_in_time list;
+  s3_import : s3_import list;
+  scaling_configuration : scaling_configuration list;
   serverlessv2_scaling_configuration :
-    aws_rds_cluster__serverlessv2_scaling_configuration list;
-  timeouts : aws_rds_cluster__timeouts option;
+    serverlessv2_scaling_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster *)
+
+let restore_to_point_in_time ?restore_to_time ?restore_type
+    ?use_latest_restorable_time ~source_cluster_identifier () :
+    restore_to_point_in_time =
+  {
+    restore_to_time;
+    restore_type;
+    source_cluster_identifier;
+    use_latest_restorable_time;
+  }
+
+let s3_import ?bucket_prefix ~bucket_name ~ingestion_role
+    ~source_engine ~source_engine_version () : s3_import =
+  {
+    bucket_name;
+    bucket_prefix;
+    ingestion_role;
+    source_engine;
+    source_engine_version;
+  }
+
+let scaling_configuration ?auto_pause ?max_capacity ?min_capacity
+    ?seconds_until_auto_pause ?timeout_action () :
+    scaling_configuration =
+  {
+    auto_pause;
+    max_capacity;
+    min_capacity;
+    seconds_until_auto_pause;
+    timeout_action;
+  }
+
+let serverlessv2_scaling_configuration ~max_capacity ~min_capacity ()
+    : serverlessv2_scaling_configuration =
+  { max_capacity; min_capacity }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
+    ?apply_immediately ?availability_zones ?backtrack_window
+    ?backup_retention_period ?cluster_identifier
+    ?cluster_identifier_prefix ?cluster_members
+    ?copy_tags_to_snapshot ?database_name ?db_cluster_instance_class
+    ?db_cluster_parameter_group_name
+    ?db_instance_parameter_group_name ?db_subnet_group_name
+    ?db_system_id ?delete_automated_backups ?deletion_protection
+    ?domain ?domain_iam_role_name ?enable_global_write_forwarding
+    ?enable_http_endpoint ?enabled_cloudwatch_logs_exports
+    ?engine_mode ?engine_version ?final_snapshot_identifier
+    ?global_cluster_identifier ?iam_database_authentication_enabled
+    ?iam_roles ?id ?iops ?kms_key_id ?manage_master_user_password
+    ?master_password ?master_user_secret_kms_key_id ?master_username
+    ?network_type ?port ?preferred_backup_window
+    ?preferred_maintenance_window ?replication_source_identifier
+    ?skip_final_snapshot ?snapshot_identifier ?source_region
+    ?storage_encrypted ?storage_type ?tags ?tags_all
+    ?vpc_security_group_ids ?timeouts ~engine
+    ~restore_to_point_in_time ~s3_import ~scaling_configuration
+    ~serverlessv2_scaling_configuration () : aws_rds_cluster =
+  {
+    allocated_storage;
+    allow_major_version_upgrade;
+    apply_immediately;
+    availability_zones;
+    backtrack_window;
+    backup_retention_period;
+    cluster_identifier;
+    cluster_identifier_prefix;
+    cluster_members;
+    copy_tags_to_snapshot;
+    database_name;
+    db_cluster_instance_class;
+    db_cluster_parameter_group_name;
+    db_instance_parameter_group_name;
+    db_subnet_group_name;
+    db_system_id;
+    delete_automated_backups;
+    deletion_protection;
+    domain;
+    domain_iam_role_name;
+    enable_global_write_forwarding;
+    enable_http_endpoint;
+    enabled_cloudwatch_logs_exports;
+    engine;
+    engine_mode;
+    engine_version;
+    final_snapshot_identifier;
+    global_cluster_identifier;
+    iam_database_authentication_enabled;
+    iam_roles;
+    id;
+    iops;
+    kms_key_id;
+    manage_master_user_password;
+    master_password;
+    master_user_secret_kms_key_id;
+    master_username;
+    network_type;
+    port;
+    preferred_backup_window;
+    preferred_maintenance_window;
+    replication_source_identifier;
+    skip_final_snapshot;
+    snapshot_identifier;
+    source_region;
+    storage_encrypted;
+    storage_type;
+    tags;
+    tags_all;
+    vpc_security_group_ids;
+    restore_to_point_in_time;
+    s3_import;
+    scaling_configuration;
+    serverlessv2_scaling_configuration;
+    timeouts;
+  }
 
 type t = {
   allocated_storage : float prop;
@@ -201,7 +316,7 @@ type t = {
   kms_key_id : string prop;
   manage_master_user_password : bool prop;
   master_password : string prop;
-  master_user_secret : aws_rds_cluster__master_user_secret list prop;
+  master_user_secret : master_user_secret list prop;
   master_user_secret_kms_key_id : string prop;
   master_username : string prop;
   network_type : string prop;
@@ -220,10 +335,10 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
-let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
-    ?apply_immediately ?availability_zones ?backtrack_window
-    ?backup_retention_period ?cluster_identifier
-    ?cluster_identifier_prefix ?cluster_members
+let register ?tf_module ?allocated_storage
+    ?allow_major_version_upgrade ?apply_immediately
+    ?availability_zones ?backtrack_window ?backup_retention_period
+    ?cluster_identifier ?cluster_identifier_prefix ?cluster_members
     ?copy_tags_to_snapshot ?database_name ?db_cluster_instance_class
     ?db_cluster_parameter_group_name
     ?db_instance_parameter_group_name ?db_subnet_group_name
@@ -243,66 +358,29 @@ let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
     ~serverlessv2_scaling_configuration __resource_id =
   let __resource_type = "aws_rds_cluster" in
   let __resource =
-    ({
-       allocated_storage;
-       allow_major_version_upgrade;
-       apply_immediately;
-       availability_zones;
-       backtrack_window;
-       backup_retention_period;
-       cluster_identifier;
-       cluster_identifier_prefix;
-       cluster_members;
-       copy_tags_to_snapshot;
-       database_name;
-       db_cluster_instance_class;
-       db_cluster_parameter_group_name;
-       db_instance_parameter_group_name;
-       db_subnet_group_name;
-       db_system_id;
-       delete_automated_backups;
-       deletion_protection;
-       domain;
-       domain_iam_role_name;
-       enable_global_write_forwarding;
-       enable_http_endpoint;
-       enabled_cloudwatch_logs_exports;
-       engine;
-       engine_mode;
-       engine_version;
-       final_snapshot_identifier;
-       global_cluster_identifier;
-       iam_database_authentication_enabled;
-       iam_roles;
-       id;
-       iops;
-       kms_key_id;
-       manage_master_user_password;
-       master_password;
-       master_user_secret_kms_key_id;
-       master_username;
-       network_type;
-       port;
-       preferred_backup_window;
-       preferred_maintenance_window;
-       replication_source_identifier;
-       skip_final_snapshot;
-       snapshot_identifier;
-       source_region;
-       storage_encrypted;
-       storage_type;
-       tags;
-       tags_all;
-       vpc_security_group_ids;
-       restore_to_point_in_time;
-       s3_import;
-       scaling_configuration;
-       serverlessv2_scaling_configuration;
-       timeouts;
-     }
-      : aws_rds_cluster)
+    aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
+      ?apply_immediately ?availability_zones ?backtrack_window
+      ?backup_retention_period ?cluster_identifier
+      ?cluster_identifier_prefix ?cluster_members
+      ?copy_tags_to_snapshot ?database_name
+      ?db_cluster_instance_class ?db_cluster_parameter_group_name
+      ?db_instance_parameter_group_name ?db_subnet_group_name
+      ?db_system_id ?delete_automated_backups ?deletion_protection
+      ?domain ?domain_iam_role_name ?enable_global_write_forwarding
+      ?enable_http_endpoint ?enabled_cloudwatch_logs_exports
+      ?engine_mode ?engine_version ?final_snapshot_identifier
+      ?global_cluster_identifier ?iam_database_authentication_enabled
+      ?iam_roles ?id ?iops ?kms_key_id ?manage_master_user_password
+      ?master_password ?master_user_secret_kms_key_id
+      ?master_username ?network_type ?port ?preferred_backup_window
+      ?preferred_maintenance_window ?replication_source_identifier
+      ?skip_final_snapshot ?snapshot_identifier ?source_region
+      ?storage_encrypted ?storage_type ?tags ?tags_all
+      ?vpc_security_group_ids ?timeouts ~engine
+      ~restore_to_point_in_time ~s3_import ~scaling_configuration
+      ~serverlessv2_scaling_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rds_cluster __resource);
   let __resource_attributes =
     ({

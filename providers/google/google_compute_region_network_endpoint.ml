@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_region_network_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_network_endpoint__timeouts *)
+(** timeouts *)
 
 type google_compute_region_network_endpoint = {
   fqdn : string prop option; [@option]
@@ -27,10 +27,26 @@ This can only be specified when network_endpoint_type of the NEG is INTERNET_IP_
       (** Region where the containing network endpoint group is located. *)
   region_network_endpoint_group : string prop;
       (** The network endpoint group this endpoint is part of. *)
-  timeouts : google_compute_region_network_endpoint__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_network_endpoint *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_region_network_endpoint ?fqdn ?id ?ip_address
+    ?project ?region ?timeouts ~port ~region_network_endpoint_group
+    () : google_compute_region_network_endpoint =
+  {
+    fqdn;
+    id;
+    ip_address;
+    port;
+    project;
+    region;
+    region_network_endpoint_group;
+    timeouts;
+  }
 
 type t = {
   fqdn : string prop;
@@ -42,24 +58,15 @@ type t = {
   region_network_endpoint_group : string prop;
 }
 
-let google_compute_region_network_endpoint ?fqdn ?id ?ip_address
-    ?project ?region ?timeouts ~port ~region_network_endpoint_group
-    __resource_id =
+let register ?tf_module ?fqdn ?id ?ip_address ?project ?region
+    ?timeouts ~port ~region_network_endpoint_group __resource_id =
   let __resource_type = "google_compute_region_network_endpoint" in
   let __resource =
-    ({
-       fqdn;
-       id;
-       ip_address;
-       port;
-       project;
-       region;
-       region_network_endpoint_group;
-       timeouts;
-     }
-      : google_compute_region_network_endpoint)
+    google_compute_region_network_endpoint ?fqdn ?id ?ip_address
+      ?project ?region ?timeouts ~port ~region_network_endpoint_group
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_network_endpoint __resource);
   let __resource_attributes =
     ({

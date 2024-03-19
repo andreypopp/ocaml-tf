@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_azure_blob_storage__key_vault_sas_token = {
+type key_vault_sas_token = {
   linked_service_name : string prop;  (** linked_service_name *)
   secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_blob_storage__key_vault_sas_token *)
+(** key_vault_sas_token *)
 
-type azurerm_data_factory_linked_service_azure_blob_storage__service_principal_linked_key_vault_key = {
+type service_principal_linked_key_vault_key = {
   linked_service_name : string prop;  (** linked_service_name *)
   secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_blob_storage__service_principal_linked_key_vault_key *)
+(** service_principal_linked_key_vault_key *)
 
-type azurerm_data_factory_linked_service_azure_blob_storage__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_blob_storage__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_azure_blob_storage = {
   additional_properties : (string * string prop) list option;
@@ -56,18 +56,55 @@ type azurerm_data_factory_linked_service_azure_blob_storage = {
   tenant_id : string prop option; [@option]  (** tenant_id *)
   use_managed_identity : bool prop option; [@option]
       (** use_managed_identity *)
-  key_vault_sas_token :
-    azurerm_data_factory_linked_service_azure_blob_storage__key_vault_sas_token
-    list;
+  key_vault_sas_token : key_vault_sas_token list;
   service_principal_linked_key_vault_key :
-    azurerm_data_factory_linked_service_azure_blob_storage__service_principal_linked_key_vault_key
-    list;
-  timeouts :
-    azurerm_data_factory_linked_service_azure_blob_storage__timeouts
-    option;
+    service_principal_linked_key_vault_key list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_blob_storage *)
+
+let key_vault_sas_token ~linked_service_name ~secret_name () :
+    key_vault_sas_token =
+  { linked_service_name; secret_name }
+
+let service_principal_linked_key_vault_key ~linked_service_name
+    ~secret_name () : service_principal_linked_key_vault_key =
+  { linked_service_name; secret_name }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_azure_blob_storage
+    ?additional_properties ?annotations ?connection_string
+    ?connection_string_insecure ?description ?id
+    ?integration_runtime_name ?parameters ?sas_uri ?service_endpoint
+    ?service_principal_id ?service_principal_key ?storage_kind
+    ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
+    ~key_vault_sas_token ~service_principal_linked_key_vault_key () :
+    azurerm_data_factory_linked_service_azure_blob_storage =
+  {
+    additional_properties;
+    annotations;
+    connection_string;
+    connection_string_insecure;
+    data_factory_id;
+    description;
+    id;
+    integration_runtime_name;
+    name;
+    parameters;
+    sas_uri;
+    service_endpoint;
+    service_principal_id;
+    service_principal_key;
+    storage_kind;
+    tenant_id;
+    use_managed_identity;
+    key_vault_sas_token;
+    service_principal_linked_key_vault_key;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -89,9 +126,8 @@ type t = {
   use_managed_identity : bool prop;
 }
 
-let azurerm_data_factory_linked_service_azure_blob_storage
-    ?additional_properties ?annotations ?connection_string
-    ?connection_string_insecure ?description ?id
+let register ?tf_module ?additional_properties ?annotations
+    ?connection_string ?connection_string_insecure ?description ?id
     ?integration_runtime_name ?parameters ?sas_uri ?service_endpoint
     ?service_principal_id ?service_principal_key ?storage_kind
     ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
@@ -101,31 +137,16 @@ let azurerm_data_factory_linked_service_azure_blob_storage
     "azurerm_data_factory_linked_service_azure_blob_storage"
   in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       connection_string;
-       connection_string_insecure;
-       data_factory_id;
-       description;
-       id;
-       integration_runtime_name;
-       name;
-       parameters;
-       sas_uri;
-       service_endpoint;
-       service_principal_id;
-       service_principal_key;
-       storage_kind;
-       tenant_id;
-       use_managed_identity;
-       key_vault_sas_token;
-       service_principal_linked_key_vault_key;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_azure_blob_storage)
+    azurerm_data_factory_linked_service_azure_blob_storage
+      ?additional_properties ?annotations ?connection_string
+      ?connection_string_insecure ?description ?id
+      ?integration_runtime_name ?parameters ?sas_uri
+      ?service_endpoint ?service_principal_id ?service_principal_key
+      ?storage_kind ?tenant_id ?use_managed_identity ?timeouts
+      ~data_factory_id ~name ~key_vault_sas_token
+      ~service_principal_linked_key_vault_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_azure_blob_storage
        __resource);
   let __resource_attributes =

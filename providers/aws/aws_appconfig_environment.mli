@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_appconfig_environment__monitor
+(** RESOURCE SERIALIZATION *)
+
+type monitor
+
+val monitor :
+  ?alarm_role_arn:string prop ->
+  alarm_arn:string prop ->
+  unit ->
+  monitor
+
 type aws_appconfig_environment
+
+val aws_appconfig_environment :
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  application_id:string prop ->
+  name:string prop ->
+  monitor:monitor list ->
+  unit ->
+  aws_appconfig_environment
+
+val yojson_of_aws_appconfig_environment :
+  aws_appconfig_environment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -17,11 +40,12 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_appconfig_environment :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?tags:(string * string prop) list ->
   application_id:string prop ->
   name:string prop ->
-  monitor:aws_appconfig_environment__monitor list ->
+  monitor:monitor list ->
   string ->
   t

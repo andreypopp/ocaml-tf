@@ -4,33 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_job__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_job__identity *)
+(** identity *)
 
-type azurerm_stream_analytics_job__job_storage_account = {
+type job_storage_account = {
   account_key : string prop;  (** account_key *)
   account_name : string prop;  (** account_name *)
   authentication_mode : string prop option; [@option]
       (** authentication_mode *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_job__job_storage_account *)
+(** job_storage_account *)
 
-type azurerm_stream_analytics_job__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_job__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_job = {
   compatibility_level : string prop option; [@option]
@@ -60,13 +58,54 @@ type azurerm_stream_analytics_job = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   transformation_query : string prop;  (** transformation_query *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  identity : azurerm_stream_analytics_job__identity list;
-  job_storage_account :
-    azurerm_stream_analytics_job__job_storage_account list;
-  timeouts : azurerm_stream_analytics_job__timeouts option;
+  identity : identity list;
+  job_storage_account : job_storage_account list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let job_storage_account ?authentication_mode ~account_key
+    ~account_name () : job_storage_account =
+  { account_key; account_name; authentication_mode }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_job ?compatibility_level
+    ?content_storage_policy ?data_locale
+    ?events_late_arrival_max_delay_in_seconds
+    ?events_out_of_order_max_delay_in_seconds
+    ?events_out_of_order_policy ?id ?output_error_policy ?sku_name
+    ?stream_analytics_cluster_id ?streaming_units ?tags ?type_
+    ?timeouts ~location ~name ~resource_group_name
+    ~transformation_query ~identity ~job_storage_account () :
+    azurerm_stream_analytics_job =
+  {
+    compatibility_level;
+    content_storage_policy;
+    data_locale;
+    events_late_arrival_max_delay_in_seconds;
+    events_out_of_order_max_delay_in_seconds;
+    events_out_of_order_policy;
+    id;
+    location;
+    name;
+    output_error_policy;
+    resource_group_name;
+    sku_name;
+    stream_analytics_cluster_id;
+    streaming_units;
+    tags;
+    transformation_query;
+    type_;
+    identity;
+    job_storage_account;
+    timeouts;
+  }
 
 type t = {
   compatibility_level : string prop;
@@ -89,9 +128,8 @@ type t = {
   type_ : string prop;
 }
 
-let azurerm_stream_analytics_job ?compatibility_level
-    ?content_storage_policy ?data_locale
-    ?events_late_arrival_max_delay_in_seconds
+let register ?tf_module ?compatibility_level ?content_storage_policy
+    ?data_locale ?events_late_arrival_max_delay_in_seconds
     ?events_out_of_order_max_delay_in_seconds
     ?events_out_of_order_policy ?id ?output_error_policy ?sku_name
     ?stream_analytics_cluster_id ?streaming_units ?tags ?type_
@@ -100,31 +138,16 @@ let azurerm_stream_analytics_job ?compatibility_level
     __resource_id =
   let __resource_type = "azurerm_stream_analytics_job" in
   let __resource =
-    ({
-       compatibility_level;
-       content_storage_policy;
-       data_locale;
-       events_late_arrival_max_delay_in_seconds;
-       events_out_of_order_max_delay_in_seconds;
-       events_out_of_order_policy;
-       id;
-       location;
-       name;
-       output_error_policy;
-       resource_group_name;
-       sku_name;
-       stream_analytics_cluster_id;
-       streaming_units;
-       tags;
-       transformation_query;
-       type_;
-       identity;
-       job_storage_account;
-       timeouts;
-     }
-      : azurerm_stream_analytics_job)
+    azurerm_stream_analytics_job ?compatibility_level
+      ?content_storage_policy ?data_locale
+      ?events_late_arrival_max_delay_in_seconds
+      ?events_out_of_order_max_delay_in_seconds
+      ?events_out_of_order_policy ?id ?output_error_policy ?sku_name
+      ?stream_analytics_cluster_id ?streaming_units ?tags ?type_
+      ?timeouts ~location ~name ~resource_group_name
+      ~transformation_query ~identity ~job_storage_account ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_job __resource);
   let __resource_attributes =
     ({

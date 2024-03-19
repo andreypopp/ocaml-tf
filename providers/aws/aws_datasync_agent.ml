@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_datasync_agent__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_agent__timeouts *)
+(** timeouts *)
 
 type aws_datasync_agent = {
   activation_key : string prop option; [@option]
@@ -27,10 +27,29 @@ type aws_datasync_agent = {
       (** tags_all *)
   vpc_endpoint_id : string prop option; [@option]
       (** vpc_endpoint_id *)
-  timeouts : aws_datasync_agent__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_datasync_agent *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_datasync_agent ?activation_key ?id ?ip_address ?name
+    ?private_link_endpoint ?security_group_arns ?subnet_arns ?tags
+    ?tags_all ?vpc_endpoint_id ?timeouts () : aws_datasync_agent =
+  {
+    activation_key;
+    id;
+    ip_address;
+    name;
+    private_link_endpoint;
+    security_group_arns;
+    subnet_arns;
+    tags;
+    tags_all;
+    vpc_endpoint_id;
+    timeouts;
+  }
 
 type t = {
   activation_key : string prop;
@@ -46,27 +65,16 @@ type t = {
   vpc_endpoint_id : string prop;
 }
 
-let aws_datasync_agent ?activation_key ?id ?ip_address ?name
+let register ?tf_module ?activation_key ?id ?ip_address ?name
     ?private_link_endpoint ?security_group_arns ?subnet_arns ?tags
     ?tags_all ?vpc_endpoint_id ?timeouts __resource_id =
   let __resource_type = "aws_datasync_agent" in
   let __resource =
-    ({
-       activation_key;
-       id;
-       ip_address;
-       name;
-       private_link_endpoint;
-       security_group_arns;
-       subnet_arns;
-       tags;
-       tags_all;
-       vpc_endpoint_id;
-       timeouts;
-     }
-      : aws_datasync_agent)
+    aws_datasync_agent ?activation_key ?id ?ip_address ?name
+      ?private_link_endpoint ?security_group_arns ?subnet_arns ?tags
+      ?tags_all ?vpc_endpoint_id ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_agent __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_web_pubsub_custom_domain__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_web_pubsub_custom_domain
+
+val azurerm_web_pubsub_custom_domain :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  name:string prop ->
+  web_pubsub_custom_certificate_id:string prop ->
+  web_pubsub_id:string prop ->
+  unit ->
+  azurerm_web_pubsub_custom_domain
+
+val yojson_of_azurerm_web_pubsub_custom_domain :
+  azurerm_web_pubsub_custom_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   domain_name : string prop;
@@ -13,9 +38,10 @@ type t = private {
   web_pubsub_id : string prop;
 }
 
-val azurerm_web_pubsub_custom_domain :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_web_pubsub_custom_domain__timeouts ->
+  ?timeouts:timeouts ->
   domain_name:string prop ->
   name:string prop ->
   web_pubsub_custom_certificate_id:string prop ->

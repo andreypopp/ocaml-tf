@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_billing_budget__all_updates_rule = {
+type all_updates_rule = {
   disable_default_iam_recipients : bool prop option; [@option]
       (** Boolean. When set to true, disables default notifications sent
 when a threshold is exceeded. Default recipients are
@@ -31,7 +31,7 @@ https://cloud.google.com/billing/docs/how-to/budgets#notification_format. *)
 billing account's spend, regardless of the thresholds defined
 using threshold rules. *)
 
-type google_billing_budget__amount__specified_amount = {
+type amount__specified_amount = {
   currency_code : string prop option; [@option]
       (** The 3-letter currency code defined in ISO 4217. *)
   nanos : float prop option; [@option]
@@ -51,19 +51,18 @@ is USD, then 1 unit is one US dollar. *)
 optional. If specified, it must match the currency of the
 billing account. The currencyCode is provided on output. *)
 
-type google_billing_budget__amount = {
+type amount = {
   last_period_amount : bool prop option; [@option]
       (** Configures a budget amount that is automatically set to 100% of
 last period's spend.
 Boolean. Set value to true to use. Do not set to false, instead
 use the 'specified_amount' block. *)
-  specified_amount :
-    google_billing_budget__amount__specified_amount list;
+  specified_amount : amount__specified_amount list;
 }
 [@@deriving yojson_of]
 (** The budgeted amount for each usage period. *)
 
-type google_billing_budget__budget_filter__custom_period__end_date = {
+type budget_filter__custom_period__end_date = {
   day : float prop;
       (** Day of a month. Must be from 1 to 31 and valid for the year and month. *)
   month : float prop;  (** Month of a year. Must be from 1 to 12. *)
@@ -73,7 +72,7 @@ type google_billing_budget__budget_filter__custom_period__end_date = {
 (** Optional. The end date of the time period. Budgets with elapsed end date won't be processed.
 If unset, specifies to track all usage incurred since the startDate. *)
 
-type google_billing_budget__budget_filter__custom_period__start_date = {
+type budget_filter__custom_period__start_date = {
   day : float prop;
       (** Day of a month. Must be from 1 to 31 and valid for the year and month. *)
   month : float prop;  (** Month of a year. Must be from 1 to 12. *)
@@ -82,13 +81,9 @@ type google_billing_budget__budget_filter__custom_period__start_date = {
 [@@deriving yojson_of]
 (** A start date is required. The start date must be after January 1, 2017. *)
 
-type google_billing_budget__budget_filter__custom_period = {
-  end_date :
-    google_billing_budget__budget_filter__custom_period__end_date
-    list;
-  start_date :
-    google_billing_budget__budget_filter__custom_period__start_date
-    list;
+type budget_filter__custom_period = {
+  end_date : budget_filter__custom_period__end_date list;
+  start_date : budget_filter__custom_period__start_date list;
 }
 [@@deriving yojson_of]
 (** Specifies to track usage from any start date (required) to any end date (optional).
@@ -96,7 +91,7 @@ This time period is static, it does not recur.
 
 Exactly one of 'calendar_period', 'custom_period' must be provided. *)
 
-type google_billing_budget__budget_filter = {
+type budget_filter = {
   calendar_period : string prop option; [@option]
       (** A CalendarPeriod represents the abstract concept of a recurring time period that has a
 canonical start. Grammatically, the start of the current CalendarPeriod.
@@ -142,14 +137,13 @@ If the field is omitted, the report will include usage from the parent
 account and all subaccounts, if they exist.
 
 **Note:** If the field has a value in the config and needs to be removed, the field has to be an emtpy array in the config. *)
-  custom_period :
-    google_billing_budget__budget_filter__custom_period list;
+  custom_period : budget_filter__custom_period list;
 }
 [@@deriving yojson_of]
 (** Filters that define which resources are used to compute the actual
 spend against the budget. *)
 
-type google_billing_budget__threshold_rules = {
+type threshold_rules = {
   spend_basis : string prop option; [@option]
       (** The type of basis used to determine if spend has passed
 the threshold. Default value: CURRENT_SPEND Possible values: [CURRENT_SPEND, FORECASTED_SPEND] *)
@@ -162,13 +156,13 @@ the threshold. Default value: CURRENT_SPEND Possible values: [CURRENT_SPEND, FOR
 crossed) when spend exceeds the specified percentages of the
 budget. *)
 
-type google_billing_budget__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_billing_budget__timeouts *)
+(** timeouts *)
 
 type google_billing_budget = {
   billing_account : string prop;
@@ -176,14 +170,79 @@ type google_billing_budget = {
   display_name : string prop option; [@option]
       (** User data for display name in UI. Must be <= 60 chars. *)
   id : string prop option; [@option]  (** id *)
-  all_updates_rule : google_billing_budget__all_updates_rule list;
-  amount : google_billing_budget__amount list;
-  budget_filter : google_billing_budget__budget_filter list;
-  threshold_rules : google_billing_budget__threshold_rules list;
-  timeouts : google_billing_budget__timeouts option;
+  all_updates_rule : all_updates_rule list;
+  amount : amount list;
+  budget_filter : budget_filter list;
+  threshold_rules : threshold_rules list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_billing_budget *)
+
+let all_updates_rule ?disable_default_iam_recipients
+    ?monitoring_notification_channels ?pubsub_topic ?schema_version
+    () : all_updates_rule =
+  {
+    disable_default_iam_recipients;
+    monitoring_notification_channels;
+    pubsub_topic;
+    schema_version;
+  }
+
+let amount__specified_amount ?currency_code ?nanos ?units () :
+    amount__specified_amount =
+  { currency_code; nanos; units }
+
+let amount ?last_period_amount ~specified_amount () : amount =
+  { last_period_amount; specified_amount }
+
+let budget_filter__custom_period__end_date ~day ~month ~year () :
+    budget_filter__custom_period__end_date =
+  { day; month; year }
+
+let budget_filter__custom_period__start_date ~day ~month ~year () :
+    budget_filter__custom_period__start_date =
+  { day; month; year }
+
+let budget_filter__custom_period ~end_date ~start_date () :
+    budget_filter__custom_period =
+  { end_date; start_date }
+
+let budget_filter ?calendar_period ?credit_types
+    ?credit_types_treatment ?labels ?projects ?resource_ancestors
+    ?services ?subaccounts ~custom_period () : budget_filter =
+  {
+    calendar_period;
+    credit_types;
+    credit_types_treatment;
+    labels;
+    projects;
+    resource_ancestors;
+    services;
+    subaccounts;
+    custom_period;
+  }
+
+let threshold_rules ?spend_basis ~threshold_percent () :
+    threshold_rules =
+  { spend_basis; threshold_percent }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_billing_budget ?display_name ?id ?timeouts
+    ~billing_account ~all_updates_rule ~amount ~budget_filter
+    ~threshold_rules () : google_billing_budget =
+  {
+    billing_account;
+    display_name;
+    id;
+    all_updates_rule;
+    amount;
+    budget_filter;
+    threshold_rules;
+    timeouts;
+  }
 
 type t = {
   billing_account : string prop;
@@ -192,24 +251,16 @@ type t = {
   name : string prop;
 }
 
-let google_billing_budget ?display_name ?id ?timeouts
-    ~billing_account ~all_updates_rule ~amount ~budget_filter
-    ~threshold_rules __resource_id =
+let register ?tf_module ?display_name ?id ?timeouts ~billing_account
+    ~all_updates_rule ~amount ~budget_filter ~threshold_rules
+    __resource_id =
   let __resource_type = "google_billing_budget" in
   let __resource =
-    ({
-       billing_account;
-       display_name;
-       id;
-       all_updates_rule;
-       amount;
-       budget_filter;
-       threshold_rules;
-       timeouts;
-     }
-      : google_billing_budget)
+    google_billing_budget ?display_name ?id ?timeouts
+      ~billing_account ~all_updates_rule ~amount ~budget_filter
+      ~threshold_rules ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_billing_budget __resource);
   let __resource_attributes =
     ({

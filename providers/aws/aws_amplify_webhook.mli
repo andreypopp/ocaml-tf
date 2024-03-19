@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_amplify_webhook
+
+val aws_amplify_webhook :
+  ?description:string prop ->
+  ?id:string prop ->
+  app_id:string prop ->
+  branch_name:string prop ->
+  unit ->
+  aws_amplify_webhook
+
+val yojson_of_aws_amplify_webhook : aws_amplify_webhook -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_id : string prop;
@@ -13,7 +27,8 @@ type t = private {
   url : string prop;
 }
 
-val aws_amplify_webhook :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   app_id:string prop ->

@@ -14,6 +14,10 @@ type aws_egress_only_internet_gateway = {
 [@@deriving yojson_of]
 (** aws_egress_only_internet_gateway *)
 
+let aws_egress_only_internet_gateway ?id ?tags ?tags_all ~vpc_id () :
+    aws_egress_only_internet_gateway =
+  { id; tags; tags_all; vpc_id }
+
 type t = {
   id : string prop;
   tags : (string * string) list prop;
@@ -21,14 +25,12 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_egress_only_internet_gateway ?id ?tags ?tags_all ~vpc_id
-    __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~vpc_id __resource_id =
   let __resource_type = "aws_egress_only_internet_gateway" in
   let __resource =
-    ({ id; tags; tags_all; vpc_id }
-      : aws_egress_only_internet_gateway)
+    aws_egress_only_internet_gateway ?id ?tags ?tags_all ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_egress_only_internet_gateway __resource);
   let __resource_attributes =
     ({

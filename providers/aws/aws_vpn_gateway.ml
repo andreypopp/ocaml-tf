@@ -18,6 +18,10 @@ type aws_vpn_gateway = {
 [@@deriving yojson_of]
 (** aws_vpn_gateway *)
 
+let aws_vpn_gateway ?amazon_side_asn ?availability_zone ?id ?tags
+    ?tags_all ?vpc_id () : aws_vpn_gateway =
+  { amazon_side_asn; availability_zone; id; tags; tags_all; vpc_id }
+
 type t = {
   amazon_side_asn : string prop;
   arn : string prop;
@@ -28,21 +32,14 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_vpn_gateway ?amazon_side_asn ?availability_zone ?id ?tags
+let register ?tf_module ?amazon_side_asn ?availability_zone ?id ?tags
     ?tags_all ?vpc_id __resource_id =
   let __resource_type = "aws_vpn_gateway" in
   let __resource =
-    ({
-       amazon_side_asn;
-       availability_zone;
-       id;
-       tags;
-       tags_all;
-       vpc_id;
-     }
-      : aws_vpn_gateway)
+    aws_vpn_gateway ?amazon_side_asn ?availability_zone ?id ?tags
+      ?tags_all ?vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpn_gateway __resource);
   let __resource_attributes =
     ({

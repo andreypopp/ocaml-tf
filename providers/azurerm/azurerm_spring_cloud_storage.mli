@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_storage__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_spring_cloud_storage
+
+val azurerm_spring_cloud_storage :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
+  storage_account_key:string prop ->
+  storage_account_name:string prop ->
+  unit ->
+  azurerm_spring_cloud_storage
+
+val yojson_of_azurerm_spring_cloud_storage :
+  azurerm_spring_cloud_storage -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,9 +39,10 @@ type t = private {
   storage_account_name : string prop;
 }
 
-val azurerm_spring_cloud_storage :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_spring_cloud_storage__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
   storage_account_key:string prop ->

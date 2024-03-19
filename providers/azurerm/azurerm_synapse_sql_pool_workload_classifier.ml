@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_synapse_sql_pool_workload_classifier__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_synapse_sql_pool_workload_classifier__timeouts *)
+(** timeouts *)
 
 type azurerm_synapse_sql_pool_workload_classifier = {
   context : string prop option; [@option]  (** context *)
@@ -23,11 +23,30 @@ type azurerm_synapse_sql_pool_workload_classifier = {
   name : string prop;  (** name *)
   start_time : string prop option; [@option]  (** start_time *)
   workload_group_id : string prop;  (** workload_group_id *)
-  timeouts :
-    azurerm_synapse_sql_pool_workload_classifier__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_sql_pool_workload_classifier *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_synapse_sql_pool_workload_classifier ?context ?end_time
+    ?id ?importance ?label ?start_time ?timeouts ~member_name ~name
+    ~workload_group_id () :
+    azurerm_synapse_sql_pool_workload_classifier =
+  {
+    context;
+    end_time;
+    id;
+    importance;
+    label;
+    member_name;
+    name;
+    start_time;
+    workload_group_id;
+    timeouts;
+  }
 
 type t = {
   context : string prop;
@@ -41,28 +60,18 @@ type t = {
   workload_group_id : string prop;
 }
 
-let azurerm_synapse_sql_pool_workload_classifier ?context ?end_time
-    ?id ?importance ?label ?start_time ?timeouts ~member_name ~name
-    ~workload_group_id __resource_id =
+let register ?tf_module ?context ?end_time ?id ?importance ?label
+    ?start_time ?timeouts ~member_name ~name ~workload_group_id
+    __resource_id =
   let __resource_type =
     "azurerm_synapse_sql_pool_workload_classifier"
   in
   let __resource =
-    ({
-       context;
-       end_time;
-       id;
-       importance;
-       label;
-       member_name;
-       name;
-       start_time;
-       workload_group_id;
-       timeouts;
-     }
-      : azurerm_synapse_sql_pool_workload_classifier)
+    azurerm_synapse_sql_pool_workload_classifier ?context ?end_time
+      ?id ?importance ?label ?start_time ?timeouts ~member_name ~name
+      ~workload_group_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_sql_pool_workload_classifier
        __resource);
   let __resource_attributes =

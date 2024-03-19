@@ -22,6 +22,22 @@ type aws_redshift_hsm_configuration = {
 [@@deriving yojson_of]
 (** aws_redshift_hsm_configuration *)
 
+let aws_redshift_hsm_configuration ?id ?tags ?tags_all ~description
+    ~hsm_configuration_identifier ~hsm_ip_address ~hsm_partition_name
+    ~hsm_partition_password ~hsm_server_public_certificate () :
+    aws_redshift_hsm_configuration =
+  {
+    description;
+    hsm_configuration_identifier;
+    hsm_ip_address;
+    hsm_partition_name;
+    hsm_partition_password;
+    hsm_server_public_certificate;
+    id;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -35,26 +51,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_redshift_hsm_configuration ?id ?tags ?tags_all ~description
+let register ?tf_module ?id ?tags ?tags_all ~description
     ~hsm_configuration_identifier ~hsm_ip_address ~hsm_partition_name
     ~hsm_partition_password ~hsm_server_public_certificate
     __resource_id =
   let __resource_type = "aws_redshift_hsm_configuration" in
   let __resource =
-    ({
-       description;
-       hsm_configuration_identifier;
-       hsm_ip_address;
-       hsm_partition_name;
-       hsm_partition_password;
-       hsm_server_public_certificate;
-       id;
-       tags;
-       tags_all;
-     }
-      : aws_redshift_hsm_configuration)
+    aws_redshift_hsm_configuration ?id ?tags ?tags_all ~description
+      ~hsm_configuration_identifier ~hsm_ip_address
+      ~hsm_partition_name ~hsm_partition_password
+      ~hsm_server_public_certificate ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_hsm_configuration __resource);
   let __resource_attributes =
     ({

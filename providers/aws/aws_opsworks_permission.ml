@@ -15,6 +15,10 @@ type aws_opsworks_permission = {
 [@@deriving yojson_of]
 (** aws_opsworks_permission *)
 
+let aws_opsworks_permission ?allow_ssh ?allow_sudo ?id ?level
+    ~stack_id ~user_arn () : aws_opsworks_permission =
+  { allow_ssh; allow_sudo; id; level; stack_id; user_arn }
+
 type t = {
   allow_ssh : bool prop;
   allow_sudo : bool prop;
@@ -24,14 +28,14 @@ type t = {
   user_arn : string prop;
 }
 
-let aws_opsworks_permission ?allow_ssh ?allow_sudo ?id ?level
-    ~stack_id ~user_arn __resource_id =
+let register ?tf_module ?allow_ssh ?allow_sudo ?id ?level ~stack_id
+    ~user_arn __resource_id =
   let __resource_type = "aws_opsworks_permission" in
   let __resource =
-    ({ allow_ssh; allow_sudo; id; level; stack_id; user_arn }
-      : aws_opsworks_permission)
+    aws_opsworks_permission ?allow_ssh ?allow_sudo ?id ?level
+      ~stack_id ~user_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_permission __resource);
   let __resource_attributes =
     ({

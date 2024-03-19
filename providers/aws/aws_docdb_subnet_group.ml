@@ -17,6 +17,10 @@ type aws_docdb_subnet_group = {
 [@@deriving yojson_of]
 (** aws_docdb_subnet_group *)
 
+let aws_docdb_subnet_group ?description ?id ?name ?name_prefix ?tags
+    ?tags_all ~subnet_ids () : aws_docdb_subnet_group =
+  { description; id; name; name_prefix; subnet_ids; tags; tags_all }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -28,22 +32,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_docdb_subnet_group ?description ?id ?name ?name_prefix ?tags
+let register ?tf_module ?description ?id ?name ?name_prefix ?tags
     ?tags_all ~subnet_ids __resource_id =
   let __resource_type = "aws_docdb_subnet_group" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       name_prefix;
-       subnet_ids;
-       tags;
-       tags_all;
-     }
-      : aws_docdb_subnet_group)
+    aws_docdb_subnet_group ?description ?id ?name ?name_prefix ?tags
+      ?tags_all ~subnet_ids ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_docdb_subnet_group __resource);
   let __resource_attributes =
     ({

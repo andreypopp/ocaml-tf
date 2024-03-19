@@ -21,6 +21,21 @@ type aws_cloudwatch_log_group = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_group *)
 
+let aws_cloudwatch_log_group ?id ?kms_key_id ?log_group_class ?name
+    ?name_prefix ?retention_in_days ?skip_destroy ?tags ?tags_all ()
+    : aws_cloudwatch_log_group =
+  {
+    id;
+    kms_key_id;
+    log_group_class;
+    name;
+    name_prefix;
+    retention_in_days;
+    skip_destroy;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -34,25 +49,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_cloudwatch_log_group ?id ?kms_key_id ?log_group_class ?name
+let register ?tf_module ?id ?kms_key_id ?log_group_class ?name
     ?name_prefix ?retention_in_days ?skip_destroy ?tags ?tags_all
     __resource_id =
   let __resource_type = "aws_cloudwatch_log_group" in
   let __resource =
-    ({
-       id;
-       kms_key_id;
-       log_group_class;
-       name;
-       name_prefix;
-       retention_in_days;
-       skip_destroy;
-       tags;
-       tags_all;
-     }
-      : aws_cloudwatch_log_group)
+    aws_cloudwatch_log_group ?id ?kms_key_id ?log_group_class ?name
+      ?name_prefix ?retention_in_days ?skip_destroy ?tags ?tags_all
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_log_group __resource);
   let __resource_attributes =
     ({

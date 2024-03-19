@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_feature_online_store__bigtable__auto_scaling = {
+type bigtable__auto_scaling = {
   cpu_utilization_target : float prop option; [@option]
       (** A percentage of the cluster's CPU capacity. Can be from 10% to 80%. When a cluster's CPU utilization exceeds the target that you have set, Bigtable immediately adds nodes to the cluster. When CPU utilization is substantially lower than the target, Bigtable removes nodes. If not set will default to 50%. *)
   max_node_count : float prop;
@@ -15,21 +15,17 @@ type google_vertex_ai_feature_online_store__bigtable__auto_scaling = {
 [@@deriving yojson_of]
 (** Autoscaling config applied to Bigtable Instance. *)
 
-type google_vertex_ai_feature_online_store__bigtable = {
-  auto_scaling :
-    google_vertex_ai_feature_online_store__bigtable__auto_scaling
-    list;
-}
+type bigtable = { auto_scaling : bigtable__auto_scaling list }
 [@@deriving yojson_of]
 (** Settings for Cloud Bigtable instance that will be created to serve featureValues for all FeatureViews under this FeatureOnlineStore. *)
 
-type google_vertex_ai_feature_online_store__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vertex_ai_feature_online_store__timeouts *)
+(** timeouts *)
 
 type google_vertex_ai_feature_online_store = {
   force_destroy : bool prop option; [@option]
@@ -45,11 +41,34 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** The region of feature online store. eg us-central1 *)
-  bigtable : google_vertex_ai_feature_online_store__bigtable list;
-  timeouts : google_vertex_ai_feature_online_store__timeouts option;
+  bigtable : bigtable list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_feature_online_store *)
+
+let bigtable__auto_scaling ?cpu_utilization_target ~max_node_count
+    ~min_node_count () : bigtable__auto_scaling =
+  { cpu_utilization_target; max_node_count; min_node_count }
+
+let bigtable ~auto_scaling () : bigtable = { auto_scaling }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vertex_ai_feature_online_store ?force_destroy ?id ?labels
+    ?project ?region ?timeouts ~name ~bigtable () :
+    google_vertex_ai_feature_online_store =
+  {
+    force_destroy;
+    id;
+    labels;
+    name;
+    project;
+    region;
+    bigtable;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -66,23 +85,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_vertex_ai_feature_online_store ?force_destroy ?id ?labels
-    ?project ?region ?timeouts ~name ~bigtable __resource_id =
+let register ?tf_module ?force_destroy ?id ?labels ?project ?region
+    ?timeouts ~name ~bigtable __resource_id =
   let __resource_type = "google_vertex_ai_feature_online_store" in
   let __resource =
-    ({
-       force_destroy;
-       id;
-       labels;
-       name;
-       project;
-       region;
-       bigtable;
-       timeouts;
-     }
-      : google_vertex_ai_feature_online_store)
+    google_vertex_ai_feature_online_store ?force_destroy ?id ?labels
+      ?project ?region ?timeouts ~name ~bigtable ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_feature_online_store __resource);
   let __resource_attributes =
     ({

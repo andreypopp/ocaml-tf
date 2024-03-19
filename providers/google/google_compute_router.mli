@@ -2,10 +2,54 @@
 
 open! Tf.Prelude
 
-type google_compute_router__bgp__advertised_ip_ranges
-type google_compute_router__bgp
-type google_compute_router__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type bgp__advertised_ip_ranges
+
+val bgp__advertised_ip_ranges :
+  ?description:string prop ->
+  range:string prop ->
+  unit ->
+  bgp__advertised_ip_ranges
+
+type bgp
+
+val bgp :
+  ?advertise_mode:string prop ->
+  ?advertised_groups:string prop list ->
+  ?keepalive_interval:float prop ->
+  asn:float prop ->
+  advertised_ip_ranges:bgp__advertised_ip_ranges list ->
+  unit ->
+  bgp
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_router
+
+val google_compute_router :
+  ?description:string prop ->
+  ?encrypted_interconnect_router:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network:string prop ->
+  bgp:bgp list ->
+  unit ->
+  google_compute_router
+
+val yojson_of_google_compute_router : google_compute_router -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_timestamp : string prop;
@@ -19,15 +63,16 @@ type t = private {
   self_link : string prop;
 }
 
-val google_compute_router :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?encrypted_interconnect_router:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?timeouts:google_compute_router__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
-  bgp:google_compute_router__bgp list ->
+  bgp:bgp list ->
   string ->
   t

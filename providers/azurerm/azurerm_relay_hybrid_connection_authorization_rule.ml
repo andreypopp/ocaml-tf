@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_relay_hybrid_connection_authorization_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_relay_hybrid_connection_authorization_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_relay_hybrid_connection_authorization_rule = {
   hybrid_connection_name : string prop;
@@ -23,12 +23,29 @@ type azurerm_relay_hybrid_connection_authorization_rule = {
   namespace_name : string prop;  (** namespace_name *)
   resource_group_name : string prop;  (** resource_group_name *)
   send : bool prop option; [@option]  (** send *)
-  timeouts :
-    azurerm_relay_hybrid_connection_authorization_rule__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_relay_hybrid_connection_authorization_rule *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_relay_hybrid_connection_authorization_rule ?id ?listen
+    ?manage ?send ?timeouts ~hybrid_connection_name ~name
+    ~namespace_name ~resource_group_name () :
+    azurerm_relay_hybrid_connection_authorization_rule =
+  {
+    hybrid_connection_name;
+    id;
+    listen;
+    manage;
+    name;
+    namespace_name;
+    resource_group_name;
+    send;
+    timeouts;
+  }
 
 type t = {
   hybrid_connection_name : string prop;
@@ -45,27 +62,18 @@ type t = {
   send : bool prop;
 }
 
-let azurerm_relay_hybrid_connection_authorization_rule ?id ?listen
-    ?manage ?send ?timeouts ~hybrid_connection_name ~name
-    ~namespace_name ~resource_group_name __resource_id =
+let register ?tf_module ?id ?listen ?manage ?send ?timeouts
+    ~hybrid_connection_name ~name ~namespace_name
+    ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_relay_hybrid_connection_authorization_rule"
   in
   let __resource =
-    ({
-       hybrid_connection_name;
-       id;
-       listen;
-       manage;
-       name;
-       namespace_name;
-       resource_group_name;
-       send;
-       timeouts;
-     }
-      : azurerm_relay_hybrid_connection_authorization_rule)
+    azurerm_relay_hybrid_connection_authorization_rule ?id ?listen
+      ?manage ?send ?timeouts ~hybrid_connection_name ~name
+      ~namespace_name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_relay_hybrid_connection_authorization_rule
        __resource);
   let __resource_attributes =

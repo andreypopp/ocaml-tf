@@ -2,10 +2,65 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_test_linux_virtual_machine__gallery_image_reference
-type azurerm_dev_test_linux_virtual_machine__inbound_nat_rule
-type azurerm_dev_test_linux_virtual_machine__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type gallery_image_reference
+
+val gallery_image_reference :
+  offer:string prop ->
+  publisher:string prop ->
+  sku:string prop ->
+  version:string prop ->
+  unit ->
+  gallery_image_reference
+
+type inbound_nat_rule
+
+val inbound_nat_rule :
+  backend_port:float prop ->
+  protocol:string prop ->
+  unit ->
+  inbound_nat_rule
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_dev_test_linux_virtual_machine
+
+val azurerm_dev_test_linux_virtual_machine :
+  ?allow_claim:bool prop ->
+  ?disallow_public_ip_address:bool prop ->
+  ?id:string prop ->
+  ?notes:string prop ->
+  ?password:string prop ->
+  ?ssh_key:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  lab_name:string prop ->
+  lab_subnet_name:string prop ->
+  lab_virtual_network_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  size:string prop ->
+  storage_type:string prop ->
+  username:string prop ->
+  gallery_image_reference:gallery_image_reference list ->
+  inbound_nat_rule:inbound_nat_rule list ->
+  unit ->
+  azurerm_dev_test_linux_virtual_machine
+
+val yojson_of_azurerm_dev_test_linux_virtual_machine :
+  azurerm_dev_test_linux_virtual_machine -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allow_claim : bool prop;
@@ -28,7 +83,8 @@ type t = private {
   username : string prop;
 }
 
-val azurerm_dev_test_linux_virtual_machine :
+val register :
+  ?tf_module:tf_module ->
   ?allow_claim:bool prop ->
   ?disallow_public_ip_address:bool prop ->
   ?id:string prop ->
@@ -36,7 +92,7 @@ val azurerm_dev_test_linux_virtual_machine :
   ?password:string prop ->
   ?ssh_key:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_dev_test_linux_virtual_machine__timeouts ->
+  ?timeouts:timeouts ->
   lab_name:string prop ->
   lab_subnet_name:string prop ->
   lab_virtual_network_id:string prop ->
@@ -46,10 +102,7 @@ val azurerm_dev_test_linux_virtual_machine :
   size:string prop ->
   storage_type:string prop ->
   username:string prop ->
-  gallery_image_reference:
-    azurerm_dev_test_linux_virtual_machine__gallery_image_reference
-    list ->
-  inbound_nat_rule:
-    azurerm_dev_test_linux_virtual_machine__inbound_nat_rule list ->
+  gallery_image_reference:gallery_image_reference list ->
+  inbound_nat_rule:inbound_nat_rule list ->
   string ->
   t

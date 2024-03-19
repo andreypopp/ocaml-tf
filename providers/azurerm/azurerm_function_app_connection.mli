@@ -2,10 +2,54 @@
 
 open! Tf.Prelude
 
-type azurerm_function_app_connection__authentication
-type azurerm_function_app_connection__secret_store
-type azurerm_function_app_connection__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type authentication
+
+val authentication :
+  ?certificate:string prop ->
+  ?client_id:string prop ->
+  ?name:string prop ->
+  ?principal_id:string prop ->
+  ?secret:string prop ->
+  ?subscription_id:string prop ->
+  type_:string prop ->
+  unit ->
+  authentication
+
+type secret_store
+
+val secret_store : key_vault_id:string prop -> unit -> secret_store
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_function_app_connection
+
+val azurerm_function_app_connection :
+  ?client_type:string prop ->
+  ?id:string prop ->
+  ?vnet_solution:string prop ->
+  ?timeouts:timeouts ->
+  function_app_id:string prop ->
+  name:string prop ->
+  target_resource_id:string prop ->
+  authentication:authentication list ->
+  secret_store:secret_store list ->
+  unit ->
+  azurerm_function_app_connection
+
+val yojson_of_azurerm_function_app_connection :
+  azurerm_function_app_connection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   client_type : string prop;
@@ -16,15 +60,16 @@ type t = private {
   vnet_solution : string prop;
 }
 
-val azurerm_function_app_connection :
+val register :
+  ?tf_module:tf_module ->
   ?client_type:string prop ->
   ?id:string prop ->
   ?vnet_solution:string prop ->
-  ?timeouts:azurerm_function_app_connection__timeouts ->
+  ?timeouts:timeouts ->
   function_app_id:string prop ->
   name:string prop ->
   target_resource_id:string prop ->
-  authentication:azurerm_function_app_connection__authentication list ->
-  secret_store:azurerm_function_app_connection__secret_store list ->
+  authentication:authentication list ->
+  secret_store:secret_store list ->
   string ->
   t

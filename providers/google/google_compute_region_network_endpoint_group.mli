@@ -2,11 +2,62 @@
 
 open! Tf.Prelude
 
-type google_compute_region_network_endpoint_group__app_engine
-type google_compute_region_network_endpoint_group__cloud_function
-type google_compute_region_network_endpoint_group__cloud_run
-type google_compute_region_network_endpoint_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type app_engine
+
+val app_engine :
+  ?service:string prop ->
+  ?url_mask:string prop ->
+  ?version:string prop ->
+  unit ->
+  app_engine
+
+type cloud_function
+
+val cloud_function :
+  ?function_:string prop ->
+  ?url_mask:string prop ->
+  unit ->
+  cloud_function
+
+type cloud_run
+
+val cloud_run :
+  ?service:string prop ->
+  ?tag:string prop ->
+  ?url_mask:string prop ->
+  unit ->
+  cloud_run
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_region_network_endpoint_group
+
+val google_compute_region_network_endpoint_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?network:string prop ->
+  ?network_endpoint_type:string prop ->
+  ?project:string prop ->
+  ?psc_target_service:string prop ->
+  ?subnetwork:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  region:string prop ->
+  app_engine:app_engine list ->
+  cloud_function:cloud_function list ->
+  cloud_run:cloud_run list ->
+  unit ->
+  google_compute_region_network_endpoint_group
+
+val yojson_of_google_compute_region_network_endpoint_group :
+  google_compute_region_network_endpoint_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -21,7 +72,8 @@ type t = private {
   subnetwork : string prop;
 }
 
-val google_compute_region_network_endpoint_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?network:string prop ->
@@ -29,14 +81,11 @@ val google_compute_region_network_endpoint_group :
   ?project:string prop ->
   ?psc_target_service:string prop ->
   ?subnetwork:string prop ->
-  ?timeouts:google_compute_region_network_endpoint_group__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   region:string prop ->
-  app_engine:
-    google_compute_region_network_endpoint_group__app_engine list ->
-  cloud_function:
-    google_compute_region_network_endpoint_group__cloud_function list ->
-  cloud_run:
-    google_compute_region_network_endpoint_group__cloud_run list ->
+  app_engine:app_engine list ->
+  cloud_function:cloud_function list ->
+  cloud_run:cloud_run list ->
   string ->
   t

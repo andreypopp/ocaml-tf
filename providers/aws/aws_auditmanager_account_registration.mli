@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_auditmanager_account_registration
+
+val aws_auditmanager_account_registration :
+  ?delegated_admin_account:string prop ->
+  ?deregister_on_destroy:bool prop ->
+  ?kms_key:string prop ->
+  unit ->
+  aws_auditmanager_account_registration
+
+val yojson_of_aws_auditmanager_account_registration :
+  aws_auditmanager_account_registration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   delegated_admin_account : string prop;
@@ -12,7 +26,8 @@ type t = private {
   status : string prop;
 }
 
-val aws_auditmanager_account_registration :
+val register :
+  ?tf_module:tf_module ->
   ?delegated_admin_account:string prop ->
   ?deregister_on_destroy:bool prop ->
   ?kms_key:string prop ->

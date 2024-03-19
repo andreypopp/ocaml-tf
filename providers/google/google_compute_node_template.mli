@@ -2,10 +2,46 @@
 
 open! Tf.Prelude
 
-type google_compute_node_template__node_type_flexibility
-type google_compute_node_template__server_binding
-type google_compute_node_template__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type node_type_flexibility
+
+val node_type_flexibility :
+  ?cpus:string prop ->
+  ?memory:string prop ->
+  unit ->
+  node_type_flexibility
+
+type server_binding
+
+val server_binding : type_:string prop -> unit -> server_binding
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_node_template
+
+val google_compute_node_template :
+  ?cpu_overcommit_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?node_affinity_labels:(string * string prop) list ->
+  ?node_type:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  node_type_flexibility:node_type_flexibility list ->
+  server_binding:server_binding list ->
+  unit ->
+  google_compute_node_template
+
+val yojson_of_google_compute_node_template :
+  google_compute_node_template -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cpu_overcommit_type : string prop;
@@ -20,7 +56,8 @@ type t = private {
   self_link : string prop;
 }
 
-val google_compute_node_template :
+val register :
+  ?tf_module:tf_module ->
   ?cpu_overcommit_type:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -29,9 +66,8 @@ val google_compute_node_template :
   ?node_type:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?timeouts:google_compute_node_template__timeouts ->
-  node_type_flexibility:
-    google_compute_node_template__node_type_flexibility list ->
-  server_binding:google_compute_node_template__server_binding list ->
+  ?timeouts:timeouts ->
+  node_type_flexibility:node_type_flexibility list ->
+  server_binding:server_binding list ->
   string ->
   t

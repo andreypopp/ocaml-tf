@@ -14,6 +14,10 @@ type hcloud_placement_group = {
 [@@deriving yojson_of]
 (** hcloud_placement_group *)
 
+let hcloud_placement_group ?id ?labels ~name ~type_ () :
+    hcloud_placement_group =
+  { id; labels; name; type_ }
+
 type t = {
   id : string prop;
   labels : (string * string) list prop;
@@ -22,12 +26,12 @@ type t = {
   type_ : string prop;
 }
 
-let hcloud_placement_group ?id ?labels ~name ~type_ __resource_id =
+let register ?tf_module ?id ?labels ~name ~type_ __resource_id =
   let __resource_type = "hcloud_placement_group" in
   let __resource =
-    ({ id; labels; name; type_ } : hcloud_placement_group)
+    hcloud_placement_group ?id ?labels ~name ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_placement_group __resource);
   let __resource_attributes =
     ({

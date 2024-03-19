@@ -4,31 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_new_relic_monitor__plan = {
+type plan = {
   billing_cycle : string prop option; [@option]  (** billing_cycle *)
   effective_date : string prop;  (** effective_date *)
   plan_id : string prop option; [@option]  (** plan_id *)
   usage_type : string prop option; [@option]  (** usage_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_new_relic_monitor__plan *)
+(** plan *)
 
-type azurerm_new_relic_monitor__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_new_relic_monitor__timeouts *)
+(** timeouts *)
 
-type azurerm_new_relic_monitor__user = {
+type user = {
   email : string prop;  (** email *)
   first_name : string prop;  (** first_name *)
   last_name : string prop;  (** last_name *)
   phone_number : string prop;  (** phone_number *)
 }
 [@@deriving yojson_of]
-(** azurerm_new_relic_monitor__user *)
+(** user *)
 
 type azurerm_new_relic_monitor = {
   account_creation_source : string prop option; [@option]
@@ -44,12 +44,42 @@ type azurerm_new_relic_monitor = {
       (** organization_id *)
   resource_group_name : string prop;  (** resource_group_name *)
   user_id : string prop option; [@option]  (** user_id *)
-  plan : azurerm_new_relic_monitor__plan list;
-  timeouts : azurerm_new_relic_monitor__timeouts option;
-  user : azurerm_new_relic_monitor__user list;
+  plan : plan list;
+  timeouts : timeouts option;
+  user : user list;
 }
 [@@deriving yojson_of]
 (** azurerm_new_relic_monitor *)
+
+let plan ?billing_cycle ?plan_id ?usage_type ~effective_date () :
+    plan =
+  { billing_cycle; effective_date; plan_id; usage_type }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let user ~email ~first_name ~last_name ~phone_number () : user =
+  { email; first_name; last_name; phone_number }
+
+let azurerm_new_relic_monitor ?account_creation_source ?account_id
+    ?id ?ingestion_key ?org_creation_source ?organization_id ?user_id
+    ?timeouts ~location ~name ~resource_group_name ~plan ~user () :
+    azurerm_new_relic_monitor =
+  {
+    account_creation_source;
+    account_id;
+    id;
+    ingestion_key;
+    location;
+    name;
+    org_creation_source;
+    organization_id;
+    resource_group_name;
+    user_id;
+    plan;
+    timeouts;
+    user;
+  }
 
 type t = {
   account_creation_source : string prop;
@@ -64,30 +94,18 @@ type t = {
   user_id : string prop;
 }
 
-let azurerm_new_relic_monitor ?account_creation_source ?account_id
-    ?id ?ingestion_key ?org_creation_source ?organization_id ?user_id
+let register ?tf_module ?account_creation_source ?account_id ?id
+    ?ingestion_key ?org_creation_source ?organization_id ?user_id
     ?timeouts ~location ~name ~resource_group_name ~plan ~user
     __resource_id =
   let __resource_type = "azurerm_new_relic_monitor" in
   let __resource =
-    ({
-       account_creation_source;
-       account_id;
-       id;
-       ingestion_key;
-       location;
-       name;
-       org_creation_source;
-       organization_id;
-       resource_group_name;
-       user_id;
-       plan;
-       timeouts;
-       user;
-     }
-      : azurerm_new_relic_monitor)
+    azurerm_new_relic_monitor ?account_creation_source ?account_id
+      ?id ?ingestion_key ?org_creation_source ?organization_id
+      ?user_id ?timeouts ~location ~name ~resource_group_name ~plan
+      ~user ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_new_relic_monitor __resource);
   let __resource_attributes =
     ({

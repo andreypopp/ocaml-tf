@@ -2,10 +2,56 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_scheduled_query_rules_log__criteria__dimension
-type azurerm_monitor_scheduled_query_rules_log__criteria
-type azurerm_monitor_scheduled_query_rules_log__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type criteria__dimension
+
+val criteria__dimension :
+  ?operator:string prop ->
+  name:string prop ->
+  values:string prop list ->
+  unit ->
+  criteria__dimension
+
+type criteria
+
+val criteria :
+  metric_name:string prop ->
+  dimension:criteria__dimension list ->
+  unit ->
+  criteria
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_monitor_scheduled_query_rules_log
+
+val azurerm_monitor_scheduled_query_rules_log :
+  ?authorized_resource_ids:string prop list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  data_source_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  criteria:criteria list ->
+  unit ->
+  azurerm_monitor_scheduled_query_rules_log
+
+val yojson_of_azurerm_monitor_scheduled_query_rules_log :
+  azurerm_monitor_scheduled_query_rules_log -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   authorized_resource_ids : string list prop;
@@ -19,17 +65,18 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_monitor_scheduled_query_rules_log :
+val register :
+  ?tf_module:tf_module ->
   ?authorized_resource_ids:string prop list ->
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_monitor_scheduled_query_rules_log__timeouts ->
+  ?timeouts:timeouts ->
   data_source_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  criteria:azurerm_monitor_scheduled_query_rules_log__criteria list ->
+  criteria:criteria list ->
   string ->
   t

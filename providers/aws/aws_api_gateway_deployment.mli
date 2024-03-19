@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_api_gateway_deployment
+
+val aws_api_gateway_deployment :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?stage_description:string prop ->
+  ?stage_name:string prop ->
+  ?triggers:(string * string prop) list ->
+  ?variables:(string * string prop) list ->
+  rest_api_id:string prop ->
+  unit ->
+  aws_api_gateway_deployment
+
+val yojson_of_aws_api_gateway_deployment :
+  aws_api_gateway_deployment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created_date : string prop;
@@ -17,7 +35,8 @@ type t = private {
   variables : (string * string) list prop;
 }
 
-val aws_api_gateway_deployment :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?stage_description:string prop ->

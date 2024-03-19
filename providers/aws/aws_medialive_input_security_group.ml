@@ -4,31 +4,37 @@
 
 open! Tf.Prelude
 
-type aws_medialive_input_security_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_medialive_input_security_group__timeouts *)
+(** timeouts *)
 
-type aws_medialive_input_security_group__whitelist_rules = {
-  cidr : string prop;  (** cidr *)
-}
+type whitelist_rules = { cidr : string prop  (** cidr *) }
 [@@deriving yojson_of]
-(** aws_medialive_input_security_group__whitelist_rules *)
+(** whitelist_rules *)
 
 type aws_medialive_input_security_group = {
   id : string prop option; [@option]  (** id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_medialive_input_security_group__timeouts option;
-  whitelist_rules :
-    aws_medialive_input_security_group__whitelist_rules list;
+  timeouts : timeouts option;
+  whitelist_rules : whitelist_rules list;
 }
 [@@deriving yojson_of]
 (** aws_medialive_input_security_group *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let whitelist_rules ~cidr () : whitelist_rules = { cidr }
+
+let aws_medialive_input_security_group ?id ?tags ?tags_all ?timeouts
+    ~whitelist_rules () : aws_medialive_input_security_group =
+  { id; tags; tags_all; timeouts; whitelist_rules }
 
 type t = {
   arn : string prop;
@@ -38,14 +44,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_medialive_input_security_group ?id ?tags ?tags_all ?timeouts
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
     ~whitelist_rules __resource_id =
   let __resource_type = "aws_medialive_input_security_group" in
   let __resource =
-    ({ id; tags; tags_all; timeouts; whitelist_rules }
-      : aws_medialive_input_security_group)
+    aws_medialive_input_security_group ?id ?tags ?tags_all ?timeouts
+      ~whitelist_rules ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_medialive_input_security_group __resource);
   let __resource_attributes =
     ({

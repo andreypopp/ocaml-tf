@@ -2,30 +2,139 @@
 
 open! Tf.Prelude
 
-type google_container_azure_cluster__authorization__admin_groups
-type google_container_azure_cluster__authorization__admin_users
-type google_container_azure_cluster__authorization
-type google_container_azure_cluster__azure_services_authentication
+(** RESOURCE SERIALIZATION *)
 
-type google_container_azure_cluster__control_plane__database_encryption
-
-type google_container_azure_cluster__control_plane__main_volume
-type google_container_azure_cluster__control_plane__proxy_config
-type google_container_azure_cluster__control_plane__replica_placements
-type google_container_azure_cluster__control_plane__root_volume
-type google_container_azure_cluster__control_plane__ssh_config
-type google_container_azure_cluster__control_plane
-type google_container_azure_cluster__fleet
-type google_container_azure_cluster__networking
-type google_container_azure_cluster__timeouts
-
-type google_container_azure_cluster__workload_identity_config = {
+type workload_identity_config = {
   identity_provider : string prop;  (** identity_provider *)
   issuer_uri : string prop;  (** issuer_uri *)
   workload_pool : string prop;  (** workload_pool *)
 }
 
+type authorization__admin_groups
+
+val authorization__admin_groups :
+  group:string prop -> unit -> authorization__admin_groups
+
+type authorization__admin_users
+
+val authorization__admin_users :
+  username:string prop -> unit -> authorization__admin_users
+
+type authorization
+
+val authorization :
+  admin_groups:authorization__admin_groups list ->
+  admin_users:authorization__admin_users list ->
+  unit ->
+  authorization
+
+type azure_services_authentication
+
+val azure_services_authentication :
+  application_id:string prop ->
+  tenant_id:string prop ->
+  unit ->
+  azure_services_authentication
+
+type control_plane__database_encryption
+
+val control_plane__database_encryption :
+  key_id:string prop -> unit -> control_plane__database_encryption
+
+type control_plane__main_volume
+
+val control_plane__main_volume :
+  ?size_gib:float prop -> unit -> control_plane__main_volume
+
+type control_plane__proxy_config
+
+val control_plane__proxy_config :
+  resource_group_id:string prop ->
+  secret_id:string prop ->
+  unit ->
+  control_plane__proxy_config
+
+type control_plane__replica_placements
+
+val control_plane__replica_placements :
+  azure_availability_zone:string prop ->
+  subnet_id:string prop ->
+  unit ->
+  control_plane__replica_placements
+
+type control_plane__root_volume
+
+val control_plane__root_volume :
+  ?size_gib:float prop -> unit -> control_plane__root_volume
+
+type control_plane__ssh_config
+
+val control_plane__ssh_config :
+  authorized_key:string prop -> unit -> control_plane__ssh_config
+
+type control_plane
+
+val control_plane :
+  ?tags:(string * string prop) list ->
+  ?vm_size:string prop ->
+  subnet_id:string prop ->
+  version:string prop ->
+  database_encryption:control_plane__database_encryption list ->
+  main_volume:control_plane__main_volume list ->
+  proxy_config:control_plane__proxy_config list ->
+  replica_placements:control_plane__replica_placements list ->
+  root_volume:control_plane__root_volume list ->
+  ssh_config:control_plane__ssh_config list ->
+  unit ->
+  control_plane
+
+type fleet
+
+val fleet : ?project:string prop -> unit -> fleet
+
+type networking
+
+val networking :
+  pod_address_cidr_blocks:string prop list ->
+  service_address_cidr_blocks:string prop list ->
+  virtual_network_id:string prop ->
+  unit ->
+  networking
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_container_azure_cluster
+
+val google_container_azure_cluster :
+  ?annotations:(string * string prop) list ->
+  ?client:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  azure_region:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_id:string prop ->
+  authorization:authorization list ->
+  azure_services_authentication:azure_services_authentication list ->
+  control_plane:control_plane list ->
+  fleet:fleet list ->
+  networking:networking list ->
+  unit ->
+  google_container_azure_cluster
+
+val yojson_of_google_container_azure_cluster :
+  google_container_azure_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   annotations : (string * string) list prop;
@@ -45,28 +154,25 @@ type t = private {
   state : string prop;
   uid : string prop;
   update_time : string prop;
-  workload_identity_config :
-    google_container_azure_cluster__workload_identity_config list
-    prop;
+  workload_identity_config : workload_identity_config list prop;
 }
 
-val google_container_azure_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?client:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_container_azure_cluster__timeouts ->
+  ?timeouts:timeouts ->
   azure_region:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_id:string prop ->
-  authorization:google_container_azure_cluster__authorization list ->
-  azure_services_authentication:
-    google_container_azure_cluster__azure_services_authentication
-    list ->
-  control_plane:google_container_azure_cluster__control_plane list ->
-  fleet:google_container_azure_cluster__fleet list ->
-  networking:google_container_azure_cluster__networking list ->
+  authorization:authorization list ->
+  azure_services_authentication:azure_services_authentication list ->
+  control_plane:control_plane list ->
+  fleet:fleet list ->
+  networking:networking list ->
   string ->
   t

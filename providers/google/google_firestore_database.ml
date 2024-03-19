@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_firestore_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_firestore_database__timeouts *)
+(** timeouts *)
 
 type google_firestore_database = {
   app_engine_integration_mode : string prop option; [@option]
@@ -50,10 +50,31 @@ If 'POINT_IN_TIME_RECOVERY_DISABLED' is selected, reads are supported on any ver
       (** The type of the database.
 See https://cloud.google.com/datastore/docs/firestore-or-datastore
 for information about how to choose. Possible values: [FIRESTORE_NATIVE, DATASTORE_MODE] *)
-  timeouts : google_firestore_database__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_firestore_database *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_firestore_database ?app_engine_integration_mode
+    ?concurrency_mode ?delete_protection_state ?deletion_policy ?id
+    ?point_in_time_recovery_enablement ?project ?timeouts
+    ~location_id ~name ~type_ () : google_firestore_database =
+  {
+    app_engine_integration_mode;
+    concurrency_mode;
+    delete_protection_state;
+    deletion_policy;
+    id;
+    location_id;
+    name;
+    point_in_time_recovery_enablement;
+    project;
+    type_;
+    timeouts;
+  }
 
 type t = {
   app_engine_integration_mode : string prop;
@@ -75,28 +96,18 @@ type t = {
   version_retention_period : string prop;
 }
 
-let google_firestore_database ?app_engine_integration_mode
+let register ?tf_module ?app_engine_integration_mode
     ?concurrency_mode ?delete_protection_state ?deletion_policy ?id
     ?point_in_time_recovery_enablement ?project ?timeouts
     ~location_id ~name ~type_ __resource_id =
   let __resource_type = "google_firestore_database" in
   let __resource =
-    ({
-       app_engine_integration_mode;
-       concurrency_mode;
-       delete_protection_state;
-       deletion_policy;
-       id;
-       location_id;
-       name;
-       point_in_time_recovery_enablement;
-       project;
-       type_;
-       timeouts;
-     }
-      : google_firestore_database)
+    google_firestore_database ?app_engine_integration_mode
+      ?concurrency_mode ?delete_protection_state ?deletion_policy ?id
+      ?point_in_time_recovery_enablement ?project ?timeouts
+      ~location_id ~name ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_database __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_cloudformation_type__logging_config
+(** RESOURCE SERIALIZATION *)
+
+type logging_config
+
+val logging_config :
+  log_group_name:string prop ->
+  log_role_arn:string prop ->
+  unit ->
+  logging_config
+
 type aws_cloudformation_type
+
+val aws_cloudformation_type :
+  ?execution_role_arn:string prop ->
+  ?id:string prop ->
+  ?type_:string prop ->
+  schema_handler_package:string prop ->
+  type_name:string prop ->
+  logging_config:logging_config list ->
+  unit ->
+  aws_cloudformation_type
+
+val yojson_of_aws_cloudformation_type :
+  aws_cloudformation_type -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -25,12 +49,13 @@ type t = private {
   visibility : string prop;
 }
 
-val aws_cloudformation_type :
+val register :
+  ?tf_module:tf_module ->
   ?execution_role_arn:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
   schema_handler_package:string prop ->
   type_name:string prop ->
-  logging_config:aws_cloudformation_type__logging_config list ->
+  logging_config:logging_config list ->
   string ->
   t

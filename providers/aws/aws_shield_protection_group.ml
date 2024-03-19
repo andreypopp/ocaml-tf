@@ -18,6 +18,20 @@ type aws_shield_protection_group = {
 [@@deriving yojson_of]
 (** aws_shield_protection_group *)
 
+let aws_shield_protection_group ?id ?members ?resource_type ?tags
+    ?tags_all ~aggregation ~pattern ~protection_group_id () :
+    aws_shield_protection_group =
+  {
+    aggregation;
+    id;
+    members;
+    pattern;
+    protection_group_id;
+    resource_type;
+    tags;
+    tags_all;
+  }
+
 type t = {
   aggregation : string prop;
   id : string prop;
@@ -30,24 +44,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_shield_protection_group ?id ?members ?resource_type ?tags
-    ?tags_all ~aggregation ~pattern ~protection_group_id
-    __resource_id =
+let register ?tf_module ?id ?members ?resource_type ?tags ?tags_all
+    ~aggregation ~pattern ~protection_group_id __resource_id =
   let __resource_type = "aws_shield_protection_group" in
   let __resource =
-    ({
-       aggregation;
-       id;
-       members;
-       pattern;
-       protection_group_id;
-       resource_type;
-       tags;
-       tags_all;
-     }
-      : aws_shield_protection_group)
+    aws_shield_protection_group ?id ?members ?resource_type ?tags
+      ?tags_all ~aggregation ~pattern ~protection_group_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_protection_group __resource);
   let __resource_attributes =
     ({

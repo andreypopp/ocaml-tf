@@ -2,12 +2,80 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_dataset_binary__azure_blob_storage_location
-type azurerm_data_factory_dataset_binary__compression
-type azurerm_data_factory_dataset_binary__http_server_location
-type azurerm_data_factory_dataset_binary__sftp_server_location
-type azurerm_data_factory_dataset_binary__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type azure_blob_storage_location
+
+val azure_blob_storage_location :
+  ?dynamic_container_enabled:bool prop ->
+  ?dynamic_filename_enabled:bool prop ->
+  ?dynamic_path_enabled:bool prop ->
+  ?filename:string prop ->
+  ?path:string prop ->
+  container:string prop ->
+  unit ->
+  azure_blob_storage_location
+
+type compression
+
+val compression :
+  ?level:string prop -> type_:string prop -> unit -> compression
+
+type http_server_location
+
+val http_server_location :
+  ?dynamic_filename_enabled:bool prop ->
+  ?dynamic_path_enabled:bool prop ->
+  filename:string prop ->
+  path:string prop ->
+  relative_url:string prop ->
+  unit ->
+  http_server_location
+
+type sftp_server_location
+
+val sftp_server_location :
+  ?dynamic_filename_enabled:bool prop ->
+  ?dynamic_path_enabled:bool prop ->
+  filename:string prop ->
+  path:string prop ->
+  unit ->
+  sftp_server_location
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_data_factory_dataset_binary
+
+val azurerm_data_factory_dataset_binary :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
+  azure_blob_storage_location:azure_blob_storage_location list ->
+  compression:compression list ->
+  http_server_location:http_server_location list ->
+  sftp_server_location:sftp_server_location list ->
+  unit ->
+  azurerm_data_factory_dataset_binary
+
+val yojson_of_azurerm_data_factory_dataset_binary :
+  azurerm_data_factory_dataset_binary -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   additional_properties : (string * string) list prop;
@@ -21,24 +89,21 @@ type t = private {
   parameters : (string * string) list prop;
 }
 
-val azurerm_data_factory_dataset_binary :
+val register :
+  ?tf_module:tf_module ->
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?folder:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
-  ?timeouts:azurerm_data_factory_dataset_binary__timeouts ->
+  ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_storage_location:
-    azurerm_data_factory_dataset_binary__azure_blob_storage_location
-    list ->
-  compression:azurerm_data_factory_dataset_binary__compression list ->
-  http_server_location:
-    azurerm_data_factory_dataset_binary__http_server_location list ->
-  sftp_server_location:
-    azurerm_data_factory_dataset_binary__sftp_server_location list ->
+  azure_blob_storage_location:azure_blob_storage_location list ->
+  compression:compression list ->
+  http_server_location:http_server_location list ->
+  sftp_server_location:sftp_server_location list ->
   string ->
   t

@@ -12,6 +12,10 @@ type google_tags_tag_value_iam_policy = {
 [@@deriving yojson_of]
 (** google_tags_tag_value_iam_policy *)
 
+let google_tags_tag_value_iam_policy ?id ~policy_data ~tag_value () :
+    google_tags_tag_value_iam_policy =
+  { id; policy_data; tag_value }
+
 type t = {
   etag : string prop;
   id : string prop;
@@ -19,14 +23,12 @@ type t = {
   tag_value : string prop;
 }
 
-let google_tags_tag_value_iam_policy ?id ~policy_data ~tag_value
-    __resource_id =
+let register ?tf_module ?id ~policy_data ~tag_value __resource_id =
   let __resource_type = "google_tags_tag_value_iam_policy" in
   let __resource =
-    ({ id; policy_data; tag_value }
-      : google_tags_tag_value_iam_policy)
+    google_tags_tag_value_iam_policy ?id ~policy_data ~tag_value ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_value_iam_policy __resource);
   let __resource_attributes =
     ({

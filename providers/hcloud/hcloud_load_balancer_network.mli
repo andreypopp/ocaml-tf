@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type hcloud_load_balancer_network
+
+val hcloud_load_balancer_network :
+  ?enable_public_interface:bool prop ->
+  ?id:string prop ->
+  ?ip:string prop ->
+  ?network_id:float prop ->
+  ?subnet_id:string prop ->
+  load_balancer_id:float prop ->
+  unit ->
+  hcloud_load_balancer_network
+
+val yojson_of_hcloud_load_balancer_network :
+  hcloud_load_balancer_network -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enable_public_interface : bool prop;
@@ -13,7 +30,8 @@ type t = private {
   subnet_id : string prop;
 }
 
-val hcloud_load_balancer_network :
+val register :
+  ?tf_module:tf_module ->
   ?enable_public_interface:bool prop ->
   ?id:string prop ->
   ?ip:string prop ->

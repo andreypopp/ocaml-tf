@@ -2,12 +2,83 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_workspace__encryption
-type azurerm_machine_learning_workspace__feature_store
-type azurerm_machine_learning_workspace__identity
-type azurerm_machine_learning_workspace__managed_network
-type azurerm_machine_learning_workspace__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type encryption
+
+val encryption :
+  ?user_assigned_identity_id:string prop ->
+  key_id:string prop ->
+  key_vault_id:string prop ->
+  unit ->
+  encryption
+
+type feature_store
+
+val feature_store :
+  ?computer_spark_runtime_version:string prop ->
+  ?offline_connection_name:string prop ->
+  ?online_connection_name:string prop ->
+  unit ->
+  feature_store
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type managed_network
+
+val managed_network :
+  ?isolation_mode:string prop -> unit -> managed_network
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_machine_learning_workspace
+
+val azurerm_machine_learning_workspace :
+  ?container_registry_id:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?high_business_impact:bool prop ->
+  ?id:string prop ->
+  ?image_build_compute_name:string prop ->
+  ?kind:string prop ->
+  ?primary_user_assigned_identity:string prop ->
+  ?public_access_behind_virtual_network_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sku_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?v1_legacy_mode_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  application_insights_id:string prop ->
+  key_vault_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_id:string prop ->
+  encryption:encryption list ->
+  feature_store:feature_store list ->
+  identity:identity list ->
+  managed_network:managed_network list ->
+  unit ->
+  azurerm_machine_learning_workspace
+
+val yojson_of_azurerm_machine_learning_workspace :
+  azurerm_machine_learning_workspace -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_insights_id : string prop;
@@ -33,7 +104,8 @@ type t = private {
   workspace_id : string prop;
 }
 
-val azurerm_machine_learning_workspace :
+val register :
+  ?tf_module:tf_module ->
   ?container_registry_id:string prop ->
   ?description:string prop ->
   ?friendly_name:string prop ->
@@ -47,18 +119,16 @@ val azurerm_machine_learning_workspace :
   ?sku_name:string prop ->
   ?tags:(string * string prop) list ->
   ?v1_legacy_mode_enabled:bool prop ->
-  ?timeouts:azurerm_machine_learning_workspace__timeouts ->
+  ?timeouts:timeouts ->
   application_insights_id:string prop ->
   key_vault_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   storage_account_id:string prop ->
-  encryption:azurerm_machine_learning_workspace__encryption list ->
-  feature_store:
-    azurerm_machine_learning_workspace__feature_store list ->
-  identity:azurerm_machine_learning_workspace__identity list ->
-  managed_network:
-    azurerm_machine_learning_workspace__managed_network list ->
+  encryption:encryption list ->
+  feature_store:feature_store list ->
+  identity:identity list ->
+  managed_network:managed_network list ->
   string ->
   t

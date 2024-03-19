@@ -4,22 +4,28 @@
 
 open! Tf.Prelude
 
-type google_public_ca_external_account_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_public_ca_external_account_key__timeouts *)
+(** timeouts *)
 
 type google_public_ca_external_account_key = {
   id : string prop option; [@option]  (** id *)
   location : string prop option; [@option]
       (** Location for the externalAccountKey. Currently only 'global' is supported. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_public_ca_external_account_key__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_public_ca_external_account_key *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_public_ca_external_account_key ?id ?location ?project
+    ?timeouts () : google_public_ca_external_account_key =
+  { id; location; project; timeouts }
 
 type t = {
   b64_mac_key : string prop;
@@ -30,14 +36,14 @@ type t = {
   project : string prop;
 }
 
-let google_public_ca_external_account_key ?id ?location ?project
-    ?timeouts __resource_id =
+let register ?tf_module ?id ?location ?project ?timeouts
+    __resource_id =
   let __resource_type = "google_public_ca_external_account_key" in
   let __resource =
-    ({ id; location; project; timeouts }
-      : google_public_ca_external_account_key)
+    google_public_ca_external_account_key ?id ?location ?project
+      ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_public_ca_external_account_key __resource);
   let __resource_attributes =
     ({

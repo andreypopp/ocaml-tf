@@ -12,18 +12,22 @@ type aws_iot_policy_attachment = {
 [@@deriving yojson_of]
 (** aws_iot_policy_attachment *)
 
+let aws_iot_policy_attachment ?id ~policy ~target () :
+    aws_iot_policy_attachment =
+  { id; policy; target }
+
 type t = {
   id : string prop;
   policy : string prop;
   target : string prop;
 }
 
-let aws_iot_policy_attachment ?id ~policy ~target __resource_id =
+let register ?tf_module ?id ~policy ~target __resource_id =
   let __resource_type = "aws_iot_policy_attachment" in
   let __resource =
-    ({ id; policy; target } : aws_iot_policy_attachment)
+    aws_iot_policy_attachment ?id ~policy ~target ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_policy_attachment __resource);
   let __resource_attributes =
     ({

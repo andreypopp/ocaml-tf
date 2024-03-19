@@ -4,17 +4,15 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_inference_cluster__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_inference_cluster__identity *)
+(** identity *)
 
-type azurerm_machine_learning_inference_cluster__ssl = {
+type ssl = {
   cert : string prop option; [@option]  (** cert *)
   cname : string prop option; [@option]  (** cname *)
   key : string prop option; [@option]  (** key *)
@@ -24,15 +22,15 @@ type azurerm_machine_learning_inference_cluster__ssl = {
       (** overwrite_existing_domain *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_inference_cluster__ssl *)
+(** ssl *)
 
-type azurerm_machine_learning_inference_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_machine_learning_inference_cluster__timeouts *)
+(** timeouts *)
 
 type azurerm_machine_learning_inference_cluster = {
   cluster_purpose : string prop option; [@option]
@@ -45,14 +43,40 @@ type azurerm_machine_learning_inference_cluster = {
       (** machine_learning_workspace_id *)
   name : string prop;  (** name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity :
-    azurerm_machine_learning_inference_cluster__identity list;
-  ssl : azurerm_machine_learning_inference_cluster__ssl list;
-  timeouts :
-    azurerm_machine_learning_inference_cluster__timeouts option;
+  identity : identity list;
+  ssl : ssl list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_inference_cluster *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let ssl ?cert ?cname ?key ?leaf_domain_label
+    ?overwrite_existing_domain () : ssl =
+  { cert; cname; key; leaf_domain_label; overwrite_existing_domain }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_machine_learning_inference_cluster ?cluster_purpose
+    ?description ?id ?tags ?timeouts ~kubernetes_cluster_id ~location
+    ~machine_learning_workspace_id ~name ~identity ~ssl () :
+    azurerm_machine_learning_inference_cluster =
+  {
+    cluster_purpose;
+    description;
+    id;
+    kubernetes_cluster_id;
+    location;
+    machine_learning_workspace_id;
+    name;
+    tags;
+    identity;
+    ssl;
+    timeouts;
+  }
 
 type t = {
   cluster_purpose : string prop;
@@ -65,30 +89,20 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_machine_learning_inference_cluster ?cluster_purpose
-    ?description ?id ?tags ?timeouts ~kubernetes_cluster_id ~location
+let register ?tf_module ?cluster_purpose ?description ?id ?tags
+    ?timeouts ~kubernetes_cluster_id ~location
     ~machine_learning_workspace_id ~name ~identity ~ssl __resource_id
     =
   let __resource_type =
     "azurerm_machine_learning_inference_cluster"
   in
   let __resource =
-    ({
-       cluster_purpose;
-       description;
-       id;
-       kubernetes_cluster_id;
-       location;
-       machine_learning_workspace_id;
-       name;
-       tags;
-       identity;
-       ssl;
-       timeouts;
-     }
-      : azurerm_machine_learning_inference_cluster)
+    azurerm_machine_learning_inference_cluster ?cluster_purpose
+      ?description ?id ?tags ?timeouts ~kubernetes_cluster_id
+      ~location ~machine_learning_workspace_id ~name ~identity ~ssl
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_machine_learning_inference_cluster __resource);
   let __resource_attributes =
     ({

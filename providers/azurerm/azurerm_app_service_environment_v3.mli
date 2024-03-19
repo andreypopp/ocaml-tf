@@ -2,16 +2,51 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_environment_v3__cluster_setting
-type azurerm_app_service_environment_v3__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_app_service_environment_v3__inbound_network_dependencies = {
+type inbound_network_dependencies = {
   description : string prop;  (** description *)
   ip_addresses : string prop list;  (** ip_addresses *)
   ports : string prop list;  (** ports *)
 }
 
+type cluster_setting
+
+val cluster_setting :
+  name:string prop -> value:string prop -> unit -> cluster_setting
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_app_service_environment_v3
+
+val azurerm_app_service_environment_v3 :
+  ?allow_new_private_endpoint_connections:bool prop ->
+  ?dedicated_host_count:float prop ->
+  ?id:string prop ->
+  ?internal_load_balancing_mode:string prop ->
+  ?remote_debugging_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  subnet_id:string prop ->
+  cluster_setting:cluster_setting list ->
+  unit ->
+  azurerm_app_service_environment_v3
+
+val yojson_of_azurerm_app_service_environment_v3 :
+  azurerm_app_service_environment_v3 -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allow_new_private_endpoint_connections : bool prop;
@@ -20,9 +55,7 @@ type t = private {
   external_inbound_ip_addresses : string list prop;
   id : string prop;
   inbound_network_dependencies :
-    azurerm_app_service_environment_v3__inbound_network_dependencies
-    list
-    prop;
+    inbound_network_dependencies list prop;
   internal_inbound_ip_addresses : string list prop;
   internal_load_balancing_mode : string prop;
   ip_ssl_address_count : float prop;
@@ -38,7 +71,8 @@ type t = private {
   zone_redundant : bool prop;
 }
 
-val azurerm_app_service_environment_v3 :
+val register :
+  ?tf_module:tf_module ->
   ?allow_new_private_endpoint_connections:bool prop ->
   ?dedicated_host_count:float prop ->
   ?id:string prop ->
@@ -46,11 +80,10 @@ val azurerm_app_service_environment_v3 :
   ?remote_debugging_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
-  ?timeouts:azurerm_app_service_environment_v3__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  cluster_setting:
-    azurerm_app_service_environment_v3__cluster_setting list ->
+  cluster_setting:cluster_setting list ->
   string ->
   t

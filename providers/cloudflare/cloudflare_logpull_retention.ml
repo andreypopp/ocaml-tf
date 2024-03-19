@@ -14,19 +14,22 @@ type cloudflare_logpull_retention = {
 [@@deriving yojson_of]
 (** Allows management of the Logpull Retention settings used to control whether or not to retain HTTP request logs. *)
 
+let cloudflare_logpull_retention ?id ~enabled ~zone_id () :
+    cloudflare_logpull_retention =
+  { enabled; id; zone_id }
+
 type t = {
   enabled : bool prop;
   id : string prop;
   zone_id : string prop;
 }
 
-let cloudflare_logpull_retention ?id ~enabled ~zone_id __resource_id
-    =
+let register ?tf_module ?id ~enabled ~zone_id __resource_id =
   let __resource_type = "cloudflare_logpull_retention" in
   let __resource =
-    ({ enabled; id; zone_id } : cloudflare_logpull_retention)
+    cloudflare_logpull_retention ?id ~enabled ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_logpull_retention __resource);
   let __resource_attributes =
     ({

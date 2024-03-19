@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type aws_sesv2_email_identity__dkim_signing_attributes
+(** RESOURCE SERIALIZATION *)
+
+type dkim_signing_attributes
+
+val dkim_signing_attributes :
+  ?domain_signing_private_key:string prop ->
+  ?domain_signing_selector:string prop ->
+  ?next_signing_key_length:string prop ->
+  unit ->
+  dkim_signing_attributes
+
 type aws_sesv2_email_identity
+
+val aws_sesv2_email_identity :
+  ?configuration_set_name:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  email_identity:string prop ->
+  dkim_signing_attributes:dkim_signing_attributes list ->
+  unit ->
+  aws_sesv2_email_identity
+
+val yojson_of_aws_sesv2_email_identity :
+  aws_sesv2_email_identity -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,13 +41,13 @@ type t = private {
   verified_for_sending_status : bool prop;
 }
 
-val aws_sesv2_email_identity :
+val register :
+  ?tf_module:tf_module ->
   ?configuration_set_name:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   email_identity:string prop ->
-  dkim_signing_attributes:
-    aws_sesv2_email_identity__dkim_signing_attributes list ->
+  dkim_signing_attributes:dkim_signing_attributes list ->
   string ->
   t

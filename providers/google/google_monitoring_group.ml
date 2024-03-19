@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_monitoring_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_monitoring_group__timeouts *)
+(** timeouts *)
 
 type google_monitoring_group = {
   display_name : string prop;
@@ -29,10 +29,25 @@ groups that are clusters. *)
 projects/{project_id_or_number}/groups/{group_id}. For
 groups with no parent, parentName is the empty string, . *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_monitoring_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_monitoring_group *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_monitoring_group ?id ?is_cluster ?parent_name ?project
+    ?timeouts ~display_name ~filter () : google_monitoring_group =
+  {
+    display_name;
+    filter;
+    id;
+    is_cluster;
+    parent_name;
+    project;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -44,22 +59,14 @@ type t = {
   project : string prop;
 }
 
-let google_monitoring_group ?id ?is_cluster ?parent_name ?project
+let register ?tf_module ?id ?is_cluster ?parent_name ?project
     ?timeouts ~display_name ~filter __resource_id =
   let __resource_type = "google_monitoring_group" in
   let __resource =
-    ({
-       display_name;
-       filter;
-       id;
-       is_cluster;
-       parent_name;
-       project;
-       timeouts;
-     }
-      : google_monitoring_group)
+    google_monitoring_group ?id ?is_cluster ?parent_name ?project
+      ?timeouts ~display_name ~filter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_group __resource);
   let __resource_attributes =
     ({

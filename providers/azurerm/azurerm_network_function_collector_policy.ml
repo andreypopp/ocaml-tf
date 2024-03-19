@@ -4,26 +4,26 @@
 
 open! Tf.Prelude
 
-type azurerm_network_function_collector_policy__ipfx_emission = {
+type ipfx_emission = {
   destination_types : string prop list;  (** destination_types *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_function_collector_policy__ipfx_emission *)
+(** ipfx_emission *)
 
-type azurerm_network_function_collector_policy__ipfx_ingestion = {
+type ipfx_ingestion = {
   source_resource_ids : string prop list;  (** source_resource_ids *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_function_collector_policy__ipfx_ingestion *)
+(** ipfx_ingestion *)
 
-type azurerm_network_function_collector_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_function_collector_policy__timeouts *)
+(** timeouts *)
 
 type azurerm_network_function_collector_policy = {
   id : string prop option; [@option]  (** id *)
@@ -31,15 +31,35 @@ type azurerm_network_function_collector_policy = {
   name : string prop;  (** name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   traffic_collector_id : string prop;  (** traffic_collector_id *)
-  ipfx_emission :
-    azurerm_network_function_collector_policy__ipfx_emission list;
-  ipfx_ingestion :
-    azurerm_network_function_collector_policy__ipfx_ingestion list;
-  timeouts :
-    azurerm_network_function_collector_policy__timeouts option;
+  ipfx_emission : ipfx_emission list;
+  ipfx_ingestion : ipfx_ingestion list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_function_collector_policy *)
+
+let ipfx_emission ~destination_types () : ipfx_emission =
+  { destination_types }
+
+let ipfx_ingestion ~source_resource_ids () : ipfx_ingestion =
+  { source_resource_ids }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_function_collector_policy ?id ?tags ?timeouts
+    ~location ~name ~traffic_collector_id ~ipfx_emission
+    ~ipfx_ingestion () : azurerm_network_function_collector_policy =
+  {
+    id;
+    location;
+    name;
+    tags;
+    traffic_collector_id;
+    ipfx_emission;
+    ipfx_ingestion;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -49,26 +69,18 @@ type t = {
   traffic_collector_id : string prop;
 }
 
-let azurerm_network_function_collector_policy ?id ?tags ?timeouts
-    ~location ~name ~traffic_collector_id ~ipfx_emission
-    ~ipfx_ingestion __resource_id =
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~traffic_collector_id ~ipfx_emission ~ipfx_ingestion
+    __resource_id =
   let __resource_type =
     "azurerm_network_function_collector_policy"
   in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       tags;
-       traffic_collector_id;
-       ipfx_emission;
-       ipfx_ingestion;
-       timeouts;
-     }
-      : azurerm_network_function_collector_policy)
+    azurerm_network_function_collector_policy ?id ?tags ?timeouts
+      ~location ~name ~traffic_collector_id ~ipfx_emission
+      ~ipfx_ingestion ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_function_collector_policy __resource);
   let __resource_attributes =
     ({

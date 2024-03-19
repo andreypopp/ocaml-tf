@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_datasync_agent__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_datasync_agent
+
+val aws_datasync_agent :
+  ?activation_key:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?name:string prop ->
+  ?private_link_endpoint:string prop ->
+  ?security_group_arns:string prop list ->
+  ?subnet_arns:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_endpoint_id:string prop ->
+  ?timeouts:timeouts ->
+  unit ->
+  aws_datasync_agent
+
+val yojson_of_aws_datasync_agent : aws_datasync_agent -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   activation_key : string prop;
@@ -19,7 +43,8 @@ type t = private {
   vpc_endpoint_id : string prop;
 }
 
-val aws_datasync_agent :
+val register :
+  ?tf_module:tf_module ->
   ?activation_key:string prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
@@ -30,6 +55,6 @@ val aws_datasync_agent :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_endpoint_id:string prop ->
-  ?timeouts:aws_datasync_agent__timeouts ->
+  ?timeouts:timeouts ->
   string ->
   t

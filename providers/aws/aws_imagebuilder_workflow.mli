@@ -2,7 +2,29 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_imagebuilder_workflow
+
+val aws_imagebuilder_workflow :
+  ?change_description:string prop ->
+  ?data:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?uri:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  version:string prop ->
+  unit ->
+  aws_imagebuilder_workflow
+
+val yojson_of_aws_imagebuilder_workflow :
+  aws_imagebuilder_workflow -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,7 +43,8 @@ type t = private {
   version : string prop;
 }
 
-val aws_imagebuilder_workflow :
+val register :
+  ?tf_module:tf_module ->
   ?change_description:string prop ->
   ?data:string prop ->
   ?description:string prop ->

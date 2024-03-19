@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_scope_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_scope_connection__timeouts *)
+(** timeouts *)
 
 type azurerm_network_manager_scope_connection = {
   description : string prop option; [@option]  (** description *)
@@ -20,11 +20,26 @@ type azurerm_network_manager_scope_connection = {
   network_manager_id : string prop;  (** network_manager_id *)
   target_scope_id : string prop;  (** target_scope_id *)
   tenant_id : string prop;  (** tenant_id *)
-  timeouts :
-    azurerm_network_manager_scope_connection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_scope_connection *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_manager_scope_connection ?description ?id
+    ?timeouts ~name ~network_manager_id ~target_scope_id ~tenant_id
+    () : azurerm_network_manager_scope_connection =
+  {
+    description;
+    id;
+    name;
+    network_manager_id;
+    target_scope_id;
+    tenant_id;
+    timeouts;
+  }
 
 type t = {
   connection_state : string prop;
@@ -36,23 +51,15 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_network_manager_scope_connection ?description ?id
-    ?timeouts ~name ~network_manager_id ~target_scope_id ~tenant_id
-    __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~name
+    ~network_manager_id ~target_scope_id ~tenant_id __resource_id =
   let __resource_type = "azurerm_network_manager_scope_connection" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       network_manager_id;
-       target_scope_id;
-       tenant_id;
-       timeouts;
-     }
-      : azurerm_network_manager_scope_connection)
+    azurerm_network_manager_scope_connection ?description ?id
+      ?timeouts ~name ~network_manager_id ~target_scope_id ~tenant_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_scope_connection __resource);
   let __resource_attributes =
     ({

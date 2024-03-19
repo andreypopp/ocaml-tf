@@ -4,60 +4,56 @@
 
 open! Tf.Prelude
 
-type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__nlb_resource = {
+type resources__dns_target_resource__target_resource__nlb_resource = {
   arn : string prop option; [@option]  (** arn *)
 }
 [@@deriving yojson_of]
-(** aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__nlb_resource *)
+(** resources__dns_target_resource__target_resource__nlb_resource *)
 
-type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__r53_resource = {
+type resources__dns_target_resource__target_resource__r53_resource = {
   domain_name : string prop option; [@option]  (** domain_name *)
   record_set_id : string prop option; [@option]  (** record_set_id *)
 }
 [@@deriving yojson_of]
-(** aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__r53_resource *)
+(** resources__dns_target_resource__target_resource__r53_resource *)
 
-type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource = {
+type resources__dns_target_resource__target_resource = {
   nlb_resource :
-    aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__nlb_resource
+    resources__dns_target_resource__target_resource__nlb_resource
     list;
   r53_resource :
-    aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__r53_resource
+    resources__dns_target_resource__target_resource__r53_resource
     list;
 }
 [@@deriving yojson_of]
-(** aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource *)
+(** resources__dns_target_resource__target_resource *)
 
-type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource = {
+type resources__dns_target_resource = {
   domain_name : string prop;  (** domain_name *)
   hosted_zone_arn : string prop option; [@option]
       (** hosted_zone_arn *)
   record_set_id : string prop option; [@option]  (** record_set_id *)
   record_type : string prop option; [@option]  (** record_type *)
   target_resource :
-    aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource
-    list;
+    resources__dns_target_resource__target_resource list;
 }
 [@@deriving yojson_of]
-(** aws_route53recoveryreadiness_resource_set__resources__dns_target_resource *)
+(** resources__dns_target_resource *)
 
-type aws_route53recoveryreadiness_resource_set__resources = {
-  component_id : string prop;  (** component_id *)
+type resources = {
   readiness_scopes : string prop list option; [@option]
       (** readiness_scopes *)
   resource_arn : string prop option; [@option]  (** resource_arn *)
-  dns_target_resource :
-    aws_route53recoveryreadiness_resource_set__resources__dns_target_resource
-    list;
+  dns_target_resource : resources__dns_target_resource list;
 }
 [@@deriving yojson_of]
-(** aws_route53recoveryreadiness_resource_set__resources *)
+(** resources *)
 
-type aws_route53recoveryreadiness_resource_set__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_route53recoveryreadiness_resource_set__timeouts *)
+(** timeouts *)
 
 type aws_route53recoveryreadiness_resource_set = {
   id : string prop option; [@option]  (** id *)
@@ -66,13 +62,56 @@ type aws_route53recoveryreadiness_resource_set = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  resources :
-    aws_route53recoveryreadiness_resource_set__resources list;
-  timeouts :
-    aws_route53recoveryreadiness_resource_set__timeouts option;
+  resources : resources list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_resource_set *)
+
+let resources__dns_target_resource__target_resource__nlb_resource
+    ?arn () :
+    resources__dns_target_resource__target_resource__nlb_resource =
+  { arn }
+
+let resources__dns_target_resource__target_resource__r53_resource
+    ?domain_name ?record_set_id () :
+    resources__dns_target_resource__target_resource__r53_resource =
+  { domain_name; record_set_id }
+
+let resources__dns_target_resource__target_resource ~nlb_resource
+    ~r53_resource () :
+    resources__dns_target_resource__target_resource =
+  { nlb_resource; r53_resource }
+
+let resources__dns_target_resource ?hosted_zone_arn ?record_set_id
+    ?record_type ~domain_name ~target_resource () :
+    resources__dns_target_resource =
+  {
+    domain_name;
+    hosted_zone_arn;
+    record_set_id;
+    record_type;
+    target_resource;
+  }
+
+let resources ?readiness_scopes ?resource_arn ~dns_target_resource ()
+    : resources =
+  { readiness_scopes; resource_arn; dns_target_resource }
+
+let timeouts ?delete () : timeouts = { delete }
+
+let aws_route53recoveryreadiness_resource_set ?id ?tags ?tags_all
+    ?timeouts ~resource_set_name ~resource_set_type ~resources () :
+    aws_route53recoveryreadiness_resource_set =
+  {
+    id;
+    resource_set_name;
+    resource_set_type;
+    tags;
+    tags_all;
+    resources;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -83,25 +122,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_route53recoveryreadiness_resource_set ?id ?tags ?tags_all
-    ?timeouts ~resource_set_name ~resource_set_type ~resources
-    __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
+    ~resource_set_name ~resource_set_type ~resources __resource_id =
   let __resource_type =
     "aws_route53recoveryreadiness_resource_set"
   in
   let __resource =
-    ({
-       id;
-       resource_set_name;
-       resource_set_type;
-       tags;
-       tags_all;
-       resources;
-       timeouts;
-     }
-      : aws_route53recoveryreadiness_resource_set)
+    aws_route53recoveryreadiness_resource_set ?id ?tags ?tags_all
+      ?timeouts ~resource_set_name ~resource_set_type ~resources ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53recoveryreadiness_resource_set __resource);
   let __resource_attributes =
     ({

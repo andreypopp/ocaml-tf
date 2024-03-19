@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_vpc_association_authorization
+
+val aws_route53_vpc_association_authorization :
+  ?id:string prop ->
+  ?vpc_region:string prop ->
+  vpc_id:string prop ->
+  zone_id:string prop ->
+  unit ->
+  aws_route53_vpc_association_authorization
+
+val yojson_of_aws_route53_vpc_association_authorization :
+  aws_route53_vpc_association_authorization -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,7 +26,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val aws_route53_vpc_association_authorization :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?vpc_region:string prop ->
   vpc_id:string prop ->

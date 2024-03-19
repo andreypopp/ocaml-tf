@@ -24,6 +24,10 @@ type cloudflare_access_custom_page = {
 when trying to reach applications behind Cloudflare Access.
  *)
 
+let cloudflare_access_custom_page ?account_id ?app_count ?custom_html
+    ?id ?zone_id ~name ~type_ () : cloudflare_access_custom_page =
+  { account_id; app_count; custom_html; id; name; type_; zone_id }
+
 type t = {
   account_id : string prop;
   app_count : float prop;
@@ -34,14 +38,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_access_custom_page ?account_id ?app_count ?custom_html
-    ?id ?zone_id ~name ~type_ __resource_id =
+let register ?tf_module ?account_id ?app_count ?custom_html ?id
+    ?zone_id ~name ~type_ __resource_id =
   let __resource_type = "cloudflare_access_custom_page" in
   let __resource =
-    ({ account_id; app_count; custom_html; id; name; type_; zone_id }
-      : cloudflare_access_custom_page)
+    cloudflare_access_custom_page ?account_id ?app_count ?custom_html
+      ?id ?zone_id ~name ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_custom_page __resource);
   let __resource_attributes =
     ({

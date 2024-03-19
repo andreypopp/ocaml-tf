@@ -2,12 +2,73 @@
 
 open! Tf.Prelude
 
-type google_bigquery_analytics_hub_listing__bigquery_dataset
-type google_bigquery_analytics_hub_listing__data_provider
-type google_bigquery_analytics_hub_listing__publisher
-type google_bigquery_analytics_hub_listing__restricted_export_config
-type google_bigquery_analytics_hub_listing__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type bigquery_dataset
+
+val bigquery_dataset :
+  dataset:string prop -> unit -> bigquery_dataset
+
+type data_provider
+
+val data_provider :
+  ?primary_contact:string prop ->
+  name:string prop ->
+  unit ->
+  data_provider
+
+type publisher
+
+val publisher :
+  ?primary_contact:string prop ->
+  name:string prop ->
+  unit ->
+  publisher
+
+type restricted_export_config
+
+val restricted_export_config :
+  ?enabled:bool prop ->
+  ?restrict_query_result:bool prop ->
+  unit ->
+  restricted_export_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_bigquery_analytics_hub_listing
+
+val google_bigquery_analytics_hub_listing :
+  ?categories:string prop list ->
+  ?description:string prop ->
+  ?documentation:string prop ->
+  ?icon:string prop ->
+  ?id:string prop ->
+  ?primary_contact:string prop ->
+  ?project:string prop ->
+  ?request_access:string prop ->
+  ?timeouts:timeouts ->
+  data_exchange_id:string prop ->
+  display_name:string prop ->
+  listing_id:string prop ->
+  location:string prop ->
+  bigquery_dataset:bigquery_dataset list ->
+  data_provider:data_provider list ->
+  publisher:publisher list ->
+  restricted_export_config:restricted_export_config list ->
+  unit ->
+  google_bigquery_analytics_hub_listing
+
+val yojson_of_google_bigquery_analytics_hub_listing :
+  google_bigquery_analytics_hub_listing -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   categories : string list prop;
@@ -25,7 +86,8 @@ type t = private {
   request_access : string prop;
 }
 
-val google_bigquery_analytics_hub_listing :
+val register :
+  ?tf_module:tf_module ->
   ?categories:string prop list ->
   ?description:string prop ->
   ?documentation:string prop ->
@@ -34,18 +96,14 @@ val google_bigquery_analytics_hub_listing :
   ?primary_contact:string prop ->
   ?project:string prop ->
   ?request_access:string prop ->
-  ?timeouts:google_bigquery_analytics_hub_listing__timeouts ->
+  ?timeouts:timeouts ->
   data_exchange_id:string prop ->
   display_name:string prop ->
   listing_id:string prop ->
   location:string prop ->
-  bigquery_dataset:
-    google_bigquery_analytics_hub_listing__bigquery_dataset list ->
-  data_provider:
-    google_bigquery_analytics_hub_listing__data_provider list ->
-  publisher:google_bigquery_analytics_hub_listing__publisher list ->
-  restricted_export_config:
-    google_bigquery_analytics_hub_listing__restricted_export_config
-    list ->
+  bigquery_dataset:bigquery_dataset list ->
+  data_provider:data_provider list ->
+  publisher:publisher list ->
+  restricted_export_config:restricted_export_config list ->
   string ->
   t

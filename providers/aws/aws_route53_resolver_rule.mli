@@ -2,9 +2,45 @@
 
 open! Tf.Prelude
 
-type aws_route53_resolver_rule__target_ip
-type aws_route53_resolver_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type target_ip
+
+val target_ip :
+  ?port:float prop ->
+  ?protocol:string prop ->
+  ip:string prop ->
+  unit ->
+  target_ip
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_route53_resolver_rule
+
+val aws_route53_resolver_rule :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?resolver_endpoint_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  rule_type:string prop ->
+  target_ip:target_ip list ->
+  unit ->
+  aws_route53_resolver_rule
+
+val yojson_of_aws_route53_resolver_rule :
+  aws_route53_resolver_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,15 +55,16 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_route53_resolver_rule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?resolver_endpoint_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_route53_resolver_rule__timeouts ->
+  ?timeouts:timeouts ->
   domain_name:string prop ->
   rule_type:string prop ->
-  target_ip:aws_route53_resolver_rule__target_ip list ->
+  target_ip:target_ip list ->
   string ->
   t

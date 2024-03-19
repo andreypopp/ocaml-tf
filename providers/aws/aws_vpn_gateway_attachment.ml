@@ -12,19 +12,22 @@ type aws_vpn_gateway_attachment = {
 [@@deriving yojson_of]
 (** aws_vpn_gateway_attachment *)
 
+let aws_vpn_gateway_attachment ?id ~vpc_id ~vpn_gateway_id () :
+    aws_vpn_gateway_attachment =
+  { id; vpc_id; vpn_gateway_id }
+
 type t = {
   id : string prop;
   vpc_id : string prop;
   vpn_gateway_id : string prop;
 }
 
-let aws_vpn_gateway_attachment ?id ~vpc_id ~vpn_gateway_id
-    __resource_id =
+let register ?tf_module ?id ~vpc_id ~vpn_gateway_id __resource_id =
   let __resource_type = "aws_vpn_gateway_attachment" in
   let __resource =
-    ({ id; vpc_id; vpn_gateway_id } : aws_vpn_gateway_attachment)
+    aws_vpn_gateway_attachment ?id ~vpc_id ~vpn_gateway_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpn_gateway_attachment __resource);
   let __resource_attributes =
     ({

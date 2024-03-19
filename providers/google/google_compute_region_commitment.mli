@@ -2,10 +2,53 @@
 
 open! Tf.Prelude
 
-type google_compute_region_commitment__license_resource
-type google_compute_region_commitment__resources
-type google_compute_region_commitment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type license_resource
+
+val license_resource :
+  ?amount:string prop ->
+  ?cores_per_license:string prop ->
+  license:string prop ->
+  unit ->
+  license_resource
+
+type resources
+
+val resources :
+  ?accelerator_type:string prop ->
+  ?amount:string prop ->
+  ?type_:string prop ->
+  unit ->
+  resources
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_region_commitment
+
+val google_compute_region_commitment :
+  ?auto_renew:bool prop ->
+  ?category:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  plan:string prop ->
+  license_resource:license_resource list ->
+  resources:resources list ->
+  unit ->
+  google_compute_region_commitment
+
+val yojson_of_google_compute_region_commitment :
+  google_compute_region_commitment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_renew : bool prop;
@@ -26,7 +69,8 @@ type t = private {
   type_ : string prop;
 }
 
-val google_compute_region_commitment :
+val register :
+  ?tf_module:tf_module ->
   ?auto_renew:bool prop ->
   ?category:string prop ->
   ?description:string prop ->
@@ -34,11 +78,10 @@ val google_compute_region_commitment :
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
-  ?timeouts:google_compute_region_commitment__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   plan:string prop ->
-  license_resource:
-    google_compute_region_commitment__license_resource list ->
-  resources:google_compute_region_commitment__resources list ->
+  license_resource:license_resource list ->
+  resources:resources list ->
   string ->
   t

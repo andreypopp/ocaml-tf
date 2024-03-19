@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_logging_organization_settings__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_logging_organization_settings
+
+val google_logging_organization_settings :
+  ?disable_default_sink:bool prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?storage_location:string prop ->
+  ?timeouts:timeouts ->
+  organization:string prop ->
+  unit ->
+  google_logging_organization_settings
+
+val yojson_of_google_logging_organization_settings :
+  google_logging_organization_settings -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   disable_default_sink : bool prop;
@@ -16,12 +41,13 @@ type t = private {
   storage_location : string prop;
 }
 
-val google_logging_organization_settings :
+val register :
+  ?tf_module:tf_module ->
   ?disable_default_sink:bool prop ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
   ?storage_location:string prop ->
-  ?timeouts:google_logging_organization_settings__timeouts ->
+  ?timeouts:timeouts ->
   organization:string prop ->
   string ->
   t

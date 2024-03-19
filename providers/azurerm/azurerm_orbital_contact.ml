@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_orbital_contact__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_orbital_contact__timeouts *)
+(** timeouts *)
 
 type azurerm_orbital_contact = {
   contact_profile_id : string prop;  (** contact_profile_id *)
@@ -21,10 +21,28 @@ type azurerm_orbital_contact = {
   reservation_start_time : string prop;
       (** reservation_start_time *)
   spacecraft_id : string prop;  (** spacecraft_id *)
-  timeouts : azurerm_orbital_contact__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_orbital_contact *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_orbital_contact ?id ?timeouts ~contact_profile_id
+    ~ground_station_name ~name ~reservation_end_time
+    ~reservation_start_time ~spacecraft_id () :
+    azurerm_orbital_contact =
+  {
+    contact_profile_id;
+    ground_station_name;
+    id;
+    name;
+    reservation_end_time;
+    reservation_start_time;
+    spacecraft_id;
+    timeouts;
+  }
 
 type t = {
   contact_profile_id : string prop;
@@ -36,24 +54,16 @@ type t = {
   spacecraft_id : string prop;
 }
 
-let azurerm_orbital_contact ?id ?timeouts ~contact_profile_id
+let register ?tf_module ?id ?timeouts ~contact_profile_id
     ~ground_station_name ~name ~reservation_end_time
     ~reservation_start_time ~spacecraft_id __resource_id =
   let __resource_type = "azurerm_orbital_contact" in
   let __resource =
-    ({
-       contact_profile_id;
-       ground_station_name;
-       id;
-       name;
-       reservation_end_time;
-       reservation_start_time;
-       spacecraft_id;
-       timeouts;
-     }
-      : azurerm_orbital_contact)
+    azurerm_orbital_contact ?id ?timeouts ~contact_profile_id
+      ~ground_station_name ~name ~reservation_end_time
+      ~reservation_start_time ~spacecraft_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_orbital_contact __resource);
   let __resource_attributes =
     ({

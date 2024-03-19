@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_app_engine_flexible_app_version__api_config = {
+type api_config = {
   auth_fail_action : string prop option; [@option]
       (** Action to take when users access resources that require authentication. Default value: AUTH_FAIL_ACTION_REDIRECT Possible values: [AUTH_FAIL_ACTION_REDIRECT, AUTH_FAIL_ACTION_UNAUTHORIZED] *)
   login : string prop option; [@option]
@@ -19,7 +19,7 @@ type google_app_engine_flexible_app_version__api_config = {
 [@@deriving yojson_of]
 (** Serving configuration for Google Cloud Endpoints. *)
 
-type google_app_engine_flexible_app_version__automatic_scaling__cpu_utilization = {
+type automatic_scaling__cpu_utilization = {
   aggregation_window_length : string prop option; [@option]
       (** Period of time over which CPU utilization is calculated. *)
   target_utilization : float prop;
@@ -28,7 +28,7 @@ type google_app_engine_flexible_app_version__automatic_scaling__cpu_utilization 
 [@@deriving yojson_of]
 (** Target scaling by CPU usage. *)
 
-type google_app_engine_flexible_app_version__automatic_scaling__disk_utilization = {
+type automatic_scaling__disk_utilization = {
   target_read_bytes_per_second : float prop option; [@option]
       (** Target bytes read per second. *)
   target_read_ops_per_second : float prop option; [@option]
@@ -41,7 +41,7 @@ type google_app_engine_flexible_app_version__automatic_scaling__disk_utilization
 [@@deriving yojson_of]
 (** Target scaling by disk usage. *)
 
-type google_app_engine_flexible_app_version__automatic_scaling__network_utilization = {
+type automatic_scaling__network_utilization = {
   target_received_bytes_per_second : float prop option; [@option]
       (** Target bytes received per second. *)
   target_received_packets_per_second : float prop option; [@option]
@@ -54,7 +54,7 @@ type google_app_engine_flexible_app_version__automatic_scaling__network_utilizat
 [@@deriving yojson_of]
 (** Target scaling by network usage. *)
 
-type google_app_engine_flexible_app_version__automatic_scaling__request_utilization = {
+type automatic_scaling__request_utilization = {
   target_concurrent_requests : float prop option; [@option]
       (** Target number of concurrent requests. *)
   target_request_count_per_second : string prop option; [@option]
@@ -63,7 +63,7 @@ type google_app_engine_flexible_app_version__automatic_scaling__request_utilizat
 [@@deriving yojson_of]
 (** Target scaling by request utilization. *)
 
-type google_app_engine_flexible_app_version__automatic_scaling = {
+type automatic_scaling = {
   cool_down_period : string prop option; [@option]
       (** The time period that the Autoscaler should wait before it starts collecting information from a new instance.
 This prevents the autoscaler from collecting information when the instance is initializing,
@@ -84,23 +84,15 @@ Defaults to a runtime-specific value. *)
       (** Minimum amount of time a request should wait in the pending queue before starting a new instance to handle it. *)
   min_total_instances : float prop option; [@option]
       (** Minimum number of running instances that should be maintained for this version. Default: 2 *)
-  cpu_utilization :
-    google_app_engine_flexible_app_version__automatic_scaling__cpu_utilization
-    list;
-  disk_utilization :
-    google_app_engine_flexible_app_version__automatic_scaling__disk_utilization
-    list;
-  network_utilization :
-    google_app_engine_flexible_app_version__automatic_scaling__network_utilization
-    list;
-  request_utilization :
-    google_app_engine_flexible_app_version__automatic_scaling__request_utilization
-    list;
+  cpu_utilization : automatic_scaling__cpu_utilization list;
+  disk_utilization : automatic_scaling__disk_utilization list;
+  network_utilization : automatic_scaling__network_utilization list;
+  request_utilization : automatic_scaling__request_utilization list;
 }
 [@@deriving yojson_of]
 (** Automatic scaling is based on request rate, response latencies, and other application metrics. *)
 
-type google_app_engine_flexible_app_version__deployment__cloud_build_options = {
+type deployment__cloud_build_options = {
   app_yaml_path : string prop;
       (** Path to the yaml file used in deployment, used to determine runtime configuration details. *)
   cloud_build_timeout : string prop option; [@option]
@@ -111,7 +103,7 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 [@@deriving yojson_of]
 (** Options for the build operations performed as a part of the version deployment. Only applicable when creating a version using source code directly. *)
 
-type google_app_engine_flexible_app_version__deployment__container = {
+type deployment__container = {
   image : string prop;
       (** URI to the hosted container image in Google Container Registry. The URI must be fully qualified and include a tag or digest.
 Examples: gcr.io/my-project/image:tag or gcr.io/my-project/image@digest *)
@@ -119,7 +111,7 @@ Examples: gcr.io/my-project/image:tag or gcr.io/my-project/image@digest *)
 [@@deriving yojson_of]
 (** The Docker image for the container that runs the version. *)
 
-type google_app_engine_flexible_app_version__deployment__files = {
+type deployment__files = {
   name : string prop;  (** name *)
   sha1_sum : string prop option; [@option]
       (** SHA1 checksum of the file *)
@@ -129,28 +121,23 @@ type google_app_engine_flexible_app_version__deployment__files = {
 (** Manifest of the files stored in Google Cloud Storage that are included as part of this version.
 All files must be readable using the credentials supplied with this call. *)
 
-type google_app_engine_flexible_app_version__deployment__zip = {
+type deployment__zip = {
   files_count : float prop option; [@option]  (** files count *)
   source_url : string prop;  (** Source URL *)
 }
 [@@deriving yojson_of]
 (** Zip File *)
 
-type google_app_engine_flexible_app_version__deployment = {
-  cloud_build_options :
-    google_app_engine_flexible_app_version__deployment__cloud_build_options
-    list;
-  container :
-    google_app_engine_flexible_app_version__deployment__container
-    list;
-  files :
-    google_app_engine_flexible_app_version__deployment__files list;
-  zip : google_app_engine_flexible_app_version__deployment__zip list;
+type deployment = {
+  cloud_build_options : deployment__cloud_build_options list;
+  container : deployment__container list;
+  files : deployment__files list;
+  zip : deployment__zip list;
 }
 [@@deriving yojson_of]
 (** Code and application artifacts that make up this version. *)
 
-type google_app_engine_flexible_app_version__endpoints_api_service = {
+type endpoints_api_service = {
   config_id : string prop option; [@option]
       (** Endpoints service configuration ID as specified by the Service Management API. For example 2016-09-19r1.
 
@@ -171,14 +158,14 @@ For example myapi.endpoints.myproject.cloud.goog *)
 [@@deriving yojson_of]
 (** Code and application artifacts that make up this version. *)
 
-type google_app_engine_flexible_app_version__entrypoint = {
+type entrypoint = {
   shell : string prop;
       (** The format should be a shell command that can be fed to bash -c. *)
 }
 [@@deriving yojson_of]
 (** The entrypoint for the application. *)
 
-type google_app_engine_flexible_app_version__handlers__script = {
+type handlers__script = {
   script_path : string prop;
       (** Path to the script from the application root directory. *)
 }
@@ -186,7 +173,7 @@ type google_app_engine_flexible_app_version__handlers__script = {
 (** Executes a script to handle the requests that match this URL pattern.
 Only the auto value is supported for Node.js in the App Engine standard environment, for example script: auto. *)
 
-type google_app_engine_flexible_app_version__handlers__static_files = {
+type handlers__static_files = {
   application_readable : bool prop option; [@option]
       (** Whether files should also be uploaded as code data. By default, files declared in static file handlers are
 uploaded as static data and are only served to end users; they cannot be read by the application. If enabled,
@@ -213,7 +200,7 @@ The path can refer to text matched in groupings in the URL pattern. *)
 (** Files served directly to the user for a given URL, such as images, CSS stylesheets, or JavaScript source files.
 Static file handlers describe which files in the application directory are static files, and which URLs serve them. *)
 
-type google_app_engine_flexible_app_version__handlers = {
+type handlers = {
   auth_fail_action : string prop option; [@option]
       (** Actions to take when the user is not logged in. Possible values: [AUTH_FAIL_ACTION_REDIRECT, AUTH_FAIL_ACTION_UNAUTHORIZED] *)
   login : string prop option; [@option]
@@ -225,17 +212,14 @@ type google_app_engine_flexible_app_version__handlers = {
   url_regex : string prop option; [@option]
       (** URL prefix. Uses regular expression syntax, which means regexp special characters must be escaped, but should not contain groupings.
 All URLs that begin with this prefix are handled by this handler, using the portion of the URL after the prefix as part of the file path. *)
-  script :
-    google_app_engine_flexible_app_version__handlers__script list;
-  static_files :
-    google_app_engine_flexible_app_version__handlers__static_files
-    list;
+  script : handlers__script list;
+  static_files : handlers__static_files list;
 }
 [@@deriving yojson_of]
 (** An ordered list of URL-matching patterns that should be applied to incoming requests.
 The first matching URL handles the request and other request handlers are not attempted. *)
 
-type google_app_engine_flexible_app_version__liveness_check = {
+type liveness_check = {
   check_interval : string prop option; [@option]
       (** Interval between health checks. *)
   failure_threshold : float prop option; [@option]
@@ -253,7 +237,7 @@ type google_app_engine_flexible_app_version__liveness_check = {
 [@@deriving yojson_of]
 (** Health checking configuration for VM instances. Unhealthy instances are killed and replaced with new instances. *)
 
-type google_app_engine_flexible_app_version__manual_scaling = {
+type manual_scaling = {
   instances : float prop;
       (** Number of instances to assign to the service at the start.
 
@@ -263,7 +247,7 @@ Modules API set_num_instances() you must use 'lifecycle.ignore_changes = [manual
 [@@deriving yojson_of]
 (** A service with manual scaling runs continuously, allowing you to perform complex initialization and rely on the state of its memory over time. *)
 
-type google_app_engine_flexible_app_version__network = {
+type network = {
   forwarded_ports : string prop list option; [@option]
       (** List of ports, or port pairs, to forward from the virtual machine to the application container. *)
   instance_tag : string prop option; [@option]
@@ -283,7 +267,7 @@ If specified, the subnetwork must exist in the same region as the App Engine fle
 [@@deriving yojson_of]
 (** Extra network settings *)
 
-type google_app_engine_flexible_app_version__readiness_check = {
+type readiness_check = {
   app_start_timeout : string prop option; [@option]
       (** A maximum time limit on application initialization, measured from moment the application successfully
 replies to a healthcheck until it is ready to serve traffic. Default: 300s *)
@@ -302,7 +286,7 @@ replies to a healthcheck until it is ready to serve traffic. Default: 300s *)
 [@@deriving yojson_of]
 (** Configures readiness health checking for instances. Unhealthy instances are not put into the backend traffic rotation. *)
 
-type google_app_engine_flexible_app_version__resources__volumes = {
+type resources__volumes = {
   name : string prop;  (** Unique name for the volume. *)
   size_gb : float prop;  (** Volume size in gigabytes. *)
   volume_type : string prop;
@@ -311,28 +295,27 @@ type google_app_engine_flexible_app_version__resources__volumes = {
 [@@deriving yojson_of]
 (** List of ports, or port pairs, to forward from the virtual machine to the application container. *)
 
-type google_app_engine_flexible_app_version__resources = {
+type resources = {
   cpu : float prop option; [@option]
       (** Number of CPU cores needed. *)
   disk_gb : float prop option; [@option]
       (** Disk size (GB) needed. *)
   memory_gb : float prop option; [@option]
       (** Memory (GB) needed. *)
-  volumes :
-    google_app_engine_flexible_app_version__resources__volumes list;
+  volumes : resources__volumes list;
 }
 [@@deriving yojson_of]
 (** Machine resources for a version. *)
 
-type google_app_engine_flexible_app_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_app_engine_flexible_app_version__timeouts *)
+(** timeouts *)
 
-type google_app_engine_flexible_app_version__vpc_access_connector = {
+type vpc_access_connector = {
   name : string prop;
       (** Full Serverless VPC Access Connector name e.g. /projects/my-project/locations/us-central1/connectors/c1. *)
 }
@@ -381,32 +364,224 @@ default if this field is neither provided in app.yaml file nor through CLI flag.
   version_id : string prop option; [@option]
       (** Relative name of the version within the service. For example, 'v1'. Version names can contain only lowercase letters, numbers, or hyphens.
 Reserved names,default, latest, and any name with the prefix ah-. *)
-  api_config :
-    google_app_engine_flexible_app_version__api_config list;
-  automatic_scaling :
-    google_app_engine_flexible_app_version__automatic_scaling list;
-  deployment :
-    google_app_engine_flexible_app_version__deployment list;
-  endpoints_api_service :
-    google_app_engine_flexible_app_version__endpoints_api_service
-    list;
-  entrypoint :
-    google_app_engine_flexible_app_version__entrypoint list;
-  handlers : google_app_engine_flexible_app_version__handlers list;
-  liveness_check :
-    google_app_engine_flexible_app_version__liveness_check list;
-  manual_scaling :
-    google_app_engine_flexible_app_version__manual_scaling list;
-  network : google_app_engine_flexible_app_version__network list;
-  readiness_check :
-    google_app_engine_flexible_app_version__readiness_check list;
-  resources : google_app_engine_flexible_app_version__resources list;
-  timeouts : google_app_engine_flexible_app_version__timeouts option;
-  vpc_access_connector :
-    google_app_engine_flexible_app_version__vpc_access_connector list;
+  api_config : api_config list;
+  automatic_scaling : automatic_scaling list;
+  deployment : deployment list;
+  endpoints_api_service : endpoints_api_service list;
+  entrypoint : entrypoint list;
+  handlers : handlers list;
+  liveness_check : liveness_check list;
+  manual_scaling : manual_scaling list;
+  network : network list;
+  readiness_check : readiness_check list;
+  resources : resources list;
+  timeouts : timeouts option;
+  vpc_access_connector : vpc_access_connector list;
 }
 [@@deriving yojson_of]
 (** google_app_engine_flexible_app_version *)
+
+let api_config ?auth_fail_action ?login ?security_level ?url ~script
+    () : api_config =
+  { auth_fail_action; login; script; security_level; url }
+
+let automatic_scaling__cpu_utilization ?aggregation_window_length
+    ~target_utilization () : automatic_scaling__cpu_utilization =
+  { aggregation_window_length; target_utilization }
+
+let automatic_scaling__disk_utilization ?target_read_bytes_per_second
+    ?target_read_ops_per_second ?target_write_bytes_per_second
+    ?target_write_ops_per_second () :
+    automatic_scaling__disk_utilization =
+  {
+    target_read_bytes_per_second;
+    target_read_ops_per_second;
+    target_write_bytes_per_second;
+    target_write_ops_per_second;
+  }
+
+let automatic_scaling__network_utilization
+    ?target_received_bytes_per_second
+    ?target_received_packets_per_second ?target_sent_bytes_per_second
+    ?target_sent_packets_per_second () :
+    automatic_scaling__network_utilization =
+  {
+    target_received_bytes_per_second;
+    target_received_packets_per_second;
+    target_sent_bytes_per_second;
+    target_sent_packets_per_second;
+  }
+
+let automatic_scaling__request_utilization
+    ?target_concurrent_requests ?target_request_count_per_second () :
+    automatic_scaling__request_utilization =
+  { target_concurrent_requests; target_request_count_per_second }
+
+let automatic_scaling ?cool_down_period ?max_concurrent_requests
+    ?max_idle_instances ?max_pending_latency ?max_total_instances
+    ?min_idle_instances ?min_pending_latency ?min_total_instances
+    ~cpu_utilization ~disk_utilization ~network_utilization
+    ~request_utilization () : automatic_scaling =
+  {
+    cool_down_period;
+    max_concurrent_requests;
+    max_idle_instances;
+    max_pending_latency;
+    max_total_instances;
+    min_idle_instances;
+    min_pending_latency;
+    min_total_instances;
+    cpu_utilization;
+    disk_utilization;
+    network_utilization;
+    request_utilization;
+  }
+
+let deployment__cloud_build_options ?cloud_build_timeout
+    ~app_yaml_path () : deployment__cloud_build_options =
+  { app_yaml_path; cloud_build_timeout }
+
+let deployment__container ~image () : deployment__container =
+  { image }
+
+let deployment__files ?sha1_sum ~name ~source_url () :
+    deployment__files =
+  { name; sha1_sum; source_url }
+
+let deployment__zip ?files_count ~source_url () : deployment__zip =
+  { files_count; source_url }
+
+let deployment ~cloud_build_options ~container ~files ~zip () :
+    deployment =
+  { cloud_build_options; container; files; zip }
+
+let endpoints_api_service ?config_id ?disable_trace_sampling
+    ?rollout_strategy ~name () : endpoints_api_service =
+  { config_id; disable_trace_sampling; name; rollout_strategy }
+
+let entrypoint ~shell () : entrypoint = { shell }
+
+let handlers__script ~script_path () : handlers__script =
+  { script_path }
+
+let handlers__static_files ?application_readable ?expiration
+    ?http_headers ?mime_type ?path ?require_matching_file
+    ?upload_path_regex () : handlers__static_files =
+  {
+    application_readable;
+    expiration;
+    http_headers;
+    mime_type;
+    path;
+    require_matching_file;
+    upload_path_regex;
+  }
+
+let handlers ?auth_fail_action ?login ?redirect_http_response_code
+    ?security_level ?url_regex ~script ~static_files () : handlers =
+  {
+    auth_fail_action;
+    login;
+    redirect_http_response_code;
+    security_level;
+    url_regex;
+    script;
+    static_files;
+  }
+
+let liveness_check ?check_interval ?failure_threshold ?host
+    ?initial_delay ?success_threshold ?timeout ~path () :
+    liveness_check =
+  {
+    check_interval;
+    failure_threshold;
+    host;
+    initial_delay;
+    path;
+    success_threshold;
+    timeout;
+  }
+
+let manual_scaling ~instances () : manual_scaling = { instances }
+
+let network ?forwarded_ports ?instance_tag ?session_affinity
+    ?subnetwork ~name () : network =
+  {
+    forwarded_ports;
+    instance_tag;
+    name;
+    session_affinity;
+    subnetwork;
+  }
+
+let readiness_check ?app_start_timeout ?check_interval
+    ?failure_threshold ?host ?success_threshold ?timeout ~path () :
+    readiness_check =
+  {
+    app_start_timeout;
+    check_interval;
+    failure_threshold;
+    host;
+    path;
+    success_threshold;
+    timeout;
+  }
+
+let resources__volumes ~name ~size_gb ~volume_type () :
+    resources__volumes =
+  { name; size_gb; volume_type }
+
+let resources ?cpu ?disk_gb ?memory_gb ~volumes () : resources =
+  { cpu; disk_gb; memory_gb; volumes }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc_access_connector ~name () : vpc_access_connector = { name }
+
+let google_app_engine_flexible_app_version ?beta_settings
+    ?default_expiration ?delete_service_on_destroy ?env_variables ?id
+    ?inbound_services ?instance_class ?nobuild_files_regex
+    ?noop_on_destroy ?project ?runtime_api_version ?runtime_channel
+    ?runtime_main_executable_path ?service_account ?serving_status
+    ?version_id ?timeouts ~runtime ~service ~api_config
+    ~automatic_scaling ~deployment ~endpoints_api_service ~entrypoint
+    ~handlers ~liveness_check ~manual_scaling ~network
+    ~readiness_check ~resources ~vpc_access_connector () :
+    google_app_engine_flexible_app_version =
+  {
+    beta_settings;
+    default_expiration;
+    delete_service_on_destroy;
+    env_variables;
+    id;
+    inbound_services;
+    instance_class;
+    nobuild_files_regex;
+    noop_on_destroy;
+    project;
+    runtime;
+    runtime_api_version;
+    runtime_channel;
+    runtime_main_executable_path;
+    service;
+    service_account;
+    serving_status;
+    version_id;
+    api_config;
+    automatic_scaling;
+    deployment;
+    endpoints_api_service;
+    entrypoint;
+    handlers;
+    liveness_check;
+    manual_scaling;
+    network;
+    readiness_check;
+    resources;
+    timeouts;
+    vpc_access_connector;
+  }
 
 type t = {
   beta_settings : (string * string) list prop;
@@ -430,10 +605,10 @@ type t = {
   version_id : string prop;
 }
 
-let google_app_engine_flexible_app_version ?beta_settings
-    ?default_expiration ?delete_service_on_destroy ?env_variables ?id
-    ?inbound_services ?instance_class ?nobuild_files_regex
-    ?noop_on_destroy ?project ?runtime_api_version ?runtime_channel
+let register ?tf_module ?beta_settings ?default_expiration
+    ?delete_service_on_destroy ?env_variables ?id ?inbound_services
+    ?instance_class ?nobuild_files_regex ?noop_on_destroy ?project
+    ?runtime_api_version ?runtime_channel
     ?runtime_main_executable_path ?service_account ?serving_status
     ?version_id ?timeouts ~runtime ~service ~api_config
     ~automatic_scaling ~deployment ~endpoints_api_service ~entrypoint
@@ -441,42 +616,17 @@ let google_app_engine_flexible_app_version ?beta_settings
     ~readiness_check ~resources ~vpc_access_connector __resource_id =
   let __resource_type = "google_app_engine_flexible_app_version" in
   let __resource =
-    ({
-       beta_settings;
-       default_expiration;
-       delete_service_on_destroy;
-       env_variables;
-       id;
-       inbound_services;
-       instance_class;
-       nobuild_files_regex;
-       noop_on_destroy;
-       project;
-       runtime;
-       runtime_api_version;
-       runtime_channel;
-       runtime_main_executable_path;
-       service;
-       service_account;
-       serving_status;
-       version_id;
-       api_config;
-       automatic_scaling;
-       deployment;
-       endpoints_api_service;
-       entrypoint;
-       handlers;
-       liveness_check;
-       manual_scaling;
-       network;
-       readiness_check;
-       resources;
-       timeouts;
-       vpc_access_connector;
-     }
-      : google_app_engine_flexible_app_version)
+    google_app_engine_flexible_app_version ?beta_settings
+      ?default_expiration ?delete_service_on_destroy ?env_variables
+      ?id ?inbound_services ?instance_class ?nobuild_files_regex
+      ?noop_on_destroy ?project ?runtime_api_version ?runtime_channel
+      ?runtime_main_executable_path ?service_account ?serving_status
+      ?version_id ?timeouts ~runtime ~service ~api_config
+      ~automatic_scaling ~deployment ~endpoints_api_service
+      ~entrypoint ~handlers ~liveness_check ~manual_scaling ~network
+      ~readiness_check ~resources ~vpc_access_connector ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_flexible_app_version __resource);
   let __resource_attributes =
     ({

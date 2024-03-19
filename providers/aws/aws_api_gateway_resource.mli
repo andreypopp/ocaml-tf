@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_api_gateway_resource
+
+val aws_api_gateway_resource :
+  ?id:string prop ->
+  parent_id:string prop ->
+  path_part:string prop ->
+  rest_api_id:string prop ->
+  unit ->
+  aws_api_gateway_resource
+
+val yojson_of_aws_api_gateway_resource :
+  aws_api_gateway_resource -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,7 +27,8 @@ type t = private {
   rest_api_id : string prop;
 }
 
-val aws_api_gateway_resource :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   parent_id:string prop ->
   path_part:string prop ->

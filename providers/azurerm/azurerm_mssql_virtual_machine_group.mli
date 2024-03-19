@@ -2,9 +2,51 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_virtual_machine_group__timeouts
-type azurerm_mssql_virtual_machine_group__wsfc_domain_profile
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type wsfc_domain_profile
+
+val wsfc_domain_profile :
+  ?cluster_bootstrap_account_name:string prop ->
+  ?cluster_operator_account_name:string prop ->
+  ?organizational_unit_path:string prop ->
+  ?sql_service_account_name:string prop ->
+  ?storage_account_primary_key:string prop ->
+  ?storage_account_url:string prop ->
+  cluster_subnet_type:string prop ->
+  fqdn:string prop ->
+  unit ->
+  wsfc_domain_profile
+
 type azurerm_mssql_virtual_machine_group
+
+val azurerm_mssql_virtual_machine_group :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sql_image_offer:string prop ->
+  sql_image_sku:string prop ->
+  wsfc_domain_profile:wsfc_domain_profile list ->
+  unit ->
+  azurerm_mssql_virtual_machine_group
+
+val yojson_of_azurerm_mssql_virtual_machine_group :
+  azurerm_mssql_virtual_machine_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -16,16 +58,16 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_mssql_virtual_machine_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_mssql_virtual_machine_group__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sql_image_offer:string prop ->
   sql_image_sku:string prop ->
-  wsfc_domain_profile:
-    azurerm_mssql_virtual_machine_group__wsfc_domain_profile list ->
+  wsfc_domain_profile:wsfc_domain_profile list ->
   string ->
   t

@@ -22,6 +22,23 @@ type aws_imagebuilder_workflow = {
 [@@deriving yojson_of]
 (** aws_imagebuilder_workflow *)
 
+let aws_imagebuilder_workflow ?change_description ?data ?description
+    ?id ?kms_key_id ?tags ?tags_all ?uri ~name ~type_ ~version () :
+    aws_imagebuilder_workflow =
+  {
+    change_description;
+    data;
+    description;
+    id;
+    kms_key_id;
+    name;
+    tags;
+    tags_all;
+    type_;
+    uri;
+    version;
+  }
+
 type t = {
   arn : string prop;
   change_description : string prop;
@@ -39,27 +56,15 @@ type t = {
   version : string prop;
 }
 
-let aws_imagebuilder_workflow ?change_description ?data ?description
-    ?id ?kms_key_id ?tags ?tags_all ?uri ~name ~type_ ~version
+let register ?tf_module ?change_description ?data ?description ?id
+    ?kms_key_id ?tags ?tags_all ?uri ~name ~type_ ~version
     __resource_id =
   let __resource_type = "aws_imagebuilder_workflow" in
   let __resource =
-    ({
-       change_description;
-       data;
-       description;
-       id;
-       kms_key_id;
-       name;
-       tags;
-       tags_all;
-       type_;
-       uri;
-       version;
-     }
-      : aws_imagebuilder_workflow)
+    aws_imagebuilder_workflow ?change_description ?data ?description
+      ?id ?kms_key_id ?tags ?tags_all ?uri ~name ~type_ ~version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_workflow __resource);
   let __resource_attributes =
     ({

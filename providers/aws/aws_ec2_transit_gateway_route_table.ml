@@ -14,6 +14,10 @@ type aws_ec2_transit_gateway_route_table = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_route_table *)
 
+let aws_ec2_transit_gateway_route_table ?id ?tags ?tags_all
+    ~transit_gateway_id () : aws_ec2_transit_gateway_route_table =
+  { id; tags; tags_all; transit_gateway_id }
+
 type t = {
   arn : string prop;
   default_association_route_table : bool prop;
@@ -24,14 +28,14 @@ type t = {
   transit_gateway_id : string prop;
 }
 
-let aws_ec2_transit_gateway_route_table ?id ?tags ?tags_all
-    ~transit_gateway_id __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~transit_gateway_id
+    __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_route_table" in
   let __resource =
-    ({ id; tags; tags_all; transit_gateway_id }
-      : aws_ec2_transit_gateway_route_table)
+    aws_ec2_transit_gateway_route_table ?id ?tags ?tags_all
+      ~transit_gateway_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_route_table __resource);
   let __resource_attributes =
     ({

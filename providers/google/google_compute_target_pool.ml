@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_target_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_target_pool__timeouts *)
+(** timeouts *)
 
 type google_compute_target_pool = {
   backup_pool : string prop option; [@option]
@@ -32,10 +32,31 @@ type google_compute_target_pool = {
       (** Where the target pool resides. Defaults to project region. *)
   session_affinity : string prop option; [@option]
       (** How to distribute load. Options are NONE (no affinity). CLIENT_IP (hash of the source/dest addresses / ports), and CLIENT_IP_PROTO also includes the protocol (default NONE). *)
-  timeouts : google_compute_target_pool__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_target_pool *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_target_pool ?backup_pool ?description
+    ?failover_ratio ?health_checks ?id ?instances ?project ?region
+    ?session_affinity ?timeouts ~name () : google_compute_target_pool
+    =
+  {
+    backup_pool;
+    description;
+    failover_ratio;
+    health_checks;
+    id;
+    instances;
+    name;
+    project;
+    region;
+    session_affinity;
+    timeouts;
+  }
 
 type t = {
   backup_pool : string prop;
@@ -51,27 +72,16 @@ type t = {
   session_affinity : string prop;
 }
 
-let google_compute_target_pool ?backup_pool ?description
-    ?failover_ratio ?health_checks ?id ?instances ?project ?region
-    ?session_affinity ?timeouts ~name __resource_id =
+let register ?tf_module ?backup_pool ?description ?failover_ratio
+    ?health_checks ?id ?instances ?project ?region ?session_affinity
+    ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_target_pool" in
   let __resource =
-    ({
-       backup_pool;
-       description;
-       failover_ratio;
-       health_checks;
-       id;
-       instances;
-       name;
-       project;
-       region;
-       session_affinity;
-       timeouts;
-     }
-      : google_compute_target_pool)
+    google_compute_target_pool ?backup_pool ?description
+      ?failover_ratio ?health_checks ?id ?instances ?project ?region
+      ?session_affinity ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_pool __resource);
   let __resource_attributes =
     ({

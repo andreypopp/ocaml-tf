@@ -27,6 +27,26 @@ type aws_api_gateway_method = {
 [@@deriving yojson_of]
 (** aws_api_gateway_method *)
 
+let aws_api_gateway_method ?api_key_required ?authorization_scopes
+    ?authorizer_id ?id ?operation_name ?request_models
+    ?request_parameters ?request_validator_id ~authorization
+    ~http_method ~resource_id ~rest_api_id () :
+    aws_api_gateway_method =
+  {
+    api_key_required;
+    authorization;
+    authorization_scopes;
+    authorizer_id;
+    http_method;
+    id;
+    operation_name;
+    request_models;
+    request_parameters;
+    request_validator_id;
+    resource_id;
+    rest_api_id;
+  }
+
 type t = {
   api_key_required : bool prop;
   authorization : string prop;
@@ -42,29 +62,18 @@ type t = {
   rest_api_id : string prop;
 }
 
-let aws_api_gateway_method ?api_key_required ?authorization_scopes
+let register ?tf_module ?api_key_required ?authorization_scopes
     ?authorizer_id ?id ?operation_name ?request_models
     ?request_parameters ?request_validator_id ~authorization
     ~http_method ~resource_id ~rest_api_id __resource_id =
   let __resource_type = "aws_api_gateway_method" in
   let __resource =
-    ({
-       api_key_required;
-       authorization;
-       authorization_scopes;
-       authorizer_id;
-       http_method;
-       id;
-       operation_name;
-       request_models;
-       request_parameters;
-       request_validator_id;
-       resource_id;
-       rest_api_id;
-     }
-      : aws_api_gateway_method)
+    aws_api_gateway_method ?api_key_required ?authorization_scopes
+      ?authorizer_id ?id ?operation_name ?request_models
+      ?request_parameters ?request_validator_id ~authorization
+      ~http_method ~resource_id ~rest_api_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_method __resource);
   let __resource_attributes =
     ({

@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_connect_user__identity_info = {
+type identity_info = {
   email : string prop option; [@option]  (** email *)
   first_name : string prop option; [@option]  (** first_name *)
   last_name : string prop option; [@option]  (** last_name *)
 }
 [@@deriving yojson_of]
-(** aws_connect_user__identity_info *)
+(** identity_info *)
 
-type aws_connect_user__phone_config = {
+type phone_config = {
   after_contact_work_time_limit : float prop option; [@option]
       (** after_contact_work_time_limit *)
   auto_accept : bool prop option; [@option]  (** auto_accept *)
@@ -21,7 +21,7 @@ type aws_connect_user__phone_config = {
   phone_type : string prop;  (** phone_type *)
 }
 [@@deriving yojson_of]
-(** aws_connect_user__phone_config *)
+(** phone_config *)
 
 type aws_connect_user = {
   directory_user_id : string prop option; [@option]
@@ -38,11 +38,42 @@ type aws_connect_user = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  identity_info : aws_connect_user__identity_info list;
-  phone_config : aws_connect_user__phone_config list;
+  identity_info : identity_info list;
+  phone_config : phone_config list;
 }
 [@@deriving yojson_of]
 (** aws_connect_user *)
+
+let identity_info ?email ?first_name ?last_name () : identity_info =
+  { email; first_name; last_name }
+
+let phone_config ?after_contact_work_time_limit ?auto_accept
+    ?desk_phone_number ~phone_type () : phone_config =
+  {
+    after_contact_work_time_limit;
+    auto_accept;
+    desk_phone_number;
+    phone_type;
+  }
+
+let aws_connect_user ?directory_user_id ?hierarchy_group_id ?id
+    ?password ?tags ?tags_all ~instance_id ~name ~routing_profile_id
+    ~security_profile_ids ~identity_info ~phone_config () :
+    aws_connect_user =
+  {
+    directory_user_id;
+    hierarchy_group_id;
+    id;
+    instance_id;
+    name;
+    password;
+    routing_profile_id;
+    security_profile_ids;
+    tags;
+    tags_all;
+    identity_info;
+    phone_config;
+  }
 
 type t = {
   arn : string prop;
@@ -59,29 +90,18 @@ type t = {
   user_id : string prop;
 }
 
-let aws_connect_user ?directory_user_id ?hierarchy_group_id ?id
+let register ?tf_module ?directory_user_id ?hierarchy_group_id ?id
     ?password ?tags ?tags_all ~instance_id ~name ~routing_profile_id
     ~security_profile_ids ~identity_info ~phone_config __resource_id
     =
   let __resource_type = "aws_connect_user" in
   let __resource =
-    ({
-       directory_user_id;
-       hierarchy_group_id;
-       id;
-       instance_id;
-       name;
-       password;
-       routing_profile_id;
-       security_profile_ids;
-       tags;
-       tags_all;
-       identity_info;
-       phone_config;
-     }
-      : aws_connect_user)
+    aws_connect_user ?directory_user_id ?hierarchy_group_id ?id
+      ?password ?tags ?tags_all ~instance_id ~name
+      ~routing_profile_id ~security_profile_ids ~identity_info
+      ~phone_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_user __resource);
   let __resource_attributes =
     ({

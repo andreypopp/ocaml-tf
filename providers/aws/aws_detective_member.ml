@@ -16,6 +16,17 @@ type aws_detective_member = {
 [@@deriving yojson_of]
 (** aws_detective_member *)
 
+let aws_detective_member ?disable_email_notification ?id ?message
+    ~account_id ~email_address ~graph_arn () : aws_detective_member =
+  {
+    account_id;
+    disable_email_notification;
+    email_address;
+    graph_arn;
+    id;
+    message;
+  }
+
 type t = {
   account_id : string prop;
   administrator_id : string prop;
@@ -31,21 +42,14 @@ type t = {
   volume_usage_in_bytes : string prop;
 }
 
-let aws_detective_member ?disable_email_notification ?id ?message
+let register ?tf_module ?disable_email_notification ?id ?message
     ~account_id ~email_address ~graph_arn __resource_id =
   let __resource_type = "aws_detective_member" in
   let __resource =
-    ({
-       account_id;
-       disable_email_notification;
-       email_address;
-       graph_arn;
-       id;
-       message;
-     }
-      : aws_detective_member)
+    aws_detective_member ?disable_email_notification ?id ?message
+      ~account_id ~email_address ~graph_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_detective_member __resource);
   let __resource_attributes =
     ({

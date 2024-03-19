@@ -2,10 +2,54 @@
 
 open! Tf.Prelude
 
-type azurerm_shared_image_gallery__sharing__community_gallery
-type azurerm_shared_image_gallery__sharing
-type azurerm_shared_image_gallery__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type sharing__community_gallery
+
+val sharing__community_gallery :
+  eula:string prop ->
+  prefix:string prop ->
+  publisher_email:string prop ->
+  publisher_uri:string prop ->
+  unit ->
+  sharing__community_gallery
+
+type sharing
+
+val sharing :
+  permission:string prop ->
+  community_gallery:sharing__community_gallery list ->
+  unit ->
+  sharing
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_shared_image_gallery
+
+val azurerm_shared_image_gallery :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sharing:sharing list ->
+  unit ->
+  azurerm_shared_image_gallery
+
+val yojson_of_azurerm_shared_image_gallery :
+  azurerm_shared_image_gallery -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -17,14 +61,15 @@ type t = private {
   unique_name : string prop;
 }
 
-val azurerm_shared_image_gallery :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_shared_image_gallery__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  sharing:azurerm_shared_image_gallery__sharing list ->
+  sharing:sharing list ->
   string ->
   t

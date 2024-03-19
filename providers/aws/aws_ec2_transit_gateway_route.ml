@@ -17,6 +17,18 @@ type aws_ec2_transit_gateway_route = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_route *)
 
+let aws_ec2_transit_gateway_route ?blackhole ?id
+    ?transit_gateway_attachment_id ~destination_cidr_block
+    ~transit_gateway_route_table_id () :
+    aws_ec2_transit_gateway_route =
+  {
+    blackhole;
+    destination_cidr_block;
+    id;
+    transit_gateway_attachment_id;
+    transit_gateway_route_table_id;
+  }
+
 type t = {
   blackhole : bool prop;
   destination_cidr_block : string prop;
@@ -25,21 +37,16 @@ type t = {
   transit_gateway_route_table_id : string prop;
 }
 
-let aws_ec2_transit_gateway_route ?blackhole ?id
-    ?transit_gateway_attachment_id ~destination_cidr_block
-    ~transit_gateway_route_table_id __resource_id =
+let register ?tf_module ?blackhole ?id ?transit_gateway_attachment_id
+    ~destination_cidr_block ~transit_gateway_route_table_id
+    __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_route" in
   let __resource =
-    ({
-       blackhole;
-       destination_cidr_block;
-       id;
-       transit_gateway_attachment_id;
-       transit_gateway_route_table_id;
-     }
-      : aws_ec2_transit_gateway_route)
+    aws_ec2_transit_gateway_route ?blackhole ?id
+      ?transit_gateway_attachment_id ~destination_cidr_block
+      ~transit_gateway_route_table_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_route __resource);
   let __resource_attributes =
     ({

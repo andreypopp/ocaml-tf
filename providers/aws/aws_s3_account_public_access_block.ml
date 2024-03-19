@@ -19,6 +19,19 @@ type aws_s3_account_public_access_block = {
 [@@deriving yojson_of]
 (** aws_s3_account_public_access_block *)
 
+let aws_s3_account_public_access_block ?account_id ?block_public_acls
+    ?block_public_policy ?id ?ignore_public_acls
+    ?restrict_public_buckets () : aws_s3_account_public_access_block
+    =
+  {
+    account_id;
+    block_public_acls;
+    block_public_policy;
+    id;
+    ignore_public_acls;
+    restrict_public_buckets;
+  }
+
 type t = {
   account_id : string prop;
   block_public_acls : bool prop;
@@ -28,22 +41,16 @@ type t = {
   restrict_public_buckets : bool prop;
 }
 
-let aws_s3_account_public_access_block ?account_id ?block_public_acls
+let register ?tf_module ?account_id ?block_public_acls
     ?block_public_policy ?id ?ignore_public_acls
     ?restrict_public_buckets __resource_id =
   let __resource_type = "aws_s3_account_public_access_block" in
   let __resource =
-    ({
-       account_id;
-       block_public_acls;
-       block_public_policy;
-       id;
-       ignore_public_acls;
-       restrict_public_buckets;
-     }
-      : aws_s3_account_public_access_block)
+    aws_s3_account_public_access_block ?account_id ?block_public_acls
+      ?block_public_policy ?id ?ignore_public_acls
+      ?restrict_public_buckets ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_account_public_access_block __resource);
   let __resource_attributes =
     ({

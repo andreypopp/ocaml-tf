@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_redshiftserverless_endpoint_access__vpc_endpoint__network_interface = {
+type vpc_endpoint__network_interface = {
   availability_zone : string prop;  (** availability_zone *)
   network_interface_id : string prop;  (** network_interface_id *)
   private_ip_address : string prop;  (** private_ip_address *)
@@ -12,10 +12,8 @@ type aws_redshiftserverless_endpoint_access__vpc_endpoint__network_interface = {
 }
 [@@deriving yojson_of]
 
-type aws_redshiftserverless_endpoint_access__vpc_endpoint = {
-  network_interface :
-    aws_redshiftserverless_endpoint_access__vpc_endpoint__network_interface
-    list;
+type vpc_endpoint = {
+  network_interface : vpc_endpoint__network_interface list;
       (** network_interface *)
   vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   vpc_id : string prop;  (** vpc_id *)
@@ -34,6 +32,18 @@ type aws_redshiftserverless_endpoint_access = {
 [@@deriving yojson_of]
 (** aws_redshiftserverless_endpoint_access *)
 
+let aws_redshiftserverless_endpoint_access ?id ?owner_account
+    ?vpc_security_group_ids ~endpoint_name ~subnet_ids
+    ~workgroup_name () : aws_redshiftserverless_endpoint_access =
+  {
+    endpoint_name;
+    id;
+    owner_account;
+    subnet_ids;
+    vpc_security_group_ids;
+    workgroup_name;
+  }
+
 type t = {
   address : string prop;
   arn : string prop;
@@ -42,28 +52,20 @@ type t = {
   owner_account : string prop;
   port : float prop;
   subnet_ids : string list prop;
-  vpc_endpoint :
-    aws_redshiftserverless_endpoint_access__vpc_endpoint list prop;
+  vpc_endpoint : vpc_endpoint list prop;
   vpc_security_group_ids : string list prop;
   workgroup_name : string prop;
 }
 
-let aws_redshiftserverless_endpoint_access ?id ?owner_account
-    ?vpc_security_group_ids ~endpoint_name ~subnet_ids
-    ~workgroup_name __resource_id =
+let register ?tf_module ?id ?owner_account ?vpc_security_group_ids
+    ~endpoint_name ~subnet_ids ~workgroup_name __resource_id =
   let __resource_type = "aws_redshiftserverless_endpoint_access" in
   let __resource =
-    ({
-       endpoint_name;
-       id;
-       owner_account;
-       subnet_ids;
-       vpc_security_group_ids;
-       workgroup_name;
-     }
-      : aws_redshiftserverless_endpoint_access)
+    aws_redshiftserverless_endpoint_access ?id ?owner_account
+      ?vpc_security_group_ids ~endpoint_name ~subnet_ids
+      ~workgroup_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshiftserverless_endpoint_access __resource);
   let __resource_attributes =
     ({

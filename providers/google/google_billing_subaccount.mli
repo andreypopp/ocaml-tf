@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_billing_subaccount
+
+val google_billing_subaccount :
+  ?deletion_policy:string prop ->
+  ?id:string prop ->
+  display_name:string prop ->
+  master_billing_account:string prop ->
+  unit ->
+  google_billing_subaccount
+
+val yojson_of_google_billing_subaccount :
+  google_billing_subaccount -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   billing_account_id : string prop;
@@ -14,7 +29,8 @@ type t = private {
   open_ : bool prop;
 }
 
-val google_billing_subaccount :
+val register :
+  ?tf_module:tf_module ->
   ?deletion_policy:string prop ->
   ?id:string prop ->
   display_name:string prop ->

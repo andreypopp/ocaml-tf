@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_dedicated_host__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_dedicated_host__timeouts *)
+(** timeouts *)
 
 type azurerm_dedicated_host = {
   auto_replace_on_failure : bool prop option; [@option]
@@ -25,10 +25,29 @@ type azurerm_dedicated_host = {
   platform_fault_domain : float prop;  (** platform_fault_domain *)
   sku_name : string prop;  (** sku_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_dedicated_host__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_dedicated_host *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_dedicated_host ?auto_replace_on_failure ?id ?license_type
+    ?tags ?timeouts ~dedicated_host_group_id ~location ~name
+    ~platform_fault_domain ~sku_name () : azurerm_dedicated_host =
+  {
+    auto_replace_on_failure;
+    dedicated_host_group_id;
+    id;
+    license_type;
+    location;
+    name;
+    platform_fault_domain;
+    sku_name;
+    tags;
+    timeouts;
+  }
 
 type t = {
   auto_replace_on_failure : bool prop;
@@ -42,26 +61,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_dedicated_host ?auto_replace_on_failure ?id ?license_type
+let register ?tf_module ?auto_replace_on_failure ?id ?license_type
     ?tags ?timeouts ~dedicated_host_group_id ~location ~name
     ~platform_fault_domain ~sku_name __resource_id =
   let __resource_type = "azurerm_dedicated_host" in
   let __resource =
-    ({
-       auto_replace_on_failure;
-       dedicated_host_group_id;
-       id;
-       license_type;
-       location;
-       name;
-       platform_fault_domain;
-       sku_name;
-       tags;
-       timeouts;
-     }
-      : azurerm_dedicated_host)
+    azurerm_dedicated_host ?auto_replace_on_failure ?id ?license_type
+      ?tags ?timeouts ~dedicated_host_group_id ~location ~name
+      ~platform_fault_domain ~sku_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dedicated_host __resource);
   let __resource_attributes =
     ({

@@ -2,10 +2,50 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_entity_type__entities
-type google_dialogflow_cx_entity_type__excluded_phrases
-type google_dialogflow_cx_entity_type__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type entities
+
+val entities :
+  ?synonyms:string prop list ->
+  ?value:string prop ->
+  unit ->
+  entities
+
+type excluded_phrases
+
+val excluded_phrases : ?value:string prop -> unit -> excluded_phrases
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_dialogflow_cx_entity_type
+
+val google_dialogflow_cx_entity_type :
+  ?auto_expansion_mode:string prop ->
+  ?enable_fuzzy_extraction:bool prop ->
+  ?id:string prop ->
+  ?language_code:string prop ->
+  ?parent:string prop ->
+  ?redact:bool prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  kind:string prop ->
+  entities:entities list ->
+  excluded_phrases:excluded_phrases list ->
+  unit ->
+  google_dialogflow_cx_entity_type
+
+val yojson_of_google_dialogflow_cx_entity_type :
+  google_dialogflow_cx_entity_type -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_expansion_mode : string prop;
@@ -19,18 +59,18 @@ type t = private {
   redact : bool prop;
 }
 
-val google_dialogflow_cx_entity_type :
+val register :
+  ?tf_module:tf_module ->
   ?auto_expansion_mode:string prop ->
   ?enable_fuzzy_extraction:bool prop ->
   ?id:string prop ->
   ?language_code:string prop ->
   ?parent:string prop ->
   ?redact:bool prop ->
-  ?timeouts:google_dialogflow_cx_entity_type__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   kind:string prop ->
-  entities:google_dialogflow_cx_entity_type__entities list ->
-  excluded_phrases:
-    google_dialogflow_cx_entity_type__excluded_phrases list ->
+  entities:entities list ->
+  excluded_phrases:excluded_phrases list ->
   string ->
   t

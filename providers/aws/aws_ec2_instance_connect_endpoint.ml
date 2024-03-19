@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_ec2_instance_connect_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_instance_connect_endpoint__timeouts *)
+(** timeouts *)
 
 type aws_ec2_instance_connect_endpoint = {
   preserve_client_ip : bool prop option; [@option]
@@ -20,10 +20,23 @@ type aws_ec2_instance_connect_endpoint = {
       (** security_group_ids *)
   subnet_id : string prop;  (** subnet_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : aws_ec2_instance_connect_endpoint__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_instance_connect_endpoint *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ec2_instance_connect_endpoint ?preserve_client_ip
+    ?security_group_ids ?tags ?timeouts ~subnet_id () :
+    aws_ec2_instance_connect_endpoint =
+  {
+    preserve_client_ip;
+    security_group_ids;
+    subnet_id;
+    tags;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -41,20 +54,14 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_ec2_instance_connect_endpoint ?preserve_client_ip
-    ?security_group_ids ?tags ?timeouts ~subnet_id __resource_id =
+let register ?tf_module ?preserve_client_ip ?security_group_ids ?tags
+    ?timeouts ~subnet_id __resource_id =
   let __resource_type = "aws_ec2_instance_connect_endpoint" in
   let __resource =
-    ({
-       preserve_client_ip;
-       security_group_ids;
-       subnet_id;
-       tags;
-       timeouts;
-     }
-      : aws_ec2_instance_connect_endpoint)
+    aws_ec2_instance_connect_endpoint ?preserve_client_ip
+      ?security_group_ids ?tags ?timeouts ~subnet_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_instance_connect_endpoint __resource);
   let __resource_attributes =
     ({

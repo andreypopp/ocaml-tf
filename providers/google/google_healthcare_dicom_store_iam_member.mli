@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type google_healthcare_dicom_store_iam_member__condition
+(** RESOURCE SERIALIZATION *)
+
+type condition
+
+val condition :
+  ?description:string prop ->
+  expression:string prop ->
+  title:string prop ->
+  unit ->
+  condition
+
 type google_healthcare_dicom_store_iam_member
+
+val google_healthcare_dicom_store_iam_member :
+  ?id:string prop ->
+  dicom_store_id:string prop ->
+  member:string prop ->
+  role:string prop ->
+  condition:condition list ->
+  unit ->
+  google_healthcare_dicom_store_iam_member
+
+val yojson_of_google_healthcare_dicom_store_iam_member :
+  google_healthcare_dicom_store_iam_member -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dicom_store_id : string prop;
@@ -13,11 +37,12 @@ type t = private {
   role : string prop;
 }
 
-val google_healthcare_dicom_store_iam_member :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   dicom_store_id:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:google_healthcare_dicom_store_iam_member__condition list ->
+  condition:condition list ->
   string ->
   t

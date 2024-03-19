@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_mskconnect_worker_configuration
+
+val aws_mskconnect_worker_configuration :
+  ?description:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  properties_file_content:string prop ->
+  unit ->
+  aws_mskconnect_worker_configuration
+
+val yojson_of_aws_mskconnect_worker_configuration :
+  aws_mskconnect_worker_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +28,8 @@ type t = private {
   properties_file_content : string prop;
 }
 
-val aws_mskconnect_worker_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   name:string prop ->

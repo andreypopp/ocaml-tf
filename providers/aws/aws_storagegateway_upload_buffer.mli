@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_storagegateway_upload_buffer
+
+val aws_storagegateway_upload_buffer :
+  ?disk_id:string prop ->
+  ?disk_path:string prop ->
+  ?id:string prop ->
+  gateway_arn:string prop ->
+  unit ->
+  aws_storagegateway_upload_buffer
+
+val yojson_of_aws_storagegateway_upload_buffer :
+  aws_storagegateway_upload_buffer -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   disk_id : string prop;
@@ -11,7 +26,8 @@ type t = private {
   id : string prop;
 }
 
-val aws_storagegateway_upload_buffer :
+val register :
+  ?tf_module:tf_module ->
   ?disk_id:string prop ->
   ?disk_path:string prop ->
   ?id:string prop ->

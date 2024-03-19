@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault_managed_storage_account__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_key_vault_managed_storage_account__timeouts *)
+(** timeouts *)
 
 type azurerm_key_vault_managed_storage_account = {
   id : string prop option; [@option]  (** id *)
@@ -24,11 +24,30 @@ type azurerm_key_vault_managed_storage_account = {
   storage_account_id : string prop;  (** storage_account_id *)
   storage_account_key : string prop;  (** storage_account_key *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts :
-    azurerm_key_vault_managed_storage_account__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_storage_account *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_key_vault_managed_storage_account ?id
+    ?regenerate_key_automatically ?regeneration_period ?tags
+    ?timeouts ~key_vault_id ~name ~storage_account_id
+    ~storage_account_key () :
+    azurerm_key_vault_managed_storage_account =
+  {
+    id;
+    key_vault_id;
+    name;
+    regenerate_key_automatically;
+    regeneration_period;
+    storage_account_id;
+    storage_account_key;
+    tags;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -41,28 +60,19 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_key_vault_managed_storage_account ?id
-    ?regenerate_key_automatically ?regeneration_period ?tags
-    ?timeouts ~key_vault_id ~name ~storage_account_id
-    ~storage_account_key __resource_id =
+let register ?tf_module ?id ?regenerate_key_automatically
+    ?regeneration_period ?tags ?timeouts ~key_vault_id ~name
+    ~storage_account_id ~storage_account_key __resource_id =
   let __resource_type =
     "azurerm_key_vault_managed_storage_account"
   in
   let __resource =
-    ({
-       id;
-       key_vault_id;
-       name;
-       regenerate_key_automatically;
-       regeneration_period;
-       storage_account_id;
-       storage_account_key;
-       tags;
-       timeouts;
-     }
-      : azurerm_key_vault_managed_storage_account)
+    azurerm_key_vault_managed_storage_account ?id
+      ?regenerate_key_automatically ?regeneration_period ?tags
+      ?timeouts ~key_vault_id ~name ~storage_account_id
+      ~storage_account_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_managed_storage_account __resource);
   let __resource_attributes =
     ({

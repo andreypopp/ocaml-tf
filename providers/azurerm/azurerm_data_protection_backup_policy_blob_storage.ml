@@ -4,25 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_data_protection_backup_policy_blob_storage__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_protection_backup_policy_blob_storage__timeouts *)
+(** timeouts *)
 
 type azurerm_data_protection_backup_policy_blob_storage = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   retention_duration : string prop;  (** retention_duration *)
   vault_id : string prop;  (** vault_id *)
-  timeouts :
-    azurerm_data_protection_backup_policy_blob_storage__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_blob_storage *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_data_protection_backup_policy_blob_storage ?id ?timeouts
+    ~name ~retention_duration ~vault_id () :
+    azurerm_data_protection_backup_policy_blob_storage =
+  { id; name; retention_duration; vault_id; timeouts }
 
 type t = {
   id : string prop;
@@ -31,16 +37,16 @@ type t = {
   vault_id : string prop;
 }
 
-let azurerm_data_protection_backup_policy_blob_storage ?id ?timeouts
-    ~name ~retention_duration ~vault_id __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~retention_duration
+    ~vault_id __resource_id =
   let __resource_type =
     "azurerm_data_protection_backup_policy_blob_storage"
   in
   let __resource =
-    ({ id; name; retention_duration; vault_id; timeouts }
-      : azurerm_data_protection_backup_policy_blob_storage)
+    azurerm_data_protection_backup_policy_blob_storage ?id ?timeouts
+      ~name ~retention_duration ~vault_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_policy_blob_storage
        __resource);
   let __resource_attributes =

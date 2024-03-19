@@ -2,11 +2,81 @@
 
 open! Tf.Prelude
 
-type digitalocean_loadbalancer__firewall
-type digitalocean_loadbalancer__forwarding_rule
-type digitalocean_loadbalancer__healthcheck
-type digitalocean_loadbalancer__sticky_sessions
+(** RESOURCE SERIALIZATION *)
+
+type firewall
+
+val firewall :
+  ?allow:string prop list ->
+  ?deny:string prop list ->
+  unit ->
+  firewall
+
+type forwarding_rule
+
+val forwarding_rule :
+  ?certificate_id:string prop ->
+  ?certificate_name:string prop ->
+  ?tls_passthrough:bool prop ->
+  entry_port:float prop ->
+  entry_protocol:string prop ->
+  target_port:float prop ->
+  target_protocol:string prop ->
+  unit ->
+  forwarding_rule
+
+type healthcheck
+
+val healthcheck :
+  ?check_interval_seconds:float prop ->
+  ?healthy_threshold:float prop ->
+  ?path:string prop ->
+  ?response_timeout_seconds:float prop ->
+  ?unhealthy_threshold:float prop ->
+  port:float prop ->
+  protocol:string prop ->
+  unit ->
+  healthcheck
+
+type sticky_sessions
+
+val sticky_sessions :
+  ?cookie_name:string prop ->
+  ?cookie_ttl_seconds:float prop ->
+  ?type_:string prop ->
+  unit ->
+  sticky_sessions
+
 type digitalocean_loadbalancer
+
+val digitalocean_loadbalancer :
+  ?algorithm:string prop ->
+  ?disable_lets_encrypt_dns_records:bool prop ->
+  ?droplet_ids:float prop list ->
+  ?droplet_tag:string prop ->
+  ?enable_backend_keepalive:bool prop ->
+  ?enable_proxy_protocol:bool prop ->
+  ?http_idle_timeout_seconds:float prop ->
+  ?id:string prop ->
+  ?project_id:string prop ->
+  ?redirect_http_to_https:bool prop ->
+  ?region:string prop ->
+  ?size:string prop ->
+  ?size_unit:float prop ->
+  ?type_:string prop ->
+  ?vpc_uuid:string prop ->
+  name:string prop ->
+  firewall:firewall list ->
+  forwarding_rule:forwarding_rule list ->
+  healthcheck:healthcheck list ->
+  sticky_sessions:sticky_sessions list ->
+  unit ->
+  digitalocean_loadbalancer
+
+val yojson_of_digitalocean_loadbalancer :
+  digitalocean_loadbalancer -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   algorithm : string prop;
@@ -30,7 +100,8 @@ type t = private {
   vpc_uuid : string prop;
 }
 
-val digitalocean_loadbalancer :
+val register :
+  ?tf_module:tf_module ->
   ?algorithm:string prop ->
   ?disable_lets_encrypt_dns_records:bool prop ->
   ?droplet_ids:float prop list ->
@@ -47,9 +118,9 @@ val digitalocean_loadbalancer :
   ?type_:string prop ->
   ?vpc_uuid:string prop ->
   name:string prop ->
-  firewall:digitalocean_loadbalancer__firewall list ->
-  forwarding_rule:digitalocean_loadbalancer__forwarding_rule list ->
-  healthcheck:digitalocean_loadbalancer__healthcheck list ->
-  sticky_sessions:digitalocean_loadbalancer__sticky_sessions list ->
+  firewall:firewall list ->
+  forwarding_rule:forwarding_rule list ->
+  healthcheck:healthcheck list ->
+  sticky_sessions:sticky_sessions list ->
   string ->
   t

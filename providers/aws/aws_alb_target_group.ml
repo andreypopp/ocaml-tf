@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_alb_target_group__health_check = {
+type health_check = {
   enabled : bool prop option; [@option]  (** enabled *)
   healthy_threshold : float prop option; [@option]
       (** healthy_threshold *)
@@ -18,9 +18,9 @@ type aws_alb_target_group__health_check = {
       (** unhealthy_threshold *)
 }
 [@@deriving yojson_of]
-(** aws_alb_target_group__health_check *)
+(** health_check *)
 
-type aws_alb_target_group__stickiness = {
+type stickiness = {
   cookie_duration : float prop option; [@option]
       (** cookie_duration *)
   cookie_name : string prop option; [@option]  (** cookie_name *)
@@ -28,21 +28,21 @@ type aws_alb_target_group__stickiness = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_alb_target_group__stickiness *)
+(** stickiness *)
 
-type aws_alb_target_group__target_failover = {
+type target_failover = {
   on_deregistration : string prop;  (** on_deregistration *)
   on_unhealthy : string prop;  (** on_unhealthy *)
 }
 [@@deriving yojson_of]
-(** aws_alb_target_group__target_failover *)
+(** target_failover *)
 
-type aws_alb_target_group__target_health_state = {
+type target_health_state = {
   enable_unhealthy_connection_termination : bool prop;
       (** enable_unhealthy_connection_termination *)
 }
 [@@deriving yojson_of]
-(** aws_alb_target_group__target_health_state *)
+(** target_health_state *)
 
 type aws_alb_target_group = {
   connection_termination : bool prop option; [@option]
@@ -76,14 +76,75 @@ type aws_alb_target_group = {
       (** tags_all *)
   target_type : string prop option; [@option]  (** target_type *)
   vpc_id : string prop option; [@option]  (** vpc_id *)
-  health_check : aws_alb_target_group__health_check list;
-  stickiness : aws_alb_target_group__stickiness list;
-  target_failover : aws_alb_target_group__target_failover list;
-  target_health_state :
-    aws_alb_target_group__target_health_state list;
+  health_check : health_check list;
+  stickiness : stickiness list;
+  target_failover : target_failover list;
+  target_health_state : target_health_state list;
 }
 [@@deriving yojson_of]
 (** aws_alb_target_group *)
+
+let health_check ?enabled ?healthy_threshold ?interval ?matcher ?path
+    ?port ?protocol ?timeout ?unhealthy_threshold () : health_check =
+  {
+    enabled;
+    healthy_threshold;
+    interval;
+    matcher;
+    path;
+    port;
+    protocol;
+    timeout;
+    unhealthy_threshold;
+  }
+
+let stickiness ?cookie_duration ?cookie_name ?enabled ~type_ () :
+    stickiness =
+  { cookie_duration; cookie_name; enabled; type_ }
+
+let target_failover ~on_deregistration ~on_unhealthy () :
+    target_failover =
+  { on_deregistration; on_unhealthy }
+
+let target_health_state ~enable_unhealthy_connection_termination () :
+    target_health_state =
+  { enable_unhealthy_connection_termination }
+
+let aws_alb_target_group ?connection_termination
+    ?deregistration_delay ?id ?ip_address_type
+    ?lambda_multi_value_headers_enabled
+    ?load_balancing_algorithm_type ?load_balancing_anomaly_mitigation
+    ?load_balancing_cross_zone_enabled ?name ?name_prefix ?port
+    ?preserve_client_ip ?protocol ?protocol_version
+    ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
+    ?vpc_id ~health_check ~stickiness ~target_failover
+    ~target_health_state () : aws_alb_target_group =
+  {
+    connection_termination;
+    deregistration_delay;
+    id;
+    ip_address_type;
+    lambda_multi_value_headers_enabled;
+    load_balancing_algorithm_type;
+    load_balancing_anomaly_mitigation;
+    load_balancing_cross_zone_enabled;
+    name;
+    name_prefix;
+    port;
+    preserve_client_ip;
+    protocol;
+    protocol_version;
+    proxy_protocol_v2;
+    slow_start;
+    tags;
+    tags_all;
+    target_type;
+    vpc_id;
+    health_check;
+    stickiness;
+    target_failover;
+    target_health_state;
+  }
 
 type t = {
   arn : string prop;
@@ -111,9 +172,8 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_alb_target_group ?connection_termination
-    ?deregistration_delay ?id ?ip_address_type
-    ?lambda_multi_value_headers_enabled
+let register ?tf_module ?connection_termination ?deregistration_delay
+    ?id ?ip_address_type ?lambda_multi_value_headers_enabled
     ?load_balancing_algorithm_type ?load_balancing_anomaly_mitigation
     ?load_balancing_cross_zone_enabled ?name ?name_prefix ?port
     ?preserve_client_ip ?protocol ?protocol_version
@@ -122,35 +182,18 @@ let aws_alb_target_group ?connection_termination
     ~target_health_state __resource_id =
   let __resource_type = "aws_alb_target_group" in
   let __resource =
-    ({
-       connection_termination;
-       deregistration_delay;
-       id;
-       ip_address_type;
-       lambda_multi_value_headers_enabled;
-       load_balancing_algorithm_type;
-       load_balancing_anomaly_mitigation;
-       load_balancing_cross_zone_enabled;
-       name;
-       name_prefix;
-       port;
-       preserve_client_ip;
-       protocol;
-       protocol_version;
-       proxy_protocol_v2;
-       slow_start;
-       tags;
-       tags_all;
-       target_type;
-       vpc_id;
-       health_check;
-       stickiness;
-       target_failover;
-       target_health_state;
-     }
-      : aws_alb_target_group)
+    aws_alb_target_group ?connection_termination
+      ?deregistration_delay ?id ?ip_address_type
+      ?lambda_multi_value_headers_enabled
+      ?load_balancing_algorithm_type
+      ?load_balancing_anomaly_mitigation
+      ?load_balancing_cross_zone_enabled ?name ?name_prefix ?port
+      ?preserve_client_ip ?protocol ?protocol_version
+      ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
+      ?vpc_id ~health_check ~stickiness ~target_failover
+      ~target_health_state ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_alb_target_group __resource);
   let __resource_attributes =
     ({

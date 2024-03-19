@@ -14,6 +14,11 @@ type aws_appconfig_extension_association = {
 [@@deriving yojson_of]
 (** aws_appconfig_extension_association *)
 
+let aws_appconfig_extension_association ?id ?parameters
+    ~extension_arn ~resource_arn () :
+    aws_appconfig_extension_association =
+  { extension_arn; id; parameters; resource_arn }
+
 type t = {
   arn : string prop;
   extension_arn : string prop;
@@ -23,14 +28,14 @@ type t = {
   resource_arn : string prop;
 }
 
-let aws_appconfig_extension_association ?id ?parameters
-    ~extension_arn ~resource_arn __resource_id =
+let register ?tf_module ?id ?parameters ~extension_arn ~resource_arn
+    __resource_id =
   let __resource_type = "aws_appconfig_extension_association" in
   let __resource =
-    ({ extension_arn; id; parameters; resource_arn }
-      : aws_appconfig_extension_association)
+    aws_appconfig_extension_association ?id ?parameters
+      ~extension_arn ~resource_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_extension_association __resource);
   let __resource_attributes =
     ({

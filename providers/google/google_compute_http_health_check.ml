@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_http_health_check__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_http_health_check__timeouts *)
+(** timeouts *)
 
 type google_compute_http_health_check = {
   check_interval_sec : float prop option; [@option]
@@ -49,10 +49,32 @@ greater value than checkIntervalSec. *)
   unhealthy_threshold : float prop option; [@option]
       (** A so-far healthy instance will be marked unhealthy after this many
 consecutive failures. The default value is 2. *)
-  timeouts : google_compute_http_health_check__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_http_health_check *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_http_health_check ?check_interval_sec ?description
+    ?healthy_threshold ?host ?id ?port ?project ?request_path
+    ?timeout_sec ?unhealthy_threshold ?timeouts ~name () :
+    google_compute_http_health_check =
+  {
+    check_interval_sec;
+    description;
+    healthy_threshold;
+    host;
+    id;
+    name;
+    port;
+    project;
+    request_path;
+    timeout_sec;
+    unhealthy_threshold;
+    timeouts;
+  }
 
 type t = {
   check_interval_sec : float prop;
@@ -70,28 +92,16 @@ type t = {
   unhealthy_threshold : float prop;
 }
 
-let google_compute_http_health_check ?check_interval_sec ?description
+let register ?tf_module ?check_interval_sec ?description
     ?healthy_threshold ?host ?id ?port ?project ?request_path
     ?timeout_sec ?unhealthy_threshold ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_http_health_check" in
   let __resource =
-    ({
-       check_interval_sec;
-       description;
-       healthy_threshold;
-       host;
-       id;
-       name;
-       port;
-       project;
-       request_path;
-       timeout_sec;
-       unhealthy_threshold;
-       timeouts;
-     }
-      : google_compute_http_health_check)
+    google_compute_http_health_check ?check_interval_sec ?description
+      ?healthy_threshold ?host ?id ?port ?project ?request_path
+      ?timeout_sec ?unhealthy_threshold ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_http_health_check __resource);
   let __resource_attributes =
     ({

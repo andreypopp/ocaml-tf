@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_synapse_linked_service__integration_runtime = {
+type integration_runtime = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
-(** azurerm_synapse_linked_service__integration_runtime *)
+(** integration_runtime *)
 
-type azurerm_synapse_linked_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_synapse_linked_service__timeouts *)
+(** timeouts *)
 
 type azurerm_synapse_linked_service = {
   additional_properties : (string * string prop) list option;
@@ -35,12 +35,35 @@ type azurerm_synapse_linked_service = {
   synapse_workspace_id : string prop;  (** synapse_workspace_id *)
   type_ : string prop; [@key "type"]  (** type *)
   type_properties_json : string prop;  (** type_properties_json *)
-  integration_runtime :
-    azurerm_synapse_linked_service__integration_runtime list;
-  timeouts : azurerm_synapse_linked_service__timeouts option;
+  integration_runtime : integration_runtime list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_linked_service *)
+
+let integration_runtime ?parameters ~name () : integration_runtime =
+  { name; parameters }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_synapse_linked_service ?additional_properties
+    ?annotations ?description ?id ?parameters ?timeouts ~name
+    ~synapse_workspace_id ~type_ ~type_properties_json
+    ~integration_runtime () : azurerm_synapse_linked_service =
+  {
+    additional_properties;
+    annotations;
+    description;
+    id;
+    name;
+    parameters;
+    synapse_workspace_id;
+    type_;
+    type_properties_json;
+    integration_runtime;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -54,28 +77,18 @@ type t = {
   type_properties_json : string prop;
 }
 
-let azurerm_synapse_linked_service ?additional_properties
-    ?annotations ?description ?id ?parameters ?timeouts ~name
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?id ?parameters ?timeouts ~name
     ~synapse_workspace_id ~type_ ~type_properties_json
     ~integration_runtime __resource_id =
   let __resource_type = "azurerm_synapse_linked_service" in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       description;
-       id;
-       name;
-       parameters;
-       synapse_workspace_id;
-       type_;
-       type_properties_json;
-       integration_runtime;
-       timeouts;
-     }
-      : azurerm_synapse_linked_service)
+    azurerm_synapse_linked_service ?additional_properties
+      ?annotations ?description ?id ?parameters ?timeouts ~name
+      ~synapse_workspace_id ~type_ ~type_properties_json
+      ~integration_runtime ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_linked_service __resource);
   let __resource_attributes =
     ({

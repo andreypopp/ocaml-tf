@@ -22,6 +22,22 @@ type aws_ec2_host = {
 [@@deriving yojson_of]
 (** aws_ec2_host *)
 
+let aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
+    ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
+    ~availability_zone () : aws_ec2_host =
+  {
+    asset_id;
+    auto_placement;
+    availability_zone;
+    host_recovery;
+    id;
+    instance_family;
+    instance_type;
+    outpost_arn;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   asset_id : string prop;
@@ -37,26 +53,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
+let register ?tf_module ?asset_id ?auto_placement ?host_recovery ?id
     ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
     ~availability_zone __resource_id =
   let __resource_type = "aws_ec2_host" in
   let __resource =
-    ({
-       asset_id;
-       auto_placement;
-       availability_zone;
-       host_recovery;
-       id;
-       instance_family;
-       instance_type;
-       outpost_arn;
-       tags;
-       tags_all;
-     }
-      : aws_ec2_host)
+    aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
+      ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
+      ~availability_zone ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_host __resource);
   let __resource_attributes =
     ({

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_healthcare_consent_store__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_healthcare_consent_store__timeouts *)
+(** timeouts *)
 
 type google_healthcare_consent_store = {
   dataset : string prop;
@@ -43,10 +43,26 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string prop;
       (** The name of this ConsentStore, for example:
 consent1 *)
-  timeouts : google_healthcare_consent_store__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_healthcare_consent_store *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_healthcare_consent_store ?default_consent_ttl
+    ?enable_consent_create_on_update ?id ?labels ?timeouts ~dataset
+    ~name () : google_healthcare_consent_store =
+  {
+    dataset;
+    default_consent_ttl;
+    enable_consent_create_on_update;
+    id;
+    labels;
+    name;
+    timeouts;
+  }
 
 type t = {
   dataset : string prop;
@@ -59,23 +75,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_healthcare_consent_store ?default_consent_ttl
+let register ?tf_module ?default_consent_ttl
     ?enable_consent_create_on_update ?id ?labels ?timeouts ~dataset
     ~name __resource_id =
   let __resource_type = "google_healthcare_consent_store" in
   let __resource =
-    ({
-       dataset;
-       default_consent_ttl;
-       enable_consent_create_on_update;
-       id;
-       labels;
-       name;
-       timeouts;
-     }
-      : google_healthcare_consent_store)
+    google_healthcare_consent_store ?default_consent_ttl
+      ?enable_consent_create_on_update ?id ?labels ?timeouts ~dataset
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_consent_store __resource);
   let __resource_attributes =
     ({

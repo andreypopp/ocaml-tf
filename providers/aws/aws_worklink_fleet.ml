@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_worklink_fleet__identity_provider = {
+type identity_provider = {
   saml_metadata : string prop;  (** saml_metadata *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_worklink_fleet__identity_provider *)
+(** identity_provider *)
 
-type aws_worklink_fleet__network = {
+type network = {
   security_group_ids : string prop list;  (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
-(** aws_worklink_fleet__network *)
+(** network *)
 
 type aws_worklink_fleet = {
   audit_stream_arn : string prop option; [@option]
@@ -29,11 +29,31 @@ type aws_worklink_fleet = {
   name : string prop;  (** name *)
   optimize_for_end_user_location : bool prop option; [@option]
       (** optimize_for_end_user_location *)
-  identity_provider : aws_worklink_fleet__identity_provider list;
-  network : aws_worklink_fleet__network list;
+  identity_provider : identity_provider list;
+  network : network list;
 }
 [@@deriving yojson_of]
 (** aws_worklink_fleet *)
+
+let identity_provider ~saml_metadata ~type_ () : identity_provider =
+  { saml_metadata; type_ }
+
+let network ~security_group_ids ~subnet_ids ~vpc_id () : network =
+  { security_group_ids; subnet_ids; vpc_id }
+
+let aws_worklink_fleet ?audit_stream_arn ?device_ca_certificate
+    ?display_name ?id ?optimize_for_end_user_location ~name
+    ~identity_provider ~network () : aws_worklink_fleet =
+  {
+    audit_stream_arn;
+    device_ca_certificate;
+    display_name;
+    id;
+    name;
+    optimize_for_end_user_location;
+    identity_provider;
+    network;
+  }
 
 type t = {
   arn : string prop;
@@ -48,24 +68,16 @@ type t = {
   optimize_for_end_user_location : bool prop;
 }
 
-let aws_worklink_fleet ?audit_stream_arn ?device_ca_certificate
+let register ?tf_module ?audit_stream_arn ?device_ca_certificate
     ?display_name ?id ?optimize_for_end_user_location ~name
     ~identity_provider ~network __resource_id =
   let __resource_type = "aws_worklink_fleet" in
   let __resource =
-    ({
-       audit_stream_arn;
-       device_ca_certificate;
-       display_name;
-       id;
-       name;
-       optimize_for_end_user_location;
-       identity_provider;
-       network;
-     }
-      : aws_worklink_fleet)
+    aws_worklink_fleet ?audit_stream_arn ?device_ca_certificate
+      ?display_name ?id ?optimize_for_end_user_location ~name
+      ~identity_provider ~network ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_worklink_fleet __resource);
   let __resource_attributes =
     ({

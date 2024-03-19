@@ -16,6 +16,18 @@ type aws_datasync_location_fsx_lustre_file_system = {
 [@@deriving yojson_of]
 (** aws_datasync_location_fsx_lustre_file_system *)
 
+let aws_datasync_location_fsx_lustre_file_system ?id ?subdirectory
+    ?tags ?tags_all ~fsx_filesystem_arn ~security_group_arns () :
+    aws_datasync_location_fsx_lustre_file_system =
+  {
+    fsx_filesystem_arn;
+    id;
+    security_group_arns;
+    subdirectory;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   creation_time : string prop;
@@ -28,24 +40,16 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_fsx_lustre_file_system ?id ?subdirectory
-    ?tags ?tags_all ~fsx_filesystem_arn ~security_group_arns
-    __resource_id =
+let register ?tf_module ?id ?subdirectory ?tags ?tags_all
+    ~fsx_filesystem_arn ~security_group_arns __resource_id =
   let __resource_type =
     "aws_datasync_location_fsx_lustre_file_system"
   in
   let __resource =
-    ({
-       fsx_filesystem_arn;
-       id;
-       security_group_arns;
-       subdirectory;
-       tags;
-       tags_all;
-     }
-      : aws_datasync_location_fsx_lustre_file_system)
+    aws_datasync_location_fsx_lustre_file_system ?id ?subdirectory
+      ?tags ?tags_all ~fsx_filesystem_arn ~security_group_arns ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_fsx_lustre_file_system
        __resource);
   let __resource_attributes =

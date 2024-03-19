@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_hub_bgp_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_hub_bgp_connection__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_hub_bgp_connection = {
   id : string prop option; [@option]  (** id *)
@@ -21,10 +21,26 @@ type azurerm_virtual_hub_bgp_connection = {
   virtual_hub_id : string prop;  (** virtual_hub_id *)
   virtual_network_connection_id : string prop option; [@option]
       (** virtual_network_connection_id *)
-  timeouts : azurerm_virtual_hub_bgp_connection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_bgp_connection *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_hub_bgp_connection ?id
+    ?virtual_network_connection_id ?timeouts ~name ~peer_asn ~peer_ip
+    ~virtual_hub_id () : azurerm_virtual_hub_bgp_connection =
+  {
+    id;
+    name;
+    peer_asn;
+    peer_ip;
+    virtual_hub_id;
+    virtual_network_connection_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -35,23 +51,15 @@ type t = {
   virtual_network_connection_id : string prop;
 }
 
-let azurerm_virtual_hub_bgp_connection ?id
-    ?virtual_network_connection_id ?timeouts ~name ~peer_asn ~peer_ip
-    ~virtual_hub_id __resource_id =
+let register ?tf_module ?id ?virtual_network_connection_id ?timeouts
+    ~name ~peer_asn ~peer_ip ~virtual_hub_id __resource_id =
   let __resource_type = "azurerm_virtual_hub_bgp_connection" in
   let __resource =
-    ({
-       id;
-       name;
-       peer_asn;
-       peer_ip;
-       virtual_hub_id;
-       virtual_network_connection_id;
-       timeouts;
-     }
-      : azurerm_virtual_hub_bgp_connection)
+    azurerm_virtual_hub_bgp_connection ?id
+      ?virtual_network_connection_id ?timeouts ~name ~peer_asn
+      ~peer_ip ~virtual_hub_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_hub_bgp_connection __resource);
   let __resource_attributes =
     ({

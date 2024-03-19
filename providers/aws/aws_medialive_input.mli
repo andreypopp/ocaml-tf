@@ -2,13 +2,69 @@
 
 open! Tf.Prelude
 
-type aws_medialive_input__destinations
-type aws_medialive_input__input_devices
-type aws_medialive_input__media_connect_flows
-type aws_medialive_input__sources
-type aws_medialive_input__timeouts
-type aws_medialive_input__vpc
+(** RESOURCE SERIALIZATION *)
+
+type destinations
+
+val destinations : stream_name:string prop -> unit -> destinations
+
+type input_devices
+
+val input_devices : id:string prop -> unit -> input_devices
+
+type media_connect_flows
+
+val media_connect_flows :
+  flow_arn:string prop -> unit -> media_connect_flows
+
+type sources
+
+val sources :
+  password_param:string prop ->
+  url:string prop ->
+  username:string prop ->
+  unit ->
+  sources
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type vpc
+
+val vpc :
+  ?security_group_ids:string prop list ->
+  subnet_ids:string prop list ->
+  unit ->
+  vpc
+
 type aws_medialive_input
+
+val aws_medialive_input :
+  ?id:string prop ->
+  ?input_security_groups:string prop list ->
+  ?role_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  type_:string prop ->
+  destinations:destinations list ->
+  input_devices:input_devices list ->
+  media_connect_flows:media_connect_flows list ->
+  sources:sources list ->
+  vpc:vpc list ->
+  unit ->
+  aws_medialive_input
+
+val yojson_of_aws_medialive_input : aws_medialive_input -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -25,19 +81,20 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_medialive_input :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?input_security_groups:string prop list ->
   ?role_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_medialive_input__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
-  destinations:aws_medialive_input__destinations list ->
-  input_devices:aws_medialive_input__input_devices list ->
-  media_connect_flows:aws_medialive_input__media_connect_flows list ->
-  sources:aws_medialive_input__sources list ->
-  vpc:aws_medialive_input__vpc list ->
+  destinations:destinations list ->
+  input_devices:input_devices list ->
+  media_connect_flows:media_connect_flows list ->
+  sources:sources list ->
+  vpc:vpc list ->
   string ->
   t

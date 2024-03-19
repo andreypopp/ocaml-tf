@@ -2,9 +2,59 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_managed_instance__identity
-type azurerm_mssql_managed_instance__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mssql_managed_instance
+
+val azurerm_mssql_managed_instance :
+  ?collation:string prop ->
+  ?dns_zone_partner_id:string prop ->
+  ?id:string prop ->
+  ?maintenance_configuration_name:string prop ->
+  ?minimum_tls_version:string prop ->
+  ?proxy_override:string prop ->
+  ?public_data_endpoint_enabled:bool prop ->
+  ?storage_account_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timezone_id:string prop ->
+  ?zone_redundant_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  administrator_login:string prop ->
+  administrator_login_password:string prop ->
+  license_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  storage_size_in_gb:float prop ->
+  subnet_id:string prop ->
+  vcores:float prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_mssql_managed_instance
+
+val yojson_of_azurerm_mssql_managed_instance :
+  azurerm_mssql_managed_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   administrator_login : string prop;
@@ -32,7 +82,8 @@ type t = private {
   zone_redundant_enabled : bool prop;
 }
 
-val azurerm_mssql_managed_instance :
+val register :
+  ?tf_module:tf_module ->
   ?collation:string prop ->
   ?dns_zone_partner_id:string prop ->
   ?id:string prop ->
@@ -44,7 +95,7 @@ val azurerm_mssql_managed_instance :
   ?tags:(string * string prop) list ->
   ?timezone_id:string prop ->
   ?zone_redundant_enabled:bool prop ->
-  ?timeouts:azurerm_mssql_managed_instance__timeouts ->
+  ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
   license_type:string prop ->
@@ -55,6 +106,6 @@ val azurerm_mssql_managed_instance :
   storage_size_in_gb:float prop ->
   subnet_id:string prop ->
   vcores:float prop ->
-  identity:azurerm_mssql_managed_instance__identity list ->
+  identity:identity list ->
   string ->
   t

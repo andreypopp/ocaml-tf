@@ -2,20 +2,35 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_macie2_account
 
+val aws_macie2_account :
+    ?finding_publishing_frequency:string prop ->
+    ?id:string prop ->
+    ?status:string prop ->
+    unit ->
+    aws_macie2_account
+
+val yojson_of_aws_macie2_account : aws_macie2_account -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  created_at : string prop;
-  finding_publishing_frequency : string prop;
-  id : string prop;
-  service_role : string prop;
-  status : string prop;
-  updated_at : string prop;
+  created_at: string prop;
+  finding_publishing_frequency: string prop;
+  id: string prop;
+  service_role: string prop;
+  status: string prop;
+  updated_at: string prop;
 }
 
-val aws_macie2_account :
-  ?finding_publishing_frequency:string prop ->
-  ?id:string prop ->
-  ?status:string prop ->
-  string ->
-  t
+val register :
+    ?tf_module:tf_module ->
+    ?finding_publishing_frequency:string prop ->
+    ?id:string prop ->
+    ?status:string prop ->
+    string ->
+    t
+

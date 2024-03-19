@@ -4,36 +4,35 @@
 
 open! Tf.Prelude
 
-type aws_osis_pipeline__buffer_options = {
+type buffer_options = {
   persistent_buffer_enabled : bool prop;
       (** persistent_buffer_enabled *)
 }
 [@@deriving yojson_of]
-(** aws_osis_pipeline__buffer_options *)
+(** buffer_options *)
 
-type aws_osis_pipeline__encryption_at_rest_options = {
+type encryption_at_rest_options = {
   kms_key_arn : string prop;  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
-(** aws_osis_pipeline__encryption_at_rest_options *)
+(** encryption_at_rest_options *)
 
-type aws_osis_pipeline__log_publishing_options__cloudwatch_log_destination = {
+type log_publishing_options__cloudwatch_log_destination = {
   log_group : string prop;  (** log_group *)
 }
 [@@deriving yojson_of]
-(** aws_osis_pipeline__log_publishing_options__cloudwatch_log_destination *)
+(** log_publishing_options__cloudwatch_log_destination *)
 
-type aws_osis_pipeline__log_publishing_options = {
+type log_publishing_options = {
   is_logging_enabled : bool prop option; [@option]
       (** is_logging_enabled *)
   cloudwatch_log_destination :
-    aws_osis_pipeline__log_publishing_options__cloudwatch_log_destination
-    list;
+    log_publishing_options__cloudwatch_log_destination list;
 }
 [@@deriving yojson_of]
-(** aws_osis_pipeline__log_publishing_options *)
+(** log_publishing_options *)
 
-type aws_osis_pipeline__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
@@ -42,15 +41,15 @@ type aws_osis_pipeline__timeouts = {
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
-(** aws_osis_pipeline__timeouts *)
+(** timeouts *)
 
-type aws_osis_pipeline__vpc_options = {
+type vpc_options = {
   security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_osis_pipeline__vpc_options *)
+(** vpc_options *)
 
 type aws_osis_pipeline = {
   max_units : float prop;  (** max_units *)
@@ -59,16 +58,52 @@ type aws_osis_pipeline = {
       (** pipeline_configuration_body *)
   pipeline_name : string prop;  (** pipeline_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  buffer_options : aws_osis_pipeline__buffer_options list;
-  encryption_at_rest_options :
-    aws_osis_pipeline__encryption_at_rest_options list;
-  log_publishing_options :
-    aws_osis_pipeline__log_publishing_options list;
-  timeouts : aws_osis_pipeline__timeouts option;
-  vpc_options : aws_osis_pipeline__vpc_options list;
+  buffer_options : buffer_options list;
+  encryption_at_rest_options : encryption_at_rest_options list;
+  log_publishing_options : log_publishing_options list;
+  timeouts : timeouts option;
+  vpc_options : vpc_options list;
 }
 [@@deriving yojson_of]
 (** aws_osis_pipeline *)
+
+let buffer_options ~persistent_buffer_enabled () : buffer_options =
+  { persistent_buffer_enabled }
+
+let encryption_at_rest_options ~kms_key_arn () :
+    encryption_at_rest_options =
+  { kms_key_arn }
+
+let log_publishing_options__cloudwatch_log_destination ~log_group ()
+    : log_publishing_options__cloudwatch_log_destination =
+  { log_group }
+
+let log_publishing_options ?is_logging_enabled
+    ~cloudwatch_log_destination () : log_publishing_options =
+  { is_logging_enabled; cloudwatch_log_destination }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc_options ?security_group_ids ~subnet_ids () : vpc_options =
+  { security_group_ids; subnet_ids }
+
+let aws_osis_pipeline ?tags ?timeouts ~max_units ~min_units
+    ~pipeline_configuration_body ~pipeline_name ~buffer_options
+    ~encryption_at_rest_options ~log_publishing_options ~vpc_options
+    () : aws_osis_pipeline =
+  {
+    max_units;
+    min_units;
+    pipeline_configuration_body;
+    pipeline_name;
+    tags;
+    buffer_options;
+    encryption_at_rest_options;
+    log_publishing_options;
+    timeouts;
+    vpc_options;
+  }
 
 type t = {
   id : string prop;
@@ -82,27 +117,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_osis_pipeline ?tags ?timeouts ~max_units ~min_units
+let register ?tf_module ?tags ?timeouts ~max_units ~min_units
     ~pipeline_configuration_body ~pipeline_name ~buffer_options
     ~encryption_at_rest_options ~log_publishing_options ~vpc_options
     __resource_id =
   let __resource_type = "aws_osis_pipeline" in
   let __resource =
-    ({
-       max_units;
-       min_units;
-       pipeline_configuration_body;
-       pipeline_name;
-       tags;
-       buffer_options;
-       encryption_at_rest_options;
-       log_publishing_options;
-       timeouts;
-       vpc_options;
-     }
-      : aws_osis_pipeline)
+    aws_osis_pipeline ?tags ?timeouts ~max_units ~min_units
+      ~pipeline_configuration_body ~pipeline_name ~buffer_options
+      ~encryption_at_rest_options ~log_publishing_options
+      ~vpc_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_osis_pipeline __resource);
   let __resource_attributes =
     ({

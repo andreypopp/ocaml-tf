@@ -4,20 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_attachment_accepter__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_attachment_accepter__timeouts *)
+(** timeouts *)
 
 type aws_networkmanager_attachment_accepter = {
   attachment_id : string prop;  (** attachment_id *)
   attachment_type : string prop;  (** attachment_type *)
   id : string prop option; [@option]  (** id *)
-  timeouts : aws_networkmanager_attachment_accepter__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_attachment_accepter *)
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_networkmanager_attachment_accepter ?id ?timeouts
+    ~attachment_id ~attachment_type () :
+    aws_networkmanager_attachment_accepter =
+  { attachment_id; attachment_type; id; timeouts }
 
 type t = {
   attachment_id : string prop;
@@ -33,14 +40,14 @@ type t = {
   state : string prop;
 }
 
-let aws_networkmanager_attachment_accepter ?id ?timeouts
-    ~attachment_id ~attachment_type __resource_id =
+let register ?tf_module ?id ?timeouts ~attachment_id ~attachment_type
+    __resource_id =
   let __resource_type = "aws_networkmanager_attachment_accepter" in
   let __resource =
-    ({ attachment_id; attachment_type; id; timeouts }
-      : aws_networkmanager_attachment_accepter)
+    aws_networkmanager_attachment_accepter ?id ?timeouts
+      ~attachment_id ~attachment_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_attachment_accepter __resource);
   let __resource_attributes =
     ({

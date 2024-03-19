@@ -4,31 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_activity_log_alert__action = {
+type action = {
   action_group_id : string prop;  (** action_group_id *)
   webhook_properties : (string * string prop) list option; [@option]
       (** webhook_properties *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_activity_log_alert__action *)
+(** action *)
 
-type azurerm_monitor_activity_log_alert__criteria__resource_health = {
+type criteria__resource_health = {
   current : string prop list option; [@option]  (** current *)
   previous : string prop list option; [@option]  (** previous *)
   reason : string prop list option; [@option]  (** reason *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_activity_log_alert__criteria__resource_health *)
+(** criteria__resource_health *)
 
-type azurerm_monitor_activity_log_alert__criteria__service_health = {
+type criteria__service_health = {
   events : string prop list option; [@option]  (** events *)
   locations : string prop list option; [@option]  (** locations *)
   services : string prop list option; [@option]  (** services *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_activity_log_alert__criteria__service_health *)
+(** criteria__service_health *)
 
-type azurerm_monitor_activity_log_alert__criteria = {
+type criteria = {
   caller : string prop option; [@option]  (** caller *)
   category : string prop;  (** category *)
   level : string prop option; [@option]  (** level *)
@@ -60,23 +60,20 @@ type azurerm_monitor_activity_log_alert__criteria = {
   sub_status : string prop option; [@option]  (** sub_status *)
   sub_statuses : string prop list option; [@option]
       (** sub_statuses *)
-  resource_health :
-    azurerm_monitor_activity_log_alert__criteria__resource_health
-    list;
-  service_health :
-    azurerm_monitor_activity_log_alert__criteria__service_health list;
+  resource_health : criteria__resource_health list;
+  service_health : criteria__service_health list;
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_activity_log_alert__criteria *)
+(** criteria *)
 
-type azurerm_monitor_activity_log_alert__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_activity_log_alert__timeouts *)
+(** timeouts *)
 
 type azurerm_monitor_activity_log_alert = {
   description : string prop option; [@option]  (** description *)
@@ -86,12 +83,74 @@ type azurerm_monitor_activity_log_alert = {
   resource_group_name : string prop;  (** resource_group_name *)
   scopes : string prop list;  (** scopes *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  action : azurerm_monitor_activity_log_alert__action list;
-  criteria : azurerm_monitor_activity_log_alert__criteria list;
-  timeouts : azurerm_monitor_activity_log_alert__timeouts option;
+  action : action list;
+  criteria : criteria list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_activity_log_alert *)
+
+let action ?webhook_properties ~action_group_id () : action =
+  { action_group_id; webhook_properties }
+
+let criteria__resource_health ?current ?previous ?reason () :
+    criteria__resource_health =
+  { current; previous; reason }
+
+let criteria__service_health ?events ?locations ?services () :
+    criteria__service_health =
+  { events; locations; services }
+
+let criteria ?caller ?level ?levels ?operation_name
+    ?recommendation_category ?recommendation_impact
+    ?recommendation_type ?resource_group ?resource_groups
+    ?resource_id ?resource_ids ?resource_provider ?resource_providers
+    ?resource_type ?resource_types ?status ?statuses ?sub_status
+    ?sub_statuses ~category ~resource_health ~service_health () :
+    criteria =
+  {
+    caller;
+    category;
+    level;
+    levels;
+    operation_name;
+    recommendation_category;
+    recommendation_impact;
+    recommendation_type;
+    resource_group;
+    resource_groups;
+    resource_id;
+    resource_ids;
+    resource_provider;
+    resource_providers;
+    resource_type;
+    resource_types;
+    status;
+    statuses;
+    sub_status;
+    sub_statuses;
+    resource_health;
+    service_health;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_monitor_activity_log_alert ?description ?enabled ?id
+    ?tags ?timeouts ~name ~resource_group_name ~scopes ~action
+    ~criteria () : azurerm_monitor_activity_log_alert =
+  {
+    description;
+    enabled;
+    id;
+    name;
+    resource_group_name;
+    scopes;
+    tags;
+    action;
+    criteria;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -103,26 +162,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_monitor_activity_log_alert ?description ?enabled ?id
-    ?tags ?timeouts ~name ~resource_group_name ~scopes ~action
-    ~criteria __resource_id =
+let register ?tf_module ?description ?enabled ?id ?tags ?timeouts
+    ~name ~resource_group_name ~scopes ~action ~criteria
+    __resource_id =
   let __resource_type = "azurerm_monitor_activity_log_alert" in
   let __resource =
-    ({
-       description;
-       enabled;
-       id;
-       name;
-       resource_group_name;
-       scopes;
-       tags;
-       action;
-       criteria;
-       timeouts;
-     }
-      : azurerm_monitor_activity_log_alert)
+    azurerm_monitor_activity_log_alert ?description ?enabled ?id
+      ?tags ?timeouts ~name ~resource_group_name ~scopes ~action
+      ~criteria ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_activity_log_alert __resource);
   let __resource_attributes =
     ({

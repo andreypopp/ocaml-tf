@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_glue_ml_transform__input_record_tables = {
+type input_record_tables = {
   catalog_id : string prop option; [@option]  (** catalog_id *)
   connection_name : string prop option; [@option]
       (** connection_name *)
@@ -12,9 +12,9 @@ type aws_glue_ml_transform__input_record_tables = {
   table_name : string prop;  (** table_name *)
 }
 [@@deriving yojson_of]
-(** aws_glue_ml_transform__input_record_tables *)
+(** input_record_tables *)
 
-type aws_glue_ml_transform__parameters__find_matches_parameters = {
+type parameters__find_matches_parameters = {
   accuracy_cost_trade_off : float prop option; [@option]
       (** accuracy_cost_trade_off *)
   enforce_provided_labels : bool prop option; [@option]
@@ -25,17 +25,16 @@ type aws_glue_ml_transform__parameters__find_matches_parameters = {
       (** primary_key_column_name *)
 }
 [@@deriving yojson_of]
-(** aws_glue_ml_transform__parameters__find_matches_parameters *)
+(** parameters__find_matches_parameters *)
 
-type aws_glue_ml_transform__parameters = {
+type parameters = {
   transform_type : string prop;  (** transform_type *)
-  find_matches_parameters :
-    aws_glue_ml_transform__parameters__find_matches_parameters list;
+  find_matches_parameters : parameters__find_matches_parameters list;
 }
 [@@deriving yojson_of]
-(** aws_glue_ml_transform__parameters *)
+(** parameters *)
 
-type aws_glue_ml_transform__schema = {
+type schema = {
   data_type : string prop;  (** data_type *)
   name : string prop;  (** name *)
 }
@@ -56,12 +55,51 @@ type aws_glue_ml_transform = {
       (** tags_all *)
   timeout : float prop option; [@option]  (** timeout *)
   worker_type : string prop option; [@option]  (** worker_type *)
-  input_record_tables :
-    aws_glue_ml_transform__input_record_tables list;
-  parameters : aws_glue_ml_transform__parameters list;
+  input_record_tables : input_record_tables list;
+  parameters : parameters list;
 }
 [@@deriving yojson_of]
 (** aws_glue_ml_transform *)
+
+let input_record_tables ?catalog_id ?connection_name ~database_name
+    ~table_name () : input_record_tables =
+  { catalog_id; connection_name; database_name; table_name }
+
+let parameters__find_matches_parameters ?accuracy_cost_trade_off
+    ?enforce_provided_labels ?precision_recall_trade_off
+    ?primary_key_column_name () : parameters__find_matches_parameters
+    =
+  {
+    accuracy_cost_trade_off;
+    enforce_provided_labels;
+    precision_recall_trade_off;
+    primary_key_column_name;
+  }
+
+let parameters ~transform_type ~find_matches_parameters () :
+    parameters =
+  { transform_type; find_matches_parameters }
+
+let aws_glue_ml_transform ?description ?glue_version ?id
+    ?max_capacity ?max_retries ?number_of_workers ?tags ?tags_all
+    ?timeout ?worker_type ~name ~role_arn ~input_record_tables
+    ~parameters () : aws_glue_ml_transform =
+  {
+    description;
+    glue_version;
+    id;
+    max_capacity;
+    max_retries;
+    name;
+    number_of_workers;
+    role_arn;
+    tags;
+    tags_all;
+    timeout;
+    worker_type;
+    input_record_tables;
+    parameters;
+  }
 
 type t = {
   arn : string prop;
@@ -74,38 +112,25 @@ type t = {
   name : string prop;
   number_of_workers : float prop;
   role_arn : string prop;
-  schema : aws_glue_ml_transform__schema list prop;
+  schema : schema list prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   timeout : float prop;
   worker_type : string prop;
 }
 
-let aws_glue_ml_transform ?description ?glue_version ?id
-    ?max_capacity ?max_retries ?number_of_workers ?tags ?tags_all
-    ?timeout ?worker_type ~name ~role_arn ~input_record_tables
-    ~parameters __resource_id =
+let register ?tf_module ?description ?glue_version ?id ?max_capacity
+    ?max_retries ?number_of_workers ?tags ?tags_all ?timeout
+    ?worker_type ~name ~role_arn ~input_record_tables ~parameters
+    __resource_id =
   let __resource_type = "aws_glue_ml_transform" in
   let __resource =
-    ({
-       description;
-       glue_version;
-       id;
-       max_capacity;
-       max_retries;
-       name;
-       number_of_workers;
-       role_arn;
-       tags;
-       tags_all;
-       timeout;
-       worker_type;
-       input_record_tables;
-       parameters;
-     }
-      : aws_glue_ml_transform)
+    aws_glue_ml_transform ?description ?glue_version ?id
+      ?max_capacity ?max_retries ?number_of_workers ?tags ?tags_all
+      ?timeout ?worker_type ~name ~role_arn ~input_record_tables
+      ~parameters ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_ml_transform __resource);
   let __resource_attributes =
     ({

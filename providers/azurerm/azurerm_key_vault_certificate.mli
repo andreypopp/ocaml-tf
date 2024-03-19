@@ -2,28 +2,9 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault_certificate__certificate
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_key_vault_certificate__certificate_policy__issuer_parameters
-
-type azurerm_key_vault_certificate__certificate_policy__key_properties
-
-type azurerm_key_vault_certificate__certificate_policy__lifetime_action__action
-
-type azurerm_key_vault_certificate__certificate_policy__lifetime_action__trigger
-
-type azurerm_key_vault_certificate__certificate_policy__lifetime_action
-
-type azurerm_key_vault_certificate__certificate_policy__secret_properties
-
-type azurerm_key_vault_certificate__certificate_policy__x509_certificate_properties__subject_alternative_names
-
-type azurerm_key_vault_certificate__certificate_policy__x509_certificate_properties
-
-type azurerm_key_vault_certificate__certificate_policy
-type azurerm_key_vault_certificate__timeouts
-
-type azurerm_key_vault_certificate__certificate_attribute = {
+type certificate_attribute = {
   created : string prop;  (** created *)
   enabled : bool prop;  (** enabled *)
   expires : string prop;  (** expires *)
@@ -32,11 +13,124 @@ type azurerm_key_vault_certificate__certificate_attribute = {
   updated : string prop;  (** updated *)
 }
 
+type certificate
+
+val certificate :
+  ?password:string prop ->
+  contents:string prop ->
+  unit ->
+  certificate
+
+type certificate_policy__issuer_parameters
+
+val certificate_policy__issuer_parameters :
+  name:string prop -> unit -> certificate_policy__issuer_parameters
+
+type certificate_policy__key_properties
+
+val certificate_policy__key_properties :
+  ?curve:string prop ->
+  ?key_size:float prop ->
+  exportable:bool prop ->
+  key_type:string prop ->
+  reuse_key:bool prop ->
+  unit ->
+  certificate_policy__key_properties
+
+type certificate_policy__lifetime_action__action
+
+val certificate_policy__lifetime_action__action :
+  action_type:string prop ->
+  unit ->
+  certificate_policy__lifetime_action__action
+
+type certificate_policy__lifetime_action__trigger
+
+val certificate_policy__lifetime_action__trigger :
+  ?days_before_expiry:float prop ->
+  ?lifetime_percentage:float prop ->
+  unit ->
+  certificate_policy__lifetime_action__trigger
+
+type certificate_policy__lifetime_action
+
+val certificate_policy__lifetime_action :
+  action:certificate_policy__lifetime_action__action list ->
+  trigger:certificate_policy__lifetime_action__trigger list ->
+  unit ->
+  certificate_policy__lifetime_action
+
+type certificate_policy__secret_properties
+
+val certificate_policy__secret_properties :
+  content_type:string prop ->
+  unit ->
+  certificate_policy__secret_properties
+
+type certificate_policy__x509_certificate_properties__subject_alternative_names
+
+val certificate_policy__x509_certificate_properties__subject_alternative_names :
+  ?dns_names:string prop list ->
+  ?emails:string prop list ->
+  ?upns:string prop list ->
+  unit ->
+  certificate_policy__x509_certificate_properties__subject_alternative_names
+
+type certificate_policy__x509_certificate_properties
+
+val certificate_policy__x509_certificate_properties :
+  ?extended_key_usage:string prop list ->
+  key_usage:string prop list ->
+  subject:string prop ->
+  validity_in_months:float prop ->
+  subject_alternative_names:
+    certificate_policy__x509_certificate_properties__subject_alternative_names
+    list ->
+  unit ->
+  certificate_policy__x509_certificate_properties
+
+type certificate_policy
+
+val certificate_policy :
+  issuer_parameters:certificate_policy__issuer_parameters list ->
+  key_properties:certificate_policy__key_properties list ->
+  lifetime_action:certificate_policy__lifetime_action list ->
+  secret_properties:certificate_policy__secret_properties list ->
+  x509_certificate_properties:
+    certificate_policy__x509_certificate_properties list ->
+  unit ->
+  certificate_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_key_vault_certificate
 
+val azurerm_key_vault_certificate :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  key_vault_id:string prop ->
+  name:string prop ->
+  certificate:certificate list ->
+  certificate_policy:certificate_policy list ->
+  unit ->
+  azurerm_key_vault_certificate
+
+val yojson_of_azurerm_key_vault_certificate :
+  azurerm_key_vault_certificate -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  certificate_attribute :
-    azurerm_key_vault_certificate__certificate_attribute list prop;
+  certificate_attribute : certificate_attribute list prop;
   certificate_data : string prop;
   certificate_data_base64 : string prop;
   id : string prop;
@@ -52,14 +146,14 @@ type t = private {
   versionless_secret_id : string prop;
 }
 
-val azurerm_key_vault_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_key_vault_certificate__timeouts ->
+  ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
-  certificate:azurerm_key_vault_certificate__certificate list ->
-  certificate_policy:
-    azurerm_key_vault_certificate__certificate_policy list ->
+  certificate:certificate list ->
+  certificate_policy:certificate_policy list ->
   string ->
   t

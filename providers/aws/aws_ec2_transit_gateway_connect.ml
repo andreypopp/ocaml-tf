@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_ec2_transit_gateway_connect__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_transit_gateway_connect__timeouts *)
+(** timeouts *)
 
 type aws_ec2_transit_gateway_connect = {
   id : string prop option; [@option]  (** id *)
@@ -27,10 +27,30 @@ type aws_ec2_transit_gateway_connect = {
   transit_gateway_id : string prop;  (** transit_gateway_id *)
   transport_attachment_id : string prop;
       (** transport_attachment_id *)
-  timeouts : aws_ec2_transit_gateway_connect__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_connect *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_ec2_transit_gateway_connect ?id ?protocol ?tags ?tags_all
+    ?transit_gateway_default_route_table_association
+    ?transit_gateway_default_route_table_propagation ?timeouts
+    ~transit_gateway_id ~transport_attachment_id () :
+    aws_ec2_transit_gateway_connect =
+  {
+    id;
+    protocol;
+    tags;
+    tags_all;
+    transit_gateway_default_route_table_association;
+    transit_gateway_default_route_table_propagation;
+    transit_gateway_id;
+    transport_attachment_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -43,26 +63,18 @@ type t = {
   transport_attachment_id : string prop;
 }
 
-let aws_ec2_transit_gateway_connect ?id ?protocol ?tags ?tags_all
+let register ?tf_module ?id ?protocol ?tags ?tags_all
     ?transit_gateway_default_route_table_association
     ?transit_gateway_default_route_table_propagation ?timeouts
     ~transit_gateway_id ~transport_attachment_id __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_connect" in
   let __resource =
-    ({
-       id;
-       protocol;
-       tags;
-       tags_all;
-       transit_gateway_default_route_table_association;
-       transit_gateway_default_route_table_propagation;
-       transit_gateway_id;
-       transport_attachment_id;
-       timeouts;
-     }
-      : aws_ec2_transit_gateway_connect)
+    aws_ec2_transit_gateway_connect ?id ?protocol ?tags ?tags_all
+      ?transit_gateway_default_route_table_association
+      ?transit_gateway_default_route_table_propagation ?timeouts
+      ~transit_gateway_id ~transport_attachment_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_connect __resource);
   let __resource_attributes =
     ({

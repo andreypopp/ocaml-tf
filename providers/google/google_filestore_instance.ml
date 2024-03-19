@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_filestore_instance__file_shares__nfs_export_options = {
+type file_shares__nfs_export_options = {
   access_mode : string prop option; [@option]
       (** Either READ_ONLY, for allowing only read requests on the exported directory,
 or READ_WRITE, for allowing both read and write requests. The default is READ_WRITE. Default value: READ_WRITE Possible values: [READ_ONLY, READ_WRITE] *)
@@ -27,7 +27,7 @@ for not allowing root access. The default is NO_ROOT_SQUASH. Default value: NO_R
 [@@deriving yojson_of]
 (** Nfs Export Options. There is a limit of 10 export options per file share. *)
 
-type google_filestore_instance__file_shares = {
+type file_shares = {
   capacity_gb : float prop;
       (** File share capacity in GiB. This must be at least 1024 GiB
 for the standard tier, or 2560 GiB for the premium tier. *)
@@ -37,20 +37,17 @@ for the standard tier, or 2560 GiB for the premium tier. *)
       (** The resource name of the backup, in the format
 projects/{projectId}/locations/{locationId}/backups/{backupId},
 that this file share has been restored from. *)
-  nfs_export_options :
-    google_filestore_instance__file_shares__nfs_export_options list;
+  nfs_export_options : file_shares__nfs_export_options list;
 }
 [@@deriving yojson_of]
 (** File system shares on the instance. For this version, only a
 single file share is supported. *)
 
-type google_filestore_instance__networks = {
+type networks = {
   connect_mode : string prop option; [@option]
       (** The network connect mode of the Filestore instance.
 If not provided, the connect mode defaults to
 DIRECT_PEERING. Default value: DIRECT_PEERING Possible values: [DIRECT_PEERING, PRIVATE_SERVICE_ACCESS] *)
-  ip_addresses : string prop list;
-      (** A list of IPv4 or IPv6 addresses. *)
   modes : string prop list;
       (** IP versions for which the instance has
 IP addresses assigned. Possible values: [ADDRESS_MODE_UNSPECIFIED, MODE_IPV4, MODE_IPV6] *)
@@ -65,13 +62,13 @@ addresses reserved for this instance. *)
 (** VPC networks to which the instance is connected. For this version,
 only a single network is supported. *)
 
-type google_filestore_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_filestore_instance__timeouts *)
+(** timeouts *)
 
 type google_filestore_instance = {
   description : string prop option; [@option]
@@ -94,12 +91,45 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 Possible values include: STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD, ZONAL, REGIONAL and ENTERPRISE *)
   zone : string prop option; [@option]
       (** The name of the Filestore zone of the instance. *)
-  file_shares : google_filestore_instance__file_shares list;
-  networks : google_filestore_instance__networks list;
-  timeouts : google_filestore_instance__timeouts option;
+  file_shares : file_shares list;
+  networks : networks list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_filestore_instance *)
+
+let file_shares__nfs_export_options ?access_mode ?anon_gid ?anon_uid
+    ?ip_ranges ?squash_mode () : file_shares__nfs_export_options =
+  { access_mode; anon_gid; anon_uid; ip_ranges; squash_mode }
+
+let file_shares ?source_backup ~capacity_gb ~name ~nfs_export_options
+    () : file_shares =
+  { capacity_gb; name; source_backup; nfs_export_options }
+
+let networks ?connect_mode ?reserved_ip_range ~modes ~network () :
+    networks =
+  { connect_mode; modes; network; reserved_ip_range }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_filestore_instance ?description ?id ?kms_key_name ?labels
+    ?location ?project ?zone ?timeouts ~name ~tier ~file_shares
+    ~networks () : google_filestore_instance =
+  {
+    description;
+    id;
+    kms_key_name;
+    labels;
+    location;
+    name;
+    project;
+    tier;
+    zone;
+    file_shares;
+    networks;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -117,28 +147,16 @@ type t = {
   zone : string prop;
 }
 
-let google_filestore_instance ?description ?id ?kms_key_name ?labels
+let register ?tf_module ?description ?id ?kms_key_name ?labels
     ?location ?project ?zone ?timeouts ~name ~tier ~file_shares
     ~networks __resource_id =
   let __resource_type = "google_filestore_instance" in
   let __resource =
-    ({
-       description;
-       id;
-       kms_key_name;
-       labels;
-       location;
-       name;
-       project;
-       tier;
-       zone;
-       file_shares;
-       networks;
-       timeouts;
-     }
-      : google_filestore_instance)
+    google_filestore_instance ?description ?id ?kms_key_name ?labels
+      ?location ?project ?zone ?timeouts ~name ~tier ~file_shares
+      ~networks ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_filestore_instance __resource);
   let __resource_attributes =
     ({

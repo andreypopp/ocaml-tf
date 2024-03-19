@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_healthcare_fhir_service__authentication = {
+type authentication = {
   audience : string prop;  (** audience *)
   authority : string prop;  (** authority *)
   smart_proxy_enabled : bool prop option; [@option]
       (** smart_proxy_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_fhir_service__authentication *)
+(** authentication *)
 
-type azurerm_healthcare_fhir_service__cors = {
+type cors = {
   allowed_headers : string prop list;  (** allowed_headers *)
   allowed_methods : string prop list;  (** allowed_methods *)
   allowed_origins : string prop list;  (** allowed_origins *)
@@ -23,34 +23,32 @@ type azurerm_healthcare_fhir_service__cors = {
       (** max_age_in_seconds *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_fhir_service__cors *)
+(** cors *)
 
-type azurerm_healthcare_fhir_service__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_fhir_service__identity *)
+(** identity *)
 
-type azurerm_healthcare_fhir_service__oci_artifact = {
+type oci_artifact = {
   digest : string prop option; [@option]  (** digest *)
   image_name : string prop option; [@option]  (** image_name *)
   login_server : string prop;  (** login_server *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_fhir_service__oci_artifact *)
+(** oci_artifact *)
 
-type azurerm_healthcare_fhir_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_healthcare_fhir_service__timeouts *)
+(** timeouts *)
 
 type azurerm_healthcare_fhir_service = {
   access_policy_object_ids : string prop list option; [@option]
@@ -68,15 +66,62 @@ type azurerm_healthcare_fhir_service = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   workspace_id : string prop;  (** workspace_id *)
-  authentication :
-    azurerm_healthcare_fhir_service__authentication list;
-  cors : azurerm_healthcare_fhir_service__cors list;
-  identity : azurerm_healthcare_fhir_service__identity list;
-  oci_artifact : azurerm_healthcare_fhir_service__oci_artifact list;
-  timeouts : azurerm_healthcare_fhir_service__timeouts option;
+  authentication : authentication list;
+  cors : cors list;
+  identity : identity list;
+  oci_artifact : oci_artifact list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_fhir_service *)
+
+let authentication ?smart_proxy_enabled ~audience ~authority () :
+    authentication =
+  { audience; authority; smart_proxy_enabled }
+
+let cors ?credentials_allowed ?max_age_in_seconds ~allowed_headers
+    ~allowed_methods ~allowed_origins () : cors =
+  {
+    allowed_headers;
+    allowed_methods;
+    allowed_origins;
+    credentials_allowed;
+    max_age_in_seconds;
+  }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let oci_artifact ?digest ?image_name ~login_server () : oci_artifact
+    =
+  { digest; image_name; login_server }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_healthcare_fhir_service ?access_policy_object_ids
+    ?configuration_export_storage_account_name
+    ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
+    ~location ~name ~resource_group_name ~workspace_id
+    ~authentication ~cors ~identity ~oci_artifact () :
+    azurerm_healthcare_fhir_service =
+  {
+    access_policy_object_ids;
+    configuration_export_storage_account_name;
+    container_registry_login_server_url;
+    id;
+    kind;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    workspace_id;
+    authentication;
+    cors;
+    identity;
+    oci_artifact;
+    timeouts;
+  }
 
 type t = {
   access_policy_object_ids : string list prop;
@@ -92,33 +137,20 @@ type t = {
   workspace_id : string prop;
 }
 
-let azurerm_healthcare_fhir_service ?access_policy_object_ids
+let register ?tf_module ?access_policy_object_ids
     ?configuration_export_storage_account_name
     ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
     ~location ~name ~resource_group_name ~workspace_id
     ~authentication ~cors ~identity ~oci_artifact __resource_id =
   let __resource_type = "azurerm_healthcare_fhir_service" in
   let __resource =
-    ({
-       access_policy_object_ids;
-       configuration_export_storage_account_name;
-       container_registry_login_server_url;
-       id;
-       kind;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       workspace_id;
-       authentication;
-       cors;
-       identity;
-       oci_artifact;
-       timeouts;
-     }
-      : azurerm_healthcare_fhir_service)
+    azurerm_healthcare_fhir_service ?access_policy_object_ids
+      ?configuration_export_storage_account_name
+      ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
+      ~location ~name ~resource_group_name ~workspace_id
+      ~authentication ~cors ~identity ~oci_artifact ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_healthcare_fhir_service __resource);
   let __resource_attributes =
     ({

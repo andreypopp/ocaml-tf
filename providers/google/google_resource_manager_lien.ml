@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_resource_manager_lien__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_resource_manager_lien__timeouts *)
+(** timeouts *)
 
 type google_resource_manager_lien = {
   id : string prop option; [@option]  (** id *)
@@ -31,10 +31,16 @@ Each value should correspond to an IAM permission. The server will validate
 the permissions against those for which Liens are supported.  An empty
 list is meaningless and will be rejected.
 e.g. ['resourcemanager.projects.delete'] *)
-  timeouts : google_resource_manager_lien__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_resource_manager_lien *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_resource_manager_lien ?id ?timeouts ~origin ~parent
+    ~reason ~restrictions () : google_resource_manager_lien =
+  { id; origin; parent; reason; restrictions; timeouts }
 
 type t = {
   create_time : string prop;
@@ -46,14 +52,14 @@ type t = {
   restrictions : string list prop;
 }
 
-let google_resource_manager_lien ?id ?timeouts ~origin ~parent
-    ~reason ~restrictions __resource_id =
+let register ?tf_module ?id ?timeouts ~origin ~parent ~reason
+    ~restrictions __resource_id =
   let __resource_type = "google_resource_manager_lien" in
   let __resource =
-    ({ id; origin; parent; reason; restrictions; timeouts }
-      : google_resource_manager_lien)
+    google_resource_manager_lien ?id ?timeouts ~origin ~parent
+      ~reason ~restrictions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_resource_manager_lien __resource);
   let __resource_attributes =
     ({

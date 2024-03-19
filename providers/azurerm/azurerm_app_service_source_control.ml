@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_source_control__github_action_configuration__code_configuration = {
+type github_action_configuration__code_configuration = {
   runtime_stack : string prop;
       (** The value to use for the Runtime Stack in the workflow file content for code base apps. *)
   runtime_version : string prop;
       (** The value to use for the Runtime Version in the workflow file content for code base apps. *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_source_control__github_action_configuration__code_configuration *)
+(** github_action_configuration__code_configuration *)
 
-type azurerm_app_service_source_control__github_action_configuration__container_configuration = {
+type github_action_configuration__container_configuration = {
   image_name : string prop;  (** The image name for the build. *)
   registry_password : string prop option; [@option]
       (** The password used to upload the image to the container registry. *)
@@ -23,30 +23,26 @@ type azurerm_app_service_source_control__github_action_configuration__container_
       (** The username used to upload the image to the container registry. *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_source_control__github_action_configuration__container_configuration *)
+(** github_action_configuration__container_configuration *)
 
-type azurerm_app_service_source_control__github_action_configuration = {
+type github_action_configuration = {
   generate_workflow_file : bool prop option; [@option]
       (** Should the service generate the GitHub Action Workflow file. Defaults to `true` *)
-  linux_action : bool prop;
-      (** Denotes this action uses a Linux base image. *)
   code_configuration :
-    azurerm_app_service_source_control__github_action_configuration__code_configuration
-    list;
+    github_action_configuration__code_configuration list;
   container_configuration :
-    azurerm_app_service_source_control__github_action_configuration__container_configuration
-    list;
+    github_action_configuration__container_configuration list;
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_source_control__github_action_configuration *)
+(** github_action_configuration *)
 
-type azurerm_app_service_source_control__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_source_control__timeouts *)
+(** timeouts *)
 
 type azurerm_app_service_source_control = {
   app_id : string prop;
@@ -64,13 +60,50 @@ type azurerm_app_service_source_control = {
       (** Should code be deployed manually. Set to `false` to enable continuous integration, such as webhooks into online repos such as GitHub. Defaults to `false`. *)
   use_mercurial : bool prop option; [@option]
       (** The repository specified is Mercurial. Defaults to `false`. *)
-  github_action_configuration :
-    azurerm_app_service_source_control__github_action_configuration
-    list;
-  timeouts : azurerm_app_service_source_control__timeouts option;
+  github_action_configuration : github_action_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_source_control *)
+
+let github_action_configuration__code_configuration ~runtime_stack
+    ~runtime_version () :
+    github_action_configuration__code_configuration =
+  { runtime_stack; runtime_version }
+
+let github_action_configuration__container_configuration
+    ?registry_password ?registry_username ~image_name ~registry_url
+    () : github_action_configuration__container_configuration =
+  { image_name; registry_password; registry_url; registry_username }
+
+let github_action_configuration ?generate_workflow_file
+    ~code_configuration ~container_configuration () :
+    github_action_configuration =
+  {
+    generate_workflow_file;
+    code_configuration;
+    container_configuration;
+  }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_app_service_source_control ?branch ?id ?repo_url
+    ?rollback_enabled ?use_local_git ?use_manual_integration
+    ?use_mercurial ?timeouts ~app_id ~github_action_configuration ()
+    : azurerm_app_service_source_control =
+  {
+    app_id;
+    branch;
+    id;
+    repo_url;
+    rollback_enabled;
+    use_local_git;
+    use_manual_integration;
+    use_mercurial;
+    github_action_configuration;
+    timeouts;
+  }
 
 type t = {
   app_id : string prop;
@@ -85,27 +118,17 @@ type t = {
   uses_github_action : bool prop;
 }
 
-let azurerm_app_service_source_control ?branch ?id ?repo_url
-    ?rollback_enabled ?use_local_git ?use_manual_integration
-    ?use_mercurial ?timeouts ~app_id ~github_action_configuration
-    __resource_id =
+let register ?tf_module ?branch ?id ?repo_url ?rollback_enabled
+    ?use_local_git ?use_manual_integration ?use_mercurial ?timeouts
+    ~app_id ~github_action_configuration __resource_id =
   let __resource_type = "azurerm_app_service_source_control" in
   let __resource =
-    ({
-       app_id;
-       branch;
-       id;
-       repo_url;
-       rollback_enabled;
-       use_local_git;
-       use_manual_integration;
-       use_mercurial;
-       github_action_configuration;
-       timeouts;
-     }
-      : azurerm_app_service_source_control)
+    azurerm_app_service_source_control ?branch ?id ?repo_url
+      ?rollback_enabled ?use_local_git ?use_manual_integration
+      ?use_mercurial ?timeouts ~app_id ~github_action_configuration
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_source_control __resource);
   let __resource_attributes =
     ({

@@ -15,6 +15,18 @@ type aws_route53_traffic_policy_instance = {
 [@@deriving yojson_of]
 (** aws_route53_traffic_policy_instance *)
 
+let aws_route53_traffic_policy_instance ?id ~hosted_zone_id ~name
+    ~traffic_policy_id ~traffic_policy_version ~ttl () :
+    aws_route53_traffic_policy_instance =
+  {
+    hosted_zone_id;
+    id;
+    name;
+    traffic_policy_id;
+    traffic_policy_version;
+    ttl;
+  }
+
 type t = {
   hosted_zone_id : string prop;
   id : string prop;
@@ -24,21 +36,14 @@ type t = {
   ttl : float prop;
 }
 
-let aws_route53_traffic_policy_instance ?id ~hosted_zone_id ~name
-    ~traffic_policy_id ~traffic_policy_version ~ttl __resource_id =
+let register ?tf_module ?id ~hosted_zone_id ~name ~traffic_policy_id
+    ~traffic_policy_version ~ttl __resource_id =
   let __resource_type = "aws_route53_traffic_policy_instance" in
   let __resource =
-    ({
-       hosted_zone_id;
-       id;
-       name;
-       traffic_policy_id;
-       traffic_policy_version;
-       ttl;
-     }
-      : aws_route53_traffic_policy_instance)
+    aws_route53_traffic_policy_instance ?id ~hosted_zone_id ~name
+      ~traffic_policy_id ~traffic_policy_version ~ttl ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_traffic_policy_instance __resource);
   let __resource_attributes =
     ({

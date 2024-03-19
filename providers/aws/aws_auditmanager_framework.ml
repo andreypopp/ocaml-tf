@@ -4,19 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_auditmanager_framework__control_sets__controls = {
-  id : string prop;  (** id *)
-}
+type control_sets__controls = { id : string prop  (** id *) }
 [@@deriving yojson_of]
-(** aws_auditmanager_framework__control_sets__controls *)
+(** control_sets__controls *)
 
-type aws_auditmanager_framework__control_sets = {
-  id : string prop;  (** id *)
+type control_sets = {
   name : string prop;  (** name *)
-  controls : aws_auditmanager_framework__control_sets__controls list;
+  controls : control_sets__controls list;
 }
 [@@deriving yojson_of]
-(** aws_auditmanager_framework__control_sets *)
+(** control_sets *)
 
 type aws_auditmanager_framework = {
   compliance_type : string prop option; [@option]
@@ -24,10 +21,19 @@ type aws_auditmanager_framework = {
   description : string prop option; [@option]  (** description *)
   name : string prop;  (** name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  control_sets : aws_auditmanager_framework__control_sets list;
+  control_sets : control_sets list;
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_framework *)
+
+let control_sets__controls ~id () : control_sets__controls = { id }
+
+let control_sets ~name ~controls () : control_sets =
+  { name; controls }
+
+let aws_auditmanager_framework ?compliance_type ?description ?tags
+    ~name ~control_sets () : aws_auditmanager_framework =
+  { compliance_type; description; name; tags; control_sets }
 
 type t = {
   arn : string prop;
@@ -40,14 +46,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_auditmanager_framework ?compliance_type ?description ?tags
-    ~name ~control_sets __resource_id =
+let register ?tf_module ?compliance_type ?description ?tags ~name
+    ~control_sets __resource_id =
   let __resource_type = "aws_auditmanager_framework" in
   let __resource =
-    ({ compliance_type; description; name; tags; control_sets }
-      : aws_auditmanager_framework)
+    aws_auditmanager_framework ?compliance_type ?description ?tags
+      ~name ~control_sets ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_auditmanager_framework __resource);
   let __resource_attributes =
     ({

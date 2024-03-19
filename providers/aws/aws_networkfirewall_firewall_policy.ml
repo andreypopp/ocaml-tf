@@ -4,99 +4,95 @@
 
 open! Tf.Prelude
 
-type aws_networkfirewall_firewall_policy__encryption_configuration = {
+type encryption_configuration = {
   key_id : string prop option; [@option]  (** key_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__encryption_configuration *)
+(** encryption_configuration *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables__ip_set = {
+type firewall_policy__policy_variables__rule_variables__ip_set = {
   definition : string prop list;  (** definition *)
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables__ip_set *)
+(** firewall_policy__policy_variables__rule_variables__ip_set *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables = {
+type firewall_policy__policy_variables__rule_variables = {
   key : string prop;  (** key *)
   ip_set :
-    aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables__ip_set
-    list;
+    firewall_policy__policy_variables__rule_variables__ip_set list;
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables *)
+(** firewall_policy__policy_variables__rule_variables *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__policy_variables = {
+type firewall_policy__policy_variables = {
   rule_variables :
-    aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables
-    list;
+    firewall_policy__policy_variables__rule_variables list;
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__policy_variables *)
+(** firewall_policy__policy_variables *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__stateful_engine_options = {
+type firewall_policy__stateful_engine_options = {
   rule_order : string prop option; [@option]  (** rule_order *)
   stream_exception_policy : string prop option; [@option]
       (** stream_exception_policy *)
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__stateful_engine_options *)
+(** firewall_policy__stateful_engine_options *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference__override = {
+type firewall_policy__stateful_rule_group_reference__override = {
   action : string prop option; [@option]  (** action *)
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference__override *)
+(** firewall_policy__stateful_rule_group_reference__override *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference = {
+type firewall_policy__stateful_rule_group_reference = {
   priority : float prop option; [@option]  (** priority *)
   resource_arn : string prop;  (** resource_arn *)
   override :
-    aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference__override
-    list;
+    firewall_policy__stateful_rule_group_reference__override list;
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference *)
+(** firewall_policy__stateful_rule_group_reference *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension = {
+type firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension = {
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension *)
+(** firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition__publish_metric_action = {
+type firewall_policy__stateless_custom_action__action_definition__publish_metric_action = {
   dimension :
-    aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension
+    firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension
     list;
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition__publish_metric_action *)
+(** firewall_policy__stateless_custom_action__action_definition__publish_metric_action *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition = {
+type firewall_policy__stateless_custom_action__action_definition = {
   publish_metric_action :
-    aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition__publish_metric_action
+    firewall_policy__stateless_custom_action__action_definition__publish_metric_action
     list;
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition *)
+(** firewall_policy__stateless_custom_action__action_definition *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action = {
+type firewall_policy__stateless_custom_action = {
   action_name : string prop;  (** action_name *)
   action_definition :
-    aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition
-    list;
+    firewall_policy__stateless_custom_action__action_definition list;
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action *)
+(** firewall_policy__stateless_custom_action *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy__stateless_rule_group_reference = {
+type firewall_policy__stateless_rule_group_reference = {
   priority : float prop;  (** priority *)
   resource_arn : string prop;  (** resource_arn *)
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy__stateless_rule_group_reference *)
+(** firewall_policy__stateless_rule_group_reference *)
 
-type aws_networkfirewall_firewall_policy__firewall_policy = {
+type firewall_policy = {
   stateful_default_actions : string prop list option; [@option]
       (** stateful_default_actions *)
   stateless_default_actions : string prop list;
@@ -105,24 +101,18 @@ type aws_networkfirewall_firewall_policy__firewall_policy = {
       (** stateless_fragment_default_actions *)
   tls_inspection_configuration_arn : string prop option; [@option]
       (** tls_inspection_configuration_arn *)
-  policy_variables :
-    aws_networkfirewall_firewall_policy__firewall_policy__policy_variables
-    list;
+  policy_variables : firewall_policy__policy_variables list;
   stateful_engine_options :
-    aws_networkfirewall_firewall_policy__firewall_policy__stateful_engine_options
-    list;
+    firewall_policy__stateful_engine_options list;
   stateful_rule_group_reference :
-    aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference
-    list;
+    firewall_policy__stateful_rule_group_reference list;
   stateless_custom_action :
-    aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action
-    list;
+    firewall_policy__stateless_custom_action list;
   stateless_rule_group_reference :
-    aws_networkfirewall_firewall_policy__firewall_policy__stateless_rule_group_reference
-    list;
+    firewall_policy__stateless_rule_group_reference list;
 }
 [@@deriving yojson_of]
-(** aws_networkfirewall_firewall_policy__firewall_policy *)
+(** firewall_policy *)
 
 type aws_networkfirewall_firewall_policy = {
   description : string prop option; [@option]  (** description *)
@@ -131,14 +121,100 @@ type aws_networkfirewall_firewall_policy = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  encryption_configuration :
-    aws_networkfirewall_firewall_policy__encryption_configuration
-    list;
-  firewall_policy :
-    aws_networkfirewall_firewall_policy__firewall_policy list;
+  encryption_configuration : encryption_configuration list;
+  firewall_policy : firewall_policy list;
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy *)
+
+let encryption_configuration ?key_id ~type_ () :
+    encryption_configuration =
+  { key_id; type_ }
+
+let firewall_policy__policy_variables__rule_variables__ip_set
+    ~definition () :
+    firewall_policy__policy_variables__rule_variables__ip_set =
+  { definition }
+
+let firewall_policy__policy_variables__rule_variables ~key ~ip_set ()
+    : firewall_policy__policy_variables__rule_variables =
+  { key; ip_set }
+
+let firewall_policy__policy_variables ~rule_variables () :
+    firewall_policy__policy_variables =
+  { rule_variables }
+
+let firewall_policy__stateful_engine_options ?rule_order
+    ?stream_exception_policy () :
+    firewall_policy__stateful_engine_options =
+  { rule_order; stream_exception_policy }
+
+let firewall_policy__stateful_rule_group_reference__override ?action
+    () : firewall_policy__stateful_rule_group_reference__override =
+  { action }
+
+let firewall_policy__stateful_rule_group_reference ?priority
+    ~resource_arn ~override () :
+    firewall_policy__stateful_rule_group_reference =
+  { priority; resource_arn; override }
+
+let firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension
+    ~value () :
+    firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension
+    =
+  { value }
+
+let firewall_policy__stateless_custom_action__action_definition__publish_metric_action
+    ~dimension () :
+    firewall_policy__stateless_custom_action__action_definition__publish_metric_action
+    =
+  { dimension }
+
+let firewall_policy__stateless_custom_action__action_definition
+    ~publish_metric_action () :
+    firewall_policy__stateless_custom_action__action_definition =
+  { publish_metric_action }
+
+let firewall_policy__stateless_custom_action ~action_name
+    ~action_definition () : firewall_policy__stateless_custom_action
+    =
+  { action_name; action_definition }
+
+let firewall_policy__stateless_rule_group_reference ~priority
+    ~resource_arn () :
+    firewall_policy__stateless_rule_group_reference =
+  { priority; resource_arn }
+
+let firewall_policy ?stateful_default_actions
+    ?tls_inspection_configuration_arn ~stateless_default_actions
+    ~stateless_fragment_default_actions ~policy_variables
+    ~stateful_engine_options ~stateful_rule_group_reference
+    ~stateless_custom_action ~stateless_rule_group_reference () :
+    firewall_policy =
+  {
+    stateful_default_actions;
+    stateless_default_actions;
+    stateless_fragment_default_actions;
+    tls_inspection_configuration_arn;
+    policy_variables;
+    stateful_engine_options;
+    stateful_rule_group_reference;
+    stateless_custom_action;
+    stateless_rule_group_reference;
+  }
+
+let aws_networkfirewall_firewall_policy ?description ?id ?tags
+    ?tags_all ~name ~encryption_configuration ~firewall_policy () :
+    aws_networkfirewall_firewall_policy =
+  {
+    description;
+    id;
+    name;
+    tags;
+    tags_all;
+    encryption_configuration;
+    firewall_policy;
+  }
 
 type t = {
   arn : string prop;
@@ -150,23 +226,14 @@ type t = {
   update_token : string prop;
 }
 
-let aws_networkfirewall_firewall_policy ?description ?id ?tags
-    ?tags_all ~name ~encryption_configuration ~firewall_policy
-    __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
+    ~encryption_configuration ~firewall_policy __resource_id =
   let __resource_type = "aws_networkfirewall_firewall_policy" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       tags;
-       tags_all;
-       encryption_configuration;
-       firewall_policy;
-     }
-      : aws_networkfirewall_firewall_policy)
+    aws_networkfirewall_firewall_policy ?description ?id ?tags
+      ?tags_all ~name ~encryption_configuration ~firewall_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkfirewall_firewall_policy __resource);
   let __resource_attributes =
     ({

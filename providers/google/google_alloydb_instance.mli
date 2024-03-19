@@ -2,13 +2,76 @@
 
 open! Tf.Prelude
 
-type google_alloydb_instance__client_connection_config__ssl_config
-type google_alloydb_instance__client_connection_config
-type google_alloydb_instance__machine_config
-type google_alloydb_instance__query_insights_config
-type google_alloydb_instance__read_pool_config
-type google_alloydb_instance__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type client_connection_config__ssl_config
+
+val client_connection_config__ssl_config :
+  ?ssl_mode:string prop ->
+  unit ->
+  client_connection_config__ssl_config
+
+type client_connection_config
+
+val client_connection_config :
+  ?require_connectors:bool prop ->
+  ssl_config:client_connection_config__ssl_config list ->
+  unit ->
+  client_connection_config
+
+type machine_config
+
+val machine_config : ?cpu_count:float prop -> unit -> machine_config
+
+type query_insights_config
+
+val query_insights_config :
+  ?query_plans_per_minute:float prop ->
+  ?query_string_length:float prop ->
+  ?record_application_tags:bool prop ->
+  ?record_client_address:bool prop ->
+  unit ->
+  query_insights_config
+
+type read_pool_config
+
+val read_pool_config :
+  ?node_count:float prop -> unit -> read_pool_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_alloydb_instance
+
+val google_alloydb_instance :
+  ?annotations:(string * string prop) list ->
+  ?availability_type:string prop ->
+  ?database_flags:(string * string prop) list ->
+  ?display_name:string prop ->
+  ?gce_zone:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  instance_id:string prop ->
+  instance_type:string prop ->
+  client_connection_config:client_connection_config list ->
+  machine_config:machine_config list ->
+  query_insights_config:query_insights_config list ->
+  read_pool_config:read_pool_config list ->
+  unit ->
+  google_alloydb_instance
+
+val yojson_of_google_alloydb_instance :
+  google_alloydb_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   annotations : (string * string) list prop;
@@ -33,7 +96,8 @@ type t = private {
   update_time : string prop;
 }
 
-val google_alloydb_instance :
+val register :
+  ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?availability_type:string prop ->
   ?database_flags:(string * string prop) list ->
@@ -41,15 +105,13 @@ val google_alloydb_instance :
   ?gce_zone:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
-  ?timeouts:google_alloydb_instance__timeouts ->
+  ?timeouts:timeouts ->
   cluster:string prop ->
   instance_id:string prop ->
   instance_type:string prop ->
-  client_connection_config:
-    google_alloydb_instance__client_connection_config list ->
-  machine_config:google_alloydb_instance__machine_config list ->
-  query_insights_config:
-    google_alloydb_instance__query_insights_config list ->
-  read_pool_config:google_alloydb_instance__read_pool_config list ->
+  client_connection_config:client_connection_config list ->
+  machine_config:machine_config list ->
+  query_insights_config:query_insights_config list ->
+  read_pool_config:read_pool_config list ->
   string ->
   t

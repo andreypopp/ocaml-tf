@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_logpull_retention
+
+val cloudflare_logpull_retention :
+  ?id:string prop ->
+  enabled:bool prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_logpull_retention
+
+val yojson_of_cloudflare_logpull_retention :
+  cloudflare_logpull_retention -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enabled : bool prop;
@@ -10,7 +24,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_logpull_retention :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   enabled:bool prop ->
   zone_id:string prop ->

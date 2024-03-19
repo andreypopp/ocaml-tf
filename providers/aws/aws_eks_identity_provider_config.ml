@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_eks_identity_provider_config__oidc = {
+type oidc = {
   client_id : string prop;  (** client_id *)
   groups_claim : string prop option; [@option]  (** groups_claim *)
   groups_prefix : string prop option; [@option]  (** groups_prefix *)
@@ -19,14 +19,14 @@ type aws_eks_identity_provider_config__oidc = {
       (** username_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_eks_identity_provider_config__oidc *)
+(** oidc *)
 
-type aws_eks_identity_provider_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_eks_identity_provider_config__timeouts *)
+(** timeouts *)
 
 type aws_eks_identity_provider_config = {
   cluster_name : string prop;  (** cluster_name *)
@@ -34,11 +34,31 @@ type aws_eks_identity_provider_config = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  oidc : aws_eks_identity_provider_config__oidc list;
-  timeouts : aws_eks_identity_provider_config__timeouts option;
+  oidc : oidc list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_eks_identity_provider_config *)
+
+let oidc ?groups_claim ?groups_prefix ?required_claims
+    ?username_claim ?username_prefix ~client_id
+    ~identity_provider_config_name ~issuer_url () : oidc =
+  {
+    client_id;
+    groups_claim;
+    groups_prefix;
+    identity_provider_config_name;
+    issuer_url;
+    required_claims;
+    username_claim;
+    username_prefix;
+  }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_eks_identity_provider_config ?id ?tags ?tags_all ?timeouts
+    ~cluster_name ~oidc () : aws_eks_identity_provider_config =
+  { cluster_name; id; tags; tags_all; oidc; timeouts }
 
 type t = {
   arn : string prop;
@@ -49,14 +69,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_eks_identity_provider_config ?id ?tags ?tags_all ?timeouts
-    ~cluster_name ~oidc __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~cluster_name
+    ~oidc __resource_id =
   let __resource_type = "aws_eks_identity_provider_config" in
   let __resource =
-    ({ cluster_name; id; tags; tags_all; oidc; timeouts }
-      : aws_eks_identity_provider_config)
+    aws_eks_identity_provider_config ?id ?tags ?tags_all ?timeouts
+      ~cluster_name ~oidc ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_identity_provider_config __resource);
   let __resource_attributes =
     ({

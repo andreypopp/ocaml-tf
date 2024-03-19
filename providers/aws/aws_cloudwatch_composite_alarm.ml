@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_cloudwatch_composite_alarm__actions_suppressor = {
+type actions_suppressor = {
   alarm : string prop;  (** alarm *)
   extension_period : float prop;  (** extension_period *)
   wait_period : float prop;  (** wait_period *)
 }
 [@@deriving yojson_of]
-(** aws_cloudwatch_composite_alarm__actions_suppressor *)
+(** actions_suppressor *)
 
 type aws_cloudwatch_composite_alarm = {
   actions_enabled : bool prop option; [@option]
@@ -28,11 +28,32 @@ type aws_cloudwatch_composite_alarm = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  actions_suppressor :
-    aws_cloudwatch_composite_alarm__actions_suppressor list;
+  actions_suppressor : actions_suppressor list;
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_composite_alarm *)
+
+let actions_suppressor ~alarm ~extension_period ~wait_period () :
+    actions_suppressor =
+  { alarm; extension_period; wait_period }
+
+let aws_cloudwatch_composite_alarm ?actions_enabled ?alarm_actions
+    ?alarm_description ?id ?insufficient_data_actions ?ok_actions
+    ?tags ?tags_all ~alarm_name ~alarm_rule ~actions_suppressor () :
+    aws_cloudwatch_composite_alarm =
+  {
+    actions_enabled;
+    alarm_actions;
+    alarm_description;
+    alarm_name;
+    alarm_rule;
+    id;
+    insufficient_data_actions;
+    ok_actions;
+    tags;
+    tags_all;
+    actions_suppressor;
+  }
 
 type t = {
   actions_enabled : bool prop;
@@ -48,28 +69,17 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_cloudwatch_composite_alarm ?actions_enabled ?alarm_actions
+let register ?tf_module ?actions_enabled ?alarm_actions
     ?alarm_description ?id ?insufficient_data_actions ?ok_actions
     ?tags ?tags_all ~alarm_name ~alarm_rule ~actions_suppressor
     __resource_id =
   let __resource_type = "aws_cloudwatch_composite_alarm" in
   let __resource =
-    ({
-       actions_enabled;
-       alarm_actions;
-       alarm_description;
-       alarm_name;
-       alarm_rule;
-       id;
-       insufficient_data_actions;
-       ok_actions;
-       tags;
-       tags_all;
-       actions_suppressor;
-     }
-      : aws_cloudwatch_composite_alarm)
+    aws_cloudwatch_composite_alarm ?actions_enabled ?alarm_actions
+      ?alarm_description ?id ?insufficient_data_actions ?ok_actions
+      ?tags ?tags_all ~alarm_name ~alarm_rule ~actions_suppressor ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_composite_alarm __resource);
   let __resource_attributes =
     ({

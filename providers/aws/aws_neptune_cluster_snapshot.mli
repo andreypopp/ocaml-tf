@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_neptune_cluster_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_neptune_cluster_snapshot
+
+val aws_neptune_cluster_snapshot :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  db_cluster_identifier:string prop ->
+  db_cluster_snapshot_identifier:string prop ->
+  unit ->
+  aws_neptune_cluster_snapshot
+
+val yojson_of_aws_neptune_cluster_snapshot :
+  aws_neptune_cluster_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allocated_storage : float prop;
@@ -24,9 +42,10 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_neptune_cluster_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_neptune_cluster_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   db_cluster_identifier:string prop ->
   db_cluster_snapshot_identifier:string prop ->
   string ->

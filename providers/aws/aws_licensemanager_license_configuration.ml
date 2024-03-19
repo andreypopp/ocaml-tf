@@ -21,6 +21,22 @@ type aws_licensemanager_license_configuration = {
 [@@deriving yojson_of]
 (** aws_licensemanager_license_configuration *)
 
+let aws_licensemanager_license_configuration ?description ?id
+    ?license_count ?license_count_hard_limit ?license_rules ?tags
+    ?tags_all ~license_counting_type ~name () :
+    aws_licensemanager_license_configuration =
+  {
+    description;
+    id;
+    license_count;
+    license_count_hard_limit;
+    license_counting_type;
+    license_rules;
+    name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -35,25 +51,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_licensemanager_license_configuration ?description ?id
-    ?license_count ?license_count_hard_limit ?license_rules ?tags
-    ?tags_all ~license_counting_type ~name __resource_id =
+let register ?tf_module ?description ?id ?license_count
+    ?license_count_hard_limit ?license_rules ?tags ?tags_all
+    ~license_counting_type ~name __resource_id =
   let __resource_type = "aws_licensemanager_license_configuration" in
   let __resource =
-    ({
-       description;
-       id;
-       license_count;
-       license_count_hard_limit;
-       license_counting_type;
-       license_rules;
-       name;
-       tags;
-       tags_all;
-     }
-      : aws_licensemanager_license_configuration)
+    aws_licensemanager_license_configuration ?description ?id
+      ?license_count ?license_count_hard_limit ?license_rules ?tags
+      ?tags_all ~license_counting_type ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_licensemanager_license_configuration __resource);
   let __resource_attributes =
     ({

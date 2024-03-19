@@ -21,6 +21,21 @@ type aws_ec2_network_insights_path = {
 [@@deriving yojson_of]
 (** aws_ec2_network_insights_path *)
 
+let aws_ec2_network_insights_path ?destination_ip ?destination_port
+    ?id ?source_ip ?tags ?tags_all ~destination ~protocol ~source ()
+    : aws_ec2_network_insights_path =
+  {
+    destination;
+    destination_ip;
+    destination_port;
+    id;
+    protocol;
+    source;
+    source_ip;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   destination : string prop;
@@ -36,25 +51,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ec2_network_insights_path ?destination_ip ?destination_port
-    ?id ?source_ip ?tags ?tags_all ~destination ~protocol ~source
+let register ?tf_module ?destination_ip ?destination_port ?id
+    ?source_ip ?tags ?tags_all ~destination ~protocol ~source
     __resource_id =
   let __resource_type = "aws_ec2_network_insights_path" in
   let __resource =
-    ({
-       destination;
-       destination_ip;
-       destination_port;
-       id;
-       protocol;
-       source;
-       source_ip;
-       tags;
-       tags_all;
-     }
-      : aws_ec2_network_insights_path)
+    aws_ec2_network_insights_path ?destination_ip ?destination_port
+      ?id ?source_ip ?tags ?tags_all ~destination ~protocol ~source
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_network_insights_path __resource);
   let __resource_attributes =
     ({

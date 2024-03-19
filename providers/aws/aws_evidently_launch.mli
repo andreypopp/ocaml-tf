@@ -2,28 +2,102 @@
 
 open! Tf.Prelude
 
-type aws_evidently_launch__groups
-type aws_evidently_launch__metric_monitors__metric_definition
-type aws_evidently_launch__metric_monitors
+(** RESOURCE SERIALIZATION *)
 
-type aws_evidently_launch__scheduled_splits_config__steps__segment_overrides
-
-type aws_evidently_launch__scheduled_splits_config__steps
-type aws_evidently_launch__scheduled_splits_config
-type aws_evidently_launch__timeouts
-
-type aws_evidently_launch__execution = {
+type execution = {
   ended_time : string prop;  (** ended_time *)
   started_time : string prop;  (** started_time *)
 }
 
+type groups
+
+val groups :
+  ?description:string prop ->
+  feature:string prop ->
+  name:string prop ->
+  variation:string prop ->
+  unit ->
+  groups
+
+type metric_monitors__metric_definition
+
+val metric_monitors__metric_definition :
+  ?event_pattern:string prop ->
+  ?unit_label:string prop ->
+  entity_id_key:string prop ->
+  name:string prop ->
+  value_key:string prop ->
+  unit ->
+  metric_monitors__metric_definition
+
+type metric_monitors
+
+val metric_monitors :
+  metric_definition:metric_monitors__metric_definition list ->
+  unit ->
+  metric_monitors
+
+type scheduled_splits_config__steps__segment_overrides
+
+val scheduled_splits_config__steps__segment_overrides :
+  evaluation_order:float prop ->
+  segment:string prop ->
+  weights:(string * float prop) list ->
+  unit ->
+  scheduled_splits_config__steps__segment_overrides
+
+type scheduled_splits_config__steps
+
+val scheduled_splits_config__steps :
+  group_weights:(string * float prop) list ->
+  start_time:string prop ->
+  segment_overrides:
+    scheduled_splits_config__steps__segment_overrides list ->
+  unit ->
+  scheduled_splits_config__steps
+
+type scheduled_splits_config
+
+val scheduled_splits_config :
+  steps:scheduled_splits_config__steps list ->
+  unit ->
+  scheduled_splits_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_evidently_launch
+
+val aws_evidently_launch :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?randomization_salt:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  project:string prop ->
+  groups:groups list ->
+  metric_monitors:metric_monitors list ->
+  scheduled_splits_config:scheduled_splits_config list ->
+  unit ->
+  aws_evidently_launch
+
+val yojson_of_aws_evidently_launch : aws_evidently_launch -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
   created_time : string prop;
   description : string prop;
-  execution : aws_evidently_launch__execution list prop;
+  execution : execution list prop;
   id : string prop;
   last_updated_time : string prop;
   name : string prop;
@@ -36,18 +110,18 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_evidently_launch :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?randomization_salt:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_evidently_launch__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   project:string prop ->
-  groups:aws_evidently_launch__groups list ->
-  metric_monitors:aws_evidently_launch__metric_monitors list ->
-  scheduled_splits_config:
-    aws_evidently_launch__scheduled_splits_config list ->
+  groups:groups list ->
+  metric_monitors:metric_monitors list ->
+  scheduled_splits_config:scheduled_splits_config list ->
   string ->
   t

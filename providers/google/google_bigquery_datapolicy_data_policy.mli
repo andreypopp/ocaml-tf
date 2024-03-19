@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type google_bigquery_datapolicy_data_policy__data_masking_policy
-type google_bigquery_datapolicy_data_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type data_masking_policy
+
+val data_masking_policy :
+  predefined_expression:string prop -> unit -> data_masking_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_bigquery_datapolicy_data_policy
+
+val google_bigquery_datapolicy_data_policy :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  data_policy_id:string prop ->
+  data_policy_type:string prop ->
+  location:string prop ->
+  policy_tag:string prop ->
+  data_masking_policy:data_masking_policy list ->
+  unit ->
+  google_bigquery_datapolicy_data_policy
+
+val yojson_of_google_bigquery_datapolicy_data_policy :
+  google_bigquery_datapolicy_data_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   data_policy_id : string prop;
@@ -16,15 +47,15 @@ type t = private {
   project : string prop;
 }
 
-val google_bigquery_datapolicy_data_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_bigquery_datapolicy_data_policy__timeouts ->
+  ?timeouts:timeouts ->
   data_policy_id:string prop ->
   data_policy_type:string prop ->
   location:string prop ->
   policy_tag:string prop ->
-  data_masking_policy:
-    google_bigquery_datapolicy_data_policy__data_masking_policy list ->
+  data_masking_policy:data_masking_policy list ->
   string ->
   t

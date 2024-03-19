@@ -2,9 +2,41 @@
 
 open! Tf.Prelude
 
-type azurerm_function_app_function__file
-type azurerm_function_app_function__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type file
+
+val file : content:string prop -> name:string prop -> unit -> file
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_function_app_function
+
+val azurerm_function_app_function :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?language:string prop ->
+  ?test_data:string prop ->
+  ?timeouts:timeouts ->
+  config_json:string prop ->
+  function_app_id:string prop ->
+  name:string prop ->
+  file:file list ->
+  unit ->
+  azurerm_function_app_function
+
+val yojson_of_azurerm_function_app_function :
+  azurerm_function_app_function -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   config_json : string prop;
@@ -23,15 +55,16 @@ type t = private {
   url : string prop;
 }
 
-val azurerm_function_app_function :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?language:string prop ->
   ?test_data:string prop ->
-  ?timeouts:azurerm_function_app_function__timeouts ->
+  ?timeouts:timeouts ->
   config_json:string prop ->
   function_app_id:string prop ->
   name:string prop ->
-  file:azurerm_function_app_function__file list ->
+  file:file list ->
   string ->
   t

@@ -19,6 +19,21 @@ type aws_transfer_agreement = {
 [@@deriving yojson_of]
 (** aws_transfer_agreement *)
 
+let aws_transfer_agreement ?description ?id ?tags ?tags_all
+    ~access_role ~base_directory ~local_profile_id
+    ~partner_profile_id ~server_id () : aws_transfer_agreement =
+  {
+    access_role;
+    base_directory;
+    description;
+    id;
+    local_profile_id;
+    partner_profile_id;
+    server_id;
+    tags;
+    tags_all;
+  }
+
 type t = {
   access_role : string prop;
   agreement_id : string prop;
@@ -34,25 +49,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_transfer_agreement ?description ?id ?tags ?tags_all
-    ~access_role ~base_directory ~local_profile_id
-    ~partner_profile_id ~server_id __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~access_role
+    ~base_directory ~local_profile_id ~partner_profile_id ~server_id
+    __resource_id =
   let __resource_type = "aws_transfer_agreement" in
   let __resource =
-    ({
-       access_role;
-       base_directory;
-       description;
-       id;
-       local_profile_id;
-       partner_profile_id;
-       server_id;
-       tags;
-       tags_all;
-     }
-      : aws_transfer_agreement)
+    aws_transfer_agreement ?description ?id ?tags ?tags_all
+      ~access_role ~base_directory ~local_profile_id
+      ~partner_profile_id ~server_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_agreement __resource);
   let __resource_attributes =
     ({

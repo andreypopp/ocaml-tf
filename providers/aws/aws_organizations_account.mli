@@ -2,7 +2,28 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_organizations_account
+
+val aws_organizations_account :
+  ?close_on_deletion:bool prop ->
+  ?create_govcloud:bool prop ->
+  ?iam_user_access_to_billing:string prop ->
+  ?id:string prop ->
+  ?parent_id:string prop ->
+  ?role_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  email:string prop ->
+  name:string prop ->
+  unit ->
+  aws_organizations_account
+
+val yojson_of_aws_organizations_account :
+  aws_organizations_account -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -22,7 +43,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_organizations_account :
+val register :
+  ?tf_module:tf_module ->
   ?close_on_deletion:bool prop ->
   ?create_govcloud:bool prop ->
   ?iam_user_access_to_billing:string prop ->

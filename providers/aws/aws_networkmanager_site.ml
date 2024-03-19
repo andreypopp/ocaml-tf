@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_site__location = {
+type location = {
   address : string prop option; [@option]  (** address *)
   latitude : string prop option; [@option]  (** latitude *)
   longitude : string prop option; [@option]  (** longitude *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_site__location *)
+(** location *)
 
-type aws_networkmanager_site__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_site__timeouts *)
+(** timeouts *)
 
 type aws_networkmanager_site = {
   description : string prop option; [@option]  (** description *)
@@ -27,11 +27,30 @@ type aws_networkmanager_site = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  location : aws_networkmanager_site__location list;
-  timeouts : aws_networkmanager_site__timeouts option;
+  location : location list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_site *)
+
+let location ?address ?latitude ?longitude () : location =
+  { address; latitude; longitude }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_networkmanager_site ?description ?id ?tags ?tags_all
+    ?timeouts ~global_network_id ~location () :
+    aws_networkmanager_site =
+  {
+    description;
+    global_network_id;
+    id;
+    tags;
+    tags_all;
+    location;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -42,22 +61,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_networkmanager_site ?description ?id ?tags ?tags_all
-    ?timeouts ~global_network_id ~location __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~global_network_id ~location __resource_id =
   let __resource_type = "aws_networkmanager_site" in
   let __resource =
-    ({
-       description;
-       global_network_id;
-       id;
-       tags;
-       tags_all;
-       location;
-       timeouts;
-     }
-      : aws_networkmanager_site)
+    aws_networkmanager_site ?description ?id ?tags ?tags_all
+      ?timeouts ~global_network_id ~location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_site __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_output_blob__serialization = {
+type serialization = {
   encoding : string prop option; [@option]  (** encoding *)
   field_delimiter : string prop option; [@option]
       (** field_delimiter *)
@@ -12,16 +12,16 @@ type azurerm_stream_analytics_output_blob__serialization = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_output_blob__serialization *)
+(** serialization *)
 
-type azurerm_stream_analytics_output_blob__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_output_blob__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_output_blob = {
   authentication_mode : string prop option; [@option]
@@ -45,12 +45,43 @@ type azurerm_stream_analytics_output_blob = {
   stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
   time_format : string prop;  (** time_format *)
-  serialization :
-    azurerm_stream_analytics_output_blob__serialization list;
-  timeouts : azurerm_stream_analytics_output_blob__timeouts option;
+  serialization : serialization list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_blob *)
+
+let serialization ?encoding ?field_delimiter ?format ~type_ () :
+    serialization =
+  { encoding; field_delimiter; format; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_output_blob ?authentication_mode
+    ?batch_max_wait_time ?batch_min_rows ?blob_write_mode ?id
+    ?storage_account_key ?timeouts ~date_format ~name ~path_pattern
+    ~resource_group_name ~storage_account_name
+    ~storage_container_name ~stream_analytics_job_name ~time_format
+    ~serialization () : azurerm_stream_analytics_output_blob =
+  {
+    authentication_mode;
+    batch_max_wait_time;
+    batch_min_rows;
+    blob_write_mode;
+    date_format;
+    id;
+    name;
+    path_pattern;
+    resource_group_name;
+    storage_account_key;
+    storage_account_name;
+    storage_container_name;
+    stream_analytics_job_name;
+    time_format;
+    serialization;
+    timeouts;
+  }
 
 type t = {
   authentication_mode : string prop;
@@ -69,35 +100,22 @@ type t = {
   time_format : string prop;
 }
 
-let azurerm_stream_analytics_output_blob ?authentication_mode
-    ?batch_max_wait_time ?batch_min_rows ?blob_write_mode ?id
-    ?storage_account_key ?timeouts ~date_format ~name ~path_pattern
-    ~resource_group_name ~storage_account_name
-    ~storage_container_name ~stream_analytics_job_name ~time_format
-    ~serialization __resource_id =
+let register ?tf_module ?authentication_mode ?batch_max_wait_time
+    ?batch_min_rows ?blob_write_mode ?id ?storage_account_key
+    ?timeouts ~date_format ~name ~path_pattern ~resource_group_name
+    ~storage_account_name ~storage_container_name
+    ~stream_analytics_job_name ~time_format ~serialization
+    __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_blob" in
   let __resource =
-    ({
-       authentication_mode;
-       batch_max_wait_time;
-       batch_min_rows;
-       blob_write_mode;
-       date_format;
-       id;
-       name;
-       path_pattern;
-       resource_group_name;
-       storage_account_key;
-       storage_account_name;
-       storage_container_name;
-       stream_analytics_job_name;
-       time_format;
-       serialization;
-       timeouts;
-     }
-      : azurerm_stream_analytics_output_blob)
+    azurerm_stream_analytics_output_blob ?authentication_mode
+      ?batch_max_wait_time ?batch_min_rows ?blob_write_mode ?id
+      ?storage_account_key ?timeouts ~date_format ~name ~path_pattern
+      ~resource_group_name ~storage_account_name
+      ~storage_container_name ~stream_analytics_job_name ~time_format
+      ~serialization ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_blob __resource);
   let __resource_attributes =
     ({

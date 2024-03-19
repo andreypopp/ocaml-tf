@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_securityhub_product_subscription
+
+val aws_securityhub_product_subscription :
+  ?id:string prop ->
+  product_arn:string prop ->
+  unit ->
+  aws_securityhub_product_subscription
+
+val yojson_of_aws_securityhub_product_subscription :
+  aws_securityhub_product_subscription -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -10,5 +23,9 @@ type t = private {
   product_arn : string prop;
 }
 
-val aws_securityhub_product_subscription :
-  ?id:string prop -> product_arn:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  product_arn:string prop ->
+  string ->
+  t

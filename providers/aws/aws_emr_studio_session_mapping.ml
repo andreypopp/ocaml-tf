@@ -15,6 +15,18 @@ type aws_emr_studio_session_mapping = {
 [@@deriving yojson_of]
 (** aws_emr_studio_session_mapping *)
 
+let aws_emr_studio_session_mapping ?id ?identity_id ?identity_name
+    ~identity_type ~session_policy_arn ~studio_id () :
+    aws_emr_studio_session_mapping =
+  {
+    id;
+    identity_id;
+    identity_name;
+    identity_type;
+    session_policy_arn;
+    studio_id;
+  }
+
 type t = {
   id : string prop;
   identity_id : string prop;
@@ -24,21 +36,14 @@ type t = {
   studio_id : string prop;
 }
 
-let aws_emr_studio_session_mapping ?id ?identity_id ?identity_name
+let register ?tf_module ?id ?identity_id ?identity_name
     ~identity_type ~session_policy_arn ~studio_id __resource_id =
   let __resource_type = "aws_emr_studio_session_mapping" in
   let __resource =
-    ({
-       id;
-       identity_id;
-       identity_name;
-       identity_type;
-       session_policy_arn;
-       studio_id;
-     }
-      : aws_emr_studio_session_mapping)
+    aws_emr_studio_session_mapping ?id ?identity_id ?identity_name
+      ~identity_type ~session_policy_arn ~studio_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_studio_session_mapping __resource);
   let __resource_attributes =
     ({

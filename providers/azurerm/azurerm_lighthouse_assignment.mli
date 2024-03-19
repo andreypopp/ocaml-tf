@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_lighthouse_assignment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_lighthouse_assignment
+
+val azurerm_lighthouse_assignment :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?timeouts:timeouts ->
+  lighthouse_definition_id:string prop ->
+  scope:string prop ->
+  unit ->
+  azurerm_lighthouse_assignment
+
+val yojson_of_azurerm_lighthouse_assignment :
+  azurerm_lighthouse_assignment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,10 +36,11 @@ type t = private {
   scope : string prop;
 }
 
-val azurerm_lighthouse_assignment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?timeouts:azurerm_lighthouse_assignment__timeouts ->
+  ?timeouts:timeouts ->
   lighthouse_definition_id:string prop ->
   scope:string prop ->
   string ->

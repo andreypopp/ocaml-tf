@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_opensearch_inbound_connection_accepter__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_opensearch_inbound_connection_accepter
+
+val aws_opensearch_inbound_connection_accepter :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  connection_id:string prop ->
+  unit ->
+  aws_opensearch_inbound_connection_accepter
+
+val yojson_of_aws_opensearch_inbound_connection_accepter :
+  aws_opensearch_inbound_connection_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   connection_id : string prop;
@@ -11,9 +29,10 @@ type t = private {
   id : string prop;
 }
 
-val aws_opensearch_inbound_connection_accepter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_opensearch_inbound_connection_accepter__timeouts ->
+  ?timeouts:timeouts ->
   connection_id:string prop ->
   string ->
   t

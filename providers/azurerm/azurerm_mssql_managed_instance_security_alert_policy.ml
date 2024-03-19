@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_managed_instance_security_alert_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_managed_instance_security_alert_policy__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_managed_instance_security_alert_policy = {
   disabled_alerts : string prop list option; [@option]
@@ -30,12 +30,33 @@ type azurerm_mssql_managed_instance_security_alert_policy = {
       (** storage_account_access_key *)
   storage_endpoint : string prop option; [@option]
       (** storage_endpoint *)
-  timeouts :
-    azurerm_mssql_managed_instance_security_alert_policy__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_instance_security_alert_policy *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_managed_instance_security_alert_policy
+    ?disabled_alerts ?email_account_admins_enabled ?email_addresses
+    ?enabled ?id ?retention_days ?storage_account_access_key
+    ?storage_endpoint ?timeouts ~managed_instance_name
+    ~resource_group_name () :
+    azurerm_mssql_managed_instance_security_alert_policy =
+  {
+    disabled_alerts;
+    email_account_admins_enabled;
+    email_addresses;
+    enabled;
+    id;
+    managed_instance_name;
+    resource_group_name;
+    retention_days;
+    storage_account_access_key;
+    storage_endpoint;
+    timeouts;
+  }
 
 type t = {
   disabled_alerts : string list prop;
@@ -50,31 +71,22 @@ type t = {
   storage_endpoint : string prop;
 }
 
-let azurerm_mssql_managed_instance_security_alert_policy
-    ?disabled_alerts ?email_account_admins_enabled ?email_addresses
-    ?enabled ?id ?retention_days ?storage_account_access_key
-    ?storage_endpoint ?timeouts ~managed_instance_name
-    ~resource_group_name __resource_id =
+let register ?tf_module ?disabled_alerts
+    ?email_account_admins_enabled ?email_addresses ?enabled ?id
+    ?retention_days ?storage_account_access_key ?storage_endpoint
+    ?timeouts ~managed_instance_name ~resource_group_name
+    __resource_id =
   let __resource_type =
     "azurerm_mssql_managed_instance_security_alert_policy"
   in
   let __resource =
-    ({
-       disabled_alerts;
-       email_account_admins_enabled;
-       email_addresses;
-       enabled;
-       id;
-       managed_instance_name;
-       resource_group_name;
-       retention_days;
-       storage_account_access_key;
-       storage_endpoint;
-       timeouts;
-     }
-      : azurerm_mssql_managed_instance_security_alert_policy)
+    azurerm_mssql_managed_instance_security_alert_policy
+      ?disabled_alerts ?email_account_admins_enabled ?email_addresses
+      ?enabled ?id ?retention_days ?storage_account_access_key
+      ?storage_endpoint ?timeouts ~managed_instance_name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_instance_security_alert_policy
        __resource);
   let __resource_attributes =

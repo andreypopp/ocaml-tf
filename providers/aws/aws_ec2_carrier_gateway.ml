@@ -14,6 +14,10 @@ type aws_ec2_carrier_gateway = {
 [@@deriving yojson_of]
 (** aws_ec2_carrier_gateway *)
 
+let aws_ec2_carrier_gateway ?id ?tags ?tags_all ~vpc_id () :
+    aws_ec2_carrier_gateway =
+  { id; tags; tags_all; vpc_id }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -23,13 +27,12 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_ec2_carrier_gateway ?id ?tags ?tags_all ~vpc_id __resource_id
-    =
+let register ?tf_module ?id ?tags ?tags_all ~vpc_id __resource_id =
   let __resource_type = "aws_ec2_carrier_gateway" in
   let __resource =
-    ({ id; tags; tags_all; vpc_id } : aws_ec2_carrier_gateway)
+    aws_ec2_carrier_gateway ?id ?tags ?tags_all ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_carrier_gateway __resource);
   let __resource_attributes =
     ({

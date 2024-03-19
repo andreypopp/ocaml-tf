@@ -15,6 +15,10 @@ type aws_athena_named_query = {
 [@@deriving yojson_of]
 (** aws_athena_named_query *)
 
+let aws_athena_named_query ?description ?id ?workgroup ~database
+    ~name ~query () : aws_athena_named_query =
+  { database; description; id; name; query; workgroup }
+
 type t = {
   database : string prop;
   description : string prop;
@@ -24,14 +28,14 @@ type t = {
   workgroup : string prop;
 }
 
-let aws_athena_named_query ?description ?id ?workgroup ~database
-    ~name ~query __resource_id =
+let register ?tf_module ?description ?id ?workgroup ~database ~name
+    ~query __resource_id =
   let __resource_type = "aws_athena_named_query" in
   let __resource =
-    ({ database; description; id; name; query; workgroup }
-      : aws_athena_named_query)
+    aws_athena_named_query ?description ?id ?workgroup ~database
+      ~name ~query ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_athena_named_query __resource);
   let __resource_attributes =
     ({

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_instance_group_membership__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_instance_group_membership__timeouts *)
+(** timeouts *)
 
 type google_compute_instance_group_membership = {
   id : string prop option; [@option]  (** id *)
@@ -20,11 +20,17 @@ type google_compute_instance_group_membership = {
   project : string prop option; [@option]  (** project *)
   zone : string prop option; [@option]
       (** A reference to the zone where the instance group resides. *)
-  timeouts :
-    google_compute_instance_group_membership__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_instance_group_membership *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_instance_group_membership ?id ?project ?zone
+    ?timeouts ~instance ~instance_group () :
+    google_compute_instance_group_membership =
+  { id; instance; instance_group; project; zone; timeouts }
 
 type t = {
   id : string prop;
@@ -34,14 +40,14 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_instance_group_membership ?id ?project ?zone
-    ?timeouts ~instance ~instance_group __resource_id =
+let register ?tf_module ?id ?project ?zone ?timeouts ~instance
+    ~instance_group __resource_id =
   let __resource_type = "google_compute_instance_group_membership" in
   let __resource =
-    ({ id; instance; instance_group; project; zone; timeouts }
-      : google_compute_instance_group_membership)
+    google_compute_instance_group_membership ?id ?project ?zone
+      ?timeouts ~instance ~instance_group ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_instance_group_membership __resource);
   let __resource_attributes =
     ({

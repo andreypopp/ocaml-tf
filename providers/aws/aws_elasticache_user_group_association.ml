@@ -12,20 +12,23 @@ type aws_elasticache_user_group_association = {
 [@@deriving yojson_of]
 (** aws_elasticache_user_group_association *)
 
+let aws_elasticache_user_group_association ?id ~user_group_id
+    ~user_id () : aws_elasticache_user_group_association =
+  { id; user_group_id; user_id }
+
 type t = {
   id : string prop;
   user_group_id : string prop;
   user_id : string prop;
 }
 
-let aws_elasticache_user_group_association ?id ~user_group_id
-    ~user_id __resource_id =
+let register ?tf_module ?id ~user_group_id ~user_id __resource_id =
   let __resource_type = "aws_elasticache_user_group_association" in
   let __resource =
-    ({ id; user_group_id; user_id }
-      : aws_elasticache_user_group_association)
+    aws_elasticache_user_group_association ?id ~user_group_id
+      ~user_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticache_user_group_association __resource);
   let __resource_attributes =
     ({

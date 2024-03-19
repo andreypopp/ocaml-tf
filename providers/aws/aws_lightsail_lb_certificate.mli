@@ -2,7 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_lb_certificate__domain_validation_records = {
+(** RESOURCE SERIALIZATION *)
+
+type domain_validation_records = {
   domain_name : string prop;  (** domain_name *)
   resource_record_name : string prop;  (** resource_record_name *)
   resource_record_type : string prop;  (** resource_record_type *)
@@ -11,12 +13,25 @@ type aws_lightsail_lb_certificate__domain_validation_records = {
 
 type aws_lightsail_lb_certificate
 
+val aws_lightsail_lb_certificate :
+  ?domain_name:string prop ->
+  ?id:string prop ->
+  ?subject_alternative_names:string prop list ->
+  lb_name:string prop ->
+  name:string prop ->
+  unit ->
+  aws_lightsail_lb_certificate
+
+val yojson_of_aws_lightsail_lb_certificate :
+  aws_lightsail_lb_certificate -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   arn : string prop;
   created_at : string prop;
   domain_name : string prop;
-  domain_validation_records :
-    aws_lightsail_lb_certificate__domain_validation_records list prop;
+  domain_validation_records : domain_validation_records list prop;
   id : string prop;
   lb_name : string prop;
   name : string prop;
@@ -24,7 +39,8 @@ type t = private {
   support_code : string prop;
 }
 
-val aws_lightsail_lb_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?domain_name:string prop ->
   ?id:string prop ->
   ?subject_alternative_names:string prop list ->

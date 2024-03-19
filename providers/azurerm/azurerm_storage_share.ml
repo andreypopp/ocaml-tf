@@ -4,29 +4,29 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_share__acl__access_policy = {
+type acl__access_policy = {
   expiry : string prop option; [@option]  (** expiry *)
   permissions : string prop;  (** permissions *)
   start : string prop option; [@option]  (** start *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_share__acl__access_policy *)
+(** acl__access_policy *)
 
-type azurerm_storage_share__acl = {
+type acl = {
   id : string prop;  (** id *)
-  access_policy : azurerm_storage_share__acl__access_policy list;
+  access_policy : acl__access_policy list;
 }
 [@@deriving yojson_of]
-(** azurerm_storage_share__acl *)
+(** acl *)
 
-type azurerm_storage_share__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_share__timeouts *)
+(** timeouts *)
 
 type azurerm_storage_share = {
   access_tier : string prop option; [@option]  (** access_tier *)
@@ -38,11 +38,35 @@ type azurerm_storage_share = {
   name : string prop;  (** name *)
   quota : float prop;  (** quota *)
   storage_account_name : string prop;  (** storage_account_name *)
-  acl : azurerm_storage_share__acl list;
-  timeouts : azurerm_storage_share__timeouts option;
+  acl : acl list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_share *)
+
+let acl__access_policy ?expiry ?start ~permissions () :
+    acl__access_policy =
+  { expiry; permissions; start }
+
+let acl ~id ~access_policy () : acl = { id; access_policy }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_storage_share ?access_tier ?enabled_protocol ?id
+    ?metadata ?timeouts ~name ~quota ~storage_account_name ~acl () :
+    azurerm_storage_share =
+  {
+    access_tier;
+    enabled_protocol;
+    id;
+    metadata;
+    name;
+    quota;
+    storage_account_name;
+    acl;
+    timeouts;
+  }
 
 type t = {
   access_tier : string prop;
@@ -56,25 +80,14 @@ type t = {
   url : string prop;
 }
 
-let azurerm_storage_share ?access_tier ?enabled_protocol ?id
-    ?metadata ?timeouts ~name ~quota ~storage_account_name ~acl
-    __resource_id =
+let register ?tf_module ?access_tier ?enabled_protocol ?id ?metadata
+    ?timeouts ~name ~quota ~storage_account_name ~acl __resource_id =
   let __resource_type = "azurerm_storage_share" in
   let __resource =
-    ({
-       access_tier;
-       enabled_protocol;
-       id;
-       metadata;
-       name;
-       quota;
-       storage_account_name;
-       acl;
-       timeouts;
-     }
-      : azurerm_storage_share)
+    azurerm_storage_share ?access_tier ?enabled_protocol ?id
+      ?metadata ?timeouts ~name ~quota ~storage_account_name ~acl ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_share __resource);
   let __resource_attributes =
     ({

@@ -4,13 +4,11 @@
 
 open! Tf.Prelude
 
-type azurerm_container_registry_task__agent_setting = {
-  cpu : float prop;  (** cpu *)
-}
+type agent_setting = { cpu : float prop  (** cpu *) }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__agent_setting *)
+(** agent_setting *)
 
-type azurerm_container_registry_task__base_image_trigger = {
+type base_image_trigger = {
   enabled : bool prop option; [@option]  (** enabled *)
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -20,9 +18,9 @@ type azurerm_container_registry_task__base_image_trigger = {
       (** update_trigger_payload_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__base_image_trigger *)
+(** base_image_trigger *)
 
-type azurerm_container_registry_task__docker_step = {
+type docker_step = {
   arguments : (string * string prop) list option; [@option]
       (** arguments *)
   cache_enabled : bool prop option; [@option]  (** cache_enabled *)
@@ -37,9 +35,9 @@ type azurerm_container_registry_task__docker_step = {
   target : string prop option; [@option]  (** target *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__docker_step *)
+(** docker_step *)
 
-type azurerm_container_registry_task__encoded_step = {
+type encoded_step = {
   context_access_token : string prop option; [@option]
       (** context_access_token *)
   context_path : string prop option; [@option]  (** context_path *)
@@ -51,9 +49,9 @@ type azurerm_container_registry_task__encoded_step = {
       (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__encoded_step *)
+(** encoded_step *)
 
-type azurerm_container_registry_task__file_step = {
+type file_step = {
   context_access_token : string prop option; [@option]
       (** context_access_token *)
   context_path : string prop option; [@option]  (** context_path *)
@@ -66,51 +64,47 @@ type azurerm_container_registry_task__file_step = {
       (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__file_step *)
+(** file_step *)
 
-type azurerm_container_registry_task__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__identity *)
+(** identity *)
 
-type azurerm_container_registry_task__platform = {
+type platform = {
   architecture : string prop option; [@option]  (** architecture *)
   os : string prop;  (** os *)
   variant : string prop option; [@option]  (** variant *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__platform *)
+(** platform *)
 
-type azurerm_container_registry_task__registry_credential__custom = {
+type registry_credential__custom = {
   identity : string prop option; [@option]  (** identity *)
   login_server : string prop;  (** login_server *)
   password : string prop option; [@option]  (** password *)
   username : string prop option; [@option]  (** username *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__registry_credential__custom *)
+(** registry_credential__custom *)
 
-type azurerm_container_registry_task__registry_credential__source = {
+type registry_credential__source = {
   login_mode : string prop;  (** login_mode *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__registry_credential__source *)
+(** registry_credential__source *)
 
-type azurerm_container_registry_task__registry_credential = {
-  custom :
-    azurerm_container_registry_task__registry_credential__custom list;
-  source :
-    azurerm_container_registry_task__registry_credential__source list;
+type registry_credential = {
+  custom : registry_credential__custom list;
+  source : registry_credential__source list;
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__registry_credential *)
+(** registry_credential *)
 
-type azurerm_container_registry_task__source_trigger__authentication = {
+type source_trigger__authentication = {
   expire_in_seconds : float prop option; [@option]
       (** expire_in_seconds *)
   refresh_token : string prop option; [@option]  (** refresh_token *)
@@ -119,38 +113,36 @@ type azurerm_container_registry_task__source_trigger__authentication = {
   token_type : string prop;  (** token_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__source_trigger__authentication *)
+(** source_trigger__authentication *)
 
-type azurerm_container_registry_task__source_trigger = {
+type source_trigger = {
   branch : string prop option; [@option]  (** branch *)
   enabled : bool prop option; [@option]  (** enabled *)
   events : string prop list;  (** events *)
   name : string prop;  (** name *)
   repository_url : string prop;  (** repository_url *)
   source_type : string prop;  (** source_type *)
-  authentication :
-    azurerm_container_registry_task__source_trigger__authentication
-    list;
+  authentication : source_trigger__authentication list;
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__source_trigger *)
+(** source_trigger *)
 
-type azurerm_container_registry_task__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__timeouts *)
+(** timeouts *)
 
-type azurerm_container_registry_task__timer_trigger = {
+type timer_trigger = {
   enabled : bool prop option; [@option]  (** enabled *)
   name : string prop;  (** name *)
   schedule : string prop;  (** schedule *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_task__timer_trigger *)
+(** timer_trigger *)
 
 type azurerm_container_registry_task = {
   agent_pool_name : string prop option; [@option]
@@ -164,24 +156,138 @@ type azurerm_container_registry_task = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   timeout_in_seconds : float prop option; [@option]
       (** timeout_in_seconds *)
-  agent_setting :
-    azurerm_container_registry_task__agent_setting list;
-  base_image_trigger :
-    azurerm_container_registry_task__base_image_trigger list;
-  docker_step : azurerm_container_registry_task__docker_step list;
-  encoded_step : azurerm_container_registry_task__encoded_step list;
-  file_step : azurerm_container_registry_task__file_step list;
-  identity : azurerm_container_registry_task__identity list;
-  platform : azurerm_container_registry_task__platform list;
-  registry_credential :
-    azurerm_container_registry_task__registry_credential list;
-  source_trigger :
-    azurerm_container_registry_task__source_trigger list;
-  timeouts : azurerm_container_registry_task__timeouts option;
-  timer_trigger : azurerm_container_registry_task__timer_trigger list;
+  agent_setting : agent_setting list;
+  base_image_trigger : base_image_trigger list;
+  docker_step : docker_step list;
+  encoded_step : encoded_step list;
+  file_step : file_step list;
+  identity : identity list;
+  platform : platform list;
+  registry_credential : registry_credential list;
+  source_trigger : source_trigger list;
+  timeouts : timeouts option;
+  timer_trigger : timer_trigger list;
 }
 [@@deriving yojson_of]
 (** azurerm_container_registry_task *)
+
+let agent_setting ~cpu () : agent_setting = { cpu }
+
+let base_image_trigger ?enabled ?update_trigger_endpoint
+    ?update_trigger_payload_type ~name ~type_ () : base_image_trigger
+    =
+  {
+    enabled;
+    name;
+    type_;
+    update_trigger_endpoint;
+    update_trigger_payload_type;
+  }
+
+let docker_step ?arguments ?cache_enabled ?image_names ?push_enabled
+    ?secret_arguments ?target ~context_access_token ~context_path
+    ~dockerfile_path () : docker_step =
+  {
+    arguments;
+    cache_enabled;
+    context_access_token;
+    context_path;
+    dockerfile_path;
+    image_names;
+    push_enabled;
+    secret_arguments;
+    target;
+  }
+
+let encoded_step ?context_access_token ?context_path ?secret_values
+    ?value_content ?values ~task_content () : encoded_step =
+  {
+    context_access_token;
+    context_path;
+    secret_values;
+    task_content;
+    value_content;
+    values;
+  }
+
+let file_step ?context_access_token ?context_path ?secret_values
+    ?value_file_path ?values ~task_file_path () : file_step =
+  {
+    context_access_token;
+    context_path;
+    secret_values;
+    task_file_path;
+    value_file_path;
+    values;
+  }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let platform ?architecture ?variant ~os () : platform =
+  { architecture; os; variant }
+
+let registry_credential__custom ?identity ?password ?username
+    ~login_server () : registry_credential__custom =
+  { identity; login_server; password; username }
+
+let registry_credential__source ~login_mode () :
+    registry_credential__source =
+  { login_mode }
+
+let registry_credential ~custom ~source () : registry_credential =
+  { custom; source }
+
+let source_trigger__authentication ?expire_in_seconds ?refresh_token
+    ?scope ~token ~token_type () : source_trigger__authentication =
+  { expire_in_seconds; refresh_token; scope; token; token_type }
+
+let source_trigger ?branch ?enabled ~events ~name ~repository_url
+    ~source_type ~authentication () : source_trigger =
+  {
+    branch;
+    enabled;
+    events;
+    name;
+    repository_url;
+    source_type;
+    authentication;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let timer_trigger ?enabled ~name ~schedule () : timer_trigger =
+  { enabled; name; schedule }
+
+let azurerm_container_registry_task ?agent_pool_name ?enabled ?id
+    ?is_system_task ?log_template ?tags ?timeout_in_seconds ?timeouts
+    ~container_registry_id ~name ~agent_setting ~base_image_trigger
+    ~docker_step ~encoded_step ~file_step ~identity ~platform
+    ~registry_credential ~source_trigger ~timer_trigger () :
+    azurerm_container_registry_task =
+  {
+    agent_pool_name;
+    container_registry_id;
+    enabled;
+    id;
+    is_system_task;
+    log_template;
+    name;
+    tags;
+    timeout_in_seconds;
+    agent_setting;
+    base_image_trigger;
+    docker_step;
+    encoded_step;
+    file_step;
+    identity;
+    platform;
+    registry_credential;
+    source_trigger;
+    timeouts;
+    timer_trigger;
+  }
 
 type t = {
   agent_pool_name : string prop;
@@ -195,39 +301,22 @@ type t = {
   timeout_in_seconds : float prop;
 }
 
-let azurerm_container_registry_task ?agent_pool_name ?enabled ?id
-    ?is_system_task ?log_template ?tags ?timeout_in_seconds ?timeouts
+let register ?tf_module ?agent_pool_name ?enabled ?id ?is_system_task
+    ?log_template ?tags ?timeout_in_seconds ?timeouts
     ~container_registry_id ~name ~agent_setting ~base_image_trigger
     ~docker_step ~encoded_step ~file_step ~identity ~platform
     ~registry_credential ~source_trigger ~timer_trigger __resource_id
     =
   let __resource_type = "azurerm_container_registry_task" in
   let __resource =
-    ({
-       agent_pool_name;
-       container_registry_id;
-       enabled;
-       id;
-       is_system_task;
-       log_template;
-       name;
-       tags;
-       timeout_in_seconds;
-       agent_setting;
-       base_image_trigger;
-       docker_step;
-       encoded_step;
-       file_step;
-       identity;
-       platform;
-       registry_credential;
-       source_trigger;
-       timeouts;
-       timer_trigger;
-     }
-      : azurerm_container_registry_task)
+    azurerm_container_registry_task ?agent_pool_name ?enabled ?id
+      ?is_system_task ?log_template ?tags ?timeout_in_seconds
+      ?timeouts ~container_registry_id ~name ~agent_setting
+      ~base_image_trigger ~docker_step ~encoded_step ~file_step
+      ~identity ~platform ~registry_credential ~source_trigger
+      ~timer_trigger ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry_task __resource);
   let __resource_attributes =
     ({

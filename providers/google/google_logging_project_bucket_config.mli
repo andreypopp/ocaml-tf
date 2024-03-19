@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type google_logging_project_bucket_config__cmek_settings
-type google_logging_project_bucket_config__index_configs
+(** RESOURCE SERIALIZATION *)
+
+type cmek_settings
+
+val cmek_settings : kms_key_name:string prop -> unit -> cmek_settings
+
+type index_configs
+
+val index_configs :
+  field_path:string prop ->
+  type_:string prop ->
+  unit ->
+  index_configs
+
 type google_logging_project_bucket_config
+
+val google_logging_project_bucket_config :
+  ?description:string prop ->
+  ?enable_analytics:bool prop ->
+  ?id:string prop ->
+  ?locked:bool prop ->
+  ?retention_days:float prop ->
+  bucket_id:string prop ->
+  location:string prop ->
+  project:string prop ->
+  cmek_settings:cmek_settings list ->
+  index_configs:index_configs list ->
+  unit ->
+  google_logging_project_bucket_config
+
+val yojson_of_google_logging_project_bucket_config :
+  google_logging_project_bucket_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket_id : string prop;
@@ -19,7 +50,8 @@ type t = private {
   retention_days : float prop;
 }
 
-val google_logging_project_bucket_config :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?enable_analytics:bool prop ->
   ?id:string prop ->
@@ -28,9 +60,7 @@ val google_logging_project_bucket_config :
   bucket_id:string prop ->
   location:string prop ->
   project:string prop ->
-  cmek_settings:
-    google_logging_project_bucket_config__cmek_settings list ->
-  index_configs:
-    google_logging_project_bucket_config__index_configs list ->
+  cmek_settings:cmek_settings list ->
+  index_configs:index_configs list ->
   string ->
   t

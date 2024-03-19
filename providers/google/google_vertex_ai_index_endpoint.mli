@@ -2,9 +2,45 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_index_endpoint__private_service_connect_config
-type google_vertex_ai_index_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type private_service_connect_config
+
+val private_service_connect_config :
+  ?project_allowlist:string prop list ->
+  enable_private_service_connect:bool prop ->
+  unit ->
+  private_service_connect_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vertex_ai_index_endpoint
+
+val google_vertex_ai_index_endpoint :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?public_endpoint_enabled:bool prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  private_service_connect_config:private_service_connect_config list ->
+  unit ->
+  google_vertex_ai_index_endpoint
+
+val yojson_of_google_vertex_ai_index_endpoint :
+  google_vertex_ai_index_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -24,7 +60,8 @@ type t = private {
   update_time : string prop;
 }
 
-val google_vertex_ai_index_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -32,10 +69,8 @@ val google_vertex_ai_index_endpoint :
   ?project:string prop ->
   ?public_endpoint_enabled:bool prop ->
   ?region:string prop ->
-  ?timeouts:google_vertex_ai_index_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
-  private_service_connect_config:
-    google_vertex_ai_index_endpoint__private_service_connect_config
-    list ->
+  private_service_connect_config:private_service_connect_config list ->
   string ->
   t

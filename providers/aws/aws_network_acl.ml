@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_network_acl__egress = {
+type egress = {
   action : string prop;  (** action *)
   cidr_block : string prop;  (** cidr_block *)
   from_port : float prop;  (** from_port *)
@@ -17,7 +17,7 @@ type aws_network_acl__egress = {
 }
 [@@deriving yojson_of]
 
-type aws_network_acl__ingress = {
+type ingress = {
   action : string prop;  (** action *)
   cidr_block : string prop;  (** cidr_block *)
   from_port : float prop;  (** from_port *)
@@ -31,11 +31,9 @@ type aws_network_acl__ingress = {
 [@@deriving yojson_of]
 
 type aws_network_acl = {
-  egress : aws_network_acl__egress list option; [@option]
-      (** egress *)
+  egress : egress list option; [@option]  (** egress *)
   id : string prop option; [@option]  (** id *)
-  ingress : aws_network_acl__ingress list option; [@option]
-      (** ingress *)
+  ingress : ingress list option; [@option]  (** ingress *)
   subnet_ids : string prop list option; [@option]  (** subnet_ids *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
@@ -45,11 +43,15 @@ type aws_network_acl = {
 [@@deriving yojson_of]
 (** aws_network_acl *)
 
+let aws_network_acl ?egress ?id ?ingress ?subnet_ids ?tags ?tags_all
+    ~vpc_id () : aws_network_acl =
+  { egress; id; ingress; subnet_ids; tags; tags_all; vpc_id }
+
 type t = {
   arn : string prop;
-  egress : aws_network_acl__egress list prop;
+  egress : egress list prop;
   id : string prop;
-  ingress : aws_network_acl__ingress list prop;
+  ingress : ingress list prop;
   owner_id : string prop;
   subnet_ids : string list prop;
   tags : (string * string) list prop;
@@ -57,14 +59,14 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_network_acl ?egress ?id ?ingress ?subnet_ids ?tags ?tags_all
-    ~vpc_id __resource_id =
+let register ?tf_module ?egress ?id ?ingress ?subnet_ids ?tags
+    ?tags_all ~vpc_id __resource_id =
   let __resource_type = "aws_network_acl" in
   let __resource =
-    ({ egress; id; ingress; subnet_ids; tags; tags_all; vpc_id }
-      : aws_network_acl)
+    aws_network_acl ?egress ?id ?ingress ?subnet_ids ?tags ?tags_all
+      ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_network_acl __resource);
   let __resource_attributes =
     ({

@@ -4,54 +4,49 @@
 
 open! Tf.Prelude
 
-type azurerm_kubernetes_fleet_update_run__managed_cluster_update__node_image_selection = {
+type managed_cluster_update__node_image_selection = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_fleet_update_run__managed_cluster_update__node_image_selection *)
+(** managed_cluster_update__node_image_selection *)
 
-type azurerm_kubernetes_fleet_update_run__managed_cluster_update__upgrade = {
+type managed_cluster_update__upgrade = {
   kubernetes_version : string prop option; [@option]
       (** kubernetes_version *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_fleet_update_run__managed_cluster_update__upgrade *)
+(** managed_cluster_update__upgrade *)
 
-type azurerm_kubernetes_fleet_update_run__managed_cluster_update = {
+type managed_cluster_update = {
   node_image_selection :
-    azurerm_kubernetes_fleet_update_run__managed_cluster_update__node_image_selection
-    list;
-  upgrade :
-    azurerm_kubernetes_fleet_update_run__managed_cluster_update__upgrade
-    list;
+    managed_cluster_update__node_image_selection list;
+  upgrade : managed_cluster_update__upgrade list;
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_fleet_update_run__managed_cluster_update *)
+(** managed_cluster_update *)
 
-type azurerm_kubernetes_fleet_update_run__stage__group = {
-  name : string prop;  (** name *)
-}
+type stage__group = { name : string prop  (** name *) }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_fleet_update_run__stage__group *)
+(** stage__group *)
 
-type azurerm_kubernetes_fleet_update_run__stage = {
+type stage = {
   after_stage_wait_in_seconds : float prop option; [@option]
       (** after_stage_wait_in_seconds *)
   name : string prop;  (** name *)
-  group : azurerm_kubernetes_fleet_update_run__stage__group list;
+  group : stage__group list;
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_fleet_update_run__stage *)
+(** stage *)
 
-type azurerm_kubernetes_fleet_update_run__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_fleet_update_run__timeouts *)
+(** timeouts *)
 
 type azurerm_kubernetes_fleet_update_run = {
   fleet_update_strategy_id : string prop option; [@option]
@@ -60,13 +55,46 @@ type azurerm_kubernetes_fleet_update_run = {
   kubernetes_fleet_manager_id : string prop;
       (** kubernetes_fleet_manager_id *)
   name : string prop;  (** name *)
-  managed_cluster_update :
-    azurerm_kubernetes_fleet_update_run__managed_cluster_update list;
-  stage : azurerm_kubernetes_fleet_update_run__stage list;
-  timeouts : azurerm_kubernetes_fleet_update_run__timeouts option;
+  managed_cluster_update : managed_cluster_update list;
+  stage : stage list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_update_run *)
+
+let managed_cluster_update__node_image_selection ~type_ () :
+    managed_cluster_update__node_image_selection =
+  { type_ }
+
+let managed_cluster_update__upgrade ?kubernetes_version ~type_ () :
+    managed_cluster_update__upgrade =
+  { kubernetes_version; type_ }
+
+let managed_cluster_update ~node_image_selection ~upgrade () :
+    managed_cluster_update =
+  { node_image_selection; upgrade }
+
+let stage__group ~name () : stage__group = { name }
+
+let stage ?after_stage_wait_in_seconds ~name ~group () : stage =
+  { after_stage_wait_in_seconds; name; group }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_kubernetes_fleet_update_run ?fleet_update_strategy_id ?id
+    ?timeouts ~kubernetes_fleet_manager_id ~name
+    ~managed_cluster_update ~stage () :
+    azurerm_kubernetes_fleet_update_run =
+  {
+    fleet_update_strategy_id;
+    id;
+    kubernetes_fleet_manager_id;
+    name;
+    managed_cluster_update;
+    stage;
+    timeouts;
+  }
 
 type t = {
   fleet_update_strategy_id : string prop;
@@ -75,23 +103,16 @@ type t = {
   name : string prop;
 }
 
-let azurerm_kubernetes_fleet_update_run ?fleet_update_strategy_id ?id
-    ?timeouts ~kubernetes_fleet_manager_id ~name
-    ~managed_cluster_update ~stage __resource_id =
+let register ?tf_module ?fleet_update_strategy_id ?id ?timeouts
+    ~kubernetes_fleet_manager_id ~name ~managed_cluster_update ~stage
+    __resource_id =
   let __resource_type = "azurerm_kubernetes_fleet_update_run" in
   let __resource =
-    ({
-       fleet_update_strategy_id;
-       id;
-       kubernetes_fleet_manager_id;
-       name;
-       managed_cluster_update;
-       stage;
-       timeouts;
-     }
-      : azurerm_kubernetes_fleet_update_run)
+    azurerm_kubernetes_fleet_update_run ?fleet_update_strategy_id ?id
+      ?timeouts ~kubernetes_fleet_manager_id ~name
+      ~managed_cluster_update ~stage ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_fleet_update_run __resource);
   let __resource_attributes =
     ({

@@ -2,12 +2,54 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_certificate_issuance_config__certificate_authority_config__certificate_authority_service_config
+(** RESOURCE SERIALIZATION *)
 
-type google_certificate_manager_certificate_issuance_config__certificate_authority_config
+type certificate_authority_config__certificate_authority_service_config
 
-type google_certificate_manager_certificate_issuance_config__timeouts
+val certificate_authority_config__certificate_authority_service_config :
+  ca_pool:string prop ->
+  unit ->
+  certificate_authority_config__certificate_authority_service_config
+
+type certificate_authority_config
+
+val certificate_authority_config :
+  certificate_authority_service_config:
+    certificate_authority_config__certificate_authority_service_config
+    list ->
+  unit ->
+  certificate_authority_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_certificate_manager_certificate_issuance_config
+
+val google_certificate_manager_certificate_issuance_config :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  key_algorithm:string prop ->
+  lifetime:string prop ->
+  name:string prop ->
+  rotation_window_percentage:float prop ->
+  certificate_authority_config:certificate_authority_config list ->
+  unit ->
+  google_certificate_manager_certificate_issuance_config
+
+val yojson_of_google_certificate_manager_certificate_issuance_config :
+  google_certificate_manager_certificate_issuance_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -25,20 +67,18 @@ type t = private {
   update_time : string prop;
 }
 
-val google_certificate_manager_certificate_issuance_config :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
-  ?timeouts:
-    google_certificate_manager_certificate_issuance_config__timeouts ->
+  ?timeouts:timeouts ->
   key_algorithm:string prop ->
   lifetime:string prop ->
   name:string prop ->
   rotation_window_percentage:float prop ->
-  certificate_authority_config:
-    google_certificate_manager_certificate_issuance_config__certificate_authority_config
-    list ->
+  certificate_authority_config:certificate_authority_config list ->
   string ->
   t

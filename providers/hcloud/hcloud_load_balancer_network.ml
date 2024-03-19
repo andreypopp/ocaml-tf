@@ -16,6 +16,18 @@ type hcloud_load_balancer_network = {
 [@@deriving yojson_of]
 (** hcloud_load_balancer_network *)
 
+let hcloud_load_balancer_network ?enable_public_interface ?id ?ip
+    ?network_id ?subnet_id ~load_balancer_id () :
+    hcloud_load_balancer_network =
+  {
+    enable_public_interface;
+    id;
+    ip;
+    load_balancer_id;
+    network_id;
+    subnet_id;
+  }
+
 type t = {
   enable_public_interface : bool prop;
   id : string prop;
@@ -25,21 +37,14 @@ type t = {
   subnet_id : string prop;
 }
 
-let hcloud_load_balancer_network ?enable_public_interface ?id ?ip
-    ?network_id ?subnet_id ~load_balancer_id __resource_id =
+let register ?tf_module ?enable_public_interface ?id ?ip ?network_id
+    ?subnet_id ~load_balancer_id __resource_id =
   let __resource_type = "hcloud_load_balancer_network" in
   let __resource =
-    ({
-       enable_public_interface;
-       id;
-       ip;
-       load_balancer_id;
-       network_id;
-       subnet_id;
-     }
-      : hcloud_load_balancer_network)
+    hcloud_load_balancer_network ?enable_public_interface ?id ?ip
+      ?network_id ?subnet_id ~load_balancer_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_load_balancer_network __resource);
   let __resource_attributes =
     ({

@@ -12,6 +12,10 @@ type aws_lightsail_static_ip_attachment = {
 [@@deriving yojson_of]
 (** aws_lightsail_static_ip_attachment *)
 
+let aws_lightsail_static_ip_attachment ?id ~instance_name
+    ~static_ip_name () : aws_lightsail_static_ip_attachment =
+  { id; instance_name; static_ip_name }
+
 type t = {
   id : string prop;
   instance_name : string prop;
@@ -19,14 +23,14 @@ type t = {
   static_ip_name : string prop;
 }
 
-let aws_lightsail_static_ip_attachment ?id ~instance_name
-    ~static_ip_name __resource_id =
+let register ?tf_module ?id ~instance_name ~static_ip_name
+    __resource_id =
   let __resource_type = "aws_lightsail_static_ip_attachment" in
   let __resource =
-    ({ id; instance_name; static_ip_name }
-      : aws_lightsail_static_ip_attachment)
+    aws_lightsail_static_ip_attachment ?id ~instance_name
+      ~static_ip_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_static_ip_attachment __resource);
   let __resource_attributes =
     ({

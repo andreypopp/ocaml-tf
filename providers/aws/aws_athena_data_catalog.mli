@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_athena_data_catalog
+
+val aws_athena_data_catalog :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  description:string prop ->
+  name:string prop ->
+  parameters:(string * string prop) list ->
+  type_:string prop ->
+  unit ->
+  aws_athena_data_catalog
+
+val yojson_of_aws_athena_data_catalog :
+  aws_athena_data_catalog -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,7 +33,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_athena_data_catalog :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

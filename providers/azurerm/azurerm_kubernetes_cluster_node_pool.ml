@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_kubernetes_cluster_node_pool__kubelet_config = {
+type kubelet_config = {
   allowed_unsafe_sysctls : string prop list option; [@option]
       (** allowed_unsafe_sysctls *)
   container_log_max_line : float prop option; [@option]
@@ -26,9 +26,9 @@ type azurerm_kubernetes_cluster_node_pool__kubelet_config = {
       (** topology_manager_policy *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_node_pool__kubelet_config *)
+(** kubelet_config *)
 
-type azurerm_kubernetes_cluster_node_pool__linux_os_config__sysctl_config = {
+type linux_os_config__sysctl_config = {
   fs_aio_max_nr : float prop option; [@option]  (** fs_aio_max_nr *)
   fs_file_max : float prop option; [@option]  (** fs_file_max *)
   fs_inotify_max_user_watches : float prop option; [@option]
@@ -85,63 +85,57 @@ type azurerm_kubernetes_cluster_node_pool__linux_os_config__sysctl_config = {
       (** vm_vfs_cache_pressure *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_node_pool__linux_os_config__sysctl_config *)
+(** linux_os_config__sysctl_config *)
 
-type azurerm_kubernetes_cluster_node_pool__linux_os_config = {
+type linux_os_config = {
   swap_file_size_mb : float prop option; [@option]
       (** swap_file_size_mb *)
   transparent_huge_page_defrag : string prop option; [@option]
       (** transparent_huge_page_defrag *)
   transparent_huge_page_enabled : string prop option; [@option]
       (** transparent_huge_page_enabled *)
-  sysctl_config :
-    azurerm_kubernetes_cluster_node_pool__linux_os_config__sysctl_config
-    list;
+  sysctl_config : linux_os_config__sysctl_config list;
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_node_pool__linux_os_config *)
+(** linux_os_config *)
 
-type azurerm_kubernetes_cluster_node_pool__node_network_profile__allowed_host_ports = {
+type node_network_profile__allowed_host_ports = {
   port_end : float prop option; [@option]  (** port_end *)
   port_start : float prop option; [@option]  (** port_start *)
   protocol : string prop option; [@option]  (** protocol *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_node_pool__node_network_profile__allowed_host_ports *)
+(** node_network_profile__allowed_host_ports *)
 
-type azurerm_kubernetes_cluster_node_pool__node_network_profile = {
+type node_network_profile = {
   application_security_group_ids : string prop list option; [@option]
       (** application_security_group_ids *)
   node_public_ip_tags : (string * string prop) list option; [@option]
       (** node_public_ip_tags *)
-  allowed_host_ports :
-    azurerm_kubernetes_cluster_node_pool__node_network_profile__allowed_host_ports
-    list;
+  allowed_host_ports : node_network_profile__allowed_host_ports list;
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_node_pool__node_network_profile *)
+(** node_network_profile *)
 
-type azurerm_kubernetes_cluster_node_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_node_pool__timeouts *)
+(** timeouts *)
 
-type azurerm_kubernetes_cluster_node_pool__upgrade_settings = {
-  max_surge : string prop;  (** max_surge *)
-}
+type upgrade_settings = { max_surge : string prop  (** max_surge *) }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_node_pool__upgrade_settings *)
+(** upgrade_settings *)
 
-type azurerm_kubernetes_cluster_node_pool__windows_profile = {
+type windows_profile = {
   outbound_nat_enabled : bool prop option; [@option]
       (** outbound_nat_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_node_pool__windows_profile *)
+(** windows_profile *)
 
 type azurerm_kubernetes_cluster_node_pool = {
   capacity_reservation_group_id : string prop option; [@option]
@@ -202,20 +196,174 @@ type azurerm_kubernetes_cluster_node_pool = {
   workload_runtime : string prop option; [@option]
       (** workload_runtime *)
   zones : string prop list option; [@option]  (** zones *)
-  kubelet_config :
-    azurerm_kubernetes_cluster_node_pool__kubelet_config list;
-  linux_os_config :
-    azurerm_kubernetes_cluster_node_pool__linux_os_config list;
-  node_network_profile :
-    azurerm_kubernetes_cluster_node_pool__node_network_profile list;
-  timeouts : azurerm_kubernetes_cluster_node_pool__timeouts option;
-  upgrade_settings :
-    azurerm_kubernetes_cluster_node_pool__upgrade_settings list;
-  windows_profile :
-    azurerm_kubernetes_cluster_node_pool__windows_profile list;
+  kubelet_config : kubelet_config list;
+  linux_os_config : linux_os_config list;
+  node_network_profile : node_network_profile list;
+  timeouts : timeouts option;
+  upgrade_settings : upgrade_settings list;
+  windows_profile : windows_profile list;
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_node_pool *)
+
+let kubelet_config ?allowed_unsafe_sysctls ?container_log_max_line
+    ?container_log_max_size_mb ?cpu_cfs_quota_enabled
+    ?cpu_cfs_quota_period ?cpu_manager_policy
+    ?image_gc_high_threshold ?image_gc_low_threshold ?pod_max_pid
+    ?topology_manager_policy () : kubelet_config =
+  {
+    allowed_unsafe_sysctls;
+    container_log_max_line;
+    container_log_max_size_mb;
+    cpu_cfs_quota_enabled;
+    cpu_cfs_quota_period;
+    cpu_manager_policy;
+    image_gc_high_threshold;
+    image_gc_low_threshold;
+    pod_max_pid;
+    topology_manager_policy;
+  }
+
+let linux_os_config__sysctl_config ?fs_aio_max_nr ?fs_file_max
+    ?fs_inotify_max_user_watches ?fs_nr_open ?kernel_threads_max
+    ?net_core_netdev_max_backlog ?net_core_optmem_max
+    ?net_core_rmem_default ?net_core_rmem_max ?net_core_somaxconn
+    ?net_core_wmem_default ?net_core_wmem_max
+    ?net_ipv4_ip_local_port_range_max
+    ?net_ipv4_ip_local_port_range_min
+    ?net_ipv4_neigh_default_gc_thresh1
+    ?net_ipv4_neigh_default_gc_thresh2
+    ?net_ipv4_neigh_default_gc_thresh3 ?net_ipv4_tcp_fin_timeout
+    ?net_ipv4_tcp_keepalive_intvl ?net_ipv4_tcp_keepalive_probes
+    ?net_ipv4_tcp_keepalive_time ?net_ipv4_tcp_max_syn_backlog
+    ?net_ipv4_tcp_max_tw_buckets ?net_ipv4_tcp_tw_reuse
+    ?net_netfilter_nf_conntrack_buckets
+    ?net_netfilter_nf_conntrack_max ?vm_max_map_count ?vm_swappiness
+    ?vm_vfs_cache_pressure () : linux_os_config__sysctl_config =
+  {
+    fs_aio_max_nr;
+    fs_file_max;
+    fs_inotify_max_user_watches;
+    fs_nr_open;
+    kernel_threads_max;
+    net_core_netdev_max_backlog;
+    net_core_optmem_max;
+    net_core_rmem_default;
+    net_core_rmem_max;
+    net_core_somaxconn;
+    net_core_wmem_default;
+    net_core_wmem_max;
+    net_ipv4_ip_local_port_range_max;
+    net_ipv4_ip_local_port_range_min;
+    net_ipv4_neigh_default_gc_thresh1;
+    net_ipv4_neigh_default_gc_thresh2;
+    net_ipv4_neigh_default_gc_thresh3;
+    net_ipv4_tcp_fin_timeout;
+    net_ipv4_tcp_keepalive_intvl;
+    net_ipv4_tcp_keepalive_probes;
+    net_ipv4_tcp_keepalive_time;
+    net_ipv4_tcp_max_syn_backlog;
+    net_ipv4_tcp_max_tw_buckets;
+    net_ipv4_tcp_tw_reuse;
+    net_netfilter_nf_conntrack_buckets;
+    net_netfilter_nf_conntrack_max;
+    vm_max_map_count;
+    vm_swappiness;
+    vm_vfs_cache_pressure;
+  }
+
+let linux_os_config ?swap_file_size_mb ?transparent_huge_page_defrag
+    ?transparent_huge_page_enabled ~sysctl_config () :
+    linux_os_config =
+  {
+    swap_file_size_mb;
+    transparent_huge_page_defrag;
+    transparent_huge_page_enabled;
+    sysctl_config;
+  }
+
+let node_network_profile__allowed_host_ports ?port_end ?port_start
+    ?protocol () : node_network_profile__allowed_host_ports =
+  { port_end; port_start; protocol }
+
+let node_network_profile ?application_security_group_ids
+    ?node_public_ip_tags ~allowed_host_ports () :
+    node_network_profile =
+  {
+    application_security_group_ids;
+    node_public_ip_tags;
+    allowed_host_ports;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let upgrade_settings ~max_surge () : upgrade_settings = { max_surge }
+
+let windows_profile ?outbound_nat_enabled () : windows_profile =
+  { outbound_nat_enabled }
+
+let azurerm_kubernetes_cluster_node_pool
+    ?capacity_reservation_group_id ?custom_ca_trust_enabled
+    ?enable_auto_scaling ?enable_host_encryption
+    ?enable_node_public_ip ?eviction_policy ?fips_enabled
+    ?gpu_instance ?host_group_id ?id ?kubelet_disk_type ?max_count
+    ?max_pods ?message_of_the_day ?min_count ?mode ?node_count
+    ?node_labels ?node_public_ip_prefix_id ?node_taints
+    ?orchestrator_version ?os_disk_size_gb ?os_disk_type ?os_sku
+    ?os_type ?pod_subnet_id ?priority ?proximity_placement_group_id
+    ?scale_down_mode ?snapshot_id ?spot_max_price ?tags
+    ?ultra_ssd_enabled ?vnet_subnet_id ?workload_runtime ?zones
+    ?timeouts ~kubernetes_cluster_id ~name ~vm_size ~kubelet_config
+    ~linux_os_config ~node_network_profile ~upgrade_settings
+    ~windows_profile () : azurerm_kubernetes_cluster_node_pool =
+  {
+    capacity_reservation_group_id;
+    custom_ca_trust_enabled;
+    enable_auto_scaling;
+    enable_host_encryption;
+    enable_node_public_ip;
+    eviction_policy;
+    fips_enabled;
+    gpu_instance;
+    host_group_id;
+    id;
+    kubelet_disk_type;
+    kubernetes_cluster_id;
+    max_count;
+    max_pods;
+    message_of_the_day;
+    min_count;
+    mode;
+    name;
+    node_count;
+    node_labels;
+    node_public_ip_prefix_id;
+    node_taints;
+    orchestrator_version;
+    os_disk_size_gb;
+    os_disk_type;
+    os_sku;
+    os_type;
+    pod_subnet_id;
+    priority;
+    proximity_placement_group_id;
+    scale_down_mode;
+    snapshot_id;
+    spot_max_price;
+    tags;
+    ultra_ssd_enabled;
+    vm_size;
+    vnet_subnet_id;
+    workload_runtime;
+    zones;
+    kubelet_config;
+    linux_os_config;
+    node_network_profile;
+    timeouts;
+    upgrade_settings;
+    windows_profile;
+  }
 
 type t = {
   capacity_reservation_group_id : string prop;
@@ -259,13 +407,12 @@ type t = {
   zones : string list prop;
 }
 
-let azurerm_kubernetes_cluster_node_pool
-    ?capacity_reservation_group_id ?custom_ca_trust_enabled
-    ?enable_auto_scaling ?enable_host_encryption
-    ?enable_node_public_ip ?eviction_policy ?fips_enabled
-    ?gpu_instance ?host_group_id ?id ?kubelet_disk_type ?max_count
-    ?max_pods ?message_of_the_day ?min_count ?mode ?node_count
-    ?node_labels ?node_public_ip_prefix_id ?node_taints
+let register ?tf_module ?capacity_reservation_group_id
+    ?custom_ca_trust_enabled ?enable_auto_scaling
+    ?enable_host_encryption ?enable_node_public_ip ?eviction_policy
+    ?fips_enabled ?gpu_instance ?host_group_id ?id ?kubelet_disk_type
+    ?max_count ?max_pods ?message_of_the_day ?min_count ?mode
+    ?node_count ?node_labels ?node_public_ip_prefix_id ?node_taints
     ?orchestrator_version ?os_disk_size_gb ?os_disk_type ?os_sku
     ?os_type ?pod_subnet_id ?priority ?proximity_placement_group_id
     ?scale_down_mode ?snapshot_id ?spot_max_price ?tags
@@ -275,56 +422,22 @@ let azurerm_kubernetes_cluster_node_pool
     ~windows_profile __resource_id =
   let __resource_type = "azurerm_kubernetes_cluster_node_pool" in
   let __resource =
-    ({
-       capacity_reservation_group_id;
-       custom_ca_trust_enabled;
-       enable_auto_scaling;
-       enable_host_encryption;
-       enable_node_public_ip;
-       eviction_policy;
-       fips_enabled;
-       gpu_instance;
-       host_group_id;
-       id;
-       kubelet_disk_type;
-       kubernetes_cluster_id;
-       max_count;
-       max_pods;
-       message_of_the_day;
-       min_count;
-       mode;
-       name;
-       node_count;
-       node_labels;
-       node_public_ip_prefix_id;
-       node_taints;
-       orchestrator_version;
-       os_disk_size_gb;
-       os_disk_type;
-       os_sku;
-       os_type;
-       pod_subnet_id;
-       priority;
-       proximity_placement_group_id;
-       scale_down_mode;
-       snapshot_id;
-       spot_max_price;
-       tags;
-       ultra_ssd_enabled;
-       vm_size;
-       vnet_subnet_id;
-       workload_runtime;
-       zones;
-       kubelet_config;
-       linux_os_config;
-       node_network_profile;
-       timeouts;
-       upgrade_settings;
-       windows_profile;
-     }
-      : azurerm_kubernetes_cluster_node_pool)
+    azurerm_kubernetes_cluster_node_pool
+      ?capacity_reservation_group_id ?custom_ca_trust_enabled
+      ?enable_auto_scaling ?enable_host_encryption
+      ?enable_node_public_ip ?eviction_policy ?fips_enabled
+      ?gpu_instance ?host_group_id ?id ?kubelet_disk_type ?max_count
+      ?max_pods ?message_of_the_day ?min_count ?mode ?node_count
+      ?node_labels ?node_public_ip_prefix_id ?node_taints
+      ?orchestrator_version ?os_disk_size_gb ?os_disk_type ?os_sku
+      ?os_type ?pod_subnet_id ?priority ?proximity_placement_group_id
+      ?scale_down_mode ?snapshot_id ?spot_max_price ?tags
+      ?ultra_ssd_enabled ?vnet_subnet_id ?workload_runtime ?zones
+      ?timeouts ~kubernetes_cluster_id ~name ~vm_size ~kubelet_config
+      ~linux_os_config ~node_network_profile ~upgrade_settings
+      ~windows_profile ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_cluster_node_pool __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_cloudsearch_domain_service_access_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?delete:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_cloudsearch_domain_service_access_policy
+
+val aws_cloudsearch_domain_service_access_policy :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  access_policy:string prop ->
+  domain_name:string prop ->
+  unit ->
+  aws_cloudsearch_domain_service_access_policy
+
+val yojson_of_aws_cloudsearch_domain_service_access_policy :
+  aws_cloudsearch_domain_service_access_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_policy : string prop;
@@ -11,9 +30,10 @@ type t = private {
   id : string prop;
 }
 
-val aws_cloudsearch_domain_service_access_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_cloudsearch_domain_service_access_policy__timeouts ->
+  ?timeouts:timeouts ->
   access_policy:string prop ->
   domain_name:string prop ->
   string ->

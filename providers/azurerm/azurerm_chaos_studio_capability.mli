@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type azurerm_chaos_studio_capability__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_chaos_studio_capability
+
+val azurerm_chaos_studio_capability :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  capability_type:string prop ->
+  chaos_studio_target_id:string prop ->
+  unit ->
+  azurerm_chaos_studio_capability
+
+val yojson_of_azurerm_chaos_studio_capability :
+  azurerm_chaos_studio_capability -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   capability_type : string prop;
@@ -12,9 +35,10 @@ type t = private {
   urn : string prop;
 }
 
-val azurerm_chaos_studio_capability :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_chaos_studio_capability__timeouts ->
+  ?timeouts:timeouts ->
   capability_type:string prop ->
   chaos_studio_target_id:string prop ->
   string ->

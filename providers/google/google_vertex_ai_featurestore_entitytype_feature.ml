@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_featurestore_entitytype_feature__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vertex_ai_featurestore_entitytype_feature__timeouts *)
+(** timeouts *)
 
 type google_vertex_ai_featurestore_entitytype_feature = {
   description : string prop option; [@option]
@@ -28,11 +28,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The name of the feature. The feature can be up to 64 characters long and can consist only of ASCII Latin letters A-Z and a-z, underscore(_), and ASCII digits 0-9 starting with a letter. The value will be unique given an entity type. *)
   value_type : string prop;
       (** Type of Feature value. Immutable. https://cloud.google.com/vertex-ai/docs/reference/rest/v1/projects.locations.featurestores.entityTypes.features#ValueType *)
-  timeouts :
-    google_vertex_ai_featurestore_entitytype_feature__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_featurestore_entitytype_feature *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vertex_ai_featurestore_entitytype_feature ?description ?id
+    ?labels ?name ?timeouts ~entitytype ~value_type () :
+    google_vertex_ai_featurestore_entitytype_feature =
+  { description; entitytype; id; labels; name; value_type; timeouts }
 
 type t = {
   create_time : string prop;
@@ -49,24 +56,16 @@ type t = {
   value_type : string prop;
 }
 
-let google_vertex_ai_featurestore_entitytype_feature ?description ?id
-    ?labels ?name ?timeouts ~entitytype ~value_type __resource_id =
+let register ?tf_module ?description ?id ?labels ?name ?timeouts
+    ~entitytype ~value_type __resource_id =
   let __resource_type =
     "google_vertex_ai_featurestore_entitytype_feature"
   in
   let __resource =
-    ({
-       description;
-       entitytype;
-       id;
-       labels;
-       name;
-       value_type;
-       timeouts;
-     }
-      : google_vertex_ai_featurestore_entitytype_feature)
+    google_vertex_ai_featurestore_entitytype_feature ?description ?id
+      ?labels ?name ?timeouts ~entitytype ~value_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_featurestore_entitytype_feature
        __resource);
   let __resource_attributes =

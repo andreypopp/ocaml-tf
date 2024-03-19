@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_location_tracker
+
+val aws_location_tracker :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?position_filtering:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  tracker_name:string prop ->
+  unit ->
+  aws_location_tracker
+
+val yojson_of_aws_location_tracker : aws_location_tracker -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -17,7 +34,8 @@ type t = private {
   update_time : string prop;
 }
 
-val aws_location_tracker :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->

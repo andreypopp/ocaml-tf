@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_eventarc_channel__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_eventarc_channel__timeouts *)
+(** timeouts *)
 
 type google_eventarc_channel = {
   crypto_key_name : string prop option; [@option]
@@ -23,10 +23,26 @@ type google_eventarc_channel = {
       (** The project for the resource *)
   third_party_provider : string prop option; [@option]
       (** The name of the event provider (e.g. Eventarc SaaS partner) associated with the channel. This provider will be granted permissions to publish events to the channel. Format: `projects/{project}/locations/{location}/providers/{provider_id}`. *)
-  timeouts : google_eventarc_channel__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_eventarc_channel *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_eventarc_channel ?crypto_key_name ?id ?project
+    ?third_party_provider ?timeouts ~location ~name () :
+    google_eventarc_channel =
+  {
+    crypto_key_name;
+    id;
+    location;
+    name;
+    project;
+    third_party_provider;
+    timeouts;
+  }
 
 type t = {
   activation_token : string prop;
@@ -43,22 +59,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_eventarc_channel ?crypto_key_name ?id ?project
+let register ?tf_module ?crypto_key_name ?id ?project
     ?third_party_provider ?timeouts ~location ~name __resource_id =
   let __resource_type = "google_eventarc_channel" in
   let __resource =
-    ({
-       crypto_key_name;
-       id;
-       location;
-       name;
-       project;
-       third_party_provider;
-       timeouts;
-     }
-      : google_eventarc_channel)
+    google_eventarc_channel ?crypto_key_name ?id ?project
+      ?third_party_provider ?timeouts ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_eventarc_channel __resource);
   let __resource_attributes =
     ({

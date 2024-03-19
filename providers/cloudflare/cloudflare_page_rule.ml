@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type cloudflare_page_rule__actions__cache_key_fields__cookie = {
+type actions__cache_key_fields__cookie = {
   check_presence : string prop list option; [@option]
       (** check_presence *)
   include_ : string prop list option; [@option] [@key "include"]
       (** include *)
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__cache_key_fields__cookie *)
+(** actions__cache_key_fields__cookie *)
 
-type cloudflare_page_rule__actions__cache_key_fields__header = {
+type actions__cache_key_fields__header = {
   check_presence : string prop list option; [@option]
       (** check_presence *)
   exclude : string prop list option; [@option]  (** exclude *)
@@ -21,68 +21,64 @@ type cloudflare_page_rule__actions__cache_key_fields__header = {
       (** include *)
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__cache_key_fields__header *)
+(** actions__cache_key_fields__header *)
 
-type cloudflare_page_rule__actions__cache_key_fields__host = {
+type actions__cache_key_fields__host = {
   resolved : bool prop option; [@option]  (** Defaults to `false`. *)
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__cache_key_fields__host *)
+(** actions__cache_key_fields__host *)
 
-type cloudflare_page_rule__actions__cache_key_fields__query_string = {
+type actions__cache_key_fields__query_string = {
   exclude : string prop list option; [@option]  (** exclude *)
   ignore : bool prop option; [@option]  (** ignore *)
   include_ : string prop list option; [@option] [@key "include"]
       (** include *)
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__cache_key_fields__query_string *)
+(** actions__cache_key_fields__query_string *)
 
-type cloudflare_page_rule__actions__cache_key_fields__user = {
+type actions__cache_key_fields__user = {
   device_type : bool prop option; [@option]  (** device_type *)
   geo : bool prop option; [@option]  (** geo *)
   lang : bool prop option; [@option]  (** lang *)
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__cache_key_fields__user *)
+(** actions__cache_key_fields__user *)
 
-type cloudflare_page_rule__actions__cache_key_fields = {
-  cookie :
-    cloudflare_page_rule__actions__cache_key_fields__cookie list;
-  header :
-    cloudflare_page_rule__actions__cache_key_fields__header list;
-  host : cloudflare_page_rule__actions__cache_key_fields__host list;
-  query_string :
-    cloudflare_page_rule__actions__cache_key_fields__query_string
-    list;
-  user : cloudflare_page_rule__actions__cache_key_fields__user list;
+type actions__cache_key_fields = {
+  cookie : actions__cache_key_fields__cookie list;
+  header : actions__cache_key_fields__header list;
+  host : actions__cache_key_fields__host list;
+  query_string : actions__cache_key_fields__query_string list;
+  user : actions__cache_key_fields__user list;
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__cache_key_fields *)
+(** actions__cache_key_fields *)
 
-type cloudflare_page_rule__actions__cache_ttl_by_status = {
+type actions__cache_ttl_by_status = {
   codes : string prop;  (** codes *)
   ttl : float prop;  (** ttl *)
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__cache_ttl_by_status *)
+(** actions__cache_ttl_by_status *)
 
-type cloudflare_page_rule__actions__forwarding_url = {
+type actions__forwarding_url = {
   status_code : float prop;  (** status_code *)
   url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__forwarding_url *)
+(** actions__forwarding_url *)
 
-type cloudflare_page_rule__actions__minify = {
+type actions__minify = {
   css : string prop;  (** css *)
   html : string prop;  (** html *)
   js : string prop;  (** js *)
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions__minify *)
+(** actions__minify *)
 
-type cloudflare_page_rule__actions = {
+type actions = {
   always_use_https : bool prop option; [@option]
       (** Defaults to `false`. *)
   automatic_https_rewrites : string prop option; [@option]
@@ -142,16 +138,13 @@ type cloudflare_page_rule__actions = {
   true_client_ip_header : string prop option; [@option]
       (** true_client_ip_header *)
   waf : string prop option; [@option]  (** waf *)
-  cache_key_fields :
-    cloudflare_page_rule__actions__cache_key_fields list;
-  cache_ttl_by_status :
-    cloudflare_page_rule__actions__cache_ttl_by_status list;
-  forwarding_url :
-    cloudflare_page_rule__actions__forwarding_url list;
-  minify : cloudflare_page_rule__actions__minify list;
+  cache_key_fields : actions__cache_key_fields list;
+  cache_ttl_by_status : actions__cache_ttl_by_status list;
+  forwarding_url : actions__forwarding_url list;
+  minify : actions__minify list;
 }
 [@@deriving yojson_of]
-(** cloudflare_page_rule__actions *)
+(** actions *)
 
 type cloudflare_page_rule = {
   id : string prop option; [@option]  (** id *)
@@ -161,10 +154,101 @@ type cloudflare_page_rule = {
   target : string prop;  (** target *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  actions : cloudflare_page_rule__actions list;
+  actions : actions list;
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule *)
+
+let actions__cache_key_fields__cookie ?check_presence ?include_ () :
+    actions__cache_key_fields__cookie =
+  { check_presence; include_ }
+
+let actions__cache_key_fields__header ?check_presence ?exclude
+    ?include_ () : actions__cache_key_fields__header =
+  { check_presence; exclude; include_ }
+
+let actions__cache_key_fields__host ?resolved () :
+    actions__cache_key_fields__host =
+  { resolved }
+
+let actions__cache_key_fields__query_string ?exclude ?ignore
+    ?include_ () : actions__cache_key_fields__query_string =
+  { exclude; ignore; include_ }
+
+let actions__cache_key_fields__user ?device_type ?geo ?lang () :
+    actions__cache_key_fields__user =
+  { device_type; geo; lang }
+
+let actions__cache_key_fields ~cookie ~header ~host ~query_string
+    ~user () : actions__cache_key_fields =
+  { cookie; header; host; query_string; user }
+
+let actions__cache_ttl_by_status ~codes ~ttl () :
+    actions__cache_ttl_by_status =
+  { codes; ttl }
+
+let actions__forwarding_url ~status_code ~url () :
+    actions__forwarding_url =
+  { status_code; url }
+
+let actions__minify ~css ~html ~js () : actions__minify =
+  { css; html; js }
+
+let actions ?always_use_https ?automatic_https_rewrites
+    ?browser_cache_ttl ?browser_check ?bypass_cache_on_cookie
+    ?cache_by_device_type ?cache_deception_armor ?cache_level
+    ?cache_on_cookie ?disable_apps ?disable_performance
+    ?disable_railgun ?disable_security ?disable_zaraz ?edge_cache_ttl
+    ?email_obfuscation ?explicit_cache_control ?host_header_override
+    ?ip_geolocation ?mirage ?opportunistic_encryption
+    ?origin_error_page_pass_thru ?polish ?resolve_override
+    ?respect_strong_etag ?response_buffering ?rocket_loader
+    ?security_level ?server_side_exclude ?sort_query_string_for_cache
+    ?ssl ?true_client_ip_header ?waf ~cache_key_fields
+    ~cache_ttl_by_status ~forwarding_url ~minify () : actions =
+  {
+    always_use_https;
+    automatic_https_rewrites;
+    browser_cache_ttl;
+    browser_check;
+    bypass_cache_on_cookie;
+    cache_by_device_type;
+    cache_deception_armor;
+    cache_level;
+    cache_on_cookie;
+    disable_apps;
+    disable_performance;
+    disable_railgun;
+    disable_security;
+    disable_zaraz;
+    edge_cache_ttl;
+    email_obfuscation;
+    explicit_cache_control;
+    host_header_override;
+    ip_geolocation;
+    mirage;
+    opportunistic_encryption;
+    origin_error_page_pass_thru;
+    polish;
+    resolve_override;
+    respect_strong_etag;
+    response_buffering;
+    rocket_loader;
+    security_level;
+    server_side_exclude;
+    sort_query_string_for_cache;
+    ssl;
+    true_client_ip_header;
+    waf;
+    cache_key_fields;
+    cache_ttl_by_status;
+    forwarding_url;
+    minify;
+  }
+
+let cloudflare_page_rule ?id ?priority ?status ~target ~zone_id
+    ~actions () : cloudflare_page_rule =
+  { id; priority; status; target; zone_id; actions }
 
 type t = {
   id : string prop;
@@ -174,14 +258,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_page_rule ?id ?priority ?status ~target ~zone_id
+let register ?tf_module ?id ?priority ?status ~target ~zone_id
     ~actions __resource_id =
   let __resource_type = "cloudflare_page_rule" in
   let __resource =
-    ({ id; priority; status; target; zone_id; actions }
-      : cloudflare_page_rule)
+    cloudflare_page_rule ?id ?priority ?status ~target ~zone_id
+      ~actions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_page_rule __resource);
   let __resource_attributes =
     ({

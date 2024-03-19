@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_route53recoveryreadiness_cell__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_route53recoveryreadiness_cell
+
+val aws_route53recoveryreadiness_cell :
+  ?cells:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cell_name:string prop ->
+  unit ->
+  aws_route53recoveryreadiness_cell
+
+val yojson_of_aws_route53recoveryreadiness_cell :
+  aws_route53recoveryreadiness_cell -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,12 +35,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_route53recoveryreadiness_cell :
+val register :
+  ?tf_module:tf_module ->
   ?cells:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_route53recoveryreadiness_cell__timeouts ->
+  ?timeouts:timeouts ->
   cell_name:string prop ->
   string ->
   t

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_identitystore_user__addresses = {
+type addresses = {
   country : string prop option; [@option]  (** country *)
   formatted : string prop option; [@option]  (** formatted *)
   locality : string prop option; [@option]  (** locality *)
@@ -16,17 +16,17 @@ type aws_identitystore_user__addresses = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_identitystore_user__addresses *)
+(** addresses *)
 
-type aws_identitystore_user__emails = {
+type emails = {
   primary : bool prop option; [@option]  (** primary *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_identitystore_user__emails *)
+(** emails *)
 
-type aws_identitystore_user__name = {
+type name = {
   family_name : string prop;  (** family_name *)
   formatted : string prop option; [@option]  (** formatted *)
   given_name : string prop;  (** given_name *)
@@ -37,17 +37,17 @@ type aws_identitystore_user__name = {
   middle_name : string prop option; [@option]  (** middle_name *)
 }
 [@@deriving yojson_of]
-(** aws_identitystore_user__name *)
+(** name *)
 
-type aws_identitystore_user__phone_numbers = {
+type phone_numbers = {
   primary : bool prop option; [@option]  (** primary *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_identitystore_user__phone_numbers *)
+(** phone_numbers *)
 
-type aws_identitystore_user__external_ids = {
+type external_ids = {
   id : string prop;  (** id *)
   issuer : string prop;  (** issuer *)
 }
@@ -66,17 +66,69 @@ type aws_identitystore_user = {
   title : string prop option; [@option]  (** title *)
   user_name : string prop;  (** user_name *)
   user_type : string prop option; [@option]  (** user_type *)
-  addresses : aws_identitystore_user__addresses list;
-  emails : aws_identitystore_user__emails list;
-  name : aws_identitystore_user__name list;
-  phone_numbers : aws_identitystore_user__phone_numbers list;
+  addresses : addresses list;
+  emails : emails list;
+  name : name list;
+  phone_numbers : phone_numbers list;
 }
 [@@deriving yojson_of]
 (** aws_identitystore_user *)
 
+let addresses ?country ?formatted ?locality ?postal_code ?primary
+    ?region ?street_address ?type_ () : addresses =
+  {
+    country;
+    formatted;
+    locality;
+    postal_code;
+    primary;
+    region;
+    street_address;
+    type_;
+  }
+
+let emails ?primary ?type_ ?value () : emails =
+  { primary; type_; value }
+
+let name ?formatted ?honorific_prefix ?honorific_suffix ?middle_name
+    ~family_name ~given_name () : name =
+  {
+    family_name;
+    formatted;
+    given_name;
+    honorific_prefix;
+    honorific_suffix;
+    middle_name;
+  }
+
+let phone_numbers ?primary ?type_ ?value () : phone_numbers =
+  { primary; type_; value }
+
+let aws_identitystore_user ?id ?locale ?nickname ?preferred_language
+    ?profile_url ?timezone ?title ?user_type ~display_name
+    ~identity_store_id ~user_name ~addresses ~emails ~name
+    ~phone_numbers () : aws_identitystore_user =
+  {
+    display_name;
+    id;
+    identity_store_id;
+    locale;
+    nickname;
+    preferred_language;
+    profile_url;
+    timezone;
+    title;
+    user_name;
+    user_type;
+    addresses;
+    emails;
+    name;
+    phone_numbers;
+  }
+
 type t = {
   display_name : string prop;
-  external_ids : aws_identitystore_user__external_ids list prop;
+  external_ids : external_ids list prop;
   id : string prop;
   identity_store_id : string prop;
   locale : string prop;
@@ -90,32 +142,18 @@ type t = {
   user_type : string prop;
 }
 
-let aws_identitystore_user ?id ?locale ?nickname ?preferred_language
+let register ?tf_module ?id ?locale ?nickname ?preferred_language
     ?profile_url ?timezone ?title ?user_type ~display_name
     ~identity_store_id ~user_name ~addresses ~emails ~name
     ~phone_numbers __resource_id =
   let __resource_type = "aws_identitystore_user" in
   let __resource =
-    ({
-       display_name;
-       id;
-       identity_store_id;
-       locale;
-       nickname;
-       preferred_language;
-       profile_url;
-       timezone;
-       title;
-       user_name;
-       user_type;
-       addresses;
-       emails;
-       name;
-       phone_numbers;
-     }
-      : aws_identitystore_user)
+    aws_identitystore_user ?id ?locale ?nickname ?preferred_language
+      ?profile_url ?timezone ?title ?user_type ~display_name
+      ~identity_store_id ~user_name ~addresses ~emails ~name
+      ~phone_numbers ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_identitystore_user __resource);
   let __resource_attributes =
     ({

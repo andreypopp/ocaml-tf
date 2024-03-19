@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_endpoint_storage_container__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_endpoint_storage_container__timeouts *)
+(** timeouts *)
 
 type azurerm_iothub_endpoint_storage_container = {
   authentication_type : string prop option; [@option]
@@ -32,11 +32,36 @@ type azurerm_iothub_endpoint_storage_container = {
       (** max_chunk_size_in_bytes *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts :
-    azurerm_iothub_endpoint_storage_container__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_endpoint_storage_container *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iothub_endpoint_storage_container ?authentication_type
+    ?batch_frequency_in_seconds ?connection_string ?encoding
+    ?endpoint_uri ?file_name_format ?id ?identity_id
+    ?max_chunk_size_in_bytes ?timeouts ~container_name ~iothub_id
+    ~name ~resource_group_name () :
+    azurerm_iothub_endpoint_storage_container =
+  {
+    authentication_type;
+    batch_frequency_in_seconds;
+    connection_string;
+    container_name;
+    encoding;
+    endpoint_uri;
+    file_name_format;
+    id;
+    identity_id;
+    iothub_id;
+    max_chunk_size_in_bytes;
+    name;
+    resource_group_name;
+    timeouts;
+  }
 
 type t = {
   authentication_type : string prop;
@@ -54,7 +79,7 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_iothub_endpoint_storage_container ?authentication_type
+let register ?tf_module ?authentication_type
     ?batch_frequency_in_seconds ?connection_string ?encoding
     ?endpoint_uri ?file_name_format ?id ?identity_id
     ?max_chunk_size_in_bytes ?timeouts ~container_name ~iothub_id
@@ -63,25 +88,13 @@ let azurerm_iothub_endpoint_storage_container ?authentication_type
     "azurerm_iothub_endpoint_storage_container"
   in
   let __resource =
-    ({
-       authentication_type;
-       batch_frequency_in_seconds;
-       connection_string;
-       container_name;
-       encoding;
-       endpoint_uri;
-       file_name_format;
-       id;
-       identity_id;
-       iothub_id;
-       max_chunk_size_in_bytes;
-       name;
-       resource_group_name;
-       timeouts;
-     }
-      : azurerm_iothub_endpoint_storage_container)
+    azurerm_iothub_endpoint_storage_container ?authentication_type
+      ?batch_frequency_in_seconds ?connection_string ?encoding
+      ?endpoint_uri ?file_name_format ?id ?identity_id
+      ?max_chunk_size_in_bytes ?timeouts ~container_name ~iothub_id
+      ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_endpoint_storage_container __resource);
   let __resource_attributes =
     ({

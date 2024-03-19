@@ -22,6 +22,22 @@ type digitalocean_volume = {
 [@@deriving yojson_of]
 (** digitalocean_volume *)
 
+let digitalocean_volume ?description ?filesystem_type ?id
+    ?initial_filesystem_label ?initial_filesystem_type ?snapshot_id
+    ?tags ~name ~region ~size () : digitalocean_volume =
+  {
+    description;
+    filesystem_type;
+    id;
+    initial_filesystem_label;
+    initial_filesystem_type;
+    name;
+    region;
+    size;
+    snapshot_id;
+    tags;
+  }
+
 type t = {
   description : string prop;
   droplet_ids : float list prop;
@@ -38,26 +54,16 @@ type t = {
   urn : string prop;
 }
 
-let digitalocean_volume ?description ?filesystem_type ?id
+let register ?tf_module ?description ?filesystem_type ?id
     ?initial_filesystem_label ?initial_filesystem_type ?snapshot_id
     ?tags ~name ~region ~size __resource_id =
   let __resource_type = "digitalocean_volume" in
   let __resource =
-    ({
-       description;
-       filesystem_type;
-       id;
-       initial_filesystem_label;
-       initial_filesystem_type;
-       name;
-       region;
-       size;
-       snapshot_id;
-       tags;
-     }
-      : digitalocean_volume)
+    digitalocean_volume ?description ?filesystem_type ?id
+      ?initial_filesystem_label ?initial_filesystem_type ?snapshot_id
+      ?tags ~name ~region ~size ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_volume __resource);
   let __resource_attributes =
     ({

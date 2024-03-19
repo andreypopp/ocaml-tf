@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_global_network__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_networkmanager_global_network
+
+val aws_networkmanager_global_network :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  unit ->
+  aws_networkmanager_global_network
+
+val yojson_of_aws_networkmanager_global_network :
+  aws_networkmanager_global_network -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,11 +37,12 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_networkmanager_global_network :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_networkmanager_global_network__timeouts ->
+  ?timeouts:timeouts ->
   string ->
   t

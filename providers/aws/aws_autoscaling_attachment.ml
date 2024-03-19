@@ -15,6 +15,10 @@ type aws_autoscaling_attachment = {
 [@@deriving yojson_of]
 (** aws_autoscaling_attachment *)
 
+let aws_autoscaling_attachment ?elb ?id ?lb_target_group_arn
+    ~autoscaling_group_name () : aws_autoscaling_attachment =
+  { autoscaling_group_name; elb; id; lb_target_group_arn }
+
 type t = {
   autoscaling_group_name : string prop;
   elb : string prop;
@@ -22,14 +26,14 @@ type t = {
   lb_target_group_arn : string prop;
 }
 
-let aws_autoscaling_attachment ?elb ?id ?lb_target_group_arn
+let register ?tf_module ?elb ?id ?lb_target_group_arn
     ~autoscaling_group_name __resource_id =
   let __resource_type = "aws_autoscaling_attachment" in
   let __resource =
-    ({ autoscaling_group_name; elb; id; lb_target_group_arn }
-      : aws_autoscaling_attachment)
+    aws_autoscaling_attachment ?elb ?id ?lb_target_group_arn
+      ~autoscaling_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_attachment __resource);
   let __resource_attributes =
     ({

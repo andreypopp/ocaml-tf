@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_lifecycle_configuration__rule__abort_incomplete_multipart_upload = {
+type rule__abort_incomplete_multipart_upload = {
   days_after_initiation : float prop option; [@option]
       (** days_after_initiation *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule__abort_incomplete_multipart_upload *)
+(** rule__abort_incomplete_multipart_upload *)
 
-type aws_s3_bucket_lifecycle_configuration__rule__expiration = {
+type rule__expiration = {
   date : string prop option; [@option]  (** date *)
   days : float prop option; [@option]  (** days *)
   expired_object_delete_marker : bool prop option; [@option]
       (** expired_object_delete_marker *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule__expiration *)
+(** rule__expiration *)
 
-type aws_s3_bucket_lifecycle_configuration__rule__filter__and = {
+type rule__filter__and = {
   object_size_greater_than : float prop option; [@option]
       (** object_size_greater_than *)
   object_size_less_than : float prop option; [@option]
@@ -29,38 +29,37 @@ type aws_s3_bucket_lifecycle_configuration__rule__filter__and = {
   tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule__filter__and *)
+(** rule__filter__and *)
 
-type aws_s3_bucket_lifecycle_configuration__rule__filter__tag = {
+type rule__filter__tag = {
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule__filter__tag *)
+(** rule__filter__tag *)
 
-type aws_s3_bucket_lifecycle_configuration__rule__filter = {
+type rule__filter = {
   object_size_greater_than : string prop option; [@option]
       (** object_size_greater_than *)
   object_size_less_than : string prop option; [@option]
       (** object_size_less_than *)
   prefix : string prop option; [@option]  (** prefix *)
-  and_ :
-    aws_s3_bucket_lifecycle_configuration__rule__filter__and list;
-  tag : aws_s3_bucket_lifecycle_configuration__rule__filter__tag list;
+  and_ : rule__filter__and list;
+  tag : rule__filter__tag list;
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule__filter *)
+(** rule__filter *)
 
-type aws_s3_bucket_lifecycle_configuration__rule__noncurrent_version_expiration = {
+type rule__noncurrent_version_expiration = {
   newer_noncurrent_versions : string prop option; [@option]
       (** newer_noncurrent_versions *)
   noncurrent_days : float prop option; [@option]
       (** noncurrent_days *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule__noncurrent_version_expiration *)
+(** rule__noncurrent_version_expiration *)
 
-type aws_s3_bucket_lifecycle_configuration__rule__noncurrent_version_transition = {
+type rule__noncurrent_version_transition = {
   newer_noncurrent_versions : string prop option; [@option]
       (** newer_noncurrent_versions *)
   noncurrent_days : float prop option; [@option]
@@ -68,55 +67,110 @@ type aws_s3_bucket_lifecycle_configuration__rule__noncurrent_version_transition 
   storage_class : string prop;  (** storage_class *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule__noncurrent_version_transition *)
+(** rule__noncurrent_version_transition *)
 
-type aws_s3_bucket_lifecycle_configuration__rule__transition = {
+type rule__transition = {
   date : string prop option; [@option]  (** date *)
   days : float prop option; [@option]  (** days *)
   storage_class : string prop;  (** storage_class *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule__transition *)
+(** rule__transition *)
 
-type aws_s3_bucket_lifecycle_configuration__rule = {
+type rule = {
   id : string prop;  (** id *)
   prefix : string prop option; [@option]  (** prefix *)
   status : string prop;  (** status *)
   abort_incomplete_multipart_upload :
-    aws_s3_bucket_lifecycle_configuration__rule__abort_incomplete_multipart_upload
-    list;
-  expiration :
-    aws_s3_bucket_lifecycle_configuration__rule__expiration list;
-  filter : aws_s3_bucket_lifecycle_configuration__rule__filter list;
+    rule__abort_incomplete_multipart_upload list;
+  expiration : rule__expiration list;
+  filter : rule__filter list;
   noncurrent_version_expiration :
-    aws_s3_bucket_lifecycle_configuration__rule__noncurrent_version_expiration
-    list;
+    rule__noncurrent_version_expiration list;
   noncurrent_version_transition :
-    aws_s3_bucket_lifecycle_configuration__rule__noncurrent_version_transition
-    list;
-  transition :
-    aws_s3_bucket_lifecycle_configuration__rule__transition list;
+    rule__noncurrent_version_transition list;
+  transition : rule__transition list;
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__rule *)
+(** rule *)
 
-type aws_s3_bucket_lifecycle_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_lifecycle_configuration__timeouts *)
+(** timeouts *)
 
 type aws_s3_bucket_lifecycle_configuration = {
   bucket : string prop;  (** bucket *)
   expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
   id : string prop option; [@option]  (** id *)
-  rule : aws_s3_bucket_lifecycle_configuration__rule list;
-  timeouts : aws_s3_bucket_lifecycle_configuration__timeouts option;
+  rule : rule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_lifecycle_configuration *)
+
+let rule__abort_incomplete_multipart_upload ?days_after_initiation ()
+    : rule__abort_incomplete_multipart_upload =
+  { days_after_initiation }
+
+let rule__expiration ?date ?days ?expired_object_delete_marker () :
+    rule__expiration =
+  { date; days; expired_object_delete_marker }
+
+let rule__filter__and ?object_size_greater_than
+    ?object_size_less_than ?prefix ?tags () : rule__filter__and =
+  { object_size_greater_than; object_size_less_than; prefix; tags }
+
+let rule__filter__tag ~key ~value () : rule__filter__tag =
+  { key; value }
+
+let rule__filter ?object_size_greater_than ?object_size_less_than
+    ?prefix ~and_ ~tag () : rule__filter =
+  {
+    object_size_greater_than;
+    object_size_less_than;
+    prefix;
+    and_;
+    tag;
+  }
+
+let rule__noncurrent_version_expiration ?newer_noncurrent_versions
+    ?noncurrent_days () : rule__noncurrent_version_expiration =
+  { newer_noncurrent_versions; noncurrent_days }
+
+let rule__noncurrent_version_transition ?newer_noncurrent_versions
+    ?noncurrent_days ~storage_class () :
+    rule__noncurrent_version_transition =
+  { newer_noncurrent_versions; noncurrent_days; storage_class }
+
+let rule__transition ?date ?days ~storage_class () : rule__transition
+    =
+  { date; days; storage_class }
+
+let rule ?prefix ~id ~status ~abort_incomplete_multipart_upload
+    ~expiration ~filter ~noncurrent_version_expiration
+    ~noncurrent_version_transition ~transition () : rule =
+  {
+    id;
+    prefix;
+    status;
+    abort_incomplete_multipart_upload;
+    expiration;
+    filter;
+    noncurrent_version_expiration;
+    noncurrent_version_transition;
+    transition;
+  }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_s3_bucket_lifecycle_configuration ?expected_bucket_owner ?id
+    ?timeouts ~bucket ~rule () :
+    aws_s3_bucket_lifecycle_configuration =
+  { bucket; expected_bucket_owner; id; rule; timeouts }
 
 type t = {
   bucket : string prop;
@@ -124,14 +178,14 @@ type t = {
   id : string prop;
 }
 
-let aws_s3_bucket_lifecycle_configuration ?expected_bucket_owner ?id
-    ?timeouts ~bucket ~rule __resource_id =
+let register ?tf_module ?expected_bucket_owner ?id ?timeouts ~bucket
+    ~rule __resource_id =
   let __resource_type = "aws_s3_bucket_lifecycle_configuration" in
   let __resource =
-    ({ bucket; expected_bucket_owner; id; rule; timeouts }
-      : aws_s3_bucket_lifecycle_configuration)
+    aws_s3_bucket_lifecycle_configuration ?expected_bucket_owner ?id
+      ?timeouts ~bucket ~rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_lifecycle_configuration __resource);
   let __resource_attributes =
     ({

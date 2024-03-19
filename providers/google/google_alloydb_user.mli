@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_alloydb_user__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_alloydb_user
+
+val google_alloydb_user :
+  ?database_roles:string prop list ->
+  ?id:string prop ->
+  ?password:string prop ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  user_id:string prop ->
+  user_type:string prop ->
+  unit ->
+  google_alloydb_user
+
+val yojson_of_google_alloydb_user : google_alloydb_user -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster : string prop;
@@ -15,11 +40,12 @@ type t = private {
   user_type : string prop;
 }
 
-val google_alloydb_user :
+val register :
+  ?tf_module:tf_module ->
   ?database_roles:string prop list ->
   ?id:string prop ->
   ?password:string prop ->
-  ?timeouts:google_alloydb_user__timeouts ->
+  ?timeouts:timeouts ->
   cluster:string prop ->
   user_id:string prop ->
   user_type:string prop ->

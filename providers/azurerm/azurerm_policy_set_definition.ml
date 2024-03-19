@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_policy_set_definition__policy_definition_group = {
+type policy_definition_group = {
   additional_metadata_resource_id : string prop option; [@option]
       (** additional_metadata_resource_id *)
   category : string prop option; [@option]  (** category *)
@@ -13,9 +13,9 @@ type azurerm_policy_set_definition__policy_definition_group = {
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_policy_set_definition__policy_definition_group *)
+(** policy_definition_group *)
 
-type azurerm_policy_set_definition__policy_definition_reference = {
+type policy_definition_reference = {
   parameter_values : string prop option; [@option]
       (** parameter_values *)
   policy_definition_id : string prop;  (** policy_definition_id *)
@@ -24,16 +24,16 @@ type azurerm_policy_set_definition__policy_definition_reference = {
   reference_id : string prop option; [@option]  (** reference_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_policy_set_definition__policy_definition_reference *)
+(** policy_definition_reference *)
 
-type azurerm_policy_set_definition__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_policy_set_definition__timeouts *)
+(** timeouts *)
 
 type azurerm_policy_set_definition = {
   description : string prop option; [@option]  (** description *)
@@ -45,14 +45,54 @@ type azurerm_policy_set_definition = {
   name : string prop;  (** name *)
   parameters : string prop option; [@option]  (** parameters *)
   policy_type : string prop;  (** policy_type *)
-  policy_definition_group :
-    azurerm_policy_set_definition__policy_definition_group list;
-  policy_definition_reference :
-    azurerm_policy_set_definition__policy_definition_reference list;
-  timeouts : azurerm_policy_set_definition__timeouts option;
+  policy_definition_group : policy_definition_group list;
+  policy_definition_reference : policy_definition_reference list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_policy_set_definition *)
+
+let policy_definition_group ?additional_metadata_resource_id
+    ?category ?description ?display_name ~name () :
+    policy_definition_group =
+  {
+    additional_metadata_resource_id;
+    category;
+    description;
+    display_name;
+    name;
+  }
+
+let policy_definition_reference ?parameter_values ?policy_group_names
+    ?reference_id ~policy_definition_id () :
+    policy_definition_reference =
+  {
+    parameter_values;
+    policy_definition_id;
+    policy_group_names;
+    reference_id;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_policy_set_definition ?description ?id
+    ?management_group_id ?metadata ?parameters ?timeouts
+    ~display_name ~name ~policy_type ~policy_definition_group
+    ~policy_definition_reference () : azurerm_policy_set_definition =
+  {
+    description;
+    display_name;
+    id;
+    management_group_id;
+    metadata;
+    name;
+    parameters;
+    policy_type;
+    policy_definition_group;
+    policy_definition_reference;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -65,28 +105,18 @@ type t = {
   policy_type : string prop;
 }
 
-let azurerm_policy_set_definition ?description ?id
-    ?management_group_id ?metadata ?parameters ?timeouts
-    ~display_name ~name ~policy_type ~policy_definition_group
-    ~policy_definition_reference __resource_id =
+let register ?tf_module ?description ?id ?management_group_id
+    ?metadata ?parameters ?timeouts ~display_name ~name ~policy_type
+    ~policy_definition_group ~policy_definition_reference
+    __resource_id =
   let __resource_type = "azurerm_policy_set_definition" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       management_group_id;
-       metadata;
-       name;
-       parameters;
-       policy_type;
-       policy_definition_group;
-       policy_definition_reference;
-       timeouts;
-     }
-      : azurerm_policy_set_definition)
+    azurerm_policy_set_definition ?description ?id
+      ?management_group_id ?metadata ?parameters ?timeouts
+      ~display_name ~name ~policy_type ~policy_definition_group
+      ~policy_definition_reference ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_policy_set_definition __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_apigee_keystores_aliases_pkcs12__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_apigee_keystores_aliases_pkcs12__timeouts *)
+(** timeouts *)
 
-type google_apigee_keystores_aliases_pkcs12__certs_info__cert_info = {
+type certs_info__cert_info = {
   basic_constraints : string prop;  (** basic_constraints *)
   expiry_date : string prop;  (** expiry_date *)
   is_valid : string prop;  (** is_valid *)
@@ -27,11 +27,8 @@ type google_apigee_keystores_aliases_pkcs12__certs_info__cert_info = {
 }
 [@@deriving yojson_of]
 
-type google_apigee_keystores_aliases_pkcs12__certs_info = {
-  cert_info :
-    google_apigee_keystores_aliases_pkcs12__certs_info__cert_info
-    list;
-      (** cert_info *)
+type certs_info = {
+  cert_info : certs_info__cert_info list;  (** cert_info *)
 }
 [@@deriving yojson_of]
 
@@ -47,15 +44,31 @@ type google_apigee_keystores_aliases_pkcs12 = {
       (** Organization ID associated with the alias *)
   password : string prop option; [@option]
       (** Password for the Private Key if it's encrypted *)
-  timeouts : google_apigee_keystores_aliases_pkcs12__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_pkcs12 *)
 
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_apigee_keystores_aliases_pkcs12 ?id ?password ?timeouts
+    ~alias ~environment ~file ~filehash ~keystore ~org_id () :
+    google_apigee_keystores_aliases_pkcs12 =
+  {
+    alias;
+    environment;
+    file;
+    filehash;
+    id;
+    keystore;
+    org_id;
+    password;
+    timeouts;
+  }
+
 type t = {
   alias : string prop;
-  certs_info :
-    google_apigee_keystores_aliases_pkcs12__certs_info list prop;
+  certs_info : certs_info list prop;
   environment : string prop;
   file : string prop;
   filehash : string prop;
@@ -66,25 +79,14 @@ type t = {
   type_ : string prop;
 }
 
-let google_apigee_keystores_aliases_pkcs12 ?id ?password ?timeouts
-    ~alias ~environment ~file ~filehash ~keystore ~org_id
-    __resource_id =
+let register ?tf_module ?id ?password ?timeouts ~alias ~environment
+    ~file ~filehash ~keystore ~org_id __resource_id =
   let __resource_type = "google_apigee_keystores_aliases_pkcs12" in
   let __resource =
-    ({
-       alias;
-       environment;
-       file;
-       filehash;
-       id;
-       keystore;
-       org_id;
-       password;
-       timeouts;
-     }
-      : google_apigee_keystores_aliases_pkcs12)
+    google_apigee_keystores_aliases_pkcs12 ?id ?password ?timeouts
+      ~alias ~environment ~file ~filehash ~keystore ~org_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_keystores_aliases_pkcs12 __resource);
   let __resource_attributes =
     ({

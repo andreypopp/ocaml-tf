@@ -4,33 +4,31 @@
 
 open! Tf.Prelude
 
-type google_app_engine_application__feature_settings = {
+type feature_settings = {
   split_health_checks : bool prop;  (** split_health_checks *)
 }
 [@@deriving yojson_of]
 (** A block of optional settings to configure specific App Engine features: *)
 
-type google_app_engine_application__iap = {
+type iap = {
   enabled : bool prop option; [@option]
       (** Adapted for use with the app *)
   oauth2_client_id : string prop;
       (** OAuth2 client ID to use for the authentication flow. *)
   oauth2_client_secret : string prop;
       (** OAuth2 client secret to use for the authentication flow. The SHA-256 hash of the value is returned in the oauth2ClientSecretSha256 field. *)
-  oauth2_client_secret_sha256 : string prop;
-      (** Hex-encoded SHA-256 hash of the client secret. *)
 }
 [@@deriving yojson_of]
 (** Settings for enabling Cloud Identity Aware Proxy *)
 
-type google_app_engine_application__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_app_engine_application__timeouts *)
+(** timeouts *)
 
-type google_app_engine_application__url_dispatch_rule = {
+type url_dispatch_rule = {
   domain : string prop;  (** domain *)
   path : string prop;  (** path *)
   service : string prop;  (** service *)
@@ -48,13 +46,35 @@ type google_app_engine_application = {
       (** The project ID to create the application under. *)
   serving_status : string prop option; [@option]
       (** The serving status of the app. *)
-  feature_settings :
-    google_app_engine_application__feature_settings list;
-  iap : google_app_engine_application__iap list;
-  timeouts : google_app_engine_application__timeouts option;
+  feature_settings : feature_settings list;
+  iap : iap list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_app_engine_application *)
+
+let feature_settings ~split_health_checks () : feature_settings =
+  { split_health_checks }
+
+let iap ?enabled ~oauth2_client_id ~oauth2_client_secret () : iap =
+  { enabled; oauth2_client_id; oauth2_client_secret }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let google_app_engine_application ?auth_domain ?database_type ?id
+    ?project ?serving_status ?timeouts ~location_id ~feature_settings
+    ~iap () : google_app_engine_application =
+  {
+    auth_domain;
+    database_type;
+    id;
+    location_id;
+    project;
+    serving_status;
+    feature_settings;
+    iap;
+    timeouts;
+  }
 
 type t = {
   app_id : string prop;
@@ -69,29 +89,19 @@ type t = {
   name : string prop;
   project : string prop;
   serving_status : string prop;
-  url_dispatch_rule :
-    google_app_engine_application__url_dispatch_rule list prop;
+  url_dispatch_rule : url_dispatch_rule list prop;
 }
 
-let google_app_engine_application ?auth_domain ?database_type ?id
-    ?project ?serving_status ?timeouts ~location_id ~feature_settings
-    ~iap __resource_id =
+let register ?tf_module ?auth_domain ?database_type ?id ?project
+    ?serving_status ?timeouts ~location_id ~feature_settings ~iap
+    __resource_id =
   let __resource_type = "google_app_engine_application" in
   let __resource =
-    ({
-       auth_domain;
-       database_type;
-       id;
-       location_id;
-       project;
-       serving_status;
-       feature_settings;
-       iap;
-       timeouts;
-     }
-      : google_app_engine_application)
+    google_app_engine_application ?auth_domain ?database_type ?id
+      ?project ?serving_status ?timeouts ~location_id
+      ~feature_settings ~iap ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_application __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_trigger_recurrence__schedule = {
+type schedule = {
   at_these_hours : float prop list option; [@option]
       (** at_these_hours *)
   at_these_minutes : float prop list option; [@option]
@@ -13,16 +13,16 @@ type azurerm_logic_app_trigger_recurrence__schedule = {
       (** on_these_days *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_trigger_recurrence__schedule *)
+(** schedule *)
 
-type azurerm_logic_app_trigger_recurrence__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_trigger_recurrence__timeouts *)
+(** timeouts *)
 
 type azurerm_logic_app_trigger_recurrence = {
   frequency : string prop;  (** frequency *)
@@ -32,11 +32,33 @@ type azurerm_logic_app_trigger_recurrence = {
   name : string prop;  (** name *)
   start_time : string prop option; [@option]  (** start_time *)
   time_zone : string prop option; [@option]  (** time_zone *)
-  schedule : azurerm_logic_app_trigger_recurrence__schedule list;
-  timeouts : azurerm_logic_app_trigger_recurrence__timeouts option;
+  schedule : schedule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_trigger_recurrence *)
+
+let schedule ?at_these_hours ?at_these_minutes ?on_these_days () :
+    schedule =
+  { at_these_hours; at_these_minutes; on_these_days }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logic_app_trigger_recurrence ?id ?start_time ?time_zone
+    ?timeouts ~frequency ~interval ~logic_app_id ~name ~schedule () :
+    azurerm_logic_app_trigger_recurrence =
+  {
+    frequency;
+    id;
+    interval;
+    logic_app_id;
+    name;
+    start_time;
+    time_zone;
+    schedule;
+    timeouts;
+  }
 
 type t = {
   frequency : string prop;
@@ -48,25 +70,15 @@ type t = {
   time_zone : string prop;
 }
 
-let azurerm_logic_app_trigger_recurrence ?id ?start_time ?time_zone
-    ?timeouts ~frequency ~interval ~logic_app_id ~name ~schedule
-    __resource_id =
+let register ?tf_module ?id ?start_time ?time_zone ?timeouts
+    ~frequency ~interval ~logic_app_id ~name ~schedule __resource_id
+    =
   let __resource_type = "azurerm_logic_app_trigger_recurrence" in
   let __resource =
-    ({
-       frequency;
-       id;
-       interval;
-       logic_app_id;
-       name;
-       start_time;
-       time_zone;
-       schedule;
-       timeouts;
-     }
-      : azurerm_logic_app_trigger_recurrence)
+    azurerm_logic_app_trigger_recurrence ?id ?start_time ?time_zone
+      ?timeouts ~frequency ~interval ~logic_app_id ~name ~schedule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_trigger_recurrence __resource);
   let __resource_attributes =
     ({

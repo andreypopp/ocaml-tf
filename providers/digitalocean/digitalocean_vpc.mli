@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type digitalocean_vpc__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type digitalocean_vpc
+
+val digitalocean_vpc :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ip_range:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  region:string prop ->
+  unit ->
+  digitalocean_vpc
+
+val yojson_of_digitalocean_vpc : digitalocean_vpc -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created_at : string prop;
@@ -16,11 +35,12 @@ type t = private {
   urn : string prop;
 }
 
-val digitalocean_vpc :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?ip_range:string prop ->
-  ?timeouts:digitalocean_vpc__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   region:string prop ->
   string ->

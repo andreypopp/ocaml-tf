@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_versioning__versioning_configuration = {
+type versioning_configuration = {
   mfa_delete : string prop option; [@option]  (** mfa_delete *)
   status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
-(** aws_s3_bucket_versioning__versioning_configuration *)
+(** versioning_configuration *)
 
 type aws_s3_bucket_versioning = {
   bucket : string prop;  (** bucket *)
@@ -17,11 +17,24 @@ type aws_s3_bucket_versioning = {
       (** expected_bucket_owner *)
   id : string prop option; [@option]  (** id *)
   mfa : string prop option; [@option]  (** mfa *)
-  versioning_configuration :
-    aws_s3_bucket_versioning__versioning_configuration list;
+  versioning_configuration : versioning_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_versioning *)
+
+let versioning_configuration ?mfa_delete ~status () :
+    versioning_configuration =
+  { mfa_delete; status }
+
+let aws_s3_bucket_versioning ?expected_bucket_owner ?id ?mfa ~bucket
+    ~versioning_configuration () : aws_s3_bucket_versioning =
+  {
+    bucket;
+    expected_bucket_owner;
+    id;
+    mfa;
+    versioning_configuration;
+  }
 
 type t = {
   bucket : string prop;
@@ -30,20 +43,14 @@ type t = {
   mfa : string prop;
 }
 
-let aws_s3_bucket_versioning ?expected_bucket_owner ?id ?mfa ~bucket
+let register ?tf_module ?expected_bucket_owner ?id ?mfa ~bucket
     ~versioning_configuration __resource_id =
   let __resource_type = "aws_s3_bucket_versioning" in
   let __resource =
-    ({
-       bucket;
-       expected_bucket_owner;
-       id;
-       mfa;
-       versioning_configuration;
-     }
-      : aws_s3_bucket_versioning)
+    aws_s3_bucket_versioning ?expected_bucket_owner ?id ?mfa ~bucket
+      ~versioning_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_versioning __resource);
   let __resource_attributes =
     ({

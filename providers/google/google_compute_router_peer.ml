@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_router_peer__advertised_ip_ranges = {
+type advertised_ip_ranges = {
   description : string prop option; [@option]
       (** User-specified description for the IP range. *)
   range : string prop;
@@ -18,7 +18,7 @@ is 'CUSTOM' and is advertised to all peers of the router. These IP
 ranges will be advertised in addition to any specified groups.
 Leave this field blank to advertise no custom IP ranges. *)
 
-type google_compute_router_peer__bfd = {
+type bfd = {
   min_receive_interval : float prop option; [@option]
       (** The minimum interval, in milliseconds, between BFD control packets
 received from the peer router. The actual value is negotiated
@@ -45,7 +45,7 @@ If set to 'DISABLED', BFD is disabled for this BGP peer. Possible values: [ACTIV
 [@@deriving yojson_of]
 (** BFD configuration for the BGP peering. *)
 
-type google_compute_router_peer__md5_authentication_key = {
+type md5_authentication_key = {
   key : string prop;  (** Value of the key. *)
   name : string prop;
       (** [REQUIRED] Name used to identify the key.
@@ -55,13 +55,13 @@ Must be unique within a router. Must be referenced by exactly one bgpPeer. Must 
 (** Present if MD5 authentication is enabled for the peering. Must be the name
 of one of the entries in the Router.md5_authentication_keys. The field must comply with RFC1035. *)
 
-type google_compute_router_peer__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_router_peer__timeouts *)
+(** timeouts *)
 
 type google_compute_router_peer = {
   advertise_mode : string prop option; [@option]
@@ -131,15 +131,62 @@ If it is not provided, the provider region is used. *)
 such as Next Gen Firewalls, Virtual Routers, or Router Appliances.
 The VM instance must be located in zones contained in the same region as
 this Cloud Router. The VM instance is the peer side of the BGP session. *)
-  advertised_ip_ranges :
-    google_compute_router_peer__advertised_ip_ranges list;
-  bfd : google_compute_router_peer__bfd list;
-  md5_authentication_key :
-    google_compute_router_peer__md5_authentication_key list;
-  timeouts : google_compute_router_peer__timeouts option;
+  advertised_ip_ranges : advertised_ip_ranges list;
+  bfd : bfd list;
+  md5_authentication_key : md5_authentication_key list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_router_peer *)
+
+let advertised_ip_ranges ?description ~range () :
+    advertised_ip_ranges =
+  { description; range }
+
+let bfd ?min_receive_interval ?min_transmit_interval ?multiplier
+    ~session_initialization_mode () : bfd =
+  {
+    min_receive_interval;
+    min_transmit_interval;
+    multiplier;
+    session_initialization_mode;
+  }
+
+let md5_authentication_key ~key ~name () : md5_authentication_key =
+  { key; name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_router_peer ?advertise_mode ?advertised_groups
+    ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
+    ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
+    ?project ?region ?router_appliance_instance ?timeouts ~interface
+    ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
+    ~md5_authentication_key () : google_compute_router_peer =
+  {
+    advertise_mode;
+    advertised_groups;
+    advertised_route_priority;
+    enable;
+    enable_ipv6;
+    id;
+    interface;
+    ip_address;
+    ipv6_nexthop_address;
+    name;
+    peer_asn;
+    peer_ip_address;
+    peer_ipv6_nexthop_address;
+    project;
+    region;
+    router;
+    router_appliance_instance;
+    advertised_ip_ranges;
+    bfd;
+    md5_authentication_key;
+    timeouts;
+  }
 
 type t = {
   advertise_mode : string prop;
@@ -162,7 +209,7 @@ type t = {
   router_appliance_instance : string prop;
 }
 
-let google_compute_router_peer ?advertise_mode ?advertised_groups
+let register ?tf_module ?advertise_mode ?advertised_groups
     ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
     ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
     ?project ?region ?router_appliance_instance ?timeouts ~interface
@@ -170,32 +217,14 @@ let google_compute_router_peer ?advertise_mode ?advertised_groups
     ~md5_authentication_key __resource_id =
   let __resource_type = "google_compute_router_peer" in
   let __resource =
-    ({
-       advertise_mode;
-       advertised_groups;
-       advertised_route_priority;
-       enable;
-       enable_ipv6;
-       id;
-       interface;
-       ip_address;
-       ipv6_nexthop_address;
-       name;
-       peer_asn;
-       peer_ip_address;
-       peer_ipv6_nexthop_address;
-       project;
-       region;
-       router;
-       router_appliance_instance;
-       advertised_ip_ranges;
-       bfd;
-       md5_authentication_key;
-       timeouts;
-     }
-      : google_compute_router_peer)
+    google_compute_router_peer ?advertise_mode ?advertised_groups
+      ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
+      ?ipv6_nexthop_address ?peer_ip_address
+      ?peer_ipv6_nexthop_address ?project ?region
+      ?router_appliance_instance ?timeouts ~interface ~name ~peer_asn
+      ~router ~advertised_ip_ranges ~bfd ~md5_authentication_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_router_peer __resource);
   let __resource_attributes =
     ({

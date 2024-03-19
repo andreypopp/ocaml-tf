@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_proxy_protocol_policy
+
+val aws_proxy_protocol_policy :
+  ?id:string prop ->
+  instance_ports:string prop list ->
+  load_balancer:string prop ->
+  unit ->
+  aws_proxy_protocol_policy
+
+val yojson_of_aws_proxy_protocol_policy :
+  aws_proxy_protocol_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   load_balancer : string prop;
 }
 
-val aws_proxy_protocol_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   instance_ports:string prop list ->
   load_balancer:string prop ->

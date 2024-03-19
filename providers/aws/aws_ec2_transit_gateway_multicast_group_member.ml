@@ -14,6 +14,17 @@ type aws_ec2_transit_gateway_multicast_group_member = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_multicast_group_member *)
 
+let aws_ec2_transit_gateway_multicast_group_member ?id
+    ~group_ip_address ~network_interface_id
+    ~transit_gateway_multicast_domain_id () :
+    aws_ec2_transit_gateway_multicast_group_member =
+  {
+    group_ip_address;
+    id;
+    network_interface_id;
+    transit_gateway_multicast_domain_id;
+  }
+
 type t = {
   group_ip_address : string prop;
   id : string prop;
@@ -21,22 +32,17 @@ type t = {
   transit_gateway_multicast_domain_id : string prop;
 }
 
-let aws_ec2_transit_gateway_multicast_group_member ?id
-    ~group_ip_address ~network_interface_id
+let register ?tf_module ?id ~group_ip_address ~network_interface_id
     ~transit_gateway_multicast_domain_id __resource_id =
   let __resource_type =
     "aws_ec2_transit_gateway_multicast_group_member"
   in
   let __resource =
-    ({
-       group_ip_address;
-       id;
-       network_interface_id;
-       transit_gateway_multicast_domain_id;
-     }
-      : aws_ec2_transit_gateway_multicast_group_member)
+    aws_ec2_transit_gateway_multicast_group_member ?id
+      ~group_ip_address ~network_interface_id
+      ~transit_gateway_multicast_domain_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_multicast_group_member
        __resource);
   let __resource_attributes =

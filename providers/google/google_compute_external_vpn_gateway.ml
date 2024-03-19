@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_external_vpn_gateway__interface = {
+type interface = {
   id : float prop option; [@option]
       (** The numeric ID for this interface. Allowed values are based on the redundancy type
 of this external VPN gateway
@@ -20,13 +20,13 @@ it cannot be an IP address from Google Compute Engine. *)
 [@@deriving yojson_of]
 (** A list of interfaces on this external VPN gateway. *)
 
-type google_compute_external_vpn_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_external_vpn_gateway__timeouts *)
+(** timeouts *)
 
 type google_compute_external_vpn_gateway = {
   description : string prop option; [@option]
@@ -48,11 +48,30 @@ character, which cannot be a dash. *)
   project : string prop option; [@option]  (** project *)
   redundancy_type : string prop option; [@option]
       (** Indicates the redundancy type of this external VPN gateway Possible values: [FOUR_IPS_REDUNDANCY, SINGLE_IP_INTERNALLY_REDUNDANT, TWO_IPS_REDUNDANCY] *)
-  interface : google_compute_external_vpn_gateway__interface list;
-  timeouts : google_compute_external_vpn_gateway__timeouts option;
+  interface : interface list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_external_vpn_gateway *)
+
+let interface ?id ?ip_address () : interface = { id; ip_address }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_external_vpn_gateway ?description ?id ?labels
+    ?project ?redundancy_type ?timeouts ~name ~interface () :
+    google_compute_external_vpn_gateway =
+  {
+    description;
+    id;
+    labels;
+    name;
+    project;
+    redundancy_type;
+    interface;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -67,24 +86,14 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_compute_external_vpn_gateway ?description ?id ?labels
-    ?project ?redundancy_type ?timeouts ~name ~interface
-    __resource_id =
+let register ?tf_module ?description ?id ?labels ?project
+    ?redundancy_type ?timeouts ~name ~interface __resource_id =
   let __resource_type = "google_compute_external_vpn_gateway" in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       name;
-       project;
-       redundancy_type;
-       interface;
-       timeouts;
-     }
-      : google_compute_external_vpn_gateway)
+    google_compute_external_vpn_gateway ?description ?id ?labels
+      ?project ?redundancy_type ?timeouts ~name ~interface ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_external_vpn_gateway __resource);
   let __resource_attributes =
     ({

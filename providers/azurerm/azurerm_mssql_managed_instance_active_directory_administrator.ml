@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_managed_instance_active_directory_administrator__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_managed_instance_active_directory_administrator__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_managed_instance_active_directory_administrator = {
   azuread_authentication_only : bool prop option; [@option]
@@ -21,12 +21,27 @@ type azurerm_mssql_managed_instance_active_directory_administrator = {
   managed_instance_id : string prop;  (** managed_instance_id *)
   object_id : string prop;  (** object_id *)
   tenant_id : string prop;  (** tenant_id *)
-  timeouts :
-    azurerm_mssql_managed_instance_active_directory_administrator__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_instance_active_directory_administrator *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_managed_instance_active_directory_administrator
+    ?azuread_authentication_only ?id ?timeouts ~login_username
+    ~managed_instance_id ~object_id ~tenant_id () :
+    azurerm_mssql_managed_instance_active_directory_administrator =
+  {
+    azuread_authentication_only;
+    id;
+    login_username;
+    managed_instance_id;
+    object_id;
+    tenant_id;
+    timeouts;
+  }
 
 type t = {
   azuread_authentication_only : bool prop;
@@ -37,25 +52,18 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_mssql_managed_instance_active_directory_administrator
-    ?azuread_authentication_only ?id ?timeouts ~login_username
-    ~managed_instance_id ~object_id ~tenant_id __resource_id =
+let register ?tf_module ?azuread_authentication_only ?id ?timeouts
+    ~login_username ~managed_instance_id ~object_id ~tenant_id
+    __resource_id =
   let __resource_type =
     "azurerm_mssql_managed_instance_active_directory_administrator"
   in
   let __resource =
-    ({
-       azuread_authentication_only;
-       id;
-       login_username;
-       managed_instance_id;
-       object_id;
-       tenant_id;
-       timeouts;
-     }
-      : azurerm_mssql_managed_instance_active_directory_administrator)
+    azurerm_mssql_managed_instance_active_directory_administrator
+      ?azuread_authentication_only ?id ?timeouts ~login_username
+      ~managed_instance_id ~object_id ~tenant_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_instance_active_directory_administrator
        __resource);
   let __resource_attributes =

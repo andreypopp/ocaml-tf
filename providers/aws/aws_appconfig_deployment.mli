@@ -2,7 +2,28 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_appconfig_deployment
+
+val aws_appconfig_deployment :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_identifier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  application_id:string prop ->
+  configuration_profile_id:string prop ->
+  configuration_version:string prop ->
+  deployment_strategy_id:string prop ->
+  environment_id:string prop ->
+  unit ->
+  aws_appconfig_deployment
+
+val yojson_of_aws_appconfig_deployment :
+  aws_appconfig_deployment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -21,7 +42,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_appconfig_deployment :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_identifier:string prop ->

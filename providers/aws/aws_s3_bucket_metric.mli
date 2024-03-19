@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_s3_bucket_metric__filter
+(** RESOURCE SERIALIZATION *)
+
+type filter
+
+val filter :
+  ?access_point:string prop ->
+  ?prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  unit ->
+  filter
+
 type aws_s3_bucket_metric
+
+val aws_s3_bucket_metric :
+  ?id:string prop ->
+  bucket:string prop ->
+  name:string prop ->
+  filter:filter list ->
+  unit ->
+  aws_s3_bucket_metric
+
+val yojson_of_aws_s3_bucket_metric : aws_s3_bucket_metric -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket : string prop;
@@ -11,10 +33,11 @@ type t = private {
   name : string prop;
 }
 
-val aws_s3_bucket_metric :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   bucket:string prop ->
   name:string prop ->
-  filter:aws_s3_bucket_metric__filter list ->
+  filter:filter list ->
   string ->
   t

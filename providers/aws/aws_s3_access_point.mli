@@ -2,9 +2,41 @@
 
 open! Tf.Prelude
 
-type aws_s3_access_point__public_access_block_configuration
-type aws_s3_access_point__vpc_configuration
+(** RESOURCE SERIALIZATION *)
+
+type public_access_block_configuration
+
+val public_access_block_configuration :
+  ?block_public_acls:bool prop ->
+  ?block_public_policy:bool prop ->
+  ?ignore_public_acls:bool prop ->
+  ?restrict_public_buckets:bool prop ->
+  unit ->
+  public_access_block_configuration
+
+type vpc_configuration
+
+val vpc_configuration :
+  vpc_id:string prop -> unit -> vpc_configuration
+
 type aws_s3_access_point
+
+val aws_s3_access_point :
+  ?account_id:string prop ->
+  ?bucket_account_id:string prop ->
+  ?id:string prop ->
+  ?policy:string prop ->
+  bucket:string prop ->
+  name:string prop ->
+  public_access_block_configuration:
+    public_access_block_configuration list ->
+  vpc_configuration:vpc_configuration list ->
+  unit ->
+  aws_s3_access_point
+
+val yojson_of_aws_s3_access_point : aws_s3_access_point -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -21,7 +53,8 @@ type t = private {
   policy : string prop;
 }
 
-val aws_s3_access_point :
+val register :
+  ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?bucket_account_id:string prop ->
   ?id:string prop ->
@@ -29,7 +62,7 @@ val aws_s3_access_point :
   bucket:string prop ->
   name:string prop ->
   public_access_block_configuration:
-    aws_s3_access_point__public_access_block_configuration list ->
-  vpc_configuration:aws_s3_access_point__vpc_configuration list ->
+    public_access_block_configuration list ->
+  vpc_configuration:vpc_configuration list ->
   string ->
   t

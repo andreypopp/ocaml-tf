@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type google_filestore_backup__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_filestore_backup
+
+val google_filestore_backup :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  source_file_share:string prop ->
+  source_instance:string prop ->
+  unit ->
+  google_filestore_backup
+
+val yojson_of_google_filestore_backup :
+  google_filestore_backup -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   capacity_gb : string prop;
@@ -25,12 +53,13 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_filestore_backup :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_filestore_backup__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   source_file_share:string prop ->

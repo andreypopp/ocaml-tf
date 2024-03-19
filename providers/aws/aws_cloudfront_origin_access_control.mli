@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cloudfront_origin_access_control
+
+val aws_cloudfront_origin_access_control :
+  ?description:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  origin_access_control_origin_type:string prop ->
+  signing_behavior:string prop ->
+  signing_protocol:string prop ->
+  unit ->
+  aws_cloudfront_origin_access_control
+
+val yojson_of_aws_cloudfront_origin_access_control :
+  aws_cloudfront_origin_access_control -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -14,7 +31,8 @@ type t = private {
   signing_protocol : string prop;
 }
 
-val aws_cloudfront_origin_access_control :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   name:string prop ->

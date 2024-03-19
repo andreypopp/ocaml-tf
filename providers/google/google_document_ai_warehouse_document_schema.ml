@@ -4,11 +4,10 @@
 
 open! Tf.Prelude
 
-type google_document_ai_warehouse_document_schema__property_definitions__date_time_type_options =
-  unit
+type property_definitions__date_time_type_options = unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions__enum_type_options = {
+type property_definitions__enum_type_options = {
   possible_values : string prop list;
       (** List of possible enum values. *)
   validation_check_disabled : bool prop option; [@option]
@@ -17,23 +16,20 @@ type google_document_ai_warehouse_document_schema__property_definitions__enum_ty
 [@@deriving yojson_of]
 (** Enum/categorical property. *)
 
-type google_document_ai_warehouse_document_schema__property_definitions__float_type_options =
+type property_definitions__float_type_options = unit
+[@@deriving yojson_of]
+
+type property_definitions__integer_type_options = unit
+[@@deriving yojson_of]
+
+type property_definitions__map_type_options = unit
+[@@deriving yojson_of]
+
+type property_definitions__property_type_options__property_definitions__date_time_type_options =
   unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions__integer_type_options =
-  unit
-[@@deriving yojson_of]
-
-type google_document_ai_warehouse_document_schema__property_definitions__map_type_options =
-  unit
-[@@deriving yojson_of]
-
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__date_time_type_options =
-  unit
-[@@deriving yojson_of]
-
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__enum_type_options = {
+type property_definitions__property_type_options__property_definitions__enum_type_options = {
   possible_values : string prop list;
       (** List of possible enum values. *)
   validation_check_disabled : bool prop option; [@option]
@@ -42,19 +38,19 @@ type google_document_ai_warehouse_document_schema__property_definitions__propert
 [@@deriving yojson_of]
 (** Enum/categorical property. *)
 
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__float_type_options =
+type property_definitions__property_type_options__property_definitions__float_type_options =
   unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__integer_type_options =
+type property_definitions__property_type_options__property_definitions__integer_type_options =
   unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__map_type_options =
+type property_definitions__property_type_options__property_definitions__map_type_options =
   unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__schema_sources = {
+type property_definitions__property_type_options__property_definitions__schema_sources = {
   name : string prop option; [@option]
       (** The schema name in the source. *)
   processor_type : string prop option; [@option]
@@ -63,15 +59,15 @@ type google_document_ai_warehouse_document_schema__property_definitions__propert
 [@@deriving yojson_of]
 (** The schema source information. *)
 
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__text_type_options =
+type property_definitions__property_type_options__property_definitions__text_type_options =
   unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__timestamp_type_options =
+type property_definitions__property_type_options__property_definitions__timestamp_type_options =
   unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions = {
+type property_definitions__property_type_options__property_definitions = {
   display_name : string prop option; [@option]
       (** The display-name for the property, used for front-end. *)
   is_filterable : bool prop option; [@option]
@@ -88,42 +84,42 @@ type google_document_ai_warehouse_document_schema__property_definitions__propert
   retrieval_importance : string prop option; [@option]
       (** Stores the retrieval importance. Possible values: [HIGHEST, HIGHER, HIGH, MEDIUM, LOW, LOWEST] *)
   date_time_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__date_time_type_options
+    property_definitions__property_type_options__property_definitions__date_time_type_options
     list;
   enum_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__enum_type_options
+    property_definitions__property_type_options__property_definitions__enum_type_options
     list;
   float_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__float_type_options
+    property_definitions__property_type_options__property_definitions__float_type_options
     list;
   integer_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__integer_type_options
+    property_definitions__property_type_options__property_definitions__integer_type_options
     list;
   map_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__map_type_options
+    property_definitions__property_type_options__property_definitions__map_type_options
     list;
   schema_sources :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__schema_sources
+    property_definitions__property_type_options__property_definitions__schema_sources
     list;
   text_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__text_type_options
+    property_definitions__property_type_options__property_definitions__text_type_options
     list;
   timestamp_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__timestamp_type_options
+    property_definitions__property_type_options__property_definitions__timestamp_type_options
     list;
 }
 [@@deriving yojson_of]
 (** Defines the metadata for a schema property. *)
 
-type google_document_ai_warehouse_document_schema__property_definitions__property_type_options = {
+type property_definitions__property_type_options = {
   property_definitions :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions
+    property_definitions__property_type_options__property_definitions
     list;
 }
 [@@deriving yojson_of]
 (** Nested structured data property. *)
 
-type google_document_ai_warehouse_document_schema__property_definitions__schema_sources = {
+type property_definitions__schema_sources = {
   name : string prop option; [@option]
       (** The schema name in the source. *)
   processor_type : string prop option; [@option]
@@ -132,15 +128,13 @@ type google_document_ai_warehouse_document_schema__property_definitions__schema_
 [@@deriving yojson_of]
 (** The schema source information. *)
 
-type google_document_ai_warehouse_document_schema__property_definitions__text_type_options =
-  unit
+type property_definitions__text_type_options = unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions__timestamp_type_options =
-  unit
+type property_definitions__timestamp_type_options = unit
 [@@deriving yojson_of]
 
-type google_document_ai_warehouse_document_schema__property_definitions = {
+type property_definitions = {
   display_name : string prop option; [@option]
       (** The display-name for the property, used for front-end. *)
   is_filterable : bool prop option; [@option]
@@ -157,42 +151,28 @@ type google_document_ai_warehouse_document_schema__property_definitions = {
   retrieval_importance : string prop option; [@option]
       (** Stores the retrieval importance. Possible values: [HIGHEST, HIGHER, HIGH, MEDIUM, LOW, LOWEST] *)
   date_time_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__date_time_type_options
-    list;
-  enum_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__enum_type_options
-    list;
-  float_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__float_type_options
-    list;
+    property_definitions__date_time_type_options list;
+  enum_type_options : property_definitions__enum_type_options list;
+  float_type_options : property_definitions__float_type_options list;
   integer_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__integer_type_options
-    list;
-  map_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__map_type_options
-    list;
+    property_definitions__integer_type_options list;
+  map_type_options : property_definitions__map_type_options list;
   property_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__property_type_options
-    list;
-  schema_sources :
-    google_document_ai_warehouse_document_schema__property_definitions__schema_sources
-    list;
-  text_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__text_type_options
-    list;
+    property_definitions__property_type_options list;
+  schema_sources : property_definitions__schema_sources list;
+  text_type_options : property_definitions__text_type_options list;
   timestamp_type_options :
-    google_document_ai_warehouse_document_schema__property_definitions__timestamp_type_options
-    list;
+    property_definitions__timestamp_type_options list;
 }
 [@@deriving yojson_of]
 (** Defines the metadata for a schema property. *)
 
-type google_document_ai_warehouse_document_schema__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_document_ai_warehouse_document_schema__timeouts *)
+(** timeouts *)
 
 type google_document_ai_warehouse_document_schema = {
   display_name : string prop;
@@ -203,14 +183,138 @@ type google_document_ai_warehouse_document_schema = {
   location : string prop;  (** The location of the resource. *)
   project_number : string prop;
       (** The unique identifier of the project. *)
-  property_definitions :
-    google_document_ai_warehouse_document_schema__property_definitions
-    list;
-  timeouts :
-    google_document_ai_warehouse_document_schema__timeouts option;
+  property_definitions : property_definitions list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_document_ai_warehouse_document_schema *)
+
+let property_definitions__date_time_type_options () = ()
+
+let property_definitions__enum_type_options
+    ?validation_check_disabled ~possible_values () :
+    property_definitions__enum_type_options =
+  { possible_values; validation_check_disabled }
+
+let property_definitions__float_type_options () = ()
+let property_definitions__integer_type_options () = ()
+let property_definitions__map_type_options () = ()
+
+let property_definitions__property_type_options__property_definitions__date_time_type_options
+    () =
+  ()
+
+let property_definitions__property_type_options__property_definitions__enum_type_options
+    ?validation_check_disabled ~possible_values () :
+    property_definitions__property_type_options__property_definitions__enum_type_options
+    =
+  { possible_values; validation_check_disabled }
+
+let property_definitions__property_type_options__property_definitions__float_type_options
+    () =
+  ()
+
+let property_definitions__property_type_options__property_definitions__integer_type_options
+    () =
+  ()
+
+let property_definitions__property_type_options__property_definitions__map_type_options
+    () =
+  ()
+
+let property_definitions__property_type_options__property_definitions__schema_sources
+    ?name ?processor_type () :
+    property_definitions__property_type_options__property_definitions__schema_sources
+    =
+  { name; processor_type }
+
+let property_definitions__property_type_options__property_definitions__text_type_options
+    () =
+  ()
+
+let property_definitions__property_type_options__property_definitions__timestamp_type_options
+    () =
+  ()
+
+let property_definitions__property_type_options__property_definitions
+    ?display_name ?is_filterable ?is_metadata ?is_repeatable
+    ?is_required ?is_searchable ?retrieval_importance ~name
+    ~date_time_type_options ~enum_type_options ~float_type_options
+    ~integer_type_options ~map_type_options ~schema_sources
+    ~text_type_options ~timestamp_type_options () :
+    property_definitions__property_type_options__property_definitions
+    =
+  {
+    display_name;
+    is_filterable;
+    is_metadata;
+    is_repeatable;
+    is_required;
+    is_searchable;
+    name;
+    retrieval_importance;
+    date_time_type_options;
+    enum_type_options;
+    float_type_options;
+    integer_type_options;
+    map_type_options;
+    schema_sources;
+    text_type_options;
+    timestamp_type_options;
+  }
+
+let property_definitions__property_type_options ~property_definitions
+    () : property_definitions__property_type_options =
+  { property_definitions }
+
+let property_definitions__schema_sources ?name ?processor_type () :
+    property_definitions__schema_sources =
+  { name; processor_type }
+
+let property_definitions__text_type_options () = ()
+let property_definitions__timestamp_type_options () = ()
+
+let property_definitions ?display_name ?is_filterable ?is_metadata
+    ?is_repeatable ?is_required ?is_searchable ?retrieval_importance
+    ~name ~date_time_type_options ~enum_type_options
+    ~float_type_options ~integer_type_options ~map_type_options
+    ~property_type_options ~schema_sources ~text_type_options
+    ~timestamp_type_options () : property_definitions =
+  {
+    display_name;
+    is_filterable;
+    is_metadata;
+    is_repeatable;
+    is_required;
+    is_searchable;
+    name;
+    retrieval_importance;
+    date_time_type_options;
+    enum_type_options;
+    float_type_options;
+    integer_type_options;
+    map_type_options;
+    property_type_options;
+    schema_sources;
+    text_type_options;
+    timestamp_type_options;
+  }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_document_ai_warehouse_document_schema ?document_is_folder
+    ?id ?timeouts ~display_name ~location ~project_number
+    ~property_definitions () :
+    google_document_ai_warehouse_document_schema =
+  {
+    display_name;
+    document_is_folder;
+    id;
+    location;
+    project_number;
+    property_definitions;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -221,25 +325,18 @@ type t = {
   project_number : string prop;
 }
 
-let google_document_ai_warehouse_document_schema ?document_is_folder
-    ?id ?timeouts ~display_name ~location ~project_number
-    ~property_definitions __resource_id =
+let register ?tf_module ?document_is_folder ?id ?timeouts
+    ~display_name ~location ~project_number ~property_definitions
+    __resource_id =
   let __resource_type =
     "google_document_ai_warehouse_document_schema"
   in
   let __resource =
-    ({
-       display_name;
-       document_is_folder;
-       id;
-       location;
-       project_number;
-       property_definitions;
-       timeouts;
-     }
-      : google_document_ai_warehouse_document_schema)
+    google_document_ai_warehouse_document_schema ?document_is_folder
+      ?id ?timeouts ~display_name ~location ~project_number
+      ~property_definitions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_document_ai_warehouse_document_schema
        __resource);
   let __resource_attributes =

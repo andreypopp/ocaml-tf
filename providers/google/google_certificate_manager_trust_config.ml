@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_trust_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_certificate_manager_trust_config__timeouts *)
+(** timeouts *)
 
-type google_certificate_manager_trust_config__trust_stores__intermediate_cas = {
+type trust_stores__intermediate_cas = {
   pem_certificate : string prop option; [@option]
       (** PEM intermediate certificate used for building up paths for validation.
 Each certificate provided in PEM format may occupy up to 5kB. *)
@@ -21,7 +21,7 @@ Each certificate provided in PEM format may occupy up to 5kB. *)
 (** Set of intermediate CA certificates used for the path building phase of chain validation.
 The field is currently not supported if trust config is used for the workload certificate feature. *)
 
-type google_certificate_manager_trust_config__trust_stores__trust_anchors = {
+type trust_stores__trust_anchors = {
   pem_certificate : string prop option; [@option]
       (** PEM root certificate of the PKI used for validation.
 Each certificate provided in PEM format may occupy up to 5kB. *)
@@ -29,13 +29,9 @@ Each certificate provided in PEM format may occupy up to 5kB. *)
 [@@deriving yojson_of]
 (** List of Trust Anchors to be used while performing validation against a given TrustStore. *)
 
-type google_certificate_manager_trust_config__trust_stores = {
-  intermediate_cas :
-    google_certificate_manager_trust_config__trust_stores__intermediate_cas
-    list;
-  trust_anchors :
-    google_certificate_manager_trust_config__trust_stores__trust_anchors
-    list;
+type trust_stores = {
+  intermediate_cas : trust_stores__intermediate_cas list;
+  trust_anchors : trust_stores__trust_anchors list;
 }
 [@@deriving yojson_of]
 (** Set of trust stores to perform validation against.
@@ -54,13 +50,39 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string prop;
       (** A user-defined name of the trust config. Trust config names must be unique globally. *)
   project : string prop option; [@option]  (** project *)
-  timeouts :
-    google_certificate_manager_trust_config__timeouts option;
-  trust_stores :
-    google_certificate_manager_trust_config__trust_stores list;
+  timeouts : timeouts option;
+  trust_stores : trust_stores list;
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_trust_config *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let trust_stores__intermediate_cas ?pem_certificate () :
+    trust_stores__intermediate_cas =
+  { pem_certificate }
+
+let trust_stores__trust_anchors ?pem_certificate () :
+    trust_stores__trust_anchors =
+  { pem_certificate }
+
+let trust_stores ~intermediate_cas ~trust_anchors () : trust_stores =
+  { intermediate_cas; trust_anchors }
+
+let google_certificate_manager_trust_config ?description ?id ?labels
+    ?project ?timeouts ~location ~name ~trust_stores () :
+    google_certificate_manager_trust_config =
+  {
+    description;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    timeouts;
+    trust_stores;
+  }
 
 type t = {
   create_time : string prop;
@@ -75,23 +97,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_certificate_manager_trust_config ?description ?id ?labels
-    ?project ?timeouts ~location ~name ~trust_stores __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~location ~name ~trust_stores __resource_id =
   let __resource_type = "google_certificate_manager_trust_config" in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       timeouts;
-       trust_stores;
-     }
-      : google_certificate_manager_trust_config)
+    google_certificate_manager_trust_config ?description ?id ?labels
+      ?project ?timeouts ~location ~name ~trust_stores ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_trust_config __resource);
   let __resource_attributes =
     ({

@@ -2,13 +2,33 @@
 
 open! Tf.Prelude
 
-type google_gke_hub_scope__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_gke_hub_scope__state = {
-  code : string prop;  (** code *)
-}
+type state = { code : string prop  (** code *) }
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type google_gke_hub_scope
+
+val google_gke_hub_scope :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?namespace_labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  scope_id:string prop ->
+  unit ->
+  google_gke_hub_scope
+
+val yojson_of_google_gke_hub_scope : google_gke_hub_scope -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -20,18 +40,19 @@ type t = private {
   namespace_labels : (string * string) list prop;
   project : string prop;
   scope_id : string prop;
-  state : google_gke_hub_scope__state list prop;
+  state : state list prop;
   terraform_labels : (string * string) list prop;
   uid : string prop;
   update_time : string prop;
 }
 
-val google_gke_hub_scope :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?namespace_labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_gke_hub_scope__timeouts ->
+  ?timeouts:timeouts ->
   scope_id:string prop ->
   string ->
   t

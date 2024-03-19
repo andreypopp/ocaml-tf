@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_kusto_eventgrid_data_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_kusto_eventgrid_data_connection__timeouts *)
+(** timeouts *)
 
 type azurerm_kusto_eventgrid_data_connection = {
   blob_storage_event_type : string prop option; [@option]
@@ -38,10 +38,41 @@ type azurerm_kusto_eventgrid_data_connection = {
       (** skip_first_record *)
   storage_account_id : string prop;  (** storage_account_id *)
   table_name : string prop option; [@option]  (** table_name *)
-  timeouts : azurerm_kusto_eventgrid_data_connection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_eventgrid_data_connection *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_kusto_eventgrid_data_connection ?blob_storage_event_type
+    ?data_format ?database_routing_type ?eventgrid_resource_id ?id
+    ?managed_identity_resource_id ?mapping_rule_name
+    ?skip_first_record ?table_name ?timeouts ~cluster_name
+    ~database_name ~eventhub_consumer_group_name ~eventhub_id
+    ~location ~name ~resource_group_name ~storage_account_id () :
+    azurerm_kusto_eventgrid_data_connection =
+  {
+    blob_storage_event_type;
+    cluster_name;
+    data_format;
+    database_name;
+    database_routing_type;
+    eventgrid_resource_id;
+    eventhub_consumer_group_name;
+    eventhub_id;
+    id;
+    location;
+    managed_identity_resource_id;
+    mapping_rule_name;
+    name;
+    resource_group_name;
+    skip_first_record;
+    storage_account_id;
+    table_name;
+    timeouts;
+  }
 
 type t = {
   blob_storage_event_type : string prop;
@@ -63,8 +94,8 @@ type t = {
   table_name : string prop;
 }
 
-let azurerm_kusto_eventgrid_data_connection ?blob_storage_event_type
-    ?data_format ?database_routing_type ?eventgrid_resource_id ?id
+let register ?tf_module ?blob_storage_event_type ?data_format
+    ?database_routing_type ?eventgrid_resource_id ?id
     ?managed_identity_resource_id ?mapping_rule_name
     ?skip_first_record ?table_name ?timeouts ~cluster_name
     ~database_name ~eventhub_consumer_group_name ~eventhub_id
@@ -72,29 +103,14 @@ let azurerm_kusto_eventgrid_data_connection ?blob_storage_event_type
     __resource_id =
   let __resource_type = "azurerm_kusto_eventgrid_data_connection" in
   let __resource =
-    ({
-       blob_storage_event_type;
-       cluster_name;
-       data_format;
-       database_name;
-       database_routing_type;
-       eventgrid_resource_id;
-       eventhub_consumer_group_name;
-       eventhub_id;
-       id;
-       location;
-       managed_identity_resource_id;
-       mapping_rule_name;
-       name;
-       resource_group_name;
-       skip_first_record;
-       storage_account_id;
-       table_name;
-       timeouts;
-     }
-      : azurerm_kusto_eventgrid_data_connection)
+    azurerm_kusto_eventgrid_data_connection ?blob_storage_event_type
+      ?data_format ?database_routing_type ?eventgrid_resource_id ?id
+      ?managed_identity_resource_id ?mapping_rule_name
+      ?skip_first_record ?table_name ?timeouts ~cluster_name
+      ~database_name ~eventhub_consumer_group_name ~eventhub_id
+      ~location ~name ~resource_group_name ~storage_account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_eventgrid_data_connection __resource);
   let __resource_attributes =
     ({

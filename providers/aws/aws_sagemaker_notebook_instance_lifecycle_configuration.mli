@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_sagemaker_notebook_instance_lifecycle_configuration
+
+val aws_sagemaker_notebook_instance_lifecycle_configuration :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?on_create:string prop ->
+  ?on_start:string prop ->
+  unit ->
+  aws_sagemaker_notebook_instance_lifecycle_configuration
+
+val yojson_of_aws_sagemaker_notebook_instance_lifecycle_configuration :
+  aws_sagemaker_notebook_instance_lifecycle_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -12,7 +27,8 @@ type t = private {
   on_start : string prop;
 }
 
-val aws_sagemaker_notebook_instance_lifecycle_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?on_create:string prop ->

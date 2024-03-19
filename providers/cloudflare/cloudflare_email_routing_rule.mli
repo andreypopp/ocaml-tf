@@ -2,9 +2,38 @@
 
 open! Tf.Prelude
 
-type cloudflare_email_routing_rule__action
-type cloudflare_email_routing_rule__matcher
+(** RESOURCE SERIALIZATION *)
+
+type action
+
+val action :
+  ?value:string prop list -> type_:string prop -> unit -> action
+
+type matcher
+
+val matcher :
+  ?field:string prop ->
+  ?value:string prop ->
+  type_:string prop ->
+  unit ->
+  matcher
+
 type cloudflare_email_routing_rule
+
+val cloudflare_email_routing_rule :
+  ?enabled:bool prop ->
+  ?priority:float prop ->
+  name:string prop ->
+  zone_id:string prop ->
+  action:action list ->
+  matcher:matcher list ->
+  unit ->
+  cloudflare_email_routing_rule
+
+val yojson_of_cloudflare_email_routing_rule :
+  cloudflare_email_routing_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   enabled : bool prop;
@@ -15,12 +44,13 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_email_routing_rule :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?priority:float prop ->
   name:string prop ->
   zone_id:string prop ->
-  action:cloudflare_email_routing_rule__action list ->
-  matcher:cloudflare_email_routing_rule__matcher list ->
+  action:action list ->
+  matcher:matcher list ->
   string ->
   t

@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ses_domain_mail_from
+
+val aws_ses_domain_mail_from :
+  ?behavior_on_mx_failure:string prop ->
+  ?id:string prop ->
+  domain:string prop ->
+  mail_from_domain:string prop ->
+  unit ->
+  aws_ses_domain_mail_from
+
+val yojson_of_aws_ses_domain_mail_from :
+  aws_ses_domain_mail_from -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   behavior_on_mx_failure : string prop;
@@ -11,7 +26,8 @@ type t = private {
   mail_from_domain : string prop;
 }
 
-val aws_ses_domain_mail_from :
+val register :
+  ?tf_module:tf_module ->
   ?behavior_on_mx_failure:string prop ->
   ?id:string prop ->
   domain:string prop ->

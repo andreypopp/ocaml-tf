@@ -4,29 +4,29 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_mongo_collection__autoscale_settings = {
+type autoscale_settings = {
   max_throughput : float prop option; [@option]  (** max_throughput *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_mongo_collection__autoscale_settings *)
+(** autoscale_settings *)
 
-type azurerm_cosmosdb_mongo_collection__index = {
+type index = {
   keys : string prop list;  (** keys *)
   unique : bool prop option; [@option]  (** unique *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_mongo_collection__index *)
+(** index *)
 
-type azurerm_cosmosdb_mongo_collection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_mongo_collection__timeouts *)
+(** timeouts *)
 
-type azurerm_cosmosdb_mongo_collection__system_indexes = {
+type system_indexes = {
   keys : string prop list;  (** keys *)
   unique : bool prop;  (** unique *)
 }
@@ -44,13 +44,40 @@ type azurerm_cosmosdb_mongo_collection = {
   resource_group_name : string prop;  (** resource_group_name *)
   shard_key : string prop option; [@option]  (** shard_key *)
   throughput : float prop option; [@option]  (** throughput *)
-  autoscale_settings :
-    azurerm_cosmosdb_mongo_collection__autoscale_settings list;
-  index : azurerm_cosmosdb_mongo_collection__index list;
-  timeouts : azurerm_cosmosdb_mongo_collection__timeouts option;
+  autoscale_settings : autoscale_settings list;
+  index : index list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_mongo_collection *)
+
+let autoscale_settings ?max_throughput () : autoscale_settings =
+  { max_throughput }
+
+let index ?unique ~keys () : index = { keys; unique }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
+    ?default_ttl_seconds ?id ?shard_key ?throughput ?timeouts
+    ~account_name ~database_name ~name ~resource_group_name
+    ~autoscale_settings ~index () : azurerm_cosmosdb_mongo_collection
+    =
+  {
+    account_name;
+    analytical_storage_ttl;
+    database_name;
+    default_ttl_seconds;
+    id;
+    name;
+    resource_group_name;
+    shard_key;
+    throughput;
+    autoscale_settings;
+    index;
+    timeouts;
+  }
 
 type t = {
   account_name : string prop;
@@ -61,34 +88,22 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   shard_key : string prop;
-  system_indexes :
-    azurerm_cosmosdb_mongo_collection__system_indexes list prop;
+  system_indexes : system_indexes list prop;
   throughput : float prop;
 }
 
-let azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
-    ?default_ttl_seconds ?id ?shard_key ?throughput ?timeouts
-    ~account_name ~database_name ~name ~resource_group_name
-    ~autoscale_settings ~index __resource_id =
+let register ?tf_module ?analytical_storage_ttl ?default_ttl_seconds
+    ?id ?shard_key ?throughput ?timeouts ~account_name ~database_name
+    ~name ~resource_group_name ~autoscale_settings ~index
+    __resource_id =
   let __resource_type = "azurerm_cosmosdb_mongo_collection" in
   let __resource =
-    ({
-       account_name;
-       analytical_storage_ttl;
-       database_name;
-       default_ttl_seconds;
-       id;
-       name;
-       resource_group_name;
-       shard_key;
-       throughput;
-       autoscale_settings;
-       index;
-       timeouts;
-     }
-      : azurerm_cosmosdb_mongo_collection)
+    azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
+      ?default_ttl_seconds ?id ?shard_key ?throughput ?timeouts
+      ~account_name ~database_name ~name ~resource_group_name
+      ~autoscale_settings ~index ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_mongo_collection __resource);
   let __resource_attributes =
     ({

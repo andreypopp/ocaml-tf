@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_db_proxy_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_db_proxy_endpoint__timeouts *)
+(** timeouts *)
 
 type aws_db_proxy_endpoint = {
   db_proxy_endpoint_name : string prop;
@@ -24,10 +24,28 @@ type aws_db_proxy_endpoint = {
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
   vpc_subnet_ids : string prop list;  (** vpc_subnet_ids *)
-  timeouts : aws_db_proxy_endpoint__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_proxy_endpoint *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_db_proxy_endpoint ?id ?tags ?tags_all ?target_role
+    ?vpc_security_group_ids ?timeouts ~db_proxy_endpoint_name
+    ~db_proxy_name ~vpc_subnet_ids () : aws_db_proxy_endpoint =
+  {
+    db_proxy_endpoint_name;
+    db_proxy_name;
+    id;
+    tags;
+    tags_all;
+    target_role;
+    vpc_security_group_ids;
+    vpc_subnet_ids;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -44,25 +62,16 @@ type t = {
   vpc_subnet_ids : string list prop;
 }
 
-let aws_db_proxy_endpoint ?id ?tags ?tags_all ?target_role
+let register ?tf_module ?id ?tags ?tags_all ?target_role
     ?vpc_security_group_ids ?timeouts ~db_proxy_endpoint_name
     ~db_proxy_name ~vpc_subnet_ids __resource_id =
   let __resource_type = "aws_db_proxy_endpoint" in
   let __resource =
-    ({
-       db_proxy_endpoint_name;
-       db_proxy_name;
-       id;
-       tags;
-       tags_all;
-       target_role;
-       vpc_security_group_ids;
-       vpc_subnet_ids;
-       timeouts;
-     }
-      : aws_db_proxy_endpoint)
+    aws_db_proxy_endpoint ?id ?tags ?tags_all ?target_role
+      ?vpc_security_group_ids ?timeouts ~db_proxy_endpoint_name
+      ~db_proxy_name ~vpc_subnet_ids ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_proxy_endpoint __resource);
   let __resource_attributes =
     ({

@@ -2,38 +2,283 @@
 
 open! Tf.Prelude
 
-type azurerm_hdinsight_kafka_cluster__component_version
-type azurerm_hdinsight_kafka_cluster__compute_isolation
-type azurerm_hdinsight_kafka_cluster__disk_encryption
-type azurerm_hdinsight_kafka_cluster__extension
-type azurerm_hdinsight_kafka_cluster__gateway
-type azurerm_hdinsight_kafka_cluster__metastores__ambari
-type azurerm_hdinsight_kafka_cluster__metastores__hive
-type azurerm_hdinsight_kafka_cluster__metastores__oozie
-type azurerm_hdinsight_kafka_cluster__metastores
-type azurerm_hdinsight_kafka_cluster__monitor
-type azurerm_hdinsight_kafka_cluster__network
-type azurerm_hdinsight_kafka_cluster__rest_proxy
-type azurerm_hdinsight_kafka_cluster__roles__head_node__script_actions
-type azurerm_hdinsight_kafka_cluster__roles__head_node
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_hdinsight_kafka_cluster__roles__kafka_management_node__script_actions
+type component_version
 
-type azurerm_hdinsight_kafka_cluster__roles__kafka_management_node
+val component_version :
+  kafka:string prop -> unit -> component_version
 
-type azurerm_hdinsight_kafka_cluster__roles__worker_node__script_actions
+type compute_isolation
 
-type azurerm_hdinsight_kafka_cluster__roles__worker_node
+val compute_isolation :
+  ?compute_isolation_enabled:bool prop ->
+  ?host_sku:string prop ->
+  unit ->
+  compute_isolation
 
-type azurerm_hdinsight_kafka_cluster__roles__zookeeper_node__script_actions
+type disk_encryption
 
-type azurerm_hdinsight_kafka_cluster__roles__zookeeper_node
-type azurerm_hdinsight_kafka_cluster__roles
-type azurerm_hdinsight_kafka_cluster__security_profile
-type azurerm_hdinsight_kafka_cluster__storage_account
-type azurerm_hdinsight_kafka_cluster__storage_account_gen2
-type azurerm_hdinsight_kafka_cluster__timeouts
+val disk_encryption :
+  ?encryption_algorithm:string prop ->
+  ?encryption_at_host_enabled:bool prop ->
+  ?key_vault_key_id:string prop ->
+  ?key_vault_managed_identity_id:string prop ->
+  unit ->
+  disk_encryption
+
+type extension
+
+val extension :
+  log_analytics_workspace_id:string prop ->
+  primary_key:string prop ->
+  unit ->
+  extension
+
+type gateway
+
+val gateway :
+  password:string prop -> username:string prop -> unit -> gateway
+
+type metastores__ambari
+
+val metastores__ambari :
+  database_name:string prop ->
+  password:string prop ->
+  server:string prop ->
+  username:string prop ->
+  unit ->
+  metastores__ambari
+
+type metastores__hive
+
+val metastores__hive :
+  database_name:string prop ->
+  password:string prop ->
+  server:string prop ->
+  username:string prop ->
+  unit ->
+  metastores__hive
+
+type metastores__oozie
+
+val metastores__oozie :
+  database_name:string prop ->
+  password:string prop ->
+  server:string prop ->
+  username:string prop ->
+  unit ->
+  metastores__oozie
+
+type metastores
+
+val metastores :
+  ambari:metastores__ambari list ->
+  hive:metastores__hive list ->
+  oozie:metastores__oozie list ->
+  unit ->
+  metastores
+
+type monitor
+
+val monitor :
+  log_analytics_workspace_id:string prop ->
+  primary_key:string prop ->
+  unit ->
+  monitor
+
+type network
+
+val network :
+  ?connection_direction:string prop ->
+  ?private_link_enabled:bool prop ->
+  unit ->
+  network
+
+type rest_proxy
+
+val rest_proxy :
+  security_group_id:string prop ->
+  security_group_name:string prop ->
+  unit ->
+  rest_proxy
+
+type roles__head_node__script_actions
+
+val roles__head_node__script_actions :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__head_node__script_actions
+
+type roles__head_node
+
+val roles__head_node :
+  ?password:string prop ->
+  ?ssh_keys:string prop list ->
+  ?subnet_id:string prop ->
+  ?virtual_network_id:string prop ->
+  username:string prop ->
+  vm_size:string prop ->
+  script_actions:roles__head_node__script_actions list ->
+  unit ->
+  roles__head_node
+
+type roles__kafka_management_node__script_actions
+
+val roles__kafka_management_node__script_actions :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__kafka_management_node__script_actions
+
+type roles__kafka_management_node
+
+val roles__kafka_management_node :
+  ?password:string prop ->
+  ?ssh_keys:string prop list ->
+  ?subnet_id:string prop ->
+  ?virtual_network_id:string prop ->
+  username:string prop ->
+  vm_size:string prop ->
+  script_actions:roles__kafka_management_node__script_actions list ->
+  unit ->
+  roles__kafka_management_node
+
+type roles__worker_node__script_actions
+
+val roles__worker_node__script_actions :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__worker_node__script_actions
+
+type roles__worker_node
+
+val roles__worker_node :
+  ?password:string prop ->
+  ?ssh_keys:string prop list ->
+  ?subnet_id:string prop ->
+  ?virtual_network_id:string prop ->
+  number_of_disks_per_node:float prop ->
+  target_instance_count:float prop ->
+  username:string prop ->
+  vm_size:string prop ->
+  script_actions:roles__worker_node__script_actions list ->
+  unit ->
+  roles__worker_node
+
+type roles__zookeeper_node__script_actions
+
+val roles__zookeeper_node__script_actions :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__zookeeper_node__script_actions
+
+type roles__zookeeper_node
+
+val roles__zookeeper_node :
+  ?password:string prop ->
+  ?ssh_keys:string prop list ->
+  ?subnet_id:string prop ->
+  ?virtual_network_id:string prop ->
+  username:string prop ->
+  vm_size:string prop ->
+  script_actions:roles__zookeeper_node__script_actions list ->
+  unit ->
+  roles__zookeeper_node
+
+type roles
+
+val roles :
+  head_node:roles__head_node list ->
+  kafka_management_node:roles__kafka_management_node list ->
+  worker_node:roles__worker_node list ->
+  zookeeper_node:roles__zookeeper_node list ->
+  unit ->
+  roles
+
+type security_profile
+
+val security_profile :
+  ?cluster_users_group_dns:string prop list ->
+  aadds_resource_id:string prop ->
+  domain_name:string prop ->
+  domain_user_password:string prop ->
+  domain_username:string prop ->
+  ldaps_urls:string prop list ->
+  msi_resource_id:string prop ->
+  unit ->
+  security_profile
+
+type storage_account
+
+val storage_account :
+  ?storage_resource_id:string prop ->
+  is_default:bool prop ->
+  storage_account_key:string prop ->
+  storage_container_id:string prop ->
+  unit ->
+  storage_account
+
+type storage_account_gen2
+
+val storage_account_gen2 :
+  filesystem_id:string prop ->
+  is_default:bool prop ->
+  managed_identity_resource_id:string prop ->
+  storage_resource_id:string prop ->
+  unit ->
+  storage_account_gen2
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_hdinsight_kafka_cluster
+
+val azurerm_hdinsight_kafka_cluster :
+  ?encryption_in_transit_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_min_version:string prop ->
+  ?timeouts:timeouts ->
+  cluster_version:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  tier:string prop ->
+  component_version:component_version list ->
+  compute_isolation:compute_isolation list ->
+  disk_encryption:disk_encryption list ->
+  extension:extension list ->
+  gateway:gateway list ->
+  metastores:metastores list ->
+  monitor:monitor list ->
+  network:network list ->
+  rest_proxy:rest_proxy list ->
+  roles:roles list ->
+  security_profile:security_profile list ->
+  storage_account:storage_account list ->
+  storage_account_gen2:storage_account_gen2 list ->
+  unit ->
+  azurerm_hdinsight_kafka_cluster
+
+val yojson_of_azurerm_hdinsight_kafka_cluster :
+  azurerm_hdinsight_kafka_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_version : string prop;
@@ -50,35 +295,30 @@ type t = private {
   tls_min_version : string prop;
 }
 
-val azurerm_hdinsight_kafka_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?encryption_in_transit_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_min_version:string prop ->
-  ?timeouts:azurerm_hdinsight_kafka_cluster__timeouts ->
+  ?timeouts:timeouts ->
   cluster_version:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   tier:string prop ->
-  component_version:
-    azurerm_hdinsight_kafka_cluster__component_version list ->
-  compute_isolation:
-    azurerm_hdinsight_kafka_cluster__compute_isolation list ->
-  disk_encryption:
-    azurerm_hdinsight_kafka_cluster__disk_encryption list ->
-  extension:azurerm_hdinsight_kafka_cluster__extension list ->
-  gateway:azurerm_hdinsight_kafka_cluster__gateway list ->
-  metastores:azurerm_hdinsight_kafka_cluster__metastores list ->
-  monitor:azurerm_hdinsight_kafka_cluster__monitor list ->
-  network:azurerm_hdinsight_kafka_cluster__network list ->
-  rest_proxy:azurerm_hdinsight_kafka_cluster__rest_proxy list ->
-  roles:azurerm_hdinsight_kafka_cluster__roles list ->
-  security_profile:
-    azurerm_hdinsight_kafka_cluster__security_profile list ->
-  storage_account:
-    azurerm_hdinsight_kafka_cluster__storage_account list ->
-  storage_account_gen2:
-    azurerm_hdinsight_kafka_cluster__storage_account_gen2 list ->
+  component_version:component_version list ->
+  compute_isolation:compute_isolation list ->
+  disk_encryption:disk_encryption list ->
+  extension:extension list ->
+  gateway:gateway list ->
+  metastores:metastores list ->
+  monitor:monitor list ->
+  network:network list ->
+  rest_proxy:rest_proxy list ->
+  roles:roles list ->
+  security_profile:security_profile list ->
+  storage_account:storage_account list ->
+  storage_account_gen2:storage_account_gen2 list ->
   string ->
   t

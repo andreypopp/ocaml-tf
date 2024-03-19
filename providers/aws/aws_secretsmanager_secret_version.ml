@@ -15,6 +15,11 @@ type aws_secretsmanager_secret_version = {
 [@@deriving yojson_of]
 (** aws_secretsmanager_secret_version *)
 
+let aws_secretsmanager_secret_version ?id ?secret_binary
+    ?secret_string ?version_stages ~secret_id () :
+    aws_secretsmanager_secret_version =
+  { id; secret_binary; secret_id; secret_string; version_stages }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -25,14 +30,14 @@ type t = {
   version_stages : string list prop;
 }
 
-let aws_secretsmanager_secret_version ?id ?secret_binary
-    ?secret_string ?version_stages ~secret_id __resource_id =
+let register ?tf_module ?id ?secret_binary ?secret_string
+    ?version_stages ~secret_id __resource_id =
   let __resource_type = "aws_secretsmanager_secret_version" in
   let __resource =
-    ({ id; secret_binary; secret_id; secret_string; version_stages }
-      : aws_secretsmanager_secret_version)
+    aws_secretsmanager_secret_version ?id ?secret_binary
+      ?secret_string ?version_stages ~secret_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_secretsmanager_secret_version __resource);
   let __resource_attributes =
     ({

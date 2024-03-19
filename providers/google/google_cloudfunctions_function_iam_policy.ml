@@ -14,6 +14,11 @@ type google_cloudfunctions_function_iam_policy = {
 [@@deriving yojson_of]
 (** google_cloudfunctions_function_iam_policy *)
 
+let google_cloudfunctions_function_iam_policy ?id ?project ?region
+    ~cloud_function ~policy_data () :
+    google_cloudfunctions_function_iam_policy =
+  { cloud_function; id; policy_data; project; region }
+
 type t = {
   cloud_function : string prop;
   etag : string prop;
@@ -23,16 +28,16 @@ type t = {
   region : string prop;
 }
 
-let google_cloudfunctions_function_iam_policy ?id ?project ?region
-    ~cloud_function ~policy_data __resource_id =
+let register ?tf_module ?id ?project ?region ~cloud_function
+    ~policy_data __resource_id =
   let __resource_type =
     "google_cloudfunctions_function_iam_policy"
   in
   let __resource =
-    ({ cloud_function; id; policy_data; project; region }
-      : google_cloudfunctions_function_iam_policy)
+    google_cloudfunctions_function_iam_policy ?id ?project ?region
+      ~cloud_function ~policy_data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudfunctions_function_iam_policy __resource);
   let __resource_attributes =
     ({

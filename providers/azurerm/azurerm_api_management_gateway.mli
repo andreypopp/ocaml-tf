@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_gateway__location_data
-type azurerm_api_management_gateway__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type location_data
+
+val location_data :
+  ?city:string prop ->
+  ?district:string prop ->
+  ?region:string prop ->
+  name:string prop ->
+  unit ->
+  location_data
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_api_management_gateway
+
+val azurerm_api_management_gateway :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  api_management_id:string prop ->
+  name:string prop ->
+  location_data:location_data list ->
+  unit ->
+  azurerm_api_management_gateway
+
+val yojson_of_azurerm_api_management_gateway :
+  azurerm_api_management_gateway -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_management_id : string prop;
@@ -13,12 +48,13 @@ type t = private {
   name : string prop;
 }
 
-val azurerm_api_management_gateway :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_api_management_gateway__timeouts ->
+  ?timeouts:timeouts ->
   api_management_id:string prop ->
   name:string prop ->
-  location_data:azurerm_api_management_gateway__location_data list ->
+  location_data:location_data list ->
   string ->
   t

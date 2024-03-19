@@ -4,24 +4,20 @@
 
 open! Tf.Prelude
 
-type azurerm_search_service__identity = {
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
-  type_ : string prop; [@key "type"]  (** type *)
-}
+type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
-(** azurerm_search_service__identity *)
+(** identity *)
 
-type azurerm_search_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_search_service__timeouts *)
+(** timeouts *)
 
-type azurerm_search_service__query_keys = {
+type query_keys = {
   key : string prop;  (** key *)
   name : string prop;  (** name *)
 }
@@ -51,11 +47,42 @@ type azurerm_search_service = {
       (** semantic_search_sku *)
   sku : string prop;  (** sku *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity : azurerm_search_service__identity list;
-  timeouts : azurerm_search_service__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_search_service *)
+
+let identity ~type_ () : identity = { type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_search_service ?allowed_ips ?authentication_failure_mode
+    ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
+    ?local_authentication_enabled ?partition_count
+    ?public_network_access_enabled ?replica_count
+    ?semantic_search_sku ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku ~identity () : azurerm_search_service =
+  {
+    allowed_ips;
+    authentication_failure_mode;
+    customer_managed_key_enforcement_enabled;
+    hosting_mode;
+    id;
+    local_authentication_enabled;
+    location;
+    name;
+    partition_count;
+    public_network_access_enabled;
+    replica_count;
+    resource_group_name;
+    semantic_search_sku;
+    sku;
+    tags;
+    identity;
+    timeouts;
+  }
 
 type t = {
   allowed_ips : string list prop;
@@ -69,7 +96,7 @@ type t = {
   partition_count : float prop;
   primary_key : string prop;
   public_network_access_enabled : bool prop;
-  query_keys : azurerm_search_service__query_keys list prop;
+  query_keys : query_keys list prop;
   replica_count : float prop;
   resource_group_name : string prop;
   secondary_key : string prop;
@@ -78,7 +105,7 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_search_service ?allowed_ips ?authentication_failure_mode
+let register ?tf_module ?allowed_ips ?authentication_failure_mode
     ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
     ?local_authentication_enabled ?partition_count
     ?public_network_access_enabled ?replica_count
@@ -86,28 +113,14 @@ let azurerm_search_service ?allowed_ips ?authentication_failure_mode
     ~resource_group_name ~sku ~identity __resource_id =
   let __resource_type = "azurerm_search_service" in
   let __resource =
-    ({
-       allowed_ips;
-       authentication_failure_mode;
-       customer_managed_key_enforcement_enabled;
-       hosting_mode;
-       id;
-       local_authentication_enabled;
-       location;
-       name;
-       partition_count;
-       public_network_access_enabled;
-       replica_count;
-       resource_group_name;
-       semantic_search_sku;
-       sku;
-       tags;
-       identity;
-       timeouts;
-     }
-      : azurerm_search_service)
+    azurerm_search_service ?allowed_ips ?authentication_failure_mode
+      ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
+      ?local_authentication_enabled ?partition_count
+      ?public_network_access_enabled ?replica_count
+      ?semantic_search_sku ?tags ?timeouts ~location ~name
+      ~resource_group_name ~sku ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_search_service __resource);
   let __resource_attributes =
     ({

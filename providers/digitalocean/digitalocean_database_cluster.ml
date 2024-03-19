@@ -4,26 +4,26 @@
 
 open! Tf.Prelude
 
-type digitalocean_database_cluster__backup_restore = {
+type backup_restore = {
   backup_created_at : string prop option; [@option]
       (** backup_created_at *)
   database_name : string prop;  (** database_name *)
 }
 [@@deriving yojson_of]
-(** digitalocean_database_cluster__backup_restore *)
+(** backup_restore *)
 
-type digitalocean_database_cluster__maintenance_window = {
+type maintenance_window = {
   day : string prop;  (** day *)
   hour : string prop;  (** hour *)
 }
 [@@deriving yojson_of]
-(** digitalocean_database_cluster__maintenance_window *)
+(** maintenance_window *)
 
-type digitalocean_database_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** digitalocean_database_cluster__timeouts *)
+(** timeouts *)
 
 type digitalocean_database_cluster = {
   engine : string prop;  (** engine *)
@@ -42,14 +42,45 @@ type digitalocean_database_cluster = {
       (** storage_size_mib *)
   tags : string prop list option; [@option]  (** tags *)
   version : string prop option; [@option]  (** version *)
-  backup_restore :
-    digitalocean_database_cluster__backup_restore list;
-  maintenance_window :
-    digitalocean_database_cluster__maintenance_window list;
-  timeouts : digitalocean_database_cluster__timeouts option;
+  backup_restore : backup_restore list;
+  maintenance_window : maintenance_window list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** digitalocean_database_cluster *)
+
+let backup_restore ?backup_created_at ~database_name () :
+    backup_restore =
+  { backup_created_at; database_name }
+
+let maintenance_window ~day ~hour () : maintenance_window =
+  { day; hour }
+
+let timeouts ?create () : timeouts = { create }
+
+let digitalocean_database_cluster ?eviction_policy ?id
+    ?private_network_uuid ?project_id ?sql_mode ?storage_size_mib
+    ?tags ?version ?timeouts ~engine ~name ~node_count ~region ~size
+    ~backup_restore ~maintenance_window () :
+    digitalocean_database_cluster =
+  {
+    engine;
+    eviction_policy;
+    id;
+    name;
+    node_count;
+    private_network_uuid;
+    project_id;
+    region;
+    size;
+    sql_mode;
+    storage_size_mib;
+    tags;
+    version;
+    backup_restore;
+    maintenance_window;
+    timeouts;
+  }
 
 type t = {
   database : string prop;
@@ -76,33 +107,18 @@ type t = {
   version : string prop;
 }
 
-let digitalocean_database_cluster ?eviction_policy ?id
-    ?private_network_uuid ?project_id ?sql_mode ?storage_size_mib
-    ?tags ?version ?timeouts ~engine ~name ~node_count ~region ~size
-    ~backup_restore ~maintenance_window __resource_id =
+let register ?tf_module ?eviction_policy ?id ?private_network_uuid
+    ?project_id ?sql_mode ?storage_size_mib ?tags ?version ?timeouts
+    ~engine ~name ~node_count ~region ~size ~backup_restore
+    ~maintenance_window __resource_id =
   let __resource_type = "digitalocean_database_cluster" in
   let __resource =
-    ({
-       engine;
-       eviction_policy;
-       id;
-       name;
-       node_count;
-       private_network_uuid;
-       project_id;
-       region;
-       size;
-       sql_mode;
-       storage_size_mib;
-       tags;
-       version;
-       backup_restore;
-       maintenance_window;
-       timeouts;
-     }
-      : digitalocean_database_cluster)
+    digitalocean_database_cluster ?eviction_policy ?id
+      ?private_network_uuid ?project_id ?sql_mode ?storage_size_mib
+      ?tags ?version ?timeouts ~engine ~name ~node_count ~region
+      ~size ~backup_restore ~maintenance_window ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_cluster __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_container_attached_cluster__authorization = {
+type authorization = {
   admin_groups : string prop list option; [@option]
       (** Groups that can perform operations as a cluster admin. A managed
 ClusterRoleBinding will be created to grant the 'cluster-admin' ClusterRole
@@ -23,55 +23,48 @@ https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles 
 [@@deriving yojson_of]
 (** Configuration related to the cluster RBAC settings. *)
 
-type google_container_attached_cluster__binary_authorization = {
+type binary_authorization = {
   evaluation_mode : string prop option; [@option]
       (** Configure Binary Authorization evaluation mode. Possible values: [DISABLED, PROJECT_SINGLETON_POLICY_ENFORCE] *)
 }
 [@@deriving yojson_of]
 (** Binary Authorization configuration. *)
 
-type google_container_attached_cluster__fleet = {
-  membership : string prop;
-      (** The name of the managed Hub Membership resource associated to this
-cluster. Membership names are formatted as
-projects/<project-number>/locations/global/membership/<cluster-id>. *)
+type fleet = {
   project : string prop;
       (** The number of the Fleet host project where this cluster will be registered. *)
 }
 [@@deriving yojson_of]
 (** Fleet configuration. *)
 
-type google_container_attached_cluster__logging_config__component_config = {
+type logging_config__component_config = {
   enable_components : string prop list option; [@option]
       (** The components to be enabled. Possible values: [SYSTEM_COMPONENTS, WORKLOADS] *)
 }
 [@@deriving yojson_of]
 (** The configuration of the logging components *)
 
-type google_container_attached_cluster__logging_config = {
-  component_config :
-    google_container_attached_cluster__logging_config__component_config
-    list;
+type logging_config = {
+  component_config : logging_config__component_config list;
 }
 [@@deriving yojson_of]
 (** Logging configuration. *)
 
-type google_container_attached_cluster__monitoring_config__managed_prometheus_config = {
+type monitoring_config__managed_prometheus_config = {
   enabled : bool prop option; [@option]
       (** Enable Managed Collection. *)
 }
 [@@deriving yojson_of]
 (** Enable Google Cloud Managed Service for Prometheus in the cluster. *)
 
-type google_container_attached_cluster__monitoring_config = {
+type monitoring_config = {
   managed_prometheus_config :
-    google_container_attached_cluster__monitoring_config__managed_prometheus_config
-    list;
+    monitoring_config__managed_prometheus_config list;
 }
 [@@deriving yojson_of]
 (** Monitoring configuration. *)
 
-type google_container_attached_cluster__oidc_config = {
+type oidc_config = {
   issuer_url : string prop;
       (** A JSON Web Token (JWT) issuer URI. 'issuer' must start with 'https://' *)
   jwks : string prop option; [@option]
@@ -90,7 +83,7 @@ Clusters with public issuers only need to specify the 'issuer_url' field
 while clusters with private issuers need to provide both
 'issuer_url' and 'jwks'. *)
 
-type google_container_attached_cluster__proxy_config__kubernetes_secret = {
+type proxy_config__kubernetes_secret = {
   name : string prop;
       (** Name of the kubernetes secret containing the proxy config. *)
   namespace : string prop;
@@ -99,28 +92,24 @@ type google_container_attached_cluster__proxy_config__kubernetes_secret = {
 [@@deriving yojson_of]
 (** The Kubernetes Secret resource that contains the HTTP(S) proxy configuration. *)
 
-type google_container_attached_cluster__proxy_config = {
-  kubernetes_secret :
-    google_container_attached_cluster__proxy_config__kubernetes_secret
-    list;
+type proxy_config = {
+  kubernetes_secret : proxy_config__kubernetes_secret list;
 }
 [@@deriving yojson_of]
 (** Support for proxy configuration. *)
 
-type google_container_attached_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_container_attached_cluster__timeouts *)
+(** timeouts *)
 
-type google_container_attached_cluster__errors = {
-  message : string prop;  (** message *)
-}
+type errors = { message : string prop  (** message *) }
 [@@deriving yojson_of]
 
-type google_container_attached_cluster__workload_identity_config = {
+type workload_identity_config = {
   identity_provider : string prop;  (** identity_provider *)
   issuer_uri : string prop;  (** issuer_uri *)
   workload_pool : string prop;  (** workload_pool *)
@@ -153,22 +142,78 @@ eks, aks. *)
   platform_version : string prop;
       (** The platform version for the cluster (e.g. '1.23.0-gke.1'). *)
   project : string prop option; [@option]  (** project *)
-  authorization :
-    google_container_attached_cluster__authorization list;
-  binary_authorization :
-    google_container_attached_cluster__binary_authorization list;
-  fleet : google_container_attached_cluster__fleet list;
-  logging_config :
-    google_container_attached_cluster__logging_config list;
-  monitoring_config :
-    google_container_attached_cluster__monitoring_config list;
-  oidc_config : google_container_attached_cluster__oidc_config list;
-  proxy_config :
-    google_container_attached_cluster__proxy_config list;
-  timeouts : google_container_attached_cluster__timeouts option;
+  authorization : authorization list;
+  binary_authorization : binary_authorization list;
+  fleet : fleet list;
+  logging_config : logging_config list;
+  monitoring_config : monitoring_config list;
+  oidc_config : oidc_config list;
+  proxy_config : proxy_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_container_attached_cluster *)
+
+let authorization ?admin_groups ?admin_users () : authorization =
+  { admin_groups; admin_users }
+
+let binary_authorization ?evaluation_mode () : binary_authorization =
+  { evaluation_mode }
+
+let fleet ~project () : fleet = { project }
+
+let logging_config__component_config ?enable_components () :
+    logging_config__component_config =
+  { enable_components }
+
+let logging_config ~component_config () : logging_config =
+  { component_config }
+
+let monitoring_config__managed_prometheus_config ?enabled () :
+    monitoring_config__managed_prometheus_config =
+  { enabled }
+
+let monitoring_config ~managed_prometheus_config () :
+    monitoring_config =
+  { managed_prometheus_config }
+
+let oidc_config ?jwks ~issuer_url () : oidc_config =
+  { issuer_url; jwks }
+
+let proxy_config__kubernetes_secret ~name ~namespace () :
+    proxy_config__kubernetes_secret =
+  { name; namespace }
+
+let proxy_config ~kubernetes_secret () : proxy_config =
+  { kubernetes_secret }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_container_attached_cluster ?annotations ?deletion_policy
+    ?description ?id ?project ?timeouts ~distribution ~location ~name
+    ~platform_version ~authorization ~binary_authorization ~fleet
+    ~logging_config ~monitoring_config ~oidc_config ~proxy_config ()
+    : google_container_attached_cluster =
+  {
+    annotations;
+    deletion_policy;
+    description;
+    distribution;
+    id;
+    location;
+    name;
+    platform_version;
+    project;
+    authorization;
+    binary_authorization;
+    fleet;
+    logging_config;
+    monitoring_config;
+    oidc_config;
+    proxy_config;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -178,7 +223,7 @@ type t = {
   description : string prop;
   distribution : string prop;
   effective_annotations : (string * string) list prop;
-  errors : google_container_attached_cluster__errors list prop;
+  errors : errors list prop;
   id : string prop;
   kubernetes_version : string prop;
   location : string prop;
@@ -189,40 +234,23 @@ type t = {
   state : string prop;
   uid : string prop;
   update_time : string prop;
-  workload_identity_config :
-    google_container_attached_cluster__workload_identity_config list
-    prop;
+  workload_identity_config : workload_identity_config list prop;
 }
 
-let google_container_attached_cluster ?annotations ?deletion_policy
-    ?description ?id ?project ?timeouts ~distribution ~location ~name
+let register ?tf_module ?annotations ?deletion_policy ?description
+    ?id ?project ?timeouts ~distribution ~location ~name
     ~platform_version ~authorization ~binary_authorization ~fleet
     ~logging_config ~monitoring_config ~oidc_config ~proxy_config
     __resource_id =
   let __resource_type = "google_container_attached_cluster" in
   let __resource =
-    ({
-       annotations;
-       deletion_policy;
-       description;
-       distribution;
-       id;
-       location;
-       name;
-       platform_version;
-       project;
-       authorization;
-       binary_authorization;
-       fleet;
-       logging_config;
-       monitoring_config;
-       oidc_config;
-       proxy_config;
-       timeouts;
-     }
-      : google_container_attached_cluster)
+    google_container_attached_cluster ?annotations ?deletion_policy
+      ?description ?id ?project ?timeouts ~distribution ~location
+      ~name ~platform_version ~authorization ~binary_authorization
+      ~fleet ~logging_config ~monitoring_config ~oidc_config
+      ~proxy_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_attached_cluster __resource);
   let __resource_attributes =
     ({

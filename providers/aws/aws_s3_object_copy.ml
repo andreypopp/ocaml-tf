@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_s3_object_copy__grant = {
+type grant = {
   email : string prop option; [@option]  (** email *)
   id : string prop option; [@option]  (** id *)
   permissions : string prop list;  (** permissions *)
@@ -12,7 +12,7 @@ type aws_s3_object_copy__grant = {
   uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
-(** aws_s3_object_copy__grant *)
+(** grant *)
 
 type aws_s3_object_copy = {
   acl : string prop option; [@option]  (** acl *)
@@ -80,10 +80,71 @@ type aws_s3_object_copy = {
       (** tags_all *)
   website_redirect : string prop option; [@option]
       (** website_redirect *)
-  grant : aws_s3_object_copy__grant list;
+  grant : grant list;
 }
 [@@deriving yojson_of]
 (** aws_s3_object_copy *)
+
+let grant ?email ?id ?uri ~permissions ~type_ () : grant =
+  { email; id; permissions; type_; uri }
+
+let aws_s3_object_copy ?acl ?bucket_key_enabled ?cache_control
+    ?checksum_algorithm ?content_disposition ?content_encoding
+    ?content_language ?content_type ?copy_if_match
+    ?copy_if_modified_since ?copy_if_none_match
+    ?copy_if_unmodified_since ?customer_algorithm ?customer_key
+    ?customer_key_md5 ?expected_bucket_owner
+    ?expected_source_bucket_owner ?expires ?force_destroy ?id
+    ?kms_encryption_context ?kms_key_id ?metadata ?metadata_directive
+    ?object_lock_legal_hold_status ?object_lock_mode
+    ?object_lock_retain_until_date ?request_payer
+    ?server_side_encryption ?source_customer_algorithm
+    ?source_customer_key ?source_customer_key_md5 ?storage_class
+    ?tagging_directive ?tags ?tags_all ?website_redirect ~bucket ~key
+    ~source ~grant () : aws_s3_object_copy =
+  {
+    acl;
+    bucket;
+    bucket_key_enabled;
+    cache_control;
+    checksum_algorithm;
+    content_disposition;
+    content_encoding;
+    content_language;
+    content_type;
+    copy_if_match;
+    copy_if_modified_since;
+    copy_if_none_match;
+    copy_if_unmodified_since;
+    customer_algorithm;
+    customer_key;
+    customer_key_md5;
+    expected_bucket_owner;
+    expected_source_bucket_owner;
+    expires;
+    force_destroy;
+    id;
+    key;
+    kms_encryption_context;
+    kms_key_id;
+    metadata;
+    metadata_directive;
+    object_lock_legal_hold_status;
+    object_lock_mode;
+    object_lock_retain_until_date;
+    request_payer;
+    server_side_encryption;
+    source;
+    source_customer_algorithm;
+    source_customer_key;
+    source_customer_key_md5;
+    storage_class;
+    tagging_directive;
+    tags;
+    tags_all;
+    website_redirect;
+    grant;
+  }
 
 type t = {
   acl : string prop;
@@ -139,7 +200,7 @@ type t = {
   website_redirect : string prop;
 }
 
-let aws_s3_object_copy ?acl ?bucket_key_enabled ?cache_control
+let register ?tf_module ?acl ?bucket_key_enabled ?cache_control
     ?checksum_algorithm ?content_disposition ?content_encoding
     ?content_language ?content_type ?copy_if_match
     ?copy_if_modified_since ?copy_if_none_match
@@ -155,52 +216,22 @@ let aws_s3_object_copy ?acl ?bucket_key_enabled ?cache_control
     ~source ~grant __resource_id =
   let __resource_type = "aws_s3_object_copy" in
   let __resource =
-    ({
-       acl;
-       bucket;
-       bucket_key_enabled;
-       cache_control;
-       checksum_algorithm;
-       content_disposition;
-       content_encoding;
-       content_language;
-       content_type;
-       copy_if_match;
-       copy_if_modified_since;
-       copy_if_none_match;
-       copy_if_unmodified_since;
-       customer_algorithm;
-       customer_key;
-       customer_key_md5;
-       expected_bucket_owner;
-       expected_source_bucket_owner;
-       expires;
-       force_destroy;
-       id;
-       key;
-       kms_encryption_context;
-       kms_key_id;
-       metadata;
-       metadata_directive;
-       object_lock_legal_hold_status;
-       object_lock_mode;
-       object_lock_retain_until_date;
-       request_payer;
-       server_side_encryption;
-       source;
-       source_customer_algorithm;
-       source_customer_key;
-       source_customer_key_md5;
-       storage_class;
-       tagging_directive;
-       tags;
-       tags_all;
-       website_redirect;
-       grant;
-     }
-      : aws_s3_object_copy)
+    aws_s3_object_copy ?acl ?bucket_key_enabled ?cache_control
+      ?checksum_algorithm ?content_disposition ?content_encoding
+      ?content_language ?content_type ?copy_if_match
+      ?copy_if_modified_since ?copy_if_none_match
+      ?copy_if_unmodified_since ?customer_algorithm ?customer_key
+      ?customer_key_md5 ?expected_bucket_owner
+      ?expected_source_bucket_owner ?expires ?force_destroy ?id
+      ?kms_encryption_context ?kms_key_id ?metadata
+      ?metadata_directive ?object_lock_legal_hold_status
+      ?object_lock_mode ?object_lock_retain_until_date ?request_payer
+      ?server_side_encryption ?source_customer_algorithm
+      ?source_customer_key ?source_customer_key_md5 ?storage_class
+      ?tagging_directive ?tags ?tags_all ?website_redirect ~bucket
+      ~key ~source ~grant ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_object_copy __resource);
   let __resource_attributes =
     ({

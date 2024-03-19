@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_active_directory_domain_trust__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_active_directory_domain_trust__timeouts *)
+(** timeouts *)
 
 type google_active_directory_domain_trust = {
   domain : string prop;
@@ -30,10 +30,31 @@ https://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locatio
       (** The trust secret used for the handshake with the target domain. This will not be stored. *)
   trust_type : string prop;
       (** The type of trust represented by the trust resource. Possible values: [FOREST, EXTERNAL] *)
-  timeouts : google_active_directory_domain_trust__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_active_directory_domain_trust *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_active_directory_domain_trust ?id ?project
+    ?selective_authentication ?timeouts ~domain
+    ~target_dns_ip_addresses ~target_domain_name ~trust_direction
+    ~trust_handshake_secret ~trust_type () :
+    google_active_directory_domain_trust =
+  {
+    domain;
+    id;
+    project;
+    selective_authentication;
+    target_dns_ip_addresses;
+    target_domain_name;
+    trust_direction;
+    trust_handshake_secret;
+    trust_type;
+    timeouts;
+  }
 
 type t = {
   domain : string prop;
@@ -47,27 +68,18 @@ type t = {
   trust_type : string prop;
 }
 
-let google_active_directory_domain_trust ?id ?project
-    ?selective_authentication ?timeouts ~domain
-    ~target_dns_ip_addresses ~target_domain_name ~trust_direction
-    ~trust_handshake_secret ~trust_type __resource_id =
+let register ?tf_module ?id ?project ?selective_authentication
+    ?timeouts ~domain ~target_dns_ip_addresses ~target_domain_name
+    ~trust_direction ~trust_handshake_secret ~trust_type
+    __resource_id =
   let __resource_type = "google_active_directory_domain_trust" in
   let __resource =
-    ({
-       domain;
-       id;
-       project;
-       selective_authentication;
-       target_dns_ip_addresses;
-       target_domain_name;
-       trust_direction;
-       trust_handshake_secret;
-       trust_type;
-       timeouts;
-     }
-      : google_active_directory_domain_trust)
+    google_active_directory_domain_trust ?id ?project
+      ?selective_authentication ?timeouts ~domain
+      ~target_dns_ip_addresses ~target_domain_name ~trust_direction
+      ~trust_handshake_secret ~trust_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_active_directory_domain_trust __resource);
   let __resource_attributes =
     ({

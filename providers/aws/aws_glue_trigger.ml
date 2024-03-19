@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_glue_trigger__actions__notification_property = {
+type actions__notification_property = {
   notify_delay_after : float prop option; [@option]
       (** notify_delay_after *)
 }
 [@@deriving yojson_of]
-(** aws_glue_trigger__actions__notification_property *)
+(** actions__notification_property *)
 
-type aws_glue_trigger__actions = {
+type actions = {
   arguments : (string * string prop) list option; [@option]
       (** arguments *)
   crawler_name : string prop option; [@option]  (** crawler_name *)
@@ -19,20 +19,19 @@ type aws_glue_trigger__actions = {
   security_configuration : string prop option; [@option]
       (** security_configuration *)
   timeout : float prop option; [@option]  (** timeout *)
-  notification_property :
-    aws_glue_trigger__actions__notification_property list;
+  notification_property : actions__notification_property list;
 }
 [@@deriving yojson_of]
-(** aws_glue_trigger__actions *)
+(** actions *)
 
-type aws_glue_trigger__event_batching_condition = {
+type event_batching_condition = {
   batch_size : float prop;  (** batch_size *)
   batch_window : float prop option; [@option]  (** batch_window *)
 }
 [@@deriving yojson_of]
-(** aws_glue_trigger__event_batching_condition *)
+(** event_batching_condition *)
 
-type aws_glue_trigger__predicate__conditions = {
+type predicate__conditions = {
   crawl_state : string prop option; [@option]  (** crawl_state *)
   crawler_name : string prop option; [@option]  (** crawler_name *)
   job_name : string prop option; [@option]  (** job_name *)
@@ -41,22 +40,22 @@ type aws_glue_trigger__predicate__conditions = {
   state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
-(** aws_glue_trigger__predicate__conditions *)
+(** predicate__conditions *)
 
-type aws_glue_trigger__predicate = {
+type predicate = {
   logical : string prop option; [@option]  (** logical *)
-  conditions : aws_glue_trigger__predicate__conditions list;
+  conditions : predicate__conditions list;
 }
 [@@deriving yojson_of]
-(** aws_glue_trigger__predicate *)
+(** predicate *)
 
-type aws_glue_trigger__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_glue_trigger__timeouts *)
+(** timeouts *)
 
 type aws_glue_trigger = {
   description : string prop option; [@option]  (** description *)
@@ -71,14 +70,64 @@ type aws_glue_trigger = {
       (** tags_all *)
   type_ : string prop; [@key "type"]  (** type *)
   workflow_name : string prop option; [@option]  (** workflow_name *)
-  actions : aws_glue_trigger__actions list;
-  event_batching_condition :
-    aws_glue_trigger__event_batching_condition list;
-  predicate : aws_glue_trigger__predicate list;
-  timeouts : aws_glue_trigger__timeouts option;
+  actions : actions list;
+  event_batching_condition : event_batching_condition list;
+  predicate : predicate list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_glue_trigger *)
+
+let actions__notification_property ?notify_delay_after () :
+    actions__notification_property =
+  { notify_delay_after }
+
+let actions ?arguments ?crawler_name ?job_name
+    ?security_configuration ?timeout ~notification_property () :
+    actions =
+  {
+    arguments;
+    crawler_name;
+    job_name;
+    security_configuration;
+    timeout;
+    notification_property;
+  }
+
+let event_batching_condition ?batch_window ~batch_size () :
+    event_batching_condition =
+  { batch_size; batch_window }
+
+let predicate__conditions ?crawl_state ?crawler_name ?job_name
+    ?logical_operator ?state () : predicate__conditions =
+  { crawl_state; crawler_name; job_name; logical_operator; state }
+
+let predicate ?logical ~conditions () : predicate =
+  { logical; conditions }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_glue_trigger ?description ?enabled ?id ?schedule
+    ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts ~name
+    ~type_ ~actions ~event_batching_condition ~predicate () :
+    aws_glue_trigger =
+  {
+    description;
+    enabled;
+    id;
+    name;
+    schedule;
+    start_on_creation;
+    tags;
+    tags_all;
+    type_;
+    workflow_name;
+    actions;
+    event_batching_condition;
+    predicate;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -95,31 +144,17 @@ type t = {
   workflow_name : string prop;
 }
 
-let aws_glue_trigger ?description ?enabled ?id ?schedule
+let register ?tf_module ?description ?enabled ?id ?schedule
     ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts ~name
     ~type_ ~actions ~event_batching_condition ~predicate
     __resource_id =
   let __resource_type = "aws_glue_trigger" in
   let __resource =
-    ({
-       description;
-       enabled;
-       id;
-       name;
-       schedule;
-       start_on_creation;
-       tags;
-       tags_all;
-       type_;
-       workflow_name;
-       actions;
-       event_batching_condition;
-       predicate;
-       timeouts;
-     }
-      : aws_glue_trigger)
+    aws_glue_trigger ?description ?enabled ?id ?schedule
+      ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts
+      ~name ~type_ ~actions ~event_batching_condition ~predicate ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_trigger __resource);
   let __resource_attributes =
     ({

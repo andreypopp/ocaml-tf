@@ -2,10 +2,60 @@
 
 open! Tf.Prelude
 
-type google_apigee_target_server__s_sl_info__common_name
-type google_apigee_target_server__s_sl_info
-type google_apigee_target_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type s_sl_info__common_name
+
+val s_sl_info__common_name :
+  ?value:string prop ->
+  ?wildcard_match:bool prop ->
+  unit ->
+  s_sl_info__common_name
+
+type s_sl_info
+
+val s_sl_info :
+  ?ciphers:string prop list ->
+  ?client_auth_enabled:bool prop ->
+  ?ignore_validation_errors:bool prop ->
+  ?key_alias:string prop ->
+  ?key_store:string prop ->
+  ?protocols:string prop list ->
+  ?trust_store:string prop ->
+  enabled:bool prop ->
+  common_name:s_sl_info__common_name list ->
+  unit ->
+  s_sl_info
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_apigee_target_server
+
+val google_apigee_target_server :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_enabled:bool prop ->
+  ?protocol:string prop ->
+  ?timeouts:timeouts ->
+  env_id:string prop ->
+  host:string prop ->
+  name:string prop ->
+  port:float prop ->
+  s_sl_info:s_sl_info list ->
+  unit ->
+  google_apigee_target_server
+
+val yojson_of_google_apigee_target_server :
+  google_apigee_target_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -18,16 +68,17 @@ type t = private {
   protocol : string prop;
 }
 
-val google_apigee_target_server :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?is_enabled:bool prop ->
   ?protocol:string prop ->
-  ?timeouts:google_apigee_target_server__timeouts ->
+  ?timeouts:timeouts ->
   env_id:string prop ->
   host:string prop ->
   name:string prop ->
   port:float prop ->
-  s_sl_info:google_apigee_target_server__s_sl_info list ->
+  s_sl_info:s_sl_info list ->
   string ->
   t

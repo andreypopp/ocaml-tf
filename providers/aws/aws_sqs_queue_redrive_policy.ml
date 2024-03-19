@@ -12,20 +12,23 @@ type aws_sqs_queue_redrive_policy = {
 [@@deriving yojson_of]
 (** aws_sqs_queue_redrive_policy *)
 
+let aws_sqs_queue_redrive_policy ?id ~queue_url ~redrive_policy () :
+    aws_sqs_queue_redrive_policy =
+  { id; queue_url; redrive_policy }
+
 type t = {
   id : string prop;
   queue_url : string prop;
   redrive_policy : string prop;
 }
 
-let aws_sqs_queue_redrive_policy ?id ~queue_url ~redrive_policy
-    __resource_id =
+let register ?tf_module ?id ~queue_url ~redrive_policy __resource_id
+    =
   let __resource_type = "aws_sqs_queue_redrive_policy" in
   let __resource =
-    ({ id; queue_url; redrive_policy }
-      : aws_sqs_queue_redrive_policy)
+    aws_sqs_queue_redrive_policy ?id ~queue_url ~redrive_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sqs_queue_redrive_policy __resource);
   let __resource_attributes =
     ({

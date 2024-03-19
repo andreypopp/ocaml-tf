@@ -2,13 +2,79 @@
 
 open! Tf.Prelude
 
-type google_clouddeploy_automation__rules__advance_rollout_rule
-type google_clouddeploy_automation__rules__promote_release_rule
-type google_clouddeploy_automation__rules
-type google_clouddeploy_automation__selector__targets
-type google_clouddeploy_automation__selector
-type google_clouddeploy_automation__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type rules__advance_rollout_rule
+
+val rules__advance_rollout_rule :
+  ?source_phases:string prop list ->
+  ?wait:string prop ->
+  id:string prop ->
+  unit ->
+  rules__advance_rollout_rule
+
+type rules__promote_release_rule
+
+val rules__promote_release_rule :
+  ?destination_phase:string prop ->
+  ?destination_target_id:string prop ->
+  ?wait:string prop ->
+  id:string prop ->
+  unit ->
+  rules__promote_release_rule
+
+type rules
+
+val rules :
+  advance_rollout_rule:rules__advance_rollout_rule list ->
+  promote_release_rule:rules__promote_release_rule list ->
+  unit ->
+  rules
+
+type selector__targets
+
+val selector__targets :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  unit ->
+  selector__targets
+
+type selector
+
+val selector : targets:selector__targets list -> unit -> selector
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_clouddeploy_automation
+
+val google_clouddeploy_automation :
+  ?annotations:(string * string prop) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?suspended:bool prop ->
+  ?timeouts:timeouts ->
+  delivery_pipeline:string prop ->
+  location:string prop ->
+  name:string prop ->
+  service_account:string prop ->
+  rules:rules list ->
+  selector:selector list ->
+  unit ->
+  google_clouddeploy_automation
+
+val yojson_of_google_clouddeploy_automation :
+  google_clouddeploy_automation -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   annotations : (string * string) list prop;
@@ -30,19 +96,20 @@ type t = private {
   update_time : string prop;
 }
 
-val google_clouddeploy_automation :
+val register :
+  ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?suspended:bool prop ->
-  ?timeouts:google_clouddeploy_automation__timeouts ->
+  ?timeouts:timeouts ->
   delivery_pipeline:string prop ->
   location:string prop ->
   name:string prop ->
   service_account:string prop ->
-  rules:google_clouddeploy_automation__rules list ->
-  selector:google_clouddeploy_automation__selector list ->
+  rules:rules list ->
+  selector:selector list ->
   string ->
   t

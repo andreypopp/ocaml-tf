@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_express_route_circuit_peering__ipv6__microsoft_peering = {
+type ipv6__microsoft_peering = {
   advertised_communities : string prop list option; [@option]
       (** advertised_communities *)
   advertised_public_prefixes : string prop list option; [@option]
@@ -14,9 +14,9 @@ type azurerm_express_route_circuit_peering__ipv6__microsoft_peering = {
       (** routing_registry_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_express_route_circuit_peering__ipv6__microsoft_peering *)
+(** ipv6__microsoft_peering *)
 
-type azurerm_express_route_circuit_peering__ipv6 = {
+type ipv6 = {
   enabled : bool prop option; [@option]  (** enabled *)
   primary_peer_address_prefix : string prop;
       (** primary_peer_address_prefix *)
@@ -24,14 +24,12 @@ type azurerm_express_route_circuit_peering__ipv6 = {
       (** route_filter_id *)
   secondary_peer_address_prefix : string prop;
       (** secondary_peer_address_prefix *)
-  microsoft_peering :
-    azurerm_express_route_circuit_peering__ipv6__microsoft_peering
-    list;
+  microsoft_peering : ipv6__microsoft_peering list;
 }
 [@@deriving yojson_of]
-(** azurerm_express_route_circuit_peering__ipv6 *)
+(** ipv6 *)
 
-type azurerm_express_route_circuit_peering__microsoft_peering_config = {
+type microsoft_peering_config = {
   advertised_communities : string prop list option; [@option]
       (** advertised_communities *)
   advertised_public_prefixes : string prop list;
@@ -41,16 +39,16 @@ type azurerm_express_route_circuit_peering__microsoft_peering_config = {
       (** routing_registry_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_express_route_circuit_peering__microsoft_peering_config *)
+(** microsoft_peering_config *)
 
-type azurerm_express_route_circuit_peering__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_express_route_circuit_peering__timeouts *)
+(** timeouts *)
 
 type azurerm_express_route_circuit_peering = {
   express_route_circuit_name : string prop;
@@ -68,14 +66,68 @@ type azurerm_express_route_circuit_peering = {
       (** secondary_peer_address_prefix *)
   shared_key : string prop option; [@option]  (** shared_key *)
   vlan_id : float prop;  (** vlan_id *)
-  ipv6 : azurerm_express_route_circuit_peering__ipv6 list;
-  microsoft_peering_config :
-    azurerm_express_route_circuit_peering__microsoft_peering_config
-    list;
-  timeouts : azurerm_express_route_circuit_peering__timeouts option;
+  ipv6 : ipv6 list;
+  microsoft_peering_config : microsoft_peering_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit_peering *)
+
+let ipv6__microsoft_peering ?advertised_communities
+    ?advertised_public_prefixes ?customer_asn ?routing_registry_name
+    () : ipv6__microsoft_peering =
+  {
+    advertised_communities;
+    advertised_public_prefixes;
+    customer_asn;
+    routing_registry_name;
+  }
+
+let ipv6 ?enabled ?route_filter_id ~primary_peer_address_prefix
+    ~secondary_peer_address_prefix ~microsoft_peering () : ipv6 =
+  {
+    enabled;
+    primary_peer_address_prefix;
+    route_filter_id;
+    secondary_peer_address_prefix;
+    microsoft_peering;
+  }
+
+let microsoft_peering_config ?advertised_communities ?customer_asn
+    ?routing_registry_name ~advertised_public_prefixes () :
+    microsoft_peering_config =
+  {
+    advertised_communities;
+    advertised_public_prefixes;
+    customer_asn;
+    routing_registry_name;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_express_route_circuit_peering ?id ?ipv4_enabled ?peer_asn
+    ?primary_peer_address_prefix ?route_filter_id
+    ?secondary_peer_address_prefix ?shared_key ?timeouts
+    ~express_route_circuit_name ~peering_type ~resource_group_name
+    ~vlan_id ~ipv6 ~microsoft_peering_config () :
+    azurerm_express_route_circuit_peering =
+  {
+    express_route_circuit_name;
+    id;
+    ipv4_enabled;
+    peer_asn;
+    peering_type;
+    primary_peer_address_prefix;
+    resource_group_name;
+    route_filter_id;
+    secondary_peer_address_prefix;
+    shared_key;
+    vlan_id;
+    ipv6;
+    microsoft_peering_config;
+    timeouts;
+  }
 
 type t = {
   azure_asn : float prop;
@@ -95,32 +147,20 @@ type t = {
   vlan_id : float prop;
 }
 
-let azurerm_express_route_circuit_peering ?id ?ipv4_enabled ?peer_asn
+let register ?tf_module ?id ?ipv4_enabled ?peer_asn
     ?primary_peer_address_prefix ?route_filter_id
     ?secondary_peer_address_prefix ?shared_key ?timeouts
     ~express_route_circuit_name ~peering_type ~resource_group_name
     ~vlan_id ~ipv6 ~microsoft_peering_config __resource_id =
   let __resource_type = "azurerm_express_route_circuit_peering" in
   let __resource =
-    ({
-       express_route_circuit_name;
-       id;
-       ipv4_enabled;
-       peer_asn;
-       peering_type;
-       primary_peer_address_prefix;
-       resource_group_name;
-       route_filter_id;
-       secondary_peer_address_prefix;
-       shared_key;
-       vlan_id;
-       ipv6;
-       microsoft_peering_config;
-       timeouts;
-     }
-      : azurerm_express_route_circuit_peering)
+    azurerm_express_route_circuit_peering ?id ?ipv4_enabled ?peer_asn
+      ?primary_peer_address_prefix ?route_filter_id
+      ?secondary_peer_address_prefix ?shared_key ?timeouts
+      ~express_route_circuit_name ~peering_type ~resource_group_name
+      ~vlan_id ~ipv6 ~microsoft_peering_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_express_route_circuit_peering __resource);
   let __resource_attributes =
     ({

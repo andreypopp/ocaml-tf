@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_saved_search__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_log_analytics_saved_search__timeouts *)
+(** timeouts *)
 
 type azurerm_log_analytics_saved_search = {
   category : string prop;  (** category *)
@@ -25,10 +25,30 @@ type azurerm_log_analytics_saved_search = {
   name : string prop;  (** name *)
   query : string prop;  (** query *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_log_analytics_saved_search__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_saved_search *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_log_analytics_saved_search ?function_alias
+    ?function_parameters ?id ?tags ?timeouts ~category ~display_name
+    ~log_analytics_workspace_id ~name ~query () :
+    azurerm_log_analytics_saved_search =
+  {
+    category;
+    display_name;
+    function_alias;
+    function_parameters;
+    id;
+    log_analytics_workspace_id;
+    name;
+    query;
+    tags;
+    timeouts;
+  }
 
 type t = {
   category : string prop;
@@ -42,26 +62,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_log_analytics_saved_search ?function_alias
-    ?function_parameters ?id ?tags ?timeouts ~category ~display_name
+let register ?tf_module ?function_alias ?function_parameters ?id
+    ?tags ?timeouts ~category ~display_name
     ~log_analytics_workspace_id ~name ~query __resource_id =
   let __resource_type = "azurerm_log_analytics_saved_search" in
   let __resource =
-    ({
-       category;
-       display_name;
-       function_alias;
-       function_parameters;
-       id;
-       log_analytics_workspace_id;
-       name;
-       query;
-       tags;
-       timeouts;
-     }
-      : azurerm_log_analytics_saved_search)
+    azurerm_log_analytics_saved_search ?function_alias
+      ?function_parameters ?id ?tags ?timeouts ~category
+      ~display_name ~log_analytics_workspace_id ~name ~query ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_saved_search __resource);
   let __resource_attributes =
     ({

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_network_endpoint_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_network_endpoint_group__timeouts *)
+(** timeouts *)
 
 type google_compute_network_endpoint_group = {
   default_port : float prop option; [@option]
@@ -45,10 +45,28 @@ Possible values include: GCE_VM_IP, GCE_VM_IP_PORT, NON_GCP_PRIVATE_IP_PORT, INT
       (** Optional subnetwork to which all network endpoints in the NEG belong. *)
   zone : string prop option; [@option]
       (** Zone where the network endpoint group is located. *)
-  timeouts : google_compute_network_endpoint_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_network_endpoint_group *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_network_endpoint_group ?default_port ?description
+    ?id ?network_endpoint_type ?project ?subnetwork ?zone ?timeouts
+    ~name ~network () : google_compute_network_endpoint_group =
+  {
+    default_port;
+    description;
+    id;
+    name;
+    network;
+    network_endpoint_type;
+    project;
+    subnetwork;
+    zone;
+    timeouts;
+  }
 
 type t = {
   default_port : float prop;
@@ -64,26 +82,16 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_network_endpoint_group ?default_port ?description
-    ?id ?network_endpoint_type ?project ?subnetwork ?zone ?timeouts
-    ~name ~network __resource_id =
+let register ?tf_module ?default_port ?description ?id
+    ?network_endpoint_type ?project ?subnetwork ?zone ?timeouts ~name
+    ~network __resource_id =
   let __resource_type = "google_compute_network_endpoint_group" in
   let __resource =
-    ({
-       default_port;
-       description;
-       id;
-       name;
-       network;
-       network_endpoint_type;
-       project;
-       subnetwork;
-       zone;
-       timeouts;
-     }
-      : google_compute_network_endpoint_group)
+    google_compute_network_endpoint_group ?default_port ?description
+      ?id ?network_endpoint_type ?project ?subnetwork ?zone ?timeouts
+      ~name ~network ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_endpoint_group __resource);
   let __resource_attributes =
     ({

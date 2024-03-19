@@ -20,6 +20,10 @@ type cloudflare_web3_hostname = {
 (** Manages Web3 hostnames for IPFS and Ethereum gateways.
  *)
 
+let cloudflare_web3_hostname ?description ?dnslink ?id ~name ~target
+    ~zone_id () : cloudflare_web3_hostname =
+  { description; dnslink; id; name; target; zone_id }
+
 type t = {
   created_on : string prop;
   description : string prop;
@@ -32,14 +36,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_web3_hostname ?description ?dnslink ?id ~name ~target
+let register ?tf_module ?description ?dnslink ?id ~name ~target
     ~zone_id __resource_id =
   let __resource_type = "cloudflare_web3_hostname" in
   let __resource =
-    ({ description; dnslink; id; name; target; zone_id }
-      : cloudflare_web3_hostname)
+    cloudflare_web3_hostname ?description ?dnslink ?id ~name ~target
+      ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_web3_hostname __resource);
   let __resource_attributes =
     ({

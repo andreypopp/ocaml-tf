@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iam_service_specific_credential
+
+val aws_iam_service_specific_credential :
+  ?id:string prop ->
+  ?status:string prop ->
+  service_name:string prop ->
+  user_name:string prop ->
+  unit ->
+  aws_iam_service_specific_credential
+
+val yojson_of_aws_iam_service_specific_credential :
+  aws_iam_service_specific_credential -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,7 +29,8 @@ type t = private {
   user_name : string prop;
 }
 
-val aws_iam_service_specific_credential :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?status:string prop ->
   service_name:string prop ->

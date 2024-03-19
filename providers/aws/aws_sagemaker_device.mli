@@ -2,8 +2,29 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_device__device
+(** RESOURCE SERIALIZATION *)
+
+type device
+
+val device :
+  ?description:string prop ->
+  ?iot_thing_name:string prop ->
+  device_name:string prop ->
+  unit ->
+  device
+
 type aws_sagemaker_device
+
+val aws_sagemaker_device :
+  ?id:string prop ->
+  device_fleet_name:string prop ->
+  device:device list ->
+  unit ->
+  aws_sagemaker_device
+
+val yojson_of_aws_sagemaker_device : aws_sagemaker_device -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   agent_version : string prop;
@@ -12,9 +33,10 @@ type t = private {
   id : string prop;
 }
 
-val aws_sagemaker_device :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   device_fleet_name:string prop ->
-  device:aws_sagemaker_device__device list ->
+  device:device list ->
   string ->
   t

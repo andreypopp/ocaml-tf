@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_dx_hosted_connection
+
+val aws_dx_hosted_connection :
+  ?id:string prop ->
+  bandwidth:string prop ->
+  connection_id:string prop ->
+  name:string prop ->
+  owner_account_id:string prop ->
+  vlan:float prop ->
+  unit ->
+  aws_dx_hosted_connection
+
+val yojson_of_aws_dx_hosted_connection :
+  aws_dx_hosted_connection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   aws_device : string prop;
@@ -23,7 +40,8 @@ type t = private {
   vlan : float prop;
 }
 
-val aws_dx_hosted_connection :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   bandwidth:string prop ->
   connection_id:string prop ->

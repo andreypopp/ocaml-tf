@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_management_lock__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_management_lock
+
+val azurerm_management_lock :
+  ?id:string prop ->
+  ?notes:string prop ->
+  ?timeouts:timeouts ->
+  lock_level:string prop ->
+  name:string prop ->
+  scope:string prop ->
+  unit ->
+  azurerm_management_lock
+
+val yojson_of_azurerm_management_lock :
+  azurerm_management_lock -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,10 +38,11 @@ type t = private {
   scope : string prop;
 }
 
-val azurerm_management_lock :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?notes:string prop ->
-  ?timeouts:azurerm_management_lock__timeouts ->
+  ?timeouts:timeouts ->
   lock_level:string prop ->
   name:string prop ->
   scope:string prop ->

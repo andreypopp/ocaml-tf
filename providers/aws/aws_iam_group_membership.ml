@@ -13,6 +13,10 @@ type aws_iam_group_membership = {
 [@@deriving yojson_of]
 (** aws_iam_group_membership *)
 
+let aws_iam_group_membership ?id ~group ~name ~users () :
+    aws_iam_group_membership =
+  { group; id; name; users }
+
 type t = {
   group : string prop;
   id : string prop;
@@ -20,12 +24,12 @@ type t = {
   users : string list prop;
 }
 
-let aws_iam_group_membership ?id ~group ~name ~users __resource_id =
+let register ?tf_module ?id ~group ~name ~users __resource_id =
   let __resource_type = "aws_iam_group_membership" in
   let __resource =
-    ({ group; id; name; users } : aws_iam_group_membership)
+    aws_iam_group_membership ?id ~group ~name ~users ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_group_membership __resource);
   let __resource_attributes =
     ({

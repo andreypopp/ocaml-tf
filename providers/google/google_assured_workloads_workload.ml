@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_assured_workloads_workload__kms_settings = {
+type kms_settings = {
   next_rotation_time : string prop;
       (** Required. Input only. Immutable. The time at which the Key Management Service will automatically create a new version of the crypto key and mark it as the primary. *)
   rotation_period : string prop;
@@ -13,7 +13,7 @@ type google_assured_workloads_workload__kms_settings = {
 [@@deriving yojson_of]
 (** **DEPRECATED** Input only. Settings used to create a CMEK crypto key. When set, a project with a KMS CMEK key is provisioned. This field is deprecated as of Feb 28, 2022. In order to create a Keyring, callers should specify, ENCRYPTION_KEYS_PROJECT or KEYRING in ResourceSettings.resource_type field. *)
 
-type google_assured_workloads_workload__partner_permissions = {
+type partner_permissions = {
   assured_workloads_monitoring : bool prop option; [@option]
       (** Optional. Allow partner to view violation alerts. *)
   data_logs_viewer : bool prop option; [@option]
@@ -24,7 +24,7 @@ type google_assured_workloads_workload__partner_permissions = {
 [@@deriving yojson_of]
 (** Optional. Permissions granted to the AW Partner SA account for the customer workload *)
 
-type google_assured_workloads_workload__resource_settings = {
+type resource_settings = {
   display_name : string prop option; [@option]
       (** User-assigned resource display name. If not empty it will be used to create a resource with the specified name. *)
   resource_id : string prop option; [@option]
@@ -35,15 +35,15 @@ type google_assured_workloads_workload__resource_settings = {
 [@@deriving yojson_of]
 (** Input only. Resource properties that are used to customize workload resources. These properties (such as custom project id) will be used to create workload resources if possible. This field is optional. *)
 
-type google_assured_workloads_workload__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_assured_workloads_workload__timeouts *)
+(** timeouts *)
 
-type google_assured_workloads_workload__compliance_status = {
+type compliance_status = {
   acknowledged_violation_count : float prop list;
       (** acknowledged_violation_count *)
   active_violation_count : float prop list;
@@ -51,7 +51,7 @@ type google_assured_workloads_workload__compliance_status = {
 }
 [@@deriving yojson_of]
 
-type google_assured_workloads_workload__ekm_provisioning_response = {
+type ekm_provisioning_response = {
   ekm_provisioning_error_domain : string prop;
       (** ekm_provisioning_error_domain *)
   ekm_provisioning_error_mapping : string prop;
@@ -60,13 +60,13 @@ type google_assured_workloads_workload__ekm_provisioning_response = {
 }
 [@@deriving yojson_of]
 
-type google_assured_workloads_workload__resources = {
+type resources = {
   resource_id : float prop;  (** resource_id *)
   resource_type : string prop;  (** resource_type *)
 }
 [@@deriving yojson_of]
 
-type google_assured_workloads_workload__saa_enrollment_response = {
+type saa_enrollment_response = {
   setup_errors : string prop list;  (** setup_errors *)
   setup_status : string prop;  (** setup_status *)
 }
@@ -96,29 +96,67 @@ Please refer to the field `effective_labels` for all of the labels present on th
       (** Input only. The parent resource for the resources managed by this Assured Workload. May be either empty or a folder resource which is a child of the Workload parent. If not specified all resources are created under the parent organization. Format: folders/{folder_id} *)
   violation_notifications_enabled : bool prop option; [@option]
       (** Optional. Indicates whether the e-mail notification for a violation is enabled for a workload. This value will be by default True, and if not present will be considered as true. This should only be updated via updateWorkload call. Any Changes to this field during the createWorkload call will not be honored. This will always be true while creating the workload. *)
-  kms_settings :
-    google_assured_workloads_workload__kms_settings list;
-  partner_permissions :
-    google_assured_workloads_workload__partner_permissions list;
-  resource_settings :
-    google_assured_workloads_workload__resource_settings list;
-  timeouts : google_assured_workloads_workload__timeouts option;
+  kms_settings : kms_settings list;
+  partner_permissions : partner_permissions list;
+  resource_settings : resource_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_assured_workloads_workload *)
 
+let kms_settings ~next_rotation_time ~rotation_period () :
+    kms_settings =
+  { next_rotation_time; rotation_period }
+
+let partner_permissions ?assured_workloads_monitoring
+    ?data_logs_viewer ?service_access_approver () :
+    partner_permissions =
+  {
+    assured_workloads_monitoring;
+    data_logs_viewer;
+    service_access_approver;
+  }
+
+let resource_settings ?display_name ?resource_id ?resource_type () :
+    resource_settings =
+  { display_name; resource_id; resource_type }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_assured_workloads_workload ?billing_account
+    ?enable_sovereign_controls ?id ?labels ?partner
+    ?provisioned_resources_parent ?violation_notifications_enabled
+    ?timeouts ~compliance_regime ~display_name ~location
+    ~organization ~kms_settings ~partner_permissions
+    ~resource_settings () : google_assured_workloads_workload =
+  {
+    billing_account;
+    compliance_regime;
+    display_name;
+    enable_sovereign_controls;
+    id;
+    labels;
+    location;
+    organization;
+    partner;
+    provisioned_resources_parent;
+    violation_notifications_enabled;
+    kms_settings;
+    partner_permissions;
+    resource_settings;
+    timeouts;
+  }
+
 type t = {
   billing_account : string prop;
   compliance_regime : string prop;
-  compliance_status :
-    google_assured_workloads_workload__compliance_status list prop;
+  compliance_status : compliance_status list prop;
   compliant_but_disallowed_services : string list prop;
   create_time : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
-  ekm_provisioning_response :
-    google_assured_workloads_workload__ekm_provisioning_response list
-    prop;
+  ekm_provisioning_response : ekm_provisioning_response list prop;
   enable_sovereign_controls : bool prop;
   id : string prop;
   kaj_enrollment_state : string prop;
@@ -128,42 +166,27 @@ type t = {
   organization : string prop;
   partner : string prop;
   provisioned_resources_parent : string prop;
-  resources : google_assured_workloads_workload__resources list prop;
-  saa_enrollment_response :
-    google_assured_workloads_workload__saa_enrollment_response list
-    prop;
+  resources : resources list prop;
+  saa_enrollment_response : saa_enrollment_response list prop;
   terraform_labels : (string * string) list prop;
   violation_notifications_enabled : bool prop;
 }
 
-let google_assured_workloads_workload ?billing_account
-    ?enable_sovereign_controls ?id ?labels ?partner
-    ?provisioned_resources_parent ?violation_notifications_enabled
-    ?timeouts ~compliance_regime ~display_name ~location
-    ~organization ~kms_settings ~partner_permissions
-    ~resource_settings __resource_id =
+let register ?tf_module ?billing_account ?enable_sovereign_controls
+    ?id ?labels ?partner ?provisioned_resources_parent
+    ?violation_notifications_enabled ?timeouts ~compliance_regime
+    ~display_name ~location ~organization ~kms_settings
+    ~partner_permissions ~resource_settings __resource_id =
   let __resource_type = "google_assured_workloads_workload" in
   let __resource =
-    ({
-       billing_account;
-       compliance_regime;
-       display_name;
-       enable_sovereign_controls;
-       id;
-       labels;
-       location;
-       organization;
-       partner;
-       provisioned_resources_parent;
-       violation_notifications_enabled;
-       kms_settings;
-       partner_permissions;
-       resource_settings;
-       timeouts;
-     }
-      : google_assured_workloads_workload)
+    google_assured_workloads_workload ?billing_account
+      ?enable_sovereign_controls ?id ?labels ?partner
+      ?provisioned_resources_parent ?violation_notifications_enabled
+      ?timeouts ~compliance_regime ~display_name ~location
+      ~organization ~kms_settings ~partner_permissions
+      ~resource_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_assured_workloads_workload __resource);
   let __resource_attributes =
     ({

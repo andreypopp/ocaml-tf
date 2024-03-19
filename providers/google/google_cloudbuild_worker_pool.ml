@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloudbuild_worker_pool__network_config = {
+type network_config = {
   peered_network : string prop;
       (** Required. Immutable. The network definition that the workers are peered to. If this section is left empty, the workers will be peered to `WorkerPool.project_id` on the service producer network. Must be in the format `projects/{project}/global/networks/{network}`, where `{project}` is a project number, such as `12345`, and `{network}` is the name of a VPC network in the project. See [Understanding network configuration options](https://cloud.google.com/cloud-build/docs/custom-workers/set-up-custom-worker-pool-environment#understanding_the_network_configuration_options) *)
   peered_network_ip_range : string prop option; [@option]
@@ -13,15 +13,15 @@ type google_cloudbuild_worker_pool__network_config = {
 [@@deriving yojson_of]
 (** Network configuration for the `WorkerPool`. *)
 
-type google_cloudbuild_worker_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloudbuild_worker_pool__timeouts *)
+(** timeouts *)
 
-type google_cloudbuild_worker_pool__worker_config = {
+type worker_config = {
   disk_size_gb : float prop option; [@option]
       (** Size of the disk attached to the worker, in GB. See [Worker pool config file](https://cloud.google.com/cloud-build/docs/custom-workers/worker-pool-config-file). Specify a value of up to 1000. If `0` is specified, Cloud Build will use a standard disk size. *)
   machine_type : string prop option; [@option]
@@ -45,13 +45,38 @@ Please refer to the field `effective_annotations` for all of the annotations pre
   name : string prop;  (** User-defined name of the `WorkerPool`. *)
   project : string prop option; [@option]
       (** The project for the resource *)
-  network_config :
-    google_cloudbuild_worker_pool__network_config list;
-  timeouts : google_cloudbuild_worker_pool__timeouts option;
-  worker_config : google_cloudbuild_worker_pool__worker_config list;
+  network_config : network_config list;
+  timeouts : timeouts option;
+  worker_config : worker_config list;
 }
 [@@deriving yojson_of]
 (** google_cloudbuild_worker_pool *)
+
+let network_config ?peered_network_ip_range ~peered_network () :
+    network_config =
+  { peered_network; peered_network_ip_range }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let worker_config ?disk_size_gb ?machine_type ?no_external_ip () :
+    worker_config =
+  { disk_size_gb; machine_type; no_external_ip }
+
+let google_cloudbuild_worker_pool ?annotations ?display_name ?id
+    ?project ?timeouts ~location ~name ~network_config ~worker_config
+    () : google_cloudbuild_worker_pool =
+  {
+    annotations;
+    display_name;
+    id;
+    location;
+    name;
+    project;
+    network_config;
+    timeouts;
+    worker_config;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -68,25 +93,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_cloudbuild_worker_pool ?annotations ?display_name ?id
-    ?project ?timeouts ~location ~name ~network_config ~worker_config
+let register ?tf_module ?annotations ?display_name ?id ?project
+    ?timeouts ~location ~name ~network_config ~worker_config
     __resource_id =
   let __resource_type = "google_cloudbuild_worker_pool" in
   let __resource =
-    ({
-       annotations;
-       display_name;
-       id;
-       location;
-       name;
-       project;
-       network_config;
-       timeouts;
-       worker_config;
-     }
-      : google_cloudbuild_worker_pool)
+    google_cloudbuild_worker_pool ?annotations ?display_name ?id
+      ?project ?timeouts ~location ~name ~network_config
+      ~worker_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudbuild_worker_pool __resource);
   let __resource_attributes =
     ({

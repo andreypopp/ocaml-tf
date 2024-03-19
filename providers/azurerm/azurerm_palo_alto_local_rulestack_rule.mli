@@ -2,11 +2,78 @@
 
 open! Tf.Prelude
 
-type azurerm_palo_alto_local_rulestack_rule__category
-type azurerm_palo_alto_local_rulestack_rule__destination
-type azurerm_palo_alto_local_rulestack_rule__source
-type azurerm_palo_alto_local_rulestack_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type category
+
+val category :
+  ?feeds:string prop list ->
+  custom_urls:string prop list ->
+  unit ->
+  category
+
+type destination
+
+val destination :
+  ?cidrs:string prop list ->
+  ?countries:string prop list ->
+  ?feeds:string prop list ->
+  ?local_rulestack_fqdn_list_ids:string prop list ->
+  ?local_rulestack_prefix_list_ids:string prop list ->
+  unit ->
+  destination
+
+type source
+
+val source :
+  ?cidrs:string prop list ->
+  ?countries:string prop list ->
+  ?feeds:string prop list ->
+  ?local_rulestack_prefix_list_ids:string prop list ->
+  unit ->
+  source
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_palo_alto_local_rulestack_rule
+
+val azurerm_palo_alto_local_rulestack_rule :
+  ?audit_comment:string prop ->
+  ?decryption_rule_type:string prop ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?inspection_certificate_id:string prop ->
+  ?logging_enabled:bool prop ->
+  ?negate_destination:bool prop ->
+  ?negate_source:bool prop ->
+  ?protocol:string prop ->
+  ?protocol_ports:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  action:string prop ->
+  applications:string prop list ->
+  name:string prop ->
+  priority:float prop ->
+  rulestack_id:string prop ->
+  category:category list ->
+  destination:destination list ->
+  source:source list ->
+  unit ->
+  azurerm_palo_alto_local_rulestack_rule
+
+val yojson_of_azurerm_palo_alto_local_rulestack_rule :
+  azurerm_palo_alto_local_rulestack_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   action : string prop;
@@ -28,7 +95,8 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_palo_alto_local_rulestack_rule :
+val register :
+  ?tf_module:tf_module ->
   ?audit_comment:string prop ->
   ?decryption_rule_type:string prop ->
   ?description:string prop ->
@@ -41,15 +109,14 @@ val azurerm_palo_alto_local_rulestack_rule :
   ?protocol:string prop ->
   ?protocol_ports:string prop list ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_palo_alto_local_rulestack_rule__timeouts ->
+  ?timeouts:timeouts ->
   action:string prop ->
   applications:string prop list ->
   name:string prop ->
   priority:float prop ->
   rulestack_id:string prop ->
-  category:azurerm_palo_alto_local_rulestack_rule__category list ->
-  destination:
-    azurerm_palo_alto_local_rulestack_rule__destination list ->
-  source:azurerm_palo_alto_local_rulestack_rule__source list ->
+  category:category list ->
+  destination:destination list ->
+  source:source list ->
   string ->
   t

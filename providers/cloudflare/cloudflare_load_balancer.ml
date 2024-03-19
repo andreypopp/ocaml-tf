@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type cloudflare_load_balancer__adaptive_routing = {
+type adaptive_routing = {
   failover_across_pools : bool prop option; [@option]
       (** Extends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set `false`, zero-downtime failover will only occur between origins within the same pool. Defaults to `false`. *)
 }
 [@@deriving yojson_of]
 (** Controls features that modify the routing of requests to pools and origins in response to dynamic conditions, such as during the interval between active health monitoring requests. *)
 
-type cloudflare_load_balancer__country_pools = {
+type country_pools = {
   country : string prop;
       (** A country code which can be determined with the Load Balancing Regions API described [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/). Multiple entries should not be specified with the same country. *)
   pool_ids : string prop list;
@@ -20,7 +20,7 @@ type cloudflare_load_balancer__country_pools = {
 [@@deriving yojson_of]
 (** A set containing mappings of country codes to a list of pool IDs (ordered by their failover priority) for the given country. *)
 
-type cloudflare_load_balancer__location_strategy = {
+type location_strategy = {
   mode : string prop option; [@option]
       (** Determines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful. Value `pop` will use the Cloudflare PoP location. Value `resolver_ip` will use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, it will use the Cloudflare PoP location. Available values: `pop`, `resolver_ip`. Defaults to `pop`. *)
   prefer_ecs : string prop option; [@option]
@@ -29,7 +29,7 @@ type cloudflare_load_balancer__location_strategy = {
 [@@deriving yojson_of]
 (** Controls location-based steering for non-proxied requests. *)
 
-type cloudflare_load_balancer__pop_pools = {
+type pop_pools = {
   pool_ids : string prop list;
       (** A list of pool IDs in failover priority to use for traffic reaching the given PoP. *)
   pop : string prop;
@@ -38,7 +38,7 @@ type cloudflare_load_balancer__pop_pools = {
 [@@deriving yojson_of]
 (** A set containing mappings of Cloudflare Point-of-Presence (PoP) identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). This feature is only available to enterprise customers. *)
 
-type cloudflare_load_balancer__random_steering = {
+type random_steering = {
   default_weight : float prop option; [@option]
       (** The default weight for pools in the load balancer that are not specified in the [`pool_weights`](#pool_weights) map. *)
   pool_weights : (string * float prop) list option; [@option]
@@ -47,7 +47,7 @@ type cloudflare_load_balancer__random_steering = {
 [@@deriving yojson_of]
 (** Configures pool weights. When [`steering_policy=random`](#steering_policy), a random pool is selected with probability proportional to pool weights. When [`steering_policy=least_outstanding_requests`](#steering_policy), pool weights are used to scale each pool's outstanding requests. When [`steering_policy=least_connections`](#steering_policy), pool weights are used to scale each pool's open connections. *)
 
-type cloudflare_load_balancer__region_pools = {
+type region_pools = {
   pool_ids : string prop list;
       (** A list of pool IDs in failover priority to use in the given region. *)
   region : string prop;
@@ -56,7 +56,7 @@ type cloudflare_load_balancer__region_pools = {
 [@@deriving yojson_of]
 (** A set containing mappings of region codes to a list of pool IDs (ordered by their failover priority) for the given region. *)
 
-type cloudflare_load_balancer__rules__fixed_response = {
+type rules__fixed_response = {
   content_type : string prop option; [@option]
       (** The value of the HTTP context-type header for this fixed response. *)
   location : string prop option; [@option]
@@ -69,14 +69,14 @@ type cloudflare_load_balancer__rules__fixed_response = {
 [@@deriving yojson_of]
 (** Settings for a HTTP response to return directly to the eyeball if the condition is true. Note: [`overrides`](#overrides) or [`fixed_response`](#fixed_response) must be set. *)
 
-type cloudflare_load_balancer__rules__overrides__adaptive_routing = {
+type rules__overrides__adaptive_routing = {
   failover_across_pools : bool prop option; [@option]
       (** Extends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set `false`, zero-downtime failover will only occur between origins within the same pool. *)
 }
 [@@deriving yojson_of]
 (** Controls features that modify the routing of requests to pools and origins in response to dynamic conditions, such as during the interval between active health monitoring requests. *)
 
-type cloudflare_load_balancer__rules__overrides__country_pools = {
+type rules__overrides__country_pools = {
   country : string prop;
       (** A country code which can be determined with the Load Balancing Regions API described [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/). Multiple entries should not be specified with the same country. *)
   pool_ids : string prop list;
@@ -85,7 +85,7 @@ type cloudflare_load_balancer__rules__overrides__country_pools = {
 [@@deriving yojson_of]
 (** A set containing mappings of country codes to a list of pool IDs (ordered by their failover priority) for the given country. *)
 
-type cloudflare_load_balancer__rules__overrides__location_strategy = {
+type rules__overrides__location_strategy = {
   mode : string prop option; [@option]
       (** Determines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful. Value `pop` will use the Cloudflare PoP location. Value `resolver_ip` will use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, it will use the Cloudflare PoP location. Available values: `pop`, `resolver_ip`. *)
   prefer_ecs : string prop option; [@option]
@@ -94,7 +94,7 @@ type cloudflare_load_balancer__rules__overrides__location_strategy = {
 [@@deriving yojson_of]
 (** Controls location-based steering for non-proxied requests. *)
 
-type cloudflare_load_balancer__rules__overrides__pop_pools = {
+type rules__overrides__pop_pools = {
   pool_ids : string prop list;
       (** A list of pool IDs in failover priority to use for traffic reaching the given PoP. *)
   pop : string prop;
@@ -103,7 +103,7 @@ type cloudflare_load_balancer__rules__overrides__pop_pools = {
 [@@deriving yojson_of]
 (** A set containing mappings of Cloudflare Point-of-Presence (PoP) identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). This feature is only available to enterprise customers. *)
 
-type cloudflare_load_balancer__rules__overrides__random_steering = {
+type rules__overrides__random_steering = {
   default_weight : float prop option; [@option]
       (** The default weight for pools in the load balancer that are not specified in the [`pool_weights`](#pool_weights) map. *)
   pool_weights : (string * float prop) list option; [@option]
@@ -112,7 +112,7 @@ type cloudflare_load_balancer__rules__overrides__random_steering = {
 [@@deriving yojson_of]
 (** Configures pool weights. When [`steering_policy=random`](#steering_policy), a random pool is selected with probability proportional to pool weights. When [`steering_policy=least_outstanding_requests`](#steering_policy), pool weights are used to scale each pool's outstanding requests. When [`steering_policy=least_connections`](#steering_policy), pool weights are used to scale each pool's open connections. *)
 
-type cloudflare_load_balancer__rules__overrides__region_pools = {
+type rules__overrides__region_pools = {
   pool_ids : string prop list;
       (** A list of pool IDs in failover priority to use in the given region. *)
   region : string prop;
@@ -121,7 +121,7 @@ type cloudflare_load_balancer__rules__overrides__region_pools = {
 [@@deriving yojson_of]
 (** A set containing mappings of region codes to a list of pool IDs (ordered by their failover priority) for the given region. *)
 
-type cloudflare_load_balancer__rules__overrides__session_affinity_attributes = {
+type rules__overrides__session_affinity_attributes = {
   headers : string prop list option; [@option]
       (** Configures the HTTP header names to use when header session affinity is enabled. *)
   require_all_headers : bool prop option; [@option]
@@ -136,7 +136,7 @@ type cloudflare_load_balancer__rules__overrides__session_affinity_attributes = {
 [@@deriving yojson_of]
 (** Configure attributes for session affinity. Note that the property [`drain_duration`](#drain_duration) is not currently supported as a rule override. *)
 
-type cloudflare_load_balancer__rules__overrides = {
+type rules__overrides = {
   default_pools : string prop list option; [@option]
       (** A list of pool IDs ordered by their failover priority. Used whenever [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) are not defined. *)
   fallback_pool : string prop option; [@option]
@@ -149,27 +149,19 @@ type cloudflare_load_balancer__rules__overrides = {
       (** The method the load balancer uses to determine the route to your origin. Value `off` uses [`default_pool_ids`](#default_pool_ids). Value `geo` uses [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools). For non-proxied requests, the [`country`](#country) for [`country_pools`](#country_pools) is determined by [`location_strategy`](#location_strategy). Value `random` selects a pool randomly. Value `dynamic_latency` uses round trip time to select the closest pool in [`default_pool_ids`](#default_pool_ids) (requires pool health checks). Value `proximity` uses the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by [`location_strategy`](#location_strategy) for non-proxied requests. Value `least_outstanding_requests` selects a pool by taking into consideration [`random_steering`](#random_steering) weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others. Value `least_connections` selects a pool by taking into consideration [`random_steering`](#random_steering) weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections. Value `` maps to `geo` if you use [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) otherwise `off`. Available values: `off`, `geo`, `dynamic_latency`, `random`, `proximity`, `least_outstanding_requests`, `least_connections`, `` Defaults to ``. *)
   ttl : float prop option; [@option]
       (** Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`. *)
-  adaptive_routing :
-    cloudflare_load_balancer__rules__overrides__adaptive_routing list;
-  country_pools :
-    cloudflare_load_balancer__rules__overrides__country_pools list;
-  location_strategy :
-    cloudflare_load_balancer__rules__overrides__location_strategy
-    list;
-  pop_pools :
-    cloudflare_load_balancer__rules__overrides__pop_pools list;
-  random_steering :
-    cloudflare_load_balancer__rules__overrides__random_steering list;
-  region_pools :
-    cloudflare_load_balancer__rules__overrides__region_pools list;
+  adaptive_routing : rules__overrides__adaptive_routing list;
+  country_pools : rules__overrides__country_pools list;
+  location_strategy : rules__overrides__location_strategy list;
+  pop_pools : rules__overrides__pop_pools list;
+  random_steering : rules__overrides__random_steering list;
+  region_pools : rules__overrides__region_pools list;
   session_affinity_attributes :
-    cloudflare_load_balancer__rules__overrides__session_affinity_attributes
-    list;
+    rules__overrides__session_affinity_attributes list;
 }
 [@@deriving yojson_of]
 (** The load balancer settings to alter if this rule's [`condition`](#condition) is true. Note: [`overrides`](#overrides) or [`fixed_response`](#fixed_response) must be set. *)
 
-type cloudflare_load_balancer__rules = {
+type rules = {
   condition : string prop option; [@option]
       (** The statement to evaluate to determine if this rule's effects should be applied. An empty condition is always true. See [load balancing rules](https://developers.cloudflare.com/load-balancing/understand-basics/load-balancing-rules). *)
   disabled : bool prop option; [@option]
@@ -179,14 +171,13 @@ type cloudflare_load_balancer__rules = {
       (** Priority used when determining the order of rule execution. Lower values are executed first. If not provided, the list order will be used. *)
   terminates : bool prop option; [@option]
       (** Terminates indicates that if this rule is true no further rules should be executed. Note: setting a [`fixed_response`](#fixed_response) forces this field to `true`. *)
-  fixed_response :
-    cloudflare_load_balancer__rules__fixed_response list;
-  overrides : cloudflare_load_balancer__rules__overrides list;
+  fixed_response : rules__fixed_response list;
+  overrides : rules__overrides list;
 }
 [@@deriving yojson_of]
 (** A list of rules for this load balancer to execute. *)
 
-type cloudflare_load_balancer__session_affinity_attributes = {
+type session_affinity_attributes = {
   drain_duration : float prop option; [@option]
       (** Configures the drain duration in seconds. This field is only used when session affinity is enabled on the load balancer. Defaults to `0`. *)
   headers : string prop list option; [@option]
@@ -227,16 +218,14 @@ type cloudflare_load_balancer = {
       (** Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`. Conflicts with `proxied`. *)
   zone_id : string prop;
       (** The zone ID to add the load balancer to. **Modifying this attribute will force creation of a new resource.** *)
-  adaptive_routing : cloudflare_load_balancer__adaptive_routing list;
-  country_pools : cloudflare_load_balancer__country_pools list;
-  location_strategy :
-    cloudflare_load_balancer__location_strategy list;
-  pop_pools : cloudflare_load_balancer__pop_pools list;
-  random_steering : cloudflare_load_balancer__random_steering list;
-  region_pools : cloudflare_load_balancer__region_pools list;
-  rules : cloudflare_load_balancer__rules list;
-  session_affinity_attributes :
-    cloudflare_load_balancer__session_affinity_attributes list;
+  adaptive_routing : adaptive_routing list;
+  country_pools : country_pools list;
+  location_strategy : location_strategy list;
+  pop_pools : pop_pools list;
+  random_steering : random_steering list;
+  region_pools : region_pools list;
+  rules : rules list;
+  session_affinity_attributes : session_affinity_attributes list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Load Balancer resource. This sits in front of
@@ -245,6 +234,137 @@ for geographically-aware load balancing. Note that the load balancing
 feature must be enabled in your Cloudflare account before you can use
 this resource.
  *)
+
+let adaptive_routing ?failover_across_pools () : adaptive_routing =
+  { failover_across_pools }
+
+let country_pools ~country ~pool_ids () : country_pools =
+  { country; pool_ids }
+
+let location_strategy ?mode ?prefer_ecs () : location_strategy =
+  { mode; prefer_ecs }
+
+let pop_pools ~pool_ids ~pop () : pop_pools = { pool_ids; pop }
+
+let random_steering ?default_weight ?pool_weights () :
+    random_steering =
+  { default_weight; pool_weights }
+
+let region_pools ~pool_ids ~region () : region_pools =
+  { pool_ids; region }
+
+let rules__fixed_response ?content_type ?location ?message_body
+    ?status_code () : rules__fixed_response =
+  { content_type; location; message_body; status_code }
+
+let rules__overrides__adaptive_routing ?failover_across_pools () :
+    rules__overrides__adaptive_routing =
+  { failover_across_pools }
+
+let rules__overrides__country_pools ~country ~pool_ids () :
+    rules__overrides__country_pools =
+  { country; pool_ids }
+
+let rules__overrides__location_strategy ?mode ?prefer_ecs () :
+    rules__overrides__location_strategy =
+  { mode; prefer_ecs }
+
+let rules__overrides__pop_pools ~pool_ids ~pop () :
+    rules__overrides__pop_pools =
+  { pool_ids; pop }
+
+let rules__overrides__random_steering ?default_weight ?pool_weights
+    () : rules__overrides__random_steering =
+  { default_weight; pool_weights }
+
+let rules__overrides__region_pools ~pool_ids ~region () :
+    rules__overrides__region_pools =
+  { pool_ids; region }
+
+let rules__overrides__session_affinity_attributes ?headers
+    ?require_all_headers ?samesite ?secure ?zero_downtime_failover ()
+    : rules__overrides__session_affinity_attributes =
+  {
+    headers;
+    require_all_headers;
+    samesite;
+    secure;
+    zero_downtime_failover;
+  }
+
+let rules__overrides ?default_pools ?fallback_pool ?session_affinity
+    ?session_affinity_ttl ?steering_policy ?ttl ~adaptive_routing
+    ~country_pools ~location_strategy ~pop_pools ~random_steering
+    ~region_pools ~session_affinity_attributes () : rules__overrides
+    =
+  {
+    default_pools;
+    fallback_pool;
+    session_affinity;
+    session_affinity_ttl;
+    steering_policy;
+    ttl;
+    adaptive_routing;
+    country_pools;
+    location_strategy;
+    pop_pools;
+    random_steering;
+    region_pools;
+    session_affinity_attributes;
+  }
+
+let rules ?condition ?disabled ?priority ?terminates ~name
+    ~fixed_response ~overrides () : rules =
+  {
+    condition;
+    disabled;
+    name;
+    priority;
+    terminates;
+    fixed_response;
+    overrides;
+  }
+
+let session_affinity_attributes ?drain_duration ?headers
+    ?require_all_headers ?samesite ?secure ?zero_downtime_failover ()
+    : session_affinity_attributes =
+  {
+    drain_duration;
+    headers;
+    require_all_headers;
+    samesite;
+    secure;
+    zero_downtime_failover;
+  }
+
+let cloudflare_load_balancer ?description ?enabled ?id ?proxied
+    ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
+    ~default_pool_ids ~fallback_pool_id ~name ~zone_id
+    ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
+    ~random_steering ~region_pools ~rules
+    ~session_affinity_attributes () : cloudflare_load_balancer =
+  {
+    default_pool_ids;
+    description;
+    enabled;
+    fallback_pool_id;
+    id;
+    name;
+    proxied;
+    session_affinity;
+    session_affinity_ttl;
+    steering_policy;
+    ttl;
+    zone_id;
+    adaptive_routing;
+    country_pools;
+    location_strategy;
+    pop_pools;
+    random_steering;
+    region_pools;
+    rules;
+    session_affinity_attributes;
+  }
 
 type t = {
   created_on : string prop;
@@ -263,7 +383,7 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_load_balancer ?description ?enabled ?id ?proxied
+let register ?tf_module ?description ?enabled ?id ?proxied
     ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
     ~default_pool_ids ~fallback_pool_id ~name ~zone_id
     ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
@@ -271,31 +391,14 @@ let cloudflare_load_balancer ?description ?enabled ?id ?proxied
     ~session_affinity_attributes __resource_id =
   let __resource_type = "cloudflare_load_balancer" in
   let __resource =
-    ({
-       default_pool_ids;
-       description;
-       enabled;
-       fallback_pool_id;
-       id;
-       name;
-       proxied;
-       session_affinity;
-       session_affinity_ttl;
-       steering_policy;
-       ttl;
-       zone_id;
-       adaptive_routing;
-       country_pools;
-       location_strategy;
-       pop_pools;
-       random_steering;
-       region_pools;
-       rules;
-       session_affinity_attributes;
-     }
-      : cloudflare_load_balancer)
+    cloudflare_load_balancer ?description ?enabled ?id ?proxied
+      ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
+      ~default_pool_ids ~fallback_pool_id ~name ~zone_id
+      ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
+      ~random_steering ~region_pools ~rules
+      ~session_affinity_attributes ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_load_balancer __resource);
   let __resource_attributes =
     ({

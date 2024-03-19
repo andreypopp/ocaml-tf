@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_proximity_placement_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_proximity_placement_group__timeouts *)
+(** timeouts *)
 
 type azurerm_proximity_placement_group = {
   allowed_vm_sizes : string prop list option; [@option]
@@ -22,10 +22,27 @@ type azurerm_proximity_placement_group = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   zone : string prop option; [@option]  (** zone *)
-  timeouts : azurerm_proximity_placement_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_proximity_placement_group *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_proximity_placement_group ?allowed_vm_sizes ?id ?tags
+    ?zone ?timeouts ~location ~name ~resource_group_name () :
+    azurerm_proximity_placement_group =
+  {
+    allowed_vm_sizes;
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    zone;
+    timeouts;
+  }
 
 type t = {
   allowed_vm_sizes : string list prop;
@@ -37,24 +54,14 @@ type t = {
   zone : string prop;
 }
 
-let azurerm_proximity_placement_group ?allowed_vm_sizes ?id ?tags
-    ?zone ?timeouts ~location ~name ~resource_group_name
-    __resource_id =
+let register ?tf_module ?allowed_vm_sizes ?id ?tags ?zone ?timeouts
+    ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_proximity_placement_group" in
   let __resource =
-    ({
-       allowed_vm_sizes;
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       zone;
-       timeouts;
-     }
-      : azurerm_proximity_placement_group)
+    azurerm_proximity_placement_group ?allowed_vm_sizes ?id ?tags
+      ?zone ?timeouts ~location ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_proximity_placement_group __resource);
   let __resource_attributes =
     ({

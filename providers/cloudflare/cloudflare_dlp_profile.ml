@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type cloudflare_dlp_profile__entry__pattern = {
+type entry__pattern = {
   regex : string prop;  (** The regex that defines the pattern. *)
   validation : string prop option; [@option]
       (** The validation algorithm to apply with this pattern. *)
 }
 [@@deriving yojson_of]
-(** cloudflare_dlp_profile__entry__pattern *)
+(** entry__pattern *)
 
-type cloudflare_dlp_profile__entry = {
+type entry = {
   enabled : bool prop option; [@option]
       (** Whether the entry is active. Defaults to `false`. *)
   id : string prop option; [@option]  (** Unique entry identifier. *)
   name : string prop;  (** Name of the entry to deploy. *)
-  pattern : cloudflare_dlp_profile__entry__pattern list;
+  pattern : entry__pattern list;
 }
 [@@deriving yojson_of]
 (** List of entries to apply to the profile. *)
@@ -34,13 +34,32 @@ type cloudflare_dlp_profile = {
       (** Name of the profile. **Modifying this attribute will force creation of a new resource.** *)
   type_ : string prop; [@key "type"]
       (** The type of the profile. Available values: `custom`, `predefined`. **Modifying this attribute will force creation of a new resource.** *)
-  entry : cloudflare_dlp_profile__entry list;
+  entry : entry list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare DLP Profile resource. Data Loss Prevention profiles
 are a set of entries that can be matched in HTTP bodies or files.
 They are referenced in Zero Trust Gateway rules.
  *)
+
+let entry__pattern ?validation ~regex () : entry__pattern =
+  { regex; validation }
+
+let entry ?enabled ?id ~name ~pattern () : entry =
+  { enabled; id; name; pattern }
+
+let cloudflare_dlp_profile ?description ?id ~account_id
+    ~allowed_match_count ~name ~type_ ~entry () :
+    cloudflare_dlp_profile =
+  {
+    account_id;
+    allowed_match_count;
+    description;
+    id;
+    name;
+    type_;
+    entry;
+  }
 
 type t = {
   account_id : string prop;
@@ -51,22 +70,14 @@ type t = {
   type_ : string prop;
 }
 
-let cloudflare_dlp_profile ?description ?id ~account_id
+let register ?tf_module ?description ?id ~account_id
     ~allowed_match_count ~name ~type_ ~entry __resource_id =
   let __resource_type = "cloudflare_dlp_profile" in
   let __resource =
-    ({
-       account_id;
-       allowed_match_count;
-       description;
-       id;
-       name;
-       type_;
-       entry;
-     }
-      : cloudflare_dlp_profile)
+    cloudflare_dlp_profile ?description ?id ~account_id
+      ~allowed_match_count ~name ~type_ ~entry ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_dlp_profile __resource);
   let __resource_attributes =
     ({

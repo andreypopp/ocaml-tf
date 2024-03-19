@@ -13,19 +13,22 @@ type digitalocean_project_resources = {
 [@@deriving yojson_of]
 (** digitalocean_project_resources *)
 
+let digitalocean_project_resources ?id ~project ~resources () :
+    digitalocean_project_resources =
+  { id; project; resources }
+
 type t = {
   id : string prop;
   project : string prop;
   resources : string list prop;
 }
 
-let digitalocean_project_resources ?id ~project ~resources
-    __resource_id =
+let register ?tf_module ?id ~project ~resources __resource_id =
   let __resource_type = "digitalocean_project_resources" in
   let __resource =
-    ({ id; project; resources } : digitalocean_project_resources)
+    digitalocean_project_resources ?id ~project ~resources ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_project_resources __resource);
   let __resource_attributes =
     ({

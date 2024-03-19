@@ -26,6 +26,26 @@ type aws_ec2_transit_gateway_vpc_attachment = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_vpc_attachment *)
 
+let aws_ec2_transit_gateway_vpc_attachment ?appliance_mode_support
+    ?dns_support ?id ?ipv6_support ?tags ?tags_all
+    ?transit_gateway_default_route_table_association
+    ?transit_gateway_default_route_table_propagation ~subnet_ids
+    ~transit_gateway_id ~vpc_id () :
+    aws_ec2_transit_gateway_vpc_attachment =
+  {
+    appliance_mode_support;
+    dns_support;
+    id;
+    ipv6_support;
+    subnet_ids;
+    tags;
+    tags_all;
+    transit_gateway_default_route_table_association;
+    transit_gateway_default_route_table_propagation;
+    transit_gateway_id;
+    vpc_id;
+  }
+
 type t = {
   appliance_mode_support : string prop;
   dns_support : string prop;
@@ -41,29 +61,20 @@ type t = {
   vpc_owner_id : string prop;
 }
 
-let aws_ec2_transit_gateway_vpc_attachment ?appliance_mode_support
-    ?dns_support ?id ?ipv6_support ?tags ?tags_all
+let register ?tf_module ?appliance_mode_support ?dns_support ?id
+    ?ipv6_support ?tags ?tags_all
     ?transit_gateway_default_route_table_association
     ?transit_gateway_default_route_table_propagation ~subnet_ids
     ~transit_gateway_id ~vpc_id __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_vpc_attachment" in
   let __resource =
-    ({
-       appliance_mode_support;
-       dns_support;
-       id;
-       ipv6_support;
-       subnet_ids;
-       tags;
-       tags_all;
-       transit_gateway_default_route_table_association;
-       transit_gateway_default_route_table_propagation;
-       transit_gateway_id;
-       vpc_id;
-     }
-      : aws_ec2_transit_gateway_vpc_attachment)
+    aws_ec2_transit_gateway_vpc_attachment ?appliance_mode_support
+      ?dns_support ?id ?ipv6_support ?tags ?tags_all
+      ?transit_gateway_default_route_table_association
+      ?transit_gateway_default_route_table_propagation ~subnet_ids
+      ~transit_gateway_id ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_vpc_attachment __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_node_group__autoscaling_policy = {
+type autoscaling_policy = {
   max_nodes : float prop option; [@option]
       (** Maximum size of the node group. Set to a value less than or equal
 to 100 and greater than or equal to min-nodes. *)
@@ -25,14 +25,14 @@ group autoscaler to automatically manage the sizes of your node groups.
 
 One of 'initial_size' or 'autoscaling_policy' must be configured on resource creation. *)
 
-type google_compute_node_group__maintenance_window = {
+type maintenance_window = {
   start_time : string prop;
       (** instances.start time of the window. This must be in UTC format that resolves to one of 00:00, 04:00, 08:00, 12:00, 16:00, or 20:00. For example, both 13:00-5 and 08:00 are valid. *)
 }
 [@@deriving yojson_of]
 (** contains properties for the timeframe of maintenance *)
 
-type google_compute_node_group__share_settings__project_map = {
+type share_settings__project_map = {
   id : string prop;  (** id *)
   project_id : string prop;
       (** The project id/number should be the same as the key of this project config in the project map. *)
@@ -40,22 +40,21 @@ type google_compute_node_group__share_settings__project_map = {
 [@@deriving yojson_of]
 (** A map of project id and project config. This is only valid when shareType's value is SPECIFIC_PROJECTS. *)
 
-type google_compute_node_group__share_settings = {
+type share_settings = {
   share_type : string prop;
       (** Node group sharing type. Possible values: [ORGANIZATION, SPECIFIC_PROJECTS, LOCAL] *)
-  project_map :
-    google_compute_node_group__share_settings__project_map list;
+  project_map : share_settings__project_map list;
 }
 [@@deriving yojson_of]
 (** Share settings for the node group. *)
 
-type google_compute_node_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_node_group__timeouts *)
+(** timeouts *)
 
 type google_compute_node_group = {
   description : string prop option; [@option]
@@ -71,15 +70,49 @@ type google_compute_node_group = {
   project : string prop option; [@option]  (** project *)
   zone : string prop option; [@option]
       (** Zone where this node group is located *)
-  autoscaling_policy :
-    google_compute_node_group__autoscaling_policy list;
-  maintenance_window :
-    google_compute_node_group__maintenance_window list;
-  share_settings : google_compute_node_group__share_settings list;
-  timeouts : google_compute_node_group__timeouts option;
+  autoscaling_policy : autoscaling_policy list;
+  maintenance_window : maintenance_window list;
+  share_settings : share_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_node_group *)
+
+let autoscaling_policy ?max_nodes ?min_nodes ?mode () :
+    autoscaling_policy =
+  { max_nodes; min_nodes; mode }
+
+let maintenance_window ~start_time () : maintenance_window =
+  { start_time }
+
+let share_settings__project_map ~id ~project_id () :
+    share_settings__project_map =
+  { id; project_id }
+
+let share_settings ~share_type ~project_map () : share_settings =
+  { share_type; project_map }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_node_group ?description ?id ?initial_size
+    ?maintenance_policy ?name ?project ?zone ?timeouts ~node_template
+    ~autoscaling_policy ~maintenance_window ~share_settings () :
+    google_compute_node_group =
+  {
+    description;
+    id;
+    initial_size;
+    maintenance_policy;
+    name;
+    node_template;
+    project;
+    zone;
+    autoscaling_policy;
+    maintenance_window;
+    share_settings;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -95,29 +128,18 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_node_group ?description ?id ?initial_size
+let register ?tf_module ?description ?id ?initial_size
     ?maintenance_policy ?name ?project ?zone ?timeouts ~node_template
     ~autoscaling_policy ~maintenance_window ~share_settings
     __resource_id =
   let __resource_type = "google_compute_node_group" in
   let __resource =
-    ({
-       description;
-       id;
-       initial_size;
-       maintenance_policy;
-       name;
-       node_template;
-       project;
-       zone;
-       autoscaling_policy;
-       maintenance_window;
-       share_settings;
-       timeouts;
-     }
-      : google_compute_node_group)
+    google_compute_node_group ?description ?id ?initial_size
+      ?maintenance_policy ?name ?project ?zone ?timeouts
+      ~node_template ~autoscaling_policy ~maintenance_window
+      ~share_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_node_group __resource);
   let __resource_attributes =
     ({

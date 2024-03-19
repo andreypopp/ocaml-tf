@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_sftp__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_sftp__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_sftp = {
   additional_properties : (string * string prop) list option;
@@ -36,11 +36,38 @@ type azurerm_data_factory_linked_service_sftp = {
   skip_host_key_validation : bool prop option; [@option]
       (** skip_host_key_validation *)
   username : string prop;  (** username *)
-  timeouts :
-    azurerm_data_factory_linked_service_sftp__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_sftp *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_sftp ?additional_properties
+    ?annotations ?description ?host_key_fingerprint ?id
+    ?integration_runtime_name ?parameters ?skip_host_key_validation
+    ?timeouts ~authentication_type ~data_factory_id ~host ~name
+    ~password ~port ~username () :
+    azurerm_data_factory_linked_service_sftp =
+  {
+    additional_properties;
+    annotations;
+    authentication_type;
+    data_factory_id;
+    description;
+    host;
+    host_key_fingerprint;
+    id;
+    integration_runtime_name;
+    name;
+    parameters;
+    password;
+    port;
+    skip_host_key_validation;
+    username;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -60,34 +87,20 @@ type t = {
   username : string prop;
 }
 
-let azurerm_data_factory_linked_service_sftp ?additional_properties
-    ?annotations ?description ?host_key_fingerprint ?id
-    ?integration_runtime_name ?parameters ?skip_host_key_validation
-    ?timeouts ~authentication_type ~data_factory_id ~host ~name
-    ~password ~port ~username __resource_id =
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?host_key_fingerprint ?id ?integration_runtime_name
+    ?parameters ?skip_host_key_validation ?timeouts
+    ~authentication_type ~data_factory_id ~host ~name ~password ~port
+    ~username __resource_id =
   let __resource_type = "azurerm_data_factory_linked_service_sftp" in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       authentication_type;
-       data_factory_id;
-       description;
-       host;
-       host_key_fingerprint;
-       id;
-       integration_runtime_name;
-       name;
-       parameters;
-       password;
-       port;
-       skip_host_key_validation;
-       username;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_sftp)
+    azurerm_data_factory_linked_service_sftp ?additional_properties
+      ?annotations ?description ?host_key_fingerprint ?id
+      ?integration_runtime_name ?parameters ?skip_host_key_validation
+      ?timeouts ~authentication_type ~data_factory_id ~host ~name
+      ~password ~port ~username ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_sftp __resource);
   let __resource_attributes =
     ({

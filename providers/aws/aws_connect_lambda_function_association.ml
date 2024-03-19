@@ -12,20 +12,24 @@ type aws_connect_lambda_function_association = {
 [@@deriving yojson_of]
 (** aws_connect_lambda_function_association *)
 
+let aws_connect_lambda_function_association ?id ~function_arn
+    ~instance_id () : aws_connect_lambda_function_association =
+  { function_arn; id; instance_id }
+
 type t = {
   function_arn : string prop;
   id : string prop;
   instance_id : string prop;
 }
 
-let aws_connect_lambda_function_association ?id ~function_arn
-    ~instance_id __resource_id =
+let register ?tf_module ?id ~function_arn ~instance_id __resource_id
+    =
   let __resource_type = "aws_connect_lambda_function_association" in
   let __resource =
-    ({ function_arn; id; instance_id }
-      : aws_connect_lambda_function_association)
+    aws_connect_lambda_function_association ?id ~function_arn
+      ~instance_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_lambda_function_association __resource);
   let __resource_attributes =
     ({

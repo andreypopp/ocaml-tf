@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_vpc_ipam_organization_admin_account
+
+val aws_vpc_ipam_organization_admin_account :
+  ?id:string prop ->
+  delegated_admin_account_id:string prop ->
+  unit ->
+  aws_vpc_ipam_organization_admin_account
+
+val yojson_of_aws_vpc_ipam_organization_admin_account :
+  aws_vpc_ipam_organization_admin_account -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +26,8 @@ type t = private {
   service_principal : string prop;
 }
 
-val aws_vpc_ipam_organization_admin_account :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   delegated_admin_account_id:string prop ->
   string ->

@@ -14,6 +14,11 @@ type aws_redshiftserverless_snapshot = {
 [@@deriving yojson_of]
 (** aws_redshiftserverless_snapshot *)
 
+let aws_redshiftserverless_snapshot ?id ?retention_period
+    ~namespace_name ~snapshot_name () :
+    aws_redshiftserverless_snapshot =
+  { id; namespace_name; retention_period; snapshot_name }
+
 type t = {
   accounts_with_provisioned_restore_access : string list prop;
   accounts_with_restore_access : string list prop;
@@ -28,14 +33,14 @@ type t = {
   snapshot_name : string prop;
 }
 
-let aws_redshiftserverless_snapshot ?id ?retention_period
-    ~namespace_name ~snapshot_name __resource_id =
+let register ?tf_module ?id ?retention_period ~namespace_name
+    ~snapshot_name __resource_id =
   let __resource_type = "aws_redshiftserverless_snapshot" in
   let __resource =
-    ({ id; namespace_name; retention_period; snapshot_name }
-      : aws_redshiftserverless_snapshot)
+    aws_redshiftserverless_snapshot ?id ?retention_period
+      ~namespace_name ~snapshot_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshiftserverless_snapshot __resource);
   let __resource_attributes =
     ({

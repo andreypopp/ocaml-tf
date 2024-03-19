@@ -16,6 +16,17 @@ type aws_api_gateway_request_validator = {
 [@@deriving yojson_of]
 (** aws_api_gateway_request_validator *)
 
+let aws_api_gateway_request_validator ?id ?validate_request_body
+    ?validate_request_parameters ~name ~rest_api_id () :
+    aws_api_gateway_request_validator =
+  {
+    id;
+    name;
+    rest_api_id;
+    validate_request_body;
+    validate_request_parameters;
+  }
+
 type t = {
   id : string prop;
   name : string prop;
@@ -24,20 +35,14 @@ type t = {
   validate_request_parameters : bool prop;
 }
 
-let aws_api_gateway_request_validator ?id ?validate_request_body
+let register ?tf_module ?id ?validate_request_body
     ?validate_request_parameters ~name ~rest_api_id __resource_id =
   let __resource_type = "aws_api_gateway_request_validator" in
   let __resource =
-    ({
-       id;
-       name;
-       rest_api_id;
-       validate_request_body;
-       validate_request_parameters;
-     }
-      : aws_api_gateway_request_validator)
+    aws_api_gateway_request_validator ?id ?validate_request_body
+      ?validate_request_parameters ~name ~rest_api_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_request_validator __resource);
   let __resource_attributes =
     ({

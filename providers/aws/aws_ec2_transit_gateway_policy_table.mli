@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ec2_transit_gateway_policy_table
+
+val aws_ec2_transit_gateway_policy_table :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  transit_gateway_id:string prop ->
+  unit ->
+  aws_ec2_transit_gateway_policy_table
+
+val yojson_of_aws_ec2_transit_gateway_policy_table :
+  aws_ec2_transit_gateway_policy_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +28,8 @@ type t = private {
   transit_gateway_id : string prop;
 }
 
-val aws_ec2_transit_gateway_policy_table :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

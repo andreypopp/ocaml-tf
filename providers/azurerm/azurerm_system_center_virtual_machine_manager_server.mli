@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_system_center_virtual_machine_manager_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_system_center_virtual_machine_manager_server
+
+val azurerm_system_center_virtual_machine_manager_server :
+  ?id:string prop ->
+  ?port:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  custom_location_id:string prop ->
+  fqdn:string prop ->
+  location:string prop ->
+  name:string prop ->
+  password:string prop ->
+  resource_group_name:string prop ->
+  username:string prop ->
+  unit ->
+  azurerm_system_center_virtual_machine_manager_server
+
+val yojson_of_azurerm_system_center_virtual_machine_manager_server :
+  azurerm_system_center_virtual_machine_manager_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   custom_location_id : string prop;
@@ -18,12 +49,12 @@ type t = private {
   username : string prop;
 }
 
-val azurerm_system_center_virtual_machine_manager_server :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?port:float prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:
-    azurerm_system_center_virtual_machine_manager_server__timeouts ->
+  ?timeouts:timeouts ->
   custom_location_id:string prop ->
   fqdn:string prop ->
   location:string prop ->

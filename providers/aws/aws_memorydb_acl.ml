@@ -16,6 +16,10 @@ type aws_memorydb_acl = {
 [@@deriving yojson_of]
 (** aws_memorydb_acl *)
 
+let aws_memorydb_acl ?id ?name ?name_prefix ?tags ?tags_all
+    ?user_names () : aws_memorydb_acl =
+  { id; name; name_prefix; tags; tags_all; user_names }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -27,14 +31,14 @@ type t = {
   user_names : string list prop;
 }
 
-let aws_memorydb_acl ?id ?name ?name_prefix ?tags ?tags_all
+let register ?tf_module ?id ?name ?name_prefix ?tags ?tags_all
     ?user_names __resource_id =
   let __resource_type = "aws_memorydb_acl" in
   let __resource =
-    ({ id; name; name_prefix; tags; tags_all; user_names }
-      : aws_memorydb_acl)
+    aws_memorydb_acl ?id ?name ?name_prefix ?tags ?tags_all
+      ?user_names ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_memorydb_acl __resource);
   let __resource_attributes =
     ({

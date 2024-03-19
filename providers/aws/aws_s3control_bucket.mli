@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_s3control_bucket
+
+val aws_s3control_bucket :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  bucket:string prop ->
+  outpost_id:string prop ->
+  unit ->
+  aws_s3control_bucket
+
+val yojson_of_aws_s3control_bucket : aws_s3control_bucket -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,7 +30,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_s3control_bucket :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

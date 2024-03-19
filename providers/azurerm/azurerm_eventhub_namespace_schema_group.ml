@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_eventhub_namespace_schema_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventhub_namespace_schema_group__timeouts *)
+(** timeouts *)
 
 type azurerm_eventhub_namespace_schema_group = {
   id : string prop option; [@option]  (** id *)
@@ -18,10 +18,25 @@ type azurerm_eventhub_namespace_schema_group = {
   namespace_id : string prop;  (** namespace_id *)
   schema_compatibility : string prop;  (** schema_compatibility *)
   schema_type : string prop;  (** schema_type *)
-  timeouts : azurerm_eventhub_namespace_schema_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_schema_group *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_eventhub_namespace_schema_group ?id ?timeouts ~name
+    ~namespace_id ~schema_compatibility ~schema_type () :
+    azurerm_eventhub_namespace_schema_group =
+  {
+    id;
+    name;
+    namespace_id;
+    schema_compatibility;
+    schema_type;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -31,21 +46,14 @@ type t = {
   schema_type : string prop;
 }
 
-let azurerm_eventhub_namespace_schema_group ?id ?timeouts ~name
-    ~namespace_id ~schema_compatibility ~schema_type __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~namespace_id
+    ~schema_compatibility ~schema_type __resource_id =
   let __resource_type = "azurerm_eventhub_namespace_schema_group" in
   let __resource =
-    ({
-       id;
-       name;
-       namespace_id;
-       schema_compatibility;
-       schema_type;
-       timeouts;
-     }
-      : azurerm_eventhub_namespace_schema_group)
+    azurerm_eventhub_namespace_schema_group ?id ?timeouts ~name
+      ~namespace_id ~schema_compatibility ~schema_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventhub_namespace_schema_group __resource);
   let __resource_attributes =
     ({

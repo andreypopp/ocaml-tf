@@ -4,47 +4,43 @@
 
 open! Tf.Prelude
 
-type aws_medialive_input__destinations = {
-  stream_name : string prop;  (** stream_name *)
-}
+type destinations = { stream_name : string prop  (** stream_name *) }
 [@@deriving yojson_of]
-(** aws_medialive_input__destinations *)
+(** destinations *)
 
-type aws_medialive_input__input_devices = {
-  id : string prop;  (** id *)
-}
+type input_devices = { id : string prop  (** id *) }
 [@@deriving yojson_of]
-(** aws_medialive_input__input_devices *)
+(** input_devices *)
 
-type aws_medialive_input__media_connect_flows = {
+type media_connect_flows = {
   flow_arn : string prop;  (** flow_arn *)
 }
 [@@deriving yojson_of]
-(** aws_medialive_input__media_connect_flows *)
+(** media_connect_flows *)
 
-type aws_medialive_input__sources = {
+type sources = {
   password_param : string prop;  (** password_param *)
   url : string prop;  (** url *)
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** aws_medialive_input__sources *)
+(** sources *)
 
-type aws_medialive_input__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_medialive_input__timeouts *)
+(** timeouts *)
 
-type aws_medialive_input__vpc = {
+type vpc = {
   security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_medialive_input__vpc *)
+(** vpc *)
 
 type aws_medialive_input = {
   id : string prop option; [@option]  (** id *)
@@ -56,16 +52,49 @@ type aws_medialive_input = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop; [@key "type"]  (** type *)
-  destinations : aws_medialive_input__destinations list;
-  input_devices : aws_medialive_input__input_devices list;
-  media_connect_flows :
-    aws_medialive_input__media_connect_flows list;
-  sources : aws_medialive_input__sources list;
-  timeouts : aws_medialive_input__timeouts option;
-  vpc : aws_medialive_input__vpc list;
+  destinations : destinations list;
+  input_devices : input_devices list;
+  media_connect_flows : media_connect_flows list;
+  sources : sources list;
+  timeouts : timeouts option;
+  vpc : vpc list;
 }
 [@@deriving yojson_of]
 (** aws_medialive_input *)
+
+let destinations ~stream_name () : destinations = { stream_name }
+let input_devices ~id () : input_devices = { id }
+
+let media_connect_flows ~flow_arn () : media_connect_flows =
+  { flow_arn }
+
+let sources ~password_param ~url ~username () : sources =
+  { password_param; url; username }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc ?security_group_ids ~subnet_ids () : vpc =
+  { security_group_ids; subnet_ids }
+
+let aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
+    ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
+    ~media_connect_flows ~sources ~vpc () : aws_medialive_input =
+  {
+    id;
+    input_security_groups;
+    name;
+    role_arn;
+    tags;
+    tags_all;
+    type_;
+    destinations;
+    input_devices;
+    media_connect_flows;
+    sources;
+    timeouts;
+    vpc;
+  }
 
 type t = {
   arn : string prop;
@@ -82,29 +111,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
+let register ?tf_module ?id ?input_security_groups ?role_arn ?tags
     ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
     ~media_connect_flows ~sources ~vpc __resource_id =
   let __resource_type = "aws_medialive_input" in
   let __resource =
-    ({
-       id;
-       input_security_groups;
-       name;
-       role_arn;
-       tags;
-       tags_all;
-       type_;
-       destinations;
-       input_devices;
-       media_connect_flows;
-       sources;
-       timeouts;
-       vpc;
-     }
-      : aws_medialive_input)
+    aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
+      ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
+      ~media_connect_flows ~sources ~vpc ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_medialive_input __resource);
   let __resource_attributes =
     ({

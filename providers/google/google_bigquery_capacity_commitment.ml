@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_bigquery_capacity_commitment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_capacity_commitment__timeouts *)
+(** timeouts *)
 
 type google_bigquery_capacity_commitment = {
   capacity_commitment_id : string prop option; [@option]
@@ -34,10 +34,30 @@ Examples: US, EU, asia-northeast1. The default value is US. *)
       (** The plan this capacity commitment is converted to after commitmentEndTime passes. Once the plan is changed, committed period is extended according to commitment plan. Only applicable for some commitment plans. *)
   slot_count : float prop;
       (** Number of slots in this commitment. *)
-  timeouts : google_bigquery_capacity_commitment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_capacity_commitment *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_bigquery_capacity_commitment ?capacity_commitment_id
+    ?edition ?enforce_single_admin_project_per_org ?id ?location
+    ?project ?renewal_plan ?timeouts ~plan ~slot_count () :
+    google_bigquery_capacity_commitment =
+  {
+    capacity_commitment_id;
+    edition;
+    enforce_single_admin_project_per_org;
+    id;
+    location;
+    plan;
+    project;
+    renewal_plan;
+    slot_count;
+    timeouts;
+  }
 
 type t = {
   capacity_commitment_id : string prop;
@@ -55,27 +75,16 @@ type t = {
   state : string prop;
 }
 
-let google_bigquery_capacity_commitment ?capacity_commitment_id
-    ?edition ?enforce_single_admin_project_per_org ?id ?location
-    ?project ?renewal_plan ?timeouts ~plan ~slot_count __resource_id
-    =
+let register ?tf_module ?capacity_commitment_id ?edition
+    ?enforce_single_admin_project_per_org ?id ?location ?project
+    ?renewal_plan ?timeouts ~plan ~slot_count __resource_id =
   let __resource_type = "google_bigquery_capacity_commitment" in
   let __resource =
-    ({
-       capacity_commitment_id;
-       edition;
-       enforce_single_admin_project_per_org;
-       id;
-       location;
-       plan;
-       project;
-       renewal_plan;
-       slot_count;
-       timeouts;
-     }
-      : google_bigquery_capacity_commitment)
+    google_bigquery_capacity_commitment ?capacity_commitment_id
+      ?edition ?enforce_single_admin_project_per_org ?id ?location
+      ?project ?renewal_plan ?timeouts ~plan ~slot_count ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_capacity_commitment __resource);
   let __resource_attributes =
     ({

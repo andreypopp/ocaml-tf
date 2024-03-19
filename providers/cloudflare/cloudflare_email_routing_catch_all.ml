@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_email_routing_catch_all__action = {
+type action = {
   type_ : string prop; [@key "type"]
       (** Type of supported action. Available values: `drop`, `forward`, `worker`. *)
   value : string prop list;
@@ -13,7 +13,7 @@ type cloudflare_email_routing_catch_all__action = {
 [@@deriving yojson_of]
 (** List actions patterns. *)
 
-type cloudflare_email_routing_catch_all__matcher = {
+type matcher = {
   type_ : string prop; [@key "type"]
       (** Type of matcher. Available values: `all`. *)
 }
@@ -26,12 +26,19 @@ type cloudflare_email_routing_catch_all = {
   name : string prop;  (** Routing rule name. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. *)
-  action : cloudflare_email_routing_catch_all__action list;
-  matcher : cloudflare_email_routing_catch_all__matcher list;
+  action : action list;
+  matcher : matcher list;
 }
 [@@deriving yojson_of]
 (** Provides a resource for managing Email Routing Addresses catch all behaviour.
  *)
+
+let action ~type_ ~value () : action = { type_; value }
+let matcher ~type_ () : matcher = { type_ }
+
+let cloudflare_email_routing_catch_all ?enabled ?id ~name ~zone_id
+    ~action ~matcher () : cloudflare_email_routing_catch_all =
+  { enabled; id; name; zone_id; action; matcher }
 
 type t = {
   enabled : bool prop;
@@ -41,14 +48,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_email_routing_catch_all ?enabled ?id ~name ~zone_id
-    ~action ~matcher __resource_id =
+let register ?tf_module ?enabled ?id ~name ~zone_id ~action ~matcher
+    __resource_id =
   let __resource_type = "cloudflare_email_routing_catch_all" in
   let __resource =
-    ({ enabled; id; name; zone_id; action; matcher }
-      : cloudflare_email_routing_catch_all)
+    cloudflare_email_routing_catch_all ?enabled ?id ~name ~zone_id
+      ~action ~matcher ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_email_routing_catch_all __resource);
   let __resource_attributes =
     ({

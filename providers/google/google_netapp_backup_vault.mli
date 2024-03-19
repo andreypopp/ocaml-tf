@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_netapp_backup_vault__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_netapp_backup_vault
+
+val google_netapp_backup_vault :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  unit ->
+  google_netapp_backup_vault
+
+val yojson_of_google_netapp_backup_vault :
+  google_netapp_backup_vault -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -18,12 +44,13 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_netapp_backup_vault :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_netapp_backup_vault__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   string ->

@@ -2,18 +2,114 @@
 
 open! Tf.Prelude
 
-type aws_appsync_graphql_api__additional_authentication_provider__lambda_authorizer_config
+(** RESOURCE SERIALIZATION *)
 
-type aws_appsync_graphql_api__additional_authentication_provider__openid_connect_config
+type additional_authentication_provider__lambda_authorizer_config
 
-type aws_appsync_graphql_api__additional_authentication_provider__user_pool_config
+val additional_authentication_provider__lambda_authorizer_config :
+  ?authorizer_result_ttl_in_seconds:float prop ->
+  ?identity_validation_expression:string prop ->
+  authorizer_uri:string prop ->
+  unit ->
+  additional_authentication_provider__lambda_authorizer_config
 
-type aws_appsync_graphql_api__additional_authentication_provider
-type aws_appsync_graphql_api__lambda_authorizer_config
-type aws_appsync_graphql_api__log_config
-type aws_appsync_graphql_api__openid_connect_config
-type aws_appsync_graphql_api__user_pool_config
+type additional_authentication_provider__openid_connect_config
+
+val additional_authentication_provider__openid_connect_config :
+  ?auth_ttl:float prop ->
+  ?client_id:string prop ->
+  ?iat_ttl:float prop ->
+  issuer:string prop ->
+  unit ->
+  additional_authentication_provider__openid_connect_config
+
+type additional_authentication_provider__user_pool_config
+
+val additional_authentication_provider__user_pool_config :
+  ?app_id_client_regex:string prop ->
+  ?aws_region:string prop ->
+  user_pool_id:string prop ->
+  unit ->
+  additional_authentication_provider__user_pool_config
+
+type additional_authentication_provider
+
+val additional_authentication_provider :
+  authentication_type:string prop ->
+  lambda_authorizer_config:
+    additional_authentication_provider__lambda_authorizer_config list ->
+  openid_connect_config:
+    additional_authentication_provider__openid_connect_config list ->
+  user_pool_config:
+    additional_authentication_provider__user_pool_config list ->
+  unit ->
+  additional_authentication_provider
+
+type lambda_authorizer_config
+
+val lambda_authorizer_config :
+  ?authorizer_result_ttl_in_seconds:float prop ->
+  ?identity_validation_expression:string prop ->
+  authorizer_uri:string prop ->
+  unit ->
+  lambda_authorizer_config
+
+type log_config
+
+val log_config :
+  ?exclude_verbose_content:bool prop ->
+  cloudwatch_logs_role_arn:string prop ->
+  field_log_level:string prop ->
+  unit ->
+  log_config
+
+type openid_connect_config
+
+val openid_connect_config :
+  ?auth_ttl:float prop ->
+  ?client_id:string prop ->
+  ?iat_ttl:float prop ->
+  issuer:string prop ->
+  unit ->
+  openid_connect_config
+
+type user_pool_config
+
+val user_pool_config :
+  ?app_id_client_regex:string prop ->
+  ?aws_region:string prop ->
+  default_action:string prop ->
+  user_pool_id:string prop ->
+  unit ->
+  user_pool_config
+
 type aws_appsync_graphql_api
+
+val aws_appsync_graphql_api :
+  ?id:string prop ->
+  ?introspection_config:string prop ->
+  ?query_depth_limit:float prop ->
+  ?resolver_count_limit:float prop ->
+  ?schema:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?visibility:string prop ->
+  ?xray_enabled:bool prop ->
+  authentication_type:string prop ->
+  name:string prop ->
+  additional_authentication_provider:
+    additional_authentication_provider list ->
+  lambda_authorizer_config:lambda_authorizer_config list ->
+  log_config:log_config list ->
+  openid_connect_config:openid_connect_config list ->
+  user_pool_config:user_pool_config list ->
+  unit ->
+  aws_appsync_graphql_api
+
+val yojson_of_aws_appsync_graphql_api :
+  aws_appsync_graphql_api -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -31,7 +127,8 @@ type t = private {
   xray_enabled : bool prop;
 }
 
-val aws_appsync_graphql_api :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?introspection_config:string prop ->
   ?query_depth_limit:float prop ->
@@ -44,12 +141,10 @@ val aws_appsync_graphql_api :
   authentication_type:string prop ->
   name:string prop ->
   additional_authentication_provider:
-    aws_appsync_graphql_api__additional_authentication_provider list ->
-  lambda_authorizer_config:
-    aws_appsync_graphql_api__lambda_authorizer_config list ->
-  log_config:aws_appsync_graphql_api__log_config list ->
-  openid_connect_config:
-    aws_appsync_graphql_api__openid_connect_config list ->
-  user_pool_config:aws_appsync_graphql_api__user_pool_config list ->
+    additional_authentication_provider list ->
+  lambda_authorizer_config:lambda_authorizer_config list ->
+  log_config:log_config list ->
+  openid_connect_config:openid_connect_config list ->
+  user_pool_config:user_pool_config list ->
   string ->
   t

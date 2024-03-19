@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type google_identity_platform_oauth_idp_config__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_identity_platform_oauth_idp_config
+
+val google_identity_platform_oauth_idp_config :
+  ?client_secret:string prop ->
+  ?display_name:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  client_id:string prop ->
+  issuer:string prop ->
+  name:string prop ->
+  unit ->
+  google_identity_platform_oauth_idp_config
+
+val yojson_of_google_identity_platform_oauth_idp_config :
+  google_identity_platform_oauth_idp_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   client_id : string prop;
@@ -16,13 +44,14 @@ type t = private {
   project : string prop;
 }
 
-val google_identity_platform_oauth_idp_config :
+val register :
+  ?tf_module:tf_module ->
   ?client_secret:string prop ->
   ?display_name:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_identity_platform_oauth_idp_config__timeouts ->
+  ?timeouts:timeouts ->
   client_id:string prop ->
   issuer:string prop ->
   name:string prop ->

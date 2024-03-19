@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_private_link_service__nat_ip_configuration = {
+type nat_ip_configuration = {
   name : string prop;  (** name *)
   primary : bool prop;  (** primary *)
   private_ip_address : string prop option; [@option]
@@ -14,16 +14,16 @@ type azurerm_private_link_service__nat_ip_configuration = {
   subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_private_link_service__nat_ip_configuration *)
+(** nat_ip_configuration *)
 
-type azurerm_private_link_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_private_link_service__timeouts *)
+(** timeouts *)
 
 type azurerm_private_link_service = {
   auto_approval_subscription_ids : string prop list option; [@option]
@@ -40,12 +40,46 @@ type azurerm_private_link_service = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   visibility_subscription_ids : string prop list option; [@option]
       (** visibility_subscription_ids *)
-  nat_ip_configuration :
-    azurerm_private_link_service__nat_ip_configuration list;
-  timeouts : azurerm_private_link_service__timeouts option;
+  nat_ip_configuration : nat_ip_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_private_link_service *)
+
+let nat_ip_configuration ?private_ip_address
+    ?private_ip_address_version ~name ~primary ~subnet_id () :
+    nat_ip_configuration =
+  {
+    name;
+    primary;
+    private_ip_address;
+    private_ip_address_version;
+    subnet_id;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_private_link_service ?auto_approval_subscription_ids
+    ?enable_proxy_protocol ?fqdns ?id ?tags
+    ?visibility_subscription_ids ?timeouts
+    ~load_balancer_frontend_ip_configuration_ids ~location ~name
+    ~resource_group_name ~nat_ip_configuration () :
+    azurerm_private_link_service =
+  {
+    auto_approval_subscription_ids;
+    enable_proxy_protocol;
+    fqdns;
+    id;
+    load_balancer_frontend_ip_configuration_ids;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    visibility_subscription_ids;
+    nat_ip_configuration;
+    timeouts;
+  }
 
 type t = {
   alias : string prop;
@@ -61,30 +95,20 @@ type t = {
   visibility_subscription_ids : string list prop;
 }
 
-let azurerm_private_link_service ?auto_approval_subscription_ids
+let register ?tf_module ?auto_approval_subscription_ids
     ?enable_proxy_protocol ?fqdns ?id ?tags
     ?visibility_subscription_ids ?timeouts
     ~load_balancer_frontend_ip_configuration_ids ~location ~name
     ~resource_group_name ~nat_ip_configuration __resource_id =
   let __resource_type = "azurerm_private_link_service" in
   let __resource =
-    ({
-       auto_approval_subscription_ids;
-       enable_proxy_protocol;
-       fqdns;
-       id;
-       load_balancer_frontend_ip_configuration_ids;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       visibility_subscription_ids;
-       nat_ip_configuration;
-       timeouts;
-     }
-      : azurerm_private_link_service)
+    azurerm_private_link_service ?auto_approval_subscription_ids
+      ?enable_proxy_protocol ?fqdns ?id ?tags
+      ?visibility_subscription_ids ?timeouts
+      ~load_balancer_frontend_ip_configuration_ids ~location ~name
+      ~resource_group_name ~nat_ip_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_link_service __resource);
   let __resource_attributes =
     ({

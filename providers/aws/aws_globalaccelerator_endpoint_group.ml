@@ -4,29 +4,29 @@
 
 open! Tf.Prelude
 
-type aws_globalaccelerator_endpoint_group__endpoint_configuration = {
+type endpoint_configuration = {
   client_ip_preservation_enabled : bool prop option; [@option]
       (** client_ip_preservation_enabled *)
   endpoint_id : string prop option; [@option]  (** endpoint_id *)
   weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_endpoint_group__endpoint_configuration *)
+(** endpoint_configuration *)
 
-type aws_globalaccelerator_endpoint_group__port_override = {
+type port_override = {
   endpoint_port : float prop;  (** endpoint_port *)
   listener_port : float prop;  (** listener_port *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_endpoint_group__port_override *)
+(** port_override *)
 
-type aws_globalaccelerator_endpoint_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_globalaccelerator_endpoint_group__timeouts *)
+(** timeouts *)
 
 type aws_globalaccelerator_endpoint_group = {
   endpoint_group_region : string prop option; [@option]
@@ -45,14 +45,43 @@ type aws_globalaccelerator_endpoint_group = {
       (** threshold_count *)
   traffic_dial_percentage : float prop option; [@option]
       (** traffic_dial_percentage *)
-  endpoint_configuration :
-    aws_globalaccelerator_endpoint_group__endpoint_configuration list;
-  port_override :
-    aws_globalaccelerator_endpoint_group__port_override list;
-  timeouts : aws_globalaccelerator_endpoint_group__timeouts option;
+  endpoint_configuration : endpoint_configuration list;
+  port_override : port_override list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_endpoint_group *)
+
+let endpoint_configuration ?client_ip_preservation_enabled
+    ?endpoint_id ?weight () : endpoint_configuration =
+  { client_ip_preservation_enabled; endpoint_id; weight }
+
+let port_override ~endpoint_port ~listener_port () : port_override =
+  { endpoint_port; listener_port }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_globalaccelerator_endpoint_group ?endpoint_group_region
+    ?health_check_interval_seconds ?health_check_path
+    ?health_check_port ?health_check_protocol ?id ?threshold_count
+    ?traffic_dial_percentage ?timeouts ~listener_arn
+    ~endpoint_configuration ~port_override () :
+    aws_globalaccelerator_endpoint_group =
+  {
+    endpoint_group_region;
+    health_check_interval_seconds;
+    health_check_path;
+    health_check_port;
+    health_check_protocol;
+    id;
+    listener_arn;
+    threshold_count;
+    traffic_dial_percentage;
+    endpoint_configuration;
+    port_override;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -67,30 +96,20 @@ type t = {
   traffic_dial_percentage : float prop;
 }
 
-let aws_globalaccelerator_endpoint_group ?endpoint_group_region
+let register ?tf_module ?endpoint_group_region
     ?health_check_interval_seconds ?health_check_path
     ?health_check_port ?health_check_protocol ?id ?threshold_count
     ?traffic_dial_percentage ?timeouts ~listener_arn
     ~endpoint_configuration ~port_override __resource_id =
   let __resource_type = "aws_globalaccelerator_endpoint_group" in
   let __resource =
-    ({
-       endpoint_group_region;
-       health_check_interval_seconds;
-       health_check_path;
-       health_check_port;
-       health_check_protocol;
-       id;
-       listener_arn;
-       threshold_count;
-       traffic_dial_percentage;
-       endpoint_configuration;
-       port_override;
-       timeouts;
-     }
-      : aws_globalaccelerator_endpoint_group)
+    aws_globalaccelerator_endpoint_group ?endpoint_group_region
+      ?health_check_interval_seconds ?health_check_path
+      ?health_check_port ?health_check_protocol ?id ?threshold_count
+      ?traffic_dial_percentage ?timeouts ~listener_arn
+      ~endpoint_configuration ~port_override ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_endpoint_group __resource);
   let __resource_attributes =
     ({

@@ -16,6 +16,11 @@ type aws_iam_openid_connect_provider = {
 [@@deriving yojson_of]
 (** aws_iam_openid_connect_provider *)
 
+let aws_iam_openid_connect_provider ?id ?tags ?tags_all
+    ~client_id_list ~thumbprint_list ~url () :
+    aws_iam_openid_connect_provider =
+  { client_id_list; id; tags; tags_all; thumbprint_list; url }
+
 type t = {
   arn : string prop;
   client_id_list : string list prop;
@@ -26,14 +31,14 @@ type t = {
   url : string prop;
 }
 
-let aws_iam_openid_connect_provider ?id ?tags ?tags_all
-    ~client_id_list ~thumbprint_list ~url __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~client_id_list
+    ~thumbprint_list ~url __resource_id =
   let __resource_type = "aws_iam_openid_connect_provider" in
   let __resource =
-    ({ client_id_list; id; tags; tags_all; thumbprint_list; url }
-      : aws_iam_openid_connect_provider)
+    aws_iam_openid_connect_provider ?id ?tags ?tags_all
+      ~client_id_list ~thumbprint_list ~url ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_openid_connect_provider __resource);
   let __resource_attributes =
     ({

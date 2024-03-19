@@ -18,6 +18,11 @@ type google_logging_organization_exclusion = {
 [@@deriving yojson_of]
 (** google_logging_organization_exclusion *)
 
+let google_logging_organization_exclusion ?description ?disabled ?id
+    ~filter ~name ~org_id () : google_logging_organization_exclusion
+    =
+  { description; disabled; filter; id; name; org_id }
+
 type t = {
   description : string prop;
   disabled : bool prop;
@@ -27,14 +32,14 @@ type t = {
   org_id : string prop;
 }
 
-let google_logging_organization_exclusion ?description ?disabled ?id
-    ~filter ~name ~org_id __resource_id =
+let register ?tf_module ?description ?disabled ?id ~filter ~name
+    ~org_id __resource_id =
   let __resource_type = "google_logging_organization_exclusion" in
   let __resource =
-    ({ description; disabled; filter; id; name; org_id }
-      : google_logging_organization_exclusion)
+    google_logging_organization_exclusion ?description ?disabled ?id
+      ~filter ~name ~org_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_organization_exclusion __resource);
   let __resource_attributes =
     ({

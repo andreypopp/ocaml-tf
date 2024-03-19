@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_workspaces_connection_alias__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
@@ -13,16 +13,23 @@ type aws_workspaces_connection_alias__timeouts = {
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
-(** aws_workspaces_connection_alias__timeouts *)
+(** timeouts *)
 
 type aws_workspaces_connection_alias = {
   connection_string : string prop;
       (** The connection string specified for the connection alias. The connection string must be in the form of a fully qualified domain name (FQDN), such as www.example.com. *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : aws_workspaces_connection_alias__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_workspaces_connection_alias *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_workspaces_connection_alias ?tags ?timeouts
+    ~connection_string () : aws_workspaces_connection_alias =
+  { connection_string; tags; timeouts }
 
 type t = {
   connection_string : string prop;
@@ -33,14 +40,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_workspaces_connection_alias ?tags ?timeouts
-    ~connection_string __resource_id =
+let register ?tf_module ?tags ?timeouts ~connection_string
+    __resource_id =
   let __resource_type = "aws_workspaces_connection_alias" in
   let __resource =
-    ({ connection_string; tags; timeouts }
-      : aws_workspaces_connection_alias)
+    aws_workspaces_connection_alias ?tags ?timeouts
+      ~connection_string ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_workspaces_connection_alias __resource);
   let __resource_attributes =
     ({

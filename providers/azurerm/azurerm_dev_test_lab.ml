@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_test_lab__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_lab__timeouts *)
+(** timeouts *)
 
 type azurerm_dev_test_lab = {
   id : string prop option; [@option]  (** id *)
@@ -20,10 +20,25 @@ type azurerm_dev_test_lab = {
   resource_group_name : string prop;  (** resource_group_name *)
   storage_type : string prop option; [@option]  (** storage_type *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_dev_test_lab__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_lab *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_dev_test_lab ?id ?storage_type ?tags ?timeouts ~location
+    ~name ~resource_group_name () : azurerm_dev_test_lab =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    storage_type;
+    tags;
+    timeouts;
+  }
 
 type t = {
   artifacts_storage_account_id : string prop;
@@ -40,22 +55,14 @@ type t = {
   unique_identifier : string prop;
 }
 
-let azurerm_dev_test_lab ?id ?storage_type ?tags ?timeouts ~location
+let register ?tf_module ?id ?storage_type ?tags ?timeouts ~location
     ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_dev_test_lab" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       storage_type;
-       tags;
-       timeouts;
-     }
-      : azurerm_dev_test_lab)
+    azurerm_dev_test_lab ?id ?storage_type ?tags ?timeouts ~location
+      ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_test_lab __resource);
   let __resource_attributes =
     ({

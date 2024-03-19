@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_router_nat__log_config = {
+type log_config = {
   enable : bool prop;
       (** Indicates whether or not to export logs. *)
   filter : string prop;
@@ -13,7 +13,7 @@ type google_compute_router_nat__log_config = {
 [@@deriving yojson_of]
 (** Configuration for logging on NAT *)
 
-type google_compute_router_nat__rules__action = {
+type rules__action = {
   source_nat_active_ips : string prop list option; [@option]
       (** A list of URLs of the IP resources used for this NAT rule.
 These IP addresses must be valid static external IP addresses assigned to the project.
@@ -27,7 +27,7 @@ This field is used for public NAT. *)
 [@@deriving yojson_of]
 (** The action to be enforced for traffic that matches this rule. *)
 
-type google_compute_router_nat__rules = {
+type rules = {
   description : string prop option; [@option]
       (** An optional description of this rule. *)
   match_ : string prop; [@key "match"]
@@ -46,12 +46,12 @@ nexthop.hub == 'https://networkconnectivity.googleapis.com/v1alpha1/projects/my-
   rule_number : float prop;
       (** An integer uniquely identifying a rule in the list.
 The rule number must be a positive value between 0 and 65000, and must be unique among rules within a NAT. *)
-  action : google_compute_router_nat__rules__action list;
+  action : rules__action list;
 }
 [@@deriving yojson_of]
 (** A list of rules associated with this NAT. *)
 
-type google_compute_router_nat__subnetwork = {
+type subnetwork = {
   name : string prop;  (** Self-link of subnetwork to NAT *)
   secondary_ip_range_names : string prop list option; [@option]
       (** List of the secondary ranges of the subnetwork that are allowed
@@ -68,13 +68,13 @@ should have NAT enabled. Supported values include:
 (** One or more subnetwork NAT configurations. Only used if
 'source_subnetwork_ip_ranges_to_nat' is set to 'LIST_OF_SUBNETWORKS' *)
 
-type google_compute_router_nat__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_router_nat__timeouts *)
+(** timeouts *)
 
 type google_compute_router_nat = {
   drain_nat_ips : string prop list option; [@option]
@@ -136,13 +136,63 @@ Defaults to 120s if not set. *)
 Defaults to 30s if not set. *)
   udp_idle_timeout_sec : float prop option; [@option]
       (** Timeout (in seconds) for UDP connections. Defaults to 30s if not set. *)
-  log_config : google_compute_router_nat__log_config list;
-  rules : google_compute_router_nat__rules list;
-  subnetwork : google_compute_router_nat__subnetwork list;
-  timeouts : google_compute_router_nat__timeouts option;
+  log_config : log_config list;
+  rules : rules list;
+  subnetwork : subnetwork list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_router_nat *)
+
+let log_config ~enable ~filter () : log_config = { enable; filter }
+
+let rules__action ?source_nat_active_ips ?source_nat_drain_ips () :
+    rules__action =
+  { source_nat_active_ips; source_nat_drain_ips }
+
+let rules ?description ~match_ ~rule_number ~action () : rules =
+  { description; match_; rule_number; action }
+
+let subnetwork ?secondary_ip_range_names ~name
+    ~source_ip_ranges_to_nat () : subnetwork =
+  { name; secondary_ip_range_names; source_ip_ranges_to_nat }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_router_nat ?drain_nat_ips
+    ?enable_dynamic_port_allocation
+    ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
+    ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
+    ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
+    ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
+    ?udp_idle_timeout_sec ?timeouts ~name ~router
+    ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
+    ~subnetwork () : google_compute_router_nat =
+  {
+    drain_nat_ips;
+    enable_dynamic_port_allocation;
+    enable_endpoint_independent_mapping;
+    icmp_idle_timeout_sec;
+    id;
+    max_ports_per_vm;
+    min_ports_per_vm;
+    name;
+    nat_ip_allocate_option;
+    nat_ips;
+    project;
+    region;
+    router;
+    source_subnetwork_ip_ranges_to_nat;
+    tcp_established_idle_timeout_sec;
+    tcp_time_wait_timeout_sec;
+    tcp_transitory_idle_timeout_sec;
+    udp_idle_timeout_sec;
+    log_config;
+    rules;
+    subnetwork;
+    timeouts;
+  }
 
 type t = {
   drain_nat_ips : string list prop;
@@ -165,7 +215,7 @@ type t = {
   udp_idle_timeout_sec : float prop;
 }
 
-let google_compute_router_nat ?drain_nat_ips
+let register ?tf_module ?drain_nat_ips
     ?enable_dynamic_port_allocation
     ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
     ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
@@ -176,33 +226,17 @@ let google_compute_router_nat ?drain_nat_ips
     ~subnetwork __resource_id =
   let __resource_type = "google_compute_router_nat" in
   let __resource =
-    ({
-       drain_nat_ips;
-       enable_dynamic_port_allocation;
-       enable_endpoint_independent_mapping;
-       icmp_idle_timeout_sec;
-       id;
-       max_ports_per_vm;
-       min_ports_per_vm;
-       name;
-       nat_ip_allocate_option;
-       nat_ips;
-       project;
-       region;
-       router;
-       source_subnetwork_ip_ranges_to_nat;
-       tcp_established_idle_timeout_sec;
-       tcp_time_wait_timeout_sec;
-       tcp_transitory_idle_timeout_sec;
-       udp_idle_timeout_sec;
-       log_config;
-       rules;
-       subnetwork;
-       timeouts;
-     }
-      : google_compute_router_nat)
+    google_compute_router_nat ?drain_nat_ips
+      ?enable_dynamic_port_allocation
+      ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
+      ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
+      ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
+      ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
+      ?udp_idle_timeout_sec ?timeouts ~name ~router
+      ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
+      ~subnetwork ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_router_nat __resource);
   let __resource_attributes =
     ({

@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_named_value__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_named_value__timeouts *)
+(** timeouts *)
 
-type azurerm_api_management_named_value__value_from_key_vault = {
+type value_from_key_vault = {
   identity_client_id : string prop option; [@option]
       (** identity_client_id *)
   secret_id : string prop;  (** secret_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_named_value__value_from_key_vault *)
+(** value_from_key_vault *)
 
 type azurerm_api_management_named_value = {
   api_management_name : string prop;  (** api_management_name *)
@@ -30,12 +30,35 @@ type azurerm_api_management_named_value = {
   secret : bool prop option; [@option]  (** secret *)
   tags : string prop list option; [@option]  (** tags *)
   value : string prop option; [@option]  (** value *)
-  timeouts : azurerm_api_management_named_value__timeouts option;
-  value_from_key_vault :
-    azurerm_api_management_named_value__value_from_key_vault list;
+  timeouts : timeouts option;
+  value_from_key_vault : value_from_key_vault list;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_named_value *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let value_from_key_vault ?identity_client_id ~secret_id () :
+    value_from_key_vault =
+  { identity_client_id; secret_id }
+
+let azurerm_api_management_named_value ?id ?secret ?tags ?value
+    ?timeouts ~api_management_name ~display_name ~name
+    ~resource_group_name ~value_from_key_vault () :
+    azurerm_api_management_named_value =
+  {
+    api_management_name;
+    display_name;
+    id;
+    name;
+    resource_group_name;
+    secret;
+    tags;
+    value;
+    timeouts;
+    value_from_key_vault;
+  }
 
 type t = {
   api_management_name : string prop;
@@ -48,26 +71,16 @@ type t = {
   value : string prop;
 }
 
-let azurerm_api_management_named_value ?id ?secret ?tags ?value
-    ?timeouts ~api_management_name ~display_name ~name
-    ~resource_group_name ~value_from_key_vault __resource_id =
+let register ?tf_module ?id ?secret ?tags ?value ?timeouts
+    ~api_management_name ~display_name ~name ~resource_group_name
+    ~value_from_key_vault __resource_id =
   let __resource_type = "azurerm_api_management_named_value" in
   let __resource =
-    ({
-       api_management_name;
-       display_name;
-       id;
-       name;
-       resource_group_name;
-       secret;
-       tags;
-       value;
-       timeouts;
-       value_from_key_vault;
-     }
-      : azurerm_api_management_named_value)
+    azurerm_api_management_named_value ?id ?secret ?tags ?value
+      ?timeouts ~api_management_name ~display_name ~name
+      ~resource_group_name ~value_from_key_vault ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_named_value __resource);
   let __resource_attributes =
     ({

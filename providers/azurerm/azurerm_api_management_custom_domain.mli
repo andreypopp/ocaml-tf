@@ -2,28 +2,112 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_custom_domain__developer_portal
-type azurerm_api_management_custom_domain__gateway
-type azurerm_api_management_custom_domain__management
-type azurerm_api_management_custom_domain__portal
-type azurerm_api_management_custom_domain__scm
-type azurerm_api_management_custom_domain__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type developer_portal
+
+val developer_portal :
+  ?certificate:string prop ->
+  ?certificate_password:string prop ->
+  ?key_vault_id:string prop ->
+  ?negotiate_client_certificate:bool prop ->
+  ?ssl_keyvault_identity_client_id:string prop ->
+  host_name:string prop ->
+  unit ->
+  developer_portal
+
+type gateway
+
+val gateway :
+  ?certificate:string prop ->
+  ?certificate_password:string prop ->
+  ?default_ssl_binding:bool prop ->
+  ?key_vault_id:string prop ->
+  ?negotiate_client_certificate:bool prop ->
+  ?ssl_keyvault_identity_client_id:string prop ->
+  host_name:string prop ->
+  unit ->
+  gateway
+
+type management
+
+val management :
+  ?certificate:string prop ->
+  ?certificate_password:string prop ->
+  ?key_vault_id:string prop ->
+  ?negotiate_client_certificate:bool prop ->
+  ?ssl_keyvault_identity_client_id:string prop ->
+  host_name:string prop ->
+  unit ->
+  management
+
+type portal
+
+val portal :
+  ?certificate:string prop ->
+  ?certificate_password:string prop ->
+  ?key_vault_id:string prop ->
+  ?negotiate_client_certificate:bool prop ->
+  ?ssl_keyvault_identity_client_id:string prop ->
+  host_name:string prop ->
+  unit ->
+  portal
+
+type scm
+
+val scm :
+  ?certificate:string prop ->
+  ?certificate_password:string prop ->
+  ?key_vault_id:string prop ->
+  ?negotiate_client_certificate:bool prop ->
+  ?ssl_keyvault_identity_client_id:string prop ->
+  host_name:string prop ->
+  unit ->
+  scm
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_api_management_custom_domain
+
+val azurerm_api_management_custom_domain :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  api_management_id:string prop ->
+  developer_portal:developer_portal list ->
+  gateway:gateway list ->
+  management:management list ->
+  portal:portal list ->
+  scm:scm list ->
+  unit ->
+  azurerm_api_management_custom_domain
+
+val yojson_of_azurerm_api_management_custom_domain :
+  azurerm_api_management_custom_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_management_id : string prop;
   id : string prop;
 }
 
-val azurerm_api_management_custom_domain :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_api_management_custom_domain__timeouts ->
+  ?timeouts:timeouts ->
   api_management_id:string prop ->
-  developer_portal:
-    azurerm_api_management_custom_domain__developer_portal list ->
-  gateway:azurerm_api_management_custom_domain__gateway list ->
-  management:azurerm_api_management_custom_domain__management list ->
-  portal:azurerm_api_management_custom_domain__portal list ->
-  scm:azurerm_api_management_custom_domain__scm list ->
+  developer_portal:developer_portal list ->
+  gateway:gateway list ->
+  management:management list ->
+  portal:portal list ->
+  scm:scm list ->
   string ->
   t

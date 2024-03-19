@@ -2,13 +2,32 @@
 
 open! Tf.Prelude
 
-type digitalocean_database_firewall__rule
+(** RESOURCE SERIALIZATION *)
+
+type rule
+
+val rule : type_:string prop -> value:string prop -> unit -> rule
+
 type digitalocean_database_firewall
-type t = private { cluster_id : string prop; id : string prop }
 
 val digitalocean_database_firewall :
   ?id:string prop ->
   cluster_id:string prop ->
-  rule:digitalocean_database_firewall__rule list ->
+  rule:rule list ->
+  unit ->
+  digitalocean_database_firewall
+
+val yojson_of_digitalocean_database_firewall :
+  digitalocean_database_firewall -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { cluster_id : string prop; id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  cluster_id:string prop ->
+  rule:rule list ->
   string ->
   t

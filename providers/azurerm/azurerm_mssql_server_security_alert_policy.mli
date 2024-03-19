@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_server_security_alert_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mssql_server_security_alert_policy
+
+val azurerm_mssql_server_security_alert_policy :
+  ?disabled_alerts:string prop list ->
+  ?email_account_admins:bool prop ->
+  ?email_addresses:string prop list ->
+  ?id:string prop ->
+  ?retention_days:float prop ->
+  ?storage_account_access_key:string prop ->
+  ?storage_endpoint:string prop ->
+  ?timeouts:timeouts ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
+  state:string prop ->
+  unit ->
+  azurerm_mssql_server_security_alert_policy
+
+val yojson_of_azurerm_mssql_server_security_alert_policy :
+  azurerm_mssql_server_security_alert_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   disabled_alerts : string list prop;
@@ -18,7 +49,8 @@ type t = private {
   storage_endpoint : string prop;
 }
 
-val azurerm_mssql_server_security_alert_policy :
+val register :
+  ?tf_module:tf_module ->
   ?disabled_alerts:string prop list ->
   ?email_account_admins:bool prop ->
   ?email_addresses:string prop list ->
@@ -26,7 +58,7 @@ val azurerm_mssql_server_security_alert_policy :
   ?retention_days:float prop ->
   ?storage_account_access_key:string prop ->
   ?storage_endpoint:string prop ->
-  ?timeouts:azurerm_mssql_server_security_alert_policy__timeouts ->
+  ?timeouts:timeouts ->
   resource_group_name:string prop ->
   server_name:string prop ->
   state:string prop ->

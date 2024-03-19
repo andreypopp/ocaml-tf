@@ -2,11 +2,46 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault_managed_hardware_security_module_role_definition__permission
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts
+type permission
+
+val permission :
+  ?actions:string prop list ->
+  ?data_actions:string prop list ->
+  ?not_actions:string prop list ->
+  ?not_data_actions:string prop list ->
+  unit ->
+  permission
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type azurerm_key_vault_managed_hardware_security_module_role_definition
+
+val azurerm_key_vault_managed_hardware_security_module_role_definition :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?role_name:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  vault_base_url:string prop ->
+  permission:permission list ->
+  unit ->
+  azurerm_key_vault_managed_hardware_security_module_role_definition
+
+val yojson_of_azurerm_key_vault_managed_hardware_security_module_role_definition :
+  azurerm_key_vault_managed_hardware_security_module_role_definition ->
+  json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -18,16 +53,14 @@ type t = private {
   vault_base_url : string prop;
 }
 
-val azurerm_key_vault_managed_hardware_security_module_role_definition :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?role_name:string prop ->
-  ?timeouts:
-    azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   vault_base_url:string prop ->
-  permission:
-    azurerm_key_vault_managed_hardware_security_module_role_definition__permission
-    list ->
+  permission:permission list ->
   string ->
   t

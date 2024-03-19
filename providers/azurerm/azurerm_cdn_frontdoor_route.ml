@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_cdn_frontdoor_route__cache = {
+type cache = {
   compression_enabled : bool prop option; [@option]
       (** compression_enabled *)
   content_types_to_compress : string prop list option; [@option]
@@ -15,16 +15,16 @@ type azurerm_cdn_frontdoor_route__cache = {
       (** query_strings *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_route__cache *)
+(** cache *)
 
-type azurerm_cdn_frontdoor_route__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_route__timeouts *)
+(** timeouts *)
 
 type azurerm_cdn_frontdoor_route = {
   cdn_frontdoor_custom_domain_ids : string prop list option;
@@ -51,11 +51,49 @@ type azurerm_cdn_frontdoor_route = {
   name : string prop;  (** name *)
   patterns_to_match : string prop list;  (** patterns_to_match *)
   supported_protocols : string prop list;  (** supported_protocols *)
-  cache : azurerm_cdn_frontdoor_route__cache list;
-  timeouts : azurerm_cdn_frontdoor_route__timeouts option;
+  cache : cache list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_route *)
+
+let cache ?compression_enabled ?content_types_to_compress
+    ?query_string_caching_behavior ?query_strings () : cache =
+  {
+    compression_enabled;
+    content_types_to_compress;
+    query_string_caching_behavior;
+    query_strings;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
+    ?cdn_frontdoor_origin_path ?cdn_frontdoor_rule_set_ids ?enabled
+    ?forwarding_protocol ?https_redirect_enabled ?id
+    ?link_to_default_domain ?timeouts ~cdn_frontdoor_endpoint_id
+    ~cdn_frontdoor_origin_group_id ~cdn_frontdoor_origin_ids ~name
+    ~patterns_to_match ~supported_protocols ~cache () :
+    azurerm_cdn_frontdoor_route =
+  {
+    cdn_frontdoor_custom_domain_ids;
+    cdn_frontdoor_endpoint_id;
+    cdn_frontdoor_origin_group_id;
+    cdn_frontdoor_origin_ids;
+    cdn_frontdoor_origin_path;
+    cdn_frontdoor_rule_set_ids;
+    enabled;
+    forwarding_protocol;
+    https_redirect_enabled;
+    id;
+    link_to_default_domain;
+    name;
+    patterns_to_match;
+    supported_protocols;
+    cache;
+    timeouts;
+  }
 
 type t = {
   cdn_frontdoor_custom_domain_ids : string list prop;
@@ -74,7 +112,7 @@ type t = {
   supported_protocols : string list prop;
 }
 
-let azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
+let register ?tf_module ?cdn_frontdoor_custom_domain_ids
     ?cdn_frontdoor_origin_path ?cdn_frontdoor_rule_set_ids ?enabled
     ?forwarding_protocol ?https_redirect_enabled ?id
     ?link_to_default_domain ?timeouts ~cdn_frontdoor_endpoint_id
@@ -82,27 +120,14 @@ let azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
     ~patterns_to_match ~supported_protocols ~cache __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_route" in
   let __resource =
-    ({
-       cdn_frontdoor_custom_domain_ids;
-       cdn_frontdoor_endpoint_id;
-       cdn_frontdoor_origin_group_id;
-       cdn_frontdoor_origin_ids;
-       cdn_frontdoor_origin_path;
-       cdn_frontdoor_rule_set_ids;
-       enabled;
-       forwarding_protocol;
-       https_redirect_enabled;
-       id;
-       link_to_default_domain;
-       name;
-       patterns_to_match;
-       supported_protocols;
-       cache;
-       timeouts;
-     }
-      : azurerm_cdn_frontdoor_route)
+    azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
+      ?cdn_frontdoor_origin_path ?cdn_frontdoor_rule_set_ids ?enabled
+      ?forwarding_protocol ?https_redirect_enabled ?id
+      ?link_to_default_domain ?timeouts ~cdn_frontdoor_endpoint_id
+      ~cdn_frontdoor_origin_group_id ~cdn_frontdoor_origin_ids ~name
+      ~patterns_to_match ~supported_protocols ~cache ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_route __resource);
   let __resource_attributes =
     ({

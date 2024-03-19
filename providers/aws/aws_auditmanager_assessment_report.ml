@@ -12,6 +12,10 @@ type aws_auditmanager_assessment_report = {
 [@@deriving yojson_of]
 (** aws_auditmanager_assessment_report *)
 
+let aws_auditmanager_assessment_report ?description ~assessment_id
+    ~name () : aws_auditmanager_assessment_report =
+  { assessment_id; description; name }
+
 type t = {
   assessment_id : string prop;
   author : string prop;
@@ -21,14 +25,14 @@ type t = {
   status : string prop;
 }
 
-let aws_auditmanager_assessment_report ?description ~assessment_id
-    ~name __resource_id =
+let register ?tf_module ?description ~assessment_id ~name
+    __resource_id =
   let __resource_type = "aws_auditmanager_assessment_report" in
   let __resource =
-    ({ assessment_id; description; name }
-      : aws_auditmanager_assessment_report)
+    aws_auditmanager_assessment_report ?description ~assessment_id
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_auditmanager_assessment_report __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_region_per_instance_config__preserved_state__disk = {
+type preserved_state__disk = {
   delete_rule : string prop option; [@option]
       (** A value that prescribes what should happen to the stateful disk when the VM instance is deleted.
 The available options are 'NEVER' and 'ON_PERMANENT_INSTANCE_DELETION'.
@@ -22,65 +22,55 @@ deleted from the instance group. Default value: NEVER Possible values: [NEVER, O
 [@@deriving yojson_of]
 (** Stateful disks for the instance. *)
 
-type google_compute_region_per_instance_config__preserved_state__external_ip__ip_address = {
+type preserved_state__external_ip__ip_address = {
   address : string prop option; [@option]
       (** The URL of the reservation for this IP address. *)
 }
 [@@deriving yojson_of]
 (** Ip address representation *)
 
-type google_compute_region_per_instance_config__preserved_state__external_ip = {
+type preserved_state__external_ip = {
   auto_delete : string prop option; [@option]
       (** These stateful IPs will never be released during autohealing, update or VM instance recreate operations. This flag is used to configure if the IP reservation should be deleted after it is no longer used by the group, e.g. when the given instance or the whole group is deleted. Default value: NEVER Possible values: [NEVER, ON_PERMANENT_INSTANCE_DELETION] *)
   interface_name : string prop;  (** interface_name *)
-  ip_address :
-    google_compute_region_per_instance_config__preserved_state__external_ip__ip_address
-    list;
+  ip_address : preserved_state__external_ip__ip_address list;
 }
 [@@deriving yojson_of]
 (** Preserved external IPs defined for this instance. This map is keyed with the name of the network interface. *)
 
-type google_compute_region_per_instance_config__preserved_state__internal_ip__ip_address = {
+type preserved_state__internal_ip__ip_address = {
   address : string prop option; [@option]
       (** The URL of the reservation for this IP address. *)
 }
 [@@deriving yojson_of]
 (** Ip address representation *)
 
-type google_compute_region_per_instance_config__preserved_state__internal_ip = {
+type preserved_state__internal_ip = {
   auto_delete : string prop option; [@option]
       (** These stateful IPs will never be released during autohealing, update or VM instance recreate operations. This flag is used to configure if the IP reservation should be deleted after it is no longer used by the group, e.g. when the given instance or the whole group is deleted. Default value: NEVER Possible values: [NEVER, ON_PERMANENT_INSTANCE_DELETION] *)
   interface_name : string prop;  (** interface_name *)
-  ip_address :
-    google_compute_region_per_instance_config__preserved_state__internal_ip__ip_address
-    list;
+  ip_address : preserved_state__internal_ip__ip_address list;
 }
 [@@deriving yojson_of]
 (** Preserved internal IPs defined for this instance. This map is keyed with the name of the network interface. *)
 
-type google_compute_region_per_instance_config__preserved_state = {
+type preserved_state = {
   metadata : (string * string prop) list option; [@option]
       (** Preserved metadata defined for this instance. This is a list of key->value pairs. *)
-  disk :
-    google_compute_region_per_instance_config__preserved_state__disk
-    list;
-  external_ip :
-    google_compute_region_per_instance_config__preserved_state__external_ip
-    list;
-  internal_ip :
-    google_compute_region_per_instance_config__preserved_state__internal_ip
-    list;
+  disk : preserved_state__disk list;
+  external_ip : preserved_state__external_ip list;
+  internal_ip : preserved_state__internal_ip list;
 }
 [@@deriving yojson_of]
 (** The preserved state for this instance. *)
 
-type google_compute_region_per_instance_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_per_instance_config__timeouts *)
+(** timeouts *)
 
 type google_compute_region_per_instance_config = {
   id : string prop option; [@option]  (** id *)
@@ -112,13 +102,57 @@ When false, deleting this config will use the behavior as determined by remove_i
       (** When true, deleting this config will immediately remove any specified state from the underlying instance.
 When false, deleting this config will *not* immediately remove any state from the underlying instance.
 State will be removed on the next instance recreation or update. *)
-  preserved_state :
-    google_compute_region_per_instance_config__preserved_state list;
-  timeouts :
-    google_compute_region_per_instance_config__timeouts option;
+  preserved_state : preserved_state list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_per_instance_config *)
+
+let preserved_state__disk ?delete_rule ?mode ~device_name ~source ()
+    : preserved_state__disk =
+  { delete_rule; device_name; mode; source }
+
+let preserved_state__external_ip__ip_address ?address () :
+    preserved_state__external_ip__ip_address =
+  { address }
+
+let preserved_state__external_ip ?auto_delete ~interface_name
+    ~ip_address () : preserved_state__external_ip =
+  { auto_delete; interface_name; ip_address }
+
+let preserved_state__internal_ip__ip_address ?address () :
+    preserved_state__internal_ip__ip_address =
+  { address }
+
+let preserved_state__internal_ip ?auto_delete ~interface_name
+    ~ip_address () : preserved_state__internal_ip =
+  { auto_delete; interface_name; ip_address }
+
+let preserved_state ?metadata ~disk ~external_ip ~internal_ip () :
+    preserved_state =
+  { metadata; disk; external_ip; internal_ip }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_region_per_instance_config ?id ?minimal_action
+    ?most_disruptive_allowed_action ?project ?region
+    ?remove_instance_on_destroy ?remove_instance_state_on_destroy
+    ?timeouts ~name ~region_instance_group_manager ~preserved_state
+    () : google_compute_region_per_instance_config =
+  {
+    id;
+    minimal_action;
+    most_disruptive_allowed_action;
+    name;
+    project;
+    region;
+    region_instance_group_manager;
+    remove_instance_on_destroy;
+    remove_instance_state_on_destroy;
+    preserved_state;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -132,7 +166,7 @@ type t = {
   remove_instance_state_on_destroy : bool prop;
 }
 
-let google_compute_region_per_instance_config ?id ?minimal_action
+let register ?tf_module ?id ?minimal_action
     ?most_disruptive_allowed_action ?project ?region
     ?remove_instance_on_destroy ?remove_instance_state_on_destroy
     ?timeouts ~name ~region_instance_group_manager ~preserved_state
@@ -141,22 +175,13 @@ let google_compute_region_per_instance_config ?id ?minimal_action
     "google_compute_region_per_instance_config"
   in
   let __resource =
-    ({
-       id;
-       minimal_action;
-       most_disruptive_allowed_action;
-       name;
-       project;
-       region;
-       region_instance_group_manager;
-       remove_instance_on_destroy;
-       remove_instance_state_on_destroy;
-       preserved_state;
-       timeouts;
-     }
-      : google_compute_region_per_instance_config)
+    google_compute_region_per_instance_config ?id ?minimal_action
+      ?most_disruptive_allowed_action ?project ?region
+      ?remove_instance_on_destroy ?remove_instance_state_on_destroy
+      ?timeouts ~name ~region_instance_group_manager ~preserved_state
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_per_instance_config __resource);
   let __resource_attributes =
     ({

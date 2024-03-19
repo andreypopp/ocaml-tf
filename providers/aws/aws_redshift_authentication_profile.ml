@@ -14,25 +14,25 @@ type aws_redshift_authentication_profile = {
 [@@deriving yojson_of]
 (** aws_redshift_authentication_profile *)
 
+let aws_redshift_authentication_profile ?id
+    ~authentication_profile_content ~authentication_profile_name () :
+    aws_redshift_authentication_profile =
+  { authentication_profile_content; authentication_profile_name; id }
+
 type t = {
   authentication_profile_content : string prop;
   authentication_profile_name : string prop;
   id : string prop;
 }
 
-let aws_redshift_authentication_profile ?id
-    ~authentication_profile_content ~authentication_profile_name
-    __resource_id =
+let register ?tf_module ?id ~authentication_profile_content
+    ~authentication_profile_name __resource_id =
   let __resource_type = "aws_redshift_authentication_profile" in
   let __resource =
-    ({
-       authentication_profile_content;
-       authentication_profile_name;
-       id;
-     }
-      : aws_redshift_authentication_profile)
+    aws_redshift_authentication_profile ?id
+      ~authentication_profile_content ~authentication_profile_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_authentication_profile __resource);
   let __resource_attributes =
     ({

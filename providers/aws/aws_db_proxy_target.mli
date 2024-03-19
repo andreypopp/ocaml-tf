@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_db_proxy_target
+
+val aws_db_proxy_target :
+  ?db_cluster_identifier:string prop ->
+  ?db_instance_identifier:string prop ->
+  ?id:string prop ->
+  db_proxy_name:string prop ->
+  target_group_name:string prop ->
+  unit ->
+  aws_db_proxy_target
+
+val yojson_of_aws_db_proxy_target : aws_db_proxy_target -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   db_cluster_identifier : string prop;
@@ -18,7 +33,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_db_proxy_target :
+val register :
+  ?tf_module:tf_module ->
   ?db_cluster_identifier:string prop ->
   ?db_instance_identifier:string prop ->
   ?id:string prop ->

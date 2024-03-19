@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_federated_identity_credential__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_federated_identity_credential
+
+val azurerm_federated_identity_credential :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  audience:string prop list ->
+  issuer:string prop ->
+  name:string prop ->
+  parent_id:string prop ->
+  resource_group_name:string prop ->
+  subject:string prop ->
+  unit ->
+  azurerm_federated_identity_credential
+
+val yojson_of_azurerm_federated_identity_credential :
+  azurerm_federated_identity_credential -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   audience : string list prop;
@@ -15,9 +43,10 @@ type t = private {
   subject : string prop;
 }
 
-val azurerm_federated_identity_credential :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_federated_identity_credential__timeouts ->
+  ?timeouts:timeouts ->
   audience:string prop list ->
   issuer:string prop ->
   name:string prop ->

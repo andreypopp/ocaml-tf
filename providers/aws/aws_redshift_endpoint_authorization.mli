@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_redshift_endpoint_authorization
+
+val aws_redshift_endpoint_authorization :
+  ?force_delete:bool prop ->
+  ?id:string prop ->
+  ?vpc_ids:string prop list ->
+  account:string prop ->
+  cluster_identifier:string prop ->
+  unit ->
+  aws_redshift_endpoint_authorization
+
+val yojson_of_aws_redshift_endpoint_authorization :
+  aws_redshift_endpoint_authorization -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account : string prop;
@@ -16,7 +32,8 @@ type t = private {
   vpc_ids : string list prop;
 }
 
-val aws_redshift_endpoint_authorization :
+val register :
+  ?tf_module:tf_module ->
   ?force_delete:bool prop ->
   ?id:string prop ->
   ?vpc_ids:string prop list ->

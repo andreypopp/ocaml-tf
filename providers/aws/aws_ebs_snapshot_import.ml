@@ -4,38 +4,37 @@
 
 open! Tf.Prelude
 
-type aws_ebs_snapshot_import__client_data = {
+type client_data = {
   comment : string prop option; [@option]  (** comment *)
   upload_end : string prop option; [@option]  (** upload_end *)
   upload_size : float prop option; [@option]  (** upload_size *)
   upload_start : string prop option; [@option]  (** upload_start *)
 }
 [@@deriving yojson_of]
-(** aws_ebs_snapshot_import__client_data *)
+(** client_data *)
 
-type aws_ebs_snapshot_import__disk_container__user_bucket = {
+type disk_container__user_bucket = {
   s3_bucket : string prop;  (** s3_bucket *)
   s3_key : string prop;  (** s3_key *)
 }
 [@@deriving yojson_of]
-(** aws_ebs_snapshot_import__disk_container__user_bucket *)
+(** disk_container__user_bucket *)
 
-type aws_ebs_snapshot_import__disk_container = {
+type disk_container = {
   description : string prop option; [@option]  (** description *)
   format : string prop;  (** format *)
   url : string prop option; [@option]  (** url *)
-  user_bucket :
-    aws_ebs_snapshot_import__disk_container__user_bucket list;
+  user_bucket : disk_container__user_bucket list;
 }
 [@@deriving yojson_of]
-(** aws_ebs_snapshot_import__disk_container *)
+(** disk_container *)
 
-type aws_ebs_snapshot_import__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ebs_snapshot_import__timeouts *)
+(** timeouts *)
 
 type aws_ebs_snapshot_import = {
   description : string prop option; [@option]  (** description *)
@@ -51,12 +50,46 @@ type aws_ebs_snapshot_import = {
       (** tags_all *)
   temporary_restore_days : float prop option; [@option]
       (** temporary_restore_days *)
-  client_data : aws_ebs_snapshot_import__client_data list;
-  disk_container : aws_ebs_snapshot_import__disk_container list;
-  timeouts : aws_ebs_snapshot_import__timeouts option;
+  client_data : client_data list;
+  disk_container : disk_container list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ebs_snapshot_import *)
+
+let client_data ?comment ?upload_end ?upload_size ?upload_start () :
+    client_data =
+  { comment; upload_end; upload_size; upload_start }
+
+let disk_container__user_bucket ~s3_bucket ~s3_key () :
+    disk_container__user_bucket =
+  { s3_bucket; s3_key }
+
+let disk_container ?description ?url ~format ~user_bucket () :
+    disk_container =
+  { description; format; url; user_bucket }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ebs_snapshot_import ?description ?encrypted ?id ?kms_key_id
+    ?permanent_restore ?role_name ?storage_tier ?tags ?tags_all
+    ?temporary_restore_days ?timeouts ~client_data ~disk_container ()
+    : aws_ebs_snapshot_import =
+  {
+    description;
+    encrypted;
+    id;
+    kms_key_id;
+    permanent_restore;
+    role_name;
+    storage_tier;
+    tags;
+    tags_all;
+    temporary_restore_days;
+    client_data;
+    disk_container;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -78,30 +111,18 @@ type t = {
   volume_size : float prop;
 }
 
-let aws_ebs_snapshot_import ?description ?encrypted ?id ?kms_key_id
+let register ?tf_module ?description ?encrypted ?id ?kms_key_id
     ?permanent_restore ?role_name ?storage_tier ?tags ?tags_all
     ?temporary_restore_days ?timeouts ~client_data ~disk_container
     __resource_id =
   let __resource_type = "aws_ebs_snapshot_import" in
   let __resource =
-    ({
-       description;
-       encrypted;
-       id;
-       kms_key_id;
-       permanent_restore;
-       role_name;
-       storage_tier;
-       tags;
-       tags_all;
-       temporary_restore_days;
-       client_data;
-       disk_container;
-       timeouts;
-     }
-      : aws_ebs_snapshot_import)
+    aws_ebs_snapshot_import ?description ?encrypted ?id ?kms_key_id
+      ?permanent_restore ?role_name ?storage_tier ?tags ?tags_all
+      ?temporary_restore_days ?timeouts ~client_data ~disk_container
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ebs_snapshot_import __resource);
   let __resource_attributes =
     ({

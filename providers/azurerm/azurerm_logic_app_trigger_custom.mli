@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_trigger_custom__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_logic_app_trigger_custom
+
+val azurerm_logic_app_trigger_custom :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  body:string prop ->
+  logic_app_id:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_logic_app_trigger_custom
+
+val yojson_of_azurerm_logic_app_trigger_custom :
+  azurerm_logic_app_trigger_custom -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   body : string prop;
@@ -12,9 +37,10 @@ type t = private {
   name : string prop;
 }
 
-val azurerm_logic_app_trigger_custom :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_logic_app_trigger_custom__timeouts ->
+  ?timeouts:timeouts ->
   body:string prop ->
   logic_app_id:string prop ->
   name:string prop ->

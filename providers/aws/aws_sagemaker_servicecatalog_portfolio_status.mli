@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_sagemaker_servicecatalog_portfolio_status
-type t = private { id : string prop; status : string prop }
 
 val aws_sagemaker_servicecatalog_portfolio_status :
-  ?id:string prop -> status:string prop -> string -> t
+  ?id:string prop ->
+  status:string prop ->
+  unit ->
+  aws_sagemaker_servicecatalog_portfolio_status
+
+val yojson_of_aws_sagemaker_servicecatalog_portfolio_status :
+  aws_sagemaker_servicecatalog_portfolio_status -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; status : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  status:string prop ->
+  string ->
+  t

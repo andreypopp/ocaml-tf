@@ -26,6 +26,26 @@ type aws_ssm_parameter = {
 [@@deriving yojson_of]
 (** aws_ssm_parameter *)
 
+let aws_ssm_parameter ?allowed_pattern ?arn ?data_type ?description
+    ?id ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier
+    ?value ~name ~type_ () : aws_ssm_parameter =
+  {
+    allowed_pattern;
+    arn;
+    data_type;
+    description;
+    id;
+    insecure_value;
+    key_id;
+    name;
+    overwrite;
+    tags;
+    tags_all;
+    tier;
+    type_;
+    value;
+  }
+
 type t = {
   allowed_pattern : string prop;
   arn : string prop;
@@ -44,30 +64,16 @@ type t = {
   version : float prop;
 }
 
-let aws_ssm_parameter ?allowed_pattern ?arn ?data_type ?description
+let register ?tf_module ?allowed_pattern ?arn ?data_type ?description
     ?id ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier
     ?value ~name ~type_ __resource_id =
   let __resource_type = "aws_ssm_parameter" in
   let __resource =
-    ({
-       allowed_pattern;
-       arn;
-       data_type;
-       description;
-       id;
-       insecure_value;
-       key_id;
-       name;
-       overwrite;
-       tags;
-       tags_all;
-       tier;
-       type_;
-       value;
-     }
-      : aws_ssm_parameter)
+    aws_ssm_parameter ?allowed_pattern ?arn ?data_type ?description
+      ?id ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier
+      ?value ~name ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_parameter __resource);
   let __resource_attributes =
     ({

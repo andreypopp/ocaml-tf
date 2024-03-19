@@ -20,6 +20,22 @@ type digitalocean_record = {
 [@@deriving yojson_of]
 (** digitalocean_record *)
 
+let digitalocean_record ?flags ?id ?port ?priority ?tag ?ttl ?weight
+    ~domain ~name ~type_ ~value () : digitalocean_record =
+  {
+    domain;
+    flags;
+    id;
+    name;
+    port;
+    priority;
+    tag;
+    ttl;
+    type_;
+    value;
+    weight;
+  }
+
 type t = {
   domain : string prop;
   flags : float prop;
@@ -35,26 +51,14 @@ type t = {
   weight : float prop;
 }
 
-let digitalocean_record ?flags ?id ?port ?priority ?tag ?ttl ?weight
+let register ?tf_module ?flags ?id ?port ?priority ?tag ?ttl ?weight
     ~domain ~name ~type_ ~value __resource_id =
   let __resource_type = "digitalocean_record" in
   let __resource =
-    ({
-       domain;
-       flags;
-       id;
-       name;
-       port;
-       priority;
-       tag;
-       ttl;
-       type_;
-       value;
-       weight;
-     }
-      : digitalocean_record)
+    digitalocean_record ?flags ?id ?port ?priority ?tag ?ttl ?weight
+      ~domain ~name ~type_ ~value ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_record __resource);
   let __resource_attributes =
     ({

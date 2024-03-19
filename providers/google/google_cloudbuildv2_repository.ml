@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_cloudbuildv2_repository__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_cloudbuildv2_repository__timeouts *)
+(** timeouts *)
 
 type google_cloudbuildv2_repository = {
   annotations : (string * string prop) list option; [@option]
@@ -25,10 +25,26 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
       (** The connection for the resource *)
   project : string prop option; [@option]  (** project *)
   remote_uri : string prop;  (** Required. Git Clone HTTPS URI. *)
-  timeouts : google_cloudbuildv2_repository__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloudbuildv2_repository *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_cloudbuildv2_repository ?annotations ?id ?location
+    ?project ?timeouts ~name ~parent_connection ~remote_uri () :
+    google_cloudbuildv2_repository =
+  {
+    annotations;
+    id;
+    location;
+    name;
+    parent_connection;
+    project;
+    remote_uri;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -44,24 +60,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_cloudbuildv2_repository ?annotations ?id ?location
-    ?project ?timeouts ~name ~parent_connection ~remote_uri
-    __resource_id =
+let register ?tf_module ?annotations ?id ?location ?project ?timeouts
+    ~name ~parent_connection ~remote_uri __resource_id =
   let __resource_type = "google_cloudbuildv2_repository" in
   let __resource =
-    ({
-       annotations;
-       id;
-       location;
-       name;
-       parent_connection;
-       project;
-       remote_uri;
-       timeouts;
-     }
-      : google_cloudbuildv2_repository)
+    google_cloudbuildv2_repository ?annotations ?id ?location
+      ?project ?timeouts ~name ~parent_connection ~remote_uri ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudbuildv2_repository __resource);
   let __resource_attributes =
     ({

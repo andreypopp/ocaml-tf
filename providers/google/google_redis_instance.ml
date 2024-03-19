@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_redis_instance__maintenance_policy__weekly_maintenance_window__start_time = {
+type maintenance_policy__weekly_maintenance_window__start_time = {
   hours : float prop option; [@option]
       (** Hours of day in 24 hour format. Should be from 0 to 23.
 An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
@@ -19,7 +19,7 @@ An API may allow the value 60 if it allows leap-seconds. *)
 [@@deriving yojson_of]
 (** Required. Start time of the window in UTC time. *)
 
-type google_redis_instance__maintenance_policy__weekly_maintenance_window = {
+type maintenance_policy__weekly_maintenance_window = {
   day : string prop;
       (** Required. The day of week that maintenance updates occur.
 
@@ -31,51 +31,31 @@ type google_redis_instance__maintenance_policy__weekly_maintenance_window = {
 - FRIDAY: Friday
 - SATURDAY: Saturday
 - SUNDAY: Sunday Possible values: [DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  duration : string prop;
-      (** Output only. Duration of the maintenance window.
-The current window is fixed at 1 hour.
-A duration in seconds with up to nine fractional digits,
-terminated by 's'. Example: 3.5s. *)
   start_time :
-    google_redis_instance__maintenance_policy__weekly_maintenance_window__start_time
-    list;
+    maintenance_policy__weekly_maintenance_window__start_time list;
 }
 [@@deriving yojson_of]
 (** Optional. Maintenance window that is applied to resources covered by this policy.
 Minimum 1. For the current version, the maximum number
 of weekly_window is expected to be one. *)
 
-type google_redis_instance__maintenance_policy = {
-  create_time : string prop;
-      (** Output only. The time when the policy was created.
-A timestamp in RFC3339 UTC Zulu format, with nanosecond
-resolution and up to nine fractional digits. *)
+type maintenance_policy = {
   description : string prop option; [@option]
       (** Optional. Description of what this policy is for.
 Create/Update methods return INVALID_ARGUMENT if the
 length is greater than 512. *)
-  update_time : string prop;
-      (** Output only. The time when the policy was last updated.
-A timestamp in RFC3339 UTC Zulu format, with nanosecond
-resolution and up to nine fractional digits. *)
   weekly_maintenance_window :
-    google_redis_instance__maintenance_policy__weekly_maintenance_window
-    list;
+    maintenance_policy__weekly_maintenance_window list;
 }
 [@@deriving yojson_of]
 (** Maintenance policy for an instance. *)
 
-type google_redis_instance__persistence_config = {
+type persistence_config = {
   persistence_mode : string prop option; [@option]
       (** Optional. Controls whether Persistence features are enabled. If not provided, the existing value will be used.
 
 - DISABLED: 	Persistence is disabled for the instance, and any existing snapshots are deleted.
 - RDB: RDB based Persistence is enabled. Possible values: [DISABLED, RDB] *)
-  rdb_next_snapshot_time : string prop;
-      (** Output only. The next time that a snapshot attempt is scheduled to occur.
-A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up
-to nine fractional digits.
-Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   rdb_snapshot_period : string prop option; [@option]
       (** Optional. Available snapshot periods for scheduling.
 
@@ -94,15 +74,15 @@ Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
 [@@deriving yojson_of]
 (** Persistence configuration for an instance. *)
 
-type google_redis_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_redis_instance__timeouts *)
+(** timeouts *)
 
-type google_redis_instance__maintenance_schedule = {
+type maintenance_schedule = {
   end_time : string prop;  (** end_time *)
   schedule_deadline_time : string prop;
       (** schedule_deadline_time *)
@@ -110,13 +90,13 @@ type google_redis_instance__maintenance_schedule = {
 }
 [@@deriving yojson_of]
 
-type google_redis_instance__nodes = {
+type nodes = {
   id : string prop;  (** id *)
   zone : string prop;  (** zone *)
 }
 [@@deriving yojson_of]
 
-type google_redis_instance__server_ca_certs = {
+type server_ca_certs = {
   cert : string prop;  (** cert *)
   create_time : string prop;  (** create_time *)
   expire_time : string prop;  (** expire_time *)
@@ -204,14 +184,67 @@ range associated with the private service access connection, or auto. *)
       (** The TLS mode of the Redis instance, If not provided, TLS is disabled for the instance.
 
 - SERVER_AUTHENTICATION: Client to Server traffic encryption enabled with server authentication Default value: DISABLED Possible values: [SERVER_AUTHENTICATION, DISABLED] *)
-  maintenance_policy :
-    google_redis_instance__maintenance_policy list;
-  persistence_config :
-    google_redis_instance__persistence_config list;
-  timeouts : google_redis_instance__timeouts option;
+  maintenance_policy : maintenance_policy list;
+  persistence_config : persistence_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_redis_instance *)
+
+let maintenance_policy__weekly_maintenance_window__start_time ?hours
+    ?minutes ?nanos ?seconds () :
+    maintenance_policy__weekly_maintenance_window__start_time =
+  { hours; minutes; nanos; seconds }
+
+let maintenance_policy__weekly_maintenance_window ~day ~start_time ()
+    : maintenance_policy__weekly_maintenance_window =
+  { day; start_time }
+
+let maintenance_policy ?description ~weekly_maintenance_window () :
+    maintenance_policy =
+  { description; weekly_maintenance_window }
+
+let persistence_config ?persistence_mode ?rdb_snapshot_period
+    ?rdb_snapshot_start_time () : persistence_config =
+  { persistence_mode; rdb_snapshot_period; rdb_snapshot_start_time }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_redis_instance ?alternative_location_id ?auth_enabled
+    ?authorized_network ?connect_mode ?customer_managed_key
+    ?display_name ?id ?labels ?location_id ?project
+    ?read_replicas_mode ?redis_configs ?redis_version ?region
+    ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
+    ?transit_encryption_mode ?timeouts ~memory_size_gb ~name
+    ~maintenance_policy ~persistence_config () :
+    google_redis_instance =
+  {
+    alternative_location_id;
+    auth_enabled;
+    authorized_network;
+    connect_mode;
+    customer_managed_key;
+    display_name;
+    id;
+    labels;
+    location_id;
+    memory_size_gb;
+    name;
+    project;
+    read_replicas_mode;
+    redis_configs;
+    redis_version;
+    region;
+    replica_count;
+    reserved_ip_range;
+    secondary_ip_range;
+    tier;
+    transit_encryption_mode;
+    maintenance_policy;
+    persistence_config;
+    timeouts;
+  }
 
 type t = {
   alternative_location_id : string prop;
@@ -228,11 +261,10 @@ type t = {
   id : string prop;
   labels : (string * string) list prop;
   location_id : string prop;
-  maintenance_schedule :
-    google_redis_instance__maintenance_schedule list prop;
+  maintenance_schedule : maintenance_schedule list prop;
   memory_size_gb : float prop;
   name : string prop;
-  nodes : google_redis_instance__nodes list prop;
+  nodes : nodes list prop;
   persistence_iam_identity : string prop;
   port : float prop;
   project : string prop;
@@ -245,13 +277,13 @@ type t = {
   replica_count : float prop;
   reserved_ip_range : string prop;
   secondary_ip_range : string prop;
-  server_ca_certs : google_redis_instance__server_ca_certs list prop;
+  server_ca_certs : server_ca_certs list prop;
   terraform_labels : (string * string) list prop;
   tier : string prop;
   transit_encryption_mode : string prop;
 }
 
-let google_redis_instance ?alternative_location_id ?auth_enabled
+let register ?tf_module ?alternative_location_id ?auth_enabled
     ?authorized_network ?connect_mode ?customer_managed_key
     ?display_name ?id ?labels ?location_id ?project
     ?read_replicas_mode ?redis_configs ?redis_version ?region
@@ -260,35 +292,15 @@ let google_redis_instance ?alternative_location_id ?auth_enabled
     ~maintenance_policy ~persistence_config __resource_id =
   let __resource_type = "google_redis_instance" in
   let __resource =
-    ({
-       alternative_location_id;
-       auth_enabled;
-       authorized_network;
-       connect_mode;
-       customer_managed_key;
-       display_name;
-       id;
-       labels;
-       location_id;
-       memory_size_gb;
-       name;
-       project;
-       read_replicas_mode;
-       redis_configs;
-       redis_version;
-       region;
-       replica_count;
-       reserved_ip_range;
-       secondary_ip_range;
-       tier;
-       transit_encryption_mode;
-       maintenance_policy;
-       persistence_config;
-       timeouts;
-     }
-      : google_redis_instance)
+    google_redis_instance ?alternative_location_id ?auth_enabled
+      ?authorized_network ?connect_mode ?customer_managed_key
+      ?display_name ?id ?labels ?location_id ?project
+      ?read_replicas_mode ?redis_configs ?redis_version ?region
+      ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
+      ?transit_encryption_mode ?timeouts ~memory_size_gb ~name
+      ~maintenance_policy ~persistence_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_redis_instance __resource);
   let __resource_attributes =
     ({

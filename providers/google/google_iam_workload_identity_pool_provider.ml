@@ -4,13 +4,11 @@
 
 open! Tf.Prelude
 
-type google_iam_workload_identity_pool_provider__aws = {
-  account_id : string prop;  (** The AWS account ID. *)
-}
+type aws = { account_id : string prop  (** The AWS account ID. *) }
 [@@deriving yojson_of]
 (** An Amazon Web Services identity provider. Not compatible with the property oidc or saml. *)
 
-type google_iam_workload_identity_pool_provider__oidc = {
+type oidc = {
   allowed_audiences : string prop list option; [@option]
       (** Acceptable values for the 'aud' field (audience) in the OIDC token. Token exchange
 requests are rejected if the token audience does not match one of the configured
@@ -53,20 +51,20 @@ the following fields:
 [@@deriving yojson_of]
 (** An OpenId Connect 1.0 identity provider. Not compatible with the property aws or saml. *)
 
-type google_iam_workload_identity_pool_provider__saml = {
+type saml = {
   idp_metadata_xml : string prop;
       (** SAML Identity provider configuration metadata xml doc. *)
 }
 [@@deriving yojson_of]
 (** An SAML 2.0 identity provider. Not compatible with the property oidc or aws. *)
 
-type google_iam_workload_identity_pool_provider__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_iam_workload_identity_pool_provider__timeouts *)
+(** timeouts *)
 
 type google_iam_workload_identity_pool_provider = {
   attribute_condition : string prop option; [@option]
@@ -167,14 +165,44 @@ value should be 4-32 characters, and may contain the characters [a-z0-9-]. The p
       (** The ID for the provider, which becomes the final component of the resource name. This
 value must be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
 'gcp-' is reserved for use by Google, and may not be specified. *)
-  aws : google_iam_workload_identity_pool_provider__aws list;
-  oidc : google_iam_workload_identity_pool_provider__oidc list;
-  saml : google_iam_workload_identity_pool_provider__saml list;
-  timeouts :
-    google_iam_workload_identity_pool_provider__timeouts option;
+  aws : aws list;
+  oidc : oidc list;
+  saml : saml list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_iam_workload_identity_pool_provider *)
+
+let aws ~account_id () : aws = { account_id }
+
+let oidc ?allowed_audiences ?jwks_json ~issuer_uri () : oidc =
+  { allowed_audiences; issuer_uri; jwks_json }
+
+let saml ~idp_metadata_xml () : saml = { idp_metadata_xml }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_iam_workload_identity_pool_provider ?attribute_condition
+    ?attribute_mapping ?description ?disabled ?display_name ?id
+    ?project ?timeouts ~workload_identity_pool_id
+    ~workload_identity_pool_provider_id ~aws ~oidc ~saml () :
+    google_iam_workload_identity_pool_provider =
+  {
+    attribute_condition;
+    attribute_mapping;
+    description;
+    disabled;
+    display_name;
+    id;
+    project;
+    workload_identity_pool_id;
+    workload_identity_pool_provider_id;
+    aws;
+    oidc;
+    saml;
+    timeouts;
+  }
 
 type t = {
   attribute_condition : string prop;
@@ -190,33 +218,20 @@ type t = {
   workload_identity_pool_provider_id : string prop;
 }
 
-let google_iam_workload_identity_pool_provider ?attribute_condition
-    ?attribute_mapping ?description ?disabled ?display_name ?id
-    ?project ?timeouts ~workload_identity_pool_id
-    ~workload_identity_pool_provider_id ~aws ~oidc ~saml
-    __resource_id =
+let register ?tf_module ?attribute_condition ?attribute_mapping
+    ?description ?disabled ?display_name ?id ?project ?timeouts
+    ~workload_identity_pool_id ~workload_identity_pool_provider_id
+    ~aws ~oidc ~saml __resource_id =
   let __resource_type =
     "google_iam_workload_identity_pool_provider"
   in
   let __resource =
-    ({
-       attribute_condition;
-       attribute_mapping;
-       description;
-       disabled;
-       display_name;
-       id;
-       project;
-       workload_identity_pool_id;
-       workload_identity_pool_provider_id;
-       aws;
-       oidc;
-       saml;
-       timeouts;
-     }
-      : google_iam_workload_identity_pool_provider)
+    google_iam_workload_identity_pool_provider ?attribute_condition
+      ?attribute_mapping ?description ?disabled ?display_name ?id
+      ?project ?timeouts ~workload_identity_pool_id
+      ~workload_identity_pool_provider_id ~aws ~oidc ~saml ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_workload_identity_pool_provider __resource);
   let __resource_attributes =
     ({

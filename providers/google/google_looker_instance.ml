@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_looker_instance__admin_settings = {
+type admin_settings = {
   allowed_email_domains : string prop list option; [@option]
       (** Email domain allowlist for the instance.
 
@@ -16,14 +16,13 @@ existing list of allowed email domains. *)
 [@@deriving yojson_of]
 (** Looker instance Admin settings. *)
 
-type google_looker_instance__custom_domain = {
+type custom_domain = {
   domain : string prop option; [@option]  (** Domain name *)
-  state : string prop;  (** Status of the custom domain. *)
 }
 [@@deriving yojson_of]
 (** Custom domain settings for a Looker instance. *)
 
-type google_looker_instance__deny_maintenance_period__end_date = {
+type deny_maintenance_period__end_date = {
   day : float prop option; [@option]
       (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
 to specify a year by itself or a year and month where the day isn't significant. *)
@@ -37,7 +36,7 @@ a year. *)
 [@@deriving yojson_of]
 (** Required. Start date of the deny maintenance period *)
 
-type google_looker_instance__deny_maintenance_period__start_date = {
+type deny_maintenance_period__start_date = {
   day : float prop option; [@option]
       (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
 to specify a year by itself or a year and month where the day isn't significant. *)
@@ -51,7 +50,7 @@ a year. *)
 [@@deriving yojson_of]
 (** Required. Start date of the deny maintenance period *)
 
-type google_looker_instance__deny_maintenance_period__time = {
+type deny_maintenance_period__time = {
   hours : float prop option; [@option]
       (** Hours of day in 24 hour format. Should be from 0 to 23. *)
   minutes : float prop option; [@option]
@@ -64,12 +63,10 @@ type google_looker_instance__deny_maintenance_period__time = {
 [@@deriving yojson_of]
 (** Required. Start time of the window in UTC time. *)
 
-type google_looker_instance__deny_maintenance_period = {
-  end_date :
-    google_looker_instance__deny_maintenance_period__end_date list;
-  start_date :
-    google_looker_instance__deny_maintenance_period__start_date list;
-  time : google_looker_instance__deny_maintenance_period__time list;
+type deny_maintenance_period = {
+  end_date : deny_maintenance_period__end_date list;
+  start_date : deny_maintenance_period__start_date list;
+  time : deny_maintenance_period__time list;
 }
 [@@deriving yojson_of]
 (** Maintenance denial period for this instance.
@@ -77,18 +74,14 @@ type google_looker_instance__deny_maintenance_period = {
 You must allow at least 14 days of maintenance availability
 between any two deny maintenance periods. *)
 
-type google_looker_instance__encryption_config = {
+type encryption_config = {
   kms_key_name : string prop option; [@option]
       (** Name of the customer managed encryption key (CMEK) in KMS. *)
-  kms_key_name_version : string prop;
-      (** Full name and version of the CMEK key currently in use to encrypt Looker data. *)
-  kms_key_state : string prop;
-      (** Status of the customer managed encryption key (CMEK) in KMS. *)
 }
 [@@deriving yojson_of]
 (** Looker instance encryption settings. *)
 
-type google_looker_instance__maintenance_window__start_time = {
+type maintenance_window__start_time = {
   hours : float prop option; [@option]
       (** Hours of day in 24 hour format. Should be from 0 to 23. *)
   minutes : float prop option; [@option]
@@ -101,7 +94,7 @@ type google_looker_instance__maintenance_window__start_time = {
 [@@deriving yojson_of]
 (** Required. Start time of the window in UTC time. *)
 
-type google_looker_instance__maintenance_window = {
+type maintenance_window = {
   day_of_week : string prop;
       (** Required. Day of the week for this MaintenanceWindow (in UTC).
 
@@ -112,8 +105,7 @@ type google_looker_instance__maintenance_window = {
 - FRIDAY: Friday
 - SATURDAY: Saturday
 - SUNDAY: Sunday Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  start_time :
-    google_looker_instance__maintenance_window__start_time list;
+  start_time : maintenance_window__start_time list;
 }
 [@@deriving yojson_of]
 (** Maintenance window for an instance.
@@ -122,7 +114,7 @@ Maintenance of your instance takes place once a month, and will require
 your instance to be restarted during updates, which will temporarily
 disrupt service. *)
 
-type google_looker_instance__oauth_config = {
+type oauth_config = {
   client_id : string prop;
       (** The client ID for the Oauth config. *)
   client_secret : string prop;
@@ -131,15 +123,15 @@ type google_looker_instance__oauth_config = {
 [@@deriving yojson_of]
 (** Looker Instance OAuth login settings. *)
 
-type google_looker_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_looker_instance__timeouts *)
+(** timeouts *)
 
-type google_looker_instance__user_metadata = {
+type user_metadata = {
   additional_developer_user_count : float prop option; [@option]
       (** Number of additional Developer Users to allocate to the Looker Instance. *)
   additional_standard_user_count : float prop option; [@option]
@@ -184,19 +176,89 @@ project that is hosting the Looker Instance. *)
   reserved_range : string prop option; [@option]
       (** Name of a reserved IP address range within the consumer network, to be used for
 private service access connection. User may or may not specify this in a request. *)
-  admin_settings : google_looker_instance__admin_settings list;
-  custom_domain : google_looker_instance__custom_domain list;
-  deny_maintenance_period :
-    google_looker_instance__deny_maintenance_period list;
-  encryption_config : google_looker_instance__encryption_config list;
-  maintenance_window :
-    google_looker_instance__maintenance_window list;
-  oauth_config : google_looker_instance__oauth_config list;
-  timeouts : google_looker_instance__timeouts option;
-  user_metadata : google_looker_instance__user_metadata list;
+  admin_settings : admin_settings list;
+  custom_domain : custom_domain list;
+  deny_maintenance_period : deny_maintenance_period list;
+  encryption_config : encryption_config list;
+  maintenance_window : maintenance_window list;
+  oauth_config : oauth_config list;
+  timeouts : timeouts option;
+  user_metadata : user_metadata list;
 }
 [@@deriving yojson_of]
 (** google_looker_instance *)
+
+let admin_settings ?allowed_email_domains () : admin_settings =
+  { allowed_email_domains }
+
+let custom_domain ?domain () : custom_domain = { domain }
+
+let deny_maintenance_period__end_date ?day ?month ?year () :
+    deny_maintenance_period__end_date =
+  { day; month; year }
+
+let deny_maintenance_period__start_date ?day ?month ?year () :
+    deny_maintenance_period__start_date =
+  { day; month; year }
+
+let deny_maintenance_period__time ?hours ?minutes ?nanos ?seconds ()
+    : deny_maintenance_period__time =
+  { hours; minutes; nanos; seconds }
+
+let deny_maintenance_period ~end_date ~start_date ~time () :
+    deny_maintenance_period =
+  { end_date; start_date; time }
+
+let encryption_config ?kms_key_name () : encryption_config =
+  { kms_key_name }
+
+let maintenance_window__start_time ?hours ?minutes ?nanos ?seconds ()
+    : maintenance_window__start_time =
+  { hours; minutes; nanos; seconds }
+
+let maintenance_window ~day_of_week ~start_time () :
+    maintenance_window =
+  { day_of_week; start_time }
+
+let oauth_config ~client_id ~client_secret () : oauth_config =
+  { client_id; client_secret }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let user_metadata ?additional_developer_user_count
+    ?additional_standard_user_count ?additional_viewer_user_count ()
+    : user_metadata =
+  {
+    additional_developer_user_count;
+    additional_standard_user_count;
+    additional_viewer_user_count;
+  }
+
+let google_looker_instance ?consumer_network ?id ?platform_edition
+    ?private_ip_enabled ?project ?public_ip_enabled ?region
+    ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
+    ~deny_maintenance_period ~encryption_config ~maintenance_window
+    ~oauth_config ~user_metadata () : google_looker_instance =
+  {
+    consumer_network;
+    id;
+    name;
+    platform_edition;
+    private_ip_enabled;
+    project;
+    public_ip_enabled;
+    region;
+    reserved_range;
+    admin_settings;
+    custom_domain;
+    deny_maintenance_period;
+    encryption_config;
+    maintenance_window;
+    oauth_config;
+    timeouts;
+    user_metadata;
+  }
 
 type t = {
   consumer_network : string prop;
@@ -217,35 +279,20 @@ type t = {
   update_time : string prop;
 }
 
-let google_looker_instance ?consumer_network ?id ?platform_edition
+let register ?tf_module ?consumer_network ?id ?platform_edition
     ?private_ip_enabled ?project ?public_ip_enabled ?region
     ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
     ~deny_maintenance_period ~encryption_config ~maintenance_window
     ~oauth_config ~user_metadata __resource_id =
   let __resource_type = "google_looker_instance" in
   let __resource =
-    ({
-       consumer_network;
-       id;
-       name;
-       platform_edition;
-       private_ip_enabled;
-       project;
-       public_ip_enabled;
-       region;
-       reserved_range;
-       admin_settings;
-       custom_domain;
-       deny_maintenance_period;
-       encryption_config;
-       maintenance_window;
-       oauth_config;
-       timeouts;
-       user_metadata;
-     }
-      : google_looker_instance)
+    google_looker_instance ?consumer_network ?id ?platform_edition
+      ?private_ip_enabled ?project ?public_ip_enabled ?region
+      ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
+      ~deny_maintenance_period ~encryption_config ~maintenance_window
+      ~oauth_config ~user_metadata ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_looker_instance __resource);
   let __resource_attributes =
     ({

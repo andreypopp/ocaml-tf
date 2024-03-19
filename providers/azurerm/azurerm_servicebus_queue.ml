@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_servicebus_queue__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_servicebus_queue__timeouts *)
+(** timeouts *)
 
 type azurerm_servicebus_queue = {
   auto_delete_on_idle : string prop option; [@option]
@@ -46,10 +46,45 @@ type azurerm_servicebus_queue = {
   requires_session : bool prop option; [@option]
       (** requires_session *)
   status : string prop option; [@option]  (** status *)
-  timeouts : azurerm_servicebus_queue__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_queue *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_servicebus_queue ?auto_delete_on_idle
+    ?dead_lettering_on_message_expiration ?default_message_ttl
+    ?duplicate_detection_history_time_window
+    ?enable_batched_operations ?enable_express ?enable_partitioning
+    ?forward_dead_lettered_messages_to ?forward_to ?id ?lock_duration
+    ?max_delivery_count ?max_message_size_in_kilobytes
+    ?max_size_in_megabytes ?requires_duplicate_detection
+    ?requires_session ?status ?timeouts ~name ~namespace_id () :
+    azurerm_servicebus_queue =
+  {
+    auto_delete_on_idle;
+    dead_lettering_on_message_expiration;
+    default_message_ttl;
+    duplicate_detection_history_time_window;
+    enable_batched_operations;
+    enable_express;
+    enable_partitioning;
+    forward_dead_lettered_messages_to;
+    forward_to;
+    id;
+    lock_duration;
+    max_delivery_count;
+    max_message_size_in_kilobytes;
+    max_size_in_megabytes;
+    name;
+    namespace_id;
+    requires_duplicate_detection;
+    requires_session;
+    status;
+    timeouts;
+  }
 
 type t = {
   auto_delete_on_idle : string prop;
@@ -73,7 +108,7 @@ type t = {
   status : string prop;
 }
 
-let azurerm_servicebus_queue ?auto_delete_on_idle
+let register ?tf_module ?auto_delete_on_idle
     ?dead_lettering_on_message_expiration ?default_message_ttl
     ?duplicate_detection_history_time_window
     ?enable_batched_operations ?enable_express ?enable_partitioning
@@ -84,31 +119,17 @@ let azurerm_servicebus_queue ?auto_delete_on_idle
     __resource_id =
   let __resource_type = "azurerm_servicebus_queue" in
   let __resource =
-    ({
-       auto_delete_on_idle;
-       dead_lettering_on_message_expiration;
-       default_message_ttl;
-       duplicate_detection_history_time_window;
-       enable_batched_operations;
-       enable_express;
-       enable_partitioning;
-       forward_dead_lettered_messages_to;
-       forward_to;
-       id;
-       lock_duration;
-       max_delivery_count;
-       max_message_size_in_kilobytes;
-       max_size_in_megabytes;
-       name;
-       namespace_id;
-       requires_duplicate_detection;
-       requires_session;
-       status;
-       timeouts;
-     }
-      : azurerm_servicebus_queue)
+    azurerm_servicebus_queue ?auto_delete_on_idle
+      ?dead_lettering_on_message_expiration ?default_message_ttl
+      ?duplicate_detection_history_time_window
+      ?enable_batched_operations ?enable_express ?enable_partitioning
+      ?forward_dead_lettered_messages_to ?forward_to ?id
+      ?lock_duration ?max_delivery_count
+      ?max_message_size_in_kilobytes ?max_size_in_megabytes
+      ?requires_duplicate_detection ?requires_session ?status
+      ?timeouts ~name ~namespace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_servicebus_queue __resource);
   let __resource_attributes =
     ({

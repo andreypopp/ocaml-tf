@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_lambda_function_url__cors = {
+type cors = {
   allow_credentials : bool prop option; [@option]
       (** allow_credentials *)
   allow_headers : string prop list option; [@option]
@@ -18,13 +18,13 @@ type aws_lambda_function_url__cors = {
   max_age : float prop option; [@option]  (** max_age *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function_url__cors *)
+(** cors *)
 
-type aws_lambda_function_url__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function_url__timeouts *)
+(** timeouts *)
 
 type aws_lambda_function_url = {
   authorization_type : string prop;  (** authorization_type *)
@@ -32,11 +32,37 @@ type aws_lambda_function_url = {
   id : string prop option; [@option]  (** id *)
   invoke_mode : string prop option; [@option]  (** invoke_mode *)
   qualifier : string prop option; [@option]  (** qualifier *)
-  cors : aws_lambda_function_url__cors list;
-  timeouts : aws_lambda_function_url__timeouts option;
+  cors : cors list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lambda_function_url *)
+
+let cors ?allow_credentials ?allow_headers ?allow_methods
+    ?allow_origins ?expose_headers ?max_age () : cors =
+  {
+    allow_credentials;
+    allow_headers;
+    allow_methods;
+    allow_origins;
+    expose_headers;
+    max_age;
+  }
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_lambda_function_url ?id ?invoke_mode ?qualifier ?timeouts
+    ~authorization_type ~function_name ~cors () :
+    aws_lambda_function_url =
+  {
+    authorization_type;
+    function_name;
+    id;
+    invoke_mode;
+    qualifier;
+    cors;
+    timeouts;
+  }
 
 type t = {
   authorization_type : string prop;
@@ -49,22 +75,14 @@ type t = {
   url_id : string prop;
 }
 
-let aws_lambda_function_url ?id ?invoke_mode ?qualifier ?timeouts
+let register ?tf_module ?id ?invoke_mode ?qualifier ?timeouts
     ~authorization_type ~function_name ~cors __resource_id =
   let __resource_type = "aws_lambda_function_url" in
   let __resource =
-    ({
-       authorization_type;
-       function_name;
-       id;
-       invoke_mode;
-       qualifier;
-       cors;
-       timeouts;
-     }
-      : aws_lambda_function_url)
+    aws_lambda_function_url ?id ?invoke_mode ?qualifier ?timeouts
+      ~authorization_type ~function_name ~cors ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_function_url __resource);
   let __resource_attributes =
     ({

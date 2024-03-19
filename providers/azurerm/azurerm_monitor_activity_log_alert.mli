@@ -2,12 +2,92 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_activity_log_alert__action
-type azurerm_monitor_activity_log_alert__criteria__resource_health
-type azurerm_monitor_activity_log_alert__criteria__service_health
-type azurerm_monitor_activity_log_alert__criteria
-type azurerm_monitor_activity_log_alert__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type action
+
+val action :
+  ?webhook_properties:(string * string prop) list ->
+  action_group_id:string prop ->
+  unit ->
+  action
+
+type criteria__resource_health
+
+val criteria__resource_health :
+  ?current:string prop list ->
+  ?previous:string prop list ->
+  ?reason:string prop list ->
+  unit ->
+  criteria__resource_health
+
+type criteria__service_health
+
+val criteria__service_health :
+  ?events:string prop list ->
+  ?locations:string prop list ->
+  ?services:string prop list ->
+  unit ->
+  criteria__service_health
+
+type criteria
+
+val criteria :
+  ?caller:string prop ->
+  ?level:string prop ->
+  ?levels:string prop list ->
+  ?operation_name:string prop ->
+  ?recommendation_category:string prop ->
+  ?recommendation_impact:string prop ->
+  ?recommendation_type:string prop ->
+  ?resource_group:string prop ->
+  ?resource_groups:string prop list ->
+  ?resource_id:string prop ->
+  ?resource_ids:string prop list ->
+  ?resource_provider:string prop ->
+  ?resource_providers:string prop list ->
+  ?resource_type:string prop ->
+  ?resource_types:string prop list ->
+  ?status:string prop ->
+  ?statuses:string prop list ->
+  ?sub_status:string prop ->
+  ?sub_statuses:string prop list ->
+  category:string prop ->
+  resource_health:criteria__resource_health list ->
+  service_health:criteria__service_health list ->
+  unit ->
+  criteria
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_monitor_activity_log_alert
+
+val azurerm_monitor_activity_log_alert :
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scopes:string prop list ->
+  action:action list ->
+  criteria:criteria list ->
+  unit ->
+  azurerm_monitor_activity_log_alert
+
+val yojson_of_azurerm_monitor_activity_log_alert :
+  azurerm_monitor_activity_log_alert -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -19,16 +99,17 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_monitor_activity_log_alert :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_monitor_activity_log_alert__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
-  action:azurerm_monitor_activity_log_alert__action list ->
-  criteria:azurerm_monitor_activity_log_alert__criteria list ->
+  action:action list ->
+  criteria:criteria list ->
   string ->
   t

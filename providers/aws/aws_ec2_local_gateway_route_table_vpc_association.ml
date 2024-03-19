@@ -16,6 +16,11 @@ type aws_ec2_local_gateway_route_table_vpc_association = {
 [@@deriving yojson_of]
 (** aws_ec2_local_gateway_route_table_vpc_association *)
 
+let aws_ec2_local_gateway_route_table_vpc_association ?id ?tags
+    ?tags_all ~local_gateway_route_table_id ~vpc_id () :
+    aws_ec2_local_gateway_route_table_vpc_association =
+  { id; local_gateway_route_table_id; tags; tags_all; vpc_id }
+
 type t = {
   id : string prop;
   local_gateway_id : string prop;
@@ -25,16 +30,16 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_ec2_local_gateway_route_table_vpc_association ?id ?tags
-    ?tags_all ~local_gateway_route_table_id ~vpc_id __resource_id =
+let register ?tf_module ?id ?tags ?tags_all
+    ~local_gateway_route_table_id ~vpc_id __resource_id =
   let __resource_type =
     "aws_ec2_local_gateway_route_table_vpc_association"
   in
   let __resource =
-    ({ id; local_gateway_route_table_id; tags; tags_all; vpc_id }
-      : aws_ec2_local_gateway_route_table_vpc_association)
+    aws_ec2_local_gateway_route_table_vpc_association ?id ?tags
+      ?tags_all ~local_gateway_route_table_id ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_local_gateway_route_table_vpc_association
        __resource);
   let __resource_attributes =

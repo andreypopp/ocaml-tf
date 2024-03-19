@@ -23,6 +23,23 @@ type aws_appconfig_deployment = {
 [@@deriving yojson_of]
 (** aws_appconfig_deployment *)
 
+let aws_appconfig_deployment ?description ?id ?kms_key_identifier
+    ?tags ?tags_all ~application_id ~configuration_profile_id
+    ~configuration_version ~deployment_strategy_id ~environment_id ()
+    : aws_appconfig_deployment =
+  {
+    application_id;
+    configuration_profile_id;
+    configuration_version;
+    deployment_strategy_id;
+    description;
+    environment_id;
+    id;
+    kms_key_identifier;
+    tags;
+    tags_all;
+  }
+
 type t = {
   application_id : string prop;
   arn : string prop;
@@ -40,27 +57,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appconfig_deployment ?description ?id ?kms_key_identifier
-    ?tags ?tags_all ~application_id ~configuration_profile_id
+let register ?tf_module ?description ?id ?kms_key_identifier ?tags
+    ?tags_all ~application_id ~configuration_profile_id
     ~configuration_version ~deployment_strategy_id ~environment_id
     __resource_id =
   let __resource_type = "aws_appconfig_deployment" in
   let __resource =
-    ({
-       application_id;
-       configuration_profile_id;
-       configuration_version;
-       deployment_strategy_id;
-       description;
-       environment_id;
-       id;
-       kms_key_identifier;
-       tags;
-       tags_all;
-     }
-      : aws_appconfig_deployment)
+    aws_appconfig_deployment ?description ?id ?kms_key_identifier
+      ?tags ?tags_all ~application_id ~configuration_profile_id
+      ~configuration_version ~deployment_strategy_id ~environment_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_deployment __resource);
   let __resource_attributes =
     ({

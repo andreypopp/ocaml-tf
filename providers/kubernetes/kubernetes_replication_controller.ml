@@ -4,49 +4,37 @@
 
 open! Tf.Prelude
 
-type kubernetes_replication_controller__metadata = {
+type metadata = {
   annotations : (string * string prop) list option; [@option]
       (** An unstructured key value map stored with the replication controller that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
       (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
-  generation : float prop;
-      (** A sequence number representing a specific generation of the desired state. *)
   labels : (string * string prop) list option; [@option]
       (** Map of string keys and values that can be used to organize and categorize (scope and select) the replication controller. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
       (** Name of the replication controller, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
       (** Namespace defines the space within which name of the replication controller must be unique. *)
-  resource_version : string prop;
-      (** An opaque value that represents the internal version of this replication controller that can be used by clients to determine when replication controller has changed. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency *)
-  uid : string prop;
-      (** The unique in time and space value for this replication controller. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids *)
 }
 [@@deriving yojson_of]
 (** Standard replication controller's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
 
-type kubernetes_replication_controller__spec__template__metadata = {
+type spec__template__metadata = {
   annotations : (string * string prop) list option; [@option]
       (** An unstructured key value map stored with the replication controller's template that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
       (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
-  generation : float prop;
-      (** A sequence number representing a specific generation of the desired state. *)
   labels : (string * string prop) list option; [@option]
       (** Map of string keys and values that can be used to organize and categorize (scope and select) the replication controller's template. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
       (** Name of the replication controller's template, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
       (** Namespace defines the space within which name of the replication controller's template must be unique. *)
-  resource_version : string prop;
-      (** An opaque value that represents the internal version of this replication controller's template that can be used by clients to determine when replication controller's template has changed. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency *)
-  uid : string prop;
-      (** The unique in time and space value for this replication controller's template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids *)
 }
 [@@deriving yojson_of]
 (** Standard replication controller's template's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions = {
+type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -57,7 +45,7 @@ type kubernetes_replication_controller__spec__template__spec__affinity__node_aff
 [@@deriving yojson_of]
 (** List of node selector requirements. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields = {
+type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields = {
   key : string prop;
       (** The label key that the selector applies to. *)
   operator : string prop;
@@ -68,27 +56,27 @@ type kubernetes_replication_controller__spec__template__spec__affinity__node_aff
 [@@deriving yojson_of]
 (** A list of node selector requirements by node's fields. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference = {
+type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference = {
   match_expressions :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
+    spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
     list;
   match_fields :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
+    spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
     list;
 }
 [@@deriving yojson_of]
 (** A node selector term, associated with the corresponding weight. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution = {
+type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution = {
   weight : float prop;  (** weight is in the range 1-100 *)
   preference :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
+    spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
     list;
 }
 [@@deriving yojson_of]
 (** The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding 'weight' to the sum if the node matches the corresponding MatchExpressions; the node(s) with the highest sum are the most preferred. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions = {
+type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -99,7 +87,7 @@ type kubernetes_replication_controller__spec__template__spec__affinity__node_aff
 [@@deriving yojson_of]
 (** List of node selector requirements. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields = {
+type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields = {
   key : string prop;
       (** The label key that the selector applies to. *)
   operator : string prop;
@@ -110,37 +98,37 @@ type kubernetes_replication_controller__spec__template__spec__affinity__node_aff
 [@@deriving yojson_of]
 (** A list of node selector requirements by node's fields. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term = {
+type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term = {
   match_expressions :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
+    spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
     list;
   match_fields :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
+    spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
     list;
 }
 [@@deriving yojson_of]
 (** List of node selector terms. The terms are ORed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution = {
+type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution = {
   node_selector_term :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
+    spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
     list;
 }
 [@@deriving yojson_of]
 (** If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a node label update), the system may or may not try to eventually evict the pod from its node. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__node_affinity = {
+type spec__template__spec__affinity__node_affinity = {
   preferred_during_scheduling_ignored_during_execution :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
+    spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
     list;
   required_during_scheduling_ignored_during_execution :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
+    spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
     list;
 }
 [@@deriving yojson_of]
 (** Node affinity scheduling rules for the pod. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions = {
+type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -151,39 +139,39 @@ type kubernetes_replication_controller__spec__template__spec__affinity__pod_affi
 [@@deriving yojson_of]
 (** A list of label selector requirements. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
+type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
   match_labels : (string * string prop) list option; [@option]
       (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+    spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
 }
 [@@deriving yojson_of]
 (** A label query over a set of resources, in this case pods. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term = {
+type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term = {
   namespaces : string prop list option; [@option]
       (** namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace' *)
   topology_key : string prop;
       (** empty topology key is interpreted by the scheduler as 'all topologies' *)
   label_selector :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+    spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
 }
 [@@deriving yojson_of]
 (** A pod affinity term, associated with the corresponding weight *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution = {
+type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution = {
   weight : float prop;
       (** weight associated with matching the corresponding podAffinityTerm, in the range 1-100 *)
   pod_affinity_term :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+    spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
 }
 [@@deriving yojson_of]
 (** The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding 'weight' to the sum if the node matches the corresponding MatchExpressions; the node(s) with the highest sum are the most preferred. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions = {
+type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -194,40 +182,40 @@ type kubernetes_replication_controller__spec__template__spec__affinity__pod_affi
 [@@deriving yojson_of]
 (** A list of label selector requirements. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
+type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
   match_labels : (string * string prop) list option; [@option]
       (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+    spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
 }
 [@@deriving yojson_of]
 (** A label query over a set of resources, in this case pods. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution = {
+type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution = {
   namespaces : string prop list option; [@option]
       (** namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace' *)
   topology_key : string prop;
       (** empty topology key is interpreted by the scheduler as 'all topologies' *)
   label_selector :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
+    spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
 }
 [@@deriving yojson_of]
 (** If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each PodAffinityTerm are intersected, i.e. all terms must be satisfied. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity = {
+type spec__template__spec__affinity__pod_affinity = {
   preferred_during_scheduling_ignored_during_execution :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
+    spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
     list;
   required_during_scheduling_ignored_during_execution :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
+    spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
     list;
 }
 [@@deriving yojson_of]
 (** Inter-pod topological affinity. rules that specify that certain pods should be placed in the same topological domain (e.g. same node, same rack, same zone, same power domain, etc.) *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions = {
+type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -238,39 +226,39 @@ type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti
 [@@deriving yojson_of]
 (** A list of label selector requirements. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
+type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
   match_labels : (string * string prop) list option; [@option]
       (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+    spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
 }
 [@@deriving yojson_of]
 (** A label query over a set of resources, in this case pods. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term = {
+type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term = {
   namespaces : string prop list option; [@option]
       (** namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace' *)
   topology_key : string prop;
       (** empty topology key is interpreted by the scheduler as 'all topologies' *)
   label_selector :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+    spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
 }
 [@@deriving yojson_of]
 (** A pod affinity term, associated with the corresponding weight *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution = {
+type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution = {
   weight : float prop;
       (** weight associated with matching the corresponding podAffinityTerm, in the range 1-100 *)
   pod_affinity_term :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+    spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
 }
 [@@deriving yojson_of]
 (** The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding 'weight' to the sum if the node matches the corresponding MatchExpressions; the node(s) with the highest sum are the most preferred. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions = {
+type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -281,54 +269,49 @@ type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti
 [@@deriving yojson_of]
 (** A list of label selector requirements. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
+type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
   match_labels : (string * string prop) list option; [@option]
       (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+    spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
 }
 [@@deriving yojson_of]
 (** A label query over a set of resources, in this case pods. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution = {
+type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution = {
   namespaces : string prop list option; [@option]
       (** namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace' *)
   topology_key : string prop;
       (** empty topology key is interpreted by the scheduler as 'all topologies' *)
   label_selector :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
+    spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
 }
 [@@deriving yojson_of]
 (** If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each PodAffinityTerm are intersected, i.e. all terms must be satisfied. *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity = {
+type spec__template__spec__affinity__pod_anti_affinity = {
   preferred_during_scheduling_ignored_during_execution :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
+    spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
     list;
   required_during_scheduling_ignored_during_execution :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
+    spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
     list;
 }
 [@@deriving yojson_of]
 (** Inter-pod topological affinity. rules that specify that certain pods should be placed in the same topological domain (e.g. same node, same rack, same zone, same power domain, etc.) *)
 
-type kubernetes_replication_controller__spec__template__spec__affinity = {
-  node_affinity :
-    kubernetes_replication_controller__spec__template__spec__affinity__node_affinity
-    list;
-  pod_affinity :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_affinity
-    list;
+type spec__template__spec__affinity = {
+  node_affinity : spec__template__spec__affinity__node_affinity list;
+  pod_affinity : spec__template__spec__affinity__pod_affinity list;
   pod_anti_affinity :
-    kubernetes_replication_controller__spec__template__spec__affinity__pod_anti_affinity
-    list;
+    spec__template__spec__affinity__pod_anti_affinity list;
 }
 [@@deriving yojson_of]
 (** Optional pod scheduling constraints. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env__value_from__config_map_key_ref = {
+type spec__template__spec__container__env__value_from__config_map_key_ref = {
   key : string prop option; [@option]  (** The key to select. *)
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
@@ -338,7 +321,7 @@ type kubernetes_replication_controller__spec__template__spec__container__env__va
 [@@deriving yojson_of]
 (** Selects a key of a ConfigMap. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env__value_from__field_ref = {
+type spec__template__spec__container__env__value_from__field_ref = {
   api_version : string prop option; [@option]
       (** Version of the schema the FieldPath is written in terms of, defaults to v1. *)
   field_path : string prop option; [@option]
@@ -347,7 +330,7 @@ type kubernetes_replication_controller__spec__template__spec__container__env__va
 [@@deriving yojson_of]
 (** Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env__value_from__resource_field_ref = {
+type spec__template__spec__container__env__value_from__resource_field_ref = {
   container_name : string prop option; [@option]
       (** container_name *)
   divisor : string prop option; [@option]  (** divisor *)
@@ -356,7 +339,7 @@ type kubernetes_replication_controller__spec__template__spec__container__env__va
 [@@deriving yojson_of]
 (** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env__value_from__secret_key_ref = {
+type spec__template__spec__container__env__value_from__secret_key_ref = {
   key : string prop option; [@option]
       (** The key of the secret to select from. Must be a valid secret key. *)
   name : string prop option; [@option]
@@ -367,36 +350,33 @@ type kubernetes_replication_controller__spec__template__spec__container__env__va
 [@@deriving yojson_of]
 (** Selects a key of a secret in the pod's namespace. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env__value_from = {
+type spec__template__spec__container__env__value_from = {
   config_map_key_ref :
-    kubernetes_replication_controller__spec__template__spec__container__env__value_from__config_map_key_ref
+    spec__template__spec__container__env__value_from__config_map_key_ref
     list;
   field_ref :
-    kubernetes_replication_controller__spec__template__spec__container__env__value_from__field_ref
-    list;
+    spec__template__spec__container__env__value_from__field_ref list;
   resource_field_ref :
-    kubernetes_replication_controller__spec__template__spec__container__env__value_from__resource_field_ref
+    spec__template__spec__container__env__value_from__resource_field_ref
     list;
   secret_key_ref :
-    kubernetes_replication_controller__spec__template__spec__container__env__value_from__secret_key_ref
+    spec__template__spec__container__env__value_from__secret_key_ref
     list;
 }
 [@@deriving yojson_of]
 (** Source for the environment variable's value *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env = {
+type spec__template__spec__container__env = {
   name : string prop;
       (** Name of the environment variable. Must be a C_IDENTIFIER *)
   value : string prop option; [@option]
       (** Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to . *)
-  value_from :
-    kubernetes_replication_controller__spec__template__spec__container__env__value_from
-    list;
+  value_from : spec__template__spec__container__env__value_from list;
 }
 [@@deriving yojson_of]
 (** List of environment variables to set in the container. Cannot be updated. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env_from__config_map_ref = {
+type spec__template__spec__container__env_from__config_map_ref = {
   name : string prop;
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
@@ -405,7 +385,7 @@ type kubernetes_replication_controller__spec__template__spec__container__env_fro
 [@@deriving yojson_of]
 (** The ConfigMap to select from *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env_from__secret_ref = {
+type spec__template__spec__container__env_from__secret_ref = {
   name : string prop;
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
@@ -414,34 +394,32 @@ type kubernetes_replication_controller__spec__template__spec__container__env_fro
 [@@deriving yojson_of]
 (** The Secret to select from *)
 
-type kubernetes_replication_controller__spec__template__spec__container__env_from = {
+type spec__template__spec__container__env_from = {
   prefix : string prop option; [@option]
       (** An optional identifer to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER. *)
   config_map_ref :
-    kubernetes_replication_controller__spec__template__spec__container__env_from__config_map_ref
-    list;
+    spec__template__spec__container__env_from__config_map_ref list;
   secret_ref :
-    kubernetes_replication_controller__spec__template__spec__container__env_from__secret_ref
-    list;
+    spec__template__spec__container__env_from__secret_ref list;
 }
 [@@deriving yojson_of]
 (** List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start__exec = {
+type spec__template__spec__container__lifecycle__post_start__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start__http_get__http_header = {
+type spec__template__spec__container__lifecycle__post_start__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start__http_get = {
+type spec__template__spec__container__lifecycle__post_start__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -451,48 +429,47 @@ type kubernetes_replication_controller__spec__template__spec__container__lifecyc
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start__http_get__http_header
+    spec__template__spec__container__lifecycle__post_start__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start__tcp_socket = {
+type spec__template__spec__container__lifecycle__post_start__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start = {
+type spec__template__spec__container__lifecycle__post_start = {
   exec :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start__exec
-    list;
+    spec__template__spec__container__lifecycle__post_start__exec list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start__http_get
+    spec__template__spec__container__lifecycle__post_start__http_get
     list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start__tcp_socket
+    spec__template__spec__container__lifecycle__post_start__tcp_socket
     list;
 }
 [@@deriving yojson_of]
 (** post_start is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop__exec = {
+type spec__template__spec__container__lifecycle__pre_stop__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop__http_get__http_header = {
+type spec__template__spec__container__lifecycle__pre_stop__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop__http_get = {
+type spec__template__spec__container__lifecycle__pre_stop__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -502,52 +479,49 @@ type kubernetes_replication_controller__spec__template__spec__container__lifecyc
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
+    spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop__tcp_socket = {
+type spec__template__spec__container__lifecycle__pre_stop__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop = {
+type spec__template__spec__container__lifecycle__pre_stop = {
   exec :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop__exec
-    list;
+    spec__template__spec__container__lifecycle__pre_stop__exec list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop__http_get
+    spec__template__spec__container__lifecycle__pre_stop__http_get
     list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop__tcp_socket
+    spec__template__spec__container__lifecycle__pre_stop__tcp_socket
     list;
 }
 [@@deriving yojson_of]
 (** pre_stop is called immediately before a container is terminated. The container is terminated after the handler completes. The reason for termination is passed to the handler. Regardless of the outcome of the handler, the container is eventually terminated. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks *)
 
-type kubernetes_replication_controller__spec__template__spec__container__lifecycle = {
+type spec__template__spec__container__lifecycle = {
   post_start :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__post_start
-    list;
+    spec__template__spec__container__lifecycle__post_start list;
   pre_stop :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle__pre_stop
-    list;
+    spec__template__spec__container__lifecycle__pre_stop list;
 }
 [@@deriving yojson_of]
 (** Actions that the management system should take in response to container lifecycle events *)
 
-type kubernetes_replication_controller__spec__template__spec__container__liveness_probe__exec = {
+type spec__template__spec__container__liveness_probe__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__liveness_probe__grpc = {
+type spec__template__spec__container__liveness_probe__grpc = {
   port : float prop;
       (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
@@ -556,14 +530,14 @@ type kubernetes_replication_controller__spec__template__spec__container__livenes
 [@@deriving yojson_of]
 (** GRPC specifies an action involving a GRPC port. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__liveness_probe__http_get__http_header = {
+type spec__template__spec__container__liveness_probe__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__liveness_probe__http_get = {
+type spec__template__spec__container__liveness_probe__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -573,20 +547,20 @@ type kubernetes_replication_controller__spec__template__spec__container__livenes
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__container__liveness_probe__http_get__http_header
+    spec__template__spec__container__liveness_probe__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__liveness_probe__tcp_socket = {
+type spec__template__spec__container__liveness_probe__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__container__liveness_probe = {
+type spec__template__spec__container__liveness_probe = {
   failure_threshold : float prop option; [@option]
       (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
@@ -597,23 +571,17 @@ type kubernetes_replication_controller__spec__template__spec__container__livenes
       (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
       (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
-  exec :
-    kubernetes_replication_controller__spec__template__spec__container__liveness_probe__exec
-    list;
-  grpc :
-    kubernetes_replication_controller__spec__template__spec__container__liveness_probe__grpc
-    list;
+  exec : spec__template__spec__container__liveness_probe__exec list;
+  grpc : spec__template__spec__container__liveness_probe__grpc list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__container__liveness_probe__http_get
-    list;
+    spec__template__spec__container__liveness_probe__http_get list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__container__liveness_probe__tcp_socket
-    list;
+    spec__template__spec__container__liveness_probe__tcp_socket list;
 }
 [@@deriving yojson_of]
 (** Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
 
-type kubernetes_replication_controller__spec__template__spec__container__port = {
+type spec__template__spec__container__port = {
   container_port : float prop;
       (** Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536. *)
   host_ip : string prop option; [@option]
@@ -628,14 +596,14 @@ type kubernetes_replication_controller__spec__template__spec__container__port = 
 [@@deriving yojson_of]
 (** List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default 0.0.0.0 address inside a container will be accessible from the network. Cannot be updated. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__readiness_probe__exec = {
+type spec__template__spec__container__readiness_probe__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__readiness_probe__grpc = {
+type spec__template__spec__container__readiness_probe__grpc = {
   port : float prop;
       (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
@@ -644,14 +612,14 @@ type kubernetes_replication_controller__spec__template__spec__container__readine
 [@@deriving yojson_of]
 (** GRPC specifies an action involving a GRPC port. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__readiness_probe__http_get__http_header = {
+type spec__template__spec__container__readiness_probe__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__readiness_probe__http_get = {
+type spec__template__spec__container__readiness_probe__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -661,20 +629,20 @@ type kubernetes_replication_controller__spec__template__spec__container__readine
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__container__readiness_probe__http_get__http_header
+    spec__template__spec__container__readiness_probe__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__readiness_probe__tcp_socket = {
+type spec__template__spec__container__readiness_probe__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__container__readiness_probe = {
+type spec__template__spec__container__readiness_probe = {
   failure_threshold : float prop option; [@option]
       (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
@@ -685,23 +653,17 @@ type kubernetes_replication_controller__spec__template__spec__container__readine
       (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
       (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
-  exec :
-    kubernetes_replication_controller__spec__template__spec__container__readiness_probe__exec
-    list;
-  grpc :
-    kubernetes_replication_controller__spec__template__spec__container__readiness_probe__grpc
-    list;
+  exec : spec__template__spec__container__readiness_probe__exec list;
+  grpc : spec__template__spec__container__readiness_probe__grpc list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__container__readiness_probe__http_get
-    list;
+    spec__template__spec__container__readiness_probe__http_get list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__container__readiness_probe__tcp_socket
-    list;
+    spec__template__spec__container__readiness_probe__tcp_socket list;
 }
 [@@deriving yojson_of]
 (** Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
 
-type kubernetes_replication_controller__spec__template__spec__container__resources = {
+type spec__template__spec__container__resources = {
   limits : (string * string prop) list option; [@option]
       (** Describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
   requests : (string * string prop) list option; [@option]
@@ -710,7 +672,7 @@ type kubernetes_replication_controller__spec__template__spec__container__resourc
 [@@deriving yojson_of]
 (** Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
 
-type kubernetes_replication_controller__spec__template__spec__container__security_context__capabilities = {
+type spec__template__spec__container__security_context__capabilities = {
   add : string prop list option; [@option]  (** Added capabilities *)
   drop : string prop list option; [@option]
       (** Removed capabilities *)
@@ -718,7 +680,7 @@ type kubernetes_replication_controller__spec__template__spec__container__securit
 [@@deriving yojson_of]
 (** The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__security_context__se_linux_options = {
+type spec__template__spec__container__security_context__se_linux_options = {
   level : string prop option; [@option]
       (** Level is SELinux level label that applies to the container. *)
   role : string prop option; [@option]
@@ -731,7 +693,7 @@ type kubernetes_replication_controller__spec__template__spec__container__securit
 [@@deriving yojson_of]
 (** The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__security_context__seccomp_profile = {
+type spec__template__spec__container__security_context__seccomp_profile = {
   localhost_profile : string prop option; [@option]
       (** Localhost Profile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. *)
   type_ : string prop option; [@option] [@key "type"]
@@ -740,7 +702,7 @@ type kubernetes_replication_controller__spec__template__spec__container__securit
 [@@deriving yojson_of]
 (** The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__security_context = {
+type spec__template__spec__container__security_context = {
   allow_privilege_escalation : bool prop option; [@option]
       (** AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN *)
   privileged : bool prop option; [@option]
@@ -754,26 +716,26 @@ type kubernetes_replication_controller__spec__template__spec__container__securit
   run_as_user : string prop option; [@option]
       (** The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   capabilities :
-    kubernetes_replication_controller__spec__template__spec__container__security_context__capabilities
+    spec__template__spec__container__security_context__capabilities
     list;
   se_linux_options :
-    kubernetes_replication_controller__spec__template__spec__container__security_context__se_linux_options
+    spec__template__spec__container__security_context__se_linux_options
     list;
   seccomp_profile :
-    kubernetes_replication_controller__spec__template__spec__container__security_context__seccomp_profile
+    spec__template__spec__container__security_context__seccomp_profile
     list;
 }
 [@@deriving yojson_of]
 (** Security options the pod should run with. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ *)
 
-type kubernetes_replication_controller__spec__template__spec__container__startup_probe__exec = {
+type spec__template__spec__container__startup_probe__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__startup_probe__grpc = {
+type spec__template__spec__container__startup_probe__grpc = {
   port : float prop;
       (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
@@ -782,14 +744,14 @@ type kubernetes_replication_controller__spec__template__spec__container__startup
 [@@deriving yojson_of]
 (** GRPC specifies an action involving a GRPC port. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__startup_probe__http_get__http_header = {
+type spec__template__spec__container__startup_probe__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__startup_probe__http_get = {
+type spec__template__spec__container__startup_probe__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -799,20 +761,20 @@ type kubernetes_replication_controller__spec__template__spec__container__startup
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__container__startup_probe__http_get__http_header
+    spec__template__spec__container__startup_probe__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__container__startup_probe__tcp_socket = {
+type spec__template__spec__container__startup_probe__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__container__startup_probe = {
+type spec__template__spec__container__startup_probe = {
   failure_threshold : float prop option; [@option]
       (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
@@ -823,23 +785,17 @@ type kubernetes_replication_controller__spec__template__spec__container__startup
       (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
       (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
-  exec :
-    kubernetes_replication_controller__spec__template__spec__container__startup_probe__exec
-    list;
-  grpc :
-    kubernetes_replication_controller__spec__template__spec__container__startup_probe__grpc
-    list;
+  exec : spec__template__spec__container__startup_probe__exec list;
+  grpc : spec__template__spec__container__startup_probe__grpc list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__container__startup_probe__http_get
-    list;
+    spec__template__spec__container__startup_probe__http_get list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__container__startup_probe__tcp_socket
-    list;
+    spec__template__spec__container__startup_probe__tcp_socket list;
 }
 [@@deriving yojson_of]
 (** StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is an alpha feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
 
-type kubernetes_replication_controller__spec__template__spec__container__volume_mount = {
+type spec__template__spec__container__volume_mount = {
   mount_path : string prop;
       (** Path within the container at which the volume should be mounted. Must not contain ':'. *)
   mount_propagation : string prop option; [@option]
@@ -853,7 +809,7 @@ type kubernetes_replication_controller__spec__template__spec__container__volume_
 [@@deriving yojson_of]
 (** Pod volumes to mount into the container's filesystem. Cannot be updated. *)
 
-type kubernetes_replication_controller__spec__template__spec__container = {
+type spec__template__spec__container = {
   args : string prop list option; [@option]
       (** Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   command : string prop list option; [@option]
@@ -876,41 +832,25 @@ type kubernetes_replication_controller__spec__template__spec__container = {
       (** Whether this container should allocate a TTY for itself *)
   working_dir : string prop option; [@option]
       (** Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated. *)
-  env :
-    kubernetes_replication_controller__spec__template__spec__container__env
-    list;
-  env_from :
-    kubernetes_replication_controller__spec__template__spec__container__env_from
-    list;
-  lifecycle :
-    kubernetes_replication_controller__spec__template__spec__container__lifecycle
-    list;
+  env : spec__template__spec__container__env list;
+  env_from : spec__template__spec__container__env_from list;
+  lifecycle : spec__template__spec__container__lifecycle list;
   liveness_probe :
-    kubernetes_replication_controller__spec__template__spec__container__liveness_probe
-    list;
-  port :
-    kubernetes_replication_controller__spec__template__spec__container__port
-    list;
+    spec__template__spec__container__liveness_probe list;
+  port : spec__template__spec__container__port list;
   readiness_probe :
-    kubernetes_replication_controller__spec__template__spec__container__readiness_probe
-    list;
-  resources :
-    kubernetes_replication_controller__spec__template__spec__container__resources
-    list;
+    spec__template__spec__container__readiness_probe list;
+  resources : spec__template__spec__container__resources list;
   security_context :
-    kubernetes_replication_controller__spec__template__spec__container__security_context
-    list;
+    spec__template__spec__container__security_context list;
   startup_probe :
-    kubernetes_replication_controller__spec__template__spec__container__startup_probe
-    list;
-  volume_mount :
-    kubernetes_replication_controller__spec__template__spec__container__volume_mount
-    list;
+    spec__template__spec__container__startup_probe list;
+  volume_mount : spec__template__spec__container__volume_mount list;
 }
 [@@deriving yojson_of]
 (** List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/ *)
 
-type kubernetes_replication_controller__spec__template__spec__dns_config__option = {
+type spec__template__spec__dns_config__option = {
   name : string prop;  (** Name of the option. *)
   value : string prop option; [@option]
       (** Value of the option. Optional: Defaults to empty. *)
@@ -918,33 +858,31 @@ type kubernetes_replication_controller__spec__template__spec__dns_config__option
 [@@deriving yojson_of]
 (** A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy. *)
 
-type kubernetes_replication_controller__spec__template__spec__dns_config = {
+type spec__template__spec__dns_config = {
   nameservers : string prop list option; [@option]
       (** A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed. *)
   searches : string prop list option; [@option]
       (** A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed. *)
-  option :
-    kubernetes_replication_controller__spec__template__spec__dns_config__option
-    list;
+  option_ : spec__template__spec__dns_config__option list;
 }
 [@@deriving yojson_of]
 (** Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy. Optional: Defaults to empty *)
 
-type kubernetes_replication_controller__spec__template__spec__host_aliases = {
+type spec__template__spec__host_aliases = {
   hostnames : string prop list;  (** Hostnames for the IP address. *)
   ip : string prop;  (** IP address of the host file entry. *)
 }
 [@@deriving yojson_of]
 (** List of hosts and IPs that will be injected into the pod's hosts file if specified. Optional: Defaults to empty. *)
 
-type kubernetes_replication_controller__spec__template__spec__image_pull_secrets = {
+type spec__template__spec__image_pull_secrets = {
   name : string prop;
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
 [@@deriving yojson_of]
 (** ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env__value_from__config_map_key_ref = {
+type spec__template__spec__init_container__env__value_from__config_map_key_ref = {
   key : string prop option; [@option]  (** The key to select. *)
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
@@ -954,7 +892,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__en
 [@@deriving yojson_of]
 (** Selects a key of a ConfigMap. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env__value_from__field_ref = {
+type spec__template__spec__init_container__env__value_from__field_ref = {
   api_version : string prop option; [@option]
       (** Version of the schema the FieldPath is written in terms of, defaults to v1. *)
   field_path : string prop option; [@option]
@@ -963,7 +901,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__en
 [@@deriving yojson_of]
 (** Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env__value_from__resource_field_ref = {
+type spec__template__spec__init_container__env__value_from__resource_field_ref = {
   container_name : string prop option; [@option]
       (** container_name *)
   divisor : string prop option; [@option]  (** divisor *)
@@ -972,7 +910,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__en
 [@@deriving yojson_of]
 (** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env__value_from__secret_key_ref = {
+type spec__template__spec__init_container__env__value_from__secret_key_ref = {
   key : string prop option; [@option]
       (** The key of the secret to select from. Must be a valid secret key. *)
   name : string prop option; [@option]
@@ -983,36 +921,35 @@ type kubernetes_replication_controller__spec__template__spec__init_container__en
 [@@deriving yojson_of]
 (** Selects a key of a secret in the pod's namespace. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env__value_from = {
+type spec__template__spec__init_container__env__value_from = {
   config_map_key_ref :
-    kubernetes_replication_controller__spec__template__spec__init_container__env__value_from__config_map_key_ref
+    spec__template__spec__init_container__env__value_from__config_map_key_ref
     list;
   field_ref :
-    kubernetes_replication_controller__spec__template__spec__init_container__env__value_from__field_ref
+    spec__template__spec__init_container__env__value_from__field_ref
     list;
   resource_field_ref :
-    kubernetes_replication_controller__spec__template__spec__init_container__env__value_from__resource_field_ref
+    spec__template__spec__init_container__env__value_from__resource_field_ref
     list;
   secret_key_ref :
-    kubernetes_replication_controller__spec__template__spec__init_container__env__value_from__secret_key_ref
+    spec__template__spec__init_container__env__value_from__secret_key_ref
     list;
 }
 [@@deriving yojson_of]
 (** Source for the environment variable's value *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env = {
+type spec__template__spec__init_container__env = {
   name : string prop;
       (** Name of the environment variable. Must be a C_IDENTIFIER *)
   value : string prop option; [@option]
       (** Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to . *)
   value_from :
-    kubernetes_replication_controller__spec__template__spec__init_container__env__value_from
-    list;
+    spec__template__spec__init_container__env__value_from list;
 }
 [@@deriving yojson_of]
 (** List of environment variables to set in the container. Cannot be updated. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env_from__config_map_ref = {
+type spec__template__spec__init_container__env_from__config_map_ref = {
   name : string prop;
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
@@ -1021,7 +958,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__en
 [@@deriving yojson_of]
 (** The ConfigMap to select from *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env_from__secret_ref = {
+type spec__template__spec__init_container__env_from__secret_ref = {
   name : string prop;
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
@@ -1030,34 +967,33 @@ type kubernetes_replication_controller__spec__template__spec__init_container__en
 [@@deriving yojson_of]
 (** The Secret to select from *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__env_from = {
+type spec__template__spec__init_container__env_from = {
   prefix : string prop option; [@option]
       (** An optional identifer to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER. *)
   config_map_ref :
-    kubernetes_replication_controller__spec__template__spec__init_container__env_from__config_map_ref
+    spec__template__spec__init_container__env_from__config_map_ref
     list;
   secret_ref :
-    kubernetes_replication_controller__spec__template__spec__init_container__env_from__secret_ref
-    list;
+    spec__template__spec__init_container__env_from__secret_ref list;
 }
 [@@deriving yojson_of]
 (** List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start__exec = {
+type spec__template__spec__init_container__lifecycle__post_start__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start__http_get__http_header = {
+type spec__template__spec__init_container__lifecycle__post_start__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start__http_get = {
+type spec__template__spec__init_container__lifecycle__post_start__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -1067,48 +1003,48 @@ type kubernetes_replication_controller__spec__template__spec__init_container__li
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
+    spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start__tcp_socket = {
+type spec__template__spec__init_container__lifecycle__post_start__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start = {
+type spec__template__spec__init_container__lifecycle__post_start = {
   exec :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start__exec
+    spec__template__spec__init_container__lifecycle__post_start__exec
     list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start__http_get
+    spec__template__spec__init_container__lifecycle__post_start__http_get
     list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start__tcp_socket
+    spec__template__spec__init_container__lifecycle__post_start__tcp_socket
     list;
 }
 [@@deriving yojson_of]
 (** post_start is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop__exec = {
+type spec__template__spec__init_container__lifecycle__pre_stop__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header = {
+type spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop__http_get = {
+type spec__template__spec__init_container__lifecycle__pre_stop__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -1118,52 +1054,50 @@ type kubernetes_replication_controller__spec__template__spec__init_container__li
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
+    spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket = {
+type spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop = {
+type spec__template__spec__init_container__lifecycle__pre_stop = {
   exec :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop__exec
+    spec__template__spec__init_container__lifecycle__pre_stop__exec
     list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop__http_get
+    spec__template__spec__init_container__lifecycle__pre_stop__http_get
     list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
+    spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
     list;
 }
 [@@deriving yojson_of]
 (** pre_stop is called immediately before a container is terminated. The container is terminated after the handler completes. The reason for termination is passed to the handler. Regardless of the outcome of the handler, the container is eventually terminated. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__lifecycle = {
+type spec__template__spec__init_container__lifecycle = {
   post_start :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__post_start
-    list;
+    spec__template__spec__init_container__lifecycle__post_start list;
   pre_stop :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle__pre_stop
-    list;
+    spec__template__spec__init_container__lifecycle__pre_stop list;
 }
 [@@deriving yojson_of]
 (** Actions that the management system should take in response to container lifecycle events *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__exec = {
+type spec__template__spec__init_container__liveness_probe__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__grpc = {
+type spec__template__spec__init_container__liveness_probe__grpc = {
   port : float prop;
       (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
@@ -1172,14 +1106,14 @@ type kubernetes_replication_controller__spec__template__spec__init_container__li
 [@@deriving yojson_of]
 (** GRPC specifies an action involving a GRPC port. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__http_get__http_header = {
+type spec__template__spec__init_container__liveness_probe__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__http_get = {
+type spec__template__spec__init_container__liveness_probe__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -1189,20 +1123,20 @@ type kubernetes_replication_controller__spec__template__spec__init_container__li
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__http_get__http_header
+    spec__template__spec__init_container__liveness_probe__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__tcp_socket = {
+type spec__template__spec__init_container__liveness_probe__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe = {
+type spec__template__spec__init_container__liveness_probe = {
   failure_threshold : float prop option; [@option]
       (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
@@ -1214,22 +1148,20 @@ type kubernetes_replication_controller__spec__template__spec__init_container__li
   timeout_seconds : float prop option; [@option]
       (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec :
-    kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__exec
-    list;
+    spec__template__spec__init_container__liveness_probe__exec list;
   grpc :
-    kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__grpc
-    list;
+    spec__template__spec__init_container__liveness_probe__grpc list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__http_get
+    spec__template__spec__init_container__liveness_probe__http_get
     list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe__tcp_socket
+    spec__template__spec__init_container__liveness_probe__tcp_socket
     list;
 }
 [@@deriving yojson_of]
 (** Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__port = {
+type spec__template__spec__init_container__port = {
   container_port : float prop;
       (** Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536. *)
   host_ip : string prop option; [@option]
@@ -1244,14 +1176,14 @@ type kubernetes_replication_controller__spec__template__spec__init_container__po
 [@@deriving yojson_of]
 (** List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default 0.0.0.0 address inside a container will be accessible from the network. Cannot be updated. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__exec = {
+type spec__template__spec__init_container__readiness_probe__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__grpc = {
+type spec__template__spec__init_container__readiness_probe__grpc = {
   port : float prop;
       (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
@@ -1260,14 +1192,14 @@ type kubernetes_replication_controller__spec__template__spec__init_container__re
 [@@deriving yojson_of]
 (** GRPC specifies an action involving a GRPC port. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__http_get__http_header = {
+type spec__template__spec__init_container__readiness_probe__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__http_get = {
+type spec__template__spec__init_container__readiness_probe__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -1277,20 +1209,20 @@ type kubernetes_replication_controller__spec__template__spec__init_container__re
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__http_get__http_header
+    spec__template__spec__init_container__readiness_probe__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__tcp_socket = {
+type spec__template__spec__init_container__readiness_probe__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe = {
+type spec__template__spec__init_container__readiness_probe = {
   failure_threshold : float prop option; [@option]
       (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
@@ -1302,22 +1234,20 @@ type kubernetes_replication_controller__spec__template__spec__init_container__re
   timeout_seconds : float prop option; [@option]
       (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec :
-    kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__exec
-    list;
+    spec__template__spec__init_container__readiness_probe__exec list;
   grpc :
-    kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__grpc
-    list;
+    spec__template__spec__init_container__readiness_probe__grpc list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__http_get
+    spec__template__spec__init_container__readiness_probe__http_get
     list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe__tcp_socket
+    spec__template__spec__init_container__readiness_probe__tcp_socket
     list;
 }
 [@@deriving yojson_of]
 (** Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__resources = {
+type spec__template__spec__init_container__resources = {
   limits : (string * string prop) list option; [@option]
       (** Describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
   requests : (string * string prop) list option; [@option]
@@ -1326,7 +1256,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__re
 [@@deriving yojson_of]
 (** Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__security_context__capabilities = {
+type spec__template__spec__init_container__security_context__capabilities = {
   add : string prop list option; [@option]  (** Added capabilities *)
   drop : string prop list option; [@option]
       (** Removed capabilities *)
@@ -1334,7 +1264,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__se
 [@@deriving yojson_of]
 (** The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__security_context__se_linux_options = {
+type spec__template__spec__init_container__security_context__se_linux_options = {
   level : string prop option; [@option]
       (** Level is SELinux level label that applies to the container. *)
   role : string prop option; [@option]
@@ -1347,7 +1277,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__se
 [@@deriving yojson_of]
 (** The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__security_context__seccomp_profile = {
+type spec__template__spec__init_container__security_context__seccomp_profile = {
   localhost_profile : string prop option; [@option]
       (** Localhost Profile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. *)
   type_ : string prop option; [@option] [@key "type"]
@@ -1356,7 +1286,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__se
 [@@deriving yojson_of]
 (** The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__security_context = {
+type spec__template__spec__init_container__security_context = {
   allow_privilege_escalation : bool prop option; [@option]
       (** AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN *)
   privileged : bool prop option; [@option]
@@ -1370,26 +1300,26 @@ type kubernetes_replication_controller__spec__template__spec__init_container__se
   run_as_user : string prop option; [@option]
       (** The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   capabilities :
-    kubernetes_replication_controller__spec__template__spec__init_container__security_context__capabilities
+    spec__template__spec__init_container__security_context__capabilities
     list;
   se_linux_options :
-    kubernetes_replication_controller__spec__template__spec__init_container__security_context__se_linux_options
+    spec__template__spec__init_container__security_context__se_linux_options
     list;
   seccomp_profile :
-    kubernetes_replication_controller__spec__template__spec__init_container__security_context__seccomp_profile
+    spec__template__spec__init_container__security_context__seccomp_profile
     list;
 }
 [@@deriving yojson_of]
 (** Security options the pod should run with. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__exec = {
+type spec__template__spec__init_container__startup_probe__exec = {
   command : string prop list option; [@option]
       (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
 [@@deriving yojson_of]
 (** exec specifies the action to take. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__grpc = {
+type spec__template__spec__init_container__startup_probe__grpc = {
   port : float prop;
       (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
@@ -1398,14 +1328,14 @@ type kubernetes_replication_controller__spec__template__spec__init_container__st
 [@@deriving yojson_of]
 (** GRPC specifies an action involving a GRPC port. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__http_get__http_header = {
+type spec__template__spec__init_container__startup_probe__http_get__http_header = {
   name : string prop option; [@option]  (** The header field name *)
   value : string prop option; [@option]  (** The header field value *)
 }
 [@@deriving yojson_of]
 (** Scheme to use for connecting to the host. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__http_get = {
+type spec__template__spec__init_container__startup_probe__http_get = {
   host : string prop option; [@option]
       (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
@@ -1415,20 +1345,20 @@ type kubernetes_replication_controller__spec__template__spec__init_container__st
   scheme : string prop option; [@option]
       (** Scheme to use for connecting to the host. *)
   http_header :
-    kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__http_get__http_header
+    spec__template__spec__init_container__startup_probe__http_get__http_header
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the http request to perform. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__tcp_socket = {
+type spec__template__spec__init_container__startup_probe__tcp_socket = {
   port : string prop;
       (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
 [@@deriving yojson_of]
 (** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__startup_probe = {
+type spec__template__spec__init_container__startup_probe = {
   failure_threshold : float prop option; [@option]
       (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
@@ -1440,22 +1370,20 @@ type kubernetes_replication_controller__spec__template__spec__init_container__st
   timeout_seconds : float prop option; [@option]
       (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec :
-    kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__exec
-    list;
+    spec__template__spec__init_container__startup_probe__exec list;
   grpc :
-    kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__grpc
-    list;
+    spec__template__spec__init_container__startup_probe__grpc list;
   http_get :
-    kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__http_get
+    spec__template__spec__init_container__startup_probe__http_get
     list;
   tcp_socket :
-    kubernetes_replication_controller__spec__template__spec__init_container__startup_probe__tcp_socket
+    spec__template__spec__init_container__startup_probe__tcp_socket
     list;
 }
 [@@deriving yojson_of]
 (** StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is an alpha feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container__volume_mount = {
+type spec__template__spec__init_container__volume_mount = {
   mount_path : string prop;
       (** Path within the container at which the volume should be mounted. Must not contain ':'. *)
   mount_propagation : string prop option; [@option]
@@ -1469,7 +1397,7 @@ type kubernetes_replication_controller__spec__template__spec__init_container__vo
 [@@deriving yojson_of]
 (** Pod volumes to mount into the container's filesystem. Cannot be updated. *)
 
-type kubernetes_replication_controller__spec__template__spec__init_container = {
+type spec__template__spec__init_container = {
   args : string prop list option; [@option]
       (** Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   command : string prop list option; [@option]
@@ -1492,55 +1420,40 @@ type kubernetes_replication_controller__spec__template__spec__init_container = {
       (** Whether this container should allocate a TTY for itself *)
   working_dir : string prop option; [@option]
       (** Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated. *)
-  env :
-    kubernetes_replication_controller__spec__template__spec__init_container__env
-    list;
-  env_from :
-    kubernetes_replication_controller__spec__template__spec__init_container__env_from
-    list;
-  lifecycle :
-    kubernetes_replication_controller__spec__template__spec__init_container__lifecycle
-    list;
+  env : spec__template__spec__init_container__env list;
+  env_from : spec__template__spec__init_container__env_from list;
+  lifecycle : spec__template__spec__init_container__lifecycle list;
   liveness_probe :
-    kubernetes_replication_controller__spec__template__spec__init_container__liveness_probe
-    list;
-  port :
-    kubernetes_replication_controller__spec__template__spec__init_container__port
-    list;
+    spec__template__spec__init_container__liveness_probe list;
+  port : spec__template__spec__init_container__port list;
   readiness_probe :
-    kubernetes_replication_controller__spec__template__spec__init_container__readiness_probe
-    list;
-  resources :
-    kubernetes_replication_controller__spec__template__spec__init_container__resources
-    list;
+    spec__template__spec__init_container__readiness_probe list;
+  resources : spec__template__spec__init_container__resources list;
   security_context :
-    kubernetes_replication_controller__spec__template__spec__init_container__security_context
-    list;
+    spec__template__spec__init_container__security_context list;
   startup_probe :
-    kubernetes_replication_controller__spec__template__spec__init_container__startup_probe
-    list;
+    spec__template__spec__init_container__startup_probe list;
   volume_mount :
-    kubernetes_replication_controller__spec__template__spec__init_container__volume_mount
-    list;
+    spec__template__spec__init_container__volume_mount list;
 }
 [@@deriving yojson_of]
 (** List of init containers belonging to the pod. Init containers always run to completion and each must complete successfully before the next is started. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/ *)
 
-type kubernetes_replication_controller__spec__template__spec__os = {
+type spec__template__spec__os = {
   name : string prop;
       (** Name is the name of the operating system. The currently supported values are linux and windows. *)
 }
 [@@deriving yojson_of]
 (** Specifies the OS of the containers in the pod. *)
 
-type kubernetes_replication_controller__spec__template__spec__readiness_gate = {
+type spec__template__spec__readiness_gate = {
   condition_type : string prop;
       (** refers to a condition in the pod's condition list with matching type. *)
 }
 [@@deriving yojson_of]
 (** If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to True More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md *)
 
-type kubernetes_replication_controller__spec__template__spec__security_context__se_linux_options = {
+type spec__template__spec__security_context__se_linux_options = {
   level : string prop option; [@option]
       (** Level is SELinux level label that applies to the container. *)
   role : string prop option; [@option]
@@ -1553,7 +1466,7 @@ type kubernetes_replication_controller__spec__template__spec__security_context__
 [@@deriving yojson_of]
 (** The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container. May also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. *)
 
-type kubernetes_replication_controller__spec__template__spec__security_context__seccomp_profile = {
+type spec__template__spec__security_context__seccomp_profile = {
   localhost_profile : string prop option; [@option]
       (** Localhost Profile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. *)
   type_ : string prop option; [@option] [@key "type"]
@@ -1562,14 +1475,14 @@ type kubernetes_replication_controller__spec__template__spec__security_context__
 [@@deriving yojson_of]
 (** The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows. *)
 
-type kubernetes_replication_controller__spec__template__spec__security_context__sysctl = {
+type spec__template__spec__security_context__sysctl = {
   name : string prop;  (** Name of a property to set. *)
   value : string prop;  (** Value of a property to set. *)
 }
 [@@deriving yojson_of]
 (** holds a list of namespaced sysctls used for the pod. *)
 
-type kubernetes_replication_controller__spec__template__spec__security_context__windows_options = {
+type spec__template__spec__security_context__windows_options = {
   gmsa_credential_spec : string prop option; [@option]
       (** GMSACredentialSpec is where the GMSA admission webhook inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field *)
   gmsa_credential_spec_name : string prop option; [@option]
@@ -1582,7 +1495,7 @@ type kubernetes_replication_controller__spec__template__spec__security_context__
 [@@deriving yojson_of]
 (** The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux. *)
 
-type kubernetes_replication_controller__spec__template__spec__security_context = {
+type spec__template__spec__security_context = {
   fs_group : string prop option; [@option]
       (** A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod: 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw---- If unset, the Kubelet will not modify the ownership and permissions of any volume. *)
   fs_group_change_policy : string prop option; [@option]
@@ -1596,22 +1509,17 @@ type kubernetes_replication_controller__spec__template__spec__security_context =
   supplemental_groups : float prop list option; [@option]
       (** A list of groups applied to the first process run in each container, in addition to the container's primary GID. If unspecified, no groups will be added to any container. *)
   se_linux_options :
-    kubernetes_replication_controller__spec__template__spec__security_context__se_linux_options
-    list;
+    spec__template__spec__security_context__se_linux_options list;
   seccomp_profile :
-    kubernetes_replication_controller__spec__template__spec__security_context__seccomp_profile
-    list;
-  sysctl :
-    kubernetes_replication_controller__spec__template__spec__security_context__sysctl
-    list;
+    spec__template__spec__security_context__seccomp_profile list;
+  sysctl : spec__template__spec__security_context__sysctl list;
   windows_options :
-    kubernetes_replication_controller__spec__template__spec__security_context__windows_options
-    list;
+    spec__template__spec__security_context__windows_options list;
 }
 [@@deriving yojson_of]
 (** SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty *)
 
-type kubernetes_replication_controller__spec__template__spec__toleration = {
+type spec__template__spec__toleration = {
   effect : string prop option; [@option]
       (** Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute. *)
   key : string prop option; [@option]
@@ -1626,7 +1534,7 @@ type kubernetes_replication_controller__spec__template__spec__toleration = {
 [@@deriving yojson_of]
 (** If specified, the pod's toleration. Optional: Defaults to empty *)
 
-type kubernetes_replication_controller__spec__template__spec__topology_spread_constraint__label_selector__match_expressions = {
+type spec__template__spec__topology_spread_constraint__label_selector__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -1637,17 +1545,17 @@ type kubernetes_replication_controller__spec__template__spec__topology_spread_co
 [@@deriving yojson_of]
 (** A list of label selector requirements. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__topology_spread_constraint__label_selector = {
+type spec__template__spec__topology_spread_constraint__label_selector = {
   match_labels : (string * string prop) list option; [@option]
       (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
-    kubernetes_replication_controller__spec__template__spec__topology_spread_constraint__label_selector__match_expressions
+    spec__template__spec__topology_spread_constraint__label_selector__match_expressions
     list;
 }
 [@@deriving yojson_of]
 (** A label query over a set of resources, in this case pods. *)
 
-type kubernetes_replication_controller__spec__template__spec__topology_spread_constraint = {
+type spec__template__spec__topology_spread_constraint = {
   match_label_keys : string prop list option; [@option]
       (** is a set of pod label keys to select the pods over which spreading will be calculated. *)
   max_skew : float prop option; [@option]
@@ -1663,13 +1571,13 @@ type kubernetes_replication_controller__spec__template__spec__topology_spread_co
   when_unsatisfiable : string prop option; [@option]
       (** indicates how to deal with a pod if it doesn't satisfy the spread constraint. *)
   label_selector :
-    kubernetes_replication_controller__spec__template__spec__topology_spread_constraint__label_selector
+    spec__template__spec__topology_spread_constraint__label_selector
     list;
 }
 [@@deriving yojson_of]
 (** describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__aws_elastic_block_store = {
+type spec__template__spec__volume__aws_elastic_block_store = {
   fs_type : string prop option; [@option]
       (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
   partition : float prop option; [@option]
@@ -1682,7 +1590,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__aws_elasti
 [@@deriving yojson_of]
 (** Represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__azure_disk = {
+type spec__template__spec__volume__azure_disk = {
   caching_mode : string prop;
       (** Host Caching mode: None, Read Only, Read Write. *)
   data_disk_uri : string prop;
@@ -1699,7 +1607,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__azure_disk
 [@@deriving yojson_of]
 (** Represents an Azure Data Disk mount on the host and bind mount to the pod. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__azure_file = {
+type spec__template__spec__volume__azure_file = {
   read_only : bool prop option; [@option]
       (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). *)
   secret_name : string prop;
@@ -1711,7 +1619,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__azure_file
 [@@deriving yojson_of]
 (** Represents an Azure File Service mount on the host and bind mount to the pod. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ceph_fs__secret_ref = {
+type spec__template__spec__volume__ceph_fs__secret_ref = {
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
@@ -1720,7 +1628,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__ceph_fs__s
 [@@deriving yojson_of]
 (** Reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ceph_fs = {
+type spec__template__spec__volume__ceph_fs = {
   monitors : string prop list;
       (** Monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   path : string prop option; [@option]
@@ -1731,14 +1639,12 @@ type kubernetes_replication_controller__spec__template__spec__volume__ceph_fs = 
       (** The path to key ring for User, default is `/etc/ceph/user.secret`. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   user : string prop option; [@option]
       (** User is the rados user name, default is admin. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
-  secret_ref :
-    kubernetes_replication_controller__spec__template__spec__volume__ceph_fs__secret_ref
-    list;
+  secret_ref : spec__template__spec__volume__ceph_fs__secret_ref list;
 }
 [@@deriving yojson_of]
 (** Represents a Ceph FS mount on the host that shares a pod's lifetime *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__cinder = {
+type spec__template__spec__volume__cinder = {
   fs_type : string prop option; [@option]
       (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
   read_only : bool prop option; [@option]
@@ -1749,7 +1655,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__cinder = {
 [@@deriving yojson_of]
 (** Represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__config_map__items = {
+type spec__template__spec__volume__config_map__items = {
   key : string prop option; [@option]  (** The key to project. *)
   mode : string prop option; [@option]
       (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
@@ -1759,28 +1665,26 @@ type kubernetes_replication_controller__spec__template__spec__volume__config_map
 [@@deriving yojson_of]
 (** If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__config_map = {
+type spec__template__spec__volume__config_map = {
   default_mode : string prop option; [@option]
       (** Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
       (** Optional: Specify whether the ConfigMap or its keys must be defined. *)
-  items :
-    kubernetes_replication_controller__spec__template__spec__volume__config_map__items
-    list;
+  items : spec__template__spec__volume__config_map__items list;
 }
 [@@deriving yojson_of]
 (** ConfigMap represents a configMap that should populate this volume *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__csi__node_publish_secret_ref = {
+type spec__template__spec__volume__csi__node_publish_secret_ref = {
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
 [@@deriving yojson_of]
 (** A reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__csi = {
+type spec__template__spec__volume__csi = {
   driver : string prop;
       (** the name of the volume driver to use. More info: https://kubernetes.io/docs/concepts/storage/volumes/#csi *)
   fs_type : string prop option; [@option]
@@ -1790,13 +1694,12 @@ type kubernetes_replication_controller__spec__template__spec__volume__csi = {
   volume_attributes : (string * string prop) list option; [@option]
       (** Attributes of the volume to publish. *)
   node_publish_secret_ref :
-    kubernetes_replication_controller__spec__template__spec__volume__csi__node_publish_secret_ref
-    list;
+    spec__template__spec__volume__csi__node_publish_secret_ref list;
 }
 [@@deriving yojson_of]
 (** Represents a CSI Volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#csi *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__downward_api__items__field_ref = {
+type spec__template__spec__volume__downward_api__items__field_ref = {
   api_version : string prop option; [@option]
       (** Version of the schema the FieldPath is written in terms of, defaults to v1. *)
   field_path : string prop option; [@option]
@@ -1805,7 +1708,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__downward_a
 [@@deriving yojson_of]
 (** Required: Selects a field of the pod: only annotations, labels, name and namespace are supported. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__downward_api__items__resource_field_ref = {
+type spec__template__spec__volume__downward_api__items__resource_field_ref = {
   container_name : string prop;  (** container_name *)
   divisor : string prop option; [@option]  (** divisor *)
   resource : string prop;  (** Resource to select *)
@@ -1813,32 +1716,29 @@ type kubernetes_replication_controller__spec__template__spec__volume__downward_a
 [@@deriving yojson_of]
 (** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__downward_api__items = {
+type spec__template__spec__volume__downward_api__items = {
   mode : string prop option; [@option]
       (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   path : string prop;
       (** Path is the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..' *)
   field_ref :
-    kubernetes_replication_controller__spec__template__spec__volume__downward_api__items__field_ref
-    list;
+    spec__template__spec__volume__downward_api__items__field_ref list;
   resource_field_ref :
-    kubernetes_replication_controller__spec__template__spec__volume__downward_api__items__resource_field_ref
+    spec__template__spec__volume__downward_api__items__resource_field_ref
     list;
 }
 [@@deriving yojson_of]
 (** If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error. Paths must be relative and may not contain the '..' path or start with '..'. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__downward_api = {
+type spec__template__spec__volume__downward_api = {
   default_mode : string prop option; [@option]
       (** Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
-  items :
-    kubernetes_replication_controller__spec__template__spec__volume__downward_api__items
-    list;
+  items : spec__template__spec__volume__downward_api__items list;
 }
 [@@deriving yojson_of]
 (** DownwardAPI represents downward API about the pod that should populate this volume *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__empty_dir = {
+type spec__template__spec__volume__empty_dir = {
   medium : string prop option; [@option]
       (** What type of storage medium should back this directory. The default is  which means to use the node's default medium. Must be one of [ Memory HugePages HugePages-2Mi HugePages-1Gi]. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir *)
   size_limit : string prop option; [@option]
@@ -1847,7 +1747,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__empty_dir 
 [@@deriving yojson_of]
 (** EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__metadata = {
+type spec__template__spec__volume__ephemeral__volume_claim_template__metadata = {
   annotations : (string * string prop) list option; [@option]
       (** An unstructured key value map stored with the persistent volume claim that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   labels : (string * string prop) list option; [@option]
@@ -1856,7 +1756,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__ephemeral_
 [@@deriving yojson_of]
 (** May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources = {
+type spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources = {
   limits : (string * string prop) list option; [@option]
       (** Map describing the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
   requests : (string * string prop) list option; [@option]
@@ -1865,7 +1765,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__ephemeral_
 [@@deriving yojson_of]
 (** A list of the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions = {
+type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -1876,17 +1776,17 @@ type kubernetes_replication_controller__spec__template__spec__volume__ephemeral_
 [@@deriving yojson_of]
 (** A list of label selector requirements. The requirements are ANDed. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector = {
+type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector = {
   match_labels : (string * string prop) list option; [@option]
       (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
-    kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
     list;
 }
 [@@deriving yojson_of]
 (** A label query over volumes to consider for binding. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__spec = {
+type spec__template__spec__volume__ephemeral__volume_claim_template__spec = {
   access_modes : string prop list;
       (** A set of the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes *)
   storage_class_name : string prop option; [@option]
@@ -1896,35 +1796,35 @@ type kubernetes_replication_controller__spec__template__spec__volume__ephemeral_
   volume_name : string prop option; [@option]
       (** The binding reference to the PersistentVolume backing this claim. *)
   resources :
-    kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
     list;
   selector :
-    kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
     list;
 }
 [@@deriving yojson_of]
 (** The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template = {
+type spec__template__spec__volume__ephemeral__volume_claim_template = {
   metadata :
-    kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__metadata
+    spec__template__spec__volume__ephemeral__volume_claim_template__metadata
     list;
   spec :
-    kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template__spec
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec
     list;
 }
 [@@deriving yojson_of]
 (** Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__ephemeral = {
+type spec__template__spec__volume__ephemeral = {
   volume_claim_template :
-    kubernetes_replication_controller__spec__template__spec__volume__ephemeral__volume_claim_template
+    spec__template__spec__volume__ephemeral__volume_claim_template
     list;
 }
 [@@deriving yojson_of]
 (** Represents an ephemeral volume that is handled by a normal storage driver. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__fc = {
+type spec__template__spec__volume__fc = {
   fs_type : string prop option; [@option]
       (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   lun : float prop;  (** FC target lun number *)
@@ -1936,7 +1836,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__fc = {
 [@@deriving yojson_of]
 (** Represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__flex_volume__secret_ref = {
+type spec__template__spec__volume__flex_volume__secret_ref = {
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
@@ -1945,7 +1845,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__flex_volum
 [@@deriving yojson_of]
 (** Reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__flex_volume = {
+type spec__template__spec__volume__flex_volume = {
   driver : string prop;
       (** Driver is the name of the driver to use for this volume. *)
   fs_type : string prop option; [@option]
@@ -1955,13 +1855,12 @@ type kubernetes_replication_controller__spec__template__spec__volume__flex_volum
   read_only : bool prop option; [@option]
       (** Whether to force the ReadOnly setting in VolumeMounts. Defaults to false (read/write). *)
   secret_ref :
-    kubernetes_replication_controller__spec__template__spec__volume__flex_volume__secret_ref
-    list;
+    spec__template__spec__volume__flex_volume__secret_ref list;
 }
 [@@deriving yojson_of]
 (** Represents a generic volume resource that is provisioned/attached using an exec based plugin. This is an alpha feature and may change in future. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__flocker = {
+type spec__template__spec__volume__flocker = {
   dataset_name : string prop option; [@option]
       (** Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated *)
   dataset_uuid : string prop option; [@option]
@@ -1970,7 +1869,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__flocker = 
 [@@deriving yojson_of]
 (** Represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__gce_persistent_disk = {
+type spec__template__spec__volume__gce_persistent_disk = {
   fs_type : string prop option; [@option]
       (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
   partition : float prop option; [@option]
@@ -1983,7 +1882,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__gce_persis
 [@@deriving yojson_of]
 (** Represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__git_repo = {
+type spec__template__spec__volume__git_repo = {
   directory : string prop option; [@option]
       (** Target directory name. Must not contain or start with '..'. If '.' is supplied, the volume directory will be the git repository. Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name. *)
   repository : string prop option; [@option]  (** Repository URL *)
@@ -1993,7 +1892,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__git_repo =
 [@@deriving yojson_of]
 (** GitRepo represents a git repository at a particular revision. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__glusterfs = {
+type spec__template__spec__volume__glusterfs = {
   endpoints_name : string prop;
       (** The endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod *)
   path : string prop;
@@ -2004,7 +1903,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__glusterfs 
 [@@deriving yojson_of]
 (** Represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__host_path = {
+type spec__template__spec__volume__host_path = {
   path : string prop option; [@option]
       (** Path of the directory on the host. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath *)
   type_ : string prop option; [@option] [@key "type"]
@@ -2013,7 +1912,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__host_path 
 [@@deriving yojson_of]
 (** Represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__iscsi = {
+type spec__template__spec__volume__iscsi = {
   fs_type : string prop option; [@option]
       (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi *)
   iqn : string prop;  (** Target iSCSI Qualified Name. *)
@@ -2028,14 +1927,14 @@ type kubernetes_replication_controller__spec__template__spec__volume__iscsi = {
 [@@deriving yojson_of]
 (** Represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__local = {
+type spec__template__spec__volume__local = {
   path : string prop option; [@option]
       (** Path of the directory on the host. More info: https://kubernetes.io/docs/concepts/storage/volumes#local *)
 }
 [@@deriving yojson_of]
 (** Represents a mounted local storage device such as a disk, partition or directory. Local volumes can only be used as a statically created PersistentVolume. Dynamic provisioning is not supported yet. More info: https://kubernetes.io/docs/concepts/storage/volumes#local *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__nfs = {
+type spec__template__spec__volume__nfs = {
   path : string prop;
       (** Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
   read_only : bool prop option; [@option]
@@ -2046,7 +1945,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__nfs = {
 [@@deriving yojson_of]
 (** Represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__persistent_volume_claim = {
+type spec__template__spec__volume__persistent_volume_claim = {
   claim_name : string prop option; [@option]
       (** ClaimName is the name of a PersistentVolumeClaim in the same  *)
   read_only : bool prop option; [@option]
@@ -2055,7 +1954,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__persistent
 [@@deriving yojson_of]
 (** The specification of a persistent volume. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__photon_persistent_disk = {
+type spec__template__spec__volume__photon_persistent_disk = {
   fs_type : string prop option; [@option]
       (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   pd_id : string prop;
@@ -2064,7 +1963,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__photon_per
 [@@deriving yojson_of]
 (** Represents a PhotonController persistent disk attached and mounted on kubelets host machine *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__config_map__items = {
+type spec__template__spec__volume__projected__sources__config_map__items = {
   key : string prop option; [@option]  (** The key to project. *)
   mode : string prop option; [@option]
       (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
@@ -2074,19 +1973,19 @@ type kubernetes_replication_controller__spec__template__spec__volume__projected_
 [@@deriving yojson_of]
 (** If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error. Paths must be relative and may not contain the '..' path or start with '..'. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__config_map = {
+type spec__template__spec__volume__projected__sources__config_map = {
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
       (** Optional: Specify whether the ConfigMap or it's keys must be defined. *)
   items :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__config_map__items
+    spec__template__spec__volume__projected__sources__config_map__items
     list;
 }
 [@@deriving yojson_of]
 (** ConfigMap represents a configMap that should populate this volume *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__downward_api__items__field_ref = {
+type spec__template__spec__volume__projected__sources__downward_api__items__field_ref = {
   api_version : string prop option; [@option]
       (** Version of the schema the FieldPath is written in terms of, defaults to 'v1'. *)
   field_path : string prop option; [@option]
@@ -2095,7 +1994,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__projected_
 [@@deriving yojson_of]
 (** Selects a field of the pod: only annotations, labels, name and namespace are supported. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref = {
+type spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref = {
   container_name : string prop;  (** container_name *)
   divisor : string prop option; [@option]  (** divisor *)
   resource : string prop;  (** Resource to select *)
@@ -2103,30 +2002,30 @@ type kubernetes_replication_controller__spec__template__spec__volume__projected_
 [@@deriving yojson_of]
 (** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__downward_api__items = {
+type spec__template__spec__volume__projected__sources__downward_api__items = {
   mode : string prop option; [@option]
       (** Mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   path : string prop;
       (** Path is the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..' *)
   field_ref :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__downward_api__items__field_ref
+    spec__template__spec__volume__projected__sources__downward_api__items__field_ref
     list;
   resource_field_ref :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
+    spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
     list;
 }
 [@@deriving yojson_of]
 (** Represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__downward_api = {
+type spec__template__spec__volume__projected__sources__downward_api = {
   items :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__downward_api__items
+    spec__template__spec__volume__projected__sources__downward_api__items
     list;
 }
 [@@deriving yojson_of]
 (** DownwardAPI represents downward API about the pod that should populate this volume *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__secret__items = {
+type spec__template__spec__volume__projected__sources__secret__items = {
   key : string prop option; [@option]  (** The key to project. *)
   mode : string prop option; [@option]
       (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
@@ -2136,19 +2035,19 @@ type kubernetes_replication_controller__spec__template__spec__volume__projected_
 [@@deriving yojson_of]
 (** If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__secret = {
+type spec__template__spec__volume__projected__sources__secret = {
   name : string prop option; [@option]
       (** Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secrets *)
   optional : bool prop option; [@option]
       (** Optional: Specify whether the Secret or it's keys must be defined. *)
   items :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__secret__items
+    spec__template__spec__volume__projected__sources__secret__items
     list;
 }
 [@@deriving yojson_of]
 (** Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secrets *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources__service_account_token = {
+type spec__template__spec__volume__projected__sources__service_account_token = {
   audience : string prop option; [@option]
       (** Audience is the intended audience of the token *)
   expiration_seconds : float prop option; [@option]
@@ -2159,34 +2058,30 @@ type kubernetes_replication_controller__spec__template__spec__volume__projected_
 [@@deriving yojson_of]
 (** A projected service account token volume *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected__sources = {
+type spec__template__spec__volume__projected__sources = {
   config_map :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__config_map
-    list;
+    spec__template__spec__volume__projected__sources__config_map list;
   downward_api :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__downward_api
+    spec__template__spec__volume__projected__sources__downward_api
     list;
   secret :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__secret
-    list;
+    spec__template__spec__volume__projected__sources__secret list;
   service_account_token :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources__service_account_token
+    spec__template__spec__volume__projected__sources__service_account_token
     list;
 }
 [@@deriving yojson_of]
 (** Source of the volume to project in the directory. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__projected = {
+type spec__template__spec__volume__projected = {
   default_mode : string prop option; [@option]
       (** Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
-  sources :
-    kubernetes_replication_controller__spec__template__spec__volume__projected__sources
-    list;
+  sources : spec__template__spec__volume__projected__sources list;
 }
 [@@deriving yojson_of]
 (** Projected represents a single volume that projects several volume sources into the same directory. More info: https://kubernetes.io/docs/concepts/storage/volumes/#projected *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__quobyte = {
+type spec__template__spec__volume__quobyte = {
   group : string prop option; [@option]
       (** Group to map volume access to Default is no group *)
   read_only : bool prop option; [@option]
@@ -2201,7 +2096,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__quobyte = 
 [@@deriving yojson_of]
 (** Quobyte represents a Quobyte mount on the host that shares a pod's lifetime *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__rbd__secret_ref = {
+type spec__template__spec__volume__rbd__secret_ref = {
   name : string prop option; [@option]
       (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
@@ -2210,7 +2105,7 @@ type kubernetes_replication_controller__spec__template__spec__volume__rbd__secre
 [@@deriving yojson_of]
 (** Name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__rbd = {
+type spec__template__spec__volume__rbd = {
   ceph_monitors : string prop list;
       (** A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   fs_type : string prop option; [@option]
@@ -2225,14 +2120,12 @@ type kubernetes_replication_controller__spec__template__spec__volume__rbd = {
       (** The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it. *)
   read_only : bool prop option; [@option]
       (** Whether to force the read-only setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
-  secret_ref :
-    kubernetes_replication_controller__spec__template__spec__volume__rbd__secret_ref
-    list;
+  secret_ref : spec__template__spec__volume__rbd__secret_ref list;
 }
 [@@deriving yojson_of]
 (** Represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__secret__items = {
+type spec__template__spec__volume__secret__items = {
   key : string prop option; [@option]  (** The key to project. *)
   mode : string prop option; [@option]
       (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
@@ -2242,21 +2135,19 @@ type kubernetes_replication_controller__spec__template__spec__volume__secret__it
 [@@deriving yojson_of]
 (** If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'. *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__secret = {
+type spec__template__spec__volume__secret = {
   default_mode : string prop option; [@option]
       (** Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   optional : bool prop option; [@option]
       (** Optional: Specify whether the Secret or its keys must be defined. *)
   secret_name : string prop option; [@option]
       (** Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secrets *)
-  items :
-    kubernetes_replication_controller__spec__template__spec__volume__secret__items
-    list;
+  items : spec__template__spec__volume__secret__items list;
 }
 [@@deriving yojson_of]
 (** Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secrets *)
 
-type kubernetes_replication_controller__spec__template__spec__volume__vsphere_volume = {
+type spec__template__spec__volume__vsphere_volume = {
   fs_type : string prop option; [@option]
       (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   volume_path : string prop;
@@ -2265,95 +2156,45 @@ type kubernetes_replication_controller__spec__template__spec__volume__vsphere_vo
 [@@deriving yojson_of]
 (** Represents a vSphere volume attached and mounted on kubelets host machine *)
 
-type kubernetes_replication_controller__spec__template__spec__volume = {
+type spec__template__spec__volume = {
   name : string prop option; [@option]
       (** Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   aws_elastic_block_store :
-    kubernetes_replication_controller__spec__template__spec__volume__aws_elastic_block_store
-    list;
-  azure_disk :
-    kubernetes_replication_controller__spec__template__spec__volume__azure_disk
-    list;
-  azure_file :
-    kubernetes_replication_controller__spec__template__spec__volume__azure_file
-    list;
-  ceph_fs :
-    kubernetes_replication_controller__spec__template__spec__volume__ceph_fs
-    list;
-  cinder :
-    kubernetes_replication_controller__spec__template__spec__volume__cinder
-    list;
-  config_map :
-    kubernetes_replication_controller__spec__template__spec__volume__config_map
-    list;
-  csi :
-    kubernetes_replication_controller__spec__template__spec__volume__csi
-    list;
-  downward_api :
-    kubernetes_replication_controller__spec__template__spec__volume__downward_api
-    list;
-  empty_dir :
-    kubernetes_replication_controller__spec__template__spec__volume__empty_dir
-    list;
-  ephemeral :
-    kubernetes_replication_controller__spec__template__spec__volume__ephemeral
-    list;
-  fc :
-    kubernetes_replication_controller__spec__template__spec__volume__fc
-    list;
-  flex_volume :
-    kubernetes_replication_controller__spec__template__spec__volume__flex_volume
-    list;
-  flocker :
-    kubernetes_replication_controller__spec__template__spec__volume__flocker
-    list;
+    spec__template__spec__volume__aws_elastic_block_store list;
+  azure_disk : spec__template__spec__volume__azure_disk list;
+  azure_file : spec__template__spec__volume__azure_file list;
+  ceph_fs : spec__template__spec__volume__ceph_fs list;
+  cinder : spec__template__spec__volume__cinder list;
+  config_map : spec__template__spec__volume__config_map list;
+  csi : spec__template__spec__volume__csi list;
+  downward_api : spec__template__spec__volume__downward_api list;
+  empty_dir : spec__template__spec__volume__empty_dir list;
+  ephemeral : spec__template__spec__volume__ephemeral list;
+  fc : spec__template__spec__volume__fc list;
+  flex_volume : spec__template__spec__volume__flex_volume list;
+  flocker : spec__template__spec__volume__flocker list;
   gce_persistent_disk :
-    kubernetes_replication_controller__spec__template__spec__volume__gce_persistent_disk
-    list;
-  git_repo :
-    kubernetes_replication_controller__spec__template__spec__volume__git_repo
-    list;
-  glusterfs :
-    kubernetes_replication_controller__spec__template__spec__volume__glusterfs
-    list;
-  host_path :
-    kubernetes_replication_controller__spec__template__spec__volume__host_path
-    list;
-  iscsi :
-    kubernetes_replication_controller__spec__template__spec__volume__iscsi
-    list;
-  local :
-    kubernetes_replication_controller__spec__template__spec__volume__local
-    list;
-  nfs :
-    kubernetes_replication_controller__spec__template__spec__volume__nfs
-    list;
+    spec__template__spec__volume__gce_persistent_disk list;
+  git_repo : spec__template__spec__volume__git_repo list;
+  glusterfs : spec__template__spec__volume__glusterfs list;
+  host_path : spec__template__spec__volume__host_path list;
+  iscsi : spec__template__spec__volume__iscsi list;
+  local : spec__template__spec__volume__local list;
+  nfs : spec__template__spec__volume__nfs list;
   persistent_volume_claim :
-    kubernetes_replication_controller__spec__template__spec__volume__persistent_volume_claim
-    list;
+    spec__template__spec__volume__persistent_volume_claim list;
   photon_persistent_disk :
-    kubernetes_replication_controller__spec__template__spec__volume__photon_persistent_disk
-    list;
-  projected :
-    kubernetes_replication_controller__spec__template__spec__volume__projected
-    list;
-  quobyte :
-    kubernetes_replication_controller__spec__template__spec__volume__quobyte
-    list;
-  rbd :
-    kubernetes_replication_controller__spec__template__spec__volume__rbd
-    list;
-  secret :
-    kubernetes_replication_controller__spec__template__spec__volume__secret
-    list;
-  vsphere_volume :
-    kubernetes_replication_controller__spec__template__spec__volume__vsphere_volume
-    list;
+    spec__template__spec__volume__photon_persistent_disk list;
+  projected : spec__template__spec__volume__projected list;
+  quobyte : spec__template__spec__volume__quobyte list;
+  rbd : spec__template__spec__volume__rbd list;
+  secret : spec__template__spec__volume__secret list;
+  vsphere_volume : spec__template__spec__volume__vsphere_volume list;
 }
 [@@deriving yojson_of]
 (** List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes *)
 
-type kubernetes_replication_controller__spec__template__spec = {
+type spec__template__spec = {
   active_deadline_seconds : float prop option; [@option]
       (** Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer. *)
   automount_service_account_token : bool prop option; [@option]
@@ -2390,92 +2231,1351 @@ type kubernetes_replication_controller__spec__template__spec = {
       (** If specified, the fully qualified Pod hostname will be ...svc.. If not specified, the pod will not have a domainname at all.. *)
   termination_grace_period_seconds : float prop option; [@option]
       (** Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. *)
-  affinity :
-    kubernetes_replication_controller__spec__template__spec__affinity
-    list;
-  container :
-    kubernetes_replication_controller__spec__template__spec__container
-    list;
-  dns_config :
-    kubernetes_replication_controller__spec__template__spec__dns_config
-    list;
-  host_aliases :
-    kubernetes_replication_controller__spec__template__spec__host_aliases
-    list;
-  image_pull_secrets :
-    kubernetes_replication_controller__spec__template__spec__image_pull_secrets
-    list;
-  init_container :
-    kubernetes_replication_controller__spec__template__spec__init_container
-    list;
-  os :
-    kubernetes_replication_controller__spec__template__spec__os list;
-  readiness_gate :
-    kubernetes_replication_controller__spec__template__spec__readiness_gate
-    list;
-  security_context :
-    kubernetes_replication_controller__spec__template__spec__security_context
-    list;
-  toleration :
-    kubernetes_replication_controller__spec__template__spec__toleration
-    list;
+  affinity : spec__template__spec__affinity list;
+  container : spec__template__spec__container list;
+  dns_config : spec__template__spec__dns_config list;
+  host_aliases : spec__template__spec__host_aliases list;
+  image_pull_secrets : spec__template__spec__image_pull_secrets list;
+  init_container : spec__template__spec__init_container list;
+  os : spec__template__spec__os list;
+  readiness_gate : spec__template__spec__readiness_gate list;
+  security_context : spec__template__spec__security_context list;
+  toleration : spec__template__spec__toleration list;
   topology_spread_constraint :
-    kubernetes_replication_controller__spec__template__spec__topology_spread_constraint
-    list;
-  volume :
-    kubernetes_replication_controller__spec__template__spec__volume
-    list;
+    spec__template__spec__topology_spread_constraint list;
+  volume : spec__template__spec__volume list;
 }
 [@@deriving yojson_of]
 (** Spec of the pods managed by the replication controller *)
 
-type kubernetes_replication_controller__spec__template = {
-  metadata :
-    kubernetes_replication_controller__spec__template__metadata list;
-  spec : kubernetes_replication_controller__spec__template__spec list;
+type spec__template = {
+  metadata : spec__template__metadata list;
+  spec : spec__template__spec list;
 }
 [@@deriving yojson_of]
 (** Describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template *)
 
-type kubernetes_replication_controller__spec = {
+type spec = {
   min_ready_seconds : float prop option; [@option]
       (** Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) *)
   replicas : float prop option; [@option]
       (** The number of desired replicas. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller *)
   selector : (string * string prop) list;
       (** A label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors *)
-  template : kubernetes_replication_controller__spec__template list;
+  template : spec__template list;
 }
 [@@deriving yojson_of]
 (** Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
 
-type kubernetes_replication_controller__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** kubernetes_replication_controller__timeouts *)
+(** timeouts *)
 
 type kubernetes_replication_controller = {
   id : string prop option; [@option]  (** id *)
-  metadata : kubernetes_replication_controller__metadata list;
-  spec : kubernetes_replication_controller__spec list;
-  timeouts : kubernetes_replication_controller__timeouts option;
+  metadata : metadata list;
+  spec : spec list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** kubernetes_replication_controller *)
 
-type t = { id : string prop }
+let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
+    : metadata =
+  { annotations; generate_name; labels; name; namespace }
+
+let spec__template__metadata ?annotations ?generate_name ?labels
+    ?name ?namespace () : spec__template__metadata =
+  { annotations; generate_name; labels; name; namespace }
+
+let spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
+    ?key ?operator ?values () :
+    spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
+    =
+  { key; operator; values }
+
+let spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
+    ?values ~key ~operator () :
+    spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
+    =
+  { key; operator; values }
+
+let spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
+    ~match_expressions ~match_fields () :
+    spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
+    =
+  { match_expressions; match_fields }
+
+let spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
+    ~weight ~preference () :
+    spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
+    =
+  { weight; preference }
+
+let spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
+    ?key ?operator ?values () :
+    spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
+    =
+  { key; operator; values }
+
+let spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
+    ?values ~key ~operator () :
+    spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
+    =
+  { key; operator; values }
+
+let spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
+    ~match_expressions ~match_fields () :
+    spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
+    =
+  { match_expressions; match_fields }
+
+let spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
+    ~node_selector_term () :
+    spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
+    =
+  { node_selector_term }
+
+let spec__template__spec__affinity__node_affinity
+    ~preferred_during_scheduling_ignored_during_execution
+    ~required_during_scheduling_ignored_during_execution () :
+    spec__template__spec__affinity__node_affinity =
+  {
+    preferred_during_scheduling_ignored_during_execution;
+    required_during_scheduling_ignored_during_execution;
+  }
+
+let spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+    ?key ?operator ?values () :
+    spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+    =
+  { key; operator; values }
+
+let spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+    ?match_labels ~match_expressions () :
+    spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+    =
+  { match_labels; match_expressions }
+
+let spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+    ?namespaces ~topology_key ~label_selector () :
+    spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+    =
+  { namespaces; topology_key; label_selector }
+
+let spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
+    ~weight ~pod_affinity_term () :
+    spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
+    =
+  { weight; pod_affinity_term }
+
+let spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+    ?key ?operator ?values () :
+    spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+    =
+  { key; operator; values }
+
+let spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
+    ?match_labels ~match_expressions () :
+    spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
+    =
+  { match_labels; match_expressions }
+
+let spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
+    ?namespaces ~topology_key ~label_selector () :
+    spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
+    =
+  { namespaces; topology_key; label_selector }
+
+let spec__template__spec__affinity__pod_affinity
+    ~preferred_during_scheduling_ignored_during_execution
+    ~required_during_scheduling_ignored_during_execution () :
+    spec__template__spec__affinity__pod_affinity =
+  {
+    preferred_during_scheduling_ignored_during_execution;
+    required_during_scheduling_ignored_during_execution;
+  }
+
+let spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+    ?key ?operator ?values () :
+    spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+    =
+  { key; operator; values }
+
+let spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+    ?match_labels ~match_expressions () :
+    spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+    =
+  { match_labels; match_expressions }
+
+let spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+    ?namespaces ~topology_key ~label_selector () :
+    spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+    =
+  { namespaces; topology_key; label_selector }
+
+let spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
+    ~weight ~pod_affinity_term () :
+    spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
+    =
+  { weight; pod_affinity_term }
+
+let spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+    ?key ?operator ?values () :
+    spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+    =
+  { key; operator; values }
+
+let spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
+    ?match_labels ~match_expressions () :
+    spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
+    =
+  { match_labels; match_expressions }
+
+let spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
+    ?namespaces ~topology_key ~label_selector () :
+    spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
+    =
+  { namespaces; topology_key; label_selector }
+
+let spec__template__spec__affinity__pod_anti_affinity
+    ~preferred_during_scheduling_ignored_during_execution
+    ~required_during_scheduling_ignored_during_execution () :
+    spec__template__spec__affinity__pod_anti_affinity =
+  {
+    preferred_during_scheduling_ignored_during_execution;
+    required_during_scheduling_ignored_during_execution;
+  }
+
+let spec__template__spec__affinity ~node_affinity ~pod_affinity
+    ~pod_anti_affinity () : spec__template__spec__affinity =
+  { node_affinity; pod_affinity; pod_anti_affinity }
+
+let spec__template__spec__container__env__value_from__config_map_key_ref
+    ?key ?name ?optional () :
+    spec__template__spec__container__env__value_from__config_map_key_ref
+    =
+  { key; name; optional }
+
+let spec__template__spec__container__env__value_from__field_ref
+    ?api_version ?field_path () :
+    spec__template__spec__container__env__value_from__field_ref =
+  { api_version; field_path }
+
+let spec__template__spec__container__env__value_from__resource_field_ref
+    ?container_name ?divisor ~resource () :
+    spec__template__spec__container__env__value_from__resource_field_ref
+    =
+  { container_name; divisor; resource }
+
+let spec__template__spec__container__env__value_from__secret_key_ref
+    ?key ?name ?optional () :
+    spec__template__spec__container__env__value_from__secret_key_ref
+    =
+  { key; name; optional }
+
+let spec__template__spec__container__env__value_from
+    ~config_map_key_ref ~field_ref ~resource_field_ref
+    ~secret_key_ref () :
+    spec__template__spec__container__env__value_from =
+  {
+    config_map_key_ref;
+    field_ref;
+    resource_field_ref;
+    secret_key_ref;
+  }
+
+let spec__template__spec__container__env ?value ~name ~value_from ()
+    : spec__template__spec__container__env =
+  { name; value; value_from }
+
+let spec__template__spec__container__env_from__config_map_ref
+    ?optional ~name () :
+    spec__template__spec__container__env_from__config_map_ref =
+  { name; optional }
+
+let spec__template__spec__container__env_from__secret_ref ?optional
+    ~name () : spec__template__spec__container__env_from__secret_ref
+    =
+  { name; optional }
+
+let spec__template__spec__container__env_from ?prefix ~config_map_ref
+    ~secret_ref () : spec__template__spec__container__env_from =
+  { prefix; config_map_ref; secret_ref }
+
+let spec__template__spec__container__lifecycle__post_start__exec
+    ?command () :
+    spec__template__spec__container__lifecycle__post_start__exec =
+  { command }
+
+let spec__template__spec__container__lifecycle__post_start__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__container__lifecycle__post_start__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__container__lifecycle__post_start__http_get
+    ?host ?path ?port ?scheme ~http_header () :
+    spec__template__spec__container__lifecycle__post_start__http_get
+    =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__container__lifecycle__post_start__tcp_socket
+    ~port () :
+    spec__template__spec__container__lifecycle__post_start__tcp_socket
+    =
+  { port }
+
+let spec__template__spec__container__lifecycle__post_start ~exec
+    ~http_get ~tcp_socket () :
+    spec__template__spec__container__lifecycle__post_start =
+  { exec; http_get; tcp_socket }
+
+let spec__template__spec__container__lifecycle__pre_stop__exec
+    ?command () :
+    spec__template__spec__container__lifecycle__pre_stop__exec =
+  { command }
+
+let spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__container__lifecycle__pre_stop__http_get
+    ?host ?path ?port ?scheme ~http_header () :
+    spec__template__spec__container__lifecycle__pre_stop__http_get =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__container__lifecycle__pre_stop__tcp_socket
+    ~port () :
+    spec__template__spec__container__lifecycle__pre_stop__tcp_socket
+    =
+  { port }
+
+let spec__template__spec__container__lifecycle__pre_stop ~exec
+    ~http_get ~tcp_socket () :
+    spec__template__spec__container__lifecycle__pre_stop =
+  { exec; http_get; tcp_socket }
+
+let spec__template__spec__container__lifecycle ~post_start ~pre_stop
+    () : spec__template__spec__container__lifecycle =
+  { post_start; pre_stop }
+
+let spec__template__spec__container__liveness_probe__exec ?command ()
+    : spec__template__spec__container__liveness_probe__exec =
+  { command }
+
+let spec__template__spec__container__liveness_probe__grpc ?service
+    ~port () : spec__template__spec__container__liveness_probe__grpc
+    =
+  { port; service }
+
+let spec__template__spec__container__liveness_probe__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__container__liveness_probe__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__container__liveness_probe__http_get ?host
+    ?path ?port ?scheme ~http_header () :
+    spec__template__spec__container__liveness_probe__http_get =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__container__liveness_probe__tcp_socket ~port
+    () : spec__template__spec__container__liveness_probe__tcp_socket
+    =
+  { port }
+
+let spec__template__spec__container__liveness_probe
+    ?failure_threshold ?initial_delay_seconds ?period_seconds
+    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
+    ~tcp_socket () : spec__template__spec__container__liveness_probe
+    =
+  {
+    failure_threshold;
+    initial_delay_seconds;
+    period_seconds;
+    success_threshold;
+    timeout_seconds;
+    exec;
+    grpc;
+    http_get;
+    tcp_socket;
+  }
+
+let spec__template__spec__container__port ?host_ip ?host_port ?name
+    ?protocol ~container_port () :
+    spec__template__spec__container__port =
+  { container_port; host_ip; host_port; name; protocol }
+
+let spec__template__spec__container__readiness_probe__exec ?command
+    () : spec__template__spec__container__readiness_probe__exec =
+  { command }
+
+let spec__template__spec__container__readiness_probe__grpc ?service
+    ~port () : spec__template__spec__container__readiness_probe__grpc
+    =
+  { port; service }
+
+let spec__template__spec__container__readiness_probe__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__container__readiness_probe__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__container__readiness_probe__http_get ?host
+    ?path ?port ?scheme ~http_header () :
+    spec__template__spec__container__readiness_probe__http_get =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__container__readiness_probe__tcp_socket
+    ~port () :
+    spec__template__spec__container__readiness_probe__tcp_socket =
+  { port }
+
+let spec__template__spec__container__readiness_probe
+    ?failure_threshold ?initial_delay_seconds ?period_seconds
+    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
+    ~tcp_socket () : spec__template__spec__container__readiness_probe
+    =
+  {
+    failure_threshold;
+    initial_delay_seconds;
+    period_seconds;
+    success_threshold;
+    timeout_seconds;
+    exec;
+    grpc;
+    http_get;
+    tcp_socket;
+  }
+
+let spec__template__spec__container__resources ?limits ?requests () :
+    spec__template__spec__container__resources =
+  { limits; requests }
+
+let spec__template__spec__container__security_context__capabilities
+    ?add ?drop () :
+    spec__template__spec__container__security_context__capabilities =
+  { add; drop }
+
+let spec__template__spec__container__security_context__se_linux_options
+    ?level ?role ?type_ ?user () :
+    spec__template__spec__container__security_context__se_linux_options
+    =
+  { level; role; type_; user }
+
+let spec__template__spec__container__security_context__seccomp_profile
+    ?localhost_profile ?type_ () :
+    spec__template__spec__container__security_context__seccomp_profile
+    =
+  { localhost_profile; type_ }
+
+let spec__template__spec__container__security_context
+    ?allow_privilege_escalation ?privileged
+    ?read_only_root_filesystem ?run_as_group ?run_as_non_root
+    ?run_as_user ~capabilities ~se_linux_options ~seccomp_profile ()
+    : spec__template__spec__container__security_context =
+  {
+    allow_privilege_escalation;
+    privileged;
+    read_only_root_filesystem;
+    run_as_group;
+    run_as_non_root;
+    run_as_user;
+    capabilities;
+    se_linux_options;
+    seccomp_profile;
+  }
+
+let spec__template__spec__container__startup_probe__exec ?command ()
+    : spec__template__spec__container__startup_probe__exec =
+  { command }
+
+let spec__template__spec__container__startup_probe__grpc ?service
+    ~port () : spec__template__spec__container__startup_probe__grpc =
+  { port; service }
+
+let spec__template__spec__container__startup_probe__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__container__startup_probe__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__container__startup_probe__http_get ?host
+    ?path ?port ?scheme ~http_header () :
+    spec__template__spec__container__startup_probe__http_get =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__container__startup_probe__tcp_socket ~port
+    () : spec__template__spec__container__startup_probe__tcp_socket =
+  { port }
+
+let spec__template__spec__container__startup_probe ?failure_threshold
+    ?initial_delay_seconds ?period_seconds ?success_threshold
+    ?timeout_seconds ~exec ~grpc ~http_get ~tcp_socket () :
+    spec__template__spec__container__startup_probe =
+  {
+    failure_threshold;
+    initial_delay_seconds;
+    period_seconds;
+    success_threshold;
+    timeout_seconds;
+    exec;
+    grpc;
+    http_get;
+    tcp_socket;
+  }
+
+let spec__template__spec__container__volume_mount ?mount_propagation
+    ?read_only ?sub_path ~mount_path ~name () :
+    spec__template__spec__container__volume_mount =
+  { mount_path; mount_propagation; name; read_only; sub_path }
+
+let spec__template__spec__container ?args ?command ?image
+    ?image_pull_policy ?stdin ?stdin_once ?termination_message_path
+    ?termination_message_policy ?tty ?working_dir ~name ~env
+    ~env_from ~lifecycle ~liveness_probe ~port ~readiness_probe
+    ~resources ~security_context ~startup_probe ~volume_mount () :
+    spec__template__spec__container =
+  {
+    args;
+    command;
+    image;
+    image_pull_policy;
+    name;
+    stdin;
+    stdin_once;
+    termination_message_path;
+    termination_message_policy;
+    tty;
+    working_dir;
+    env;
+    env_from;
+    lifecycle;
+    liveness_probe;
+    port;
+    readiness_probe;
+    resources;
+    security_context;
+    startup_probe;
+    volume_mount;
+  }
+
+let spec__template__spec__dns_config__option ?value ~name () :
+    spec__template__spec__dns_config__option =
+  { name; value }
+
+let spec__template__spec__dns_config ?nameservers ?searches ~option_
+    () : spec__template__spec__dns_config =
+  { nameservers; searches; option_ }
+
+let spec__template__spec__host_aliases ~hostnames ~ip () :
+    spec__template__spec__host_aliases =
+  { hostnames; ip }
+
+let spec__template__spec__image_pull_secrets ~name () :
+    spec__template__spec__image_pull_secrets =
+  { name }
+
+let spec__template__spec__init_container__env__value_from__config_map_key_ref
+    ?key ?name ?optional () :
+    spec__template__spec__init_container__env__value_from__config_map_key_ref
+    =
+  { key; name; optional }
+
+let spec__template__spec__init_container__env__value_from__field_ref
+    ?api_version ?field_path () :
+    spec__template__spec__init_container__env__value_from__field_ref
+    =
+  { api_version; field_path }
+
+let spec__template__spec__init_container__env__value_from__resource_field_ref
+    ?container_name ?divisor ~resource () :
+    spec__template__spec__init_container__env__value_from__resource_field_ref
+    =
+  { container_name; divisor; resource }
+
+let spec__template__spec__init_container__env__value_from__secret_key_ref
+    ?key ?name ?optional () :
+    spec__template__spec__init_container__env__value_from__secret_key_ref
+    =
+  { key; name; optional }
+
+let spec__template__spec__init_container__env__value_from
+    ~config_map_key_ref ~field_ref ~resource_field_ref
+    ~secret_key_ref () :
+    spec__template__spec__init_container__env__value_from =
+  {
+    config_map_key_ref;
+    field_ref;
+    resource_field_ref;
+    secret_key_ref;
+  }
+
+let spec__template__spec__init_container__env ?value ~name
+    ~value_from () : spec__template__spec__init_container__env =
+  { name; value; value_from }
+
+let spec__template__spec__init_container__env_from__config_map_ref
+    ?optional ~name () :
+    spec__template__spec__init_container__env_from__config_map_ref =
+  { name; optional }
+
+let spec__template__spec__init_container__env_from__secret_ref
+    ?optional ~name () :
+    spec__template__spec__init_container__env_from__secret_ref =
+  { name; optional }
+
+let spec__template__spec__init_container__env_from ?prefix
+    ~config_map_ref ~secret_ref () :
+    spec__template__spec__init_container__env_from =
+  { prefix; config_map_ref; secret_ref }
+
+let spec__template__spec__init_container__lifecycle__post_start__exec
+    ?command () :
+    spec__template__spec__init_container__lifecycle__post_start__exec
+    =
+  { command }
+
+let spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__init_container__lifecycle__post_start__http_get
+    ?host ?path ?port ?scheme ~http_header () :
+    spec__template__spec__init_container__lifecycle__post_start__http_get
+    =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__init_container__lifecycle__post_start__tcp_socket
+    ~port () :
+    spec__template__spec__init_container__lifecycle__post_start__tcp_socket
+    =
+  { port }
+
+let spec__template__spec__init_container__lifecycle__post_start ~exec
+    ~http_get ~tcp_socket () :
+    spec__template__spec__init_container__lifecycle__post_start =
+  { exec; http_get; tcp_socket }
+
+let spec__template__spec__init_container__lifecycle__pre_stop__exec
+    ?command () :
+    spec__template__spec__init_container__lifecycle__pre_stop__exec =
+  { command }
+
+let spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__init_container__lifecycle__pre_stop__http_get
+    ?host ?path ?port ?scheme ~http_header () :
+    spec__template__spec__init_container__lifecycle__pre_stop__http_get
+    =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
+    ~port () :
+    spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
+    =
+  { port }
+
+let spec__template__spec__init_container__lifecycle__pre_stop ~exec
+    ~http_get ~tcp_socket () :
+    spec__template__spec__init_container__lifecycle__pre_stop =
+  { exec; http_get; tcp_socket }
+
+let spec__template__spec__init_container__lifecycle ~post_start
+    ~pre_stop () : spec__template__spec__init_container__lifecycle =
+  { post_start; pre_stop }
+
+let spec__template__spec__init_container__liveness_probe__exec
+    ?command () :
+    spec__template__spec__init_container__liveness_probe__exec =
+  { command }
+
+let spec__template__spec__init_container__liveness_probe__grpc
+    ?service ~port () :
+    spec__template__spec__init_container__liveness_probe__grpc =
+  { port; service }
+
+let spec__template__spec__init_container__liveness_probe__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__init_container__liveness_probe__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__init_container__liveness_probe__http_get
+    ?host ?path ?port ?scheme ~http_header () :
+    spec__template__spec__init_container__liveness_probe__http_get =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__init_container__liveness_probe__tcp_socket
+    ~port () :
+    spec__template__spec__init_container__liveness_probe__tcp_socket
+    =
+  { port }
+
+let spec__template__spec__init_container__liveness_probe
+    ?failure_threshold ?initial_delay_seconds ?period_seconds
+    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
+    ~tcp_socket () :
+    spec__template__spec__init_container__liveness_probe =
+  {
+    failure_threshold;
+    initial_delay_seconds;
+    period_seconds;
+    success_threshold;
+    timeout_seconds;
+    exec;
+    grpc;
+    http_get;
+    tcp_socket;
+  }
+
+let spec__template__spec__init_container__port ?host_ip ?host_port
+    ?name ?protocol ~container_port () :
+    spec__template__spec__init_container__port =
+  { container_port; host_ip; host_port; name; protocol }
+
+let spec__template__spec__init_container__readiness_probe__exec
+    ?command () :
+    spec__template__spec__init_container__readiness_probe__exec =
+  { command }
+
+let spec__template__spec__init_container__readiness_probe__grpc
+    ?service ~port () :
+    spec__template__spec__init_container__readiness_probe__grpc =
+  { port; service }
+
+let spec__template__spec__init_container__readiness_probe__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__init_container__readiness_probe__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__init_container__readiness_probe__http_get
+    ?host ?path ?port ?scheme ~http_header () :
+    spec__template__spec__init_container__readiness_probe__http_get =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__init_container__readiness_probe__tcp_socket
+    ~port () :
+    spec__template__spec__init_container__readiness_probe__tcp_socket
+    =
+  { port }
+
+let spec__template__spec__init_container__readiness_probe
+    ?failure_threshold ?initial_delay_seconds ?period_seconds
+    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
+    ~tcp_socket () :
+    spec__template__spec__init_container__readiness_probe =
+  {
+    failure_threshold;
+    initial_delay_seconds;
+    period_seconds;
+    success_threshold;
+    timeout_seconds;
+    exec;
+    grpc;
+    http_get;
+    tcp_socket;
+  }
+
+let spec__template__spec__init_container__resources ?limits ?requests
+    () : spec__template__spec__init_container__resources =
+  { limits; requests }
+
+let spec__template__spec__init_container__security_context__capabilities
+    ?add ?drop () :
+    spec__template__spec__init_container__security_context__capabilities
+    =
+  { add; drop }
+
+let spec__template__spec__init_container__security_context__se_linux_options
+    ?level ?role ?type_ ?user () :
+    spec__template__spec__init_container__security_context__se_linux_options
+    =
+  { level; role; type_; user }
+
+let spec__template__spec__init_container__security_context__seccomp_profile
+    ?localhost_profile ?type_ () :
+    spec__template__spec__init_container__security_context__seccomp_profile
+    =
+  { localhost_profile; type_ }
+
+let spec__template__spec__init_container__security_context
+    ?allow_privilege_escalation ?privileged
+    ?read_only_root_filesystem ?run_as_group ?run_as_non_root
+    ?run_as_user ~capabilities ~se_linux_options ~seccomp_profile ()
+    : spec__template__spec__init_container__security_context =
+  {
+    allow_privilege_escalation;
+    privileged;
+    read_only_root_filesystem;
+    run_as_group;
+    run_as_non_root;
+    run_as_user;
+    capabilities;
+    se_linux_options;
+    seccomp_profile;
+  }
+
+let spec__template__spec__init_container__startup_probe__exec
+    ?command () :
+    spec__template__spec__init_container__startup_probe__exec =
+  { command }
+
+let spec__template__spec__init_container__startup_probe__grpc
+    ?service ~port () :
+    spec__template__spec__init_container__startup_probe__grpc =
+  { port; service }
+
+let spec__template__spec__init_container__startup_probe__http_get__http_header
+    ?name ?value () :
+    spec__template__spec__init_container__startup_probe__http_get__http_header
+    =
+  { name; value }
+
+let spec__template__spec__init_container__startup_probe__http_get
+    ?host ?path ?port ?scheme ~http_header () :
+    spec__template__spec__init_container__startup_probe__http_get =
+  { host; path; port; scheme; http_header }
+
+let spec__template__spec__init_container__startup_probe__tcp_socket
+    ~port () :
+    spec__template__spec__init_container__startup_probe__tcp_socket =
+  { port }
+
+let spec__template__spec__init_container__startup_probe
+    ?failure_threshold ?initial_delay_seconds ?period_seconds
+    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
+    ~tcp_socket () :
+    spec__template__spec__init_container__startup_probe =
+  {
+    failure_threshold;
+    initial_delay_seconds;
+    period_seconds;
+    success_threshold;
+    timeout_seconds;
+    exec;
+    grpc;
+    http_get;
+    tcp_socket;
+  }
+
+let spec__template__spec__init_container__volume_mount
+    ?mount_propagation ?read_only ?sub_path ~mount_path ~name () :
+    spec__template__spec__init_container__volume_mount =
+  { mount_path; mount_propagation; name; read_only; sub_path }
+
+let spec__template__spec__init_container ?args ?command ?image
+    ?image_pull_policy ?stdin ?stdin_once ?termination_message_path
+    ?termination_message_policy ?tty ?working_dir ~name ~env
+    ~env_from ~lifecycle ~liveness_probe ~port ~readiness_probe
+    ~resources ~security_context ~startup_probe ~volume_mount () :
+    spec__template__spec__init_container =
+  {
+    args;
+    command;
+    image;
+    image_pull_policy;
+    name;
+    stdin;
+    stdin_once;
+    termination_message_path;
+    termination_message_policy;
+    tty;
+    working_dir;
+    env;
+    env_from;
+    lifecycle;
+    liveness_probe;
+    port;
+    readiness_probe;
+    resources;
+    security_context;
+    startup_probe;
+    volume_mount;
+  }
+
+let spec__template__spec__os ~name () : spec__template__spec__os =
+  { name }
+
+let spec__template__spec__readiness_gate ~condition_type () :
+    spec__template__spec__readiness_gate =
+  { condition_type }
+
+let spec__template__spec__security_context__se_linux_options ?level
+    ?role ?type_ ?user () :
+    spec__template__spec__security_context__se_linux_options =
+  { level; role; type_; user }
+
+let spec__template__spec__security_context__seccomp_profile
+    ?localhost_profile ?type_ () :
+    spec__template__spec__security_context__seccomp_profile =
+  { localhost_profile; type_ }
+
+let spec__template__spec__security_context__sysctl ~name ~value () :
+    spec__template__spec__security_context__sysctl =
+  { name; value }
+
+let spec__template__spec__security_context__windows_options
+    ?gmsa_credential_spec ?gmsa_credential_spec_name ?host_process
+    ?run_as_username () :
+    spec__template__spec__security_context__windows_options =
+  {
+    gmsa_credential_spec;
+    gmsa_credential_spec_name;
+    host_process;
+    run_as_username;
+  }
+
+let spec__template__spec__security_context ?fs_group
+    ?fs_group_change_policy ?run_as_group ?run_as_non_root
+    ?run_as_user ?supplemental_groups ~se_linux_options
+    ~seccomp_profile ~sysctl ~windows_options () :
+    spec__template__spec__security_context =
+  {
+    fs_group;
+    fs_group_change_policy;
+    run_as_group;
+    run_as_non_root;
+    run_as_user;
+    supplemental_groups;
+    se_linux_options;
+    seccomp_profile;
+    sysctl;
+    windows_options;
+  }
+
+let spec__template__spec__toleration ?effect ?key ?operator
+    ?toleration_seconds ?value () : spec__template__spec__toleration
+    =
+  { effect; key; operator; toleration_seconds; value }
+
+let spec__template__spec__topology_spread_constraint__label_selector__match_expressions
+    ?key ?operator ?values () :
+    spec__template__spec__topology_spread_constraint__label_selector__match_expressions
+    =
+  { key; operator; values }
+
+let spec__template__spec__topology_spread_constraint__label_selector
+    ?match_labels ~match_expressions () :
+    spec__template__spec__topology_spread_constraint__label_selector
+    =
+  { match_labels; match_expressions }
+
+let spec__template__spec__topology_spread_constraint
+    ?match_label_keys ?max_skew ?min_domains ?node_affinity_policy
+    ?node_taints_policy ?topology_key ?when_unsatisfiable
+    ~label_selector () :
+    spec__template__spec__topology_spread_constraint =
+  {
+    match_label_keys;
+    max_skew;
+    min_domains;
+    node_affinity_policy;
+    node_taints_policy;
+    topology_key;
+    when_unsatisfiable;
+    label_selector;
+  }
+
+let spec__template__spec__volume__aws_elastic_block_store ?fs_type
+    ?partition ?read_only ~volume_id () :
+    spec__template__spec__volume__aws_elastic_block_store =
+  { fs_type; partition; read_only; volume_id }
+
+let spec__template__spec__volume__azure_disk ?fs_type ?kind
+    ?read_only ~caching_mode ~data_disk_uri ~disk_name () :
+    spec__template__spec__volume__azure_disk =
+  {
+    caching_mode;
+    data_disk_uri;
+    disk_name;
+    fs_type;
+    kind;
+    read_only;
+  }
+
+let spec__template__spec__volume__azure_file ?read_only
+    ?secret_namespace ~secret_name ~share_name () :
+    spec__template__spec__volume__azure_file =
+  { read_only; secret_name; secret_namespace; share_name }
+
+let spec__template__spec__volume__ceph_fs__secret_ref ?name
+    ?namespace () : spec__template__spec__volume__ceph_fs__secret_ref
+    =
+  { name; namespace }
+
+let spec__template__spec__volume__ceph_fs ?path ?read_only
+    ?secret_file ?user ~monitors ~secret_ref () :
+    spec__template__spec__volume__ceph_fs =
+  { monitors; path; read_only; secret_file; user; secret_ref }
+
+let spec__template__spec__volume__cinder ?fs_type ?read_only
+    ~volume_id () : spec__template__spec__volume__cinder =
+  { fs_type; read_only; volume_id }
+
+let spec__template__spec__volume__config_map__items ?key ?mode ?path
+    () : spec__template__spec__volume__config_map__items =
+  { key; mode; path }
+
+let spec__template__spec__volume__config_map ?default_mode ?name
+    ?optional ~items () : spec__template__spec__volume__config_map =
+  { default_mode; name; optional; items }
+
+let spec__template__spec__volume__csi__node_publish_secret_ref ?name
+    () : spec__template__spec__volume__csi__node_publish_secret_ref =
+  { name }
+
+let spec__template__spec__volume__csi ?fs_type ?read_only
+    ?volume_attributes ~driver ~node_publish_secret_ref () :
+    spec__template__spec__volume__csi =
+  {
+    driver;
+    fs_type;
+    read_only;
+    volume_attributes;
+    node_publish_secret_ref;
+  }
+
+let spec__template__spec__volume__downward_api__items__field_ref
+    ?api_version ?field_path () :
+    spec__template__spec__volume__downward_api__items__field_ref =
+  { api_version; field_path }
+
+let spec__template__spec__volume__downward_api__items__resource_field_ref
+    ?divisor ~container_name ~resource () :
+    spec__template__spec__volume__downward_api__items__resource_field_ref
+    =
+  { container_name; divisor; resource }
+
+let spec__template__spec__volume__downward_api__items ?mode ~path
+    ~field_ref ~resource_field_ref () :
+    spec__template__spec__volume__downward_api__items =
+  { mode; path; field_ref; resource_field_ref }
+
+let spec__template__spec__volume__downward_api ?default_mode ~items
+    () : spec__template__spec__volume__downward_api =
+  { default_mode; items }
+
+let spec__template__spec__volume__empty_dir ?medium ?size_limit () :
+    spec__template__spec__volume__empty_dir =
+  { medium; size_limit }
+
+let spec__template__spec__volume__ephemeral__volume_claim_template__metadata
+    ?annotations ?labels () :
+    spec__template__spec__volume__ephemeral__volume_claim_template__metadata
+    =
+  { annotations; labels }
+
+let spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
+    ?limits ?requests () :
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
+    =
+  { limits; requests }
+
+let spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
+    ?key ?operator ?values () :
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
+    =
+  { key; operator; values }
+
+let spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
+    ?match_labels ~match_expressions () :
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
+    =
+  { match_labels; match_expressions }
+
+let spec__template__spec__volume__ephemeral__volume_claim_template__spec
+    ?storage_class_name ?volume_mode ?volume_name ~access_modes
+    ~resources ~selector () :
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec
+    =
+  {
+    access_modes;
+    storage_class_name;
+    volume_mode;
+    volume_name;
+    resources;
+    selector;
+  }
+
+let spec__template__spec__volume__ephemeral__volume_claim_template
+    ~metadata ~spec () :
+    spec__template__spec__volume__ephemeral__volume_claim_template =
+  { metadata; spec }
+
+let spec__template__spec__volume__ephemeral ~volume_claim_template ()
+    : spec__template__spec__volume__ephemeral =
+  { volume_claim_template }
+
+let spec__template__spec__volume__fc ?fs_type ?read_only ~lun
+    ~target_ww_ns () : spec__template__spec__volume__fc =
+  { fs_type; lun; read_only; target_ww_ns }
+
+let spec__template__spec__volume__flex_volume__secret_ref ?name
+    ?namespace () :
+    spec__template__spec__volume__flex_volume__secret_ref =
+  { name; namespace }
+
+let spec__template__spec__volume__flex_volume ?fs_type ?options
+    ?read_only ~driver ~secret_ref () :
+    spec__template__spec__volume__flex_volume =
+  { driver; fs_type; options; read_only; secret_ref }
+
+let spec__template__spec__volume__flocker ?dataset_name ?dataset_uuid
+    () : spec__template__spec__volume__flocker =
+  { dataset_name; dataset_uuid }
+
+let spec__template__spec__volume__gce_persistent_disk ?fs_type
+    ?partition ?read_only ~pd_name () :
+    spec__template__spec__volume__gce_persistent_disk =
+  { fs_type; partition; pd_name; read_only }
+
+let spec__template__spec__volume__git_repo ?directory ?repository
+    ?revision () : spec__template__spec__volume__git_repo =
+  { directory; repository; revision }
+
+let spec__template__spec__volume__glusterfs ?read_only
+    ~endpoints_name ~path () :
+    spec__template__spec__volume__glusterfs =
+  { endpoints_name; path; read_only }
+
+let spec__template__spec__volume__host_path ?path ?type_ () :
+    spec__template__spec__volume__host_path =
+  { path; type_ }
+
+let spec__template__spec__volume__iscsi ?fs_type ?iscsi_interface
+    ?lun ?read_only ~iqn ~target_portal () :
+    spec__template__spec__volume__iscsi =
+  { fs_type; iqn; iscsi_interface; lun; read_only; target_portal }
+
+let spec__template__spec__volume__local ?path () :
+    spec__template__spec__volume__local =
+  { path }
+
+let spec__template__spec__volume__nfs ?read_only ~path ~server () :
+    spec__template__spec__volume__nfs =
+  { path; read_only; server }
+
+let spec__template__spec__volume__persistent_volume_claim ?claim_name
+    ?read_only () :
+    spec__template__spec__volume__persistent_volume_claim =
+  { claim_name; read_only }
+
+let spec__template__spec__volume__photon_persistent_disk ?fs_type
+    ~pd_id () : spec__template__spec__volume__photon_persistent_disk
+    =
+  { fs_type; pd_id }
+
+let spec__template__spec__volume__projected__sources__config_map__items
+    ?key ?mode ?path () :
+    spec__template__spec__volume__projected__sources__config_map__items
+    =
+  { key; mode; path }
+
+let spec__template__spec__volume__projected__sources__config_map
+    ?name ?optional ~items () :
+    spec__template__spec__volume__projected__sources__config_map =
+  { name; optional; items }
+
+let spec__template__spec__volume__projected__sources__downward_api__items__field_ref
+    ?api_version ?field_path () :
+    spec__template__spec__volume__projected__sources__downward_api__items__field_ref
+    =
+  { api_version; field_path }
+
+let spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
+    ?divisor ~container_name ~resource () :
+    spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
+    =
+  { container_name; divisor; resource }
+
+let spec__template__spec__volume__projected__sources__downward_api__items
+    ?mode ~path ~field_ref ~resource_field_ref () :
+    spec__template__spec__volume__projected__sources__downward_api__items
+    =
+  { mode; path; field_ref; resource_field_ref }
+
+let spec__template__spec__volume__projected__sources__downward_api
+    ~items () :
+    spec__template__spec__volume__projected__sources__downward_api =
+  { items }
+
+let spec__template__spec__volume__projected__sources__secret__items
+    ?key ?mode ?path () :
+    spec__template__spec__volume__projected__sources__secret__items =
+  { key; mode; path }
+
+let spec__template__spec__volume__projected__sources__secret ?name
+    ?optional ~items () :
+    spec__template__spec__volume__projected__sources__secret =
+  { name; optional; items }
+
+let spec__template__spec__volume__projected__sources__service_account_token
+    ?audience ?expiration_seconds ~path () :
+    spec__template__spec__volume__projected__sources__service_account_token
+    =
+  { audience; expiration_seconds; path }
+
+let spec__template__spec__volume__projected__sources ~config_map
+    ~downward_api ~secret ~service_account_token () :
+    spec__template__spec__volume__projected__sources =
+  { config_map; downward_api; secret; service_account_token }
+
+let spec__template__spec__volume__projected ?default_mode ~sources ()
+    : spec__template__spec__volume__projected =
+  { default_mode; sources }
+
+let spec__template__spec__volume__quobyte ?group ?read_only ?user
+    ~registry ~volume () : spec__template__spec__volume__quobyte =
+  { group; read_only; registry; user; volume }
+
+let spec__template__spec__volume__rbd__secret_ref ?name ?namespace ()
+    : spec__template__spec__volume__rbd__secret_ref =
+  { name; namespace }
+
+let spec__template__spec__volume__rbd ?fs_type ?keyring ?rados_user
+    ?rbd_pool ?read_only ~ceph_monitors ~rbd_image ~secret_ref () :
+    spec__template__spec__volume__rbd =
+  {
+    ceph_monitors;
+    fs_type;
+    keyring;
+    rados_user;
+    rbd_image;
+    rbd_pool;
+    read_only;
+    secret_ref;
+  }
+
+let spec__template__spec__volume__secret__items ?key ?mode ?path () :
+    spec__template__spec__volume__secret__items =
+  { key; mode; path }
+
+let spec__template__spec__volume__secret ?default_mode ?optional
+    ?secret_name ~items () : spec__template__spec__volume__secret =
+  { default_mode; optional; secret_name; items }
+
+let spec__template__spec__volume__vsphere_volume ?fs_type
+    ~volume_path () : spec__template__spec__volume__vsphere_volume =
+  { fs_type; volume_path }
+
+let spec__template__spec__volume ?name ~aws_elastic_block_store
+    ~azure_disk ~azure_file ~ceph_fs ~cinder ~config_map ~csi
+    ~downward_api ~empty_dir ~ephemeral ~fc ~flex_volume ~flocker
+    ~gce_persistent_disk ~git_repo ~glusterfs ~host_path ~iscsi
+    ~local ~nfs ~persistent_volume_claim ~photon_persistent_disk
+    ~projected ~quobyte ~rbd ~secret ~vsphere_volume () :
+    spec__template__spec__volume =
+  {
+    name;
+    aws_elastic_block_store;
+    azure_disk;
+    azure_file;
+    ceph_fs;
+    cinder;
+    config_map;
+    csi;
+    downward_api;
+    empty_dir;
+    ephemeral;
+    fc;
+    flex_volume;
+    flocker;
+    gce_persistent_disk;
+    git_repo;
+    glusterfs;
+    host_path;
+    iscsi;
+    local;
+    nfs;
+    persistent_volume_claim;
+    photon_persistent_disk;
+    projected;
+    quobyte;
+    rbd;
+    secret;
+    vsphere_volume;
+  }
+
+let spec__template__spec ?active_deadline_seconds
+    ?automount_service_account_token ?dns_policy
+    ?enable_service_links ?host_ipc ?host_network ?host_pid ?hostname
+    ?node_name ?node_selector ?priority_class_name ?restart_policy
+    ?runtime_class_name ?scheduler_name ?service_account_name
+    ?share_process_namespace ?subdomain
+    ?termination_grace_period_seconds ~affinity ~container
+    ~dns_config ~host_aliases ~image_pull_secrets ~init_container ~os
+    ~readiness_gate ~security_context ~toleration
+    ~topology_spread_constraint ~volume () : spec__template__spec =
+  {
+    active_deadline_seconds;
+    automount_service_account_token;
+    dns_policy;
+    enable_service_links;
+    host_ipc;
+    host_network;
+    host_pid;
+    hostname;
+    node_name;
+    node_selector;
+    priority_class_name;
+    restart_policy;
+    runtime_class_name;
+    scheduler_name;
+    service_account_name;
+    share_process_namespace;
+    subdomain;
+    termination_grace_period_seconds;
+    affinity;
+    container;
+    dns_config;
+    host_aliases;
+    image_pull_secrets;
+    init_container;
+    os;
+    readiness_gate;
+    security_context;
+    toleration;
+    topology_spread_constraint;
+    volume;
+  }
+
+let spec__template ~metadata ~spec () : spec__template =
+  { metadata; spec }
+
+let spec ?min_ready_seconds ?replicas ~selector ~template () : spec =
+  { min_ready_seconds; replicas; selector; template }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
 
 let kubernetes_replication_controller ?id ?timeouts ~metadata ~spec
-    __resource_id =
+    () : kubernetes_replication_controller =
+  { id; metadata; spec; timeouts }
+
+type t = { id : string prop }
+
+let register ?tf_module ?id ?timeouts ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_replication_controller" in
   let __resource =
-    ({ id; metadata; spec; timeouts }
-      : kubernetes_replication_controller)
+    kubernetes_replication_controller ?id ?timeouts ~metadata ~spec
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_replication_controller __resource);
   let __resource_attributes =
     ({ id = Prop.computed __resource_type __resource_id "id" } : t)

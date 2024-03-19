@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_guardduty_detector_feature__additional_configuration
+(** RESOURCE SERIALIZATION *)
+
+type additional_configuration
+
+val additional_configuration :
+  name:string prop ->
+  status:string prop ->
+  unit ->
+  additional_configuration
+
 type aws_guardduty_detector_feature
+
+val aws_guardduty_detector_feature :
+  ?id:string prop ->
+  detector_id:string prop ->
+  name:string prop ->
+  status:string prop ->
+  additional_configuration:additional_configuration list ->
+  unit ->
+  aws_guardduty_detector_feature
+
+val yojson_of_aws_guardduty_detector_feature :
+  aws_guardduty_detector_feature -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   detector_id : string prop;
@@ -12,12 +35,12 @@ type t = private {
   status : string prop;
 }
 
-val aws_guardduty_detector_feature :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   detector_id:string prop ->
   name:string prop ->
   status:string prop ->
-  additional_configuration:
-    aws_guardduty_detector_feature__additional_configuration list ->
+  additional_configuration:additional_configuration list ->
   string ->
   t

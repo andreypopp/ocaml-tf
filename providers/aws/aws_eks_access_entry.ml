@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_eks_access_entry__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_eks_access_entry__timeouts *)
+(** timeouts *)
 
 type aws_eks_access_entry = {
   cluster_name : string prop;  (** cluster_name *)
@@ -22,10 +22,27 @@ type aws_eks_access_entry = {
       (** tags_all *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   user_name : string prop option; [@option]  (** user_name *)
-  timeouts : aws_eks_access_entry__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_eks_access_entry *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_eks_access_entry ?id ?kubernetes_groups ?tags ?tags_all
+    ?type_ ?user_name ?timeouts ~cluster_name ~principal_arn () :
+    aws_eks_access_entry =
+  {
+    cluster_name;
+    id;
+    kubernetes_groups;
+    principal_arn;
+    tags;
+    tags_all;
+    type_;
+    user_name;
+    timeouts;
+  }
 
 type t = {
   access_entry_arn : string prop;
@@ -41,25 +58,14 @@ type t = {
   user_name : string prop;
 }
 
-let aws_eks_access_entry ?id ?kubernetes_groups ?tags ?tags_all
-    ?type_ ?user_name ?timeouts ~cluster_name ~principal_arn
-    __resource_id =
+let register ?tf_module ?id ?kubernetes_groups ?tags ?tags_all ?type_
+    ?user_name ?timeouts ~cluster_name ~principal_arn __resource_id =
   let __resource_type = "aws_eks_access_entry" in
   let __resource =
-    ({
-       cluster_name;
-       id;
-       kubernetes_groups;
-       principal_arn;
-       tags;
-       tags_all;
-       type_;
-       user_name;
-       timeouts;
-     }
-      : aws_eks_access_entry)
+    aws_eks_access_entry ?id ?kubernetes_groups ?tags ?tags_all
+      ?type_ ?user_name ?timeouts ~cluster_name ~principal_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_access_entry __resource);
   let __resource_attributes =
     ({

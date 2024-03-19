@@ -2,9 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_table__autoscale_settings
-type azurerm_cosmosdb_table__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type autoscale_settings
+
+val autoscale_settings :
+  ?max_throughput:float prop -> unit -> autoscale_settings
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_cosmosdb_table
+
+val azurerm_cosmosdb_table :
+  ?id:string prop ->
+  ?throughput:float prop ->
+  ?timeouts:timeouts ->
+  account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  autoscale_settings:autoscale_settings list ->
+  unit ->
+  azurerm_cosmosdb_table
+
+val yojson_of_azurerm_cosmosdb_table : azurerm_cosmosdb_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_name : string prop;
@@ -14,13 +44,14 @@ type t = private {
   throughput : float prop;
 }
 
-val azurerm_cosmosdb_table :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?throughput:float prop ->
-  ?timeouts:azurerm_cosmosdb_table__timeouts ->
+  ?timeouts:timeouts ->
   account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:azurerm_cosmosdb_table__autoscale_settings list ->
+  autoscale_settings:autoscale_settings list ->
   string ->
   t

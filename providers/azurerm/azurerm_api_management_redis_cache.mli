@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_redis_cache__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_api_management_redis_cache
+
+val azurerm_api_management_redis_cache :
+  ?cache_location:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?redis_cache_id:string prop ->
+  ?timeouts:timeouts ->
+  api_management_id:string prop ->
+  connection_string:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_api_management_redis_cache
+
+val yojson_of_azurerm_api_management_redis_cache :
+  azurerm_api_management_redis_cache -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_management_id : string prop;
@@ -15,12 +43,13 @@ type t = private {
   redis_cache_id : string prop;
 }
 
-val azurerm_api_management_redis_cache :
+val register :
+  ?tf_module:tf_module ->
   ?cache_location:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?redis_cache_id:string prop ->
-  ?timeouts:azurerm_api_management_redis_cache__timeouts ->
+  ?timeouts:timeouts ->
   api_management_id:string prop ->
   connection_string:string prop ->
   name:string prop ->

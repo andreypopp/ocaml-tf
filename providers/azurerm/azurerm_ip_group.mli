@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_ip_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_ip_group
+
+val azurerm_ip_group :
+  ?cidrs:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_ip_group
+
+val yojson_of_azurerm_ip_group : azurerm_ip_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cidrs : string list prop;
@@ -16,11 +42,12 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_ip_group :
+val register :
+  ?tf_module:tf_module ->
   ?cidrs:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_ip_group__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

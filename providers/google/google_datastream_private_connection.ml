@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_datastream_private_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_datastream_private_connection__timeouts *)
+(** timeouts *)
 
-type google_datastream_private_connection__vpc_peering_config = {
+type vpc_peering_config = {
   subnet : string prop;
       (** A free subnet for peering. (CIDR of /29) *)
   vpc : string prop;
@@ -23,7 +23,7 @@ Format: projects/{project}/global/{networks}/{name} *)
 (** The VPC Peering configuration is used to create VPC peering
 between Datastream and the consumer's VPC. *)
 
-type google_datastream_private_connection__error = {
+type error = {
   details : (string * string prop) list;  (** details *)
   message : string prop;  (** message *)
 }
@@ -42,17 +42,36 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   private_connection_id : string prop;
       (** The private connectivity identifier. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_datastream_private_connection__timeouts option;
-  vpc_peering_config :
-    google_datastream_private_connection__vpc_peering_config list;
+  timeouts : timeouts option;
+  vpc_peering_config : vpc_peering_config list;
 }
 [@@deriving yojson_of]
 (** google_datastream_private_connection *)
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc_peering_config ~subnet ~vpc () : vpc_peering_config =
+  { subnet; vpc }
+
+let google_datastream_private_connection ?id ?labels ?project
+    ?timeouts ~display_name ~location ~private_connection_id
+    ~vpc_peering_config () : google_datastream_private_connection =
+  {
+    display_name;
+    id;
+    labels;
+    location;
+    private_connection_id;
+    project;
+    timeouts;
+    vpc_peering_config;
+  }
+
 type t = {
   display_name : string prop;
   effective_labels : (string * string) list prop;
-  error : google_datastream_private_connection__error list prop;
+  error : error list prop;
   id : string prop;
   labels : (string * string) list prop;
   location : string prop;
@@ -63,24 +82,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_datastream_private_connection ?id ?labels ?project
-    ?timeouts ~display_name ~location ~private_connection_id
-    ~vpc_peering_config __resource_id =
+let register ?tf_module ?id ?labels ?project ?timeouts ~display_name
+    ~location ~private_connection_id ~vpc_peering_config
+    __resource_id =
   let __resource_type = "google_datastream_private_connection" in
   let __resource =
-    ({
-       display_name;
-       id;
-       labels;
-       location;
-       private_connection_id;
-       project;
-       timeouts;
-       vpc_peering_config;
-     }
-      : google_datastream_private_connection)
+    google_datastream_private_connection ?id ?labels ?project
+      ?timeouts ~display_name ~location ~private_connection_id
+      ~vpc_peering_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_datastream_private_connection __resource);
   let __resource_attributes =
     ({

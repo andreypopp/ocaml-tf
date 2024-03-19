@@ -23,6 +23,24 @@ type aws_cloud9_environment_ec2 = {
 [@@deriving yojson_of]
 (** aws_cloud9_environment_ec2 *)
 
+let aws_cloud9_environment_ec2 ?automatic_stop_time_minutes
+    ?connection_type ?description ?id ?owner_arn ?subnet_id ?tags
+    ?tags_all ~image_id ~instance_type ~name () :
+    aws_cloud9_environment_ec2 =
+  {
+    automatic_stop_time_minutes;
+    connection_type;
+    description;
+    id;
+    image_id;
+    instance_type;
+    name;
+    owner_arn;
+    subnet_id;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   automatic_stop_time_minutes : float prop;
@@ -39,27 +57,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_cloud9_environment_ec2 ?automatic_stop_time_minutes
-    ?connection_type ?description ?id ?owner_arn ?subnet_id ?tags
-    ?tags_all ~image_id ~instance_type ~name __resource_id =
+let register ?tf_module ?automatic_stop_time_minutes ?connection_type
+    ?description ?id ?owner_arn ?subnet_id ?tags ?tags_all ~image_id
+    ~instance_type ~name __resource_id =
   let __resource_type = "aws_cloud9_environment_ec2" in
   let __resource =
-    ({
-       automatic_stop_time_minutes;
-       connection_type;
-       description;
-       id;
-       image_id;
-       instance_type;
-       name;
-       owner_arn;
-       subnet_id;
-       tags;
-       tags_all;
-     }
-      : aws_cloud9_environment_ec2)
+    aws_cloud9_environment_ec2 ?automatic_stop_time_minutes
+      ?connection_type ?description ?id ?owner_arn ?subnet_id ?tags
+      ?tags_all ~image_id ~instance_type ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloud9_environment_ec2 __resource);
   let __resource_attributes =
     ({

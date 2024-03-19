@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type google_compute_vpn_gateway__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_vpn_gateway
+
+val google_compute_vpn_gateway :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network:string prop ->
+  unit ->
+  google_compute_vpn_gateway
+
+val yojson_of_google_compute_vpn_gateway :
+  google_compute_vpn_gateway -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_timestamp : string prop;
@@ -17,12 +39,13 @@ type t = private {
   self_link : string prop;
 }
 
-val google_compute_vpn_gateway :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?timeouts:google_compute_vpn_gateway__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
   string ->

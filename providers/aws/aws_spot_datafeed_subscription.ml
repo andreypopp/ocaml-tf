@@ -12,19 +12,22 @@ type aws_spot_datafeed_subscription = {
 [@@deriving yojson_of]
 (** aws_spot_datafeed_subscription *)
 
+let aws_spot_datafeed_subscription ?id ?prefix ~bucket () :
+    aws_spot_datafeed_subscription =
+  { bucket; id; prefix }
+
 type t = {
   bucket : string prop;
   id : string prop;
   prefix : string prop;
 }
 
-let aws_spot_datafeed_subscription ?id ?prefix ~bucket __resource_id
-    =
+let register ?tf_module ?id ?prefix ~bucket __resource_id =
   let __resource_type = "aws_spot_datafeed_subscription" in
   let __resource =
-    ({ bucket; id; prefix } : aws_spot_datafeed_subscription)
+    aws_spot_datafeed_subscription ?id ?prefix ~bucket ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_spot_datafeed_subscription __resource);
   let __resource_attributes =
     ({

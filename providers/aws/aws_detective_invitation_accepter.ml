@@ -11,14 +11,18 @@ type aws_detective_invitation_accepter = {
 [@@deriving yojson_of]
 (** aws_detective_invitation_accepter *)
 
+let aws_detective_invitation_accepter ?id ~graph_arn () :
+    aws_detective_invitation_accepter =
+  { graph_arn; id }
+
 type t = { graph_arn : string prop; id : string prop }
 
-let aws_detective_invitation_accepter ?id ~graph_arn __resource_id =
+let register ?tf_module ?id ~graph_arn __resource_id =
   let __resource_type = "aws_detective_invitation_accepter" in
   let __resource =
-    ({ graph_arn; id } : aws_detective_invitation_accepter)
+    aws_detective_invitation_accepter ?id ~graph_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_detective_invitation_accepter __resource);
   let __resource_attributes =
     ({

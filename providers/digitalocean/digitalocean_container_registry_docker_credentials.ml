@@ -14,6 +14,11 @@ type digitalocean_container_registry_docker_credentials = {
 [@@deriving yojson_of]
 (** digitalocean_container_registry_docker_credentials *)
 
+let digitalocean_container_registry_docker_credentials
+    ?expiry_seconds ?id ?write ~registry_name () :
+    digitalocean_container_registry_docker_credentials =
+  { expiry_seconds; id; registry_name; write }
+
 type t = {
   credential_expiration_time : string prop;
   docker_credentials : string prop;
@@ -23,16 +28,16 @@ type t = {
   write : bool prop;
 }
 
-let digitalocean_container_registry_docker_credentials
-    ?expiry_seconds ?id ?write ~registry_name __resource_id =
+let register ?tf_module ?expiry_seconds ?id ?write ~registry_name
+    __resource_id =
   let __resource_type =
     "digitalocean_container_registry_docker_credentials"
   in
   let __resource =
-    ({ expiry_seconds; id; registry_name; write }
-      : digitalocean_container_registry_docker_credentials)
+    digitalocean_container_registry_docker_credentials
+      ?expiry_seconds ?id ?write ~registry_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_container_registry_docker_credentials
        __resource);
   let __resource_attributes =

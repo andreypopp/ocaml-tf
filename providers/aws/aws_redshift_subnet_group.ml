@@ -16,6 +16,10 @@ type aws_redshift_subnet_group = {
 [@@deriving yojson_of]
 (** aws_redshift_subnet_group *)
 
+let aws_redshift_subnet_group ?description ?id ?tags ?tags_all ~name
+    ~subnet_ids () : aws_redshift_subnet_group =
+  { description; id; name; subnet_ids; tags; tags_all }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -26,14 +30,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_redshift_subnet_group ?description ?id ?tags ?tags_all ~name
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
     ~subnet_ids __resource_id =
   let __resource_type = "aws_redshift_subnet_group" in
   let __resource =
-    ({ description; id; name; subnet_ids; tags; tags_all }
-      : aws_redshift_subnet_group)
+    aws_redshift_subnet_group ?description ?id ?tags ?tags_all ~name
+      ~subnet_ids ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_subnet_group __resource);
   let __resource_attributes =
     ({

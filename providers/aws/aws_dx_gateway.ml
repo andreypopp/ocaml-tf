@@ -4,21 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_dx_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_dx_gateway__timeouts *)
+(** timeouts *)
 
 type aws_dx_gateway = {
   amazon_side_asn : string prop;  (** amazon_side_asn *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  timeouts : aws_dx_gateway__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dx_gateway *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_dx_gateway ?id ?timeouts ~amazon_side_asn ~name () :
+    aws_dx_gateway =
+  { amazon_side_asn; id; name; timeouts }
 
 type t = {
   amazon_side_asn : string prop;
@@ -27,13 +33,13 @@ type t = {
   owner_account_id : string prop;
 }
 
-let aws_dx_gateway ?id ?timeouts ~amazon_side_asn ~name __resource_id
-    =
+let register ?tf_module ?id ?timeouts ~amazon_side_asn ~name
+    __resource_id =
   let __resource_type = "aws_dx_gateway" in
   let __resource =
-    ({ amazon_side_asn; id; name; timeouts } : aws_dx_gateway)
+    aws_dx_gateway ?id ?timeouts ~amazon_side_asn ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_gateway __resource);
   let __resource_attributes =
     ({

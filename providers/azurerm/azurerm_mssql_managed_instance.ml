@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_mssql_managed_instance__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_managed_instance__identity *)
+(** identity *)
 
-type azurerm_mssql_managed_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_mssql_managed_instance__timeouts *)
+(** timeouts *)
 
 type azurerm_mssql_managed_instance = {
   administrator_login : string prop;  (** administrator_login *)
@@ -53,11 +51,51 @@ type azurerm_mssql_managed_instance = {
   vcores : float prop;  (** vcores *)
   zone_redundant_enabled : bool prop option; [@option]
       (** zone_redundant_enabled *)
-  identity : azurerm_mssql_managed_instance__identity list;
-  timeouts : azurerm_mssql_managed_instance__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_instance *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
+    ?id ?maintenance_configuration_name ?minimum_tls_version
+    ?proxy_override ?public_data_endpoint_enabled
+    ?storage_account_type ?tags ?timezone_id ?zone_redundant_enabled
+    ?timeouts ~administrator_login ~administrator_login_password
+    ~license_type ~location ~name ~resource_group_name ~sku_name
+    ~storage_size_in_gb ~subnet_id ~vcores ~identity () :
+    azurerm_mssql_managed_instance =
+  {
+    administrator_login;
+    administrator_login_password;
+    collation;
+    dns_zone_partner_id;
+    id;
+    license_type;
+    location;
+    maintenance_configuration_name;
+    minimum_tls_version;
+    name;
+    proxy_override;
+    public_data_endpoint_enabled;
+    resource_group_name;
+    sku_name;
+    storage_account_type;
+    storage_size_in_gb;
+    subnet_id;
+    tags;
+    timezone_id;
+    vcores;
+    zone_redundant_enabled;
+    identity;
+    timeouts;
+  }
 
 type t = {
   administrator_login : string prop;
@@ -85,8 +123,8 @@ type t = {
   zone_redundant_enabled : bool prop;
 }
 
-let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
-    ?id ?maintenance_configuration_name ?minimum_tls_version
+let register ?tf_module ?collation ?dns_zone_partner_id ?id
+    ?maintenance_configuration_name ?minimum_tls_version
     ?proxy_override ?public_data_endpoint_enabled
     ?storage_account_type ?tags ?timezone_id ?zone_redundant_enabled
     ?timeouts ~administrator_login ~administrator_login_password
@@ -94,34 +132,16 @@ let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
     ~storage_size_in_gb ~subnet_id ~vcores ~identity __resource_id =
   let __resource_type = "azurerm_mssql_managed_instance" in
   let __resource =
-    ({
-       administrator_login;
-       administrator_login_password;
-       collation;
-       dns_zone_partner_id;
-       id;
-       license_type;
-       location;
-       maintenance_configuration_name;
-       minimum_tls_version;
-       name;
-       proxy_override;
-       public_data_endpoint_enabled;
-       resource_group_name;
-       sku_name;
-       storage_account_type;
-       storage_size_in_gb;
-       subnet_id;
-       tags;
-       timezone_id;
-       vcores;
-       zone_redundant_enabled;
-       identity;
-       timeouts;
-     }
-      : azurerm_mssql_managed_instance)
+    azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
+      ?id ?maintenance_configuration_name ?minimum_tls_version
+      ?proxy_override ?public_data_endpoint_enabled
+      ?storage_account_type ?tags ?timezone_id
+      ?zone_redundant_enabled ?timeouts ~administrator_login
+      ~administrator_login_password ~license_type ~location ~name
+      ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
+      ~vcores ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_instance __resource);
   let __resource_attributes =
     ({

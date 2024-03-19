@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_cloudcontrolapi_resource__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_cloudcontrolapi_resource
+
+val aws_cloudcontrolapi_resource :
+  ?id:string prop ->
+  ?role_arn:string prop ->
+  ?schema:string prop ->
+  ?type_version_id:string prop ->
+  ?timeouts:timeouts ->
+  desired_state:string prop ->
+  type_name:string prop ->
+  unit ->
+  aws_cloudcontrolapi_resource
+
+val yojson_of_aws_cloudcontrolapi_resource :
+  aws_cloudcontrolapi_resource -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   desired_state : string prop;
@@ -15,12 +41,13 @@ type t = private {
   type_version_id : string prop;
 }
 
-val aws_cloudcontrolapi_resource :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?role_arn:string prop ->
   ?schema:string prop ->
   ?type_version_id:string prop ->
-  ?timeouts:aws_cloudcontrolapi_resource__timeouts ->
+  ?timeouts:timeouts ->
   desired_state:string prop ->
   type_name:string prop ->
   string ->

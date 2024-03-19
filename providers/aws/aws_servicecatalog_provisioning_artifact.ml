@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_provisioning_artifact__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_servicecatalog_provisioning_artifact__timeouts *)
+(** timeouts *)
 
 type aws_servicecatalog_provisioning_artifact = {
   accept_language : string prop option; [@option]
@@ -28,11 +28,32 @@ type aws_servicecatalog_provisioning_artifact = {
       (** template_physical_id *)
   template_url : string prop option; [@option]  (** template_url *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  timeouts :
-    aws_servicecatalog_provisioning_artifact__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_provisioning_artifact *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let aws_servicecatalog_provisioning_artifact ?accept_language ?active
+    ?description ?disable_template_validation ?guidance ?id ?name
+    ?template_physical_id ?template_url ?type_ ?timeouts ~product_id
+    () : aws_servicecatalog_provisioning_artifact =
+  {
+    accept_language;
+    active;
+    description;
+    disable_template_validation;
+    guidance;
+    id;
+    name;
+    product_id;
+    template_physical_id;
+    template_url;
+    type_;
+    timeouts;
+  }
 
 type t = {
   accept_language : string prop;
@@ -50,29 +71,18 @@ type t = {
   type_ : string prop;
 }
 
-let aws_servicecatalog_provisioning_artifact ?accept_language ?active
-    ?description ?disable_template_validation ?guidance ?id ?name
+let register ?tf_module ?accept_language ?active ?description
+    ?disable_template_validation ?guidance ?id ?name
     ?template_physical_id ?template_url ?type_ ?timeouts ~product_id
     __resource_id =
   let __resource_type = "aws_servicecatalog_provisioning_artifact" in
   let __resource =
-    ({
-       accept_language;
-       active;
-       description;
-       disable_template_validation;
-       guidance;
-       id;
-       name;
-       product_id;
-       template_physical_id;
-       template_url;
-       type_;
-       timeouts;
-     }
-      : aws_servicecatalog_provisioning_artifact)
+    aws_servicecatalog_provisioning_artifact ?accept_language ?active
+      ?description ?disable_template_validation ?guidance ?id ?name
+      ?template_physical_id ?template_url ?type_ ?timeouts
+      ~product_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_provisioning_artifact __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_launch_template__block_device_mappings__ebs = {
+type block_device_mappings__ebs = {
   delete_on_termination : string prop option; [@option]
       (** delete_on_termination *)
   encrypted : string prop option; [@option]  (** encrypted *)
@@ -16,18 +16,18 @@ type aws_launch_template__block_device_mappings__ebs = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__block_device_mappings__ebs *)
+(** block_device_mappings__ebs *)
 
-type aws_launch_template__block_device_mappings = {
+type block_device_mappings = {
   device_name : string prop option; [@option]  (** device_name *)
   no_device : string prop option; [@option]  (** no_device *)
   virtual_name : string prop option; [@option]  (** virtual_name *)
-  ebs : aws_launch_template__block_device_mappings__ebs list;
+  ebs : block_device_mappings__ebs list;
 }
 [@@deriving yojson_of]
-(** aws_launch_template__block_device_mappings *)
+(** block_device_mappings *)
 
-type aws_launch_template__capacity_reservation_specification__capacity_reservation_target = {
+type capacity_reservation_specification__capacity_reservation_target = {
   capacity_reservation_id : string prop option; [@option]
       (** capacity_reservation_id *)
   capacity_reservation_resource_group_arn : string prop option;
@@ -35,65 +35,65 @@ type aws_launch_template__capacity_reservation_specification__capacity_reservati
       (** capacity_reservation_resource_group_arn *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__capacity_reservation_specification__capacity_reservation_target *)
+(** capacity_reservation_specification__capacity_reservation_target *)
 
-type aws_launch_template__capacity_reservation_specification = {
+type capacity_reservation_specification = {
   capacity_reservation_preference : string prop option; [@option]
       (** capacity_reservation_preference *)
   capacity_reservation_target :
-    aws_launch_template__capacity_reservation_specification__capacity_reservation_target
+    capacity_reservation_specification__capacity_reservation_target
     list;
 }
 [@@deriving yojson_of]
-(** aws_launch_template__capacity_reservation_specification *)
+(** capacity_reservation_specification *)
 
-type aws_launch_template__cpu_options = {
+type cpu_options = {
   amd_sev_snp : string prop option; [@option]  (** amd_sev_snp *)
   core_count : float prop option; [@option]  (** core_count *)
   threads_per_core : float prop option; [@option]
       (** threads_per_core *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__cpu_options *)
+(** cpu_options *)
 
-type aws_launch_template__credit_specification = {
+type credit_specification = {
   cpu_credits : string prop option; [@option]  (** cpu_credits *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__credit_specification *)
+(** credit_specification *)
 
-type aws_launch_template__elastic_gpu_specifications = {
+type elastic_gpu_specifications = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__elastic_gpu_specifications *)
+(** elastic_gpu_specifications *)
 
-type aws_launch_template__elastic_inference_accelerator = {
+type elastic_inference_accelerator = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__elastic_inference_accelerator *)
+(** elastic_inference_accelerator *)
 
-type aws_launch_template__enclave_options = {
+type enclave_options = {
   enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__enclave_options *)
+(** enclave_options *)
 
-type aws_launch_template__hibernation_options = {
+type hibernation_options = {
   configured : bool prop;  (** configured *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__hibernation_options *)
+(** hibernation_options *)
 
-type aws_launch_template__iam_instance_profile = {
+type iam_instance_profile = {
   arn : string prop option; [@option]  (** arn *)
   name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__iam_instance_profile *)
+(** iam_instance_profile *)
 
-type aws_launch_template__instance_market_options__spot_options = {
+type instance_market_options__spot_options = {
   block_duration_minutes : float prop option; [@option]
       (** block_duration_minutes *)
   instance_interruption_behavior : string prop option; [@option]
@@ -104,80 +104,79 @@ type aws_launch_template__instance_market_options__spot_options = {
   valid_until : string prop option; [@option]  (** valid_until *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_market_options__spot_options *)
+(** instance_market_options__spot_options *)
 
-type aws_launch_template__instance_market_options = {
+type instance_market_options = {
   market_type : string prop option; [@option]  (** market_type *)
-  spot_options :
-    aws_launch_template__instance_market_options__spot_options list;
+  spot_options : instance_market_options__spot_options list;
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_market_options *)
+(** instance_market_options *)
 
-type aws_launch_template__instance_requirements__accelerator_count = {
+type instance_requirements__accelerator_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__accelerator_count *)
+(** instance_requirements__accelerator_count *)
 
-type aws_launch_template__instance_requirements__accelerator_total_memory_mib = {
+type instance_requirements__accelerator_total_memory_mib = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__accelerator_total_memory_mib *)
+(** instance_requirements__accelerator_total_memory_mib *)
 
-type aws_launch_template__instance_requirements__baseline_ebs_bandwidth_mbps = {
+type instance_requirements__baseline_ebs_bandwidth_mbps = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__baseline_ebs_bandwidth_mbps *)
+(** instance_requirements__baseline_ebs_bandwidth_mbps *)
 
-type aws_launch_template__instance_requirements__memory_gib_per_vcpu = {
+type instance_requirements__memory_gib_per_vcpu = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__memory_gib_per_vcpu *)
+(** instance_requirements__memory_gib_per_vcpu *)
 
-type aws_launch_template__instance_requirements__memory_mib = {
+type instance_requirements__memory_mib = {
   max : float prop option; [@option]  (** max *)
   min : float prop;  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__memory_mib *)
+(** instance_requirements__memory_mib *)
 
-type aws_launch_template__instance_requirements__network_bandwidth_gbps = {
+type instance_requirements__network_bandwidth_gbps = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__network_bandwidth_gbps *)
+(** instance_requirements__network_bandwidth_gbps *)
 
-type aws_launch_template__instance_requirements__network_interface_count = {
+type instance_requirements__network_interface_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__network_interface_count *)
+(** instance_requirements__network_interface_count *)
 
-type aws_launch_template__instance_requirements__total_local_storage_gb = {
+type instance_requirements__total_local_storage_gb = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__total_local_storage_gb *)
+(** instance_requirements__total_local_storage_gb *)
 
-type aws_launch_template__instance_requirements__vcpu_count = {
+type instance_requirements__vcpu_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop;  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements__vcpu_count *)
+(** instance_requirements__vcpu_count *)
 
-type aws_launch_template__instance_requirements = {
+type instance_requirements = {
   accelerator_manufacturers : string prop list option; [@option]
       (** accelerator_manufacturers *)
   accelerator_names : string prop list option; [@option]
@@ -207,49 +206,39 @@ type aws_launch_template__instance_requirements = {
   spot_max_price_percentage_over_lowest_price : float prop option;
       [@option]
       (** spot_max_price_percentage_over_lowest_price *)
-  accelerator_count :
-    aws_launch_template__instance_requirements__accelerator_count
-    list;
+  accelerator_count : instance_requirements__accelerator_count list;
   accelerator_total_memory_mib :
-    aws_launch_template__instance_requirements__accelerator_total_memory_mib
-    list;
+    instance_requirements__accelerator_total_memory_mib list;
   baseline_ebs_bandwidth_mbps :
-    aws_launch_template__instance_requirements__baseline_ebs_bandwidth_mbps
-    list;
+    instance_requirements__baseline_ebs_bandwidth_mbps list;
   memory_gib_per_vcpu :
-    aws_launch_template__instance_requirements__memory_gib_per_vcpu
-    list;
-  memory_mib :
-    aws_launch_template__instance_requirements__memory_mib list;
+    instance_requirements__memory_gib_per_vcpu list;
+  memory_mib : instance_requirements__memory_mib list;
   network_bandwidth_gbps :
-    aws_launch_template__instance_requirements__network_bandwidth_gbps
-    list;
+    instance_requirements__network_bandwidth_gbps list;
   network_interface_count :
-    aws_launch_template__instance_requirements__network_interface_count
-    list;
+    instance_requirements__network_interface_count list;
   total_local_storage_gb :
-    aws_launch_template__instance_requirements__total_local_storage_gb
-    list;
-  vcpu_count :
-    aws_launch_template__instance_requirements__vcpu_count list;
+    instance_requirements__total_local_storage_gb list;
+  vcpu_count : instance_requirements__vcpu_count list;
 }
 [@@deriving yojson_of]
-(** aws_launch_template__instance_requirements *)
+(** instance_requirements *)
 
-type aws_launch_template__license_specification = {
+type license_specification = {
   license_configuration_arn : string prop;
       (** license_configuration_arn *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__license_specification *)
+(** license_specification *)
 
-type aws_launch_template__maintenance_options = {
+type maintenance_options = {
   auto_recovery : string prop option; [@option]  (** auto_recovery *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__maintenance_options *)
+(** maintenance_options *)
 
-type aws_launch_template__metadata_options = {
+type metadata_options = {
   http_endpoint : string prop option; [@option]  (** http_endpoint *)
   http_protocol_ipv6 : string prop option; [@option]
       (** http_protocol_ipv6 *)
@@ -260,15 +249,15 @@ type aws_launch_template__metadata_options = {
       (** instance_metadata_tags *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__metadata_options *)
+(** metadata_options *)
 
-type aws_launch_template__monitoring = {
+type monitoring = {
   enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__monitoring *)
+(** monitoring *)
 
-type aws_launch_template__network_interfaces = {
+type network_interfaces = {
   associate_carrier_ip_address : string prop option; [@option]
       (** associate_carrier_ip_address *)
   associate_public_ip_address : string prop option; [@option]
@@ -306,9 +295,9 @@ type aws_launch_template__network_interfaces = {
   subnet_id : string prop option; [@option]  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__network_interfaces *)
+(** network_interfaces *)
 
-type aws_launch_template__placement = {
+type placement = {
   affinity : string prop option; [@option]  (** affinity *)
   availability_zone : string prop option; [@option]
       (** availability_zone *)
@@ -322,9 +311,9 @@ type aws_launch_template__placement = {
   tenancy : string prop option; [@option]  (** tenancy *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__placement *)
+(** placement *)
 
-type aws_launch_template__private_dns_name_options = {
+type private_dns_name_options = {
   enable_resource_name_dns_a_record : bool prop option; [@option]
       (** enable_resource_name_dns_a_record *)
   enable_resource_name_dns_aaaa_record : bool prop option; [@option]
@@ -332,14 +321,14 @@ type aws_launch_template__private_dns_name_options = {
   hostname_type : string prop option; [@option]  (** hostname_type *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__private_dns_name_options *)
+(** private_dns_name_options *)
 
-type aws_launch_template__tag_specifications = {
+type tag_specifications = {
   resource_type : string prop option; [@option]  (** resource_type *)
   tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
-(** aws_launch_template__tag_specifications *)
+(** tag_specifications *)
 
 type aws_launch_template = {
   default_version : float prop option; [@option]
@@ -371,40 +360,305 @@ type aws_launch_template = {
   user_data : string prop option; [@option]  (** user_data *)
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  block_device_mappings :
-    aws_launch_template__block_device_mappings list;
+  block_device_mappings : block_device_mappings list;
   capacity_reservation_specification :
-    aws_launch_template__capacity_reservation_specification list;
-  cpu_options : aws_launch_template__cpu_options list;
-  credit_specification :
-    aws_launch_template__credit_specification list;
-  elastic_gpu_specifications :
-    aws_launch_template__elastic_gpu_specifications list;
-  elastic_inference_accelerator :
-    aws_launch_template__elastic_inference_accelerator list;
-  enclave_options : aws_launch_template__enclave_options list;
-  hibernation_options :
-    aws_launch_template__hibernation_options list;
-  iam_instance_profile :
-    aws_launch_template__iam_instance_profile list;
-  instance_market_options :
-    aws_launch_template__instance_market_options list;
-  instance_requirements :
-    aws_launch_template__instance_requirements list;
-  license_specification :
-    aws_launch_template__license_specification list;
-  maintenance_options :
-    aws_launch_template__maintenance_options list;
-  metadata_options : aws_launch_template__metadata_options list;
-  monitoring : aws_launch_template__monitoring list;
-  network_interfaces : aws_launch_template__network_interfaces list;
-  placement : aws_launch_template__placement list;
-  private_dns_name_options :
-    aws_launch_template__private_dns_name_options list;
-  tag_specifications : aws_launch_template__tag_specifications list;
+    capacity_reservation_specification list;
+  cpu_options : cpu_options list;
+  credit_specification : credit_specification list;
+  elastic_gpu_specifications : elastic_gpu_specifications list;
+  elastic_inference_accelerator : elastic_inference_accelerator list;
+  enclave_options : enclave_options list;
+  hibernation_options : hibernation_options list;
+  iam_instance_profile : iam_instance_profile list;
+  instance_market_options : instance_market_options list;
+  instance_requirements : instance_requirements list;
+  license_specification : license_specification list;
+  maintenance_options : maintenance_options list;
+  metadata_options : metadata_options list;
+  monitoring : monitoring list;
+  network_interfaces : network_interfaces list;
+  placement : placement list;
+  private_dns_name_options : private_dns_name_options list;
+  tag_specifications : tag_specifications list;
 }
 [@@deriving yojson_of]
 (** aws_launch_template *)
+
+let block_device_mappings__ebs ?delete_on_termination ?encrypted
+    ?iops ?kms_key_id ?snapshot_id ?throughput ?volume_size
+    ?volume_type () : block_device_mappings__ebs =
+  {
+    delete_on_termination;
+    encrypted;
+    iops;
+    kms_key_id;
+    snapshot_id;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let block_device_mappings ?device_name ?no_device ?virtual_name ~ebs
+    () : block_device_mappings =
+  { device_name; no_device; virtual_name; ebs }
+
+let capacity_reservation_specification__capacity_reservation_target
+    ?capacity_reservation_id ?capacity_reservation_resource_group_arn
+    () :
+    capacity_reservation_specification__capacity_reservation_target =
+  {
+    capacity_reservation_id;
+    capacity_reservation_resource_group_arn;
+  }
+
+let capacity_reservation_specification
+    ?capacity_reservation_preference ~capacity_reservation_target ()
+    : capacity_reservation_specification =
+  { capacity_reservation_preference; capacity_reservation_target }
+
+let cpu_options ?amd_sev_snp ?core_count ?threads_per_core () :
+    cpu_options =
+  { amd_sev_snp; core_count; threads_per_core }
+
+let credit_specification ?cpu_credits () : credit_specification =
+  { cpu_credits }
+
+let elastic_gpu_specifications ~type_ () : elastic_gpu_specifications
+    =
+  { type_ }
+
+let elastic_inference_accelerator ~type_ () :
+    elastic_inference_accelerator =
+  { type_ }
+
+let enclave_options ?enabled () : enclave_options = { enabled }
+
+let hibernation_options ~configured () : hibernation_options =
+  { configured }
+
+let iam_instance_profile ?arn ?name () : iam_instance_profile =
+  { arn; name }
+
+let instance_market_options__spot_options ?block_duration_minutes
+    ?instance_interruption_behavior ?max_price ?spot_instance_type
+    ?valid_until () : instance_market_options__spot_options =
+  {
+    block_duration_minutes;
+    instance_interruption_behavior;
+    max_price;
+    spot_instance_type;
+    valid_until;
+  }
+
+let instance_market_options ?market_type ~spot_options () :
+    instance_market_options =
+  { market_type; spot_options }
+
+let instance_requirements__accelerator_count ?max ?min () :
+    instance_requirements__accelerator_count =
+  { max; min }
+
+let instance_requirements__accelerator_total_memory_mib ?max ?min ()
+    : instance_requirements__accelerator_total_memory_mib =
+  { max; min }
+
+let instance_requirements__baseline_ebs_bandwidth_mbps ?max ?min () :
+    instance_requirements__baseline_ebs_bandwidth_mbps =
+  { max; min }
+
+let instance_requirements__memory_gib_per_vcpu ?max ?min () :
+    instance_requirements__memory_gib_per_vcpu =
+  { max; min }
+
+let instance_requirements__memory_mib ?max ~min () :
+    instance_requirements__memory_mib =
+  { max; min }
+
+let instance_requirements__network_bandwidth_gbps ?max ?min () :
+    instance_requirements__network_bandwidth_gbps =
+  { max; min }
+
+let instance_requirements__network_interface_count ?max ?min () :
+    instance_requirements__network_interface_count =
+  { max; min }
+
+let instance_requirements__total_local_storage_gb ?max ?min () :
+    instance_requirements__total_local_storage_gb =
+  { max; min }
+
+let instance_requirements__vcpu_count ?max ~min () :
+    instance_requirements__vcpu_count =
+  { max; min }
+
+let instance_requirements ?accelerator_manufacturers
+    ?accelerator_names ?accelerator_types ?allowed_instance_types
+    ?bare_metal ?burstable_performance ?cpu_manufacturers
+    ?excluded_instance_types ?instance_generations ?local_storage
+    ?local_storage_types
+    ?on_demand_max_price_percentage_over_lowest_price
+    ?require_hibernate_support
+    ?spot_max_price_percentage_over_lowest_price ~accelerator_count
+    ~accelerator_total_memory_mib ~baseline_ebs_bandwidth_mbps
+    ~memory_gib_per_vcpu ~memory_mib ~network_bandwidth_gbps
+    ~network_interface_count ~total_local_storage_gb ~vcpu_count () :
+    instance_requirements =
+  {
+    accelerator_manufacturers;
+    accelerator_names;
+    accelerator_types;
+    allowed_instance_types;
+    bare_metal;
+    burstable_performance;
+    cpu_manufacturers;
+    excluded_instance_types;
+    instance_generations;
+    local_storage;
+    local_storage_types;
+    on_demand_max_price_percentage_over_lowest_price;
+    require_hibernate_support;
+    spot_max_price_percentage_over_lowest_price;
+    accelerator_count;
+    accelerator_total_memory_mib;
+    baseline_ebs_bandwidth_mbps;
+    memory_gib_per_vcpu;
+    memory_mib;
+    network_bandwidth_gbps;
+    network_interface_count;
+    total_local_storage_gb;
+    vcpu_count;
+  }
+
+let license_specification ~license_configuration_arn () :
+    license_specification =
+  { license_configuration_arn }
+
+let maintenance_options ?auto_recovery () : maintenance_options =
+  { auto_recovery }
+
+let metadata_options ?http_endpoint ?http_protocol_ipv6
+    ?http_put_response_hop_limit ?http_tokens ?instance_metadata_tags
+    () : metadata_options =
+  {
+    http_endpoint;
+    http_protocol_ipv6;
+    http_put_response_hop_limit;
+    http_tokens;
+    instance_metadata_tags;
+  }
+
+let monitoring ?enabled () : monitoring = { enabled }
+
+let network_interfaces ?associate_carrier_ip_address
+    ?associate_public_ip_address ?delete_on_termination ?description
+    ?device_index ?interface_type ?ipv4_address_count ?ipv4_addresses
+    ?ipv4_prefix_count ?ipv4_prefixes ?ipv6_address_count
+    ?ipv6_addresses ?ipv6_prefix_count ?ipv6_prefixes
+    ?network_card_index ?network_interface_id ?private_ip_address
+    ?security_groups ?subnet_id () : network_interfaces =
+  {
+    associate_carrier_ip_address;
+    associate_public_ip_address;
+    delete_on_termination;
+    description;
+    device_index;
+    interface_type;
+    ipv4_address_count;
+    ipv4_addresses;
+    ipv4_prefix_count;
+    ipv4_prefixes;
+    ipv6_address_count;
+    ipv6_addresses;
+    ipv6_prefix_count;
+    ipv6_prefixes;
+    network_card_index;
+    network_interface_id;
+    private_ip_address;
+    security_groups;
+    subnet_id;
+  }
+
+let placement ?affinity ?availability_zone ?group_name ?host_id
+    ?host_resource_group_arn ?partition_number ?spread_domain
+    ?tenancy () : placement =
+  {
+    affinity;
+    availability_zone;
+    group_name;
+    host_id;
+    host_resource_group_arn;
+    partition_number;
+    spread_domain;
+    tenancy;
+  }
+
+let private_dns_name_options ?enable_resource_name_dns_a_record
+    ?enable_resource_name_dns_aaaa_record ?hostname_type () :
+    private_dns_name_options =
+  {
+    enable_resource_name_dns_a_record;
+    enable_resource_name_dns_aaaa_record;
+    hostname_type;
+  }
+
+let tag_specifications ?resource_type ?tags () : tag_specifications =
+  { resource_type; tags }
+
+let aws_launch_template ?default_version ?description
+    ?disable_api_stop ?disable_api_termination ?ebs_optimized ?id
+    ?image_id ?instance_initiated_shutdown_behavior ?instance_type
+    ?kernel_id ?key_name ?name ?name_prefix ?ram_disk_id
+    ?security_group_names ?tags ?tags_all ?update_default_version
+    ?user_data ?vpc_security_group_ids ~block_device_mappings
+    ~capacity_reservation_specification ~cpu_options
+    ~credit_specification ~elastic_gpu_specifications
+    ~elastic_inference_accelerator ~enclave_options
+    ~hibernation_options ~iam_instance_profile
+    ~instance_market_options ~instance_requirements
+    ~license_specification ~maintenance_options ~metadata_options
+    ~monitoring ~network_interfaces ~placement
+    ~private_dns_name_options ~tag_specifications () :
+    aws_launch_template =
+  {
+    default_version;
+    description;
+    disable_api_stop;
+    disable_api_termination;
+    ebs_optimized;
+    id;
+    image_id;
+    instance_initiated_shutdown_behavior;
+    instance_type;
+    kernel_id;
+    key_name;
+    name;
+    name_prefix;
+    ram_disk_id;
+    security_group_names;
+    tags;
+    tags_all;
+    update_default_version;
+    user_data;
+    vpc_security_group_ids;
+    block_device_mappings;
+    capacity_reservation_specification;
+    cpu_options;
+    credit_specification;
+    elastic_gpu_specifications;
+    elastic_inference_accelerator;
+    enclave_options;
+    hibernation_options;
+    iam_instance_profile;
+    instance_market_options;
+    instance_requirements;
+    license_specification;
+    maintenance_options;
+    metadata_options;
+    monitoring;
+    network_interfaces;
+    placement;
+    private_dns_name_options;
+    tag_specifications;
+  }
 
 type t = {
   arn : string prop;
@@ -431,7 +685,7 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
-let aws_launch_template ?default_version ?description
+let register ?tf_module ?default_version ?description
     ?disable_api_stop ?disable_api_termination ?ebs_optimized ?id
     ?image_id ?instance_initiated_shutdown_behavior ?instance_type
     ?kernel_id ?key_name ?name ?name_prefix ?ram_disk_id
@@ -447,50 +701,22 @@ let aws_launch_template ?default_version ?description
     ~private_dns_name_options ~tag_specifications __resource_id =
   let __resource_type = "aws_launch_template" in
   let __resource =
-    ({
-       default_version;
-       description;
-       disable_api_stop;
-       disable_api_termination;
-       ebs_optimized;
-       id;
-       image_id;
-       instance_initiated_shutdown_behavior;
-       instance_type;
-       kernel_id;
-       key_name;
-       name;
-       name_prefix;
-       ram_disk_id;
-       security_group_names;
-       tags;
-       tags_all;
-       update_default_version;
-       user_data;
-       vpc_security_group_ids;
-       block_device_mappings;
-       capacity_reservation_specification;
-       cpu_options;
-       credit_specification;
-       elastic_gpu_specifications;
-       elastic_inference_accelerator;
-       enclave_options;
-       hibernation_options;
-       iam_instance_profile;
-       instance_market_options;
-       instance_requirements;
-       license_specification;
-       maintenance_options;
-       metadata_options;
-       monitoring;
-       network_interfaces;
-       placement;
-       private_dns_name_options;
-       tag_specifications;
-     }
-      : aws_launch_template)
+    aws_launch_template ?default_version ?description
+      ?disable_api_stop ?disable_api_termination ?ebs_optimized ?id
+      ?image_id ?instance_initiated_shutdown_behavior ?instance_type
+      ?kernel_id ?key_name ?name ?name_prefix ?ram_disk_id
+      ?security_group_names ?tags ?tags_all ?update_default_version
+      ?user_data ?vpc_security_group_ids ~block_device_mappings
+      ~capacity_reservation_specification ~cpu_options
+      ~credit_specification ~elastic_gpu_specifications
+      ~elastic_inference_accelerator ~enclave_options
+      ~hibernation_options ~iam_instance_profile
+      ~instance_market_options ~instance_requirements
+      ~license_specification ~maintenance_options ~metadata_options
+      ~monitoring ~network_interfaces ~placement
+      ~private_dns_name_options ~tag_specifications ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_launch_template __resource);
   let __resource_attributes =
     ({

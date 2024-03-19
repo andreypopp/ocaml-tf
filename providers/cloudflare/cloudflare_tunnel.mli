@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_tunnel
+
+val cloudflare_tunnel :
+  ?config_src:string prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  secret:string prop ->
+  unit ->
+  cloudflare_tunnel
+
+val yojson_of_cloudflare_tunnel : cloudflare_tunnel -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -14,7 +29,8 @@ type t = private {
   tunnel_token : string prop;
 }
 
-val cloudflare_tunnel :
+val register :
+  ?tf_module:tf_module ->
   ?config_src:string prop ->
   ?id:string prop ->
   account_id:string prop ->

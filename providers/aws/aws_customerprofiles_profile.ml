@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_customerprofiles_profile__address = {
+type address = {
   address_1 : string prop option; [@option]  (** address_1 *)
   address_2 : string prop option; [@option]  (** address_2 *)
   address_3 : string prop option; [@option]  (** address_3 *)
@@ -17,9 +17,9 @@ type aws_customerprofiles_profile__address = {
   state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
-(** aws_customerprofiles_profile__address *)
+(** address *)
 
-type aws_customerprofiles_profile__billing_address = {
+type billing_address = {
   address_1 : string prop option; [@option]  (** address_1 *)
   address_2 : string prop option; [@option]  (** address_2 *)
   address_3 : string prop option; [@option]  (** address_3 *)
@@ -32,9 +32,9 @@ type aws_customerprofiles_profile__billing_address = {
   state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
-(** aws_customerprofiles_profile__billing_address *)
+(** billing_address *)
 
-type aws_customerprofiles_profile__mailing_address = {
+type mailing_address = {
   address_1 : string prop option; [@option]  (** address_1 *)
   address_2 : string prop option; [@option]  (** address_2 *)
   address_3 : string prop option; [@option]  (** address_3 *)
@@ -47,9 +47,9 @@ type aws_customerprofiles_profile__mailing_address = {
   state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
-(** aws_customerprofiles_profile__mailing_address *)
+(** mailing_address *)
 
-type aws_customerprofiles_profile__shipping_address = {
+type shipping_address = {
   address_1 : string prop option; [@option]  (** address_1 *)
   address_2 : string prop option; [@option]  (** address_2 *)
   address_3 : string prop option; [@option]  (** address_3 *)
@@ -62,7 +62,7 @@ type aws_customerprofiles_profile__shipping_address = {
   state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
-(** aws_customerprofiles_profile__shipping_address *)
+(** shipping_address *)
 
 type aws_customerprofiles_profile = {
   account_number : string prop option; [@option]
@@ -93,16 +93,110 @@ type aws_customerprofiles_profile = {
   personal_email_address : string prop option; [@option]
       (** personal_email_address *)
   phone_number : string prop option; [@option]  (** phone_number *)
-  address : aws_customerprofiles_profile__address list;
-  billing_address :
-    aws_customerprofiles_profile__billing_address list;
-  mailing_address :
-    aws_customerprofiles_profile__mailing_address list;
-  shipping_address :
-    aws_customerprofiles_profile__shipping_address list;
+  address : address list;
+  billing_address : billing_address list;
+  mailing_address : mailing_address list;
+  shipping_address : shipping_address list;
 }
 [@@deriving yojson_of]
 (** aws_customerprofiles_profile *)
+
+let address ?address_1 ?address_2 ?address_3 ?address_4 ?city
+    ?country ?county ?postal_code ?province ?state () : address =
+  {
+    address_1;
+    address_2;
+    address_3;
+    address_4;
+    city;
+    country;
+    county;
+    postal_code;
+    province;
+    state;
+  }
+
+let billing_address ?address_1 ?address_2 ?address_3 ?address_4 ?city
+    ?country ?county ?postal_code ?province ?state () :
+    billing_address =
+  {
+    address_1;
+    address_2;
+    address_3;
+    address_4;
+    city;
+    country;
+    county;
+    postal_code;
+    province;
+    state;
+  }
+
+let mailing_address ?address_1 ?address_2 ?address_3 ?address_4 ?city
+    ?country ?county ?postal_code ?province ?state () :
+    mailing_address =
+  {
+    address_1;
+    address_2;
+    address_3;
+    address_4;
+    city;
+    country;
+    county;
+    postal_code;
+    province;
+    state;
+  }
+
+let shipping_address ?address_1 ?address_2 ?address_3 ?address_4
+    ?city ?country ?county ?postal_code ?province ?state () :
+    shipping_address =
+  {
+    address_1;
+    address_2;
+    address_3;
+    address_4;
+    city;
+    country;
+    county;
+    postal_code;
+    province;
+    state;
+  }
+
+let aws_customerprofiles_profile ?account_number
+    ?additional_information ?attributes ?birth_date
+    ?business_email_address ?business_name ?business_phone_number
+    ?email_address ?first_name ?gender_string ?home_phone_number ?id
+    ?last_name ?middle_name ?mobile_phone_number ?party_type_string
+    ?personal_email_address ?phone_number ~domain_name ~address
+    ~billing_address ~mailing_address ~shipping_address () :
+    aws_customerprofiles_profile =
+  {
+    account_number;
+    additional_information;
+    attributes;
+    birth_date;
+    business_email_address;
+    business_name;
+    business_phone_number;
+    domain_name;
+    email_address;
+    first_name;
+    gender_string;
+    home_phone_number;
+    id;
+    last_name;
+    middle_name;
+    mobile_phone_number;
+    party_type_string;
+    personal_email_address;
+    phone_number;
+    address;
+    billing_address;
+    mailing_address;
+    shipping_address;
+  }
 
 type t = {
   account_number : string prop;
@@ -126,44 +220,25 @@ type t = {
   phone_number : string prop;
 }
 
-let aws_customerprofiles_profile ?account_number
-    ?additional_information ?attributes ?birth_date
-    ?business_email_address ?business_name ?business_phone_number
-    ?email_address ?first_name ?gender_string ?home_phone_number ?id
-    ?last_name ?middle_name ?mobile_phone_number ?party_type_string
-    ?personal_email_address ?phone_number ~domain_name ~address
-    ~billing_address ~mailing_address ~shipping_address __resource_id
-    =
+let register ?tf_module ?account_number ?additional_information
+    ?attributes ?birth_date ?business_email_address ?business_name
+    ?business_phone_number ?email_address ?first_name ?gender_string
+    ?home_phone_number ?id ?last_name ?middle_name
+    ?mobile_phone_number ?party_type_string ?personal_email_address
+    ?phone_number ~domain_name ~address ~billing_address
+    ~mailing_address ~shipping_address __resource_id =
   let __resource_type = "aws_customerprofiles_profile" in
   let __resource =
-    ({
-       account_number;
-       additional_information;
-       attributes;
-       birth_date;
-       business_email_address;
-       business_name;
-       business_phone_number;
-       domain_name;
-       email_address;
-       first_name;
-       gender_string;
-       home_phone_number;
-       id;
-       last_name;
-       middle_name;
-       mobile_phone_number;
-       party_type_string;
-       personal_email_address;
-       phone_number;
-       address;
-       billing_address;
-       mailing_address;
-       shipping_address;
-     }
-      : aws_customerprofiles_profile)
+    aws_customerprofiles_profile ?account_number
+      ?additional_information ?attributes ?birth_date
+      ?business_email_address ?business_name ?business_phone_number
+      ?email_address ?first_name ?gender_string ?home_phone_number
+      ?id ?last_name ?middle_name ?mobile_phone_number
+      ?party_type_string ?personal_email_address ?phone_number
+      ~domain_name ~address ~billing_address ~mailing_address
+      ~shipping_address ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_customerprofiles_profile __resource);
   let __resource_attributes =
     ({

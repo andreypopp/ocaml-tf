@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_machine_packet_capture__filter = {
+type filter = {
   local_ip_address : string prop option; [@option]
       (** local_ip_address *)
   local_port : string prop option; [@option]  (** local_port *)
@@ -14,24 +14,23 @@ type azurerm_virtual_machine_packet_capture__filter = {
   remote_port : string prop option; [@option]  (** remote_port *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_packet_capture__filter *)
+(** filter *)
 
-type azurerm_virtual_machine_packet_capture__storage_location = {
+type storage_location = {
   file_path : string prop option; [@option]  (** file_path *)
   storage_account_id : string prop option; [@option]
       (** storage_account_id *)
-  storage_path : string prop;  (** storage_path *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_packet_capture__storage_location *)
+(** storage_location *)
 
-type azurerm_virtual_machine_packet_capture__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_packet_capture__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_machine_packet_capture = {
   id : string prop option; [@option]  (** id *)
@@ -44,13 +43,47 @@ type azurerm_virtual_machine_packet_capture = {
   name : string prop;  (** name *)
   network_watcher_id : string prop;  (** network_watcher_id *)
   virtual_machine_id : string prop;  (** virtual_machine_id *)
-  filter : azurerm_virtual_machine_packet_capture__filter list;
-  storage_location :
-    azurerm_virtual_machine_packet_capture__storage_location list;
-  timeouts : azurerm_virtual_machine_packet_capture__timeouts option;
+  filter : filter list;
+  storage_location : storage_location list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_packet_capture *)
+
+let filter ?local_ip_address ?local_port ?remote_ip_address
+    ?remote_port ~protocol () : filter =
+  {
+    local_ip_address;
+    local_port;
+    protocol;
+    remote_ip_address;
+    remote_port;
+  }
+
+let storage_location ?file_path ?storage_account_id () :
+    storage_location =
+  { file_path; storage_account_id }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_virtual_machine_packet_capture ?id
+    ?maximum_bytes_per_packet ?maximum_bytes_per_session
+    ?maximum_capture_duration_in_seconds ?timeouts ~name
+    ~network_watcher_id ~virtual_machine_id ~filter ~storage_location
+    () : azurerm_virtual_machine_packet_capture =
+  {
+    id;
+    maximum_bytes_per_packet;
+    maximum_bytes_per_session;
+    maximum_capture_duration_in_seconds;
+    name;
+    network_watcher_id;
+    virtual_machine_id;
+    filter;
+    storage_location;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -62,28 +95,19 @@ type t = {
   virtual_machine_id : string prop;
 }
 
-let azurerm_virtual_machine_packet_capture ?id
-    ?maximum_bytes_per_packet ?maximum_bytes_per_session
-    ?maximum_capture_duration_in_seconds ?timeouts ~name
-    ~network_watcher_id ~virtual_machine_id ~filter ~storage_location
-    __resource_id =
+let register ?tf_module ?id ?maximum_bytes_per_packet
+    ?maximum_bytes_per_session ?maximum_capture_duration_in_seconds
+    ?timeouts ~name ~network_watcher_id ~virtual_machine_id ~filter
+    ~storage_location __resource_id =
   let __resource_type = "azurerm_virtual_machine_packet_capture" in
   let __resource =
-    ({
-       id;
-       maximum_bytes_per_packet;
-       maximum_bytes_per_session;
-       maximum_capture_duration_in_seconds;
-       name;
-       network_watcher_id;
-       virtual_machine_id;
-       filter;
-       storage_location;
-       timeouts;
-     }
-      : azurerm_virtual_machine_packet_capture)
+    azurerm_virtual_machine_packet_capture ?id
+      ?maximum_bytes_per_packet ?maximum_bytes_per_session
+      ?maximum_capture_duration_in_seconds ?timeouts ~name
+      ~network_watcher_id ~virtual_machine_id ~filter
+      ~storage_location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_machine_packet_capture __resource);
   let __resource_attributes =
     ({

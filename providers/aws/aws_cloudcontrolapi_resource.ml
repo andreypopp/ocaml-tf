@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_cloudcontrolapi_resource__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_cloudcontrolapi_resource__timeouts *)
+(** timeouts *)
 
 type aws_cloudcontrolapi_resource = {
   desired_state : string prop;  (** desired_state *)
@@ -20,10 +20,26 @@ type aws_cloudcontrolapi_resource = {
   type_name : string prop;  (** type_name *)
   type_version_id : string prop option; [@option]
       (** type_version_id *)
-  timeouts : aws_cloudcontrolapi_resource__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_cloudcontrolapi_resource *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_cloudcontrolapi_resource ?id ?role_arn ?schema
+    ?type_version_id ?timeouts ~desired_state ~type_name () :
+    aws_cloudcontrolapi_resource =
+  {
+    desired_state;
+    id;
+    role_arn;
+    schema;
+    type_name;
+    type_version_id;
+    timeouts;
+  }
 
 type t = {
   desired_state : string prop;
@@ -35,23 +51,14 @@ type t = {
   type_version_id : string prop;
 }
 
-let aws_cloudcontrolapi_resource ?id ?role_arn ?schema
-    ?type_version_id ?timeouts ~desired_state ~type_name
-    __resource_id =
+let register ?tf_module ?id ?role_arn ?schema ?type_version_id
+    ?timeouts ~desired_state ~type_name __resource_id =
   let __resource_type = "aws_cloudcontrolapi_resource" in
   let __resource =
-    ({
-       desired_state;
-       id;
-       role_arn;
-       schema;
-       type_name;
-       type_version_id;
-       timeouts;
-     }
-      : aws_cloudcontrolapi_resource)
+    aws_cloudcontrolapi_resource ?id ?role_arn ?schema
+      ?type_version_id ?timeouts ~desired_state ~type_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudcontrolapi_resource __resource);
   let __resource_attributes =
     ({

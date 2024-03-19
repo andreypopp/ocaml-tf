@@ -4,47 +4,46 @@
 
 open! Tf.Prelude
 
-type aws_imagebuilder_image__image_scanning_configuration__ecr_configuration = {
+type image_scanning_configuration__ecr_configuration = {
   container_tags : string prop list option; [@option]
       (** container_tags *)
   repository_name : string prop option; [@option]
       (** repository_name *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image__image_scanning_configuration__ecr_configuration *)
+(** image_scanning_configuration__ecr_configuration *)
 
-type aws_imagebuilder_image__image_scanning_configuration = {
+type image_scanning_configuration = {
   image_scanning_enabled : bool prop option; [@option]
       (** image_scanning_enabled *)
   ecr_configuration :
-    aws_imagebuilder_image__image_scanning_configuration__ecr_configuration
-    list;
+    image_scanning_configuration__ecr_configuration list;
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image__image_scanning_configuration *)
+(** image_scanning_configuration *)
 
-type aws_imagebuilder_image__image_tests_configuration = {
+type image_tests_configuration = {
   image_tests_enabled : bool prop option; [@option]
       (** image_tests_enabled *)
   timeout_minutes : float prop option; [@option]
       (** timeout_minutes *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image__image_tests_configuration *)
+(** image_tests_configuration *)
 
-type aws_imagebuilder_image__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image__timeouts *)
+(** timeouts *)
 
-type aws_imagebuilder_image__output_resources__containers = {
+type output_resources__containers = {
   image_uris : string prop list;  (** image_uris *)
   region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 
-type aws_imagebuilder_image__output_resources__amis = {
+type output_resources__amis = {
   account_id : string prop;  (** account_id *)
   description : string prop;  (** description *)
   image : string prop;  (** image *)
@@ -53,12 +52,9 @@ type aws_imagebuilder_image__output_resources__amis = {
 }
 [@@deriving yojson_of]
 
-type aws_imagebuilder_image__output_resources = {
-  amis : aws_imagebuilder_image__output_resources__amis list;
-      (** amis *)
-  containers :
-    aws_imagebuilder_image__output_resources__containers list;
-      (** containers *)
+type output_resources = {
+  amis : output_resources__amis list;  (** amis *)
+  containers : output_resources__containers list;  (** containers *)
 }
 [@@deriving yojson_of]
 
@@ -77,14 +73,46 @@ type aws_imagebuilder_image = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  image_scanning_configuration :
-    aws_imagebuilder_image__image_scanning_configuration list;
-  image_tests_configuration :
-    aws_imagebuilder_image__image_tests_configuration list;
-  timeouts : aws_imagebuilder_image__timeouts option;
+  image_scanning_configuration : image_scanning_configuration list;
+  image_tests_configuration : image_tests_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_image *)
+
+let image_scanning_configuration__ecr_configuration ?container_tags
+    ?repository_name () :
+    image_scanning_configuration__ecr_configuration =
+  { container_tags; repository_name }
+
+let image_scanning_configuration ?image_scanning_enabled
+    ~ecr_configuration () : image_scanning_configuration =
+  { image_scanning_enabled; ecr_configuration }
+
+let image_tests_configuration ?image_tests_enabled ?timeout_minutes
+    () : image_tests_configuration =
+  { image_tests_enabled; timeout_minutes }
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_imagebuilder_image ?container_recipe_arn
+    ?distribution_configuration_arn ?enhanced_image_metadata_enabled
+    ?id ?image_recipe_arn ?tags ?tags_all ?timeouts
+    ~infrastructure_configuration_arn ~image_scanning_configuration
+    ~image_tests_configuration () : aws_imagebuilder_image =
+  {
+    container_recipe_arn;
+    distribution_configuration_arn;
+    enhanced_image_metadata_enabled;
+    id;
+    image_recipe_arn;
+    infrastructure_configuration_arn;
+    tags;
+    tags_all;
+    image_scanning_configuration;
+    image_tests_configuration;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -97,37 +125,27 @@ type t = {
   infrastructure_configuration_arn : string prop;
   name : string prop;
   os_version : string prop;
-  output_resources :
-    aws_imagebuilder_image__output_resources list prop;
+  output_resources : output_resources list prop;
   platform : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   version : string prop;
 }
 
-let aws_imagebuilder_image ?container_recipe_arn
+let register ?tf_module ?container_recipe_arn
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
     ?id ?image_recipe_arn ?tags ?tags_all ?timeouts
     ~infrastructure_configuration_arn ~image_scanning_configuration
     ~image_tests_configuration __resource_id =
   let __resource_type = "aws_imagebuilder_image" in
   let __resource =
-    ({
-       container_recipe_arn;
-       distribution_configuration_arn;
-       enhanced_image_metadata_enabled;
-       id;
-       image_recipe_arn;
-       infrastructure_configuration_arn;
-       tags;
-       tags_all;
-       image_scanning_configuration;
-       image_tests_configuration;
-       timeouts;
-     }
-      : aws_imagebuilder_image)
+    aws_imagebuilder_image ?container_recipe_arn
+      ?distribution_configuration_arn
+      ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?tags
+      ?tags_all ?timeouts ~infrastructure_configuration_arn
+      ~image_scanning_configuration ~image_tests_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_image __resource);
   let __resource_attributes =
     ({

@@ -2,9 +2,47 @@
 
 open! Tf.Prelude
 
-type azurerm_lab_service_schedule__recurrence
-type azurerm_lab_service_schedule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type recurrence
+
+val recurrence :
+  ?interval:float prop ->
+  ?week_days:string prop list ->
+  expiration_date:string prop ->
+  frequency:string prop ->
+  unit ->
+  recurrence
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_lab_service_schedule
+
+val azurerm_lab_service_schedule :
+  ?id:string prop ->
+  ?notes:string prop ->
+  ?start_time:string prop ->
+  ?timeouts:timeouts ->
+  lab_id:string prop ->
+  name:string prop ->
+  stop_time:string prop ->
+  time_zone:string prop ->
+  recurrence:recurrence list ->
+  unit ->
+  azurerm_lab_service_schedule
+
+val yojson_of_azurerm_lab_service_schedule :
+  azurerm_lab_service_schedule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -16,15 +54,16 @@ type t = private {
   time_zone : string prop;
 }
 
-val azurerm_lab_service_schedule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?notes:string prop ->
   ?start_time:string prop ->
-  ?timeouts:azurerm_lab_service_schedule__timeouts ->
+  ?timeouts:timeouts ->
   lab_id:string prop ->
   name:string prop ->
   stop_time:string prop ->
   time_zone:string prop ->
-  recurrence:azurerm_lab_service_schedule__recurrence list ->
+  recurrence:recurrence list ->
   string ->
   t

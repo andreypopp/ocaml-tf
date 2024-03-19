@@ -13,6 +13,10 @@ type digitalocean_container_registry = {
 [@@deriving yojson_of]
 (** digitalocean_container_registry *)
 
+let digitalocean_container_registry ?id ?region ~name
+    ~subscription_tier_slug () : digitalocean_container_registry =
+  { id; name; region; subscription_tier_slug }
+
 type t = {
   created_at : string prop;
   endpoint : string prop;
@@ -24,14 +28,14 @@ type t = {
   subscription_tier_slug : string prop;
 }
 
-let digitalocean_container_registry ?id ?region ~name
-    ~subscription_tier_slug __resource_id =
+let register ?tf_module ?id ?region ~name ~subscription_tier_slug
+    __resource_id =
   let __resource_type = "digitalocean_container_registry" in
   let __resource =
-    ({ id; name; region; subscription_tier_slug }
-      : digitalocean_container_registry)
+    digitalocean_container_registry ?id ?region ~name
+      ~subscription_tier_slug ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_container_registry __resource);
   let __resource_attributes =
     ({

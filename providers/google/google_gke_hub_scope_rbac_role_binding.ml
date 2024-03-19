@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type google_gke_hub_scope_rbac_role_binding__role = {
+type role = {
   predefined_role : string prop option; [@option]
       (** PredefinedRole is an ENUM representation of the default Kubernetes Roles Possible values: [UNKNOWN, ADMIN, EDIT, VIEW] *)
 }
 [@@deriving yojson_of]
 (** Role to bind to the principal. *)
 
-type google_gke_hub_scope_rbac_role_binding__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gke_hub_scope_rbac_role_binding__timeouts *)
+(** timeouts *)
 
-type google_gke_hub_scope_rbac_role_binding__state = {
-  code : string prop;  (** code *)
-}
+type state = { code : string prop  (** code *) }
 [@@deriving yojson_of]
 
 type google_gke_hub_scope_rbac_role_binding = {
@@ -45,11 +43,31 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 is required). Updating one will unset the other automatically.
 user is the name of the user as seen by the kubernetes cluster, example
 alice or alice@domain.tld *)
-  role : google_gke_hub_scope_rbac_role_binding__role list;
-  timeouts : google_gke_hub_scope_rbac_role_binding__timeouts option;
+  role : role list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gke_hub_scope_rbac_role_binding *)
+
+let role ?predefined_role () : role = { predefined_role }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gke_hub_scope_rbac_role_binding ?group ?id ?labels
+    ?project ?user ?timeouts ~scope_id ~scope_rbac_role_binding_id
+    ~role () : google_gke_hub_scope_rbac_role_binding =
+  {
+    group;
+    id;
+    labels;
+    project;
+    scope_id;
+    scope_rbac_role_binding_id;
+    user;
+    role;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -62,32 +80,22 @@ type t = {
   project : string prop;
   scope_id : string prop;
   scope_rbac_role_binding_id : string prop;
-  state : google_gke_hub_scope_rbac_role_binding__state list prop;
+  state : state list prop;
   terraform_labels : (string * string) list prop;
   uid : string prop;
   update_time : string prop;
   user : string prop;
 }
 
-let google_gke_hub_scope_rbac_role_binding ?group ?id ?labels
-    ?project ?user ?timeouts ~scope_id ~scope_rbac_role_binding_id
-    ~role __resource_id =
+let register ?tf_module ?group ?id ?labels ?project ?user ?timeouts
+    ~scope_id ~scope_rbac_role_binding_id ~role __resource_id =
   let __resource_type = "google_gke_hub_scope_rbac_role_binding" in
   let __resource =
-    ({
-       group;
-       id;
-       labels;
-       project;
-       scope_id;
-       scope_rbac_role_binding_id;
-       user;
-       role;
-       timeouts;
-     }
-      : google_gke_hub_scope_rbac_role_binding)
+    google_gke_hub_scope_rbac_role_binding ?group ?id ?labels
+      ?project ?user ?timeouts ~scope_id ~scope_rbac_role_binding_id
+      ~role ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_scope_rbac_role_binding __resource);
   let __resource_attributes =
     ({

@@ -4,31 +4,29 @@
 
 open! Tf.Prelude
 
-type aws_internetmonitor_monitor__health_events_config = {
+type health_events_config = {
   availability_score_threshold : float prop option; [@option]
       (** availability_score_threshold *)
   performance_score_threshold : float prop option; [@option]
       (** performance_score_threshold *)
 }
 [@@deriving yojson_of]
-(** aws_internetmonitor_monitor__health_events_config *)
+(** health_events_config *)
 
-type aws_internetmonitor_monitor__internet_measurements_log_delivery__s3_config = {
+type internet_measurements_log_delivery__s3_config = {
   bucket_name : string prop;  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   log_delivery_status : string prop option; [@option]
       (** log_delivery_status *)
 }
 [@@deriving yojson_of]
-(** aws_internetmonitor_monitor__internet_measurements_log_delivery__s3_config *)
+(** internet_measurements_log_delivery__s3_config *)
 
-type aws_internetmonitor_monitor__internet_measurements_log_delivery = {
-  s3_config :
-    aws_internetmonitor_monitor__internet_measurements_log_delivery__s3_config
-    list;
+type internet_measurements_log_delivery = {
+  s3_config : internet_measurements_log_delivery__s3_config list;
 }
 [@@deriving yojson_of]
-(** aws_internetmonitor_monitor__internet_measurements_log_delivery *)
+(** internet_measurements_log_delivery *)
 
 type aws_internetmonitor_monitor = {
   id : string prop option; [@option]  (** id *)
@@ -42,14 +40,43 @@ type aws_internetmonitor_monitor = {
       (** tags_all *)
   traffic_percentage_to_monitor : float prop option; [@option]
       (** traffic_percentage_to_monitor *)
-  health_events_config :
-    aws_internetmonitor_monitor__health_events_config list;
+  health_events_config : health_events_config list;
   internet_measurements_log_delivery :
-    aws_internetmonitor_monitor__internet_measurements_log_delivery
-    list;
+    internet_measurements_log_delivery list;
 }
 [@@deriving yojson_of]
 (** aws_internetmonitor_monitor *)
+
+let health_events_config ?availability_score_threshold
+    ?performance_score_threshold () : health_events_config =
+  { availability_score_threshold; performance_score_threshold }
+
+let internet_measurements_log_delivery__s3_config ?bucket_prefix
+    ?log_delivery_status ~bucket_name () :
+    internet_measurements_log_delivery__s3_config =
+  { bucket_name; bucket_prefix; log_delivery_status }
+
+let internet_measurements_log_delivery ~s3_config () :
+    internet_measurements_log_delivery =
+  { s3_config }
+
+let aws_internetmonitor_monitor ?id ?max_city_networks_to_monitor
+    ?resources ?status ?tags ?tags_all ?traffic_percentage_to_monitor
+    ~monitor_name ~health_events_config
+    ~internet_measurements_log_delivery () :
+    aws_internetmonitor_monitor =
+  {
+    id;
+    max_city_networks_to_monitor;
+    monitor_name;
+    resources;
+    status;
+    tags;
+    tags_all;
+    traffic_percentage_to_monitor;
+    health_events_config;
+    internet_measurements_log_delivery;
+  }
 
 type t = {
   arn : string prop;
@@ -63,27 +90,18 @@ type t = {
   traffic_percentage_to_monitor : float prop;
 }
 
-let aws_internetmonitor_monitor ?id ?max_city_networks_to_monitor
-    ?resources ?status ?tags ?tags_all ?traffic_percentage_to_monitor
+let register ?tf_module ?id ?max_city_networks_to_monitor ?resources
+    ?status ?tags ?tags_all ?traffic_percentage_to_monitor
     ~monitor_name ~health_events_config
     ~internet_measurements_log_delivery __resource_id =
   let __resource_type = "aws_internetmonitor_monitor" in
   let __resource =
-    ({
-       id;
-       max_city_networks_to_monitor;
-       monitor_name;
-       resources;
-       status;
-       tags;
-       tags_all;
-       traffic_percentage_to_monitor;
-       health_events_config;
-       internet_measurements_log_delivery;
-     }
-      : aws_internetmonitor_monitor)
+    aws_internetmonitor_monitor ?id ?max_city_networks_to_monitor
+      ?resources ?status ?tags ?tags_all
+      ?traffic_percentage_to_monitor ~monitor_name
+      ~health_events_config ~internet_measurements_log_delivery ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_internetmonitor_monitor __resource);
   let __resource_attributes =
     ({

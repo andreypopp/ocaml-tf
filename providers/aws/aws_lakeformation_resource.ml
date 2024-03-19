@@ -18,6 +18,18 @@ type aws_lakeformation_resource = {
 [@@deriving yojson_of]
 (** aws_lakeformation_resource *)
 
+let aws_lakeformation_resource ?hybrid_access_enabled ?id ?role_arn
+    ?use_service_linked_role ?with_federation ~arn () :
+    aws_lakeformation_resource =
+  {
+    arn;
+    hybrid_access_enabled;
+    id;
+    role_arn;
+    use_service_linked_role;
+    with_federation;
+  }
+
 type t = {
   arn : string prop;
   hybrid_access_enabled : bool prop;
@@ -28,21 +40,14 @@ type t = {
   with_federation : bool prop;
 }
 
-let aws_lakeformation_resource ?hybrid_access_enabled ?id ?role_arn
+let register ?tf_module ?hybrid_access_enabled ?id ?role_arn
     ?use_service_linked_role ?with_federation ~arn __resource_id =
   let __resource_type = "aws_lakeformation_resource" in
   let __resource =
-    ({
-       arn;
-       hybrid_access_enabled;
-       id;
-       role_arn;
-       use_service_linked_role;
-       with_federation;
-     }
-      : aws_lakeformation_resource)
+    aws_lakeformation_resource ?hybrid_access_enabled ?id ?role_arn
+      ?use_service_linked_role ?with_federation ~arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lakeformation_resource __resource);
   let __resource_attributes =
     ({

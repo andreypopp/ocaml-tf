@@ -2,16 +2,78 @@
 
 open! Tf.Prelude
 
-type google_compute_region_network_firewall_policy_rule__match__layer4_configs
+(** RESOURCE SERIALIZATION *)
 
-type google_compute_region_network_firewall_policy_rule__match__src_secure_tags
+type match__layer4_configs
 
-type google_compute_region_network_firewall_policy_rule__match
+val match__layer4_configs :
+  ?ports:string prop list ->
+  ip_protocol:string prop ->
+  unit ->
+  match__layer4_configs
 
-type google_compute_region_network_firewall_policy_rule__target_secure_tags
+type match__src_secure_tags
 
-type google_compute_region_network_firewall_policy_rule__timeouts
+val match__src_secure_tags :
+  name:string prop -> unit -> match__src_secure_tags
+
+type match_
+
+val match_ :
+  ?dest_address_groups:string prop list ->
+  ?dest_fqdns:string prop list ->
+  ?dest_ip_ranges:string prop list ->
+  ?dest_region_codes:string prop list ->
+  ?dest_threat_intelligences:string prop list ->
+  ?src_address_groups:string prop list ->
+  ?src_fqdns:string prop list ->
+  ?src_ip_ranges:string prop list ->
+  ?src_region_codes:string prop list ->
+  ?src_threat_intelligences:string prop list ->
+  layer4_configs:match__layer4_configs list ->
+  src_secure_tags:match__src_secure_tags list ->
+  unit ->
+  match_
+
+type target_secure_tags
+
+val target_secure_tags :
+  name:string prop -> unit -> target_secure_tags
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_region_network_firewall_policy_rule
+
+val google_compute_region_network_firewall_policy_rule :
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?enable_logging:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?rule_name:string prop ->
+  ?target_service_accounts:string prop list ->
+  ?timeouts:timeouts ->
+  action:string prop ->
+  direction:string prop ->
+  firewall_policy:string prop ->
+  priority:float prop ->
+  match_:match_ list ->
+  target_secure_tags:target_secure_tags list ->
+  unit ->
+  google_compute_region_network_firewall_policy_rule
+
+val yojson_of_google_compute_region_network_firewall_policy_rule :
+  google_compute_region_network_firewall_policy_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   action : string prop;
@@ -30,7 +92,8 @@ type t = private {
   target_service_accounts : string list prop;
 }
 
-val google_compute_region_network_firewall_policy_rule :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?disabled:bool prop ->
   ?enable_logging:bool prop ->
@@ -39,16 +102,12 @@ val google_compute_region_network_firewall_policy_rule :
   ?region:string prop ->
   ?rule_name:string prop ->
   ?target_service_accounts:string prop list ->
-  ?timeouts:
-    google_compute_region_network_firewall_policy_rule__timeouts ->
+  ?timeouts:timeouts ->
   action:string prop ->
   direction:string prop ->
   firewall_policy:string prop ->
   priority:float prop ->
-  match_:
-    google_compute_region_network_firewall_policy_rule__match list ->
-  target_secure_tags:
-    google_compute_region_network_firewall_policy_rule__target_secure_tags
-    list ->
+  match_:match_ list ->
+  target_secure_tags:target_secure_tags list ->
   string ->
   t

@@ -13,6 +13,10 @@ type aws_kms_alias = {
 [@@deriving yojson_of]
 (** aws_kms_alias *)
 
+let aws_kms_alias ?id ?name ?name_prefix ~target_key_id () :
+    aws_kms_alias =
+  { id; name; name_prefix; target_key_id }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -22,13 +26,13 @@ type t = {
   target_key_id : string prop;
 }
 
-let aws_kms_alias ?id ?name ?name_prefix ~target_key_id __resource_id
-    =
+let register ?tf_module ?id ?name ?name_prefix ~target_key_id
+    __resource_id =
   let __resource_type = "aws_kms_alias" in
   let __resource =
-    ({ id; name; name_prefix; target_key_id } : aws_kms_alias)
+    aws_kms_alias ?id ?name ?name_prefix ~target_key_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kms_alias __resource);
   let __resource_attributes =
     ({

@@ -20,6 +20,10 @@ however this resource should be used in conjunction to create
 Logpush jobs.
  *)
 
+let cloudflare_logpush_ownership_challenge ?account_id ?id ?zone_id
+    ~destination_conf () : cloudflare_logpush_ownership_challenge =
+  { account_id; destination_conf; id; zone_id }
+
 type t = {
   account_id : string prop;
   destination_conf : string prop;
@@ -28,14 +32,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_logpush_ownership_challenge ?account_id ?id ?zone_id
-    ~destination_conf __resource_id =
+let register ?tf_module ?account_id ?id ?zone_id ~destination_conf
+    __resource_id =
   let __resource_type = "cloudflare_logpush_ownership_challenge" in
   let __resource =
-    ({ account_id; destination_conf; id; zone_id }
-      : cloudflare_logpush_ownership_challenge)
+    cloudflare_logpush_ownership_challenge ?account_id ?id ?zone_id
+      ~destination_conf ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_logpush_ownership_challenge __resource);
   let __resource_attributes =
     ({

@@ -4,31 +4,29 @@
 
 open! Tf.Prelude
 
-type google_alloydb_instance__client_connection_config__ssl_config = {
+type client_connection_config__ssl_config = {
   ssl_mode : string prop option; [@option]
       (** SSL mode. Specifies client-server SSL/TLS connection behavior. Possible values: [ENCRYPTED_ONLY, ALLOW_UNENCRYPTED_AND_ENCRYPTED] *)
 }
 [@@deriving yojson_of]
 (** SSL config option for this instance. *)
 
-type google_alloydb_instance__client_connection_config = {
+type client_connection_config = {
   require_connectors : bool prop option; [@option]
       (** Configuration to enforce connectors only (ex: AuthProxy) connections to the database. *)
-  ssl_config :
-    google_alloydb_instance__client_connection_config__ssl_config
-    list;
+  ssl_config : client_connection_config__ssl_config list;
 }
 [@@deriving yojson_of]
 (** Client connection specific configurations. *)
 
-type google_alloydb_instance__machine_config = {
+type machine_config = {
   cpu_count : float prop option; [@option]
       (** The number of CPU's in the VM instance. *)
 }
 [@@deriving yojson_of]
 (** Configurations for the machines that host the underlying database engine. *)
 
-type google_alloydb_instance__query_insights_config = {
+type query_insights_config = {
   query_plans_per_minute : float prop option; [@option]
       (** Number of query execution plans captured by Insights per minute for all queries combined. The default value is 5. Any integer between 0 and 20 is considered valid. *)
   query_string_length : float prop option; [@option]
@@ -41,20 +39,20 @@ type google_alloydb_instance__query_insights_config = {
 [@@deriving yojson_of]
 (** Configuration for query insights. *)
 
-type google_alloydb_instance__read_pool_config = {
+type read_pool_config = {
   node_count : float prop option; [@option]
       (** Read capacity, i.e. number of nodes in a read pool instance. *)
 }
 [@@deriving yojson_of]
 (** Read pool specific config. If the instance type is READ_POOL, this configuration must be provided. *)
 
-type google_alloydb_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_alloydb_instance__timeouts *)
+(** timeouts *)
 
 type google_alloydb_instance = {
   annotations : (string * string prop) list option; [@option]
@@ -93,16 +91,63 @@ Users can undo the delete secondary instance action by importing the deleted sec
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  client_connection_config :
-    google_alloydb_instance__client_connection_config list;
-  machine_config : google_alloydb_instance__machine_config list;
-  query_insights_config :
-    google_alloydb_instance__query_insights_config list;
-  read_pool_config : google_alloydb_instance__read_pool_config list;
-  timeouts : google_alloydb_instance__timeouts option;
+  client_connection_config : client_connection_config list;
+  machine_config : machine_config list;
+  query_insights_config : query_insights_config list;
+  read_pool_config : read_pool_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_alloydb_instance *)
+
+let client_connection_config__ssl_config ?ssl_mode () :
+    client_connection_config__ssl_config =
+  { ssl_mode }
+
+let client_connection_config ?require_connectors ~ssl_config () :
+    client_connection_config =
+  { require_connectors; ssl_config }
+
+let machine_config ?cpu_count () : machine_config = { cpu_count }
+
+let query_insights_config ?query_plans_per_minute
+    ?query_string_length ?record_application_tags
+    ?record_client_address () : query_insights_config =
+  {
+    query_plans_per_minute;
+    query_string_length;
+    record_application_tags;
+    record_client_address;
+  }
+
+let read_pool_config ?node_count () : read_pool_config =
+  { node_count }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_alloydb_instance ?annotations ?availability_type
+    ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
+    ~cluster ~instance_id ~instance_type ~client_connection_config
+    ~machine_config ~query_insights_config ~read_pool_config () :
+    google_alloydb_instance =
+  {
+    annotations;
+    availability_type;
+    cluster;
+    database_flags;
+    display_name;
+    gce_zone;
+    id;
+    instance_id;
+    instance_type;
+    labels;
+    client_connection_config;
+    machine_config;
+    query_insights_config;
+    read_pool_config;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -127,33 +172,19 @@ type t = {
   update_time : string prop;
 }
 
-let google_alloydb_instance ?annotations ?availability_type
+let register ?tf_module ?annotations ?availability_type
     ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
     ~cluster ~instance_id ~instance_type ~client_connection_config
     ~machine_config ~query_insights_config ~read_pool_config
     __resource_id =
   let __resource_type = "google_alloydb_instance" in
   let __resource =
-    ({
-       annotations;
-       availability_type;
-       cluster;
-       database_flags;
-       display_name;
-       gce_zone;
-       id;
-       instance_id;
-       instance_type;
-       labels;
-       client_connection_config;
-       machine_config;
-       query_insights_config;
-       read_pool_config;
-       timeouts;
-     }
-      : google_alloydb_instance)
+    google_alloydb_instance ?annotations ?availability_type
+      ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
+      ~cluster ~instance_id ~instance_type ~client_connection_config
+      ~machine_config ~query_insights_config ~read_pool_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_alloydb_instance __resource);
   let __resource_attributes =
     ({

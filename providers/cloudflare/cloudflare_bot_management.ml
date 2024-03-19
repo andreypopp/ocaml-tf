@@ -37,6 +37,25 @@ Specifically, this resource can be used to manage:
 - **Bot Management for Enterprise**
  *)
 
+let cloudflare_bot_management ?auto_update_model ?enable_js
+    ?fight_mode ?id ?optimize_wordpress ?sbfm_definitely_automated
+    ?sbfm_likely_automated ?sbfm_static_resource_protection
+    ?sbfm_verified_bots ?suppress_session_score ~zone_id () :
+    cloudflare_bot_management =
+  {
+    auto_update_model;
+    enable_js;
+    fight_mode;
+    id;
+    optimize_wordpress;
+    sbfm_definitely_automated;
+    sbfm_likely_automated;
+    sbfm_static_resource_protection;
+    sbfm_verified_bots;
+    suppress_session_score;
+    zone_id;
+  }
+
 type t = {
   auto_update_model : bool prop;
   enable_js : bool prop;
@@ -52,29 +71,19 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_bot_management ?auto_update_model ?enable_js
-    ?fight_mode ?id ?optimize_wordpress ?sbfm_definitely_automated
+let register ?tf_module ?auto_update_model ?enable_js ?fight_mode ?id
+    ?optimize_wordpress ?sbfm_definitely_automated
     ?sbfm_likely_automated ?sbfm_static_resource_protection
     ?sbfm_verified_bots ?suppress_session_score ~zone_id
     __resource_id =
   let __resource_type = "cloudflare_bot_management" in
   let __resource =
-    ({
-       auto_update_model;
-       enable_js;
-       fight_mode;
-       id;
-       optimize_wordpress;
-       sbfm_definitely_automated;
-       sbfm_likely_automated;
-       sbfm_static_resource_protection;
-       sbfm_verified_bots;
-       suppress_session_score;
-       zone_id;
-     }
-      : cloudflare_bot_management)
+    cloudflare_bot_management ?auto_update_model ?enable_js
+      ?fight_mode ?id ?optimize_wordpress ?sbfm_definitely_automated
+      ?sbfm_likely_automated ?sbfm_static_resource_protection
+      ?sbfm_verified_bots ?suppress_session_score ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_bot_management __resource);
   let __resource_attributes =
     ({

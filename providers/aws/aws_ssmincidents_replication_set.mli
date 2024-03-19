@@ -2,9 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_ssmincidents_replication_set__region
-type aws_ssmincidents_replication_set__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type region
+
+val region :
+  ?kms_key_arn:string prop -> name:string prop -> unit -> region
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_ssmincidents_replication_set
+
+val aws_ssmincidents_replication_set :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  region:region list ->
+  unit ->
+  aws_ssmincidents_replication_set
+
+val yojson_of_aws_ssmincidents_replication_set :
+  aws_ssmincidents_replication_set -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,11 +45,12 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ssmincidents_replication_set :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_ssmincidents_replication_set__timeouts ->
-  region:aws_ssmincidents_replication_set__region list ->
+  ?timeouts:timeouts ->
+  region:region list ->
   string ->
   t

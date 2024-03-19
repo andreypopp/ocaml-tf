@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_application_insights_workbook_template__galleries = {
+type galleries = {
   category : string prop;  (** category *)
   name : string prop;  (** name *)
   order : float prop option; [@option]  (** order *)
@@ -12,16 +12,16 @@ type azurerm_application_insights_workbook_template__galleries = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_application_insights_workbook_template__galleries *)
+(** galleries *)
 
-type azurerm_application_insights_workbook_template__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_application_insights_workbook_template__timeouts *)
+(** timeouts *)
 
 type azurerm_application_insights_workbook_template = {
   author : string prop option; [@option]  (** author *)
@@ -33,13 +33,36 @@ type azurerm_application_insights_workbook_template = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   template_data : string prop;  (** template_data *)
-  galleries :
-    azurerm_application_insights_workbook_template__galleries list;
-  timeouts :
-    azurerm_application_insights_workbook_template__timeouts option;
+  galleries : galleries list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook_template *)
+
+let galleries ?order ?resource_type ?type_ ~category ~name () :
+    galleries =
+  { category; name; order; resource_type; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_application_insights_workbook_template ?author ?id
+    ?localized ?priority ?tags ?timeouts ~location ~name
+    ~resource_group_name ~template_data ~galleries () :
+    azurerm_application_insights_workbook_template =
+  {
+    author;
+    id;
+    localized;
+    location;
+    name;
+    priority;
+    resource_group_name;
+    tags;
+    template_data;
+    galleries;
+    timeouts;
+  }
 
 type t = {
   author : string prop;
@@ -53,29 +76,18 @@ type t = {
   template_data : string prop;
 }
 
-let azurerm_application_insights_workbook_template ?author ?id
-    ?localized ?priority ?tags ?timeouts ~location ~name
-    ~resource_group_name ~template_data ~galleries __resource_id =
+let register ?tf_module ?author ?id ?localized ?priority ?tags
+    ?timeouts ~location ~name ~resource_group_name ~template_data
+    ~galleries __resource_id =
   let __resource_type =
     "azurerm_application_insights_workbook_template"
   in
   let __resource =
-    ({
-       author;
-       id;
-       localized;
-       location;
-       name;
-       priority;
-       resource_group_name;
-       tags;
-       template_data;
-       galleries;
-       timeouts;
-     }
-      : azurerm_application_insights_workbook_template)
+    azurerm_application_insights_workbook_template ?author ?id
+      ?localized ?priority ?tags ?timeouts ~location ~name
+      ~resource_group_name ~template_data ~galleries ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_insights_workbook_template
        __resource);
   let __resource_attributes =

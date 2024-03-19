@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_system_center_virtual_machine_manager_availability_set__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_system_center_virtual_machine_manager_availability_set__timeouts *)
+(** timeouts *)
 
 type azurerm_system_center_virtual_machine_manager_availability_set = {
   custom_location_id : string prop;  (** custom_location_id *)
@@ -22,12 +22,29 @@ type azurerm_system_center_virtual_machine_manager_availability_set = {
   system_center_virtual_machine_manager_server_id : string prop;
       (** system_center_virtual_machine_manager_server_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts :
-    azurerm_system_center_virtual_machine_manager_availability_set__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_system_center_virtual_machine_manager_availability_set *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_system_center_virtual_machine_manager_availability_set
+    ?id ?tags ?timeouts ~custom_location_id ~location ~name
+    ~resource_group_name
+    ~system_center_virtual_machine_manager_server_id () :
+    azurerm_system_center_virtual_machine_manager_availability_set =
+  {
+    custom_location_id;
+    id;
+    location;
+    name;
+    resource_group_name;
+    system_center_virtual_machine_manager_server_id;
+    tags;
+    timeouts;
+  }
 
 type t = {
   custom_location_id : string prop;
@@ -39,27 +56,19 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_system_center_virtual_machine_manager_availability_set
-    ?id ?tags ?timeouts ~custom_location_id ~location ~name
-    ~resource_group_name
+let register ?tf_module ?id ?tags ?timeouts ~custom_location_id
+    ~location ~name ~resource_group_name
     ~system_center_virtual_machine_manager_server_id __resource_id =
   let __resource_type =
     "azurerm_system_center_virtual_machine_manager_availability_set"
   in
   let __resource =
-    ({
-       custom_location_id;
-       id;
-       location;
-       name;
-       resource_group_name;
-       system_center_virtual_machine_manager_server_id;
-       tags;
-       timeouts;
-     }
-      : azurerm_system_center_virtual_machine_manager_availability_set)
+    azurerm_system_center_virtual_machine_manager_availability_set
+      ?id ?tags ?timeouts ~custom_location_id ~location ~name
+      ~resource_group_name
+      ~system_center_virtual_machine_manager_server_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_system_center_virtual_machine_manager_availability_set
        __resource);
   let __resource_attributes =

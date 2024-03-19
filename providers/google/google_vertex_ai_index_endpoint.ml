@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_index_endpoint__private_service_connect_config = {
+type private_service_connect_config = {
   enable_private_service_connect : bool prop;
       (** If set to true, the IndexEndpoint is created without private service access. *)
   project_allowlist : string prop list option; [@option]
@@ -13,13 +13,13 @@ type google_vertex_ai_index_endpoint__private_service_connect_config = {
 [@@deriving yojson_of]
 (** Optional. Configuration for private service connect. 'network' and 'privateServiceConnectConfig' are mutually exclusive. *)
 
-type google_vertex_ai_index_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vertex_ai_index_endpoint__timeouts *)
+(** timeouts *)
 
 type google_vertex_ai_index_endpoint = {
   description : string prop option; [@option]
@@ -43,12 +43,36 @@ Where '{project}' is a project number, as in '12345', and '{network}' is network
   region : string prop option; [@option]
       (** The region of the index endpoint. eg us-central1 *)
   private_service_connect_config :
-    google_vertex_ai_index_endpoint__private_service_connect_config
-    list;
-  timeouts : google_vertex_ai_index_endpoint__timeouts option;
+    private_service_connect_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_index_endpoint *)
+
+let private_service_connect_config ?project_allowlist
+    ~enable_private_service_connect () :
+    private_service_connect_config =
+  { enable_private_service_connect; project_allowlist }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vertex_ai_index_endpoint ?description ?id ?labels ?network
+    ?project ?public_endpoint_enabled ?region ?timeouts ~display_name
+    ~private_service_connect_config () :
+    google_vertex_ai_index_endpoint =
+  {
+    description;
+    display_name;
+    id;
+    labels;
+    network;
+    project;
+    public_endpoint_enabled;
+    region;
+    private_service_connect_config;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -68,26 +92,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_vertex_ai_index_endpoint ?description ?id ?labels ?network
-    ?project ?public_endpoint_enabled ?region ?timeouts ~display_name
+let register ?tf_module ?description ?id ?labels ?network ?project
+    ?public_endpoint_enabled ?region ?timeouts ~display_name
     ~private_service_connect_config __resource_id =
   let __resource_type = "google_vertex_ai_index_endpoint" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       labels;
-       network;
-       project;
-       public_endpoint_enabled;
-       region;
-       private_service_connect_config;
-       timeouts;
-     }
-      : google_vertex_ai_index_endpoint)
+    google_vertex_ai_index_endpoint ?description ?id ?labels ?network
+      ?project ?public_endpoint_enabled ?region ?timeouts
+      ~display_name ~private_service_connect_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_index_endpoint __resource);
   let __resource_attributes =
     ({

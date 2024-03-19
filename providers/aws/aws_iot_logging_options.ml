@@ -14,6 +14,10 @@ type aws_iot_logging_options = {
 [@@deriving yojson_of]
 (** aws_iot_logging_options *)
 
+let aws_iot_logging_options ?disable_all_logs ?id ~default_log_level
+    ~role_arn () : aws_iot_logging_options =
+  { default_log_level; disable_all_logs; id; role_arn }
+
 type t = {
   default_log_level : string prop;
   disable_all_logs : bool prop;
@@ -21,14 +25,14 @@ type t = {
   role_arn : string prop;
 }
 
-let aws_iot_logging_options ?disable_all_logs ?id ~default_log_level
+let register ?tf_module ?disable_all_logs ?id ~default_log_level
     ~role_arn __resource_id =
   let __resource_type = "aws_iot_logging_options" in
   let __resource =
-    ({ default_log_level; disable_all_logs; id; role_arn }
-      : aws_iot_logging_options)
+    aws_iot_logging_options ?disable_all_logs ?id ~default_log_level
+      ~role_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_logging_options __resource);
   let __resource_attributes =
     ({

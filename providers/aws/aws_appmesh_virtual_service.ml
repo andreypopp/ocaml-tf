@@ -4,32 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_appmesh_virtual_service__spec__provider__virtual_node = {
+type spec__provider__virtual_node = {
   virtual_node_name : string prop;  (** virtual_node_name *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_virtual_service__spec__provider__virtual_node *)
+(** spec__provider__virtual_node *)
 
-type aws_appmesh_virtual_service__spec__provider__virtual_router = {
+type spec__provider__virtual_router = {
   virtual_router_name : string prop;  (** virtual_router_name *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_virtual_service__spec__provider__virtual_router *)
+(** spec__provider__virtual_router *)
 
-type aws_appmesh_virtual_service__spec__provider = {
-  virtual_node :
-    aws_appmesh_virtual_service__spec__provider__virtual_node list;
-  virtual_router :
-    aws_appmesh_virtual_service__spec__provider__virtual_router list;
+type spec__provider = {
+  virtual_node : spec__provider__virtual_node list;
+  virtual_router : spec__provider__virtual_router list;
 }
 [@@deriving yojson_of]
-(** aws_appmesh_virtual_service__spec__provider *)
+(** spec__provider *)
 
-type aws_appmesh_virtual_service__spec = {
-  provider : aws_appmesh_virtual_service__spec__provider list;
-}
-[@@deriving yojson_of]
-(** aws_appmesh_virtual_service__spec *)
+type spec = { provider : spec__provider list } [@@deriving yojson_of]
+(** spec *)
 
 type aws_appmesh_virtual_service = {
   id : string prop option; [@option]  (** id *)
@@ -39,10 +34,28 @@ type aws_appmesh_virtual_service = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  spec : aws_appmesh_virtual_service__spec list;
+  spec : spec list;
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_service *)
+
+let spec__provider__virtual_node ~virtual_node_name () :
+    spec__provider__virtual_node =
+  { virtual_node_name }
+
+let spec__provider__virtual_router ~virtual_router_name () :
+    spec__provider__virtual_router =
+  { virtual_router_name }
+
+let spec__provider ~virtual_node ~virtual_router () : spec__provider
+    =
+  { virtual_node; virtual_router }
+
+let spec ~provider () : spec = { provider }
+
+let aws_appmesh_virtual_service ?id ?mesh_owner ?tags ?tags_all
+    ~mesh_name ~name ~spec () : aws_appmesh_virtual_service =
+  { id; mesh_name; mesh_owner; name; tags; tags_all; spec }
 
 type t = {
   arn : string prop;
@@ -57,14 +70,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appmesh_virtual_service ?id ?mesh_owner ?tags ?tags_all
-    ~mesh_name ~name ~spec __resource_id =
+let register ?tf_module ?id ?mesh_owner ?tags ?tags_all ~mesh_name
+    ~name ~spec __resource_id =
   let __resource_type = "aws_appmesh_virtual_service" in
   let __resource =
-    ({ id; mesh_name; mesh_owner; name; tags; tags_all; spec }
-      : aws_appmesh_virtual_service)
+    aws_appmesh_virtual_service ?id ?mesh_owner ?tags ?tags_all
+      ~mesh_name ~name ~spec ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appmesh_virtual_service __resource);
   let __resource_attributes =
     ({

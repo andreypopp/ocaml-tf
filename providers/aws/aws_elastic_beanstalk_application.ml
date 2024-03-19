@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_elastic_beanstalk_application__appversion_lifecycle = {
+type appversion_lifecycle = {
   delete_source_from_s3 : bool prop option; [@option]
       (** delete_source_from_s3 *)
   max_age_in_days : float prop option; [@option]
@@ -13,7 +13,7 @@ type aws_elastic_beanstalk_application__appversion_lifecycle = {
   service_role : string prop;  (** service_role *)
 }
 [@@deriving yojson_of]
-(** aws_elastic_beanstalk_application__appversion_lifecycle *)
+(** appversion_lifecycle *)
 
 type aws_elastic_beanstalk_application = {
   description : string prop option; [@option]  (** description *)
@@ -22,11 +22,19 @@ type aws_elastic_beanstalk_application = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  appversion_lifecycle :
-    aws_elastic_beanstalk_application__appversion_lifecycle list;
+  appversion_lifecycle : appversion_lifecycle list;
 }
 [@@deriving yojson_of]
 (** aws_elastic_beanstalk_application *)
+
+let appversion_lifecycle ?delete_source_from_s3 ?max_age_in_days
+    ?max_count ~service_role () : appversion_lifecycle =
+  { delete_source_from_s3; max_age_in_days; max_count; service_role }
+
+let aws_elastic_beanstalk_application ?description ?id ?tags
+    ?tags_all ~name ~appversion_lifecycle () :
+    aws_elastic_beanstalk_application =
+  { description; id; name; tags; tags_all; appversion_lifecycle }
 
 type t = {
   arn : string prop;
@@ -37,14 +45,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_elastic_beanstalk_application ?description ?id ?tags
-    ?tags_all ~name ~appversion_lifecycle __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
+    ~appversion_lifecycle __resource_id =
   let __resource_type = "aws_elastic_beanstalk_application" in
   let __resource =
-    ({ description; id; name; tags; tags_all; appversion_lifecycle }
-      : aws_elastic_beanstalk_application)
+    aws_elastic_beanstalk_application ?description ?id ?tags
+      ?tags_all ~name ~appversion_lifecycle ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elastic_beanstalk_application __resource);
   let __resource_attributes =
     ({

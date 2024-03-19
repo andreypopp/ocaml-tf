@@ -2,9 +2,43 @@
 
 open! Tf.Prelude
 
-type azurerm_databricks_access_connector__identity
-type azurerm_databricks_access_connector__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_databricks_access_connector
+
+val azurerm_databricks_access_connector :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_databricks_access_connector
+
+val yojson_of_azurerm_databricks_access_connector :
+  azurerm_databricks_access_connector -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,13 +48,14 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_databricks_access_connector :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_databricks_access_connector__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_databricks_access_connector__identity list ->
+  identity:identity list ->
   string ->
   t

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_spot_fleet_request__launch_specification__ebs_block_device = {
+type launch_specification__ebs_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   device_name : string prop;  (** device_name *)
@@ -17,16 +17,16 @@ type aws_spot_fleet_request__launch_specification__ebs_block_device = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_specification__ebs_block_device *)
+(** launch_specification__ebs_block_device *)
 
-type aws_spot_fleet_request__launch_specification__ephemeral_block_device = {
+type launch_specification__ephemeral_block_device = {
   device_name : string prop;  (** device_name *)
   virtual_name : string prop;  (** virtual_name *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_specification__ephemeral_block_device *)
+(** launch_specification__ephemeral_block_device *)
 
-type aws_spot_fleet_request__launch_specification__root_block_device = {
+type launch_specification__root_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   encrypted : bool prop option; [@option]  (** encrypted *)
@@ -37,9 +37,9 @@ type aws_spot_fleet_request__launch_specification__root_block_device = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_specification__root_block_device *)
+(** launch_specification__root_block_device *)
 
-type aws_spot_fleet_request__launch_specification = {
+type launch_specification = {
   ami : string prop;  (** ami *)
   associate_public_ip_address : bool prop option; [@option]
       (** associate_public_ip_address *)
@@ -65,91 +65,86 @@ type aws_spot_fleet_request__launch_specification = {
       (** vpc_security_group_ids *)
   weighted_capacity : string prop option; [@option]
       (** weighted_capacity *)
-  ebs_block_device :
-    aws_spot_fleet_request__launch_specification__ebs_block_device
-    list;
+  ebs_block_device : launch_specification__ebs_block_device list;
   ephemeral_block_device :
-    aws_spot_fleet_request__launch_specification__ephemeral_block_device
-    list;
-  root_block_device :
-    aws_spot_fleet_request__launch_specification__root_block_device
-    list;
+    launch_specification__ephemeral_block_device list;
+  root_block_device : launch_specification__root_block_device list;
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_specification *)
+(** launch_specification *)
 
-type aws_spot_fleet_request__launch_template_config__launch_template_specification = {
+type launch_template_config__launch_template_specification = {
   id : string prop option; [@option]  (** id *)
   name : string prop option; [@option]  (** name *)
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__launch_template_specification *)
+(** launch_template_config__launch_template_specification *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_count = {
+type launch_template_config__overrides__instance_requirements__accelerator_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_count *)
+(** launch_template_config__overrides__instance_requirements__accelerator_count *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib = {
+type launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib *)
+(** launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps = {
+type launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps *)
+(** launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu = {
+type launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu *)
+(** launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_mib = {
+type launch_template_config__overrides__instance_requirements__memory_mib = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_mib *)
+(** launch_template_config__overrides__instance_requirements__memory_mib *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_bandwidth_gbps = {
+type launch_template_config__overrides__instance_requirements__network_bandwidth_gbps = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_bandwidth_gbps *)
+(** launch_template_config__overrides__instance_requirements__network_bandwidth_gbps *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_interface_count = {
+type launch_template_config__overrides__instance_requirements__network_interface_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_interface_count *)
+(** launch_template_config__overrides__instance_requirements__network_interface_count *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__total_local_storage_gb = {
+type launch_template_config__overrides__instance_requirements__total_local_storage_gb = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__total_local_storage_gb *)
+(** launch_template_config__overrides__instance_requirements__total_local_storage_gb *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__vcpu_count = {
+type launch_template_config__overrides__instance_requirements__vcpu_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__vcpu_count *)
+(** launch_template_config__overrides__instance_requirements__vcpu_count *)
 
-type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements = {
+type launch_template_config__overrides__instance_requirements = {
   accelerator_manufacturers : string prop list option; [@option]
       (** accelerator_manufacturers *)
   accelerator_names : string prop list option; [@option]
@@ -180,37 +175,37 @@ type aws_spot_fleet_request__launch_template_config__overrides__instance_require
       [@option]
       (** spot_max_price_percentage_over_lowest_price *)
   accelerator_count :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_count
+    launch_template_config__overrides__instance_requirements__accelerator_count
     list;
   accelerator_total_memory_mib :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib
+    launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib
     list;
   baseline_ebs_bandwidth_mbps :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps
+    launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps
     list;
   memory_gib_per_vcpu :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu
+    launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu
     list;
   memory_mib :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_mib
+    launch_template_config__overrides__instance_requirements__memory_mib
     list;
   network_bandwidth_gbps :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_bandwidth_gbps
+    launch_template_config__overrides__instance_requirements__network_bandwidth_gbps
     list;
   network_interface_count :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_interface_count
+    launch_template_config__overrides__instance_requirements__network_interface_count
     list;
   total_local_storage_gb :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__total_local_storage_gb
+    launch_template_config__overrides__instance_requirements__total_local_storage_gb
     list;
   vcpu_count :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__vcpu_count
+    launch_template_config__overrides__instance_requirements__vcpu_count
     list;
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements *)
+(** launch_template_config__overrides__instance_requirements *)
 
-type aws_spot_fleet_request__launch_template_config__overrides = {
+type launch_template_config__overrides = {
   availability_zone : string prop option; [@option]
       (** availability_zone *)
   instance_type : string prop option; [@option]  (** instance_type *)
@@ -220,44 +215,40 @@ type aws_spot_fleet_request__launch_template_config__overrides = {
   weighted_capacity : float prop option; [@option]
       (** weighted_capacity *)
   instance_requirements :
-    aws_spot_fleet_request__launch_template_config__overrides__instance_requirements
-    list;
+    launch_template_config__overrides__instance_requirements list;
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config__overrides *)
+(** launch_template_config__overrides *)
 
-type aws_spot_fleet_request__launch_template_config = {
+type launch_template_config = {
   launch_template_specification :
-    aws_spot_fleet_request__launch_template_config__launch_template_specification
-    list;
-  overrides :
-    aws_spot_fleet_request__launch_template_config__overrides list;
+    launch_template_config__launch_template_specification list;
+  overrides : launch_template_config__overrides list;
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__launch_template_config *)
+(** launch_template_config *)
 
-type aws_spot_fleet_request__spot_maintenance_strategies__capacity_rebalance = {
+type spot_maintenance_strategies__capacity_rebalance = {
   replacement_strategy : string prop option; [@option]
       (** replacement_strategy *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__spot_maintenance_strategies__capacity_rebalance *)
+(** spot_maintenance_strategies__capacity_rebalance *)
 
-type aws_spot_fleet_request__spot_maintenance_strategies = {
+type spot_maintenance_strategies = {
   capacity_rebalance :
-    aws_spot_fleet_request__spot_maintenance_strategies__capacity_rebalance
-    list;
+    spot_maintenance_strategies__capacity_rebalance list;
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__spot_maintenance_strategies *)
+(** spot_maintenance_strategies *)
 
-type aws_spot_fleet_request__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_spot_fleet_request__timeouts *)
+(** timeouts *)
 
 type aws_spot_fleet_request = {
   allocation_strategy : string prop option; [@option]
@@ -299,16 +290,246 @@ type aws_spot_fleet_request = {
   valid_until : string prop option; [@option]  (** valid_until *)
   wait_for_fulfillment : bool prop option; [@option]
       (** wait_for_fulfillment *)
-  launch_specification :
-    aws_spot_fleet_request__launch_specification list;
-  launch_template_config :
-    aws_spot_fleet_request__launch_template_config list;
-  spot_maintenance_strategies :
-    aws_spot_fleet_request__spot_maintenance_strategies list;
-  timeouts : aws_spot_fleet_request__timeouts option;
+  launch_specification : launch_specification list;
+  launch_template_config : launch_template_config list;
+  spot_maintenance_strategies : spot_maintenance_strategies list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request *)
+
+let launch_specification__ebs_block_device ?delete_on_termination
+    ?encrypted ?iops ?kms_key_id ?snapshot_id ?throughput
+    ?volume_size ?volume_type ~device_name () :
+    launch_specification__ebs_block_device =
+  {
+    delete_on_termination;
+    device_name;
+    encrypted;
+    iops;
+    kms_key_id;
+    snapshot_id;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let launch_specification__ephemeral_block_device ~device_name
+    ~virtual_name () : launch_specification__ephemeral_block_device =
+  { device_name; virtual_name }
+
+let launch_specification__root_block_device ?delete_on_termination
+    ?encrypted ?iops ?kms_key_id ?throughput ?volume_size
+    ?volume_type () : launch_specification__root_block_device =
+  {
+    delete_on_termination;
+    encrypted;
+    iops;
+    kms_key_id;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let launch_specification ?associate_public_ip_address
+    ?availability_zone ?ebs_optimized ?iam_instance_profile
+    ?iam_instance_profile_arn ?key_name ?monitoring ?placement_group
+    ?placement_tenancy ?spot_price ?subnet_id ?tags ?user_data
+    ?vpc_security_group_ids ?weighted_capacity ~ami ~instance_type
+    ~ebs_block_device ~ephemeral_block_device ~root_block_device () :
+    launch_specification =
+  {
+    ami;
+    associate_public_ip_address;
+    availability_zone;
+    ebs_optimized;
+    iam_instance_profile;
+    iam_instance_profile_arn;
+    instance_type;
+    key_name;
+    monitoring;
+    placement_group;
+    placement_tenancy;
+    spot_price;
+    subnet_id;
+    tags;
+    user_data;
+    vpc_security_group_ids;
+    weighted_capacity;
+    ebs_block_device;
+    ephemeral_block_device;
+    root_block_device;
+  }
+
+let launch_template_config__launch_template_specification ?id ?name
+    ?version () :
+    launch_template_config__launch_template_specification =
+  { id; name; version }
+
+let launch_template_config__overrides__instance_requirements__accelerator_count
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__accelerator_count
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements__memory_mib
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__memory_mib
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements__network_bandwidth_gbps
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__network_bandwidth_gbps
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements__network_interface_count
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__network_interface_count
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements__total_local_storage_gb
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__total_local_storage_gb
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements__vcpu_count
+    ?max ?min () :
+    launch_template_config__overrides__instance_requirements__vcpu_count
+    =
+  { max; min }
+
+let launch_template_config__overrides__instance_requirements
+    ?accelerator_manufacturers ?accelerator_names ?accelerator_types
+    ?allowed_instance_types ?bare_metal ?burstable_performance
+    ?cpu_manufacturers ?excluded_instance_types ?instance_generations
+    ?local_storage ?local_storage_types
+    ?on_demand_max_price_percentage_over_lowest_price
+    ?require_hibernate_support
+    ?spot_max_price_percentage_over_lowest_price ~accelerator_count
+    ~accelerator_total_memory_mib ~baseline_ebs_bandwidth_mbps
+    ~memory_gib_per_vcpu ~memory_mib ~network_bandwidth_gbps
+    ~network_interface_count ~total_local_storage_gb ~vcpu_count () :
+    launch_template_config__overrides__instance_requirements =
+  {
+    accelerator_manufacturers;
+    accelerator_names;
+    accelerator_types;
+    allowed_instance_types;
+    bare_metal;
+    burstable_performance;
+    cpu_manufacturers;
+    excluded_instance_types;
+    instance_generations;
+    local_storage;
+    local_storage_types;
+    on_demand_max_price_percentage_over_lowest_price;
+    require_hibernate_support;
+    spot_max_price_percentage_over_lowest_price;
+    accelerator_count;
+    accelerator_total_memory_mib;
+    baseline_ebs_bandwidth_mbps;
+    memory_gib_per_vcpu;
+    memory_mib;
+    network_bandwidth_gbps;
+    network_interface_count;
+    total_local_storage_gb;
+    vcpu_count;
+  }
+
+let launch_template_config__overrides ?availability_zone
+    ?instance_type ?priority ?spot_price ?subnet_id
+    ?weighted_capacity ~instance_requirements () :
+    launch_template_config__overrides =
+  {
+    availability_zone;
+    instance_type;
+    priority;
+    spot_price;
+    subnet_id;
+    weighted_capacity;
+    instance_requirements;
+  }
+
+let launch_template_config ~launch_template_specification ~overrides
+    () : launch_template_config =
+  { launch_template_specification; overrides }
+
+let spot_maintenance_strategies__capacity_rebalance
+    ?replacement_strategy () :
+    spot_maintenance_strategies__capacity_rebalance =
+  { replacement_strategy }
+
+let spot_maintenance_strategies ~capacity_rebalance () :
+    spot_maintenance_strategies =
+  { capacity_rebalance }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_spot_fleet_request ?allocation_strategy ?context
+    ?excess_capacity_termination_policy ?fleet_type ?id
+    ?instance_interruption_behaviour ?instance_pools_to_use_count
+    ?load_balancers ?on_demand_allocation_strategy
+    ?on_demand_max_total_price ?on_demand_target_capacity
+    ?replace_unhealthy_instances ?spot_price ?tags ?tags_all
+    ?target_capacity_unit_type ?target_group_arns
+    ?terminate_instances_on_delete
+    ?terminate_instances_with_expiration ?valid_from ?valid_until
+    ?wait_for_fulfillment ?timeouts ~iam_fleet_role ~target_capacity
+    ~launch_specification ~launch_template_config
+    ~spot_maintenance_strategies () : aws_spot_fleet_request =
+  {
+    allocation_strategy;
+    context;
+    excess_capacity_termination_policy;
+    fleet_type;
+    iam_fleet_role;
+    id;
+    instance_interruption_behaviour;
+    instance_pools_to_use_count;
+    load_balancers;
+    on_demand_allocation_strategy;
+    on_demand_max_total_price;
+    on_demand_target_capacity;
+    replace_unhealthy_instances;
+    spot_price;
+    tags;
+    tags_all;
+    target_capacity;
+    target_capacity_unit_type;
+    target_group_arns;
+    terminate_instances_on_delete;
+    terminate_instances_with_expiration;
+    valid_from;
+    valid_until;
+    wait_for_fulfillment;
+    launch_specification;
+    launch_template_config;
+    spot_maintenance_strategies;
+    timeouts;
+  }
 
 type t = {
   allocation_strategy : string prop;
@@ -339,7 +560,7 @@ type t = {
   wait_for_fulfillment : bool prop;
 }
 
-let aws_spot_fleet_request ?allocation_strategy ?context
+let register ?tf_module ?allocation_strategy ?context
     ?excess_capacity_termination_policy ?fleet_type ?id
     ?instance_interruption_behaviour ?instance_pools_to_use_count
     ?load_balancers ?on_demand_allocation_strategy
@@ -353,39 +574,20 @@ let aws_spot_fleet_request ?allocation_strategy ?context
     ~spot_maintenance_strategies __resource_id =
   let __resource_type = "aws_spot_fleet_request" in
   let __resource =
-    ({
-       allocation_strategy;
-       context;
-       excess_capacity_termination_policy;
-       fleet_type;
-       iam_fleet_role;
-       id;
-       instance_interruption_behaviour;
-       instance_pools_to_use_count;
-       load_balancers;
-       on_demand_allocation_strategy;
-       on_demand_max_total_price;
-       on_demand_target_capacity;
-       replace_unhealthy_instances;
-       spot_price;
-       tags;
-       tags_all;
-       target_capacity;
-       target_capacity_unit_type;
-       target_group_arns;
-       terminate_instances_on_delete;
-       terminate_instances_with_expiration;
-       valid_from;
-       valid_until;
-       wait_for_fulfillment;
-       launch_specification;
-       launch_template_config;
-       spot_maintenance_strategies;
-       timeouts;
-     }
-      : aws_spot_fleet_request)
+    aws_spot_fleet_request ?allocation_strategy ?context
+      ?excess_capacity_termination_policy ?fleet_type ?id
+      ?instance_interruption_behaviour ?instance_pools_to_use_count
+      ?load_balancers ?on_demand_allocation_strategy
+      ?on_demand_max_total_price ?on_demand_target_capacity
+      ?replace_unhealthy_instances ?spot_price ?tags ?tags_all
+      ?target_capacity_unit_type ?target_group_arns
+      ?terminate_instances_on_delete
+      ?terminate_instances_with_expiration ?valid_from ?valid_until
+      ?wait_for_fulfillment ?timeouts ~iam_fleet_role
+      ~target_capacity ~launch_specification ~launch_template_config
+      ~spot_maintenance_strategies ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_spot_fleet_request __resource);
   let __resource_attributes =
     ({

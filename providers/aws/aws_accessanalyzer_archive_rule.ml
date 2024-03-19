@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_accessanalyzer_archive_rule__filter = {
+type filter = {
   contains : string prop list option; [@option]  (** contains *)
   criteria : string prop;  (** criteria *)
   eq : string prop list option; [@option]  (** eq *)
@@ -12,16 +12,23 @@ type aws_accessanalyzer_archive_rule__filter = {
   neq : string prop list option; [@option]  (** neq *)
 }
 [@@deriving yojson_of]
-(** aws_accessanalyzer_archive_rule__filter *)
+(** filter *)
 
 type aws_accessanalyzer_archive_rule = {
   analyzer_name : string prop;  (** analyzer_name *)
   id : string prop option; [@option]  (** id *)
   rule_name : string prop;  (** rule_name *)
-  filter : aws_accessanalyzer_archive_rule__filter list;
+  filter : filter list;
 }
 [@@deriving yojson_of]
 (** aws_accessanalyzer_archive_rule *)
+
+let filter ?contains ?eq ?exists ?neq ~criteria () : filter =
+  { contains; criteria; eq; exists; neq }
+
+let aws_accessanalyzer_archive_rule ?id ~analyzer_name ~rule_name
+    ~filter () : aws_accessanalyzer_archive_rule =
+  { analyzer_name; id; rule_name; filter }
 
 type t = {
   analyzer_name : string prop;
@@ -29,14 +36,14 @@ type t = {
   rule_name : string prop;
 }
 
-let aws_accessanalyzer_archive_rule ?id ~analyzer_name ~rule_name
-    ~filter __resource_id =
+let register ?tf_module ?id ~analyzer_name ~rule_name ~filter
+    __resource_id =
   let __resource_type = "aws_accessanalyzer_archive_rule" in
   let __resource =
-    ({ analyzer_name; id; rule_name; filter }
-      : aws_accessanalyzer_archive_rule)
+    aws_accessanalyzer_archive_rule ?id ~analyzer_name ~rule_name
+      ~filter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_accessanalyzer_archive_rule __resource);
   let __resource_attributes =
     ({

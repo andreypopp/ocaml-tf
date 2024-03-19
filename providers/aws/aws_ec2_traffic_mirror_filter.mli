@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ec2_traffic_mirror_filter
+
+val aws_ec2_traffic_mirror_filter :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?network_services:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  unit ->
+  aws_ec2_traffic_mirror_filter
+
+val yojson_of_aws_ec2_traffic_mirror_filter :
+  aws_ec2_traffic_mirror_filter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +29,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_ec2_traffic_mirror_filter :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?network_services:string prop list ->

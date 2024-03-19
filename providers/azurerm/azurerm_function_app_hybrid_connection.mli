@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_function_app_hybrid_connection__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_function_app_hybrid_connection
+
+val azurerm_function_app_hybrid_connection :
+  ?id:string prop ->
+  ?send_key_name:string prop ->
+  ?timeouts:timeouts ->
+  function_app_id:string prop ->
+  hostname:string prop ->
+  port:float prop ->
+  relay_id:string prop ->
+  unit ->
+  azurerm_function_app_hybrid_connection
+
+val yojson_of_azurerm_function_app_hybrid_connection :
+  azurerm_function_app_hybrid_connection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   function_app_id : string prop;
@@ -19,10 +46,11 @@ type t = private {
   service_bus_suffix : string prop;
 }
 
-val azurerm_function_app_hybrid_connection :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?send_key_name:string prop ->
-  ?timeouts:azurerm_function_app_hybrid_connection__timeouts ->
+  ?timeouts:timeouts ->
   function_app_id:string prop ->
   hostname:string prop ->
   port:float prop ->

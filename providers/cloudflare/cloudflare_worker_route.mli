@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_worker_route
+
+val cloudflare_worker_route :
+  ?id:string prop ->
+  ?script_name:string prop ->
+  pattern:string prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_worker_route
+
+val yojson_of_cloudflare_worker_route :
+  cloudflare_worker_route -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,7 +26,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_worker_route :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?script_name:string prop ->
   pattern:string prop ->

@@ -4,15 +4,11 @@
 
 open! Tf.Prelude
 
-type azurerm_postgresql_server__identity = {
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
-  type_ : string prop; [@key "type"]  (** type *)
-}
+type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
-(** azurerm_postgresql_server__identity *)
+(** identity *)
 
-type azurerm_postgresql_server__threat_detection_policy = {
+type threat_detection_policy = {
   disabled_alerts : string prop list option; [@option]
       (** disabled_alerts *)
   email_account_admins : bool prop option; [@option]
@@ -28,16 +24,16 @@ type azurerm_postgresql_server__threat_detection_policy = {
       (** storage_endpoint *)
 }
 [@@deriving yojson_of]
-(** azurerm_postgresql_server__threat_detection_policy *)
+(** threat_detection_policy *)
 
-type azurerm_postgresql_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_postgresql_server__timeouts *)
+(** timeouts *)
 
 type azurerm_postgresql_server = {
   administrator_login : string prop option; [@option]
@@ -71,13 +67,66 @@ type azurerm_postgresql_server = {
   storage_mb : float prop option; [@option]  (** storage_mb *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   version : string prop;  (** version *)
-  identity : azurerm_postgresql_server__identity list;
-  threat_detection_policy :
-    azurerm_postgresql_server__threat_detection_policy list;
-  timeouts : azurerm_postgresql_server__timeouts option;
+  identity : identity list;
+  threat_detection_policy : threat_detection_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_postgresql_server *)
+
+let identity ~type_ () : identity = { type_ }
+
+let threat_detection_policy ?disabled_alerts ?email_account_admins
+    ?email_addresses ?enabled ?retention_days
+    ?storage_account_access_key ?storage_endpoint () :
+    threat_detection_policy =
+  {
+    disabled_alerts;
+    email_account_admins;
+    email_addresses;
+    enabled;
+    retention_days;
+    storage_account_access_key;
+    storage_endpoint;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_postgresql_server ?administrator_login
+    ?administrator_login_password ?auto_grow_enabled
+    ?backup_retention_days ?create_mode ?creation_source_server_id
+    ?geo_redundant_backup_enabled ?id
+    ?infrastructure_encryption_enabled ?public_network_access_enabled
+    ?restore_point_in_time ?ssl_minimal_tls_version_enforced
+    ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
+    ~sku_name ~ssl_enforcement_enabled ~version ~identity
+    ~threat_detection_policy () : azurerm_postgresql_server =
+  {
+    administrator_login;
+    administrator_login_password;
+    auto_grow_enabled;
+    backup_retention_days;
+    create_mode;
+    creation_source_server_id;
+    geo_redundant_backup_enabled;
+    id;
+    infrastructure_encryption_enabled;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    restore_point_in_time;
+    sku_name;
+    ssl_enforcement_enabled;
+    ssl_minimal_tls_version_enforced;
+    storage_mb;
+    tags;
+    version;
+    identity;
+    threat_detection_policy;
+    timeouts;
+  }
 
 type t = {
   administrator_login : string prop;
@@ -103,7 +152,7 @@ type t = {
   version : string prop;
 }
 
-let azurerm_postgresql_server ?administrator_login
+let register ?tf_module ?administrator_login
     ?administrator_login_password ?auto_grow_enabled
     ?backup_retention_days ?create_mode ?creation_source_server_id
     ?geo_redundant_backup_enabled ?id
@@ -114,34 +163,18 @@ let azurerm_postgresql_server ?administrator_login
     ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_postgresql_server" in
   let __resource =
-    ({
-       administrator_login;
-       administrator_login_password;
-       auto_grow_enabled;
-       backup_retention_days;
-       create_mode;
-       creation_source_server_id;
-       geo_redundant_backup_enabled;
-       id;
-       infrastructure_encryption_enabled;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       restore_point_in_time;
-       sku_name;
-       ssl_enforcement_enabled;
-       ssl_minimal_tls_version_enforced;
-       storage_mb;
-       tags;
-       version;
-       identity;
-       threat_detection_policy;
-       timeouts;
-     }
-      : azurerm_postgresql_server)
+    azurerm_postgresql_server ?administrator_login
+      ?administrator_login_password ?auto_grow_enabled
+      ?backup_retention_days ?create_mode ?creation_source_server_id
+      ?geo_redundant_backup_enabled ?id
+      ?infrastructure_encryption_enabled
+      ?public_network_access_enabled ?restore_point_in_time
+      ?ssl_minimal_tls_version_enforced ?storage_mb ?tags ?timeouts
+      ~location ~name ~resource_group_name ~sku_name
+      ~ssl_enforcement_enabled ~version ~identity
+      ~threat_detection_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_postgresql_server __resource);
   let __resource_attributes =
     ({

@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_module__module_link__hash = {
+type module_link__hash = {
   algorithm : string prop;  (** algorithm *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_module__module_link__hash *)
+(** module_link__hash *)
 
-type azurerm_automation_module__module_link = {
+type module_link = {
   uri : string prop;  (** uri *)
-  hash : azurerm_automation_module__module_link__hash list;
+  hash : module_link__hash list;
 }
 [@@deriving yojson_of]
-(** azurerm_automation_module__module_link *)
+(** module_link *)
 
-type azurerm_automation_module__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_module__timeouts *)
+(** timeouts *)
 
 type azurerm_automation_module = {
   automation_account_name : string prop;
@@ -33,11 +33,31 @@ type azurerm_automation_module = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  module_link : azurerm_automation_module__module_link list;
-  timeouts : azurerm_automation_module__timeouts option;
+  module_link : module_link list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_module *)
+
+let module_link__hash ~algorithm ~value () : module_link__hash =
+  { algorithm; value }
+
+let module_link ~uri ~hash () : module_link = { uri; hash }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_automation_module ?id ?timeouts ~automation_account_name
+    ~name ~resource_group_name ~module_link () :
+    azurerm_automation_module =
+  {
+    automation_account_name;
+    id;
+    name;
+    resource_group_name;
+    module_link;
+    timeouts;
+  }
 
 type t = {
   automation_account_name : string prop;
@@ -46,21 +66,14 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_automation_module ?id ?timeouts ~automation_account_name
-    ~name ~resource_group_name ~module_link __resource_id =
+let register ?tf_module ?id ?timeouts ~automation_account_name ~name
+    ~resource_group_name ~module_link __resource_id =
   let __resource_type = "azurerm_automation_module" in
   let __resource =
-    ({
-       automation_account_name;
-       id;
-       name;
-       resource_group_name;
-       module_link;
-       timeouts;
-     }
-      : azurerm_automation_module)
+    azurerm_automation_module ?id ?timeouts ~automation_account_name
+      ~name ~resource_group_name ~module_link ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_module __resource);
   let __resource_attributes =
     ({

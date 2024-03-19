@@ -31,6 +31,25 @@ type cloudflare_gre_tunnel = {
 [@@deriving yojson_of]
 (** Provides a resource, that manages GRE tunnels for Magic Transit. *)
 
+let cloudflare_gre_tunnel ?account_id ?description
+    ?health_check_enabled ?health_check_target ?health_check_type ?id
+    ?mtu ?ttl ~cloudflare_gre_endpoint ~customer_gre_endpoint
+    ~interface_address ~name () : cloudflare_gre_tunnel =
+  {
+    account_id;
+    cloudflare_gre_endpoint;
+    customer_gre_endpoint;
+    description;
+    health_check_enabled;
+    health_check_target;
+    health_check_type;
+    id;
+    interface_address;
+    mtu;
+    name;
+    ttl;
+  }
+
 type t = {
   account_id : string prop;
   cloudflare_gre_endpoint : string prop;
@@ -46,29 +65,18 @@ type t = {
   ttl : float prop;
 }
 
-let cloudflare_gre_tunnel ?account_id ?description
+let register ?tf_module ?account_id ?description
     ?health_check_enabled ?health_check_target ?health_check_type ?id
     ?mtu ?ttl ~cloudflare_gre_endpoint ~customer_gre_endpoint
     ~interface_address ~name __resource_id =
   let __resource_type = "cloudflare_gre_tunnel" in
   let __resource =
-    ({
-       account_id;
-       cloudflare_gre_endpoint;
-       customer_gre_endpoint;
-       description;
-       health_check_enabled;
-       health_check_target;
-       health_check_type;
-       id;
-       interface_address;
-       mtu;
-       name;
-       ttl;
-     }
-      : cloudflare_gre_tunnel)
+    cloudflare_gre_tunnel ?account_id ?description
+      ?health_check_enabled ?health_check_target ?health_check_type
+      ?id ?mtu ?ttl ~cloudflare_gre_endpoint ~customer_gre_endpoint
+      ~interface_address ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_gre_tunnel __resource);
   let __resource_attributes =
     ({

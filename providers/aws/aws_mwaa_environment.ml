@@ -4,92 +4,76 @@
 
 open! Tf.Prelude
 
-type aws_mwaa_environment__logging_configuration__dag_processing_logs = {
-  cloud_watch_log_group_arn : string prop;
-      (** cloud_watch_log_group_arn *)
+type logging_configuration__dag_processing_logs = {
   enabled : bool prop option; [@option]  (** enabled *)
   log_level : string prop option; [@option]  (** log_level *)
 }
 [@@deriving yojson_of]
-(** aws_mwaa_environment__logging_configuration__dag_processing_logs *)
+(** logging_configuration__dag_processing_logs *)
 
-type aws_mwaa_environment__logging_configuration__scheduler_logs = {
-  cloud_watch_log_group_arn : string prop;
-      (** cloud_watch_log_group_arn *)
+type logging_configuration__scheduler_logs = {
   enabled : bool prop option; [@option]  (** enabled *)
   log_level : string prop option; [@option]  (** log_level *)
 }
 [@@deriving yojson_of]
-(** aws_mwaa_environment__logging_configuration__scheduler_logs *)
+(** logging_configuration__scheduler_logs *)
 
-type aws_mwaa_environment__logging_configuration__task_logs = {
-  cloud_watch_log_group_arn : string prop;
-      (** cloud_watch_log_group_arn *)
+type logging_configuration__task_logs = {
   enabled : bool prop option; [@option]  (** enabled *)
   log_level : string prop option; [@option]  (** log_level *)
 }
 [@@deriving yojson_of]
-(** aws_mwaa_environment__logging_configuration__task_logs *)
+(** logging_configuration__task_logs *)
 
-type aws_mwaa_environment__logging_configuration__webserver_logs = {
-  cloud_watch_log_group_arn : string prop;
-      (** cloud_watch_log_group_arn *)
+type logging_configuration__webserver_logs = {
   enabled : bool prop option; [@option]  (** enabled *)
   log_level : string prop option; [@option]  (** log_level *)
 }
 [@@deriving yojson_of]
-(** aws_mwaa_environment__logging_configuration__webserver_logs *)
+(** logging_configuration__webserver_logs *)
 
-type aws_mwaa_environment__logging_configuration__worker_logs = {
-  cloud_watch_log_group_arn : string prop;
-      (** cloud_watch_log_group_arn *)
+type logging_configuration__worker_logs = {
   enabled : bool prop option; [@option]  (** enabled *)
   log_level : string prop option; [@option]  (** log_level *)
 }
 [@@deriving yojson_of]
-(** aws_mwaa_environment__logging_configuration__worker_logs *)
+(** logging_configuration__worker_logs *)
 
-type aws_mwaa_environment__logging_configuration = {
+type logging_configuration = {
   dag_processing_logs :
-    aws_mwaa_environment__logging_configuration__dag_processing_logs
-    list;
-  scheduler_logs :
-    aws_mwaa_environment__logging_configuration__scheduler_logs list;
-  task_logs :
-    aws_mwaa_environment__logging_configuration__task_logs list;
-  webserver_logs :
-    aws_mwaa_environment__logging_configuration__webserver_logs list;
-  worker_logs :
-    aws_mwaa_environment__logging_configuration__worker_logs list;
+    logging_configuration__dag_processing_logs list;
+  scheduler_logs : logging_configuration__scheduler_logs list;
+  task_logs : logging_configuration__task_logs list;
+  webserver_logs : logging_configuration__webserver_logs list;
+  worker_logs : logging_configuration__worker_logs list;
 }
 [@@deriving yojson_of]
-(** aws_mwaa_environment__logging_configuration *)
+(** logging_configuration *)
 
-type aws_mwaa_environment__network_configuration = {
+type network_configuration = {
   security_group_ids : string prop list;  (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_mwaa_environment__network_configuration *)
+(** network_configuration *)
 
-type aws_mwaa_environment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_mwaa_environment__timeouts *)
+(** timeouts *)
 
-type aws_mwaa_environment__last_updated__error = {
+type last_updated__error = {
   error_code : string prop;  (** error_code *)
   error_message : string prop;  (** error_message *)
 }
 [@@deriving yojson_of]
 
-type aws_mwaa_environment__last_updated = {
+type last_updated = {
   created_at : string prop;  (** created_at *)
-  error : aws_mwaa_environment__last_updated__error list;
-      (** error *)
+  error : last_updated__error list;  (** error *)
   status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
@@ -132,14 +116,89 @@ type aws_mwaa_environment = {
       (** webserver_access_mode *)
   weekly_maintenance_window_start : string prop option; [@option]
       (** weekly_maintenance_window_start *)
-  logging_configuration :
-    aws_mwaa_environment__logging_configuration list;
-  network_configuration :
-    aws_mwaa_environment__network_configuration list;
-  timeouts : aws_mwaa_environment__timeouts option;
+  logging_configuration : logging_configuration list;
+  network_configuration : network_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_mwaa_environment *)
+
+let logging_configuration__dag_processing_logs ?enabled ?log_level ()
+    : logging_configuration__dag_processing_logs =
+  { enabled; log_level }
+
+let logging_configuration__scheduler_logs ?enabled ?log_level () :
+    logging_configuration__scheduler_logs =
+  { enabled; log_level }
+
+let logging_configuration__task_logs ?enabled ?log_level () :
+    logging_configuration__task_logs =
+  { enabled; log_level }
+
+let logging_configuration__webserver_logs ?enabled ?log_level () :
+    logging_configuration__webserver_logs =
+  { enabled; log_level }
+
+let logging_configuration__worker_logs ?enabled ?log_level () :
+    logging_configuration__worker_logs =
+  { enabled; log_level }
+
+let logging_configuration ~dag_processing_logs ~scheduler_logs
+    ~task_logs ~webserver_logs ~worker_logs () :
+    logging_configuration =
+  {
+    dag_processing_logs;
+    scheduler_logs;
+    task_logs;
+    webserver_logs;
+    worker_logs;
+  }
+
+let network_configuration ~security_group_ids ~subnet_ids () :
+    network_configuration =
+  { security_group_ids; subnet_ids }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_mwaa_environment ?airflow_configuration_options
+    ?airflow_version ?endpoint_management ?environment_class ?id
+    ?kms_key ?max_workers ?min_workers ?plugins_s3_object_version
+    ?plugins_s3_path ?requirements_s3_object_version
+    ?requirements_s3_path ?schedulers
+    ?startup_script_s3_object_version ?startup_script_s3_path ?tags
+    ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
+    ?timeouts ~dag_s3_path ~execution_role_arn ~name
+    ~source_bucket_arn ~logging_configuration ~network_configuration
+    () : aws_mwaa_environment =
+  {
+    airflow_configuration_options;
+    airflow_version;
+    dag_s3_path;
+    endpoint_management;
+    environment_class;
+    execution_role_arn;
+    id;
+    kms_key;
+    max_workers;
+    min_workers;
+    name;
+    plugins_s3_object_version;
+    plugins_s3_path;
+    requirements_s3_object_version;
+    requirements_s3_path;
+    schedulers;
+    source_bucket_arn;
+    startup_script_s3_object_version;
+    startup_script_s3_path;
+    tags;
+    tags_all;
+    webserver_access_mode;
+    weekly_maintenance_window_start;
+    logging_configuration;
+    network_configuration;
+    timeouts;
+  }
 
 type t = {
   airflow_configuration_options : (string * string) list prop;
@@ -152,7 +211,7 @@ type t = {
   execution_role_arn : string prop;
   id : string prop;
   kms_key : string prop;
-  last_updated : aws_mwaa_environment__last_updated list prop;
+  last_updated : last_updated list prop;
   max_workers : float prop;
   min_workers : float prop;
   name : string prop;
@@ -173,7 +232,7 @@ type t = {
   weekly_maintenance_window_start : string prop;
 }
 
-let aws_mwaa_environment ?airflow_configuration_options
+let register ?tf_module ?airflow_configuration_options
     ?airflow_version ?endpoint_management ?environment_class ?id
     ?kms_key ?max_workers ?min_workers ?plugins_s3_object_version
     ?plugins_s3_path ?requirements_s3_object_version
@@ -185,37 +244,18 @@ let aws_mwaa_environment ?airflow_configuration_options
     __resource_id =
   let __resource_type = "aws_mwaa_environment" in
   let __resource =
-    ({
-       airflow_configuration_options;
-       airflow_version;
-       dag_s3_path;
-       endpoint_management;
-       environment_class;
-       execution_role_arn;
-       id;
-       kms_key;
-       max_workers;
-       min_workers;
-       name;
-       plugins_s3_object_version;
-       plugins_s3_path;
-       requirements_s3_object_version;
-       requirements_s3_path;
-       schedulers;
-       source_bucket_arn;
-       startup_script_s3_object_version;
-       startup_script_s3_path;
-       tags;
-       tags_all;
-       webserver_access_mode;
-       weekly_maintenance_window_start;
-       logging_configuration;
-       network_configuration;
-       timeouts;
-     }
-      : aws_mwaa_environment)
+    aws_mwaa_environment ?airflow_configuration_options
+      ?airflow_version ?endpoint_management ?environment_class ?id
+      ?kms_key ?max_workers ?min_workers ?plugins_s3_object_version
+      ?plugins_s3_path ?requirements_s3_object_version
+      ?requirements_s3_path ?schedulers
+      ?startup_script_s3_object_version ?startup_script_s3_path ?tags
+      ?tags_all ?webserver_access_mode
+      ?weekly_maintenance_window_start ?timeouts ~dag_s3_path
+      ~execution_role_arn ~name ~source_bucket_arn
+      ~logging_configuration ~network_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_mwaa_environment __resource);
   let __resource_attributes =
     ({

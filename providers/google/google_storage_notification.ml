@@ -21,6 +21,19 @@ type google_storage_notification = {
 [@@deriving yojson_of]
 (** google_storage_notification *)
 
+let google_storage_notification ?custom_attributes ?event_types ?id
+    ?object_name_prefix ~bucket ~payload_format ~topic () :
+    google_storage_notification =
+  {
+    bucket;
+    custom_attributes;
+    event_types;
+    id;
+    object_name_prefix;
+    payload_format;
+    topic;
+  }
+
 type t = {
   bucket : string prop;
   custom_attributes : (string * string) list prop;
@@ -33,23 +46,15 @@ type t = {
   topic : string prop;
 }
 
-let google_storage_notification ?custom_attributes ?event_types ?id
+let register ?tf_module ?custom_attributes ?event_types ?id
     ?object_name_prefix ~bucket ~payload_format ~topic __resource_id
     =
   let __resource_type = "google_storage_notification" in
   let __resource =
-    ({
-       bucket;
-       custom_attributes;
-       event_types;
-       id;
-       object_name_prefix;
-       payload_format;
-       topic;
-     }
-      : google_storage_notification)
+    google_storage_notification ?custom_attributes ?event_types ?id
+      ?object_name_prefix ~bucket ~payload_format ~topic ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_notification __resource);
   let __resource_attributes =
     ({

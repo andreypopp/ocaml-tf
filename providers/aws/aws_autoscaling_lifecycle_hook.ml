@@ -23,6 +23,22 @@ type aws_autoscaling_lifecycle_hook = {
 [@@deriving yojson_of]
 (** aws_autoscaling_lifecycle_hook *)
 
+let aws_autoscaling_lifecycle_hook ?default_result ?heartbeat_timeout
+    ?id ?notification_metadata ?notification_target_arn ?role_arn
+    ~autoscaling_group_name ~lifecycle_transition ~name () :
+    aws_autoscaling_lifecycle_hook =
+  {
+    autoscaling_group_name;
+    default_result;
+    heartbeat_timeout;
+    id;
+    lifecycle_transition;
+    name;
+    notification_metadata;
+    notification_target_arn;
+    role_arn;
+  }
+
 type t = {
   autoscaling_group_name : string prop;
   default_result : string prop;
@@ -35,26 +51,17 @@ type t = {
   role_arn : string prop;
 }
 
-let aws_autoscaling_lifecycle_hook ?default_result ?heartbeat_timeout
-    ?id ?notification_metadata ?notification_target_arn ?role_arn
+let register ?tf_module ?default_result ?heartbeat_timeout ?id
+    ?notification_metadata ?notification_target_arn ?role_arn
     ~autoscaling_group_name ~lifecycle_transition ~name __resource_id
     =
   let __resource_type = "aws_autoscaling_lifecycle_hook" in
   let __resource =
-    ({
-       autoscaling_group_name;
-       default_result;
-       heartbeat_timeout;
-       id;
-       lifecycle_transition;
-       name;
-       notification_metadata;
-       notification_target_arn;
-       role_arn;
-     }
-      : aws_autoscaling_lifecycle_hook)
+    aws_autoscaling_lifecycle_hook ?default_result ?heartbeat_timeout
+      ?id ?notification_metadata ?notification_target_arn ?role_arn
+      ~autoscaling_group_name ~lifecycle_transition ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_lifecycle_hook __resource);
   let __resource_attributes =
     ({

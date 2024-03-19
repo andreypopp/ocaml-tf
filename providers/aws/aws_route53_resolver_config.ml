@@ -13,6 +13,10 @@ type aws_route53_resolver_config = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_config *)
 
+let aws_route53_resolver_config ?id ~autodefined_reverse_flag
+    ~resource_id () : aws_route53_resolver_config =
+  { autodefined_reverse_flag; id; resource_id }
+
 type t = {
   autodefined_reverse_flag : string prop;
   id : string prop;
@@ -20,14 +24,14 @@ type t = {
   resource_id : string prop;
 }
 
-let aws_route53_resolver_config ?id ~autodefined_reverse_flag
-    ~resource_id __resource_id =
+let register ?tf_module ?id ~autodefined_reverse_flag ~resource_id
+    __resource_id =
   let __resource_type = "aws_route53_resolver_config" in
   let __resource =
-    ({ autodefined_reverse_flag; id; resource_id }
-      : aws_route53_resolver_config)
+    aws_route53_resolver_config ?id ~autodefined_reverse_flag
+      ~resource_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_config __resource);
   let __resource_attributes =
     ({

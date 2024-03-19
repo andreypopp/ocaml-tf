@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_vpclattice_access_log_subscription
+
+val aws_vpclattice_access_log_subscription :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  destination_arn:string prop ->
+  resource_identifier:string prop ->
+  unit ->
+  aws_vpclattice_access_log_subscription
+
+val yojson_of_aws_vpclattice_access_log_subscription :
+  aws_vpclattice_access_log_subscription -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +30,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_vpclattice_access_log_subscription :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

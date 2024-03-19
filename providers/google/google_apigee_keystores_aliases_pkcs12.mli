@@ -2,9 +2,9 @@
 
 open! Tf.Prelude
 
-type google_apigee_keystores_aliases_pkcs12__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_apigee_keystores_aliases_pkcs12__certs_info__cert_info = {
+type certs_info__cert_info = {
   basic_constraints : string prop;  (** basic_constraints *)
   expiry_date : string prop;  (** expiry_date *)
   is_valid : string prop;  (** is_valid *)
@@ -19,19 +19,38 @@ type google_apigee_keystores_aliases_pkcs12__certs_info__cert_info = {
   version : float prop;  (** version *)
 }
 
-type google_apigee_keystores_aliases_pkcs12__certs_info = {
-  cert_info :
-    google_apigee_keystores_aliases_pkcs12__certs_info__cert_info
-    list;
-      (** cert_info *)
+type certs_info = {
+  cert_info : certs_info__cert_info list;  (** cert_info *)
 }
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
 
 type google_apigee_keystores_aliases_pkcs12
 
+val google_apigee_keystores_aliases_pkcs12 :
+  ?id:string prop ->
+  ?password:string prop ->
+  ?timeouts:timeouts ->
+  alias:string prop ->
+  environment:string prop ->
+  file:string prop ->
+  filehash:string prop ->
+  keystore:string prop ->
+  org_id:string prop ->
+  unit ->
+  google_apigee_keystores_aliases_pkcs12
+
+val yojson_of_google_apigee_keystores_aliases_pkcs12 :
+  google_apigee_keystores_aliases_pkcs12 -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   alias : string prop;
-  certs_info :
-    google_apigee_keystores_aliases_pkcs12__certs_info list prop;
+  certs_info : certs_info list prop;
   environment : string prop;
   file : string prop;
   filehash : string prop;
@@ -42,10 +61,11 @@ type t = private {
   type_ : string prop;
 }
 
-val google_apigee_keystores_aliases_pkcs12 :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?password:string prop ->
-  ?timeouts:google_apigee_keystores_aliases_pkcs12__timeouts ->
+  ?timeouts:timeouts ->
   alias:string prop ->
   environment:string prop ->
   file:string prop ->

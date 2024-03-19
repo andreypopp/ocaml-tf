@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_media_streaming_policy__common_encryption_cbcs__clear_key_encryption = {
+type common_encryption_cbcs__clear_key_encryption = {
   custom_keys_acquisition_url_template : string prop;
       (** custom_keys_acquisition_url_template *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cbcs__clear_key_encryption *)
+(** common_encryption_cbcs__clear_key_encryption *)
 
-type azurerm_media_streaming_policy__common_encryption_cbcs__default_content_key = {
+type common_encryption_cbcs__default_content_key = {
   label : string prop option; [@option]  (** label *)
   policy_name : string prop option; [@option]  (** policy_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cbcs__default_content_key *)
+(** common_encryption_cbcs__default_content_key *)
 
-type azurerm_media_streaming_policy__common_encryption_cbcs__drm_fairplay = {
+type common_encryption_cbcs__drm_fairplay = {
   allow_persistent_license : bool prop option; [@option]
       (** allow_persistent_license *)
   custom_license_acquisition_url_template : string prop option;
@@ -26,9 +26,9 @@ type azurerm_media_streaming_policy__common_encryption_cbcs__drm_fairplay = {
       (** custom_license_acquisition_url_template *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cbcs__drm_fairplay *)
+(** common_encryption_cbcs__drm_fairplay *)
 
-type azurerm_media_streaming_policy__common_encryption_cbcs__enabled_protocols = {
+type common_encryption_cbcs__enabled_protocols = {
   dash : bool prop option; [@option]  (** dash *)
   download : bool prop option; [@option]  (** download *)
   hls : bool prop option; [@option]  (** hls *)
@@ -36,82 +36,73 @@ type azurerm_media_streaming_policy__common_encryption_cbcs__enabled_protocols =
       (** smooth_streaming *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cbcs__enabled_protocols *)
+(** common_encryption_cbcs__enabled_protocols *)
 
-type azurerm_media_streaming_policy__common_encryption_cbcs = {
+type common_encryption_cbcs = {
   clear_key_encryption :
-    azurerm_media_streaming_policy__common_encryption_cbcs__clear_key_encryption
-    list;
+    common_encryption_cbcs__clear_key_encryption list;
   default_content_key :
-    azurerm_media_streaming_policy__common_encryption_cbcs__default_content_key
-    list;
-  drm_fairplay :
-    azurerm_media_streaming_policy__common_encryption_cbcs__drm_fairplay
-    list;
-  enabled_protocols :
-    azurerm_media_streaming_policy__common_encryption_cbcs__enabled_protocols
-    list;
+    common_encryption_cbcs__default_content_key list;
+  drm_fairplay : common_encryption_cbcs__drm_fairplay list;
+  enabled_protocols : common_encryption_cbcs__enabled_protocols list;
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cbcs *)
+(** common_encryption_cbcs *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__clear_key_encryption = {
+type common_encryption_cenc__clear_key_encryption = {
   custom_keys_acquisition_url_template : string prop;
       (** custom_keys_acquisition_url_template *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__clear_key_encryption *)
+(** common_encryption_cenc__clear_key_encryption *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__clear_track__condition = {
+type common_encryption_cenc__clear_track__condition = {
   operation : string prop;  (** operation *)
   property : string prop;  (** property *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__clear_track__condition *)
+(** common_encryption_cenc__clear_track__condition *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__clear_track = {
-  condition :
-    azurerm_media_streaming_policy__common_encryption_cenc__clear_track__condition
-    list;
+type common_encryption_cenc__clear_track = {
+  condition : common_encryption_cenc__clear_track__condition list;
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__clear_track *)
+(** common_encryption_cenc__clear_track *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping__track__condition = {
+type common_encryption_cenc__content_key_to_track_mapping__track__condition = {
   operation : string prop;  (** operation *)
   property : string prop;  (** property *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping__track__condition *)
+(** common_encryption_cenc__content_key_to_track_mapping__track__condition *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping__track = {
+type common_encryption_cenc__content_key_to_track_mapping__track = {
   condition :
-    azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping__track__condition
+    common_encryption_cenc__content_key_to_track_mapping__track__condition
     list;
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping__track *)
+(** common_encryption_cenc__content_key_to_track_mapping__track *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping = {
+type common_encryption_cenc__content_key_to_track_mapping = {
   label : string prop option; [@option]  (** label *)
   policy_name : string prop option; [@option]  (** policy_name *)
   track :
-    azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping__track
-    list;
+    common_encryption_cenc__content_key_to_track_mapping__track list;
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping *)
+(** common_encryption_cenc__content_key_to_track_mapping *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__default_content_key = {
+type common_encryption_cenc__default_content_key = {
   label : string prop option; [@option]  (** label *)
   policy_name : string prop option; [@option]  (** policy_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__default_content_key *)
+(** common_encryption_cenc__default_content_key *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__drm_playready = {
+type common_encryption_cenc__drm_playready = {
   custom_attributes : string prop option; [@option]
       (** custom_attributes *)
   custom_license_acquisition_url_template : string prop option;
@@ -119,9 +110,9 @@ type azurerm_media_streaming_policy__common_encryption_cenc__drm_playready = {
       (** custom_license_acquisition_url_template *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__drm_playready *)
+(** common_encryption_cenc__drm_playready *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc__enabled_protocols = {
+type common_encryption_cenc__enabled_protocols = {
   dash : bool prop option; [@option]  (** dash *)
   download : bool prop option; [@option]  (** download *)
   hls : bool prop option; [@option]  (** hls *)
@@ -129,43 +120,34 @@ type azurerm_media_streaming_policy__common_encryption_cenc__enabled_protocols =
       (** smooth_streaming *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc__enabled_protocols *)
+(** common_encryption_cenc__enabled_protocols *)
 
-type azurerm_media_streaming_policy__common_encryption_cenc = {
+type common_encryption_cenc = {
   drm_widevine_custom_license_acquisition_url_template :
     string prop option;
       [@option]
       (** drm_widevine_custom_license_acquisition_url_template *)
   clear_key_encryption :
-    azurerm_media_streaming_policy__common_encryption_cenc__clear_key_encryption
-    list;
-  clear_track :
-    azurerm_media_streaming_policy__common_encryption_cenc__clear_track
-    list;
+    common_encryption_cenc__clear_key_encryption list;
+  clear_track : common_encryption_cenc__clear_track list;
   content_key_to_track_mapping :
-    azurerm_media_streaming_policy__common_encryption_cenc__content_key_to_track_mapping
-    list;
+    common_encryption_cenc__content_key_to_track_mapping list;
   default_content_key :
-    azurerm_media_streaming_policy__common_encryption_cenc__default_content_key
-    list;
-  drm_playready :
-    azurerm_media_streaming_policy__common_encryption_cenc__drm_playready
-    list;
-  enabled_protocols :
-    azurerm_media_streaming_policy__common_encryption_cenc__enabled_protocols
-    list;
+    common_encryption_cenc__default_content_key list;
+  drm_playready : common_encryption_cenc__drm_playready list;
+  enabled_protocols : common_encryption_cenc__enabled_protocols list;
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__common_encryption_cenc *)
+(** common_encryption_cenc *)
 
-type azurerm_media_streaming_policy__envelope_encryption__default_content_key = {
+type envelope_encryption__default_content_key = {
   label : string prop option; [@option]  (** label *)
   policy_name : string prop option; [@option]  (** policy_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__envelope_encryption__default_content_key *)
+(** envelope_encryption__default_content_key *)
 
-type azurerm_media_streaming_policy__envelope_encryption__enabled_protocols = {
+type envelope_encryption__enabled_protocols = {
   dash : bool prop option; [@option]  (** dash *)
   download : bool prop option; [@option]  (** download *)
   hls : bool prop option; [@option]  (** hls *)
@@ -173,23 +155,20 @@ type azurerm_media_streaming_policy__envelope_encryption__enabled_protocols = {
       (** smooth_streaming *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__envelope_encryption__enabled_protocols *)
+(** envelope_encryption__enabled_protocols *)
 
-type azurerm_media_streaming_policy__envelope_encryption = {
+type envelope_encryption = {
   custom_keys_acquisition_url_template : string prop option;
       [@option]
       (** custom_keys_acquisition_url_template *)
   default_content_key :
-    azurerm_media_streaming_policy__envelope_encryption__default_content_key
-    list;
-  enabled_protocols :
-    azurerm_media_streaming_policy__envelope_encryption__enabled_protocols
-    list;
+    envelope_encryption__default_content_key list;
+  enabled_protocols : envelope_encryption__enabled_protocols list;
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__envelope_encryption *)
+(** envelope_encryption *)
 
-type azurerm_media_streaming_policy__no_encryption_enabled_protocols = {
+type no_encryption_enabled_protocols = {
   dash : bool prop option; [@option]  (** dash *)
   download : bool prop option; [@option]  (** download *)
   hls : bool prop option; [@option]  (** hls *)
@@ -197,15 +176,15 @@ type azurerm_media_streaming_policy__no_encryption_enabled_protocols = {
       (** smooth_streaming *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__no_encryption_enabled_protocols *)
+(** no_encryption_enabled_protocols *)
 
-type azurerm_media_streaming_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_media_streaming_policy__timeouts *)
+(** timeouts *)
 
 type azurerm_media_streaming_policy = {
   default_content_key_policy_name : string prop option; [@option]
@@ -215,19 +194,148 @@ type azurerm_media_streaming_policy = {
       (** media_services_account_name *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  common_encryption_cbcs :
-    azurerm_media_streaming_policy__common_encryption_cbcs list;
-  common_encryption_cenc :
-    azurerm_media_streaming_policy__common_encryption_cenc list;
-  envelope_encryption :
-    azurerm_media_streaming_policy__envelope_encryption list;
+  common_encryption_cbcs : common_encryption_cbcs list;
+  common_encryption_cenc : common_encryption_cenc list;
+  envelope_encryption : envelope_encryption list;
   no_encryption_enabled_protocols :
-    azurerm_media_streaming_policy__no_encryption_enabled_protocols
-    list;
-  timeouts : azurerm_media_streaming_policy__timeouts option;
+    no_encryption_enabled_protocols list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_media_streaming_policy *)
+
+let common_encryption_cbcs__clear_key_encryption
+    ~custom_keys_acquisition_url_template () :
+    common_encryption_cbcs__clear_key_encryption =
+  { custom_keys_acquisition_url_template }
+
+let common_encryption_cbcs__default_content_key ?label ?policy_name
+    () : common_encryption_cbcs__default_content_key =
+  { label; policy_name }
+
+let common_encryption_cbcs__drm_fairplay ?allow_persistent_license
+    ?custom_license_acquisition_url_template () :
+    common_encryption_cbcs__drm_fairplay =
+  {
+    allow_persistent_license;
+    custom_license_acquisition_url_template;
+  }
+
+let common_encryption_cbcs__enabled_protocols ?dash ?download ?hls
+    ?smooth_streaming () : common_encryption_cbcs__enabled_protocols
+    =
+  { dash; download; hls; smooth_streaming }
+
+let common_encryption_cbcs ~clear_key_encryption ~default_content_key
+    ~drm_fairplay ~enabled_protocols () : common_encryption_cbcs =
+  {
+    clear_key_encryption;
+    default_content_key;
+    drm_fairplay;
+    enabled_protocols;
+  }
+
+let common_encryption_cenc__clear_key_encryption
+    ~custom_keys_acquisition_url_template () :
+    common_encryption_cenc__clear_key_encryption =
+  { custom_keys_acquisition_url_template }
+
+let common_encryption_cenc__clear_track__condition ~operation
+    ~property ~value () :
+    common_encryption_cenc__clear_track__condition =
+  { operation; property; value }
+
+let common_encryption_cenc__clear_track ~condition () :
+    common_encryption_cenc__clear_track =
+  { condition }
+
+let common_encryption_cenc__content_key_to_track_mapping__track__condition
+    ~operation ~property ~value () :
+    common_encryption_cenc__content_key_to_track_mapping__track__condition
+    =
+  { operation; property; value }
+
+let common_encryption_cenc__content_key_to_track_mapping__track
+    ~condition () :
+    common_encryption_cenc__content_key_to_track_mapping__track =
+  { condition }
+
+let common_encryption_cenc__content_key_to_track_mapping ?label
+    ?policy_name ~track () :
+    common_encryption_cenc__content_key_to_track_mapping =
+  { label; policy_name; track }
+
+let common_encryption_cenc__default_content_key ?label ?policy_name
+    () : common_encryption_cenc__default_content_key =
+  { label; policy_name }
+
+let common_encryption_cenc__drm_playready ?custom_attributes
+    ?custom_license_acquisition_url_template () :
+    common_encryption_cenc__drm_playready =
+  { custom_attributes; custom_license_acquisition_url_template }
+
+let common_encryption_cenc__enabled_protocols ?dash ?download ?hls
+    ?smooth_streaming () : common_encryption_cenc__enabled_protocols
+    =
+  { dash; download; hls; smooth_streaming }
+
+let common_encryption_cenc
+    ?drm_widevine_custom_license_acquisition_url_template
+    ~clear_key_encryption ~clear_track ~content_key_to_track_mapping
+    ~default_content_key ~drm_playready ~enabled_protocols () :
+    common_encryption_cenc =
+  {
+    drm_widevine_custom_license_acquisition_url_template;
+    clear_key_encryption;
+    clear_track;
+    content_key_to_track_mapping;
+    default_content_key;
+    drm_playready;
+    enabled_protocols;
+  }
+
+let envelope_encryption__default_content_key ?label ?policy_name () :
+    envelope_encryption__default_content_key =
+  { label; policy_name }
+
+let envelope_encryption__enabled_protocols ?dash ?download ?hls
+    ?smooth_streaming () : envelope_encryption__enabled_protocols =
+  { dash; download; hls; smooth_streaming }
+
+let envelope_encryption ?custom_keys_acquisition_url_template
+    ~default_content_key ~enabled_protocols () : envelope_encryption
+    =
+  {
+    custom_keys_acquisition_url_template;
+    default_content_key;
+    enabled_protocols;
+  }
+
+let no_encryption_enabled_protocols ?dash ?download ?hls
+    ?smooth_streaming () : no_encryption_enabled_protocols =
+  { dash; download; hls; smooth_streaming }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_media_streaming_policy ?default_content_key_policy_name
+    ?id ?timeouts ~media_services_account_name ~name
+    ~resource_group_name ~common_encryption_cbcs
+    ~common_encryption_cenc ~envelope_encryption
+    ~no_encryption_enabled_protocols () :
+    azurerm_media_streaming_policy =
+  {
+    default_content_key_policy_name;
+    id;
+    media_services_account_name;
+    name;
+    resource_group_name;
+    common_encryption_cbcs;
+    common_encryption_cenc;
+    envelope_encryption;
+    no_encryption_enabled_protocols;
+    timeouts;
+  }
 
 type t = {
   default_content_key_policy_name : string prop;
@@ -237,28 +345,20 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_media_streaming_policy ?default_content_key_policy_name
-    ?id ?timeouts ~media_services_account_name ~name
-    ~resource_group_name ~common_encryption_cbcs
-    ~common_encryption_cenc ~envelope_encryption
-    ~no_encryption_enabled_protocols __resource_id =
+let register ?tf_module ?default_content_key_policy_name ?id
+    ?timeouts ~media_services_account_name ~name ~resource_group_name
+    ~common_encryption_cbcs ~common_encryption_cenc
+    ~envelope_encryption ~no_encryption_enabled_protocols
+    __resource_id =
   let __resource_type = "azurerm_media_streaming_policy" in
   let __resource =
-    ({
-       default_content_key_policy_name;
-       id;
-       media_services_account_name;
-       name;
-       resource_group_name;
-       common_encryption_cbcs;
-       common_encryption_cenc;
-       envelope_encryption;
-       no_encryption_enabled_protocols;
-       timeouts;
-     }
-      : azurerm_media_streaming_policy)
+    azurerm_media_streaming_policy ?default_content_key_policy_name
+      ?id ?timeouts ~media_services_account_name ~name
+      ~resource_group_name ~common_encryption_cbcs
+      ~common_encryption_cenc ~envelope_encryption
+      ~no_encryption_enabled_protocols ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_streaming_policy __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloud_identity_group__group_key = {
+type group_key = {
   id : string prop;
       (** The ID of the entity.
 
@@ -28,15 +28,15 @@ and must be in the form of 'identitysources/{identity_source_id}'. *)
 [@@deriving yojson_of]
 (** EntityKey of the Group. *)
 
-type google_cloud_identity_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloud_identity_group__timeouts *)
+(** timeouts *)
 
-type google_cloud_identity_group__additional_group_keys = {
+type additional_group_keys = {
   id : string prop;  (** id *)
   namespace : string prop;  (** namespace *)
 }
@@ -71,15 +71,33 @@ Cloud Identity resource hierarchy.
 
 Must be of the form identitysources/{identity_source_id} for external-identity-mapped
 groups or customers/{customer_id} for Google Groups. *)
-  group_key : google_cloud_identity_group__group_key list;
-  timeouts : google_cloud_identity_group__timeouts option;
+  group_key : group_key list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloud_identity_group *)
 
+let group_key ?namespace ~id () : group_key = { id; namespace }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_cloud_identity_group ?description ?display_name ?id
+    ?initial_group_config ?timeouts ~labels ~parent ~group_key () :
+    google_cloud_identity_group =
+  {
+    description;
+    display_name;
+    id;
+    initial_group_config;
+    labels;
+    parent;
+    group_key;
+    timeouts;
+  }
+
 type t = {
-  additional_group_keys :
-    google_cloud_identity_group__additional_group_keys list prop;
+  additional_group_keys : additional_group_keys list prop;
   create_time : string prop;
   description : string prop;
   display_name : string prop;
@@ -91,24 +109,15 @@ type t = {
   update_time : string prop;
 }
 
-let google_cloud_identity_group ?description ?display_name ?id
+let register ?tf_module ?description ?display_name ?id
     ?initial_group_config ?timeouts ~labels ~parent ~group_key
     __resource_id =
   let __resource_type = "google_cloud_identity_group" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       initial_group_config;
-       labels;
-       parent;
-       group_key;
-       timeouts;
-     }
-      : google_cloud_identity_group)
+    google_cloud_identity_group ?description ?display_name ?id
+      ?initial_group_config ?timeouts ~labels ~parent ~group_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_identity_group __resource);
   let __resource_attributes =
     ({

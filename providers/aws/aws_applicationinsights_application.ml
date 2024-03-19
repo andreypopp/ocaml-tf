@@ -24,6 +24,23 @@ type aws_applicationinsights_application = {
 [@@deriving yojson_of]
 (** aws_applicationinsights_application *)
 
+let aws_applicationinsights_application ?auto_config_enabled
+    ?auto_create ?cwe_monitor_enabled ?grouping_type ?id
+    ?ops_center_enabled ?ops_item_sns_topic_arn ?tags ?tags_all
+    ~resource_group_name () : aws_applicationinsights_application =
+  {
+    auto_config_enabled;
+    auto_create;
+    cwe_monitor_enabled;
+    grouping_type;
+    id;
+    ops_center_enabled;
+    ops_item_sns_topic_arn;
+    resource_group_name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   auto_config_enabled : bool prop;
@@ -38,27 +55,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_applicationinsights_application ?auto_config_enabled
-    ?auto_create ?cwe_monitor_enabled ?grouping_type ?id
-    ?ops_center_enabled ?ops_item_sns_topic_arn ?tags ?tags_all
-    ~resource_group_name __resource_id =
+let register ?tf_module ?auto_config_enabled ?auto_create
+    ?cwe_monitor_enabled ?grouping_type ?id ?ops_center_enabled
+    ?ops_item_sns_topic_arn ?tags ?tags_all ~resource_group_name
+    __resource_id =
   let __resource_type = "aws_applicationinsights_application" in
   let __resource =
-    ({
-       auto_config_enabled;
-       auto_create;
-       cwe_monitor_enabled;
-       grouping_type;
-       id;
-       ops_center_enabled;
-       ops_item_sns_topic_arn;
-       resource_group_name;
-       tags;
-       tags_all;
-     }
-      : aws_applicationinsights_application)
+    aws_applicationinsights_application ?auto_config_enabled
+      ?auto_create ?cwe_monitor_enabled ?grouping_type ?id
+      ?ops_center_enabled ?ops_item_sns_topic_arn ?tags ?tags_all
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_applicationinsights_application __resource);
   let __resource_attributes =
     ({

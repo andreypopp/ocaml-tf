@@ -4,13 +4,11 @@
 
 open! Tf.Prelude
 
-type google_notebooks_runtime__access_config = {
+type access_config = {
   access_type : string prop option; [@option]
       (** The type of access mode this instance. For valid values, see
 'https://cloud.google.com/vertex-ai/docs/workbench/reference/
 rest/v1/projects.locations.runtimes#RuntimeAccessType'. *)
-  proxy_uri : string prop;
-      (** The proxy endpoint that is used to access the runtime. *)
   runtime_owner : string prop option; [@option]
       (** The owner of this runtime after creation. Format: 'alias@example.com'.
 Currently supports one owner only. *)
@@ -18,7 +16,7 @@ Currently supports one owner only. *)
 [@@deriving yojson_of]
 (** The config settings for accessing runtime. *)
 
-type google_notebooks_runtime__software_config__kernels = {
+type software_config__kernels = {
   repository : string prop;
       (** The path to the container image repository.
 For example: gcr.io/{project_id}/{imageName} *)
@@ -28,7 +26,7 @@ For example: gcr.io/{project_id}/{imageName} *)
 [@@deriving yojson_of]
 (** Use a list of container images to use as Kernels in the notebook instance. *)
 
-type google_notebooks_runtime__software_config = {
+type software_config = {
   custom_gpu_driver_path : string prop option; [@option]
       (** Specify a custom Cloud Storage path where the GPU driver is stored.
 If not specified, we'll automatically choose from official GPU drivers. *)
@@ -51,22 +49,20 @@ fully boots up. The path must be a URL or
 Cloud Storage path (gs://path-to-file/file-name). *)
   post_startup_script_behavior : string prop option; [@option]
       (** Behavior for the post startup script. Possible values: [POST_STARTUP_SCRIPT_BEHAVIOR_UNSPECIFIED, RUN_EVERY_START, DOWNLOAD_AND_RUN_EVERY_START] *)
-  upgradeable : bool prop;
-      (** Bool indicating whether an newer image is available in an image family. *)
-  kernels : google_notebooks_runtime__software_config__kernels list;
+  kernels : software_config__kernels list;
 }
 [@@deriving yojson_of]
 (** The config settings for software inside the runtime. *)
 
-type google_notebooks_runtime__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_notebooks_runtime__timeouts *)
+(** timeouts *)
 
-type google_notebooks_runtime__virtual_machine__virtual_machine_config__accelerator_config = {
+type virtual_machine__virtual_machine_config__accelerator_config = {
   core_count : float prop option; [@option]
       (** Count of cores of this accelerator. *)
   type_ : string prop option; [@option] [@key "type"]
@@ -77,7 +73,7 @@ rest/v1/projects.locations.runtimes#AcceleratorType' *)
 [@@deriving yojson_of]
 (** The Compute Engine accelerator configuration for this runtime. *)
 
-type google_notebooks_runtime__virtual_machine__virtual_machine_config__container_images = {
+type virtual_machine__virtual_machine_config__container_images = {
   repository : string prop;
       (** The path to the container image repository.
 For example: gcr.io/{project_id}/{imageName} *)
@@ -87,7 +83,7 @@ For example: gcr.io/{project_id}/{imageName} *)
 [@@deriving yojson_of]
 (** Use a list of container images to start the notebook instance. *)
 
-type google_notebooks_runtime__virtual_machine__virtual_machine_config__data_disk__initialize_params = {
+type virtual_machine__virtual_machine_config__data_disk__initialize_params = {
   description : string prop option; [@option]
       (** Provide this property when creating the disk. *)
   disk_name : string prop option; [@option]
@@ -118,35 +114,7 @@ new instance. This property is mutually exclusive with the
 source property; you can only define one or the other, but not
 both. *)
 
-type google_notebooks_runtime__virtual_machine__virtual_machine_config__data_disk = {
-  auto_delete : bool prop;
-      (** Optional. Specifies whether the disk will be auto-deleted
-when the instance is deleted (but not when the disk is
-detached from the instance). *)
-  boot : bool prop;
-      (** Optional. Indicates that this is a boot disk. The virtual
-machine will use the first partition of the disk for its
-root filesystem. *)
-  device_name : string prop;
-      (** Optional. Specifies a unique device name of your choice
-that is reflected into the /dev/disk/by-id/google-* tree
-of a Linux operating system running within the instance.
-This name can be used to reference the device for mounting,
-resizing, and so on, from within the instance.
-If not specified, the server chooses a default device name
-to apply to this disk, in the form persistent-disk-x, where
-x is a number assigned by Google Compute Engine. This field
-is only applicable for persistent disks. *)
-  guest_os_features : string prop list;
-      (** Indicates a list of features to enable on the guest operating
-system. Applicable only for bootable images. To see a list of
-available features, read 'https://cloud.google.com/compute/docs/
-images/create-delete-deprecate-private-images#guest-os-features'
-options. '' *)
-  index : float prop;
-      (** Output only. A zero-based index to this disk, where 0 is
-reserved for the boot disk. If you have many disks attached
-to an instance, each disk would have a unique index number. *)
+type virtual_machine__virtual_machine_config__data_disk = {
   interface : string prop option; [@option]
       (** Specifies the disk interface to use for attaching this disk,
 which is either SCSI or NVME. The default is SCSI. Persistent
@@ -154,11 +122,6 @@ disks must always use SCSI and the request will fail if you attempt
 to attach a persistent disk in any other format than SCSI. Local SSDs
 can use either NVME or SCSI. For performance characteristics of SCSI
 over NVMe, see Local SSD performance. Valid values: * NVME * SCSI. *)
-  kind : string prop;
-      (** Type of the resource. Always compute#attachedDisk for attached
-disks. *)
-  licenses : string prop list;
-      (** Output only. Any valid publicly visible licenses. *)
   mode : string prop option; [@option]
       (** The mode in which to attach this disk, either READ_WRITE
 or READ_ONLY. If not specified, the default is to attach
@@ -170,13 +133,13 @@ Persistent Disk resource. *)
       (** Specifies the type of the disk, either SCRATCH or PERSISTENT.
 If not specified, the default is PERSISTENT. *)
   initialize_params :
-    google_notebooks_runtime__virtual_machine__virtual_machine_config__data_disk__initialize_params
+    virtual_machine__virtual_machine_config__data_disk__initialize_params
     list;
 }
 [@@deriving yojson_of]
 (** Data disk option configuration settings. *)
 
-type google_notebooks_runtime__virtual_machine__virtual_machine_config__encryption_config = {
+type virtual_machine__virtual_machine_config__encryption_config = {
   kms_key : string prop option; [@option]
       (** The Cloud KMS resource identifier of the customer-managed
 encryption key used to protect a resource, such as a disks.
@@ -187,7 +150,7 @@ It has the following format:
 [@@deriving yojson_of]
 (** Encryption settings for virtual machine data disk. *)
 
-type google_notebooks_runtime__virtual_machine__virtual_machine_config__shielded_instance_config = {
+type virtual_machine__virtual_machine_config__shielded_instance_config = {
   enable_integrity_monitoring : bool prop option; [@option]
       (** Defines whether the instance has integrity monitoring enabled.
 Enables monitoring and attestation of the boot integrity of
@@ -208,11 +171,7 @@ default. *)
 [@@deriving yojson_of]
 (** Shielded VM Instance configuration settings. *)
 
-type google_notebooks_runtime__virtual_machine__virtual_machine_config = {
-  guest_attributes : (string * string prop) list;
-      (** The Compute Engine guest attributes. (see [Project and instance
-guest attributes](https://cloud.google.com/compute/docs/
-storing-retrieving-metadata#guest_attributes)). *)
+type virtual_machine__virtual_machine_config = {
   internal_ip_only : bool prop option; [@option]
       (** If true, runtime will only have internal IP addresses. By default,
 runtimes are not restricted to internal IP addresses, and will
@@ -266,40 +225,29 @@ partial URI are valid. Examples:
       (** The Compute Engine tags to add to runtime (see [Tagging instances]
 (https://cloud.google.com/compute/docs/
 label-or-tag-resources#tags)). *)
-  zone : string prop;
-      (** The zone where the virtual machine is located. *)
   accelerator_config :
-    google_notebooks_runtime__virtual_machine__virtual_machine_config__accelerator_config
-    list;
+    virtual_machine__virtual_machine_config__accelerator_config list;
   container_images :
-    google_notebooks_runtime__virtual_machine__virtual_machine_config__container_images
-    list;
+    virtual_machine__virtual_machine_config__container_images list;
   data_disk :
-    google_notebooks_runtime__virtual_machine__virtual_machine_config__data_disk
-    list;
+    virtual_machine__virtual_machine_config__data_disk list;
   encryption_config :
-    google_notebooks_runtime__virtual_machine__virtual_machine_config__encryption_config
-    list;
+    virtual_machine__virtual_machine_config__encryption_config list;
   shielded_instance_config :
-    google_notebooks_runtime__virtual_machine__virtual_machine_config__shielded_instance_config
+    virtual_machine__virtual_machine_config__shielded_instance_config
     list;
 }
 [@@deriving yojson_of]
 (** Virtual Machine configuration settings. *)
 
-type google_notebooks_runtime__virtual_machine = {
-  instance_id : string prop;
-      (** The unique identifier of the Managed Compute Engine instance. *)
-  instance_name : string prop;
-      (** The user-friendly name of the Managed Compute Engine instance. *)
+type virtual_machine = {
   virtual_machine_config :
-    google_notebooks_runtime__virtual_machine__virtual_machine_config
-    list;
+    virtual_machine__virtual_machine_config list;
 }
 [@@deriving yojson_of]
 (** Use a Compute Engine VM image to start the managed notebook instance. *)
 
-type google_notebooks_runtime__metrics = {
+type metrics = {
   system_metrics : (string * string prop) list;  (** system_metrics *)
 }
 [@@deriving yojson_of]
@@ -322,13 +270,112 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string prop;
       (** The name specified for the Notebook runtime. *)
   project : string prop option; [@option]  (** project *)
-  access_config : google_notebooks_runtime__access_config list;
-  software_config : google_notebooks_runtime__software_config list;
-  timeouts : google_notebooks_runtime__timeouts option;
-  virtual_machine : google_notebooks_runtime__virtual_machine list;
+  access_config : access_config list;
+  software_config : software_config list;
+  timeouts : timeouts option;
+  virtual_machine : virtual_machine list;
 }
 [@@deriving yojson_of]
 (** google_notebooks_runtime *)
+
+let access_config ?access_type ?runtime_owner () : access_config =
+  { access_type; runtime_owner }
+
+let software_config__kernels ?tag ~repository () :
+    software_config__kernels =
+  { repository; tag }
+
+let software_config ?custom_gpu_driver_path ?enable_health_monitoring
+    ?idle_shutdown ?idle_shutdown_timeout ?install_gpu_driver
+    ?notebook_upgrade_schedule ?post_startup_script
+    ?post_startup_script_behavior ~kernels () : software_config =
+  {
+    custom_gpu_driver_path;
+    enable_health_monitoring;
+    idle_shutdown;
+    idle_shutdown_timeout;
+    install_gpu_driver;
+    notebook_upgrade_schedule;
+    post_startup_script;
+    post_startup_script_behavior;
+    kernels;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let virtual_machine__virtual_machine_config__accelerator_config
+    ?core_count ?type_ () :
+    virtual_machine__virtual_machine_config__accelerator_config =
+  { core_count; type_ }
+
+let virtual_machine__virtual_machine_config__container_images ?tag
+    ~repository () :
+    virtual_machine__virtual_machine_config__container_images =
+  { repository; tag }
+
+let virtual_machine__virtual_machine_config__data_disk__initialize_params
+    ?description ?disk_name ?disk_size_gb ?disk_type ?labels () :
+    virtual_machine__virtual_machine_config__data_disk__initialize_params
+    =
+  { description; disk_name; disk_size_gb; disk_type; labels }
+
+let virtual_machine__virtual_machine_config__data_disk ?interface
+    ?mode ?source ?type_ ~initialize_params () :
+    virtual_machine__virtual_machine_config__data_disk =
+  { interface; mode; source; type_; initialize_params }
+
+let virtual_machine__virtual_machine_config__encryption_config
+    ?kms_key () :
+    virtual_machine__virtual_machine_config__encryption_config =
+  { kms_key }
+
+let virtual_machine__virtual_machine_config__shielded_instance_config
+    ?enable_integrity_monitoring ?enable_secure_boot ?enable_vtpm ()
+    :
+    virtual_machine__virtual_machine_config__shielded_instance_config
+    =
+  { enable_integrity_monitoring; enable_secure_boot; enable_vtpm }
+
+let virtual_machine__virtual_machine_config ?internal_ip_only ?labels
+    ?metadata ?network ?nic_type ?reserved_ip_range ?subnet ?tags
+    ~machine_type ~accelerator_config ~container_images ~data_disk
+    ~encryption_config ~shielded_instance_config () :
+    virtual_machine__virtual_machine_config =
+  {
+    internal_ip_only;
+    labels;
+    machine_type;
+    metadata;
+    network;
+    nic_type;
+    reserved_ip_range;
+    subnet;
+    tags;
+    accelerator_config;
+    container_images;
+    data_disk;
+    encryption_config;
+    shielded_instance_config;
+  }
+
+let virtual_machine ~virtual_machine_config () : virtual_machine =
+  { virtual_machine_config }
+
+let google_notebooks_runtime ?id ?labels ?project ?timeouts ~location
+    ~name ~access_config ~software_config ~virtual_machine () :
+    google_notebooks_runtime =
+  {
+    id;
+    labels;
+    location;
+    name;
+    project;
+    access_config;
+    software_config;
+    timeouts;
+    virtual_machine;
+  }
 
 type t = {
   effective_labels : (string * string) list prop;
@@ -336,32 +383,22 @@ type t = {
   id : string prop;
   labels : (string * string) list prop;
   location : string prop;
-  metrics : google_notebooks_runtime__metrics list prop;
+  metrics : metrics list prop;
   name : string prop;
   project : string prop;
   state : string prop;
   terraform_labels : (string * string) list prop;
 }
 
-let google_notebooks_runtime ?id ?labels ?project ?timeouts ~location
+let register ?tf_module ?id ?labels ?project ?timeouts ~location
     ~name ~access_config ~software_config ~virtual_machine
     __resource_id =
   let __resource_type = "google_notebooks_runtime" in
   let __resource =
-    ({
-       id;
-       labels;
-       location;
-       name;
-       project;
-       access_config;
-       software_config;
-       timeouts;
-       virtual_machine;
-     }
-      : google_notebooks_runtime)
+    google_notebooks_runtime ?id ?labels ?project ?timeouts ~location
+      ~name ~access_config ~software_config ~virtual_machine ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_notebooks_runtime __resource);
   let __resource_attributes =
     ({

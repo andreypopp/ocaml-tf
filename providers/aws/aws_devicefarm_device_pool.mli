@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type aws_devicefarm_device_pool__rule
+(** RESOURCE SERIALIZATION *)
+
+type rule
+
+val rule :
+  ?attribute:string prop ->
+  ?operator:string prop ->
+  ?value:string prop ->
+  unit ->
+  rule
+
 type aws_devicefarm_device_pool
+
+val aws_devicefarm_device_pool :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?max_devices:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  project_arn:string prop ->
+  rule:rule list ->
+  unit ->
+  aws_devicefarm_device_pool
+
+val yojson_of_aws_devicefarm_device_pool :
+  aws_devicefarm_device_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +44,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_devicefarm_device_pool :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?max_devices:float prop ->
@@ -25,6 +53,6 @@ val aws_devicefarm_device_pool :
   ?tags_all:(string * string prop) list ->
   name:string prop ->
   project_arn:string prop ->
-  rule:aws_devicefarm_device_pool__rule list ->
+  rule:rule list ->
   string ->
   t

@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type hcloud_primary_ip
+
+val hcloud_primary_ip :
+  ?assignee_id:float prop ->
+  ?datacenter:string prop ->
+  ?delete_protection:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  assignee_type:string prop ->
+  auto_delete:bool prop ->
+  type_:string prop ->
+  unit ->
+  hcloud_primary_ip
+
+val yojson_of_hcloud_primary_ip : hcloud_primary_ip -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   assignee_id : float prop;
@@ -18,7 +37,8 @@ type t = private {
   type_ : string prop;
 }
 
-val hcloud_primary_ip :
+val register :
+  ?tf_module:tf_module ->
   ?assignee_id:float prop ->
   ?datacenter:string prop ->
   ?delete_protection:bool prop ->

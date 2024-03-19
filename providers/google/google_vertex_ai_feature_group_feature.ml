@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_feature_group_feature__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vertex_ai_feature_group_feature__timeouts *)
+(** timeouts *)
 
 type google_vertex_ai_feature_group_feature = {
   description : string prop option; [@option]
@@ -29,10 +29,28 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The region for the resource. It should be the same as the feature group's region. *)
   version_column_name : string prop option; [@option]
       (** The name of the BigQuery Table/View column hosting data for this version. If no value is provided, will use featureId. *)
-  timeouts : google_vertex_ai_feature_group_feature__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_feature_group_feature *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vertex_ai_feature_group_feature ?description ?id ?labels
+    ?project ?version_column_name ?timeouts ~feature_group ~name
+    ~region () : google_vertex_ai_feature_group_feature =
+  {
+    description;
+    feature_group;
+    id;
+    labels;
+    name;
+    project;
+    region;
+    version_column_name;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -49,25 +67,16 @@ type t = {
   version_column_name : string prop;
 }
 
-let google_vertex_ai_feature_group_feature ?description ?id ?labels
-    ?project ?version_column_name ?timeouts ~feature_group ~name
-    ~region __resource_id =
+let register ?tf_module ?description ?id ?labels ?project
+    ?version_column_name ?timeouts ~feature_group ~name ~region
+    __resource_id =
   let __resource_type = "google_vertex_ai_feature_group_feature" in
   let __resource =
-    ({
-       description;
-       feature_group;
-       id;
-       labels;
-       name;
-       project;
-       region;
-       version_column_name;
-       timeouts;
-     }
-      : google_vertex_ai_feature_group_feature)
+    google_vertex_ai_feature_group_feature ?description ?id ?labels
+      ?project ?version_column_name ?timeouts ~feature_group ~name
+      ~region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_feature_group_feature __resource);
   let __resource_attributes =
     ({

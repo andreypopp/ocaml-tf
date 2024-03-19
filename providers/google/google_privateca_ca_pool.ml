@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_privateca_ca_pool__issuance_policy__allowed_issuance_modes = {
+type issuance_policy__allowed_issuance_modes = {
   allow_config_based_issuance : bool prop;
       (** When true, allows callers to create Certificates by specifying a CertificateConfig. *)
   allow_csr_based_issuance : bool prop;
@@ -13,14 +13,14 @@ type google_privateca_ca_pool__issuance_policy__allowed_issuance_modes = {
 [@@deriving yojson_of]
 (** IssuanceModes specifies the allowed ways in which Certificates may be requested from this CaPool. *)
 
-type google_privateca_ca_pool__issuance_policy__allowed_key_types__elliptic_curve = {
+type issuance_policy__allowed_key_types__elliptic_curve = {
   signature_algorithm : string prop;
       (** The algorithm used. Possible values: [ECDSA_P256, ECDSA_P384, EDDSA_25519] *)
 }
 [@@deriving yojson_of]
 (** Represents an allowed Elliptic Curve key type. *)
 
-type google_privateca_ca_pool__issuance_policy__allowed_key_types__rsa = {
+type issuance_policy__allowed_key_types__rsa = {
   max_modulus_size : string prop option; [@option]
       (** The maximum allowed RSA modulus size, in bits. If this is not set, or if set to zero, the
 service will not enforce an explicit upper bound on RSA modulus sizes. *)
@@ -31,39 +31,36 @@ service-level min RSA modulus size will continue to apply. *)
 [@@deriving yojson_of]
 (** Describes an RSA key that may be used in a Certificate issued from a CaPool. *)
 
-type google_privateca_ca_pool__issuance_policy__allowed_key_types = {
+type issuance_policy__allowed_key_types = {
   elliptic_curve :
-    google_privateca_ca_pool__issuance_policy__allowed_key_types__elliptic_curve
-    list;
-  rsa :
-    google_privateca_ca_pool__issuance_policy__allowed_key_types__rsa
-    list;
+    issuance_policy__allowed_key_types__elliptic_curve list;
+  rsa : issuance_policy__allowed_key_types__rsa list;
 }
 [@@deriving yojson_of]
 (** If any AllowedKeyType is specified, then the certificate request's public key must match one of the key types listed here.
 Otherwise, any key may be used. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__additional_extensions__object_id = {
+type issuance_policy__baseline_values__additional_extensions__object_id = {
   object_id_path : float prop list;
       (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
 [@@deriving yojson_of]
 (** Describes values that are relevant in a CA certificate. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__additional_extensions = {
+type issuance_policy__baseline_values__additional_extensions = {
   critical : bool prop;
       (** Indicates whether or not this extension is critical (i.e., if the client does not know how to
 handle this extension, the client should consider this to be an error). *)
   value : string prop;
       (** The value of this X.509 extension. A base64-encoded string. *)
   object_id :
-    google_privateca_ca_pool__issuance_policy__baseline_values__additional_extensions__object_id
+    issuance_policy__baseline_values__additional_extensions__object_id
     list;
 }
 [@@deriving yojson_of]
 (** Specifies an X.509 extension, which may be used in different parts of X.509 objects like certificates, CSRs, and CRLs. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__ca_options = {
+type issuance_policy__baseline_values__ca_options = {
   is_ca : bool prop option; [@option]
       (** When true, the CA in Basic Constraints extension will be set to true. *)
   max_issuer_path_length : float prop option; [@option]
@@ -80,7 +77,7 @@ the max path length will be omitted from the CA certificate. *)
 [@@deriving yojson_of]
 (** Describes values that are relevant in a CA certificate. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__base_key_usage = {
+type issuance_policy__baseline_values__key_usage__base_key_usage = {
   cert_sign : bool prop option; [@option]
       (** The key may be used to sign certificates. *)
   content_commitment : bool prop option; [@option]
@@ -103,7 +100,7 @@ type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__base
 [@@deriving yojson_of]
 (** Describes high-level ways in which a key may be used. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__extended_key_usage = {
+type issuance_policy__baseline_values__key_usage__extended_key_usage = {
   client_auth : bool prop option; [@option]
       (** Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially described as TLS WWW client authentication, though regularly used for non-WWW TLS. *)
   code_signing : bool prop option; [@option]
@@ -120,28 +117,27 @@ type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__exte
 [@@deriving yojson_of]
 (** Describes high-level ways in which a key may be used. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__unknown_extended_key_usages = {
+type issuance_policy__baseline_values__key_usage__unknown_extended_key_usages = {
   object_id_path : float prop list;
       (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
 [@@deriving yojson_of]
 (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage = {
+type issuance_policy__baseline_values__key_usage = {
   base_key_usage :
-    google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__base_key_usage
-    list;
+    issuance_policy__baseline_values__key_usage__base_key_usage list;
   extended_key_usage :
-    google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__extended_key_usage
+    issuance_policy__baseline_values__key_usage__extended_key_usage
     list;
   unknown_extended_key_usages :
-    google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
+    issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
     list;
 }
 [@@deriving yojson_of]
 (** Indicates the intended use for keys that correspond to a certificate. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__name_constraints = {
+type issuance_policy__baseline_values__name_constraints = {
   critical : bool prop;
       (** Indicates whether or not the name constraints are marked critical. *)
   excluded_dns_names : string prop list option; [@option]
@@ -188,32 +184,24 @@ leading period (like '.example.com') *)
 [@@deriving yojson_of]
 (** Describes the X.509 name constraints extension. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values__policy_ids = {
+type issuance_policy__baseline_values__policy_ids = {
   object_id_path : float prop list;
       (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
 [@@deriving yojson_of]
 (** Describes the X.509 certificate policy object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4. *)
 
-type google_privateca_ca_pool__issuance_policy__baseline_values = {
+type issuance_policy__baseline_values = {
   aia_ocsp_servers : string prop list option; [@option]
       (** Describes Online Certificate Status Protocol (OCSP) endpoint addresses that appear in the
 Authority Information Access extension in the certificate. *)
   additional_extensions :
-    google_privateca_ca_pool__issuance_policy__baseline_values__additional_extensions
-    list;
-  ca_options :
-    google_privateca_ca_pool__issuance_policy__baseline_values__ca_options
-    list;
-  key_usage :
-    google_privateca_ca_pool__issuance_policy__baseline_values__key_usage
-    list;
+    issuance_policy__baseline_values__additional_extensions list;
+  ca_options : issuance_policy__baseline_values__ca_options list;
+  key_usage : issuance_policy__baseline_values__key_usage list;
   name_constraints :
-    google_privateca_ca_pool__issuance_policy__baseline_values__name_constraints
-    list;
-  policy_ids :
-    google_privateca_ca_pool__issuance_policy__baseline_values__policy_ids
-    list;
+    issuance_policy__baseline_values__name_constraints list;
+  policy_ids : issuance_policy__baseline_values__policy_ids list;
 }
 [@@deriving yojson_of]
 (** A set of X.509 values that will be applied to all certificates issued through this CaPool. If a certificate request
@@ -221,7 +209,7 @@ includes conflicting values for the same properties, they will be overwritten by
 request uses a CertificateTemplate that defines conflicting predefinedValues for the same properties, the certificate
 issuance request will fail. *)
 
-type google_privateca_ca_pool__issuance_policy__identity_constraints__cel_expression = {
+type issuance_policy__identity_constraints__cel_expression = {
   description : string prop option; [@option]
       (** Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI. *)
   expression : string prop;
@@ -236,7 +224,7 @@ type google_privateca_ca_pool__issuance_policy__identity_constraints__cel_expres
 certificate is signed. To see the full allowed syntax and some examples,
 see https://cloud.google.com/certificate-authority-service/docs/cel-guide *)
 
-type google_privateca_ca_pool__issuance_policy__identity_constraints = {
+type issuance_policy__identity_constraints = {
   allow_subject_alt_names_passthrough : bool prop;
       (** If this is set, the SubjectAltNames extension may be copied from a certificate request into the signed certificate.
 Otherwise, the requested SubjectAltNames will be discarded. *)
@@ -244,32 +232,26 @@ Otherwise, the requested SubjectAltNames will be discarded. *)
       (** If this is set, the Subject field may be copied from a certificate request into the signed certificate.
 Otherwise, the requested Subject will be discarded. *)
   cel_expression :
-    google_privateca_ca_pool__issuance_policy__identity_constraints__cel_expression
-    list;
+    issuance_policy__identity_constraints__cel_expression list;
 }
 [@@deriving yojson_of]
 (** Describes constraints on identities that may appear in Certificates issued through this CaPool.
 If this is omitted, then this CaPool will not add restrictions on a certificate's identity. *)
 
-type google_privateca_ca_pool__issuance_policy = {
+type issuance_policy = {
   maximum_lifetime : string prop option; [@option]
       (** The maximum lifetime allowed for issued Certificates. Note that if the issuing CertificateAuthority
 expires before a Certificate's requested maximumLifetime, the effective lifetime will be explicitly truncated to match it. *)
   allowed_issuance_modes :
-    google_privateca_ca_pool__issuance_policy__allowed_issuance_modes
-    list;
-  allowed_key_types :
-    google_privateca_ca_pool__issuance_policy__allowed_key_types list;
-  baseline_values :
-    google_privateca_ca_pool__issuance_policy__baseline_values list;
-  identity_constraints :
-    google_privateca_ca_pool__issuance_policy__identity_constraints
-    list;
+    issuance_policy__allowed_issuance_modes list;
+  allowed_key_types : issuance_policy__allowed_key_types list;
+  baseline_values : issuance_policy__baseline_values list;
+  identity_constraints : issuance_policy__identity_constraints list;
 }
 [@@deriving yojson_of]
 (** The IssuancePolicy to control how Certificates will be issued from this CaPool. *)
 
-type google_privateca_ca_pool__publishing_options = {
+type publishing_options = {
   encoding_format : string prop option; [@option]
       (** Specifies the encoding format of each CertificateAuthority's CA
 certificate and CRLs. If this is omitted, CA certificates and CRLs
@@ -287,13 +269,13 @@ also rebuilt shortly after a certificate is revoked. *)
 [@@deriving yojson_of]
 (** The PublishingOptions to follow when issuing Certificates from any CertificateAuthority in this CaPool. *)
 
-type google_privateca_ca_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_privateca_ca_pool__timeouts *)
+(** timeouts *)
 
 type google_privateca_ca_pool = {
   id : string prop option; [@option]  (** id *)
@@ -313,13 +295,172 @@ running 'gcloud privateca locations list'. *)
   project : string prop option; [@option]  (** project *)
   tier : string prop;
       (** The Tier of this CaPool. Possible values: [ENTERPRISE, DEVOPS] *)
-  issuance_policy : google_privateca_ca_pool__issuance_policy list;
-  publishing_options :
-    google_privateca_ca_pool__publishing_options list;
-  timeouts : google_privateca_ca_pool__timeouts option;
+  issuance_policy : issuance_policy list;
+  publishing_options : publishing_options list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_privateca_ca_pool *)
+
+let issuance_policy__allowed_issuance_modes
+    ~allow_config_based_issuance ~allow_csr_based_issuance () :
+    issuance_policy__allowed_issuance_modes =
+  { allow_config_based_issuance; allow_csr_based_issuance }
+
+let issuance_policy__allowed_key_types__elliptic_curve
+    ~signature_algorithm () :
+    issuance_policy__allowed_key_types__elliptic_curve =
+  { signature_algorithm }
+
+let issuance_policy__allowed_key_types__rsa ?max_modulus_size
+    ?min_modulus_size () : issuance_policy__allowed_key_types__rsa =
+  { max_modulus_size; min_modulus_size }
+
+let issuance_policy__allowed_key_types ~elliptic_curve ~rsa () :
+    issuance_policy__allowed_key_types =
+  { elliptic_curve; rsa }
+
+let issuance_policy__baseline_values__additional_extensions__object_id
+    ~object_id_path () :
+    issuance_policy__baseline_values__additional_extensions__object_id
+    =
+  { object_id_path }
+
+let issuance_policy__baseline_values__additional_extensions ~critical
+    ~value ~object_id () :
+    issuance_policy__baseline_values__additional_extensions =
+  { critical; value; object_id }
+
+let issuance_policy__baseline_values__ca_options ?is_ca
+    ?max_issuer_path_length ?non_ca ?zero_max_issuer_path_length () :
+    issuance_policy__baseline_values__ca_options =
+  {
+    is_ca;
+    max_issuer_path_length;
+    non_ca;
+    zero_max_issuer_path_length;
+  }
+
+let issuance_policy__baseline_values__key_usage__base_key_usage
+    ?cert_sign ?content_commitment ?crl_sign ?data_encipherment
+    ?decipher_only ?digital_signature ?encipher_only ?key_agreement
+    ?key_encipherment () :
+    issuance_policy__baseline_values__key_usage__base_key_usage =
+  {
+    cert_sign;
+    content_commitment;
+    crl_sign;
+    data_encipherment;
+    decipher_only;
+    digital_signature;
+    encipher_only;
+    key_agreement;
+    key_encipherment;
+  }
+
+let issuance_policy__baseline_values__key_usage__extended_key_usage
+    ?client_auth ?code_signing ?email_protection ?ocsp_signing
+    ?server_auth ?time_stamping () :
+    issuance_policy__baseline_values__key_usage__extended_key_usage =
+  {
+    client_auth;
+    code_signing;
+    email_protection;
+    ocsp_signing;
+    server_auth;
+    time_stamping;
+  }
+
+let issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
+    ~object_id_path () :
+    issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
+    =
+  { object_id_path }
+
+let issuance_policy__baseline_values__key_usage ~base_key_usage
+    ~extended_key_usage ~unknown_extended_key_usages () :
+    issuance_policy__baseline_values__key_usage =
+  { base_key_usage; extended_key_usage; unknown_extended_key_usages }
+
+let issuance_policy__baseline_values__name_constraints
+    ?excluded_dns_names ?excluded_email_addresses ?excluded_ip_ranges
+    ?excluded_uris ?permitted_dns_names ?permitted_email_addresses
+    ?permitted_ip_ranges ?permitted_uris ~critical () :
+    issuance_policy__baseline_values__name_constraints =
+  {
+    critical;
+    excluded_dns_names;
+    excluded_email_addresses;
+    excluded_ip_ranges;
+    excluded_uris;
+    permitted_dns_names;
+    permitted_email_addresses;
+    permitted_ip_ranges;
+    permitted_uris;
+  }
+
+let issuance_policy__baseline_values__policy_ids ~object_id_path () :
+    issuance_policy__baseline_values__policy_ids =
+  { object_id_path }
+
+let issuance_policy__baseline_values ?aia_ocsp_servers
+    ~additional_extensions ~ca_options ~key_usage ~name_constraints
+    ~policy_ids () : issuance_policy__baseline_values =
+  {
+    aia_ocsp_servers;
+    additional_extensions;
+    ca_options;
+    key_usage;
+    name_constraints;
+    policy_ids;
+  }
+
+let issuance_policy__identity_constraints__cel_expression
+    ?description ?location ?title ~expression () :
+    issuance_policy__identity_constraints__cel_expression =
+  { description; expression; location; title }
+
+let issuance_policy__identity_constraints
+    ~allow_subject_alt_names_passthrough ~allow_subject_passthrough
+    ~cel_expression () : issuance_policy__identity_constraints =
+  {
+    allow_subject_alt_names_passthrough;
+    allow_subject_passthrough;
+    cel_expression;
+  }
+
+let issuance_policy ?maximum_lifetime ~allowed_issuance_modes
+    ~allowed_key_types ~baseline_values ~identity_constraints () :
+    issuance_policy =
+  {
+    maximum_lifetime;
+    allowed_issuance_modes;
+    allowed_key_types;
+    baseline_values;
+    identity_constraints;
+  }
+
+let publishing_options ?encoding_format ~publish_ca_cert ~publish_crl
+    () : publishing_options =
+  { encoding_format; publish_ca_cert; publish_crl }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_privateca_ca_pool ?id ?labels ?project ?timeouts ~location
+    ~name ~tier ~issuance_policy ~publishing_options () :
+    google_privateca_ca_pool =
+  {
+    id;
+    labels;
+    location;
+    name;
+    project;
+    tier;
+    issuance_policy;
+    publishing_options;
+    timeouts;
+  }
 
 type t = {
   effective_labels : (string * string) list prop;
@@ -332,24 +473,14 @@ type t = {
   tier : string prop;
 }
 
-let google_privateca_ca_pool ?id ?labels ?project ?timeouts ~location
+let register ?tf_module ?id ?labels ?project ?timeouts ~location
     ~name ~tier ~issuance_policy ~publishing_options __resource_id =
   let __resource_type = "google_privateca_ca_pool" in
   let __resource =
-    ({
-       id;
-       labels;
-       location;
-       name;
-       project;
-       tier;
-       issuance_policy;
-       publishing_options;
-       timeouts;
-     }
-      : google_privateca_ca_pool)
+    google_privateca_ca_pool ?id ?labels ?project ?timeouts ~location
+      ~name ~tier ~issuance_policy ~publishing_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_privateca_ca_pool __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_project_iam_custom_role
+
+val google_project_iam_custom_role :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?stage:string prop ->
+  permissions:string prop list ->
+  role_id:string prop ->
+  title:string prop ->
+  unit ->
+  google_project_iam_custom_role
+
+val yojson_of_google_project_iam_custom_role :
+  google_project_iam_custom_role -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   deleted : bool prop;
@@ -16,7 +34,8 @@ type t = private {
   title : string prop;
 }
 
-val google_project_iam_custom_role :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->

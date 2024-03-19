@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_apigee_keystores_aliases_self_signed_cert__subject = {
+type subject = {
   common_name : string prop option; [@option]
       (** Common name of the organization. Maximum length is 64 characters. *)
   country_code : string prop option; [@option]
@@ -23,21 +23,21 @@ type google_apigee_keystores_aliases_self_signed_cert__subject = {
 [@@deriving yojson_of]
 (** Subject details. *)
 
-type google_apigee_keystores_aliases_self_signed_cert__subject_alternative_dns_names = {
+type subject_alternative_dns_names = {
   subject_alternative_name : string prop option; [@option]
       (** Subject Alternative Name *)
 }
 [@@deriving yojson_of]
 (** List of alternative host names. Maximum length is 255 characters for each value. *)
 
-type google_apigee_keystores_aliases_self_signed_cert__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_apigee_keystores_aliases_self_signed_cert__timeouts *)
+(** timeouts *)
 
-type google_apigee_keystores_aliases_self_signed_cert__certs_info__cert_info = {
+type certs_info__cert_info = {
   basic_constraints : string prop;  (** basic_constraints *)
   expiry_date : string prop;  (** expiry_date *)
   is_valid : string prop;  (** is_valid *)
@@ -53,11 +53,8 @@ type google_apigee_keystores_aliases_self_signed_cert__certs_info__cert_info = {
 }
 [@@deriving yojson_of]
 
-type google_apigee_keystores_aliases_self_signed_cert__certs_info = {
-  cert_info :
-    google_apigee_keystores_aliases_self_signed_cert__certs_info__cert_info
-    list;
-      (** cert_info *)
+type certs_info = {
+  cert_info : certs_info__cert_info list;  (** cert_info *)
 }
 [@@deriving yojson_of]
 
@@ -78,23 +75,54 @@ this parameter or the JSON body. *)
       (** The Apigee Organization name associated with the Apigee environment *)
   sig_alg : string prop;
       (** Signature algorithm to generate private key. Valid values are SHA512withRSA, SHA384withRSA, and SHA256withRSA *)
-  subject :
-    google_apigee_keystores_aliases_self_signed_cert__subject list;
-  subject_alternative_dns_names :
-    google_apigee_keystores_aliases_self_signed_cert__subject_alternative_dns_names
-    list;
-  timeouts :
-    google_apigee_keystores_aliases_self_signed_cert__timeouts option;
+  subject : subject list;
+  subject_alternative_dns_names : subject_alternative_dns_names list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_self_signed_cert *)
 
+let subject ?common_name ?country_code ?email ?locality ?org
+    ?org_unit ?state () : subject =
+  {
+    common_name;
+    country_code;
+    email;
+    locality;
+    org;
+    org_unit;
+    state;
+  }
+
+let subject_alternative_dns_names ?subject_alternative_name () :
+    subject_alternative_dns_names =
+  { subject_alternative_name }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_apigee_keystores_aliases_self_signed_cert
+    ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
+    ~environment ~keystore ~org_id ~sig_alg ~subject
+    ~subject_alternative_dns_names () :
+    google_apigee_keystores_aliases_self_signed_cert =
+  {
+    alias;
+    cert_validity_in_days;
+    environment;
+    id;
+    key_size;
+    keystore;
+    org_id;
+    sig_alg;
+    subject;
+    subject_alternative_dns_names;
+    timeouts;
+  }
+
 type t = {
   alias : string prop;
   cert_validity_in_days : float prop;
-  certs_info :
-    google_apigee_keystores_aliases_self_signed_cert__certs_info list
-    prop;
+  certs_info : certs_info list prop;
   environment : string prop;
   id : string prop;
   key_size : string prop;
@@ -104,30 +132,19 @@ type t = {
   type_ : string prop;
 }
 
-let google_apigee_keystores_aliases_self_signed_cert
-    ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
-    ~environment ~keystore ~org_id ~sig_alg ~subject
+let register ?tf_module ?cert_validity_in_days ?id ?key_size
+    ?timeouts ~alias ~environment ~keystore ~org_id ~sig_alg ~subject
     ~subject_alternative_dns_names __resource_id =
   let __resource_type =
     "google_apigee_keystores_aliases_self_signed_cert"
   in
   let __resource =
-    ({
-       alias;
-       cert_validity_in_days;
-       environment;
-       id;
-       key_size;
-       keystore;
-       org_id;
-       sig_alg;
-       subject;
-       subject_alternative_dns_names;
-       timeouts;
-     }
-      : google_apigee_keystores_aliases_self_signed_cert)
+    google_apigee_keystores_aliases_self_signed_cert
+      ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
+      ~environment ~keystore ~org_id ~sig_alg ~subject
+      ~subject_alternative_dns_names ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_keystores_aliases_self_signed_cert
        __resource);
   let __resource_attributes =

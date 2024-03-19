@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_maps_account__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_maps_account__timeouts *)
+(** timeouts *)
 
 type azurerm_maps_account = {
   id : string prop option; [@option]  (** id *)
@@ -21,10 +21,26 @@ type azurerm_maps_account = {
   resource_group_name : string prop;  (** resource_group_name *)
   sku_name : string prop;  (** sku_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_maps_account__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_maps_account *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_maps_account ?id ?local_authentication_enabled ?tags
+    ?timeouts ~name ~resource_group_name ~sku_name () :
+    azurerm_maps_account =
+  {
+    id;
+    local_authentication_enabled;
+    name;
+    resource_group_name;
+    sku_name;
+    tags;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -38,22 +54,14 @@ type t = {
   x_ms_client_id : string prop;
 }
 
-let azurerm_maps_account ?id ?local_authentication_enabled ?tags
+let register ?tf_module ?id ?local_authentication_enabled ?tags
     ?timeouts ~name ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_maps_account" in
   let __resource =
-    ({
-       id;
-       local_authentication_enabled;
-       name;
-       resource_group_name;
-       sku_name;
-       tags;
-       timeouts;
-     }
-      : azurerm_maps_account)
+    azurerm_maps_account ?id ?local_authentication_enabled ?tags
+      ?timeouts ~name ~resource_group_name ~sku_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_maps_account __resource);
   let __resource_attributes =
     ({

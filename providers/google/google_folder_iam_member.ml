@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type google_folder_iam_member__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_folder_iam_member__condition *)
+(** condition *)
 
 type google_folder_iam_member = {
   folder : string prop;  (** folder *)
   id : string prop option; [@option]  (** id *)
   member : string prop;  (** member *)
   role : string prop;  (** role *)
-  condition : google_folder_iam_member__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_folder_iam_member *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_folder_iam_member ?id ~folder ~member ~role ~condition ()
+    : google_folder_iam_member =
+  { folder; id; member; role; condition }
 
 type t = {
   etag : string prop;
@@ -30,14 +37,13 @@ type t = {
   role : string prop;
 }
 
-let google_folder_iam_member ?id ~folder ~member ~role ~condition
+let register ?tf_module ?id ~folder ~member ~role ~condition
     __resource_id =
   let __resource_type = "google_folder_iam_member" in
   let __resource =
-    ({ folder; id; member; role; condition }
-      : google_folder_iam_member)
+    google_folder_iam_member ?id ~folder ~member ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder_iam_member __resource);
   let __resource_attributes =
     ({

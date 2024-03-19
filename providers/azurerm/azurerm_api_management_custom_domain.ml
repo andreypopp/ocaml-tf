@@ -4,146 +4,190 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_custom_domain__developer_portal = {
+type developer_portal = {
   certificate : string prop option; [@option]  (** certificate *)
   certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string prop;  (** certificate_source *)
-  certificate_status : string prop;  (** certificate_status *)
-  expiry : string prop;  (** expiry *)
   host_name : string prop;  (** host_name *)
   key_vault_id : string prop option; [@option]  (** key_vault_id *)
   negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string prop;  (** subject *)
-  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_custom_domain__developer_portal *)
+(** developer_portal *)
 
-type azurerm_api_management_custom_domain__gateway = {
+type gateway = {
   certificate : string prop option; [@option]  (** certificate *)
   certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string prop;  (** certificate_source *)
-  certificate_status : string prop;  (** certificate_status *)
   default_ssl_binding : bool prop option; [@option]
       (** default_ssl_binding *)
-  expiry : string prop;  (** expiry *)
   host_name : string prop;  (** host_name *)
   key_vault_id : string prop option; [@option]  (** key_vault_id *)
   negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string prop;  (** subject *)
-  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_custom_domain__gateway *)
+(** gateway *)
 
-type azurerm_api_management_custom_domain__management = {
+type management = {
   certificate : string prop option; [@option]  (** certificate *)
   certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string prop;  (** certificate_source *)
-  certificate_status : string prop;  (** certificate_status *)
-  expiry : string prop;  (** expiry *)
   host_name : string prop;  (** host_name *)
   key_vault_id : string prop option; [@option]  (** key_vault_id *)
   negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string prop;  (** subject *)
-  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_custom_domain__management *)
+(** management *)
 
-type azurerm_api_management_custom_domain__portal = {
+type portal = {
   certificate : string prop option; [@option]  (** certificate *)
   certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string prop;  (** certificate_source *)
-  certificate_status : string prop;  (** certificate_status *)
-  expiry : string prop;  (** expiry *)
   host_name : string prop;  (** host_name *)
   key_vault_id : string prop option; [@option]  (** key_vault_id *)
   negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string prop;  (** subject *)
-  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_custom_domain__portal *)
+(** portal *)
 
-type azurerm_api_management_custom_domain__scm = {
+type scm = {
   certificate : string prop option; [@option]  (** certificate *)
   certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string prop;  (** certificate_source *)
-  certificate_status : string prop;  (** certificate_status *)
-  expiry : string prop;  (** expiry *)
   host_name : string prop;  (** host_name *)
   key_vault_id : string prop option; [@option]  (** key_vault_id *)
   negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string prop;  (** subject *)
-  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_custom_domain__scm *)
+(** scm *)
 
-type azurerm_api_management_custom_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_custom_domain__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_custom_domain = {
   api_management_id : string prop;  (** api_management_id *)
   id : string prop option; [@option]  (** id *)
-  developer_portal :
-    azurerm_api_management_custom_domain__developer_portal list;
-  gateway : azurerm_api_management_custom_domain__gateway list;
-  management : azurerm_api_management_custom_domain__management list;
-  portal : azurerm_api_management_custom_domain__portal list;
-  scm : azurerm_api_management_custom_domain__scm list;
-  timeouts : azurerm_api_management_custom_domain__timeouts option;
+  developer_portal : developer_portal list;
+  gateway : gateway list;
+  management : management list;
+  portal : portal list;
+  scm : scm list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_custom_domain *)
 
-type t = { api_management_id : string prop; id : string prop }
+let developer_portal ?certificate ?certificate_password ?key_vault_id
+    ?negotiate_client_certificate ?ssl_keyvault_identity_client_id
+    ~host_name () : developer_portal =
+  {
+    certificate;
+    certificate_password;
+    host_name;
+    key_vault_id;
+    negotiate_client_certificate;
+    ssl_keyvault_identity_client_id;
+  }
+
+let gateway ?certificate ?certificate_password ?default_ssl_binding
+    ?key_vault_id ?negotiate_client_certificate
+    ?ssl_keyvault_identity_client_id ~host_name () : gateway =
+  {
+    certificate;
+    certificate_password;
+    default_ssl_binding;
+    host_name;
+    key_vault_id;
+    negotiate_client_certificate;
+    ssl_keyvault_identity_client_id;
+  }
+
+let management ?certificate ?certificate_password ?key_vault_id
+    ?negotiate_client_certificate ?ssl_keyvault_identity_client_id
+    ~host_name () : management =
+  {
+    certificate;
+    certificate_password;
+    host_name;
+    key_vault_id;
+    negotiate_client_certificate;
+    ssl_keyvault_identity_client_id;
+  }
+
+let portal ?certificate ?certificate_password ?key_vault_id
+    ?negotiate_client_certificate ?ssl_keyvault_identity_client_id
+    ~host_name () : portal =
+  {
+    certificate;
+    certificate_password;
+    host_name;
+    key_vault_id;
+    negotiate_client_certificate;
+    ssl_keyvault_identity_client_id;
+  }
+
+let scm ?certificate ?certificate_password ?key_vault_id
+    ?negotiate_client_certificate ?ssl_keyvault_identity_client_id
+    ~host_name () : scm =
+  {
+    certificate;
+    certificate_password;
+    host_name;
+    key_vault_id;
+    negotiate_client_certificate;
+    ssl_keyvault_identity_client_id;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
 
 let azurerm_api_management_custom_domain ?id ?timeouts
     ~api_management_id ~developer_portal ~gateway ~management ~portal
-    ~scm __resource_id =
+    ~scm () : azurerm_api_management_custom_domain =
+  {
+    api_management_id;
+    id;
+    developer_portal;
+    gateway;
+    management;
+    portal;
+    scm;
+    timeouts;
+  }
+
+type t = { api_management_id : string prop; id : string prop }
+
+let register ?tf_module ?id ?timeouts ~api_management_id
+    ~developer_portal ~gateway ~management ~portal ~scm __resource_id
+    =
   let __resource_type = "azurerm_api_management_custom_domain" in
   let __resource =
-    ({
-       api_management_id;
-       id;
-       developer_portal;
-       gateway;
-       management;
-       portal;
-       scm;
-       timeouts;
-     }
-      : azurerm_api_management_custom_domain)
+    azurerm_api_management_custom_domain ?id ?timeouts
+      ~api_management_id ~developer_portal ~gateway ~management
+      ~portal ~scm ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_custom_domain __resource);
   let __resource_attributes =
     ({

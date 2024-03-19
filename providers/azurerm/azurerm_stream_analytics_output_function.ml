@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_output_function__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_output_function__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_output_function = {
   api_key : string prop;  (** api_key *)
@@ -26,11 +26,31 @@ type azurerm_stream_analytics_output_function = {
   resource_group_name : string prop;  (** resource_group_name *)
   stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
-  timeouts :
-    azurerm_stream_analytics_output_function__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_function *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_output_function ?batch_max_count
+    ?batch_max_in_bytes ?id ?timeouts ~api_key ~function_app
+    ~function_name ~name ~resource_group_name
+    ~stream_analytics_job_name () :
+    azurerm_stream_analytics_output_function =
+  {
+    api_key;
+    batch_max_count;
+    batch_max_in_bytes;
+    function_app;
+    function_name;
+    id;
+    name;
+    resource_group_name;
+    stream_analytics_job_name;
+    timeouts;
+  }
 
 type t = {
   api_key : string prop;
@@ -44,27 +64,17 @@ type t = {
   stream_analytics_job_name : string prop;
 }
 
-let azurerm_stream_analytics_output_function ?batch_max_count
-    ?batch_max_in_bytes ?id ?timeouts ~api_key ~function_app
-    ~function_name ~name ~resource_group_name
-    ~stream_analytics_job_name __resource_id =
+let register ?tf_module ?batch_max_count ?batch_max_in_bytes ?id
+    ?timeouts ~api_key ~function_app ~function_name ~name
+    ~resource_group_name ~stream_analytics_job_name __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_function" in
   let __resource =
-    ({
-       api_key;
-       batch_max_count;
-       batch_max_in_bytes;
-       function_app;
-       function_name;
-       id;
-       name;
-       resource_group_name;
-       stream_analytics_job_name;
-       timeouts;
-     }
-      : azurerm_stream_analytics_output_function)
+    azurerm_stream_analytics_output_function ?batch_max_count
+      ?batch_max_in_bytes ?id ?timeouts ~api_key ~function_app
+      ~function_name ~name ~resource_group_name
+      ~stream_analytics_job_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_function __resource);
   let __resource_attributes =
     ({

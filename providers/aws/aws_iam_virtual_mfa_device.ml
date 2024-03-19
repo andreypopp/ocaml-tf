@@ -16,6 +16,10 @@ type aws_iam_virtual_mfa_device = {
 [@@deriving yojson_of]
 (** aws_iam_virtual_mfa_device *)
 
+let aws_iam_virtual_mfa_device ?id ?path ?tags ?tags_all
+    ~virtual_mfa_device_name () : aws_iam_virtual_mfa_device =
+  { id; path; tags; tags_all; virtual_mfa_device_name }
+
 type t = {
   arn : string prop;
   base_32_string_seed : string prop;
@@ -29,14 +33,14 @@ type t = {
   virtual_mfa_device_name : string prop;
 }
 
-let aws_iam_virtual_mfa_device ?id ?path ?tags ?tags_all
+let register ?tf_module ?id ?path ?tags ?tags_all
     ~virtual_mfa_device_name __resource_id =
   let __resource_type = "aws_iam_virtual_mfa_device" in
   let __resource =
-    ({ id; path; tags; tags_all; virtual_mfa_device_name }
-      : aws_iam_virtual_mfa_device)
+    aws_iam_virtual_mfa_device ?id ?path ?tags ?tags_all
+      ~virtual_mfa_device_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_virtual_mfa_device __resource);
   let __resource_attributes =
     ({

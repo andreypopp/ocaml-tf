@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_db_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_db_snapshot
+
+val aws_db_snapshot :
+  ?id:string prop ->
+  ?shared_accounts:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  db_instance_identifier:string prop ->
+  db_snapshot_identifier:string prop ->
+  unit ->
+  aws_db_snapshot
+
+val yojson_of_aws_db_snapshot : aws_db_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allocated_storage : float prop;
@@ -31,12 +51,13 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_db_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?shared_accounts:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_db_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   db_instance_identifier:string prop ->
   db_snapshot_identifier:string prop ->
   string ->

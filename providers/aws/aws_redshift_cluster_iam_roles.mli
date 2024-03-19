@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_redshift_cluster_iam_roles__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_redshift_cluster_iam_roles
+
+val aws_redshift_cluster_iam_roles :
+  ?default_iam_role_arn:string prop ->
+  ?iam_role_arns:string prop list ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cluster_identifier:string prop ->
+  unit ->
+  aws_redshift_cluster_iam_roles
+
+val yojson_of_aws_redshift_cluster_iam_roles :
+  aws_redshift_cluster_iam_roles -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_identifier : string prop;
@@ -12,11 +36,12 @@ type t = private {
   id : string prop;
 }
 
-val aws_redshift_cluster_iam_roles :
+val register :
+  ?tf_module:tf_module ->
   ?default_iam_role_arn:string prop ->
   ?iam_role_arns:string prop list ->
   ?id:string prop ->
-  ?timeouts:aws_redshift_cluster_iam_roles__timeouts ->
+  ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   string ->
   t

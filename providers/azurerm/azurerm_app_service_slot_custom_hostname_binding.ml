@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_slot_custom_hostname_binding__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_slot_custom_hostname_binding__timeouts *)
+(** timeouts *)
 
 type azurerm_app_service_slot_custom_hostname_binding = {
   app_service_slot_id : string prop;  (** app_service_slot_id *)
@@ -18,11 +18,25 @@ type azurerm_app_service_slot_custom_hostname_binding = {
   id : string prop option; [@option]  (** id *)
   ssl_state : string prop option; [@option]  (** ssl_state *)
   thumbprint : string prop option; [@option]  (** thumbprint *)
-  timeouts :
-    azurerm_app_service_slot_custom_hostname_binding__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_slot_custom_hostname_binding *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_app_service_slot_custom_hostname_binding ?id ?ssl_state
+    ?thumbprint ?timeouts ~app_service_slot_id ~hostname () :
+    azurerm_app_service_slot_custom_hostname_binding =
+  {
+    app_service_slot_id;
+    hostname;
+    id;
+    ssl_state;
+    thumbprint;
+    timeouts;
+  }
 
 type t = {
   app_service_slot_id : string prop;
@@ -33,24 +47,16 @@ type t = {
   virtual_ip : string prop;
 }
 
-let azurerm_app_service_slot_custom_hostname_binding ?id ?ssl_state
-    ?thumbprint ?timeouts ~app_service_slot_id ~hostname
-    __resource_id =
+let register ?tf_module ?id ?ssl_state ?thumbprint ?timeouts
+    ~app_service_slot_id ~hostname __resource_id =
   let __resource_type =
     "azurerm_app_service_slot_custom_hostname_binding"
   in
   let __resource =
-    ({
-       app_service_slot_id;
-       hostname;
-       id;
-       ssl_state;
-       thumbprint;
-       timeouts;
-     }
-      : azurerm_app_service_slot_custom_hostname_binding)
+    azurerm_app_service_slot_custom_hostname_binding ?id ?ssl_state
+      ?thumbprint ?timeouts ~app_service_slot_id ~hostname ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_slot_custom_hostname_binding
        __resource);
   let __resource_attributes =

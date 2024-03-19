@@ -2,7 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_network_acl__egress = {
+(** RESOURCE SERIALIZATION *)
+
+type egress = {
   action : string prop;  (** action *)
   cidr_block : string prop;  (** cidr_block *)
   from_port : float prop;  (** from_port *)
@@ -14,7 +16,7 @@ type aws_network_acl__egress = {
   to_port : float prop;  (** to_port *)
 }
 
-type aws_network_acl__ingress = {
+type ingress = {
   action : string prop;  (** action *)
   cidr_block : string prop;  (** cidr_block *)
   from_port : float prop;  (** from_port *)
@@ -28,11 +30,26 @@ type aws_network_acl__ingress = {
 
 type aws_network_acl
 
+val aws_network_acl :
+  ?egress:egress list ->
+  ?id:string prop ->
+  ?ingress:ingress list ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  vpc_id:string prop ->
+  unit ->
+  aws_network_acl
+
+val yojson_of_aws_network_acl : aws_network_acl -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   arn : string prop;
-  egress : aws_network_acl__egress list prop;
+  egress : egress list prop;
   id : string prop;
-  ingress : aws_network_acl__ingress list prop;
+  ingress : ingress list prop;
   owner_id : string prop;
   subnet_ids : string list prop;
   tags : (string * string) list prop;
@@ -40,10 +57,11 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_network_acl :
-  ?egress:aws_network_acl__egress list ->
+val register :
+  ?tf_module:tf_module ->
+  ?egress:egress list ->
   ?id:string prop ->
-  ?ingress:aws_network_acl__ingress list ->
+  ?ingress:ingress list ->
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_route53recoveryreadiness_cell__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_route53recoveryreadiness_cell__timeouts *)
+(** timeouts *)
 
 type aws_route53recoveryreadiness_cell = {
   cell_name : string prop;  (** cell_name *)
@@ -17,10 +17,16 @@ type aws_route53recoveryreadiness_cell = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_route53recoveryreadiness_cell__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_cell *)
+
+let timeouts ?delete () : timeouts = { delete }
+
+let aws_route53recoveryreadiness_cell ?cells ?id ?tags ?tags_all
+    ?timeouts ~cell_name () : aws_route53recoveryreadiness_cell =
+  { cell_name; cells; id; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -32,14 +38,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_route53recoveryreadiness_cell ?cells ?id ?tags ?tags_all
-    ?timeouts ~cell_name __resource_id =
+let register ?tf_module ?cells ?id ?tags ?tags_all ?timeouts
+    ~cell_name __resource_id =
   let __resource_type = "aws_route53recoveryreadiness_cell" in
   let __resource =
-    ({ cell_name; cells; id; tags; tags_all; timeouts }
-      : aws_route53recoveryreadiness_cell)
+    aws_route53recoveryreadiness_cell ?cells ?id ?tags ?tags_all
+      ?timeouts ~cell_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53recoveryreadiness_cell __resource);
   let __resource_attributes =
     ({

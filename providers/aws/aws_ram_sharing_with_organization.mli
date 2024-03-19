@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ram_sharing_with_organization
-type t = private { id : string prop }
 
 val aws_ram_sharing_with_organization :
-  ?id:string prop -> string -> t
+    ?id:string prop ->
+    unit ->
+    aws_ram_sharing_with_organization
+
+val yojson_of_aws_ram_sharing_with_organization : aws_ram_sharing_with_organization -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  id: string prop;
+}
+
+val register :
+    ?tf_module:tf_module ->
+    ?id:string prop ->
+    string ->
+    t
+

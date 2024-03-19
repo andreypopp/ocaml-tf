@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type aws_oam_link__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_oam_link
+
+val aws_oam_link :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  label_template:string prop ->
+  resource_types:string prop list ->
+  sink_identifier:string prop ->
+  unit ->
+  aws_oam_link
+
+val yojson_of_aws_oam_link : aws_oam_link -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,11 +43,12 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_oam_link :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_oam_link__timeouts ->
+  ?timeouts:timeouts ->
   label_template:string prop ->
   resource_types:string prop list ->
   sink_identifier:string prop ->

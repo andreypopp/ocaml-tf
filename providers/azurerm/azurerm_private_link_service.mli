@@ -2,9 +2,51 @@
 
 open! Tf.Prelude
 
-type azurerm_private_link_service__nat_ip_configuration
-type azurerm_private_link_service__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type nat_ip_configuration
+
+val nat_ip_configuration :
+  ?private_ip_address:string prop ->
+  ?private_ip_address_version:string prop ->
+  name:string prop ->
+  primary:bool prop ->
+  subnet_id:string prop ->
+  unit ->
+  nat_ip_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_private_link_service
+
+val azurerm_private_link_service :
+  ?auto_approval_subscription_ids:string prop list ->
+  ?enable_proxy_protocol:bool prop ->
+  ?fqdns:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?visibility_subscription_ids:string prop list ->
+  ?timeouts:timeouts ->
+  load_balancer_frontend_ip_configuration_ids:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  nat_ip_configuration:nat_ip_configuration list ->
+  unit ->
+  azurerm_private_link_service
+
+val yojson_of_azurerm_private_link_service :
+  azurerm_private_link_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   alias : string prop;
@@ -20,19 +62,19 @@ type t = private {
   visibility_subscription_ids : string list prop;
 }
 
-val azurerm_private_link_service :
+val register :
+  ?tf_module:tf_module ->
   ?auto_approval_subscription_ids:string prop list ->
   ?enable_proxy_protocol:bool prop ->
   ?fqdns:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?visibility_subscription_ids:string prop list ->
-  ?timeouts:azurerm_private_link_service__timeouts ->
+  ?timeouts:timeouts ->
   load_balancer_frontend_ip_configuration_ids:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  nat_ip_configuration:
-    azurerm_private_link_service__nat_ip_configuration list ->
+  nat_ip_configuration:nat_ip_configuration list ->
   string ->
   t

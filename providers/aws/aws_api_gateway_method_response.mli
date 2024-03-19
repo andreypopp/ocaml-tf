@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_api_gateway_method_response
+
+val aws_api_gateway_method_response :
+  ?id:string prop ->
+  ?response_models:(string * string prop) list ->
+  ?response_parameters:(string * bool prop) list ->
+  http_method:string prop ->
+  resource_id:string prop ->
+  rest_api_id:string prop ->
+  status_code:string prop ->
+  unit ->
+  aws_api_gateway_method_response
+
+val yojson_of_aws_api_gateway_method_response :
+  aws_api_gateway_method_response -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   http_method : string prop;
@@ -14,7 +32,8 @@ type t = private {
   status_code : string prop;
 }
 
-val aws_api_gateway_method_response :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?response_models:(string * string prop) list ->
   ?response_parameters:(string * bool prop) list ->

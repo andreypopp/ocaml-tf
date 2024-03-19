@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type hcloud_load_balancer_service__health_check__http = {
+type health_check__http = {
   domain : string prop option; [@option]  (** domain *)
   path : string prop option; [@option]  (** path *)
   response : string prop option; [@option]  (** response *)
@@ -13,20 +13,20 @@ type hcloud_load_balancer_service__health_check__http = {
   tls : bool prop option; [@option]  (** tls *)
 }
 [@@deriving yojson_of]
-(** hcloud_load_balancer_service__health_check__http *)
+(** health_check__http *)
 
-type hcloud_load_balancer_service__health_check = {
+type health_check = {
   interval : float prop;  (** interval *)
   port : float prop;  (** port *)
   protocol : string prop;  (** protocol *)
   retries : float prop option; [@option]  (** retries *)
   timeout : float prop;  (** timeout *)
-  http : hcloud_load_balancer_service__health_check__http list;
+  http : health_check__http list;
 }
 [@@deriving yojson_of]
-(** hcloud_load_balancer_service__health_check *)
+(** health_check *)
 
-type hcloud_load_balancer_service__http = {
+type http = {
   certificates : float prop list option; [@option]
       (** certificates *)
   cookie_lifetime : float prop option; [@option]
@@ -37,7 +37,7 @@ type hcloud_load_balancer_service__http = {
       (** sticky_sessions *)
 }
 [@@deriving yojson_of]
-(** hcloud_load_balancer_service__http *)
+(** http *)
 
 type hcloud_load_balancer_service = {
   destination_port : float prop option; [@option]
@@ -47,11 +47,43 @@ type hcloud_load_balancer_service = {
   load_balancer_id : string prop;  (** load_balancer_id *)
   protocol : string prop;  (** protocol *)
   proxyprotocol : bool prop option; [@option]  (** proxyprotocol *)
-  health_check : hcloud_load_balancer_service__health_check list;
-  http : hcloud_load_balancer_service__http list;
+  health_check : health_check list;
+  http : http list;
 }
 [@@deriving yojson_of]
 (** hcloud_load_balancer_service *)
+
+let health_check__http ?domain ?path ?response ?status_codes ?tls ()
+    : health_check__http =
+  { domain; path; response; status_codes; tls }
+
+let health_check ?retries ~interval ~port ~protocol ~timeout ~http ()
+    : health_check =
+  { interval; port; protocol; retries; timeout; http }
+
+let http ?certificates ?cookie_lifetime ?cookie_name ?redirect_http
+    ?sticky_sessions () : http =
+  {
+    certificates;
+    cookie_lifetime;
+    cookie_name;
+    redirect_http;
+    sticky_sessions;
+  }
+
+let hcloud_load_balancer_service ?destination_port ?id ?listen_port
+    ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http ()
+    : hcloud_load_balancer_service =
+  {
+    destination_port;
+    id;
+    listen_port;
+    load_balancer_id;
+    protocol;
+    proxyprotocol;
+    health_check;
+    http;
+  }
 
 type t = {
   destination_port : float prop;
@@ -62,24 +94,16 @@ type t = {
   proxyprotocol : bool prop;
 }
 
-let hcloud_load_balancer_service ?destination_port ?id ?listen_port
+let register ?tf_module ?destination_port ?id ?listen_port
     ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http
     __resource_id =
   let __resource_type = "hcloud_load_balancer_service" in
   let __resource =
-    ({
-       destination_port;
-       id;
-       listen_port;
-       load_balancer_id;
-       protocol;
-       proxyprotocol;
-       health_check;
-       http;
-     }
-      : hcloud_load_balancer_service)
+    hcloud_load_balancer_service ?destination_port ?id ?listen_port
+      ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_load_balancer_service __resource);
   let __resource_attributes =
     ({

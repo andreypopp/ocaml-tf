@@ -4,33 +4,31 @@
 
 open! Tf.Prelude
 
-type aws_codecatalyst_dev_environment__ides = {
+type ides = {
   name : string prop option; [@option]  (** name *)
   runtime : string prop option; [@option]  (** runtime *)
 }
 [@@deriving yojson_of]
-(** aws_codecatalyst_dev_environment__ides *)
+(** ides *)
 
-type aws_codecatalyst_dev_environment__persistent_storage = {
-  size : float prop;  (** size *)
-}
+type persistent_storage = { size : float prop  (** size *) }
 [@@deriving yojson_of]
-(** aws_codecatalyst_dev_environment__persistent_storage *)
+(** persistent_storage *)
 
-type aws_codecatalyst_dev_environment__repositories = {
+type repositories = {
   branch_name : string prop option; [@option]  (** branch_name *)
   repository_name : string prop;  (** repository_name *)
 }
 [@@deriving yojson_of]
-(** aws_codecatalyst_dev_environment__repositories *)
+(** repositories *)
 
-type aws_codecatalyst_dev_environment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_codecatalyst_dev_environment__timeouts *)
+(** timeouts *)
 
 type aws_codecatalyst_dev_environment = {
   alias : string prop option; [@option]  (** alias *)
@@ -40,14 +38,39 @@ type aws_codecatalyst_dev_environment = {
   instance_type : string prop;  (** instance_type *)
   project_name : string prop;  (** project_name *)
   space_name : string prop;  (** space_name *)
-  ides : aws_codecatalyst_dev_environment__ides list;
-  persistent_storage :
-    aws_codecatalyst_dev_environment__persistent_storage list;
-  repositories : aws_codecatalyst_dev_environment__repositories list;
-  timeouts : aws_codecatalyst_dev_environment__timeouts option;
+  ides : ides list;
+  persistent_storage : persistent_storage list;
+  repositories : repositories list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_codecatalyst_dev_environment *)
+
+let ides ?name ?runtime () : ides = { name; runtime }
+let persistent_storage ~size () : persistent_storage = { size }
+
+let repositories ?branch_name ~repository_name () : repositories =
+  { branch_name; repository_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_codecatalyst_dev_environment ?alias ?id
+    ?inactivity_timeout_minutes ?timeouts ~instance_type
+    ~project_name ~space_name ~ides ~persistent_storage ~repositories
+    () : aws_codecatalyst_dev_environment =
+  {
+    alias;
+    id;
+    inactivity_timeout_minutes;
+    instance_type;
+    project_name;
+    space_name;
+    ides;
+    persistent_storage;
+    repositories;
+    timeouts;
+  }
 
 type t = {
   alias : string prop;
@@ -58,27 +81,17 @@ type t = {
   space_name : string prop;
 }
 
-let aws_codecatalyst_dev_environment ?alias ?id
-    ?inactivity_timeout_minutes ?timeouts ~instance_type
-    ~project_name ~space_name ~ides ~persistent_storage ~repositories
-    __resource_id =
+let register ?tf_module ?alias ?id ?inactivity_timeout_minutes
+    ?timeouts ~instance_type ~project_name ~space_name ~ides
+    ~persistent_storage ~repositories __resource_id =
   let __resource_type = "aws_codecatalyst_dev_environment" in
   let __resource =
-    ({
-       alias;
-       id;
-       inactivity_timeout_minutes;
-       instance_type;
-       project_name;
-       space_name;
-       ides;
-       persistent_storage;
-       repositories;
-       timeouts;
-     }
-      : aws_codecatalyst_dev_environment)
+    aws_codecatalyst_dev_environment ?alias ?id
+      ?inactivity_timeout_minutes ?timeouts ~instance_type
+      ~project_name ~space_name ~ides ~persistent_storage
+      ~repositories ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecatalyst_dev_environment __resource);
   let __resource_attributes =
     ({

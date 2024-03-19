@@ -4,30 +4,32 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_organizations_access__timeouts = {
-  read : string prop option; [@option]  (** read *)
-}
+type timeouts = { read : string prop option [@option]  (** read *) }
 [@@deriving yojson_of]
-(** aws_servicecatalog_organizations_access__timeouts *)
+(** timeouts *)
 
 type aws_servicecatalog_organizations_access = {
   enabled : bool prop;  (** enabled *)
   id : string prop option; [@option]  (** id *)
-  timeouts : aws_servicecatalog_organizations_access__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_organizations_access *)
 
+let timeouts ?read () : timeouts = { read }
+
+let aws_servicecatalog_organizations_access ?id ?timeouts ~enabled ()
+    : aws_servicecatalog_organizations_access =
+  { enabled; id; timeouts }
+
 type t = { enabled : bool prop; id : string prop }
 
-let aws_servicecatalog_organizations_access ?id ?timeouts ~enabled
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~enabled __resource_id =
   let __resource_type = "aws_servicecatalog_organizations_access" in
   let __resource =
-    ({ enabled; id; timeouts }
-      : aws_servicecatalog_organizations_access)
+    aws_servicecatalog_organizations_access ?id ?timeouts ~enabled ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_organizations_access __resource);
   let __resource_attributes =
     ({

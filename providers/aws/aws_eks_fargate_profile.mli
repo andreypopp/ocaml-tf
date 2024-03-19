@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type aws_eks_fargate_profile__selector
-type aws_eks_fargate_profile__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type selector
+
+val selector :
+  ?labels:(string * string prop) list ->
+  namespace:string prop ->
+  unit ->
+  selector
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_eks_fargate_profile
+
+val aws_eks_fargate_profile :
+  ?id:string prop ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  fargate_profile_name:string prop ->
+  pod_execution_role_arn:string prop ->
+  selector:selector list ->
+  unit ->
+  aws_eks_fargate_profile
+
+val yojson_of_aws_eks_fargate_profile :
+  aws_eks_fargate_profile -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,15 +49,16 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_eks_fargate_profile :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_eks_fargate_profile__timeouts ->
+  ?timeouts:timeouts ->
   cluster_name:string prop ->
   fargate_profile_name:string prop ->
   pod_execution_role_arn:string prop ->
-  selector:aws_eks_fargate_profile__selector list ->
+  selector:selector list ->
   string ->
   t

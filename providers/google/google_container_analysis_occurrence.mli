@@ -2,10 +2,50 @@
 
 open! Tf.Prelude
 
-type google_container_analysis_occurrence__attestation__signatures
-type google_container_analysis_occurrence__attestation
-type google_container_analysis_occurrence__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type attestation__signatures
+
+val attestation__signatures :
+  ?signature:string prop ->
+  public_key_id:string prop ->
+  unit ->
+  attestation__signatures
+
+type attestation
+
+val attestation :
+  serialized_payload:string prop ->
+  signatures:attestation__signatures list ->
+  unit ->
+  attestation
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_container_analysis_occurrence
+
+val google_container_analysis_occurrence :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?remediation:string prop ->
+  ?timeouts:timeouts ->
+  note_name:string prop ->
+  resource_uri:string prop ->
+  attestation:attestation list ->
+  unit ->
+  google_container_analysis_occurrence
+
+val yojson_of_google_container_analysis_occurrence :
+  google_container_analysis_occurrence -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -19,13 +59,14 @@ type t = private {
   update_time : string prop;
 }
 
-val google_container_analysis_occurrence :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   ?remediation:string prop ->
-  ?timeouts:google_container_analysis_occurrence__timeouts ->
+  ?timeouts:timeouts ->
   note_name:string prop ->
   resource_uri:string prop ->
-  attestation:google_container_analysis_occurrence__attestation list ->
+  attestation:attestation list ->
   string ->
   t

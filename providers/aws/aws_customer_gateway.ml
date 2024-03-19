@@ -19,6 +19,20 @@ type aws_customer_gateway = {
 [@@deriving yojson_of]
 (** aws_customer_gateway *)
 
+let aws_customer_gateway ?certificate_arn ?device_name ?id
+    ?ip_address ?tags ?tags_all ~bgp_asn ~type_ () :
+    aws_customer_gateway =
+  {
+    bgp_asn;
+    certificate_arn;
+    device_name;
+    id;
+    ip_address;
+    tags;
+    tags_all;
+    type_;
+  }
+
 type t = {
   arn : string prop;
   bgp_asn : string prop;
@@ -31,23 +45,14 @@ type t = {
   type_ : string prop;
 }
 
-let aws_customer_gateway ?certificate_arn ?device_name ?id
-    ?ip_address ?tags ?tags_all ~bgp_asn ~type_ __resource_id =
+let register ?tf_module ?certificate_arn ?device_name ?id ?ip_address
+    ?tags ?tags_all ~bgp_asn ~type_ __resource_id =
   let __resource_type = "aws_customer_gateway" in
   let __resource =
-    ({
-       bgp_asn;
-       certificate_arn;
-       device_name;
-       id;
-       ip_address;
-       tags;
-       tags_all;
-       type_;
-     }
-      : aws_customer_gateway)
+    aws_customer_gateway ?certificate_arn ?device_name ?id
+      ?ip_address ?tags ?tags_all ~bgp_asn ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_customer_gateway __resource);
   let __resource_attributes =
     ({

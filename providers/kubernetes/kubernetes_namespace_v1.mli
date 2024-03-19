@@ -2,19 +2,47 @@
 
 open! Tf.Prelude
 
-type kubernetes_namespace_v1__metadata
-type kubernetes_namespace_v1__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  unit ->
+  metadata
+
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type kubernetes_namespace_v1
+
+val kubernetes_namespace_v1 :
+  ?id:string prop ->
+  ?wait_for_default_service_account:bool prop ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  unit ->
+  kubernetes_namespace_v1
+
+val yojson_of_kubernetes_namespace_v1 :
+  kubernetes_namespace_v1 -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
   wait_for_default_service_account : bool prop;
 }
 
-val kubernetes_namespace_v1 :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?wait_for_default_service_account:bool prop ->
-  ?timeouts:kubernetes_namespace_v1__timeouts ->
-  metadata:kubernetes_namespace_v1__metadata list ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
   string ->
   t

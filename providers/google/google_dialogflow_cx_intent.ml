@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_intent__parameters = {
+type parameters = {
   entity_type : string prop;
       (** The entity type of the parameter.
 Format: projects/-/locations/-/agents/-/entityTypes/<System Entity Type ID> for system entity types (for example, projects/-/locations/-/agents/-/entityTypes/sys.date), or projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/entityTypes/<Entity Type ID> for developer entity types. *)
@@ -19,15 +19,15 @@ Note: the parameter content is subject to redaction if either parameter level re
 [@@deriving yojson_of]
 (** The collection of parameters associated with the intent. *)
 
-type google_dialogflow_cx_intent__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_cx_intent__timeouts *)
+(** timeouts *)
 
-type google_dialogflow_cx_intent__training_phrases__parts = {
+type training_phrases__parts = {
   parameter_id : string prop option; [@option]
       (** The parameter used to annotate this part of the training phrase. This field is required for annotated parts of the training phrase. *)
   text : string prop;  (** The text for this part. *)
@@ -41,12 +41,10 @@ If you want to annotate the training phrase, you must create multiple parts, whe
 Part.text is set to a part of the phrase that has no parameters.
 Part.text is set to a part of the phrase that you want to annotate, and the parameterId field is set. *)
 
-type google_dialogflow_cx_intent__training_phrases = {
-  id : string prop;
-      (** The unique identifier of the training phrase. *)
+type training_phrases = {
   repeat_count : float prop option; [@option]
       (** Indicates how many times this example was added to the intent. *)
-  parts : google_dialogflow_cx_intent__training_phrases__parts list;
+  parts : training_phrases__parts list;
 }
 [@@deriving yojson_of]
 (** The collection of training phrases the agent is trained on to identify the intent. *)
@@ -90,13 +88,46 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
       (** The priority of this intent. Higher numbers represent higher priorities.
 If the supplied value is unspecified or 0, the service translates the value to 500,000, which corresponds to the Normal priority in the console.
 If the supplied value is negative, the intent is ignored in runtime detect intent requests. *)
-  parameters : google_dialogflow_cx_intent__parameters list;
-  timeouts : google_dialogflow_cx_intent__timeouts option;
-  training_phrases :
-    google_dialogflow_cx_intent__training_phrases list;
+  parameters : parameters list;
+  timeouts : timeouts option;
+  training_phrases : training_phrases list;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_intent *)
+
+let parameters ?is_list ?redact ~entity_type ~id () : parameters =
+  { entity_type; id; is_list; redact }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let training_phrases__parts ?parameter_id ~text () :
+    training_phrases__parts =
+  { parameter_id; text }
+
+let training_phrases ?repeat_count ~parts () : training_phrases =
+  { repeat_count; parts }
+
+let google_dialogflow_cx_intent ?description ?id
+    ?is_default_negative_intent ?is_default_welcome_intent
+    ?is_fallback ?labels ?language_code ?parent ?priority ?timeouts
+    ~display_name ~parameters ~training_phrases () :
+    google_dialogflow_cx_intent =
+  {
+    description;
+    display_name;
+    id;
+    is_default_negative_intent;
+    is_default_welcome_intent;
+    is_fallback;
+    labels;
+    language_code;
+    parent;
+    priority;
+    parameters;
+    timeouts;
+    training_phrases;
+  }
 
 type t = {
   description : string prop;
@@ -114,30 +145,18 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_dialogflow_cx_intent ?description ?id
-    ?is_default_negative_intent ?is_default_welcome_intent
-    ?is_fallback ?labels ?language_code ?parent ?priority ?timeouts
-    ~display_name ~parameters ~training_phrases __resource_id =
+let register ?tf_module ?description ?id ?is_default_negative_intent
+    ?is_default_welcome_intent ?is_fallback ?labels ?language_code
+    ?parent ?priority ?timeouts ~display_name ~parameters
+    ~training_phrases __resource_id =
   let __resource_type = "google_dialogflow_cx_intent" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       is_default_negative_intent;
-       is_default_welcome_intent;
-       is_fallback;
-       labels;
-       language_code;
-       parent;
-       priority;
-       parameters;
-       timeouts;
-       training_phrases;
-     }
-      : google_dialogflow_cx_intent)
+    google_dialogflow_cx_intent ?description ?id
+      ?is_default_negative_intent ?is_default_welcome_intent
+      ?is_fallback ?labels ?language_code ?parent ?priority ?timeouts
+      ~display_name ~parameters ~training_phrases ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_intent __resource);
   let __resource_attributes =
     ({

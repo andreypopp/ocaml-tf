@@ -4,25 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_active_directory_domain_service_replica_set__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_active_directory_domain_service_replica_set__timeouts *)
+(** timeouts *)
 
 type azurerm_active_directory_domain_service_replica_set = {
   domain_service_id : string prop;  (** domain_service_id *)
   id : string prop option; [@option]  (** id *)
   location : string prop;  (** location *)
   subnet_id : string prop;  (** subnet_id *)
-  timeouts :
-    azurerm_active_directory_domain_service_replica_set__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_active_directory_domain_service_replica_set *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_active_directory_domain_service_replica_set ?id ?timeouts
+    ~domain_service_id ~location ~subnet_id () :
+    azurerm_active_directory_domain_service_replica_set =
+  { domain_service_id; id; location; subnet_id; timeouts }
 
 type t = {
   domain_controller_ip_addresses : string list prop;
@@ -34,16 +40,16 @@ type t = {
   subnet_id : string prop;
 }
 
-let azurerm_active_directory_domain_service_replica_set ?id ?timeouts
-    ~domain_service_id ~location ~subnet_id __resource_id =
+let register ?tf_module ?id ?timeouts ~domain_service_id ~location
+    ~subnet_id __resource_id =
   let __resource_type =
     "azurerm_active_directory_domain_service_replica_set"
   in
   let __resource =
-    ({ domain_service_id; id; location; subnet_id; timeouts }
-      : azurerm_active_directory_domain_service_replica_set)
+    azurerm_active_directory_domain_service_replica_set ?id ?timeouts
+      ~domain_service_id ~location ~subnet_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_active_directory_domain_service_replica_set
        __resource);
   let __resource_attributes =

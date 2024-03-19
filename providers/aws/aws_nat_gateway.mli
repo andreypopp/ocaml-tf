@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_nat_gateway__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_nat_gateway
+
+val aws_nat_gateway :
+  ?allocation_id:string prop ->
+  ?connectivity_type:string prop ->
+  ?id:string prop ->
+  ?private_ip:string prop ->
+  ?secondary_allocation_ids:string prop list ->
+  ?secondary_private_ip_address_count:float prop ->
+  ?secondary_private_ip_addresses:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  subnet_id:string prop ->
+  unit ->
+  aws_nat_gateway
+
+val yojson_of_aws_nat_gateway : aws_nat_gateway -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allocation_id : string prop;
@@ -21,7 +50,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_nat_gateway :
+val register :
+  ?tf_module:tf_module ->
   ?allocation_id:string prop ->
   ?connectivity_type:string prop ->
   ?id:string prop ->
@@ -31,7 +61,7 @@ val aws_nat_gateway :
   ?secondary_private_ip_addresses:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_nat_gateway__timeouts ->
+  ?timeouts:timeouts ->
   subnet_id:string prop ->
   string ->
   t

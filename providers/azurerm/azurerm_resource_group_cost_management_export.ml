@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_resource_group_cost_management_export__export_data_options = {
+type export_data_options = {
   time_frame : string prop;  (** time_frame *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_group_cost_management_export__export_data_options *)
+(** export_data_options *)
 
-type azurerm_resource_group_cost_management_export__export_data_storage_location = {
+type export_data_storage_location = {
   container_id : string prop;  (** container_id *)
   root_folder_path : string prop;  (** root_folder_path *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_group_cost_management_export__export_data_storage_location *)
+(** export_data_storage_location *)
 
-type azurerm_resource_group_cost_management_export__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_group_cost_management_export__timeouts *)
+(** timeouts *)
 
 type azurerm_resource_group_cost_management_export = {
   active : bool prop option; [@option]  (** active *)
@@ -37,17 +37,40 @@ type azurerm_resource_group_cost_management_export = {
       (** recurrence_period_start_date *)
   recurrence_type : string prop;  (** recurrence_type *)
   resource_group_id : string prop;  (** resource_group_id *)
-  export_data_options :
-    azurerm_resource_group_cost_management_export__export_data_options
-    list;
-  export_data_storage_location :
-    azurerm_resource_group_cost_management_export__export_data_storage_location
-    list;
-  timeouts :
-    azurerm_resource_group_cost_management_export__timeouts option;
+  export_data_options : export_data_options list;
+  export_data_storage_location : export_data_storage_location list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_resource_group_cost_management_export *)
+
+let export_data_options ~time_frame ~type_ () : export_data_options =
+  { time_frame; type_ }
+
+let export_data_storage_location ~container_id ~root_folder_path () :
+    export_data_storage_location =
+  { container_id; root_folder_path }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_resource_group_cost_management_export ?active ?id
+    ?timeouts ~name ~recurrence_period_end_date
+    ~recurrence_period_start_date ~recurrence_type ~resource_group_id
+    ~export_data_options ~export_data_storage_location () :
+    azurerm_resource_group_cost_management_export =
+  {
+    active;
+    id;
+    name;
+    recurrence_period_end_date;
+    recurrence_period_start_date;
+    recurrence_type;
+    resource_group_id;
+    export_data_options;
+    export_data_storage_location;
+    timeouts;
+  }
 
 type t = {
   active : bool prop;
@@ -59,30 +82,21 @@ type t = {
   resource_group_id : string prop;
 }
 
-let azurerm_resource_group_cost_management_export ?active ?id
-    ?timeouts ~name ~recurrence_period_end_date
-    ~recurrence_period_start_date ~recurrence_type ~resource_group_id
-    ~export_data_options ~export_data_storage_location __resource_id
-    =
+let register ?tf_module ?active ?id ?timeouts ~name
+    ~recurrence_period_end_date ~recurrence_period_start_date
+    ~recurrence_type ~resource_group_id ~export_data_options
+    ~export_data_storage_location __resource_id =
   let __resource_type =
     "azurerm_resource_group_cost_management_export"
   in
   let __resource =
-    ({
-       active;
-       id;
-       name;
-       recurrence_period_end_date;
-       recurrence_period_start_date;
-       recurrence_type;
-       resource_group_id;
-       export_data_options;
-       export_data_storage_location;
-       timeouts;
-     }
-      : azurerm_resource_group_cost_management_export)
+    azurerm_resource_group_cost_management_export ?active ?id
+      ?timeouts ~name ~recurrence_period_end_date
+      ~recurrence_period_start_date ~recurrence_type
+      ~resource_group_id ~export_data_options
+      ~export_data_storage_location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_resource_group_cost_management_export
        __resource);
   let __resource_attributes =

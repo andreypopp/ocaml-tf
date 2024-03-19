@@ -2,8 +2,41 @@
 
 open! Tf.Prelude
 
-type google_compute_target_https_proxy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_target_https_proxy
+
+val google_compute_target_https_proxy :
+  ?certificate_manager_certificates:string prop list ->
+  ?certificate_map:string prop ->
+  ?description:string prop ->
+  ?http_keep_alive_timeout_sec:float prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?proxy_bind:bool prop ->
+  ?quic_override:string prop ->
+  ?server_tls_policy:string prop ->
+  ?ssl_certificates:string prop list ->
+  ?ssl_policy:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  url_map:string prop ->
+  unit ->
+  google_compute_target_https_proxy
+
+val yojson_of_google_compute_target_https_proxy :
+  google_compute_target_https_proxy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate_manager_certificates : string list prop;
@@ -24,7 +57,8 @@ type t = private {
   url_map : string prop;
 }
 
-val google_compute_target_https_proxy :
+val register :
+  ?tf_module:tf_module ->
   ?certificate_manager_certificates:string prop list ->
   ?certificate_map:string prop ->
   ?description:string prop ->
@@ -36,7 +70,7 @@ val google_compute_target_https_proxy :
   ?server_tls_policy:string prop ->
   ?ssl_certificates:string prop list ->
   ?ssl_policy:string prop ->
-  ?timeouts:google_compute_target_https_proxy__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   url_map:string prop ->
   string ->

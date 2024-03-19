@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_lambda_alias__routing_config = {
+type routing_config = {
   additional_version_weights : (string * float prop) list option;
       [@option]
       (** additional_version_weights *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_alias__routing_config *)
+(** routing_config *)
 
 type aws_lambda_alias = {
   description : string prop option; [@option]  (** description *)
@@ -18,10 +18,24 @@ type aws_lambda_alias = {
   function_version : string prop;  (** function_version *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  routing_config : aws_lambda_alias__routing_config list;
+  routing_config : routing_config list;
 }
 [@@deriving yojson_of]
 (** aws_lambda_alias *)
+
+let routing_config ?additional_version_weights () : routing_config =
+  { additional_version_weights }
+
+let aws_lambda_alias ?description ?id ~function_name
+    ~function_version ~name ~routing_config () : aws_lambda_alias =
+  {
+    description;
+    function_name;
+    function_version;
+    id;
+    name;
+    routing_config;
+  }
 
 type t = {
   arn : string prop;
@@ -33,21 +47,14 @@ type t = {
   name : string prop;
 }
 
-let aws_lambda_alias ?description ?id ~function_name
+let register ?tf_module ?description ?id ~function_name
     ~function_version ~name ~routing_config __resource_id =
   let __resource_type = "aws_lambda_alias" in
   let __resource =
-    ({
-       description;
-       function_name;
-       function_version;
-       id;
-       name;
-       routing_config;
-     }
-      : aws_lambda_alias)
+    aws_lambda_alias ?description ?id ~function_name
+      ~function_version ~name ~routing_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_alias __resource);
   let __resource_attributes =
     ({

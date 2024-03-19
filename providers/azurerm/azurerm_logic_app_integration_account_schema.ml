@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_integration_account_schema__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_schema__timeouts *)
+(** timeouts *)
 
 type azurerm_logic_app_integration_account_schema = {
   content : string prop;  (** content *)
@@ -22,11 +22,28 @@ type azurerm_logic_app_integration_account_schema = {
   metadata : string prop option; [@option]  (** metadata *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts :
-    azurerm_logic_app_integration_account_schema__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_schema *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logic_app_integration_account_schema ?file_name ?id
+    ?metadata ?timeouts ~content ~integration_account_name ~name
+    ~resource_group_name () :
+    azurerm_logic_app_integration_account_schema =
+  {
+    content;
+    file_name;
+    id;
+    integration_account_name;
+    metadata;
+    name;
+    resource_group_name;
+    timeouts;
+  }
 
 type t = {
   content : string prop;
@@ -38,26 +55,18 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_logic_app_integration_account_schema ?file_name ?id
-    ?metadata ?timeouts ~content ~integration_account_name ~name
-    ~resource_group_name __resource_id =
+let register ?tf_module ?file_name ?id ?metadata ?timeouts ~content
+    ~integration_account_name ~name ~resource_group_name
+    __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_schema"
   in
   let __resource =
-    ({
-       content;
-       file_name;
-       id;
-       integration_account_name;
-       metadata;
-       name;
-       resource_group_name;
-       timeouts;
-     }
-      : azurerm_logic_app_integration_account_schema)
+    azurerm_logic_app_integration_account_schema ?file_name ?id
+      ?metadata ?timeouts ~content ~integration_account_name ~name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_schema
        __resource);
   let __resource_attributes =

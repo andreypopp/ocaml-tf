@@ -14,6 +14,10 @@ type aws_dx_macsec_key_association = {
 [@@deriving yojson_of]
 (** aws_dx_macsec_key_association *)
 
+let aws_dx_macsec_key_association ?cak ?ckn ?id ?secret_arn
+    ~connection_id () : aws_dx_macsec_key_association =
+  { cak; ckn; connection_id; id; secret_arn }
+
 type t = {
   cak : string prop;
   ckn : string prop;
@@ -24,14 +28,14 @@ type t = {
   state : string prop;
 }
 
-let aws_dx_macsec_key_association ?cak ?ckn ?id ?secret_arn
-    ~connection_id __resource_id =
+let register ?tf_module ?cak ?ckn ?id ?secret_arn ~connection_id
+    __resource_id =
   let __resource_type = "aws_dx_macsec_key_association" in
   let __resource =
-    ({ cak; ckn; connection_id; id; secret_arn }
-      : aws_dx_macsec_key_association)
+    aws_dx_macsec_key_association ?cak ?ckn ?id ?secret_arn
+      ~connection_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_macsec_key_association __resource);
   let __resource_attributes =
     ({

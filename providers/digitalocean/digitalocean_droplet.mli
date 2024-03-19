@@ -2,8 +2,45 @@
 
 open! Tf.Prelude
 
-type digitalocean_droplet__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type digitalocean_droplet
+
+val digitalocean_droplet :
+  ?backups:bool prop ->
+  ?droplet_agent:bool prop ->
+  ?graceful_shutdown:bool prop ->
+  ?id:string prop ->
+  ?ipv6:bool prop ->
+  ?ipv6_address:string prop ->
+  ?monitoring:bool prop ->
+  ?private_networking:bool prop ->
+  ?region:string prop ->
+  ?resize_disk:bool prop ->
+  ?ssh_keys:string prop list ->
+  ?tags:string prop list ->
+  ?user_data:string prop ->
+  ?volume_ids:string prop list ->
+  ?vpc_uuid:string prop ->
+  ?timeouts:timeouts ->
+  image:string prop ->
+  name:string prop ->
+  size:string prop ->
+  unit ->
+  digitalocean_droplet
+
+val yojson_of_digitalocean_droplet : digitalocean_droplet -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   backups : bool prop;
@@ -37,7 +74,8 @@ type t = private {
   vpc_uuid : string prop;
 }
 
-val digitalocean_droplet :
+val register :
+  ?tf_module:tf_module ->
   ?backups:bool prop ->
   ?droplet_agent:bool prop ->
   ?graceful_shutdown:bool prop ->
@@ -53,7 +91,7 @@ val digitalocean_droplet :
   ?user_data:string prop ->
   ?volume_ids:string prop list ->
   ?vpc_uuid:string prop ->
-  ?timeouts:digitalocean_droplet__timeouts ->
+  ?timeouts:timeouts ->
   image:string prop ->
   name:string prop ->
   size:string prop ->

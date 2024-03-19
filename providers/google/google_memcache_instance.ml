@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_memcache_instance__maintenance_policy__weekly_maintenance_window__start_time = {
+type maintenance_policy__weekly_maintenance_window__start_time = {
   hours : float prop option; [@option]
       (** Hours of day in 24 hour format. Should be from 0 to 23.
 An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
@@ -19,7 +19,7 @@ An API may allow the value 60 if it allows leap-seconds. *)
 [@@deriving yojson_of]
 (** Required. Start time of the window in UTC time. *)
 
-type google_memcache_instance__maintenance_policy__weekly_maintenance_window = {
+type maintenance_policy__weekly_maintenance_window = {
   day : string prop;
       (** Required. The day of week that maintenance updates occur.
 - DAY_OF_WEEK_UNSPECIFIED: The day of the week is unspecified.
@@ -35,44 +35,32 @@ type google_memcache_instance__maintenance_policy__weekly_maintenance_window = {
 A duration in seconds with up to nine fractional digits,
 terminated by 's'. Example: 3.5s. *)
   start_time :
-    google_memcache_instance__maintenance_policy__weekly_maintenance_window__start_time
-    list;
+    maintenance_policy__weekly_maintenance_window__start_time list;
 }
 [@@deriving yojson_of]
 (** Required. Maintenance window that is applied to resources covered by this policy.
 Minimum 1. For the current version, the maximum number of weekly_maintenance_windows
 is expected to be one. *)
 
-type google_memcache_instance__maintenance_policy = {
-  create_time : string prop;
-      (** Output only. The time when the policy was created.
-A timestamp in RFC3339 UTC Zulu format, with nanosecond
-resolution and up to nine fractional digits *)
+type maintenance_policy = {
   description : string prop option; [@option]
       (** Optional. Description of what this policy is for.
 Create/Update methods return INVALID_ARGUMENT if the
 length is greater than 512. *)
-  update_time : string prop;
-      (** Output only. The time when the policy was updated.
-A timestamp in RFC3339 UTC Zulu format, with nanosecond
-resolution and up to nine fractional digits. *)
   weekly_maintenance_window :
-    google_memcache_instance__maintenance_policy__weekly_maintenance_window
-    list;
+    maintenance_policy__weekly_maintenance_window list;
 }
 [@@deriving yojson_of]
 (** Maintenance policy for an instance. *)
 
-type google_memcache_instance__memcache_parameters = {
-  id : string prop;
-      (** This is a unique ID associated with this set of parameters. *)
+type memcache_parameters = {
   params : (string * string prop) list option; [@option]
       (** User-defined set of parameters to use in the memcache process. *)
 }
 [@@deriving yojson_of]
 (** User-specified parameters for this memcache instance. *)
 
-type google_memcache_instance__node_config = {
+type node_config = {
   cpu_count : float prop;  (** Number of CPUs per node. *)
   memory_size_mb : float prop;
       (** Memory size in Mebibytes for each memcache node. *)
@@ -80,15 +68,15 @@ type google_memcache_instance__node_config = {
 [@@deriving yojson_of]
 (** Configuration for memcache nodes. *)
 
-type google_memcache_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_memcache_instance__timeouts *)
+(** timeouts *)
 
-type google_memcache_instance__maintenance_schedule = {
+type maintenance_schedule = {
   end_time : string prop;  (** end_time *)
   schedule_deadline_time : string prop;
       (** schedule_deadline_time *)
@@ -96,7 +84,7 @@ type google_memcache_instance__maintenance_schedule = {
 }
 [@@deriving yojson_of]
 
-type google_memcache_instance__memcache_nodes = {
+type memcache_nodes = {
   host : string prop;  (** host *)
   node_id : string prop;  (** node_id *)
   port : float prop;  (** port *)
@@ -135,15 +123,56 @@ associated with IP range 10.0.0.0/29. *)
   zones : string prop list option; [@option]
       (** Zones where memcache nodes should be provisioned.  If not
 provided, all zones will be used. *)
-  maintenance_policy :
-    google_memcache_instance__maintenance_policy list;
-  memcache_parameters :
-    google_memcache_instance__memcache_parameters list;
-  node_config : google_memcache_instance__node_config list;
-  timeouts : google_memcache_instance__timeouts option;
+  maintenance_policy : maintenance_policy list;
+  memcache_parameters : memcache_parameters list;
+  node_config : node_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_memcache_instance *)
+
+let maintenance_policy__weekly_maintenance_window__start_time ?hours
+    ?minutes ?nanos ?seconds () :
+    maintenance_policy__weekly_maintenance_window__start_time =
+  { hours; minutes; nanos; seconds }
+
+let maintenance_policy__weekly_maintenance_window ~day ~duration
+    ~start_time () : maintenance_policy__weekly_maintenance_window =
+  { day; duration; start_time }
+
+let maintenance_policy ?description ~weekly_maintenance_window () :
+    maintenance_policy =
+  { description; weekly_maintenance_window }
+
+let memcache_parameters ?params () : memcache_parameters = { params }
+
+let node_config ~cpu_count ~memory_size_mb () : node_config =
+  { cpu_count; memory_size_mb }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_memcache_instance ?authorized_network ?display_name ?id
+    ?labels ?memcache_version ?project ?region ?reserved_ip_range_id
+    ?zones ?timeouts ~name ~node_count ~maintenance_policy
+    ~memcache_parameters ~node_config () : google_memcache_instance =
+  {
+    authorized_network;
+    display_name;
+    id;
+    labels;
+    memcache_version;
+    name;
+    node_count;
+    project;
+    region;
+    reserved_ip_range_id;
+    zones;
+    maintenance_policy;
+    memcache_parameters;
+    node_config;
+    timeouts;
+  }
 
 type t = {
   authorized_network : string prop;
@@ -153,11 +182,9 @@ type t = {
   effective_labels : (string * string) list prop;
   id : string prop;
   labels : (string * string) list prop;
-  maintenance_schedule :
-    google_memcache_instance__maintenance_schedule list prop;
+  maintenance_schedule : maintenance_schedule list prop;
   memcache_full_version : string prop;
-  memcache_nodes :
-    google_memcache_instance__memcache_nodes list prop;
+  memcache_nodes : memcache_nodes list prop;
   memcache_version : string prop;
   name : string prop;
   node_count : float prop;
@@ -168,32 +195,18 @@ type t = {
   zones : string list prop;
 }
 
-let google_memcache_instance ?authorized_network ?display_name ?id
-    ?labels ?memcache_version ?project ?region ?reserved_ip_range_id
-    ?zones ?timeouts ~name ~node_count ~maintenance_policy
+let register ?tf_module ?authorized_network ?display_name ?id ?labels
+    ?memcache_version ?project ?region ?reserved_ip_range_id ?zones
+    ?timeouts ~name ~node_count ~maintenance_policy
     ~memcache_parameters ~node_config __resource_id =
   let __resource_type = "google_memcache_instance" in
   let __resource =
-    ({
-       authorized_network;
-       display_name;
-       id;
-       labels;
-       memcache_version;
-       name;
-       node_count;
-       project;
-       region;
-       reserved_ip_range_id;
-       zones;
-       maintenance_policy;
-       memcache_parameters;
-       node_config;
-       timeouts;
-     }
-      : google_memcache_instance)
+    google_memcache_instance ?authorized_network ?display_name ?id
+      ?labels ?memcache_version ?project ?region
+      ?reserved_ip_range_id ?zones ?timeouts ~name ~node_count
+      ~maintenance_policy ~memcache_parameters ~node_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_memcache_instance __resource);
   let __resource_attributes =
     ({

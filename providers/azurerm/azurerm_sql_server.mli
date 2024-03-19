@@ -2,10 +2,56 @@
 
 open! Tf.Prelude
 
-type azurerm_sql_server__identity
-type azurerm_sql_server__threat_detection_policy
-type azurerm_sql_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
+type threat_detection_policy
+
+val threat_detection_policy :
+  ?disabled_alerts:string prop list ->
+  ?email_account_admins:bool prop ->
+  ?email_addresses:string prop list ->
+  ?retention_days:float prop ->
+  ?state:string prop ->
+  ?storage_account_access_key:string prop ->
+  ?storage_endpoint:string prop ->
+  unit ->
+  threat_detection_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_sql_server
+
+val azurerm_sql_server :
+  ?connection_policy:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  administrator_login:string prop ->
+  administrator_login_password:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  version:string prop ->
+  identity:identity list ->
+  threat_detection_policy:threat_detection_policy list ->
+  unit ->
+  azurerm_sql_server
+
+val yojson_of_azurerm_sql_server : azurerm_sql_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   administrator_login : string prop;
@@ -20,19 +66,19 @@ type t = private {
   version : string prop;
 }
 
-val azurerm_sql_server :
+val register :
+  ?tf_module:tf_module ->
   ?connection_policy:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_sql_server__timeouts ->
+  ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   version:string prop ->
-  identity:azurerm_sql_server__identity list ->
-  threat_detection_policy:
-    azurerm_sql_server__threat_detection_policy list ->
+  identity:identity list ->
+  threat_detection_policy:threat_detection_policy list ->
   string ->
   t

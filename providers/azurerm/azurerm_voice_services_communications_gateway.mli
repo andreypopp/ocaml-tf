@@ -2,9 +2,55 @@
 
 open! Tf.Prelude
 
-type azurerm_voice_services_communications_gateway__service_location
-type azurerm_voice_services_communications_gateway__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type service_location
+
+val service_location :
+  ?allowed_media_source_address_prefixes:string prop list ->
+  ?allowed_signaling_source_address_prefixes:string prop list ->
+  ?esrp_addresses:string prop list ->
+  location:string prop ->
+  operator_addresses:string prop list ->
+  unit ->
+  service_location
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_voice_services_communications_gateway
+
+val azurerm_voice_services_communications_gateway :
+  ?api_bridge:string prop ->
+  ?auto_generated_domain_name_label_scope:string prop ->
+  ?emergency_dial_strings:string prop list ->
+  ?id:string prop ->
+  ?microsoft_teams_voicemail_pilot_number:string prop ->
+  ?on_prem_mcp_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  codecs:string prop ->
+  connectivity:string prop ->
+  e911_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  platforms:string prop list ->
+  resource_group_name:string prop ->
+  service_location:service_location list ->
+  unit ->
+  azurerm_voice_services_communications_gateway
+
+val yojson_of_azurerm_voice_services_communications_gateway :
+  azurerm_voice_services_communications_gateway -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_bridge : string prop;
@@ -23,7 +69,8 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_voice_services_communications_gateway :
+val register :
+  ?tf_module:tf_module ->
   ?api_bridge:string prop ->
   ?auto_generated_domain_name_label_scope:string prop ->
   ?emergency_dial_strings:string prop list ->
@@ -31,7 +78,7 @@ val azurerm_voice_services_communications_gateway :
   ?microsoft_teams_voicemail_pilot_number:string prop ->
   ?on_prem_mcp_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_voice_services_communications_gateway__timeouts ->
+  ?timeouts:timeouts ->
   codecs:string prop ->
   connectivity:string prop ->
   e911_type:string prop ->
@@ -39,8 +86,6 @@ val azurerm_voice_services_communications_gateway :
   name:string prop ->
   platforms:string prop list ->
   resource_group_name:string prop ->
-  service_location:
-    azurerm_voice_services_communications_gateway__service_location
-    list ->
+  service_location:service_location list ->
   string ->
   t

@@ -2,9 +2,42 @@
 
 open! Tf.Prelude
 
-type aws_batch_job_queue__compute_environment_order
-type aws_batch_job_queue__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type compute_environment_order
+
+val compute_environment_order :
+  compute_environment:string prop ->
+  order:float prop ->
+  unit ->
+  compute_environment_order
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_batch_job_queue
+
+val aws_batch_job_queue :
+  ?compute_environments:string prop list ->
+  ?scheduling_policy_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  priority:float prop ->
+  state:string prop ->
+  compute_environment_order:compute_environment_order list ->
+  unit ->
+  aws_batch_job_queue
+
+val yojson_of_aws_batch_job_queue : aws_batch_job_queue -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,15 +51,15 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_batch_job_queue :
+val register :
+  ?tf_module:tf_module ->
   ?compute_environments:string prop list ->
   ?scheduling_policy_arn:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_batch_job_queue__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   priority:float prop ->
   state:string prop ->
-  compute_environment_order:
-    aws_batch_job_queue__compute_environment_order list ->
+  compute_environment_order:compute_environment_order list ->
   string ->
   t

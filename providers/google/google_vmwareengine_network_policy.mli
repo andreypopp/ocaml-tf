@@ -2,10 +2,45 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_network_policy__external_ip
-type google_vmwareengine_network_policy__internet_access
-type google_vmwareengine_network_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type external_ip
+
+val external_ip : ?enabled:bool prop -> unit -> external_ip
+
+type internet_access
+
+val internet_access : ?enabled:bool prop -> unit -> internet_access
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vmwareengine_network_policy
+
+val google_vmwareengine_network_policy :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  edge_services_cidr:string prop ->
+  location:string prop ->
+  name:string prop ->
+  vmware_engine_network:string prop ->
+  external_ip:external_ip list ->
+  internet_access:internet_access list ->
+  unit ->
+  google_vmwareengine_network_policy
+
+val yojson_of_google_vmwareengine_network_policy :
+  google_vmwareengine_network_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -21,17 +56,17 @@ type t = private {
   vmware_engine_network_canonical : string prop;
 }
 
-val google_vmwareengine_network_policy :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_vmwareengine_network_policy__timeouts ->
+  ?timeouts:timeouts ->
   edge_services_cidr:string prop ->
   location:string prop ->
   name:string prop ->
   vmware_engine_network:string prop ->
-  external_ip:google_vmwareengine_network_policy__external_ip list ->
-  internet_access:
-    google_vmwareengine_network_policy__internet_access list ->
+  external_ip:external_ip list ->
+  internet_access:internet_access list ->
   string ->
   t

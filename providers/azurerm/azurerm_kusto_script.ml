@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_kusto_script__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_kusto_script__timeouts *)
+(** timeouts *)
 
 type azurerm_kusto_script = {
   continue_on_errors_enabled : bool prop option; [@option]
@@ -25,10 +25,29 @@ type azurerm_kusto_script = {
   script_content : string prop option; [@option]
       (** script_content *)
   url : string prop option; [@option]  (** url *)
-  timeouts : azurerm_kusto_script__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_script *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_kusto_script ?continue_on_errors_enabled
+    ?force_an_update_when_value_changed ?id ?sas_token
+    ?script_content ?url ?timeouts ~database_id ~name () :
+    azurerm_kusto_script =
+  {
+    continue_on_errors_enabled;
+    database_id;
+    force_an_update_when_value_changed;
+    id;
+    name;
+    sas_token;
+    script_content;
+    url;
+    timeouts;
+  }
 
 type t = {
   continue_on_errors_enabled : bool prop;
@@ -41,25 +60,16 @@ type t = {
   url : string prop;
 }
 
-let azurerm_kusto_script ?continue_on_errors_enabled
+let register ?tf_module ?continue_on_errors_enabled
     ?force_an_update_when_value_changed ?id ?sas_token
     ?script_content ?url ?timeouts ~database_id ~name __resource_id =
   let __resource_type = "azurerm_kusto_script" in
   let __resource =
-    ({
-       continue_on_errors_enabled;
-       database_id;
-       force_an_update_when_value_changed;
-       id;
-       name;
-       sas_token;
-       script_content;
-       url;
-       timeouts;
-     }
-      : azurerm_kusto_script)
+    azurerm_kusto_script ?continue_on_errors_enabled
+      ?force_an_update_when_value_changed ?id ?sas_token
+      ?script_content ?url ?timeouts ~database_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_script __resource);
   let __resource_attributes =
     ({

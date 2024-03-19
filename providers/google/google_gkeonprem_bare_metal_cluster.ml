@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_gkeonprem_bare_metal_cluster__binary_authorization = {
+type binary_authorization = {
   evaluation_mode : string prop option; [@option]
       (** Mode of operation for binauthz policy evaluation. If unspecified,
 defaults to DISABLED. Possible values: [DISABLED, PROJECT_SINGLETON_POLICY_ENFORCE] *)
@@ -12,14 +12,14 @@ defaults to DISABLED. Possible values: [DISABLED, PROJECT_SINGLETON_POLICY_ENFOR
 [@@deriving yojson_of]
 (** Binary Authorization related configurations. *)
 
-type google_gkeonprem_bare_metal_cluster__cluster_operations = {
+type cluster_operations = {
   enable_application_logs : bool prop option; [@option]
       (** Whether collection of application logs/metrics should be enabled (in addition to system logs/metrics). *)
 }
 [@@deriving yojson_of]
 (** Specifies the User Cluster's observability infrastructure. *)
 
-type google_gkeonprem_bare_metal_cluster__control_plane__api_server_args = {
+type control_plane__api_server_args = {
   argument : string prop;
       (** The argument name as it appears on the API Server command line please make sure to remove the leading dashes. *)
   value : string prop;
@@ -31,7 +31,7 @@ customized flags are supported. Please refer to the API server
 documentation below to know the exact format:
 https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/ *)
 
-type google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config__node_configs = {
+type control_plane__control_plane_node_pool_config__node_pool_config__node_configs = {
   labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
@@ -50,7 +50,7 @@ Example: 192.168.0.1 *)
 [@@deriving yojson_of]
 (** The list of machine addresses in the Bare Metal Node Pool. *)
 
-type google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config__taints = {
+type control_plane__control_plane_node_pool_config__node_pool_config__taints = {
   effect : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
   key : string prop option; [@option]
@@ -61,7 +61,7 @@ type google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
-type google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config = {
+type control_plane__control_plane_node_pool_config__node_pool_config = {
   labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
@@ -76,35 +76,32 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   operating_system : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). *)
   node_configs :
-    google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config__node_configs
+    control_plane__control_plane_node_pool_config__node_pool_config__node_configs
     list;
   taints :
-    google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config__taints
+    control_plane__control_plane_node_pool_config__node_pool_config__taints
     list;
 }
 [@@deriving yojson_of]
 (** The generic configuration for a node pool running the control plane. *)
 
-type google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config = {
+type control_plane__control_plane_node_pool_config = {
   node_pool_config :
-    google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config
+    control_plane__control_plane_node_pool_config__node_pool_config
     list;
 }
 [@@deriving yojson_of]
 (** Configures the node pool running the control plane. If specified the corresponding NodePool will be created for the cluster's control plane. The NodePool will have the same name and namespace as the cluster. *)
 
-type google_gkeonprem_bare_metal_cluster__control_plane = {
-  api_server_args :
-    google_gkeonprem_bare_metal_cluster__control_plane__api_server_args
-    list;
+type control_plane = {
+  api_server_args : control_plane__api_server_args list;
   control_plane_node_pool_config :
-    google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config
-    list;
+    control_plane__control_plane_node_pool_config list;
 }
 [@@deriving yojson_of]
 (** Specifies the control plane configuration. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__address_pools = {
+type load_balancer__bgp_lb_config__address_pools = {
   addresses : string prop list;
       (** The addresses that are part of this pool. Each address must be either in the CIDR form (1.2.3.0/24) or range form (1.2.3.1-1.2.3.5). *)
   avoid_buggy_ips : bool prop option; [@option]
@@ -119,7 +116,7 @@ This avoids buggy consumer devices mistakenly dropping IPv4 traffic for those sp
 typed services. All addresses must be routable to load balancer nodes.
 IngressVIP must be included in the pools. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__bgp_peer_configs = {
+type load_balancer__bgp_lb_config__bgp_peer_configs = {
   asn : float prop;
       (** BGP autonomous system number (ASN) for the network that contains the
 external peer device. *)
@@ -139,7 +136,7 @@ Control plane nodes will connect to these peers to advertise the control
 plane VIP. The Services load balancer also uses these peers by default.
 This field can be updated after cluster creation. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config = {
+type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config = {
   registry_burst : float prop option; [@option]
       (** The maximum size of bursty pulls, temporarily allows pulls to burst to this
 number, while still not exceeding registry_pull_qps.
@@ -163,7 +160,7 @@ more details. *)
 [@@deriving yojson_of]
 (** The modifiable kubelet configurations for the baremetal machines. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs = {
+type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs = {
   labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
@@ -182,7 +179,7 @@ Example: 192.168.0.1 *)
 [@@deriving yojson_of]
 (** The list of machine addresses in the Bare Metal Node Pool. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints = {
+type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints = {
   effect : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
   key : string prop option; [@option]
@@ -193,7 +190,7 @@ type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_bal
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config = {
+type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config = {
   labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
@@ -208,21 +205,21 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   operating_system : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). *)
   kubelet_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config
     list;
   node_configs :
-    google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
     list;
   taints :
-    google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints
     list;
 }
 [@@deriving yojson_of]
 (** The generic configuration for a node pool running a load balancer. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config = {
+type load_balancer__bgp_lb_config__load_balancer_node_pool_config = {
   node_pool_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config
     list;
 }
 [@@deriving yojson_of]
@@ -230,31 +227,27 @@ type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_bal
 is required among nodes in this pool. If missing, the control plane node
 pool is used for data plane load balancing. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config = {
+type load_balancer__bgp_lb_config = {
   asn : float prop;
       (** BGP autonomous system number (ASN) of the cluster.
 This field can be updated after cluster creation. *)
-  address_pools :
-    google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__address_pools
-    list;
+  address_pools : load_balancer__bgp_lb_config__address_pools list;
   bgp_peer_configs :
-    google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__bgp_peer_configs
-    list;
+    load_balancer__bgp_lb_config__bgp_peer_configs list;
   load_balancer_node_pool_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config
-    list;
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config list;
 }
 [@@deriving yojson_of]
 (** Configuration for BGP typed load balancers. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__manual_lb_config = {
+type load_balancer__manual_lb_config = {
   enabled : bool prop;
       (** Whether manual load balancing is enabled. *)
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__address_pools = {
+type load_balancer__metal_lb_config__address_pools = {
   addresses : string prop list;
       (** The addresses that are part of this pool. Each address must be either in the CIDR form (1.2.3.0/24) or range form (1.2.3.1-1.2.3.5). *)
   avoid_buggy_ips : bool prop option; [@option]
@@ -269,7 +262,7 @@ This avoids buggy consumer devices mistakenly dropping IPv4 traffic for those sp
 typed services. All addresses must be routable to load balancer nodes.
 IngressVIP must be included in the pools. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs = {
+type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs = {
   labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
@@ -288,7 +281,7 @@ Example: 192.168.0.1 *)
 [@@deriving yojson_of]
 (** The list of machine addresses in the Bare Metal Node Pool. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints = {
+type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints = {
   effect : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
   key : string prop option; [@option]
@@ -299,7 +292,7 @@ type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_b
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config = {
+type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config = {
   labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
@@ -314,42 +307,40 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   operating_system : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). *)
   node_configs :
-    google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
+    load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
     list;
   taints :
-    google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints
+    load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints
     list;
 }
 [@@deriving yojson_of]
 (** The generic configuration for a node pool running a load balancer. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config = {
+type load_balancer__metal_lb_config__load_balancer_node_pool_config = {
   node_pool_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config
+    load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the load balancer's node pool configuration. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config = {
-  address_pools :
-    google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__address_pools
-    list;
+type load_balancer__metal_lb_config = {
+  address_pools : load_balancer__metal_lb_config__address_pools list;
   load_balancer_node_pool_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config
+    load_balancer__metal_lb_config__load_balancer_node_pool_config
     list;
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__port_config = {
+type load_balancer__port_config = {
   control_plane_load_balancer_port : float prop;
       (** The port that control plane hosted load balancers will listen on. *)
 }
 [@@deriving yojson_of]
 (** Specifies the load balancer ports. *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer__vip_config = {
+type load_balancer__vip_config = {
   control_plane_vip : string prop;
       (** The VIP which you previously set aside for the Kubernetes API of this Bare Metal User Cluster. *)
   ingress_vip : string prop;
@@ -358,27 +349,17 @@ type google_gkeonprem_bare_metal_cluster__load_balancer__vip_config = {
 [@@deriving yojson_of]
 (** Specified the Bare Metal Load Balancer Config *)
 
-type google_gkeonprem_bare_metal_cluster__load_balancer = {
-  bgp_lb_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config
-    list;
-  manual_lb_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__manual_lb_config
-    list;
-  metal_lb_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config
-    list;
-  port_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__port_config
-    list;
-  vip_config :
-    google_gkeonprem_bare_metal_cluster__load_balancer__vip_config
-    list;
+type load_balancer = {
+  bgp_lb_config : load_balancer__bgp_lb_config list;
+  manual_lb_config : load_balancer__manual_lb_config list;
+  metal_lb_config : load_balancer__metal_lb_config list;
+  port_config : load_balancer__port_config list;
+  vip_config : load_balancer__vip_config list;
 }
 [@@deriving yojson_of]
 (** Specifies the load balancer configuration. *)
 
-type google_gkeonprem_bare_metal_cluster__maintenance_config = {
+type maintenance_config = {
   maintenance_address_cidr_blocks : string prop list;
       (** All IPv4 address from these ranges will be placed into maintenance mode.
 Nodes in maintenance mode will be cordoned and drained. When both of these
@@ -388,7 +369,7 @@ on the node resource. *)
 [@@deriving yojson_of]
 (** Specifies the workload node configurations. *)
 
-type google_gkeonprem_bare_metal_cluster__network_config__island_mode_cidr = {
+type network_config__island_mode_cidr = {
   pod_address_cidr_blocks : string prop list;
       (** All pods in the cluster are assigned an RFC1918 IPv4 address from these ranges. This field cannot be changed after creation. *)
   service_address_cidr_blocks : string prop list;
@@ -397,7 +378,7 @@ type google_gkeonprem_bare_metal_cluster__network_config__island_mode_cidr = {
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_gkeonprem_bare_metal_cluster__network_config__multiple_network_interfaces_config = {
+type network_config__multiple_network_interfaces_config = {
   enabled : bool prop option; [@option]
       (** Whether to enable multiple network interfaces for your pods.
 When set network_config.advanced_networking is automatically
@@ -406,33 +387,28 @@ set to true. *)
 [@@deriving yojson_of]
 (** Configuration for multiple network interfaces. *)
 
-type google_gkeonprem_bare_metal_cluster__network_config__sr_iov_config = {
+type network_config__sr_iov_config = {
   enabled : bool prop option; [@option]
       (** Whether to install the SR-IOV operator. *)
 }
 [@@deriving yojson_of]
 (** Configuration for SR-IOV. *)
 
-type google_gkeonprem_bare_metal_cluster__network_config = {
+type network_config = {
   advanced_networking : bool prop option; [@option]
       (** Enables the use of advanced Anthos networking features, such as Bundled
 Load Balancing with BGP or the egress NAT gateway.
 Setting configuration for advanced networking features will automatically
 set this flag. *)
-  island_mode_cidr :
-    google_gkeonprem_bare_metal_cluster__network_config__island_mode_cidr
-    list;
+  island_mode_cidr : network_config__island_mode_cidr list;
   multiple_network_interfaces_config :
-    google_gkeonprem_bare_metal_cluster__network_config__multiple_network_interfaces_config
-    list;
-  sr_iov_config :
-    google_gkeonprem_bare_metal_cluster__network_config__sr_iov_config
-    list;
+    network_config__multiple_network_interfaces_config list;
+  sr_iov_config : network_config__sr_iov_config list;
 }
 [@@deriving yojson_of]
 (** Network configuration. *)
 
-type google_gkeonprem_bare_metal_cluster__node_access_config = {
+type node_access_config = {
   login_user : string prop option; [@option]
       (** LoginUser is the user name used to access node machines.
 It defaults to root if not set. *)
@@ -440,7 +416,7 @@ It defaults to root if not set. *)
 [@@deriving yojson_of]
 (** Specifies the node access related settings for the bare metal user cluster. *)
 
-type google_gkeonprem_bare_metal_cluster__node_config = {
+type node_config = {
   container_runtime : string prop option; [@option]
       (** The available runtimes that can be used to run containers in a Bare Metal User Cluster. Possible values: [CONTAINER_RUNTIME_UNSPECIFIED, DOCKER, CONTAINERD] *)
   max_pods_per_node : float prop option; [@option]
@@ -450,7 +426,7 @@ assigned to the node will be derived from this parameter. *)
 [@@deriving yojson_of]
 (** Specifies the workload node configurations. *)
 
-type google_gkeonprem_bare_metal_cluster__os_environment_config = {
+type os_environment_config = {
   package_repo_excluded : bool prop;
       (** Whether the package repo should not be included when initializing
 bare metal machines. *)
@@ -458,7 +434,7 @@ bare metal machines. *)
 [@@deriving yojson_of]
 (** OS environment related configurations. *)
 
-type google_gkeonprem_bare_metal_cluster__proxy = {
+type proxy = {
   no_proxy : string prop list option; [@option]
       (** A list of IPs, hostnames, and domains that should skip the proxy.
 Examples: [127.0.0.1, example.com, .corp, localhost]. *)
@@ -471,30 +447,26 @@ http://(username:password@)domain these will be rejected by the server. *)
 [@@deriving yojson_of]
 (** Specifies the cluster proxy configuration. *)
 
-type google_gkeonprem_bare_metal_cluster__security_config__authorization__admin_users = {
+type security_config__authorization__admin_users = {
   username : string prop;
       (** The name of the user, e.g. 'my-gcp-id@gmail.com'. *)
 }
 [@@deriving yojson_of]
 (** Users that will be granted the cluster-admin role on the cluster, providing full access to the cluster. *)
 
-type google_gkeonprem_bare_metal_cluster__security_config__authorization = {
-  admin_users :
-    google_gkeonprem_bare_metal_cluster__security_config__authorization__admin_users
-    list;
+type security_config__authorization = {
+  admin_users : security_config__authorization__admin_users list;
 }
 [@@deriving yojson_of]
 (** Configures user access to the Bare Metal User cluster. *)
 
-type google_gkeonprem_bare_metal_cluster__security_config = {
-  authorization :
-    google_gkeonprem_bare_metal_cluster__security_config__authorization
-    list;
+type security_config = {
+  authorization : security_config__authorization list;
 }
 [@@deriving yojson_of]
 (** Specifies the security related settings for the Bare Metal User Cluster. *)
 
-type google_gkeonprem_bare_metal_cluster__storage__lvp_node_mounts_config = {
+type storage__lvp_node_mounts_config = {
   path : string prop;  (** The host machine path. *)
   storage_class : string prop;
       (** The StorageClass name that PVs will be created with. *)
@@ -504,7 +476,7 @@ type google_gkeonprem_bare_metal_cluster__storage__lvp_node_mounts_config = {
 by mounted node disks. These disks need to be formatted and mounted by the
 user, which can be done before or after cluster creation. *)
 
-type google_gkeonprem_bare_metal_cluster__storage__lvp_share_config__lvp_config = {
+type storage__lvp_share_config__lvp_config = {
   path : string prop;  (** The host machine path. *)
   storage_class : string prop;
       (** The StorageClass name that PVs will be created with. *)
@@ -512,50 +484,42 @@ type google_gkeonprem_bare_metal_cluster__storage__lvp_share_config__lvp_config 
 [@@deriving yojson_of]
 (** Defines the machine path and storage class for the LVP Share. *)
 
-type google_gkeonprem_bare_metal_cluster__storage__lvp_share_config = {
+type storage__lvp_share_config = {
   shared_path_pv_count : float prop option; [@option]
       (** The number of subdirectories to create under path. *)
-  lvp_config :
-    google_gkeonprem_bare_metal_cluster__storage__lvp_share_config__lvp_config
-    list;
+  lvp_config : storage__lvp_share_config__lvp_config list;
 }
 [@@deriving yojson_of]
 (** Specifies the config for local PersistentVolumes backed by
 subdirectories in a shared filesystem. These subdirectores are
 automatically created during cluster creation. *)
 
-type google_gkeonprem_bare_metal_cluster__storage = {
-  lvp_node_mounts_config :
-    google_gkeonprem_bare_metal_cluster__storage__lvp_node_mounts_config
-    list;
-  lvp_share_config :
-    google_gkeonprem_bare_metal_cluster__storage__lvp_share_config
-    list;
+type storage = {
+  lvp_node_mounts_config : storage__lvp_node_mounts_config list;
+  lvp_share_config : storage__lvp_share_config list;
 }
 [@@deriving yojson_of]
 (** Specifies the cluster storage configuration. *)
 
-type google_gkeonprem_bare_metal_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gkeonprem_bare_metal_cluster__timeouts *)
+(** timeouts *)
 
-type google_gkeonprem_bare_metal_cluster__upgrade_policy = {
+type upgrade_policy = {
   policy : string prop option; [@option]
       (** Specifies which upgrade policy to use. Possible values: [SERIAL, CONCURRENT] *)
 }
 [@@deriving yojson_of]
 (** The cluster upgrade policy. *)
 
-type google_gkeonprem_bare_metal_cluster__fleet = {
-  membership : string prop;  (** membership *)
-}
+type fleet = { membership : string prop  (** membership *) }
 [@@deriving yojson_of]
 
-type google_gkeonprem_bare_metal_cluster__status__conditions = {
+type status__conditions = {
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
   reason : string prop;  (** reason *)
@@ -564,15 +528,13 @@ type google_gkeonprem_bare_metal_cluster__status__conditions = {
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_bare_metal_cluster__status = {
-  conditions :
-    google_gkeonprem_bare_metal_cluster__status__conditions list;
-      (** conditions *)
+type status = {
+  conditions : status__conditions list;  (** conditions *)
   error_message : string prop;  (** error_message *)
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_bare_metal_cluster__validation_check__status__result = {
+type validation_check__status__result = {
   category : string prop;  (** category *)
   description : string prop;  (** description *)
   details : string prop;  (** details *)
@@ -581,21 +543,15 @@ type google_gkeonprem_bare_metal_cluster__validation_check__status__result = {
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_bare_metal_cluster__validation_check__status = {
-  result :
-    google_gkeonprem_bare_metal_cluster__validation_check__status__result
-    list;
-      (** result *)
+type validation_check__status = {
+  result : validation_check__status__result list;  (** result *)
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_bare_metal_cluster__validation_check = {
+type validation_check = {
   options : string prop;  (** options *)
   scenario : string prop;  (** scenario *)
-  status :
-    google_gkeonprem_bare_metal_cluster__validation_check__status
-    list;
-      (** status *)
+  status : validation_check__status list;  (** status *)
 }
 [@@deriving yojson_of]
 
@@ -624,34 +580,272 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
   location : string prop;  (** The location of the resource. *)
   name : string prop;  (** The bare metal cluster name. *)
   project : string prop option; [@option]  (** project *)
-  binary_authorization :
-    google_gkeonprem_bare_metal_cluster__binary_authorization list;
-  cluster_operations :
-    google_gkeonprem_bare_metal_cluster__cluster_operations list;
-  control_plane :
-    google_gkeonprem_bare_metal_cluster__control_plane list;
-  load_balancer :
-    google_gkeonprem_bare_metal_cluster__load_balancer list;
-  maintenance_config :
-    google_gkeonprem_bare_metal_cluster__maintenance_config list;
-  network_config :
-    google_gkeonprem_bare_metal_cluster__network_config list;
-  node_access_config :
-    google_gkeonprem_bare_metal_cluster__node_access_config list;
-  node_config :
-    google_gkeonprem_bare_metal_cluster__node_config list;
-  os_environment_config :
-    google_gkeonprem_bare_metal_cluster__os_environment_config list;
-  proxy : google_gkeonprem_bare_metal_cluster__proxy list;
-  security_config :
-    google_gkeonprem_bare_metal_cluster__security_config list;
-  storage : google_gkeonprem_bare_metal_cluster__storage list;
-  timeouts : google_gkeonprem_bare_metal_cluster__timeouts option;
-  upgrade_policy :
-    google_gkeonprem_bare_metal_cluster__upgrade_policy list;
+  binary_authorization : binary_authorization list;
+  cluster_operations : cluster_operations list;
+  control_plane : control_plane list;
+  load_balancer : load_balancer list;
+  maintenance_config : maintenance_config list;
+  network_config : network_config list;
+  node_access_config : node_access_config list;
+  node_config : node_config list;
+  os_environment_config : os_environment_config list;
+  proxy : proxy list;
+  security_config : security_config list;
+  storage : storage list;
+  timeouts : timeouts option;
+  upgrade_policy : upgrade_policy list;
 }
 [@@deriving yojson_of]
 (** google_gkeonprem_bare_metal_cluster *)
+
+let binary_authorization ?evaluation_mode () : binary_authorization =
+  { evaluation_mode }
+
+let cluster_operations ?enable_application_logs () :
+    cluster_operations =
+  { enable_application_logs }
+
+let control_plane__api_server_args ~argument ~value () :
+    control_plane__api_server_args =
+  { argument; value }
+
+let control_plane__control_plane_node_pool_config__node_pool_config__node_configs
+    ?labels ?node_ip () :
+    control_plane__control_plane_node_pool_config__node_pool_config__node_configs
+    =
+  { labels; node_ip }
+
+let control_plane__control_plane_node_pool_config__node_pool_config__taints
+    ?effect ?key ?value () :
+    control_plane__control_plane_node_pool_config__node_pool_config__taints
+    =
+  { effect; key; value }
+
+let control_plane__control_plane_node_pool_config__node_pool_config
+    ?labels ?operating_system ~node_configs ~taints () :
+    control_plane__control_plane_node_pool_config__node_pool_config =
+  { labels; operating_system; node_configs; taints }
+
+let control_plane__control_plane_node_pool_config ~node_pool_config
+    () : control_plane__control_plane_node_pool_config =
+  { node_pool_config }
+
+let control_plane ~api_server_args ~control_plane_node_pool_config ()
+    : control_plane =
+  { api_server_args; control_plane_node_pool_config }
+
+let load_balancer__bgp_lb_config__address_pools ?avoid_buggy_ips
+    ?manual_assign ~addresses ~pool () :
+    load_balancer__bgp_lb_config__address_pools =
+  { addresses; avoid_buggy_ips; manual_assign; pool }
+
+let load_balancer__bgp_lb_config__bgp_peer_configs
+    ?control_plane_nodes ~asn ~ip_address () :
+    load_balancer__bgp_lb_config__bgp_peer_configs =
+  { asn; control_plane_nodes; ip_address }
+
+let load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config
+    ?registry_burst ?registry_pull_qps
+    ?serialize_image_pulls_disabled () :
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config
+    =
+  {
+    registry_burst;
+    registry_pull_qps;
+    serialize_image_pulls_disabled;
+  }
+
+let load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
+    ?labels ?node_ip () :
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
+    =
+  { labels; node_ip }
+
+let load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints
+    ?effect ?key ?value () :
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints
+    =
+  { effect; key; value }
+
+let load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config
+    ?labels ?operating_system ~kubelet_config ~node_configs ~taints
+    () :
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config
+    =
+  { labels; operating_system; kubelet_config; node_configs; taints }
+
+let load_balancer__bgp_lb_config__load_balancer_node_pool_config
+    ~node_pool_config () :
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config =
+  { node_pool_config }
+
+let load_balancer__bgp_lb_config ~asn ~address_pools
+    ~bgp_peer_configs ~load_balancer_node_pool_config () :
+    load_balancer__bgp_lb_config =
+  {
+    asn;
+    address_pools;
+    bgp_peer_configs;
+    load_balancer_node_pool_config;
+  }
+
+let load_balancer__manual_lb_config ~enabled () :
+    load_balancer__manual_lb_config =
+  { enabled }
+
+let load_balancer__metal_lb_config__address_pools ?avoid_buggy_ips
+    ?manual_assign ~addresses ~pool () :
+    load_balancer__metal_lb_config__address_pools =
+  { addresses; avoid_buggy_ips; manual_assign; pool }
+
+let load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
+    ?labels ?node_ip () :
+    load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
+    =
+  { labels; node_ip }
+
+let load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints
+    ?effect ?key ?value () :
+    load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints
+    =
+  { effect; key; value }
+
+let load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config
+    ?labels ?operating_system ~node_configs ~taints () :
+    load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config
+    =
+  { labels; operating_system; node_configs; taints }
+
+let load_balancer__metal_lb_config__load_balancer_node_pool_config
+    ~node_pool_config () :
+    load_balancer__metal_lb_config__load_balancer_node_pool_config =
+  { node_pool_config }
+
+let load_balancer__metal_lb_config ~address_pools
+    ~load_balancer_node_pool_config () :
+    load_balancer__metal_lb_config =
+  { address_pools; load_balancer_node_pool_config }
+
+let load_balancer__port_config ~control_plane_load_balancer_port () :
+    load_balancer__port_config =
+  { control_plane_load_balancer_port }
+
+let load_balancer__vip_config ~control_plane_vip ~ingress_vip () :
+    load_balancer__vip_config =
+  { control_plane_vip; ingress_vip }
+
+let load_balancer ~bgp_lb_config ~manual_lb_config ~metal_lb_config
+    ~port_config ~vip_config () : load_balancer =
+  {
+    bgp_lb_config;
+    manual_lb_config;
+    metal_lb_config;
+    port_config;
+    vip_config;
+  }
+
+let maintenance_config ~maintenance_address_cidr_blocks () :
+    maintenance_config =
+  { maintenance_address_cidr_blocks }
+
+let network_config__island_mode_cidr ~pod_address_cidr_blocks
+    ~service_address_cidr_blocks () :
+    network_config__island_mode_cidr =
+  { pod_address_cidr_blocks; service_address_cidr_blocks }
+
+let network_config__multiple_network_interfaces_config ?enabled () :
+    network_config__multiple_network_interfaces_config =
+  { enabled }
+
+let network_config__sr_iov_config ?enabled () :
+    network_config__sr_iov_config =
+  { enabled }
+
+let network_config ?advanced_networking ~island_mode_cidr
+    ~multiple_network_interfaces_config ~sr_iov_config () :
+    network_config =
+  {
+    advanced_networking;
+    island_mode_cidr;
+    multiple_network_interfaces_config;
+    sr_iov_config;
+  }
+
+let node_access_config ?login_user () : node_access_config =
+  { login_user }
+
+let node_config ?container_runtime ?max_pods_per_node () :
+    node_config =
+  { container_runtime; max_pods_per_node }
+
+let os_environment_config ~package_repo_excluded () :
+    os_environment_config =
+  { package_repo_excluded }
+
+let proxy ?no_proxy ~uri () : proxy = { no_proxy; uri }
+
+let security_config__authorization__admin_users ~username () :
+    security_config__authorization__admin_users =
+  { username }
+
+let security_config__authorization ~admin_users () :
+    security_config__authorization =
+  { admin_users }
+
+let security_config ~authorization () : security_config =
+  { authorization }
+
+let storage__lvp_node_mounts_config ~path ~storage_class () :
+    storage__lvp_node_mounts_config =
+  { path; storage_class }
+
+let storage__lvp_share_config__lvp_config ~path ~storage_class () :
+    storage__lvp_share_config__lvp_config =
+  { path; storage_class }
+
+let storage__lvp_share_config ?shared_path_pv_count ~lvp_config () :
+    storage__lvp_share_config =
+  { shared_path_pv_count; lvp_config }
+
+let storage ~lvp_node_mounts_config ~lvp_share_config () : storage =
+  { lvp_node_mounts_config; lvp_share_config }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let upgrade_policy ?policy () : upgrade_policy = { policy }
+
+let google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
+    ?project ?timeouts ~admin_cluster_membership ~bare_metal_version
+    ~location ~name ~binary_authorization ~cluster_operations
+    ~control_plane ~load_balancer ~maintenance_config ~network_config
+    ~node_access_config ~node_config ~os_environment_config ~proxy
+    ~security_config ~storage ~upgrade_policy () :
+    google_gkeonprem_bare_metal_cluster =
+  {
+    admin_cluster_membership;
+    annotations;
+    bare_metal_version;
+    description;
+    id;
+    location;
+    name;
+    project;
+    binary_authorization;
+    cluster_operations;
+    control_plane;
+    load_balancer;
+    maintenance_config;
+    network_config;
+    node_access_config;
+    node_config;
+    os_environment_config;
+    proxy;
+    security_config;
+    storage;
+    timeouts;
+    upgrade_policy;
+  }
 
 type t = {
   admin_cluster_membership : string prop;
@@ -663,7 +857,7 @@ type t = {
   effective_annotations : (string * string) list prop;
   endpoint : string prop;
   etag : string prop;
-  fleet : google_gkeonprem_bare_metal_cluster__fleet list prop;
+  fleet : fleet list prop;
   id : string prop;
   local_name : string prop;
   location : string prop;
@@ -671,48 +865,29 @@ type t = {
   project : string prop;
   reconciling : bool prop;
   state : string prop;
-  status : google_gkeonprem_bare_metal_cluster__status list prop;
+  status : status list prop;
   uid : string prop;
   update_time : string prop;
-  validation_check :
-    google_gkeonprem_bare_metal_cluster__validation_check list prop;
+  validation_check : validation_check list prop;
 }
 
-let google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
-    ?project ?timeouts ~admin_cluster_membership ~bare_metal_version
-    ~location ~name ~binary_authorization ~cluster_operations
-    ~control_plane ~load_balancer ~maintenance_config ~network_config
+let register ?tf_module ?annotations ?description ?id ?project
+    ?timeouts ~admin_cluster_membership ~bare_metal_version ~location
+    ~name ~binary_authorization ~cluster_operations ~control_plane
+    ~load_balancer ~maintenance_config ~network_config
     ~node_access_config ~node_config ~os_environment_config ~proxy
     ~security_config ~storage ~upgrade_policy __resource_id =
   let __resource_type = "google_gkeonprem_bare_metal_cluster" in
   let __resource =
-    ({
-       admin_cluster_membership;
-       annotations;
-       bare_metal_version;
-       description;
-       id;
-       location;
-       name;
-       project;
-       binary_authorization;
-       cluster_operations;
-       control_plane;
-       load_balancer;
-       maintenance_config;
-       network_config;
-       node_access_config;
-       node_config;
-       os_environment_config;
-       proxy;
-       security_config;
-       storage;
-       timeouts;
-       upgrade_policy;
-     }
-      : google_gkeonprem_bare_metal_cluster)
+    google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
+      ?project ?timeouts ~admin_cluster_membership
+      ~bare_metal_version ~location ~name ~binary_authorization
+      ~cluster_operations ~control_plane ~load_balancer
+      ~maintenance_config ~network_config ~node_access_config
+      ~node_config ~os_environment_config ~proxy ~security_config
+      ~storage ~upgrade_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gkeonprem_bare_metal_cluster __resource);
   let __resource_attributes =
     ({

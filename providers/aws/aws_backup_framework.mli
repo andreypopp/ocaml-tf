@@ -2,11 +2,59 @@
 
 open! Tf.Prelude
 
-type aws_backup_framework__control__input_parameter
-type aws_backup_framework__control__scope
-type aws_backup_framework__control
-type aws_backup_framework__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type control__input_parameter
+
+val control__input_parameter :
+  ?name:string prop ->
+  ?value:string prop ->
+  unit ->
+  control__input_parameter
+
+type control__scope
+
+val control__scope :
+  ?compliance_resource_ids:string prop list ->
+  ?compliance_resource_types:string prop list ->
+  ?tags:(string * string prop) list ->
+  unit ->
+  control__scope
+
+type control
+
+val control :
+  name:string prop ->
+  input_parameter:control__input_parameter list ->
+  scope:control__scope list ->
+  unit ->
+  control
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_backup_framework
+
+val aws_backup_framework :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  control:control list ->
+  unit ->
+  aws_backup_framework
+
+val yojson_of_aws_backup_framework : aws_backup_framework -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -20,13 +68,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_backup_framework :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_backup_framework__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  control:aws_backup_framework__control list ->
+  control:control list ->
   string ->
   t

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_azure_search__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_search__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_azure_search = {
   additional_properties : (string * string prop) list option;
@@ -29,11 +29,32 @@ type azurerm_data_factory_linked_service_azure_search = {
       (** parameters *)
   search_service_key : string prop;  (** search_service_key *)
   url : string prop;  (** url *)
-  timeouts :
-    azurerm_data_factory_linked_service_azure_search__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_search *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_azure_search
+    ?additional_properties ?annotations ?description ?id
+    ?integration_runtime_name ?parameters ?timeouts ~data_factory_id
+    ~name ~search_service_key ~url () :
+    azurerm_data_factory_linked_service_azure_search =
+  {
+    additional_properties;
+    annotations;
+    data_factory_id;
+    description;
+    id;
+    integration_runtime_name;
+    name;
+    parameters;
+    search_service_key;
+    url;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -49,30 +70,19 @@ type t = {
   url : string prop;
 }
 
-let azurerm_data_factory_linked_service_azure_search
-    ?additional_properties ?annotations ?description ?id
-    ?integration_runtime_name ?parameters ?timeouts ~data_factory_id
-    ~name ~search_service_key ~url __resource_id =
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?id ?integration_runtime_name ?parameters ?timeouts
+    ~data_factory_id ~name ~search_service_key ~url __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_azure_search"
   in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       data_factory_id;
-       description;
-       id;
-       integration_runtime_name;
-       name;
-       parameters;
-       search_service_key;
-       url;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_azure_search)
+    azurerm_data_factory_linked_service_azure_search
+      ?additional_properties ?annotations ?description ?id
+      ?integration_runtime_name ?parameters ?timeouts
+      ~data_factory_id ~name ~search_service_key ~url ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_azure_search
        __resource);
   let __resource_attributes =

@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_logging_organization_exclusion
+
+val google_logging_organization_exclusion :
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  filter:string prop ->
+  name:string prop ->
+  org_id:string prop ->
+  unit ->
+  google_logging_organization_exclusion
+
+val yojson_of_google_logging_organization_exclusion :
+  google_logging_organization_exclusion -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -13,7 +30,8 @@ type t = private {
   org_id : string prop;
 }
 
-val google_logging_organization_exclusion :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?disabled:bool prop ->
   ?id:string prop ->

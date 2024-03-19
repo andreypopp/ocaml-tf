@@ -2,7 +2,28 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_pinpoint_apns_voip_channel
+
+val aws_pinpoint_apns_voip_channel :
+  ?bundle_id:string prop ->
+  ?certificate:string prop ->
+  ?default_authentication_method:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?private_key:string prop ->
+  ?team_id:string prop ->
+  ?token_key:string prop ->
+  ?token_key_id:string prop ->
+  application_id:string prop ->
+  unit ->
+  aws_pinpoint_apns_voip_channel
+
+val yojson_of_aws_pinpoint_apns_voip_channel :
+  aws_pinpoint_apns_voip_channel -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -17,7 +38,8 @@ type t = private {
   token_key_id : string prop;
 }
 
-val aws_pinpoint_apns_voip_channel :
+val register :
+  ?tf_module:tf_module ->
   ?bundle_id:string prop ->
   ?certificate:string prop ->
   ?default_authentication_method:string prop ->

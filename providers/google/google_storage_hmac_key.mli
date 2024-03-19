@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type google_storage_hmac_key__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_storage_hmac_key
+
+val google_storage_hmac_key :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?state:string prop ->
+  ?timeouts:timeouts ->
+  service_account_email:string prop ->
+  unit ->
+  google_storage_hmac_key
+
+val yojson_of_google_storage_hmac_key :
+  google_storage_hmac_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_id : string prop;
@@ -16,11 +40,12 @@ type t = private {
   updated : string prop;
 }
 
-val google_storage_hmac_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   ?state:string prop ->
-  ?timeouts:google_storage_hmac_key__timeouts ->
+  ?timeouts:timeouts ->
   service_account_email:string prop ->
   string ->
   t

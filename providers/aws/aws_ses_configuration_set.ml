@@ -4,18 +4,18 @@
 
 open! Tf.Prelude
 
-type aws_ses_configuration_set__delivery_options = {
+type delivery_options = {
   tls_policy : string prop option; [@option]  (** tls_policy *)
 }
 [@@deriving yojson_of]
-(** aws_ses_configuration_set__delivery_options *)
+(** delivery_options *)
 
-type aws_ses_configuration_set__tracking_options = {
+type tracking_options = {
   custom_redirect_domain : string prop option; [@option]
       (** custom_redirect_domain *)
 }
 [@@deriving yojson_of]
-(** aws_ses_configuration_set__tracking_options *)
+(** tracking_options *)
 
 type aws_ses_configuration_set = {
   id : string prop option; [@option]  (** id *)
@@ -24,12 +24,29 @@ type aws_ses_configuration_set = {
       (** reputation_metrics_enabled *)
   sending_enabled : bool prop option; [@option]
       (** sending_enabled *)
-  delivery_options :
-    aws_ses_configuration_set__delivery_options list;
-  tracking_options : aws_ses_configuration_set__tracking_options list;
+  delivery_options : delivery_options list;
+  tracking_options : tracking_options list;
 }
 [@@deriving yojson_of]
 (** aws_ses_configuration_set *)
+
+let delivery_options ?tls_policy () : delivery_options =
+  { tls_policy }
+
+let tracking_options ?custom_redirect_domain () : tracking_options =
+  { custom_redirect_domain }
+
+let aws_ses_configuration_set ?id ?reputation_metrics_enabled
+    ?sending_enabled ~name ~delivery_options ~tracking_options () :
+    aws_ses_configuration_set =
+  {
+    id;
+    name;
+    reputation_metrics_enabled;
+    sending_enabled;
+    delivery_options;
+    tracking_options;
+  }
 
 type t = {
   arn : string prop;
@@ -40,22 +57,15 @@ type t = {
   sending_enabled : bool prop;
 }
 
-let aws_ses_configuration_set ?id ?reputation_metrics_enabled
+let register ?tf_module ?id ?reputation_metrics_enabled
     ?sending_enabled ~name ~delivery_options ~tracking_options
     __resource_id =
   let __resource_type = "aws_ses_configuration_set" in
   let __resource =
-    ({
-       id;
-       name;
-       reputation_metrics_enabled;
-       sending_enabled;
-       delivery_options;
-       tracking_options;
-     }
-      : aws_ses_configuration_set)
+    aws_ses_configuration_set ?id ?reputation_metrics_enabled
+      ?sending_enabled ~name ~delivery_options ~tracking_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_configuration_set __resource);
   let __resource_attributes =
     ({

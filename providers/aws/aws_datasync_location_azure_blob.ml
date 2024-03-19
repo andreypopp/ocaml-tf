@@ -4,11 +4,9 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_azure_blob__sas_configuration = {
-  token : string prop;  (** token *)
-}
+type sas_configuration = { token : string prop  (** token *) }
 [@@deriving yojson_of]
-(** aws_datasync_location_azure_blob__sas_configuration *)
+(** sas_configuration *)
 
 type aws_datasync_location_azure_blob = {
   access_tier : string prop option; [@option]  (** access_tier *)
@@ -21,11 +19,29 @@ type aws_datasync_location_azure_blob = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  sas_configuration :
-    aws_datasync_location_azure_blob__sas_configuration list;
+  sas_configuration : sas_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_azure_blob *)
+
+let sas_configuration ~token () : sas_configuration = { token }
+
+let aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
+    ?subdirectory ?tags ?tags_all ~agent_arns ~authentication_type
+    ~container_url ~sas_configuration () :
+    aws_datasync_location_azure_blob =
+  {
+    access_tier;
+    agent_arns;
+    authentication_type;
+    blob_type;
+    container_url;
+    id;
+    subdirectory;
+    tags;
+    tags_all;
+    sas_configuration;
+  }
 
 type t = {
   access_tier : string prop;
@@ -41,26 +57,16 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
-    ?subdirectory ?tags ?tags_all ~agent_arns ~authentication_type
-    ~container_url ~sas_configuration __resource_id =
+let register ?tf_module ?access_tier ?blob_type ?id ?subdirectory
+    ?tags ?tags_all ~agent_arns ~authentication_type ~container_url
+    ~sas_configuration __resource_id =
   let __resource_type = "aws_datasync_location_azure_blob" in
   let __resource =
-    ({
-       access_tier;
-       agent_arns;
-       authentication_type;
-       blob_type;
-       container_url;
-       id;
-       subdirectory;
-       tags;
-       tags_all;
-       sas_configuration;
-     }
-      : aws_datasync_location_azure_blob)
+    aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
+      ?subdirectory ?tags ?tags_all ~agent_arns ~authentication_type
+      ~container_url ~sas_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_azure_blob __resource);
   let __resource_attributes =
     ({

@@ -2,10 +2,41 @@
 
 open! Tf.Prelude
 
-type aws_vpc_peering_connection_accepter__accepter
-type aws_vpc_peering_connection_accepter__requester
-type aws_vpc_peering_connection_accepter__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type accepter
+
+val accepter :
+  ?allow_remote_vpc_dns_resolution:bool prop -> unit -> accepter
+
+type requester
+
+val requester :
+  ?allow_remote_vpc_dns_resolution:bool prop -> unit -> requester
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_vpc_peering_connection_accepter
+
+val aws_vpc_peering_connection_accepter :
+  ?auto_accept:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  vpc_peering_connection_id:string prop ->
+  accepter:accepter list ->
+  requester:requester list ->
+  unit ->
+  aws_vpc_peering_connection_accepter
+
+val yojson_of_aws_vpc_peering_connection_accepter :
+  aws_vpc_peering_connection_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   accept_status : string prop;
@@ -20,14 +51,15 @@ type t = private {
   vpc_peering_connection_id : string prop;
 }
 
-val aws_vpc_peering_connection_accepter :
+val register :
+  ?tf_module:tf_module ->
   ?auto_accept:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_vpc_peering_connection_accepter__timeouts ->
+  ?timeouts:timeouts ->
   vpc_peering_connection_id:string prop ->
-  accepter:aws_vpc_peering_connection_accepter__accepter list ->
-  requester:aws_vpc_peering_connection_accepter__requester list ->
+  accepter:accepter list ->
+  requester:requester list ->
   string ->
   t

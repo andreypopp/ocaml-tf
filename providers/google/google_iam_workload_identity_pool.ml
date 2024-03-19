@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_iam_workload_identity_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_iam_workload_identity_pool__timeouts *)
+(** timeouts *)
 
 type google_iam_workload_identity_pool = {
   description : string prop option; [@option]
@@ -27,10 +27,26 @@ access again. *)
       (** The ID to use for the pool, which becomes the final component of the resource name. This
 value should be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
 'gcp-' is reserved for use by Google, and may not be specified. *)
-  timeouts : google_iam_workload_identity_pool__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_iam_workload_identity_pool *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_iam_workload_identity_pool ?description ?disabled
+    ?display_name ?id ?project ?timeouts ~workload_identity_pool_id
+    () : google_iam_workload_identity_pool =
+  {
+    description;
+    disabled;
+    display_name;
+    id;
+    project;
+    workload_identity_pool_id;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -43,23 +59,15 @@ type t = {
   workload_identity_pool_id : string prop;
 }
 
-let google_iam_workload_identity_pool ?description ?disabled
-    ?display_name ?id ?project ?timeouts ~workload_identity_pool_id
-    __resource_id =
+let register ?tf_module ?description ?disabled ?display_name ?id
+    ?project ?timeouts ~workload_identity_pool_id __resource_id =
   let __resource_type = "google_iam_workload_identity_pool" in
   let __resource =
-    ({
-       description;
-       disabled;
-       display_name;
-       id;
-       project;
-       workload_identity_pool_id;
-       timeouts;
-     }
-      : google_iam_workload_identity_pool)
+    google_iam_workload_identity_pool ?description ?disabled
+      ?display_name ?id ?project ?timeouts ~workload_identity_pool_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_workload_identity_pool __resource);
   let __resource_attributes =
     ({

@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_certificate__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_certificate__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_certificate = {
   certificate_content : string prop option; [@option]
@@ -23,10 +23,28 @@ type azurerm_spring_cloud_certificate = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   service_name : string prop;  (** service_name *)
-  timeouts : azurerm_spring_cloud_certificate__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_certificate *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_spring_cloud_certificate ?certificate_content
+    ?exclude_private_key ?id ?key_vault_certificate_id ?timeouts
+    ~name ~resource_group_name ~service_name () :
+    azurerm_spring_cloud_certificate =
+  {
+    certificate_content;
+    exclude_private_key;
+    id;
+    key_vault_certificate_id;
+    name;
+    resource_group_name;
+    service_name;
+    timeouts;
+  }
 
 type t = {
   certificate_content : string prop;
@@ -39,24 +57,16 @@ type t = {
   thumbprint : string prop;
 }
 
-let azurerm_spring_cloud_certificate ?certificate_content
-    ?exclude_private_key ?id ?key_vault_certificate_id ?timeouts
-    ~name ~resource_group_name ~service_name __resource_id =
+let register ?tf_module ?certificate_content ?exclude_private_key ?id
+    ?key_vault_certificate_id ?timeouts ~name ~resource_group_name
+    ~service_name __resource_id =
   let __resource_type = "azurerm_spring_cloud_certificate" in
   let __resource =
-    ({
-       certificate_content;
-       exclude_private_key;
-       id;
-       key_vault_certificate_id;
-       name;
-       resource_group_name;
-       service_name;
-       timeouts;
-     }
-      : azurerm_spring_cloud_certificate)
+    azurerm_spring_cloud_certificate ?certificate_content
+      ?exclude_private_key ?id ?key_vault_certificate_id ?timeouts
+      ~name ~resource_group_name ~service_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_certificate __resource);
   let __resource_attributes =
     ({

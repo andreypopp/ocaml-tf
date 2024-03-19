@@ -4,25 +4,32 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_api_operation_tag__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api_operation_tag__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_api_operation_tag = {
   api_operation_id : string prop;  (** api_operation_id *)
   display_name : string prop;  (** display_name *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  timeouts :
-    azurerm_api_management_api_operation_tag__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation_tag *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_api_operation_tag ?id ?timeouts
+    ~api_operation_id ~display_name ~name () :
+    azurerm_api_management_api_operation_tag =
+  { api_operation_id; display_name; id; name; timeouts }
 
 type t = {
   api_operation_id : string prop;
@@ -31,14 +38,14 @@ type t = {
   name : string prop;
 }
 
-let azurerm_api_management_api_operation_tag ?id ?timeouts
-    ~api_operation_id ~display_name ~name __resource_id =
+let register ?tf_module ?id ?timeouts ~api_operation_id ~display_name
+    ~name __resource_id =
   let __resource_type = "azurerm_api_management_api_operation_tag" in
   let __resource =
-    ({ api_operation_id; display_name; id; name; timeouts }
-      : azurerm_api_management_api_operation_tag)
+    azurerm_api_management_api_operation_tag ?id ?timeouts
+      ~api_operation_id ~display_name ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_api_operation_tag __resource);
   let __resource_attributes =
     ({

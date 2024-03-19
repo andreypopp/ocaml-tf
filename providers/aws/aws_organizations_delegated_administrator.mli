@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_organizations_delegated_administrator
+
+val aws_organizations_delegated_administrator :
+  ?id:string prop ->
+  account_id:string prop ->
+  service_principal:string prop ->
+  unit ->
+  aws_organizations_delegated_administrator
+
+val yojson_of_aws_organizations_delegated_administrator :
+  aws_organizations_delegated_administrator -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -17,7 +31,8 @@ type t = private {
   status : string prop;
 }
 
-val aws_organizations_delegated_administrator :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   account_id:string prop ->
   service_principal:string prop ->

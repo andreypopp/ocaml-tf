@@ -13,6 +13,10 @@ type aws_route53_vpc_association_authorization = {
 [@@deriving yojson_of]
 (** aws_route53_vpc_association_authorization *)
 
+let aws_route53_vpc_association_authorization ?id ?vpc_region ~vpc_id
+    ~zone_id () : aws_route53_vpc_association_authorization =
+  { id; vpc_id; vpc_region; zone_id }
+
 type t = {
   id : string prop;
   vpc_id : string prop;
@@ -20,16 +24,16 @@ type t = {
   zone_id : string prop;
 }
 
-let aws_route53_vpc_association_authorization ?id ?vpc_region ~vpc_id
-    ~zone_id __resource_id =
+let register ?tf_module ?id ?vpc_region ~vpc_id ~zone_id
+    __resource_id =
   let __resource_type =
     "aws_route53_vpc_association_authorization"
   in
   let __resource =
-    ({ id; vpc_id; vpc_region; zone_id }
-      : aws_route53_vpc_association_authorization)
+    aws_route53_vpc_association_authorization ?id ?vpc_region ~vpc_id
+      ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_vpc_association_authorization __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_shield_protection
+
+val aws_shield_protection :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  resource_arn:string prop ->
+  unit ->
+  aws_shield_protection
+
+val yojson_of_aws_shield_protection : aws_shield_protection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,7 +28,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_shield_protection :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

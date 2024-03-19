@@ -12,20 +12,24 @@ type aws_ram_principal_association = {
 [@@deriving yojson_of]
 (** aws_ram_principal_association *)
 
+let aws_ram_principal_association ?id ~principal ~resource_share_arn
+    () : aws_ram_principal_association =
+  { id; principal; resource_share_arn }
+
 type t = {
   id : string prop;
   principal : string prop;
   resource_share_arn : string prop;
 }
 
-let aws_ram_principal_association ?id ~principal ~resource_share_arn
+let register ?tf_module ?id ~principal ~resource_share_arn
     __resource_id =
   let __resource_type = "aws_ram_principal_association" in
   let __resource =
-    ({ id; principal; resource_share_arn }
-      : aws_ram_principal_association)
+    aws_ram_principal_association ?id ~principal ~resource_share_arn
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ram_principal_association __resource);
   let __resource_attributes =
     ({

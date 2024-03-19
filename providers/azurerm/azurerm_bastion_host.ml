@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_bastion_host__ip_configuration = {
+type ip_configuration = {
   name : string prop;  (** name *)
   public_ip_address_id : string prop;  (** public_ip_address_id *)
   subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_bastion_host__ip_configuration *)
+(** ip_configuration *)
 
-type azurerm_bastion_host__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_bastion_host__timeouts *)
+(** timeouts *)
 
 type azurerm_bastion_host = {
   copy_paste_enabled : bool prop option; [@option]
@@ -39,11 +39,40 @@ type azurerm_bastion_host = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tunneling_enabled : bool prop option; [@option]
       (** tunneling_enabled *)
-  ip_configuration : azurerm_bastion_host__ip_configuration list;
-  timeouts : azurerm_bastion_host__timeouts option;
+  ip_configuration : ip_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_bastion_host *)
+
+let ip_configuration ~name ~public_ip_address_id ~subnet_id () :
+    ip_configuration =
+  { name; public_ip_address_id; subnet_id }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
+    ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
+    ?tags ?tunneling_enabled ?timeouts ~location ~name
+    ~resource_group_name ~ip_configuration () : azurerm_bastion_host
+    =
+  {
+    copy_paste_enabled;
+    file_copy_enabled;
+    id;
+    ip_connect_enabled;
+    location;
+    name;
+    resource_group_name;
+    scale_units;
+    shareable_link_enabled;
+    sku;
+    tags;
+    tunneling_enabled;
+    ip_configuration;
+    timeouts;
+  }
 
 type t = {
   copy_paste_enabled : bool prop;
@@ -61,31 +90,18 @@ type t = {
   tunneling_enabled : bool prop;
 }
 
-let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
+let register ?tf_module ?copy_paste_enabled ?file_copy_enabled ?id
     ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
     ?tags ?tunneling_enabled ?timeouts ~location ~name
     ~resource_group_name ~ip_configuration __resource_id =
   let __resource_type = "azurerm_bastion_host" in
   let __resource =
-    ({
-       copy_paste_enabled;
-       file_copy_enabled;
-       id;
-       ip_connect_enabled;
-       location;
-       name;
-       resource_group_name;
-       scale_units;
-       shareable_link_enabled;
-       sku;
-       tags;
-       tunneling_enabled;
-       ip_configuration;
-       timeouts;
-     }
-      : azurerm_bastion_host)
+    azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
+      ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
+      ?tags ?tunneling_enabled ?timeouts ~location ~name
+      ~resource_group_name ~ip_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_bastion_host __resource);
   let __resource_attributes =
     ({

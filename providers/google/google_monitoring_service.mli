@@ -2,14 +2,46 @@
 
 open! Tf.Prelude
 
-type google_monitoring_service__basic_service
-type google_monitoring_service__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_monitoring_service__telemetry = {
+type telemetry = {
   resource_name : string prop;  (** resource_name *)
 }
 
+type basic_service
+
+val basic_service :
+  ?service_labels:(string * string prop) list ->
+  ?service_type:string prop ->
+  unit ->
+  basic_service
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_monitoring_service
+
+val google_monitoring_service :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?user_labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  service_id:string prop ->
+  basic_service:basic_service list ->
+  unit ->
+  google_monitoring_service
+
+val yojson_of_google_monitoring_service :
+  google_monitoring_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   display_name : string prop;
@@ -17,17 +49,18 @@ type t = private {
   name : string prop;
   project : string prop;
   service_id : string prop;
-  telemetry : google_monitoring_service__telemetry list prop;
+  telemetry : telemetry list prop;
   user_labels : (string * string) list prop;
 }
 
-val google_monitoring_service :
+val register :
+  ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?user_labels:(string * string prop) list ->
-  ?timeouts:google_monitoring_service__timeouts ->
+  ?timeouts:timeouts ->
   service_id:string prop ->
-  basic_service:google_monitoring_service__basic_service list ->
+  basic_service:basic_service list ->
   string ->
   t

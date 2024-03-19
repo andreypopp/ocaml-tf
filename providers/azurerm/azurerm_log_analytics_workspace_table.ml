@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_workspace_table__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_log_analytics_workspace_table__timeouts *)
+(** timeouts *)
 
 type azurerm_log_analytics_workspace_table = {
   id : string prop option; [@option]  (** id *)
@@ -22,10 +22,26 @@ type azurerm_log_analytics_workspace_table = {
   total_retention_in_days : float prop option; [@option]
       (** total_retention_in_days *)
   workspace_id : string prop;  (** workspace_id *)
-  timeouts : azurerm_log_analytics_workspace_table__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_workspace_table *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_log_analytics_workspace_table ?id ?plan
+    ?retention_in_days ?total_retention_in_days ?timeouts ~name
+    ~workspace_id () : azurerm_log_analytics_workspace_table =
+  {
+    id;
+    name;
+    plan;
+    retention_in_days;
+    total_retention_in_days;
+    workspace_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -36,23 +52,16 @@ type t = {
   workspace_id : string prop;
 }
 
-let azurerm_log_analytics_workspace_table ?id ?plan
-    ?retention_in_days ?total_retention_in_days ?timeouts ~name
-    ~workspace_id __resource_id =
+let register ?tf_module ?id ?plan ?retention_in_days
+    ?total_retention_in_days ?timeouts ~name ~workspace_id
+    __resource_id =
   let __resource_type = "azurerm_log_analytics_workspace_table" in
   let __resource =
-    ({
-       id;
-       name;
-       plan;
-       retention_in_days;
-       total_retention_in_days;
-       workspace_id;
-       timeouts;
-     }
-      : azurerm_log_analytics_workspace_table)
+    azurerm_log_analytics_workspace_table ?id ?plan
+      ?retention_in_days ?total_retention_in_days ?timeouts ~name
+      ~workspace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_workspace_table __resource);
   let __resource_attributes =
     ({

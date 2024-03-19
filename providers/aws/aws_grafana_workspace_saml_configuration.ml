@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_grafana_workspace_saml_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_grafana_workspace_saml_configuration__timeouts *)
+(** timeouts *)
 
 type aws_grafana_workspace_saml_configuration = {
   admin_role_values : string prop list option; [@option]
@@ -36,11 +36,36 @@ type aws_grafana_workspace_saml_configuration = {
   role_assertion : string prop option; [@option]
       (** role_assertion *)
   workspace_id : string prop;  (** workspace_id *)
-  timeouts :
-    aws_grafana_workspace_saml_configuration__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_grafana_workspace_saml_configuration *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_grafana_workspace_saml_configuration ?admin_role_values
+    ?allowed_organizations ?email_assertion ?groups_assertion ?id
+    ?idp_metadata_url ?idp_metadata_xml ?login_assertion
+    ?login_validity_duration ?name_assertion ?org_assertion
+    ?role_assertion ?timeouts ~editor_role_values ~workspace_id () :
+    aws_grafana_workspace_saml_configuration =
+  {
+    admin_role_values;
+    allowed_organizations;
+    editor_role_values;
+    email_assertion;
+    groups_assertion;
+    id;
+    idp_metadata_url;
+    idp_metadata_xml;
+    login_assertion;
+    login_validity_duration;
+    name_assertion;
+    org_assertion;
+    role_assertion;
+    workspace_id;
+    timeouts;
+  }
 
 type t = {
   admin_role_values : string list prop;
@@ -60,34 +85,20 @@ type t = {
   workspace_id : string prop;
 }
 
-let aws_grafana_workspace_saml_configuration ?admin_role_values
-    ?allowed_organizations ?email_assertion ?groups_assertion ?id
-    ?idp_metadata_url ?idp_metadata_xml ?login_assertion
-    ?login_validity_duration ?name_assertion ?org_assertion
-    ?role_assertion ?timeouts ~editor_role_values ~workspace_id
-    __resource_id =
+let register ?tf_module ?admin_role_values ?allowed_organizations
+    ?email_assertion ?groups_assertion ?id ?idp_metadata_url
+    ?idp_metadata_xml ?login_assertion ?login_validity_duration
+    ?name_assertion ?org_assertion ?role_assertion ?timeouts
+    ~editor_role_values ~workspace_id __resource_id =
   let __resource_type = "aws_grafana_workspace_saml_configuration" in
   let __resource =
-    ({
-       admin_role_values;
-       allowed_organizations;
-       editor_role_values;
-       email_assertion;
-       groups_assertion;
-       id;
-       idp_metadata_url;
-       idp_metadata_xml;
-       login_assertion;
-       login_validity_duration;
-       name_assertion;
-       org_assertion;
-       role_assertion;
-       workspace_id;
-       timeouts;
-     }
-      : aws_grafana_workspace_saml_configuration)
+    aws_grafana_workspace_saml_configuration ?admin_role_values
+      ?allowed_organizations ?email_assertion ?groups_assertion ?id
+      ?idp_metadata_url ?idp_metadata_xml ?login_assertion
+      ?login_validity_duration ?name_assertion ?org_assertion
+      ?role_assertion ?timeouts ~editor_role_values ~workspace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_grafana_workspace_saml_configuration __resource);
   let __resource_attributes =
     ({

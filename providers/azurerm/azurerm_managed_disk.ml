@@ -4,40 +4,37 @@
 
 open! Tf.Prelude
 
-type azurerm_managed_disk__encryption_settings__disk_encryption_key = {
+type encryption_settings__disk_encryption_key = {
   secret_url : string prop;  (** secret_url *)
   source_vault_id : string prop;  (** source_vault_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_managed_disk__encryption_settings__disk_encryption_key *)
+(** encryption_settings__disk_encryption_key *)
 
-type azurerm_managed_disk__encryption_settings__key_encryption_key = {
+type encryption_settings__key_encryption_key = {
   key_url : string prop;  (** key_url *)
   source_vault_id : string prop;  (** source_vault_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_managed_disk__encryption_settings__key_encryption_key *)
+(** encryption_settings__key_encryption_key *)
 
-type azurerm_managed_disk__encryption_settings = {
+type encryption_settings = {
   enabled : bool prop option; [@option]  (** enabled *)
   disk_encryption_key :
-    azurerm_managed_disk__encryption_settings__disk_encryption_key
-    list;
-  key_encryption_key :
-    azurerm_managed_disk__encryption_settings__key_encryption_key
-    list;
+    encryption_settings__disk_encryption_key list;
+  key_encryption_key : encryption_settings__key_encryption_key list;
 }
 [@@deriving yojson_of]
-(** azurerm_managed_disk__encryption_settings *)
+(** encryption_settings *)
 
-type azurerm_managed_disk__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_managed_disk__timeouts *)
+(** timeouts *)
 
 type azurerm_managed_disk = {
   create_option : string prop;  (** create_option *)
@@ -95,12 +92,80 @@ type azurerm_managed_disk = {
   upload_size_bytes : float prop option; [@option]
       (** upload_size_bytes *)
   zone : string prop option; [@option]  (** zone *)
-  encryption_settings :
-    azurerm_managed_disk__encryption_settings list;
-  timeouts : azurerm_managed_disk__timeouts option;
+  encryption_settings : encryption_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_managed_disk *)
+
+let encryption_settings__disk_encryption_key ~secret_url
+    ~source_vault_id () : encryption_settings__disk_encryption_key =
+  { secret_url; source_vault_id }
+
+let encryption_settings__key_encryption_key ~key_url ~source_vault_id
+    () : encryption_settings__key_encryption_key =
+  { key_url; source_vault_id }
+
+let encryption_settings ?enabled ~disk_encryption_key
+    ~key_encryption_key () : encryption_settings =
+  { enabled; disk_encryption_key; key_encryption_key }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
+    ?disk_iops_read_only ?disk_iops_read_write ?disk_mbps_read_only
+    ?disk_mbps_read_write ?disk_size_gb ?edge_zone
+    ?gallery_image_reference_id ?hyper_v_generation ?id
+    ?image_reference_id ?logical_sector_size ?max_shares
+    ?network_access_policy ?on_demand_bursting_enabled
+    ?optimized_frequent_attach_enabled ?os_type
+    ?performance_plus_enabled ?public_network_access_enabled
+    ?secure_vm_disk_encryption_set_id ?security_type
+    ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
+    ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
+    ~create_option ~location ~name ~resource_group_name
+    ~storage_account_type ~encryption_settings () :
+    azurerm_managed_disk =
+  {
+    create_option;
+    disk_access_id;
+    disk_encryption_set_id;
+    disk_iops_read_only;
+    disk_iops_read_write;
+    disk_mbps_read_only;
+    disk_mbps_read_write;
+    disk_size_gb;
+    edge_zone;
+    gallery_image_reference_id;
+    hyper_v_generation;
+    id;
+    image_reference_id;
+    location;
+    logical_sector_size;
+    max_shares;
+    name;
+    network_access_policy;
+    on_demand_bursting_enabled;
+    optimized_frequent_attach_enabled;
+    os_type;
+    performance_plus_enabled;
+    public_network_access_enabled;
+    resource_group_name;
+    secure_vm_disk_encryption_set_id;
+    security_type;
+    source_resource_id;
+    source_uri;
+    storage_account_id;
+    storage_account_type;
+    tags;
+    tier;
+    trusted_launch_enabled;
+    upload_size_bytes;
+    zone;
+    encryption_settings;
+    timeouts;
+  }
 
 type t = {
   create_option : string prop;
@@ -140,7 +205,7 @@ type t = {
   zone : string prop;
 }
 
-let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
+let register ?tf_module ?disk_access_id ?disk_encryption_set_id
     ?disk_iops_read_only ?disk_iops_read_write ?disk_mbps_read_only
     ?disk_mbps_read_write ?disk_size_gb ?edge_zone
     ?gallery_image_reference_id ?hyper_v_generation ?id
@@ -155,48 +220,21 @@ let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
     ~storage_account_type ~encryption_settings __resource_id =
   let __resource_type = "azurerm_managed_disk" in
   let __resource =
-    ({
-       create_option;
-       disk_access_id;
-       disk_encryption_set_id;
-       disk_iops_read_only;
-       disk_iops_read_write;
-       disk_mbps_read_only;
-       disk_mbps_read_write;
-       disk_size_gb;
-       edge_zone;
-       gallery_image_reference_id;
-       hyper_v_generation;
-       id;
-       image_reference_id;
-       location;
-       logical_sector_size;
-       max_shares;
-       name;
-       network_access_policy;
-       on_demand_bursting_enabled;
-       optimized_frequent_attach_enabled;
-       os_type;
-       performance_plus_enabled;
-       public_network_access_enabled;
-       resource_group_name;
-       secure_vm_disk_encryption_set_id;
-       security_type;
-       source_resource_id;
-       source_uri;
-       storage_account_id;
-       storage_account_type;
-       tags;
-       tier;
-       trusted_launch_enabled;
-       upload_size_bytes;
-       zone;
-       encryption_settings;
-       timeouts;
-     }
-      : azurerm_managed_disk)
+    azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
+      ?disk_iops_read_only ?disk_iops_read_write ?disk_mbps_read_only
+      ?disk_mbps_read_write ?disk_size_gb ?edge_zone
+      ?gallery_image_reference_id ?hyper_v_generation ?id
+      ?image_reference_id ?logical_sector_size ?max_shares
+      ?network_access_policy ?on_demand_bursting_enabled
+      ?optimized_frequent_attach_enabled ?os_type
+      ?performance_plus_enabled ?public_network_access_enabled
+      ?secure_vm_disk_encryption_set_id ?security_type
+      ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
+      ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
+      ~create_option ~location ~name ~resource_group_name
+      ~storage_account_type ~encryption_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_managed_disk __resource);
   let __resource_attributes =
     ({

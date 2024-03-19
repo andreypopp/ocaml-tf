@@ -4,42 +4,61 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_builder__build_pack_group = {
+type build_pack_group = {
   build_pack_ids : string prop list option; [@option]
       (** build_pack_ids *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_builder__build_pack_group *)
+(** build_pack_group *)
 
-type azurerm_spring_cloud_builder__stack = {
+type stack = {
   id : string prop;  (** id *)
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_builder__stack *)
+(** stack *)
 
-type azurerm_spring_cloud_builder__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_builder__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_builder = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   spring_cloud_service_id : string prop;
       (** spring_cloud_service_id *)
-  build_pack_group :
-    azurerm_spring_cloud_builder__build_pack_group list;
-  stack : azurerm_spring_cloud_builder__stack list;
-  timeouts : azurerm_spring_cloud_builder__timeouts option;
+  build_pack_group : build_pack_group list;
+  stack : stack list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_builder *)
+
+let build_pack_group ?build_pack_ids ~name () : build_pack_group =
+  { build_pack_ids; name }
+
+let stack ~id ~version () : stack = { id; version }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_builder ?id ?timeouts ~name
+    ~spring_cloud_service_id ~build_pack_group ~stack () :
+    azurerm_spring_cloud_builder =
+  {
+    id;
+    name;
+    spring_cloud_service_id;
+    build_pack_group;
+    stack;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -47,21 +66,14 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
-let azurerm_spring_cloud_builder ?id ?timeouts ~name
-    ~spring_cloud_service_id ~build_pack_group ~stack __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~spring_cloud_service_id
+    ~build_pack_group ~stack __resource_id =
   let __resource_type = "azurerm_spring_cloud_builder" in
   let __resource =
-    ({
-       id;
-       name;
-       spring_cloud_service_id;
-       build_pack_group;
-       stack;
-       timeouts;
-     }
-      : azurerm_spring_cloud_builder)
+    azurerm_spring_cloud_builder ?id ?timeouts ~name
+      ~spring_cloud_service_id ~build_pack_group ~stack ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_builder __resource);
   let __resource_attributes =
     ({

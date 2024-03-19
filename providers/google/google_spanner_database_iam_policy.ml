@@ -14,6 +14,10 @@ type google_spanner_database_iam_policy = {
 [@@deriving yojson_of]
 (** google_spanner_database_iam_policy *)
 
+let google_spanner_database_iam_policy ?id ?project ~database
+    ~instance ~policy_data () : google_spanner_database_iam_policy =
+  { database; id; instance; policy_data; project }
+
 type t = {
   database : string prop;
   etag : string prop;
@@ -23,14 +27,14 @@ type t = {
   project : string prop;
 }
 
-let google_spanner_database_iam_policy ?id ?project ~database
-    ~instance ~policy_data __resource_id =
+let register ?tf_module ?id ?project ~database ~instance ~policy_data
+    __resource_id =
   let __resource_type = "google_spanner_database_iam_policy" in
   let __resource =
-    ({ database; id; instance; policy_data; project }
-      : google_spanner_database_iam_policy)
+    google_spanner_database_iam_policy ?id ?project ~database
+      ~instance ~policy_data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_spanner_database_iam_policy __resource);
   let __resource_attributes =
     ({

@@ -2,12 +2,71 @@
 
 open! Tf.Prelude
 
-type aws_appstream_stack__access_endpoints
-type aws_appstream_stack__application_settings
-type aws_appstream_stack__storage_connectors
-type aws_appstream_stack__streaming_experience_settings
-type aws_appstream_stack__user_settings
+(** RESOURCE SERIALIZATION *)
+
+type access_endpoints
+
+val access_endpoints :
+  ?vpce_id:string prop ->
+  endpoint_type:string prop ->
+  unit ->
+  access_endpoints
+
+type application_settings
+
+val application_settings :
+  ?settings_group:string prop ->
+  enabled:bool prop ->
+  unit ->
+  application_settings
+
+type storage_connectors
+
+val storage_connectors :
+  ?domains:string prop list ->
+  ?resource_identifier:string prop ->
+  connector_type:string prop ->
+  unit ->
+  storage_connectors
+
+type streaming_experience_settings
+
+val streaming_experience_settings :
+  ?preferred_protocol:string prop ->
+  unit ->
+  streaming_experience_settings
+
+type user_settings
+
+val user_settings :
+  action:string prop ->
+  permission:string prop ->
+  unit ->
+  user_settings
+
 type aws_appstream_stack
+
+val aws_appstream_stack :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?embed_host_domains:string prop list ->
+  ?feedback_url:string prop ->
+  ?id:string prop ->
+  ?redirect_url:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  access_endpoints:access_endpoints list ->
+  application_settings:application_settings list ->
+  storage_connectors:storage_connectors list ->
+  streaming_experience_settings:streaming_experience_settings list ->
+  user_settings:user_settings list ->
+  unit ->
+  aws_appstream_stack
+
+val yojson_of_aws_appstream_stack : aws_appstream_stack -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -23,7 +82,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_appstream_stack :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?embed_host_domains:string prop list ->
@@ -33,11 +93,10 @@ val aws_appstream_stack :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  access_endpoints:aws_appstream_stack__access_endpoints list ->
-  application_settings:aws_appstream_stack__application_settings list ->
-  storage_connectors:aws_appstream_stack__storage_connectors list ->
-  streaming_experience_settings:
-    aws_appstream_stack__streaming_experience_settings list ->
-  user_settings:aws_appstream_stack__user_settings list ->
+  access_endpoints:access_endpoints list ->
+  application_settings:application_settings list ->
+  storage_connectors:storage_connectors list ->
+  streaming_experience_settings:streaming_experience_settings list ->
+  user_settings:user_settings list ->
   string ->
   t

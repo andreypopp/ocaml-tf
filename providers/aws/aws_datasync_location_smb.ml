@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_smb__mount_options = {
+type mount_options = {
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_smb__mount_options *)
+(** mount_options *)
 
 type aws_datasync_location_smb = {
   agent_arns : string prop list;  (** agent_arns *)
@@ -21,10 +21,28 @@ type aws_datasync_location_smb = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   user : string prop;  (** user *)
-  mount_options : aws_datasync_location_smb__mount_options list;
+  mount_options : mount_options list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_smb *)
+
+let mount_options ?version () : mount_options = { version }
+
+let aws_datasync_location_smb ?domain ?id ?tags ?tags_all ~agent_arns
+    ~password ~server_hostname ~subdirectory ~user ~mount_options ()
+    : aws_datasync_location_smb =
+  {
+    agent_arns;
+    domain;
+    id;
+    password;
+    server_hostname;
+    subdirectory;
+    tags;
+    tags_all;
+    user;
+    mount_options;
+  }
 
 type t = {
   agent_arns : string list prop;
@@ -40,26 +58,16 @@ type t = {
   user : string prop;
 }
 
-let aws_datasync_location_smb ?domain ?id ?tags ?tags_all ~agent_arns
+let register ?tf_module ?domain ?id ?tags ?tags_all ~agent_arns
     ~password ~server_hostname ~subdirectory ~user ~mount_options
     __resource_id =
   let __resource_type = "aws_datasync_location_smb" in
   let __resource =
-    ({
-       agent_arns;
-       domain;
-       id;
-       password;
-       server_hostname;
-       subdirectory;
-       tags;
-       tags_all;
-       user;
-       mount_options;
-     }
-      : aws_datasync_location_smb)
+    aws_datasync_location_smb ?domain ?id ?tags ?tags_all ~agent_arns
+      ~password ~server_hostname ~subdirectory ~user ~mount_options
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_smb __resource);
   let __resource_attributes =
     ({

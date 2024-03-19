@@ -2,8 +2,47 @@
 
 open! Tf.Prelude
 
-type azurerm_mariadb_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mariadb_server
+
+val azurerm_mariadb_server :
+  ?administrator_login:string prop ->
+  ?administrator_login_password:string prop ->
+  ?auto_grow_enabled:bool prop ->
+  ?backup_retention_days:float prop ->
+  ?create_mode:string prop ->
+  ?creation_source_server_id:string prop ->
+  ?geo_redundant_backup_enabled:bool prop ->
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?restore_point_in_time:string prop ->
+  ?ssl_minimal_tls_version_enforced:string prop ->
+  ?storage_mb:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  ssl_enforcement_enabled:bool prop ->
+  version:string prop ->
+  unit ->
+  azurerm_mariadb_server
+
+val yojson_of_azurerm_mariadb_server : azurerm_mariadb_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   administrator_login : string prop;
@@ -28,7 +67,8 @@ type t = private {
   version : string prop;
 }
 
-val azurerm_mariadb_server :
+val register :
+  ?tf_module:tf_module ->
   ?administrator_login:string prop ->
   ?administrator_login_password:string prop ->
   ?auto_grow_enabled:bool prop ->
@@ -42,7 +82,7 @@ val azurerm_mariadb_server :
   ?ssl_minimal_tls_version_enforced:string prop ->
   ?storage_mb:float prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_mariadb_server__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

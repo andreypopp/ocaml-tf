@@ -2,9 +2,45 @@
 
 open! Tf.Prelude
 
-type azurerm_static_site__identity
-type azurerm_static_site__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_static_site
+
+val azurerm_static_site :
+  ?app_settings:(string * string prop) list ->
+  ?id:string prop ->
+  ?sku_size:string prop ->
+  ?sku_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_static_site
+
+val yojson_of_azurerm_static_site : azurerm_static_site -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_key : string prop;
@@ -19,16 +55,17 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_static_site :
+val register :
+  ?tf_module:tf_module ->
   ?app_settings:(string * string prop) list ->
   ?id:string prop ->
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_static_site__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_static_site__identity list ->
+  identity:identity list ->
   string ->
   t

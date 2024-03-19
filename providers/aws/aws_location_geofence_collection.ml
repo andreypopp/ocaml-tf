@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_location_geofence_collection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_location_geofence_collection__timeouts *)
+(** timeouts *)
 
 type aws_location_geofence_collection = {
   collection_name : string prop;  (** collection_name *)
@@ -20,10 +20,26 @@ type aws_location_geofence_collection = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_location_geofence_collection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_location_geofence_collection *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_location_geofence_collection ?description ?id ?kms_key_id
+    ?tags ?tags_all ?timeouts ~collection_name () :
+    aws_location_geofence_collection =
+  {
+    collection_name;
+    description;
+    id;
+    kms_key_id;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   collection_arn : string prop;
@@ -37,22 +53,14 @@ type t = {
   update_time : string prop;
 }
 
-let aws_location_geofence_collection ?description ?id ?kms_key_id
-    ?tags ?tags_all ?timeouts ~collection_name __resource_id =
+let register ?tf_module ?description ?id ?kms_key_id ?tags ?tags_all
+    ?timeouts ~collection_name __resource_id =
   let __resource_type = "aws_location_geofence_collection" in
   let __resource =
-    ({
-       collection_name;
-       description;
-       id;
-       kms_key_id;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_location_geofence_collection)
+    aws_location_geofence_collection ?description ?id ?kms_key_id
+      ?tags ?tags_all ?timeouts ~collection_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_location_geofence_collection __resource);
   let __resource_attributes =
     ({

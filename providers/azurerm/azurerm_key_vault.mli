@@ -2,11 +2,9 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault__contact
-type azurerm_key_vault__network_acls
-type azurerm_key_vault__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_key_vault__access_policy = {
+type access_policy = {
   application_id : string prop;  (** application_id *)
   certificate_permissions : string prop list;
       (** certificate_permissions *)
@@ -17,10 +15,65 @@ type azurerm_key_vault__access_policy = {
   tenant_id : string prop;  (** tenant_id *)
 }
 
+type contact
+
+val contact :
+  ?name:string prop ->
+  ?phone:string prop ->
+  email:string prop ->
+  unit ->
+  contact
+
+type network_acls
+
+val network_acls :
+  ?ip_rules:string prop list ->
+  ?virtual_network_subnet_ids:string prop list ->
+  bypass:string prop ->
+  default_action:string prop ->
+  unit ->
+  network_acls
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_key_vault
 
+val azurerm_key_vault :
+  ?access_policy:access_policy list ->
+  ?enable_rbac_authorization:bool prop ->
+  ?enabled_for_deployment:bool prop ->
+  ?enabled_for_disk_encryption:bool prop ->
+  ?enabled_for_template_deployment:bool prop ->
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?purge_protection_enabled:bool prop ->
+  ?soft_delete_retention_days:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  tenant_id:string prop ->
+  contact:contact list ->
+  network_acls:network_acls list ->
+  unit ->
+  azurerm_key_vault
+
+val yojson_of_azurerm_key_vault : azurerm_key_vault -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  access_policy : azurerm_key_vault__access_policy list prop;
+  access_policy : access_policy list prop;
   enable_rbac_authorization : bool prop;
   enabled_for_deployment : bool prop;
   enabled_for_disk_encryption : bool prop;
@@ -38,8 +91,9 @@ type t = private {
   vault_uri : string prop;
 }
 
-val azurerm_key_vault :
-  ?access_policy:azurerm_key_vault__access_policy list ->
+val register :
+  ?tf_module:tf_module ->
+  ?access_policy:access_policy list ->
   ?enable_rbac_authorization:bool prop ->
   ?enabled_for_deployment:bool prop ->
   ?enabled_for_disk_encryption:bool prop ->
@@ -49,13 +103,13 @@ val azurerm_key_vault :
   ?purge_protection_enabled:bool prop ->
   ?soft_delete_retention_days:float prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_key_vault__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
   tenant_id:string prop ->
-  contact:azurerm_key_vault__contact list ->
-  network_acls:azurerm_key_vault__network_acls list ->
+  contact:contact list ->
+  network_acls:network_acls list ->
   string ->
   t

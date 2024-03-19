@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type azurerm_linux_virtual_machine__additional_capabilities = {
+type additional_capabilities = {
   ultra_ssd_enabled : bool prop option; [@option]
       (** ultra_ssd_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__additional_capabilities *)
+(** additional_capabilities *)
 
-type azurerm_linux_virtual_machine__admin_ssh_key = {
+type admin_ssh_key = {
   public_key : string prop;  (** public_key *)
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__admin_ssh_key *)
+(** admin_ssh_key *)
 
-type azurerm_linux_virtual_machine__boot_diagnostics = {
+type boot_diagnostics = {
   storage_account_uri : string prop option; [@option]
       (** storage_account_uri *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__boot_diagnostics *)
+(** boot_diagnostics *)
 
-type azurerm_linux_virtual_machine__gallery_application = {
+type gallery_application = {
   automatic_upgrade_enabled : bool prop option; [@option]
       (** automatic_upgrade_enabled *)
   configuration_blob_uri : string prop option; [@option]
@@ -38,26 +38,24 @@ type azurerm_linux_virtual_machine__gallery_application = {
   version_id : string prop;  (** version_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__gallery_application *)
+(** gallery_application *)
 
-type azurerm_linux_virtual_machine__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__identity *)
+(** identity *)
 
-type azurerm_linux_virtual_machine__os_disk__diff_disk_settings = {
-  option : string prop;  (** option *)
+type os_disk__diff_disk_settings = {
+  option_ : string prop; [@key "option"]  (** option *)
   placement : string prop option; [@option]  (** placement *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__os_disk__diff_disk_settings *)
+(** os_disk__diff_disk_settings *)
 
-type azurerm_linux_virtual_machine__os_disk = {
+type os_disk = {
   caching : string prop;  (** caching *)
   disk_encryption_set_id : string prop option; [@option]
       (** disk_encryption_set_id *)
@@ -70,64 +68,60 @@ type azurerm_linux_virtual_machine__os_disk = {
   storage_account_type : string prop;  (** storage_account_type *)
   write_accelerator_enabled : bool prop option; [@option]
       (** write_accelerator_enabled *)
-  diff_disk_settings :
-    azurerm_linux_virtual_machine__os_disk__diff_disk_settings list;
+  diff_disk_settings : os_disk__diff_disk_settings list;
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__os_disk *)
+(** os_disk *)
 
-type azurerm_linux_virtual_machine__os_image_notification = {
+type os_image_notification = {
   timeout : string prop option; [@option]  (** timeout *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__os_image_notification *)
+(** os_image_notification *)
 
-type azurerm_linux_virtual_machine__plan = {
+type plan = {
   name : string prop;  (** name *)
   product : string prop;  (** product *)
   publisher : string prop;  (** publisher *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__plan *)
+(** plan *)
 
-type azurerm_linux_virtual_machine__secret__certificate = {
-  url : string prop;  (** url *)
-}
+type secret__certificate = { url : string prop  (** url *) }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__secret__certificate *)
+(** secret__certificate *)
 
-type azurerm_linux_virtual_machine__secret = {
+type secret = {
   key_vault_id : string prop;  (** key_vault_id *)
-  certificate :
-    azurerm_linux_virtual_machine__secret__certificate list;
+  certificate : secret__certificate list;
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__secret *)
+(** secret *)
 
-type azurerm_linux_virtual_machine__source_image_reference = {
+type source_image_reference = {
   offer : string prop;  (** offer *)
   publisher : string prop;  (** publisher *)
   sku : string prop;  (** sku *)
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__source_image_reference *)
+(** source_image_reference *)
 
-type azurerm_linux_virtual_machine__termination_notification = {
+type termination_notification = {
   enabled : bool prop;  (** enabled *)
   timeout : string prop option; [@option]  (** timeout *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__termination_notification *)
+(** termination_notification *)
 
-type azurerm_linux_virtual_machine__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_linux_virtual_machine__timeouts *)
+(** timeouts *)
 
 type azurerm_linux_virtual_machine = {
   admin_password : string prop option; [@option]
@@ -193,27 +187,162 @@ type azurerm_linux_virtual_machine = {
       (** vm_agent_platform_updates_enabled *)
   vtpm_enabled : bool prop option; [@option]  (** vtpm_enabled *)
   zone : string prop option; [@option]  (** zone *)
-  additional_capabilities :
-    azurerm_linux_virtual_machine__additional_capabilities list;
-  admin_ssh_key : azurerm_linux_virtual_machine__admin_ssh_key list;
-  boot_diagnostics :
-    azurerm_linux_virtual_machine__boot_diagnostics list;
-  gallery_application :
-    azurerm_linux_virtual_machine__gallery_application list;
-  identity : azurerm_linux_virtual_machine__identity list;
-  os_disk : azurerm_linux_virtual_machine__os_disk list;
-  os_image_notification :
-    azurerm_linux_virtual_machine__os_image_notification list;
-  plan : azurerm_linux_virtual_machine__plan list;
-  secret : azurerm_linux_virtual_machine__secret list;
-  source_image_reference :
-    azurerm_linux_virtual_machine__source_image_reference list;
-  termination_notification :
-    azurerm_linux_virtual_machine__termination_notification list;
-  timeouts : azurerm_linux_virtual_machine__timeouts option;
+  additional_capabilities : additional_capabilities list;
+  admin_ssh_key : admin_ssh_key list;
+  boot_diagnostics : boot_diagnostics list;
+  gallery_application : gallery_application list;
+  identity : identity list;
+  os_disk : os_disk list;
+  os_image_notification : os_image_notification list;
+  plan : plan list;
+  secret : secret list;
+  source_image_reference : source_image_reference list;
+  termination_notification : termination_notification list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine *)
+
+let additional_capabilities ?ultra_ssd_enabled () :
+    additional_capabilities =
+  { ultra_ssd_enabled }
+
+let admin_ssh_key ~public_key ~username () : admin_ssh_key =
+  { public_key; username }
+
+let boot_diagnostics ?storage_account_uri () : boot_diagnostics =
+  { storage_account_uri }
+
+let gallery_application ?automatic_upgrade_enabled
+    ?configuration_blob_uri ?order ?tag
+    ?treat_failure_as_deployment_failure_enabled ~version_id () :
+    gallery_application =
+  {
+    automatic_upgrade_enabled;
+    configuration_blob_uri;
+    order;
+    tag;
+    treat_failure_as_deployment_failure_enabled;
+    version_id;
+  }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let os_disk__diff_disk_settings ?placement ~option_ () :
+    os_disk__diff_disk_settings =
+  { option_; placement }
+
+let os_disk ?disk_encryption_set_id ?disk_size_gb ?name
+    ?secure_vm_disk_encryption_set_id ?security_encryption_type
+    ?write_accelerator_enabled ~caching ~storage_account_type
+    ~diff_disk_settings () : os_disk =
+  {
+    caching;
+    disk_encryption_set_id;
+    disk_size_gb;
+    name;
+    secure_vm_disk_encryption_set_id;
+    security_encryption_type;
+    storage_account_type;
+    write_accelerator_enabled;
+    diff_disk_settings;
+  }
+
+let os_image_notification ?timeout () : os_image_notification =
+  { timeout }
+
+let plan ~name ~product ~publisher () : plan =
+  { name; product; publisher }
+
+let secret__certificate ~url () : secret__certificate = { url }
+
+let secret ~key_vault_id ~certificate () : secret =
+  { key_vault_id; certificate }
+
+let source_image_reference ~offer ~publisher ~sku ~version () :
+    source_image_reference =
+  { offer; publisher; sku; version }
+
+let termination_notification ?timeout ~enabled () :
+    termination_notification =
+  { enabled; timeout }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_linux_virtual_machine ?admin_password
+    ?allow_extension_operations ?availability_set_id
+    ?bypass_platform_safety_checks_on_user_schedule_enabled
+    ?capacity_reservation_group_id ?computer_name ?custom_data
+    ?dedicated_host_group_id ?dedicated_host_id
+    ?disable_password_authentication ?disk_controller_type ?edge_zone
+    ?encryption_at_host_enabled ?eviction_policy
+    ?extensions_time_budget ?id ?license_type ?max_bid_price
+    ?patch_assessment_mode ?patch_mode ?platform_fault_domain
+    ?priority ?provision_vm_agent ?proximity_placement_group_id
+    ?reboot_setting ?secure_boot_enabled ?source_image_id ?tags
+    ?user_data ?virtual_machine_scale_set_id
+    ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone ?timeouts
+    ~admin_username ~location ~name ~network_interface_ids
+    ~resource_group_name ~size ~additional_capabilities
+    ~admin_ssh_key ~boot_diagnostics ~gallery_application ~identity
+    ~os_disk ~os_image_notification ~plan ~secret
+    ~source_image_reference ~termination_notification () :
+    azurerm_linux_virtual_machine =
+  {
+    admin_password;
+    admin_username;
+    allow_extension_operations;
+    availability_set_id;
+    bypass_platform_safety_checks_on_user_schedule_enabled;
+    capacity_reservation_group_id;
+    computer_name;
+    custom_data;
+    dedicated_host_group_id;
+    dedicated_host_id;
+    disable_password_authentication;
+    disk_controller_type;
+    edge_zone;
+    encryption_at_host_enabled;
+    eviction_policy;
+    extensions_time_budget;
+    id;
+    license_type;
+    location;
+    max_bid_price;
+    name;
+    network_interface_ids;
+    patch_assessment_mode;
+    patch_mode;
+    platform_fault_domain;
+    priority;
+    provision_vm_agent;
+    proximity_placement_group_id;
+    reboot_setting;
+    resource_group_name;
+    secure_boot_enabled;
+    size;
+    source_image_id;
+    tags;
+    user_data;
+    virtual_machine_scale_set_id;
+    vm_agent_platform_updates_enabled;
+    vtpm_enabled;
+    zone;
+    additional_capabilities;
+    admin_ssh_key;
+    boot_diagnostics;
+    gallery_application;
+    identity;
+    os_disk;
+    os_image_notification;
+    plan;
+    secret;
+    source_image_reference;
+    termination_notification;
+    timeouts;
+  }
 
 type t = {
   admin_password : string prop;
@@ -262,8 +391,8 @@ type t = {
   zone : string prop;
 }
 
-let azurerm_linux_virtual_machine ?admin_password
-    ?allow_extension_operations ?availability_set_id
+let register ?tf_module ?admin_password ?allow_extension_operations
+    ?availability_set_id
     ?bypass_platform_safety_checks_on_user_schedule_enabled
     ?capacity_reservation_group_id ?computer_name ?custom_data
     ?dedicated_host_group_id ?dedicated_host_id
@@ -282,62 +411,27 @@ let azurerm_linux_virtual_machine ?admin_password
     ~source_image_reference ~termination_notification __resource_id =
   let __resource_type = "azurerm_linux_virtual_machine" in
   let __resource =
-    ({
-       admin_password;
-       admin_username;
-       allow_extension_operations;
-       availability_set_id;
-       bypass_platform_safety_checks_on_user_schedule_enabled;
-       capacity_reservation_group_id;
-       computer_name;
-       custom_data;
-       dedicated_host_group_id;
-       dedicated_host_id;
-       disable_password_authentication;
-       disk_controller_type;
-       edge_zone;
-       encryption_at_host_enabled;
-       eviction_policy;
-       extensions_time_budget;
-       id;
-       license_type;
-       location;
-       max_bid_price;
-       name;
-       network_interface_ids;
-       patch_assessment_mode;
-       patch_mode;
-       platform_fault_domain;
-       priority;
-       provision_vm_agent;
-       proximity_placement_group_id;
-       reboot_setting;
-       resource_group_name;
-       secure_boot_enabled;
-       size;
-       source_image_id;
-       tags;
-       user_data;
-       virtual_machine_scale_set_id;
-       vm_agent_platform_updates_enabled;
-       vtpm_enabled;
-       zone;
-       additional_capabilities;
-       admin_ssh_key;
-       boot_diagnostics;
-       gallery_application;
-       identity;
-       os_disk;
-       os_image_notification;
-       plan;
-       secret;
-       source_image_reference;
-       termination_notification;
-       timeouts;
-     }
-      : azurerm_linux_virtual_machine)
+    azurerm_linux_virtual_machine ?admin_password
+      ?allow_extension_operations ?availability_set_id
+      ?bypass_platform_safety_checks_on_user_schedule_enabled
+      ?capacity_reservation_group_id ?computer_name ?custom_data
+      ?dedicated_host_group_id ?dedicated_host_id
+      ?disable_password_authentication ?disk_controller_type
+      ?edge_zone ?encryption_at_host_enabled ?eviction_policy
+      ?extensions_time_budget ?id ?license_type ?max_bid_price
+      ?patch_assessment_mode ?patch_mode ?platform_fault_domain
+      ?priority ?provision_vm_agent ?proximity_placement_group_id
+      ?reboot_setting ?secure_boot_enabled ?source_image_id ?tags
+      ?user_data ?virtual_machine_scale_set_id
+      ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
+      ?timeouts ~admin_username ~location ~name
+      ~network_interface_ids ~resource_group_name ~size
+      ~additional_capabilities ~admin_ssh_key ~boot_diagnostics
+      ~gallery_application ~identity ~os_disk ~os_image_notification
+      ~plan ~secret ~source_image_reference ~termination_notification
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_linux_virtual_machine __resource);
   let __resource_attributes =
     ({

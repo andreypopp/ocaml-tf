@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type google_tags_tag_value_iam_binding__condition
+(** RESOURCE SERIALIZATION *)
+
+type condition
+
+val condition :
+  ?description:string prop ->
+  expression:string prop ->
+  title:string prop ->
+  unit ->
+  condition
+
 type google_tags_tag_value_iam_binding
+
+val google_tags_tag_value_iam_binding :
+  ?id:string prop ->
+  members:string prop list ->
+  role:string prop ->
+  tag_value:string prop ->
+  condition:condition list ->
+  unit ->
+  google_tags_tag_value_iam_binding
+
+val yojson_of_google_tags_tag_value_iam_binding :
+  google_tags_tag_value_iam_binding -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -13,11 +37,12 @@ type t = private {
   tag_value : string prop;
 }
 
-val google_tags_tag_value_iam_binding :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   members:string prop list ->
   role:string prop ->
   tag_value:string prop ->
-  condition:google_tags_tag_value_iam_binding__condition list ->
+  condition:condition list ->
   string ->
   t

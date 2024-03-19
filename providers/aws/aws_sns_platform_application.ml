@@ -33,6 +33,31 @@ type aws_sns_platform_application = {
 [@@deriving yojson_of]
 (** aws_sns_platform_application *)
 
+let aws_sns_platform_application ?apple_platform_bundle_id
+    ?apple_platform_team_id ?event_delivery_failure_topic_arn
+    ?event_endpoint_created_topic_arn
+    ?event_endpoint_deleted_topic_arn
+    ?event_endpoint_updated_topic_arn ?failure_feedback_role_arn ?id
+    ?platform_principal ?success_feedback_role_arn
+    ?success_feedback_sample_rate ~name ~platform
+    ~platform_credential () : aws_sns_platform_application =
+  {
+    apple_platform_bundle_id;
+    apple_platform_team_id;
+    event_delivery_failure_topic_arn;
+    event_endpoint_created_topic_arn;
+    event_endpoint_deleted_topic_arn;
+    event_endpoint_updated_topic_arn;
+    failure_feedback_role_arn;
+    id;
+    name;
+    platform;
+    platform_credential;
+    platform_principal;
+    success_feedback_role_arn;
+    success_feedback_sample_rate;
+  }
+
 type t = {
   apple_platform_bundle_id : string prop;
   apple_platform_team_id : string prop;
@@ -51,7 +76,7 @@ type t = {
   success_feedback_sample_rate : string prop;
 }
 
-let aws_sns_platform_application ?apple_platform_bundle_id
+let register ?tf_module ?apple_platform_bundle_id
     ?apple_platform_team_id ?event_delivery_failure_topic_arn
     ?event_endpoint_created_topic_arn
     ?event_endpoint_deleted_topic_arn
@@ -61,25 +86,16 @@ let aws_sns_platform_application ?apple_platform_bundle_id
     ~platform_credential __resource_id =
   let __resource_type = "aws_sns_platform_application" in
   let __resource =
-    ({
-       apple_platform_bundle_id;
-       apple_platform_team_id;
-       event_delivery_failure_topic_arn;
-       event_endpoint_created_topic_arn;
-       event_endpoint_deleted_topic_arn;
-       event_endpoint_updated_topic_arn;
-       failure_feedback_role_arn;
-       id;
-       name;
-       platform;
-       platform_credential;
-       platform_principal;
-       success_feedback_role_arn;
-       success_feedback_sample_rate;
-     }
-      : aws_sns_platform_application)
+    aws_sns_platform_application ?apple_platform_bundle_id
+      ?apple_platform_team_id ?event_delivery_failure_topic_arn
+      ?event_endpoint_created_topic_arn
+      ?event_endpoint_deleted_topic_arn
+      ?event_endpoint_updated_topic_arn ?failure_feedback_role_arn
+      ?id ?platform_principal ?success_feedback_role_arn
+      ?success_feedback_sample_rate ~name ~platform
+      ~platform_credential ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sns_platform_application __resource);
   let __resource_attributes =
     ({

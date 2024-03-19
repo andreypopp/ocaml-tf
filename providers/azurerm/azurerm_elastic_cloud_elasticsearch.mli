@@ -2,10 +2,57 @@
 
 open! Tf.Prelude
 
-type azurerm_elastic_cloud_elasticsearch__logs__filtering_tag
-type azurerm_elastic_cloud_elasticsearch__logs
-type azurerm_elastic_cloud_elasticsearch__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type logs__filtering_tag
+
+val logs__filtering_tag :
+  action:string prop ->
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  logs__filtering_tag
+
+type logs
+
+val logs :
+  ?send_activity_logs:bool prop ->
+  ?send_azuread_logs:bool prop ->
+  ?send_subscription_logs:bool prop ->
+  filtering_tag:logs__filtering_tag list ->
+  unit ->
+  logs
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_elastic_cloud_elasticsearch
+
+val azurerm_elastic_cloud_elasticsearch :
+  ?id:string prop ->
+  ?monitoring_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  elastic_cloud_email_address:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  logs:logs list ->
+  unit ->
+  azurerm_elastic_cloud_elasticsearch
+
+val yojson_of_azurerm_elastic_cloud_elasticsearch :
+  azurerm_elastic_cloud_elasticsearch -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   elastic_cloud_deployment_id : string prop;
@@ -24,16 +71,17 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_elastic_cloud_elasticsearch :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_elastic_cloud_elasticsearch__timeouts ->
+  ?timeouts:timeouts ->
   elastic_cloud_email_address:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  logs:azurerm_elastic_cloud_elasticsearch__logs list ->
+  logs:logs list ->
   string ->
   t

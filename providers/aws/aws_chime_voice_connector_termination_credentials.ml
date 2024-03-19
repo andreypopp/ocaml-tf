@@ -4,35 +4,41 @@
 
 open! Tf.Prelude
 
-type aws_chime_voice_connector_termination_credentials__credentials = {
+type credentials = {
   password : string prop;  (** password *)
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** aws_chime_voice_connector_termination_credentials__credentials *)
+(** credentials *)
 
 type aws_chime_voice_connector_termination_credentials = {
   id : string prop option; [@option]  (** id *)
   voice_connector_id : string prop;  (** voice_connector_id *)
-  credentials :
-    aws_chime_voice_connector_termination_credentials__credentials
-    list;
+  credentials : credentials list;
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_termination_credentials *)
 
-type t = { id : string prop; voice_connector_id : string prop }
+let credentials ~password ~username () : credentials =
+  { password; username }
 
 let aws_chime_voice_connector_termination_credentials ?id
-    ~voice_connector_id ~credentials __resource_id =
+    ~voice_connector_id ~credentials () :
+    aws_chime_voice_connector_termination_credentials =
+  { id; voice_connector_id; credentials }
+
+type t = { id : string prop; voice_connector_id : string prop }
+
+let register ?tf_module ?id ~voice_connector_id ~credentials
+    __resource_id =
   let __resource_type =
     "aws_chime_voice_connector_termination_credentials"
   in
   let __resource =
-    ({ id; voice_connector_id; credentials }
-      : aws_chime_voice_connector_termination_credentials)
+    aws_chime_voice_connector_termination_credentials ?id
+      ~voice_connector_id ~credentials ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chime_voice_connector_termination_credentials
        __resource);
   let __resource_attributes =

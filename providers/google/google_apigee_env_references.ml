@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_apigee_env_references__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_apigee_env_references__timeouts *)
+(** timeouts *)
 
 type google_apigee_env_references = {
   description : string prop option; [@option]
@@ -24,10 +24,16 @@ in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
       (** Required. The id of the resource to which this reference refers. Must be the id of a resource that exists in the parent environment and is of the given resourceType. *)
   resource_type : string prop;
       (** The type of resource referred to by this reference. Valid values are 'KeyStore' or 'TrustStore'. *)
-  timeouts : google_apigee_env_references__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_env_references *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_apigee_env_references ?description ?id ?timeouts ~env_id
+    ~name ~refers ~resource_type () : google_apigee_env_references =
+  { description; env_id; id; name; refers; resource_type; timeouts }
 
 type t = {
   description : string prop;
@@ -38,22 +44,14 @@ type t = {
   resource_type : string prop;
 }
 
-let google_apigee_env_references ?description ?id ?timeouts ~env_id
-    ~name ~refers ~resource_type __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~env_id ~name
+    ~refers ~resource_type __resource_id =
   let __resource_type = "google_apigee_env_references" in
   let __resource =
-    ({
-       description;
-       env_id;
-       id;
-       name;
-       refers;
-       resource_type;
-       timeouts;
-     }
-      : google_apigee_env_references)
+    google_apigee_env_references ?description ?id ?timeouts ~env_id
+      ~name ~refers ~resource_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_env_references __resource);
   let __resource_attributes =
     ({

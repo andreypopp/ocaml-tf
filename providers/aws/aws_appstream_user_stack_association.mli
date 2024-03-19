@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_appstream_user_stack_association
+
+val aws_appstream_user_stack_association :
+  ?id:string prop ->
+  ?send_email_notification:bool prop ->
+  authentication_type:string prop ->
+  stack_name:string prop ->
+  user_name:string prop ->
+  unit ->
+  aws_appstream_user_stack_association
+
+val yojson_of_aws_appstream_user_stack_association :
+  aws_appstream_user_stack_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   authentication_type : string prop;
@@ -12,7 +28,8 @@ type t = private {
   user_name : string prop;
 }
 
-val aws_appstream_user_stack_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?send_email_notification:bool prop ->
   authentication_type:string prop ->

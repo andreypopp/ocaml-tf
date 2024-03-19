@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_integration_connectors_connection__auth_config__additional_variable__encryption_key_value = {
+type auth_config__additional_variable__encryption_key_value = {
   kms_key_name : string prop option; [@option]
       (** The [KMS key name] with which the content of the Operation is encrypted. The expected
 format: projects/*/locations/*/keyRings/*/cryptoKeys/*.
@@ -15,14 +15,14 @@ Will be empty string if google managed. *)
 [@@deriving yojson_of]
 (** Encription key value of configVariable. *)
 
-type google_integration_connectors_connection__auth_config__additional_variable__secret_value = {
+type auth_config__additional_variable__secret_value = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Secret value of configVariable. *)
 
-type google_integration_connectors_connection__auth_config__additional_variable = {
+type auth_config__additional_variable = {
   boolean_value : bool prop option; [@option]
       (** Boolean Value of configVariable. *)
   integer_value : float prop option; [@option]
@@ -31,16 +31,13 @@ type google_integration_connectors_connection__auth_config__additional_variable 
   string_value : string prop option; [@option]
       (** String Value of configVariabley. *)
   encryption_key_value :
-    google_integration_connectors_connection__auth_config__additional_variable__encryption_key_value
-    list;
-  secret_value :
-    google_integration_connectors_connection__auth_config__additional_variable__secret_value
-    list;
+    auth_config__additional_variable__encryption_key_value list;
+  secret_value : auth_config__additional_variable__secret_value list;
 }
 [@@deriving yojson_of]
 (** List containing additional auth configs. *)
 
-type google_integration_connectors_connection__auth_config__oauth2_auth_code_flow__client_secret = {
+type auth_config__oauth2_auth_code_flow__client_secret = {
   secret_version : string prop;
       (** The resource name of the secret version in the format,
 format as: projects/*/secrets/*/versions/*. *)
@@ -48,7 +45,7 @@ format as: projects/*/secrets/*/versions/*. *)
 [@@deriving yojson_of]
 (** Client secret for user-provided OAuth app. *)
 
-type google_integration_connectors_connection__auth_config__oauth2_auth_code_flow = {
+type auth_config__oauth2_auth_code_flow = {
   auth_uri : string prop option; [@option]
       (** Auth URL for Authorization Code Flow. *)
   client_id : string prop option; [@option]
@@ -58,13 +55,12 @@ type google_integration_connectors_connection__auth_config__oauth2_auth_code_flo
   scopes : string prop list option; [@option]
       (** Scopes the connection will request when the user performs the auth code flow. *)
   client_secret :
-    google_integration_connectors_connection__auth_config__oauth2_auth_code_flow__client_secret
-    list;
+    auth_config__oauth2_auth_code_flow__client_secret list;
 }
 [@@deriving yojson_of]
 (** Parameters to support Oauth 2.0 Auth Code Grant Authentication. *)
 
-type google_integration_connectors_connection__auth_config__oauth2_client_credentials__client_secret = {
+type auth_config__oauth2_client_credentials__client_secret = {
   secret_version : string prop;
       (** The resource name of the secret version in the format,
 format as: projects/*/secrets/*/versions/*. *)
@@ -72,17 +68,16 @@ format as: projects/*/secrets/*/versions/*. *)
 [@@deriving yojson_of]
 (** Secret version reference containing the client secret. *)
 
-type google_integration_connectors_connection__auth_config__oauth2_client_credentials = {
+type auth_config__oauth2_client_credentials = {
   client_id : string prop;
       (** Secret version of Password for Authentication. *)
   client_secret :
-    google_integration_connectors_connection__auth_config__oauth2_client_credentials__client_secret
-    list;
+    auth_config__oauth2_client_credentials__client_secret list;
 }
 [@@deriving yojson_of]
 (** OAuth3 Client Credentials for Authentication. *)
 
-type google_integration_connectors_connection__auth_config__oauth2_jwt_bearer__client_key = {
+type auth_config__oauth2_jwt_bearer__client_key = {
   secret_version : string prop;
       (** The resource name of the secret version in the format,
 format as: projects/*/secrets/*/versions/*. *)
@@ -92,7 +87,7 @@ format as: projects/*/secrets/*/versions/*. *)
 This private key will be used to sign JWTs used for the jwt-bearer authorization grant.
 Specified in the form as: projects/*/secrets/*/versions/*. *)
 
-type google_integration_connectors_connection__auth_config__oauth2_jwt_bearer__jwt_claims = {
+type auth_config__oauth2_jwt_bearer__jwt_claims = {
   audience : string prop option; [@option]
       (** Value for the aud claim. *)
   issuer : string prop option; [@option]
@@ -103,18 +98,14 @@ type google_integration_connectors_connection__auth_config__oauth2_jwt_bearer__j
 [@@deriving yojson_of]
 (** JwtClaims providers fields to generate the token. *)
 
-type google_integration_connectors_connection__auth_config__oauth2_jwt_bearer = {
-  client_key :
-    google_integration_connectors_connection__auth_config__oauth2_jwt_bearer__client_key
-    list;
-  jwt_claims :
-    google_integration_connectors_connection__auth_config__oauth2_jwt_bearer__jwt_claims
-    list;
+type auth_config__oauth2_jwt_bearer = {
+  client_key : auth_config__oauth2_jwt_bearer__client_key list;
+  jwt_claims : auth_config__oauth2_jwt_bearer__jwt_claims list;
 }
 [@@deriving yojson_of]
 (** OAuth2 JWT Bearer for Authentication. *)
 
-type google_integration_connectors_connection__auth_config__ssh_public_key__ssh_client_cert = {
+type auth_config__ssh_public_key__ssh_client_cert = {
   secret_version : string prop;
       (** The resource name of the secret version in the format,
 format as: projects/*/secrets/*/versions/*. *)
@@ -122,7 +113,7 @@ format as: projects/*/secrets/*/versions/*. *)
 [@@deriving yojson_of]
 (** SSH Client Cert. It should contain both public and private key. *)
 
-type google_integration_connectors_connection__auth_config__ssh_public_key__ssh_client_cert_pass = {
+type auth_config__ssh_public_key__ssh_client_cert_pass = {
   secret_version : string prop;
       (** The resource name of the secret version in the format,
 format as: projects/*/secrets/*/versions/*. *)
@@ -130,22 +121,20 @@ format as: projects/*/secrets/*/versions/*. *)
 [@@deriving yojson_of]
 (** Password (passphrase) for ssh client certificate if it has one. *)
 
-type google_integration_connectors_connection__auth_config__ssh_public_key = {
+type auth_config__ssh_public_key = {
   cert_type : string prop option; [@option]
       (** Format of SSH Client cert. *)
   username : string prop;
       (** The user account used to authenticate. *)
   ssh_client_cert :
-    google_integration_connectors_connection__auth_config__ssh_public_key__ssh_client_cert
-    list;
+    auth_config__ssh_public_key__ssh_client_cert list;
   ssh_client_cert_pass :
-    google_integration_connectors_connection__auth_config__ssh_public_key__ssh_client_cert_pass
-    list;
+    auth_config__ssh_public_key__ssh_client_cert_pass list;
 }
 [@@deriving yojson_of]
 (** SSH Public Key for Authentication. *)
 
-type google_integration_connectors_connection__auth_config__user_password__password = {
+type auth_config__user_password__password = {
   secret_version : string prop;
       (** The resource name of the secret version in the format,
 format as: projects/*/secrets/*/versions/*. *)
@@ -153,43 +142,30 @@ format as: projects/*/secrets/*/versions/*. *)
 [@@deriving yojson_of]
 (** Password for Authentication. *)
 
-type google_integration_connectors_connection__auth_config__user_password = {
+type auth_config__user_password = {
   username : string prop;  (** Username for Authentication. *)
-  password :
-    google_integration_connectors_connection__auth_config__user_password__password
-    list;
+  password : auth_config__user_password__password list;
 }
 [@@deriving yojson_of]
 (** User password for Authentication. *)
 
-type google_integration_connectors_connection__auth_config = {
+type auth_config = {
   auth_key : string prop option; [@option]
       (** The type of authentication configured. *)
   auth_type : string prop;
       (** authType of the Connection Possible values: [USER_PASSWORD, OAUTH2_JWT_BEARER, OAUTH2_CLIENT_CREDENTIALS, SSH_PUBLIC_KEY, OAUTH2_AUTH_CODE_FLOW] *)
-  additional_variable :
-    google_integration_connectors_connection__auth_config__additional_variable
-    list;
-  oauth2_auth_code_flow :
-    google_integration_connectors_connection__auth_config__oauth2_auth_code_flow
-    list;
+  additional_variable : auth_config__additional_variable list;
+  oauth2_auth_code_flow : auth_config__oauth2_auth_code_flow list;
   oauth2_client_credentials :
-    google_integration_connectors_connection__auth_config__oauth2_client_credentials
-    list;
-  oauth2_jwt_bearer :
-    google_integration_connectors_connection__auth_config__oauth2_jwt_bearer
-    list;
-  ssh_public_key :
-    google_integration_connectors_connection__auth_config__ssh_public_key
-    list;
-  user_password :
-    google_integration_connectors_connection__auth_config__user_password
-    list;
+    auth_config__oauth2_client_credentials list;
+  oauth2_jwt_bearer : auth_config__oauth2_jwt_bearer list;
+  ssh_public_key : auth_config__ssh_public_key list;
+  user_password : auth_config__user_password list;
 }
 [@@deriving yojson_of]
 (** authConfig for the connection. *)
 
-type google_integration_connectors_connection__config_variable__encryption_key_value = {
+type config_variable__encryption_key_value = {
   kms_key_name : string prop option; [@option]
       (** The [KMS key name] with which the content of the Operation is encrypted. The expected
 format: projects/*/locations/*/keyRings/*/cryptoKeys/*.
@@ -200,14 +176,14 @@ Will be empty string if google managed. *)
 [@@deriving yojson_of]
 (** Encription key value of configVariable. *)
 
-type google_integration_connectors_connection__config_variable__secret_value = {
+type config_variable__secret_value = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Secret value of configVariable. *)
 
-type google_integration_connectors_connection__config_variable = {
+type config_variable = {
   boolean_value : bool prop option; [@option]
       (** Boolean Value of configVariable *)
   integer_value : float prop option; [@option]
@@ -215,17 +191,13 @@ type google_integration_connectors_connection__config_variable = {
   key : string prop;  (** Key for the configVariable *)
   string_value : string prop option; [@option]
       (** String Value of configVariabley *)
-  encryption_key_value :
-    google_integration_connectors_connection__config_variable__encryption_key_value
-    list;
-  secret_value :
-    google_integration_connectors_connection__config_variable__secret_value
-    list;
+  encryption_key_value : config_variable__encryption_key_value list;
+  secret_value : config_variable__secret_value list;
 }
 [@@deriving yojson_of]
 (** Config Variables for the connection. *)
 
-type google_integration_connectors_connection__destination_config__destination = {
+type destination_config__destination = {
   host : string prop option; [@option]
       (** For publicly routable host. *)
   port : float prop option; [@option]
@@ -236,17 +208,15 @@ type google_integration_connectors_connection__destination_config__destination =
 [@@deriving yojson_of]
 (** The destinations for the key. *)
 
-type google_integration_connectors_connection__destination_config = {
+type destination_config = {
   key : string prop;
       (** The key is the destination identifier that is supported by the Connector. *)
-  destination :
-    google_integration_connectors_connection__destination_config__destination
-    list;
+  destination : destination_config__destination list;
 }
 [@@deriving yojson_of]
 (** Define the Connectors target endpoint. *)
 
-type google_integration_connectors_connection__eventing_config__additional_variable__encryption_key_value = {
+type eventing_config__additional_variable__encryption_key_value = {
   kms_key_name : string prop option; [@option]
       (** The [KMS key name] with which the content of the Operation is encrypted. The expected
 format: projects/*/locations/*/keyRings/*/cryptoKeys/*.
@@ -257,14 +227,14 @@ Will be empty string if google managed. *)
 [@@deriving yojson_of]
 (** Encription key value of configVariable. *)
 
-type google_integration_connectors_connection__eventing_config__additional_variable__secret_value = {
+type eventing_config__additional_variable__secret_value = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Secret value of configVariable *)
 
-type google_integration_connectors_connection__eventing_config__additional_variable = {
+type eventing_config__additional_variable = {
   boolean_value : bool prop option; [@option]
       (** Boolean Value of configVariable. *)
   integer_value : float prop option; [@option]
@@ -273,16 +243,14 @@ type google_integration_connectors_connection__eventing_config__additional_varia
   string_value : string prop option; [@option]
       (** String Value of configVariabley. *)
   encryption_key_value :
-    google_integration_connectors_connection__eventing_config__additional_variable__encryption_key_value
-    list;
+    eventing_config__additional_variable__encryption_key_value list;
   secret_value :
-    google_integration_connectors_connection__eventing_config__additional_variable__secret_value
-    list;
+    eventing_config__additional_variable__secret_value list;
 }
 [@@deriving yojson_of]
 (** List containing additional auth configs. *)
 
-type google_integration_connectors_connection__eventing_config__auth_config__additional_variable__encryption_key_value = {
+type eventing_config__auth_config__additional_variable__encryption_key_value = {
   kms_key_name : string prop option; [@option]
       (** The [KMS key name] with which the content of the Operation is encrypted. The expected
 format: projects/*/locations/*/keyRings/*/cryptoKeys/*.
@@ -293,14 +261,14 @@ Will be empty string if google managed. *)
 [@@deriving yojson_of]
 (** Encription key value of configVariable *)
 
-type google_integration_connectors_connection__eventing_config__auth_config__additional_variable__secret_value = {
+type eventing_config__auth_config__additional_variable__secret_value = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Secret value of configVariable *)
 
-type google_integration_connectors_connection__eventing_config__auth_config__additional_variable = {
+type eventing_config__auth_config__additional_variable = {
   boolean_value : bool prop option; [@option]
       (** Boolean Value of configVariable. *)
   integer_value : float prop option; [@option]
@@ -309,16 +277,16 @@ type google_integration_connectors_connection__eventing_config__auth_config__add
   string_value : string prop option; [@option]
       (** String Value of configVariabley. *)
   encryption_key_value :
-    google_integration_connectors_connection__eventing_config__auth_config__additional_variable__encryption_key_value
+    eventing_config__auth_config__additional_variable__encryption_key_value
     list;
   secret_value :
-    google_integration_connectors_connection__eventing_config__auth_config__additional_variable__secret_value
+    eventing_config__auth_config__additional_variable__secret_value
     list;
 }
 [@@deriving yojson_of]
 (** List containing additional auth configs. *)
 
-type google_integration_connectors_connection__eventing_config__auth_config__user_password__password = {
+type eventing_config__auth_config__user_password__password = {
   secret_version : string prop;
       (** The resource name of the secret version in the format,
 format as: projects/*/secrets/*/versions/*. *)
@@ -326,32 +294,28 @@ format as: projects/*/secrets/*/versions/*. *)
 [@@deriving yojson_of]
 (** Password for Authentication. *)
 
-type google_integration_connectors_connection__eventing_config__auth_config__user_password = {
+type eventing_config__auth_config__user_password = {
   username : string prop option; [@option]
       (** Username for Authentication. *)
   password :
-    google_integration_connectors_connection__eventing_config__auth_config__user_password__password
-    list;
+    eventing_config__auth_config__user_password__password list;
 }
 [@@deriving yojson_of]
 (** User password for Authentication. *)
 
-type google_integration_connectors_connection__eventing_config__auth_config = {
+type eventing_config__auth_config = {
   auth_key : string prop option; [@option]
       (** The type of authentication configured. *)
   auth_type : string prop;
       (** authType of the Connection Possible values: [USER_PASSWORD] *)
   additional_variable :
-    google_integration_connectors_connection__eventing_config__auth_config__additional_variable
-    list;
-  user_password :
-    google_integration_connectors_connection__eventing_config__auth_config__user_password
-    list;
+    eventing_config__auth_config__additional_variable list;
+  user_password : eventing_config__auth_config__user_password list;
 }
 [@@deriving yojson_of]
 (** authConfig for Eventing Configuration. *)
 
-type google_integration_connectors_connection__eventing_config__registration_destination_config__destination = {
+type eventing_config__registration_destination_config__destination = {
   host : string prop option; [@option]  (** Host *)
   port : float prop option; [@option]  (** port number *)
   service_attachment : string prop option; [@option]
@@ -360,32 +324,27 @@ type google_integration_connectors_connection__eventing_config__registration_des
 [@@deriving yojson_of]
 (** destinations for the connection *)
 
-type google_integration_connectors_connection__eventing_config__registration_destination_config = {
+type eventing_config__registration_destination_config = {
   key : string prop option; [@option]  (** Key for the connection *)
   destination :
-    google_integration_connectors_connection__eventing_config__registration_destination_config__destination
+    eventing_config__registration_destination_config__destination
     list;
 }
 [@@deriving yojson_of]
 (** registrationDestinationConfig *)
 
-type google_integration_connectors_connection__eventing_config = {
+type eventing_config = {
   enrichment_enabled : bool prop option; [@option]
       (** Enrichment Enabled. *)
-  additional_variable :
-    google_integration_connectors_connection__eventing_config__additional_variable
-    list;
-  auth_config :
-    google_integration_connectors_connection__eventing_config__auth_config
-    list;
+  additional_variable : eventing_config__additional_variable list;
+  auth_config : eventing_config__auth_config list;
   registration_destination_config :
-    google_integration_connectors_connection__eventing_config__registration_destination_config
-    list;
+    eventing_config__registration_destination_config list;
 }
 [@@deriving yojson_of]
 (** Eventing Configuration of a connection *)
 
-type google_integration_connectors_connection__lock_config = {
+type lock_config = {
   locked : bool prop;
       (** Indicates whether or not the connection is locked. *)
   reason : string prop option; [@option]
@@ -394,14 +353,14 @@ type google_integration_connectors_connection__lock_config = {
 [@@deriving yojson_of]
 (** Determines whether or no a connection is locked. If locked, a reason must be specified. *)
 
-type google_integration_connectors_connection__log_config = {
+type log_config = {
   enabled : bool prop;
       (** Enabled represents whether logging is enabled or not for a connection. *)
 }
 [@@deriving yojson_of]
 (** Log configuration for the connection. *)
 
-type google_integration_connectors_connection__node_config = {
+type node_config = {
   max_node_count : float prop option; [@option]
       (** Minimum number of nodes in the runtime nodes. *)
   min_node_count : float prop option; [@option]
@@ -410,7 +369,7 @@ type google_integration_connectors_connection__node_config = {
 [@@deriving yojson_of]
 (** Node configuration for the connection. *)
 
-type google_integration_connectors_connection__ssl_config__additional_variable__encryption_key_value = {
+type ssl_config__additional_variable__encryption_key_value = {
   kms_key_name : string prop option; [@option]
       (** The [KMS key name] with which the content of the Operation is encrypted. The expected
 format: projects/*/locations/*/keyRings/*/cryptoKeys/*.
@@ -421,14 +380,14 @@ Will be empty string if google managed. *)
 [@@deriving yojson_of]
 (** Encription key value of configVariable *)
 
-type google_integration_connectors_connection__ssl_config__additional_variable__secret_value = {
+type ssl_config__additional_variable__secret_value = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Secret value of configVariable *)
 
-type google_integration_connectors_connection__ssl_config__additional_variable = {
+type ssl_config__additional_variable = {
   boolean_value : bool prop option; [@option]
       (** Boolean Value of configVariable. *)
   integer_value : float prop option; [@option]
@@ -437,44 +396,41 @@ type google_integration_connectors_connection__ssl_config__additional_variable =
   string_value : string prop option; [@option]
       (** String Value of configVariabley. *)
   encryption_key_value :
-    google_integration_connectors_connection__ssl_config__additional_variable__encryption_key_value
-    list;
-  secret_value :
-    google_integration_connectors_connection__ssl_config__additional_variable__secret_value
-    list;
+    ssl_config__additional_variable__encryption_key_value list;
+  secret_value : ssl_config__additional_variable__secret_value list;
 }
 [@@deriving yojson_of]
 (** Additional SSL related field values. *)
 
-type google_integration_connectors_connection__ssl_config__client_certificate = {
+type ssl_config__client_certificate = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Client Certificate *)
 
-type google_integration_connectors_connection__ssl_config__client_private_key = {
+type ssl_config__client_private_key = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Client Private Key *)
 
-type google_integration_connectors_connection__ssl_config__client_private_key_pass = {
+type ssl_config__client_private_key_pass = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Secret containing the passphrase protecting the Client Private Key *)
 
-type google_integration_connectors_connection__ssl_config__private_server_certificate = {
+type ssl_config__private_server_certificate = {
   secret_version : string prop;
       (** Secret version of Secret Value for Config variable. *)
 }
 [@@deriving yojson_of]
 (** Private Server Certificate. Needs to be specified if trust model is PRIVATE. *)
 
-type google_integration_connectors_connection__ssl_config = {
+type ssl_config = {
   client_cert_type : string prop option; [@option]
       (** Type of Client Cert (PEM/JKS/.. etc.) Possible values: [PEM] *)
   server_cert_type : string prop option; [@option]
@@ -484,55 +440,43 @@ type google_integration_connectors_connection__ssl_config = {
   type_ : string prop; [@key "type"]
       (** Enum for controlling the SSL Type (TLS/MTLS) Possible values: [TLS, MTLS] *)
   use_ssl : bool prop option; [@option]  (** Bool for enabling SSL *)
-  additional_variable :
-    google_integration_connectors_connection__ssl_config__additional_variable
-    list;
-  client_certificate :
-    google_integration_connectors_connection__ssl_config__client_certificate
-    list;
-  client_private_key :
-    google_integration_connectors_connection__ssl_config__client_private_key
-    list;
-  client_private_key_pass :
-    google_integration_connectors_connection__ssl_config__client_private_key_pass
-    list;
+  additional_variable : ssl_config__additional_variable list;
+  client_certificate : ssl_config__client_certificate list;
+  client_private_key : ssl_config__client_private_key list;
+  client_private_key_pass : ssl_config__client_private_key_pass list;
   private_server_certificate :
-    google_integration_connectors_connection__ssl_config__private_server_certificate
-    list;
+    ssl_config__private_server_certificate list;
 }
 [@@deriving yojson_of]
 (** SSL Configuration of a connection *)
 
-type google_integration_connectors_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_integration_connectors_connection__timeouts *)
+(** timeouts *)
 
-type google_integration_connectors_connection__connector_version_infra_config = {
+type connector_version_infra_config = {
   ratelimit_threshold : string prop;  (** ratelimit_threshold *)
 }
 [@@deriving yojson_of]
 
-type google_integration_connectors_connection__eventing_runtime_data__status = {
+type eventing_runtime_data__status = {
   description : string prop;  (** description *)
   state : string prop;  (** state *)
 }
 [@@deriving yojson_of]
 
-type google_integration_connectors_connection__eventing_runtime_data = {
+type eventing_runtime_data = {
   events_listener_endpoint : string prop;
       (** events_listener_endpoint *)
-  status :
-    google_integration_connectors_connection__eventing_runtime_data__status
-    list;
-      (** status *)
+  status : eventing_runtime_data__status list;  (** status *)
 }
 [@@deriving yojson_of]
 
-type google_integration_connectors_connection__status = {
+type status = {
   description : string prop;  (** description *)
   state : string prop;  (** state *)
   status : string prop;  (** status *)
@@ -561,44 +505,313 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Service account needed for runtime plane to access Google Cloud resources. *)
   suspended : bool prop option; [@option]
       (** Suspended indicates if a user has suspended a connection or not. *)
-  auth_config :
-    google_integration_connectors_connection__auth_config list;
-  config_variable :
-    google_integration_connectors_connection__config_variable list;
-  destination_config :
-    google_integration_connectors_connection__destination_config list;
-  eventing_config :
-    google_integration_connectors_connection__eventing_config list;
-  lock_config :
-    google_integration_connectors_connection__lock_config list;
-  log_config :
-    google_integration_connectors_connection__log_config list;
-  node_config :
-    google_integration_connectors_connection__node_config list;
-  ssl_config :
-    google_integration_connectors_connection__ssl_config list;
-  timeouts :
-    google_integration_connectors_connection__timeouts option;
+  auth_config : auth_config list;
+  config_variable : config_variable list;
+  destination_config : destination_config list;
+  eventing_config : eventing_config list;
+  lock_config : lock_config list;
+  log_config : log_config list;
+  node_config : node_config list;
+  ssl_config : ssl_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_integration_connectors_connection *)
+
+let auth_config__additional_variable__encryption_key_value
+    ?kms_key_name ~type_ () :
+    auth_config__additional_variable__encryption_key_value =
+  { kms_key_name; type_ }
+
+let auth_config__additional_variable__secret_value ~secret_version ()
+    : auth_config__additional_variable__secret_value =
+  { secret_version }
+
+let auth_config__additional_variable ?boolean_value ?integer_value
+    ?string_value ~key ~encryption_key_value ~secret_value () :
+    auth_config__additional_variable =
+  {
+    boolean_value;
+    integer_value;
+    key;
+    string_value;
+    encryption_key_value;
+    secret_value;
+  }
+
+let auth_config__oauth2_auth_code_flow__client_secret ~secret_version
+    () : auth_config__oauth2_auth_code_flow__client_secret =
+  { secret_version }
+
+let auth_config__oauth2_auth_code_flow ?auth_uri ?client_id
+    ?enable_pkce ?scopes ~client_secret () :
+    auth_config__oauth2_auth_code_flow =
+  { auth_uri; client_id; enable_pkce; scopes; client_secret }
+
+let auth_config__oauth2_client_credentials__client_secret
+    ~secret_version () :
+    auth_config__oauth2_client_credentials__client_secret =
+  { secret_version }
+
+let auth_config__oauth2_client_credentials ~client_id ~client_secret
+    () : auth_config__oauth2_client_credentials =
+  { client_id; client_secret }
+
+let auth_config__oauth2_jwt_bearer__client_key ~secret_version () :
+    auth_config__oauth2_jwt_bearer__client_key =
+  { secret_version }
+
+let auth_config__oauth2_jwt_bearer__jwt_claims ?audience ?issuer
+    ?subject () : auth_config__oauth2_jwt_bearer__jwt_claims =
+  { audience; issuer; subject }
+
+let auth_config__oauth2_jwt_bearer ~client_key ~jwt_claims () :
+    auth_config__oauth2_jwt_bearer =
+  { client_key; jwt_claims }
+
+let auth_config__ssh_public_key__ssh_client_cert ~secret_version () :
+    auth_config__ssh_public_key__ssh_client_cert =
+  { secret_version }
+
+let auth_config__ssh_public_key__ssh_client_cert_pass ~secret_version
+    () : auth_config__ssh_public_key__ssh_client_cert_pass =
+  { secret_version }
+
+let auth_config__ssh_public_key ?cert_type ~username ~ssh_client_cert
+    ~ssh_client_cert_pass () : auth_config__ssh_public_key =
+  { cert_type; username; ssh_client_cert; ssh_client_cert_pass }
+
+let auth_config__user_password__password ~secret_version () :
+    auth_config__user_password__password =
+  { secret_version }
+
+let auth_config__user_password ~username ~password () :
+    auth_config__user_password =
+  { username; password }
+
+let auth_config ?auth_key ~auth_type ~additional_variable
+    ~oauth2_auth_code_flow ~oauth2_client_credentials
+    ~oauth2_jwt_bearer ~ssh_public_key ~user_password () :
+    auth_config =
+  {
+    auth_key;
+    auth_type;
+    additional_variable;
+    oauth2_auth_code_flow;
+    oauth2_client_credentials;
+    oauth2_jwt_bearer;
+    ssh_public_key;
+    user_password;
+  }
+
+let config_variable__encryption_key_value ?kms_key_name ~type_ () :
+    config_variable__encryption_key_value =
+  { kms_key_name; type_ }
+
+let config_variable__secret_value ~secret_version () :
+    config_variable__secret_value =
+  { secret_version }
+
+let config_variable ?boolean_value ?integer_value ?string_value ~key
+    ~encryption_key_value ~secret_value () : config_variable =
+  {
+    boolean_value;
+    integer_value;
+    key;
+    string_value;
+    encryption_key_value;
+    secret_value;
+  }
+
+let destination_config__destination ?host ?port ?service_attachment
+    () : destination_config__destination =
+  { host; port; service_attachment }
+
+let destination_config ~key ~destination () : destination_config =
+  { key; destination }
+
+let eventing_config__additional_variable__encryption_key_value
+    ?kms_key_name ?type_ () :
+    eventing_config__additional_variable__encryption_key_value =
+  { kms_key_name; type_ }
+
+let eventing_config__additional_variable__secret_value
+    ~secret_version () :
+    eventing_config__additional_variable__secret_value =
+  { secret_version }
+
+let eventing_config__additional_variable ?boolean_value
+    ?integer_value ?string_value ~key ~encryption_key_value
+    ~secret_value () : eventing_config__additional_variable =
+  {
+    boolean_value;
+    integer_value;
+    key;
+    string_value;
+    encryption_key_value;
+    secret_value;
+  }
+
+let eventing_config__auth_config__additional_variable__encryption_key_value
+    ?kms_key_name ?type_ () :
+    eventing_config__auth_config__additional_variable__encryption_key_value
+    =
+  { kms_key_name; type_ }
+
+let eventing_config__auth_config__additional_variable__secret_value
+    ~secret_version () :
+    eventing_config__auth_config__additional_variable__secret_value =
+  { secret_version }
+
+let eventing_config__auth_config__additional_variable ?boolean_value
+    ?integer_value ?string_value ~key ~encryption_key_value
+    ~secret_value () :
+    eventing_config__auth_config__additional_variable =
+  {
+    boolean_value;
+    integer_value;
+    key;
+    string_value;
+    encryption_key_value;
+    secret_value;
+  }
+
+let eventing_config__auth_config__user_password__password
+    ~secret_version () :
+    eventing_config__auth_config__user_password__password =
+  { secret_version }
+
+let eventing_config__auth_config__user_password ?username ~password
+    () : eventing_config__auth_config__user_password =
+  { username; password }
+
+let eventing_config__auth_config ?auth_key ~auth_type
+    ~additional_variable ~user_password () :
+    eventing_config__auth_config =
+  { auth_key; auth_type; additional_variable; user_password }
+
+let eventing_config__registration_destination_config__destination
+    ?host ?port ?service_attachment () :
+    eventing_config__registration_destination_config__destination =
+  { host; port; service_attachment }
+
+let eventing_config__registration_destination_config ?key
+    ~destination () :
+    eventing_config__registration_destination_config =
+  { key; destination }
+
+let eventing_config ?enrichment_enabled ~additional_variable
+    ~auth_config ~registration_destination_config () :
+    eventing_config =
+  {
+    enrichment_enabled;
+    additional_variable;
+    auth_config;
+    registration_destination_config;
+  }
+
+let lock_config ?reason ~locked () : lock_config = { locked; reason }
+let log_config ~enabled () : log_config = { enabled }
+
+let node_config ?max_node_count ?min_node_count () : node_config =
+  { max_node_count; min_node_count }
+
+let ssl_config__additional_variable__encryption_key_value
+    ?kms_key_name ?type_ () :
+    ssl_config__additional_variable__encryption_key_value =
+  { kms_key_name; type_ }
+
+let ssl_config__additional_variable__secret_value ~secret_version ()
+    : ssl_config__additional_variable__secret_value =
+  { secret_version }
+
+let ssl_config__additional_variable ?boolean_value ?integer_value
+    ?string_value ~key ~encryption_key_value ~secret_value () :
+    ssl_config__additional_variable =
+  {
+    boolean_value;
+    integer_value;
+    key;
+    string_value;
+    encryption_key_value;
+    secret_value;
+  }
+
+let ssl_config__client_certificate ~secret_version () :
+    ssl_config__client_certificate =
+  { secret_version }
+
+let ssl_config__client_private_key ~secret_version () :
+    ssl_config__client_private_key =
+  { secret_version }
+
+let ssl_config__client_private_key_pass ~secret_version () :
+    ssl_config__client_private_key_pass =
+  { secret_version }
+
+let ssl_config__private_server_certificate ~secret_version () :
+    ssl_config__private_server_certificate =
+  { secret_version }
+
+let ssl_config ?client_cert_type ?server_cert_type ?trust_model
+    ?use_ssl ~type_ ~additional_variable ~client_certificate
+    ~client_private_key ~client_private_key_pass
+    ~private_server_certificate () : ssl_config =
+  {
+    client_cert_type;
+    server_cert_type;
+    trust_model;
+    type_;
+    use_ssl;
+    additional_variable;
+    client_certificate;
+    client_private_key;
+    client_private_key_pass;
+    private_server_certificate;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_integration_connectors_connection ?description
+    ?eventing_enablement_type ?id ?labels ?project ?service_account
+    ?suspended ?timeouts ~connector_version ~location ~name
+    ~auth_config ~config_variable ~destination_config
+    ~eventing_config ~lock_config ~log_config ~node_config
+    ~ssl_config () : google_integration_connectors_connection =
+  {
+    connector_version;
+    description;
+    eventing_enablement_type;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    service_account;
+    suspended;
+    auth_config;
+    config_variable;
+    destination_config;
+    eventing_config;
+    lock_config;
+    log_config;
+    node_config;
+    ssl_config;
+    timeouts;
+  }
 
 type t = {
   connection_revision : string prop;
   connector_version : string prop;
   connector_version_infra_config :
-    google_integration_connectors_connection__connector_version_infra_config
-    list
-    prop;
+    connector_version_infra_config list prop;
   connector_version_launch_stage : string prop;
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
   eventing_enablement_type : string prop;
-  eventing_runtime_data :
-    google_integration_connectors_connection__eventing_runtime_data
-    list
-    prop;
+  eventing_runtime_data : eventing_runtime_data list prop;
   id : string prop;
   labels : (string * string) list prop;
   location : string prop;
@@ -606,46 +819,28 @@ type t = {
   project : string prop;
   service_account : string prop;
   service_directory : string prop;
-  status :
-    google_integration_connectors_connection__status list prop;
+  status : status list prop;
   subscription_type : string prop;
   suspended : bool prop;
   terraform_labels : (string * string) list prop;
   update_time : string prop;
 }
 
-let google_integration_connectors_connection ?description
-    ?eventing_enablement_type ?id ?labels ?project ?service_account
-    ?suspended ?timeouts ~connector_version ~location ~name
-    ~auth_config ~config_variable ~destination_config
-    ~eventing_config ~lock_config ~log_config ~node_config
-    ~ssl_config __resource_id =
+let register ?tf_module ?description ?eventing_enablement_type ?id
+    ?labels ?project ?service_account ?suspended ?timeouts
+    ~connector_version ~location ~name ~auth_config ~config_variable
+    ~destination_config ~eventing_config ~lock_config ~log_config
+    ~node_config ~ssl_config __resource_id =
   let __resource_type = "google_integration_connectors_connection" in
   let __resource =
-    ({
-       connector_version;
-       description;
-       eventing_enablement_type;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       service_account;
-       suspended;
-       auth_config;
-       config_variable;
-       destination_config;
-       eventing_config;
-       lock_config;
-       log_config;
-       node_config;
-       ssl_config;
-       timeouts;
-     }
-      : google_integration_connectors_connection)
+    google_integration_connectors_connection ?description
+      ?eventing_enablement_type ?id ?labels ?project ?service_account
+      ?suspended ?timeouts ~connector_version ~location ~name
+      ~auth_config ~config_variable ~destination_config
+      ~eventing_config ~lock_config ~log_config ~node_config
+      ~ssl_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_integration_connectors_connection __resource);
   let __resource_attributes =
     ({

@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_qldb_stream__kinesis_configuration = {
+type kinesis_configuration = {
   aggregation_enabled : bool prop option; [@option]
       (** aggregation_enabled *)
   stream_arn : string prop;  (** stream_arn *)
 }
 [@@deriving yojson_of]
-(** aws_qldb_stream__kinesis_configuration *)
+(** kinesis_configuration *)
 
-type aws_qldb_stream__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_qldb_stream__timeouts *)
+(** timeouts *)
 
 type aws_qldb_stream = {
   exclusive_end_time : string prop option; [@option]
@@ -30,12 +30,33 @@ type aws_qldb_stream = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  kinesis_configuration :
-    aws_qldb_stream__kinesis_configuration list;
-  timeouts : aws_qldb_stream__timeouts option;
+  kinesis_configuration : kinesis_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_qldb_stream *)
+
+let kinesis_configuration ?aggregation_enabled ~stream_arn () :
+    kinesis_configuration =
+  { aggregation_enabled; stream_arn }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_qldb_stream ?exclusive_end_time ?id ?tags ?tags_all ?timeouts
+    ~inclusive_start_time ~ledger_name ~role_arn ~stream_name
+    ~kinesis_configuration () : aws_qldb_stream =
+  {
+    exclusive_end_time;
+    id;
+    inclusive_start_time;
+    ledger_name;
+    role_arn;
+    stream_name;
+    tags;
+    tags_all;
+    kinesis_configuration;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -49,26 +70,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_qldb_stream ?exclusive_end_time ?id ?tags ?tags_all ?timeouts
-    ~inclusive_start_time ~ledger_name ~role_arn ~stream_name
-    ~kinesis_configuration __resource_id =
+let register ?tf_module ?exclusive_end_time ?id ?tags ?tags_all
+    ?timeouts ~inclusive_start_time ~ledger_name ~role_arn
+    ~stream_name ~kinesis_configuration __resource_id =
   let __resource_type = "aws_qldb_stream" in
   let __resource =
-    ({
-       exclusive_end_time;
-       id;
-       inclusive_start_time;
-       ledger_name;
-       role_arn;
-       stream_name;
-       tags;
-       tags_all;
-       kinesis_configuration;
-       timeouts;
-     }
-      : aws_qldb_stream)
+    aws_qldb_stream ?exclusive_end_time ?id ?tags ?tags_all ?timeouts
+      ~inclusive_start_time ~ledger_name ~role_arn ~stream_name
+      ~kinesis_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_qldb_stream __resource);
   let __resource_attributes =
     ({

@@ -2,25 +2,141 @@
 
 open! Tf.Prelude
 
-type google_monitoring_uptime_check_config__content_matchers__json_path_matcher
+(** RESOURCE SERIALIZATION *)
 
-type google_monitoring_uptime_check_config__content_matchers
+type content_matchers__json_path_matcher
 
-type google_monitoring_uptime_check_config__http_check__accepted_response_status_codes
+val content_matchers__json_path_matcher :
+  ?json_matcher:string prop ->
+  json_path:string prop ->
+  unit ->
+  content_matchers__json_path_matcher
 
-type google_monitoring_uptime_check_config__http_check__auth_info
-type google_monitoring_uptime_check_config__http_check__ping_config
-type google_monitoring_uptime_check_config__http_check
-type google_monitoring_uptime_check_config__monitored_resource
-type google_monitoring_uptime_check_config__resource_group
+type content_matchers
 
-type google_monitoring_uptime_check_config__synthetic_monitor__cloud_function_v2
+val content_matchers :
+  ?matcher:string prop ->
+  content:string prop ->
+  json_path_matcher:content_matchers__json_path_matcher list ->
+  unit ->
+  content_matchers
 
-type google_monitoring_uptime_check_config__synthetic_monitor
-type google_monitoring_uptime_check_config__tcp_check__ping_config
-type google_monitoring_uptime_check_config__tcp_check
-type google_monitoring_uptime_check_config__timeouts
+type http_check__accepted_response_status_codes
+
+val http_check__accepted_response_status_codes :
+  ?status_class:string prop ->
+  ?status_value:float prop ->
+  unit ->
+  http_check__accepted_response_status_codes
+
+type http_check__auth_info
+
+val http_check__auth_info :
+  password:string prop ->
+  username:string prop ->
+  unit ->
+  http_check__auth_info
+
+type http_check__ping_config
+
+val http_check__ping_config :
+  pings_count:float prop -> unit -> http_check__ping_config
+
+type http_check
+
+val http_check :
+  ?body:string prop ->
+  ?content_type:string prop ->
+  ?custom_content_type:string prop ->
+  ?headers:(string * string prop) list ->
+  ?mask_headers:bool prop ->
+  ?path:string prop ->
+  ?port:float prop ->
+  ?request_method:string prop ->
+  ?use_ssl:bool prop ->
+  ?validate_ssl:bool prop ->
+  accepted_response_status_codes:
+    http_check__accepted_response_status_codes list ->
+  auth_info:http_check__auth_info list ->
+  ping_config:http_check__ping_config list ->
+  unit ->
+  http_check
+
+type monitored_resource
+
+val monitored_resource :
+  labels:(string * string prop) list ->
+  type_:string prop ->
+  unit ->
+  monitored_resource
+
+type resource_group
+
+val resource_group :
+  ?group_id:string prop ->
+  ?resource_type:string prop ->
+  unit ->
+  resource_group
+
+type synthetic_monitor__cloud_function_v2
+
+val synthetic_monitor__cloud_function_v2 :
+  name:string prop -> unit -> synthetic_monitor__cloud_function_v2
+
+type synthetic_monitor
+
+val synthetic_monitor :
+  cloud_function_v2:synthetic_monitor__cloud_function_v2 list ->
+  unit ->
+  synthetic_monitor
+
+type tcp_check__ping_config
+
+val tcp_check__ping_config :
+  pings_count:float prop -> unit -> tcp_check__ping_config
+
+type tcp_check
+
+val tcp_check :
+  port:float prop ->
+  ping_config:tcp_check__ping_config list ->
+  unit ->
+  tcp_check
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_monitoring_uptime_check_config
+
+val google_monitoring_uptime_check_config :
+  ?checker_type:string prop ->
+  ?id:string prop ->
+  ?period:string prop ->
+  ?project:string prop ->
+  ?selected_regions:string prop list ->
+  ?user_labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  timeout:string prop ->
+  content_matchers:content_matchers list ->
+  http_check:http_check list ->
+  monitored_resource:monitored_resource list ->
+  resource_group:resource_group list ->
+  synthetic_monitor:synthetic_monitor list ->
+  tcp_check:tcp_check list ->
+  unit ->
+  google_monitoring_uptime_check_config
+
+val yojson_of_google_monitoring_uptime_check_config :
+  google_monitoring_uptime_check_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   checker_type : string prop;
@@ -35,25 +151,22 @@ type t = private {
   user_labels : (string * string) list prop;
 }
 
-val google_monitoring_uptime_check_config :
+val register :
+  ?tf_module:tf_module ->
   ?checker_type:string prop ->
   ?id:string prop ->
   ?period:string prop ->
   ?project:string prop ->
   ?selected_regions:string prop list ->
   ?user_labels:(string * string prop) list ->
-  ?timeouts:google_monitoring_uptime_check_config__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   timeout:string prop ->
-  content_matchers:
-    google_monitoring_uptime_check_config__content_matchers list ->
-  http_check:google_monitoring_uptime_check_config__http_check list ->
-  monitored_resource:
-    google_monitoring_uptime_check_config__monitored_resource list ->
-  resource_group:
-    google_monitoring_uptime_check_config__resource_group list ->
-  synthetic_monitor:
-    google_monitoring_uptime_check_config__synthetic_monitor list ->
-  tcp_check:google_monitoring_uptime_check_config__tcp_check list ->
+  content_matchers:content_matchers list ->
+  http_check:http_check list ->
+  monitored_resource:monitored_resource list ->
+  resource_group:resource_group list ->
+  synthetic_monitor:synthetic_monitor list ->
+  tcp_check:tcp_check list ->
   string ->
   t

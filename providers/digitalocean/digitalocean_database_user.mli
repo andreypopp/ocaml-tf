@@ -2,9 +2,35 @@
 
 open! Tf.Prelude
 
-type digitalocean_database_user__settings__acl
-type digitalocean_database_user__settings
+(** RESOURCE SERIALIZATION *)
+
+type settings__acl
+
+val settings__acl :
+  permission:string prop ->
+  topic:string prop ->
+  unit ->
+  settings__acl
+
+type settings
+
+val settings : acl:settings__acl list -> unit -> settings
+
 type digitalocean_database_user
+
+val digitalocean_database_user :
+  ?id:string prop ->
+  ?mysql_auth_plugin:string prop ->
+  cluster_id:string prop ->
+  name:string prop ->
+  settings:settings list ->
+  unit ->
+  digitalocean_database_user
+
+val yojson_of_digitalocean_database_user :
+  digitalocean_database_user -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_cert : string prop;
@@ -17,11 +43,12 @@ type t = private {
   role : string prop;
 }
 
-val digitalocean_database_user :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?mysql_auth_plugin:string prop ->
   cluster_id:string prop ->
   name:string prop ->
-  settings:digitalocean_database_user__settings list ->
+  settings:settings list ->
   string ->
   t

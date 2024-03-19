@@ -4,31 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_alert_rule_fusion__source__sub_type = {
+type source__sub_type = {
   enabled : bool prop option; [@option]  (** enabled *)
   name : string prop;  (** name *)
   severities_allowed : string prop list;  (** severities_allowed *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_alert_rule_fusion__source__sub_type *)
+(** source__sub_type *)
 
-type azurerm_sentinel_alert_rule_fusion__source = {
+type source = {
   enabled : bool prop option; [@option]  (** enabled *)
   name : string prop;  (** name *)
-  sub_type :
-    azurerm_sentinel_alert_rule_fusion__source__sub_type list;
+  sub_type : source__sub_type list;
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_alert_rule_fusion__source *)
+(** source *)
 
-type azurerm_sentinel_alert_rule_fusion__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_alert_rule_fusion__timeouts *)
+(** timeouts *)
 
 type azurerm_sentinel_alert_rule_fusion = {
   alert_rule_template_guid : string prop;
@@ -38,11 +37,34 @@ type azurerm_sentinel_alert_rule_fusion = {
   log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
   name : string prop;  (** name *)
-  source : azurerm_sentinel_alert_rule_fusion__source list;
-  timeouts : azurerm_sentinel_alert_rule_fusion__timeouts option;
+  source : source list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_fusion *)
+
+let source__sub_type ?enabled ~name ~severities_allowed () :
+    source__sub_type =
+  { enabled; name; severities_allowed }
+
+let source ?enabled ~name ~sub_type () : source =
+  { enabled; name; sub_type }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sentinel_alert_rule_fusion ?enabled ?id ?timeouts
+    ~alert_rule_template_guid ~log_analytics_workspace_id ~name
+    ~source () : azurerm_sentinel_alert_rule_fusion =
+  {
+    alert_rule_template_guid;
+    enabled;
+    id;
+    log_analytics_workspace_id;
+    name;
+    source;
+    timeouts;
+  }
 
 type t = {
   alert_rule_template_guid : string prop;
@@ -52,23 +74,16 @@ type t = {
   name : string prop;
 }
 
-let azurerm_sentinel_alert_rule_fusion ?enabled ?id ?timeouts
+let register ?tf_module ?enabled ?id ?timeouts
     ~alert_rule_template_guid ~log_analytics_workspace_id ~name
     ~source __resource_id =
   let __resource_type = "azurerm_sentinel_alert_rule_fusion" in
   let __resource =
-    ({
-       alert_rule_template_guid;
-       enabled;
-       id;
-       log_analytics_workspace_id;
-       name;
-       source;
-       timeouts;
-     }
-      : azurerm_sentinel_alert_rule_fusion)
+    azurerm_sentinel_alert_rule_fusion ?enabled ?id ?timeouts
+      ~alert_rule_template_guid ~log_analytics_workspace_id ~name
+      ~source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_alert_rule_fusion __resource);
   let __resource_attributes =
     ({

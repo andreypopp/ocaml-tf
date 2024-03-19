@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_local_network_gateway__bgp_settings = {
+type bgp_settings = {
   asn : float prop;  (** asn *)
   bgp_peering_address : string prop;  (** bgp_peering_address *)
   peer_weight : float prop option; [@option]  (** peer_weight *)
 }
 [@@deriving yojson_of]
-(** azurerm_local_network_gateway__bgp_settings *)
+(** bgp_settings *)
 
-type azurerm_local_network_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_local_network_gateway__timeouts *)
+(** timeouts *)
 
 type azurerm_local_network_gateway = {
   address_space : string prop list option; [@option]
@@ -32,11 +32,35 @@ type azurerm_local_network_gateway = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  bgp_settings : azurerm_local_network_gateway__bgp_settings list;
-  timeouts : azurerm_local_network_gateway__timeouts option;
+  bgp_settings : bgp_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_local_network_gateway *)
+
+let bgp_settings ?peer_weight ~asn ~bgp_peering_address () :
+    bgp_settings =
+  { asn; bgp_peering_address; peer_weight }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_local_network_gateway ?address_space ?gateway_address
+    ?gateway_fqdn ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~bgp_settings () :
+    azurerm_local_network_gateway =
+  {
+    address_space;
+    gateway_address;
+    gateway_fqdn;
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    bgp_settings;
+    timeouts;
+  }
 
 type t = {
   address_space : string list prop;
@@ -49,26 +73,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_local_network_gateway ?address_space ?gateway_address
-    ?gateway_fqdn ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~bgp_settings __resource_id =
+let register ?tf_module ?address_space ?gateway_address ?gateway_fqdn
+    ?id ?tags ?timeouts ~location ~name ~resource_group_name
+    ~bgp_settings __resource_id =
   let __resource_type = "azurerm_local_network_gateway" in
   let __resource =
-    ({
-       address_space;
-       gateway_address;
-       gateway_fqdn;
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       bgp_settings;
-       timeouts;
-     }
-      : azurerm_local_network_gateway)
+    azurerm_local_network_gateway ?address_space ?gateway_address
+      ?gateway_fqdn ?id ?tags ?timeouts ~location ~name
+      ~resource_group_name ~bgp_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_local_network_gateway __resource);
   let __resource_attributes =
     ({

@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_synapse__key_vault_password = {
+type key_vault_password = {
   linked_service_name : string prop;  (** linked_service_name *)
   secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_synapse__key_vault_password *)
+(** key_vault_password *)
 
-type azurerm_data_factory_linked_service_synapse__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_synapse__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_synapse = {
   additional_properties : (string * string prop) list option;
@@ -35,14 +35,37 @@ type azurerm_data_factory_linked_service_synapse = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  key_vault_password :
-    azurerm_data_factory_linked_service_synapse__key_vault_password
-    list;
-  timeouts :
-    azurerm_data_factory_linked_service_synapse__timeouts option;
+  key_vault_password : key_vault_password list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_synapse *)
+
+let key_vault_password ~linked_service_name ~secret_name () :
+    key_vault_password =
+  { linked_service_name; secret_name }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_synapse
+    ?additional_properties ?annotations ?description ?id
+    ?integration_runtime_name ?parameters ?timeouts
+    ~connection_string ~data_factory_id ~name ~key_vault_password ()
+    : azurerm_data_factory_linked_service_synapse =
+  {
+    additional_properties;
+    annotations;
+    connection_string;
+    data_factory_id;
+    description;
+    id;
+    integration_runtime_name;
+    name;
+    parameters;
+    key_vault_password;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -56,31 +79,21 @@ type t = {
   parameters : (string * string) list prop;
 }
 
-let azurerm_data_factory_linked_service_synapse
-    ?additional_properties ?annotations ?description ?id
-    ?integration_runtime_name ?parameters ?timeouts
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?id ?integration_runtime_name ?parameters ?timeouts
     ~connection_string ~data_factory_id ~name ~key_vault_password
     __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_synapse"
   in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       connection_string;
-       data_factory_id;
-       description;
-       id;
-       integration_runtime_name;
-       name;
-       parameters;
-       key_vault_password;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_synapse)
+    azurerm_data_factory_linked_service_synapse
+      ?additional_properties ?annotations ?description ?id
+      ?integration_runtime_name ?parameters ?timeouts
+      ~connection_string ~data_factory_id ~name ~key_vault_password
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_synapse __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_vmware_netapp_volume_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_vmware_netapp_volume_attachment
+
+val azurerm_vmware_netapp_volume_attachment :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  netapp_volume_id:string prop ->
+  vmware_cluster_id:string prop ->
+  unit ->
+  azurerm_vmware_netapp_volume_attachment
+
+val yojson_of_azurerm_vmware_netapp_volume_attachment :
+  azurerm_vmware_netapp_volume_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,9 +36,10 @@ type t = private {
   vmware_cluster_id : string prop;
 }
 
-val azurerm_vmware_netapp_volume_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_vmware_netapp_volume_attachment__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   netapp_volume_id:string prop ->
   vmware_cluster_id:string prop ->

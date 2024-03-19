@@ -22,6 +22,11 @@ Tunnel IP Routes via Virtualized Networks to handle overlapping
 private IPs in your origins.
  *)
 
+let cloudflare_tunnel_virtual_network ?comment ?id
+    ?is_default_network ~account_id ~name () :
+    cloudflare_tunnel_virtual_network =
+  { account_id; comment; id; is_default_network; name }
+
 type t = {
   account_id : string prop;
   comment : string prop;
@@ -30,14 +35,14 @@ type t = {
   name : string prop;
 }
 
-let cloudflare_tunnel_virtual_network ?comment ?id
-    ?is_default_network ~account_id ~name __resource_id =
+let register ?tf_module ?comment ?id ?is_default_network ~account_id
+    ~name __resource_id =
   let __resource_type = "cloudflare_tunnel_virtual_network" in
   let __resource =
-    ({ account_id; comment; id; is_default_network; name }
-      : cloudflare_tunnel_virtual_network)
+    cloudflare_tunnel_virtual_network ?comment ?id
+      ?is_default_network ~account_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_tunnel_virtual_network __resource);
   let __resource_attributes =
     ({

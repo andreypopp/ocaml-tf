@@ -19,6 +19,10 @@ type cloudflare_account_member = {
 (** Provides a resource which manages Cloudflare account members.
  *)
 
+let cloudflare_account_member ?id ?status ~account_id ~email_address
+    ~role_ids () : cloudflare_account_member =
+  { account_id; email_address; id; role_ids; status }
+
 type t = {
   account_id : string prop;
   email_address : string prop;
@@ -27,14 +31,14 @@ type t = {
   status : string prop;
 }
 
-let cloudflare_account_member ?id ?status ~account_id ~email_address
+let register ?tf_module ?id ?status ~account_id ~email_address
     ~role_ids __resource_id =
   let __resource_type = "cloudflare_account_member" in
   let __resource =
-    ({ account_id; email_address; id; role_ids; status }
-      : cloudflare_account_member)
+    cloudflare_account_member ?id ?status ~account_id ~email_address
+      ~role_ids ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_account_member __resource);
   let __resource_attributes =
     ({

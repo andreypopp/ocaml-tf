@@ -16,6 +16,10 @@ type aws_codedeploy_app = {
 [@@deriving yojson_of]
 (** aws_codedeploy_app *)
 
+let aws_codedeploy_app ?compute_platform ?id ?tags ?tags_all ~name ()
+    : aws_codedeploy_app =
+  { compute_platform; id; name; tags; tags_all }
+
 type t = {
   application_id : string prop;
   arn : string prop;
@@ -28,14 +32,13 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_codedeploy_app ?compute_platform ?id ?tags ?tags_all ~name
+let register ?tf_module ?compute_platform ?id ?tags ?tags_all ~name
     __resource_id =
   let __resource_type = "aws_codedeploy_app" in
   let __resource =
-    ({ compute_platform; id; name; tags; tags_all }
-      : aws_codedeploy_app)
+    aws_codedeploy_app ?compute_platform ?id ?tags ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codedeploy_app __resource);
   let __resource_attributes =
     ({

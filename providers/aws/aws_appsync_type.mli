@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_appsync_type
+
+val aws_appsync_type :
+  ?id:string prop ->
+  api_id:string prop ->
+  definition:string prop ->
+  format:string prop ->
+  unit ->
+  aws_appsync_type
+
+val yojson_of_aws_appsync_type : aws_appsync_type -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_id : string prop;
@@ -14,7 +28,8 @@ type t = private {
   name : string prop;
 }
 
-val aws_appsync_type :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   api_id:string prop ->
   definition:string prop ->

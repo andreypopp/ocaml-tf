@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_healthcare_medtech_service_fhir_destination__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_healthcare_medtech_service_fhir_destination
+
+val azurerm_healthcare_medtech_service_fhir_destination :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  destination_fhir_mapping_json:string prop ->
+  destination_fhir_service_id:string prop ->
+  destination_identity_resolution_type:string prop ->
+  location:string prop ->
+  medtech_service_id:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_healthcare_medtech_service_fhir_destination
+
+val yojson_of_azurerm_healthcare_medtech_service_fhir_destination :
+  azurerm_healthcare_medtech_service_fhir_destination -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   destination_fhir_mapping_json : string prop;
@@ -15,10 +43,10 @@ type t = private {
   name : string prop;
 }
 
-val azurerm_healthcare_medtech_service_fhir_destination :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_healthcare_medtech_service_fhir_destination__timeouts ->
+  ?timeouts:timeouts ->
   destination_fhir_mapping_json:string prop ->
   destination_fhir_service_id:string prop ->
   destination_identity_resolution_type:string prop ->

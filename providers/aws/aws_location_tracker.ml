@@ -18,6 +18,19 @@ type aws_location_tracker = {
 [@@deriving yojson_of]
 (** aws_location_tracker *)
 
+let aws_location_tracker ?description ?id ?kms_key_id
+    ?position_filtering ?tags ?tags_all ~tracker_name () :
+    aws_location_tracker =
+  {
+    description;
+    id;
+    kms_key_id;
+    position_filtering;
+    tags;
+    tags_all;
+    tracker_name;
+  }
+
 type t = {
   create_time : string prop;
   description : string prop;
@@ -31,22 +44,14 @@ type t = {
   update_time : string prop;
 }
 
-let aws_location_tracker ?description ?id ?kms_key_id
+let register ?tf_module ?description ?id ?kms_key_id
     ?position_filtering ?tags ?tags_all ~tracker_name __resource_id =
   let __resource_type = "aws_location_tracker" in
   let __resource =
-    ({
-       description;
-       id;
-       kms_key_id;
-       position_filtering;
-       tags;
-       tags_all;
-       tracker_name;
-     }
-      : aws_location_tracker)
+    aws_location_tracker ?description ?id ?kms_key_id
+      ?position_filtering ?tags ?tags_all ~tracker_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_location_tracker __resource);
   let __resource_attributes =
     ({

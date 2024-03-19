@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_target_ssl_proxy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_target_ssl_proxy__timeouts *)
+(** timeouts *)
 
 type google_compute_target_ssl_proxy = {
   backend_service : string prop;
@@ -42,10 +42,29 @@ SSL certificate must be specified. *)
       (** A reference to the SslPolicy resource that will be associated with
 the TargetSslProxy resource. If not set, the TargetSslProxy
 resource will not have any SSL policy configured. *)
-  timeouts : google_compute_target_ssl_proxy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_target_ssl_proxy *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_target_ssl_proxy ?certificate_map ?description ?id
+    ?project ?proxy_header ?ssl_certificates ?ssl_policy ?timeouts
+    ~backend_service ~name () : google_compute_target_ssl_proxy =
+  {
+    backend_service;
+    certificate_map;
+    description;
+    id;
+    name;
+    project;
+    proxy_header;
+    ssl_certificates;
+    ssl_policy;
+    timeouts;
+  }
 
 type t = {
   backend_service : string prop;
@@ -62,26 +81,16 @@ type t = {
   ssl_policy : string prop;
 }
 
-let google_compute_target_ssl_proxy ?certificate_map ?description ?id
-    ?project ?proxy_header ?ssl_certificates ?ssl_policy ?timeouts
+let register ?tf_module ?certificate_map ?description ?id ?project
+    ?proxy_header ?ssl_certificates ?ssl_policy ?timeouts
     ~backend_service ~name __resource_id =
   let __resource_type = "google_compute_target_ssl_proxy" in
   let __resource =
-    ({
-       backend_service;
-       certificate_map;
-       description;
-       id;
-       name;
-       project;
-       proxy_header;
-       ssl_certificates;
-       ssl_policy;
-       timeouts;
-     }
-      : google_compute_target_ssl_proxy)
+    google_compute_target_ssl_proxy ?certificate_map ?description ?id
+      ?project ?proxy_header ?ssl_certificates ?ssl_policy ?timeouts
+      ~backend_service ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_ssl_proxy __resource);
   let __resource_attributes =
     ({

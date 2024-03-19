@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_network_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_network_endpoint__timeouts *)
+(** timeouts *)
 
 type google_compute_network_endpoint = {
   id : string prop option; [@option]  (** id *)
@@ -30,10 +30,26 @@ with the type of 'GCE_VM_IP' *)
   project : string prop option; [@option]  (** project *)
   zone : string prop option; [@option]
       (** Zone where the containing network endpoint group is located. *)
-  timeouts : google_compute_network_endpoint__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_network_endpoint *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_network_endpoint ?id ?instance ?port ?project
+    ?zone ?timeouts ~ip_address ~network_endpoint_group () :
+    google_compute_network_endpoint =
+  {
+    id;
+    instance;
+    ip_address;
+    network_endpoint_group;
+    port;
+    project;
+    zone;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -45,24 +61,14 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_network_endpoint ?id ?instance ?port ?project
-    ?zone ?timeouts ~ip_address ~network_endpoint_group __resource_id
-    =
+let register ?tf_module ?id ?instance ?port ?project ?zone ?timeouts
+    ~ip_address ~network_endpoint_group __resource_id =
   let __resource_type = "google_compute_network_endpoint" in
   let __resource =
-    ({
-       id;
-       instance;
-       ip_address;
-       network_endpoint_group;
-       port;
-       project;
-       zone;
-       timeouts;
-     }
-      : google_compute_network_endpoint)
+    google_compute_network_endpoint ?id ?instance ?port ?project
+      ?zone ?timeouts ~ip_address ~network_endpoint_group ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_endpoint __resource);
   let __resource_attributes =
     ({

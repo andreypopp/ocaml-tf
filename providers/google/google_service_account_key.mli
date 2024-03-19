@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type google_service_account_key
+
+val google_service_account_key :
+  ?id:string prop ->
+  ?keepers:(string * string prop) list ->
+  ?key_algorithm:string prop ->
+  ?private_key_type:string prop ->
+  ?public_key_data:string prop ->
+  ?public_key_type:string prop ->
+  service_account_id:string prop ->
+  unit ->
+  google_service_account_key
+
+val yojson_of_google_service_account_key :
+  google_service_account_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -19,7 +37,8 @@ type t = private {
   valid_before : string prop;
 }
 
-val google_service_account_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?keepers:(string * string prop) list ->
   ?key_algorithm:string prop ->

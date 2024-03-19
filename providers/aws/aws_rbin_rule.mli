@@ -2,12 +2,65 @@
 
 open! Tf.Prelude
 
-type aws_rbin_rule__lock_configuration__unlock_delay
-type aws_rbin_rule__lock_configuration
-type aws_rbin_rule__resource_tags
-type aws_rbin_rule__retention_period
-type aws_rbin_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type lock_configuration__unlock_delay
+
+val lock_configuration__unlock_delay :
+  unlock_delay_unit:string prop ->
+  unlock_delay_value:float prop ->
+  unit ->
+  lock_configuration__unlock_delay
+
+type lock_configuration
+
+val lock_configuration :
+  unlock_delay:lock_configuration__unlock_delay list ->
+  unit ->
+  lock_configuration
+
+type resource_tags
+
+val resource_tags :
+  ?resource_tag_value:string prop ->
+  resource_tag_key:string prop ->
+  unit ->
+  resource_tags
+
+type retention_period
+
+val retention_period :
+  retention_period_unit:string prop ->
+  retention_period_value:float prop ->
+  unit ->
+  retention_period
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_rbin_rule
+
+val aws_rbin_rule :
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  resource_type:string prop ->
+  lock_configuration:lock_configuration list ->
+  resource_tags:resource_tags list ->
+  retention_period:retention_period list ->
+  unit ->
+  aws_rbin_rule
+
+val yojson_of_aws_rbin_rule : aws_rbin_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,14 +74,15 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_rbin_rule :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_rbin_rule__timeouts ->
+  ?timeouts:timeouts ->
   resource_type:string prop ->
-  lock_configuration:aws_rbin_rule__lock_configuration list ->
-  resource_tags:aws_rbin_rule__resource_tags list ->
-  retention_period:aws_rbin_rule__retention_period list ->
+  lock_configuration:lock_configuration list ->
+  resource_tags:resource_tags list ->
+  retention_period:retention_period list ->
   string ->
   t

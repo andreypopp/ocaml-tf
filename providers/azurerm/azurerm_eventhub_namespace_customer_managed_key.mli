@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_eventhub_namespace_customer_managed_key__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_eventhub_namespace_customer_managed_key
+
+val azurerm_eventhub_namespace_customer_managed_key :
+  ?id:string prop ->
+  ?infrastructure_encryption_enabled:bool prop ->
+  ?user_assigned_identity_id:string prop ->
+  ?timeouts:timeouts ->
+  eventhub_namespace_id:string prop ->
+  key_vault_key_ids:string prop list ->
+  unit ->
+  azurerm_eventhub_namespace_customer_managed_key
+
+val yojson_of_azurerm_eventhub_namespace_customer_managed_key :
+  azurerm_eventhub_namespace_customer_managed_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   eventhub_namespace_id : string prop;
@@ -13,11 +39,12 @@ type t = private {
   user_assigned_identity_id : string prop;
 }
 
-val azurerm_eventhub_namespace_customer_managed_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?infrastructure_encryption_enabled:bool prop ->
   ?user_assigned_identity_id:string prop ->
-  ?timeouts:azurerm_eventhub_namespace_customer_managed_key__timeouts ->
+  ?timeouts:timeouts ->
   eventhub_namespace_id:string prop ->
   key_vault_key_ids:string prop list ->
   string ->

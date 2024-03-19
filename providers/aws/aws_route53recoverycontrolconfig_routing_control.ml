@@ -14,6 +14,11 @@ type aws_route53recoverycontrolconfig_routing_control = {
 [@@deriving yojson_of]
 (** aws_route53recoverycontrolconfig_routing_control *)
 
+let aws_route53recoverycontrolconfig_routing_control
+    ?control_panel_arn ?id ~cluster_arn ~name () :
+    aws_route53recoverycontrolconfig_routing_control =
+  { cluster_arn; control_panel_arn; id; name }
+
 type t = {
   arn : string prop;
   cluster_arn : string prop;
@@ -23,16 +28,16 @@ type t = {
   status : string prop;
 }
 
-let aws_route53recoverycontrolconfig_routing_control
-    ?control_panel_arn ?id ~cluster_arn ~name __resource_id =
+let register ?tf_module ?control_panel_arn ?id ~cluster_arn ~name
+    __resource_id =
   let __resource_type =
     "aws_route53recoverycontrolconfig_routing_control"
   in
   let __resource =
-    ({ cluster_arn; control_panel_arn; id; name }
-      : aws_route53recoverycontrolconfig_routing_control)
+    aws_route53recoverycontrolconfig_routing_control
+      ?control_panel_arn ?id ~cluster_arn ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53recoverycontrolconfig_routing_control
        __resource);
   let __resource_attributes =

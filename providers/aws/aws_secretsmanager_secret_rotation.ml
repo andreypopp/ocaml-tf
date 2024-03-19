@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_secretsmanager_secret_rotation__rotation_rules = {
+type rotation_rules = {
   automatically_after_days : float prop option; [@option]
       (** automatically_after_days *)
   duration : string prop option; [@option]  (** duration *)
@@ -12,7 +12,7 @@ type aws_secretsmanager_secret_rotation__rotation_rules = {
       (** schedule_expression *)
 }
 [@@deriving yojson_of]
-(** aws_secretsmanager_secret_rotation__rotation_rules *)
+(** rotation_rules *)
 
 type aws_secretsmanager_secret_rotation = {
   id : string prop option; [@option]  (** id *)
@@ -21,11 +21,25 @@ type aws_secretsmanager_secret_rotation = {
   rotation_lambda_arn : string prop option; [@option]
       (** rotation_lambda_arn *)
   secret_id : string prop;  (** secret_id *)
-  rotation_rules :
-    aws_secretsmanager_secret_rotation__rotation_rules list;
+  rotation_rules : rotation_rules list;
 }
 [@@deriving yojson_of]
 (** aws_secretsmanager_secret_rotation *)
+
+let rotation_rules ?automatically_after_days ?duration
+    ?schedule_expression () : rotation_rules =
+  { automatically_after_days; duration; schedule_expression }
+
+let aws_secretsmanager_secret_rotation ?id ?rotate_immediately
+    ?rotation_lambda_arn ~secret_id ~rotation_rules () :
+    aws_secretsmanager_secret_rotation =
+  {
+    id;
+    rotate_immediately;
+    rotation_lambda_arn;
+    secret_id;
+    rotation_rules;
+  }
 
 type t = {
   id : string prop;
@@ -35,20 +49,14 @@ type t = {
   secret_id : string prop;
 }
 
-let aws_secretsmanager_secret_rotation ?id ?rotate_immediately
-    ?rotation_lambda_arn ~secret_id ~rotation_rules __resource_id =
+let register ?tf_module ?id ?rotate_immediately ?rotation_lambda_arn
+    ~secret_id ~rotation_rules __resource_id =
   let __resource_type = "aws_secretsmanager_secret_rotation" in
   let __resource =
-    ({
-       id;
-       rotate_immediately;
-       rotation_lambda_arn;
-       secret_id;
-       rotation_rules;
-     }
-      : aws_secretsmanager_secret_rotation)
+    aws_secretsmanager_secret_rotation ?id ?rotate_immediately
+      ?rotation_lambda_arn ~secret_id ~rotation_rules ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_secretsmanager_secret_rotation __resource);
   let __resource_attributes =
     ({

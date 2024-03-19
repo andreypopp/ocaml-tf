@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_notebooks_environment__container_image = {
+type container_image = {
   repository : string prop;
       (** The path to the container image repository.
 For example: gcr.io/{project_id}/{imageName} *)
@@ -14,15 +14,15 @@ For example: gcr.io/{project_id}/{imageName} *)
 [@@deriving yojson_of]
 (** Use a container image to start the notebook instance. *)
 
-type google_notebooks_environment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_notebooks_environment__timeouts *)
+(** timeouts *)
 
-type google_notebooks_environment__vm_image = {
+type vm_image = {
   image_family : string prop option; [@option]
       (** Use this VM image family to find the image; the newest image in this family will be used. *)
   image_name : string prop option; [@option]
@@ -49,13 +49,37 @@ Format: projects/{project_id}/locations/{location}/environments/{environmentId} 
       (** Path to a Bash script that automatically runs after a notebook instance fully boots up.
 The path must be a URL or Cloud Storage path. Example: gs://path-to-file/file-name *)
   project : string prop option; [@option]  (** project *)
-  container_image :
-    google_notebooks_environment__container_image list;
-  timeouts : google_notebooks_environment__timeouts option;
-  vm_image : google_notebooks_environment__vm_image list;
+  container_image : container_image list;
+  timeouts : timeouts option;
+  vm_image : vm_image list;
 }
 [@@deriving yojson_of]
 (** google_notebooks_environment *)
+
+let container_image ?tag ~repository () : container_image =
+  { repository; tag }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vm_image ?image_family ?image_name ~project () : vm_image =
+  { image_family; image_name; project }
+
+let google_notebooks_environment ?description ?display_name ?id
+    ?post_startup_script ?project ?timeouts ~location ~name
+    ~container_image ~vm_image () : google_notebooks_environment =
+  {
+    description;
+    display_name;
+    id;
+    location;
+    name;
+    post_startup_script;
+    project;
+    container_image;
+    timeouts;
+    vm_image;
+  }
 
 type t = {
   create_time : string prop;
@@ -68,26 +92,16 @@ type t = {
   project : string prop;
 }
 
-let google_notebooks_environment ?description ?display_name ?id
+let register ?tf_module ?description ?display_name ?id
     ?post_startup_script ?project ?timeouts ~location ~name
     ~container_image ~vm_image __resource_id =
   let __resource_type = "google_notebooks_environment" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       location;
-       name;
-       post_startup_script;
-       project;
-       container_image;
-       timeouts;
-       vm_image;
-     }
-      : google_notebooks_environment)
+    google_notebooks_environment ?description ?display_name ?id
+      ?post_startup_script ?project ?timeouts ~location ~name
+      ~container_image ~vm_image ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_notebooks_environment __resource);
   let __resource_attributes =
     ({

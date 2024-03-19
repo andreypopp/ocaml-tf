@@ -4,25 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_chaos_studio_experiment__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_chaos_studio_experiment__identity *)
+(** identity *)
 
-type azurerm_chaos_studio_experiment__selectors = {
+type selectors = {
   chaos_studio_target_ids : string prop list;
       (** chaos_studio_target_ids *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_chaos_studio_experiment__selectors *)
+(** selectors *)
 
-type azurerm_chaos_studio_experiment__steps__branch__actions = {
+type steps__branch__actions = {
   action_type : string prop;  (** action_type *)
   duration : string prop option; [@option]  (** duration *)
   parameters : (string * string prop) list option; [@option]
@@ -31,44 +29,75 @@ type azurerm_chaos_studio_experiment__steps__branch__actions = {
   urn : string prop option; [@option]  (** urn *)
 }
 [@@deriving yojson_of]
-(** azurerm_chaos_studio_experiment__steps__branch__actions *)
+(** steps__branch__actions *)
 
-type azurerm_chaos_studio_experiment__steps__branch = {
+type steps__branch = {
   name : string prop;  (** name *)
-  actions :
-    azurerm_chaos_studio_experiment__steps__branch__actions list;
+  actions : steps__branch__actions list;
 }
 [@@deriving yojson_of]
-(** azurerm_chaos_studio_experiment__steps__branch *)
+(** steps__branch *)
 
-type azurerm_chaos_studio_experiment__steps = {
+type steps = {
   name : string prop;  (** name *)
-  branch : azurerm_chaos_studio_experiment__steps__branch list;
+  branch : steps__branch list;
 }
 [@@deriving yojson_of]
-(** azurerm_chaos_studio_experiment__steps *)
+(** steps *)
 
-type azurerm_chaos_studio_experiment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_chaos_studio_experiment__timeouts *)
+(** timeouts *)
 
 type azurerm_chaos_studio_experiment = {
   id : string prop option; [@option]  (** id *)
   location : string prop;  (** location *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  identity : azurerm_chaos_studio_experiment__identity list;
-  selectors : azurerm_chaos_studio_experiment__selectors list;
-  steps : azurerm_chaos_studio_experiment__steps list;
-  timeouts : azurerm_chaos_studio_experiment__timeouts option;
+  identity : identity list;
+  selectors : selectors list;
+  steps : steps list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_experiment *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let selectors ~chaos_studio_target_ids ~name () : selectors =
+  { chaos_studio_target_ids; name }
+
+let steps__branch__actions ?duration ?parameters ?selector_name ?urn
+    ~action_type () : steps__branch__actions =
+  { action_type; duration; parameters; selector_name; urn }
+
+let steps__branch ~name ~actions () : steps__branch =
+  { name; actions }
+
+let steps ~name ~branch () : steps = { name; branch }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_chaos_studio_experiment ?id ?timeouts ~location ~name
+    ~resource_group_name ~identity ~selectors ~steps () :
+    azurerm_chaos_studio_experiment =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    identity;
+    selectors;
+    steps;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -77,23 +106,14 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_chaos_studio_experiment ?id ?timeouts ~location ~name
+let register ?tf_module ?id ?timeouts ~location ~name
     ~resource_group_name ~identity ~selectors ~steps __resource_id =
   let __resource_type = "azurerm_chaos_studio_experiment" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       identity;
-       selectors;
-       steps;
-       timeouts;
-     }
-      : azurerm_chaos_studio_experiment)
+    azurerm_chaos_studio_experiment ?id ?timeouts ~location ~name
+      ~resource_group_name ~identity ~selectors ~steps ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_chaos_studio_experiment __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type hcloud_rdns
+
+val hcloud_rdns :
+  ?floating_ip_id:float prop ->
+  ?id:string prop ->
+  ?load_balancer_id:float prop ->
+  ?primary_ip_id:float prop ->
+  ?server_id:float prop ->
+  dns_ptr:string prop ->
+  ip_address:string prop ->
+  unit ->
+  hcloud_rdns
+
+val yojson_of_hcloud_rdns : hcloud_rdns -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dns_ptr : string prop;
@@ -14,7 +31,8 @@ type t = private {
   server_id : float prop;
 }
 
-val hcloud_rdns :
+val register :
+  ?tf_module:tf_module ->
   ?floating_ip_id:float prop ->
   ?id:string prop ->
   ?load_balancer_id:float prop ->

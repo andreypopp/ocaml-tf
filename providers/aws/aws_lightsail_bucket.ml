@@ -16,6 +16,10 @@ type aws_lightsail_bucket = {
 [@@deriving yojson_of]
 (** aws_lightsail_bucket *)
 
+let aws_lightsail_bucket ?force_delete ?id ?tags ?tags_all ~bundle_id
+    ~name () : aws_lightsail_bucket =
+  { bundle_id; force_delete; id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   availability_zone : string prop;
@@ -31,14 +35,14 @@ type t = {
   url : string prop;
 }
 
-let aws_lightsail_bucket ?force_delete ?id ?tags ?tags_all ~bundle_id
+let register ?tf_module ?force_delete ?id ?tags ?tags_all ~bundle_id
     ~name __resource_id =
   let __resource_type = "aws_lightsail_bucket" in
   let __resource =
-    ({ bundle_id; force_delete; id; name; tags; tags_all }
-      : aws_lightsail_bucket)
+    aws_lightsail_bucket ?force_delete ?id ?tags ?tags_all ~bundle_id
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_bucket __resource);
   let __resource_attributes =
     ({

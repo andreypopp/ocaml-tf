@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_gkeonprem_vmware_cluster__anti_affinity_groups = {
+type anti_affinity_groups = {
   aag_config_disabled : bool prop;
       (** Spread nodes across at least three physical hosts (requires at least three
 hosts).
@@ -14,7 +14,7 @@ Enabled by default. *)
 (** AAGConfig specifies whether to spread VMware User Cluster nodes across at
 least three physical hosts in the datacenter. *)
 
-type google_gkeonprem_vmware_cluster__authorization__admin_users = {
+type authorization__admin_users = {
   username : string prop;
       (** The name of the user, e.g. 'my-gcp-id@gmail.com'. *)
 }
@@ -22,33 +22,32 @@ type google_gkeonprem_vmware_cluster__authorization__admin_users = {
 (** Users that will be granted the cluster-admin role on the cluster, providing
 full access to the cluster. *)
 
-type google_gkeonprem_vmware_cluster__authorization = {
-  admin_users :
-    google_gkeonprem_vmware_cluster__authorization__admin_users list;
+type authorization = {
+  admin_users : authorization__admin_users list;
 }
 [@@deriving yojson_of]
 (** RBAC policy that will be applied and managed by GKE On-Prem. *)
 
-type google_gkeonprem_vmware_cluster__auto_repair_config = {
+type auto_repair_config = {
   enabled : bool prop;  (** Whether auto repair is enabled. *)
 }
 [@@deriving yojson_of]
 (** Configuration for auto repairing. *)
 
-type google_gkeonprem_vmware_cluster__control_plane_node__auto_resize_config = {
+type control_plane_node__auto_resize_config = {
   enabled : bool prop;
       (** Whether to enable control plane node auto resizing. *)
 }
 [@@deriving yojson_of]
 (** AutoResizeConfig provides auto resizing configurations. *)
 
-type google_gkeonprem_vmware_cluster__control_plane_node__vsphere_config = {
+type control_plane_node__vsphere_config = {
   datastore : string prop;  (** datastore *)
   storage_policy_name : string prop;  (** storage_policy_name *)
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_vmware_cluster__control_plane_node = {
+type control_plane_node = {
   cpus : float prop option; [@option]
       (** The number of CPUs for each admin cluster node that serve as control planes
 for this VMware User Cluster. (default: 4 CPUs) *)
@@ -58,18 +57,12 @@ control plane for this VMware User Cluster (default: 8192 MB memory). *)
   replicas : float prop option; [@option]
       (** The number of control plane nodes for this VMware User Cluster.
 (default: 1 replica). *)
-  vsphere_config :
-    google_gkeonprem_vmware_cluster__control_plane_node__vsphere_config
-    list;
-      (** Vsphere-specific config. *)
-  auto_resize_config :
-    google_gkeonprem_vmware_cluster__control_plane_node__auto_resize_config
-    list;
+  auto_resize_config : control_plane_node__auto_resize_config list;
 }
 [@@deriving yojson_of]
 (** VMware User Cluster control plane nodes must have either 1 or 3 replicas. *)
 
-type google_gkeonprem_vmware_cluster__dataplane_v2 = {
+type dataplane_v2 = {
   advanced_networking : bool prop option; [@option]
       (** Enable advanced networking which requires dataplane_v2_enabled to be set true. *)
   dataplane_v2_enabled : bool prop option; [@option]
@@ -80,7 +73,7 @@ type google_gkeonprem_vmware_cluster__dataplane_v2 = {
 [@@deriving yojson_of]
 (** VmwareDataplaneV2Config specifies configuration for Dataplane V2. *)
 
-type google_gkeonprem_vmware_cluster__load_balancer__f5_config = {
+type load_balancer__f5_config = {
   address : string prop option; [@option]
       (** The load balancer's IP address. *)
   partition : string prop option; [@option]
@@ -93,7 +86,7 @@ his partition is usually created for the admin cluster for example:
 [@@deriving yojson_of]
 (** Configuration for F5 Big IP typed load balancers. *)
 
-type google_gkeonprem_vmware_cluster__load_balancer__manual_lb_config = {
+type load_balancer__manual_lb_config = {
   control_plane_node_port : float prop option; [@option]
       (** NodePort for control plane service. The Kubernetes API server in the admin
 cluster is implemented as a Service of type NodePort (ex. 30968). *)
@@ -110,7 +103,7 @@ kube-apiserver pod (ex. 30564). *)
 [@@deriving yojson_of]
 (** Manually configured load balancers. *)
 
-type google_gkeonprem_vmware_cluster__load_balancer__metal_lb_config__address_pools = {
+type load_balancer__metal_lb_config__address_pools = {
   addresses : string prop list;
       (** The addresses that are part of this pool. Each address
 must be either in the CIDR form (1.2.3.0/24) or range
@@ -128,15 +121,13 @@ those special IP addresses. *)
 typed services. All addresses must be routable to load balancer nodes.
 IngressVIP must be included in the pools. *)
 
-type google_gkeonprem_vmware_cluster__load_balancer__metal_lb_config = {
-  address_pools :
-    google_gkeonprem_vmware_cluster__load_balancer__metal_lb_config__address_pools
-    list;
+type load_balancer__metal_lb_config = {
+  address_pools : load_balancer__metal_lb_config__address_pools list;
 }
 [@@deriving yojson_of]
 (** Configuration for MetalLB typed load balancers. *)
 
-type google_gkeonprem_vmware_cluster__load_balancer__vip_config = {
+type load_balancer__vip_config = {
   control_plane_vip : string prop option; [@option]
       (** The VIP which you previously set aside for the Kubernetes API of this cluster. *)
   ingress_vip : string prop option; [@option]
@@ -145,22 +136,16 @@ type google_gkeonprem_vmware_cluster__load_balancer__vip_config = {
 [@@deriving yojson_of]
 (** The VIPs used by the load balancer. *)
 
-type google_gkeonprem_vmware_cluster__load_balancer = {
-  f5_config :
-    google_gkeonprem_vmware_cluster__load_balancer__f5_config list;
-  manual_lb_config :
-    google_gkeonprem_vmware_cluster__load_balancer__manual_lb_config
-    list;
-  metal_lb_config :
-    google_gkeonprem_vmware_cluster__load_balancer__metal_lb_config
-    list;
-  vip_config :
-    google_gkeonprem_vmware_cluster__load_balancer__vip_config list;
+type load_balancer = {
+  f5_config : load_balancer__f5_config list;
+  manual_lb_config : load_balancer__manual_lb_config list;
+  metal_lb_config : load_balancer__metal_lb_config list;
+  vip_config : load_balancer__vip_config list;
 }
 [@@deriving yojson_of]
 (** Load Balancer configuration. *)
 
-type google_gkeonprem_vmware_cluster__network_config__control_plane_v2_config__control_plane_ip_block__ips = {
+type network_config__control_plane_v2_config__control_plane_ip_block__ips = {
   hostname : string prop option; [@option]
       (** Hostname of the machine. VM's name will be used if this field is empty. *)
   ip : string prop option; [@option]
@@ -169,27 +154,27 @@ type google_gkeonprem_vmware_cluster__network_config__control_plane_v2_config__c
 [@@deriving yojson_of]
 (** The node's network configurations used by the VMware User Cluster. *)
 
-type google_gkeonprem_vmware_cluster__network_config__control_plane_v2_config__control_plane_ip_block = {
+type network_config__control_plane_v2_config__control_plane_ip_block = {
   gateway : string prop option; [@option]
       (** The network gateway used by the VMware User Cluster. *)
   netmask : string prop option; [@option]
       (** The netmask used by the VMware User Cluster. *)
   ips :
-    google_gkeonprem_vmware_cluster__network_config__control_plane_v2_config__control_plane_ip_block__ips
+    network_config__control_plane_v2_config__control_plane_ip_block__ips
     list;
 }
 [@@deriving yojson_of]
 (** Static IP addresses for the control plane nodes. *)
 
-type google_gkeonprem_vmware_cluster__network_config__control_plane_v2_config = {
+type network_config__control_plane_v2_config = {
   control_plane_ip_block :
-    google_gkeonprem_vmware_cluster__network_config__control_plane_v2_config__control_plane_ip_block
+    network_config__control_plane_v2_config__control_plane_ip_block
     list;
 }
 [@@deriving yojson_of]
 (** Configuration for control plane V2 mode. *)
 
-type google_gkeonprem_vmware_cluster__network_config__dhcp_ip_config = {
+type network_config__dhcp_ip_config = {
   enabled : bool prop;
       (** enabled is a flag to mark if DHCP IP allocation is
 used for VMware user clusters. *)
@@ -197,7 +182,7 @@ used for VMware user clusters. *)
 [@@deriving yojson_of]
 (** Configuration settings for a DHCP IP configuration. *)
 
-type google_gkeonprem_vmware_cluster__network_config__host_config = {
+type network_config__host_config = {
   dns_search_domains : string prop list option; [@option]
       (** DNS search domains. *)
   dns_servers : string prop list option; [@option]
@@ -208,7 +193,7 @@ type google_gkeonprem_vmware_cluster__network_config__host_config = {
 [@@deriving yojson_of]
 (** Represents common network settings irrespective of the host's IP address. *)
 
-type google_gkeonprem_vmware_cluster__network_config__static_ip_config__ip_blocks__ips = {
+type network_config__static_ip_config__ip_blocks__ips = {
   hostname : string prop option; [@option]
       (** Hostname of the machine. VM's name will be used if this field is empty. *)
   ip : string prop;
@@ -217,27 +202,23 @@ type google_gkeonprem_vmware_cluster__network_config__static_ip_config__ip_block
 [@@deriving yojson_of]
 (** The node's network configurations used by the VMware User Cluster. *)
 
-type google_gkeonprem_vmware_cluster__network_config__static_ip_config__ip_blocks = {
+type network_config__static_ip_config__ip_blocks = {
   gateway : string prop;
       (** The network gateway used by the VMware User Cluster. *)
   netmask : string prop;
       (** The netmask used by the VMware User Cluster. *)
-  ips :
-    google_gkeonprem_vmware_cluster__network_config__static_ip_config__ip_blocks__ips
-    list;
+  ips : network_config__static_ip_config__ip_blocks__ips list;
 }
 [@@deriving yojson_of]
 (** Represents the configuration values for static IP allocation to nodes. *)
 
-type google_gkeonprem_vmware_cluster__network_config__static_ip_config = {
-  ip_blocks :
-    google_gkeonprem_vmware_cluster__network_config__static_ip_config__ip_blocks
-    list;
+type network_config__static_ip_config = {
+  ip_blocks : network_config__static_ip_config__ip_blocks list;
 }
 [@@deriving yojson_of]
 (** Configuration settings for a static IP configuration. *)
 
-type google_gkeonprem_vmware_cluster__network_config = {
+type network_config = {
   pod_address_cidr_blocks : string prop list;
       (** All pods in the cluster are assigned an RFC1918 IPv4 address from these ranges.
 Only a single range is supported. This field cannot be changed after creation. *)
@@ -245,24 +226,16 @@ Only a single range is supported. This field cannot be changed after creation. *
       (** All services in the cluster are assigned an RFC1918 IPv4 address
 from these ranges. Only a single range is supported.. This field
 cannot be changed after creation. *)
-  vcenter_network : string prop;
-      (** vcenter_network specifies vCenter network name. Inherited from the admin cluster. *)
   control_plane_v2_config :
-    google_gkeonprem_vmware_cluster__network_config__control_plane_v2_config
-    list;
-  dhcp_ip_config :
-    google_gkeonprem_vmware_cluster__network_config__dhcp_ip_config
-    list;
-  host_config :
-    google_gkeonprem_vmware_cluster__network_config__host_config list;
-  static_ip_config :
-    google_gkeonprem_vmware_cluster__network_config__static_ip_config
-    list;
+    network_config__control_plane_v2_config list;
+  dhcp_ip_config : network_config__dhcp_ip_config list;
+  host_config : network_config__host_config list;
+  static_ip_config : network_config__static_ip_config list;
 }
 [@@deriving yojson_of]
 (** The VMware User Cluster network configuration. *)
 
-type google_gkeonprem_vmware_cluster__storage = {
+type storage = {
   vsphere_csi_disabled : bool prop;
       (** Whether or not to deploy vSphere CSI components in the VMware User Cluster.
 Enabled by default. *)
@@ -270,23 +243,22 @@ Enabled by default. *)
 [@@deriving yojson_of]
 (** Storage configuration. *)
 
-type google_gkeonprem_vmware_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gkeonprem_vmware_cluster__timeouts *)
+(** timeouts *)
 
-type google_gkeonprem_vmware_cluster__upgrade_policy = {
+type upgrade_policy = {
   control_plane_only : bool prop option; [@option]
       (** Controls whether the upgrade applies to the control plane only. *)
 }
 [@@deriving yojson_of]
 (** Specifies upgrade policy for the cluster. *)
 
-type google_gkeonprem_vmware_cluster__vcenter = {
-  address : string prop;  (** The vCenter IP address. *)
+type vcenter = {
   ca_cert_data : string prop option; [@option]
       (** Contains the vCenter CA certificate public key for SSL verification. *)
   cluster : string prop option; [@option]
@@ -306,12 +278,10 @@ type google_gkeonprem_vmware_cluster__vcenter = {
 (** VmwareVCenterConfig specifies vCenter config for the user cluster.
 Inherited from the admin cluster. *)
 
-type google_gkeonprem_vmware_cluster__fleet = {
-  membership : string prop;  (** membership *)
-}
+type fleet = { membership : string prop  (** membership *) }
 [@@deriving yojson_of]
 
-type google_gkeonprem_vmware_cluster__status__conditions = {
+type status__conditions = {
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
   reason : string prop;  (** reason *)
@@ -320,15 +290,13 @@ type google_gkeonprem_vmware_cluster__status__conditions = {
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_vmware_cluster__status = {
-  conditions :
-    google_gkeonprem_vmware_cluster__status__conditions list;
-      (** conditions *)
+type status = {
+  conditions : status__conditions list;  (** conditions *)
   error_message : string prop;  (** error_message *)
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_vmware_cluster__validation_check__status__result = {
+type validation_check__status__result = {
   category : string prop;  (** category *)
   description : string prop;  (** description *)
   details : string prop;  (** details *)
@@ -337,20 +305,15 @@ type google_gkeonprem_vmware_cluster__validation_check__status__result = {
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_vmware_cluster__validation_check__status = {
-  result :
-    google_gkeonprem_vmware_cluster__validation_check__status__result
-    list;
-      (** result *)
+type validation_check__status = {
+  result : validation_check__status__result list;  (** result *)
 }
 [@@deriving yojson_of]
 
-type google_gkeonprem_vmware_cluster__validation_check = {
+type validation_check = {
   options : string prop;  (** options *)
   scenario : string prop;  (** scenario *)
-  status :
-    google_gkeonprem_vmware_cluster__validation_check__status list;
-      (** status *)
+  status : validation_check__status list;  (** status *)
 }
 [@@deriving yojson_of]
 
@@ -385,27 +348,179 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
   project : string prop option; [@option]  (** project *)
   vm_tracking_enabled : bool prop option; [@option]
       (** Enable VM tracking. *)
-  anti_affinity_groups :
-    google_gkeonprem_vmware_cluster__anti_affinity_groups list;
-  authorization :
-    google_gkeonprem_vmware_cluster__authorization list;
-  auto_repair_config :
-    google_gkeonprem_vmware_cluster__auto_repair_config list;
-  control_plane_node :
-    google_gkeonprem_vmware_cluster__control_plane_node list;
-  dataplane_v2 : google_gkeonprem_vmware_cluster__dataplane_v2 list;
-  load_balancer :
-    google_gkeonprem_vmware_cluster__load_balancer list;
-  network_config :
-    google_gkeonprem_vmware_cluster__network_config list;
-  storage : google_gkeonprem_vmware_cluster__storage list;
-  timeouts : google_gkeonprem_vmware_cluster__timeouts option;
-  upgrade_policy :
-    google_gkeonprem_vmware_cluster__upgrade_policy list;
-  vcenter : google_gkeonprem_vmware_cluster__vcenter list;
+  anti_affinity_groups : anti_affinity_groups list;
+  authorization : authorization list;
+  auto_repair_config : auto_repair_config list;
+  control_plane_node : control_plane_node list;
+  dataplane_v2 : dataplane_v2 list;
+  load_balancer : load_balancer list;
+  network_config : network_config list;
+  storage : storage list;
+  timeouts : timeouts option;
+  upgrade_policy : upgrade_policy list;
+  vcenter : vcenter list;
 }
 [@@deriving yojson_of]
 (** google_gkeonprem_vmware_cluster *)
+
+let anti_affinity_groups ~aag_config_disabled () :
+    anti_affinity_groups =
+  { aag_config_disabled }
+
+let authorization__admin_users ~username () :
+    authorization__admin_users =
+  { username }
+
+let authorization ~admin_users () : authorization = { admin_users }
+let auto_repair_config ~enabled () : auto_repair_config = { enabled }
+
+let control_plane_node__auto_resize_config ~enabled () :
+    control_plane_node__auto_resize_config =
+  { enabled }
+
+let control_plane_node ?cpus ?memory ?replicas ~auto_resize_config ()
+    : control_plane_node =
+  { cpus; memory; replicas; auto_resize_config }
+
+let dataplane_v2 ?advanced_networking ?dataplane_v2_enabled
+    ?windows_dataplane_v2_enabled () : dataplane_v2 =
+  {
+    advanced_networking;
+    dataplane_v2_enabled;
+    windows_dataplane_v2_enabled;
+  }
+
+let load_balancer__f5_config ?address ?partition ?snat_pool () :
+    load_balancer__f5_config =
+  { address; partition; snat_pool }
+
+let load_balancer__manual_lb_config ?control_plane_node_port
+    ?ingress_http_node_port ?ingress_https_node_port
+    ?konnectivity_server_node_port () :
+    load_balancer__manual_lb_config =
+  {
+    control_plane_node_port;
+    ingress_http_node_port;
+    ingress_https_node_port;
+    konnectivity_server_node_port;
+  }
+
+let load_balancer__metal_lb_config__address_pools ?avoid_buggy_ips
+    ?manual_assign ~addresses ~pool () :
+    load_balancer__metal_lb_config__address_pools =
+  { addresses; avoid_buggy_ips; manual_assign; pool }
+
+let load_balancer__metal_lb_config ~address_pools () :
+    load_balancer__metal_lb_config =
+  { address_pools }
+
+let load_balancer__vip_config ?control_plane_vip ?ingress_vip () :
+    load_balancer__vip_config =
+  { control_plane_vip; ingress_vip }
+
+let load_balancer ~f5_config ~manual_lb_config ~metal_lb_config
+    ~vip_config () : load_balancer =
+  { f5_config; manual_lb_config; metal_lb_config; vip_config }
+
+let network_config__control_plane_v2_config__control_plane_ip_block__ips
+    ?hostname ?ip () :
+    network_config__control_plane_v2_config__control_plane_ip_block__ips
+    =
+  { hostname; ip }
+
+let network_config__control_plane_v2_config__control_plane_ip_block
+    ?gateway ?netmask ~ips () :
+    network_config__control_plane_v2_config__control_plane_ip_block =
+  { gateway; netmask; ips }
+
+let network_config__control_plane_v2_config ~control_plane_ip_block
+    () : network_config__control_plane_v2_config =
+  { control_plane_ip_block }
+
+let network_config__dhcp_ip_config ~enabled () :
+    network_config__dhcp_ip_config =
+  { enabled }
+
+let network_config__host_config ?dns_search_domains ?dns_servers
+    ?ntp_servers () : network_config__host_config =
+  { dns_search_domains; dns_servers; ntp_servers }
+
+let network_config__static_ip_config__ip_blocks__ips ?hostname ~ip ()
+    : network_config__static_ip_config__ip_blocks__ips =
+  { hostname; ip }
+
+let network_config__static_ip_config__ip_blocks ~gateway ~netmask
+    ~ips () : network_config__static_ip_config__ip_blocks =
+  { gateway; netmask; ips }
+
+let network_config__static_ip_config ~ip_blocks () :
+    network_config__static_ip_config =
+  { ip_blocks }
+
+let network_config ~pod_address_cidr_blocks
+    ~service_address_cidr_blocks ~control_plane_v2_config
+    ~dhcp_ip_config ~host_config ~static_ip_config () :
+    network_config =
+  {
+    pod_address_cidr_blocks;
+    service_address_cidr_blocks;
+    control_plane_v2_config;
+    dhcp_ip_config;
+    host_config;
+    static_ip_config;
+  }
+
+let storage ~vsphere_csi_disabled () : storage =
+  { vsphere_csi_disabled }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let upgrade_policy ?control_plane_only () : upgrade_policy =
+  { control_plane_only }
+
+let vcenter ?ca_cert_data ?cluster ?datacenter ?datastore ?folder
+    ?resource_pool ?storage_policy_name () : vcenter =
+  {
+    ca_cert_data;
+    cluster;
+    datacenter;
+    datastore;
+    folder;
+    resource_pool;
+    storage_policy_name;
+  }
+
+let google_gkeonprem_vmware_cluster ?annotations ?description
+    ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
+    ?timeouts ~admin_cluster_membership ~location ~name
+    ~on_prem_version ~anti_affinity_groups ~authorization
+    ~auto_repair_config ~control_plane_node ~dataplane_v2
+    ~load_balancer ~network_config ~storage ~upgrade_policy ~vcenter
+    () : google_gkeonprem_vmware_cluster =
+  {
+    admin_cluster_membership;
+    annotations;
+    description;
+    enable_control_plane_v2;
+    id;
+    location;
+    name;
+    on_prem_version;
+    project;
+    vm_tracking_enabled;
+    anti_affinity_groups;
+    authorization;
+    auto_repair_config;
+    control_plane_node;
+    dataplane_v2;
+    load_balancer;
+    network_config;
+    storage;
+    timeouts;
+    upgrade_policy;
+    vcenter;
+  }
 
 type t = {
   admin_cluster_membership : string prop;
@@ -417,7 +532,7 @@ type t = {
   enable_control_plane_v2 : bool prop;
   endpoint : string prop;
   etag : string prop;
-  fleet : google_gkeonprem_vmware_cluster__fleet list prop;
+  fleet : fleet list prop;
   id : string prop;
   local_name : string prop;
   location : string prop;
@@ -426,15 +541,14 @@ type t = {
   project : string prop;
   reconciling : bool prop;
   state : string prop;
-  status : google_gkeonprem_vmware_cluster__status list prop;
+  status : status list prop;
   uid : string prop;
   update_time : string prop;
-  validation_check :
-    google_gkeonprem_vmware_cluster__validation_check list prop;
+  validation_check : validation_check list prop;
   vm_tracking_enabled : bool prop;
 }
 
-let google_gkeonprem_vmware_cluster ?annotations ?description
+let register ?tf_module ?annotations ?description
     ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
     ?timeouts ~admin_cluster_membership ~location ~name
     ~on_prem_version ~anti_affinity_groups ~authorization
@@ -443,32 +557,15 @@ let google_gkeonprem_vmware_cluster ?annotations ?description
     __resource_id =
   let __resource_type = "google_gkeonprem_vmware_cluster" in
   let __resource =
-    ({
-       admin_cluster_membership;
-       annotations;
-       description;
-       enable_control_plane_v2;
-       id;
-       location;
-       name;
-       on_prem_version;
-       project;
-       vm_tracking_enabled;
-       anti_affinity_groups;
-       authorization;
-       auto_repair_config;
-       control_plane_node;
-       dataplane_v2;
-       load_balancer;
-       network_config;
-       storage;
-       timeouts;
-       upgrade_policy;
-       vcenter;
-     }
-      : google_gkeonprem_vmware_cluster)
+    google_gkeonprem_vmware_cluster ?annotations ?description
+      ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
+      ?timeouts ~admin_cluster_membership ~location ~name
+      ~on_prem_version ~anti_affinity_groups ~authorization
+      ~auto_repair_config ~control_plane_node ~dataplane_v2
+      ~load_balancer ~network_config ~storage ~upgrade_policy
+      ~vcenter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gkeonprem_vmware_cluster __resource);
   let __resource_attributes =
     ({

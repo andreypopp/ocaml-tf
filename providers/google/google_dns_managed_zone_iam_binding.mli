@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_dns_managed_zone_iam_binding__condition
+(** RESOURCE SERIALIZATION *)
+
+type condition
+
+val condition :
+  ?description:string prop ->
+  expression:string prop ->
+  title:string prop ->
+  unit ->
+  condition
+
 type google_dns_managed_zone_iam_binding
+
+val google_dns_managed_zone_iam_binding :
+  ?id:string prop ->
+  ?project:string prop ->
+  managed_zone:string prop ->
+  members:string prop list ->
+  role:string prop ->
+  condition:condition list ->
+  unit ->
+  google_dns_managed_zone_iam_binding
+
+val yojson_of_google_dns_managed_zone_iam_binding :
+  google_dns_managed_zone_iam_binding -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -14,12 +39,13 @@ type t = private {
   role : string prop;
 }
 
-val google_dns_managed_zone_iam_binding :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   managed_zone:string prop ->
   members:string prop list ->
   role:string prop ->
-  condition:google_dns_managed_zone_iam_binding__condition list ->
+  condition:condition list ->
   string ->
   t

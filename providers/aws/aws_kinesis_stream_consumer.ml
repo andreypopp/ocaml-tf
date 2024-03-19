@@ -12,6 +12,10 @@ type aws_kinesis_stream_consumer = {
 [@@deriving yojson_of]
 (** aws_kinesis_stream_consumer *)
 
+let aws_kinesis_stream_consumer ?id ~name ~stream_arn () :
+    aws_kinesis_stream_consumer =
+  { id; name; stream_arn }
+
 type t = {
   arn : string prop;
   creation_timestamp : string prop;
@@ -20,12 +24,12 @@ type t = {
   stream_arn : string prop;
 }
 
-let aws_kinesis_stream_consumer ?id ~name ~stream_arn __resource_id =
+let register ?tf_module ?id ~name ~stream_arn __resource_id =
   let __resource_type = "aws_kinesis_stream_consumer" in
   let __resource =
-    ({ id; name; stream_arn } : aws_kinesis_stream_consumer)
+    aws_kinesis_stream_consumer ?id ~name ~stream_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kinesis_stream_consumer __resource);
   let __resource_attributes =
     ({

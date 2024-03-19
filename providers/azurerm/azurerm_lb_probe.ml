@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_lb_probe__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_lb_probe__timeouts *)
+(** timeouts *)
 
 type azurerm_lb_probe = {
   id : string prop option; [@option]  (** id *)
@@ -26,10 +26,29 @@ type azurerm_lb_probe = {
       (** probe_threshold *)
   protocol : string prop option; [@option]  (** protocol *)
   request_path : string prop option; [@option]  (** request_path *)
-  timeouts : azurerm_lb_probe__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_lb_probe *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_lb_probe ?id ?interval_in_seconds ?number_of_probes
+    ?probe_threshold ?protocol ?request_path ?timeouts
+    ~loadbalancer_id ~name ~port () : azurerm_lb_probe =
+  {
+    id;
+    interval_in_seconds;
+    loadbalancer_id;
+    name;
+    number_of_probes;
+    port;
+    probe_threshold;
+    protocol;
+    request_path;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -44,26 +63,16 @@ type t = {
   request_path : string prop;
 }
 
-let azurerm_lb_probe ?id ?interval_in_seconds ?number_of_probes
+let register ?tf_module ?id ?interval_in_seconds ?number_of_probes
     ?probe_threshold ?protocol ?request_path ?timeouts
     ~loadbalancer_id ~name ~port __resource_id =
   let __resource_type = "azurerm_lb_probe" in
   let __resource =
-    ({
-       id;
-       interval_in_seconds;
-       loadbalancer_id;
-       name;
-       number_of_probes;
-       port;
-       probe_threshold;
-       protocol;
-       request_path;
-       timeouts;
-     }
-      : azurerm_lb_probe)
+    azurerm_lb_probe ?id ?interval_in_seconds ?number_of_probes
+      ?probe_threshold ?protocol ?request_path ?timeouts
+      ~loadbalancer_id ~name ~port ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lb_probe __resource);
   let __resource_attributes =
     ({

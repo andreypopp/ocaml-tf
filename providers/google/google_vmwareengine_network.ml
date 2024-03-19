@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_network__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vmwareengine_network__timeouts *)
+(** timeouts *)
 
-type google_vmwareengine_network__vpc_networks = {
+type vpc_networks = {
   network : string prop;  (** network *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -28,10 +28,17 @@ type google_vmwareengine_network = {
   project : string prop option; [@option]  (** project *)
   type_ : string prop; [@key "type"]
       (** VMware Engine network type. Possible values: [LEGACY, STANDARD] *)
-  timeouts : google_vmwareengine_network__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_network *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vmwareengine_network ?description ?id ?project ?timeouts
+    ~location ~name ~type_ () : google_vmwareengine_network =
+  { description; id; location; name; project; type_; timeouts }
 
 type t = {
   description : string prop;
@@ -42,17 +49,17 @@ type t = {
   state : string prop;
   type_ : string prop;
   uid : string prop;
-  vpc_networks : google_vmwareengine_network__vpc_networks list prop;
+  vpc_networks : vpc_networks list prop;
 }
 
-let google_vmwareengine_network ?description ?id ?project ?timeouts
-    ~location ~name ~type_ __resource_id =
+let register ?tf_module ?description ?id ?project ?timeouts ~location
+    ~name ~type_ __resource_id =
   let __resource_type = "google_vmwareengine_network" in
   let __resource =
-    ({ description; id; location; name; project; type_; timeouts }
-      : google_vmwareengine_network)
+    google_vmwareengine_network ?description ?id ?project ?timeouts
+      ~location ~name ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_network __resource);
   let __resource_attributes =
     ({

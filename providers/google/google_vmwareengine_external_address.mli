@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_external_address__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vmwareengine_external_address
+
+val google_vmwareengine_external_address :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  internal_ip:string prop ->
+  name:string prop ->
+  parent:string prop ->
+  unit ->
+  google_vmwareengine_external_address
+
+val yojson_of_google_vmwareengine_external_address :
+  google_vmwareengine_external_address -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -18,10 +43,11 @@ type t = private {
   update_time : string prop;
 }
 
-val google_vmwareengine_external_address :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:google_vmwareengine_external_address__timeouts ->
+  ?timeouts:timeouts ->
   internal_ip:string prop ->
   name:string prop ->
   parent:string prop ->

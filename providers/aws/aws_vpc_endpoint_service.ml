@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_vpc_endpoint_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_endpoint_service__timeouts *)
+(** timeouts *)
 
-type aws_vpc_endpoint_service__private_dns_name_configuration = {
+type private_dns_name_configuration = {
   name : string prop;  (** name *)
   state : string prop;  (** state *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -36,10 +36,30 @@ type aws_vpc_endpoint_service = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_vpc_endpoint_service__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_service *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpc_endpoint_service ?allowed_principals
+    ?gateway_load_balancer_arns ?id ?network_load_balancer_arns
+    ?private_dns_name ?supported_ip_address_types ?tags ?tags_all
+    ?timeouts ~acceptance_required () : aws_vpc_endpoint_service =
+  {
+    acceptance_required;
+    allowed_principals;
+    gateway_load_balancer_arns;
+    id;
+    network_load_balancer_arns;
+    private_dns_name;
+    supported_ip_address_types;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   acceptance_required : bool prop;
@@ -53,8 +73,7 @@ type t = {
   network_load_balancer_arns : string list prop;
   private_dns_name : string prop;
   private_dns_name_configuration :
-    aws_vpc_endpoint_service__private_dns_name_configuration list
-    prop;
+    private_dns_name_configuration list prop;
   service_name : string prop;
   service_type : string prop;
   state : string prop;
@@ -63,27 +82,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpc_endpoint_service ?allowed_principals
+let register ?tf_module ?allowed_principals
     ?gateway_load_balancer_arns ?id ?network_load_balancer_arns
     ?private_dns_name ?supported_ip_address_types ?tags ?tags_all
     ?timeouts ~acceptance_required __resource_id =
   let __resource_type = "aws_vpc_endpoint_service" in
   let __resource =
-    ({
-       acceptance_required;
-       allowed_principals;
-       gateway_load_balancer_arns;
-       id;
-       network_load_balancer_arns;
-       private_dns_name;
-       supported_ip_address_types;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_vpc_endpoint_service)
+    aws_vpc_endpoint_service ?allowed_principals
+      ?gateway_load_balancer_arns ?id ?network_load_balancer_arns
+      ?private_dns_name ?supported_ip_address_types ?tags ?tags_all
+      ?timeouts ~acceptance_required ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_endpoint_service __resource);
   let __resource_attributes =
     ({

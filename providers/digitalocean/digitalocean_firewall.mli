@@ -2,33 +2,73 @@
 
 open! Tf.Prelude
 
-type digitalocean_firewall__inbound_rule
-type digitalocean_firewall__outbound_rule
+(** RESOURCE SERIALIZATION *)
 
-type digitalocean_firewall__pending_changes = {
+type pending_changes = {
   droplet_id : float prop;  (** droplet_id *)
   removing : bool prop;  (** removing *)
   status : string prop;  (** status *)
 }
 
-type digitalocean_firewall
+type inbound_rule
 
-type t = private {
-  created_at : string prop;
-  droplet_ids : float list prop;
-  id : string prop;
-  name : string prop;
-  pending_changes : digitalocean_firewall__pending_changes list prop;
-  status : string prop;
-  tags : string list prop;
-}
+val inbound_rule :
+  ?port_range:string prop ->
+  ?source_addresses:string prop list ->
+  ?source_droplet_ids:float prop list ->
+  ?source_kubernetes_ids:string prop list ->
+  ?source_load_balancer_uids:string prop list ->
+  ?source_tags:string prop list ->
+  protocol:string prop ->
+  unit ->
+  inbound_rule
+
+type outbound_rule
+
+val outbound_rule :
+  ?destination_addresses:string prop list ->
+  ?destination_droplet_ids:float prop list ->
+  ?destination_kubernetes_ids:string prop list ->
+  ?destination_load_balancer_uids:string prop list ->
+  ?destination_tags:string prop list ->
+  ?port_range:string prop ->
+  protocol:string prop ->
+  unit ->
+  outbound_rule
+
+type digitalocean_firewall
 
 val digitalocean_firewall :
   ?droplet_ids:float prop list ->
   ?id:string prop ->
   ?tags:string prop list ->
   name:string prop ->
-  inbound_rule:digitalocean_firewall__inbound_rule list ->
-  outbound_rule:digitalocean_firewall__outbound_rule list ->
+  inbound_rule:inbound_rule list ->
+  outbound_rule:outbound_rule list ->
+  unit ->
+  digitalocean_firewall
+
+val yojson_of_digitalocean_firewall : digitalocean_firewall -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  created_at : string prop;
+  droplet_ids : float list prop;
+  id : string prop;
+  name : string prop;
+  pending_changes : pending_changes list prop;
+  status : string prop;
+  tags : string list prop;
+}
+
+val register :
+  ?tf_module:tf_module ->
+  ?droplet_ids:float prop list ->
+  ?id:string prop ->
+  ?tags:string prop list ->
+  name:string prop ->
+  inbound_rule:inbound_rule list ->
+  outbound_rule:outbound_rule list ->
   string ->
   t

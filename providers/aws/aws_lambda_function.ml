@@ -4,33 +4,33 @@
 
 open! Tf.Prelude
 
-type aws_lambda_function__dead_letter_config = {
+type dead_letter_config = {
   target_arn : string prop;  (** target_arn *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function__dead_letter_config *)
+(** dead_letter_config *)
 
-type aws_lambda_function__environment = {
+type environment = {
   variables : (string * string prop) list option; [@option]
       (** variables *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function__environment *)
+(** environment *)
 
-type aws_lambda_function__ephemeral_storage = {
+type ephemeral_storage = {
   size : float prop option; [@option]  (** size *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function__ephemeral_storage *)
+(** ephemeral_storage *)
 
-type aws_lambda_function__file_system_config = {
+type file_system_config = {
   arn : string prop;  (** arn *)
   local_mount_path : string prop;  (** local_mount_path *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function__file_system_config *)
+(** file_system_config *)
 
-type aws_lambda_function__image_config = {
+type image_config = {
   command : string prop list option; [@option]  (** command *)
   entry_point : string prop list option; [@option]
       (** entry_point *)
@@ -38,9 +38,9 @@ type aws_lambda_function__image_config = {
       (** working_directory *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function__image_config *)
+(** image_config *)
 
-type aws_lambda_function__logging_config = {
+type logging_config = {
   application_log_level : string prop option; [@option]
       (** application_log_level *)
   log_format : string prop;  (** log_format *)
@@ -49,38 +49,32 @@ type aws_lambda_function__logging_config = {
       (** system_log_level *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function__logging_config *)
+(** logging_config *)
 
-type aws_lambda_function__snap_start = {
-  apply_on : string prop;  (** apply_on *)
-  optimization_status : string prop;  (** optimization_status *)
-}
+type snap_start = { apply_on : string prop  (** apply_on *) }
 [@@deriving yojson_of]
-(** aws_lambda_function__snap_start *)
+(** snap_start *)
 
-type aws_lambda_function__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function__timeouts *)
+(** timeouts *)
 
-type aws_lambda_function__tracing_config = {
-  mode : string prop;  (** mode *)
-}
+type tracing_config = { mode : string prop  (** mode *) }
 [@@deriving yojson_of]
-(** aws_lambda_function__tracing_config *)
+(** tracing_config *)
 
-type aws_lambda_function__vpc_config = {
+type vpc_config = {
   ipv6_allowed_for_dual_stack : bool prop option; [@option]
       (** ipv6_allowed_for_dual_stack *)
   security_group_ids : string prop list;  (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
-  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_function__vpc_config *)
+(** vpc_config *)
 
 type aws_lambda_function = {
   architectures : string prop list option; [@option]
@@ -117,19 +111,98 @@ type aws_lambda_function = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeout : float prop option; [@option]  (** timeout *)
-  dead_letter_config : aws_lambda_function__dead_letter_config list;
-  environment : aws_lambda_function__environment list;
-  ephemeral_storage : aws_lambda_function__ephemeral_storage list;
-  file_system_config : aws_lambda_function__file_system_config list;
-  image_config : aws_lambda_function__image_config list;
-  logging_config : aws_lambda_function__logging_config list;
-  snap_start : aws_lambda_function__snap_start list;
-  timeouts : aws_lambda_function__timeouts option;
-  tracing_config : aws_lambda_function__tracing_config list;
-  vpc_config : aws_lambda_function__vpc_config list;
+  dead_letter_config : dead_letter_config list;
+  environment : environment list;
+  ephemeral_storage : ephemeral_storage list;
+  file_system_config : file_system_config list;
+  image_config : image_config list;
+  logging_config : logging_config list;
+  snap_start : snap_start list;
+  timeouts : timeouts option;
+  tracing_config : tracing_config list;
+  vpc_config : vpc_config list;
 }
 [@@deriving yojson_of]
 (** aws_lambda_function *)
+
+let dead_letter_config ~target_arn () : dead_letter_config =
+  { target_arn }
+
+let environment ?variables () : environment = { variables }
+let ephemeral_storage ?size () : ephemeral_storage = { size }
+
+let file_system_config ~arn ~local_mount_path () : file_system_config
+    =
+  { arn; local_mount_path }
+
+let image_config ?command ?entry_point ?working_directory () :
+    image_config =
+  { command; entry_point; working_directory }
+
+let logging_config ?application_log_level ?log_group
+    ?system_log_level ~log_format () : logging_config =
+  { application_log_level; log_format; log_group; system_log_level }
+
+let snap_start ~apply_on () : snap_start = { apply_on }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let tracing_config ~mode () : tracing_config = { mode }
+
+let vpc_config ?ipv6_allowed_for_dual_stack ~security_group_ids
+    ~subnet_ids () : vpc_config =
+  { ipv6_allowed_for_dual_stack; security_group_ids; subnet_ids }
+
+let aws_lambda_function ?architectures ?code_signing_config_arn
+    ?description ?filename ?handler ?id ?image_uri ?kms_key_arn
+    ?layers ?memory_size ?package_type ?publish
+    ?replace_security_groups_on_destroy
+    ?replacement_security_group_ids ?reserved_concurrent_executions
+    ?runtime ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
+    ?source_code_hash ?tags ?tags_all ?timeout ?timeouts
+    ~function_name ~role ~dead_letter_config ~environment
+    ~ephemeral_storage ~file_system_config ~image_config
+    ~logging_config ~snap_start ~tracing_config ~vpc_config () :
+    aws_lambda_function =
+  {
+    architectures;
+    code_signing_config_arn;
+    description;
+    filename;
+    function_name;
+    handler;
+    id;
+    image_uri;
+    kms_key_arn;
+    layers;
+    memory_size;
+    package_type;
+    publish;
+    replace_security_groups_on_destroy;
+    replacement_security_group_ids;
+    reserved_concurrent_executions;
+    role;
+    runtime;
+    s3_bucket;
+    s3_key;
+    s3_object_version;
+    skip_destroy;
+    source_code_hash;
+    tags;
+    tags_all;
+    timeout;
+    dead_letter_config;
+    environment;
+    ephemeral_storage;
+    file_system_config;
+    image_config;
+    logging_config;
+    snap_start;
+    timeouts;
+    tracing_config;
+    vpc_config;
+  }
 
 type t = {
   architectures : string list prop;
@@ -169,7 +242,7 @@ type t = {
   version : string prop;
 }
 
-let aws_lambda_function ?architectures ?code_signing_config_arn
+let register ?tf_module ?architectures ?code_signing_config_arn
     ?description ?filename ?handler ?id ?image_uri ?kms_key_arn
     ?layers ?memory_size ?package_type ?publish
     ?replace_security_groups_on_destroy
@@ -182,47 +255,18 @@ let aws_lambda_function ?architectures ?code_signing_config_arn
     __resource_id =
   let __resource_type = "aws_lambda_function" in
   let __resource =
-    ({
-       architectures;
-       code_signing_config_arn;
-       description;
-       filename;
-       function_name;
-       handler;
-       id;
-       image_uri;
-       kms_key_arn;
-       layers;
-       memory_size;
-       package_type;
-       publish;
-       replace_security_groups_on_destroy;
-       replacement_security_group_ids;
-       reserved_concurrent_executions;
-       role;
-       runtime;
-       s3_bucket;
-       s3_key;
-       s3_object_version;
-       skip_destroy;
-       source_code_hash;
-       tags;
-       tags_all;
-       timeout;
-       dead_letter_config;
-       environment;
-       ephemeral_storage;
-       file_system_config;
-       image_config;
-       logging_config;
-       snap_start;
-       timeouts;
-       tracing_config;
-       vpc_config;
-     }
-      : aws_lambda_function)
+    aws_lambda_function ?architectures ?code_signing_config_arn
+      ?description ?filename ?handler ?id ?image_uri ?kms_key_arn
+      ?layers ?memory_size ?package_type ?publish
+      ?replace_security_groups_on_destroy
+      ?replacement_security_group_ids ?reserved_concurrent_executions
+      ?runtime ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
+      ?source_code_hash ?tags ?tags_all ?timeout ?timeouts
+      ~function_name ~role ~dead_letter_config ~environment
+      ~ephemeral_storage ~file_system_config ~image_config
+      ~logging_config ~snap_start ~tracing_config ~vpc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_function __resource);
   let __resource_attributes =
     ({

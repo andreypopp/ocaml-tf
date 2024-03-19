@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_iot_thing_type__properties = {
+type properties = {
   description : string prop option; [@option]  (** description *)
   searchable_attributes : string prop list option; [@option]
       (** searchable_attributes *)
 }
 [@@deriving yojson_of]
-(** aws_iot_thing_type__properties *)
+(** properties *)
 
 type aws_iot_thing_type = {
   deprecated : bool prop option; [@option]  (** deprecated *)
@@ -19,10 +19,17 @@ type aws_iot_thing_type = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  properties : aws_iot_thing_type__properties list;
+  properties : properties list;
 }
 [@@deriving yojson_of]
 (** aws_iot_thing_type *)
+
+let properties ?description ?searchable_attributes () : properties =
+  { description; searchable_attributes }
+
+let aws_iot_thing_type ?deprecated ?id ?tags ?tags_all ~name
+    ~properties () : aws_iot_thing_type =
+  { deprecated; id; name; tags; tags_all; properties }
 
 type t = {
   arn : string prop;
@@ -33,14 +40,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_iot_thing_type ?deprecated ?id ?tags ?tags_all ~name
+let register ?tf_module ?deprecated ?id ?tags ?tags_all ~name
     ~properties __resource_id =
   let __resource_type = "aws_iot_thing_type" in
   let __resource =
-    ({ deprecated; id; name; tags; tags_all; properties }
-      : aws_iot_thing_type)
+    aws_iot_thing_type ?deprecated ?id ?tags ?tags_all ~name
+      ~properties ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_thing_type __resource);
   let __resource_attributes =
     ({

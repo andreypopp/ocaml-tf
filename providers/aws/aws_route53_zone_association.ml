@@ -13,6 +13,10 @@ type aws_route53_zone_association = {
 [@@deriving yojson_of]
 (** aws_route53_zone_association *)
 
+let aws_route53_zone_association ?id ?vpc_region ~vpc_id ~zone_id ()
+    : aws_route53_zone_association =
+  { id; vpc_id; vpc_region; zone_id }
+
 type t = {
   id : string prop;
   owning_account : string prop;
@@ -21,14 +25,13 @@ type t = {
   zone_id : string prop;
 }
 
-let aws_route53_zone_association ?id ?vpc_region ~vpc_id ~zone_id
+let register ?tf_module ?id ?vpc_region ~vpc_id ~zone_id
     __resource_id =
   let __resource_type = "aws_route53_zone_association" in
   let __resource =
-    ({ id; vpc_id; vpc_region; zone_id }
-      : aws_route53_zone_association)
+    aws_route53_zone_association ?id ?vpc_region ~vpc_id ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_zone_association __resource);
   let __resource_attributes =
     ({

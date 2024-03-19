@@ -12,20 +12,23 @@ type aws_detective_organization_configuration = {
 [@@deriving yojson_of]
 (** aws_detective_organization_configuration *)
 
+let aws_detective_organization_configuration ?id ~auto_enable
+    ~graph_arn () : aws_detective_organization_configuration =
+  { auto_enable; graph_arn; id }
+
 type t = {
   auto_enable : bool prop;
   graph_arn : string prop;
   id : string prop;
 }
 
-let aws_detective_organization_configuration ?id ~auto_enable
-    ~graph_arn __resource_id =
+let register ?tf_module ?id ~auto_enable ~graph_arn __resource_id =
   let __resource_type = "aws_detective_organization_configuration" in
   let __resource =
-    ({ auto_enable; graph_arn; id }
-      : aws_detective_organization_configuration)
+    aws_detective_organization_configuration ?id ~auto_enable
+      ~graph_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_detective_organization_configuration __resource);
   let __resource_attributes =
     ({

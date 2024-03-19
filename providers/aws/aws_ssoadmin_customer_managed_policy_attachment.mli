@@ -2,10 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_ssoadmin_customer_managed_policy_attachment__customer_managed_policy_reference
+(** RESOURCE SERIALIZATION *)
 
-type aws_ssoadmin_customer_managed_policy_attachment__timeouts
+type customer_managed_policy_reference
+
+val customer_managed_policy_reference :
+  ?path:string prop ->
+  name:string prop ->
+  unit ->
+  customer_managed_policy_reference
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_ssoadmin_customer_managed_policy_attachment
+
+val aws_ssoadmin_customer_managed_policy_attachment :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  instance_arn:string prop ->
+  permission_set_arn:string prop ->
+  customer_managed_policy_reference:
+    customer_managed_policy_reference list ->
+  unit ->
+  aws_ssoadmin_customer_managed_policy_attachment
+
+val yojson_of_aws_ssoadmin_customer_managed_policy_attachment :
+  aws_ssoadmin_customer_managed_policy_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,13 +40,13 @@ type t = private {
   permission_set_arn : string prop;
 }
 
-val aws_ssoadmin_customer_managed_policy_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_ssoadmin_customer_managed_policy_attachment__timeouts ->
+  ?timeouts:timeouts ->
   instance_arn:string prop ->
   permission_set_arn:string prop ->
   customer_managed_policy_reference:
-    aws_ssoadmin_customer_managed_policy_attachment__customer_managed_policy_reference
-    list ->
+    customer_managed_policy_reference list ->
   string ->
   t

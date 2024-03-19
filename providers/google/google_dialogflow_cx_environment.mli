@@ -2,9 +2,37 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_environment__timeouts
-type google_dialogflow_cx_environment__version_configs
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type version_configs
+
+val version_configs : version:string prop -> unit -> version_configs
+
 type google_dialogflow_cx_environment
+
+val google_dialogflow_cx_environment :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?parent:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  version_configs:version_configs list ->
+  unit ->
+  google_dialogflow_cx_environment
+
+val yojson_of_google_dialogflow_cx_environment :
+  google_dialogflow_cx_environment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -15,13 +43,13 @@ type t = private {
   update_time : string prop;
 }
 
-val google_dialogflow_cx_environment :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?parent:string prop ->
-  ?timeouts:google_dialogflow_cx_environment__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
-  version_configs:
-    google_dialogflow_cx_environment__version_configs list ->
+  version_configs:version_configs list ->
   string ->
   t

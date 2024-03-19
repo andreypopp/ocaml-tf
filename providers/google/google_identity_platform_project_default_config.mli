@@ -2,13 +2,9 @@
 
 open! Tf.Prelude
 
-type google_identity_platform_project_default_config__sign_in__anonymous
+(** RESOURCE SERIALIZATION *)
 
-type google_identity_platform_project_default_config__sign_in__email
-
-type google_identity_platform_project_default_config__sign_in__phone_number
-
-type google_identity_platform_project_default_config__sign_in__hash_config = {
+type sign_in__hash_config = {
   algorithm : string prop;  (** algorithm *)
   memory_cost : float prop;  (** memory_cost *)
   rounds : float prop;  (** rounds *)
@@ -16,9 +12,60 @@ type google_identity_platform_project_default_config__sign_in__hash_config = {
   signer_key : string prop;  (** signer_key *)
 }
 
-type google_identity_platform_project_default_config__sign_in
-type google_identity_platform_project_default_config__timeouts
+type sign_in__anonymous
+
+val sign_in__anonymous :
+  enabled:bool prop -> unit -> sign_in__anonymous
+
+type sign_in__email
+
+val sign_in__email :
+  ?enabled:bool prop ->
+  ?password_required:bool prop ->
+  unit ->
+  sign_in__email
+
+type sign_in__phone_number
+
+val sign_in__phone_number :
+  ?enabled:bool prop ->
+  ?test_phone_numbers:(string * string prop) list ->
+  unit ->
+  sign_in__phone_number
+
+type sign_in
+
+val sign_in :
+  ?allow_duplicate_emails:bool prop ->
+  anonymous:sign_in__anonymous list ->
+  email:sign_in__email list ->
+  phone_number:sign_in__phone_number list ->
+  unit ->
+  sign_in
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_identity_platform_project_default_config
+
+val google_identity_platform_project_default_config :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  sign_in:sign_in list ->
+  unit ->
+  google_identity_platform_project_default_config
+
+val yojson_of_google_identity_platform_project_default_config :
+  google_identity_platform_project_default_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -26,11 +73,11 @@ type t = private {
   project : string prop;
 }
 
-val google_identity_platform_project_default_config :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_identity_platform_project_default_config__timeouts ->
-  sign_in:
-    google_identity_platform_project_default_config__sign_in list ->
+  ?timeouts:timeouts ->
+  sign_in:sign_in list ->
   string ->
   t

@@ -4,22 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_redis_enterprise_database__module = {
+type module_ = {
   args : string prop option; [@option]  (** args *)
   name : string prop;  (** name *)
-  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_redis_enterprise_database__module *)
+(** module *)
 
-type azurerm_redis_enterprise_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_redis_enterprise_database__timeouts *)
+(** timeouts *)
 
 type azurerm_redis_enterprise_database = {
   client_protocol : string prop option; [@option]
@@ -38,11 +37,36 @@ type azurerm_redis_enterprise_database = {
   port : float prop option; [@option]  (** port *)
   resource_group_name : string prop option; [@option]
       (** resource_group_name *)
-  module_ : azurerm_redis_enterprise_database__module list;
-  timeouts : azurerm_redis_enterprise_database__timeouts option;
+  module_ : module_ list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_redis_enterprise_database *)
+
+let module_ ?args ~name () : module_ = { args; name }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_redis_enterprise_database ?client_protocol
+    ?clustering_policy ?eviction_policy ?id
+    ?linked_database_group_nickname ?linked_database_id ?name ?port
+    ?resource_group_name ?timeouts ~cluster_id ~module_ () :
+    azurerm_redis_enterprise_database =
+  {
+    client_protocol;
+    cluster_id;
+    clustering_policy;
+    eviction_policy;
+    id;
+    linked_database_group_nickname;
+    linked_database_id;
+    name;
+    port;
+    resource_group_name;
+    module_;
+    timeouts;
+  }
 
 type t = {
   client_protocol : string prop;
@@ -59,30 +83,18 @@ type t = {
   secondary_access_key : string prop;
 }
 
-let azurerm_redis_enterprise_database ?client_protocol
-    ?clustering_policy ?eviction_policy ?id
-    ?linked_database_group_nickname ?linked_database_id ?name ?port
-    ?resource_group_name ?timeouts ~cluster_id ~module_ __resource_id
-    =
+let register ?tf_module ?client_protocol ?clustering_policy
+    ?eviction_policy ?id ?linked_database_group_nickname
+    ?linked_database_id ?name ?port ?resource_group_name ?timeouts
+    ~cluster_id ~module_ __resource_id =
   let __resource_type = "azurerm_redis_enterprise_database" in
   let __resource =
-    ({
-       client_protocol;
-       cluster_id;
-       clustering_policy;
-       eviction_policy;
-       id;
-       linked_database_group_nickname;
-       linked_database_id;
-       name;
-       port;
-       resource_group_name;
-       module_;
-       timeouts;
-     }
-      : azurerm_redis_enterprise_database)
+    azurerm_redis_enterprise_database ?client_protocol
+      ?clustering_policy ?eviction_policy ?id
+      ?linked_database_group_nickname ?linked_database_id ?name ?port
+      ?resource_group_name ?timeouts ~cluster_id ~module_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_redis_enterprise_database __resource);
   let __resource_attributes =
     ({

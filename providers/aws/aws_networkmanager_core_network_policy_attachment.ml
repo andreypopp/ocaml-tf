@@ -4,22 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_core_network_policy_attachment__timeouts = {
+type timeouts = {
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_core_network_policy_attachment__timeouts *)
+(** timeouts *)
 
 type aws_networkmanager_core_network_policy_attachment = {
   core_network_id : string prop;  (** core_network_id *)
   id : string prop option; [@option]  (** id *)
   policy_document : string prop;  (** policy_document *)
-  timeouts :
-    aws_networkmanager_core_network_policy_attachment__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_core_network_policy_attachment *)
+
+let timeouts ?update () : timeouts = { update }
+
+let aws_networkmanager_core_network_policy_attachment ?id ?timeouts
+    ~core_network_id ~policy_document () :
+    aws_networkmanager_core_network_policy_attachment =
+  { core_network_id; id; policy_document; timeouts }
 
 type t = {
   core_network_id : string prop;
@@ -28,16 +33,16 @@ type t = {
   state : string prop;
 }
 
-let aws_networkmanager_core_network_policy_attachment ?id ?timeouts
-    ~core_network_id ~policy_document __resource_id =
+let register ?tf_module ?id ?timeouts ~core_network_id
+    ~policy_document __resource_id =
   let __resource_type =
     "aws_networkmanager_core_network_policy_attachment"
   in
   let __resource =
-    ({ core_network_id; id; policy_document; timeouts }
-      : aws_networkmanager_core_network_policy_attachment)
+    aws_networkmanager_core_network_policy_attachment ?id ?timeouts
+      ~core_network_id ~policy_document ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_core_network_policy_attachment
        __resource);
   let __resource_attributes =

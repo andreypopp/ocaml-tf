@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_mariadb_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_mariadb_database__timeouts *)
+(** timeouts *)
 
 type azurerm_mariadb_database = {
   charset : string prop;  (** charset *)
@@ -19,10 +19,25 @@ type azurerm_mariadb_database = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   server_name : string prop;  (** server_name *)
-  timeouts : azurerm_mariadb_database__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mariadb_database *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_mariadb_database ?id ?timeouts ~charset ~collation ~name
+    ~resource_group_name ~server_name () : azurerm_mariadb_database =
+  {
+    charset;
+    collation;
+    id;
+    name;
+    resource_group_name;
+    server_name;
+    timeouts;
+  }
 
 type t = {
   charset : string prop;
@@ -33,22 +48,14 @@ type t = {
   server_name : string prop;
 }
 
-let azurerm_mariadb_database ?id ?timeouts ~charset ~collation ~name
+let register ?tf_module ?id ?timeouts ~charset ~collation ~name
     ~resource_group_name ~server_name __resource_id =
   let __resource_type = "azurerm_mariadb_database" in
   let __resource =
-    ({
-       charset;
-       collation;
-       id;
-       name;
-       resource_group_name;
-       server_name;
-       timeouts;
-     }
-      : azurerm_mariadb_database)
+    azurerm_mariadb_database ?id ?timeouts ~charset ~collation ~name
+      ~resource_group_name ~server_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mariadb_database __resource);
   let __resource_attributes =
     ({

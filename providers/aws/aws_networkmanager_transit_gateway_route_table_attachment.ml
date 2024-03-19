@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_transit_gateway_route_table_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_networkmanager_transit_gateway_route_table_attachment__timeouts *)
+(** timeouts *)
 
 type aws_networkmanager_transit_gateway_route_table_attachment = {
   id : string prop option; [@option]  (** id *)
@@ -19,12 +19,25 @@ type aws_networkmanager_transit_gateway_route_table_attachment = {
       (** tags_all *)
   transit_gateway_route_table_arn : string prop;
       (** transit_gateway_route_table_arn *)
-  timeouts :
-    aws_networkmanager_transit_gateway_route_table_attachment__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_transit_gateway_route_table_attachment *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_networkmanager_transit_gateway_route_table_attachment ?id
+    ?tags ?tags_all ?timeouts ~peering_id
+    ~transit_gateway_route_table_arn () :
+    aws_networkmanager_transit_gateway_route_table_attachment =
+  {
+    id;
+    peering_id;
+    tags;
+    tags_all;
+    transit_gateway_route_table_arn;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -44,24 +57,17 @@ type t = {
   transit_gateway_route_table_arn : string prop;
 }
 
-let aws_networkmanager_transit_gateway_route_table_attachment ?id
-    ?tags ?tags_all ?timeouts ~peering_id
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~peering_id
     ~transit_gateway_route_table_arn __resource_id =
   let __resource_type =
     "aws_networkmanager_transit_gateway_route_table_attachment"
   in
   let __resource =
-    ({
-       id;
-       peering_id;
-       tags;
-       tags_all;
-       transit_gateway_route_table_arn;
-       timeouts;
-     }
-      : aws_networkmanager_transit_gateway_route_table_attachment)
+    aws_networkmanager_transit_gateway_route_table_attachment ?id
+      ?tags ?tags_all ?timeouts ~peering_id
+      ~transit_gateway_route_table_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_transit_gateway_route_table_attachment
        __resource);
   let __resource_attributes =

@@ -4,21 +4,28 @@
 
 open! Tf.Prelude
 
-type aws_internet_gateway_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_internet_gateway_attachment__timeouts *)
+(** timeouts *)
 
 type aws_internet_gateway_attachment = {
   id : string prop option; [@option]  (** id *)
   internet_gateway_id : string prop;  (** internet_gateway_id *)
   vpc_id : string prop;  (** vpc_id *)
-  timeouts : aws_internet_gateway_attachment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_internet_gateway_attachment *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_internet_gateway_attachment ?id ?timeouts
+    ~internet_gateway_id ~vpc_id () : aws_internet_gateway_attachment
+    =
+  { id; internet_gateway_id; vpc_id; timeouts }
 
 type t = {
   id : string prop;
@@ -26,14 +33,14 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_internet_gateway_attachment ?id ?timeouts
-    ~internet_gateway_id ~vpc_id __resource_id =
+let register ?tf_module ?id ?timeouts ~internet_gateway_id ~vpc_id
+    __resource_id =
   let __resource_type = "aws_internet_gateway_attachment" in
   let __resource =
-    ({ id; internet_gateway_id; vpc_id; timeouts }
-      : aws_internet_gateway_attachment)
+    aws_internet_gateway_attachment ?id ?timeouts
+      ~internet_gateway_id ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_internet_gateway_attachment __resource);
   let __resource_attributes =
     ({

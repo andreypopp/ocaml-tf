@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_digital_twins_endpoint_eventgrid__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_digital_twins_endpoint_eventgrid__timeouts *)
+(** timeouts *)
 
 type azurerm_digital_twins_endpoint_eventgrid = {
   dead_letter_storage_secret : string prop option; [@option]
@@ -25,11 +25,29 @@ type azurerm_digital_twins_endpoint_eventgrid = {
       (** eventgrid_topic_secondary_access_key *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  timeouts :
-    azurerm_digital_twins_endpoint_eventgrid__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_digital_twins_endpoint_eventgrid *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_digital_twins_endpoint_eventgrid
+    ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
+    ~eventgrid_topic_endpoint ~eventgrid_topic_primary_access_key
+    ~eventgrid_topic_secondary_access_key ~name () :
+    azurerm_digital_twins_endpoint_eventgrid =
+  {
+    dead_letter_storage_secret;
+    digital_twins_id;
+    eventgrid_topic_endpoint;
+    eventgrid_topic_primary_access_key;
+    eventgrid_topic_secondary_access_key;
+    id;
+    name;
+    timeouts;
+  }
 
 type t = {
   dead_letter_storage_secret : string prop;
@@ -41,25 +59,18 @@ type t = {
   name : string prop;
 }
 
-let azurerm_digital_twins_endpoint_eventgrid
-    ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
-    ~eventgrid_topic_endpoint ~eventgrid_topic_primary_access_key
+let register ?tf_module ?dead_letter_storage_secret ?id ?timeouts
+    ~digital_twins_id ~eventgrid_topic_endpoint
+    ~eventgrid_topic_primary_access_key
     ~eventgrid_topic_secondary_access_key ~name __resource_id =
   let __resource_type = "azurerm_digital_twins_endpoint_eventgrid" in
   let __resource =
-    ({
-       dead_letter_storage_secret;
-       digital_twins_id;
-       eventgrid_topic_endpoint;
-       eventgrid_topic_primary_access_key;
-       eventgrid_topic_secondary_access_key;
-       id;
-       name;
-       timeouts;
-     }
-      : azurerm_digital_twins_endpoint_eventgrid)
+    azurerm_digital_twins_endpoint_eventgrid
+      ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
+      ~eventgrid_topic_endpoint ~eventgrid_topic_primary_access_key
+      ~eventgrid_topic_secondary_access_key ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_digital_twins_endpoint_eventgrid __resource);
   let __resource_attributes =
     ({

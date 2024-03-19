@@ -2,8 +2,38 @@
 
 open! Tf.Prelude
 
-type azurerm_bot_channel_slack__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_bot_channel_slack
+
+val azurerm_bot_channel_slack :
+  ?id:string prop ->
+  ?landing_page_url:string prop ->
+  ?signing_secret:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  verification_token:string prop ->
+  unit ->
+  azurerm_bot_channel_slack
+
+val yojson_of_azurerm_bot_channel_slack :
+  azurerm_bot_channel_slack -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bot_name : string prop;
@@ -17,11 +47,12 @@ type t = private {
   verification_token : string prop;
 }
 
-val azurerm_bot_channel_slack :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?landing_page_url:string prop ->
   ?signing_secret:string prop ->
-  ?timeouts:azurerm_bot_channel_slack__timeouts ->
+  ?timeouts:timeouts ->
   bot_name:string prop ->
   client_id:string prop ->
   client_secret:string prop ->

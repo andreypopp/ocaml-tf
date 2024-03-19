@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_private_dns_a_record__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_private_dns_a_record
+
+val azurerm_private_dns_a_record :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  records:string prop list ->
+  resource_group_name:string prop ->
+  ttl:float prop ->
+  zone_name:string prop ->
+  unit ->
+  azurerm_private_dns_a_record
+
+val yojson_of_azurerm_private_dns_a_record :
+  azurerm_private_dns_a_record -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   fqdn : string prop;
@@ -16,10 +44,11 @@ type t = private {
   zone_name : string prop;
 }
 
-val azurerm_private_dns_a_record :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_private_dns_a_record__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   records:string prop list ->
   resource_group_name:string prop ->

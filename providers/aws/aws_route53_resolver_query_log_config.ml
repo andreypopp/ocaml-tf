@@ -15,6 +15,11 @@ type aws_route53_resolver_query_log_config = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_query_log_config *)
 
+let aws_route53_resolver_query_log_config ?id ?tags ?tags_all
+    ~destination_arn ~name () : aws_route53_resolver_query_log_config
+    =
+  { destination_arn; id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   destination_arn : string prop;
@@ -26,14 +31,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_route53_resolver_query_log_config ?id ?tags ?tags_all
-    ~destination_arn ~name __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~destination_arn ~name
+    __resource_id =
   let __resource_type = "aws_route53_resolver_query_log_config" in
   let __resource =
-    ({ destination_arn; id; name; tags; tags_all }
-      : aws_route53_resolver_query_log_config)
+    aws_route53_resolver_query_log_config ?id ?tags ?tags_all
+      ~destination_arn ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_query_log_config __resource);
   let __resource_attributes =
     ({

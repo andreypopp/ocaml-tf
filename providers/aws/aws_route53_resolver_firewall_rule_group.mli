@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_resolver_firewall_rule_group
+
+val aws_route53_resolver_firewall_rule_group :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  aws_route53_resolver_firewall_rule_group
+
+val yojson_of_aws_route53_resolver_firewall_rule_group :
+  aws_route53_resolver_firewall_rule_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +29,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_route53_resolver_firewall_rule_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

@@ -18,6 +18,18 @@ type hcloud_rdns = {
 [@@deriving yojson_of]
 (** hcloud_rdns *)
 
+let hcloud_rdns ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
+    ?server_id ~dns_ptr ~ip_address () : hcloud_rdns =
+  {
+    dns_ptr;
+    floating_ip_id;
+    id;
+    ip_address;
+    load_balancer_id;
+    primary_ip_id;
+    server_id;
+  }
+
 type t = {
   dns_ptr : string prop;
   floating_ip_id : float prop;
@@ -28,22 +40,14 @@ type t = {
   server_id : float prop;
 }
 
-let hcloud_rdns ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
-    ?server_id ~dns_ptr ~ip_address __resource_id =
+let register ?tf_module ?floating_ip_id ?id ?load_balancer_id
+    ?primary_ip_id ?server_id ~dns_ptr ~ip_address __resource_id =
   let __resource_type = "hcloud_rdns" in
   let __resource =
-    ({
-       dns_ptr;
-       floating_ip_id;
-       id;
-       ip_address;
-       load_balancer_id;
-       primary_ip_id;
-       server_id;
-     }
-      : hcloud_rdns)
+    hcloud_rdns ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
+      ?server_id ~dns_ptr ~ip_address ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_rdns __resource);
   let __resource_attributes =
     ({

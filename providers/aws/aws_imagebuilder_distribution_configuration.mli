@@ -2,24 +2,122 @@
 
 open! Tf.Prelude
 
-type aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration__launch_permission
+(** RESOURCE SERIALIZATION *)
 
-type aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration
+type distribution__ami_distribution_configuration__launch_permission
 
-type aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration__target_repository
+val distribution__ami_distribution_configuration__launch_permission :
+  ?organization_arns:string prop list ->
+  ?organizational_unit_arns:string prop list ->
+  ?user_groups:string prop list ->
+  ?user_ids:string prop list ->
+  unit ->
+  distribution__ami_distribution_configuration__launch_permission
 
-type aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration
+type distribution__ami_distribution_configuration
 
-type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__launch_template
+val distribution__ami_distribution_configuration :
+  ?ami_tags:(string * string prop) list ->
+  ?description:string prop ->
+  ?kms_key_id:string prop ->
+  ?name:string prop ->
+  ?target_account_ids:string prop list ->
+  launch_permission:
+    distribution__ami_distribution_configuration__launch_permission
+    list ->
+  unit ->
+  distribution__ami_distribution_configuration
 
-type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__snapshot_configuration
+type distribution__container_distribution_configuration__target_repository
 
-type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration
+val distribution__container_distribution_configuration__target_repository :
+  repository_name:string prop ->
+  service:string prop ->
+  unit ->
+  distribution__container_distribution_configuration__target_repository
 
-type aws_imagebuilder_distribution_configuration__distribution__launch_template_configuration
+type distribution__container_distribution_configuration
 
-type aws_imagebuilder_distribution_configuration__distribution
+val distribution__container_distribution_configuration :
+  ?container_tags:string prop list ->
+  ?description:string prop ->
+  target_repository:
+    distribution__container_distribution_configuration__target_repository
+    list ->
+  unit ->
+  distribution__container_distribution_configuration
+
+type distribution__fast_launch_configuration__launch_template
+
+val distribution__fast_launch_configuration__launch_template :
+  ?launch_template_id:string prop ->
+  ?launch_template_name:string prop ->
+  ?launch_template_version:string prop ->
+  unit ->
+  distribution__fast_launch_configuration__launch_template
+
+type distribution__fast_launch_configuration__snapshot_configuration
+
+val distribution__fast_launch_configuration__snapshot_configuration :
+  ?target_resource_count:float prop ->
+  unit ->
+  distribution__fast_launch_configuration__snapshot_configuration
+
+type distribution__fast_launch_configuration
+
+val distribution__fast_launch_configuration :
+  ?max_parallel_launches:float prop ->
+  account_id:string prop ->
+  enabled:bool prop ->
+  launch_template:
+    distribution__fast_launch_configuration__launch_template list ->
+  snapshot_configuration:
+    distribution__fast_launch_configuration__snapshot_configuration
+    list ->
+  unit ->
+  distribution__fast_launch_configuration
+
+type distribution__launch_template_configuration
+
+val distribution__launch_template_configuration :
+  ?account_id:string prop ->
+  ?default:bool prop ->
+  launch_template_id:string prop ->
+  unit ->
+  distribution__launch_template_configuration
+
+type distribution
+
+val distribution :
+  ?license_configuration_arns:string prop list ->
+  region:string prop ->
+  ami_distribution_configuration:
+    distribution__ami_distribution_configuration list ->
+  container_distribution_configuration:
+    distribution__container_distribution_configuration list ->
+  fast_launch_configuration:
+    distribution__fast_launch_configuration list ->
+  launch_template_configuration:
+    distribution__launch_template_configuration list ->
+  unit ->
+  distribution
+
 type aws_imagebuilder_distribution_configuration
+
+val aws_imagebuilder_distribution_configuration :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  distribution:distribution list ->
+  unit ->
+  aws_imagebuilder_distribution_configuration
+
+val yojson_of_aws_imagebuilder_distribution_configuration :
+  aws_imagebuilder_distribution_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -32,13 +130,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_imagebuilder_distribution_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  distribution:
-    aws_imagebuilder_distribution_configuration__distribution list ->
+  distribution:distribution list ->
   string ->
   t

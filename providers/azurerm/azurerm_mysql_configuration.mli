@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type azurerm_mysql_configuration__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mysql_configuration
+
+val azurerm_mysql_configuration :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
+  value:string prop ->
+  unit ->
+  azurerm_mysql_configuration
+
+val yojson_of_azurerm_mysql_configuration :
+  azurerm_mysql_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,9 +38,10 @@ type t = private {
   value : string prop;
 }
 
-val azurerm_mysql_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_mysql_configuration__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   server_name:string prop ->

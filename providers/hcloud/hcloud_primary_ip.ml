@@ -20,6 +20,21 @@ type hcloud_primary_ip = {
 [@@deriving yojson_of]
 (** hcloud_primary_ip *)
 
+let hcloud_primary_ip ?assignee_id ?datacenter ?delete_protection ?id
+    ?labels ?name ~assignee_type ~auto_delete ~type_ () :
+    hcloud_primary_ip =
+  {
+    assignee_id;
+    assignee_type;
+    auto_delete;
+    datacenter;
+    delete_protection;
+    id;
+    labels;
+    name;
+    type_;
+  }
+
 type t = {
   assignee_id : float prop;
   assignee_type : string prop;
@@ -34,24 +49,15 @@ type t = {
   type_ : string prop;
 }
 
-let hcloud_primary_ip ?assignee_id ?datacenter ?delete_protection ?id
-    ?labels ?name ~assignee_type ~auto_delete ~type_ __resource_id =
+let register ?tf_module ?assignee_id ?datacenter ?delete_protection
+    ?id ?labels ?name ~assignee_type ~auto_delete ~type_
+    __resource_id =
   let __resource_type = "hcloud_primary_ip" in
   let __resource =
-    ({
-       assignee_id;
-       assignee_type;
-       auto_delete;
-       datacenter;
-       delete_protection;
-       id;
-       labels;
-       name;
-       type_;
-     }
-      : hcloud_primary_ip)
+    hcloud_primary_ip ?assignee_id ?datacenter ?delete_protection ?id
+      ?labels ?name ~assignee_type ~auto_delete ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_primary_ip __resource);
   let __resource_attributes =
     ({

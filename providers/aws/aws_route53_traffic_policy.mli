@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_traffic_policy
+
+val aws_route53_traffic_policy :
+  ?comment:string prop ->
+  ?id:string prop ->
+  document:string prop ->
+  name:string prop ->
+  unit ->
+  aws_route53_traffic_policy
+
+val yojson_of_aws_route53_traffic_policy :
+  aws_route53_traffic_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   comment : string prop;
@@ -13,7 +28,8 @@ type t = private {
   version : float prop;
 }
 
-val aws_route53_traffic_policy :
+val register :
+  ?tf_module:tf_module ->
   ?comment:string prop ->
   ?id:string prop ->
   document:string prop ->

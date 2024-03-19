@@ -2,18 +2,40 @@
 
 open! Tf.Prelude
 
-type azurerm_container_registry_task_schedule_run_now__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_container_registry_task_schedule_run_now
+
+val azurerm_container_registry_task_schedule_run_now :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  container_registry_task_id:string prop ->
+  unit ->
+  azurerm_container_registry_task_schedule_run_now
+
+val yojson_of_azurerm_container_registry_task_schedule_run_now :
+  azurerm_container_registry_task_schedule_run_now -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   container_registry_task_id : string prop;
   id : string prop;
 }
 
-val azurerm_container_registry_task_schedule_run_now :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_container_registry_task_schedule_run_now__timeouts ->
+  ?timeouts:timeouts ->
   container_registry_task_id:string prop ->
   string ->
   t

@@ -2,16 +2,38 @@
 
 open! Tf.Prelude
 
-type azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
 
 type azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association
 
-type t = private { certificate_id : string prop; id : string prop }
-
 val azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association :
   ?id:string prop ->
-  ?timeouts:
-    azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association__timeouts ->
+  ?timeouts:timeouts ->
+  certificate_id:string prop ->
+  unit ->
+  azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association
+
+val yojson_of_azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association :
+  azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association ->
+  json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { certificate_id : string prop; id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
   certificate_id:string prop ->
   string ->
   t

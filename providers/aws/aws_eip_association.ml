@@ -19,6 +19,19 @@ type aws_eip_association = {
 [@@deriving yojson_of]
 (** aws_eip_association *)
 
+let aws_eip_association ?allocation_id ?allow_reassociation ?id
+    ?instance_id ?network_interface_id ?private_ip_address ?public_ip
+    () : aws_eip_association =
+  {
+    allocation_id;
+    allow_reassociation;
+    id;
+    instance_id;
+    network_interface_id;
+    private_ip_address;
+    public_ip;
+  }
+
 type t = {
   allocation_id : string prop;
   allow_reassociation : bool prop;
@@ -29,23 +42,16 @@ type t = {
   public_ip : string prop;
 }
 
-let aws_eip_association ?allocation_id ?allow_reassociation ?id
+let register ?tf_module ?allocation_id ?allow_reassociation ?id
     ?instance_id ?network_interface_id ?private_ip_address ?public_ip
     __resource_id =
   let __resource_type = "aws_eip_association" in
   let __resource =
-    ({
-       allocation_id;
-       allow_reassociation;
-       id;
-       instance_id;
-       network_interface_id;
-       private_ip_address;
-       public_ip;
-     }
-      : aws_eip_association)
+    aws_eip_association ?allocation_id ?allow_reassociation ?id
+      ?instance_id ?network_interface_id ?private_ip_address
+      ?public_ip ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eip_association __resource);
   let __resource_attributes =
     ({

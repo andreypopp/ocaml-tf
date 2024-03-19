@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_email_routing_address
+
+val cloudflare_email_routing_address :
+  account_id:string prop ->
+  email:string prop ->
+  unit ->
+  cloudflare_email_routing_address
+
+val yojson_of_cloudflare_email_routing_address :
+  cloudflare_email_routing_address -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -14,5 +27,9 @@ type t = private {
   verified : string prop;
 }
 
-val cloudflare_email_routing_address :
-  account_id:string prop -> email:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  account_id:string prop ->
+  email:string prop ->
+  string ->
+  t

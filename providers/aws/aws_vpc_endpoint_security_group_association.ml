@@ -14,6 +14,16 @@ type aws_vpc_endpoint_security_group_association = {
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_security_group_association *)
 
+let aws_vpc_endpoint_security_group_association ?id
+    ?replace_default_association ~security_group_id ~vpc_endpoint_id
+    () : aws_vpc_endpoint_security_group_association =
+  {
+    id;
+    replace_default_association;
+    security_group_id;
+    vpc_endpoint_id;
+  }
+
 type t = {
   id : string prop;
   replace_default_association : bool prop;
@@ -21,22 +31,17 @@ type t = {
   vpc_endpoint_id : string prop;
 }
 
-let aws_vpc_endpoint_security_group_association ?id
-    ?replace_default_association ~security_group_id ~vpc_endpoint_id
-    __resource_id =
+let register ?tf_module ?id ?replace_default_association
+    ~security_group_id ~vpc_endpoint_id __resource_id =
   let __resource_type =
     "aws_vpc_endpoint_security_group_association"
   in
   let __resource =
-    ({
-       id;
-       replace_default_association;
-       security_group_id;
-       vpc_endpoint_id;
-     }
-      : aws_vpc_endpoint_security_group_association)
+    aws_vpc_endpoint_security_group_association ?id
+      ?replace_default_association ~security_group_id
+      ~vpc_endpoint_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_endpoint_security_group_association __resource);
   let __resource_attributes =
     ({

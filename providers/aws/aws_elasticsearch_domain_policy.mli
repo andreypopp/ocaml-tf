@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_elasticsearch_domain_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?delete:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_elasticsearch_domain_policy
+
+val aws_elasticsearch_domain_policy :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  access_policies:string prop ->
+  domain_name:string prop ->
+  unit ->
+  aws_elasticsearch_domain_policy
+
+val yojson_of_aws_elasticsearch_domain_policy :
+  aws_elasticsearch_domain_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_policies : string prop;
@@ -11,9 +30,10 @@ type t = private {
   id : string prop;
 }
 
-val aws_elasticsearch_domain_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_elasticsearch_domain_policy__timeouts ->
+  ?timeouts:timeouts ->
   access_policies:string prop ->
   domain_name:string prop ->
   string ->

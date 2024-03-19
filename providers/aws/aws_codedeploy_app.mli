@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_codedeploy_app
+
+val aws_codedeploy_app :
+  ?compute_platform:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  aws_codedeploy_app
+
+val yojson_of_aws_codedeploy_app : aws_codedeploy_app -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -16,7 +31,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_codedeploy_app :
+val register :
+  ?tf_module:tf_module ->
   ?compute_platform:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

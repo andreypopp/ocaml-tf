@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_user__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_user__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_user = {
   api_management_name : string prop;  (** api_management_name *)
@@ -25,10 +25,32 @@ type azurerm_api_management_user = {
   resource_group_name : string prop;  (** resource_group_name *)
   state : string prop option; [@option]  (** state *)
   user_id : string prop;  (** user_id *)
-  timeouts : azurerm_api_management_user__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_user *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_user ?confirmation ?id ?note ?password
+    ?state ?timeouts ~api_management_name ~email ~first_name
+    ~last_name ~resource_group_name ~user_id () :
+    azurerm_api_management_user =
+  {
+    api_management_name;
+    confirmation;
+    email;
+    first_name;
+    id;
+    last_name;
+    note;
+    password;
+    resource_group_name;
+    state;
+    user_id;
+    timeouts;
+  }
 
 type t = {
   api_management_name : string prop;
@@ -44,28 +66,16 @@ type t = {
   user_id : string prop;
 }
 
-let azurerm_api_management_user ?confirmation ?id ?note ?password
-    ?state ?timeouts ~api_management_name ~email ~first_name
-    ~last_name ~resource_group_name ~user_id __resource_id =
+let register ?tf_module ?confirmation ?id ?note ?password ?state
+    ?timeouts ~api_management_name ~email ~first_name ~last_name
+    ~resource_group_name ~user_id __resource_id =
   let __resource_type = "azurerm_api_management_user" in
   let __resource =
-    ({
-       api_management_name;
-       confirmation;
-       email;
-       first_name;
-       id;
-       last_name;
-       note;
-       password;
-       resource_group_name;
-       state;
-       user_id;
-       timeouts;
-     }
-      : azurerm_api_management_user)
+    azurerm_api_management_user ?confirmation ?id ?note ?password
+      ?state ?timeouts ~api_management_name ~email ~first_name
+      ~last_name ~resource_group_name ~user_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_user __resource);
   let __resource_attributes =
     ({

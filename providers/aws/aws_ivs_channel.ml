@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_ivs_channel__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ivs_channel__timeouts *)
+(** timeouts *)
 
 type aws_ivs_channel = {
   authorized : bool prop option; [@option]  (** authorized *)
@@ -23,10 +23,28 @@ type aws_ivs_channel = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  timeouts : aws_ivs_channel__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ivs_channel *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_ivs_channel ?authorized ?id ?latency_mode ?name
+    ?recording_configuration_arn ?tags ?tags_all ?type_ ?timeouts ()
+    : aws_ivs_channel =
+  {
+    authorized;
+    id;
+    latency_mode;
+    name;
+    recording_configuration_arn;
+    tags;
+    tags_all;
+    type_;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -42,25 +60,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_ivs_channel ?authorized ?id ?latency_mode ?name
+let register ?tf_module ?authorized ?id ?latency_mode ?name
     ?recording_configuration_arn ?tags ?tags_all ?type_ ?timeouts
     __resource_id =
   let __resource_type = "aws_ivs_channel" in
   let __resource =
-    ({
-       authorized;
-       id;
-       latency_mode;
-       name;
-       recording_configuration_arn;
-       tags;
-       tags_all;
-       type_;
-       timeouts;
-     }
-      : aws_ivs_channel)
+    aws_ivs_channel ?authorized ?id ?latency_mode ?name
+      ?recording_configuration_arn ?tags ?tags_all ?type_ ?timeouts
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ivs_channel __resource);
   let __resource_attributes =
     ({

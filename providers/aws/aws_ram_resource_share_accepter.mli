@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_ram_resource_share_accepter__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_ram_resource_share_accepter
+
+val aws_ram_resource_share_accepter :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  share_arn:string prop ->
+  unit ->
+  aws_ram_resource_share_accepter
+
+val yojson_of_aws_ram_resource_share_accepter :
+  aws_ram_resource_share_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -17,9 +35,10 @@ type t = private {
   status : string prop;
 }
 
-val aws_ram_resource_share_accepter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_ram_resource_share_accepter__timeouts ->
+  ?timeouts:timeouts ->
   share_arn:string prop ->
   string ->
   t

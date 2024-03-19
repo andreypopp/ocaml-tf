@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_securityhub_standards_subscription
-type t = private { id : string prop; standards_arn : string prop }
 
 val aws_securityhub_standards_subscription :
-  ?id:string prop -> standards_arn:string prop -> string -> t
+  ?id:string prop ->
+  standards_arn:string prop ->
+  unit ->
+  aws_securityhub_standards_subscription
+
+val yojson_of_aws_securityhub_standards_subscription :
+  aws_securityhub_standards_subscription -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; standards_arn : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  standards_arn:string prop ->
+  string ->
+  t

@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type google_active_directory_domain__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_active_directory_domain
+
+val google_active_directory_domain :
+  ?admin:string prop ->
+  ?authorized_networks:string prop list ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  locations:string prop list ->
+  reserved_ip_range:string prop ->
+  unit ->
+  google_active_directory_domain
+
+val yojson_of_google_active_directory_domain :
+  google_active_directory_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   admin : string prop;
@@ -20,13 +48,14 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_active_directory_domain :
+val register :
+  ?tf_module:tf_module ->
   ?admin:string prop ->
   ?authorized_networks:string prop list ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_active_directory_domain__timeouts ->
+  ?timeouts:timeouts ->
   domain_name:string prop ->
   locations:string prop list ->
   reserved_ip_range:string prop ->

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_connect_vocabulary__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_connect_vocabulary__timeouts *)
+(** timeouts *)
 
 type aws_connect_vocabulary = {
   content : string prop;  (** content *)
@@ -20,10 +20,25 @@ type aws_connect_vocabulary = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_connect_vocabulary__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_connect_vocabulary *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_connect_vocabulary ?id ?tags ?tags_all ?timeouts ~content
+    ~instance_id ~language_code ~name () : aws_connect_vocabulary =
+  {
+    content;
+    id;
+    instance_id;
+    language_code;
+    name;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -40,23 +55,14 @@ type t = {
   vocabulary_id : string prop;
 }
 
-let aws_connect_vocabulary ?id ?tags ?tags_all ?timeouts ~content
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~content
     ~instance_id ~language_code ~name __resource_id =
   let __resource_type = "aws_connect_vocabulary" in
   let __resource =
-    ({
-       content;
-       id;
-       instance_id;
-       language_code;
-       name;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_connect_vocabulary)
+    aws_connect_vocabulary ?id ?tags ?tags_all ?timeouts ~content
+      ~instance_id ~language_code ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_vocabulary __resource);
   let __resource_attributes =
     ({

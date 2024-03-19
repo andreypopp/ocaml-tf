@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_tag_template_iam_binding__condition
+(** RESOURCE SERIALIZATION *)
+
+type condition
+
+val condition :
+  ?description:string prop ->
+  expression:string prop ->
+  title:string prop ->
+  unit ->
+  condition
+
 type google_data_catalog_tag_template_iam_binding
+
+val google_data_catalog_tag_template_iam_binding :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  members:string prop list ->
+  role:string prop ->
+  tag_template:string prop ->
+  condition:condition list ->
+  unit ->
+  google_data_catalog_tag_template_iam_binding
+
+val yojson_of_google_data_catalog_tag_template_iam_binding :
+  google_data_catalog_tag_template_iam_binding -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   etag : string prop;
@@ -15,14 +41,14 @@ type t = private {
   tag_template : string prop;
 }
 
-val google_data_catalog_tag_template_iam_binding :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
   members:string prop list ->
   role:string prop ->
   tag_template:string prop ->
-  condition:
-    google_data_catalog_tag_template_iam_binding__condition list ->
+  condition:condition list ->
   string ->
   t

@@ -12,6 +12,11 @@ type aws_redshift_data_share_authorization = {
 [@@deriving yojson_of]
 (** aws_redshift_data_share_authorization *)
 
+let aws_redshift_data_share_authorization ?allow_writes
+    ~consumer_identifier ~data_share_arn () :
+    aws_redshift_data_share_authorization =
+  { allow_writes; consumer_identifier; data_share_arn }
+
 type t = {
   allow_writes : bool prop;
   consumer_identifier : string prop;
@@ -21,14 +26,14 @@ type t = {
   producer_arn : string prop;
 }
 
-let aws_redshift_data_share_authorization ?allow_writes
-    ~consumer_identifier ~data_share_arn __resource_id =
+let register ?tf_module ?allow_writes ~consumer_identifier
+    ~data_share_arn __resource_id =
   let __resource_type = "aws_redshift_data_share_authorization" in
   let __resource =
-    ({ allow_writes; consumer_identifier; data_share_arn }
-      : aws_redshift_data_share_authorization)
+    aws_redshift_data_share_authorization ?allow_writes
+      ~consumer_identifier ~data_share_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_data_share_authorization __resource);
   let __resource_attributes =
     ({

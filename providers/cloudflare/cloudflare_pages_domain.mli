@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_pages_domain
+
+val cloudflare_pages_domain :
+  ?id:string prop ->
+  account_id:string prop ->
+  domain:string prop ->
+  project_name:string prop ->
+  unit ->
+  cloudflare_pages_domain
+
+val yojson_of_cloudflare_pages_domain :
+  cloudflare_pages_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -12,7 +27,8 @@ type t = private {
   status : string prop;
 }
 
-val cloudflare_pages_domain :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   account_id:string prop ->
   domain:string prop ->

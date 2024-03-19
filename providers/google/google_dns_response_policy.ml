@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dns_response_policy__gke_clusters = {
+type gke_clusters = {
   gke_cluster_name : string prop;
       (** The resource name of the cluster to bind this ManagedZone to.
 This should be specified in the format like
@@ -13,7 +13,7 @@ This should be specified in the format like
 [@@deriving yojson_of]
 (** The list of Google Kubernetes Engine clusters that can see this zone. *)
 
-type google_dns_response_policy__networks = {
+type networks = {
   network_url : string prop;
       (** The fully qualified URL of the VPC network to bind to.
 This should be formatted like
@@ -22,13 +22,13 @@ This should be formatted like
 [@@deriving yojson_of]
 (** The list of network names specifying networks to which this policy is applied. *)
 
-type google_dns_response_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dns_response_policy__timeouts *)
+(** timeouts *)
 
 type google_dns_response_policy = {
   description : string prop option; [@option]
@@ -37,12 +37,33 @@ type google_dns_response_policy = {
   project : string prop option; [@option]  (** project *)
   response_policy_name : string prop;
       (** The user assigned name for this Response Policy, such as 'myresponsepolicy'. *)
-  gke_clusters : google_dns_response_policy__gke_clusters list;
-  networks : google_dns_response_policy__networks list;
-  timeouts : google_dns_response_policy__timeouts option;
+  gke_clusters : gke_clusters list;
+  networks : networks list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dns_response_policy *)
+
+let gke_clusters ~gke_cluster_name () : gke_clusters =
+  { gke_cluster_name }
+
+let networks ~network_url () : networks = { network_url }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dns_response_policy ?description ?id ?project ?timeouts
+    ~response_policy_name ~gke_clusters ~networks () :
+    google_dns_response_policy =
+  {
+    description;
+    id;
+    project;
+    response_policy_name;
+    gke_clusters;
+    networks;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -51,22 +72,14 @@ type t = {
   response_policy_name : string prop;
 }
 
-let google_dns_response_policy ?description ?id ?project ?timeouts
+let register ?tf_module ?description ?id ?project ?timeouts
     ~response_policy_name ~gke_clusters ~networks __resource_id =
   let __resource_type = "google_dns_response_policy" in
   let __resource =
-    ({
-       description;
-       id;
-       project;
-       response_policy_name;
-       gke_clusters;
-       networks;
-       timeouts;
-     }
-      : google_dns_response_policy)
+    google_dns_response_policy ?description ?id ?project ?timeouts
+      ~response_policy_name ~gke_clusters ~networks ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_response_policy __resource);
   let __resource_attributes =
     ({

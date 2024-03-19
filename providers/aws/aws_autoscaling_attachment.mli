@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_autoscaling_attachment
+
+val aws_autoscaling_attachment :
+  ?elb:string prop ->
+  ?id:string prop ->
+  ?lb_target_group_arn:string prop ->
+  autoscaling_group_name:string prop ->
+  unit ->
+  aws_autoscaling_attachment
+
+val yojson_of_aws_autoscaling_attachment :
+  aws_autoscaling_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   autoscaling_group_name : string prop;
@@ -11,7 +26,8 @@ type t = private {
   lb_target_group_arn : string prop;
 }
 
-val aws_autoscaling_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?elb:string prop ->
   ?id:string prop ->
   ?lb_target_group_arn:string prop ->

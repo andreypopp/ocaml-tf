@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_migration_center_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_migration_center_group__timeouts *)
+(** timeouts *)
 
 type google_migration_center_group = {
   description : string prop option; [@option]
@@ -27,10 +27,27 @@ type google_migration_center_group = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop;  (** The location of the group. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_migration_center_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_migration_center_group *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_migration_center_group ?description ?display_name ?id
+    ?labels ?project ?timeouts ~group_id ~location () :
+    google_migration_center_group =
+  {
+    description;
+    display_name;
+    group_id;
+    id;
+    labels;
+    location;
+    project;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -47,23 +64,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_migration_center_group ?description ?display_name ?id
-    ?labels ?project ?timeouts ~group_id ~location __resource_id =
+let register ?tf_module ?description ?display_name ?id ?labels
+    ?project ?timeouts ~group_id ~location __resource_id =
   let __resource_type = "google_migration_center_group" in
   let __resource =
-    ({
-       description;
-       display_name;
-       group_id;
-       id;
-       labels;
-       location;
-       project;
-       timeouts;
-     }
-      : google_migration_center_group)
+    google_migration_center_group ?description ?display_name ?id
+      ?labels ?project ?timeouts ~group_id ~location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_migration_center_group __resource);
   let __resource_attributes =
     ({

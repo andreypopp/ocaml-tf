@@ -2,9 +2,42 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_center__identity
-type azurerm_dev_center__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_dev_center
+
+val azurerm_dev_center :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_dev_center
+
+val yojson_of_azurerm_dev_center : azurerm_dev_center -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dev_center_uri : string prop;
@@ -15,13 +48,14 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_dev_center :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_dev_center__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_dev_center__identity list ->
+  identity:identity list ->
   string ->
   t

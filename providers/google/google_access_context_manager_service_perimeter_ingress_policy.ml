@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_access_context_manager_service_perimeter_ingress_policy__ingress_from__sources = {
+type ingress_from__sources = {
   access_level : string prop option; [@option]
       (** An 'AccessLevel' resource name that allow resources within the
 'ServicePerimeters' to be accessed from the internet. 'AccessLevels' listed
@@ -25,7 +25,7 @@ of allowing all Google Cloud resources only is not supported. *)
 [@@deriving yojson_of]
 (** Sources that this 'IngressPolicy' authorizes access from. *)
 
-type google_access_context_manager_service_perimeter_ingress_policy__ingress_from = {
+type ingress_from = {
   identities : string prop list option; [@option]
       (** A list of identities that are allowed access through this ingress policy.
 Should be in the format of email address. The email address should represent
@@ -34,15 +34,13 @@ individual user or service account only. *)
       (** Specifies the type of identities that are allowed access from outside the
 perimeter. If left unspecified, then members of 'identities' field will be
 allowed access. Possible values: [ANY_IDENTITY, ANY_USER_ACCOUNT, ANY_SERVICE_ACCOUNT] *)
-  sources :
-    google_access_context_manager_service_perimeter_ingress_policy__ingress_from__sources
-    list;
+  sources : ingress_from__sources list;
 }
 [@@deriving yojson_of]
 (** Defines the conditions on the source of a request causing this 'IngressPolicy'
 to apply. *)
 
-type google_access_context_manager_service_perimeter_ingress_policy__ingress_to__operations__method_selectors = {
+type ingress_to__operations__method_selectors = {
   method_ : string prop option; [@option] [@key "method"]
       (** Value for method should be a valid method name for the corresponding
 serviceName in 'ApiOperation'. If '*' used as value for 'method', then
@@ -57,20 +55,18 @@ the service specified by serviceName field. A single 'MethodSelector' entry
 with '*' specified for the method field will allow all methods AND
 permissions for the service specified in 'serviceName'. *)
 
-type google_access_context_manager_service_perimeter_ingress_policy__ingress_to__operations = {
+type ingress_to__operations = {
   service_name : string prop option; [@option]
       (** The name of the API whose methods or permissions the 'IngressPolicy' or
 'EgressPolicy' want to allow. A single 'ApiOperation' with 'serviceName'
 field set to '*' will allow all methods AND permissions for all services. *)
-  method_selectors :
-    google_access_context_manager_service_perimeter_ingress_policy__ingress_to__operations__method_selectors
-    list;
+  method_selectors : ingress_to__operations__method_selectors list;
 }
 [@@deriving yojson_of]
 (** A list of 'ApiOperations' the sources specified in corresponding 'IngressFrom'
 are allowed to perform in this 'ServicePerimeter'. *)
 
-type google_access_context_manager_service_perimeter_ingress_policy__ingress_to = {
+type ingress_to = {
   resources : string prop list option; [@option]
       (** A list of resources, currently only projects in the form
 'projects/<projectnumber>', protected by this 'ServicePerimeter'
@@ -80,52 +76,70 @@ a resource in this list. If '*' is specified for resources,
 then this 'IngressTo' rule will authorize access to all
 resources inside the perimeter, provided that the request
 also matches the 'operations' field. *)
-  operations :
-    google_access_context_manager_service_perimeter_ingress_policy__ingress_to__operations
-    list;
+  operations : ingress_to__operations list;
 }
 [@@deriving yojson_of]
 (** Defines the conditions on the 'ApiOperation' and request destination that cause
 this 'IngressPolicy' to apply. *)
 
-type google_access_context_manager_service_perimeter_ingress_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_access_context_manager_service_perimeter_ingress_policy__timeouts *)
+(** timeouts *)
 
 type google_access_context_manager_service_perimeter_ingress_policy = {
   id : string prop option; [@option]  (** id *)
   perimeter : string prop;
       (** The name of the Service Perimeter to add this resource to. *)
-  ingress_from :
-    google_access_context_manager_service_perimeter_ingress_policy__ingress_from
-    list;
-  ingress_to :
-    google_access_context_manager_service_perimeter_ingress_policy__ingress_to
-    list;
-  timeouts :
-    google_access_context_manager_service_perimeter_ingress_policy__timeouts
-    option;
+  ingress_from : ingress_from list;
+  ingress_to : ingress_to list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_service_perimeter_ingress_policy *)
 
-type t = { id : string prop; perimeter : string prop }
+let ingress_from__sources ?access_level ?resource () :
+    ingress_from__sources =
+  { access_level; resource }
+
+let ingress_from ?identities ?identity_type ~sources () :
+    ingress_from =
+  { identities; identity_type; sources }
+
+let ingress_to__operations__method_selectors ?method_ ?permission ()
+    : ingress_to__operations__method_selectors =
+  { method_; permission }
+
+let ingress_to__operations ?service_name ~method_selectors () :
+    ingress_to__operations =
+  { service_name; method_selectors }
+
+let ingress_to ?resources ~operations () : ingress_to =
+  { resources; operations }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
 
 let google_access_context_manager_service_perimeter_ingress_policy
-    ?id ?timeouts ~perimeter ~ingress_from ~ingress_to __resource_id
-    =
+    ?id ?timeouts ~perimeter ~ingress_from ~ingress_to () :
+    google_access_context_manager_service_perimeter_ingress_policy =
+  { id; perimeter; ingress_from; ingress_to; timeouts }
+
+type t = { id : string prop; perimeter : string prop }
+
+let register ?tf_module ?id ?timeouts ~perimeter ~ingress_from
+    ~ingress_to __resource_id =
   let __resource_type =
     "google_access_context_manager_service_perimeter_ingress_policy"
   in
   let __resource =
-    ({ id; perimeter; ingress_from; ingress_to; timeouts }
-      : google_access_context_manager_service_perimeter_ingress_policy)
+    google_access_context_manager_service_perimeter_ingress_policy
+      ?id ?timeouts ~perimeter ~ingress_from ~ingress_to ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_service_perimeter_ingress_policy
        __resource);
   let __resource_attributes =

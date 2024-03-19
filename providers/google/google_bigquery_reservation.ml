@@ -4,22 +4,20 @@
 
 open! Tf.Prelude
 
-type google_bigquery_reservation__autoscale = {
-  current_slots : float prop;
-      (** The slot capacity added to this reservation when autoscale happens. Will be between [0, max_slots]. *)
+type autoscale = {
   max_slots : float prop option; [@option]
       (** Number of slots to be scaled when needed. *)
 }
 [@@deriving yojson_of]
 (** The configuration parameters for the auto scaling feature. *)
 
-type google_bigquery_reservation__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_reservation__timeouts *)
+(** timeouts *)
 
 type google_bigquery_reservation = {
   concurrency : float prop option; [@option]
@@ -43,11 +41,34 @@ If set to true, this reservation is placed in the organization's secondary regio
   slot_capacity : float prop;
       (** Minimum slots available to this reservation. A slot is a unit of computational power in BigQuery, and serves as the
 unit of parallelism. Queries using this reservation might use more slots during runtime if ignoreIdleSlots is set to false. *)
-  autoscale : google_bigquery_reservation__autoscale list;
-  timeouts : google_bigquery_reservation__timeouts option;
+  autoscale : autoscale list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigquery_reservation *)
+
+let autoscale ?max_slots () : autoscale = { max_slots }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_bigquery_reservation ?concurrency ?edition ?id
+    ?ignore_idle_slots ?location ?multi_region_auxiliary ?project
+    ?timeouts ~name ~slot_capacity ~autoscale () :
+    google_bigquery_reservation =
+  {
+    concurrency;
+    edition;
+    id;
+    ignore_idle_slots;
+    location;
+    multi_region_auxiliary;
+    name;
+    project;
+    slot_capacity;
+    autoscale;
+    timeouts;
+  }
 
 type t = {
   concurrency : float prop;
@@ -61,27 +82,16 @@ type t = {
   slot_capacity : float prop;
 }
 
-let google_bigquery_reservation ?concurrency ?edition ?id
-    ?ignore_idle_slots ?location ?multi_region_auxiliary ?project
-    ?timeouts ~name ~slot_capacity ~autoscale __resource_id =
+let register ?tf_module ?concurrency ?edition ?id ?ignore_idle_slots
+    ?location ?multi_region_auxiliary ?project ?timeouts ~name
+    ~slot_capacity ~autoscale __resource_id =
   let __resource_type = "google_bigquery_reservation" in
   let __resource =
-    ({
-       concurrency;
-       edition;
-       id;
-       ignore_idle_slots;
-       location;
-       multi_region_auxiliary;
-       name;
-       project;
-       slot_capacity;
-       autoscale;
-       timeouts;
-     }
-      : google_bigquery_reservation)
+    google_bigquery_reservation ?concurrency ?edition ?id
+      ?ignore_idle_slots ?location ?multi_region_auxiliary ?project
+      ?timeouts ~name ~slot_capacity ~autoscale ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_reservation __resource);
   let __resource_attributes =
     ({

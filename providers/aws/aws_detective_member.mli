@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_detective_member
+
+val aws_detective_member :
+  ?disable_email_notification:bool prop ->
+  ?id:string prop ->
+  ?message:string prop ->
+  account_id:string prop ->
+  email_address:string prop ->
+  graph_arn:string prop ->
+  unit ->
+  aws_detective_member
+
+val yojson_of_aws_detective_member : aws_detective_member -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -19,7 +35,8 @@ type t = private {
   volume_usage_in_bytes : string prop;
 }
 
-val aws_detective_member :
+val register :
+  ?tf_module:tf_module ->
   ?disable_email_notification:bool prop ->
   ?id:string prop ->
   ?message:string prop ->

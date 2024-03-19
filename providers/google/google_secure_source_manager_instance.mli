@@ -2,23 +2,55 @@
 
 open! Tf.Prelude
 
-type google_secure_source_manager_instance__private_config
-type google_secure_source_manager_instance__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_secure_source_manager_instance__host_config = {
+type host_config = {
   api : string prop;  (** api *)
   git_http : string prop;  (** git_http *)
   git_ssh : string prop;  (** git_ssh *)
   html : string prop;  (** html *)
 }
 
+type private_config
+
+val private_config :
+  ca_pool:string prop ->
+  is_private:bool prop ->
+  unit ->
+  private_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_secure_source_manager_instance
+
+val google_secure_source_manager_instance :
+  ?id:string prop ->
+  ?kms_key:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  instance_id:string prop ->
+  location:string prop ->
+  private_config:private_config list ->
+  unit ->
+  google_secure_source_manager_instance
+
+val yojson_of_google_secure_source_manager_instance :
+  google_secure_source_manager_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
   effective_labels : (string * string) list prop;
-  host_config :
-    google_secure_source_manager_instance__host_config list prop;
+  host_config : host_config list prop;
   id : string prop;
   instance_id : string prop;
   kms_key : string prop;
@@ -32,15 +64,15 @@ type t = private {
   update_time : string prop;
 }
 
-val google_secure_source_manager_instance :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_secure_source_manager_instance__timeouts ->
+  ?timeouts:timeouts ->
   instance_id:string prop ->
   location:string prop ->
-  private_config:
-    google_secure_source_manager_instance__private_config list ->
+  private_config:private_config list ->
   string ->
   t

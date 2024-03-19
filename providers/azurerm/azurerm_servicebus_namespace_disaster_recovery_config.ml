@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_servicebus_namespace_disaster_recovery_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_servicebus_namespace_disaster_recovery_config__timeouts *)
+(** timeouts *)
 
 type azurerm_servicebus_namespace_disaster_recovery_config = {
   alias_authorization_rule_id : string prop option; [@option]
@@ -20,12 +20,26 @@ type azurerm_servicebus_namespace_disaster_recovery_config = {
   name : string prop;  (** name *)
   partner_namespace_id : string prop;  (** partner_namespace_id *)
   primary_namespace_id : string prop;  (** primary_namespace_id *)
-  timeouts :
-    azurerm_servicebus_namespace_disaster_recovery_config__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace_disaster_recovery_config *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_servicebus_namespace_disaster_recovery_config
+    ?alias_authorization_rule_id ?id ?timeouts ~name
+    ~partner_namespace_id ~primary_namespace_id () :
+    azurerm_servicebus_namespace_disaster_recovery_config =
+  {
+    alias_authorization_rule_id;
+    id;
+    name;
+    partner_namespace_id;
+    primary_namespace_id;
+    timeouts;
+  }
 
 type t = {
   alias_authorization_rule_id : string prop;
@@ -39,24 +53,17 @@ type t = {
   secondary_connection_string_alias : string prop;
 }
 
-let azurerm_servicebus_namespace_disaster_recovery_config
-    ?alias_authorization_rule_id ?id ?timeouts ~name
-    ~partner_namespace_id ~primary_namespace_id __resource_id =
+let register ?tf_module ?alias_authorization_rule_id ?id ?timeouts
+    ~name ~partner_namespace_id ~primary_namespace_id __resource_id =
   let __resource_type =
     "azurerm_servicebus_namespace_disaster_recovery_config"
   in
   let __resource =
-    ({
-       alias_authorization_rule_id;
-       id;
-       name;
-       partner_namespace_id;
-       primary_namespace_id;
-       timeouts;
-     }
-      : azurerm_servicebus_namespace_disaster_recovery_config)
+    azurerm_servicebus_namespace_disaster_recovery_config
+      ?alias_authorization_rule_id ?id ?timeouts ~name
+      ~partner_namespace_id ~primary_namespace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_servicebus_namespace_disaster_recovery_config
        __resource);
   let __resource_attributes =

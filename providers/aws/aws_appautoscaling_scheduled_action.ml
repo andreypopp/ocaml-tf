@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_appautoscaling_scheduled_action__scalable_target_action = {
+type scalable_target_action = {
   max_capacity : string prop option; [@option]  (** max_capacity *)
   min_capacity : string prop option; [@option]  (** min_capacity *)
 }
 [@@deriving yojson_of]
-(** aws_appautoscaling_scheduled_action__scalable_target_action *)
+(** scalable_target_action *)
 
 type aws_appautoscaling_scheduled_action = {
   end_time : string prop option; [@option]  (** end_time *)
@@ -21,11 +21,31 @@ type aws_appautoscaling_scheduled_action = {
   service_namespace : string prop;  (** service_namespace *)
   start_time : string prop option; [@option]  (** start_time *)
   timezone : string prop option; [@option]  (** timezone *)
-  scalable_target_action :
-    aws_appautoscaling_scheduled_action__scalable_target_action list;
+  scalable_target_action : scalable_target_action list;
 }
 [@@deriving yojson_of]
 (** aws_appautoscaling_scheduled_action *)
+
+let scalable_target_action ?max_capacity ?min_capacity () :
+    scalable_target_action =
+  { max_capacity; min_capacity }
+
+let aws_appautoscaling_scheduled_action ?end_time ?id ?start_time
+    ?timezone ~name ~resource_id ~scalable_dimension ~schedule
+    ~service_namespace ~scalable_target_action () :
+    aws_appautoscaling_scheduled_action =
+  {
+    end_time;
+    id;
+    name;
+    resource_id;
+    scalable_dimension;
+    schedule;
+    service_namespace;
+    start_time;
+    timezone;
+    scalable_target_action;
+  }
 
 type t = {
   arn : string prop;
@@ -40,26 +60,16 @@ type t = {
   timezone : string prop;
 }
 
-let aws_appautoscaling_scheduled_action ?end_time ?id ?start_time
-    ?timezone ~name ~resource_id ~scalable_dimension ~schedule
-    ~service_namespace ~scalable_target_action __resource_id =
+let register ?tf_module ?end_time ?id ?start_time ?timezone ~name
+    ~resource_id ~scalable_dimension ~schedule ~service_namespace
+    ~scalable_target_action __resource_id =
   let __resource_type = "aws_appautoscaling_scheduled_action" in
   let __resource =
-    ({
-       end_time;
-       id;
-       name;
-       resource_id;
-       scalable_dimension;
-       schedule;
-       service_namespace;
-       start_time;
-       timezone;
-       scalable_target_action;
-     }
-      : aws_appautoscaling_scheduled_action)
+    aws_appautoscaling_scheduled_action ?end_time ?id ?start_time
+      ?timezone ~name ~resource_id ~scalable_dimension ~schedule
+      ~service_namespace ~scalable_target_action ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appautoscaling_scheduled_action __resource);
   let __resource_attributes =
     ({

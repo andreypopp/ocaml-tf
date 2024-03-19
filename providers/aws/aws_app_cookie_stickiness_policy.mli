@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_app_cookie_stickiness_policy
+
+val aws_app_cookie_stickiness_policy :
+  ?id:string prop ->
+  cookie_name:string prop ->
+  lb_port:float prop ->
+  load_balancer:string prop ->
+  name:string prop ->
+  unit ->
+  aws_app_cookie_stickiness_policy
+
+val yojson_of_aws_app_cookie_stickiness_policy :
+  aws_app_cookie_stickiness_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cookie_name : string prop;
@@ -12,7 +28,8 @@ type t = private {
   name : string prop;
 }
 
-val aws_app_cookie_stickiness_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   cookie_name:string prop ->
   lb_port:float prop ->

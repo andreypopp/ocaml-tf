@@ -2,10 +2,59 @@
 
 open! Tf.Prelude
 
-type azurerm_web_pubsub__identity
-type azurerm_web_pubsub__live_trace
-type azurerm_web_pubsub__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type live_trace
+
+val live_trace :
+  ?connectivity_logs_enabled:bool prop ->
+  ?enabled:bool prop ->
+  ?http_request_logs_enabled:bool prop ->
+  ?messaging_logs_enabled:bool prop ->
+  unit ->
+  live_trace
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_web_pubsub
+
+val azurerm_web_pubsub :
+  ?aad_auth_enabled:bool prop ->
+  ?capacity:float prop ->
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_client_cert_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  identity:identity list ->
+  live_trace:live_trace list ->
+  unit ->
+  azurerm_web_pubsub
+
+val yojson_of_azurerm_web_pubsub : azurerm_web_pubsub -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   aad_auth_enabled : bool prop;
@@ -30,7 +79,8 @@ type t = private {
   version : string prop;
 }
 
-val azurerm_web_pubsub :
+val register :
+  ?tf_module:tf_module ->
   ?aad_auth_enabled:bool prop ->
   ?capacity:float prop ->
   ?id:string prop ->
@@ -38,12 +88,12 @@ val azurerm_web_pubsub :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tls_client_cert_enabled:bool prop ->
-  ?timeouts:azurerm_web_pubsub__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:azurerm_web_pubsub__identity list ->
-  live_trace:azurerm_web_pubsub__live_trace list ->
+  identity:identity list ->
+  live_trace:live_trace list ->
   string ->
   t

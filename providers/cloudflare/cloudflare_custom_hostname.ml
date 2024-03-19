@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_custom_hostname__ssl__settings = {
+type ssl__settings = {
   ciphers : string prop list option; [@option]
       (** List of SSL/TLS ciphers to associate with this certificate. *)
   early_hints : string prop option; [@option]
@@ -19,12 +19,12 @@ type cloudflare_custom_hostname__ssl__settings = {
 [@@deriving yojson_of]
 (** SSL/TLS settings for the certificate. *)
 
-type cloudflare_custom_hostname__ssl__validation_errors = {
+type ssl__validation_errors = {
   message : string prop;  (** message *)
 }
 [@@deriving yojson_of]
 
-type cloudflare_custom_hostname__ssl__validation_records = {
+type ssl__validation_records = {
   cname_name : string prop;  (** cname_name *)
   cname_target : string prop;  (** cname_target *)
   emails : string prop list;  (** emails *)
@@ -35,7 +35,7 @@ type cloudflare_custom_hostname__ssl__validation_records = {
 }
 [@@deriving yojson_of]
 
-type cloudflare_custom_hostname__ssl = {
+type ssl = {
   bundle_method : string prop option; [@option]
       (** A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`. *)
   certificate_authority : string prop option; [@option]
@@ -46,18 +46,11 @@ type cloudflare_custom_hostname__ssl = {
       (** The key for a custom uploaded certificate. *)
   method_ : string prop option; [@option] [@key "method"]
       (** Domain control validation (DCV) method used for this hostname. Available values: `http`, `txt`, `email`. *)
-  status : string prop;  (** status *)
   type_ : string prop option; [@option] [@key "type"]
       (** Level of validation to be used for this hostname. Available values: `dv`. Defaults to `dv`. *)
-  validation_errors :
-    cloudflare_custom_hostname__ssl__validation_errors list;
-      (** validation_errors *)
-  validation_records :
-    cloudflare_custom_hostname__ssl__validation_records list;
-      (** validation_records *)
   wildcard : bool prop option; [@option]
       (** Indicates whether the certificate covers a wildcard. *)
-  settings : cloudflare_custom_hostname__ssl__settings list;
+  settings : ssl__settings list;
 }
 [@@deriving yojson_of]
 (** SSL properties used when creating the custom hostname. *)
@@ -76,11 +69,42 @@ type cloudflare_custom_hostname = {
       (** Whether to wait for a custom hostname SSL sub-object to reach status `pending_validation` during creation. Defaults to `false`. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  ssl : cloudflare_custom_hostname__ssl list;
+  ssl : ssl list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare custom hostname (also known as SSL for SaaS) resource.
  *)
+
+let ssl__settings ?ciphers ?early_hints ?http2 ?min_tls_version
+    ?tls13 () : ssl__settings =
+  { ciphers; early_hints; http2; min_tls_version; tls13 }
+
+let ssl ?bundle_method ?certificate_authority ?custom_certificate
+    ?custom_key ?method_ ?type_ ?wildcard ~settings () : ssl =
+  {
+    bundle_method;
+    certificate_authority;
+    custom_certificate;
+    custom_key;
+    method_;
+    type_;
+    wildcard;
+    settings;
+  }
+
+let cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
+    ?custom_origin_sni ?id ?wait_for_ssl_pending_validation ~hostname
+    ~zone_id ~ssl () : cloudflare_custom_hostname =
+  {
+    custom_metadata;
+    custom_origin_server;
+    custom_origin_sni;
+    hostname;
+    id;
+    wait_for_ssl_pending_validation;
+    zone_id;
+    ssl;
+  }
 
 type t = {
   custom_metadata : (string * string) list prop;
@@ -95,24 +119,16 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
+let register ?tf_module ?custom_metadata ?custom_origin_server
     ?custom_origin_sni ?id ?wait_for_ssl_pending_validation ~hostname
     ~zone_id ~ssl __resource_id =
   let __resource_type = "cloudflare_custom_hostname" in
   let __resource =
-    ({
-       custom_metadata;
-       custom_origin_server;
-       custom_origin_sni;
-       hostname;
-       id;
-       wait_for_ssl_pending_validation;
-       zone_id;
-       ssl;
-     }
-      : cloudflare_custom_hostname)
+    cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
+      ?custom_origin_sni ?id ?wait_for_ssl_pending_validation
+      ~hostname ~zone_id ~ssl ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_custom_hostname __resource);
   let __resource_attributes =
     ({

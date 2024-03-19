@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_servicebus_namespace_disaster_recovery_config__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_servicebus_namespace_disaster_recovery_config
+
+val azurerm_servicebus_namespace_disaster_recovery_config :
+  ?alias_authorization_rule_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  partner_namespace_id:string prop ->
+  primary_namespace_id:string prop ->
+  unit ->
+  azurerm_servicebus_namespace_disaster_recovery_config
+
+val yojson_of_azurerm_servicebus_namespace_disaster_recovery_config :
+  azurerm_servicebus_namespace_disaster_recovery_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   alias_authorization_rule_id : string prop;
@@ -17,11 +43,11 @@ type t = private {
   secondary_connection_string_alias : string prop;
 }
 
-val azurerm_servicebus_namespace_disaster_recovery_config :
+val register :
+  ?tf_module:tf_module ->
   ?alias_authorization_rule_id:string prop ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_servicebus_namespace_disaster_recovery_config__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   partner_namespace_id:string prop ->
   primary_namespace_id:string prop ->

@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ssm_patch_group
+
+val aws_ssm_patch_group :
+  ?id:string prop ->
+  baseline_id:string prop ->
+  patch_group:string prop ->
+  unit ->
+  aws_ssm_patch_group
+
+val yojson_of_aws_ssm_patch_group : aws_ssm_patch_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   baseline_id : string prop;
@@ -10,7 +23,8 @@ type t = private {
   patch_group : string prop;
 }
 
-val aws_ssm_patch_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   baseline_id:string prop ->
   patch_group:string prop ->

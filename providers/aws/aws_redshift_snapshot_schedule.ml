@@ -19,6 +19,20 @@ type aws_redshift_snapshot_schedule = {
 [@@deriving yojson_of]
 (** aws_redshift_snapshot_schedule *)
 
+let aws_redshift_snapshot_schedule ?description ?force_destroy ?id
+    ?identifier ?identifier_prefix ?tags ?tags_all ~definitions () :
+    aws_redshift_snapshot_schedule =
+  {
+    definitions;
+    description;
+    force_destroy;
+    id;
+    identifier;
+    identifier_prefix;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   definitions : string list prop;
@@ -31,24 +45,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_redshift_snapshot_schedule ?description ?force_destroy ?id
-    ?identifier ?identifier_prefix ?tags ?tags_all ~definitions
-    __resource_id =
+let register ?tf_module ?description ?force_destroy ?id ?identifier
+    ?identifier_prefix ?tags ?tags_all ~definitions __resource_id =
   let __resource_type = "aws_redshift_snapshot_schedule" in
   let __resource =
-    ({
-       definitions;
-       description;
-       force_destroy;
-       id;
-       identifier;
-       identifier_prefix;
-       tags;
-       tags_all;
-     }
-      : aws_redshift_snapshot_schedule)
+    aws_redshift_snapshot_schedule ?description ?force_destroy ?id
+      ?identifier ?identifier_prefix ?tags ?tags_all ~definitions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_snapshot_schedule __resource);
   let __resource_attributes =
     ({

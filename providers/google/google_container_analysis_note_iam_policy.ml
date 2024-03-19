@@ -13,6 +13,10 @@ type google_container_analysis_note_iam_policy = {
 [@@deriving yojson_of]
 (** google_container_analysis_note_iam_policy *)
 
+let google_container_analysis_note_iam_policy ?id ?project ~note
+    ~policy_data () : google_container_analysis_note_iam_policy =
+  { id; note; policy_data; project }
+
 type t = {
   etag : string prop;
   id : string prop;
@@ -21,16 +25,16 @@ type t = {
   project : string prop;
 }
 
-let google_container_analysis_note_iam_policy ?id ?project ~note
-    ~policy_data __resource_id =
+let register ?tf_module ?id ?project ~note ~policy_data __resource_id
+    =
   let __resource_type =
     "google_container_analysis_note_iam_policy"
   in
   let __resource =
-    ({ id; note; policy_data; project }
-      : google_container_analysis_note_iam_policy)
+    google_container_analysis_note_iam_policy ?id ?project ~note
+      ~policy_data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_analysis_note_iam_policy __resource);
   let __resource_attributes =
     ({

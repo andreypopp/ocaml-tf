@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_codecommit_trigger__trigger = {
+type trigger = {
   branches : string prop list option; [@option]  (** branches *)
   custom_data : string prop option; [@option]  (** custom_data *)
   destination_arn : string prop;  (** destination_arn *)
@@ -12,15 +12,23 @@ type aws_codecommit_trigger__trigger = {
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** aws_codecommit_trigger__trigger *)
+(** trigger *)
 
 type aws_codecommit_trigger = {
   id : string prop option; [@option]  (** id *)
   repository_name : string prop;  (** repository_name *)
-  trigger : aws_codecommit_trigger__trigger list;
+  trigger : trigger list;
 }
 [@@deriving yojson_of]
 (** aws_codecommit_trigger *)
+
+let trigger ?branches ?custom_data ~destination_arn ~events ~name ()
+    : trigger =
+  { branches; custom_data; destination_arn; events; name }
+
+let aws_codecommit_trigger ?id ~repository_name ~trigger () :
+    aws_codecommit_trigger =
+  { id; repository_name; trigger }
 
 type t = {
   configuration_id : string prop;
@@ -28,13 +36,12 @@ type t = {
   repository_name : string prop;
 }
 
-let aws_codecommit_trigger ?id ~repository_name ~trigger
-    __resource_id =
+let register ?tf_module ?id ~repository_name ~trigger __resource_id =
   let __resource_type = "aws_codecommit_trigger" in
   let __resource =
-    ({ id; repository_name; trigger } : aws_codecommit_trigger)
+    aws_codecommit_trigger ?id ~repository_name ~trigger ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecommit_trigger __resource);
   let __resource_attributes =
     ({

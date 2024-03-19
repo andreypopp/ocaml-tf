@@ -4,30 +4,30 @@
 
 open! Tf.Prelude
 
-type aws_emr_cluster__auto_termination_policy = {
+type auto_termination_policy = {
   idle_timeout : float prop option; [@option]  (** idle_timeout *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__auto_termination_policy *)
+(** auto_termination_policy *)
 
-type aws_emr_cluster__bootstrap_action = {
+type bootstrap_action = {
   args : string prop list option; [@option]  (** args *)
   name : string prop;  (** name *)
   path : string prop;  (** path *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__bootstrap_action *)
+(** bootstrap_action *)
 
-type aws_emr_cluster__core_instance_fleet__instance_type_configs__configurations = {
+type core_instance_fleet__instance_type_configs__configurations = {
   classification : string prop option; [@option]
       (** classification *)
   properties : (string * string prop) list option; [@option]
       (** properties *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_fleet__instance_type_configs__configurations *)
+(** core_instance_fleet__instance_type_configs__configurations *)
 
-type aws_emr_cluster__core_instance_fleet__instance_type_configs__ebs_config = {
+type core_instance_fleet__instance_type_configs__ebs_config = {
   iops : float prop option; [@option]  (** iops *)
   size : float prop;  (** size *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -35,9 +35,9 @@ type aws_emr_cluster__core_instance_fleet__instance_type_configs__ebs_config = {
       (** volumes_per_instance *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_fleet__instance_type_configs__ebs_config *)
+(** core_instance_fleet__instance_type_configs__ebs_config *)
 
-type aws_emr_cluster__core_instance_fleet__instance_type_configs = {
+type core_instance_fleet__instance_type_configs = {
   bid_price : string prop option; [@option]  (** bid_price *)
   bid_price_as_percentage_of_on_demand_price : float prop option;
       [@option]
@@ -46,22 +46,20 @@ type aws_emr_cluster__core_instance_fleet__instance_type_configs = {
   weighted_capacity : float prop option; [@option]
       (** weighted_capacity *)
   configurations :
-    aws_emr_cluster__core_instance_fleet__instance_type_configs__configurations
-    list;
+    core_instance_fleet__instance_type_configs__configurations list;
   ebs_config :
-    aws_emr_cluster__core_instance_fleet__instance_type_configs__ebs_config
-    list;
+    core_instance_fleet__instance_type_configs__ebs_config list;
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_fleet__instance_type_configs *)
+(** core_instance_fleet__instance_type_configs *)
 
-type aws_emr_cluster__core_instance_fleet__launch_specifications__on_demand_specification = {
+type core_instance_fleet__launch_specifications__on_demand_specification = {
   allocation_strategy : string prop;  (** allocation_strategy *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_fleet__launch_specifications__on_demand_specification *)
+(** core_instance_fleet__launch_specifications__on_demand_specification *)
 
-type aws_emr_cluster__core_instance_fleet__launch_specifications__spot_specification = {
+type core_instance_fleet__launch_specifications__spot_specification = {
   allocation_strategy : string prop;  (** allocation_strategy *)
   block_duration_minutes : float prop option; [@option]
       (** block_duration_minutes *)
@@ -70,39 +68,34 @@ type aws_emr_cluster__core_instance_fleet__launch_specifications__spot_specifica
       (** timeout_duration_minutes *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_fleet__launch_specifications__spot_specification *)
+(** core_instance_fleet__launch_specifications__spot_specification *)
 
-type aws_emr_cluster__core_instance_fleet__launch_specifications = {
+type core_instance_fleet__launch_specifications = {
   on_demand_specification :
-    aws_emr_cluster__core_instance_fleet__launch_specifications__on_demand_specification
+    core_instance_fleet__launch_specifications__on_demand_specification
     list;
   spot_specification :
-    aws_emr_cluster__core_instance_fleet__launch_specifications__spot_specification
+    core_instance_fleet__launch_specifications__spot_specification
     list;
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_fleet__launch_specifications *)
+(** core_instance_fleet__launch_specifications *)
 
-type aws_emr_cluster__core_instance_fleet = {
-  id : string prop;  (** id *)
+type core_instance_fleet = {
   name : string prop option; [@option]  (** name *)
-  provisioned_on_demand_capacity : float prop;
-      (** provisioned_on_demand_capacity *)
-  provisioned_spot_capacity : float prop;
-      (** provisioned_spot_capacity *)
   target_on_demand_capacity : float prop option; [@option]
       (** target_on_demand_capacity *)
   target_spot_capacity : float prop option; [@option]
       (** target_spot_capacity *)
   instance_type_configs :
-    aws_emr_cluster__core_instance_fleet__instance_type_configs list;
+    core_instance_fleet__instance_type_configs list;
   launch_specifications :
-    aws_emr_cluster__core_instance_fleet__launch_specifications list;
+    core_instance_fleet__launch_specifications list;
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_fleet *)
+(** core_instance_fleet *)
 
-type aws_emr_cluster__core_instance_group__ebs_config = {
+type core_instance_group__ebs_config = {
   iops : float prop option; [@option]  (** iops *)
   size : float prop;  (** size *)
   throughput : float prop option; [@option]  (** throughput *)
@@ -111,23 +104,22 @@ type aws_emr_cluster__core_instance_group__ebs_config = {
       (** volumes_per_instance *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_group__ebs_config *)
+(** core_instance_group__ebs_config *)
 
-type aws_emr_cluster__core_instance_group = {
+type core_instance_group = {
   autoscaling_policy : string prop option; [@option]
       (** autoscaling_policy *)
   bid_price : string prop option; [@option]  (** bid_price *)
-  id : string prop;  (** id *)
   instance_count : float prop option; [@option]
       (** instance_count *)
   instance_type : string prop;  (** instance_type *)
   name : string prop option; [@option]  (** name *)
-  ebs_config : aws_emr_cluster__core_instance_group__ebs_config list;
+  ebs_config : core_instance_group__ebs_config list;
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__core_instance_group *)
+(** core_instance_group *)
 
-type aws_emr_cluster__ec2_attributes = {
+type ec2_attributes = {
   additional_master_security_groups : string prop option; [@option]
       (** additional_master_security_groups *)
   additional_slave_security_groups : string prop option; [@option]
@@ -144,9 +136,9 @@ type aws_emr_cluster__ec2_attributes = {
   subnet_ids : string prop list option; [@option]  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__ec2_attributes *)
+(** ec2_attributes *)
 
-type aws_emr_cluster__kerberos_attributes = {
+type kerberos_attributes = {
   ad_domain_join_password : string prop option; [@option]
       (** ad_domain_join_password *)
   ad_domain_join_user : string prop option; [@option]
@@ -158,18 +150,18 @@ type aws_emr_cluster__kerberos_attributes = {
   realm : string prop;  (** realm *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__kerberos_attributes *)
+(** kerberos_attributes *)
 
-type aws_emr_cluster__master_instance_fleet__instance_type_configs__configurations = {
+type master_instance_fleet__instance_type_configs__configurations = {
   classification : string prop option; [@option]
       (** classification *)
   properties : (string * string prop) list option; [@option]
       (** properties *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_fleet__instance_type_configs__configurations *)
+(** master_instance_fleet__instance_type_configs__configurations *)
 
-type aws_emr_cluster__master_instance_fleet__instance_type_configs__ebs_config = {
+type master_instance_fleet__instance_type_configs__ebs_config = {
   iops : float prop option; [@option]  (** iops *)
   size : float prop;  (** size *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -177,9 +169,9 @@ type aws_emr_cluster__master_instance_fleet__instance_type_configs__ebs_config =
       (** volumes_per_instance *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_fleet__instance_type_configs__ebs_config *)
+(** master_instance_fleet__instance_type_configs__ebs_config *)
 
-type aws_emr_cluster__master_instance_fleet__instance_type_configs = {
+type master_instance_fleet__instance_type_configs = {
   bid_price : string prop option; [@option]  (** bid_price *)
   bid_price_as_percentage_of_on_demand_price : float prop option;
       [@option]
@@ -188,22 +180,20 @@ type aws_emr_cluster__master_instance_fleet__instance_type_configs = {
   weighted_capacity : float prop option; [@option]
       (** weighted_capacity *)
   configurations :
-    aws_emr_cluster__master_instance_fleet__instance_type_configs__configurations
-    list;
+    master_instance_fleet__instance_type_configs__configurations list;
   ebs_config :
-    aws_emr_cluster__master_instance_fleet__instance_type_configs__ebs_config
-    list;
+    master_instance_fleet__instance_type_configs__ebs_config list;
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_fleet__instance_type_configs *)
+(** master_instance_fleet__instance_type_configs *)
 
-type aws_emr_cluster__master_instance_fleet__launch_specifications__on_demand_specification = {
+type master_instance_fleet__launch_specifications__on_demand_specification = {
   allocation_strategy : string prop;  (** allocation_strategy *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_fleet__launch_specifications__on_demand_specification *)
+(** master_instance_fleet__launch_specifications__on_demand_specification *)
 
-type aws_emr_cluster__master_instance_fleet__launch_specifications__spot_specification = {
+type master_instance_fleet__launch_specifications__spot_specification = {
   allocation_strategy : string prop;  (** allocation_strategy *)
   block_duration_minutes : float prop option; [@option]
       (** block_duration_minutes *)
@@ -212,41 +202,34 @@ type aws_emr_cluster__master_instance_fleet__launch_specifications__spot_specifi
       (** timeout_duration_minutes *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_fleet__launch_specifications__spot_specification *)
+(** master_instance_fleet__launch_specifications__spot_specification *)
 
-type aws_emr_cluster__master_instance_fleet__launch_specifications = {
+type master_instance_fleet__launch_specifications = {
   on_demand_specification :
-    aws_emr_cluster__master_instance_fleet__launch_specifications__on_demand_specification
+    master_instance_fleet__launch_specifications__on_demand_specification
     list;
   spot_specification :
-    aws_emr_cluster__master_instance_fleet__launch_specifications__spot_specification
+    master_instance_fleet__launch_specifications__spot_specification
     list;
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_fleet__launch_specifications *)
+(** master_instance_fleet__launch_specifications *)
 
-type aws_emr_cluster__master_instance_fleet = {
-  id : string prop;  (** id *)
+type master_instance_fleet = {
   name : string prop option; [@option]  (** name *)
-  provisioned_on_demand_capacity : float prop;
-      (** provisioned_on_demand_capacity *)
-  provisioned_spot_capacity : float prop;
-      (** provisioned_spot_capacity *)
   target_on_demand_capacity : float prop option; [@option]
       (** target_on_demand_capacity *)
   target_spot_capacity : float prop option; [@option]
       (** target_spot_capacity *)
   instance_type_configs :
-    aws_emr_cluster__master_instance_fleet__instance_type_configs
-    list;
+    master_instance_fleet__instance_type_configs list;
   launch_specifications :
-    aws_emr_cluster__master_instance_fleet__launch_specifications
-    list;
+    master_instance_fleet__launch_specifications list;
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_fleet *)
+(** master_instance_fleet *)
 
-type aws_emr_cluster__master_instance_group__ebs_config = {
+type master_instance_group__ebs_config = {
   iops : float prop option; [@option]  (** iops *)
   size : float prop;  (** size *)
   throughput : float prop option; [@option]  (** throughput *)
@@ -255,28 +238,26 @@ type aws_emr_cluster__master_instance_group__ebs_config = {
       (** volumes_per_instance *)
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_group__ebs_config *)
+(** master_instance_group__ebs_config *)
 
-type aws_emr_cluster__master_instance_group = {
+type master_instance_group = {
   bid_price : string prop option; [@option]  (** bid_price *)
-  id : string prop;  (** id *)
   instance_count : float prop option; [@option]
       (** instance_count *)
   instance_type : string prop;  (** instance_type *)
   name : string prop option; [@option]  (** name *)
-  ebs_config :
-    aws_emr_cluster__master_instance_group__ebs_config list;
+  ebs_config : master_instance_group__ebs_config list;
 }
 [@@deriving yojson_of]
-(** aws_emr_cluster__master_instance_group *)
+(** master_instance_group *)
 
-type aws_emr_cluster__placement_group_config = {
+type placement_group_config = {
   instance_role : string prop;  (** instance_role *)
   placement_strategy : string prop;  (** placement_strategy *)
 }
 [@@deriving yojson_of]
 
-type aws_emr_cluster__step__hadoop_jar_step = {
+type step__hadoop_jar_step = {
   args : string prop list;  (** args *)
   jar : string prop;  (** jar *)
   main_class : string prop;  (** main_class *)
@@ -284,9 +265,9 @@ type aws_emr_cluster__step__hadoop_jar_step = {
 }
 [@@deriving yojson_of]
 
-type aws_emr_cluster__step = {
+type step = {
   action_on_failure : string prop;  (** action_on_failure *)
-  hadoop_jar_step : aws_emr_cluster__step__hadoop_jar_step list;
+  hadoop_jar_step : step__hadoop_jar_step list;
       (** hadoop_jar_step *)
   name : string prop;  (** name *)
 }
@@ -315,8 +296,7 @@ type aws_emr_cluster = {
       (** log_encryption_kms_key_id *)
   log_uri : string prop option; [@option]  (** log_uri *)
   name : string prop;  (** name *)
-  placement_group_config :
-    aws_emr_cluster__placement_group_config list option;
+  placement_group_config : placement_group_config list option;
       [@option]
       (** placement_group_config *)
   release_label : string prop;  (** release_label *)
@@ -325,7 +305,7 @@ type aws_emr_cluster = {
   security_configuration : string prop option; [@option]
       (** security_configuration *)
   service_role : string prop;  (** service_role *)
-  step : aws_emr_cluster__step list option; [@option]  (** step *)
+  step : step list option; [@option]  (** step *)
   step_concurrency_level : float prop option; [@option]
       (** step_concurrency_level *)
   tags : (string * string prop) list option; [@option]  (** tags *)
@@ -335,19 +315,238 @@ type aws_emr_cluster = {
       (** termination_protection *)
   visible_to_all_users : bool prop option; [@option]
       (** visible_to_all_users *)
-  auto_termination_policy :
-    aws_emr_cluster__auto_termination_policy list;
-  bootstrap_action : aws_emr_cluster__bootstrap_action list;
-  core_instance_fleet : aws_emr_cluster__core_instance_fleet list;
-  core_instance_group : aws_emr_cluster__core_instance_group list;
-  ec2_attributes : aws_emr_cluster__ec2_attributes list;
-  kerberos_attributes : aws_emr_cluster__kerberos_attributes list;
-  master_instance_fleet :
-    aws_emr_cluster__master_instance_fleet list;
-  master_instance_group : aws_emr_cluster__master_instance_group list;
+  auto_termination_policy : auto_termination_policy list;
+  bootstrap_action : bootstrap_action list;
+  core_instance_fleet : core_instance_fleet list;
+  core_instance_group : core_instance_group list;
+  ec2_attributes : ec2_attributes list;
+  kerberos_attributes : kerberos_attributes list;
+  master_instance_fleet : master_instance_fleet list;
+  master_instance_group : master_instance_group list;
 }
 [@@deriving yojson_of]
 (** aws_emr_cluster *)
+
+let auto_termination_policy ?idle_timeout () :
+    auto_termination_policy =
+  { idle_timeout }
+
+let bootstrap_action ?args ~name ~path () : bootstrap_action =
+  { args; name; path }
+
+let core_instance_fleet__instance_type_configs__configurations
+    ?classification ?properties () :
+    core_instance_fleet__instance_type_configs__configurations =
+  { classification; properties }
+
+let core_instance_fleet__instance_type_configs__ebs_config ?iops
+    ?volumes_per_instance ~size ~type_ () :
+    core_instance_fleet__instance_type_configs__ebs_config =
+  { iops; size; type_; volumes_per_instance }
+
+let core_instance_fleet__instance_type_configs ?bid_price
+    ?bid_price_as_percentage_of_on_demand_price ?weighted_capacity
+    ~instance_type ~configurations ~ebs_config () :
+    core_instance_fleet__instance_type_configs =
+  {
+    bid_price;
+    bid_price_as_percentage_of_on_demand_price;
+    instance_type;
+    weighted_capacity;
+    configurations;
+    ebs_config;
+  }
+
+let core_instance_fleet__launch_specifications__on_demand_specification
+    ~allocation_strategy () :
+    core_instance_fleet__launch_specifications__on_demand_specification
+    =
+  { allocation_strategy }
+
+let core_instance_fleet__launch_specifications__spot_specification
+    ?block_duration_minutes ~allocation_strategy ~timeout_action
+    ~timeout_duration_minutes () :
+    core_instance_fleet__launch_specifications__spot_specification =
+  {
+    allocation_strategy;
+    block_duration_minutes;
+    timeout_action;
+    timeout_duration_minutes;
+  }
+
+let core_instance_fleet__launch_specifications
+    ~on_demand_specification ~spot_specification () :
+    core_instance_fleet__launch_specifications =
+  { on_demand_specification; spot_specification }
+
+let core_instance_fleet ?name ?target_on_demand_capacity
+    ?target_spot_capacity ~instance_type_configs
+    ~launch_specifications () : core_instance_fleet =
+  {
+    name;
+    target_on_demand_capacity;
+    target_spot_capacity;
+    instance_type_configs;
+    launch_specifications;
+  }
+
+let core_instance_group__ebs_config ?iops ?throughput
+    ?volumes_per_instance ~size ~type_ () :
+    core_instance_group__ebs_config =
+  { iops; size; throughput; type_; volumes_per_instance }
+
+let core_instance_group ?autoscaling_policy ?bid_price
+    ?instance_count ?name ~instance_type ~ebs_config () :
+    core_instance_group =
+  {
+    autoscaling_policy;
+    bid_price;
+    instance_count;
+    instance_type;
+    name;
+    ebs_config;
+  }
+
+let ec2_attributes ?additional_master_security_groups
+    ?additional_slave_security_groups
+    ?emr_managed_master_security_group
+    ?emr_managed_slave_security_group ?key_name
+    ?service_access_security_group ?subnet_id ?subnet_ids
+    ~instance_profile () : ec2_attributes =
+  {
+    additional_master_security_groups;
+    additional_slave_security_groups;
+    emr_managed_master_security_group;
+    emr_managed_slave_security_group;
+    instance_profile;
+    key_name;
+    service_access_security_group;
+    subnet_id;
+    subnet_ids;
+  }
+
+let kerberos_attributes ?ad_domain_join_password ?ad_domain_join_user
+    ?cross_realm_trust_principal_password ~kdc_admin_password ~realm
+    () : kerberos_attributes =
+  {
+    ad_domain_join_password;
+    ad_domain_join_user;
+    cross_realm_trust_principal_password;
+    kdc_admin_password;
+    realm;
+  }
+
+let master_instance_fleet__instance_type_configs__configurations
+    ?classification ?properties () :
+    master_instance_fleet__instance_type_configs__configurations =
+  { classification; properties }
+
+let master_instance_fleet__instance_type_configs__ebs_config ?iops
+    ?volumes_per_instance ~size ~type_ () :
+    master_instance_fleet__instance_type_configs__ebs_config =
+  { iops; size; type_; volumes_per_instance }
+
+let master_instance_fleet__instance_type_configs ?bid_price
+    ?bid_price_as_percentage_of_on_demand_price ?weighted_capacity
+    ~instance_type ~configurations ~ebs_config () :
+    master_instance_fleet__instance_type_configs =
+  {
+    bid_price;
+    bid_price_as_percentage_of_on_demand_price;
+    instance_type;
+    weighted_capacity;
+    configurations;
+    ebs_config;
+  }
+
+let master_instance_fleet__launch_specifications__on_demand_specification
+    ~allocation_strategy () :
+    master_instance_fleet__launch_specifications__on_demand_specification
+    =
+  { allocation_strategy }
+
+let master_instance_fleet__launch_specifications__spot_specification
+    ?block_duration_minutes ~allocation_strategy ~timeout_action
+    ~timeout_duration_minutes () :
+    master_instance_fleet__launch_specifications__spot_specification
+    =
+  {
+    allocation_strategy;
+    block_duration_minutes;
+    timeout_action;
+    timeout_duration_minutes;
+  }
+
+let master_instance_fleet__launch_specifications
+    ~on_demand_specification ~spot_specification () :
+    master_instance_fleet__launch_specifications =
+  { on_demand_specification; spot_specification }
+
+let master_instance_fleet ?name ?target_on_demand_capacity
+    ?target_spot_capacity ~instance_type_configs
+    ~launch_specifications () : master_instance_fleet =
+  {
+    name;
+    target_on_demand_capacity;
+    target_spot_capacity;
+    instance_type_configs;
+    launch_specifications;
+  }
+
+let master_instance_group__ebs_config ?iops ?throughput
+    ?volumes_per_instance ~size ~type_ () :
+    master_instance_group__ebs_config =
+  { iops; size; throughput; type_; volumes_per_instance }
+
+let master_instance_group ?bid_price ?instance_count ?name
+    ~instance_type ~ebs_config () : master_instance_group =
+  { bid_price; instance_count; instance_type; name; ebs_config }
+
+let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
+    ?configurations ?configurations_json ?custom_ami_id
+    ?ebs_root_volume_size ?id ?keep_job_flow_alive_when_no_steps
+    ?list_steps_states ?log_encryption_kms_key_id ?log_uri
+    ?placement_group_config ?scale_down_behavior
+    ?security_configuration ?step ?step_concurrency_level ?tags
+    ?tags_all ?termination_protection ?visible_to_all_users ~name
+    ~release_label ~service_role ~auto_termination_policy
+    ~bootstrap_action ~core_instance_fleet ~core_instance_group
+    ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
+    ~master_instance_group () : aws_emr_cluster =
+  {
+    additional_info;
+    applications;
+    autoscaling_role;
+    configurations;
+    configurations_json;
+    custom_ami_id;
+    ebs_root_volume_size;
+    id;
+    keep_job_flow_alive_when_no_steps;
+    list_steps_states;
+    log_encryption_kms_key_id;
+    log_uri;
+    name;
+    placement_group_config;
+    release_label;
+    scale_down_behavior;
+    security_configuration;
+    service_role;
+    step;
+    step_concurrency_level;
+    tags;
+    tags_all;
+    termination_protection;
+    visible_to_all_users;
+    auto_termination_policy;
+    bootstrap_action;
+    core_instance_fleet;
+    core_instance_group;
+    ec2_attributes;
+    kerberos_attributes;
+    master_instance_fleet;
+    master_instance_group;
+  }
 
 type t = {
   additional_info : string prop;
@@ -366,13 +565,12 @@ type t = {
   log_uri : string prop;
   master_public_dns : string prop;
   name : string prop;
-  placement_group_config :
-    aws_emr_cluster__placement_group_config list prop;
+  placement_group_config : placement_group_config list prop;
   release_label : string prop;
   scale_down_behavior : string prop;
   security_configuration : string prop;
   service_role : string prop;
-  step : aws_emr_cluster__step list prop;
+  step : step list prop;
   step_concurrency_level : float prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
@@ -380,56 +578,32 @@ type t = {
   visible_to_all_users : bool prop;
 }
 
-let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
-    ?configurations ?configurations_json ?custom_ami_id
-    ?ebs_root_volume_size ?id ?keep_job_flow_alive_when_no_steps
-    ?list_steps_states ?log_encryption_kms_key_id ?log_uri
-    ?placement_group_config ?scale_down_behavior
-    ?security_configuration ?step ?step_concurrency_level ?tags
-    ?tags_all ?termination_protection ?visible_to_all_users ~name
-    ~release_label ~service_role ~auto_termination_policy
-    ~bootstrap_action ~core_instance_fleet ~core_instance_group
-    ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
-    ~master_instance_group __resource_id =
+let register ?tf_module ?additional_info ?applications
+    ?autoscaling_role ?configurations ?configurations_json
+    ?custom_ami_id ?ebs_root_volume_size ?id
+    ?keep_job_flow_alive_when_no_steps ?list_steps_states
+    ?log_encryption_kms_key_id ?log_uri ?placement_group_config
+    ?scale_down_behavior ?security_configuration ?step
+    ?step_concurrency_level ?tags ?tags_all ?termination_protection
+    ?visible_to_all_users ~name ~release_label ~service_role
+    ~auto_termination_policy ~bootstrap_action ~core_instance_fleet
+    ~core_instance_group ~ec2_attributes ~kerberos_attributes
+    ~master_instance_fleet ~master_instance_group __resource_id =
   let __resource_type = "aws_emr_cluster" in
   let __resource =
-    ({
-       additional_info;
-       applications;
-       autoscaling_role;
-       configurations;
-       configurations_json;
-       custom_ami_id;
-       ebs_root_volume_size;
-       id;
-       keep_job_flow_alive_when_no_steps;
-       list_steps_states;
-       log_encryption_kms_key_id;
-       log_uri;
-       name;
-       placement_group_config;
-       release_label;
-       scale_down_behavior;
-       security_configuration;
-       service_role;
-       step;
-       step_concurrency_level;
-       tags;
-       tags_all;
-       termination_protection;
-       visible_to_all_users;
-       auto_termination_policy;
-       bootstrap_action;
-       core_instance_fleet;
-       core_instance_group;
-       ec2_attributes;
-       kerberos_attributes;
-       master_instance_fleet;
-       master_instance_group;
-     }
-      : aws_emr_cluster)
+    aws_emr_cluster ?additional_info ?applications ?autoscaling_role
+      ?configurations ?configurations_json ?custom_ami_id
+      ?ebs_root_volume_size ?id ?keep_job_flow_alive_when_no_steps
+      ?list_steps_states ?log_encryption_kms_key_id ?log_uri
+      ?placement_group_config ?scale_down_behavior
+      ?security_configuration ?step ?step_concurrency_level ?tags
+      ?tags_all ?termination_protection ?visible_to_all_users ~name
+      ~release_label ~service_role ~auto_termination_policy
+      ~bootstrap_action ~core_instance_fleet ~core_instance_group
+      ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
+      ~master_instance_group ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_cluster __resource);
   let __resource_attributes =
     ({

@@ -2,9 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_lambda_code_signing_config__allowed_publishers
-type aws_lambda_code_signing_config__policies
+(** RESOURCE SERIALIZATION *)
+
+type allowed_publishers
+
+val allowed_publishers :
+  signing_profile_version_arns:string prop list ->
+  unit ->
+  allowed_publishers
+
+type policies
+
+val policies :
+  untrusted_artifact_on_deployment:string prop -> unit -> policies
+
 type aws_lambda_code_signing_config
+
+val aws_lambda_code_signing_config :
+  ?description:string prop ->
+  ?id:string prop ->
+  allowed_publishers:allowed_publishers list ->
+  policies:policies list ->
+  unit ->
+  aws_lambda_code_signing_config
+
+val yojson_of_aws_lambda_code_signing_config :
+  aws_lambda_code_signing_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,11 +39,11 @@ type t = private {
   last_modified : string prop;
 }
 
-val aws_lambda_code_signing_config :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  allowed_publishers:
-    aws_lambda_code_signing_config__allowed_publishers list ->
-  policies:aws_lambda_code_signing_config__policies list ->
+  allowed_publishers:allowed_publishers list ->
+  policies:policies list ->
   string ->
   t

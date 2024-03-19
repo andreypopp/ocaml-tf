@@ -4,11 +4,9 @@
 
 open! Tf.Prelude
 
-type aws_appintegrations_event_integration__event_filter = {
-  source : string prop;  (** source *)
-}
+type event_filter = { source : string prop  (** source *) }
 [@@deriving yojson_of]
-(** aws_appintegrations_event_integration__event_filter *)
+(** event_filter *)
 
 type aws_appintegrations_event_integration = {
   description : string prop option; [@option]  (** description *)
@@ -18,11 +16,25 @@ type aws_appintegrations_event_integration = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  event_filter :
-    aws_appintegrations_event_integration__event_filter list;
+  event_filter : event_filter list;
 }
 [@@deriving yojson_of]
 (** aws_appintegrations_event_integration *)
+
+let event_filter ~source () : event_filter = { source }
+
+let aws_appintegrations_event_integration ?description ?id ?tags
+    ?tags_all ~eventbridge_bus ~name ~event_filter () :
+    aws_appintegrations_event_integration =
+  {
+    description;
+    eventbridge_bus;
+    id;
+    name;
+    tags;
+    tags_all;
+    event_filter;
+  }
 
 type t = {
   arn : string prop;
@@ -34,22 +46,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appintegrations_event_integration ?description ?id ?tags
-    ?tags_all ~eventbridge_bus ~name ~event_filter __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ~eventbridge_bus ~name ~event_filter __resource_id =
   let __resource_type = "aws_appintegrations_event_integration" in
   let __resource =
-    ({
-       description;
-       eventbridge_bus;
-       id;
-       name;
-       tags;
-       tags_all;
-       event_filter;
-     }
-      : aws_appintegrations_event_integration)
+    aws_appintegrations_event_integration ?description ?id ?tags
+      ?tags_all ~eventbridge_bus ~name ~event_filter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appintegrations_event_integration __resource);
   let __resource_attributes =
     ({

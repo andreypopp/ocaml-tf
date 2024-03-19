@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_forwarding_rule__service_directory_registrations = {
+type service_directory_registrations = {
   namespace : string prop option; [@option]
       (** Service Directory namespace to register the forwarding rule under. *)
   service : string prop option; [@option]
@@ -15,13 +15,13 @@ type google_compute_forwarding_rule__service_directory_registrations = {
 
 Currently, only supports a single Service Directory resource. *)
 
-type google_compute_forwarding_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_forwarding_rule__timeouts *)
+(** timeouts *)
 
 type google_compute_forwarding_rule = {
   all_ports : bool prop option; [@option]
@@ -273,12 +273,57 @@ The forwarded traffic must be of a type appropriate to the target object.
 
 For Private Service Connect forwarding rules that forward traffic to managed services, the target must be a service attachment. *)
   service_directory_registrations :
-    google_compute_forwarding_rule__service_directory_registrations
-    list;
-  timeouts : google_compute_forwarding_rule__timeouts option;
+    service_directory_registrations list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_forwarding_rule *)
+
+let service_directory_registrations ?namespace ?service () :
+    service_directory_registrations =
+  { namespace; service }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_forwarding_rule ?all_ports ?allow_global_access
+    ?allow_psc_global_access ?backend_service ?description ?id
+    ?ip_address ?ip_protocol ?ip_version ?is_mirroring_collector
+    ?labels ?load_balancing_scheme ?network ?network_tier
+    ?no_automate_dns_zone ?port_range ?ports ?project
+    ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
+    ?subnetwork ?target ?timeouts ~name
+    ~service_directory_registrations () :
+    google_compute_forwarding_rule =
+  {
+    all_ports;
+    allow_global_access;
+    allow_psc_global_access;
+    backend_service;
+    description;
+    id;
+    ip_address;
+    ip_protocol;
+    ip_version;
+    is_mirroring_collector;
+    labels;
+    load_balancing_scheme;
+    name;
+    network;
+    network_tier;
+    no_automate_dns_zone;
+    port_range;
+    ports;
+    project;
+    recreate_closed_psc;
+    region;
+    service_label;
+    source_ip_ranges;
+    subnetwork;
+    target;
+    service_directory_registrations;
+    timeouts;
+  }
 
 type t = {
   all_ports : bool prop;
@@ -317,7 +362,7 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_compute_forwarding_rule ?all_ports ?allow_global_access
+let register ?tf_module ?all_ports ?allow_global_access
     ?allow_psc_global_access ?backend_service ?description ?id
     ?ip_address ?ip_protocol ?ip_version ?is_mirroring_collector
     ?labels ?load_balancing_scheme ?network ?network_tier
@@ -327,38 +372,16 @@ let google_compute_forwarding_rule ?all_ports ?allow_global_access
     ~service_directory_registrations __resource_id =
   let __resource_type = "google_compute_forwarding_rule" in
   let __resource =
-    ({
-       all_ports;
-       allow_global_access;
-       allow_psc_global_access;
-       backend_service;
-       description;
-       id;
-       ip_address;
-       ip_protocol;
-       ip_version;
-       is_mirroring_collector;
-       labels;
-       load_balancing_scheme;
-       name;
-       network;
-       network_tier;
-       no_automate_dns_zone;
-       port_range;
-       ports;
-       project;
-       recreate_closed_psc;
-       region;
-       service_label;
-       source_ip_ranges;
-       subnetwork;
-       target;
-       service_directory_registrations;
-       timeouts;
-     }
-      : google_compute_forwarding_rule)
+    google_compute_forwarding_rule ?all_ports ?allow_global_access
+      ?allow_psc_global_access ?backend_service ?description ?id
+      ?ip_address ?ip_protocol ?ip_version ?is_mirroring_collector
+      ?labels ?load_balancing_scheme ?network ?network_tier
+      ?no_automate_dns_zone ?port_range ?ports ?project
+      ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
+      ?subnetwork ?target ?timeouts ~name
+      ~service_directory_registrations ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_forwarding_rule __resource);
   let __resource_attributes =
     ({

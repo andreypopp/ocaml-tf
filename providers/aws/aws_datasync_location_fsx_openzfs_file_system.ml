@@ -4,26 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_fsx_openzfs_file_system__protocol__nfs__mount_options = {
+type protocol__nfs__mount_options = {
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_fsx_openzfs_file_system__protocol__nfs__mount_options *)
+(** protocol__nfs__mount_options *)
 
-type aws_datasync_location_fsx_openzfs_file_system__protocol__nfs = {
-  mount_options :
-    aws_datasync_location_fsx_openzfs_file_system__protocol__nfs__mount_options
-    list;
+type protocol__nfs = {
+  mount_options : protocol__nfs__mount_options list;
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_fsx_openzfs_file_system__protocol__nfs *)
+(** protocol__nfs *)
 
-type aws_datasync_location_fsx_openzfs_file_system__protocol = {
-  nfs :
-    aws_datasync_location_fsx_openzfs_file_system__protocol__nfs list;
-}
-[@@deriving yojson_of]
-(** aws_datasync_location_fsx_openzfs_file_system__protocol *)
+type protocol = { nfs : protocol__nfs list } [@@deriving yojson_of]
+(** protocol *)
 
 type aws_datasync_location_fsx_openzfs_file_system = {
   fsx_filesystem_arn : string prop;  (** fsx_filesystem_arn *)
@@ -33,11 +27,32 @@ type aws_datasync_location_fsx_openzfs_file_system = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  protocol :
-    aws_datasync_location_fsx_openzfs_file_system__protocol list;
+  protocol : protocol list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_fsx_openzfs_file_system *)
+
+let protocol__nfs__mount_options ?version () :
+    protocol__nfs__mount_options =
+  { version }
+
+let protocol__nfs ~mount_options () : protocol__nfs =
+  { mount_options }
+
+let protocol ~nfs () : protocol = { nfs }
+
+let aws_datasync_location_fsx_openzfs_file_system ?id ?subdirectory
+    ?tags ?tags_all ~fsx_filesystem_arn ~security_group_arns
+    ~protocol () : aws_datasync_location_fsx_openzfs_file_system =
+  {
+    fsx_filesystem_arn;
+    id;
+    security_group_arns;
+    subdirectory;
+    tags;
+    tags_all;
+    protocol;
+  }
 
 type t = {
   arn : string prop;
@@ -51,25 +66,18 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_fsx_openzfs_file_system ?id ?subdirectory
-    ?tags ?tags_all ~fsx_filesystem_arn ~security_group_arns
-    ~protocol __resource_id =
+let register ?tf_module ?id ?subdirectory ?tags ?tags_all
+    ~fsx_filesystem_arn ~security_group_arns ~protocol __resource_id
+    =
   let __resource_type =
     "aws_datasync_location_fsx_openzfs_file_system"
   in
   let __resource =
-    ({
-       fsx_filesystem_arn;
-       id;
-       security_group_arns;
-       subdirectory;
-       tags;
-       tags_all;
-       protocol;
-     }
-      : aws_datasync_location_fsx_openzfs_file_system)
+    aws_datasync_location_fsx_openzfs_file_system ?id ?subdirectory
+      ?tags ?tags_all ~fsx_filesystem_arn ~security_group_arns
+      ~protocol ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_fsx_openzfs_file_system
        __resource);
   let __resource_attributes =

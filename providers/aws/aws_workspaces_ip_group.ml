@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_workspaces_ip_group__rules = {
+type rules = {
   description : string prop option; [@option]  (** description *)
   source : string prop;  (** source *)
 }
 [@@deriving yojson_of]
-(** aws_workspaces_ip_group__rules *)
+(** rules *)
 
 type aws_workspaces_ip_group = {
   description : string prop option; [@option]  (** description *)
@@ -18,10 +18,16 @@ type aws_workspaces_ip_group = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  rules : aws_workspaces_ip_group__rules list;
+  rules : rules list;
 }
 [@@deriving yojson_of]
 (** aws_workspaces_ip_group *)
+
+let rules ?description ~source () : rules = { description; source }
+
+let aws_workspaces_ip_group ?description ?id ?tags ?tags_all ~name
+    ~rules () : aws_workspaces_ip_group =
+  { description; id; name; tags; tags_all; rules }
 
 type t = {
   description : string prop;
@@ -31,14 +37,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_workspaces_ip_group ?description ?id ?tags ?tags_all ~name
-    ~rules __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~name ~rules
+    __resource_id =
   let __resource_type = "aws_workspaces_ip_group" in
   let __resource =
-    ({ description; id; name; tags; tags_all; rules }
-      : aws_workspaces_ip_group)
+    aws_workspaces_ip_group ?description ?id ?tags ?tags_all ~name
+      ~rules ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_workspaces_ip_group __resource);
   let __resource_attributes =
     ({

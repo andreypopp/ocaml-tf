@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_organizations_organizational_unit__accounts = {
+type accounts = {
   arn : string prop;  (** arn *)
   email : string prop;  (** email *)
   id : string prop;  (** id *)
@@ -23,9 +23,12 @@ type aws_organizations_organizational_unit = {
 [@@deriving yojson_of]
 (** aws_organizations_organizational_unit *)
 
+let aws_organizations_organizational_unit ?id ?tags ?tags_all ~name
+    ~parent_id () : aws_organizations_organizational_unit =
+  { id; name; parent_id; tags; tags_all }
+
 type t = {
-  accounts :
-    aws_organizations_organizational_unit__accounts list prop;
+  accounts : accounts list prop;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -34,14 +37,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_organizations_organizational_unit ?id ?tags ?tags_all ~name
-    ~parent_id __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~name ~parent_id
+    __resource_id =
   let __resource_type = "aws_organizations_organizational_unit" in
   let __resource =
-    ({ id; name; parent_id; tags; tags_all }
-      : aws_organizations_organizational_unit)
+    aws_organizations_organizational_unit ?id ?tags ?tags_all ~name
+      ~parent_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_organizational_unit __resource);
   let __resource_attributes =
     ({

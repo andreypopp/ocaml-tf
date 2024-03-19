@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_healthcare_dataset__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_healthcare_dataset
+
+val google_healthcare_dataset :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?time_zone:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  unit ->
+  google_healthcare_dataset
+
+val yojson_of_google_healthcare_dataset :
+  google_healthcare_dataset -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,11 +39,12 @@ type t = private {
   time_zone : string prop;
 }
 
-val google_healthcare_dataset :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   ?time_zone:string prop ->
-  ?timeouts:google_healthcare_dataset__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   string ->

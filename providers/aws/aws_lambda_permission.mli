@@ -2,7 +2,29 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_lambda_permission
+
+val aws_lambda_permission :
+  ?event_source_token:string prop ->
+  ?function_url_auth_type:string prop ->
+  ?id:string prop ->
+  ?principal_org_id:string prop ->
+  ?qualifier:string prop ->
+  ?source_account:string prop ->
+  ?source_arn:string prop ->
+  ?statement_id:string prop ->
+  ?statement_id_prefix:string prop ->
+  action:string prop ->
+  function_name:string prop ->
+  principal:string prop ->
+  unit ->
+  aws_lambda_permission
+
+val yojson_of_aws_lambda_permission : aws_lambda_permission -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   action : string prop;
@@ -19,7 +41,8 @@ type t = private {
   statement_id_prefix : string prop;
 }
 
-val aws_lambda_permission :
+val register :
+  ?tf_module:tf_module ->
   ?event_source_token:string prop ->
   ?function_url_auth_type:string prop ->
   ?id:string prop ->

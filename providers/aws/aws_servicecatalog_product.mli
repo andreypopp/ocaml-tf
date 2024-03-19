@@ -2,9 +2,55 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_product__provisioning_artifact_parameters
-type aws_servicecatalog_product__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type provisioning_artifact_parameters
+
+val provisioning_artifact_parameters :
+  ?description:string prop ->
+  ?disable_template_validation:bool prop ->
+  ?name:string prop ->
+  ?template_physical_id:string prop ->
+  ?template_url:string prop ->
+  ?type_:string prop ->
+  unit ->
+  provisioning_artifact_parameters
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_servicecatalog_product
+
+val aws_servicecatalog_product :
+  ?accept_language:string prop ->
+  ?description:string prop ->
+  ?distributor:string prop ->
+  ?id:string prop ->
+  ?support_description:string prop ->
+  ?support_email:string prop ->
+  ?support_url:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  owner:string prop ->
+  type_:string prop ->
+  provisioning_artifact_parameters:
+    provisioning_artifact_parameters list ->
+  unit ->
+  aws_servicecatalog_product
+
+val yojson_of_aws_servicecatalog_product :
+  aws_servicecatalog_product -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   accept_language : string prop;
@@ -25,7 +71,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_servicecatalog_product :
+val register :
+  ?tf_module:tf_module ->
   ?accept_language:string prop ->
   ?description:string prop ->
   ?distributor:string prop ->
@@ -35,11 +82,11 @@ val aws_servicecatalog_product :
   ?support_url:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_servicecatalog_product__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   owner:string prop ->
   type_:string prop ->
   provisioning_artifact_parameters:
-    aws_servicecatalog_product__provisioning_artifact_parameters list ->
+    provisioning_artifact_parameters list ->
   string ->
   t

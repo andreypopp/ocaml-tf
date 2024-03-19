@@ -21,6 +21,11 @@ type cloudflare_access_service_token = {
 when an application is behind Cloudflare Access.
  *)
 
+let cloudflare_access_service_token ?account_id ?duration ?id
+    ?min_days_for_renewal ?zone_id ~name () :
+    cloudflare_access_service_token =
+  { account_id; duration; id; min_days_for_renewal; name; zone_id }
+
 type t = {
   account_id : string prop;
   client_id : string prop;
@@ -33,21 +38,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_access_service_token ?account_id ?duration ?id
+let register ?tf_module ?account_id ?duration ?id
     ?min_days_for_renewal ?zone_id ~name __resource_id =
   let __resource_type = "cloudflare_access_service_token" in
   let __resource =
-    ({
-       account_id;
-       duration;
-       id;
-       min_days_for_renewal;
-       name;
-       zone_id;
-     }
-      : cloudflare_access_service_token)
+    cloudflare_access_service_token ?account_id ?duration ?id
+      ?min_days_for_renewal ?zone_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_service_token __resource);
   let __resource_attributes =
     ({

@@ -2,11 +2,60 @@
 
 open! Tf.Prelude
 
-type google_compute_firewall__allow
-type google_compute_firewall__deny
-type google_compute_firewall__log_config
-type google_compute_firewall__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type allow
+
+val allow :
+  ?ports:string prop list -> protocol:string prop -> unit -> allow
+
+type deny
+
+val deny :
+  ?ports:string prop list -> protocol:string prop -> unit -> deny
+
+type log_config
+
+val log_config : metadata:string prop -> unit -> log_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_firewall
+
+val google_compute_firewall :
+  ?description:string prop ->
+  ?destination_ranges:string prop list ->
+  ?direction:string prop ->
+  ?disabled:bool prop ->
+  ?enable_logging:bool prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
+  ?source_ranges:string prop list ->
+  ?source_service_accounts:string prop list ->
+  ?source_tags:string prop list ->
+  ?target_service_accounts:string prop list ->
+  ?target_tags:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network:string prop ->
+  allow:allow list ->
+  deny:deny list ->
+  log_config:log_config list ->
+  unit ->
+  google_compute_firewall
+
+val yojson_of_google_compute_firewall :
+  google_compute_firewall -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_timestamp : string prop;
@@ -28,7 +77,8 @@ type t = private {
   target_tags : string list prop;
 }
 
-val google_compute_firewall :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?destination_ranges:string prop list ->
   ?direction:string prop ->
@@ -42,11 +92,11 @@ val google_compute_firewall :
   ?source_tags:string prop list ->
   ?target_service_accounts:string prop list ->
   ?target_tags:string prop list ->
-  ?timeouts:google_compute_firewall__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
-  allow:google_compute_firewall__allow list ->
-  deny:google_compute_firewall__deny list ->
-  log_config:google_compute_firewall__log_config list ->
+  allow:allow list ->
+  deny:deny list ->
+  log_config:log_config list ->
   string ->
   t

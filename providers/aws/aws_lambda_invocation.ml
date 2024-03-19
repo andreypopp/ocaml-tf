@@ -18,6 +18,19 @@ type aws_lambda_invocation = {
 [@@deriving yojson_of]
 (** aws_lambda_invocation *)
 
+let aws_lambda_invocation ?id ?lifecycle_scope ?qualifier
+    ?terraform_key ?triggers ~function_name ~input () :
+    aws_lambda_invocation =
+  {
+    function_name;
+    id;
+    input;
+    lifecycle_scope;
+    qualifier;
+    terraform_key;
+    triggers;
+  }
+
 type t = {
   function_name : string prop;
   id : string prop;
@@ -29,22 +42,14 @@ type t = {
   triggers : (string * string) list prop;
 }
 
-let aws_lambda_invocation ?id ?lifecycle_scope ?qualifier
+let register ?tf_module ?id ?lifecycle_scope ?qualifier
     ?terraform_key ?triggers ~function_name ~input __resource_id =
   let __resource_type = "aws_lambda_invocation" in
   let __resource =
-    ({
-       function_name;
-       id;
-       input;
-       lifecycle_scope;
-       qualifier;
-       terraform_key;
-       triggers;
-     }
-      : aws_lambda_invocation)
+    aws_lambda_invocation ?id ?lifecycle_scope ?qualifier
+      ?terraform_key ?triggers ~function_name ~input ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_invocation __resource);
   let __resource_attributes =
     ({

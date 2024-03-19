@@ -2,13 +2,127 @@
 
 open! Tf.Prelude
 
-type aws_route53domains_registered_domain__admin_contact
-type aws_route53domains_registered_domain__billing_contact
-type aws_route53domains_registered_domain__name_server
-type aws_route53domains_registered_domain__registrant_contact
-type aws_route53domains_registered_domain__tech_contact
-type aws_route53domains_registered_domain__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type admin_contact
+
+val admin_contact :
+  ?address_line_1:string prop ->
+  ?address_line_2:string prop ->
+  ?city:string prop ->
+  ?contact_type:string prop ->
+  ?country_code:string prop ->
+  ?email:string prop ->
+  ?extra_params:(string * string prop) list ->
+  ?fax:string prop ->
+  ?first_name:string prop ->
+  ?last_name:string prop ->
+  ?organization_name:string prop ->
+  ?phone_number:string prop ->
+  ?state:string prop ->
+  ?zip_code:string prop ->
+  unit ->
+  admin_contact
+
+type billing_contact
+
+val billing_contact :
+  ?address_line_1:string prop ->
+  ?address_line_2:string prop ->
+  ?city:string prop ->
+  ?contact_type:string prop ->
+  ?country_code:string prop ->
+  ?email:string prop ->
+  ?extra_params:(string * string prop) list ->
+  ?fax:string prop ->
+  ?first_name:string prop ->
+  ?last_name:string prop ->
+  ?organization_name:string prop ->
+  ?phone_number:string prop ->
+  ?state:string prop ->
+  ?zip_code:string prop ->
+  unit ->
+  billing_contact
+
+type name_server
+
+val name_server :
+  ?glue_ips:string prop list ->
+  name:string prop ->
+  unit ->
+  name_server
+
+type registrant_contact
+
+val registrant_contact :
+  ?address_line_1:string prop ->
+  ?address_line_2:string prop ->
+  ?city:string prop ->
+  ?contact_type:string prop ->
+  ?country_code:string prop ->
+  ?email:string prop ->
+  ?extra_params:(string * string prop) list ->
+  ?fax:string prop ->
+  ?first_name:string prop ->
+  ?last_name:string prop ->
+  ?organization_name:string prop ->
+  ?phone_number:string prop ->
+  ?state:string prop ->
+  ?zip_code:string prop ->
+  unit ->
+  registrant_contact
+
+type tech_contact
+
+val tech_contact :
+  ?address_line_1:string prop ->
+  ?address_line_2:string prop ->
+  ?city:string prop ->
+  ?contact_type:string prop ->
+  ?country_code:string prop ->
+  ?email:string prop ->
+  ?extra_params:(string * string prop) list ->
+  ?fax:string prop ->
+  ?first_name:string prop ->
+  ?last_name:string prop ->
+  ?organization_name:string prop ->
+  ?phone_number:string prop ->
+  ?state:string prop ->
+  ?zip_code:string prop ->
+  unit ->
+  tech_contact
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_route53domains_registered_domain
+
+val aws_route53domains_registered_domain :
+  ?admin_privacy:bool prop ->
+  ?auto_renew:bool prop ->
+  ?billing_privacy:bool prop ->
+  ?id:string prop ->
+  ?registrant_privacy:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tech_privacy:bool prop ->
+  ?transfer_lock:bool prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  admin_contact:admin_contact list ->
+  billing_contact:billing_contact list ->
+  name_server:name_server list ->
+  registrant_contact:registrant_contact list ->
+  tech_contact:tech_contact list ->
+  unit ->
+  aws_route53domains_registered_domain
+
+val yojson_of_aws_route53domains_registered_domain :
+  aws_route53domains_registered_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   abuse_contact_email : string prop;
@@ -33,7 +147,8 @@ type t = private {
   whois_server : string prop;
 }
 
-val aws_route53domains_registered_domain :
+val register :
+  ?tf_module:tf_module ->
   ?admin_privacy:bool prop ->
   ?auto_renew:bool prop ->
   ?billing_privacy:bool prop ->
@@ -43,16 +158,12 @@ val aws_route53domains_registered_domain :
   ?tags_all:(string * string prop) list ->
   ?tech_privacy:bool prop ->
   ?transfer_lock:bool prop ->
-  ?timeouts:aws_route53domains_registered_domain__timeouts ->
+  ?timeouts:timeouts ->
   domain_name:string prop ->
-  admin_contact:
-    aws_route53domains_registered_domain__admin_contact list ->
-  billing_contact:
-    aws_route53domains_registered_domain__billing_contact list ->
-  name_server:aws_route53domains_registered_domain__name_server list ->
-  registrant_contact:
-    aws_route53domains_registered_domain__registrant_contact list ->
-  tech_contact:
-    aws_route53domains_registered_domain__tech_contact list ->
+  admin_contact:admin_contact list ->
+  billing_contact:billing_contact list ->
+  name_server:name_server list ->
+  registrant_contact:registrant_contact list ->
+  tech_contact:tech_contact list ->
   string ->
   t

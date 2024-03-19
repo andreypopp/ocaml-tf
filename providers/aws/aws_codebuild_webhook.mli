@@ -2,9 +2,36 @@
 
 open! Tf.Prelude
 
-type aws_codebuild_webhook__filter_group__filter
-type aws_codebuild_webhook__filter_group
+(** RESOURCE SERIALIZATION *)
+
+type filter_group__filter
+
+val filter_group__filter :
+  ?exclude_matched_pattern:bool prop ->
+  pattern:string prop ->
+  type_:string prop ->
+  unit ->
+  filter_group__filter
+
+type filter_group
+
+val filter_group :
+  filter:filter_group__filter list -> unit -> filter_group
+
 type aws_codebuild_webhook
+
+val aws_codebuild_webhook :
+  ?branch_filter:string prop ->
+  ?build_type:string prop ->
+  ?id:string prop ->
+  project_name:string prop ->
+  filter_group:filter_group list ->
+  unit ->
+  aws_codebuild_webhook
+
+val yojson_of_aws_codebuild_webhook : aws_codebuild_webhook -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   branch_filter : string prop;
@@ -16,11 +43,12 @@ type t = private {
   url : string prop;
 }
 
-val aws_codebuild_webhook :
+val register :
+  ?tf_module:tf_module ->
   ?branch_filter:string prop ->
   ?build_type:string prop ->
   ?id:string prop ->
   project_name:string prop ->
-  filter_group:aws_codebuild_webhook__filter_group list ->
+  filter_group:filter_group list ->
   string ->
   t

@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_orbital_contact_profile__links__channels__end_point = {
+type links__channels__end_point = {
   end_point_name : string prop;  (** end_point_name *)
   ip_address : string prop option; [@option]  (** ip_address *)
   port : string prop;  (** port *)
   protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
-(** azurerm_orbital_contact_profile__links__channels__end_point *)
+(** links__channels__end_point *)
 
-type azurerm_orbital_contact_profile__links__channels = {
+type links__channels = {
   bandwidth_mhz : float prop;  (** bandwidth_mhz *)
   center_frequency_mhz : float prop;  (** center_frequency_mhz *)
   demodulation_configuration : string prop option; [@option]
@@ -21,29 +21,28 @@ type azurerm_orbital_contact_profile__links__channels = {
   modulation_configuration : string prop option; [@option]
       (** modulation_configuration *)
   name : string prop;  (** name *)
-  end_point :
-    azurerm_orbital_contact_profile__links__channels__end_point list;
+  end_point : links__channels__end_point list;
 }
 [@@deriving yojson_of]
-(** azurerm_orbital_contact_profile__links__channels *)
+(** links__channels *)
 
-type azurerm_orbital_contact_profile__links = {
+type links = {
   direction : string prop;  (** direction *)
   name : string prop;  (** name *)
   polarization : string prop;  (** polarization *)
-  channels : azurerm_orbital_contact_profile__links__channels list;
+  channels : links__channels list;
 }
 [@@deriving yojson_of]
-(** azurerm_orbital_contact_profile__links *)
+(** links *)
 
-type azurerm_orbital_contact_profile__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_orbital_contact_profile__timeouts *)
+(** timeouts *)
 
 type azurerm_orbital_contact_profile = {
   auto_tracking : string prop;  (** auto_tracking *)
@@ -59,11 +58,53 @@ type azurerm_orbital_contact_profile = {
       (** network_configuration_subnet_id *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  links : azurerm_orbital_contact_profile__links list;
-  timeouts : azurerm_orbital_contact_profile__timeouts option;
+  links : links list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_orbital_contact_profile *)
+
+let links__channels__end_point ?ip_address ~end_point_name ~port
+    ~protocol () : links__channels__end_point =
+  { end_point_name; ip_address; port; protocol }
+
+let links__channels ?demodulation_configuration
+    ?modulation_configuration ~bandwidth_mhz ~center_frequency_mhz
+    ~name ~end_point () : links__channels =
+  {
+    bandwidth_mhz;
+    center_frequency_mhz;
+    demodulation_configuration;
+    modulation_configuration;
+    name;
+    end_point;
+  }
+
+let links ~direction ~name ~polarization ~channels () : links =
+  { direction; name; polarization; channels }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_orbital_contact_profile ?event_hub_uri ?id
+    ?minimum_elevation_degrees ?tags ?timeouts ~auto_tracking
+    ~location ~minimum_variable_contact_duration ~name
+    ~network_configuration_subnet_id ~resource_group_name ~links () :
+    azurerm_orbital_contact_profile =
+  {
+    auto_tracking;
+    event_hub_uri;
+    id;
+    location;
+    minimum_elevation_degrees;
+    minimum_variable_contact_duration;
+    name;
+    network_configuration_subnet_id;
+    resource_group_name;
+    tags;
+    links;
+    timeouts;
+  }
 
 type t = {
   auto_tracking : string prop;
@@ -78,30 +119,19 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_orbital_contact_profile ?event_hub_uri ?id
-    ?minimum_elevation_degrees ?tags ?timeouts ~auto_tracking
-    ~location ~minimum_variable_contact_duration ~name
+let register ?tf_module ?event_hub_uri ?id ?minimum_elevation_degrees
+    ?tags ?timeouts ~auto_tracking ~location
+    ~minimum_variable_contact_duration ~name
     ~network_configuration_subnet_id ~resource_group_name ~links
     __resource_id =
   let __resource_type = "azurerm_orbital_contact_profile" in
   let __resource =
-    ({
-       auto_tracking;
-       event_hub_uri;
-       id;
-       location;
-       minimum_elevation_degrees;
-       minimum_variable_contact_duration;
-       name;
-       network_configuration_subnet_id;
-       resource_group_name;
-       tags;
-       links;
-       timeouts;
-     }
-      : azurerm_orbital_contact_profile)
+    azurerm_orbital_contact_profile ?event_hub_uri ?id
+      ?minimum_elevation_degrees ?tags ?timeouts ~auto_tracking
+      ~location ~minimum_variable_contact_duration ~name
+      ~network_configuration_subnet_id ~resource_group_name ~links ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_orbital_contact_profile __resource);
   let __resource_attributes =
     ({

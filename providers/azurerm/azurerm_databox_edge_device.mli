@@ -2,9 +2,9 @@
 
 open! Tf.Prelude
 
-type azurerm_databox_edge_device__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_databox_edge_device__device_properties = {
+type device_properties = {
   capacity : float prop;  (** capacity *)
   configured_role_types : string prop list;
       (** configured_role_types *)
@@ -19,11 +19,36 @@ type azurerm_databox_edge_device__device_properties = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_databox_edge_device
 
+val azurerm_databox_edge_device :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  unit ->
+  azurerm_databox_edge_device
+
+val yojson_of_azurerm_databox_edge_device :
+  azurerm_databox_edge_device -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  device_properties :
-    azurerm_databox_edge_device__device_properties list prop;
+  device_properties : device_properties list prop;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -32,10 +57,11 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_databox_edge_device :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_databox_edge_device__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

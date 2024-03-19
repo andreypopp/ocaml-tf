@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_application_insights_smart_detection_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_application_insights_smart_detection_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_application_insights_smart_detection_rule = {
   additional_email_recipients : string prop list option; [@option]
@@ -23,12 +23,28 @@ type azurerm_application_insights_smart_detection_rule = {
   name : string prop;  (** name *)
   send_emails_to_subscription_owners : bool prop option; [@option]
       (** send_emails_to_subscription_owners *)
-  timeouts :
-    azurerm_application_insights_smart_detection_rule__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_smart_detection_rule *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_application_insights_smart_detection_rule
+    ?additional_email_recipients ?enabled ?id
+    ?send_emails_to_subscription_owners ?timeouts
+    ~application_insights_id ~name () :
+    azurerm_application_insights_smart_detection_rule =
+  {
+    additional_email_recipients;
+    application_insights_id;
+    enabled;
+    id;
+    name;
+    send_emails_to_subscription_owners;
+    timeouts;
+  }
 
 type t = {
   additional_email_recipients : string list prop;
@@ -39,26 +55,19 @@ type t = {
   send_emails_to_subscription_owners : bool prop;
 }
 
-let azurerm_application_insights_smart_detection_rule
-    ?additional_email_recipients ?enabled ?id
+let register ?tf_module ?additional_email_recipients ?enabled ?id
     ?send_emails_to_subscription_owners ?timeouts
     ~application_insights_id ~name __resource_id =
   let __resource_type =
     "azurerm_application_insights_smart_detection_rule"
   in
   let __resource =
-    ({
-       additional_email_recipients;
-       application_insights_id;
-       enabled;
-       id;
-       name;
-       send_emails_to_subscription_owners;
-       timeouts;
-     }
-      : azurerm_application_insights_smart_detection_rule)
+    azurerm_application_insights_smart_detection_rule
+      ?additional_email_recipients ?enabled ?id
+      ?send_emails_to_subscription_owners ?timeouts
+      ~application_insights_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_insights_smart_detection_rule
        __resource);
   let __resource_attributes =

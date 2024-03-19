@@ -4,21 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_ssoadmin_application__portal_options__sign_in_options = {
+type portal_options__sign_in_options = {
   application_url : string prop option; [@option]
       (** application_url *)
   origin : string prop;  (** origin *)
 }
 [@@deriving yojson_of]
-(** aws_ssoadmin_application__portal_options__sign_in_options *)
+(** portal_options__sign_in_options *)
 
-type aws_ssoadmin_application__portal_options = {
+type portal_options = {
   visibility : string prop option; [@option]  (** visibility *)
-  sign_in_options :
-    aws_ssoadmin_application__portal_options__sign_in_options list;
+  sign_in_options : portal_options__sign_in_options list;
 }
 [@@deriving yojson_of]
-(** aws_ssoadmin_application__portal_options *)
+(** portal_options *)
 
 type aws_ssoadmin_application = {
   application_provider_arn : string prop;
@@ -29,10 +28,31 @@ type aws_ssoadmin_application = {
   name : string prop;  (** name *)
   status : string prop option; [@option]  (** status *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  portal_options : aws_ssoadmin_application__portal_options list;
+  portal_options : portal_options list;
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_application *)
+
+let portal_options__sign_in_options ?application_url ~origin () :
+    portal_options__sign_in_options =
+  { application_url; origin }
+
+let portal_options ?visibility ~sign_in_options () : portal_options =
+  { visibility; sign_in_options }
+
+let aws_ssoadmin_application ?client_token ?description ?status ?tags
+    ~application_provider_arn ~instance_arn ~name ~portal_options ()
+    : aws_ssoadmin_application =
+  {
+    application_provider_arn;
+    client_token;
+    description;
+    instance_arn;
+    name;
+    status;
+    tags;
+    portal_options;
+  }
 
 type t = {
   application_account : string prop;
@@ -48,24 +68,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ssoadmin_application ?client_token ?description ?status ?tags
+let register ?tf_module ?client_token ?description ?status ?tags
     ~application_provider_arn ~instance_arn ~name ~portal_options
     __resource_id =
   let __resource_type = "aws_ssoadmin_application" in
   let __resource =
-    ({
-       application_provider_arn;
-       client_token;
-       description;
-       instance_arn;
-       name;
-       status;
-       tags;
-       portal_options;
-     }
-      : aws_ssoadmin_application)
+    aws_ssoadmin_application ?client_token ?description ?status ?tags
+      ~application_provider_arn ~instance_arn ~name ~portal_options
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssoadmin_application __resource);
   let __resource_attributes =
     ({

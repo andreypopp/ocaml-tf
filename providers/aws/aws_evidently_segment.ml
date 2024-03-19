@@ -16,6 +16,10 @@ type aws_evidently_segment = {
 [@@deriving yojson_of]
 (** aws_evidently_segment *)
 
+let aws_evidently_segment ?description ?id ?tags ?tags_all ~name
+    ~pattern () : aws_evidently_segment =
+  { description; id; name; pattern; tags; tags_all }
+
 type t = {
   arn : string prop;
   created_time : string prop;
@@ -30,14 +34,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_evidently_segment ?description ?id ?tags ?tags_all ~name
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
     ~pattern __resource_id =
   let __resource_type = "aws_evidently_segment" in
   let __resource =
-    ({ description; id; name; pattern; tags; tags_all }
-      : aws_evidently_segment)
+    aws_evidently_segment ?description ?id ?tags ?tags_all ~name
+      ~pattern ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_evidently_segment __resource);
   let __resource_attributes =
     ({

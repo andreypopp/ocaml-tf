@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type google_access_context_manager_authorized_orgs_desc__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_access_context_manager_authorized_orgs_desc
+
+val google_access_context_manager_authorized_orgs_desc :
+  ?asset_type:string prop ->
+  ?authorization_direction:string prop ->
+  ?authorization_type:string prop ->
+  ?id:string prop ->
+  ?orgs:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  parent:string prop ->
+  unit ->
+  google_access_context_manager_authorized_orgs_desc
+
+val yojson_of_google_access_context_manager_authorized_orgs_desc :
+  google_access_context_manager_authorized_orgs_desc -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   asset_type : string prop;
@@ -17,14 +44,14 @@ type t = private {
   update_time : string prop;
 }
 
-val google_access_context_manager_authorized_orgs_desc :
+val register :
+  ?tf_module:tf_module ->
   ?asset_type:string prop ->
   ?authorization_direction:string prop ->
   ?authorization_type:string prop ->
   ?id:string prop ->
   ?orgs:string prop list ->
-  ?timeouts:
-    google_access_context_manager_authorized_orgs_desc__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
   string ->

@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_account_encryption__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_netapp_account_encryption
+
+val azurerm_netapp_account_encryption :
+  ?id:string prop ->
+  ?system_assigned_identity_principal_id:string prop ->
+  ?user_assigned_identity_id:string prop ->
+  ?timeouts:timeouts ->
+  encryption_key:string prop ->
+  netapp_account_id:string prop ->
+  unit ->
+  azurerm_netapp_account_encryption
+
+val yojson_of_azurerm_netapp_account_encryption :
+  azurerm_netapp_account_encryption -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   encryption_key : string prop;
@@ -13,11 +39,12 @@ type t = private {
   user_assigned_identity_id : string prop;
 }
 
-val azurerm_netapp_account_encryption :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?system_assigned_identity_principal_id:string prop ->
   ?user_assigned_identity_id:string prop ->
-  ?timeouts:azurerm_netapp_account_encryption__timeouts ->
+  ?timeouts:timeouts ->
   encryption_key:string prop ->
   netapp_account_id:string prop ->
   string ->

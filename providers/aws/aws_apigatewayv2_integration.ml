@@ -4,19 +4,19 @@
 
 open! Tf.Prelude
 
-type aws_apigatewayv2_integration__response_parameters = {
+type response_parameters = {
   mappings : (string * string prop) list;  (** mappings *)
   status_code : string prop;  (** status_code *)
 }
 [@@deriving yojson_of]
-(** aws_apigatewayv2_integration__response_parameters *)
+(** response_parameters *)
 
-type aws_apigatewayv2_integration__tls_config = {
+type tls_config = {
   server_name_to_verify : string prop option; [@option]
       (** server_name_to_verify *)
 }
 [@@deriving yojson_of]
-(** aws_apigatewayv2_integration__tls_config *)
+(** tls_config *)
 
 type aws_apigatewayv2_integration = {
   api_id : string prop;  (** api_id *)
@@ -48,12 +48,48 @@ type aws_apigatewayv2_integration = {
       (** template_selection_expression *)
   timeout_milliseconds : float prop option; [@option]
       (** timeout_milliseconds *)
-  response_parameters :
-    aws_apigatewayv2_integration__response_parameters list;
-  tls_config : aws_apigatewayv2_integration__tls_config list;
+  response_parameters : response_parameters list;
+  tls_config : tls_config list;
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_integration *)
+
+let response_parameters ~mappings ~status_code () :
+    response_parameters =
+  { mappings; status_code }
+
+let tls_config ?server_name_to_verify () : tls_config =
+  { server_name_to_verify }
+
+let aws_apigatewayv2_integration ?connection_id ?connection_type
+    ?content_handling_strategy ?credentials_arn ?description ?id
+    ?integration_method ?integration_subtype ?integration_uri
+    ?passthrough_behavior ?payload_format_version ?request_parameters
+    ?request_templates ?template_selection_expression
+    ?timeout_milliseconds ~api_id ~integration_type
+    ~response_parameters ~tls_config () :
+    aws_apigatewayv2_integration =
+  {
+    api_id;
+    connection_id;
+    connection_type;
+    content_handling_strategy;
+    credentials_arn;
+    description;
+    id;
+    integration_method;
+    integration_subtype;
+    integration_type;
+    integration_uri;
+    passthrough_behavior;
+    payload_format_version;
+    request_parameters;
+    request_templates;
+    template_selection_expression;
+    timeout_milliseconds;
+    response_parameters;
+    tls_config;
+  }
 
 type t = {
   api_id : string prop;
@@ -76,7 +112,7 @@ type t = {
   timeout_milliseconds : float prop;
 }
 
-let aws_apigatewayv2_integration ?connection_id ?connection_type
+let register ?tf_module ?connection_id ?connection_type
     ?content_handling_strategy ?credentials_arn ?description ?id
     ?integration_method ?integration_subtype ?integration_uri
     ?passthrough_behavior ?payload_format_version ?request_parameters
@@ -85,30 +121,15 @@ let aws_apigatewayv2_integration ?connection_id ?connection_type
     ~response_parameters ~tls_config __resource_id =
   let __resource_type = "aws_apigatewayv2_integration" in
   let __resource =
-    ({
-       api_id;
-       connection_id;
-       connection_type;
-       content_handling_strategy;
-       credentials_arn;
-       description;
-       id;
-       integration_method;
-       integration_subtype;
-       integration_type;
-       integration_uri;
-       passthrough_behavior;
-       payload_format_version;
-       request_parameters;
-       request_templates;
-       template_selection_expression;
-       timeout_milliseconds;
-       response_parameters;
-       tls_config;
-     }
-      : aws_apigatewayv2_integration)
+    aws_apigatewayv2_integration ?connection_id ?connection_type
+      ?content_handling_strategy ?credentials_arn ?description ?id
+      ?integration_method ?integration_subtype ?integration_uri
+      ?passthrough_behavior ?payload_format_version
+      ?request_parameters ?request_templates
+      ?template_selection_expression ?timeout_milliseconds ~api_id
+      ~integration_type ~response_parameters ~tls_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_integration __resource);
   let __resource_attributes =
     ({

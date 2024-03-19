@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_aadb2c_directory__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_aadb2c_directory__timeouts *)
+(** timeouts *)
 
 type azurerm_aadb2c_directory = {
   country_code : string prop option; [@option]
@@ -27,10 +27,28 @@ type azurerm_aadb2c_directory = {
   sku_name : string prop;
       (** Billing SKU for the B2C tenant. See https://aka.ms/b2cBilling for more information. *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_aadb2c_directory__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_aadb2c_directory *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_aadb2c_directory ?country_code ?display_name ?id ?tags
+    ?timeouts ~data_residency_location ~domain_name
+    ~resource_group_name ~sku_name () : azurerm_aadb2c_directory =
+  {
+    country_code;
+    data_residency_location;
+    display_name;
+    domain_name;
+    id;
+    resource_group_name;
+    sku_name;
+    tags;
+    timeouts;
+  }
 
 type t = {
   billing_type : string prop;
@@ -46,25 +64,16 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_aadb2c_directory ?country_code ?display_name ?id ?tags
+let register ?tf_module ?country_code ?display_name ?id ?tags
     ?timeouts ~data_residency_location ~domain_name
     ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_aadb2c_directory" in
   let __resource =
-    ({
-       country_code;
-       data_residency_location;
-       display_name;
-       domain_name;
-       id;
-       resource_group_name;
-       sku_name;
-       tags;
-       timeouts;
-     }
-      : azurerm_aadb2c_directory)
+    azurerm_aadb2c_directory ?country_code ?display_name ?id ?tags
+      ?timeouts ~data_residency_location ~domain_name
+      ~resource_group_name ~sku_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_aadb2c_directory __resource);
   let __resource_attributes =
     ({

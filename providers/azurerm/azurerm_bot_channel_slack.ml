@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_bot_channel_slack__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_bot_channel_slack__timeouts *)
+(** timeouts *)
 
 type azurerm_bot_channel_slack = {
   bot_name : string prop;  (** bot_name *)
@@ -25,10 +25,30 @@ type azurerm_bot_channel_slack = {
   signing_secret : string prop option; [@option]
       (** signing_secret *)
   verification_token : string prop;  (** verification_token *)
-  timeouts : azurerm_bot_channel_slack__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_slack *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_bot_channel_slack ?id ?landing_page_url ?signing_secret
+    ?timeouts ~bot_name ~client_id ~client_secret ~location
+    ~resource_group_name ~verification_token () :
+    azurerm_bot_channel_slack =
+  {
+    bot_name;
+    client_id;
+    client_secret;
+    id;
+    landing_page_url;
+    location;
+    resource_group_name;
+    signing_secret;
+    verification_token;
+    timeouts;
+  }
 
 type t = {
   bot_name : string prop;
@@ -42,26 +62,16 @@ type t = {
   verification_token : string prop;
 }
 
-let azurerm_bot_channel_slack ?id ?landing_page_url ?signing_secret
+let register ?tf_module ?id ?landing_page_url ?signing_secret
     ?timeouts ~bot_name ~client_id ~client_secret ~location
     ~resource_group_name ~verification_token __resource_id =
   let __resource_type = "azurerm_bot_channel_slack" in
   let __resource =
-    ({
-       bot_name;
-       client_id;
-       client_secret;
-       id;
-       landing_page_url;
-       location;
-       resource_group_name;
-       signing_secret;
-       verification_token;
-       timeouts;
-     }
-      : azurerm_bot_channel_slack)
+    azurerm_bot_channel_slack ?id ?landing_page_url ?signing_secret
+      ?timeouts ~bot_name ~client_id ~client_secret ~location
+      ~resource_group_name ~verification_token ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_bot_channel_slack __resource);
   let __resource_attributes =
     ({

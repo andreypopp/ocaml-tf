@@ -4,64 +4,91 @@
 
 open! Tf.Prelude
 
-type aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config__large_data_delivery_s3_config = {
+type logging_config__cloudwatch_config__large_data_delivery_s3_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   key_prefix : string prop option; [@option]  (** key_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config__large_data_delivery_s3_config *)
+(** logging_config__cloudwatch_config__large_data_delivery_s3_config *)
 
-type aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config = {
+type logging_config__cloudwatch_config = {
   log_group_name : string prop option; [@option]
       (** log_group_name *)
   role_arn : string prop option; [@option]  (** role_arn *)
   large_data_delivery_s3_config :
-    aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config__large_data_delivery_s3_config;
+    logging_config__cloudwatch_config__large_data_delivery_s3_config;
 }
 [@@deriving yojson_of]
-(** aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config *)
+(** logging_config__cloudwatch_config *)
 
-type aws_bedrock_model_invocation_logging_configuration__logging_config__s3_config = {
+type logging_config__s3_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   key_prefix : string prop option; [@option]  (** key_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_bedrock_model_invocation_logging_configuration__logging_config__s3_config *)
+(** logging_config__s3_config *)
 
-type aws_bedrock_model_invocation_logging_configuration__logging_config = {
+type logging_config = {
   embedding_data_delivery_enabled : bool prop;
       (** embedding_data_delivery_enabled *)
   image_data_delivery_enabled : bool prop;
       (** image_data_delivery_enabled *)
   text_data_delivery_enabled : bool prop;
       (** text_data_delivery_enabled *)
-  cloudwatch_config :
-    aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config;
-  s3_config :
-    aws_bedrock_model_invocation_logging_configuration__logging_config__s3_config;
+  cloudwatch_config : logging_config__cloudwatch_config;
+  s3_config : logging_config__s3_config;
 }
 [@@deriving yojson_of]
-(** aws_bedrock_model_invocation_logging_configuration__logging_config *)
+(** logging_config *)
 
 type aws_bedrock_model_invocation_logging_configuration = {
-  logging_config :
-    aws_bedrock_model_invocation_logging_configuration__logging_config;
+  logging_config : logging_config;
 }
 [@@deriving yojson_of]
 (** aws_bedrock_model_invocation_logging_configuration *)
 
-type t = { id : string prop }
+let logging_config__cloudwatch_config__large_data_delivery_s3_config
+    ?bucket_name ?key_prefix () :
+    logging_config__cloudwatch_config__large_data_delivery_s3_config
+    =
+  { bucket_name; key_prefix }
+
+let logging_config__cloudwatch_config ?log_group_name ?role_arn
+    ~large_data_delivery_s3_config () :
+    logging_config__cloudwatch_config =
+  { log_group_name; role_arn; large_data_delivery_s3_config }
+
+let logging_config__s3_config ?bucket_name ?key_prefix () :
+    logging_config__s3_config =
+  { bucket_name; key_prefix }
+
+let logging_config ~embedding_data_delivery_enabled
+    ~image_data_delivery_enabled ~text_data_delivery_enabled
+    ~cloudwatch_config ~s3_config () : logging_config =
+  {
+    embedding_data_delivery_enabled;
+    image_data_delivery_enabled;
+    text_data_delivery_enabled;
+    cloudwatch_config;
+    s3_config;
+  }
 
 let aws_bedrock_model_invocation_logging_configuration
-    ~logging_config __resource_id =
+    ~logging_config () :
+    aws_bedrock_model_invocation_logging_configuration =
+  { logging_config }
+
+type t = { id : string prop }
+
+let register ?tf_module ~logging_config __resource_id =
   let __resource_type =
     "aws_bedrock_model_invocation_logging_configuration"
   in
   let __resource =
-    ({ logging_config }
-      : aws_bedrock_model_invocation_logging_configuration)
+    aws_bedrock_model_invocation_logging_configuration
+      ~logging_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_bedrock_model_invocation_logging_configuration
        __resource);
   let __resource_attributes =

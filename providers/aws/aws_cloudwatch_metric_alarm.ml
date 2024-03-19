@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_cloudwatch_metric_alarm__metric_query__metric = {
+type metric_query__metric = {
   dimensions : (string * string prop) list option; [@option]
       (** dimensions *)
   metric_name : string prop;  (** metric_name *)
@@ -14,19 +14,19 @@ type aws_cloudwatch_metric_alarm__metric_query__metric = {
   unit : string prop option; [@option]  (** unit *)
 }
 [@@deriving yojson_of]
-(** aws_cloudwatch_metric_alarm__metric_query__metric *)
+(** metric_query__metric *)
 
-type aws_cloudwatch_metric_alarm__metric_query = {
+type metric_query = {
   account_id : string prop option; [@option]  (** account_id *)
   expression : string prop option; [@option]  (** expression *)
   id : string prop;  (** id *)
   label : string prop option; [@option]  (** label *)
   period : float prop option; [@option]  (** period *)
   return_data : bool prop option; [@option]  (** return_data *)
-  metric : aws_cloudwatch_metric_alarm__metric_query__metric list;
+  metric : metric_query__metric list;
 }
 [@@deriving yojson_of]
-(** aws_cloudwatch_metric_alarm__metric_query *)
+(** metric_query *)
 
 type aws_cloudwatch_metric_alarm = {
   actions_enabled : bool prop option; [@option]
@@ -64,10 +64,53 @@ type aws_cloudwatch_metric_alarm = {
   treat_missing_data : string prop option; [@option]
       (** treat_missing_data *)
   unit : string prop option; [@option]  (** unit *)
-  metric_query : aws_cloudwatch_metric_alarm__metric_query list;
+  metric_query : metric_query list;
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_alarm *)
+
+let metric_query__metric ?dimensions ?namespace ?unit ~metric_name
+    ~period ~stat () : metric_query__metric =
+  { dimensions; metric_name; namespace; period; stat; unit }
+
+let metric_query ?account_id ?expression ?label ?period ?return_data
+    ~id ~metric () : metric_query =
+  { account_id; expression; id; label; period; return_data; metric }
+
+let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
+    ?alarm_description ?datapoints_to_alarm ?dimensions
+    ?evaluate_low_sample_count_percentiles ?extended_statistic ?id
+    ?insufficient_data_actions ?metric_name ?namespace ?ok_actions
+    ?period ?statistic ?tags ?tags_all ?threshold
+    ?threshold_metric_id ?treat_missing_data ?unit ~alarm_name
+    ~comparison_operator ~evaluation_periods ~metric_query () :
+    aws_cloudwatch_metric_alarm =
+  {
+    actions_enabled;
+    alarm_actions;
+    alarm_description;
+    alarm_name;
+    comparison_operator;
+    datapoints_to_alarm;
+    dimensions;
+    evaluate_low_sample_count_percentiles;
+    evaluation_periods;
+    extended_statistic;
+    id;
+    insufficient_data_actions;
+    metric_name;
+    namespace;
+    ok_actions;
+    period;
+    statistic;
+    tags;
+    tags_all;
+    threshold;
+    threshold_metric_id;
+    treat_missing_data;
+    unit;
+    metric_query;
+  }
 
 type t = {
   actions_enabled : bool prop;
@@ -96,7 +139,7 @@ type t = {
   unit : string prop;
 }
 
-let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
+let register ?tf_module ?actions_enabled ?alarm_actions
     ?alarm_description ?datapoints_to_alarm ?dimensions
     ?evaluate_low_sample_count_percentiles ?extended_statistic ?id
     ?insufficient_data_actions ?metric_name ?namespace ?ok_actions
@@ -106,35 +149,15 @@ let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
     __resource_id =
   let __resource_type = "aws_cloudwatch_metric_alarm" in
   let __resource =
-    ({
-       actions_enabled;
-       alarm_actions;
-       alarm_description;
-       alarm_name;
-       comparison_operator;
-       datapoints_to_alarm;
-       dimensions;
-       evaluate_low_sample_count_percentiles;
-       evaluation_periods;
-       extended_statistic;
-       id;
-       insufficient_data_actions;
-       metric_name;
-       namespace;
-       ok_actions;
-       period;
-       statistic;
-       tags;
-       tags_all;
-       threshold;
-       threshold_metric_id;
-       treat_missing_data;
-       unit;
-       metric_query;
-     }
-      : aws_cloudwatch_metric_alarm)
+    aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
+      ?alarm_description ?datapoints_to_alarm ?dimensions
+      ?evaluate_low_sample_count_percentiles ?extended_statistic ?id
+      ?insufficient_data_actions ?metric_name ?namespace ?ok_actions
+      ?period ?statistic ?tags ?tags_all ?threshold
+      ?threshold_metric_id ?treat_missing_data ?unit ~alarm_name
+      ~comparison_operator ~evaluation_periods ~metric_query ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_metric_alarm __resource);
   let __resource_attributes =
     ({

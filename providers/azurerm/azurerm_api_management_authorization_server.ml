@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_authorization_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_authorization_server__timeouts *)
+(** timeouts *)
 
-type azurerm_api_management_authorization_server__token_body_parameter = {
+type token_body_parameter = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_authorization_server__token_body_parameter *)
+(** token_body_parameter *)
 
 type azurerm_api_management_authorization_server = {
   api_management_name : string prop;  (** api_management_name *)
@@ -48,14 +48,50 @@ type azurerm_api_management_authorization_server = {
   support_state : bool prop option; [@option]  (** support_state *)
   token_endpoint : string prop option; [@option]
       (** token_endpoint *)
-  timeouts :
-    azurerm_api_management_authorization_server__timeouts option;
-  token_body_parameter :
-    azurerm_api_management_authorization_server__token_body_parameter
-    list;
+  timeouts : timeouts option;
+  token_body_parameter : token_body_parameter list;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_authorization_server *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let token_body_parameter ~name ~value () : token_body_parameter =
+  { name; value }
+
+let azurerm_api_management_authorization_server
+    ?bearer_token_sending_methods ?client_authentication_method
+    ?client_secret ?default_scope ?description ?id
+    ?resource_owner_password ?resource_owner_username ?support_state
+    ?token_endpoint ?timeouts ~api_management_name
+    ~authorization_endpoint ~authorization_methods ~client_id
+    ~client_registration_endpoint ~display_name ~grant_types ~name
+    ~resource_group_name ~token_body_parameter () :
+    azurerm_api_management_authorization_server =
+  {
+    api_management_name;
+    authorization_endpoint;
+    authorization_methods;
+    bearer_token_sending_methods;
+    client_authentication_method;
+    client_id;
+    client_registration_endpoint;
+    client_secret;
+    default_scope;
+    description;
+    display_name;
+    grant_types;
+    id;
+    name;
+    resource_group_name;
+    resource_owner_password;
+    resource_owner_username;
+    support_state;
+    token_endpoint;
+    timeouts;
+    token_body_parameter;
+  }
 
 type t = {
   api_management_name : string prop;
@@ -79,44 +115,28 @@ type t = {
   token_endpoint : string prop;
 }
 
-let azurerm_api_management_authorization_server
-    ?bearer_token_sending_methods ?client_authentication_method
-    ?client_secret ?default_scope ?description ?id
-    ?resource_owner_password ?resource_owner_username ?support_state
-    ?token_endpoint ?timeouts ~api_management_name
-    ~authorization_endpoint ~authorization_methods ~client_id
-    ~client_registration_endpoint ~display_name ~grant_types ~name
-    ~resource_group_name ~token_body_parameter __resource_id =
+let register ?tf_module ?bearer_token_sending_methods
+    ?client_authentication_method ?client_secret ?default_scope
+    ?description ?id ?resource_owner_password
+    ?resource_owner_username ?support_state ?token_endpoint ?timeouts
+    ~api_management_name ~authorization_endpoint
+    ~authorization_methods ~client_id ~client_registration_endpoint
+    ~display_name ~grant_types ~name ~resource_group_name
+    ~token_body_parameter __resource_id =
   let __resource_type =
     "azurerm_api_management_authorization_server"
   in
   let __resource =
-    ({
-       api_management_name;
-       authorization_endpoint;
-       authorization_methods;
-       bearer_token_sending_methods;
-       client_authentication_method;
-       client_id;
-       client_registration_endpoint;
-       client_secret;
-       default_scope;
-       description;
-       display_name;
-       grant_types;
-       id;
-       name;
-       resource_group_name;
-       resource_owner_password;
-       resource_owner_username;
-       support_state;
-       token_endpoint;
-       timeouts;
-       token_body_parameter;
-     }
-      : azurerm_api_management_authorization_server)
+    azurerm_api_management_authorization_server
+      ?bearer_token_sending_methods ?client_authentication_method
+      ?client_secret ?default_scope ?description ?id
+      ?resource_owner_password ?resource_owner_username
+      ?support_state ?token_endpoint ?timeouts ~api_management_name
+      ~authorization_endpoint ~authorization_methods ~client_id
+      ~client_registration_endpoint ~display_name ~grant_types ~name
+      ~resource_group_name ~token_body_parameter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_authorization_server __resource);
   let __resource_attributes =
     ({

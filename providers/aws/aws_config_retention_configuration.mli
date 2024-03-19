@@ -2,7 +2,19 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_config_retention_configuration
+
+val aws_config_retention_configuration :
+  retention_period_in_days:float prop ->
+  unit ->
+  aws_config_retention_configuration
+
+val yojson_of_aws_config_retention_configuration :
+  aws_config_retention_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,5 +22,8 @@ type t = private {
   retention_period_in_days : float prop;
 }
 
-val aws_config_retention_configuration :
-  retention_period_in_days:float prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  retention_period_in_days:float prop ->
+  string ->
+  t

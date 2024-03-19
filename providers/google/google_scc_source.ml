@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_scc_source__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_scc_source__timeouts *)
+(** timeouts *)
 
 type google_scc_source = {
   description : string prop option; [@option]
@@ -25,10 +25,17 @@ and underscores, and can be no longer than 32 characters. *)
   organization : string prop;
       (** The organization whose Cloud Security Command Center the Source
 lives in. *)
-  timeouts : google_scc_source__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_scc_source *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_scc_source ?description ?id ?timeouts ~display_name
+    ~organization () : google_scc_source =
+  { description; display_name; id; organization; timeouts }
 
 type t = {
   description : string prop;
@@ -38,14 +45,14 @@ type t = {
   organization : string prop;
 }
 
-let google_scc_source ?description ?id ?timeouts ~display_name
+let register ?tf_module ?description ?id ?timeouts ~display_name
     ~organization __resource_id =
   let __resource_type = "google_scc_source" in
   let __resource =
-    ({ description; display_name; id; organization; timeouts }
-      : google_scc_source)
+    google_scc_source ?description ?id ?timeouts ~display_name
+      ~organization ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_source __resource);
   let __resource_attributes =
     ({

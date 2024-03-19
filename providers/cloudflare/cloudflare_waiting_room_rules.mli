@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type cloudflare_waiting_room_rules__rules
+(** RESOURCE SERIALIZATION *)
+
+type rules
+
+val rules :
+  ?description:string prop ->
+  ?status:string prop ->
+  action:string prop ->
+  expression:string prop ->
+  unit ->
+  rules
+
 type cloudflare_waiting_room_rules
+
+val cloudflare_waiting_room_rules :
+  ?id:string prop ->
+  waiting_room_id:string prop ->
+  zone_id:string prop ->
+  rules:rules list ->
+  unit ->
+  cloudflare_waiting_room_rules
+
+val yojson_of_cloudflare_waiting_room_rules :
+  cloudflare_waiting_room_rules -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,10 +35,11 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_waiting_room_rules :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   waiting_room_id:string prop ->
   zone_id:string prop ->
-  rules:cloudflare_waiting_room_rules__rules list ->
+  rules:rules list ->
   string ->
   t

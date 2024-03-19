@@ -2,30 +2,31 @@
 
 open! Tf.Prelude
 
-type google_kms_crypto_key__timeouts
-type google_kms_crypto_key__version_template
+(** RESOURCE SERIALIZATION *)
 
-type google_kms_crypto_key__primary = {
+type primary = {
   name : string prop;  (** name *)
   state : string prop;  (** state *)
 }
 
-type google_kms_crypto_key
+type timeouts
 
-type t = private {
-  destroy_scheduled_duration : string prop;
-  effective_labels : (string * string) list prop;
-  id : string prop;
-  import_only : bool prop;
-  key_ring : string prop;
-  labels : (string * string) list prop;
-  name : string prop;
-  primary : google_kms_crypto_key__primary list prop;
-  purpose : string prop;
-  rotation_period : string prop;
-  skip_initial_version_creation : bool prop;
-  terraform_labels : (string * string) list prop;
-}
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type version_template
+
+val version_template :
+  ?protection_level:string prop ->
+  algorithm:string prop ->
+  unit ->
+  version_template
+
+type google_kms_crypto_key
 
 val google_kms_crypto_key :
   ?destroy_scheduled_duration:string prop ->
@@ -35,9 +36,44 @@ val google_kms_crypto_key :
   ?purpose:string prop ->
   ?rotation_period:string prop ->
   ?skip_initial_version_creation:bool prop ->
-  ?timeouts:google_kms_crypto_key__timeouts ->
+  ?timeouts:timeouts ->
   key_ring:string prop ->
   name:string prop ->
-  version_template:google_kms_crypto_key__version_template list ->
+  version_template:version_template list ->
+  unit ->
+  google_kms_crypto_key
+
+val yojson_of_google_kms_crypto_key : google_kms_crypto_key -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  destroy_scheduled_duration : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  import_only : bool prop;
+  key_ring : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  primary : primary list prop;
+  purpose : string prop;
+  rotation_period : string prop;
+  skip_initial_version_creation : bool prop;
+  terraform_labels : (string * string) list prop;
+}
+
+val register :
+  ?tf_module:tf_module ->
+  ?destroy_scheduled_duration:string prop ->
+  ?id:string prop ->
+  ?import_only:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?purpose:string prop ->
+  ?rotation_period:string prop ->
+  ?skip_initial_version_creation:bool prop ->
+  ?timeouts:timeouts ->
+  key_ring:string prop ->
+  name:string prop ->
+  version_template:version_template list ->
   string ->
   t

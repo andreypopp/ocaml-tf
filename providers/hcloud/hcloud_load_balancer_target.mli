@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type hcloud_load_balancer_target
+
+val hcloud_load_balancer_target :
+  ?id:string prop ->
+  ?ip:string prop ->
+  ?label_selector:string prop ->
+  ?server_id:float prop ->
+  ?use_private_ip:bool prop ->
+  load_balancer_id:float prop ->
+  type_:string prop ->
+  unit ->
+  hcloud_load_balancer_target
+
+val yojson_of_hcloud_load_balancer_target :
+  hcloud_load_balancer_target -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,7 +32,8 @@ type t = private {
   use_private_ip : bool prop;
 }
 
-val hcloud_load_balancer_target :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ip:string prop ->
   ?label_selector:string prop ->

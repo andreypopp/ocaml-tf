@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_apigee_sharedflow__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_apigee_sharedflow__timeouts *)
+(** timeouts *)
 
-type google_apigee_sharedflow__meta_data = {
+type meta_data = {
   created_at : string prop;  (** created_at *)
   last_modified_at : string prop;  (** last_modified_at *)
   sub_type : string prop;  (** sub_type *)
@@ -27,10 +27,17 @@ type google_apigee_sharedflow = {
   name : string prop;  (** The ID of the shared flow. *)
   org_id : string prop;
       (** The Apigee Organization name associated with the Apigee instance. *)
-  timeouts : google_apigee_sharedflow__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_sharedflow *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_apigee_sharedflow ?detect_md5hash ?id ?timeouts
+    ~config_bundle ~name ~org_id () : google_apigee_sharedflow =
+  { config_bundle; detect_md5hash; id; name; org_id; timeouts }
 
 type t = {
   config_bundle : string prop;
@@ -38,20 +45,20 @@ type t = {
   id : string prop;
   latest_revision_id : string prop;
   md5hash : string prop;
-  meta_data : google_apigee_sharedflow__meta_data list prop;
+  meta_data : meta_data list prop;
   name : string prop;
   org_id : string prop;
   revision : string list prop;
 }
 
-let google_apigee_sharedflow ?detect_md5hash ?id ?timeouts
-    ~config_bundle ~name ~org_id __resource_id =
+let register ?tf_module ?detect_md5hash ?id ?timeouts ~config_bundle
+    ~name ~org_id __resource_id =
   let __resource_type = "google_apigee_sharedflow" in
   let __resource =
-    ({ config_bundle; detect_md5hash; id; name; org_id; timeouts }
-      : google_apigee_sharedflow)
+    google_apigee_sharedflow ?detect_md5hash ?id ?timeouts
+      ~config_bundle ~name ~org_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_sharedflow __resource);
   let __resource_attributes =
     ({

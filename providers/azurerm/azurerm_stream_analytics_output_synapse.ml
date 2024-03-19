@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_output_synapse__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_output_synapse__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_output_synapse = {
   database : string prop;  (** database *)
@@ -24,10 +24,30 @@ type azurerm_stream_analytics_output_synapse = {
       (** stream_analytics_job_name *)
   table : string prop;  (** table *)
   user : string prop;  (** user *)
-  timeouts : azurerm_stream_analytics_output_synapse__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_synapse *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_output_synapse ?id ?timeouts ~database
+    ~name ~password ~resource_group_name ~server
+    ~stream_analytics_job_name ~table ~user () :
+    azurerm_stream_analytics_output_synapse =
+  {
+    database;
+    id;
+    name;
+    password;
+    resource_group_name;
+    server;
+    stream_analytics_job_name;
+    table;
+    user;
+    timeouts;
+  }
 
 type t = {
   database : string prop;
@@ -41,26 +61,16 @@ type t = {
   user : string prop;
 }
 
-let azurerm_stream_analytics_output_synapse ?id ?timeouts ~database
-    ~name ~password ~resource_group_name ~server
-    ~stream_analytics_job_name ~table ~user __resource_id =
+let register ?tf_module ?id ?timeouts ~database ~name ~password
+    ~resource_group_name ~server ~stream_analytics_job_name ~table
+    ~user __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_synapse" in
   let __resource =
-    ({
-       database;
-       id;
-       name;
-       password;
-       resource_group_name;
-       server;
-       stream_analytics_job_name;
-       table;
-       user;
-       timeouts;
-     }
-      : azurerm_stream_analytics_output_synapse)
+    azurerm_stream_analytics_output_synapse ?id ?timeouts ~database
+      ~name ~password ~resource_group_name ~server
+      ~stream_analytics_job_name ~table ~user ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_synapse __resource);
   let __resource_attributes =
     ({

@@ -4,45 +4,42 @@
 
 open! Tf.Prelude
 
-type aws_athena_workgroup__configuration__engine_version = {
-  effective_engine_version : string prop;
-      (** effective_engine_version *)
+type configuration__engine_version = {
   selected_engine_version : string prop option; [@option]
       (** selected_engine_version *)
 }
 [@@deriving yojson_of]
-(** aws_athena_workgroup__configuration__engine_version *)
+(** configuration__engine_version *)
 
-type aws_athena_workgroup__configuration__result_configuration__acl_configuration = {
+type configuration__result_configuration__acl_configuration = {
   s3_acl_option : string prop;  (** s3_acl_option *)
 }
 [@@deriving yojson_of]
-(** aws_athena_workgroup__configuration__result_configuration__acl_configuration *)
+(** configuration__result_configuration__acl_configuration *)
 
-type aws_athena_workgroup__configuration__result_configuration__encryption_configuration = {
+type configuration__result_configuration__encryption_configuration = {
   encryption_option : string prop option; [@option]
       (** encryption_option *)
   kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
-(** aws_athena_workgroup__configuration__result_configuration__encryption_configuration *)
+(** configuration__result_configuration__encryption_configuration *)
 
-type aws_athena_workgroup__configuration__result_configuration = {
+type configuration__result_configuration = {
   expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
   output_location : string prop option; [@option]
       (** output_location *)
   acl_configuration :
-    aws_athena_workgroup__configuration__result_configuration__acl_configuration
-    list;
+    configuration__result_configuration__acl_configuration list;
   encryption_configuration :
-    aws_athena_workgroup__configuration__result_configuration__encryption_configuration
+    configuration__result_configuration__encryption_configuration
     list;
 }
 [@@deriving yojson_of]
-(** aws_athena_workgroup__configuration__result_configuration *)
+(** configuration__result_configuration *)
 
-type aws_athena_workgroup__configuration = {
+type configuration = {
   bytes_scanned_cutoff_per_query : float prop option; [@option]
       (** bytes_scanned_cutoff_per_query *)
   enforce_workgroup_configuration : bool prop option; [@option]
@@ -53,13 +50,11 @@ type aws_athena_workgroup__configuration = {
       (** publish_cloudwatch_metrics_enabled *)
   requester_pays_enabled : bool prop option; [@option]
       (** requester_pays_enabled *)
-  engine_version :
-    aws_athena_workgroup__configuration__engine_version list;
-  result_configuration :
-    aws_athena_workgroup__configuration__result_configuration list;
+  engine_version : configuration__engine_version list;
+  result_configuration : configuration__result_configuration list;
 }
 [@@deriving yojson_of]
-(** aws_athena_workgroup__configuration *)
+(** configuration *)
 
 type aws_athena_workgroup = {
   description : string prop option; [@option]  (** description *)
@@ -70,10 +65,61 @@ type aws_athena_workgroup = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  configuration : aws_athena_workgroup__configuration list;
+  configuration : configuration list;
 }
 [@@deriving yojson_of]
 (** aws_athena_workgroup *)
+
+let configuration__engine_version ?selected_engine_version () :
+    configuration__engine_version =
+  { selected_engine_version }
+
+let configuration__result_configuration__acl_configuration
+    ~s3_acl_option () :
+    configuration__result_configuration__acl_configuration =
+  { s3_acl_option }
+
+let configuration__result_configuration__encryption_configuration
+    ?encryption_option ?kms_key_arn () :
+    configuration__result_configuration__encryption_configuration =
+  { encryption_option; kms_key_arn }
+
+let configuration__result_configuration ?expected_bucket_owner
+    ?output_location ~acl_configuration ~encryption_configuration ()
+    : configuration__result_configuration =
+  {
+    expected_bucket_owner;
+    output_location;
+    acl_configuration;
+    encryption_configuration;
+  }
+
+let configuration ?bytes_scanned_cutoff_per_query
+    ?enforce_workgroup_configuration ?execution_role
+    ?publish_cloudwatch_metrics_enabled ?requester_pays_enabled
+    ~engine_version ~result_configuration () : configuration =
+  {
+    bytes_scanned_cutoff_per_query;
+    enforce_workgroup_configuration;
+    execution_role;
+    publish_cloudwatch_metrics_enabled;
+    requester_pays_enabled;
+    engine_version;
+    result_configuration;
+  }
+
+let aws_athena_workgroup ?description ?force_destroy ?id ?state ?tags
+    ?tags_all ~name ~configuration () : aws_athena_workgroup =
+  {
+    description;
+    force_destroy;
+    id;
+    name;
+    state;
+    tags;
+    tags_all;
+    configuration;
+  }
 
 type t = {
   arn : string prop;
@@ -86,23 +132,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_athena_workgroup ?description ?force_destroy ?id ?state ?tags
+let register ?tf_module ?description ?force_destroy ?id ?state ?tags
     ?tags_all ~name ~configuration __resource_id =
   let __resource_type = "aws_athena_workgroup" in
   let __resource =
-    ({
-       description;
-       force_destroy;
-       id;
-       name;
-       state;
-       tags;
-       tags_all;
-       configuration;
-     }
-      : aws_athena_workgroup)
+    aws_athena_workgroup ?description ?force_destroy ?id ?state ?tags
+      ?tags_all ~name ~configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_athena_workgroup __resource);
   let __resource_attributes =
     ({

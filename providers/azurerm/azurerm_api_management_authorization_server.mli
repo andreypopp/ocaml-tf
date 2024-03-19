@@ -2,9 +2,57 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_authorization_server__timeouts
-type azurerm_api_management_authorization_server__token_body_parameter
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type token_body_parameter
+
+val token_body_parameter :
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  token_body_parameter
+
 type azurerm_api_management_authorization_server
+
+val azurerm_api_management_authorization_server :
+  ?bearer_token_sending_methods:string prop list ->
+  ?client_authentication_method:string prop list ->
+  ?client_secret:string prop ->
+  ?default_scope:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?resource_owner_password:string prop ->
+  ?resource_owner_username:string prop ->
+  ?support_state:bool prop ->
+  ?token_endpoint:string prop ->
+  ?timeouts:timeouts ->
+  api_management_name:string prop ->
+  authorization_endpoint:string prop ->
+  authorization_methods:string prop list ->
+  client_id:string prop ->
+  client_registration_endpoint:string prop ->
+  display_name:string prop ->
+  grant_types:string prop list ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  token_body_parameter:token_body_parameter list ->
+  unit ->
+  azurerm_api_management_authorization_server
+
+val yojson_of_azurerm_api_management_authorization_server :
+  azurerm_api_management_authorization_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_management_name : string prop;
@@ -28,7 +76,8 @@ type t = private {
   token_endpoint : string prop;
 }
 
-val azurerm_api_management_authorization_server :
+val register :
+  ?tf_module:tf_module ->
   ?bearer_token_sending_methods:string prop list ->
   ?client_authentication_method:string prop list ->
   ?client_secret:string prop ->
@@ -39,7 +88,7 @@ val azurerm_api_management_authorization_server :
   ?resource_owner_username:string prop ->
   ?support_state:bool prop ->
   ?token_endpoint:string prop ->
-  ?timeouts:azurerm_api_management_authorization_server__timeouts ->
+  ?timeouts:timeouts ->
   api_management_name:string prop ->
   authorization_endpoint:string prop ->
   authorization_methods:string prop list ->
@@ -49,8 +98,6 @@ val azurerm_api_management_authorization_server :
   grant_types:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
-  token_body_parameter:
-    azurerm_api_management_authorization_server__token_body_parameter
-    list ->
+  token_body_parameter:token_body_parameter list ->
   string ->
   t

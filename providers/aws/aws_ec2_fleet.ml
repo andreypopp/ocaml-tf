@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_ec2_fleet__fleet_instance_set = {
+type fleet_instance_set = {
   instance_ids : string prop list option; [@option]
       (** instance_ids *)
   instance_type : string prop option; [@option]  (** instance_type *)
@@ -12,9 +12,9 @@ type aws_ec2_fleet__fleet_instance_set = {
   platform : string prop option; [@option]  (** platform *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__fleet_instance_set *)
+(** fleet_instance_set *)
 
-type aws_ec2_fleet__launch_template_config__launch_template_specification = {
+type launch_template_config__launch_template_specification = {
   launch_template_id : string prop option; [@option]
       (** launch_template_id *)
   launch_template_name : string prop option; [@option]
@@ -22,72 +22,72 @@ type aws_ec2_fleet__launch_template_config__launch_template_specification = {
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__launch_template_specification *)
+(** launch_template_config__launch_template_specification *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__accelerator_count = {
+type launch_template_config__override__instance_requirements__accelerator_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__accelerator_count *)
+(** launch_template_config__override__instance_requirements__accelerator_count *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__accelerator_total_memory_mib = {
+type launch_template_config__override__instance_requirements__accelerator_total_memory_mib = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__accelerator_total_memory_mib *)
+(** launch_template_config__override__instance_requirements__accelerator_total_memory_mib *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps = {
+type launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps *)
+(** launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__memory_gib_per_vcpu = {
+type launch_template_config__override__instance_requirements__memory_gib_per_vcpu = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__memory_gib_per_vcpu *)
+(** launch_template_config__override__instance_requirements__memory_gib_per_vcpu *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__memory_mib = {
+type launch_template_config__override__instance_requirements__memory_mib = {
   max : float prop option; [@option]  (** max *)
   min : float prop;  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__memory_mib *)
+(** launch_template_config__override__instance_requirements__memory_mib *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__network_bandwidth_gbps = {
+type launch_template_config__override__instance_requirements__network_bandwidth_gbps = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__network_bandwidth_gbps *)
+(** launch_template_config__override__instance_requirements__network_bandwidth_gbps *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__network_interface_count = {
+type launch_template_config__override__instance_requirements__network_interface_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__network_interface_count *)
+(** launch_template_config__override__instance_requirements__network_interface_count *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__total_local_storage_gb = {
+type launch_template_config__override__instance_requirements__total_local_storage_gb = {
   max : float prop option; [@option]  (** max *)
   min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__total_local_storage_gb *)
+(** launch_template_config__override__instance_requirements__total_local_storage_gb *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements__vcpu_count = {
+type launch_template_config__override__instance_requirements__vcpu_count = {
   max : float prop option; [@option]  (** max *)
   min : float prop;  (** min *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements__vcpu_count *)
+(** launch_template_config__override__instance_requirements__vcpu_count *)
 
-type aws_ec2_fleet__launch_template_config__override__instance_requirements = {
+type launch_template_config__override__instance_requirements = {
   accelerator_manufacturers : string prop list option; [@option]
       (** accelerator_manufacturers *)
   accelerator_names : string prop list option; [@option]
@@ -118,37 +118,37 @@ type aws_ec2_fleet__launch_template_config__override__instance_requirements = {
       [@option]
       (** spot_max_price_percentage_over_lowest_price *)
   accelerator_count :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__accelerator_count
+    launch_template_config__override__instance_requirements__accelerator_count
     list;
   accelerator_total_memory_mib :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__accelerator_total_memory_mib
+    launch_template_config__override__instance_requirements__accelerator_total_memory_mib
     list;
   baseline_ebs_bandwidth_mbps :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps
+    launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps
     list;
   memory_gib_per_vcpu :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__memory_gib_per_vcpu
+    launch_template_config__override__instance_requirements__memory_gib_per_vcpu
     list;
   memory_mib :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__memory_mib
+    launch_template_config__override__instance_requirements__memory_mib
     list;
   network_bandwidth_gbps :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__network_bandwidth_gbps
+    launch_template_config__override__instance_requirements__network_bandwidth_gbps
     list;
   network_interface_count :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__network_interface_count
+    launch_template_config__override__instance_requirements__network_interface_count
     list;
   total_local_storage_gb :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__total_local_storage_gb
+    launch_template_config__override__instance_requirements__total_local_storage_gb
     list;
   vcpu_count :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements__vcpu_count
+    launch_template_config__override__instance_requirements__vcpu_count
     list;
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override__instance_requirements *)
+(** launch_template_config__override__instance_requirements *)
 
-type aws_ec2_fleet__launch_template_config__override = {
+type launch_template_config__override = {
   availability_zone : string prop option; [@option]
       (** availability_zone *)
   instance_type : string prop option; [@option]  (** instance_type *)
@@ -158,22 +158,20 @@ type aws_ec2_fleet__launch_template_config__override = {
   weighted_capacity : float prop option; [@option]
       (** weighted_capacity *)
   instance_requirements :
-    aws_ec2_fleet__launch_template_config__override__instance_requirements
-    list;
+    launch_template_config__override__instance_requirements list;
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config__override *)
+(** launch_template_config__override *)
 
-type aws_ec2_fleet__launch_template_config = {
+type launch_template_config = {
   launch_template_specification :
-    aws_ec2_fleet__launch_template_config__launch_template_specification
-    list;
-  override : aws_ec2_fleet__launch_template_config__override list;
+    launch_template_config__launch_template_specification list;
+  override : launch_template_config__override list;
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__launch_template_config *)
+(** launch_template_config *)
 
-type aws_ec2_fleet__on_demand_options = {
+type on_demand_options = {
   allocation_strategy : string prop option; [@option]
       (** allocation_strategy *)
   max_total_price : string prop option; [@option]
@@ -186,39 +184,37 @@ type aws_ec2_fleet__on_demand_options = {
       (** single_instance_type *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__on_demand_options *)
+(** on_demand_options *)
 
-type aws_ec2_fleet__spot_options__maintenance_strategies__capacity_rebalance = {
+type spot_options__maintenance_strategies__capacity_rebalance = {
   replacement_strategy : string prop option; [@option]
       (** replacement_strategy *)
   termination_delay : float prop option; [@option]
       (** termination_delay *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__spot_options__maintenance_strategies__capacity_rebalance *)
+(** spot_options__maintenance_strategies__capacity_rebalance *)
 
-type aws_ec2_fleet__spot_options__maintenance_strategies = {
+type spot_options__maintenance_strategies = {
   capacity_rebalance :
-    aws_ec2_fleet__spot_options__maintenance_strategies__capacity_rebalance
-    list;
+    spot_options__maintenance_strategies__capacity_rebalance list;
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__spot_options__maintenance_strategies *)
+(** spot_options__maintenance_strategies *)
 
-type aws_ec2_fleet__spot_options = {
+type spot_options = {
   allocation_strategy : string prop option; [@option]
       (** allocation_strategy *)
   instance_interruption_behavior : string prop option; [@option]
       (** instance_interruption_behavior *)
   instance_pools_to_use_count : float prop option; [@option]
       (** instance_pools_to_use_count *)
-  maintenance_strategies :
-    aws_ec2_fleet__spot_options__maintenance_strategies list;
+  maintenance_strategies : spot_options__maintenance_strategies list;
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__spot_options *)
+(** spot_options *)
 
-type aws_ec2_fleet__target_capacity_specification = {
+type target_capacity_specification = {
   default_target_capacity_type : string prop;
       (** default_target_capacity_type *)
   on_demand_target_capacity : float prop option; [@option]
@@ -230,15 +226,15 @@ type aws_ec2_fleet__target_capacity_specification = {
   total_target_capacity : float prop;  (** total_target_capacity *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__target_capacity_specification *)
+(** target_capacity_specification *)
 
-type aws_ec2_fleet__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_fleet__timeouts *)
+(** timeouts *)
 
 type aws_ec2_fleet = {
   context : string prop option; [@option]  (** context *)
@@ -262,17 +258,208 @@ type aws_ec2_fleet = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   valid_from : string prop option; [@option]  (** valid_from *)
   valid_until : string prop option; [@option]  (** valid_until *)
-  fleet_instance_set : aws_ec2_fleet__fleet_instance_set list;
-  launch_template_config :
-    aws_ec2_fleet__launch_template_config list;
-  on_demand_options : aws_ec2_fleet__on_demand_options list;
-  spot_options : aws_ec2_fleet__spot_options list;
-  target_capacity_specification :
-    aws_ec2_fleet__target_capacity_specification list;
-  timeouts : aws_ec2_fleet__timeouts option;
+  fleet_instance_set : fleet_instance_set list;
+  launch_template_config : launch_template_config list;
+  on_demand_options : on_demand_options list;
+  spot_options : spot_options list;
+  target_capacity_specification : target_capacity_specification list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_fleet *)
+
+let fleet_instance_set ?instance_ids ?instance_type ?lifecycle
+    ?platform () : fleet_instance_set =
+  { instance_ids; instance_type; lifecycle; platform }
+
+let launch_template_config__launch_template_specification
+    ?launch_template_id ?launch_template_name ~version () :
+    launch_template_config__launch_template_specification =
+  { launch_template_id; launch_template_name; version }
+
+let launch_template_config__override__instance_requirements__accelerator_count
+    ?max ?min () :
+    launch_template_config__override__instance_requirements__accelerator_count
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements__accelerator_total_memory_mib
+    ?max ?min () :
+    launch_template_config__override__instance_requirements__accelerator_total_memory_mib
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps
+    ?max ?min () :
+    launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements__memory_gib_per_vcpu
+    ?max ?min () :
+    launch_template_config__override__instance_requirements__memory_gib_per_vcpu
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements__memory_mib
+    ?max ~min () :
+    launch_template_config__override__instance_requirements__memory_mib
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements__network_bandwidth_gbps
+    ?max ?min () :
+    launch_template_config__override__instance_requirements__network_bandwidth_gbps
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements__network_interface_count
+    ?max ?min () :
+    launch_template_config__override__instance_requirements__network_interface_count
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements__total_local_storage_gb
+    ?max ?min () :
+    launch_template_config__override__instance_requirements__total_local_storage_gb
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements__vcpu_count
+    ?max ~min () :
+    launch_template_config__override__instance_requirements__vcpu_count
+    =
+  { max; min }
+
+let launch_template_config__override__instance_requirements
+    ?accelerator_manufacturers ?accelerator_names ?accelerator_types
+    ?allowed_instance_types ?bare_metal ?burstable_performance
+    ?cpu_manufacturers ?excluded_instance_types ?instance_generations
+    ?local_storage ?local_storage_types
+    ?on_demand_max_price_percentage_over_lowest_price
+    ?require_hibernate_support
+    ?spot_max_price_percentage_over_lowest_price ~accelerator_count
+    ~accelerator_total_memory_mib ~baseline_ebs_bandwidth_mbps
+    ~memory_gib_per_vcpu ~memory_mib ~network_bandwidth_gbps
+    ~network_interface_count ~total_local_storage_gb ~vcpu_count () :
+    launch_template_config__override__instance_requirements =
+  {
+    accelerator_manufacturers;
+    accelerator_names;
+    accelerator_types;
+    allowed_instance_types;
+    bare_metal;
+    burstable_performance;
+    cpu_manufacturers;
+    excluded_instance_types;
+    instance_generations;
+    local_storage;
+    local_storage_types;
+    on_demand_max_price_percentage_over_lowest_price;
+    require_hibernate_support;
+    spot_max_price_percentage_over_lowest_price;
+    accelerator_count;
+    accelerator_total_memory_mib;
+    baseline_ebs_bandwidth_mbps;
+    memory_gib_per_vcpu;
+    memory_mib;
+    network_bandwidth_gbps;
+    network_interface_count;
+    total_local_storage_gb;
+    vcpu_count;
+  }
+
+let launch_template_config__override ?availability_zone
+    ?instance_type ?max_price ?priority ?subnet_id ?weighted_capacity
+    ~instance_requirements () : launch_template_config__override =
+  {
+    availability_zone;
+    instance_type;
+    max_price;
+    priority;
+    subnet_id;
+    weighted_capacity;
+    instance_requirements;
+  }
+
+let launch_template_config ~launch_template_specification ~override
+    () : launch_template_config =
+  { launch_template_specification; override }
+
+let on_demand_options ?allocation_strategy ?max_total_price
+    ?min_target_capacity ?single_availability_zone
+    ?single_instance_type () : on_demand_options =
+  {
+    allocation_strategy;
+    max_total_price;
+    min_target_capacity;
+    single_availability_zone;
+    single_instance_type;
+  }
+
+let spot_options__maintenance_strategies__capacity_rebalance
+    ?replacement_strategy ?termination_delay () :
+    spot_options__maintenance_strategies__capacity_rebalance =
+  { replacement_strategy; termination_delay }
+
+let spot_options__maintenance_strategies ~capacity_rebalance () :
+    spot_options__maintenance_strategies =
+  { capacity_rebalance }
+
+let spot_options ?allocation_strategy ?instance_interruption_behavior
+    ?instance_pools_to_use_count ~maintenance_strategies () :
+    spot_options =
+  {
+    allocation_strategy;
+    instance_interruption_behavior;
+    instance_pools_to_use_count;
+    maintenance_strategies;
+  }
+
+let target_capacity_specification ?on_demand_target_capacity
+    ?spot_target_capacity ?target_capacity_unit_type
+    ~default_target_capacity_type ~total_target_capacity () :
+    target_capacity_specification =
+  {
+    default_target_capacity_type;
+    on_demand_target_capacity;
+    spot_target_capacity;
+    target_capacity_unit_type;
+    total_target_capacity;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_ec2_fleet ?context ?excess_capacity_termination_policy
+    ?fleet_state ?fulfilled_capacity ?fulfilled_on_demand_capacity
+    ?id ?replace_unhealthy_instances ?tags ?tags_all
+    ?terminate_instances ?terminate_instances_with_expiration ?type_
+    ?valid_from ?valid_until ?timeouts ~fleet_instance_set
+    ~launch_template_config ~on_demand_options ~spot_options
+    ~target_capacity_specification () : aws_ec2_fleet =
+  {
+    context;
+    excess_capacity_termination_policy;
+    fleet_state;
+    fulfilled_capacity;
+    fulfilled_on_demand_capacity;
+    id;
+    replace_unhealthy_instances;
+    tags;
+    tags_all;
+    terminate_instances;
+    terminate_instances_with_expiration;
+    type_;
+    valid_from;
+    valid_until;
+    fleet_instance_set;
+    launch_template_config;
+    on_demand_options;
+    spot_options;
+    target_capacity_specification;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -292,7 +479,7 @@ type t = {
   valid_until : string prop;
 }
 
-let aws_ec2_fleet ?context ?excess_capacity_termination_policy
+let register ?tf_module ?context ?excess_capacity_termination_policy
     ?fleet_state ?fulfilled_capacity ?fulfilled_on_demand_capacity
     ?id ?replace_unhealthy_instances ?tags ?tags_all
     ?terminate_instances ?terminate_instances_with_expiration ?type_
@@ -301,31 +488,15 @@ let aws_ec2_fleet ?context ?excess_capacity_termination_policy
     ~target_capacity_specification __resource_id =
   let __resource_type = "aws_ec2_fleet" in
   let __resource =
-    ({
-       context;
-       excess_capacity_termination_policy;
-       fleet_state;
-       fulfilled_capacity;
-       fulfilled_on_demand_capacity;
-       id;
-       replace_unhealthy_instances;
-       tags;
-       tags_all;
-       terminate_instances;
-       terminate_instances_with_expiration;
-       type_;
-       valid_from;
-       valid_until;
-       fleet_instance_set;
-       launch_template_config;
-       on_demand_options;
-       spot_options;
-       target_capacity_specification;
-       timeouts;
-     }
-      : aws_ec2_fleet)
+    aws_ec2_fleet ?context ?excess_capacity_termination_policy
+      ?fleet_state ?fulfilled_capacity ?fulfilled_on_demand_capacity
+      ?id ?replace_unhealthy_instances ?tags ?tags_all
+      ?terminate_instances ?terminate_instances_with_expiration
+      ?type_ ?valid_from ?valid_until ?timeouts ~fleet_instance_set
+      ~launch_template_config ~on_demand_options ~spot_options
+      ~target_capacity_specification ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_fleet __resource);
   let __resource_attributes =
     ({

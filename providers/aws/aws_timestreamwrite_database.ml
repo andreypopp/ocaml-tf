@@ -15,6 +15,10 @@ type aws_timestreamwrite_database = {
 [@@deriving yojson_of]
 (** aws_timestreamwrite_database *)
 
+let aws_timestreamwrite_database ?id ?kms_key_id ?tags ?tags_all
+    ~database_name () : aws_timestreamwrite_database =
+  { database_name; id; kms_key_id; tags; tags_all }
+
 type t = {
   arn : string prop;
   database_name : string prop;
@@ -25,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_timestreamwrite_database ?id ?kms_key_id ?tags ?tags_all
+let register ?tf_module ?id ?kms_key_id ?tags ?tags_all
     ~database_name __resource_id =
   let __resource_type = "aws_timestreamwrite_database" in
   let __resource =
-    ({ database_name; id; kms_key_id; tags; tags_all }
-      : aws_timestreamwrite_database)
+    aws_timestreamwrite_database ?id ?kms_key_id ?tags ?tags_all
+      ~database_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_timestreamwrite_database __resource);
   let __resource_attributes =
     ({

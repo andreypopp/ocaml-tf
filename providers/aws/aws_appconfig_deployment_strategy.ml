@@ -22,6 +22,23 @@ type aws_appconfig_deployment_strategy = {
 [@@deriving yojson_of]
 (** aws_appconfig_deployment_strategy *)
 
+let aws_appconfig_deployment_strategy ?description
+    ?final_bake_time_in_minutes ?growth_type ?id ?tags ?tags_all
+    ~deployment_duration_in_minutes ~growth_factor ~name
+    ~replicate_to () : aws_appconfig_deployment_strategy =
+  {
+    deployment_duration_in_minutes;
+    description;
+    final_bake_time_in_minutes;
+    growth_factor;
+    growth_type;
+    id;
+    name;
+    replicate_to;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   deployment_duration_in_minutes : float prop;
@@ -36,27 +53,17 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appconfig_deployment_strategy ?description
-    ?final_bake_time_in_minutes ?growth_type ?id ?tags ?tags_all
-    ~deployment_duration_in_minutes ~growth_factor ~name
-    ~replicate_to __resource_id =
+let register ?tf_module ?description ?final_bake_time_in_minutes
+    ?growth_type ?id ?tags ?tags_all ~deployment_duration_in_minutes
+    ~growth_factor ~name ~replicate_to __resource_id =
   let __resource_type = "aws_appconfig_deployment_strategy" in
   let __resource =
-    ({
-       deployment_duration_in_minutes;
-       description;
-       final_bake_time_in_minutes;
-       growth_factor;
-       growth_type;
-       id;
-       name;
-       replicate_to;
-       tags;
-       tags_all;
-     }
-      : aws_appconfig_deployment_strategy)
+    aws_appconfig_deployment_strategy ?description
+      ?final_bake_time_in_minutes ?growth_type ?id ?tags ?tags_all
+      ~deployment_duration_in_minutes ~growth_factor ~name
+      ~replicate_to ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_deployment_strategy __resource);
   let __resource_attributes =
     ({

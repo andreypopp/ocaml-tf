@@ -16,6 +16,10 @@ type aws_dataexchange_data_set = {
 [@@deriving yojson_of]
 (** aws_dataexchange_data_set *)
 
+let aws_dataexchange_data_set ?id ?tags ?tags_all ~asset_type
+    ~description ~name () : aws_dataexchange_data_set =
+  { asset_type; description; id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   asset_type : string prop;
@@ -26,14 +30,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_dataexchange_data_set ?id ?tags ?tags_all ~asset_type
-    ~description ~name __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~asset_type ~description
+    ~name __resource_id =
   let __resource_type = "aws_dataexchange_data_set" in
   let __resource =
-    ({ asset_type; description; id; name; tags; tags_all }
-      : aws_dataexchange_data_set)
+    aws_dataexchange_data_set ?id ?tags ?tags_all ~asset_type
+      ~description ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dataexchange_data_set __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_tensorboard__encryption_spec = {
+type encryption_spec = {
   kms_key_name : string prop;
       (** The Cloud KMS resource identifier of the customer managed encryption key used to protect a resource.
 Has the form: projects/my-project/locations/my-region/keyRings/my-kr/cryptoKeys/my-key. The key needs to be in the same region as where the resource is created. *)
@@ -12,13 +12,13 @@ Has the form: projects/my-project/locations/my-region/keyRings/my-kr/cryptoKeys/
 [@@deriving yojson_of]
 (** Customer-managed encryption key spec for a Tensorboard. If set, this Tensorboard and all sub-resources of this Tensorboard will be secured by this key. *)
 
-type google_vertex_ai_tensorboard__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vertex_ai_tensorboard__timeouts *)
+(** timeouts *)
 
 type google_vertex_ai_tensorboard = {
   description : string prop option; [@option]
@@ -35,12 +35,31 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** The region of the tensorboard. eg us-central1 *)
-  encryption_spec :
-    google_vertex_ai_tensorboard__encryption_spec list;
-  timeouts : google_vertex_ai_tensorboard__timeouts option;
+  encryption_spec : encryption_spec list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_tensorboard *)
+
+let encryption_spec ~kms_key_name () : encryption_spec =
+  { kms_key_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vertex_ai_tensorboard ?description ?id ?labels ?project
+    ?region ?timeouts ~display_name ~encryption_spec () :
+    google_vertex_ai_tensorboard =
+  {
+    description;
+    display_name;
+    id;
+    labels;
+    project;
+    region;
+    encryption_spec;
+    timeouts;
+  }
 
 type t = {
   blob_storage_path_prefix : string prop;
@@ -58,23 +77,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_vertex_ai_tensorboard ?description ?id ?labels ?project
-    ?region ?timeouts ~display_name ~encryption_spec __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?region
+    ?timeouts ~display_name ~encryption_spec __resource_id =
   let __resource_type = "google_vertex_ai_tensorboard" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       labels;
-       project;
-       region;
-       encryption_spec;
-       timeouts;
-     }
-      : google_vertex_ai_tensorboard)
+    google_vertex_ai_tensorboard ?description ?id ?labels ?project
+      ?region ?timeouts ~display_name ~encryption_spec ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_tensorboard __resource);
   let __resource_attributes =
     ({

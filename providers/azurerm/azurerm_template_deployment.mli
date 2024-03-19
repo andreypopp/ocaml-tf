@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_template_deployment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_template_deployment
+
+val azurerm_template_deployment :
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?parameters_body:string prop ->
+  ?template_body:string prop ->
+  ?timeouts:timeouts ->
+  deployment_mode:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_template_deployment
+
+val yojson_of_azurerm_template_deployment :
+  azurerm_template_deployment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   deployment_mode : string prop;
@@ -16,12 +44,13 @@ type t = private {
   template_body : string prop;
 }
 
-val azurerm_template_deployment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
   ?parameters_body:string prop ->
   ?template_body:string prop ->
-  ?timeouts:azurerm_template_deployment__timeouts ->
+  ?timeouts:timeouts ->
   deployment_mode:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

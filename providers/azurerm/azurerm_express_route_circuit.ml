@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_express_route_circuit__sku = {
+type sku = {
   family : string prop;  (** family *)
   tier : string prop;  (** tier *)
 }
 [@@deriving yojson_of]
-(** azurerm_express_route_circuit__sku *)
+(** sku *)
 
-type azurerm_express_route_circuit__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_express_route_circuit__timeouts *)
+(** timeouts *)
 
 type azurerm_express_route_circuit = {
   allow_classic_operations : bool prop option; [@option]
@@ -40,11 +40,38 @@ type azurerm_express_route_circuit = {
   service_provider_name : string prop option; [@option]
       (** service_provider_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  sku : azurerm_express_route_circuit__sku list;
-  timeouts : azurerm_express_route_circuit__timeouts option;
+  sku : sku list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit *)
+
+let sku ~family ~tier () : sku = { family; tier }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_express_route_circuit ?allow_classic_operations
+    ?authorization_key ?bandwidth_in_gbps ?bandwidth_in_mbps
+    ?express_route_port_id ?id ?peering_location
+    ?service_provider_name ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku () : azurerm_express_route_circuit =
+  {
+    allow_classic_operations;
+    authorization_key;
+    bandwidth_in_gbps;
+    bandwidth_in_mbps;
+    express_route_port_id;
+    id;
+    location;
+    name;
+    peering_location;
+    resource_group_name;
+    service_provider_name;
+    tags;
+    sku;
+    timeouts;
+  }
 
 type t = {
   allow_classic_operations : bool prop;
@@ -63,32 +90,19 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_express_route_circuit ?allow_classic_operations
-    ?authorization_key ?bandwidth_in_gbps ?bandwidth_in_mbps
-    ?express_route_port_id ?id ?peering_location
-    ?service_provider_name ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku __resource_id =
+let register ?tf_module ?allow_classic_operations ?authorization_key
+    ?bandwidth_in_gbps ?bandwidth_in_mbps ?express_route_port_id ?id
+    ?peering_location ?service_provider_name ?tags ?timeouts
+    ~location ~name ~resource_group_name ~sku __resource_id =
   let __resource_type = "azurerm_express_route_circuit" in
   let __resource =
-    ({
-       allow_classic_operations;
-       authorization_key;
-       bandwidth_in_gbps;
-       bandwidth_in_mbps;
-       express_route_port_id;
-       id;
-       location;
-       name;
-       peering_location;
-       resource_group_name;
-       service_provider_name;
-       tags;
-       sku;
-       timeouts;
-     }
-      : azurerm_express_route_circuit)
+    azurerm_express_route_circuit ?allow_classic_operations
+      ?authorization_key ?bandwidth_in_gbps ?bandwidth_in_mbps
+      ?express_route_port_id ?id ?peering_location
+      ?service_provider_name ?tags ?timeouts ~location ~name
+      ~resource_group_name ~sku ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_express_route_circuit __resource);
   let __resource_attributes =
     ({

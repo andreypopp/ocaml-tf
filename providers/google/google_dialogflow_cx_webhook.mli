@@ -2,13 +2,64 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_webhook__generic_web_service
+(** RESOURCE SERIALIZATION *)
 
-type google_dialogflow_cx_webhook__service_directory__generic_web_service
+type generic_web_service
 
-type google_dialogflow_cx_webhook__service_directory
-type google_dialogflow_cx_webhook__timeouts
+val generic_web_service :
+  ?allowed_ca_certs:string prop list ->
+  ?request_headers:(string * string prop) list ->
+  uri:string prop ->
+  unit ->
+  generic_web_service
+
+type service_directory__generic_web_service
+
+val service_directory__generic_web_service :
+  ?allowed_ca_certs:string prop list ->
+  ?request_headers:(string * string prop) list ->
+  uri:string prop ->
+  unit ->
+  service_directory__generic_web_service
+
+type service_directory
+
+val service_directory :
+  service:string prop ->
+  generic_web_service:service_directory__generic_web_service list ->
+  unit ->
+  service_directory
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_dialogflow_cx_webhook
+
+val google_dialogflow_cx_webhook :
+  ?disabled:bool prop ->
+  ?enable_spell_correction:bool prop ->
+  ?enable_stackdriver_logging:bool prop ->
+  ?id:string prop ->
+  ?parent:string prop ->
+  ?security_settings:string prop ->
+  ?timeout:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  generic_web_service:generic_web_service list ->
+  service_directory:service_directory list ->
+  unit ->
+  google_dialogflow_cx_webhook
+
+val yojson_of_google_dialogflow_cx_webhook :
+  google_dialogflow_cx_webhook -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   disabled : bool prop;
@@ -23,7 +74,8 @@ type t = private {
   timeout : string prop;
 }
 
-val google_dialogflow_cx_webhook :
+val register :
+  ?tf_module:tf_module ->
   ?disabled:bool prop ->
   ?enable_spell_correction:bool prop ->
   ?enable_stackdriver_logging:bool prop ->
@@ -31,11 +83,9 @@ val google_dialogflow_cx_webhook :
   ?parent:string prop ->
   ?security_settings:string prop ->
   ?timeout:string prop ->
-  ?timeouts:google_dialogflow_cx_webhook__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
-  generic_web_service:
-    google_dialogflow_cx_webhook__generic_web_service list ->
-  service_directory:
-    google_dialogflow_cx_webhook__service_directory list ->
+  generic_web_service:generic_web_service list ->
+  service_directory:service_directory list ->
   string ->
   t

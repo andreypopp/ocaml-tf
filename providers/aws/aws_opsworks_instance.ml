@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_opsworks_instance__ebs_block_device = {
+type ebs_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   device_name : string prop;  (** device_name *)
@@ -14,16 +14,16 @@ type aws_opsworks_instance__ebs_block_device = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_instance__ebs_block_device *)
+(** ebs_block_device *)
 
-type aws_opsworks_instance__ephemeral_block_device = {
+type ephemeral_block_device = {
   device_name : string prop;  (** device_name *)
   virtual_name : string prop;  (** virtual_name *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_instance__ephemeral_block_device *)
+(** ephemeral_block_device *)
 
-type aws_opsworks_instance__root_block_device = {
+type root_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   iops : float prop option; [@option]  (** iops *)
@@ -31,15 +31,15 @@ type aws_opsworks_instance__root_block_device = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_instance__root_block_device *)
+(** root_block_device *)
 
-type aws_opsworks_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_opsworks_instance__timeouts *)
+(** timeouts *)
 
 type aws_opsworks_instance = {
   agent_version : string prop option; [@option]  (** agent_version *)
@@ -79,14 +79,79 @@ type aws_opsworks_instance = {
   tenancy : string prop option; [@option]  (** tenancy *)
   virtualization_type : string prop option; [@option]
       (** virtualization_type *)
-  ebs_block_device : aws_opsworks_instance__ebs_block_device list;
-  ephemeral_block_device :
-    aws_opsworks_instance__ephemeral_block_device list;
-  root_block_device : aws_opsworks_instance__root_block_device list;
-  timeouts : aws_opsworks_instance__timeouts option;
+  ebs_block_device : ebs_block_device list;
+  ephemeral_block_device : ephemeral_block_device list;
+  root_block_device : root_block_device list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_opsworks_instance *)
+
+let ebs_block_device ?delete_on_termination ?iops ?snapshot_id
+    ?volume_size ?volume_type ~device_name () : ebs_block_device =
+  {
+    delete_on_termination;
+    device_name;
+    iops;
+    snapshot_id;
+    volume_size;
+    volume_type;
+  }
+
+let ephemeral_block_device ~device_name ~virtual_name () :
+    ephemeral_block_device =
+  { device_name; virtual_name }
+
+let root_block_device ?delete_on_termination ?iops ?volume_size
+    ?volume_type () : root_block_device =
+  { delete_on_termination; iops; volume_size; volume_type }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_opsworks_instance ?agent_version ?ami_id ?architecture
+    ?auto_scaling_type ?availability_zone ?created_at ?delete_ebs
+    ?delete_eip ?ebs_optimized ?ecs_cluster_arn ?elastic_ip ?hostname
+    ?id ?infrastructure_class ?install_updates_on_boot
+    ?instance_profile_arn ?instance_type ?os ?root_device_type
+    ?security_group_ids ?ssh_key_name ?state ?status ?subnet_id
+    ?tenancy ?virtualization_type ?timeouts ~layer_ids ~stack_id
+    ~ebs_block_device ~ephemeral_block_device ~root_block_device () :
+    aws_opsworks_instance =
+  {
+    agent_version;
+    ami_id;
+    architecture;
+    auto_scaling_type;
+    availability_zone;
+    created_at;
+    delete_ebs;
+    delete_eip;
+    ebs_optimized;
+    ecs_cluster_arn;
+    elastic_ip;
+    hostname;
+    id;
+    infrastructure_class;
+    install_updates_on_boot;
+    instance_profile_arn;
+    instance_type;
+    layer_ids;
+    os;
+    root_device_type;
+    security_group_ids;
+    ssh_key_name;
+    stack_id;
+    state;
+    status;
+    subnet_id;
+    tenancy;
+    virtualization_type;
+    ebs_block_device;
+    ephemeral_block_device;
+    root_block_device;
+    timeouts;
+  }
 
 type t = {
   agent_version : string prop;
@@ -134,7 +199,7 @@ type t = {
   virtualization_type : string prop;
 }
 
-let aws_opsworks_instance ?agent_version ?ami_id ?architecture
+let register ?tf_module ?agent_version ?ami_id ?architecture
     ?auto_scaling_type ?availability_zone ?created_at ?delete_ebs
     ?delete_eip ?ebs_optimized ?ecs_cluster_arn ?elastic_ip ?hostname
     ?id ?infrastructure_class ?install_updates_on_boot
@@ -145,43 +210,16 @@ let aws_opsworks_instance ?agent_version ?ami_id ?architecture
     __resource_id =
   let __resource_type = "aws_opsworks_instance" in
   let __resource =
-    ({
-       agent_version;
-       ami_id;
-       architecture;
-       auto_scaling_type;
-       availability_zone;
-       created_at;
-       delete_ebs;
-       delete_eip;
-       ebs_optimized;
-       ecs_cluster_arn;
-       elastic_ip;
-       hostname;
-       id;
-       infrastructure_class;
-       install_updates_on_boot;
-       instance_profile_arn;
-       instance_type;
-       layer_ids;
-       os;
-       root_device_type;
-       security_group_ids;
-       ssh_key_name;
-       stack_id;
-       state;
-       status;
-       subnet_id;
-       tenancy;
-       virtualization_type;
-       ebs_block_device;
-       ephemeral_block_device;
-       root_block_device;
-       timeouts;
-     }
-      : aws_opsworks_instance)
+    aws_opsworks_instance ?agent_version ?ami_id ?architecture
+      ?auto_scaling_type ?availability_zone ?created_at ?delete_ebs
+      ?delete_eip ?ebs_optimized ?ecs_cluster_arn ?elastic_ip
+      ?hostname ?id ?infrastructure_class ?install_updates_on_boot
+      ?instance_profile_arn ?instance_type ?os ?root_device_type
+      ?security_group_ids ?ssh_key_name ?state ?status ?subnet_id
+      ?tenancy ?virtualization_type ?timeouts ~layer_ids ~stack_id
+      ~ebs_block_device ~ephemeral_block_device ~root_block_device ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_instance __resource);
   let __resource_attributes =
     ({

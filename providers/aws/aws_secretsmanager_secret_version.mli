@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_secretsmanager_secret_version
+
+val aws_secretsmanager_secret_version :
+  ?id:string prop ->
+  ?secret_binary:string prop ->
+  ?secret_string:string prop ->
+  ?version_stages:string prop list ->
+  secret_id:string prop ->
+  unit ->
+  aws_secretsmanager_secret_version
+
+val yojson_of_aws_secretsmanager_secret_version :
+  aws_secretsmanager_secret_version -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +30,8 @@ type t = private {
   version_stages : string list prop;
 }
 
-val aws_secretsmanager_secret_version :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?secret_binary:string prop ->
   ?secret_string:string prop ->

@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_desktop_workspace__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_virtual_desktop_workspace
+
+val azurerm_virtual_desktop_workspace :
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_virtual_desktop_workspace
+
+val yojson_of_azurerm_virtual_desktop_workspace :
+  azurerm_virtual_desktop_workspace -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -16,13 +45,14 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_virtual_desktop_workspace :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_virtual_desktop_workspace__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

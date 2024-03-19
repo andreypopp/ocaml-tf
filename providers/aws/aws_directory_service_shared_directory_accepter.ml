@@ -4,21 +4,27 @@
 
 open! Tf.Prelude
 
-type aws_directory_service_shared_directory_accepter__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_directory_service_shared_directory_accepter__timeouts *)
+(** timeouts *)
 
 type aws_directory_service_shared_directory_accepter = {
   id : string prop option; [@option]  (** id *)
   shared_directory_id : string prop;  (** shared_directory_id *)
-  timeouts :
-    aws_directory_service_shared_directory_accepter__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_directory_service_shared_directory_accepter *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_directory_service_shared_directory_accepter ?id ?timeouts
+    ~shared_directory_id () :
+    aws_directory_service_shared_directory_accepter =
+  { id; shared_directory_id; timeouts }
 
 type t = {
   id : string prop;
@@ -29,16 +35,16 @@ type t = {
   shared_directory_id : string prop;
 }
 
-let aws_directory_service_shared_directory_accepter ?id ?timeouts
-    ~shared_directory_id __resource_id =
+let register ?tf_module ?id ?timeouts ~shared_directory_id
+    __resource_id =
   let __resource_type =
     "aws_directory_service_shared_directory_accepter"
   in
   let __resource =
-    ({ id; shared_directory_id; timeouts }
-      : aws_directory_service_shared_directory_accepter)
+    aws_directory_service_shared_directory_accepter ?id ?timeouts
+      ~shared_directory_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_directory_service_shared_directory_accepter
        __resource);
   let __resource_attributes =

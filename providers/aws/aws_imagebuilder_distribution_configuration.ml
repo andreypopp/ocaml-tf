@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration__launch_permission = {
+type distribution__ami_distribution_configuration__launch_permission = {
   organization_arns : string prop list option; [@option]
       (** organization_arns *)
   organizational_unit_arns : string prop list option; [@option]
@@ -14,9 +14,9 @@ type aws_imagebuilder_distribution_configuration__distribution__ami_distribution
   user_ids : string prop list option; [@option]  (** user_ids *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration__launch_permission *)
+(** distribution__ami_distribution_configuration__launch_permission *)
 
-type aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration = {
+type distribution__ami_distribution_configuration = {
   ami_tags : (string * string prop) list option; [@option]
       (** ami_tags *)
   description : string prop option; [@option]  (** description *)
@@ -25,31 +25,31 @@ type aws_imagebuilder_distribution_configuration__distribution__ami_distribution
   target_account_ids : string prop list option; [@option]
       (** target_account_ids *)
   launch_permission :
-    aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration__launch_permission
+    distribution__ami_distribution_configuration__launch_permission
     list;
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration *)
+(** distribution__ami_distribution_configuration *)
 
-type aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration__target_repository = {
+type distribution__container_distribution_configuration__target_repository = {
   repository_name : string prop;  (** repository_name *)
   service : string prop;  (** service *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration__target_repository *)
+(** distribution__container_distribution_configuration__target_repository *)
 
-type aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration = {
+type distribution__container_distribution_configuration = {
   container_tags : string prop list option; [@option]
       (** container_tags *)
   description : string prop option; [@option]  (** description *)
   target_repository :
-    aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration__target_repository
+    distribution__container_distribution_configuration__target_repository
     list;
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration *)
+(** distribution__container_distribution_configuration *)
 
-type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__launch_template = {
+type distribution__fast_launch_configuration__launch_template = {
   launch_template_id : string prop option; [@option]
       (** launch_template_id *)
   launch_template_name : string prop option; [@option]
@@ -58,57 +58,52 @@ type aws_imagebuilder_distribution_configuration__distribution__fast_launch_conf
       (** launch_template_version *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__launch_template *)
+(** distribution__fast_launch_configuration__launch_template *)
 
-type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__snapshot_configuration = {
+type distribution__fast_launch_configuration__snapshot_configuration = {
   target_resource_count : float prop option; [@option]
       (** target_resource_count *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__snapshot_configuration *)
+(** distribution__fast_launch_configuration__snapshot_configuration *)
 
-type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration = {
+type distribution__fast_launch_configuration = {
   account_id : string prop;  (** account_id *)
   enabled : bool prop;  (** enabled *)
   max_parallel_launches : float prop option; [@option]
       (** max_parallel_launches *)
   launch_template :
-    aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__launch_template
-    list;
+    distribution__fast_launch_configuration__launch_template list;
   snapshot_configuration :
-    aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__snapshot_configuration
+    distribution__fast_launch_configuration__snapshot_configuration
     list;
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration *)
+(** distribution__fast_launch_configuration *)
 
-type aws_imagebuilder_distribution_configuration__distribution__launch_template_configuration = {
+type distribution__launch_template_configuration = {
   account_id : string prop option; [@option]  (** account_id *)
   default : bool prop option; [@option]  (** default *)
   launch_template_id : string prop;  (** launch_template_id *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution__launch_template_configuration *)
+(** distribution__launch_template_configuration *)
 
-type aws_imagebuilder_distribution_configuration__distribution = {
+type distribution = {
   license_configuration_arns : string prop list option; [@option]
       (** license_configuration_arns *)
   region : string prop;  (** region *)
   ami_distribution_configuration :
-    aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration
-    list;
+    distribution__ami_distribution_configuration list;
   container_distribution_configuration :
-    aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration
-    list;
+    distribution__container_distribution_configuration list;
   fast_launch_configuration :
-    aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration
-    list;
+    distribution__fast_launch_configuration list;
   launch_template_configuration :
-    aws_imagebuilder_distribution_configuration__distribution__launch_template_configuration
-    list;
+    distribution__launch_template_configuration list;
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration__distribution *)
+(** distribution *)
 
 type aws_imagebuilder_distribution_configuration = {
   description : string prop option; [@option]  (** description *)
@@ -117,11 +112,94 @@ type aws_imagebuilder_distribution_configuration = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  distribution :
-    aws_imagebuilder_distribution_configuration__distribution list;
+  distribution : distribution list;
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_distribution_configuration *)
+
+let distribution__ami_distribution_configuration__launch_permission
+    ?organization_arns ?organizational_unit_arns ?user_groups
+    ?user_ids () :
+    distribution__ami_distribution_configuration__launch_permission =
+  {
+    organization_arns;
+    organizational_unit_arns;
+    user_groups;
+    user_ids;
+  }
+
+let distribution__ami_distribution_configuration ?ami_tags
+    ?description ?kms_key_id ?name ?target_account_ids
+    ~launch_permission () :
+    distribution__ami_distribution_configuration =
+  {
+    ami_tags;
+    description;
+    kms_key_id;
+    name;
+    target_account_ids;
+    launch_permission;
+  }
+
+let distribution__container_distribution_configuration__target_repository
+    ~repository_name ~service () :
+    distribution__container_distribution_configuration__target_repository
+    =
+  { repository_name; service }
+
+let distribution__container_distribution_configuration
+    ?container_tags ?description ~target_repository () :
+    distribution__container_distribution_configuration =
+  { container_tags; description; target_repository }
+
+let distribution__fast_launch_configuration__launch_template
+    ?launch_template_id ?launch_template_name
+    ?launch_template_version () :
+    distribution__fast_launch_configuration__launch_template =
+  {
+    launch_template_id;
+    launch_template_name;
+    launch_template_version;
+  }
+
+let distribution__fast_launch_configuration__snapshot_configuration
+    ?target_resource_count () :
+    distribution__fast_launch_configuration__snapshot_configuration =
+  { target_resource_count }
+
+let distribution__fast_launch_configuration ?max_parallel_launches
+    ~account_id ~enabled ~launch_template ~snapshot_configuration ()
+    : distribution__fast_launch_configuration =
+  {
+    account_id;
+    enabled;
+    max_parallel_launches;
+    launch_template;
+    snapshot_configuration;
+  }
+
+let distribution__launch_template_configuration ?account_id ?default
+    ~launch_template_id () :
+    distribution__launch_template_configuration =
+  { account_id; default; launch_template_id }
+
+let distribution ?license_configuration_arns ~region
+    ~ami_distribution_configuration
+    ~container_distribution_configuration ~fast_launch_configuration
+    ~launch_template_configuration () : distribution =
+  {
+    license_configuration_arns;
+    region;
+    ami_distribution_configuration;
+    container_distribution_configuration;
+    fast_launch_configuration;
+    launch_template_configuration;
+  }
+
+let aws_imagebuilder_distribution_configuration ?description ?id
+    ?tags ?tags_all ~name ~distribution () :
+    aws_imagebuilder_distribution_configuration =
+  { description; id; name; tags; tags_all; distribution }
 
 type t = {
   arn : string prop;
@@ -134,16 +212,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_imagebuilder_distribution_configuration ?description ?id
-    ?tags ?tags_all ~name ~distribution __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
+    ~distribution __resource_id =
   let __resource_type =
     "aws_imagebuilder_distribution_configuration"
   in
   let __resource =
-    ({ description; id; name; tags; tags_all; distribution }
-      : aws_imagebuilder_distribution_configuration)
+    aws_imagebuilder_distribution_configuration ?description ?id
+      ?tags ?tags_all ~name ~distribution ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_distribution_configuration __resource);
   let __resource_attributes =
     ({

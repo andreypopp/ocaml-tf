@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ses_active_receipt_rule_set
+
+val aws_ses_active_receipt_rule_set :
+  ?id:string prop ->
+  rule_set_name:string prop ->
+  unit ->
+  aws_ses_active_receipt_rule_set
+
+val yojson_of_aws_ses_active_receipt_rule_set :
+  aws_ses_active_receipt_rule_set -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -10,5 +23,9 @@ type t = private {
   rule_set_name : string prop;
 }
 
-val aws_ses_active_receipt_rule_set :
-  ?id:string prop -> rule_set_name:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  rule_set_name:string prop ->
+  string ->
+  t

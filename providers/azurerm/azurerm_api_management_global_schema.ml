@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_global_schema__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_global_schema__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_global_schema = {
   api_management_name : string prop;  (** api_management_name *)
@@ -21,10 +21,27 @@ type azurerm_api_management_global_schema = {
   schema_id : string prop;  (** schema_id *)
   type_ : string prop; [@key "type"]  (** type *)
   value : string prop;  (** value *)
-  timeouts : azurerm_api_management_global_schema__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_global_schema *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_global_schema ?description ?id ?timeouts
+    ~api_management_name ~resource_group_name ~schema_id ~type_
+    ~value () : azurerm_api_management_global_schema =
+  {
+    api_management_name;
+    description;
+    id;
+    resource_group_name;
+    schema_id;
+    type_;
+    value;
+    timeouts;
+  }
 
 type t = {
   api_management_name : string prop;
@@ -36,24 +53,16 @@ type t = {
   value : string prop;
 }
 
-let azurerm_api_management_global_schema ?description ?id ?timeouts
+let register ?tf_module ?description ?id ?timeouts
     ~api_management_name ~resource_group_name ~schema_id ~type_
     ~value __resource_id =
   let __resource_type = "azurerm_api_management_global_schema" in
   let __resource =
-    ({
-       api_management_name;
-       description;
-       id;
-       resource_group_name;
-       schema_id;
-       type_;
-       value;
-       timeouts;
-     }
-      : azurerm_api_management_global_schema)
+    azurerm_api_management_global_schema ?description ?id ?timeouts
+      ~api_management_name ~resource_group_name ~schema_id ~type_
+      ~value ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_global_schema __resource);
   let __resource_attributes =
     ({

@@ -2,17 +2,74 @@
 
 open! Tf.Prelude
 
-type kubernetes_endpoints__metadata
-type kubernetes_endpoints__subset__address
-type kubernetes_endpoints__subset__not_ready_address
-type kubernetes_endpoints__subset__port
-type kubernetes_endpoints__subset
+(** RESOURCE SERIALIZATION *)
+
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?namespace:string prop ->
+  unit ->
+  metadata
+
+type subset__address
+
+val subset__address :
+  ?hostname:string prop ->
+  ?node_name:string prop ->
+  ip:string prop ->
+  unit ->
+  subset__address
+
+type subset__not_ready_address
+
+val subset__not_ready_address :
+  ?hostname:string prop ->
+  ?node_name:string prop ->
+  ip:string prop ->
+  unit ->
+  subset__not_ready_address
+
+type subset__port
+
+val subset__port :
+  ?name:string prop ->
+  ?protocol:string prop ->
+  port:float prop ->
+  unit ->
+  subset__port
+
+type subset
+
+val subset :
+  address:subset__address list ->
+  not_ready_address:subset__not_ready_address list ->
+  port:subset__port list ->
+  unit ->
+  subset
+
 type kubernetes_endpoints
-type t = private { id : string prop }
 
 val kubernetes_endpoints :
   ?id:string prop ->
-  metadata:kubernetes_endpoints__metadata list ->
-  subset:kubernetes_endpoints__subset list ->
+  metadata:metadata list ->
+  subset:subset list ->
+  unit ->
+  kubernetes_endpoints
+
+val yojson_of_kubernetes_endpoints : kubernetes_endpoints -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  metadata:metadata list ->
+  subset:subset list ->
   string ->
   t

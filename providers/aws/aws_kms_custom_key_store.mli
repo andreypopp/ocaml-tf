@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type aws_kms_custom_key_store__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_kms_custom_key_store
+
+val aws_kms_custom_key_store :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cloud_hsm_cluster_id:string prop ->
+  custom_key_store_name:string prop ->
+  key_store_password:string prop ->
+  trust_anchor_certificate:string prop ->
+  unit ->
+  aws_kms_custom_key_store
+
+val yojson_of_aws_kms_custom_key_store :
+  aws_kms_custom_key_store -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cloud_hsm_cluster_id : string prop;
@@ -13,9 +38,10 @@ type t = private {
   trust_anchor_certificate : string prop;
 }
 
-val aws_kms_custom_key_store :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_kms_custom_key_store__timeouts ->
+  ?timeouts:timeouts ->
   cloud_hsm_cluster_id:string prop ->
   custom_key_store_name:string prop ->
   key_store_password:string prop ->

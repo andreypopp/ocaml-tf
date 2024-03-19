@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_apigee_sync_authorization__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_apigee_sync_authorization__timeouts *)
+(** timeouts *)
 
 type google_apigee_sync_authorization = {
   id : string prop option; [@option]  (** id *)
@@ -23,10 +23,17 @@ You might specify multiple service accounts, for example, if you have multiple e
 
 The service accounts must have **Apigee Synchronizer Manager** role. See also [Create service accounts](https://cloud.google.com/apigee/docs/hybrid/v1.8/sa-about#create-the-service-accounts). *)
   name : string prop;  (** Name of the Apigee organization. *)
-  timeouts : google_apigee_sync_authorization__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_sync_authorization *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_apigee_sync_authorization ?id ?timeouts ~identities ~name
+    () : google_apigee_sync_authorization =
+  { id; identities; name; timeouts }
 
 type t = {
   etag : string prop;
@@ -35,14 +42,14 @@ type t = {
   name : string prop;
 }
 
-let google_apigee_sync_authorization ?id ?timeouts ~identities ~name
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~identities ~name __resource_id
+    =
   let __resource_type = "google_apigee_sync_authorization" in
   let __resource =
-    ({ id; identities; name; timeouts }
-      : google_apigee_sync_authorization)
+    google_apigee_sync_authorization ?id ?timeouts ~identities ~name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_sync_authorization __resource);
   let __resource_attributes =
     ({

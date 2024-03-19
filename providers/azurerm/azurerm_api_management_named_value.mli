@@ -2,9 +2,46 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_named_value__timeouts
-type azurerm_api_management_named_value__value_from_key_vault
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type value_from_key_vault
+
+val value_from_key_vault :
+  ?identity_client_id:string prop ->
+  secret_id:string prop ->
+  unit ->
+  value_from_key_vault
+
 type azurerm_api_management_named_value
+
+val azurerm_api_management_named_value :
+  ?id:string prop ->
+  ?secret:bool prop ->
+  ?tags:string prop list ->
+  ?value:string prop ->
+  ?timeouts:timeouts ->
+  api_management_name:string prop ->
+  display_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  value_from_key_vault:value_from_key_vault list ->
+  unit ->
+  azurerm_api_management_named_value
+
+val yojson_of_azurerm_api_management_named_value :
+  azurerm_api_management_named_value -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_management_name : string prop;
@@ -17,17 +54,17 @@ type t = private {
   value : string prop;
 }
 
-val azurerm_api_management_named_value :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?secret:bool prop ->
   ?tags:string prop list ->
   ?value:string prop ->
-  ?timeouts:azurerm_api_management_named_value__timeouts ->
+  ?timeouts:timeouts ->
   api_management_name:string prop ->
   display_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  value_from_key_vault:
-    azurerm_api_management_named_value__value_from_key_vault list ->
+  value_from_key_vault:value_from_key_vault list ->
   string ->
   t

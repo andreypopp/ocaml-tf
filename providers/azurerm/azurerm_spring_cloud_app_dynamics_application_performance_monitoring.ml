@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_app_dynamics_application_performance_monitoring__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_app_dynamics_application_performance_monitoring__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_app_dynamics_application_performance_monitoring = {
   agent_account_access_key : string prop;
@@ -36,12 +36,38 @@ type azurerm_spring_cloud_app_dynamics_application_performance_monitoring = {
   name : string prop;  (** name *)
   spring_cloud_service_id : string prop;
       (** spring_cloud_service_id *)
-  timeouts :
-    azurerm_spring_cloud_app_dynamics_application_performance_monitoring__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_dynamics_application_performance_monitoring *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_app_dynamics_application_performance_monitoring
+    ?agent_application_name ?agent_node_name ?agent_tier_name
+    ?agent_unique_host_id ?controller_port ?controller_ssl_enabled
+    ?globally_enabled ?id ?timeouts ~agent_account_access_key
+    ~agent_account_name ~controller_host_name ~name
+    ~spring_cloud_service_id () :
+    azurerm_spring_cloud_app_dynamics_application_performance_monitoring
+    =
+  {
+    agent_account_access_key;
+    agent_account_name;
+    agent_application_name;
+    agent_node_name;
+    agent_tier_name;
+    agent_unique_host_id;
+    controller_host_name;
+    controller_port;
+    controller_ssl_enabled;
+    globally_enabled;
+    id;
+    name;
+    spring_cloud_service_id;
+    timeouts;
+  }
 
 type t = {
   agent_account_access_key : string prop;
@@ -59,35 +85,24 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
-let azurerm_spring_cloud_app_dynamics_application_performance_monitoring
-    ?agent_application_name ?agent_node_name ?agent_tier_name
-    ?agent_unique_host_id ?controller_port ?controller_ssl_enabled
-    ?globally_enabled ?id ?timeouts ~agent_account_access_key
-    ~agent_account_name ~controller_host_name ~name
-    ~spring_cloud_service_id __resource_id =
+let register ?tf_module ?agent_application_name ?agent_node_name
+    ?agent_tier_name ?agent_unique_host_id ?controller_port
+    ?controller_ssl_enabled ?globally_enabled ?id ?timeouts
+    ~agent_account_access_key ~agent_account_name
+    ~controller_host_name ~name ~spring_cloud_service_id
+    __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_app_dynamics_application_performance_monitoring"
   in
   let __resource =
-    ({
-       agent_account_access_key;
-       agent_account_name;
-       agent_application_name;
-       agent_node_name;
-       agent_tier_name;
-       agent_unique_host_id;
-       controller_host_name;
-       controller_port;
-       controller_ssl_enabled;
-       globally_enabled;
-       id;
-       name;
-       spring_cloud_service_id;
-       timeouts;
-     }
-      : azurerm_spring_cloud_app_dynamics_application_performance_monitoring)
+    azurerm_spring_cloud_app_dynamics_application_performance_monitoring
+      ?agent_application_name ?agent_node_name ?agent_tier_name
+      ?agent_unique_host_id ?controller_port ?controller_ssl_enabled
+      ?globally_enabled ?id ?timeouts ~agent_account_access_key
+      ~agent_account_name ~controller_host_name ~name
+      ~spring_cloud_service_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_app_dynamics_application_performance_monitoring
        __resource);
   let __resource_attributes =

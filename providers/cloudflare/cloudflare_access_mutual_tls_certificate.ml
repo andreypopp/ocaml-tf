@@ -24,6 +24,18 @@ trusted in both directions between a client and server and can be
  corresponding client certificate.
  *)
 
+let cloudflare_access_mutual_tls_certificate ?account_id
+    ?associated_hostnames ?certificate ?id ?zone_id ~name () :
+    cloudflare_access_mutual_tls_certificate =
+  {
+    account_id;
+    associated_hostnames;
+    certificate;
+    id;
+    name;
+    zone_id;
+  }
+
 type t = {
   account_id : string prop;
   associated_hostnames : string list prop;
@@ -34,22 +46,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_access_mutual_tls_certificate ?account_id
-    ?associated_hostnames ?certificate ?id ?zone_id ~name
-    __resource_id =
+let register ?tf_module ?account_id ?associated_hostnames
+    ?certificate ?id ?zone_id ~name __resource_id =
   let __resource_type = "cloudflare_access_mutual_tls_certificate" in
   let __resource =
-    ({
-       account_id;
-       associated_hostnames;
-       certificate;
-       id;
-       name;
-       zone_id;
-     }
-      : cloudflare_access_mutual_tls_certificate)
+    cloudflare_access_mutual_tls_certificate ?account_id
+      ?associated_hostnames ?certificate ?id ?zone_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_mutual_tls_certificate __resource);
   let __resource_attributes =
     ({

@@ -2,9 +2,51 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_dataset_http__schema_column
-type azurerm_data_factory_dataset_http__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type schema_column
+
+val schema_column :
+  ?description:string prop ->
+  ?type_:string prop ->
+  name:string prop ->
+  unit ->
+  schema_column
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_data_factory_dataset_http
+
+val azurerm_data_factory_dataset_http :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?relative_url:string prop ->
+  ?request_body:string prop ->
+  ?request_method:string prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
+  schema_column:schema_column list ->
+  unit ->
+  azurerm_data_factory_dataset_http
+
+val yojson_of_azurerm_data_factory_dataset_http :
+  azurerm_data_factory_dataset_http -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   additional_properties : (string * string) list prop;
@@ -21,7 +63,8 @@ type t = private {
   request_method : string prop;
 }
 
-val azurerm_data_factory_dataset_http :
+val register :
+  ?tf_module:tf_module ->
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
   ?description:string prop ->
@@ -31,10 +74,10 @@ val azurerm_data_factory_dataset_http :
   ?relative_url:string prop ->
   ?request_body:string prop ->
   ?request_method:string prop ->
-  ?timeouts:azurerm_data_factory_dataset_http__timeouts ->
+  ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  schema_column:azurerm_data_factory_dataset_http__schema_column list ->
+  schema_column:schema_column list ->
   string ->
   t

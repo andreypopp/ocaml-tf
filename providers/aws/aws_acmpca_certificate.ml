@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_acmpca_certificate__validity = {
+type validity = {
   type_ : string prop; [@key "type"]  (** type *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_acmpca_certificate__validity *)
+(** validity *)
 
 type aws_acmpca_certificate = {
   api_passthrough : string prop option; [@option]
@@ -21,10 +21,25 @@ type aws_acmpca_certificate = {
   id : string prop option; [@option]  (** id *)
   signing_algorithm : string prop;  (** signing_algorithm *)
   template_arn : string prop option; [@option]  (** template_arn *)
-  validity : aws_acmpca_certificate__validity list;
+  validity : validity list;
 }
 [@@deriving yojson_of]
 (** aws_acmpca_certificate *)
+
+let validity ~type_ ~value () : validity = { type_; value }
+
+let aws_acmpca_certificate ?api_passthrough ?id ?template_arn
+    ~certificate_authority_arn ~certificate_signing_request
+    ~signing_algorithm ~validity () : aws_acmpca_certificate =
+  {
+    api_passthrough;
+    certificate_authority_arn;
+    certificate_signing_request;
+    id;
+    signing_algorithm;
+    template_arn;
+    validity;
+  }
 
 type t = {
   api_passthrough : string prop;
@@ -38,23 +53,16 @@ type t = {
   template_arn : string prop;
 }
 
-let aws_acmpca_certificate ?api_passthrough ?id ?template_arn
+let register ?tf_module ?api_passthrough ?id ?template_arn
     ~certificate_authority_arn ~certificate_signing_request
     ~signing_algorithm ~validity __resource_id =
   let __resource_type = "aws_acmpca_certificate" in
   let __resource =
-    ({
-       api_passthrough;
-       certificate_authority_arn;
-       certificate_signing_request;
-       id;
-       signing_algorithm;
-       template_arn;
-       validity;
-     }
-      : aws_acmpca_certificate)
+    aws_acmpca_certificate ?api_passthrough ?id ?template_arn
+      ~certificate_authority_arn ~certificate_signing_request
+      ~signing_algorithm ~validity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_acmpca_certificate __resource);
   let __resource_attributes =
     ({

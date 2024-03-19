@@ -11,19 +11,22 @@ type aws_securityhub_product_subscription = {
 [@@deriving yojson_of]
 (** aws_securityhub_product_subscription *)
 
+let aws_securityhub_product_subscription ?id ~product_arn () :
+    aws_securityhub_product_subscription =
+  { id; product_arn }
+
 type t = {
   arn : string prop;
   id : string prop;
   product_arn : string prop;
 }
 
-let aws_securityhub_product_subscription ?id ~product_arn
-    __resource_id =
+let register ?tf_module ?id ~product_arn __resource_id =
   let __resource_type = "aws_securityhub_product_subscription" in
   let __resource =
-    ({ id; product_arn } : aws_securityhub_product_subscription)
+    aws_securityhub_product_subscription ?id ~product_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_product_subscription __resource);
   let __resource_attributes =
     ({

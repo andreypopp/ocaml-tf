@@ -16,6 +16,18 @@ type aws_redshift_data_share_consumer_association = {
 [@@deriving yojson_of]
 (** aws_redshift_data_share_consumer_association *)
 
+let aws_redshift_data_share_consumer_association ?allow_writes
+    ?associate_entire_account ?consumer_arn ?consumer_region
+    ~data_share_arn () : aws_redshift_data_share_consumer_association
+    =
+  {
+    allow_writes;
+    associate_entire_account;
+    consumer_arn;
+    consumer_region;
+    data_share_arn;
+  }
+
 type t = {
   allow_writes : bool prop;
   associate_entire_account : bool prop;
@@ -27,23 +39,17 @@ type t = {
   producer_arn : string prop;
 }
 
-let aws_redshift_data_share_consumer_association ?allow_writes
-    ?associate_entire_account ?consumer_arn ?consumer_region
-    ~data_share_arn __resource_id =
+let register ?tf_module ?allow_writes ?associate_entire_account
+    ?consumer_arn ?consumer_region ~data_share_arn __resource_id =
   let __resource_type =
     "aws_redshift_data_share_consumer_association"
   in
   let __resource =
-    ({
-       allow_writes;
-       associate_entire_account;
-       consumer_arn;
-       consumer_region;
-       data_share_arn;
-     }
-      : aws_redshift_data_share_consumer_association)
+    aws_redshift_data_share_consumer_association ?allow_writes
+      ?associate_entire_account ?consumer_arn ?consumer_region
+      ~data_share_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_data_share_consumer_association
        __resource);
   let __resource_attributes =

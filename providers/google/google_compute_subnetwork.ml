@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_subnetwork__log_config = {
+type log_config = {
   aggregation_interval : string prop option; [@option]
       (** Can only be specified if VPC flow logging for this subnetwork is enabled.
 Toggles the aggregation interval for collecting flow logs. Increasing the
@@ -34,15 +34,15 @@ logging is enabled, logs are exported to Cloud Logging. Flow logging
 isn't supported if the subnet 'purpose' field is set to subnetwork is
 'REGIONAL_MANAGED_PROXY' or 'GLOBAL_MANAGED_PROXY'. *)
 
-type google_compute_subnetwork__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_subnetwork__timeouts *)
+(** timeouts *)
 
-type google_compute_subnetwork__secondary_ip_range = {
+type secondary_ip_range = {
   ip_cidr_range : string prop;  (** ip_cidr_range *)
   range_name : string prop;  (** range_name *)
 }
@@ -98,9 +98,7 @@ Currently, this field is only used when 'purpose' is 'REGIONAL_MANAGED_PROXY'.
 The value can be set to 'ACTIVE' or 'BACKUP'.
 An 'ACTIVE' subnetwork is one that is currently being used for Envoy-based load balancers in a region.
 A 'BACKUP' subnetwork is one that is ready to be promoted to 'ACTIVE' or is currently draining. Possible values: [ACTIVE, BACKUP] *)
-  secondary_ip_range :
-    google_compute_subnetwork__secondary_ip_range list option;
-      [@option]
+  secondary_ip_range : secondary_ip_range list option; [@option]
       (** An array of configurations for secondary IP ranges for VM instances
 contained in this subnetwork. The primary IP of such VM must belong
 to the primary ipCidrRange of the subnetwork. The alias IPs may belong
@@ -114,11 +112,49 @@ For more details about this behavior, see [this section](https://www.terraform.i
   stack_type : string prop option; [@option]
       (** The stack type for this subnet to identify whether the IPv6 feature is enabled or not.
 If not specified IPV4_ONLY will be used. Possible values: [IPV4_ONLY, IPV4_IPV6] *)
-  log_config : google_compute_subnetwork__log_config list;
-  timeouts : google_compute_subnetwork__timeouts option;
+  log_config : log_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_subnetwork *)
+
+let log_config ?aggregation_interval ?filter_expr ?flow_sampling
+    ?metadata ?metadata_fields () : log_config =
+  {
+    aggregation_interval;
+    filter_expr;
+    flow_sampling;
+    metadata;
+    metadata_fields;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_subnetwork ?description ?external_ipv6_prefix ?id
+    ?ipv6_access_type ?private_ip_google_access
+    ?private_ipv6_google_access ?project ?purpose ?region ?role
+    ?secondary_ip_range ?stack_type ?timeouts ~ip_cidr_range ~name
+    ~network ~log_config () : google_compute_subnetwork =
+  {
+    description;
+    external_ipv6_prefix;
+    id;
+    ip_cidr_range;
+    ipv6_access_type;
+    name;
+    network;
+    private_ip_google_access;
+    private_ipv6_google_access;
+    project;
+    purpose;
+    region;
+    role;
+    secondary_ip_range;
+    stack_type;
+    log_config;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -139,41 +175,25 @@ type t = {
   purpose : string prop;
   region : string prop;
   role : string prop;
-  secondary_ip_range :
-    google_compute_subnetwork__secondary_ip_range list prop;
+  secondary_ip_range : secondary_ip_range list prop;
   self_link : string prop;
   stack_type : string prop;
 }
 
-let google_compute_subnetwork ?description ?external_ipv6_prefix ?id
+let register ?tf_module ?description ?external_ipv6_prefix ?id
     ?ipv6_access_type ?private_ip_google_access
     ?private_ipv6_google_access ?project ?purpose ?region ?role
     ?secondary_ip_range ?stack_type ?timeouts ~ip_cidr_range ~name
     ~network ~log_config __resource_id =
   let __resource_type = "google_compute_subnetwork" in
   let __resource =
-    ({
-       description;
-       external_ipv6_prefix;
-       id;
-       ip_cidr_range;
-       ipv6_access_type;
-       name;
-       network;
-       private_ip_google_access;
-       private_ipv6_google_access;
-       project;
-       purpose;
-       region;
-       role;
-       secondary_ip_range;
-       stack_type;
-       log_config;
-       timeouts;
-     }
-      : google_compute_subnetwork)
+    google_compute_subnetwork ?description ?external_ipv6_prefix ?id
+      ?ipv6_access_type ?private_ip_google_access
+      ?private_ipv6_google_access ?project ?purpose ?region ?role
+      ?secondary_ip_range ?stack_type ?timeouts ~ip_cidr_range ~name
+      ~network ~log_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_subnetwork __resource);
   let __resource_attributes =
     ({

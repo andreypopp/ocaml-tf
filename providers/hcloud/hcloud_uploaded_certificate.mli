@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type hcloud_uploaded_certificate
+
+val hcloud_uploaded_certificate :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  certificate:string prop ->
+  name:string prop ->
+  private_key:string prop ->
+  unit ->
+  hcloud_uploaded_certificate
+
+val yojson_of_hcloud_uploaded_certificate :
+  hcloud_uploaded_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate : string prop;
@@ -18,7 +34,8 @@ type t = private {
   type_ : string prop;
 }
 
-val hcloud_uploaded_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   certificate:string prop ->

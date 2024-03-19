@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_workspace__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_log_analytics_workspace__identity *)
+(** identity *)
 
-type azurerm_log_analytics_workspace__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_log_analytics_workspace__timeouts *)
+(** timeouts *)
 
 type azurerm_log_analytics_workspace = {
   allow_resource_only_permissions : bool prop option; [@option]
@@ -51,11 +49,46 @@ type azurerm_log_analytics_workspace = {
       (** retention_in_days *)
   sku : string prop option; [@option]  (** sku *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity : azurerm_log_analytics_workspace__identity list;
-  timeouts : azurerm_log_analytics_workspace__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_workspace *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_log_analytics_workspace ?allow_resource_only_permissions
+    ?cmk_for_query_forced ?daily_quota_gb ?data_collection_rule_id
+    ?id ?immediate_data_purge_on_30_days_enabled
+    ?internet_ingestion_enabled ?internet_query_enabled
+    ?local_authentication_disabled
+    ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku ?tags
+    ?timeouts ~location ~name ~resource_group_name ~identity () :
+    azurerm_log_analytics_workspace =
+  {
+    allow_resource_only_permissions;
+    cmk_for_query_forced;
+    daily_quota_gb;
+    data_collection_rule_id;
+    id;
+    immediate_data_purge_on_30_days_enabled;
+    internet_ingestion_enabled;
+    internet_query_enabled;
+    local_authentication_disabled;
+    location;
+    name;
+    reservation_capacity_in_gb_per_day;
+    resource_group_name;
+    retention_in_days;
+    sku;
+    tags;
+    identity;
+    timeouts;
+  }
 
 type t = {
   allow_resource_only_permissions : bool prop;
@@ -79,7 +112,7 @@ type t = {
   workspace_id : string prop;
 }
 
-let azurerm_log_analytics_workspace ?allow_resource_only_permissions
+let register ?tf_module ?allow_resource_only_permissions
     ?cmk_for_query_forced ?daily_quota_gb ?data_collection_rule_id
     ?id ?immediate_data_purge_on_30_days_enabled
     ?internet_ingestion_enabled ?internet_query_enabled
@@ -89,29 +122,16 @@ let azurerm_log_analytics_workspace ?allow_resource_only_permissions
     __resource_id =
   let __resource_type = "azurerm_log_analytics_workspace" in
   let __resource =
-    ({
-       allow_resource_only_permissions;
-       cmk_for_query_forced;
-       daily_quota_gb;
-       data_collection_rule_id;
-       id;
-       immediate_data_purge_on_30_days_enabled;
-       internet_ingestion_enabled;
-       internet_query_enabled;
-       local_authentication_disabled;
-       location;
-       name;
-       reservation_capacity_in_gb_per_day;
-       resource_group_name;
-       retention_in_days;
-       sku;
-       tags;
-       identity;
-       timeouts;
-     }
-      : azurerm_log_analytics_workspace)
+    azurerm_log_analytics_workspace ?allow_resource_only_permissions
+      ?cmk_for_query_forced ?daily_quota_gb ?data_collection_rule_id
+      ?id ?immediate_data_purge_on_30_days_enabled
+      ?internet_ingestion_enabled ?internet_query_enabled
+      ?local_authentication_disabled
+      ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku
+      ?tags ?timeouts ~location ~name ~resource_group_name ~identity
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_workspace __resource);
   let __resource_attributes =
     ({

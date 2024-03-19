@@ -2,51 +2,325 @@
 
 open! Tf.Prelude
 
-type azurerm_hdinsight_hadoop_cluster__component_version
-type azurerm_hdinsight_hadoop_cluster__compute_isolation
-type azurerm_hdinsight_hadoop_cluster__disk_encryption
-type azurerm_hdinsight_hadoop_cluster__extension
-type azurerm_hdinsight_hadoop_cluster__gateway
-type azurerm_hdinsight_hadoop_cluster__metastores__ambari
-type azurerm_hdinsight_hadoop_cluster__metastores__hive
-type azurerm_hdinsight_hadoop_cluster__metastores__oozie
-type azurerm_hdinsight_hadoop_cluster__metastores
-type azurerm_hdinsight_hadoop_cluster__monitor
-type azurerm_hdinsight_hadoop_cluster__network
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_hdinsight_hadoop_cluster__roles__edge_node__https_endpoints
+type component_version
 
-type azurerm_hdinsight_hadoop_cluster__roles__edge_node__install_script_action
+val component_version :
+  hadoop:string prop -> unit -> component_version
 
-type azurerm_hdinsight_hadoop_cluster__roles__edge_node__uninstall_script_actions
+type compute_isolation
 
-type azurerm_hdinsight_hadoop_cluster__roles__edge_node
+val compute_isolation :
+  ?compute_isolation_enabled:bool prop ->
+  ?host_sku:string prop ->
+  unit ->
+  compute_isolation
 
-type azurerm_hdinsight_hadoop_cluster__roles__head_node__script_actions
+type disk_encryption
 
-type azurerm_hdinsight_hadoop_cluster__roles__head_node
+val disk_encryption :
+  ?encryption_algorithm:string prop ->
+  ?encryption_at_host_enabled:bool prop ->
+  ?key_vault_key_id:string prop ->
+  ?key_vault_managed_identity_id:string prop ->
+  unit ->
+  disk_encryption
 
-type azurerm_hdinsight_hadoop_cluster__roles__worker_node__autoscale__capacity
+type extension
 
-type azurerm_hdinsight_hadoop_cluster__roles__worker_node__autoscale__recurrence__schedule
+val extension :
+  log_analytics_workspace_id:string prop ->
+  primary_key:string prop ->
+  unit ->
+  extension
 
-type azurerm_hdinsight_hadoop_cluster__roles__worker_node__autoscale__recurrence
+type gateway
 
-type azurerm_hdinsight_hadoop_cluster__roles__worker_node__autoscale
+val gateway :
+  password:string prop -> username:string prop -> unit -> gateway
 
-type azurerm_hdinsight_hadoop_cluster__roles__worker_node__script_actions
+type metastores__ambari
 
-type azurerm_hdinsight_hadoop_cluster__roles__worker_node
+val metastores__ambari :
+  database_name:string prop ->
+  password:string prop ->
+  server:string prop ->
+  username:string prop ->
+  unit ->
+  metastores__ambari
 
-type azurerm_hdinsight_hadoop_cluster__roles__zookeeper_node__script_actions
+type metastores__hive
 
-type azurerm_hdinsight_hadoop_cluster__roles__zookeeper_node
-type azurerm_hdinsight_hadoop_cluster__roles
-type azurerm_hdinsight_hadoop_cluster__security_profile
-type azurerm_hdinsight_hadoop_cluster__storage_account
-type azurerm_hdinsight_hadoop_cluster__storage_account_gen2
-type azurerm_hdinsight_hadoop_cluster__timeouts
+val metastores__hive :
+  database_name:string prop ->
+  password:string prop ->
+  server:string prop ->
+  username:string prop ->
+  unit ->
+  metastores__hive
+
+type metastores__oozie
+
+val metastores__oozie :
+  database_name:string prop ->
+  password:string prop ->
+  server:string prop ->
+  username:string prop ->
+  unit ->
+  metastores__oozie
+
+type metastores
+
+val metastores :
+  ambari:metastores__ambari list ->
+  hive:metastores__hive list ->
+  oozie:metastores__oozie list ->
+  unit ->
+  metastores
+
+type monitor
+
+val monitor :
+  log_analytics_workspace_id:string prop ->
+  primary_key:string prop ->
+  unit ->
+  monitor
+
+type network
+
+val network :
+  ?connection_direction:string prop ->
+  ?private_link_enabled:bool prop ->
+  unit ->
+  network
+
+type roles__edge_node__https_endpoints
+
+val roles__edge_node__https_endpoints :
+  ?access_modes:string prop list ->
+  ?destination_port:float prop ->
+  ?disable_gateway_auth:bool prop ->
+  ?private_ip_address:string prop ->
+  ?sub_domain_suffix:string prop ->
+  unit ->
+  roles__edge_node__https_endpoints
+
+type roles__edge_node__install_script_action
+
+val roles__edge_node__install_script_action :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__edge_node__install_script_action
+
+type roles__edge_node__uninstall_script_actions
+
+val roles__edge_node__uninstall_script_actions :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__edge_node__uninstall_script_actions
+
+type roles__edge_node
+
+val roles__edge_node :
+  target_instance_count:float prop ->
+  vm_size:string prop ->
+  https_endpoints:roles__edge_node__https_endpoints list ->
+  install_script_action:roles__edge_node__install_script_action list ->
+  uninstall_script_actions:
+    roles__edge_node__uninstall_script_actions list ->
+  unit ->
+  roles__edge_node
+
+type roles__head_node__script_actions
+
+val roles__head_node__script_actions :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__head_node__script_actions
+
+type roles__head_node
+
+val roles__head_node :
+  ?password:string prop ->
+  ?ssh_keys:string prop list ->
+  ?subnet_id:string prop ->
+  ?virtual_network_id:string prop ->
+  username:string prop ->
+  vm_size:string prop ->
+  script_actions:roles__head_node__script_actions list ->
+  unit ->
+  roles__head_node
+
+type roles__worker_node__autoscale__capacity
+
+val roles__worker_node__autoscale__capacity :
+  max_instance_count:float prop ->
+  min_instance_count:float prop ->
+  unit ->
+  roles__worker_node__autoscale__capacity
+
+type roles__worker_node__autoscale__recurrence__schedule
+
+val roles__worker_node__autoscale__recurrence__schedule :
+  days:string prop list ->
+  target_instance_count:float prop ->
+  time:string prop ->
+  unit ->
+  roles__worker_node__autoscale__recurrence__schedule
+
+type roles__worker_node__autoscale__recurrence
+
+val roles__worker_node__autoscale__recurrence :
+  timezone:string prop ->
+  schedule:roles__worker_node__autoscale__recurrence__schedule list ->
+  unit ->
+  roles__worker_node__autoscale__recurrence
+
+type roles__worker_node__autoscale
+
+val roles__worker_node__autoscale :
+  capacity:roles__worker_node__autoscale__capacity list ->
+  recurrence:roles__worker_node__autoscale__recurrence list ->
+  unit ->
+  roles__worker_node__autoscale
+
+type roles__worker_node__script_actions
+
+val roles__worker_node__script_actions :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__worker_node__script_actions
+
+type roles__worker_node
+
+val roles__worker_node :
+  ?password:string prop ->
+  ?ssh_keys:string prop list ->
+  ?subnet_id:string prop ->
+  ?virtual_network_id:string prop ->
+  target_instance_count:float prop ->
+  username:string prop ->
+  vm_size:string prop ->
+  autoscale:roles__worker_node__autoscale list ->
+  script_actions:roles__worker_node__script_actions list ->
+  unit ->
+  roles__worker_node
+
+type roles__zookeeper_node__script_actions
+
+val roles__zookeeper_node__script_actions :
+  ?parameters:string prop ->
+  name:string prop ->
+  uri:string prop ->
+  unit ->
+  roles__zookeeper_node__script_actions
+
+type roles__zookeeper_node
+
+val roles__zookeeper_node :
+  ?password:string prop ->
+  ?ssh_keys:string prop list ->
+  ?subnet_id:string prop ->
+  ?virtual_network_id:string prop ->
+  username:string prop ->
+  vm_size:string prop ->
+  script_actions:roles__zookeeper_node__script_actions list ->
+  unit ->
+  roles__zookeeper_node
+
+type roles
+
+val roles :
+  edge_node:roles__edge_node list ->
+  head_node:roles__head_node list ->
+  worker_node:roles__worker_node list ->
+  zookeeper_node:roles__zookeeper_node list ->
+  unit ->
+  roles
+
+type security_profile
+
+val security_profile :
+  ?cluster_users_group_dns:string prop list ->
+  aadds_resource_id:string prop ->
+  domain_name:string prop ->
+  domain_user_password:string prop ->
+  domain_username:string prop ->
+  ldaps_urls:string prop list ->
+  msi_resource_id:string prop ->
+  unit ->
+  security_profile
+
+type storage_account
+
+val storage_account :
+  ?storage_resource_id:string prop ->
+  is_default:bool prop ->
+  storage_account_key:string prop ->
+  storage_container_id:string prop ->
+  unit ->
+  storage_account
+
+type storage_account_gen2
+
+val storage_account_gen2 :
+  filesystem_id:string prop ->
+  is_default:bool prop ->
+  managed_identity_resource_id:string prop ->
+  storage_resource_id:string prop ->
+  unit ->
+  storage_account_gen2
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_hdinsight_hadoop_cluster
+
+val azurerm_hdinsight_hadoop_cluster :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_min_version:string prop ->
+  ?timeouts:timeouts ->
+  cluster_version:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  tier:string prop ->
+  component_version:component_version list ->
+  compute_isolation:compute_isolation list ->
+  disk_encryption:disk_encryption list ->
+  extension:extension list ->
+  gateway:gateway list ->
+  metastores:metastores list ->
+  monitor:monitor list ->
+  network:network list ->
+  roles:roles list ->
+  security_profile:security_profile list ->
+  storage_account:storage_account list ->
+  storage_account_gen2:storage_account_gen2 list ->
+  unit ->
+  azurerm_hdinsight_hadoop_cluster
+
+val yojson_of_azurerm_hdinsight_hadoop_cluster :
+  azurerm_hdinsight_hadoop_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster_version : string prop;
@@ -61,33 +335,28 @@ type t = private {
   tls_min_version : string prop;
 }
 
-val azurerm_hdinsight_hadoop_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_min_version:string prop ->
-  ?timeouts:azurerm_hdinsight_hadoop_cluster__timeouts ->
+  ?timeouts:timeouts ->
   cluster_version:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   tier:string prop ->
-  component_version:
-    azurerm_hdinsight_hadoop_cluster__component_version list ->
-  compute_isolation:
-    azurerm_hdinsight_hadoop_cluster__compute_isolation list ->
-  disk_encryption:
-    azurerm_hdinsight_hadoop_cluster__disk_encryption list ->
-  extension:azurerm_hdinsight_hadoop_cluster__extension list ->
-  gateway:azurerm_hdinsight_hadoop_cluster__gateway list ->
-  metastores:azurerm_hdinsight_hadoop_cluster__metastores list ->
-  monitor:azurerm_hdinsight_hadoop_cluster__monitor list ->
-  network:azurerm_hdinsight_hadoop_cluster__network list ->
-  roles:azurerm_hdinsight_hadoop_cluster__roles list ->
-  security_profile:
-    azurerm_hdinsight_hadoop_cluster__security_profile list ->
-  storage_account:
-    azurerm_hdinsight_hadoop_cluster__storage_account list ->
-  storage_account_gen2:
-    azurerm_hdinsight_hadoop_cluster__storage_account_gen2 list ->
+  component_version:component_version list ->
+  compute_isolation:compute_isolation list ->
+  disk_encryption:disk_encryption list ->
+  extension:extension list ->
+  gateway:gateway list ->
+  metastores:metastores list ->
+  monitor:monitor list ->
+  network:network list ->
+  roles:roles list ->
+  security_profile:security_profile list ->
+  storage_account:storage_account list ->
+  storage_account_gen2:storage_account_gen2 list ->
   string ->
   t

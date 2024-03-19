@@ -4,26 +4,26 @@
 
 open! Tf.Prelude
 
-type aws_vpc_peering_connection_accepter__accepter = {
+type accepter = {
   allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_peering_connection_accepter__accepter *)
+(** accepter *)
 
-type aws_vpc_peering_connection_accepter__requester = {
+type requester = {
   allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_peering_connection_accepter__requester *)
+(** requester *)
 
-type aws_vpc_peering_connection_accepter__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_peering_connection_accepter__timeouts *)
+(** timeouts *)
 
 type aws_vpc_peering_connection_accepter = {
   auto_accept : bool prop option; [@option]  (** auto_accept *)
@@ -33,12 +33,34 @@ type aws_vpc_peering_connection_accepter = {
       (** tags_all *)
   vpc_peering_connection_id : string prop;
       (** vpc_peering_connection_id *)
-  accepter : aws_vpc_peering_connection_accepter__accepter list;
-  requester : aws_vpc_peering_connection_accepter__requester list;
-  timeouts : aws_vpc_peering_connection_accepter__timeouts option;
+  accepter : accepter list;
+  requester : requester list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_accepter *)
+
+let accepter ?allow_remote_vpc_dns_resolution () : accepter =
+  { allow_remote_vpc_dns_resolution }
+
+let requester ?allow_remote_vpc_dns_resolution () : requester =
+  { allow_remote_vpc_dns_resolution }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
+    ?tags_all ?timeouts ~vpc_peering_connection_id ~accepter
+    ~requester () : aws_vpc_peering_connection_accepter =
+  {
+    auto_accept;
+    id;
+    tags;
+    tags_all;
+    vpc_peering_connection_id;
+    accepter;
+    requester;
+    timeouts;
+  }
 
 type t = {
   accept_status : string prop;
@@ -53,24 +75,15 @@ type t = {
   vpc_peering_connection_id : string prop;
 }
 
-let aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
-    ?tags_all ?timeouts ~vpc_peering_connection_id ~accepter
-    ~requester __resource_id =
+let register ?tf_module ?auto_accept ?id ?tags ?tags_all ?timeouts
+    ~vpc_peering_connection_id ~accepter ~requester __resource_id =
   let __resource_type = "aws_vpc_peering_connection_accepter" in
   let __resource =
-    ({
-       auto_accept;
-       id;
-       tags;
-       tags_all;
-       vpc_peering_connection_id;
-       accepter;
-       requester;
-       timeouts;
-     }
-      : aws_vpc_peering_connection_accepter)
+    aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
+      ?tags_all ?timeouts ~vpc_peering_connection_id ~accepter
+      ~requester ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_peering_connection_accepter __resource);
   let __resource_attributes =
     ({

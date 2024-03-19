@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_job_schedule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_job_schedule__timeouts *)
+(** timeouts *)
 
 type azurerm_automation_job_schedule = {
   automation_account_name : string prop;
@@ -24,10 +24,29 @@ type azurerm_automation_job_schedule = {
   run_on : string prop option; [@option]  (** run_on *)
   runbook_name : string prop;  (** runbook_name *)
   schedule_name : string prop;  (** schedule_name *)
-  timeouts : azurerm_automation_job_schedule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_job_schedule *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_automation_job_schedule ?id ?job_schedule_id ?parameters
+    ?run_on ?timeouts ~automation_account_name ~resource_group_name
+    ~runbook_name ~schedule_name () : azurerm_automation_job_schedule
+    =
+  {
+    automation_account_name;
+    id;
+    job_schedule_id;
+    parameters;
+    resource_group_name;
+    run_on;
+    runbook_name;
+    schedule_name;
+    timeouts;
+  }
 
 type t = {
   automation_account_name : string prop;
@@ -40,25 +59,16 @@ type t = {
   schedule_name : string prop;
 }
 
-let azurerm_automation_job_schedule ?id ?job_schedule_id ?parameters
-    ?run_on ?timeouts ~automation_account_name ~resource_group_name
+let register ?tf_module ?id ?job_schedule_id ?parameters ?run_on
+    ?timeouts ~automation_account_name ~resource_group_name
     ~runbook_name ~schedule_name __resource_id =
   let __resource_type = "azurerm_automation_job_schedule" in
   let __resource =
-    ({
-       automation_account_name;
-       id;
-       job_schedule_id;
-       parameters;
-       resource_group_name;
-       run_on;
-       runbook_name;
-       schedule_name;
-       timeouts;
-     }
-      : azurerm_automation_job_schedule)
+    azurerm_automation_job_schedule ?id ?job_schedule_id ?parameters
+      ?run_on ?timeouts ~automation_account_name ~resource_group_name
+      ~runbook_name ~schedule_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_job_schedule __resource);
   let __resource_attributes =
     ({

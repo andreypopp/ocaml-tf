@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_monitoring_custom_service__telemetry = {
+type telemetry = {
   resource_name : string prop option; [@option]
       (** The full name of the resource that defines this service.
 Formatted as described in
@@ -13,13 +13,13 @@ https://cloud.google.com/apis/design/resource_names. *)
 [@@deriving yojson_of]
 (** Configuration for how to query telemetry on a Service. *)
 
-type google_monitoring_custom_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_monitoring_custom_service__timeouts *)
+(** timeouts *)
 
 type google_monitoring_custom_service = {
   display_name : string prop option; [@option]
@@ -36,11 +36,29 @@ numbers, underscores, and dashes. Label keys and values have a maximum
 length of 63 characters, and must be less than 128 bytes in size. Up to 64
 label entries may be stored. For labels which do not have a semantic value,
 the empty string may be supplied for the label value. *)
-  telemetry : google_monitoring_custom_service__telemetry list;
-  timeouts : google_monitoring_custom_service__timeouts option;
+  telemetry : telemetry list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_monitoring_custom_service *)
+
+let telemetry ?resource_name () : telemetry = { resource_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_monitoring_custom_service ?display_name ?id ?project
+    ?service_id ?user_labels ?timeouts ~telemetry () :
+    google_monitoring_custom_service =
+  {
+    display_name;
+    id;
+    project;
+    service_id;
+    user_labels;
+    telemetry;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -51,22 +69,14 @@ type t = {
   user_labels : (string * string) list prop;
 }
 
-let google_monitoring_custom_service ?display_name ?id ?project
-    ?service_id ?user_labels ?timeouts ~telemetry __resource_id =
+let register ?tf_module ?display_name ?id ?project ?service_id
+    ?user_labels ?timeouts ~telemetry __resource_id =
   let __resource_type = "google_monitoring_custom_service" in
   let __resource =
-    ({
-       display_name;
-       id;
-       project;
-       service_id;
-       user_labels;
-       telemetry;
-       timeouts;
-     }
-      : google_monitoring_custom_service)
+    google_monitoring_custom_service ?display_name ?id ?project
+      ?service_id ?user_labels ?timeouts ~telemetry ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_custom_service __resource);
   let __resource_attributes =
     ({

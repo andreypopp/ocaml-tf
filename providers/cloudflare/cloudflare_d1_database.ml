@@ -13,6 +13,10 @@ type cloudflare_d1_database = {
 (** The [D1 Database](https://developers.cloudflare.com/d1/) resource allows you to manage Cloudflare D1 databases.
  *)
 
+let cloudflare_d1_database ~account_id ~name () :
+    cloudflare_d1_database =
+  { account_id; name }
+
 type t = {
   account_id : string prop;
   id : string prop;
@@ -20,10 +24,10 @@ type t = {
   version : string prop;
 }
 
-let cloudflare_d1_database ~account_id ~name __resource_id =
+let register ?tf_module ~account_id ~name __resource_id =
   let __resource_type = "cloudflare_d1_database" in
-  let __resource = ({ account_id; name } : cloudflare_d1_database) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = cloudflare_d1_database ~account_id ~name () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_d1_database __resource);
   let __resource_attributes =
     ({

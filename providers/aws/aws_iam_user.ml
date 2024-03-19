@@ -19,6 +19,18 @@ type aws_iam_user = {
 [@@deriving yojson_of]
 (** aws_iam_user *)
 
+let aws_iam_user ?force_destroy ?id ?path ?permissions_boundary ?tags
+    ?tags_all ~name () : aws_iam_user =
+  {
+    force_destroy;
+    id;
+    name;
+    path;
+    permissions_boundary;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   force_destroy : bool prop;
@@ -31,22 +43,14 @@ type t = {
   unique_id : string prop;
 }
 
-let aws_iam_user ?force_destroy ?id ?path ?permissions_boundary ?tags
-    ?tags_all ~name __resource_id =
+let register ?tf_module ?force_destroy ?id ?path
+    ?permissions_boundary ?tags ?tags_all ~name __resource_id =
   let __resource_type = "aws_iam_user" in
   let __resource =
-    ({
-       force_destroy;
-       id;
-       name;
-       path;
-       permissions_boundary;
-       tags;
-       tags_all;
-     }
-      : aws_iam_user)
+    aws_iam_user ?force_destroy ?id ?path ?permissions_boundary ?tags
+      ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_user __resource);
   let __resource_attributes =
     ({

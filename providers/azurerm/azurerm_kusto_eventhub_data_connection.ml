@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_kusto_eventhub_data_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_kusto_eventhub_data_connection__timeouts *)
+(** timeouts *)
 
 type azurerm_kusto_eventhub_data_connection = {
   cluster_name : string prop;  (** cluster_name *)
@@ -32,10 +32,38 @@ type azurerm_kusto_eventhub_data_connection = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   table_name : string prop option; [@option]  (** table_name *)
-  timeouts : azurerm_kusto_eventhub_data_connection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_eventhub_data_connection *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_kusto_eventhub_data_connection ?compression ?data_format
+    ?database_routing_type ?event_system_properties ?id ?identity_id
+    ?mapping_rule_name ?table_name ?timeouts ~cluster_name
+    ~consumer_group ~database_name ~eventhub_id ~location ~name
+    ~resource_group_name () : azurerm_kusto_eventhub_data_connection
+    =
+  {
+    cluster_name;
+    compression;
+    consumer_group;
+    data_format;
+    database_name;
+    database_routing_type;
+    event_system_properties;
+    eventhub_id;
+    id;
+    identity_id;
+    location;
+    mapping_rule_name;
+    name;
+    resource_group_name;
+    table_name;
+    timeouts;
+  }
 
 type t = {
   cluster_name : string prop;
@@ -55,34 +83,20 @@ type t = {
   table_name : string prop;
 }
 
-let azurerm_kusto_eventhub_data_connection ?compression ?data_format
+let register ?tf_module ?compression ?data_format
     ?database_routing_type ?event_system_properties ?id ?identity_id
     ?mapping_rule_name ?table_name ?timeouts ~cluster_name
     ~consumer_group ~database_name ~eventhub_id ~location ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_kusto_eventhub_data_connection" in
   let __resource =
-    ({
-       cluster_name;
-       compression;
-       consumer_group;
-       data_format;
-       database_name;
-       database_routing_type;
-       event_system_properties;
-       eventhub_id;
-       id;
-       identity_id;
-       location;
-       mapping_rule_name;
-       name;
-       resource_group_name;
-       table_name;
-       timeouts;
-     }
-      : azurerm_kusto_eventhub_data_connection)
+    azurerm_kusto_eventhub_data_connection ?compression ?data_format
+      ?database_routing_type ?event_system_properties ?id
+      ?identity_id ?mapping_rule_name ?table_name ?timeouts
+      ~cluster_name ~consumer_group ~database_name ~eventhub_id
+      ~location ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_eventhub_data_connection __resource);
   let __resource_attributes =
     ({

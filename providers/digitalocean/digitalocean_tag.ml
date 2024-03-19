@@ -11,6 +11,8 @@ type digitalocean_tag = {
 [@@deriving yojson_of]
 (** digitalocean_tag *)
 
+let digitalocean_tag ?id ~name () : digitalocean_tag = { id; name }
+
 type t = {
   databases_count : float prop;
   droplets_count : float prop;
@@ -22,10 +24,10 @@ type t = {
   volumes_count : float prop;
 }
 
-let digitalocean_tag ?id ~name __resource_id =
+let register ?tf_module ?id ~name __resource_id =
   let __resource_type = "digitalocean_tag" in
-  let __resource = ({ id; name } : digitalocean_tag) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = digitalocean_tag ?id ~name () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_tag __resource);
   let __resource_attributes =
     ({

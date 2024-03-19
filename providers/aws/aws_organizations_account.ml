@@ -23,6 +23,22 @@ type aws_organizations_account = {
 [@@deriving yojson_of]
 (** aws_organizations_account *)
 
+let aws_organizations_account ?close_on_deletion ?create_govcloud
+    ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
+    ?tags_all ~email ~name () : aws_organizations_account =
+  {
+    close_on_deletion;
+    create_govcloud;
+    email;
+    iam_user_access_to_billing;
+    id;
+    name;
+    parent_id;
+    role_name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   close_on_deletion : bool prop;
@@ -41,26 +57,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_organizations_account ?close_on_deletion ?create_govcloud
+let register ?tf_module ?close_on_deletion ?create_govcloud
     ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
     ?tags_all ~email ~name __resource_id =
   let __resource_type = "aws_organizations_account" in
   let __resource =
-    ({
-       close_on_deletion;
-       create_govcloud;
-       email;
-       iam_user_access_to_billing;
-       id;
-       name;
-       parent_id;
-       role_name;
-       tags;
-       tags_all;
-     }
-      : aws_organizations_account)
+    aws_organizations_account ?close_on_deletion ?create_govcloud
+      ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
+      ?tags_all ~email ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_account __resource);
   let __resource_attributes =
     ({

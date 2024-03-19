@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_db_instance__blue_green_update = {
+type blue_green_update = {
   enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_db_instance__blue_green_update *)
+(** blue_green_update *)
 
-type aws_db_instance__restore_to_point_in_time = {
+type restore_to_point_in_time = {
   restore_time : string prop option; [@option]  (** restore_time *)
   source_db_instance_automated_backups_arn : string prop option;
       [@option]
@@ -23,9 +23,9 @@ type aws_db_instance__restore_to_point_in_time = {
       (** use_latest_restorable_time *)
 }
 [@@deriving yojson_of]
-(** aws_db_instance__restore_to_point_in_time *)
+(** restore_to_point_in_time *)
 
-type aws_db_instance__s3_import = {
+type s3_import = {
   bucket_name : string prop;  (** bucket_name *)
   bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
   ingestion_role : string prop;  (** ingestion_role *)
@@ -33,24 +33,24 @@ type aws_db_instance__s3_import = {
   source_engine_version : string prop;  (** source_engine_version *)
 }
 [@@deriving yojson_of]
-(** aws_db_instance__s3_import *)
+(** s3_import *)
 
-type aws_db_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_db_instance__timeouts *)
+(** timeouts *)
 
-type aws_db_instance__listener_endpoint = {
+type listener_endpoint = {
   address : string prop;  (** address *)
   hosted_zone_id : string prop;  (** hosted_zone_id *)
   port : float prop;  (** port *)
 }
 [@@deriving yojson_of]
 
-type aws_db_instance__master_user_secret = {
+type master_user_secret = {
   kms_key_id : string prop;  (** kms_key_id *)
   secret_arn : string prop;  (** secret_arn *)
   secret_status : string prop;  (** secret_status *)
@@ -166,14 +166,135 @@ type aws_db_instance = {
   username : string prop option; [@option]  (** username *)
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  blue_green_update : aws_db_instance__blue_green_update list;
-  restore_to_point_in_time :
-    aws_db_instance__restore_to_point_in_time list;
-  s3_import : aws_db_instance__s3_import list;
-  timeouts : aws_db_instance__timeouts option;
+  blue_green_update : blue_green_update list;
+  restore_to_point_in_time : restore_to_point_in_time list;
+  s3_import : s3_import list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_instance *)
+
+let blue_green_update ?enabled () : blue_green_update = { enabled }
+
+let restore_to_point_in_time ?restore_time
+    ?source_db_instance_automated_backups_arn
+    ?source_db_instance_identifier ?source_dbi_resource_id
+    ?use_latest_restorable_time () : restore_to_point_in_time =
+  {
+    restore_time;
+    source_db_instance_automated_backups_arn;
+    source_db_instance_identifier;
+    source_dbi_resource_id;
+    use_latest_restorable_time;
+  }
+
+let s3_import ?bucket_prefix ~bucket_name ~ingestion_role
+    ~source_engine ~source_engine_version () : s3_import =
+  {
+    bucket_name;
+    bucket_prefix;
+    ingestion_role;
+    source_engine;
+    source_engine_version;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_db_instance ?allocated_storage ?allow_major_version_upgrade
+    ?apply_immediately ?auto_minor_version_upgrade ?availability_zone
+    ?backup_retention_period ?backup_target ?backup_window
+    ?ca_cert_identifier ?character_set_name ?copy_tags_to_snapshot
+    ?custom_iam_instance_profile ?customer_owned_ip_enabled ?db_name
+    ?db_subnet_group_name ?delete_automated_backups
+    ?deletion_protection ?domain ?domain_auth_secret_arn
+    ?domain_dns_ips ?domain_fqdn ?domain_iam_role_name ?domain_ou
+    ?enabled_cloudwatch_logs_exports ?engine ?engine_version
+    ?final_snapshot_identifier ?iam_database_authentication_enabled
+    ?id ?identifier ?identifier_prefix ?iops ?kms_key_id
+    ?license_model ?maintenance_window ?manage_master_user_password
+    ?master_user_secret_kms_key_id ?max_allocated_storage
+    ?monitoring_interval ?monitoring_role_arn ?multi_az
+    ?nchar_character_set_name ?network_type ?option_group_name
+    ?parameter_group_name ?password ?performance_insights_enabled
+    ?performance_insights_kms_key_id
+    ?performance_insights_retention_period ?port ?publicly_accessible
+    ?replica_mode ?replicate_source_db ?skip_final_snapshot
+    ?snapshot_identifier ?storage_encrypted ?storage_throughput
+    ?storage_type ?tags ?tags_all ?timezone ?username
+    ?vpc_security_group_ids ?timeouts ~instance_class
+    ~blue_green_update ~restore_to_point_in_time ~s3_import () :
+    aws_db_instance =
+  {
+    allocated_storage;
+    allow_major_version_upgrade;
+    apply_immediately;
+    auto_minor_version_upgrade;
+    availability_zone;
+    backup_retention_period;
+    backup_target;
+    backup_window;
+    ca_cert_identifier;
+    character_set_name;
+    copy_tags_to_snapshot;
+    custom_iam_instance_profile;
+    customer_owned_ip_enabled;
+    db_name;
+    db_subnet_group_name;
+    delete_automated_backups;
+    deletion_protection;
+    domain;
+    domain_auth_secret_arn;
+    domain_dns_ips;
+    domain_fqdn;
+    domain_iam_role_name;
+    domain_ou;
+    enabled_cloudwatch_logs_exports;
+    engine;
+    engine_version;
+    final_snapshot_identifier;
+    iam_database_authentication_enabled;
+    id;
+    identifier;
+    identifier_prefix;
+    instance_class;
+    iops;
+    kms_key_id;
+    license_model;
+    maintenance_window;
+    manage_master_user_password;
+    master_user_secret_kms_key_id;
+    max_allocated_storage;
+    monitoring_interval;
+    monitoring_role_arn;
+    multi_az;
+    nchar_character_set_name;
+    network_type;
+    option_group_name;
+    parameter_group_name;
+    password;
+    performance_insights_enabled;
+    performance_insights_kms_key_id;
+    performance_insights_retention_period;
+    port;
+    publicly_accessible;
+    replica_mode;
+    replicate_source_db;
+    skip_final_snapshot;
+    snapshot_identifier;
+    storage_encrypted;
+    storage_throughput;
+    storage_type;
+    tags;
+    tags_all;
+    timezone;
+    username;
+    vpc_security_group_ids;
+    blue_green_update;
+    restore_to_point_in_time;
+    s3_import;
+    timeouts;
+  }
 
 type t = {
   address : string prop;
@@ -217,10 +338,10 @@ type t = {
   kms_key_id : string prop;
   latest_restorable_time : string prop;
   license_model : string prop;
-  listener_endpoint : aws_db_instance__listener_endpoint list prop;
+  listener_endpoint : listener_endpoint list prop;
   maintenance_window : string prop;
   manage_master_user_password : bool prop;
-  master_user_secret : aws_db_instance__master_user_secret list prop;
+  master_user_secret : master_user_secret list prop;
   master_user_secret_kms_key_id : string prop;
   max_allocated_storage : float prop;
   monitoring_interval : float prop;
@@ -253,8 +374,9 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
-let aws_db_instance ?allocated_storage ?allow_major_version_upgrade
-    ?apply_immediately ?auto_minor_version_upgrade ?availability_zone
+let register ?tf_module ?allocated_storage
+    ?allow_major_version_upgrade ?apply_immediately
+    ?auto_minor_version_upgrade ?availability_zone
     ?backup_retention_period ?backup_target ?backup_window
     ?ca_cert_identifier ?character_set_name ?copy_tags_to_snapshot
     ?custom_iam_instance_profile ?customer_owned_ip_enabled ?db_name
@@ -279,79 +401,32 @@ let aws_db_instance ?allocated_storage ?allow_major_version_upgrade
     __resource_id =
   let __resource_type = "aws_db_instance" in
   let __resource =
-    ({
-       allocated_storage;
-       allow_major_version_upgrade;
-       apply_immediately;
-       auto_minor_version_upgrade;
-       availability_zone;
-       backup_retention_period;
-       backup_target;
-       backup_window;
-       ca_cert_identifier;
-       character_set_name;
-       copy_tags_to_snapshot;
-       custom_iam_instance_profile;
-       customer_owned_ip_enabled;
-       db_name;
-       db_subnet_group_name;
-       delete_automated_backups;
-       deletion_protection;
-       domain;
-       domain_auth_secret_arn;
-       domain_dns_ips;
-       domain_fqdn;
-       domain_iam_role_name;
-       domain_ou;
-       enabled_cloudwatch_logs_exports;
-       engine;
-       engine_version;
-       final_snapshot_identifier;
-       iam_database_authentication_enabled;
-       id;
-       identifier;
-       identifier_prefix;
-       instance_class;
-       iops;
-       kms_key_id;
-       license_model;
-       maintenance_window;
-       manage_master_user_password;
-       master_user_secret_kms_key_id;
-       max_allocated_storage;
-       monitoring_interval;
-       monitoring_role_arn;
-       multi_az;
-       nchar_character_set_name;
-       network_type;
-       option_group_name;
-       parameter_group_name;
-       password;
-       performance_insights_enabled;
-       performance_insights_kms_key_id;
-       performance_insights_retention_period;
-       port;
-       publicly_accessible;
-       replica_mode;
-       replicate_source_db;
-       skip_final_snapshot;
-       snapshot_identifier;
-       storage_encrypted;
-       storage_throughput;
-       storage_type;
-       tags;
-       tags_all;
-       timezone;
-       username;
-       vpc_security_group_ids;
-       blue_green_update;
-       restore_to_point_in_time;
-       s3_import;
-       timeouts;
-     }
-      : aws_db_instance)
+    aws_db_instance ?allocated_storage ?allow_major_version_upgrade
+      ?apply_immediately ?auto_minor_version_upgrade
+      ?availability_zone ?backup_retention_period ?backup_target
+      ?backup_window ?ca_cert_identifier ?character_set_name
+      ?copy_tags_to_snapshot ?custom_iam_instance_profile
+      ?customer_owned_ip_enabled ?db_name ?db_subnet_group_name
+      ?delete_automated_backups ?deletion_protection ?domain
+      ?domain_auth_secret_arn ?domain_dns_ips ?domain_fqdn
+      ?domain_iam_role_name ?domain_ou
+      ?enabled_cloudwatch_logs_exports ?engine ?engine_version
+      ?final_snapshot_identifier ?iam_database_authentication_enabled
+      ?id ?identifier ?identifier_prefix ?iops ?kms_key_id
+      ?license_model ?maintenance_window ?manage_master_user_password
+      ?master_user_secret_kms_key_id ?max_allocated_storage
+      ?monitoring_interval ?monitoring_role_arn ?multi_az
+      ?nchar_character_set_name ?network_type ?option_group_name
+      ?parameter_group_name ?password ?performance_insights_enabled
+      ?performance_insights_kms_key_id
+      ?performance_insights_retention_period ?port
+      ?publicly_accessible ?replica_mode ?replicate_source_db
+      ?skip_final_snapshot ?snapshot_identifier ?storage_encrypted
+      ?storage_throughput ?storage_type ?tags ?tags_all ?timezone
+      ?username ?vpc_security_group_ids ?timeouts ~instance_class
+      ~blue_green_update ~restore_to_point_in_time ~s3_import ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_instance __resource);
   let __resource_attributes =
     ({

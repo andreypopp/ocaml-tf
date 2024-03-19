@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_iap_client__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_iap_client__timeouts *)
+(** timeouts *)
 
 type google_iap_client = {
   brand : string prop;
@@ -19,10 +19,16 @@ is attached to. The format is
   display_name : string prop;
       (** Human-friendly name given to the OAuth client. *)
   id : string prop option; [@option]  (** id *)
-  timeouts : google_iap_client__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_iap_client *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_iap_client ?id ?timeouts ~brand ~display_name () :
+    google_iap_client =
+  { brand; display_name; id; timeouts }
 
 type t = {
   brand : string prop;
@@ -32,13 +38,13 @@ type t = {
   secret : string prop;
 }
 
-let google_iap_client ?id ?timeouts ~brand ~display_name
+let register ?tf_module ?id ?timeouts ~brand ~display_name
     __resource_id =
   let __resource_type = "google_iap_client" in
   let __resource =
-    ({ brand; display_name; id; timeouts } : google_iap_client)
+    google_iap_client ?id ?timeouts ~brand ~display_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_client __resource);
   let __resource_attributes =
     ({

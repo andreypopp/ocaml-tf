@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_account_network_rules__private_link_access
-type azurerm_storage_account_network_rules__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type private_link_access
+
+val private_link_access :
+  ?endpoint_tenant_id:string prop ->
+  endpoint_resource_id:string prop ->
+  unit ->
+  private_link_access
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_storage_account_network_rules
+
+val azurerm_storage_account_network_rules :
+  ?bypass:string prop list ->
+  ?id:string prop ->
+  ?ip_rules:string prop list ->
+  ?virtual_network_subnet_ids:string prop list ->
+  ?timeouts:timeouts ->
+  default_action:string prop ->
+  storage_account_id:string prop ->
+  private_link_access:private_link_access list ->
+  unit ->
+  azurerm_storage_account_network_rules
+
+val yojson_of_azurerm_storage_account_network_rules :
+  azurerm_storage_account_network_rules -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bypass : string list prop;
@@ -15,15 +50,15 @@ type t = private {
   virtual_network_subnet_ids : string list prop;
 }
 
-val azurerm_storage_account_network_rules :
+val register :
+  ?tf_module:tf_module ->
   ?bypass:string prop list ->
   ?id:string prop ->
   ?ip_rules:string prop list ->
   ?virtual_network_subnet_ids:string prop list ->
-  ?timeouts:azurerm_storage_account_network_rules__timeouts ->
+  ?timeouts:timeouts ->
   default_action:string prop ->
   storage_account_id:string prop ->
-  private_link_access:
-    azurerm_storage_account_network_rules__private_link_access list ->
+  private_link_access:private_link_access list ->
   string ->
   t

@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_certificate_map_entry__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_certificate_manager_certificate_map_entry
+
+val google_certificate_manager_certificate_map_entry :
+  ?description:string prop ->
+  ?hostname:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?matcher:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  certificates:string prop list ->
+  map:string prop ->
+  name:string prop ->
+  unit ->
+  google_certificate_manager_certificate_map_entry
+
+val yojson_of_google_certificate_manager_certificate_map_entry :
+  google_certificate_manager_certificate_map_entry -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificates : string list prop;
@@ -22,15 +51,15 @@ type t = private {
   update_time : string prop;
 }
 
-val google_certificate_manager_certificate_map_entry :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?hostname:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?matcher:string prop ->
   ?project:string prop ->
-  ?timeouts:
-    google_certificate_manager_certificate_map_entry__timeouts ->
+  ?timeouts:timeouts ->
   certificates:string prop list ->
   map:string prop ->
   name:string prop ->

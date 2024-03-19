@@ -13,6 +13,9 @@ type aws_ecs_tag = {
 [@@deriving yojson_of]
 (** aws_ecs_tag *)
 
+let aws_ecs_tag ?id ~key ~resource_arn ~value () : aws_ecs_tag =
+  { id; key; resource_arn; value }
+
 type t = {
   id : string prop;
   key : string prop;
@@ -20,12 +23,10 @@ type t = {
   value : string prop;
 }
 
-let aws_ecs_tag ?id ~key ~resource_arn ~value __resource_id =
+let register ?tf_module ?id ~key ~resource_arn ~value __resource_id =
   let __resource_type = "aws_ecs_tag" in
-  let __resource =
-    ({ id; key; resource_arn; value } : aws_ecs_tag)
-  in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_ecs_tag ?id ~key ~resource_arn ~value () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_tag __resource);
   let __resource_attributes =
     ({

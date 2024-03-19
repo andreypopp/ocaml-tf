@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_dataexchange_revision
+
+val aws_dataexchange_revision :
+  ?comment:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  data_set_id:string prop ->
+  unit ->
+  aws_dataexchange_revision
+
+val yojson_of_aws_dataexchange_revision :
+  aws_dataexchange_revision -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +30,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_dataexchange_revision :
+val register :
+  ?tf_module:tf_module ->
   ?comment:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

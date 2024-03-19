@@ -19,6 +19,20 @@ type aws_apprunner_auto_scaling_configuration_version = {
 [@@deriving yojson_of]
 (** aws_apprunner_auto_scaling_configuration_version *)
 
+let aws_apprunner_auto_scaling_configuration_version ?id
+    ?max_concurrency ?max_size ?min_size ?tags ?tags_all
+    ~auto_scaling_configuration_name () :
+    aws_apprunner_auto_scaling_configuration_version =
+  {
+    auto_scaling_configuration_name;
+    id;
+    max_concurrency;
+    max_size;
+    min_size;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   auto_scaling_configuration_name : string prop;
@@ -35,25 +49,17 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_apprunner_auto_scaling_configuration_version ?id
-    ?max_concurrency ?max_size ?min_size ?tags ?tags_all
-    ~auto_scaling_configuration_name __resource_id =
+let register ?tf_module ?id ?max_concurrency ?max_size ?min_size
+    ?tags ?tags_all ~auto_scaling_configuration_name __resource_id =
   let __resource_type =
     "aws_apprunner_auto_scaling_configuration_version"
   in
   let __resource =
-    ({
-       auto_scaling_configuration_name;
-       id;
-       max_concurrency;
-       max_size;
-       min_size;
-       tags;
-       tags_all;
-     }
-      : aws_apprunner_auto_scaling_configuration_version)
+    aws_apprunner_auto_scaling_configuration_version ?id
+      ?max_concurrency ?max_size ?min_size ?tags ?tags_all
+      ~auto_scaling_configuration_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apprunner_auto_scaling_configuration_version
        __resource);
   let __resource_attributes =

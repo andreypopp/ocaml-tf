@@ -4,22 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_monitoring_schedule__monitoring_schedule_config__schedule_config = {
+type monitoring_schedule_config__schedule_config = {
   schedule_expression : string prop;  (** schedule_expression *)
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_monitoring_schedule__monitoring_schedule_config__schedule_config *)
+(** monitoring_schedule_config__schedule_config *)
 
-type aws_sagemaker_monitoring_schedule__monitoring_schedule_config = {
+type monitoring_schedule_config = {
   monitoring_job_definition_name : string prop;
       (** monitoring_job_definition_name *)
   monitoring_type : string prop;  (** monitoring_type *)
-  schedule_config :
-    aws_sagemaker_monitoring_schedule__monitoring_schedule_config__schedule_config
-    list;
+  schedule_config : monitoring_schedule_config__schedule_config list;
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_monitoring_schedule__monitoring_schedule_config *)
+(** monitoring_schedule_config *)
 
 type aws_sagemaker_monitoring_schedule = {
   id : string prop option; [@option]  (** id *)
@@ -27,12 +25,28 @@ type aws_sagemaker_monitoring_schedule = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  monitoring_schedule_config :
-    aws_sagemaker_monitoring_schedule__monitoring_schedule_config
-    list;
+  monitoring_schedule_config : monitoring_schedule_config list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_monitoring_schedule *)
+
+let monitoring_schedule_config__schedule_config ~schedule_expression
+    () : monitoring_schedule_config__schedule_config =
+  { schedule_expression }
+
+let monitoring_schedule_config ~monitoring_job_definition_name
+    ~monitoring_type ~schedule_config () : monitoring_schedule_config
+    =
+  {
+    monitoring_job_definition_name;
+    monitoring_type;
+    schedule_config;
+  }
+
+let aws_sagemaker_monitoring_schedule ?id ?name ?tags ?tags_all
+    ~monitoring_schedule_config () :
+    aws_sagemaker_monitoring_schedule =
+  { id; name; tags; tags_all; monitoring_schedule_config }
 
 type t = {
   arn : string prop;
@@ -42,14 +56,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_sagemaker_monitoring_schedule ?id ?name ?tags ?tags_all
+let register ?tf_module ?id ?name ?tags ?tags_all
     ~monitoring_schedule_config __resource_id =
   let __resource_type = "aws_sagemaker_monitoring_schedule" in
   let __resource =
-    ({ id; name; tags; tags_all; monitoring_schedule_config }
-      : aws_sagemaker_monitoring_schedule)
+    aws_sagemaker_monitoring_schedule ?id ?name ?tags ?tags_all
+      ~monitoring_schedule_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_monitoring_schedule __resource);
   let __resource_attributes =
     ({

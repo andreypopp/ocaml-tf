@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_redis_linked_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_redis_linked_server__timeouts *)
+(** timeouts *)
 
 type azurerm_redis_linked_server = {
   id : string prop option; [@option]  (** id *)
@@ -21,10 +21,26 @@ type azurerm_redis_linked_server = {
   server_role : string prop;  (** server_role *)
   target_redis_cache_name : string prop;
       (** target_redis_cache_name *)
-  timeouts : azurerm_redis_linked_server__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_redis_linked_server *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_redis_linked_server ?id ?timeouts ~linked_redis_cache_id
+    ~linked_redis_cache_location ~resource_group_name ~server_role
+    ~target_redis_cache_name () : azurerm_redis_linked_server =
+  {
+    id;
+    linked_redis_cache_id;
+    linked_redis_cache_location;
+    resource_group_name;
+    server_role;
+    target_redis_cache_name;
+    timeouts;
+  }
 
 type t = {
   geo_replicated_primary_host_name : string prop;
@@ -37,23 +53,16 @@ type t = {
   target_redis_cache_name : string prop;
 }
 
-let azurerm_redis_linked_server ?id ?timeouts ~linked_redis_cache_id
+let register ?tf_module ?id ?timeouts ~linked_redis_cache_id
     ~linked_redis_cache_location ~resource_group_name ~server_role
     ~target_redis_cache_name __resource_id =
   let __resource_type = "azurerm_redis_linked_server" in
   let __resource =
-    ({
-       id;
-       linked_redis_cache_id;
-       linked_redis_cache_location;
-       resource_group_name;
-       server_role;
-       target_redis_cache_name;
-       timeouts;
-     }
-      : azurerm_redis_linked_server)
+    azurerm_redis_linked_server ?id ?timeouts ~linked_redis_cache_id
+      ~linked_redis_cache_location ~resource_group_name ~server_role
+      ~target_redis_cache_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_redis_linked_server __resource);
   let __resource_attributes =
     ({

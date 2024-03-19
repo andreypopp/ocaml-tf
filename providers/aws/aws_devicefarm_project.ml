@@ -16,6 +16,10 @@ type aws_devicefarm_project = {
 [@@deriving yojson_of]
 (** aws_devicefarm_project *)
 
+let aws_devicefarm_project ?default_job_timeout_minutes ?id ?tags
+    ?tags_all ~name () : aws_devicefarm_project =
+  { default_job_timeout_minutes; id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   default_job_timeout_minutes : float prop;
@@ -25,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_devicefarm_project ?default_job_timeout_minutes ?id ?tags
+let register ?tf_module ?default_job_timeout_minutes ?id ?tags
     ?tags_all ~name __resource_id =
   let __resource_type = "aws_devicefarm_project" in
   let __resource =
-    ({ default_job_timeout_minutes; id; name; tags; tags_all }
-      : aws_devicefarm_project)
+    aws_devicefarm_project ?default_job_timeout_minutes ?id ?tags
+      ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_devicefarm_project __resource);
   let __resource_attributes =
     ({

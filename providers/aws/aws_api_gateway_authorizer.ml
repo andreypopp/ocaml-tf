@@ -25,6 +25,23 @@ type aws_api_gateway_authorizer = {
 [@@deriving yojson_of]
 (** aws_api_gateway_authorizer *)
 
+let aws_api_gateway_authorizer ?authorizer_credentials
+    ?authorizer_result_ttl_in_seconds ?authorizer_uri ?id
+    ?identity_source ?identity_validation_expression ?provider_arns
+    ?type_ ~name ~rest_api_id () : aws_api_gateway_authorizer =
+  {
+    authorizer_credentials;
+    authorizer_result_ttl_in_seconds;
+    authorizer_uri;
+    id;
+    identity_source;
+    identity_validation_expression;
+    name;
+    provider_arns;
+    rest_api_id;
+    type_;
+  }
+
 type t = {
   arn : string prop;
   authorizer_credentials : string prop;
@@ -39,27 +56,18 @@ type t = {
   type_ : string prop;
 }
 
-let aws_api_gateway_authorizer ?authorizer_credentials
+let register ?tf_module ?authorizer_credentials
     ?authorizer_result_ttl_in_seconds ?authorizer_uri ?id
     ?identity_source ?identity_validation_expression ?provider_arns
     ?type_ ~name ~rest_api_id __resource_id =
   let __resource_type = "aws_api_gateway_authorizer" in
   let __resource =
-    ({
-       authorizer_credentials;
-       authorizer_result_ttl_in_seconds;
-       authorizer_uri;
-       id;
-       identity_source;
-       identity_validation_expression;
-       name;
-       provider_arns;
-       rest_api_id;
-       type_;
-     }
-      : aws_api_gateway_authorizer)
+    aws_api_gateway_authorizer ?authorizer_credentials
+      ?authorizer_result_ttl_in_seconds ?authorizer_uri ?id
+      ?identity_source ?identity_validation_expression ?provider_arns
+      ?type_ ~name ~rest_api_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_authorizer __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type google_sql_ssl_cert__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_sql_ssl_cert
+
+val google_sql_ssl_cert :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  common_name:string prop ->
+  instance:string prop ->
+  unit ->
+  google_sql_ssl_cert
+
+val yojson_of_google_sql_ssl_cert : google_sql_ssl_cert -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cert : string prop;
@@ -19,10 +38,11 @@ type t = private {
   sha1_fingerprint : string prop;
 }
 
-val google_sql_ssl_cert :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_sql_ssl_cert__timeouts ->
+  ?timeouts:timeouts ->
   common_name:string prop ->
   instance:string prop ->
   string ->

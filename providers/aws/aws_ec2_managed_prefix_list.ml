@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ec2_managed_prefix_list__entry = {
+type entry = {
   cidr : string prop;  (** cidr *)
   description : string prop option; [@option]  (** description *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_managed_prefix_list__entry *)
+(** entry *)
 
 type aws_ec2_managed_prefix_list = {
   address_family : string prop;  (** address_family *)
@@ -19,10 +19,16 @@ type aws_ec2_managed_prefix_list = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  entry : aws_ec2_managed_prefix_list__entry list;
+  entry : entry list;
 }
 [@@deriving yojson_of]
 (** aws_ec2_managed_prefix_list *)
+
+let entry ?description ~cidr () : entry = { cidr; description }
+
+let aws_ec2_managed_prefix_list ?id ?tags ?tags_all ~address_family
+    ~max_entries ~name ~entry () : aws_ec2_managed_prefix_list =
+  { address_family; id; max_entries; name; tags; tags_all; entry }
 
 type t = {
   address_family : string prop;
@@ -36,14 +42,14 @@ type t = {
   version : float prop;
 }
 
-let aws_ec2_managed_prefix_list ?id ?tags ?tags_all ~address_family
+let register ?tf_module ?id ?tags ?tags_all ~address_family
     ~max_entries ~name ~entry __resource_id =
   let __resource_type = "aws_ec2_managed_prefix_list" in
   let __resource =
-    ({ address_family; id; max_entries; name; tags; tags_all; entry }
-      : aws_ec2_managed_prefix_list)
+    aws_ec2_managed_prefix_list ?id ?tags ?tags_all ~address_family
+      ~max_entries ~name ~entry ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_managed_prefix_list __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ebs_default_kms_key
-type t = private { id : string prop; key_arn : string prop }
 
 val aws_ebs_default_kms_key :
-  ?id:string prop -> key_arn:string prop -> string -> t
+  ?id:string prop ->
+  key_arn:string prop ->
+  unit ->
+  aws_ebs_default_kms_key
+
+val yojson_of_aws_ebs_default_kms_key :
+  aws_ebs_default_kms_key -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; key_arn : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  key_arn:string prop ->
+  string ->
+  t

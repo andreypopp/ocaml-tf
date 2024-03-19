@@ -2,10 +2,54 @@
 
 open! Tf.Prelude
 
-type azurerm_iot_security_device_group__allow_rule
-type azurerm_iot_security_device_group__range_rule
-type azurerm_iot_security_device_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type allow_rule
+
+val allow_rule :
+  ?connection_from_ips_not_allowed:string prop list ->
+  ?connection_to_ips_not_allowed:string prop list ->
+  ?local_users_not_allowed:string prop list ->
+  ?processes_not_allowed:string prop list ->
+  unit ->
+  allow_rule
+
+type range_rule
+
+val range_rule :
+  duration:string prop ->
+  max:float prop ->
+  min:float prop ->
+  type_:string prop ->
+  unit ->
+  range_rule
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_iot_security_device_group
+
+val azurerm_iot_security_device_group :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  iothub_id:string prop ->
+  name:string prop ->
+  allow_rule:allow_rule list ->
+  range_rule:range_rule list ->
+  unit ->
+  azurerm_iot_security_device_group
+
+val yojson_of_azurerm_iot_security_device_group :
+  azurerm_iot_security_device_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,12 +57,13 @@ type t = private {
   name : string prop;
 }
 
-val azurerm_iot_security_device_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_iot_security_device_group__timeouts ->
+  ?timeouts:timeouts ->
   iothub_id:string prop ->
   name:string prop ->
-  allow_rule:azurerm_iot_security_device_group__allow_rule list ->
-  range_rule:azurerm_iot_security_device_group__range_rule list ->
+  allow_rule:allow_rule list ->
+  range_rule:range_rule list ->
   string ->
   t

@@ -4,24 +4,31 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_policy_tag_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_data_catalog_policy_tag_iam_binding__condition *)
+(** condition *)
 
 type google_data_catalog_policy_tag_iam_binding = {
   id : string prop option; [@option]  (** id *)
   members : string prop list;  (** members *)
   policy_tag : string prop;  (** policy_tag *)
   role : string prop;  (** role *)
-  condition :
-    google_data_catalog_policy_tag_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_data_catalog_policy_tag_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_data_catalog_policy_tag_iam_binding ?id ~members
+    ~policy_tag ~role ~condition () :
+    google_data_catalog_policy_tag_iam_binding =
+  { id; members; policy_tag; role; condition }
 
 type t = {
   etag : string prop;
@@ -31,16 +38,16 @@ type t = {
   role : string prop;
 }
 
-let google_data_catalog_policy_tag_iam_binding ?id ~members
-    ~policy_tag ~role ~condition __resource_id =
+let register ?tf_module ?id ~members ~policy_tag ~role ~condition
+    __resource_id =
   let __resource_type =
     "google_data_catalog_policy_tag_iam_binding"
   in
   let __resource =
-    ({ id; members; policy_tag; role; condition }
-      : google_data_catalog_policy_tag_iam_binding)
+    google_data_catalog_policy_tag_iam_binding ?id ~members
+      ~policy_tag ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_policy_tag_iam_binding __resource);
   let __resource_attributes =
     ({

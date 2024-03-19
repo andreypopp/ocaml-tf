@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_detective_organization_configuration
+
+val aws_detective_organization_configuration :
+  ?id:string prop ->
+  auto_enable:bool prop ->
+  graph_arn:string prop ->
+  unit ->
+  aws_detective_organization_configuration
+
+val yojson_of_aws_detective_organization_configuration :
+  aws_detective_organization_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   auto_enable : bool prop;
@@ -10,7 +24,8 @@ type t = private {
   id : string prop;
 }
 
-val aws_detective_organization_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   auto_enable:bool prop ->
   graph_arn:string prop ->

@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_eks_fargate_profile__selector = {
+type selector = {
   labels : (string * string prop) list option; [@option]
       (** labels *)
   namespace : string prop;  (** namespace *)
 }
 [@@deriving yojson_of]
-(** aws_eks_fargate_profile__selector *)
+(** selector *)
 
-type aws_eks_fargate_profile__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_eks_fargate_profile__timeouts *)
+(** timeouts *)
 
 type aws_eks_fargate_profile = {
   cluster_name : string prop;  (** cluster_name *)
@@ -29,11 +29,29 @@ type aws_eks_fargate_profile = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  selector : aws_eks_fargate_profile__selector list;
-  timeouts : aws_eks_fargate_profile__timeouts option;
+  selector : selector list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_eks_fargate_profile *)
+
+let selector ?labels ~namespace () : selector = { labels; namespace }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_eks_fargate_profile ?id ?subnet_ids ?tags ?tags_all ?timeouts
+    ~cluster_name ~fargate_profile_name ~pod_execution_role_arn
+    ~selector () : aws_eks_fargate_profile =
+  {
+    cluster_name;
+    fargate_profile_name;
+    id;
+    pod_execution_role_arn;
+    subnet_ids;
+    tags;
+    tags_all;
+    selector;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -47,25 +65,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_eks_fargate_profile ?id ?subnet_ids ?tags ?tags_all ?timeouts
+let register ?tf_module ?id ?subnet_ids ?tags ?tags_all ?timeouts
     ~cluster_name ~fargate_profile_name ~pod_execution_role_arn
     ~selector __resource_id =
   let __resource_type = "aws_eks_fargate_profile" in
   let __resource =
-    ({
-       cluster_name;
-       fargate_profile_name;
-       id;
-       pod_execution_role_arn;
-       subnet_ids;
-       tags;
-       tags_all;
-       selector;
-       timeouts;
-     }
-      : aws_eks_fargate_profile)
+    aws_eks_fargate_profile ?id ?subnet_ids ?tags ?tags_all ?timeouts
+      ~cluster_name ~fargate_profile_name ~pod_execution_role_arn
+      ~selector ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_fargate_profile __resource);
   let __resource_attributes =
     ({

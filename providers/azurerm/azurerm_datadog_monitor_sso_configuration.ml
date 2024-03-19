@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_datadog_monitor_sso_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_datadog_monitor_sso_configuration__timeouts *)
+(** timeouts *)
 
 type azurerm_datadog_monitor_sso_configuration = {
   datadog_monitor_id : string prop;  (** datadog_monitor_id *)
@@ -21,11 +21,26 @@ type azurerm_datadog_monitor_sso_configuration = {
   name : string prop option; [@option]  (** name *)
   single_sign_on_enabled : string prop;
       (** single_sign_on_enabled *)
-  timeouts :
-    azurerm_datadog_monitor_sso_configuration__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor_sso_configuration *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_datadog_monitor_sso_configuration ?id ?name ?timeouts
+    ~datadog_monitor_id ~enterprise_application_id
+    ~single_sign_on_enabled () :
+    azurerm_datadog_monitor_sso_configuration =
+  {
+    datadog_monitor_id;
+    enterprise_application_id;
+    id;
+    name;
+    single_sign_on_enabled;
+    timeouts;
+  }
 
 type t = {
   datadog_monitor_id : string prop;
@@ -36,24 +51,18 @@ type t = {
   single_sign_on_enabled : string prop;
 }
 
-let azurerm_datadog_monitor_sso_configuration ?id ?name ?timeouts
-    ~datadog_monitor_id ~enterprise_application_id
-    ~single_sign_on_enabled __resource_id =
+let register ?tf_module ?id ?name ?timeouts ~datadog_monitor_id
+    ~enterprise_application_id ~single_sign_on_enabled __resource_id
+    =
   let __resource_type =
     "azurerm_datadog_monitor_sso_configuration"
   in
   let __resource =
-    ({
-       datadog_monitor_id;
-       enterprise_application_id;
-       id;
-       name;
-       single_sign_on_enabled;
-       timeouts;
-     }
-      : azurerm_datadog_monitor_sso_configuration)
+    azurerm_datadog_monitor_sso_configuration ?id ?name ?timeouts
+      ~datadog_monitor_id ~enterprise_application_id
+      ~single_sign_on_enabled ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_datadog_monitor_sso_configuration __resource);
   let __resource_attributes =
     ({

@@ -4,44 +4,52 @@
 
 open! Tf.Prelude
 
-type aws_autoscaling_traffic_source_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_traffic_source_attachment__timeouts *)
+(** timeouts *)
 
-type aws_autoscaling_traffic_source_attachment__traffic_source = {
+type traffic_source = {
   identifier : string prop;  (** identifier *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_autoscaling_traffic_source_attachment__traffic_source *)
+(** traffic_source *)
 
 type aws_autoscaling_traffic_source_attachment = {
   autoscaling_group_name : string prop;
       (** autoscaling_group_name *)
   id : string prop option; [@option]  (** id *)
-  timeouts :
-    aws_autoscaling_traffic_source_attachment__timeouts option;
-  traffic_source :
-    aws_autoscaling_traffic_source_attachment__traffic_source list;
+  timeouts : timeouts option;
+  traffic_source : traffic_source list;
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_traffic_source_attachment *)
 
-type t = { autoscaling_group_name : string prop; id : string prop }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let traffic_source ~identifier ~type_ () : traffic_source =
+  { identifier; type_ }
 
 let aws_autoscaling_traffic_source_attachment ?id ?timeouts
-    ~autoscaling_group_name ~traffic_source __resource_id =
+    ~autoscaling_group_name ~traffic_source () :
+    aws_autoscaling_traffic_source_attachment =
+  { autoscaling_group_name; id; timeouts; traffic_source }
+
+type t = { autoscaling_group_name : string prop; id : string prop }
+
+let register ?tf_module ?id ?timeouts ~autoscaling_group_name
+    ~traffic_source __resource_id =
   let __resource_type =
     "aws_autoscaling_traffic_source_attachment"
   in
   let __resource =
-    ({ autoscaling_group_name; id; timeouts; traffic_source }
-      : aws_autoscaling_traffic_source_attachment)
+    aws_autoscaling_traffic_source_attachment ?id ?timeouts
+      ~autoscaling_group_name ~traffic_source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_traffic_source_attachment __resource);
   let __resource_attributes =
     ({

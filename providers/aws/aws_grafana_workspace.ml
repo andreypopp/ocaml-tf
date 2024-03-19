@@ -4,26 +4,26 @@
 
 open! Tf.Prelude
 
-type aws_grafana_workspace__network_access_control = {
+type network_access_control = {
   prefix_list_ids : string prop list;  (** prefix_list_ids *)
   vpce_ids : string prop list;  (** vpce_ids *)
 }
 [@@deriving yojson_of]
-(** aws_grafana_workspace__network_access_control *)
+(** network_access_control *)
 
-type aws_grafana_workspace__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_grafana_workspace__timeouts *)
+(** timeouts *)
 
-type aws_grafana_workspace__vpc_configuration = {
+type vpc_configuration = {
   security_group_ids : string prop list;  (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_grafana_workspace__vpc_configuration *)
+(** vpc_configuration *)
 
 type aws_grafana_workspace = {
   account_access_type : string prop;  (** account_access_type *)
@@ -50,13 +50,51 @@ type aws_grafana_workspace = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  network_access_control :
-    aws_grafana_workspace__network_access_control list;
-  timeouts : aws_grafana_workspace__timeouts option;
-  vpc_configuration : aws_grafana_workspace__vpc_configuration list;
+  network_access_control : network_access_control list;
+  timeouts : timeouts option;
+  vpc_configuration : vpc_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_grafana_workspace *)
+
+let network_access_control ~prefix_list_ids ~vpce_ids () :
+    network_access_control =
+  { prefix_list_ids; vpce_ids }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let vpc_configuration ~security_group_ids ~subnet_ids () :
+    vpc_configuration =
+  { security_group_ids; subnet_ids }
+
+let aws_grafana_workspace ?configuration ?data_sources ?description
+    ?grafana_version ?id ?name ?notification_destinations
+    ?organization_role_name ?organizational_units ?role_arn
+    ?stack_set_name ?tags ?tags_all ?timeouts ~account_access_type
+    ~authentication_providers ~permission_type
+    ~network_access_control ~vpc_configuration () :
+    aws_grafana_workspace =
+  {
+    account_access_type;
+    authentication_providers;
+    configuration;
+    data_sources;
+    description;
+    grafana_version;
+    id;
+    name;
+    notification_destinations;
+    organization_role_name;
+    organizational_units;
+    permission_type;
+    role_arn;
+    stack_set_name;
+    tags;
+    tags_all;
+    network_access_control;
+    timeouts;
+    vpc_configuration;
+  }
 
 type t = {
   account_access_type : string prop;
@@ -80,7 +118,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_grafana_workspace ?configuration ?data_sources ?description
+let register ?tf_module ?configuration ?data_sources ?description
     ?grafana_version ?id ?name ?notification_destinations
     ?organization_role_name ?organizational_units ?role_arn
     ?stack_set_name ?tags ?tags_all ?timeouts ~account_access_type
@@ -88,30 +126,14 @@ let aws_grafana_workspace ?configuration ?data_sources ?description
     ~network_access_control ~vpc_configuration __resource_id =
   let __resource_type = "aws_grafana_workspace" in
   let __resource =
-    ({
-       account_access_type;
-       authentication_providers;
-       configuration;
-       data_sources;
-       description;
-       grafana_version;
-       id;
-       name;
-       notification_destinations;
-       organization_role_name;
-       organizational_units;
-       permission_type;
-       role_arn;
-       stack_set_name;
-       tags;
-       tags_all;
-       network_access_control;
-       timeouts;
-       vpc_configuration;
-     }
-      : aws_grafana_workspace)
+    aws_grafana_workspace ?configuration ?data_sources ?description
+      ?grafana_version ?id ?name ?notification_destinations
+      ?organization_role_name ?organizational_units ?role_arn
+      ?stack_set_name ?tags ?tags_all ?timeouts ~account_access_type
+      ~authentication_providers ~permission_type
+      ~network_access_control ~vpc_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_grafana_workspace __resource);
   let __resource_attributes =
     ({

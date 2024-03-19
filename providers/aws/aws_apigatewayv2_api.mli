@@ -2,8 +2,45 @@
 
 open! Tf.Prelude
 
-type aws_apigatewayv2_api__cors_configuration
+(** RESOURCE SERIALIZATION *)
+
+type cors_configuration
+
+val cors_configuration :
+  ?allow_credentials:bool prop ->
+  ?allow_headers:string prop list ->
+  ?allow_methods:string prop list ->
+  ?allow_origins:string prop list ->
+  ?expose_headers:string prop list ->
+  ?max_age:float prop ->
+  unit ->
+  cors_configuration
+
 type aws_apigatewayv2_api
+
+val aws_apigatewayv2_api :
+  ?api_key_selection_expression:string prop ->
+  ?body:string prop ->
+  ?credentials_arn:string prop ->
+  ?description:string prop ->
+  ?disable_execute_api_endpoint:bool prop ->
+  ?fail_on_warnings:bool prop ->
+  ?id:string prop ->
+  ?route_key:string prop ->
+  ?route_selection_expression:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target:string prop ->
+  ?version:string prop ->
+  name:string prop ->
+  protocol_type:string prop ->
+  cors_configuration:cors_configuration list ->
+  unit ->
+  aws_apigatewayv2_api
+
+val yojson_of_aws_apigatewayv2_api : aws_apigatewayv2_api -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_endpoint : string prop;
@@ -26,7 +63,8 @@ type t = private {
   version : string prop;
 }
 
-val aws_apigatewayv2_api :
+val register :
+  ?tf_module:tf_module ->
   ?api_key_selection_expression:string prop ->
   ?body:string prop ->
   ?credentials_arn:string prop ->
@@ -42,6 +80,6 @@ val aws_apigatewayv2_api :
   ?version:string prop ->
   name:string prop ->
   protocol_type:string prop ->
-  cors_configuration:aws_apigatewayv2_api__cors_configuration list ->
+  cors_configuration:cors_configuration list ->
   string ->
   t

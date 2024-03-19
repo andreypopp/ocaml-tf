@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_chime_voice_connector_termination
+
+val aws_chime_voice_connector_termination :
+  ?cps_limit:float prop ->
+  ?default_phone_number:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  calling_regions:string prop list ->
+  cidr_allow_list:string prop list ->
+  voice_connector_id:string prop ->
+  unit ->
+  aws_chime_voice_connector_termination
+
+val yojson_of_aws_chime_voice_connector_termination :
+  aws_chime_voice_connector_termination -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   calling_regions : string list prop;
@@ -14,7 +32,8 @@ type t = private {
   voice_connector_id : string prop;
 }
 
-val aws_chime_voice_connector_termination :
+val register :
+  ?tf_module:tf_module ->
   ?cps_limit:float prop ->
   ?default_phone_number:string prop ->
   ?disabled:bool prop ->

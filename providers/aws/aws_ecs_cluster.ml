@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_ecs_cluster__configuration__execute_command_configuration__log_configuration = {
+type configuration__execute_command_configuration__log_configuration = {
   cloud_watch_encryption_enabled : bool prop option; [@option]
       (** cloud_watch_encryption_enabled *)
   cloud_watch_log_group_name : string prop option; [@option]
@@ -16,38 +16,37 @@ type aws_ecs_cluster__configuration__execute_command_configuration__log_configur
   s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_ecs_cluster__configuration__execute_command_configuration__log_configuration *)
+(** configuration__execute_command_configuration__log_configuration *)
 
-type aws_ecs_cluster__configuration__execute_command_configuration = {
+type configuration__execute_command_configuration = {
   kms_key_id : string prop option; [@option]  (** kms_key_id *)
   logging : string prop option; [@option]  (** logging *)
   log_configuration :
-    aws_ecs_cluster__configuration__execute_command_configuration__log_configuration
+    configuration__execute_command_configuration__log_configuration
     list;
 }
 [@@deriving yojson_of]
-(** aws_ecs_cluster__configuration__execute_command_configuration *)
+(** configuration__execute_command_configuration *)
 
-type aws_ecs_cluster__configuration = {
+type configuration = {
   execute_command_configuration :
-    aws_ecs_cluster__configuration__execute_command_configuration
-    list;
+    configuration__execute_command_configuration list;
 }
 [@@deriving yojson_of]
-(** aws_ecs_cluster__configuration *)
+(** configuration *)
 
-type aws_ecs_cluster__service_connect_defaults = {
+type service_connect_defaults = {
   namespace : string prop;  (** namespace *)
 }
 [@@deriving yojson_of]
-(** aws_ecs_cluster__service_connect_defaults *)
+(** service_connect_defaults *)
 
-type aws_ecs_cluster__setting = {
+type setting = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_ecs_cluster__setting *)
+(** setting *)
 
 type aws_ecs_cluster = {
   id : string prop option; [@option]  (** id *)
@@ -55,13 +54,50 @@ type aws_ecs_cluster = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  configuration : aws_ecs_cluster__configuration list;
-  service_connect_defaults :
-    aws_ecs_cluster__service_connect_defaults list;
-  setting : aws_ecs_cluster__setting list;
+  configuration : configuration list;
+  service_connect_defaults : service_connect_defaults list;
+  setting : setting list;
 }
 [@@deriving yojson_of]
 (** aws_ecs_cluster *)
+
+let configuration__execute_command_configuration__log_configuration
+    ?cloud_watch_encryption_enabled ?cloud_watch_log_group_name
+    ?s3_bucket_encryption_enabled ?s3_bucket_name ?s3_key_prefix () :
+    configuration__execute_command_configuration__log_configuration =
+  {
+    cloud_watch_encryption_enabled;
+    cloud_watch_log_group_name;
+    s3_bucket_encryption_enabled;
+    s3_bucket_name;
+    s3_key_prefix;
+  }
+
+let configuration__execute_command_configuration ?kms_key_id ?logging
+    ~log_configuration () :
+    configuration__execute_command_configuration =
+  { kms_key_id; logging; log_configuration }
+
+let configuration ~execute_command_configuration () : configuration =
+  { execute_command_configuration }
+
+let service_connect_defaults ~namespace () : service_connect_defaults
+    =
+  { namespace }
+
+let setting ~name ~value () : setting = { name; value }
+
+let aws_ecs_cluster ?id ?tags ?tags_all ~name ~configuration
+    ~service_connect_defaults ~setting () : aws_ecs_cluster =
+  {
+    id;
+    name;
+    tags;
+    tags_all;
+    configuration;
+    service_connect_defaults;
+    setting;
+  }
 
 type t = {
   arn : string prop;
@@ -71,22 +107,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ecs_cluster ?id ?tags ?tags_all ~name ~configuration
+let register ?tf_module ?id ?tags ?tags_all ~name ~configuration
     ~service_connect_defaults ~setting __resource_id =
   let __resource_type = "aws_ecs_cluster" in
   let __resource =
-    ({
-       id;
-       name;
-       tags;
-       tags_all;
-       configuration;
-       service_connect_defaults;
-       setting;
-     }
-      : aws_ecs_cluster)
+    aws_ecs_cluster ?id ?tags ?tags_all ~name ~configuration
+      ~service_connect_defaults ~setting ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_cluster __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type digitalocean_domain
+
+val digitalocean_domain :
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  name:string prop ->
+  unit ->
+  digitalocean_domain
+
+val yojson_of_digitalocean_domain : digitalocean_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,7 +25,8 @@ type t = private {
   urn : string prop;
 }
 
-val digitalocean_domain :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ip_address:string prop ->
   name:string prop ->

@@ -4,31 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_metric_alert__action = {
+type action = {
   action_group_id : string prop;  (** action_group_id *)
   webhook_properties : (string * string prop) list option; [@option]
       (** webhook_properties *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_metric_alert__action *)
+(** action *)
 
-type azurerm_monitor_metric_alert__application_insights_web_test_location_availability_criteria = {
+type application_insights_web_test_location_availability_criteria = {
   component_id : string prop;  (** component_id *)
   failed_location_count : float prop;  (** failed_location_count *)
   web_test_id : string prop;  (** web_test_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_metric_alert__application_insights_web_test_location_availability_criteria *)
+(** application_insights_web_test_location_availability_criteria *)
 
-type azurerm_monitor_metric_alert__criteria__dimension = {
+type criteria__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_metric_alert__criteria__dimension *)
+(** criteria__dimension *)
 
-type azurerm_monitor_metric_alert__criteria = {
+type criteria = {
   aggregation : string prop;  (** aggregation *)
   metric_name : string prop;  (** metric_name *)
   metric_namespace : string prop;  (** metric_namespace *)
@@ -36,20 +36,20 @@ type azurerm_monitor_metric_alert__criteria = {
   skip_metric_validation : bool prop option; [@option]
       (** skip_metric_validation *)
   threshold : float prop;  (** threshold *)
-  dimension : azurerm_monitor_metric_alert__criteria__dimension list;
+  dimension : criteria__dimension list;
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_metric_alert__criteria *)
+(** criteria *)
 
-type azurerm_monitor_metric_alert__dynamic_criteria__dimension = {
+type dynamic_criteria__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_metric_alert__dynamic_criteria__dimension *)
+(** dynamic_criteria__dimension *)
 
-type azurerm_monitor_metric_alert__dynamic_criteria = {
+type dynamic_criteria = {
   aggregation : string prop;  (** aggregation *)
   alert_sensitivity : string prop;  (** alert_sensitivity *)
   evaluation_failure_count : float prop option; [@option]
@@ -63,20 +63,19 @@ type azurerm_monitor_metric_alert__dynamic_criteria = {
   operator : string prop;  (** operator *)
   skip_metric_validation : bool prop option; [@option]
       (** skip_metric_validation *)
-  dimension :
-    azurerm_monitor_metric_alert__dynamic_criteria__dimension list;
+  dimension : dynamic_criteria__dimension list;
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_metric_alert__dynamic_criteria *)
+(** dynamic_criteria *)
 
-type azurerm_monitor_metric_alert__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_metric_alert__timeouts *)
+(** timeouts *)
 
 type azurerm_monitor_metric_alert = {
   auto_mitigate : bool prop option; [@option]  (** auto_mitigate *)
@@ -94,17 +93,91 @@ type azurerm_monitor_metric_alert = {
   target_resource_type : string prop option; [@option]
       (** The resource type (e.g. Microsoft.Compute/virtualMachines) of the target pluginsdk. Required when using subscription, resource group scope or multiple scopes. *)
   window_size : string prop option; [@option]  (** window_size *)
-  action : azurerm_monitor_metric_alert__action list;
+  action : action list;
   application_insights_web_test_location_availability_criteria :
-    azurerm_monitor_metric_alert__application_insights_web_test_location_availability_criteria
-    list;
-  criteria : azurerm_monitor_metric_alert__criteria list;
-  dynamic_criteria :
-    azurerm_monitor_metric_alert__dynamic_criteria list;
-  timeouts : azurerm_monitor_metric_alert__timeouts option;
+    application_insights_web_test_location_availability_criteria list;
+  criteria : criteria list;
+  dynamic_criteria : dynamic_criteria list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_metric_alert *)
+
+let action ?webhook_properties ~action_group_id () : action =
+  { action_group_id; webhook_properties }
+
+let application_insights_web_test_location_availability_criteria
+    ~component_id ~failed_location_count ~web_test_id () :
+    application_insights_web_test_location_availability_criteria =
+  { component_id; failed_location_count; web_test_id }
+
+let criteria__dimension ~name ~operator ~values () :
+    criteria__dimension =
+  { name; operator; values }
+
+let criteria ?skip_metric_validation ~aggregation ~metric_name
+    ~metric_namespace ~operator ~threshold ~dimension () : criteria =
+  {
+    aggregation;
+    metric_name;
+    metric_namespace;
+    operator;
+    skip_metric_validation;
+    threshold;
+    dimension;
+  }
+
+let dynamic_criteria__dimension ~name ~operator ~values () :
+    dynamic_criteria__dimension =
+  { name; operator; values }
+
+let dynamic_criteria ?evaluation_failure_count
+    ?evaluation_total_count ?ignore_data_before
+    ?skip_metric_validation ~aggregation ~alert_sensitivity
+    ~metric_name ~metric_namespace ~operator ~dimension () :
+    dynamic_criteria =
+  {
+    aggregation;
+    alert_sensitivity;
+    evaluation_failure_count;
+    evaluation_total_count;
+    ignore_data_before;
+    metric_name;
+    metric_namespace;
+    operator;
+    skip_metric_validation;
+    dimension;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
+    ?frequency ?id ?severity ?tags ?target_resource_location
+    ?target_resource_type ?window_size ?timeouts ~name
+    ~resource_group_name ~scopes ~action
+    ~application_insights_web_test_location_availability_criteria
+    ~criteria ~dynamic_criteria () : azurerm_monitor_metric_alert =
+  {
+    auto_mitigate;
+    description;
+    enabled;
+    frequency;
+    id;
+    name;
+    resource_group_name;
+    scopes;
+    severity;
+    tags;
+    target_resource_location;
+    target_resource_type;
+    window_size;
+    action;
+    application_insights_web_test_location_availability_criteria;
+    criteria;
+    dynamic_criteria;
+    timeouts;
+  }
 
 type t = {
   auto_mitigate : bool prop;
@@ -122,7 +195,7 @@ type t = {
   window_size : string prop;
 }
 
-let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
+let register ?tf_module ?auto_mitigate ?description ?enabled
     ?frequency ?id ?severity ?tags ?target_resource_location
     ?target_resource_type ?window_size ?timeouts ~name
     ~resource_group_name ~scopes ~action
@@ -130,29 +203,14 @@ let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
     ~criteria ~dynamic_criteria __resource_id =
   let __resource_type = "azurerm_monitor_metric_alert" in
   let __resource =
-    ({
-       auto_mitigate;
-       description;
-       enabled;
-       frequency;
-       id;
-       name;
-       resource_group_name;
-       scopes;
-       severity;
-       tags;
-       target_resource_location;
-       target_resource_type;
-       window_size;
-       action;
-       application_insights_web_test_location_availability_criteria;
-       criteria;
-       dynamic_criteria;
-       timeouts;
-     }
-      : azurerm_monitor_metric_alert)
+    azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
+      ?frequency ?id ?severity ?tags ?target_resource_location
+      ?target_resource_type ?window_size ?timeouts ~name
+      ~resource_group_name ~scopes ~action
+      ~application_insights_web_test_location_availability_criteria
+      ~criteria ~dynamic_criteria ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_metric_alert __resource);
   let __resource_attributes =
     ({

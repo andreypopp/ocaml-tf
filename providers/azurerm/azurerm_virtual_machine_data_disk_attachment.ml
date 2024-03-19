@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_machine_data_disk_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_data_disk_attachment__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_machine_data_disk_attachment = {
   caching : string prop;  (** caching *)
@@ -22,11 +22,28 @@ type azurerm_virtual_machine_data_disk_attachment = {
   virtual_machine_id : string prop;  (** virtual_machine_id *)
   write_accelerator_enabled : bool prop option; [@option]
       (** write_accelerator_enabled *)
-  timeouts :
-    azurerm_virtual_machine_data_disk_attachment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_data_disk_attachment *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_machine_data_disk_attachment ?create_option ?id
+    ?write_accelerator_enabled ?timeouts ~caching ~lun
+    ~managed_disk_id ~virtual_machine_id () :
+    azurerm_virtual_machine_data_disk_attachment =
+  {
+    caching;
+    create_option;
+    id;
+    lun;
+    managed_disk_id;
+    virtual_machine_id;
+    write_accelerator_enabled;
+    timeouts;
+  }
 
 type t = {
   caching : string prop;
@@ -38,26 +55,18 @@ type t = {
   write_accelerator_enabled : bool prop;
 }
 
-let azurerm_virtual_machine_data_disk_attachment ?create_option ?id
-    ?write_accelerator_enabled ?timeouts ~caching ~lun
-    ~managed_disk_id ~virtual_machine_id __resource_id =
+let register ?tf_module ?create_option ?id ?write_accelerator_enabled
+    ?timeouts ~caching ~lun ~managed_disk_id ~virtual_machine_id
+    __resource_id =
   let __resource_type =
     "azurerm_virtual_machine_data_disk_attachment"
   in
   let __resource =
-    ({
-       caching;
-       create_option;
-       id;
-       lun;
-       managed_disk_id;
-       virtual_machine_id;
-       write_accelerator_enabled;
-       timeouts;
-     }
-      : azurerm_virtual_machine_data_disk_attachment)
+    azurerm_virtual_machine_data_disk_attachment ?create_option ?id
+      ?write_accelerator_enabled ?timeouts ~caching ~lun
+      ~managed_disk_id ~virtual_machine_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_machine_data_disk_attachment
        __resource);
   let __resource_attributes =

@@ -14,6 +14,11 @@ type aws_redshift_endpoint_authorization = {
 [@@deriving yojson_of]
 (** aws_redshift_endpoint_authorization *)
 
+let aws_redshift_endpoint_authorization ?force_delete ?id ?vpc_ids
+    ~account ~cluster_identifier () :
+    aws_redshift_endpoint_authorization =
+  { account; cluster_identifier; force_delete; id; vpc_ids }
+
 type t = {
   account : string prop;
   allowed_all_vpcs : bool prop;
@@ -26,14 +31,14 @@ type t = {
   vpc_ids : string list prop;
 }
 
-let aws_redshift_endpoint_authorization ?force_delete ?id ?vpc_ids
-    ~account ~cluster_identifier __resource_id =
+let register ?tf_module ?force_delete ?id ?vpc_ids ~account
+    ~cluster_identifier __resource_id =
   let __resource_type = "aws_redshift_endpoint_authorization" in
   let __resource =
-    ({ account; cluster_identifier; force_delete; id; vpc_ids }
-      : aws_redshift_endpoint_authorization)
+    aws_redshift_endpoint_authorization ?force_delete ?id ?vpc_ids
+      ~account ~cluster_identifier ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_endpoint_authorization __resource);
   let __resource_attributes =
     ({

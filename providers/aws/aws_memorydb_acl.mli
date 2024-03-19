@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_memorydb_acl
+
+val aws_memorydb_acl :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_names:string prop list ->
+  unit ->
+  aws_memorydb_acl
+
+val yojson_of_aws_memorydb_acl : aws_memorydb_acl -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,7 +31,8 @@ type t = private {
   user_names : string list prop;
 }
 
-val aws_memorydb_acl :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->

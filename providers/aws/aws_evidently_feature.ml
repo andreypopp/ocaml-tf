@@ -4,31 +4,31 @@
 
 open! Tf.Prelude
 
-type aws_evidently_feature__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_feature__timeouts *)
+(** timeouts *)
 
-type aws_evidently_feature__variations__value = {
+type variations__value = {
   bool_value : string prop option; [@option]  (** bool_value *)
   double_value : string prop option; [@option]  (** double_value *)
   long_value : string prop option; [@option]  (** long_value *)
   string_value : string prop option; [@option]  (** string_value *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_feature__variations__value *)
+(** variations__value *)
 
-type aws_evidently_feature__variations = {
+type variations = {
   name : string prop;  (** name *)
-  value : aws_evidently_feature__variations__value list;
+  value : variations__value list;
 }
 [@@deriving yojson_of]
-(** aws_evidently_feature__variations *)
+(** variations *)
 
-type aws_evidently_feature__evaluation_rules = {
+type evaluation_rules = {
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -48,11 +48,37 @@ type aws_evidently_feature = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_evidently_feature__timeouts option;
-  variations : aws_evidently_feature__variations list;
+  timeouts : timeouts option;
+  variations : variations list;
 }
 [@@deriving yojson_of]
 (** aws_evidently_feature *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let variations__value ?bool_value ?double_value ?long_value
+    ?string_value () : variations__value =
+  { bool_value; double_value; long_value; string_value }
+
+let variations ~name ~value () : variations = { name; value }
+
+let aws_evidently_feature ?default_variation ?description
+    ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
+    ?timeouts ~name ~project ~variations () : aws_evidently_feature =
+  {
+    default_variation;
+    description;
+    entity_overrides;
+    evaluation_strategy;
+    id;
+    name;
+    project;
+    tags;
+    tags_all;
+    timeouts;
+    variations;
+  }
 
 type t = {
   arn : string prop;
@@ -60,8 +86,7 @@ type t = {
   default_variation : string prop;
   description : string prop;
   entity_overrides : (string * string) list prop;
-  evaluation_rules :
-    aws_evidently_feature__evaluation_rules list prop;
+  evaluation_rules : evaluation_rules list prop;
   evaluation_strategy : string prop;
   id : string prop;
   last_updated_time : string prop;
@@ -73,27 +98,16 @@ type t = {
   value_type : string prop;
 }
 
-let aws_evidently_feature ?default_variation ?description
+let register ?tf_module ?default_variation ?description
     ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
     ?timeouts ~name ~project ~variations __resource_id =
   let __resource_type = "aws_evidently_feature" in
   let __resource =
-    ({
-       default_variation;
-       description;
-       entity_overrides;
-       evaluation_strategy;
-       id;
-       name;
-       project;
-       tags;
-       tags_all;
-       timeouts;
-       variations;
-     }
-      : aws_evidently_feature)
+    aws_evidently_feature ?default_variation ?description
+      ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
+      ?timeouts ~name ~project ~variations ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_evidently_feature __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_storagegateway_cache
+
+val aws_storagegateway_cache :
+  ?id:string prop ->
+  disk_id:string prop ->
+  gateway_arn:string prop ->
+  unit ->
+  aws_storagegateway_cache
+
+val yojson_of_aws_storagegateway_cache :
+  aws_storagegateway_cache -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   disk_id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   id : string prop;
 }
 
-val aws_storagegateway_cache :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   disk_id:string prop ->
   gateway_arn:string prop ->

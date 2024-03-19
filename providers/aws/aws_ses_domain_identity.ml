@@ -11,6 +11,10 @@ type aws_ses_domain_identity = {
 [@@deriving yojson_of]
 (** aws_ses_domain_identity *)
 
+let aws_ses_domain_identity ?id ~domain () : aws_ses_domain_identity
+    =
+  { domain; id }
+
 type t = {
   arn : string prop;
   domain : string prop;
@@ -18,10 +22,10 @@ type t = {
   verification_token : string prop;
 }
 
-let aws_ses_domain_identity ?id ~domain __resource_id =
+let register ?tf_module ?id ~domain __resource_id =
   let __resource_type = "aws_ses_domain_identity" in
-  let __resource = ({ domain; id } : aws_ses_domain_identity) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_ses_domain_identity ?id ~domain () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_domain_identity __resource);
   let __resource_attributes =
     ({

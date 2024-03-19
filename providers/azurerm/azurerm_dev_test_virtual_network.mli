@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_test_virtual_network__subnet
-type azurerm_dev_test_virtual_network__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type subnet
+
+val subnet :
+  ?use_in_virtual_machine_creation:string prop ->
+  ?use_public_ip_address:string prop ->
+  unit ->
+  subnet
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_dev_test_virtual_network
+
+val azurerm_dev_test_virtual_network :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  lab_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  subnet:subnet list ->
+  unit ->
+  azurerm_dev_test_virtual_network
+
+val yojson_of_azurerm_dev_test_virtual_network :
+  azurerm_dev_test_virtual_network -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -16,14 +51,15 @@ type t = private {
   unique_identifier : string prop;
 }
 
-val azurerm_dev_test_virtual_network :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_dev_test_virtual_network__timeouts ->
+  ?timeouts:timeouts ->
   lab_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  subnet:azurerm_dev_test_virtual_network__subnet list ->
+  subnet:subnet list ->
   string ->
   t

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_frontdoor__backend_pool__backend = {
+type backend_pool__backend = {
   address : string prop;  (** address *)
   enabled : bool prop option; [@option]  (** enabled *)
   host_header : string prop;  (** host_header *)
@@ -14,21 +14,19 @@ type azurerm_frontdoor__backend_pool__backend = {
   weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__backend_pool__backend *)
+(** backend_pool__backend *)
 
-type azurerm_frontdoor__backend_pool = {
+type backend_pool = {
   health_probe_name : string prop;  (** health_probe_name *)
-  id : string prop;  (** id *)
   load_balancing_name : string prop;  (** load_balancing_name *)
   name : string prop;  (** name *)
-  backend : azurerm_frontdoor__backend_pool__backend list;
+  backend : backend_pool__backend list;
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__backend_pool *)
+(** backend_pool *)
 
-type azurerm_frontdoor__backend_pool_health_probe = {
+type backend_pool_health_probe = {
   enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop;  (** id *)
   interval_in_seconds : float prop option; [@option]
       (** interval_in_seconds *)
   name : string prop;  (** name *)
@@ -37,21 +35,20 @@ type azurerm_frontdoor__backend_pool_health_probe = {
   protocol : string prop option; [@option]  (** protocol *)
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__backend_pool_health_probe *)
+(** backend_pool_health_probe *)
 
-type azurerm_frontdoor__backend_pool_load_balancing = {
+type backend_pool_load_balancing = {
   additional_latency_milliseconds : float prop option; [@option]
       (** additional_latency_milliseconds *)
-  id : string prop;  (** id *)
   name : string prop;  (** name *)
   sample_size : float prop option; [@option]  (** sample_size *)
   successful_samples_required : float prop option; [@option]
       (** successful_samples_required *)
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__backend_pool_load_balancing *)
+(** backend_pool_load_balancing *)
 
-type azurerm_frontdoor__backend_pool_settings = {
+type backend_pool_settings = {
   backend_pools_send_receive_timeout_seconds : float prop option;
       [@option]
       (** backend_pools_send_receive_timeout_seconds *)
@@ -59,11 +56,10 @@ type azurerm_frontdoor__backend_pool_settings = {
       (** enforce_backend_pools_certificate_name_check *)
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__backend_pool_settings *)
+(** backend_pool_settings *)
 
-type azurerm_frontdoor__frontend_endpoint = {
+type frontend_endpoint = {
   host_name : string prop;  (** host_name *)
-  id : string prop;  (** id *)
   name : string prop;  (** name *)
   session_affinity_enabled : bool prop option; [@option]
       (** session_affinity_enabled *)
@@ -74,9 +70,9 @@ type azurerm_frontdoor__frontend_endpoint = {
       (** web_application_firewall_policy_link_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__frontend_endpoint *)
+(** frontend_endpoint *)
 
-type azurerm_frontdoor__routing_rule__forwarding_configuration = {
+type routing_rule__forwarding_configuration = {
   backend_pool_name : string prop;  (** backend_pool_name *)
   cache_duration : string prop option; [@option]
       (** cache_duration *)
@@ -94,9 +90,9 @@ type azurerm_frontdoor__routing_rule__forwarding_configuration = {
       (** forwarding_protocol *)
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__routing_rule__forwarding_configuration *)
+(** routing_rule__forwarding_configuration *)
 
-type azurerm_frontdoor__routing_rule__redirect_configuration = {
+type routing_rule__redirect_configuration = {
   custom_fragment : string prop option; [@option]
       (** custom_fragment *)
   custom_host : string prop option; [@option]  (** custom_host *)
@@ -107,33 +103,31 @@ type azurerm_frontdoor__routing_rule__redirect_configuration = {
   redirect_type : string prop;  (** redirect_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__routing_rule__redirect_configuration *)
+(** routing_rule__redirect_configuration *)
 
-type azurerm_frontdoor__routing_rule = {
+type routing_rule = {
   accepted_protocols : string prop list;  (** accepted_protocols *)
   enabled : bool prop option; [@option]  (** enabled *)
   frontend_endpoints : string prop list;  (** frontend_endpoints *)
-  id : string prop;  (** id *)
   name : string prop;  (** name *)
   patterns_to_match : string prop list;  (** patterns_to_match *)
   forwarding_configuration :
-    azurerm_frontdoor__routing_rule__forwarding_configuration list;
-  redirect_configuration :
-    azurerm_frontdoor__routing_rule__redirect_configuration list;
+    routing_rule__forwarding_configuration list;
+  redirect_configuration : routing_rule__redirect_configuration list;
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__routing_rule *)
+(** routing_rule *)
 
-type azurerm_frontdoor__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_frontdoor__timeouts *)
+(** timeouts *)
 
-type azurerm_frontdoor__explicit_resource_order = {
+type explicit_resource_order = {
   backend_pool_health_probe_ids : string prop list;
       (** backend_pool_health_probe_ids *)
   backend_pool_ids : string prop list;  (** backend_pool_ids *)
@@ -153,27 +147,145 @@ type azurerm_frontdoor = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  backend_pool : azurerm_frontdoor__backend_pool list;
-  backend_pool_health_probe :
-    azurerm_frontdoor__backend_pool_health_probe list;
-  backend_pool_load_balancing :
-    azurerm_frontdoor__backend_pool_load_balancing list;
-  backend_pool_settings :
-    azurerm_frontdoor__backend_pool_settings list;
-  frontend_endpoint : azurerm_frontdoor__frontend_endpoint list;
-  routing_rule : azurerm_frontdoor__routing_rule list;
-  timeouts : azurerm_frontdoor__timeouts option;
+  backend_pool : backend_pool list;
+  backend_pool_health_probe : backend_pool_health_probe list;
+  backend_pool_load_balancing : backend_pool_load_balancing list;
+  backend_pool_settings : backend_pool_settings list;
+  frontend_endpoint : frontend_endpoint list;
+  routing_rule : routing_rule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_frontdoor *)
+
+let backend_pool__backend ?enabled ?priority ?weight ~address
+    ~host_header ~http_port ~https_port () : backend_pool__backend =
+  {
+    address;
+    enabled;
+    host_header;
+    http_port;
+    https_port;
+    priority;
+    weight;
+  }
+
+let backend_pool ~health_probe_name ~load_balancing_name ~name
+    ~backend () : backend_pool =
+  { health_probe_name; load_balancing_name; name; backend }
+
+let backend_pool_health_probe ?enabled ?interval_in_seconds ?path
+    ?probe_method ?protocol ~name () : backend_pool_health_probe =
+  {
+    enabled;
+    interval_in_seconds;
+    name;
+    path;
+    probe_method;
+    protocol;
+  }
+
+let backend_pool_load_balancing ?additional_latency_milliseconds
+    ?sample_size ?successful_samples_required ~name () :
+    backend_pool_load_balancing =
+  {
+    additional_latency_milliseconds;
+    name;
+    sample_size;
+    successful_samples_required;
+  }
+
+let backend_pool_settings ?backend_pools_send_receive_timeout_seconds
+    ~enforce_backend_pools_certificate_name_check () :
+    backend_pool_settings =
+  {
+    backend_pools_send_receive_timeout_seconds;
+    enforce_backend_pools_certificate_name_check;
+  }
+
+let frontend_endpoint ?session_affinity_enabled
+    ?session_affinity_ttl_seconds
+    ?web_application_firewall_policy_link_id ~host_name ~name () :
+    frontend_endpoint =
+  {
+    host_name;
+    name;
+    session_affinity_enabled;
+    session_affinity_ttl_seconds;
+    web_application_firewall_policy_link_id;
+  }
+
+let routing_rule__forwarding_configuration ?cache_duration
+    ?cache_enabled ?cache_query_parameter_strip_directive
+    ?cache_query_parameters ?cache_use_dynamic_compression
+    ?custom_forwarding_path ?forwarding_protocol ~backend_pool_name
+    () : routing_rule__forwarding_configuration =
+  {
+    backend_pool_name;
+    cache_duration;
+    cache_enabled;
+    cache_query_parameter_strip_directive;
+    cache_query_parameters;
+    cache_use_dynamic_compression;
+    custom_forwarding_path;
+    forwarding_protocol;
+  }
+
+let routing_rule__redirect_configuration ?custom_fragment
+    ?custom_host ?custom_path ?custom_query_string ~redirect_protocol
+    ~redirect_type () : routing_rule__redirect_configuration =
+  {
+    custom_fragment;
+    custom_host;
+    custom_path;
+    custom_query_string;
+    redirect_protocol;
+    redirect_type;
+  }
+
+let routing_rule ?enabled ~accepted_protocols ~frontend_endpoints
+    ~name ~patterns_to_match ~forwarding_configuration
+    ~redirect_configuration () : routing_rule =
+  {
+    accepted_protocols;
+    enabled;
+    frontend_endpoints;
+    name;
+    patterns_to_match;
+    forwarding_configuration;
+    redirect_configuration;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
+    ?timeouts ~name ~resource_group_name ~backend_pool
+    ~backend_pool_health_probe ~backend_pool_load_balancing
+    ~backend_pool_settings ~frontend_endpoint ~routing_rule () :
+    azurerm_frontdoor =
+  {
+    friendly_name;
+    id;
+    load_balancer_enabled;
+    name;
+    resource_group_name;
+    tags;
+    backend_pool;
+    backend_pool_health_probe;
+    backend_pool_load_balancing;
+    backend_pool_settings;
+    frontend_endpoint;
+    routing_rule;
+    timeouts;
+  }
 
 type t = {
   backend_pool_health_probes : (string * string) list prop;
   backend_pool_load_balancing_settings : (string * string) list prop;
   backend_pools : (string * string) list prop;
   cname : string prop;
-  explicit_resource_order :
-    azurerm_frontdoor__explicit_resource_order list prop;
+  explicit_resource_order : explicit_resource_order list prop;
   friendly_name : string prop;
   frontend_endpoints : (string * string) list prop;
   header_frontdoor_id : string prop;
@@ -185,31 +297,19 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
-    ?timeouts ~name ~resource_group_name ~backend_pool
+let register ?tf_module ?friendly_name ?id ?load_balancer_enabled
+    ?tags ?timeouts ~name ~resource_group_name ~backend_pool
     ~backend_pool_health_probe ~backend_pool_load_balancing
     ~backend_pool_settings ~frontend_endpoint ~routing_rule
     __resource_id =
   let __resource_type = "azurerm_frontdoor" in
   let __resource =
-    ({
-       friendly_name;
-       id;
-       load_balancer_enabled;
-       name;
-       resource_group_name;
-       tags;
-       backend_pool;
-       backend_pool_health_probe;
-       backend_pool_load_balancing;
-       backend_pool_settings;
-       frontend_endpoint;
-       routing_rule;
-       timeouts;
-     }
-      : azurerm_frontdoor)
+    azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
+      ?timeouts ~name ~resource_group_name ~backend_pool
+      ~backend_pool_health_probe ~backend_pool_load_balancing
+      ~backend_pool_settings ~frontend_endpoint ~routing_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_frontdoor __resource);
   let __resource_attributes =
     ({

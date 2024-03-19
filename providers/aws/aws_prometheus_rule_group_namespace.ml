@@ -13,6 +13,10 @@ type aws_prometheus_rule_group_namespace = {
 [@@deriving yojson_of]
 (** aws_prometheus_rule_group_namespace *)
 
+let aws_prometheus_rule_group_namespace ?id ~data ~name ~workspace_id
+    () : aws_prometheus_rule_group_namespace =
+  { data; id; name; workspace_id }
+
 type t = {
   data : string prop;
   id : string prop;
@@ -20,14 +24,13 @@ type t = {
   workspace_id : string prop;
 }
 
-let aws_prometheus_rule_group_namespace ?id ~data ~name ~workspace_id
-    __resource_id =
+let register ?tf_module ?id ~data ~name ~workspace_id __resource_id =
   let __resource_type = "aws_prometheus_rule_group_namespace" in
   let __resource =
-    ({ data; id; name; workspace_id }
-      : aws_prometheus_rule_group_namespace)
+    aws_prometheus_rule_group_namespace ?id ~data ~name ~workspace_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_prometheus_rule_group_namespace __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_folder__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_folder__timeouts *)
+(** timeouts *)
 
 type google_folder = {
   display_name : string prop;
@@ -19,10 +19,17 @@ type google_folder = {
   id : string prop option; [@option]  (** id *)
   parent : string prop;
       (** The resource name of the parent Folder or Organization. Must be of the form folders/{folder_id} or organizations/{org_id}. *)
-  timeouts : google_folder__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_folder *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let google_folder ?id ?timeouts ~display_name ~parent () :
+    google_folder =
+  { display_name; id; parent; timeouts }
 
 type t = {
   create_time : string prop;
@@ -34,12 +41,13 @@ type t = {
   parent : string prop;
 }
 
-let google_folder ?id ?timeouts ~display_name ~parent __resource_id =
+let register ?tf_module ?id ?timeouts ~display_name ~parent
+    __resource_id =
   let __resource_type = "google_folder" in
   let __resource =
-    ({ display_name; id; parent; timeouts } : google_folder)
+    google_folder ?id ?timeouts ~display_name ~parent ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder __resource);
   let __resource_attributes =
     ({

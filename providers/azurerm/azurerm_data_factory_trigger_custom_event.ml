@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_trigger_custom_event__pipeline = {
+type pipeline = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_custom_event__pipeline *)
+(** pipeline *)
 
-type azurerm_data_factory_trigger_custom_event__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_trigger_custom_event__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_trigger_custom_event = {
   activated : bool prop option; [@option]  (** activated *)
@@ -38,13 +38,37 @@ type azurerm_data_factory_trigger_custom_event = {
       (** subject_begins_with *)
   subject_ends_with : string prop option; [@option]
       (** subject_ends_with *)
-  pipeline :
-    azurerm_data_factory_trigger_custom_event__pipeline list;
-  timeouts :
-    azurerm_data_factory_trigger_custom_event__timeouts option;
+  pipeline : pipeline list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_custom_event *)
+
+let pipeline ?parameters ~name () : pipeline = { name; parameters }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_trigger_custom_event ?activated
+    ?additional_properties ?annotations ?description ?id
+    ?subject_begins_with ?subject_ends_with ?timeouts
+    ~data_factory_id ~eventgrid_topic_id ~events ~name ~pipeline () :
+    azurerm_data_factory_trigger_custom_event =
+  {
+    activated;
+    additional_properties;
+    annotations;
+    data_factory_id;
+    description;
+    eventgrid_topic_id;
+    events;
+    id;
+    name;
+    subject_begins_with;
+    subject_ends_with;
+    pipeline;
+    timeouts;
+  }
 
 type t = {
   activated : bool prop;
@@ -60,33 +84,20 @@ type t = {
   subject_ends_with : string prop;
 }
 
-let azurerm_data_factory_trigger_custom_event ?activated
-    ?additional_properties ?annotations ?description ?id
-    ?subject_begins_with ?subject_ends_with ?timeouts
-    ~data_factory_id ~eventgrid_topic_id ~events ~name ~pipeline
-    __resource_id =
+let register ?tf_module ?activated ?additional_properties
+    ?annotations ?description ?id ?subject_begins_with
+    ?subject_ends_with ?timeouts ~data_factory_id ~eventgrid_topic_id
+    ~events ~name ~pipeline __resource_id =
   let __resource_type =
     "azurerm_data_factory_trigger_custom_event"
   in
   let __resource =
-    ({
-       activated;
-       additional_properties;
-       annotations;
-       data_factory_id;
-       description;
-       eventgrid_topic_id;
-       events;
-       id;
-       name;
-       subject_begins_with;
-       subject_ends_with;
-       pipeline;
-       timeouts;
-     }
-      : azurerm_data_factory_trigger_custom_event)
+    azurerm_data_factory_trigger_custom_event ?activated
+      ?additional_properties ?annotations ?description ?id
+      ?subject_begins_with ?subject_ends_with ?timeouts
+      ~data_factory_id ~eventgrid_topic_id ~events ~name ~pipeline ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_trigger_custom_event __resource);
   let __resource_attributes =
     ({

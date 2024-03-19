@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_admin_rule_collection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_admin_rule_collection__timeouts *)
+(** timeouts *)
 
 type azurerm_network_manager_admin_rule_collection = {
   description : string prop option; [@option]  (** description *)
@@ -20,11 +20,26 @@ type azurerm_network_manager_admin_rule_collection = {
   network_group_ids : string prop list;  (** network_group_ids *)
   security_admin_configuration_id : string prop;
       (** security_admin_configuration_id *)
-  timeouts :
-    azurerm_network_manager_admin_rule_collection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_admin_rule_collection *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_manager_admin_rule_collection ?description ?id
+    ?timeouts ~name ~network_group_ids
+    ~security_admin_configuration_id () :
+    azurerm_network_manager_admin_rule_collection =
+  {
+    description;
+    id;
+    name;
+    network_group_ids;
+    security_admin_configuration_id;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -34,24 +49,18 @@ type t = {
   security_admin_configuration_id : string prop;
 }
 
-let azurerm_network_manager_admin_rule_collection ?description ?id
-    ?timeouts ~name ~network_group_ids
-    ~security_admin_configuration_id __resource_id =
+let register ?tf_module ?description ?id ?timeouts ~name
+    ~network_group_ids ~security_admin_configuration_id __resource_id
+    =
   let __resource_type =
     "azurerm_network_manager_admin_rule_collection"
   in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       network_group_ids;
-       security_admin_configuration_id;
-       timeouts;
-     }
-      : azurerm_network_manager_admin_rule_collection)
+    azurerm_network_manager_admin_rule_collection ?description ?id
+      ?timeouts ~name ~network_group_ids
+      ~security_admin_configuration_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_admin_rule_collection
        __resource);
   let __resource_attributes =

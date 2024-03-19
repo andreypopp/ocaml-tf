@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_appstream_image_builder__access_endpoint = {
+type access_endpoint = {
   endpoint_type : string prop;  (** endpoint_type *)
   vpce_id : string prop option; [@option]  (** vpce_id *)
 }
 [@@deriving yojson_of]
-(** aws_appstream_image_builder__access_endpoint *)
+(** access_endpoint *)
 
-type aws_appstream_image_builder__domain_join_info = {
+type domain_join_info = {
   directory_name : string prop option; [@option]
       (** directory_name *)
   organizational_unit_distinguished_name : string prop option;
@@ -19,15 +19,15 @@ type aws_appstream_image_builder__domain_join_info = {
       (** organizational_unit_distinguished_name *)
 }
 [@@deriving yojson_of]
-(** aws_appstream_image_builder__domain_join_info *)
+(** domain_join_info *)
 
-type aws_appstream_image_builder__vpc_config = {
+type vpc_config = {
   security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
   subnet_ids : string prop list option; [@option]  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_appstream_image_builder__vpc_config *)
+(** vpc_config *)
 
 type aws_appstream_image_builder = {
   appstream_agent_version : string prop option; [@option]
@@ -45,14 +45,45 @@ type aws_appstream_image_builder = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  access_endpoint :
-    aws_appstream_image_builder__access_endpoint list;
-  domain_join_info :
-    aws_appstream_image_builder__domain_join_info list;
-  vpc_config : aws_appstream_image_builder__vpc_config list;
+  access_endpoint : access_endpoint list;
+  domain_join_info : domain_join_info list;
+  vpc_config : vpc_config list;
 }
 [@@deriving yojson_of]
 (** aws_appstream_image_builder *)
+
+let access_endpoint ?vpce_id ~endpoint_type () : access_endpoint =
+  { endpoint_type; vpce_id }
+
+let domain_join_info ?directory_name
+    ?organizational_unit_distinguished_name () : domain_join_info =
+  { directory_name; organizational_unit_distinguished_name }
+
+let vpc_config ?security_group_ids ?subnet_ids () : vpc_config =
+  { security_group_ids; subnet_ids }
+
+let aws_appstream_image_builder ?appstream_agent_version ?description
+    ?display_name ?enable_default_internet_access ?iam_role_arn ?id
+    ?image_arn ?image_name ?tags ?tags_all ~instance_type ~name
+    ~access_endpoint ~domain_join_info ~vpc_config () :
+    aws_appstream_image_builder =
+  {
+    appstream_agent_version;
+    description;
+    display_name;
+    enable_default_internet_access;
+    iam_role_arn;
+    id;
+    image_arn;
+    image_name;
+    instance_type;
+    name;
+    tags;
+    tags_all;
+    access_endpoint;
+    domain_join_info;
+    vpc_config;
+  }
 
 type t = {
   appstream_agent_version : string prop;
@@ -72,32 +103,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appstream_image_builder ?appstream_agent_version ?description
+let register ?tf_module ?appstream_agent_version ?description
     ?display_name ?enable_default_internet_access ?iam_role_arn ?id
     ?image_arn ?image_name ?tags ?tags_all ~instance_type ~name
     ~access_endpoint ~domain_join_info ~vpc_config __resource_id =
   let __resource_type = "aws_appstream_image_builder" in
   let __resource =
-    ({
-       appstream_agent_version;
-       description;
-       display_name;
-       enable_default_internet_access;
-       iam_role_arn;
-       id;
-       image_arn;
-       image_name;
-       instance_type;
-       name;
-       tags;
-       tags_all;
-       access_endpoint;
-       domain_join_info;
-       vpc_config;
-     }
-      : aws_appstream_image_builder)
+    aws_appstream_image_builder ?appstream_agent_version ?description
+      ?display_name ?enable_default_internet_access ?iam_role_arn ?id
+      ?image_arn ?image_name ?tags ?tags_all ~instance_type ~name
+      ~access_endpoint ~domain_join_info ~vpc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_image_builder __resource);
   let __resource_attributes =
     ({

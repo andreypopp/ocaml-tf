@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_certificate_map_entry__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_certificate_manager_certificate_map_entry__timeouts *)
+(** timeouts *)
 
 type google_certificate_manager_certificate_map_entry = {
   certificates : string prop list;
@@ -41,11 +41,30 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 names must be unique globally and match pattern
 'projects/*/locations/*/certificateMaps/*/certificateMapEntries/*' *)
   project : string prop option; [@option]  (** project *)
-  timeouts :
-    google_certificate_manager_certificate_map_entry__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate_map_entry *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_certificate_manager_certificate_map_entry ?description
+    ?hostname ?id ?labels ?matcher ?project ?timeouts ~certificates
+    ~map ~name () : google_certificate_manager_certificate_map_entry
+    =
+  {
+    certificates;
+    description;
+    hostname;
+    id;
+    labels;
+    map;
+    matcher;
+    name;
+    project;
+    timeouts;
+  }
 
 type t = {
   certificates : string list prop;
@@ -64,28 +83,17 @@ type t = {
   update_time : string prop;
 }
 
-let google_certificate_manager_certificate_map_entry ?description
-    ?hostname ?id ?labels ?matcher ?project ?timeouts ~certificates
-    ~map ~name __resource_id =
+let register ?tf_module ?description ?hostname ?id ?labels ?matcher
+    ?project ?timeouts ~certificates ~map ~name __resource_id =
   let __resource_type =
     "google_certificate_manager_certificate_map_entry"
   in
   let __resource =
-    ({
-       certificates;
-       description;
-       hostname;
-       id;
-       labels;
-       map;
-       matcher;
-       name;
-       project;
-       timeouts;
-     }
-      : google_certificate_manager_certificate_map_entry)
+    google_certificate_manager_certificate_map_entry ?description
+      ?hostname ?id ?labels ?matcher ?project ?timeouts ~certificates
+      ~map ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_certificate_map_entry
        __resource);
   let __resource_attributes =

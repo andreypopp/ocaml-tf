@@ -15,6 +15,10 @@ type aws_service_discovery_http_namespace = {
 [@@deriving yojson_of]
 (** aws_service_discovery_http_namespace *)
 
+let aws_service_discovery_http_namespace ?description ?id ?tags
+    ?tags_all ~name () : aws_service_discovery_http_namespace =
+  { description; id; name; tags; tags_all }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -25,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_service_discovery_http_namespace ?description ?id ?tags
-    ?tags_all ~name __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
+    __resource_id =
   let __resource_type = "aws_service_discovery_http_namespace" in
   let __resource =
-    ({ description; id; name; tags; tags_all }
-      : aws_service_discovery_http_namespace)
+    aws_service_discovery_http_namespace ?description ?id ?tags
+      ?tags_all ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_service_discovery_http_namespace __resource);
   let __resource_attributes =
     ({

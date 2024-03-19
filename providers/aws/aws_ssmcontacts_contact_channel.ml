@@ -4,22 +4,28 @@
 
 open! Tf.Prelude
 
-type aws_ssmcontacts_contact_channel__delivery_address = {
+type delivery_address = {
   simple_address : string prop;  (** simple_address *)
 }
 [@@deriving yojson_of]
-(** aws_ssmcontacts_contact_channel__delivery_address *)
+(** delivery_address *)
 
 type aws_ssmcontacts_contact_channel = {
   contact_id : string prop;  (** contact_id *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
-  delivery_address :
-    aws_ssmcontacts_contact_channel__delivery_address list;
+  delivery_address : delivery_address list;
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_contact_channel *)
+
+let delivery_address ~simple_address () : delivery_address =
+  { simple_address }
+
+let aws_ssmcontacts_contact_channel ?id ~contact_id ~name ~type_
+    ~delivery_address () : aws_ssmcontacts_contact_channel =
+  { contact_id; id; name; type_; delivery_address }
 
 type t = {
   activation_status : string prop;
@@ -30,14 +36,14 @@ type t = {
   type_ : string prop;
 }
 
-let aws_ssmcontacts_contact_channel ?id ~contact_id ~name ~type_
+let register ?tf_module ?id ~contact_id ~name ~type_
     ~delivery_address __resource_id =
   let __resource_type = "aws_ssmcontacts_contact_channel" in
   let __resource =
-    ({ contact_id; id; name; type_; delivery_address }
-      : aws_ssmcontacts_contact_channel)
+    aws_ssmcontacts_contact_channel ?id ~contact_id ~name ~type_
+      ~delivery_address ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmcontacts_contact_channel __resource);
   let __resource_attributes =
     ({

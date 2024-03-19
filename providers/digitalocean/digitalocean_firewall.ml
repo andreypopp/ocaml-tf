@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type digitalocean_firewall__inbound_rule = {
+type inbound_rule = {
   port_range : string prop option; [@option]  (** port_range *)
   protocol : string prop;  (** protocol *)
   source_addresses : string prop list option; [@option]
@@ -18,9 +18,9 @@ type digitalocean_firewall__inbound_rule = {
   source_tags : string prop list option; [@option]  (** source_tags *)
 }
 [@@deriving yojson_of]
-(** digitalocean_firewall__inbound_rule *)
+(** inbound_rule *)
 
-type digitalocean_firewall__outbound_rule = {
+type outbound_rule = {
   destination_addresses : string prop list option; [@option]
       (** destination_addresses *)
   destination_droplet_ids : float prop list option; [@option]
@@ -35,9 +35,9 @@ type digitalocean_firewall__outbound_rule = {
   protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
-(** digitalocean_firewall__outbound_rule *)
+(** outbound_rule *)
 
-type digitalocean_firewall__pending_changes = {
+type pending_changes = {
   droplet_id : float prop;  (** droplet_id *)
   removing : bool prop;  (** removing *)
   status : string prop;  (** status *)
@@ -49,30 +49,60 @@ type digitalocean_firewall = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   tags : string prop list option; [@option]  (** tags *)
-  inbound_rule : digitalocean_firewall__inbound_rule list;
-  outbound_rule : digitalocean_firewall__outbound_rule list;
+  inbound_rule : inbound_rule list;
+  outbound_rule : outbound_rule list;
 }
 [@@deriving yojson_of]
 (** digitalocean_firewall *)
+
+let inbound_rule ?port_range ?source_addresses ?source_droplet_ids
+    ?source_kubernetes_ids ?source_load_balancer_uids ?source_tags
+    ~protocol () : inbound_rule =
+  {
+    port_range;
+    protocol;
+    source_addresses;
+    source_droplet_ids;
+    source_kubernetes_ids;
+    source_load_balancer_uids;
+    source_tags;
+  }
+
+let outbound_rule ?destination_addresses ?destination_droplet_ids
+    ?destination_kubernetes_ids ?destination_load_balancer_uids
+    ?destination_tags ?port_range ~protocol () : outbound_rule =
+  {
+    destination_addresses;
+    destination_droplet_ids;
+    destination_kubernetes_ids;
+    destination_load_balancer_uids;
+    destination_tags;
+    port_range;
+    protocol;
+  }
+
+let digitalocean_firewall ?droplet_ids ?id ?tags ~name ~inbound_rule
+    ~outbound_rule () : digitalocean_firewall =
+  { droplet_ids; id; name; tags; inbound_rule; outbound_rule }
 
 type t = {
   created_at : string prop;
   droplet_ids : float list prop;
   id : string prop;
   name : string prop;
-  pending_changes : digitalocean_firewall__pending_changes list prop;
+  pending_changes : pending_changes list prop;
   status : string prop;
   tags : string list prop;
 }
 
-let digitalocean_firewall ?droplet_ids ?id ?tags ~name ~inbound_rule
+let register ?tf_module ?droplet_ids ?id ?tags ~name ~inbound_rule
     ~outbound_rule __resource_id =
   let __resource_type = "digitalocean_firewall" in
   let __resource =
-    ({ droplet_ids; id; name; tags; inbound_rule; outbound_rule }
-      : digitalocean_firewall)
+    digitalocean_firewall ?droplet_ids ?id ?tags ~name ~inbound_rule
+      ~outbound_rule ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_firewall __resource);
   let __resource_attributes =
     ({

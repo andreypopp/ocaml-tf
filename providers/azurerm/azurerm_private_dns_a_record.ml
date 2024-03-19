@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_private_dns_a_record__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_private_dns_a_record__timeouts *)
+(** timeouts *)
 
 type azurerm_private_dns_a_record = {
   id : string prop option; [@option]  (** id *)
@@ -21,10 +21,27 @@ type azurerm_private_dns_a_record = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   ttl : float prop;  (** ttl *)
   zone_name : string prop;  (** zone_name *)
-  timeouts : azurerm_private_dns_a_record__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_private_dns_a_record *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_private_dns_a_record ?id ?tags ?timeouts ~name ~records
+    ~resource_group_name ~ttl ~zone_name () :
+    azurerm_private_dns_a_record =
+  {
+    id;
+    name;
+    records;
+    resource_group_name;
+    tags;
+    ttl;
+    zone_name;
+    timeouts;
+  }
 
 type t = {
   fqdn : string prop;
@@ -37,23 +54,14 @@ type t = {
   zone_name : string prop;
 }
 
-let azurerm_private_dns_a_record ?id ?tags ?timeouts ~name ~records
+let register ?tf_module ?id ?tags ?timeouts ~name ~records
     ~resource_group_name ~ttl ~zone_name __resource_id =
   let __resource_type = "azurerm_private_dns_a_record" in
   let __resource =
-    ({
-       id;
-       name;
-       records;
-       resource_group_name;
-       tags;
-       ttl;
-       zone_name;
-       timeouts;
-     }
-      : azurerm_private_dns_a_record)
+    azurerm_private_dns_a_record ?id ?tags ?timeouts ~name ~records
+      ~resource_group_name ~ttl ~zone_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_a_record __resource);
   let __resource_attributes =
     ({

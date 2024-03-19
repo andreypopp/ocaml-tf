@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_shield_drt_access_log_bucket_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_shield_drt_access_log_bucket_association
+
+val aws_shield_drt_access_log_bucket_association :
+  ?timeouts:timeouts ->
+  log_bucket:string prop ->
+  role_arn_association_id:string prop ->
+  unit ->
+  aws_shield_drt_access_log_bucket_association
+
+val yojson_of_aws_shield_drt_access_log_bucket_association :
+  aws_shield_drt_access_log_bucket_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,8 +29,9 @@ type t = private {
   role_arn_association_id : string prop;
 }
 
-val aws_shield_drt_access_log_bucket_association :
-  ?timeouts:aws_shield_drt_access_log_bucket_association__timeouts ->
+val register :
+  ?tf_module:tf_module ->
+  ?timeouts:timeouts ->
   log_bucket:string prop ->
   role_arn_association_id:string prop ->
   string ->

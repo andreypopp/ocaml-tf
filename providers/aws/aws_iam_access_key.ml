@@ -13,6 +13,10 @@ type aws_iam_access_key = {
 [@@deriving yojson_of]
 (** aws_iam_access_key *)
 
+let aws_iam_access_key ?id ?pgp_key ?status ~user () :
+    aws_iam_access_key =
+  { id; pgp_key; status; user }
+
 type t = {
   create_date : string prop;
   encrypted_secret : string prop;
@@ -26,12 +30,12 @@ type t = {
   user : string prop;
 }
 
-let aws_iam_access_key ?id ?pgp_key ?status ~user __resource_id =
+let register ?tf_module ?id ?pgp_key ?status ~user __resource_id =
   let __resource_type = "aws_iam_access_key" in
   let __resource =
-    ({ id; pgp_key; status; user } : aws_iam_access_key)
+    aws_iam_access_key ?id ?pgp_key ?status ~user ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_access_key __resource);
   let __resource_attributes =
     ({

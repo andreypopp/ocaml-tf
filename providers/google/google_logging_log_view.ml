@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_logging_log_view__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_logging_log_view__timeouts *)
+(** timeouts *)
 
 type google_logging_log_view = {
   bucket : string prop;  (** The bucket of the resource *)
@@ -25,10 +25,26 @@ type google_logging_log_view = {
       (** The resource name of the view. For example: \'projects/my-project/locations/global/buckets/my-bucket/views/my-view\' *)
   parent : string prop option; [@option]
       (** The parent of the resource. *)
-  timeouts : google_logging_log_view__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_logging_log_view *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_logging_log_view ?description ?filter ?id ?location
+    ?parent ?timeouts ~bucket ~name () : google_logging_log_view =
+  {
+    bucket;
+    description;
+    filter;
+    id;
+    location;
+    name;
+    parent;
+    timeouts;
+  }
 
 type t = {
   bucket : string prop;
@@ -42,23 +58,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_logging_log_view ?description ?filter ?id ?location
-    ?parent ?timeouts ~bucket ~name __resource_id =
+let register ?tf_module ?description ?filter ?id ?location ?parent
+    ?timeouts ~bucket ~name __resource_id =
   let __resource_type = "google_logging_log_view" in
   let __resource =
-    ({
-       bucket;
-       description;
-       filter;
-       id;
-       location;
-       name;
-       parent;
-       timeouts;
-     }
-      : google_logging_log_view)
+    google_logging_log_view ?description ?filter ?id ?location
+      ?parent ?timeouts ~bucket ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_log_view __resource);
   let __resource_attributes =
     ({

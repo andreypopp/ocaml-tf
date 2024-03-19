@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_firebaserules_release__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_firebaserules_release__timeouts *)
+(** timeouts *)
 
 type google_firebaserules_release = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,16 @@ type google_firebaserules_release = {
       (** The project for the resource *)
   ruleset_name : string prop;
       (** Name of the `Ruleset` referred to by this `Release`. The `Ruleset` must exist for the `Release` to be created. *)
-  timeouts : google_firebaserules_release__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_firebaserules_release *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_firebaserules_release ?id ?project ?timeouts ~name
+    ~ruleset_name () : google_firebaserules_release =
+  { id; name; project; ruleset_name; timeouts }
 
 type t = {
   create_time : string prop;
@@ -34,14 +40,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_firebaserules_release ?id ?project ?timeouts ~name
-    ~ruleset_name __resource_id =
+let register ?tf_module ?id ?project ?timeouts ~name ~ruleset_name
+    __resource_id =
   let __resource_type = "google_firebaserules_release" in
   let __resource =
-    ({ id; name; project; ruleset_name; timeouts }
-      : google_firebaserules_release)
+    google_firebaserules_release ?id ?project ?timeouts ~name
+      ~ruleset_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebaserules_release __resource);
   let __resource_attributes =
     ({

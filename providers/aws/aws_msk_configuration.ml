@@ -15,6 +15,10 @@ type aws_msk_configuration = {
 [@@deriving yojson_of]
 (** aws_msk_configuration *)
 
+let aws_msk_configuration ?description ?id ?kafka_versions ~name
+    ~server_properties () : aws_msk_configuration =
+  { description; id; kafka_versions; name; server_properties }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -25,14 +29,14 @@ type t = {
   server_properties : string prop;
 }
 
-let aws_msk_configuration ?description ?id ?kafka_versions ~name
+let register ?tf_module ?description ?id ?kafka_versions ~name
     ~server_properties __resource_id =
   let __resource_type = "aws_msk_configuration" in
   let __resource =
-    ({ description; id; kafka_versions; name; server_properties }
-      : aws_msk_configuration)
+    aws_msk_configuration ?description ?id ?kafka_versions ~name
+      ~server_properties ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_msk_configuration __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,43 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipam_pool__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_vpc_ipam_pool
+
+val aws_vpc_ipam_pool :
+  ?allocation_default_netmask_length:float prop ->
+  ?allocation_max_netmask_length:float prop ->
+  ?allocation_min_netmask_length:float prop ->
+  ?allocation_resource_tags:(string * string prop) list ->
+  ?auto_import:bool prop ->
+  ?aws_service:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?locale:string prop ->
+  ?public_ip_source:string prop ->
+  ?publicly_advertisable:bool prop ->
+  ?source_ipam_pool_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  address_family:string prop ->
+  ipam_scope_id:string prop ->
+  unit ->
+  aws_vpc_ipam_pool
+
+val yojson_of_aws_vpc_ipam_pool : aws_vpc_ipam_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   address_family : string prop;
@@ -28,7 +63,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_vpc_ipam_pool :
+val register :
+  ?tf_module:tf_module ->
   ?allocation_default_netmask_length:float prop ->
   ?allocation_max_netmask_length:float prop ->
   ?allocation_min_netmask_length:float prop ->
@@ -43,7 +79,7 @@ val aws_vpc_ipam_pool :
   ?source_ipam_pool_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_vpc_ipam_pool__timeouts ->
+  ?timeouts:timeouts ->
   address_family:string prop ->
   ipam_scope_id:string prop ->
   string ->

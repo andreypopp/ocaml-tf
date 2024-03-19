@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_beyondcorp_app_connection__application_endpoint = {
+type application_endpoint = {
   host : string prop;
       (** Hostname or IP address of the remote application endpoint. *)
   port : float prop;  (** Port of the remote application endpoint. *)
@@ -12,27 +12,24 @@ type google_beyondcorp_app_connection__application_endpoint = {
 [@@deriving yojson_of]
 (** Address of the remote application endpoint for the BeyondCorp AppConnection. *)
 
-type google_beyondcorp_app_connection__gateway = {
+type gateway = {
   app_gateway : string prop;
       (** AppGateway name in following format: projects/{project_id}/locations/{locationId}/appgateways/{gateway_id}. *)
-  ingress_port : float prop;
-      (** Ingress port reserved on the gateways for this AppConnection, if not specified or zero, the default port is 19443. *)
   type_ : string prop option; [@option] [@key "type"]
       (** The type of hosting used by the gateway. Refer to
 https://cloud.google.com/beyondcorp/docs/reference/rest/v1/projects.locations.appConnections#Type_1
 for a list of possible values. *)
-  uri : string prop;  (** Server-defined URI for this resource. *)
 }
 [@@deriving yojson_of]
 (** Gateway used by the AppConnection. *)
 
-type google_beyondcorp_app_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_beyondcorp_app_connection__timeouts *)
+(** timeouts *)
 
 type google_beyondcorp_app_connection = {
   connectors : string prop list option; [@option]
@@ -54,13 +51,38 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The type of network connectivity used by the AppConnection. Refer to
 https://cloud.google.com/beyondcorp/docs/reference/rest/v1/projects.locations.appConnections#type
 for a list of possible values. *)
-  application_endpoint :
-    google_beyondcorp_app_connection__application_endpoint list;
-  gateway : google_beyondcorp_app_connection__gateway list;
-  timeouts : google_beyondcorp_app_connection__timeouts option;
+  application_endpoint : application_endpoint list;
+  gateway : gateway list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_beyondcorp_app_connection *)
+
+let application_endpoint ~host ~port () : application_endpoint =
+  { host; port }
+
+let gateway ?type_ ~app_gateway () : gateway = { app_gateway; type_ }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_beyondcorp_app_connection ?connectors ?display_name ?id
+    ?labels ?project ?region ?type_ ?timeouts ~name
+    ~application_endpoint ~gateway () :
+    google_beyondcorp_app_connection =
+  {
+    connectors;
+    display_name;
+    id;
+    labels;
+    name;
+    project;
+    region;
+    type_;
+    application_endpoint;
+    gateway;
+    timeouts;
+  }
 
 type t = {
   connectors : string list prop;
@@ -75,27 +97,16 @@ type t = {
   type_ : string prop;
 }
 
-let google_beyondcorp_app_connection ?connectors ?display_name ?id
-    ?labels ?project ?region ?type_ ?timeouts ~name
-    ~application_endpoint ~gateway __resource_id =
+let register ?tf_module ?connectors ?display_name ?id ?labels
+    ?project ?region ?type_ ?timeouts ~name ~application_endpoint
+    ~gateway __resource_id =
   let __resource_type = "google_beyondcorp_app_connection" in
   let __resource =
-    ({
-       connectors;
-       display_name;
-       id;
-       labels;
-       name;
-       project;
-       region;
-       type_;
-       application_endpoint;
-       gateway;
-       timeouts;
-     }
-      : google_beyondcorp_app_connection)
+    google_beyondcorp_app_connection ?connectors ?display_name ?id
+      ?labels ?project ?region ?type_ ?timeouts ~name
+      ~application_endpoint ~gateway ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_beyondcorp_app_connection __resource);
   let __resource_attributes =
     ({

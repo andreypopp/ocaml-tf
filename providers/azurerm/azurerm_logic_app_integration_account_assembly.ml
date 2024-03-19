@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_integration_account_assembly__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_assembly__timeouts *)
+(** timeouts *)
 
 type azurerm_logic_app_integration_account_assembly = {
   assembly_name : string prop;  (** assembly_name *)
@@ -27,11 +27,30 @@ type azurerm_logic_app_integration_account_assembly = {
       (** metadata *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts :
-    azurerm_logic_app_integration_account_assembly__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_assembly *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logic_app_integration_account_assembly ?assembly_version
+    ?content ?content_link_uri ?id ?metadata ?timeouts ~assembly_name
+    ~integration_account_name ~name ~resource_group_name () :
+    azurerm_logic_app_integration_account_assembly =
+  {
+    assembly_name;
+    assembly_version;
+    content;
+    content_link_uri;
+    id;
+    integration_account_name;
+    metadata;
+    name;
+    resource_group_name;
+    timeouts;
+  }
 
 type t = {
   assembly_name : string prop;
@@ -45,29 +64,19 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_logic_app_integration_account_assembly ?assembly_version
-    ?content ?content_link_uri ?id ?metadata ?timeouts ~assembly_name
-    ~integration_account_name ~name ~resource_group_name
-    __resource_id =
+let register ?tf_module ?assembly_version ?content ?content_link_uri
+    ?id ?metadata ?timeouts ~assembly_name ~integration_account_name
+    ~name ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_assembly"
   in
   let __resource =
-    ({
-       assembly_name;
-       assembly_version;
-       content;
-       content_link_uri;
-       id;
-       integration_account_name;
-       metadata;
-       name;
-       resource_group_name;
-       timeouts;
-     }
-      : azurerm_logic_app_integration_account_assembly)
+    azurerm_logic_app_integration_account_assembly ?assembly_version
+      ?content ?content_link_uri ?id ?metadata ?timeouts
+      ~assembly_name ~integration_account_name ~name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_assembly
        __resource);
   let __resource_attributes =

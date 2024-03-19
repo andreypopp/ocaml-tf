@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_gallery_application_version__manage_action = {
+type manage_action = {
   install : string prop;  (** install *)
   remove : string prop;  (** remove *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_gallery_application_version__manage_action *)
+(** manage_action *)
 
-type azurerm_gallery_application_version__source = {
+type source = {
   default_configuration_link : string prop option; [@option]
       (** default_configuration_link *)
   media_link : string prop;  (** media_link *)
 }
 [@@deriving yojson_of]
-(** azurerm_gallery_application_version__source *)
+(** source *)
 
-type azurerm_gallery_application_version__target_region = {
+type target_region = {
   exclude_from_latest : bool prop option; [@option]
       (** exclude_from_latest *)
   name : string prop;  (** name *)
@@ -29,16 +29,16 @@ type azurerm_gallery_application_version__target_region = {
       (** storage_account_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_gallery_application_version__target_region *)
+(** target_region *)
 
-type azurerm_gallery_application_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_gallery_application_version__timeouts *)
+(** timeouts *)
 
 type azurerm_gallery_application_version = {
   config_file : string prop option; [@option]  (** config_file *)
@@ -55,15 +55,53 @@ type azurerm_gallery_application_version = {
   name : string prop;  (** name *)
   package_file : string prop option; [@option]  (** package_file *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  manage_action :
-    azurerm_gallery_application_version__manage_action list;
-  source : azurerm_gallery_application_version__source list;
-  target_region :
-    azurerm_gallery_application_version__target_region list;
-  timeouts : azurerm_gallery_application_version__timeouts option;
+  manage_action : manage_action list;
+  source : source list;
+  target_region : target_region list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_gallery_application_version *)
+
+let manage_action ?update ~install ~remove () : manage_action =
+  { install; remove; update }
+
+let source ?default_configuration_link ~media_link () : source =
+  { default_configuration_link; media_link }
+
+let target_region ?exclude_from_latest ?storage_account_type ~name
+    ~regional_replica_count () : target_region =
+  {
+    exclude_from_latest;
+    name;
+    regional_replica_count;
+    storage_account_type;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_gallery_application_version ?config_file
+    ?enable_health_check ?end_of_life_date ?exclude_from_latest ?id
+    ?package_file ?tags ?timeouts ~gallery_application_id ~location
+    ~name ~manage_action ~source ~target_region () :
+    azurerm_gallery_application_version =
+  {
+    config_file;
+    enable_health_check;
+    end_of_life_date;
+    exclude_from_latest;
+    gallery_application_id;
+    id;
+    location;
+    name;
+    package_file;
+    tags;
+    manage_action;
+    source;
+    target_region;
+    timeouts;
+  }
 
 type t = {
   config_file : string prop;
@@ -78,31 +116,18 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_gallery_application_version ?config_file
-    ?enable_health_check ?end_of_life_date ?exclude_from_latest ?id
-    ?package_file ?tags ?timeouts ~gallery_application_id ~location
-    ~name ~manage_action ~source ~target_region __resource_id =
+let register ?tf_module ?config_file ?enable_health_check
+    ?end_of_life_date ?exclude_from_latest ?id ?package_file ?tags
+    ?timeouts ~gallery_application_id ~location ~name ~manage_action
+    ~source ~target_region __resource_id =
   let __resource_type = "azurerm_gallery_application_version" in
   let __resource =
-    ({
-       config_file;
-       enable_health_check;
-       end_of_life_date;
-       exclude_from_latest;
-       gallery_application_id;
-       id;
-       location;
-       name;
-       package_file;
-       tags;
-       manage_action;
-       source;
-       target_region;
-       timeouts;
-     }
-      : azurerm_gallery_application_version)
+    azurerm_gallery_application_version ?config_file
+      ?enable_health_check ?end_of_life_date ?exclude_from_latest ?id
+      ?package_file ?tags ?timeouts ~gallery_application_id ~location
+      ~name ~manage_action ~source ~target_region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_gallery_application_version __resource);
   let __resource_attributes =
     ({

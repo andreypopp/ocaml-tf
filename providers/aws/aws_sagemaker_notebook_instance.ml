@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_notebook_instance__instance_metadata_service_configuration = {
+type instance_metadata_service_configuration = {
   minimum_instance_metadata_service_version : string prop option;
       [@option]
       (** minimum_instance_metadata_service_version *)
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_notebook_instance__instance_metadata_service_configuration *)
+(** instance_metadata_service_configuration *)
 
 type aws_sagemaker_notebook_instance = {
   accelerator_types : string prop list option; [@option]
@@ -39,11 +39,43 @@ type aws_sagemaker_notebook_instance = {
       (** tags_all *)
   volume_size : float prop option; [@option]  (** volume_size *)
   instance_metadata_service_configuration :
-    aws_sagemaker_notebook_instance__instance_metadata_service_configuration
-    list;
+    instance_metadata_service_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_notebook_instance *)
+
+let instance_metadata_service_configuration
+    ?minimum_instance_metadata_service_version () :
+    instance_metadata_service_configuration =
+  { minimum_instance_metadata_service_version }
+
+let aws_sagemaker_notebook_instance ?accelerator_types
+    ?additional_code_repositories ?default_code_repository
+    ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
+    ?platform_identifier ?root_access ?security_groups ?subnet_id
+    ?tags ?tags_all ?volume_size ~instance_type ~name ~role_arn
+    ~instance_metadata_service_configuration () :
+    aws_sagemaker_notebook_instance =
+  {
+    accelerator_types;
+    additional_code_repositories;
+    default_code_repository;
+    direct_internet_access;
+    id;
+    instance_type;
+    kms_key_id;
+    lifecycle_config_name;
+    name;
+    platform_identifier;
+    role_arn;
+    root_access;
+    security_groups;
+    subnet_id;
+    tags;
+    tags_all;
+    volume_size;
+    instance_metadata_service_configuration;
+  }
 
 type t = {
   accelerator_types : string list prop;
@@ -68,7 +100,7 @@ type t = {
   volume_size : float prop;
 }
 
-let aws_sagemaker_notebook_instance ?accelerator_types
+let register ?tf_module ?accelerator_types
     ?additional_code_repositories ?default_code_repository
     ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
     ?platform_identifier ?root_access ?security_groups ?subnet_id
@@ -76,29 +108,14 @@ let aws_sagemaker_notebook_instance ?accelerator_types
     ~instance_metadata_service_configuration __resource_id =
   let __resource_type = "aws_sagemaker_notebook_instance" in
   let __resource =
-    ({
-       accelerator_types;
-       additional_code_repositories;
-       default_code_repository;
-       direct_internet_access;
-       id;
-       instance_type;
-       kms_key_id;
-       lifecycle_config_name;
-       name;
-       platform_identifier;
-       role_arn;
-       root_access;
-       security_groups;
-       subnet_id;
-       tags;
-       tags_all;
-       volume_size;
-       instance_metadata_service_configuration;
-     }
-      : aws_sagemaker_notebook_instance)
+    aws_sagemaker_notebook_instance ?accelerator_types
+      ?additional_code_repositories ?default_code_repository
+      ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
+      ?platform_identifier ?root_access ?security_groups ?subnet_id
+      ?tags ?tags_all ?volume_size ~instance_type ~name ~role_arn
+      ~instance_metadata_service_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_notebook_instance __resource);
   let __resource_attributes =
     ({

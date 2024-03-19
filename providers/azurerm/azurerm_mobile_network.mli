@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_mobile_network__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mobile_network
+
+val azurerm_mobile_network :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  mobile_country_code:string prop ->
+  mobile_network_code:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_mobile_network
+
+val yojson_of_azurerm_mobile_network : azurerm_mobile_network -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -16,10 +43,11 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_mobile_network :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_mobile_network__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   mobile_country_code:string prop ->
   mobile_network_code:string prop ->

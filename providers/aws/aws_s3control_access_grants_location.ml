@@ -13,6 +13,11 @@ type aws_s3control_access_grants_location = {
 [@@deriving yojson_of]
 (** aws_s3control_access_grants_location *)
 
+let aws_s3control_access_grants_location ?account_id ?tags
+    ~iam_role_arn ~location_scope () :
+    aws_s3control_access_grants_location =
+  { account_id; iam_role_arn; location_scope; tags }
+
 type t = {
   access_grants_location_arn : string prop;
   access_grants_location_id : string prop;
@@ -24,14 +29,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_s3control_access_grants_location ?account_id ?tags
-    ~iam_role_arn ~location_scope __resource_id =
+let register ?tf_module ?account_id ?tags ~iam_role_arn
+    ~location_scope __resource_id =
   let __resource_type = "aws_s3control_access_grants_location" in
   let __resource =
-    ({ account_id; iam_role_arn; location_scope; tags }
-      : aws_s3control_access_grants_location)
+    aws_s3control_access_grants_location ?account_id ?tags
+      ~iam_role_arn ~location_scope ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_access_grants_location __resource);
   let __resource_attributes =
     ({

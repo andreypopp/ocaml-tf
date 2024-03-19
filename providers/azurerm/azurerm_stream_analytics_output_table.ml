@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_stream_analytics_output_table__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_stream_analytics_output_table__timeouts *)
+(** timeouts *)
 
 type azurerm_stream_analytics_output_table = {
   batch_size : float prop;  (** batch_size *)
@@ -27,10 +27,33 @@ type azurerm_stream_analytics_output_table = {
   stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
   table : string prop;  (** table *)
-  timeouts : azurerm_stream_analytics_output_table__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_table *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_stream_analytics_output_table ?columns_to_remove ?id
+    ?timeouts ~batch_size ~name ~partition_key ~resource_group_name
+    ~row_key ~storage_account_key ~storage_account_name
+    ~stream_analytics_job_name ~table () :
+    azurerm_stream_analytics_output_table =
+  {
+    batch_size;
+    columns_to_remove;
+    id;
+    name;
+    partition_key;
+    resource_group_name;
+    row_key;
+    storage_account_key;
+    storage_account_name;
+    stream_analytics_job_name;
+    table;
+    timeouts;
+  }
 
 type t = {
   batch_size : float prop;
@@ -46,29 +69,18 @@ type t = {
   table : string prop;
 }
 
-let azurerm_stream_analytics_output_table ?columns_to_remove ?id
-    ?timeouts ~batch_size ~name ~partition_key ~resource_group_name
-    ~row_key ~storage_account_key ~storage_account_name
+let register ?tf_module ?columns_to_remove ?id ?timeouts ~batch_size
+    ~name ~partition_key ~resource_group_name ~row_key
+    ~storage_account_key ~storage_account_name
     ~stream_analytics_job_name ~table __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_table" in
   let __resource =
-    ({
-       batch_size;
-       columns_to_remove;
-       id;
-       name;
-       partition_key;
-       resource_group_name;
-       row_key;
-       storage_account_key;
-       storage_account_name;
-       stream_analytics_job_name;
-       table;
-       timeouts;
-     }
-      : azurerm_stream_analytics_output_table)
+    azurerm_stream_analytics_output_table ?columns_to_remove ?id
+      ?timeouts ~batch_size ~name ~partition_key ~resource_group_name
+      ~row_key ~storage_account_key ~storage_account_name
+      ~stream_analytics_job_name ~table ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_table __resource);
   let __resource_attributes =
     ({

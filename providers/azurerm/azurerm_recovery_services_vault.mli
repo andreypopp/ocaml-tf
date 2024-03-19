@@ -2,11 +2,70 @@
 
 open! Tf.Prelude
 
-type azurerm_recovery_services_vault__encryption
-type azurerm_recovery_services_vault__identity
-type azurerm_recovery_services_vault__monitoring
-type azurerm_recovery_services_vault__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type encryption
+
+val encryption :
+  ?use_system_assigned_identity:bool prop ->
+  ?user_assigned_identity_id:string prop ->
+  infrastructure_encryption_enabled:bool prop ->
+  key_id:string prop ->
+  unit ->
+  encryption
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type monitoring
+
+val monitoring :
+  ?alerts_for_all_job_failures_enabled:bool prop ->
+  ?alerts_for_critical_operation_failures_enabled:bool prop ->
+  unit ->
+  monitoring
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_recovery_services_vault
+
+val azurerm_recovery_services_vault :
+  ?classic_vmware_replication_enabled:bool prop ->
+  ?cross_region_restore_enabled:bool prop ->
+  ?id:string prop ->
+  ?immutability:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?soft_delete_enabled:bool prop ->
+  ?storage_mode_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  encryption:encryption list ->
+  identity:identity list ->
+  monitoring:monitoring list ->
+  unit ->
+  azurerm_recovery_services_vault
+
+val yojson_of_azurerm_recovery_services_vault :
+  azurerm_recovery_services_vault -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   classic_vmware_replication_enabled : bool prop;
@@ -23,7 +82,8 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_recovery_services_vault :
+val register :
+  ?tf_module:tf_module ->
   ?classic_vmware_replication_enabled:bool prop ->
   ?cross_region_restore_enabled:bool prop ->
   ?id:string prop ->
@@ -32,13 +92,13 @@ val azurerm_recovery_services_vault :
   ?soft_delete_enabled:bool prop ->
   ?storage_mode_type:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_recovery_services_vault__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  encryption:azurerm_recovery_services_vault__encryption list ->
-  identity:azurerm_recovery_services_vault__identity list ->
-  monitoring:azurerm_recovery_services_vault__monitoring list ->
+  encryption:encryption list ->
+  identity:identity list ->
+  monitoring:monitoring list ->
   string ->
   t

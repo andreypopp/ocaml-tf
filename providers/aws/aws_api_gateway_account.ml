@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_api_gateway_account__throttle_settings = {
+type throttle_settings = {
   burst_limit : float prop;  (** burst_limit *)
   rate_limit : float prop;  (** rate_limit *)
 }
@@ -18,21 +18,24 @@ type aws_api_gateway_account = {
 [@@deriving yojson_of]
 (** aws_api_gateway_account *)
 
+let aws_api_gateway_account ?cloudwatch_role_arn ?id () :
+    aws_api_gateway_account =
+  { cloudwatch_role_arn; id }
+
 type t = {
   api_key_version : string prop;
   cloudwatch_role_arn : string prop;
   features : string list prop;
   id : string prop;
-  throttle_settings :
-    aws_api_gateway_account__throttle_settings list prop;
+  throttle_settings : throttle_settings list prop;
 }
 
-let aws_api_gateway_account ?cloudwatch_role_arn ?id __resource_id =
+let register ?tf_module ?cloudwatch_role_arn ?id __resource_id =
   let __resource_type = "aws_api_gateway_account" in
   let __resource =
-    ({ cloudwatch_role_arn; id } : aws_api_gateway_account)
+    aws_api_gateway_account ?cloudwatch_role_arn ?id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_account __resource);
   let __resource_attributes =
     ({

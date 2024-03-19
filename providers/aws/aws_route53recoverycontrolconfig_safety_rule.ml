@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_route53recoverycontrolconfig_safety_rule__rule_config = {
+type rule_config = {
   inverted : bool prop;  (** inverted *)
   threshold : float prop;  (** threshold *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_route53recoverycontrolconfig_safety_rule__rule_config *)
+(** rule_config *)
 
 type aws_route53recoverycontrolconfig_safety_rule = {
   asserted_controls : string prop list option; [@option]
@@ -23,11 +23,28 @@ type aws_route53recoverycontrolconfig_safety_rule = {
   target_controls : string prop list option; [@option]
       (** target_controls *)
   wait_period_ms : float prop;  (** wait_period_ms *)
-  rule_config :
-    aws_route53recoverycontrolconfig_safety_rule__rule_config list;
+  rule_config : rule_config list;
 }
 [@@deriving yojson_of]
 (** aws_route53recoverycontrolconfig_safety_rule *)
+
+let rule_config ~inverted ~threshold ~type_ () : rule_config =
+  { inverted; threshold; type_ }
+
+let aws_route53recoverycontrolconfig_safety_rule ?asserted_controls
+    ?gating_controls ?id ?target_controls ~control_panel_arn ~name
+    ~wait_period_ms ~rule_config () :
+    aws_route53recoverycontrolconfig_safety_rule =
+  {
+    asserted_controls;
+    control_panel_arn;
+    gating_controls;
+    id;
+    name;
+    target_controls;
+    wait_period_ms;
+    rule_config;
+  }
 
 type t = {
   arn : string prop;
@@ -41,26 +58,18 @@ type t = {
   wait_period_ms : float prop;
 }
 
-let aws_route53recoverycontrolconfig_safety_rule ?asserted_controls
-    ?gating_controls ?id ?target_controls ~control_panel_arn ~name
-    ~wait_period_ms ~rule_config __resource_id =
+let register ?tf_module ?asserted_controls ?gating_controls ?id
+    ?target_controls ~control_panel_arn ~name ~wait_period_ms
+    ~rule_config __resource_id =
   let __resource_type =
     "aws_route53recoverycontrolconfig_safety_rule"
   in
   let __resource =
-    ({
-       asserted_controls;
-       control_panel_arn;
-       gating_controls;
-       id;
-       name;
-       target_controls;
-       wait_period_ms;
-       rule_config;
-     }
-      : aws_route53recoverycontrolconfig_safety_rule)
+    aws_route53recoverycontrolconfig_safety_rule ?asserted_controls
+      ?gating_controls ?id ?target_controls ~control_panel_arn ~name
+      ~wait_period_ms ~rule_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53recoverycontrolconfig_safety_rule
        __resource);
   let __resource_attributes =

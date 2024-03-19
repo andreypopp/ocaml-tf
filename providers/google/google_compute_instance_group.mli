@@ -2,9 +2,41 @@
 
 open! Tf.Prelude
 
-type google_compute_instance_group__named_port
-type google_compute_instance_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type named_port
+
+val named_port :
+  name:string prop -> port:float prop -> unit -> named_port
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_instance_group
+
+val google_compute_instance_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?instances:string prop list ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  named_port:named_port list ->
+  unit ->
+  google_compute_instance_group
+
+val yojson_of_google_compute_instance_group :
+  google_compute_instance_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -18,15 +50,16 @@ type t = private {
   zone : string prop;
 }
 
-val google_compute_instance_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?instances:string prop list ->
   ?network:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
-  ?timeouts:google_compute_instance_group__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  named_port:google_compute_instance_group__named_port list ->
+  named_port:named_port list ->
   string ->
   t

@@ -4,25 +4,22 @@
 
 open! Tf.Prelude
 
-type google_certificate_manager_certificate_map__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_certificate_manager_certificate_map__timeouts *)
+(** timeouts *)
 
-type google_certificate_manager_certificate_map__gclb_targets__ip_configs = {
+type gclb_targets__ip_configs = {
   ip_address : string prop;  (** ip_address *)
   ports : float prop list;  (** ports *)
 }
 [@@deriving yojson_of]
 
-type google_certificate_manager_certificate_map__gclb_targets = {
-  ip_configs :
-    google_certificate_manager_certificate_map__gclb_targets__ip_configs
-    list;
-      (** ip_configs *)
+type gclb_targets = {
+  ip_configs : gclb_targets__ip_configs list;  (** ip_configs *)
   target_https_proxy : string prop;  (** target_https_proxy *)
   target_ssl_proxy : string prop;  (** target_ssl_proxy *)
 }
@@ -42,19 +39,24 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** A user-defined name of the Certificate Map. Certificate Map names must be unique
 globally and match the pattern 'projects/*/locations/*/certificateMaps/*'. *)
   project : string prop option; [@option]  (** project *)
-  timeouts :
-    google_certificate_manager_certificate_map__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate_map *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_certificate_manager_certificate_map ?description ?id
+    ?labels ?project ?timeouts ~name () :
+    google_certificate_manager_certificate_map =
+  { description; id; labels; name; project; timeouts }
 
 type t = {
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
-  gclb_targets :
-    google_certificate_manager_certificate_map__gclb_targets list
-    prop;
+  gclb_targets : gclb_targets list prop;
   id : string prop;
   labels : (string * string) list prop;
   name : string prop;
@@ -63,16 +65,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_certificate_manager_certificate_map ?description ?id
-    ?labels ?project ?timeouts ~name __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~name __resource_id =
   let __resource_type =
     "google_certificate_manager_certificate_map"
   in
   let __resource =
-    ({ description; id; labels; name; project; timeouts }
-      : google_certificate_manager_certificate_map)
+    google_certificate_manager_certificate_map ?description ?id
+      ?labels ?project ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_certificate_map __resource);
   let __resource_attributes =
     ({

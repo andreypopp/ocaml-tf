@@ -4,59 +4,57 @@
 
 open! Tf.Prelude
 
-type azurerm_service_fabric_cluster__azure_active_directory = {
+type azure_active_directory = {
   client_application_id : string prop;  (** client_application_id *)
   cluster_application_id : string prop;
       (** cluster_application_id *)
   tenant_id : string prop;  (** tenant_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__azure_active_directory *)
+(** azure_active_directory *)
 
-type azurerm_service_fabric_cluster__certificate = {
+type certificate = {
   thumbprint : string prop;  (** thumbprint *)
   thumbprint_secondary : string prop option; [@option]
       (** thumbprint_secondary *)
   x509_store_name : string prop;  (** x509_store_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__certificate *)
+(** certificate *)
 
-type azurerm_service_fabric_cluster__certificate_common_names__common_names = {
+type certificate_common_names__common_names = {
   certificate_common_name : string prop;
       (** certificate_common_name *)
   certificate_issuer_thumbprint : string prop option; [@option]
       (** certificate_issuer_thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__certificate_common_names__common_names *)
+(** certificate_common_names__common_names *)
 
-type azurerm_service_fabric_cluster__certificate_common_names = {
+type certificate_common_names = {
   x509_store_name : string prop;  (** x509_store_name *)
-  common_names :
-    azurerm_service_fabric_cluster__certificate_common_names__common_names
-    list;
+  common_names : certificate_common_names__common_names list;
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__certificate_common_names *)
+(** certificate_common_names *)
 
-type azurerm_service_fabric_cluster__client_certificate_common_name = {
+type client_certificate_common_name = {
   common_name : string prop;  (** common_name *)
   is_admin : bool prop;  (** is_admin *)
   issuer_thumbprint : string prop option; [@option]
       (** issuer_thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__client_certificate_common_name *)
+(** client_certificate_common_name *)
 
-type azurerm_service_fabric_cluster__client_certificate_thumbprint = {
+type client_certificate_thumbprint = {
   is_admin : bool prop;  (** is_admin *)
   thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__client_certificate_thumbprint *)
+(** client_certificate_thumbprint *)
 
-type azurerm_service_fabric_cluster__diagnostics_config = {
+type diagnostics_config = {
   blob_endpoint : string prop;  (** blob_endpoint *)
   protected_account_key_name : string prop;
       (** protected_account_key_name *)
@@ -65,31 +63,31 @@ type azurerm_service_fabric_cluster__diagnostics_config = {
   table_endpoint : string prop;  (** table_endpoint *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__diagnostics_config *)
+(** diagnostics_config *)
 
-type azurerm_service_fabric_cluster__fabric_settings = {
+type fabric_settings = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__fabric_settings *)
+(** fabric_settings *)
 
-type azurerm_service_fabric_cluster__node_type__application_ports = {
+type node_type__application_ports = {
   end_port : float prop;  (** end_port *)
   start_port : float prop;  (** start_port *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__node_type__application_ports *)
+(** node_type__application_ports *)
 
-type azurerm_service_fabric_cluster__node_type__ephemeral_ports = {
+type node_type__ephemeral_ports = {
   end_port : float prop;  (** end_port *)
   start_port : float prop;  (** start_port *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__node_type__ephemeral_ports *)
+(** node_type__ephemeral_ports *)
 
-type azurerm_service_fabric_cluster__node_type = {
+type node_type = {
   capacities : (string * string prop) list option; [@option]
       (** capacities *)
   client_endpoint_port : float prop;  (** client_endpoint_port *)
@@ -107,51 +105,48 @@ type azurerm_service_fabric_cluster__node_type = {
       (** placement_properties *)
   reverse_proxy_endpoint_port : float prop option; [@option]
       (** reverse_proxy_endpoint_port *)
-  application_ports :
-    azurerm_service_fabric_cluster__node_type__application_ports list;
-  ephemeral_ports :
-    azurerm_service_fabric_cluster__node_type__ephemeral_ports list;
+  application_ports : node_type__application_ports list;
+  ephemeral_ports : node_type__ephemeral_ports list;
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__node_type *)
+(** node_type *)
 
-type azurerm_service_fabric_cluster__reverse_proxy_certificate = {
+type reverse_proxy_certificate = {
   thumbprint : string prop;  (** thumbprint *)
   thumbprint_secondary : string prop option; [@option]
       (** thumbprint_secondary *)
   x509_store_name : string prop;  (** x509_store_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__reverse_proxy_certificate *)
+(** reverse_proxy_certificate *)
 
-type azurerm_service_fabric_cluster__reverse_proxy_certificate_common_names__common_names = {
+type reverse_proxy_certificate_common_names__common_names = {
   certificate_common_name : string prop;
       (** certificate_common_name *)
   certificate_issuer_thumbprint : string prop option; [@option]
       (** certificate_issuer_thumbprint *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__reverse_proxy_certificate_common_names__common_names *)
+(** reverse_proxy_certificate_common_names__common_names *)
 
-type azurerm_service_fabric_cluster__reverse_proxy_certificate_common_names = {
+type reverse_proxy_certificate_common_names = {
   x509_store_name : string prop;  (** x509_store_name *)
   common_names :
-    azurerm_service_fabric_cluster__reverse_proxy_certificate_common_names__common_names
-    list;
+    reverse_proxy_certificate_common_names__common_names list;
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__reverse_proxy_certificate_common_names *)
+(** reverse_proxy_certificate_common_names *)
 
-type azurerm_service_fabric_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__timeouts *)
+(** timeouts *)
 
-type azurerm_service_fabric_cluster__upgrade_policy__delta_health_policy = {
+type upgrade_policy__delta_health_policy = {
   max_delta_unhealthy_applications_percent : float prop option;
       [@option]
       (** max_delta_unhealthy_applications_percent *)
@@ -163,18 +158,18 @@ type azurerm_service_fabric_cluster__upgrade_policy__delta_health_policy = {
       (** max_upgrade_domain_delta_unhealthy_nodes_percent *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__upgrade_policy__delta_health_policy *)
+(** upgrade_policy__delta_health_policy *)
 
-type azurerm_service_fabric_cluster__upgrade_policy__health_policy = {
+type upgrade_policy__health_policy = {
   max_unhealthy_applications_percent : float prop option; [@option]
       (** max_unhealthy_applications_percent *)
   max_unhealthy_nodes_percent : float prop option; [@option]
       (** max_unhealthy_nodes_percent *)
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__upgrade_policy__health_policy *)
+(** upgrade_policy__health_policy *)
 
-type azurerm_service_fabric_cluster__upgrade_policy = {
+type upgrade_policy = {
   force_restart_enabled : bool prop option; [@option]
       (** force_restart_enabled *)
   health_check_retry_timeout : string prop option; [@option]
@@ -189,15 +184,11 @@ type azurerm_service_fabric_cluster__upgrade_policy = {
       (** upgrade_replica_set_check_timeout *)
   upgrade_timeout : string prop option; [@option]
       (** upgrade_timeout *)
-  delta_health_policy :
-    azurerm_service_fabric_cluster__upgrade_policy__delta_health_policy
-    list;
-  health_policy :
-    azurerm_service_fabric_cluster__upgrade_policy__health_policy
-    list;
+  delta_health_policy : upgrade_policy__delta_health_policy list;
+  health_policy : upgrade_policy__health_policy list;
 }
 [@@deriving yojson_of]
-(** azurerm_service_fabric_cluster__upgrade_policy *)
+(** upgrade_policy *)
 
 type azurerm_service_fabric_cluster = {
   add_on_features : string prop list option; [@option]
@@ -217,33 +208,178 @@ type azurerm_service_fabric_cluster = {
   vm_image : string prop;  (** vm_image *)
   vmss_zonal_upgrade_mode : string prop option; [@option]
       (** vmss_zonal_upgrade_mode *)
-  azure_active_directory :
-    azurerm_service_fabric_cluster__azure_active_directory list;
-  certificate : azurerm_service_fabric_cluster__certificate list;
-  certificate_common_names :
-    azurerm_service_fabric_cluster__certificate_common_names list;
+  azure_active_directory : azure_active_directory list;
+  certificate : certificate list;
+  certificate_common_names : certificate_common_names list;
   client_certificate_common_name :
-    azurerm_service_fabric_cluster__client_certificate_common_name
-    list;
-  client_certificate_thumbprint :
-    azurerm_service_fabric_cluster__client_certificate_thumbprint
-    list;
-  diagnostics_config :
-    azurerm_service_fabric_cluster__diagnostics_config list;
-  fabric_settings :
-    azurerm_service_fabric_cluster__fabric_settings list;
-  node_type : azurerm_service_fabric_cluster__node_type list;
-  reverse_proxy_certificate :
-    azurerm_service_fabric_cluster__reverse_proxy_certificate list;
+    client_certificate_common_name list;
+  client_certificate_thumbprint : client_certificate_thumbprint list;
+  diagnostics_config : diagnostics_config list;
+  fabric_settings : fabric_settings list;
+  node_type : node_type list;
+  reverse_proxy_certificate : reverse_proxy_certificate list;
   reverse_proxy_certificate_common_names :
-    azurerm_service_fabric_cluster__reverse_proxy_certificate_common_names
-    list;
-  timeouts : azurerm_service_fabric_cluster__timeouts option;
-  upgrade_policy :
-    azurerm_service_fabric_cluster__upgrade_policy list;
+    reverse_proxy_certificate_common_names list;
+  timeouts : timeouts option;
+  upgrade_policy : upgrade_policy list;
 }
 [@@deriving yojson_of]
 (** azurerm_service_fabric_cluster *)
+
+let azure_active_directory ~client_application_id
+    ~cluster_application_id ~tenant_id () : azure_active_directory =
+  { client_application_id; cluster_application_id; tenant_id }
+
+let certificate ?thumbprint_secondary ~thumbprint ~x509_store_name ()
+    : certificate =
+  { thumbprint; thumbprint_secondary; x509_store_name }
+
+let certificate_common_names__common_names
+    ?certificate_issuer_thumbprint ~certificate_common_name () :
+    certificate_common_names__common_names =
+  { certificate_common_name; certificate_issuer_thumbprint }
+
+let certificate_common_names ~x509_store_name ~common_names () :
+    certificate_common_names =
+  { x509_store_name; common_names }
+
+let client_certificate_common_name ?issuer_thumbprint ~common_name
+    ~is_admin () : client_certificate_common_name =
+  { common_name; is_admin; issuer_thumbprint }
+
+let client_certificate_thumbprint ~is_admin ~thumbprint () :
+    client_certificate_thumbprint =
+  { is_admin; thumbprint }
+
+let diagnostics_config ~blob_endpoint ~protected_account_key_name
+    ~queue_endpoint ~storage_account_name ~table_endpoint () :
+    diagnostics_config =
+  {
+    blob_endpoint;
+    protected_account_key_name;
+    queue_endpoint;
+    storage_account_name;
+    table_endpoint;
+  }
+
+let fabric_settings ?parameters ~name () : fabric_settings =
+  { name; parameters }
+
+let node_type__application_ports ~end_port ~start_port () :
+    node_type__application_ports =
+  { end_port; start_port }
+
+let node_type__ephemeral_ports ~end_port ~start_port () :
+    node_type__ephemeral_ports =
+  { end_port; start_port }
+
+let node_type ?capacities ?durability_level ?is_stateless
+    ?multiple_availability_zones ?placement_properties
+    ?reverse_proxy_endpoint_port ~client_endpoint_port
+    ~http_endpoint_port ~instance_count ~is_primary ~name
+    ~application_ports ~ephemeral_ports () : node_type =
+  {
+    capacities;
+    client_endpoint_port;
+    durability_level;
+    http_endpoint_port;
+    instance_count;
+    is_primary;
+    is_stateless;
+    multiple_availability_zones;
+    name;
+    placement_properties;
+    reverse_proxy_endpoint_port;
+    application_ports;
+    ephemeral_ports;
+  }
+
+let reverse_proxy_certificate ?thumbprint_secondary ~thumbprint
+    ~x509_store_name () : reverse_proxy_certificate =
+  { thumbprint; thumbprint_secondary; x509_store_name }
+
+let reverse_proxy_certificate_common_names__common_names
+    ?certificate_issuer_thumbprint ~certificate_common_name () :
+    reverse_proxy_certificate_common_names__common_names =
+  { certificate_common_name; certificate_issuer_thumbprint }
+
+let reverse_proxy_certificate_common_names ~x509_store_name
+    ~common_names () : reverse_proxy_certificate_common_names =
+  { x509_store_name; common_names }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let upgrade_policy__delta_health_policy
+    ?max_delta_unhealthy_applications_percent
+    ?max_delta_unhealthy_nodes_percent
+    ?max_upgrade_domain_delta_unhealthy_nodes_percent () :
+    upgrade_policy__delta_health_policy =
+  {
+    max_delta_unhealthy_applications_percent;
+    max_delta_unhealthy_nodes_percent;
+    max_upgrade_domain_delta_unhealthy_nodes_percent;
+  }
+
+let upgrade_policy__health_policy ?max_unhealthy_applications_percent
+    ?max_unhealthy_nodes_percent () : upgrade_policy__health_policy =
+  { max_unhealthy_applications_percent; max_unhealthy_nodes_percent }
+
+let upgrade_policy ?force_restart_enabled ?health_check_retry_timeout
+    ?health_check_stable_duration ?health_check_wait_duration
+    ?upgrade_domain_timeout ?upgrade_replica_set_check_timeout
+    ?upgrade_timeout ~delta_health_policy ~health_policy () :
+    upgrade_policy =
+  {
+    force_restart_enabled;
+    health_check_retry_timeout;
+    health_check_stable_duration;
+    health_check_wait_duration;
+    upgrade_domain_timeout;
+    upgrade_replica_set_check_timeout;
+    upgrade_timeout;
+    delta_health_policy;
+    health_policy;
+  }
+
+let azurerm_service_fabric_cluster ?add_on_features
+    ?cluster_code_version ?id ?service_fabric_zonal_upgrade_mode
+    ?tags ?vmss_zonal_upgrade_mode ?timeouts ~location
+    ~management_endpoint ~name ~reliability_level
+    ~resource_group_name ~upgrade_mode ~vm_image
+    ~azure_active_directory ~certificate ~certificate_common_names
+    ~client_certificate_common_name ~client_certificate_thumbprint
+    ~diagnostics_config ~fabric_settings ~node_type
+    ~reverse_proxy_certificate
+    ~reverse_proxy_certificate_common_names ~upgrade_policy () :
+    azurerm_service_fabric_cluster =
+  {
+    add_on_features;
+    cluster_code_version;
+    id;
+    location;
+    management_endpoint;
+    name;
+    reliability_level;
+    resource_group_name;
+    service_fabric_zonal_upgrade_mode;
+    tags;
+    upgrade_mode;
+    vm_image;
+    vmss_zonal_upgrade_mode;
+    azure_active_directory;
+    certificate;
+    certificate_common_names;
+    client_certificate_common_name;
+    client_certificate_thumbprint;
+    diagnostics_config;
+    fabric_settings;
+    node_type;
+    reverse_proxy_certificate;
+    reverse_proxy_certificate_common_names;
+    timeouts;
+    upgrade_policy;
+  }
 
 type t = {
   add_on_features : string list prop;
@@ -262,10 +398,9 @@ type t = {
   vmss_zonal_upgrade_mode : string prop;
 }
 
-let azurerm_service_fabric_cluster ?add_on_features
-    ?cluster_code_version ?id ?service_fabric_zonal_upgrade_mode
-    ?tags ?vmss_zonal_upgrade_mode ?timeouts ~location
-    ~management_endpoint ~name ~reliability_level
+let register ?tf_module ?add_on_features ?cluster_code_version ?id
+    ?service_fabric_zonal_upgrade_mode ?tags ?vmss_zonal_upgrade_mode
+    ?timeouts ~location ~management_endpoint ~name ~reliability_level
     ~resource_group_name ~upgrade_mode ~vm_image
     ~azure_active_directory ~certificate ~certificate_common_names
     ~client_certificate_common_name ~client_certificate_thumbprint
@@ -275,36 +410,18 @@ let azurerm_service_fabric_cluster ?add_on_features
     __resource_id =
   let __resource_type = "azurerm_service_fabric_cluster" in
   let __resource =
-    ({
-       add_on_features;
-       cluster_code_version;
-       id;
-       location;
-       management_endpoint;
-       name;
-       reliability_level;
-       resource_group_name;
-       service_fabric_zonal_upgrade_mode;
-       tags;
-       upgrade_mode;
-       vm_image;
-       vmss_zonal_upgrade_mode;
-       azure_active_directory;
-       certificate;
-       certificate_common_names;
-       client_certificate_common_name;
-       client_certificate_thumbprint;
-       diagnostics_config;
-       fabric_settings;
-       node_type;
-       reverse_proxy_certificate;
-       reverse_proxy_certificate_common_names;
-       timeouts;
-       upgrade_policy;
-     }
-      : azurerm_service_fabric_cluster)
+    azurerm_service_fabric_cluster ?add_on_features
+      ?cluster_code_version ?id ?service_fabric_zonal_upgrade_mode
+      ?tags ?vmss_zonal_upgrade_mode ?timeouts ~location
+      ~management_endpoint ~name ~reliability_level
+      ~resource_group_name ~upgrade_mode ~vm_image
+      ~azure_active_directory ~certificate ~certificate_common_names
+      ~client_certificate_common_name ~client_certificate_thumbprint
+      ~diagnostics_config ~fabric_settings ~node_type
+      ~reverse_proxy_certificate
+      ~reverse_proxy_certificate_common_names ~upgrade_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_service_fabric_cluster __resource);
   let __resource_attributes =
     ({

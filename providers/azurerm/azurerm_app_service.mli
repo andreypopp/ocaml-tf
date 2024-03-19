@@ -2,76 +2,313 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service__auth_settings__active_directory
-type azurerm_app_service__auth_settings__facebook
-type azurerm_app_service__auth_settings__google
-type azurerm_app_service__auth_settings__microsoft
-type azurerm_app_service__auth_settings__twitter
-type azurerm_app_service__auth_settings
-type azurerm_app_service__backup__schedule
-type azurerm_app_service__backup
-type azurerm_app_service__connection_string
-type azurerm_app_service__identity
-type azurerm_app_service__logs__application_logs__azure_blob_storage
-type azurerm_app_service__logs__application_logs
-type azurerm_app_service__logs__http_logs__azure_blob_storage
-type azurerm_app_service__logs__http_logs__file_system
-type azurerm_app_service__logs__http_logs
-type azurerm_app_service__logs
-type azurerm_app_service__site_config__cors
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_app_service__site_config__ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
-}
-
-type azurerm_app_service__site_config__ip_restriction = {
-  action : string prop;  (** action *)
-  headers :
-    azurerm_app_service__site_config__ip_restriction__headers list;
-      (** headers *)
-  ip_address : string prop;  (** ip_address *)
-  name : string prop;  (** name *)
-  priority : float prop;  (** priority *)
-  service_tag : string prop;  (** service_tag *)
-  virtual_network_subnet_id : string prop;
-      (** virtual_network_subnet_id *)
-}
-
-type azurerm_app_service__site_config__scm_ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
-}
-
-type azurerm_app_service__site_config__scm_ip_restriction = {
-  action : string prop;  (** action *)
-  headers :
-    azurerm_app_service__site_config__scm_ip_restriction__headers
-    list;
-      (** headers *)
-  ip_address : string prop;  (** ip_address *)
-  name : string prop;  (** name *)
-  priority : float prop;  (** priority *)
-  service_tag : string prop;  (** service_tag *)
-  virtual_network_subnet_id : string prop;
-      (** virtual_network_subnet_id *)
-}
-
-type azurerm_app_service__site_config
-type azurerm_app_service__source_control
-type azurerm_app_service__storage_account
-type azurerm_app_service__timeouts
-
-type azurerm_app_service__site_credential = {
+type site_credential = {
   password : string prop;  (** password *)
   username : string prop;  (** username *)
 }
 
+type auth_settings__active_directory
+
+val auth_settings__active_directory :
+  ?allowed_audiences:string prop list ->
+  ?client_secret:string prop ->
+  client_id:string prop ->
+  unit ->
+  auth_settings__active_directory
+
+type auth_settings__facebook
+
+val auth_settings__facebook :
+  ?oauth_scopes:string prop list ->
+  app_id:string prop ->
+  app_secret:string prop ->
+  unit ->
+  auth_settings__facebook
+
+type auth_settings__google
+
+val auth_settings__google :
+  ?oauth_scopes:string prop list ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  unit ->
+  auth_settings__google
+
+type auth_settings__microsoft
+
+val auth_settings__microsoft :
+  ?oauth_scopes:string prop list ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  unit ->
+  auth_settings__microsoft
+
+type auth_settings__twitter
+
+val auth_settings__twitter :
+  consumer_key:string prop ->
+  consumer_secret:string prop ->
+  unit ->
+  auth_settings__twitter
+
+type auth_settings
+
+val auth_settings :
+  ?additional_login_params:(string * string prop) list ->
+  ?allowed_external_redirect_urls:string prop list ->
+  ?default_provider:string prop ->
+  ?issuer:string prop ->
+  ?runtime_version:string prop ->
+  ?token_refresh_extension_hours:float prop ->
+  ?token_store_enabled:bool prop ->
+  ?unauthenticated_client_action:string prop ->
+  enabled:bool prop ->
+  active_directory:auth_settings__active_directory list ->
+  facebook:auth_settings__facebook list ->
+  google:auth_settings__google list ->
+  microsoft:auth_settings__microsoft list ->
+  twitter:auth_settings__twitter list ->
+  unit ->
+  auth_settings
+
+type backup__schedule
+
+val backup__schedule :
+  ?keep_at_least_one_backup:bool prop ->
+  ?retention_period_in_days:float prop ->
+  ?start_time:string prop ->
+  frequency_interval:float prop ->
+  frequency_unit:string prop ->
+  unit ->
+  backup__schedule
+
+type backup
+
+val backup :
+  ?enabled:bool prop ->
+  name:string prop ->
+  storage_account_url:string prop ->
+  schedule:backup__schedule list ->
+  unit ->
+  backup
+
+type connection_string
+
+val connection_string :
+  name:string prop ->
+  type_:string prop ->
+  value:string prop ->
+  unit ->
+  connection_string
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type logs__application_logs__azure_blob_storage
+
+val logs__application_logs__azure_blob_storage :
+  level:string prop ->
+  retention_in_days:float prop ->
+  sas_url:string prop ->
+  unit ->
+  logs__application_logs__azure_blob_storage
+
+type logs__application_logs
+
+val logs__application_logs :
+  ?file_system_level:string prop ->
+  azure_blob_storage:logs__application_logs__azure_blob_storage list ->
+  unit ->
+  logs__application_logs
+
+type logs__http_logs__azure_blob_storage
+
+val logs__http_logs__azure_blob_storage :
+  retention_in_days:float prop ->
+  sas_url:string prop ->
+  unit ->
+  logs__http_logs__azure_blob_storage
+
+type logs__http_logs__file_system
+
+val logs__http_logs__file_system :
+  retention_in_days:float prop ->
+  retention_in_mb:float prop ->
+  unit ->
+  logs__http_logs__file_system
+
+type logs__http_logs
+
+val logs__http_logs :
+  azure_blob_storage:logs__http_logs__azure_blob_storage list ->
+  file_system:logs__http_logs__file_system list ->
+  unit ->
+  logs__http_logs
+
+type logs
+
+val logs :
+  ?detailed_error_messages_enabled:bool prop ->
+  ?failed_request_tracing_enabled:bool prop ->
+  application_logs:logs__application_logs list ->
+  http_logs:logs__http_logs list ->
+  unit ->
+  logs
+
+type site_config__ip_restriction__headers = {
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+}
+
+type site_config__ip_restriction = {
+  action : string prop;  (** action *)
+  headers : site_config__ip_restriction__headers list;
+      (** headers *)
+  ip_address : string prop;  (** ip_address *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  service_tag : string prop;  (** service_tag *)
+  virtual_network_subnet_id : string prop;
+      (** virtual_network_subnet_id *)
+}
+
+type site_config__scm_ip_restriction__headers = {
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+}
+
+type site_config__scm_ip_restriction = {
+  action : string prop;  (** action *)
+  headers : site_config__scm_ip_restriction__headers list;
+      (** headers *)
+  ip_address : string prop;  (** ip_address *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  service_tag : string prop;  (** service_tag *)
+  virtual_network_subnet_id : string prop;
+      (** virtual_network_subnet_id *)
+}
+
+type site_config__cors
+
+val site_config__cors :
+  ?support_credentials:bool prop ->
+  allowed_origins:string prop list ->
+  unit ->
+  site_config__cors
+
+type site_config
+
+val site_config :
+  ?acr_use_managed_identity_credentials:bool prop ->
+  ?acr_user_managed_identity_client_id:string prop ->
+  ?always_on:bool prop ->
+  ?app_command_line:string prop ->
+  ?auto_swap_slot_name:string prop ->
+  ?default_documents:string prop list ->
+  ?dotnet_framework_version:string prop ->
+  ?ftps_state:string prop ->
+  ?health_check_path:string prop ->
+  ?http2_enabled:bool prop ->
+  ?ip_restriction:site_config__ip_restriction list ->
+  ?java_container:string prop ->
+  ?java_container_version:string prop ->
+  ?java_version:string prop ->
+  ?linux_fx_version:string prop ->
+  ?local_mysql_enabled:bool prop ->
+  ?managed_pipeline_mode:string prop ->
+  ?min_tls_version:string prop ->
+  ?number_of_workers:float prop ->
+  ?php_version:string prop ->
+  ?python_version:string prop ->
+  ?remote_debugging_enabled:bool prop ->
+  ?remote_debugging_version:string prop ->
+  ?scm_ip_restriction:site_config__scm_ip_restriction list ->
+  ?scm_type:string prop ->
+  ?scm_use_main_ip_restriction:bool prop ->
+  ?use_32_bit_worker_process:bool prop ->
+  ?vnet_route_all_enabled:bool prop ->
+  ?websockets_enabled:bool prop ->
+  ?windows_fx_version:string prop ->
+  cors:site_config__cors list ->
+  unit ->
+  site_config
+
+type source_control
+
+val source_control :
+  ?branch:string prop ->
+  ?manual_integration:bool prop ->
+  ?repo_url:string prop ->
+  ?rollback_enabled:bool prop ->
+  ?use_mercurial:bool prop ->
+  unit ->
+  source_control
+
+type storage_account
+
+val storage_account :
+  ?mount_path:string prop ->
+  access_key:string prop ->
+  account_name:string prop ->
+  name:string prop ->
+  share_name:string prop ->
+  type_:string prop ->
+  unit ->
+  storage_account
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_app_service
+
+val azurerm_app_service :
+  ?app_settings:(string * string prop) list ->
+  ?client_affinity_enabled:bool prop ->
+  ?client_cert_enabled:bool prop ->
+  ?client_cert_mode:string prop ->
+  ?enabled:bool prop ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?key_vault_reference_identity_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  app_service_plan_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  auth_settings:auth_settings list ->
+  backup:backup list ->
+  connection_string:connection_string list ->
+  identity:identity list ->
+  logs:logs list ->
+  site_config:site_config list ->
+  source_control:source_control list ->
+  storage_account:storage_account list ->
+  unit ->
+  azurerm_app_service
+
+val yojson_of_azurerm_app_service : azurerm_app_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_service_plan_id : string prop;
@@ -92,11 +329,12 @@ type t = private {
   possible_outbound_ip_address_list : string list prop;
   possible_outbound_ip_addresses : string prop;
   resource_group_name : string prop;
-  site_credential : azurerm_app_service__site_credential list prop;
+  site_credential : site_credential list prop;
   tags : (string * string) list prop;
 }
 
-val azurerm_app_service :
+val register :
+  ?tf_module:tf_module ->
   ?app_settings:(string * string prop) list ->
   ?client_affinity_enabled:bool prop ->
   ?client_cert_enabled:bool prop ->
@@ -106,18 +344,18 @@ val azurerm_app_service :
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_app_service__timeouts ->
+  ?timeouts:timeouts ->
   app_service_plan_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  auth_settings:azurerm_app_service__auth_settings list ->
-  backup:azurerm_app_service__backup list ->
-  connection_string:azurerm_app_service__connection_string list ->
-  identity:azurerm_app_service__identity list ->
-  logs:azurerm_app_service__logs list ->
-  site_config:azurerm_app_service__site_config list ->
-  source_control:azurerm_app_service__source_control list ->
-  storage_account:azurerm_app_service__storage_account list ->
+  auth_settings:auth_settings list ->
+  backup:backup list ->
+  connection_string:connection_string list ->
+  identity:identity list ->
+  logs:logs list ->
+  site_config:site_config list ->
+  source_control:source_control list ->
+  storage_account:storage_account list ->
   string ->
   t

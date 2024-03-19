@@ -4,58 +4,54 @@
 
 open! Tf.Prelude
 
-type azurerm_consumption_budget_subscription__filter__dimension = {
+type filter__dimension = {
   name : string prop;  (** name *)
   operator : string prop option; [@option]  (** operator *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__filter__dimension *)
+(** filter__dimension *)
 
-type azurerm_consumption_budget_subscription__filter__not__dimension = {
+type filter__not__dimension = {
   name : string prop;  (** name *)
   operator : string prop option; [@option]  (** operator *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__filter__not__dimension *)
+(** filter__not__dimension *)
 
-type azurerm_consumption_budget_subscription__filter__not__tag = {
+type filter__not__tag = {
   name : string prop;  (** name *)
   operator : string prop option; [@option]  (** operator *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__filter__not__tag *)
+(** filter__not__tag *)
 
-type azurerm_consumption_budget_subscription__filter__not = {
-  dimension :
-    azurerm_consumption_budget_subscription__filter__not__dimension
-    list;
-  tag :
-    azurerm_consumption_budget_subscription__filter__not__tag list;
+type filter__not = {
+  dimension : filter__not__dimension list;
+  tag : filter__not__tag list;
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__filter__not *)
+(** filter__not *)
 
-type azurerm_consumption_budget_subscription__filter__tag = {
+type filter__tag = {
   name : string prop;  (** name *)
   operator : string prop option; [@option]  (** operator *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__filter__tag *)
+(** filter__tag *)
 
-type azurerm_consumption_budget_subscription__filter = {
-  dimension :
-    azurerm_consumption_budget_subscription__filter__dimension list;
-  not : azurerm_consumption_budget_subscription__filter__not list;
-  tag : azurerm_consumption_budget_subscription__filter__tag list;
+type filter = {
+  dimension : filter__dimension list;
+  not : filter__not list;
+  tag : filter__tag list;
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__filter *)
+(** filter *)
 
-type azurerm_consumption_budget_subscription__notification = {
+type notification = {
   contact_emails : string prop list option; [@option]
       (** contact_emails *)
   contact_groups : string prop list option; [@option]
@@ -69,23 +65,23 @@ type azurerm_consumption_budget_subscription__notification = {
       (** threshold_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__notification *)
+(** notification *)
 
-type azurerm_consumption_budget_subscription__time_period = {
+type time_period = {
   end_date : string prop option; [@option]  (** end_date *)
   start_date : string prop;  (** start_date *)
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__time_period *)
+(** time_period *)
 
-type azurerm_consumption_budget_subscription__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_consumption_budget_subscription__timeouts *)
+(** timeouts *)
 
 type azurerm_consumption_budget_subscription = {
   amount : float prop;  (** amount *)
@@ -94,15 +90,65 @@ type azurerm_consumption_budget_subscription = {
   name : string prop;  (** name *)
   subscription_id : string prop;  (** subscription_id *)
   time_grain : string prop option; [@option]  (** time_grain *)
-  filter : azurerm_consumption_budget_subscription__filter list;
-  notification :
-    azurerm_consumption_budget_subscription__notification list;
-  time_period :
-    azurerm_consumption_budget_subscription__time_period list;
-  timeouts : azurerm_consumption_budget_subscription__timeouts option;
+  filter : filter list;
+  notification : notification list;
+  time_period : time_period list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_subscription *)
+
+let filter__dimension ?operator ~name ~values () : filter__dimension
+    =
+  { name; operator; values }
+
+let filter__not__dimension ?operator ~name ~values () :
+    filter__not__dimension =
+  { name; operator; values }
+
+let filter__not__tag ?operator ~name ~values () : filter__not__tag =
+  { name; operator; values }
+
+let filter__not ~dimension ~tag () : filter__not = { dimension; tag }
+
+let filter__tag ?operator ~name ~values () : filter__tag =
+  { name; operator; values }
+
+let filter ~dimension ~not ~tag () : filter = { dimension; not; tag }
+
+let notification ?contact_emails ?contact_groups ?contact_roles
+    ?enabled ?threshold_type ~operator ~threshold () : notification =
+  {
+    contact_emails;
+    contact_groups;
+    contact_roles;
+    enabled;
+    operator;
+    threshold;
+    threshold_type;
+  }
+
+let time_period ?end_date ~start_date () : time_period =
+  { end_date; start_date }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_consumption_budget_subscription ?etag ?id ?time_grain
+    ?timeouts ~amount ~name ~subscription_id ~filter ~notification
+    ~time_period () : azurerm_consumption_budget_subscription =
+  {
+    amount;
+    etag;
+    id;
+    name;
+    subscription_id;
+    time_grain;
+    filter;
+    notification;
+    time_period;
+    timeouts;
+  }
 
 type t = {
   amount : float prop;
@@ -113,26 +159,16 @@ type t = {
   time_grain : string prop;
 }
 
-let azurerm_consumption_budget_subscription ?etag ?id ?time_grain
-    ?timeouts ~amount ~name ~subscription_id ~filter ~notification
-    ~time_period __resource_id =
+let register ?tf_module ?etag ?id ?time_grain ?timeouts ~amount ~name
+    ~subscription_id ~filter ~notification ~time_period __resource_id
+    =
   let __resource_type = "azurerm_consumption_budget_subscription" in
   let __resource =
-    ({
-       amount;
-       etag;
-       id;
-       name;
-       subscription_id;
-       time_grain;
-       filter;
-       notification;
-       time_period;
-       timeouts;
-     }
-      : azurerm_consumption_budget_subscription)
+    azurerm_consumption_budget_subscription ?etag ?id ?time_grain
+      ?timeouts ~amount ~name ~subscription_id ~filter ~notification
+      ~time_period ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_consumption_budget_subscription __resource);
   let __resource_attributes =
     ({

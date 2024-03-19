@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_synapse_integration_runtime_azure__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_synapse_integration_runtime_azure__timeouts *)
+(** timeouts *)
 
 type azurerm_synapse_integration_runtime_azure = {
   compute_type : string prop option; [@option]  (** compute_type *)
@@ -23,11 +23,29 @@ type azurerm_synapse_integration_runtime_azure = {
   synapse_workspace_id : string prop;  (** synapse_workspace_id *)
   time_to_live_min : float prop option; [@option]
       (** time_to_live_min *)
-  timeouts :
-    azurerm_synapse_integration_runtime_azure__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_integration_runtime_azure *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_synapse_integration_runtime_azure ?compute_type
+    ?core_count ?description ?id ?time_to_live_min ?timeouts
+    ~location ~name ~synapse_workspace_id () :
+    azurerm_synapse_integration_runtime_azure =
+  {
+    compute_type;
+    core_count;
+    description;
+    id;
+    location;
+    name;
+    synapse_workspace_id;
+    time_to_live_min;
+    timeouts;
+  }
 
 type t = {
   compute_type : string prop;
@@ -40,27 +58,18 @@ type t = {
   time_to_live_min : float prop;
 }
 
-let azurerm_synapse_integration_runtime_azure ?compute_type
-    ?core_count ?description ?id ?time_to_live_min ?timeouts
-    ~location ~name ~synapse_workspace_id __resource_id =
+let register ?tf_module ?compute_type ?core_count ?description ?id
+    ?time_to_live_min ?timeouts ~location ~name ~synapse_workspace_id
+    __resource_id =
   let __resource_type =
     "azurerm_synapse_integration_runtime_azure"
   in
   let __resource =
-    ({
-       compute_type;
-       core_count;
-       description;
-       id;
-       location;
-       name;
-       synapse_workspace_id;
-       time_to_live_min;
-       timeouts;
-     }
-      : azurerm_synapse_integration_runtime_azure)
+    azurerm_synapse_integration_runtime_azure ?compute_type
+      ?core_count ?description ?id ?time_to_live_min ?timeouts
+      ~location ~name ~synapse_workspace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_integration_runtime_azure __resource);
   let __resource_attributes =
     ({

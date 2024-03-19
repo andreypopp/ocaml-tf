@@ -4,22 +4,18 @@
 
 open! Tf.Prelude
 
-type azurerm_iotcentral_application__identity = {
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
-  type_ : string prop; [@key "type"]  (** type *)
-}
+type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
-(** azurerm_iotcentral_application__identity *)
+(** identity *)
 
-type azurerm_iotcentral_application__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iotcentral_application__timeouts *)
+(** timeouts *)
 
 type azurerm_iotcentral_application = {
   display_name : string prop option; [@option]  (** display_name *)
@@ -33,11 +29,35 @@ type azurerm_iotcentral_application = {
   sub_domain : string prop;  (** sub_domain *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   template : string prop option; [@option]  (** template *)
-  identity : azurerm_iotcentral_application__identity list;
-  timeouts : azurerm_iotcentral_application__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iotcentral_application *)
+
+let identity ~type_ () : identity = { type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iotcentral_application ?display_name ?id
+    ?public_network_access_enabled ?sku ?tags ?template ?timeouts
+    ~location ~name ~resource_group_name ~sub_domain ~identity () :
+    azurerm_iotcentral_application =
+  {
+    display_name;
+    id;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    sku;
+    sub_domain;
+    tags;
+    template;
+    identity;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -52,29 +72,17 @@ type t = {
   template : string prop;
 }
 
-let azurerm_iotcentral_application ?display_name ?id
+let register ?tf_module ?display_name ?id
     ?public_network_access_enabled ?sku ?tags ?template ?timeouts
     ~location ~name ~resource_group_name ~sub_domain ~identity
     __resource_id =
   let __resource_type = "azurerm_iotcentral_application" in
   let __resource =
-    ({
-       display_name;
-       id;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       sku;
-       sub_domain;
-       tags;
-       template;
-       identity;
-       timeouts;
-     }
-      : azurerm_iotcentral_application)
+    azurerm_iotcentral_application ?display_name ?id
+      ?public_network_access_enabled ?sku ?tags ?template ?timeouts
+      ~location ~name ~resource_group_name ~sub_domain ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iotcentral_application __resource);
   let __resource_attributes =
     ({

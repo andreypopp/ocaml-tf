@@ -2,21 +2,125 @@
 
 open! Tf.Prelude
 
-type azurerm_cdn_frontdoor_firewall_policy__custom_rule__match_condition
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_cdn_frontdoor_firewall_policy__custom_rule
-type azurerm_cdn_frontdoor_firewall_policy__managed_rule__exclusion
+type custom_rule__match_condition
 
-type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__exclusion
+val custom_rule__match_condition :
+  ?negation_condition:bool prop ->
+  ?selector:string prop ->
+  ?transforms:string prop list ->
+  match_values:string prop list ->
+  match_variable:string prop ->
+  operator:string prop ->
+  unit ->
+  custom_rule__match_condition
 
-type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__rule__exclusion
+type custom_rule
 
-type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__rule
+val custom_rule :
+  ?enabled:bool prop ->
+  ?priority:float prop ->
+  ?rate_limit_duration_in_minutes:float prop ->
+  ?rate_limit_threshold:float prop ->
+  action:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  match_condition:custom_rule__match_condition list ->
+  unit ->
+  custom_rule
 
-type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override
-type azurerm_cdn_frontdoor_firewall_policy__managed_rule
-type azurerm_cdn_frontdoor_firewall_policy__timeouts
+type managed_rule__exclusion
+
+val managed_rule__exclusion :
+  match_variable:string prop ->
+  operator:string prop ->
+  selector:string prop ->
+  unit ->
+  managed_rule__exclusion
+
+type managed_rule__override__exclusion
+
+val managed_rule__override__exclusion :
+  match_variable:string prop ->
+  operator:string prop ->
+  selector:string prop ->
+  unit ->
+  managed_rule__override__exclusion
+
+type managed_rule__override__rule__exclusion
+
+val managed_rule__override__rule__exclusion :
+  match_variable:string prop ->
+  operator:string prop ->
+  selector:string prop ->
+  unit ->
+  managed_rule__override__rule__exclusion
+
+type managed_rule__override__rule
+
+val managed_rule__override__rule :
+  ?enabled:bool prop ->
+  action:string prop ->
+  rule_id:string prop ->
+  exclusion:managed_rule__override__rule__exclusion list ->
+  unit ->
+  managed_rule__override__rule
+
+type managed_rule__override
+
+val managed_rule__override :
+  rule_group_name:string prop ->
+  exclusion:managed_rule__override__exclusion list ->
+  rule:managed_rule__override__rule list ->
+  unit ->
+  managed_rule__override
+
+type managed_rule
+
+val managed_rule :
+  action:string prop ->
+  type_:string prop ->
+  version:string prop ->
+  exclusion:managed_rule__exclusion list ->
+  override:managed_rule__override list ->
+  unit ->
+  managed_rule
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_cdn_frontdoor_firewall_policy
+
+val azurerm_cdn_frontdoor_firewall_policy :
+  ?custom_block_response_body:string prop ->
+  ?custom_block_response_status_code:float prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?redirect_url:string prop ->
+  ?request_body_check_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  mode:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  custom_rule:custom_rule list ->
+  managed_rule:managed_rule list ->
+  unit ->
+  azurerm_cdn_frontdoor_firewall_policy
+
+val yojson_of_azurerm_cdn_frontdoor_firewall_policy :
+  azurerm_cdn_frontdoor_firewall_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   custom_block_response_body : string prop;
@@ -33,7 +137,8 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_cdn_frontdoor_firewall_policy :
+val register :
+  ?tf_module:tf_module ->
   ?custom_block_response_body:string prop ->
   ?custom_block_response_status_code:float prop ->
   ?enabled:bool prop ->
@@ -41,13 +146,12 @@ val azurerm_cdn_frontdoor_firewall_policy :
   ?redirect_url:string prop ->
   ?request_body_check_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_cdn_frontdoor_firewall_policy__timeouts ->
+  ?timeouts:timeouts ->
   mode:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  custom_rule:azurerm_cdn_frontdoor_firewall_policy__custom_rule list ->
-  managed_rule:
-    azurerm_cdn_frontdoor_firewall_policy__managed_rule list ->
+  custom_rule:custom_rule list ->
+  managed_rule:managed_rule list ->
   string ->
   t

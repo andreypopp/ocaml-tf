@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_config_configuration_aggregator__account_aggregation_source = {
+type account_aggregation_source = {
   account_ids : string prop list;  (** account_ids *)
   all_regions : bool prop option; [@option]  (** all_regions *)
   regions : string prop list option; [@option]  (** regions *)
 }
 [@@deriving yojson_of]
-(** aws_config_configuration_aggregator__account_aggregation_source *)
+(** account_aggregation_source *)
 
-type aws_config_configuration_aggregator__organization_aggregation_source = {
+type organization_aggregation_source = {
   all_regions : bool prop option; [@option]  (** all_regions *)
   regions : string prop list option; [@option]  (** regions *)
   role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
-(** aws_config_configuration_aggregator__organization_aggregation_source *)
+(** organization_aggregation_source *)
 
 type aws_config_configuration_aggregator = {
   id : string prop option; [@option]  (** id *)
@@ -26,15 +26,32 @@ type aws_config_configuration_aggregator = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  account_aggregation_source :
-    aws_config_configuration_aggregator__account_aggregation_source
-    list;
+  account_aggregation_source : account_aggregation_source list;
   organization_aggregation_source :
-    aws_config_configuration_aggregator__organization_aggregation_source
-    list;
+    organization_aggregation_source list;
 }
 [@@deriving yojson_of]
 (** aws_config_configuration_aggregator *)
+
+let account_aggregation_source ?all_regions ?regions ~account_ids ()
+    : account_aggregation_source =
+  { account_ids; all_regions; regions }
+
+let organization_aggregation_source ?all_regions ?regions ~role_arn
+    () : organization_aggregation_source =
+  { all_regions; regions; role_arn }
+
+let aws_config_configuration_aggregator ?id ?tags ?tags_all ~name
+    ~account_aggregation_source ~organization_aggregation_source () :
+    aws_config_configuration_aggregator =
+  {
+    id;
+    name;
+    tags;
+    tags_all;
+    account_aggregation_source;
+    organization_aggregation_source;
+  }
 
 type t = {
   arn : string prop;
@@ -44,22 +61,15 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_config_configuration_aggregator ?id ?tags ?tags_all ~name
+let register ?tf_module ?id ?tags ?tags_all ~name
     ~account_aggregation_source ~organization_aggregation_source
     __resource_id =
   let __resource_type = "aws_config_configuration_aggregator" in
   let __resource =
-    ({
-       id;
-       name;
-       tags;
-       tags_all;
-       account_aggregation_source;
-       organization_aggregation_source;
-     }
-      : aws_config_configuration_aggregator)
+    aws_config_configuration_aggregator ?id ?tags ?tags_all ~name
+      ~account_aggregation_source ~organization_aggregation_source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_config_configuration_aggregator __resource);
   let __resource_attributes =
     ({

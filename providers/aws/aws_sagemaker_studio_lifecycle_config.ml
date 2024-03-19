@@ -19,6 +19,19 @@ type aws_sagemaker_studio_lifecycle_config = {
 [@@deriving yojson_of]
 (** aws_sagemaker_studio_lifecycle_config *)
 
+let aws_sagemaker_studio_lifecycle_config ?id ?tags ?tags_all
+    ~studio_lifecycle_config_app_type
+    ~studio_lifecycle_config_content ~studio_lifecycle_config_name ()
+    : aws_sagemaker_studio_lifecycle_config =
+  {
+    id;
+    studio_lifecycle_config_app_type;
+    studio_lifecycle_config_content;
+    studio_lifecycle_config_name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -29,23 +42,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_sagemaker_studio_lifecycle_config ?id ?tags ?tags_all
+let register ?tf_module ?id ?tags ?tags_all
     ~studio_lifecycle_config_app_type
     ~studio_lifecycle_config_content ~studio_lifecycle_config_name
     __resource_id =
   let __resource_type = "aws_sagemaker_studio_lifecycle_config" in
   let __resource =
-    ({
-       id;
-       studio_lifecycle_config_app_type;
-       studio_lifecycle_config_content;
-       studio_lifecycle_config_name;
-       tags;
-       tags_all;
-     }
-      : aws_sagemaker_studio_lifecycle_config)
+    aws_sagemaker_studio_lifecycle_config ?id ?tags ?tags_all
+      ~studio_lifecycle_config_app_type
+      ~studio_lifecycle_config_content ~studio_lifecycle_config_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_studio_lifecycle_config __resource);
   let __resource_attributes =
     ({

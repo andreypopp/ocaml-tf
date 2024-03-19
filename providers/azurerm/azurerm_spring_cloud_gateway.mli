@@ -2,15 +2,109 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_gateway__api_metadata
-type azurerm_spring_cloud_gateway__client_authorization
-type azurerm_spring_cloud_gateway__cors
-type azurerm_spring_cloud_gateway__local_response_cache_per_instance
-type azurerm_spring_cloud_gateway__local_response_cache_per_route
-type azurerm_spring_cloud_gateway__quota
-type azurerm_spring_cloud_gateway__sso
-type azurerm_spring_cloud_gateway__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type api_metadata
+
+val api_metadata :
+  ?description:string prop ->
+  ?documentation_url:string prop ->
+  ?server_url:string prop ->
+  ?title:string prop ->
+  ?version:string prop ->
+  unit ->
+  api_metadata
+
+type client_authorization
+
+val client_authorization :
+  ?certificate_ids:string prop list ->
+  ?verification_enabled:bool prop ->
+  unit ->
+  client_authorization
+
+type cors
+
+val cors :
+  ?allowed_headers:string prop list ->
+  ?allowed_methods:string prop list ->
+  ?allowed_origin_patterns:string prop list ->
+  ?allowed_origins:string prop list ->
+  ?credentials_allowed:bool prop ->
+  ?exposed_headers:string prop list ->
+  ?max_age_seconds:float prop ->
+  unit ->
+  cors
+
+type local_response_cache_per_instance
+
+val local_response_cache_per_instance :
+  ?size:string prop ->
+  ?time_to_live:string prop ->
+  unit ->
+  local_response_cache_per_instance
+
+type local_response_cache_per_route
+
+val local_response_cache_per_route :
+  ?size:string prop ->
+  ?time_to_live:string prop ->
+  unit ->
+  local_response_cache_per_route
+
+type quota
+
+val quota : ?cpu:string prop -> ?memory:string prop -> unit -> quota
+
+type sso
+
+val sso :
+  ?client_id:string prop ->
+  ?client_secret:string prop ->
+  ?issuer_uri:string prop ->
+  ?scope:string prop list ->
+  unit ->
+  sso
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_spring_cloud_gateway
+
+val azurerm_spring_cloud_gateway :
+  ?application_performance_monitoring_ids:string prop list ->
+  ?application_performance_monitoring_types:string prop list ->
+  ?environment_variables:(string * string prop) list ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sensitive_environment_variables:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
+  api_metadata:api_metadata list ->
+  client_authorization:client_authorization list ->
+  cors:cors list ->
+  local_response_cache_per_instance:
+    local_response_cache_per_instance list ->
+  local_response_cache_per_route:local_response_cache_per_route list ->
+  quota:quota list ->
+  sso:sso list ->
+  unit ->
+  azurerm_spring_cloud_gateway
+
+val yojson_of_azurerm_spring_cloud_gateway :
+  azurerm_spring_cloud_gateway -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_performance_monitoring_ids : string list prop;
@@ -26,7 +120,8 @@ type t = private {
   url : string prop;
 }
 
-val azurerm_spring_cloud_gateway :
+val register :
+  ?tf_module:tf_module ->
   ?application_performance_monitoring_ids:string prop list ->
   ?application_performance_monitoring_types:string prop list ->
   ?environment_variables:(string * string prop) list ->
@@ -35,19 +130,16 @@ val azurerm_spring_cloud_gateway :
   ?instance_count:float prop ->
   ?public_network_access_enabled:bool prop ->
   ?sensitive_environment_variables:(string * string prop) list ->
-  ?timeouts:azurerm_spring_cloud_gateway__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
-  api_metadata:azurerm_spring_cloud_gateway__api_metadata list ->
-  client_authorization:
-    azurerm_spring_cloud_gateway__client_authorization list ->
-  cors:azurerm_spring_cloud_gateway__cors list ->
+  api_metadata:api_metadata list ->
+  client_authorization:client_authorization list ->
+  cors:cors list ->
   local_response_cache_per_instance:
-    azurerm_spring_cloud_gateway__local_response_cache_per_instance
-    list ->
-  local_response_cache_per_route:
-    azurerm_spring_cloud_gateway__local_response_cache_per_route list ->
-  quota:azurerm_spring_cloud_gateway__quota list ->
-  sso:azurerm_spring_cloud_gateway__sso list ->
+    local_response_cache_per_instance list ->
+  local_response_cache_per_route:local_response_cache_per_route list ->
+  quota:quota list ->
+  sso:sso list ->
   string ->
   t

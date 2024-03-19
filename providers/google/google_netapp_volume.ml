@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_netapp_volume__export_policy__rules = {
+type export_policy__rules = {
   access_type : string prop option; [@option]
       (** Defines the access type for clients matching the 'allowedClients' specification. Possible values: [READ_ONLY, READ_WRITE, READ_NONE] *)
   allowed_clients : string prop option; [@option]
@@ -31,13 +31,11 @@ type google_netapp_volume__export_policy__rules = {
 [@@deriving yojson_of]
 (** Export rules (up to 5) control NFS volume access. *)
 
-type google_netapp_volume__export_policy = {
-  rules : google_netapp_volume__export_policy__rules list;
-}
+type export_policy = { rules : export_policy__rules list }
 [@@deriving yojson_of]
 (** Export policy of the volume for NFSV3 and/or NFSV4.1 access. *)
 
-type google_netapp_volume__restore_parameters = {
+type restore_parameters = {
   source_backup : string prop option; [@option]
       (** Full name of the snapshot to use for creating this volume.
 'source_snapshot' and 'source_backup' cannot be used simultaneously.
@@ -50,7 +48,7 @@ Format: 'projects/{{project}}/locations/{{location}}/volumes/{{volume}}/snapshot
 [@@deriving yojson_of]
 (** Used to create this volume from a snapshot (= cloning) or an backup. *)
 
-type google_netapp_volume__snapshot_policy__daily_schedule = {
+type snapshot_policy__daily_schedule = {
   hour : float prop option; [@option]
       (** Set the hour to create the snapshot (0-23), defaults to midnight (0). *)
   minute : float prop option; [@option]
@@ -61,7 +59,7 @@ type google_netapp_volume__snapshot_policy__daily_schedule = {
 [@@deriving yojson_of]
 (** Daily schedule policy. *)
 
-type google_netapp_volume__snapshot_policy__hourly_schedule = {
+type snapshot_policy__hourly_schedule = {
   minute : float prop option; [@option]
       (** Set the minute of the hour to create the snapshot (0-59), defaults to the top of the hour (0). *)
   snapshots_to_keep : float prop;
@@ -70,7 +68,7 @@ type google_netapp_volume__snapshot_policy__hourly_schedule = {
 [@@deriving yojson_of]
 (** Hourly schedule policy. *)
 
-type google_netapp_volume__snapshot_policy__monthly_schedule = {
+type snapshot_policy__monthly_schedule = {
   days_of_month : string prop option; [@option]
       (** Set the day or days of the month to make a snapshot (1-31). Accepts a comma separated number of days. Defaults to '1'. *)
   hour : float prop option; [@option]
@@ -83,7 +81,7 @@ type google_netapp_volume__snapshot_policy__monthly_schedule = {
 [@@deriving yojson_of]
 (** Monthly schedule policy. *)
 
-type google_netapp_volume__snapshot_policy__weekly_schedule = {
+type snapshot_policy__weekly_schedule = {
   day : string prop option; [@option]
       (** Set the day or days of the week to make a snapshot. Accepts a comma separated days of the week. Defaults to 'Sunday'. *)
   hour : float prop option; [@option]
@@ -96,32 +94,28 @@ type google_netapp_volume__snapshot_policy__weekly_schedule = {
 [@@deriving yojson_of]
 (** Weekly schedule policy. *)
 
-type google_netapp_volume__snapshot_policy = {
+type snapshot_policy = {
   enabled : bool prop option; [@option]
       (** Enables automated snapshot creation according to defined schedule. Default is false.
 To disable automatic snapshot creation you have to remove the whole snapshot_policy block. *)
-  daily_schedule :
-    google_netapp_volume__snapshot_policy__daily_schedule list;
-  hourly_schedule :
-    google_netapp_volume__snapshot_policy__hourly_schedule list;
-  monthly_schedule :
-    google_netapp_volume__snapshot_policy__monthly_schedule list;
-  weekly_schedule :
-    google_netapp_volume__snapshot_policy__weekly_schedule list;
+  daily_schedule : snapshot_policy__daily_schedule list;
+  hourly_schedule : snapshot_policy__hourly_schedule list;
+  monthly_schedule : snapshot_policy__monthly_schedule list;
+  weekly_schedule : snapshot_policy__weekly_schedule list;
 }
 [@@deriving yojson_of]
 (** Snapshot policy defines the schedule for automatic snapshot creation.
 To disable automatic snapshot creation you have to remove the whole snapshot_policy block. *)
 
-type google_netapp_volume__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_netapp_volume__timeouts *)
+(** timeouts *)
 
-type google_netapp_volume__mount_options = {
+type mount_options = {
   export : string prop;  (** export *)
   export_full : string prop;  (** export_full *)
   instructions : string prop;  (** instructions *)
@@ -169,13 +163,97 @@ Use NTFS to use NTFS ACLs for file permissions. Can only be set for volumes whic
       (** Name of the storage pool to create the volume in. Pool needs enough spare capacity to accomodate the volume. *)
   unix_permissions : string prop option; [@option]
       (** Unix permission the mount point will be created with. Default is 0770. Applicable for UNIX security style volumes only. *)
-  export_policy : google_netapp_volume__export_policy list;
-  restore_parameters : google_netapp_volume__restore_parameters list;
-  snapshot_policy : google_netapp_volume__snapshot_policy list;
-  timeouts : google_netapp_volume__timeouts option;
+  export_policy : export_policy list;
+  restore_parameters : restore_parameters list;
+  snapshot_policy : snapshot_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_volume *)
+
+let export_policy__rules ?access_type ?allowed_clients
+    ?has_root_access ?kerberos5_read_only ?kerberos5_read_write
+    ?kerberos5i_read_only ?kerberos5i_read_write
+    ?kerberos5p_read_only ?kerberos5p_read_write ?nfsv3 ?nfsv4 () :
+    export_policy__rules =
+  {
+    access_type;
+    allowed_clients;
+    has_root_access;
+    kerberos5_read_only;
+    kerberos5_read_write;
+    kerberos5i_read_only;
+    kerberos5i_read_write;
+    kerberos5p_read_only;
+    kerberos5p_read_write;
+    nfsv3;
+    nfsv4;
+  }
+
+let export_policy ~rules () : export_policy = { rules }
+
+let restore_parameters ?source_backup ?source_snapshot () :
+    restore_parameters =
+  { source_backup; source_snapshot }
+
+let snapshot_policy__daily_schedule ?hour ?minute ~snapshots_to_keep
+    () : snapshot_policy__daily_schedule =
+  { hour; minute; snapshots_to_keep }
+
+let snapshot_policy__hourly_schedule ?minute ~snapshots_to_keep () :
+    snapshot_policy__hourly_schedule =
+  { minute; snapshots_to_keep }
+
+let snapshot_policy__monthly_schedule ?days_of_month ?hour ?minute
+    ~snapshots_to_keep () : snapshot_policy__monthly_schedule =
+  { days_of_month; hour; minute; snapshots_to_keep }
+
+let snapshot_policy__weekly_schedule ?day ?hour ?minute
+    ~snapshots_to_keep () : snapshot_policy__weekly_schedule =
+  { day; hour; minute; snapshots_to_keep }
+
+let snapshot_policy ?enabled ~daily_schedule ~hourly_schedule
+    ~monthly_schedule ~weekly_schedule () : snapshot_policy =
+  {
+    enabled;
+    daily_schedule;
+    hourly_schedule;
+    monthly_schedule;
+    weekly_schedule;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_netapp_volume ?deletion_policy ?description ?id
+    ?kerberos_enabled ?labels ?project ?restricted_actions
+    ?security_style ?smb_settings ?snapshot_directory
+    ?unix_permissions ?timeouts ~capacity_gib ~location ~name
+    ~protocols ~share_name ~storage_pool ~export_policy
+    ~restore_parameters ~snapshot_policy () : google_netapp_volume =
+  {
+    capacity_gib;
+    deletion_policy;
+    description;
+    id;
+    kerberos_enabled;
+    labels;
+    location;
+    name;
+    project;
+    protocols;
+    restricted_actions;
+    security_style;
+    share_name;
+    smb_settings;
+    snapshot_directory;
+    storage_pool;
+    unix_permissions;
+    export_policy;
+    restore_parameters;
+    snapshot_policy;
+    timeouts;
+  }
 
 type t = {
   active_directory : string prop;
@@ -192,7 +270,7 @@ type t = {
   labels : (string * string) list prop;
   ldap_enabled : bool prop;
   location : string prop;
-  mount_options : google_netapp_volume__mount_options list prop;
+  mount_options : mount_options list prop;
   name : string prop;
   network : string prop;
   project : string prop;
@@ -212,7 +290,7 @@ type t = {
   used_gib : string prop;
 }
 
-let google_netapp_volume ?deletion_policy ?description ?id
+let register ?tf_module ?deletion_policy ?description ?id
     ?kerberos_enabled ?labels ?project ?restricted_actions
     ?security_style ?smb_settings ?snapshot_directory
     ?unix_permissions ?timeouts ~capacity_gib ~location ~name
@@ -220,32 +298,14 @@ let google_netapp_volume ?deletion_policy ?description ?id
     ~restore_parameters ~snapshot_policy __resource_id =
   let __resource_type = "google_netapp_volume" in
   let __resource =
-    ({
-       capacity_gib;
-       deletion_policy;
-       description;
-       id;
-       kerberos_enabled;
-       labels;
-       location;
-       name;
-       project;
-       protocols;
-       restricted_actions;
-       security_style;
-       share_name;
-       smb_settings;
-       snapshot_directory;
-       storage_pool;
-       unix_permissions;
-       export_policy;
-       restore_parameters;
-       snapshot_policy;
-       timeouts;
-     }
-      : google_netapp_volume)
+    google_netapp_volume ?deletion_policy ?description ?id
+      ?kerberos_enabled ?labels ?project ?restricted_actions
+      ?security_style ?smb_settings ?snapshot_directory
+      ?unix_permissions ?timeouts ~capacity_gib ~location ~name
+      ~protocols ~share_name ~storage_pool ~export_policy
+      ~restore_parameters ~snapshot_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_volume __resource);
   let __resource_attributes =
     ({

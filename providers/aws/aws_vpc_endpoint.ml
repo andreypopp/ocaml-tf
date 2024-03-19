@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_vpc_endpoint__dns_options = {
+type dns_options = {
   dns_record_ip_type : string prop option; [@option]
       (** dns_record_ip_type *)
   private_dns_only_for_inbound_resolver_endpoint : bool prop option;
@@ -12,17 +12,17 @@ type aws_vpc_endpoint__dns_options = {
       (** private_dns_only_for_inbound_resolver_endpoint *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_endpoint__dns_options *)
+(** dns_options *)
 
-type aws_vpc_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_endpoint__timeouts *)
+(** timeouts *)
 
-type aws_vpc_endpoint__dns_entry = {
+type dns_entry = {
   dns_name : string prop;  (** dns_name *)
   hosted_zone_id : string prop;  (** hosted_zone_id *)
 }
@@ -48,17 +48,50 @@ type aws_vpc_endpoint = {
   vpc_endpoint_type : string prop option; [@option]
       (** vpc_endpoint_type *)
   vpc_id : string prop;  (** vpc_id *)
-  dns_options : aws_vpc_endpoint__dns_options list;
-  timeouts : aws_vpc_endpoint__timeouts option;
+  dns_options : dns_options list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpc_endpoint *)
+
+let dns_options ?dns_record_ip_type
+    ?private_dns_only_for_inbound_resolver_endpoint () : dns_options
+    =
+  {
+    dns_record_ip_type;
+    private_dns_only_for_inbound_resolver_endpoint;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
+    ?private_dns_enabled ?route_table_ids ?security_group_ids
+    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
+    ~service_name ~vpc_id ~dns_options () : aws_vpc_endpoint =
+  {
+    auto_accept;
+    id;
+    ip_address_type;
+    policy;
+    private_dns_enabled;
+    route_table_ids;
+    security_group_ids;
+    service_name;
+    subnet_ids;
+    tags;
+    tags_all;
+    vpc_endpoint_type;
+    vpc_id;
+    dns_options;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
   auto_accept : bool prop;
   cidr_blocks : string list prop;
-  dns_entry : aws_vpc_endpoint__dns_entry list prop;
+  dns_entry : dns_entry list prop;
   id : string prop;
   ip_address_type : string prop;
   network_interface_ids : string list prop;
@@ -78,32 +111,18 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
+let register ?tf_module ?auto_accept ?id ?ip_address_type ?policy
     ?private_dns_enabled ?route_table_ids ?security_group_ids
     ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
     ~service_name ~vpc_id ~dns_options __resource_id =
   let __resource_type = "aws_vpc_endpoint" in
   let __resource =
-    ({
-       auto_accept;
-       id;
-       ip_address_type;
-       policy;
-       private_dns_enabled;
-       route_table_ids;
-       security_group_ids;
-       service_name;
-       subnet_ids;
-       tags;
-       tags_all;
-       vpc_endpoint_type;
-       vpc_id;
-       dns_options;
-       timeouts;
-     }
-      : aws_vpc_endpoint)
+    aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
+      ?private_dns_enabled ?route_table_ids ?security_group_ids
+      ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
+      ~service_name ~vpc_id ~dns_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_endpoint __resource);
   let __resource_attributes =
     ({

@@ -2,21 +2,57 @@
 
 open! Tf.Prelude
 
-type google_sql_user__password_policy__status = {
+(** RESOURCE SERIALIZATION *)
+
+type sql_server_user_details = {
+  disabled : bool prop;  (** disabled *)
+  server_roles : string prop list;  (** server_roles *)
+}
+
+type password_policy__status = {
   locked : bool prop;  (** locked *)
   password_expiration_time : string prop;
       (** password_expiration_time *)
 }
 
-type google_sql_user__password_policy
-type google_sql_user__timeouts
+type password_policy
 
-type google_sql_user__sql_server_user_details = {
-  disabled : bool prop;  (** disabled *)
-  server_roles : string prop list;  (** server_roles *)
-}
+val password_policy :
+  ?allowed_failed_attempts:float prop ->
+  ?enable_failed_attempts_check:bool prop ->
+  ?enable_password_verification:bool prop ->
+  ?password_expiration_duration:string prop ->
+  unit ->
+  password_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type google_sql_user
+
+val google_sql_user :
+  ?deletion_policy:string prop ->
+  ?host:string prop ->
+  ?id:string prop ->
+  ?password:string prop ->
+  ?project:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  instance:string prop ->
+  name:string prop ->
+  password_policy:password_policy list ->
+  unit ->
+  google_sql_user
+
+val yojson_of_google_sql_user : google_sql_user -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   deletion_policy : string prop;
@@ -26,21 +62,21 @@ type t = private {
   name : string prop;
   password : string prop;
   project : string prop;
-  sql_server_user_details :
-    google_sql_user__sql_server_user_details list prop;
+  sql_server_user_details : sql_server_user_details list prop;
   type_ : string prop;
 }
 
-val google_sql_user :
+val register :
+  ?tf_module:tf_module ->
   ?deletion_policy:string prop ->
   ?host:string prop ->
   ?id:string prop ->
   ?password:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
-  ?timeouts:google_sql_user__timeouts ->
+  ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
-  password_policy:google_sql_user__password_policy list ->
+  password_policy:password_policy list ->
   string ->
   t

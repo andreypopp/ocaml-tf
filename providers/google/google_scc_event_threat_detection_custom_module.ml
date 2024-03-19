@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_scc_event_threat_detection_custom_module__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_scc_event_threat_detection_custom_module__timeouts *)
+(** timeouts *)
 
 type google_scc_event_threat_detection_custom_module = {
   config : string prop;
@@ -25,11 +25,26 @@ For the inherited module, its config value is inherited from the ancestor module
       (** Numerical ID of the parent organization. *)
   type_ : string prop; [@key "type"]
       (** Immutable. Type for the module. e.g. CONFIGURABLE_BAD_IP. *)
-  timeouts :
-    google_scc_event_threat_detection_custom_module__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_scc_event_threat_detection_custom_module *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_scc_event_threat_detection_custom_module ?display_name ?id
+    ?timeouts ~config ~enablement_state ~organization ~type_ () :
+    google_scc_event_threat_detection_custom_module =
+  {
+    config;
+    display_name;
+    enablement_state;
+    id;
+    organization;
+    type_;
+    timeouts;
+  }
 
 type t = {
   config : string prop;
@@ -43,25 +58,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_scc_event_threat_detection_custom_module ?display_name ?id
-    ?timeouts ~config ~enablement_state ~organization ~type_
-    __resource_id =
+let register ?tf_module ?display_name ?id ?timeouts ~config
+    ~enablement_state ~organization ~type_ __resource_id =
   let __resource_type =
     "google_scc_event_threat_detection_custom_module"
   in
   let __resource =
-    ({
-       config;
-       display_name;
-       enablement_state;
-       id;
-       organization;
-       type_;
-       timeouts;
-     }
-      : google_scc_event_threat_detection_custom_module)
+    google_scc_event_threat_detection_custom_module ?display_name ?id
+      ?timeouts ~config ~enablement_state ~organization ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_event_threat_detection_custom_module
        __resource);
   let __resource_attributes =

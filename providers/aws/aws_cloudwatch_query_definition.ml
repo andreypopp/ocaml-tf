@@ -14,6 +14,10 @@ type aws_cloudwatch_query_definition = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_query_definition *)
 
+let aws_cloudwatch_query_definition ?id ?log_group_names ~name
+    ~query_string () : aws_cloudwatch_query_definition =
+  { id; log_group_names; name; query_string }
+
 type t = {
   id : string prop;
   log_group_names : string list prop;
@@ -22,14 +26,14 @@ type t = {
   query_string : string prop;
 }
 
-let aws_cloudwatch_query_definition ?id ?log_group_names ~name
-    ~query_string __resource_id =
+let register ?tf_module ?id ?log_group_names ~name ~query_string
+    __resource_id =
   let __resource_type = "aws_cloudwatch_query_definition" in
   let __resource =
-    ({ id; log_group_names; name; query_string }
-      : aws_cloudwatch_query_definition)
+    aws_cloudwatch_query_definition ?id ?log_group_names ~name
+      ~query_string ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_query_definition __resource);
   let __resource_attributes =
     ({

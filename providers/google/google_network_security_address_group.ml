@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_network_security_address_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_security_address_group__timeouts *)
+(** timeouts *)
 
 type google_network_security_address_group = {
   capacity : float prop;  (** Capacity of the Address Group. *)
@@ -33,10 +33,29 @@ The default value is 'global'. *)
       (** The name of the parent this address group belongs to. Format: organizations/{organization_id} or projects/{project_id}. *)
   type_ : string prop; [@key "type"]
       (** The type of the Address Group. Possible values are IPV4 or IPV6. Possible values: [IPV4, IPV6] *)
-  timeouts : google_network_security_address_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_security_address_group *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_security_address_group ?description ?id ?items
+    ?labels ?parent ?timeouts ~capacity ~location ~name ~type_ () :
+    google_network_security_address_group =
+  {
+    capacity;
+    description;
+    id;
+    items;
+    labels;
+    location;
+    name;
+    parent;
+    type_;
+    timeouts;
+  }
 
 type t = {
   capacity : float prop;
@@ -54,26 +73,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_network_security_address_group ?description ?id ?items
-    ?labels ?parent ?timeouts ~capacity ~location ~name ~type_
-    __resource_id =
+let register ?tf_module ?description ?id ?items ?labels ?parent
+    ?timeouts ~capacity ~location ~name ~type_ __resource_id =
   let __resource_type = "google_network_security_address_group" in
   let __resource =
-    ({
-       capacity;
-       description;
-       id;
-       items;
-       labels;
-       location;
-       name;
-       parent;
-       type_;
-       timeouts;
-     }
-      : google_network_security_address_group)
+    google_network_security_address_group ?description ?id ?items
+      ?labels ?parent ?timeouts ~capacity ~location ~name ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_security_address_group __resource);
   let __resource_attributes =
     ({

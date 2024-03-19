@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type digitalocean_kubernetes_node_pool__taint = {
+type taint = {
   effect : string prop;  (** effect *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** digitalocean_kubernetes_node_pool__taint *)
+(** taint *)
 
-type digitalocean_kubernetes_node_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** digitalocean_kubernetes_node_pool__timeouts *)
+(** timeouts *)
 
-type digitalocean_kubernetes_node_pool__nodes = {
+type nodes = {
   created_at : string prop;  (** created_at *)
   droplet_id : string prop;  (** droplet_id *)
   id : string prop;  (** id *)
@@ -41,11 +41,32 @@ type digitalocean_kubernetes_node_pool = {
   node_count : float prop option; [@option]  (** node_count *)
   size : string prop;  (** size *)
   tags : string prop list option; [@option]  (** tags *)
-  taint : digitalocean_kubernetes_node_pool__taint list;
-  timeouts : digitalocean_kubernetes_node_pool__timeouts option;
+  taint : taint list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** digitalocean_kubernetes_node_pool *)
+
+let taint ~effect ~key ~value () : taint = { effect; key; value }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels
+    ?max_nodes ?min_nodes ?node_count ?tags ?timeouts ~cluster_id
+    ~name ~size ~taint () : digitalocean_kubernetes_node_pool =
+  {
+    auto_scale;
+    cluster_id;
+    id;
+    labels;
+    max_nodes;
+    min_nodes;
+    name;
+    node_count;
+    size;
+    tags;
+    taint;
+    timeouts;
+  }
 
 type t = {
   actual_node_count : float prop;
@@ -57,33 +78,21 @@ type t = {
   min_nodes : float prop;
   name : string prop;
   node_count : float prop;
-  nodes : digitalocean_kubernetes_node_pool__nodes list prop;
+  nodes : nodes list prop;
   size : string prop;
   tags : string list prop;
 }
 
-let digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels
-    ?max_nodes ?min_nodes ?node_count ?tags ?timeouts ~cluster_id
-    ~name ~size ~taint __resource_id =
+let register ?tf_module ?auto_scale ?id ?labels ?max_nodes ?min_nodes
+    ?node_count ?tags ?timeouts ~cluster_id ~name ~size ~taint
+    __resource_id =
   let __resource_type = "digitalocean_kubernetes_node_pool" in
   let __resource =
-    ({
-       auto_scale;
-       cluster_id;
-       id;
-       labels;
-       max_nodes;
-       min_nodes;
-       name;
-       node_count;
-       size;
-       tags;
-       taint;
-       timeouts;
-     }
-      : digitalocean_kubernetes_node_pool)
+    digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels
+      ?max_nodes ?min_nodes ?node_count ?tags ?timeouts ~cluster_id
+      ~name ~size ~taint ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_kubernetes_node_pool __resource);
   let __resource_attributes =
     ({

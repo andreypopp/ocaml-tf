@@ -2,8 +2,39 @@
 
 open! Tf.Prelude
 
-type azurerm_machine_learning_datastore_blobstorage__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_machine_learning_datastore_blobstorage
+
+val azurerm_machine_learning_datastore_blobstorage :
+  ?account_key:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_default:bool prop ->
+  ?service_data_auth_identity:string prop ->
+  ?shared_access_signature:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  storage_container_id:string prop ->
+  workspace_id:string prop ->
+  unit ->
+  azurerm_machine_learning_datastore_blobstorage
+
+val yojson_of_azurerm_machine_learning_datastore_blobstorage :
+  azurerm_machine_learning_datastore_blobstorage -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_key : string prop;
@@ -18,7 +49,8 @@ type t = private {
   workspace_id : string prop;
 }
 
-val azurerm_machine_learning_datastore_blobstorage :
+val register :
+  ?tf_module:tf_module ->
   ?account_key:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -26,7 +58,7 @@ val azurerm_machine_learning_datastore_blobstorage :
   ?service_data_auth_identity:string prop ->
   ?shared_access_signature:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_machine_learning_datastore_blobstorage__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   storage_container_id:string prop ->
   workspace_id:string prop ->

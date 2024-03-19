@@ -2,10 +2,51 @@
 
 open! Tf.Prelude
 
-type aws_db_option_group__option__option_settings
-type aws_db_option_group__option
-type aws_db_option_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type option__option_settings
+
+val option__option_settings :
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  option__option_settings
+
+type option_
+
+val option_ :
+  ?db_security_group_memberships:string prop list ->
+  ?port:float prop ->
+  ?version:string prop ->
+  ?vpc_security_group_memberships:string prop list ->
+  option_name:string prop ->
+  option_settings:option__option_settings list ->
+  unit ->
+  option_
+
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_db_option_group
+
+val aws_db_option_group :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?option_group_description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  engine_name:string prop ->
+  major_engine_version:string prop ->
+  option_:option_ list ->
+  unit ->
+  aws_db_option_group
+
+val yojson_of_aws_db_option_group : aws_db_option_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,16 +60,17 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_db_option_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?option_group_description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_db_option_group__timeouts ->
+  ?timeouts:timeouts ->
   engine_name:string prop ->
   major_engine_version:string prop ->
-  option:aws_db_option_group__option list ->
+  option_:option_ list ->
   string ->
   t

@@ -15,6 +15,10 @@ type hcloud_uploaded_certificate = {
 [@@deriving yojson_of]
 (** hcloud_uploaded_certificate *)
 
+let hcloud_uploaded_certificate ?id ?labels ~certificate ~name
+    ~private_key () : hcloud_uploaded_certificate =
+  { certificate; id; labels; name; private_key }
+
 type t = {
   certificate : string prop;
   created : string prop;
@@ -29,14 +33,14 @@ type t = {
   type_ : string prop;
 }
 
-let hcloud_uploaded_certificate ?id ?labels ~certificate ~name
-    ~private_key __resource_id =
+let register ?tf_module ?id ?labels ~certificate ~name ~private_key
+    __resource_id =
   let __resource_type = "hcloud_uploaded_certificate" in
   let __resource =
-    ({ certificate; id; labels; name; private_key }
-      : hcloud_uploaded_certificate)
+    hcloud_uploaded_certificate ?id ?labels ~certificate ~name
+      ~private_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_uploaded_certificate __resource);
   let __resource_attributes =
     ({

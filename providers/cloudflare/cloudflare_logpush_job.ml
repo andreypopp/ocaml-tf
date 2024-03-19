@@ -48,6 +48,29 @@ the `ownership_challenge_filename` value from the`cloudflare_logpush_ownership_c
 - `cloudflare_logpush_job`: Create and manage the Logpush Job itself.
  *)
 
+let cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
+    ?id ?kind ?logpull_options ?max_upload_bytes
+    ?max_upload_interval_seconds ?max_upload_records ?name
+    ?ownership_challenge ?zone_id ~dataset ~destination_conf () :
+    cloudflare_logpush_job =
+  {
+    account_id;
+    dataset;
+    destination_conf;
+    enabled;
+    filter;
+    frequency;
+    id;
+    kind;
+    logpull_options;
+    max_upload_bytes;
+    max_upload_interval_seconds;
+    max_upload_records;
+    name;
+    ownership_challenge;
+    zone_id;
+  }
+
 type t = {
   account_id : string prop;
   dataset : string prop;
@@ -66,33 +89,19 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
-    ?id ?kind ?logpull_options ?max_upload_bytes
+let register ?tf_module ?account_id ?enabled ?filter ?frequency ?id
+    ?kind ?logpull_options ?max_upload_bytes
     ?max_upload_interval_seconds ?max_upload_records ?name
     ?ownership_challenge ?zone_id ~dataset ~destination_conf
     __resource_id =
   let __resource_type = "cloudflare_logpush_job" in
   let __resource =
-    ({
-       account_id;
-       dataset;
-       destination_conf;
-       enabled;
-       filter;
-       frequency;
-       id;
-       kind;
-       logpull_options;
-       max_upload_bytes;
-       max_upload_interval_seconds;
-       max_upload_records;
-       name;
-       ownership_challenge;
-       zone_id;
-     }
-      : cloudflare_logpush_job)
+    cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
+      ?id ?kind ?logpull_options ?max_upload_bytes
+      ?max_upload_interval_seconds ?max_upload_records ?name
+      ?ownership_challenge ?zone_id ~dataset ~destination_conf ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_logpush_job __resource);
   let __resource_attributes =
     ({

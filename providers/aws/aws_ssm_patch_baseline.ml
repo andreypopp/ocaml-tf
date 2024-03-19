@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_ssm_patch_baseline__approval_rule__patch_filter = {
+type approval_rule__patch_filter = {
   key : string prop;  (** key *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_ssm_patch_baseline__approval_rule__patch_filter *)
+(** approval_rule__patch_filter *)
 
-type aws_ssm_patch_baseline__approval_rule = {
+type approval_rule = {
   approve_after_days : float prop option; [@option]
       (** approve_after_days *)
   approve_until_date : string prop option; [@option]
@@ -20,26 +20,25 @@ type aws_ssm_patch_baseline__approval_rule = {
       (** compliance_level *)
   enable_non_security : bool prop option; [@option]
       (** enable_non_security *)
-  patch_filter :
-    aws_ssm_patch_baseline__approval_rule__patch_filter list;
+  patch_filter : approval_rule__patch_filter list;
 }
 [@@deriving yojson_of]
-(** aws_ssm_patch_baseline__approval_rule *)
+(** approval_rule *)
 
-type aws_ssm_patch_baseline__global_filter = {
+type global_filter = {
   key : string prop;  (** key *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_ssm_patch_baseline__global_filter *)
+(** global_filter *)
 
-type aws_ssm_patch_baseline__source = {
+type source = {
   configuration : string prop;  (** configuration *)
   name : string prop;  (** name *)
   products : string prop list;  (** products *)
 }
 [@@deriving yojson_of]
-(** aws_ssm_patch_baseline__source *)
+(** source *)
 
 type aws_ssm_patch_baseline = {
   approved_patches : string prop list option; [@option]
@@ -60,12 +59,55 @@ type aws_ssm_patch_baseline = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  approval_rule : aws_ssm_patch_baseline__approval_rule list;
-  global_filter : aws_ssm_patch_baseline__global_filter list;
-  source : aws_ssm_patch_baseline__source list;
+  approval_rule : approval_rule list;
+  global_filter : global_filter list;
+  source : source list;
 }
 [@@deriving yojson_of]
 (** aws_ssm_patch_baseline *)
+
+let approval_rule__patch_filter ~key ~values () :
+    approval_rule__patch_filter =
+  { key; values }
+
+let approval_rule ?approve_after_days ?approve_until_date
+    ?compliance_level ?enable_non_security ~patch_filter () :
+    approval_rule =
+  {
+    approve_after_days;
+    approve_until_date;
+    compliance_level;
+    enable_non_security;
+    patch_filter;
+  }
+
+let global_filter ~key ~values () : global_filter = { key; values }
+
+let source ~configuration ~name ~products () : source =
+  { configuration; name; products }
+
+let aws_ssm_patch_baseline ?approved_patches
+    ?approved_patches_compliance_level
+    ?approved_patches_enable_non_security ?description ?id
+    ?operating_system ?rejected_patches ?rejected_patches_action
+    ?tags ?tags_all ~name ~approval_rule ~global_filter ~source () :
+    aws_ssm_patch_baseline =
+  {
+    approved_patches;
+    approved_patches_compliance_level;
+    approved_patches_enable_non_security;
+    description;
+    id;
+    name;
+    operating_system;
+    rejected_patches;
+    rejected_patches_action;
+    tags;
+    tags_all;
+    approval_rule;
+    global_filter;
+    source;
+  }
 
 type t = {
   approved_patches : string list prop;
@@ -83,7 +125,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ssm_patch_baseline ?approved_patches
+let register ?tf_module ?approved_patches
     ?approved_patches_compliance_level
     ?approved_patches_enable_non_security ?description ?id
     ?operating_system ?rejected_patches ?rejected_patches_action
@@ -91,25 +133,13 @@ let aws_ssm_patch_baseline ?approved_patches
     __resource_id =
   let __resource_type = "aws_ssm_patch_baseline" in
   let __resource =
-    ({
-       approved_patches;
-       approved_patches_compliance_level;
-       approved_patches_enable_non_security;
-       description;
-       id;
-       name;
-       operating_system;
-       rejected_patches;
-       rejected_patches_action;
-       tags;
-       tags_all;
-       approval_rule;
-       global_filter;
-       source;
-     }
-      : aws_ssm_patch_baseline)
+    aws_ssm_patch_baseline ?approved_patches
+      ?approved_patches_compliance_level
+      ?approved_patches_enable_non_security ?description ?id
+      ?operating_system ?rejected_patches ?rejected_patches_action
+      ?tags ?tags_all ~name ~approval_rule ~global_filter ~source ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_patch_baseline __resource);
   let __resource_attributes =
     ({

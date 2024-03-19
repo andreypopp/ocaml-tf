@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_logging_metric__bucket_options__explicit_buckets = {
+type bucket_options__explicit_buckets = {
   bounds : float prop list;
       (** The values must be monotonically increasing. *)
 }
 [@@deriving yojson_of]
 (** Specifies a set of buckets with arbitrary widths. *)
 
-type google_logging_metric__bucket_options__exponential_buckets = {
+type bucket_options__exponential_buckets = {
   growth_factor : float prop;  (** Must be greater than 1. *)
   num_finite_buckets : float prop;  (** Must be greater than 0. *)
   scale : float prop;  (** Must be greater than 0. *)
@@ -20,7 +20,7 @@ type google_logging_metric__bucket_options__exponential_buckets = {
 (** Specifies an exponential sequence of buckets that have a width that is proportional to the value of
 the lower bound. Each bucket represents a constant relative uncertainty on a specific value in the bucket. *)
 
-type google_logging_metric__bucket_options__linear_buckets = {
+type bucket_options__linear_buckets = {
   num_finite_buckets : float prop;  (** Must be greater than 0. *)
   offset : float prop;  (** Lower bound of the first bucket. *)
   width : float prop;  (** Must be greater than 0. *)
@@ -29,19 +29,16 @@ type google_logging_metric__bucket_options__linear_buckets = {
 (** Specifies a linear sequence of buckets that all have the same width (except overflow and underflow).
 Each bucket represents a constant absolute uncertainty on the specific value in the bucket. *)
 
-type google_logging_metric__bucket_options = {
-  explicit_buckets :
-    google_logging_metric__bucket_options__explicit_buckets list;
-  exponential_buckets :
-    google_logging_metric__bucket_options__exponential_buckets list;
-  linear_buckets :
-    google_logging_metric__bucket_options__linear_buckets list;
+type bucket_options = {
+  explicit_buckets : bucket_options__explicit_buckets list;
+  exponential_buckets : bucket_options__exponential_buckets list;
+  linear_buckets : bucket_options__linear_buckets list;
 }
 [@@deriving yojson_of]
 (** The bucketOptions are required when the logs-based metric is using a DISTRIBUTION value type and it
 describes the bucket boundaries used to create a histogram of the extracted values. *)
 
-type google_logging_metric__metric_descriptor__labels = {
+type metric_descriptor__labels = {
   description : string prop option; [@option]
       (** A human-readable description for the label. *)
   key : string prop;  (** The label key. *)
@@ -54,7 +51,7 @@ example, the appengine.googleapis.com/http/server/response_latencies metric type
 for the HTTP response code, response_code, so you can look at latencies for successful responses
 or just for responses that failed. *)
 
-type google_logging_metric__metric_descriptor = {
+type metric_descriptor = {
   display_name : string prop option; [@option]
       (** A concise name for the metric, which can be displayed in user interfaces. Use sentence case
 without an ending period, for example Request count. This field is optional but it is
@@ -71,7 +68,7 @@ For counter metrics, set this to DELTA. Possible values: [DELTA, GAUGE, CUMULATI
       (** Whether the measurement is an integer, a floating-point number, etc.
 Some combinations of metricKind and valueType might not be supported.
 For counter metrics, set this to INT64. Possible values: [BOOL, INT64, DOUBLE, STRING, DISTRIBUTION, MONEY] *)
-  labels : google_logging_metric__metric_descriptor__labels list;
+  labels : metric_descriptor__labels list;
 }
 [@@deriving yojson_of]
 (** The optional metric descriptor associated with the logs-based metric.
@@ -79,13 +76,13 @@ If unspecified, it uses a default metric descriptor with a DELTA metric kind,
 INT64 value type, with no labels and a unit of 1. Such a metric counts the
 number of log entries matching the filter expression. *)
 
-type google_logging_metric__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_logging_metric__timeouts *)
+(** timeouts *)
 
 type google_logging_metric = {
   bucket_name : string prop option; [@option]
@@ -120,12 +117,59 @@ the value is to be extracted. 2. regex - A regular expression using the Google R
 (https://github.com/google/re2/wiki/Syntax) with a single capture group to extract data from the specified
 log entry field. The value of the field is converted to a string before applying the regex. It is an
 error to specify a regex that does not include exactly one capture group. *)
-  bucket_options : google_logging_metric__bucket_options list;
-  metric_descriptor : google_logging_metric__metric_descriptor list;
-  timeouts : google_logging_metric__timeouts option;
+  bucket_options : bucket_options list;
+  metric_descriptor : metric_descriptor list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_logging_metric *)
+
+let bucket_options__explicit_buckets ~bounds () :
+    bucket_options__explicit_buckets =
+  { bounds }
+
+let bucket_options__exponential_buckets ~growth_factor
+    ~num_finite_buckets ~scale () :
+    bucket_options__exponential_buckets =
+  { growth_factor; num_finite_buckets; scale }
+
+let bucket_options__linear_buckets ~num_finite_buckets ~offset ~width
+    () : bucket_options__linear_buckets =
+  { num_finite_buckets; offset; width }
+
+let bucket_options ~explicit_buckets ~exponential_buckets
+    ~linear_buckets () : bucket_options =
+  { explicit_buckets; exponential_buckets; linear_buckets }
+
+let metric_descriptor__labels ?description ?value_type ~key () :
+    metric_descriptor__labels =
+  { description; key; value_type }
+
+let metric_descriptor ?display_name ?unit ~metric_kind ~value_type
+    ~labels () : metric_descriptor =
+  { display_name; metric_kind; unit; value_type; labels }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_logging_metric ?bucket_name ?description ?disabled ?id
+    ?label_extractors ?project ?value_extractor ?timeouts ~filter
+    ~name ~bucket_options ~metric_descriptor () :
+    google_logging_metric =
+  {
+    bucket_name;
+    description;
+    disabled;
+    filter;
+    id;
+    label_extractors;
+    name;
+    project;
+    value_extractor;
+    bucket_options;
+    metric_descriptor;
+    timeouts;
+  }
 
 type t = {
   bucket_name : string prop;
@@ -139,28 +183,16 @@ type t = {
   value_extractor : string prop;
 }
 
-let google_logging_metric ?bucket_name ?description ?disabled ?id
+let register ?tf_module ?bucket_name ?description ?disabled ?id
     ?label_extractors ?project ?value_extractor ?timeouts ~filter
     ~name ~bucket_options ~metric_descriptor __resource_id =
   let __resource_type = "google_logging_metric" in
   let __resource =
-    ({
-       bucket_name;
-       description;
-       disabled;
-       filter;
-       id;
-       label_extractors;
-       name;
-       project;
-       value_extractor;
-       bucket_options;
-       metric_descriptor;
-       timeouts;
-     }
-      : google_logging_metric)
+    google_logging_metric ?bucket_name ?description ?disabled ?id
+      ?label_extractors ?project ?value_extractor ?timeouts ~filter
+      ~name ~bucket_options ~metric_descriptor ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_metric __resource);
   let __resource_attributes =
     ({

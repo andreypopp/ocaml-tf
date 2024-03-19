@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_environment__cluster_setting = {
+type cluster_setting = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_environment__cluster_setting *)
+(** cluster_setting *)
 
-type azurerm_app_service_environment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_service_environment__timeouts *)
+(** timeouts *)
 
 type azurerm_app_service_environment = {
   allowed_user_ip_cidrs : string prop list option; [@option]
@@ -33,12 +33,36 @@ type azurerm_app_service_environment = {
   resource_group_name : string prop;  (** resource_group_name *)
   subnet_id : string prop;  (** subnet_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  cluster_setting :
-    azurerm_app_service_environment__cluster_setting list;
-  timeouts : azurerm_app_service_environment__timeouts option;
+  cluster_setting : cluster_setting list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_environment *)
+
+let cluster_setting ~name ~value () : cluster_setting =
+  { name; value }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_app_service_environment ?allowed_user_ip_cidrs
+    ?front_end_scale_factor ?id ?internal_load_balancing_mode
+    ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
+    ~subnet_id ~cluster_setting () : azurerm_app_service_environment
+    =
+  {
+    allowed_user_ip_cidrs;
+    front_end_scale_factor;
+    id;
+    internal_load_balancing_mode;
+    name;
+    pricing_tier;
+    resource_group_name;
+    subnet_id;
+    tags;
+    cluster_setting;
+    timeouts;
+  }
 
 type t = {
   allowed_user_ip_cidrs : string list prop;
@@ -56,28 +80,18 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_app_service_environment ?allowed_user_ip_cidrs
+let register ?tf_module ?allowed_user_ip_cidrs
     ?front_end_scale_factor ?id ?internal_load_balancing_mode
     ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
     ~subnet_id ~cluster_setting __resource_id =
   let __resource_type = "azurerm_app_service_environment" in
   let __resource =
-    ({
-       allowed_user_ip_cidrs;
-       front_end_scale_factor;
-       id;
-       internal_load_balancing_mode;
-       name;
-       pricing_tier;
-       resource_group_name;
-       subnet_id;
-       tags;
-       cluster_setting;
-       timeouts;
-     }
-      : azurerm_app_service_environment)
+    azurerm_app_service_environment ?allowed_user_ip_cidrs
+      ?front_end_scale_factor ?id ?internal_load_balancing_mode
+      ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
+      ~subnet_id ~cluster_setting ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_environment __resource);
   let __resource_attributes =
     ({

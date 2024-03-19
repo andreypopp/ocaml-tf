@@ -2,10 +2,50 @@
 
 open! Tf.Prelude
 
-type google_pubsub_topic__message_storage_policy
-type google_pubsub_topic__schema_settings
-type google_pubsub_topic__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type message_storage_policy
+
+val message_storage_policy :
+  allowed_persistence_regions:string prop list ->
+  unit ->
+  message_storage_policy
+
+type schema_settings
+
+val schema_settings :
+  ?encoding:string prop ->
+  schema:string prop ->
+  unit ->
+  schema_settings
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_pubsub_topic
+
+val google_pubsub_topic :
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?message_retention_duration:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  message_storage_policy:message_storage_policy list ->
+  schema_settings:schema_settings list ->
+  unit ->
+  google_pubsub_topic
+
+val yojson_of_google_pubsub_topic : google_pubsub_topic -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   effective_labels : (string * string) list prop;
@@ -18,16 +58,16 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_pubsub_topic :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
   ?labels:(string * string prop) list ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
-  ?timeouts:google_pubsub_topic__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  message_storage_policy:
-    google_pubsub_topic__message_storage_policy list ->
-  schema_settings:google_pubsub_topic__schema_settings list ->
+  message_storage_policy:message_storage_policy list ->
+  schema_settings:schema_settings list ->
   string ->
   t

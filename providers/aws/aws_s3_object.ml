@@ -4,17 +4,17 @@
 
 open! Tf.Prelude
 
-type aws_s3_object__override_provider__default_tags = {
+type override_provider__default_tags = {
   tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
-(** aws_s3_object__override_provider__default_tags *)
+(** override_provider__default_tags *)
 
-type aws_s3_object__override_provider = {
-  default_tags : aws_s3_object__override_provider__default_tags list;
+type override_provider = {
+  default_tags : override_provider__default_tags list;
 }
 [@@deriving yojson_of]
-(** aws_s3_object__override_provider *)
+(** override_provider *)
 
 type aws_s3_object = {
   acl : string prop option; [@option]  (** acl *)
@@ -57,10 +57,56 @@ type aws_s3_object = {
       (** tags_all *)
   website_redirect : string prop option; [@option]
       (** website_redirect *)
-  override_provider : aws_s3_object__override_provider list;
+  override_provider : override_provider list;
 }
 [@@deriving yojson_of]
 (** aws_s3_object *)
+
+let override_provider__default_tags ?tags () :
+    override_provider__default_tags =
+  { tags }
+
+let override_provider ~default_tags () : override_provider =
+  { default_tags }
+
+let aws_s3_object ?acl ?bucket_key_enabled ?cache_control
+    ?checksum_algorithm ?content ?content_base64 ?content_disposition
+    ?content_encoding ?content_language ?content_type ?etag
+    ?force_destroy ?id ?kms_key_id ?metadata
+    ?object_lock_legal_hold_status ?object_lock_mode
+    ?object_lock_retain_until_date ?server_side_encryption ?source
+    ?source_hash ?storage_class ?tags ?tags_all ?website_redirect
+    ~bucket ~key ~override_provider () : aws_s3_object =
+  {
+    acl;
+    bucket;
+    bucket_key_enabled;
+    cache_control;
+    checksum_algorithm;
+    content;
+    content_base64;
+    content_disposition;
+    content_encoding;
+    content_language;
+    content_type;
+    etag;
+    force_destroy;
+    id;
+    key;
+    kms_key_id;
+    metadata;
+    object_lock_legal_hold_status;
+    object_lock_mode;
+    object_lock_retain_until_date;
+    server_side_encryption;
+    source;
+    source_hash;
+    storage_class;
+    tags;
+    tags_all;
+    website_redirect;
+    override_provider;
+  }
 
 type t = {
   acl : string prop;
@@ -98,7 +144,7 @@ type t = {
   website_redirect : string prop;
 }
 
-let aws_s3_object ?acl ?bucket_key_enabled ?cache_control
+let register ?tf_module ?acl ?bucket_key_enabled ?cache_control
     ?checksum_algorithm ?content ?content_base64 ?content_disposition
     ?content_encoding ?content_language ?content_type ?etag
     ?force_destroy ?id ?kms_key_id ?metadata
@@ -108,39 +154,16 @@ let aws_s3_object ?acl ?bucket_key_enabled ?cache_control
     ~bucket ~key ~override_provider __resource_id =
   let __resource_type = "aws_s3_object" in
   let __resource =
-    ({
-       acl;
-       bucket;
-       bucket_key_enabled;
-       cache_control;
-       checksum_algorithm;
-       content;
-       content_base64;
-       content_disposition;
-       content_encoding;
-       content_language;
-       content_type;
-       etag;
-       force_destroy;
-       id;
-       key;
-       kms_key_id;
-       metadata;
-       object_lock_legal_hold_status;
-       object_lock_mode;
-       object_lock_retain_until_date;
-       server_side_encryption;
-       source;
-       source_hash;
-       storage_class;
-       tags;
-       tags_all;
-       website_redirect;
-       override_provider;
-     }
-      : aws_s3_object)
+    aws_s3_object ?acl ?bucket_key_enabled ?cache_control
+      ?checksum_algorithm ?content ?content_base64
+      ?content_disposition ?content_encoding ?content_language
+      ?content_type ?etag ?force_destroy ?id ?kms_key_id ?metadata
+      ?object_lock_legal_hold_status ?object_lock_mode
+      ?object_lock_retain_until_date ?server_side_encryption ?source
+      ?source_hash ?storage_class ?tags ?tags_all ?website_redirect
+      ~bucket ~key ~override_provider ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_object __resource);
   let __resource_attributes =
     ({

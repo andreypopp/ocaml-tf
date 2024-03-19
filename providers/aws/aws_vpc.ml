@@ -37,6 +37,30 @@ type aws_vpc = {
 [@@deriving yojson_of]
 (** aws_vpc *)
 
+let aws_vpc ?assign_generated_ipv6_cidr_block ?cidr_block
+    ?enable_dns_hostnames ?enable_dns_support
+    ?enable_network_address_usage_metrics ?id ?instance_tenancy
+    ?ipv4_ipam_pool_id ?ipv4_netmask_length ?ipv6_cidr_block
+    ?ipv6_cidr_block_network_border_group ?ipv6_ipam_pool_id
+    ?ipv6_netmask_length ?tags ?tags_all () : aws_vpc =
+  {
+    assign_generated_ipv6_cidr_block;
+    cidr_block;
+    enable_dns_hostnames;
+    enable_dns_support;
+    enable_network_address_usage_metrics;
+    id;
+    instance_tenancy;
+    ipv4_ipam_pool_id;
+    ipv4_netmask_length;
+    ipv6_cidr_block;
+    ipv6_cidr_block_network_border_group;
+    ipv6_ipam_pool_id;
+    ipv6_netmask_length;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   assign_generated_ipv6_cidr_block : bool prop;
@@ -63,7 +87,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpc ?assign_generated_ipv6_cidr_block ?cidr_block
+let register ?tf_module ?assign_generated_ipv6_cidr_block ?cidr_block
     ?enable_dns_hostnames ?enable_dns_support
     ?enable_network_address_usage_metrics ?id ?instance_tenancy
     ?ipv4_ipam_pool_id ?ipv4_netmask_length ?ipv6_cidr_block
@@ -71,26 +95,14 @@ let aws_vpc ?assign_generated_ipv6_cidr_block ?cidr_block
     ?ipv6_netmask_length ?tags ?tags_all __resource_id =
   let __resource_type = "aws_vpc" in
   let __resource =
-    ({
-       assign_generated_ipv6_cidr_block;
-       cidr_block;
-       enable_dns_hostnames;
-       enable_dns_support;
-       enable_network_address_usage_metrics;
-       id;
-       instance_tenancy;
-       ipv4_ipam_pool_id;
-       ipv4_netmask_length;
-       ipv6_cidr_block;
-       ipv6_cidr_block_network_border_group;
-       ipv6_ipam_pool_id;
-       ipv6_netmask_length;
-       tags;
-       tags_all;
-     }
-      : aws_vpc)
+    aws_vpc ?assign_generated_ipv6_cidr_block ?cidr_block
+      ?enable_dns_hostnames ?enable_dns_support
+      ?enable_network_address_usage_metrics ?id ?instance_tenancy
+      ?ipv4_ipam_pool_id ?ipv4_netmask_length ?ipv6_cidr_block
+      ?ipv6_cidr_block_network_border_group ?ipv6_ipam_pool_id
+      ?ipv6_netmask_length ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc __resource);
   let __resource_attributes =
     ({

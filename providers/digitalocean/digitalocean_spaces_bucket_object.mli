@@ -2,7 +2,35 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type digitalocean_spaces_bucket_object
+
+val digitalocean_spaces_bucket_object :
+  ?acl:string prop ->
+  ?cache_control:string prop ->
+  ?content:string prop ->
+  ?content_base64:string prop ->
+  ?content_disposition:string prop ->
+  ?content_encoding:string prop ->
+  ?content_language:string prop ->
+  ?content_type:string prop ->
+  ?etag:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?source:string prop ->
+  ?website_redirect:string prop ->
+  bucket:string prop ->
+  key:string prop ->
+  region:string prop ->
+  unit ->
+  digitalocean_spaces_bucket_object
+
+val yojson_of_digitalocean_spaces_bucket_object :
+  digitalocean_spaces_bucket_object -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   acl : string prop;
@@ -25,7 +53,8 @@ type t = private {
   website_redirect : string prop;
 }
 
-val digitalocean_spaces_bucket_object :
+val register :
+  ?tf_module:tf_module ->
   ?acl:string prop ->
   ?cache_control:string prop ->
   ?content:string prop ->

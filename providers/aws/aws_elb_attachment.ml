@@ -12,16 +12,19 @@ type aws_elb_attachment = {
 [@@deriving yojson_of]
 (** aws_elb_attachment *)
 
+let aws_elb_attachment ?id ~elb ~instance () : aws_elb_attachment =
+  { elb; id; instance }
+
 type t = {
   elb : string prop;
   id : string prop;
   instance : string prop;
 }
 
-let aws_elb_attachment ?id ~elb ~instance __resource_id =
+let register ?tf_module ?id ~elb ~instance __resource_id =
   let __resource_type = "aws_elb_attachment" in
-  let __resource = ({ elb; id; instance } : aws_elb_attachment) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_elb_attachment ?id ~elb ~instance () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elb_attachment __resource);
   let __resource_attributes =
     ({

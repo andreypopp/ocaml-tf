@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_api_gateway_stage__access_log_settings = {
+type access_log_settings = {
   destination_arn : string prop;  (** destination_arn *)
   format : string prop;  (** format *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_stage__access_log_settings *)
+(** access_log_settings *)
 
-type aws_api_gateway_stage__canary_settings = {
+type canary_settings = {
   percent_traffic : float prop option; [@option]
       (** percent_traffic *)
   stage_variable_overrides : (string * string prop) list option;
@@ -21,7 +21,7 @@ type aws_api_gateway_stage__canary_settings = {
       (** use_stage_cache *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_stage__canary_settings *)
+(** canary_settings *)
 
 type aws_api_gateway_stage = {
   cache_cluster_enabled : bool prop option; [@option]
@@ -44,12 +44,42 @@ type aws_api_gateway_stage = {
       (** variables *)
   xray_tracing_enabled : bool prop option; [@option]
       (** xray_tracing_enabled *)
-  access_log_settings :
-    aws_api_gateway_stage__access_log_settings list;
-  canary_settings : aws_api_gateway_stage__canary_settings list;
+  access_log_settings : access_log_settings list;
+  canary_settings : canary_settings list;
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_stage *)
+
+let access_log_settings ~destination_arn ~format () :
+    access_log_settings =
+  { destination_arn; format }
+
+let canary_settings ?percent_traffic ?stage_variable_overrides
+    ?use_stage_cache () : canary_settings =
+  { percent_traffic; stage_variable_overrides; use_stage_cache }
+
+let aws_api_gateway_stage ?cache_cluster_enabled ?cache_cluster_size
+    ?client_certificate_id ?description ?documentation_version ?id
+    ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
+    ~rest_api_id ~stage_name ~access_log_settings ~canary_settings ()
+    : aws_api_gateway_stage =
+  {
+    cache_cluster_enabled;
+    cache_cluster_size;
+    client_certificate_id;
+    deployment_id;
+    description;
+    documentation_version;
+    id;
+    rest_api_id;
+    stage_name;
+    tags;
+    tags_all;
+    variables;
+    xray_tracing_enabled;
+    access_log_settings;
+    canary_settings;
+  }
 
 type t = {
   arn : string prop;
@@ -71,33 +101,20 @@ type t = {
   xray_tracing_enabled : bool prop;
 }
 
-let aws_api_gateway_stage ?cache_cluster_enabled ?cache_cluster_size
+let register ?tf_module ?cache_cluster_enabled ?cache_cluster_size
     ?client_certificate_id ?description ?documentation_version ?id
     ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
     ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
     __resource_id =
   let __resource_type = "aws_api_gateway_stage" in
   let __resource =
-    ({
-       cache_cluster_enabled;
-       cache_cluster_size;
-       client_certificate_id;
-       deployment_id;
-       description;
-       documentation_version;
-       id;
-       rest_api_id;
-       stage_name;
-       tags;
-       tags_all;
-       variables;
-       xray_tracing_enabled;
-       access_log_settings;
-       canary_settings;
-     }
-      : aws_api_gateway_stage)
+    aws_api_gateway_stage ?cache_cluster_enabled ?cache_cluster_size
+      ?client_certificate_id ?description ?documentation_version ?id
+      ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
+      ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_stage __resource);
   let __resource_attributes =
     ({

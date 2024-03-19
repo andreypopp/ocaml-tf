@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type google_pubsub_lite_subscription__delivery_config = {
+type delivery_config = {
   delivery_requirement : string prop;
       (** When this subscription should send messages to subscribers relative to messages persistence in storage. Possible values: [DELIVER_IMMEDIATELY, DELIVER_AFTER_STORED, DELIVERY_REQUIREMENT_UNSPECIFIED] *)
 }
 [@@deriving yojson_of]
 (** The settings for this subscription's message delivery. *)
 
-type google_pubsub_lite_subscription__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_pubsub_lite_subscription__timeouts *)
+(** timeouts *)
 
 type google_pubsub_lite_subscription = {
   id : string prop option; [@option]  (** id *)
@@ -28,12 +28,31 @@ type google_pubsub_lite_subscription = {
   topic : string prop;  (** A reference to a Topic resource. *)
   zone : string prop option; [@option]
       (** The zone of the pubsub lite topic. *)
-  delivery_config :
-    google_pubsub_lite_subscription__delivery_config list;
-  timeouts : google_pubsub_lite_subscription__timeouts option;
+  delivery_config : delivery_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_pubsub_lite_subscription *)
+
+let delivery_config ~delivery_requirement () : delivery_config =
+  { delivery_requirement }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_pubsub_lite_subscription ?id ?project ?region ?zone
+    ?timeouts ~name ~topic ~delivery_config () :
+    google_pubsub_lite_subscription =
+  {
+    id;
+    name;
+    project;
+    region;
+    topic;
+    zone;
+    delivery_config;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -44,23 +63,14 @@ type t = {
   zone : string prop;
 }
 
-let google_pubsub_lite_subscription ?id ?project ?region ?zone
-    ?timeouts ~name ~topic ~delivery_config __resource_id =
+let register ?tf_module ?id ?project ?region ?zone ?timeouts ~name
+    ~topic ~delivery_config __resource_id =
   let __resource_type = "google_pubsub_lite_subscription" in
   let __resource =
-    ({
-       id;
-       name;
-       project;
-       region;
-       topic;
-       zone;
-       delivery_config;
-       timeouts;
-     }
-      : google_pubsub_lite_subscription)
+    google_pubsub_lite_subscription ?id ?project ?region ?zone
+      ?timeouts ~name ~topic ~delivery_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_lite_subscription __resource);
   let __resource_attributes =
     ({

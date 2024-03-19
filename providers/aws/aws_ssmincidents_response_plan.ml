@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_ssmincidents_response_plan__action__ssm_automation__parameter = {
+type action__ssm_automation__parameter = {
   name : string prop;  (** name *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_ssmincidents_response_plan__action__ssm_automation__parameter *)
+(** action__ssm_automation__parameter *)
 
-type aws_ssmincidents_response_plan__action__ssm_automation = {
+type action__ssm_automation = {
   document_name : string prop;  (** document_name *)
   document_version : string prop option; [@option]
       (** document_version *)
@@ -20,54 +20,44 @@ type aws_ssmincidents_response_plan__action__ssm_automation = {
   role_arn : string prop;  (** role_arn *)
   target_account : string prop option; [@option]
       (** target_account *)
-  parameter :
-    aws_ssmincidents_response_plan__action__ssm_automation__parameter
-    list;
+  parameter : action__ssm_automation__parameter list;
 }
 [@@deriving yojson_of]
-(** aws_ssmincidents_response_plan__action__ssm_automation *)
+(** action__ssm_automation *)
 
-type aws_ssmincidents_response_plan__action = {
-  ssm_automation :
-    aws_ssmincidents_response_plan__action__ssm_automation list;
-}
+type action = { ssm_automation : action__ssm_automation list }
 [@@deriving yojson_of]
-(** aws_ssmincidents_response_plan__action *)
+(** action *)
 
-type aws_ssmincidents_response_plan__incident_template__notification_target = {
+type incident_template__notification_target = {
   sns_topic_arn : string prop;  (** sns_topic_arn *)
 }
 [@@deriving yojson_of]
-(** aws_ssmincidents_response_plan__incident_template__notification_target *)
+(** incident_template__notification_target *)
 
-type aws_ssmincidents_response_plan__incident_template = {
+type incident_template = {
   dedupe_string : string prop option; [@option]  (** dedupe_string *)
   impact : float prop;  (** impact *)
   incident_tags : (string * string prop) list option; [@option]
       (** incident_tags *)
   summary : string prop option; [@option]  (** summary *)
   title : string prop;  (** title *)
-  notification_target :
-    aws_ssmincidents_response_plan__incident_template__notification_target
-    list;
+  notification_target : incident_template__notification_target list;
 }
 [@@deriving yojson_of]
-(** aws_ssmincidents_response_plan__incident_template *)
+(** incident_template *)
 
-type aws_ssmincidents_response_plan__integration__pagerduty = {
+type integration__pagerduty = {
   name : string prop;  (** name *)
   secret_id : string prop;  (** secret_id *)
   service_id : string prop;  (** service_id *)
 }
 [@@deriving yojson_of]
-(** aws_ssmincidents_response_plan__integration__pagerduty *)
+(** integration__pagerduty *)
 
-type aws_ssmincidents_response_plan__integration = {
-  pagerduty :
-    aws_ssmincidents_response_plan__integration__pagerduty list;
-}
+type integration = { pagerduty : integration__pagerduty list }
 [@@deriving yojson_of]
-(** aws_ssmincidents_response_plan__integration *)
+(** integration *)
 
 type aws_ssmincidents_response_plan = {
   chat_channel : string prop list option; [@option]
@@ -80,13 +70,67 @@ type aws_ssmincidents_response_plan = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  action : aws_ssmincidents_response_plan__action list;
-  incident_template :
-    aws_ssmincidents_response_plan__incident_template list;
-  integration : aws_ssmincidents_response_plan__integration list;
+  action : action list;
+  incident_template : incident_template list;
+  integration : integration list;
 }
 [@@deriving yojson_of]
 (** aws_ssmincidents_response_plan *)
+
+let action__ssm_automation__parameter ~name ~values () :
+    action__ssm_automation__parameter =
+  { name; values }
+
+let action__ssm_automation ?document_version ?dynamic_parameters
+    ?target_account ~document_name ~role_arn ~parameter () :
+    action__ssm_automation =
+  {
+    document_name;
+    document_version;
+    dynamic_parameters;
+    role_arn;
+    target_account;
+    parameter;
+  }
+
+let action ~ssm_automation () : action = { ssm_automation }
+
+let incident_template__notification_target ~sns_topic_arn () :
+    incident_template__notification_target =
+  { sns_topic_arn }
+
+let incident_template ?dedupe_string ?incident_tags ?summary ~impact
+    ~title ~notification_target () : incident_template =
+  {
+    dedupe_string;
+    impact;
+    incident_tags;
+    summary;
+    title;
+    notification_target;
+  }
+
+let integration__pagerduty ~name ~secret_id ~service_id () :
+    integration__pagerduty =
+  { name; secret_id; service_id }
+
+let integration ~pagerduty () : integration = { pagerduty }
+
+let aws_ssmincidents_response_plan ?chat_channel ?display_name
+    ?engagements ?id ?tags ?tags_all ~name ~action ~incident_template
+    ~integration () : aws_ssmincidents_response_plan =
+  {
+    chat_channel;
+    display_name;
+    engagements;
+    id;
+    name;
+    tags;
+    tags_all;
+    action;
+    incident_template;
+    integration;
+  }
 
 type t = {
   arn : string prop;
@@ -99,26 +143,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ssmincidents_response_plan ?chat_channel ?display_name
-    ?engagements ?id ?tags ?tags_all ~name ~action ~incident_template
-    ~integration __resource_id =
+let register ?tf_module ?chat_channel ?display_name ?engagements ?id
+    ?tags ?tags_all ~name ~action ~incident_template ~integration
+    __resource_id =
   let __resource_type = "aws_ssmincidents_response_plan" in
   let __resource =
-    ({
-       chat_channel;
-       display_name;
-       engagements;
-       id;
-       name;
-       tags;
-       tags_all;
-       action;
-       incident_template;
-       integration;
-     }
-      : aws_ssmincidents_response_plan)
+    aws_ssmincidents_response_plan ?chat_channel ?display_name
+      ?engagements ?id ?tags ?tags_all ~name ~action
+      ~incident_template ~integration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmincidents_response_plan __resource);
   let __resource_attributes =
     ({

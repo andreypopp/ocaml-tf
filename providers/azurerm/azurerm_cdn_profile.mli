@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_cdn_profile__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_cdn_profile
+
+val azurerm_cdn_profile :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  unit ->
+  azurerm_cdn_profile
+
+val yojson_of_azurerm_cdn_profile : azurerm_cdn_profile -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,10 +40,11 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_cdn_profile :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_cdn_profile__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

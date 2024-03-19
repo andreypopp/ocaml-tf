@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_rate_limit__action__response = {
+type action__response = {
   body : string prop;
       (** The body to return, the content here should conform to the `content_type`. *)
   content_type : string prop;
@@ -13,24 +13,24 @@ type cloudflare_rate_limit__action__response = {
 [@@deriving yojson_of]
 (** Custom content-type and body to return, this overrides the custom error for the zone. This field is not required. Omission will result in default HTML error page. *)
 
-type cloudflare_rate_limit__action = {
+type action = {
   mode : string prop;
       (** The type of action to perform. Available values: `simulate`, `ban`, `challenge`, `js_challenge`, `managed_challenge`. *)
   timeout : float prop option; [@option]
       (** The time in seconds as an integer to perform the mitigation action. This field is required if the `mode` is either `simulate` or `ban`. Must be the same or greater than the period. *)
-  response : cloudflare_rate_limit__action__response list;
+  response : action__response list;
 }
 [@@deriving yojson_of]
 (** The action to be performed when the threshold of matched traffic within the period defined is exceeded. *)
 
-type cloudflare_rate_limit__correlate = {
+type correlate = {
   by : string prop option; [@option]
       (** If set to 'nat', NAT support will be enabled for rate limiting. Available values: `nat`. *)
 }
 [@@deriving yojson_of]
 (** Determines how rate limiting is applied. By default if not specified, rate limiting applies to the clients IP address. *)
 
-type cloudflare_rate_limit__match__request = {
+type match__request = {
   methods : string prop list option; [@option]
       (** HTTP Methods to match traffic on. Available values: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`, `HEAD`, `_ALL_`. *)
   schemes : string prop list option; [@option]
@@ -41,7 +41,7 @@ type cloudflare_rate_limit__match__request = {
 [@@deriving yojson_of]
 (** Matches HTTP requests (from the client to Cloudflare). *)
 
-type cloudflare_rate_limit__match__response = {
+type match__response = {
   headers : (string * string prop) list list option; [@option]
       (** List of HTTP headers maps to match the origin response on. *)
   origin_traffic : bool prop option; [@option]
@@ -52,9 +52,9 @@ type cloudflare_rate_limit__match__response = {
 [@@deriving yojson_of]
 (** Matches HTTP responses before they are returned to the client from Cloudflare. If this is defined, then the entire counting of traffic occurs at this stage. *)
 
-type cloudflare_rate_limit__match = {
-  request : cloudflare_rate_limit__match__request list;
-  response : cloudflare_rate_limit__match__response list;
+type match_ = {
+  request : match__request list;
+  response : match__response list;
 }
 [@@deriving yojson_of]
 (** Determines which traffic the rate limit counts towards the threshold. By default matches all traffic in the zone. *)
@@ -73,15 +73,49 @@ type cloudflare_rate_limit = {
       (** The threshold that triggers the rate limit mitigations, combine with period. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  action : cloudflare_rate_limit__action list;
-  correlate : cloudflare_rate_limit__correlate list;
-  match_ : cloudflare_rate_limit__match list;
+  action : action list;
+  correlate : correlate list;
+  match_ : match_ list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare rate limit resource for a given zone. This can
 be used to limit the traffic you receive zone-wide, or matching more
 specific types of requests/responses.
  *)
+
+let action__response ~body ~content_type () : action__response =
+  { body; content_type }
+
+let action ?timeout ~mode ~response () : action =
+  { mode; timeout; response }
+
+let correlate ?by () : correlate = { by }
+
+let match__request ?methods ?schemes ?url_pattern () : match__request
+    =
+  { methods; schemes; url_pattern }
+
+let match__response ?headers ?origin_traffic ?statuses () :
+    match__response =
+  { headers; origin_traffic; statuses }
+
+let match_ ~request ~response () : match_ = { request; response }
+
+let cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
+    ?id ~period ~threshold ~zone_id ~action ~correlate ~match_ () :
+    cloudflare_rate_limit =
+  {
+    bypass_url_patterns;
+    description;
+    disabled;
+    id;
+    period;
+    threshold;
+    zone_id;
+    action;
+    correlate;
+    match_;
+  }
 
 type t = {
   bypass_url_patterns : string list prop;
@@ -93,26 +127,15 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
+let register ?tf_module ?bypass_url_patterns ?description ?disabled
     ?id ~period ~threshold ~zone_id ~action ~correlate ~match_
     __resource_id =
   let __resource_type = "cloudflare_rate_limit" in
   let __resource =
-    ({
-       bypass_url_patterns;
-       description;
-       disabled;
-       id;
-       period;
-       threshold;
-       zone_id;
-       action;
-       correlate;
-       match_;
-     }
-      : cloudflare_rate_limit)
+    cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
+      ?id ~period ~threshold ~zone_id ~action ~correlate ~match_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_rate_limit __resource);
   let __resource_attributes =
     ({

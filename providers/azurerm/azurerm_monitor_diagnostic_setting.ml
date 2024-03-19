@@ -4,66 +4,62 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_diagnostic_setting__enabled_log__retention_policy = {
+type enabled_log__retention_policy = {
   days : float prop option; [@option]  (** days *)
   enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_diagnostic_setting__enabled_log__retention_policy *)
+(** enabled_log__retention_policy *)
 
-type azurerm_monitor_diagnostic_setting__enabled_log = {
+type enabled_log = {
   category : string prop option; [@option]  (** category *)
   category_group : string prop option; [@option]
       (** category_group *)
-  retention_policy :
-    azurerm_monitor_diagnostic_setting__enabled_log__retention_policy
-    list;
+  retention_policy : enabled_log__retention_policy list;
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_diagnostic_setting__enabled_log *)
+(** enabled_log *)
 
-type azurerm_monitor_diagnostic_setting__log__retention_policy = {
+type log__retention_policy = {
   days : float prop option; [@option]  (** days *)
   enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_diagnostic_setting__log__retention_policy *)
+(** log__retention_policy *)
 
-type azurerm_monitor_diagnostic_setting__log = {
+type log = {
   category : string prop option; [@option]  (** category *)
   category_group : string prop option; [@option]
       (** category_group *)
   enabled : bool prop option; [@option]  (** enabled *)
-  retention_policy :
-    azurerm_monitor_diagnostic_setting__log__retention_policy list;
+  retention_policy : log__retention_policy list;
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_diagnostic_setting__log *)
+(** log *)
 
-type azurerm_monitor_diagnostic_setting__metric__retention_policy = {
+type metric__retention_policy = {
   days : float prop option; [@option]  (** days *)
   enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_diagnostic_setting__metric__retention_policy *)
+(** metric__retention_policy *)
 
-type azurerm_monitor_diagnostic_setting__metric = {
+type metric = {
   category : string prop;  (** category *)
   enabled : bool prop option; [@option]  (** enabled *)
-  retention_policy :
-    azurerm_monitor_diagnostic_setting__metric__retention_policy list;
+  retention_policy : metric__retention_policy list;
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_diagnostic_setting__metric *)
+(** metric *)
 
-type azurerm_monitor_diagnostic_setting__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_diagnostic_setting__timeouts *)
+(** timeouts *)
 
 type azurerm_monitor_diagnostic_setting = {
   eventhub_authorization_rule_id : string prop option; [@option]
@@ -80,13 +76,60 @@ type azurerm_monitor_diagnostic_setting = {
   storage_account_id : string prop option; [@option]
       (** storage_account_id *)
   target_resource_id : string prop;  (** target_resource_id *)
-  enabled_log : azurerm_monitor_diagnostic_setting__enabled_log list;
-  log : azurerm_monitor_diagnostic_setting__log list;
-  metric : azurerm_monitor_diagnostic_setting__metric list;
-  timeouts : azurerm_monitor_diagnostic_setting__timeouts option;
+  enabled_log : enabled_log list;
+  log : log list;
+  metric : metric list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_diagnostic_setting *)
+
+let enabled_log__retention_policy ?days ~enabled () :
+    enabled_log__retention_policy =
+  { days; enabled }
+
+let enabled_log ?category ?category_group ~retention_policy () :
+    enabled_log =
+  { category; category_group; retention_policy }
+
+let log__retention_policy ?days ~enabled () : log__retention_policy =
+  { days; enabled }
+
+let log ?category ?category_group ?enabled ~retention_policy () : log
+    =
+  { category; category_group; enabled; retention_policy }
+
+let metric__retention_policy ?days ~enabled () :
+    metric__retention_policy =
+  { days; enabled }
+
+let metric ?enabled ~category ~retention_policy () : metric =
+  { category; enabled; retention_policy }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_monitor_diagnostic_setting
+    ?eventhub_authorization_rule_id ?eventhub_name ?id
+    ?log_analytics_destination_type ?log_analytics_workspace_id
+    ?partner_solution_id ?storage_account_id ?timeouts ~name
+    ~target_resource_id ~enabled_log ~log ~metric () :
+    azurerm_monitor_diagnostic_setting =
+  {
+    eventhub_authorization_rule_id;
+    eventhub_name;
+    id;
+    log_analytics_destination_type;
+    log_analytics_workspace_id;
+    name;
+    partner_solution_id;
+    storage_account_id;
+    target_resource_id;
+    enabled_log;
+    log;
+    metric;
+    timeouts;
+  }
 
 type t = {
   eventhub_authorization_rule_id : string prop;
@@ -100,31 +143,20 @@ type t = {
   target_resource_id : string prop;
 }
 
-let azurerm_monitor_diagnostic_setting
-    ?eventhub_authorization_rule_id ?eventhub_name ?id
-    ?log_analytics_destination_type ?log_analytics_workspace_id
-    ?partner_solution_id ?storage_account_id ?timeouts ~name
-    ~target_resource_id ~enabled_log ~log ~metric __resource_id =
+let register ?tf_module ?eventhub_authorization_rule_id
+    ?eventhub_name ?id ?log_analytics_destination_type
+    ?log_analytics_workspace_id ?partner_solution_id
+    ?storage_account_id ?timeouts ~name ~target_resource_id
+    ~enabled_log ~log ~metric __resource_id =
   let __resource_type = "azurerm_monitor_diagnostic_setting" in
   let __resource =
-    ({
-       eventhub_authorization_rule_id;
-       eventhub_name;
-       id;
-       log_analytics_destination_type;
-       log_analytics_workspace_id;
-       name;
-       partner_solution_id;
-       storage_account_id;
-       target_resource_id;
-       enabled_log;
-       log;
-       metric;
-       timeouts;
-     }
-      : azurerm_monitor_diagnostic_setting)
+    azurerm_monitor_diagnostic_setting
+      ?eventhub_authorization_rule_id ?eventhub_name ?id
+      ?log_analytics_destination_type ?log_analytics_workspace_id
+      ?partner_solution_id ?storage_account_id ?timeouts ~name
+      ~target_resource_id ~enabled_log ~log ~metric ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_diagnostic_setting __resource);
   let __resource_attributes =
     ({

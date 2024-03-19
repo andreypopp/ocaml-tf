@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_logger__application_insights = {
+type application_insights = {
   instrumentation_key : string prop;  (** instrumentation_key *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_logger__application_insights *)
+(** application_insights *)
 
-type azurerm_api_management_logger__eventhub = {
+type eventhub = {
   connection_string : string prop option; [@option]
       (** connection_string *)
   endpoint_uri : string prop option; [@option]  (** endpoint_uri *)
@@ -19,16 +19,16 @@ type azurerm_api_management_logger__eventhub = {
       (** user_assigned_identity_client_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_logger__eventhub *)
+(** eventhub *)
 
-type azurerm_api_management_logger__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_logger__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_logger = {
   api_management_name : string prop;  (** api_management_name *)
@@ -38,13 +38,45 @@ type azurerm_api_management_logger = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   resource_id : string prop option; [@option]  (** resource_id *)
-  application_insights :
-    azurerm_api_management_logger__application_insights list;
-  eventhub : azurerm_api_management_logger__eventhub list;
-  timeouts : azurerm_api_management_logger__timeouts option;
+  application_insights : application_insights list;
+  eventhub : eventhub list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_logger *)
+
+let application_insights ~instrumentation_key () :
+    application_insights =
+  { instrumentation_key }
+
+let eventhub ?connection_string ?endpoint_uri
+    ?user_assigned_identity_client_id ~name () : eventhub =
+  {
+    connection_string;
+    endpoint_uri;
+    name;
+    user_assigned_identity_client_id;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_logger ?buffered ?description ?id
+    ?resource_id ?timeouts ~api_management_name ~name
+    ~resource_group_name ~application_insights ~eventhub () :
+    azurerm_api_management_logger =
+  {
+    api_management_name;
+    buffered;
+    description;
+    id;
+    name;
+    resource_group_name;
+    resource_id;
+    application_insights;
+    eventhub;
+    timeouts;
+  }
 
 type t = {
   api_management_name : string prop;
@@ -56,27 +88,16 @@ type t = {
   resource_id : string prop;
 }
 
-let azurerm_api_management_logger ?buffered ?description ?id
-    ?resource_id ?timeouts ~api_management_name ~name
-    ~resource_group_name ~application_insights ~eventhub
-    __resource_id =
+let register ?tf_module ?buffered ?description ?id ?resource_id
+    ?timeouts ~api_management_name ~name ~resource_group_name
+    ~application_insights ~eventhub __resource_id =
   let __resource_type = "azurerm_api_management_logger" in
   let __resource =
-    ({
-       api_management_name;
-       buffered;
-       description;
-       id;
-       name;
-       resource_group_name;
-       resource_id;
-       application_insights;
-       eventhub;
-       timeouts;
-     }
-      : azurerm_api_management_logger)
+    azurerm_api_management_logger ?buffered ?description ?id
+      ?resource_id ?timeouts ~api_management_name ~name
+      ~resource_group_name ~application_insights ~eventhub ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_logger __resource);
   let __resource_attributes =
     ({

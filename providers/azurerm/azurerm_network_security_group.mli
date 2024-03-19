@@ -2,9 +2,9 @@
 
 open! Tf.Prelude
 
-type azurerm_network_security_group__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_network_security_group__security_rule = {
+type security_rule = {
   access : string prop;  (** access *)
   description : string prop;  (** description *)
   destination_address_prefix : string prop;
@@ -30,23 +30,49 @@ type azurerm_network_security_group__security_rule = {
   source_port_ranges : string prop list;  (** source_port_ranges *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_network_security_group
+
+val azurerm_network_security_group :
+  ?id:string prop ->
+  ?security_rule:security_rule list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_network_security_group
+
+val yojson_of_azurerm_network_security_group :
+  azurerm_network_security_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  security_rule :
-    azurerm_network_security_group__security_rule list prop;
+  security_rule : security_rule list prop;
   tags : (string * string) list prop;
 }
 
-val azurerm_network_security_group :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?security_rule:azurerm_network_security_group__security_rule list ->
+  ?security_rule:security_rule list ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_network_security_group__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

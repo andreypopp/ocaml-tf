@@ -13,6 +13,10 @@ type aws_ses_receipt_filter = {
 [@@deriving yojson_of]
 (** aws_ses_receipt_filter *)
 
+let aws_ses_receipt_filter ?id ~cidr ~name ~policy () :
+    aws_ses_receipt_filter =
+  { cidr; id; name; policy }
+
 type t = {
   arn : string prop;
   cidr : string prop;
@@ -21,12 +25,12 @@ type t = {
   policy : string prop;
 }
 
-let aws_ses_receipt_filter ?id ~cidr ~name ~policy __resource_id =
+let register ?tf_module ?id ~cidr ~name ~policy __resource_id =
   let __resource_type = "aws_ses_receipt_filter" in
   let __resource =
-    ({ cidr; id; name; policy } : aws_ses_receipt_filter)
+    aws_ses_receipt_filter ?id ~cidr ~name ~policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_receipt_filter __resource);
   let __resource_attributes =
     ({

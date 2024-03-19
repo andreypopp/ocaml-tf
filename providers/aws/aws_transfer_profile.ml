@@ -17,6 +17,10 @@ type aws_transfer_profile = {
 [@@deriving yojson_of]
 (** aws_transfer_profile *)
 
+let aws_transfer_profile ?certificate_ids ?id ?tags ?tags_all ~as2_id
+    ~profile_type () : aws_transfer_profile =
+  { as2_id; certificate_ids; id; profile_type; tags; tags_all }
+
 type t = {
   arn : string prop;
   as2_id : string prop;
@@ -28,14 +32,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_transfer_profile ?certificate_ids ?id ?tags ?tags_all ~as2_id
+let register ?tf_module ?certificate_ids ?id ?tags ?tags_all ~as2_id
     ~profile_type __resource_id =
   let __resource_type = "aws_transfer_profile" in
   let __resource =
-    ({ as2_id; certificate_ids; id; profile_type; tags; tags_all }
-      : aws_transfer_profile)
+    aws_transfer_profile ?certificate_ids ?id ?tags ?tags_all ~as2_id
+      ~profile_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_profile __resource);
   let __resource_attributes =
     ({

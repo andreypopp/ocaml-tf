@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_disk_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_compute_disk_iam_binding__condition *)
+(** condition *)
 
 type google_compute_disk_iam_binding = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,17 @@ type google_compute_disk_iam_binding = {
   project : string prop option; [@option]  (** project *)
   role : string prop;  (** role *)
   zone : string prop option; [@option]  (** zone *)
-  condition : google_compute_disk_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_compute_disk_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_compute_disk_iam_binding ?id ?project ?zone ~members ~name
+    ~role ~condition () : google_compute_disk_iam_binding =
+  { id; members; name; project; role; zone; condition }
 
 type t = {
   etag : string prop;
@@ -34,14 +41,14 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_disk_iam_binding ?id ?project ?zone ~members ~name
-    ~role ~condition __resource_id =
+let register ?tf_module ?id ?project ?zone ~members ~name ~role
+    ~condition __resource_id =
   let __resource_type = "google_compute_disk_iam_binding" in
   let __resource =
-    ({ id; members; name; project; role; zone; condition }
-      : google_compute_disk_iam_binding)
+    google_compute_disk_iam_binding ?id ?project ?zone ~members ~name
+      ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_disk_iam_binding __resource);
   let __resource_attributes =
     ({

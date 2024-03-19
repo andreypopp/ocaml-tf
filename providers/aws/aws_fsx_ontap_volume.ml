@@ -4,49 +4,46 @@
 
 open! Tf.Prelude
 
-type aws_fsx_ontap_volume__snaplock_configuration__autocommit_period = {
+type snaplock_configuration__autocommit_period = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   value : float prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_volume__snaplock_configuration__autocommit_period *)
+(** snaplock_configuration__autocommit_period *)
 
-type aws_fsx_ontap_volume__snaplock_configuration__retention_period__default_retention = {
+type snaplock_configuration__retention_period__default_retention = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   value : float prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_volume__snaplock_configuration__retention_period__default_retention *)
+(** snaplock_configuration__retention_period__default_retention *)
 
-type aws_fsx_ontap_volume__snaplock_configuration__retention_period__maximum_retention = {
+type snaplock_configuration__retention_period__maximum_retention = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   value : float prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_volume__snaplock_configuration__retention_period__maximum_retention *)
+(** snaplock_configuration__retention_period__maximum_retention *)
 
-type aws_fsx_ontap_volume__snaplock_configuration__retention_period__minimum_retention = {
+type snaplock_configuration__retention_period__minimum_retention = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   value : float prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_volume__snaplock_configuration__retention_period__minimum_retention *)
+(** snaplock_configuration__retention_period__minimum_retention *)
 
-type aws_fsx_ontap_volume__snaplock_configuration__retention_period = {
+type snaplock_configuration__retention_period = {
   default_retention :
-    aws_fsx_ontap_volume__snaplock_configuration__retention_period__default_retention
-    list;
+    snaplock_configuration__retention_period__default_retention list;
   maximum_retention :
-    aws_fsx_ontap_volume__snaplock_configuration__retention_period__maximum_retention
-    list;
+    snaplock_configuration__retention_period__maximum_retention list;
   minimum_retention :
-    aws_fsx_ontap_volume__snaplock_configuration__retention_period__minimum_retention
-    list;
+    snaplock_configuration__retention_period__minimum_retention list;
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_volume__snaplock_configuration__retention_period *)
+(** snaplock_configuration__retention_period *)
 
-type aws_fsx_ontap_volume__snaplock_configuration = {
+type snaplock_configuration = {
   audit_log_volume : bool prop option; [@option]
       (** audit_log_volume *)
   privileged_delete : string prop option; [@option]
@@ -54,31 +51,27 @@ type aws_fsx_ontap_volume__snaplock_configuration = {
   snaplock_type : string prop;  (** snaplock_type *)
   volume_append_mode_enabled : bool prop option; [@option]
       (** volume_append_mode_enabled *)
-  autocommit_period :
-    aws_fsx_ontap_volume__snaplock_configuration__autocommit_period
-    list;
-  retention_period :
-    aws_fsx_ontap_volume__snaplock_configuration__retention_period
-    list;
+  autocommit_period : snaplock_configuration__autocommit_period list;
+  retention_period : snaplock_configuration__retention_period list;
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_volume__snaplock_configuration *)
+(** snaplock_configuration *)
 
-type aws_fsx_ontap_volume__tiering_policy = {
+type tiering_policy = {
   cooling_period : float prop option; [@option]
       (** cooling_period *)
   name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_volume__tiering_policy *)
+(** tiering_policy *)
 
-type aws_fsx_ontap_volume__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_volume__timeouts *)
+(** timeouts *)
 
 type aws_fsx_ontap_volume = {
   bypass_snaplock_enterprise_retention : bool prop option; [@option]
@@ -105,13 +98,82 @@ type aws_fsx_ontap_volume = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   volume_type : string prop option; [@option]  (** volume_type *)
-  snaplock_configuration :
-    aws_fsx_ontap_volume__snaplock_configuration list;
-  tiering_policy : aws_fsx_ontap_volume__tiering_policy list;
-  timeouts : aws_fsx_ontap_volume__timeouts option;
+  snaplock_configuration : snaplock_configuration list;
+  tiering_policy : tiering_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_fsx_ontap_volume *)
+
+let snaplock_configuration__autocommit_period ?type_ ?value () :
+    snaplock_configuration__autocommit_period =
+  { type_; value }
+
+let snaplock_configuration__retention_period__default_retention
+    ?type_ ?value () :
+    snaplock_configuration__retention_period__default_retention =
+  { type_; value }
+
+let snaplock_configuration__retention_period__maximum_retention
+    ?type_ ?value () :
+    snaplock_configuration__retention_period__maximum_retention =
+  { type_; value }
+
+let snaplock_configuration__retention_period__minimum_retention
+    ?type_ ?value () :
+    snaplock_configuration__retention_period__minimum_retention =
+  { type_; value }
+
+let snaplock_configuration__retention_period ~default_retention
+    ~maximum_retention ~minimum_retention () :
+    snaplock_configuration__retention_period =
+  { default_retention; maximum_retention; minimum_retention }
+
+let snaplock_configuration ?audit_log_volume ?privileged_delete
+    ?volume_append_mode_enabled ~snaplock_type ~autocommit_period
+    ~retention_period () : snaplock_configuration =
+  {
+    audit_log_volume;
+    privileged_delete;
+    snaplock_type;
+    volume_append_mode_enabled;
+    autocommit_period;
+    retention_period;
+  }
+
+let tiering_policy ?cooling_period ?name () : tiering_policy =
+  { cooling_period; name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
+    ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
+    ?security_style ?skip_final_backup ?snapshot_policy
+    ?storage_efficiency_enabled ?tags ?tags_all ?volume_type
+    ?timeouts ~name ~size_in_megabytes ~storage_virtual_machine_id
+    ~snaplock_configuration ~tiering_policy () : aws_fsx_ontap_volume
+    =
+  {
+    bypass_snaplock_enterprise_retention;
+    copy_tags_to_backups;
+    id;
+    junction_path;
+    name;
+    ontap_volume_type;
+    security_style;
+    size_in_megabytes;
+    skip_final_backup;
+    snapshot_policy;
+    storage_efficiency_enabled;
+    storage_virtual_machine_id;
+    tags;
+    tags_all;
+    volume_type;
+    snaplock_configuration;
+    tiering_policy;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -135,7 +197,7 @@ type t = {
   volume_type : string prop;
 }
 
-let aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
+let register ?tf_module ?bypass_snaplock_enterprise_retention
     ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
     ?security_style ?skip_final_backup ?snapshot_policy
     ?storage_efficiency_enabled ?tags ?tags_all ?volume_type
@@ -143,29 +205,14 @@ let aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
     ~snaplock_configuration ~tiering_policy __resource_id =
   let __resource_type = "aws_fsx_ontap_volume" in
   let __resource =
-    ({
-       bypass_snaplock_enterprise_retention;
-       copy_tags_to_backups;
-       id;
-       junction_path;
-       name;
-       ontap_volume_type;
-       security_style;
-       size_in_megabytes;
-       skip_final_backup;
-       snapshot_policy;
-       storage_efficiency_enabled;
-       storage_virtual_machine_id;
-       tags;
-       tags_all;
-       volume_type;
-       snaplock_configuration;
-       tiering_policy;
-       timeouts;
-     }
-      : aws_fsx_ontap_volume)
+    aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
+      ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
+      ?security_style ?skip_final_backup ?snapshot_policy
+      ?storage_efficiency_enabled ?tags ?tags_all ?volume_type
+      ?timeouts ~name ~size_in_megabytes ~storage_virtual_machine_id
+      ~snaplock_configuration ~tiering_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_ontap_volume __resource);
   let __resource_attributes =
     ({

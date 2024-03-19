@@ -2,16 +2,60 @@
 
 open! Tf.Prelude
 
-type aws_evidently_feature__timeouts
-type aws_evidently_feature__variations__value
-type aws_evidently_feature__variations
+(** RESOURCE SERIALIZATION *)
 
-type aws_evidently_feature__evaluation_rules = {
+type evaluation_rules = {
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type variations__value
+
+val variations__value :
+  ?bool_value:string prop ->
+  ?double_value:string prop ->
+  ?long_value:string prop ->
+  ?string_value:string prop ->
+  unit ->
+  variations__value
+
+type variations
+
+val variations :
+  name:string prop ->
+  value:variations__value list ->
+  unit ->
+  variations
+
 type aws_evidently_feature
+
+val aws_evidently_feature :
+  ?default_variation:string prop ->
+  ?description:string prop ->
+  ?entity_overrides:(string * string prop) list ->
+  ?evaluation_strategy:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  project:string prop ->
+  variations:variations list ->
+  unit ->
+  aws_evidently_feature
+
+val yojson_of_aws_evidently_feature : aws_evidently_feature -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,8 +63,7 @@ type t = private {
   default_variation : string prop;
   description : string prop;
   entity_overrides : (string * string) list prop;
-  evaluation_rules :
-    aws_evidently_feature__evaluation_rules list prop;
+  evaluation_rules : evaluation_rules list prop;
   evaluation_strategy : string prop;
   id : string prop;
   last_updated_time : string prop;
@@ -32,7 +75,8 @@ type t = private {
   value_type : string prop;
 }
 
-val aws_evidently_feature :
+val register :
+  ?tf_module:tf_module ->
   ?default_variation:string prop ->
   ?description:string prop ->
   ?entity_overrides:(string * string prop) list ->
@@ -40,9 +84,9 @@ val aws_evidently_feature :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_evidently_feature__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   project:string prop ->
-  variations:aws_evidently_feature__variations list ->
+  variations:variations list ->
   string ->
   t

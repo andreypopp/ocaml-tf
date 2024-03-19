@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cognito_identity_pool_provider_principal_tag
+
+val aws_cognito_identity_pool_provider_principal_tag :
+  ?id:string prop ->
+  ?principal_tags:(string * string prop) list ->
+  ?use_defaults:bool prop ->
+  identity_pool_id:string prop ->
+  identity_provider_name:string prop ->
+  unit ->
+  aws_cognito_identity_pool_provider_principal_tag
+
+val yojson_of_aws_cognito_identity_pool_provider_principal_tag :
+  aws_cognito_identity_pool_provider_principal_tag -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,7 +28,8 @@ type t = private {
   use_defaults : bool prop;
 }
 
-val aws_cognito_identity_pool_provider_principal_tag :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?principal_tags:(string * string prop) list ->
   ?use_defaults:bool prop ->

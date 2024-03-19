@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_compute_backend_bucket__cdn_policy__bypass_cache_on_request_headers = {
+type cdn_policy__bypass_cache_on_request_headers = {
   header_name : string prop option; [@option]
       (** The header field name to match on when bypassing cache. Values are case-insensitive. *)
 }
 [@@deriving yojson_of]
 (** Bypass the cache when the specified request headers are matched - e.g. Pragma or Authorization headers. Up to 5 headers can be specified. The cache is bypassed for all cdnPolicy.cacheMode settings. *)
 
-type google_compute_backend_bucket__cdn_policy__cache_key_policy = {
+type cdn_policy__cache_key_policy = {
   include_http_headers : string prop list option; [@option]
       (** Allows HTTP request headers (by name) to be used in the
 cache key. *)
@@ -23,7 +23,7 @@ be percent encoded and not treated as delimiters. *)
 [@@deriving yojson_of]
 (** The CacheKeyPolicy for this CdnPolicy. *)
 
-type google_compute_backend_bucket__cdn_policy__negative_caching_policy = {
+type cdn_policy__negative_caching_policy = {
   code : float prop option; [@option]
       (** The HTTP status code to define a TTL against. Only HTTP status codes 300, 301, 308, 404, 405, 410, 421, 451 and 501
 can be specified as values, and you cannot specify a status code more than once. *)
@@ -35,7 +35,7 @@ can be specified as values, and you cannot specify a status code more than once.
 (** Sets a cache TTL for the specified HTTP status code. negativeCaching must be enabled to configure negativeCachingPolicy.
 Omitting the policy and leaving negativeCaching enabled will use Cloud CDN's default cache TTLs. *)
 
-type google_compute_backend_bucket__cdn_policy = {
+type cdn_policy = {
   cache_mode : string prop option; [@option]
       (** Specifies the cache setting for all responses from this backend.
 The possible values are: USE_ORIGIN_HEADERS, FORCE_CACHE_ALL and CACHE_ALL_STATIC Possible values: [USE_ORIGIN_HEADERS, FORCE_CACHE_ALL, CACHE_ALL_STATIC] *)
@@ -62,24 +62,20 @@ all responses from this backend had a Cache-Control: public,
 max-age=[TTL] header, regardless of any existing Cache-Control
 header. The actual headers served in responses will not be altered. *)
   bypass_cache_on_request_headers :
-    google_compute_backend_bucket__cdn_policy__bypass_cache_on_request_headers
-    list;
-  cache_key_policy :
-    google_compute_backend_bucket__cdn_policy__cache_key_policy list;
-  negative_caching_policy :
-    google_compute_backend_bucket__cdn_policy__negative_caching_policy
-    list;
+    cdn_policy__bypass_cache_on_request_headers list;
+  cache_key_policy : cdn_policy__cache_key_policy list;
+  negative_caching_policy : cdn_policy__negative_caching_policy list;
 }
 [@@deriving yojson_of]
 (** Cloud CDN configuration for this Backend Bucket. *)
 
-type google_compute_backend_bucket__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_backend_bucket__timeouts *)
+(** timeouts *)
 
 type google_compute_backend_bucket = {
   bucket_name : string prop;  (** Cloud Storage bucket name. *)
@@ -104,11 +100,62 @@ the first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the
 last character, which cannot be a dash. *)
   project : string prop option; [@option]  (** project *)
-  cdn_policy : google_compute_backend_bucket__cdn_policy list;
-  timeouts : google_compute_backend_bucket__timeouts option;
+  cdn_policy : cdn_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_backend_bucket *)
+
+let cdn_policy__bypass_cache_on_request_headers ?header_name () :
+    cdn_policy__bypass_cache_on_request_headers =
+  { header_name }
+
+let cdn_policy__cache_key_policy ?include_http_headers
+    ?query_string_whitelist () : cdn_policy__cache_key_policy =
+  { include_http_headers; query_string_whitelist }
+
+let cdn_policy__negative_caching_policy ?code ?ttl () :
+    cdn_policy__negative_caching_policy =
+  { code; ttl }
+
+let cdn_policy ?cache_mode ?client_ttl ?default_ttl ?max_ttl
+    ?negative_caching ?request_coalescing ?serve_while_stale
+    ?signed_url_cache_max_age_sec ~bypass_cache_on_request_headers
+    ~cache_key_policy ~negative_caching_policy () : cdn_policy =
+  {
+    cache_mode;
+    client_ttl;
+    default_ttl;
+    max_ttl;
+    negative_caching;
+    request_coalescing;
+    serve_while_stale;
+    signed_url_cache_max_age_sec;
+    bypass_cache_on_request_headers;
+    cache_key_policy;
+    negative_caching_policy;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_backend_bucket ?compression_mode
+    ?custom_response_headers ?description ?edge_security_policy
+    ?enable_cdn ?id ?project ?timeouts ~bucket_name ~name ~cdn_policy
+    () : google_compute_backend_bucket =
+  {
+    bucket_name;
+    compression_mode;
+    custom_response_headers;
+    description;
+    edge_security_policy;
+    enable_cdn;
+    id;
+    name;
+    project;
+    cdn_policy;
+    timeouts;
+  }
 
 type t = {
   bucket_name : string prop;
@@ -124,28 +171,17 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_backend_bucket ?compression_mode
-    ?custom_response_headers ?description ?edge_security_policy
-    ?enable_cdn ?id ?project ?timeouts ~bucket_name ~name ~cdn_policy
-    __resource_id =
+let register ?tf_module ?compression_mode ?custom_response_headers
+    ?description ?edge_security_policy ?enable_cdn ?id ?project
+    ?timeouts ~bucket_name ~name ~cdn_policy __resource_id =
   let __resource_type = "google_compute_backend_bucket" in
   let __resource =
-    ({
-       bucket_name;
-       compression_mode;
-       custom_response_headers;
-       description;
-       edge_security_policy;
-       enable_cdn;
-       id;
-       name;
-       project;
-       cdn_policy;
-       timeouts;
-     }
-      : google_compute_backend_bucket)
+    google_compute_backend_bucket ?compression_mode
+      ?custom_response_headers ?description ?edge_security_policy
+      ?enable_cdn ?id ?project ?timeouts ~bucket_name ~name
+      ~cdn_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_backend_bucket __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_dx_lag
+
+val aws_dx_lag :
+  ?connection_id:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?provider_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  connections_bandwidth:string prop ->
+  location:string prop ->
+  name:string prop ->
+  unit ->
+  aws_dx_lag
+
+val yojson_of_aws_dx_lag : aws_dx_lag -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -20,7 +39,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_dx_lag :
+val register :
+  ?tf_module:tf_module ->
   ?connection_id:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->

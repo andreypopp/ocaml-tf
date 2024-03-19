@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_rum_metrics_destination
+
+val aws_rum_metrics_destination :
+  ?destination_arn:string prop ->
+  ?iam_role_arn:string prop ->
+  ?id:string prop ->
+  app_monitor_name:string prop ->
+  destination:string prop ->
+  unit ->
+  aws_rum_metrics_destination
+
+val yojson_of_aws_rum_metrics_destination :
+  aws_rum_metrics_destination -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   app_monitor_name : string prop;
@@ -12,7 +28,8 @@ type t = private {
   id : string prop;
 }
 
-val aws_rum_metrics_destination :
+val register :
+  ?tf_module:tf_module ->
   ?destination_arn:string prop ->
   ?iam_role_arn:string prop ->
   ?id:string prop ->

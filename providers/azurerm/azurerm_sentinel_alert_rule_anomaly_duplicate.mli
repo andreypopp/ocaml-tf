@@ -2,22 +2,78 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_alert_rule_anomaly_duplicate__multi_select_observation
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_sentinel_alert_rule_anomaly_duplicate__prioritized_exclude_observation
-
-type azurerm_sentinel_alert_rule_anomaly_duplicate__single_select_observation
-
-type azurerm_sentinel_alert_rule_anomaly_duplicate__threshold_observation
-
-type azurerm_sentinel_alert_rule_anomaly_duplicate__timeouts
-
-type azurerm_sentinel_alert_rule_anomaly_duplicate__required_data_connector = {
+type required_data_connector = {
   connector_id : string prop;  (** connector_id *)
   data_types : string prop list;  (** data_types *)
 }
 
+type multi_select_observation
+
+val multi_select_observation :
+  name:string prop ->
+  values:string prop list ->
+  unit ->
+  multi_select_observation
+
+type prioritized_exclude_observation
+
+val prioritized_exclude_observation :
+  ?exclude:string prop ->
+  ?prioritize:string prop ->
+  name:string prop ->
+  unit ->
+  prioritized_exclude_observation
+
+type single_select_observation
+
+val single_select_observation :
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  single_select_observation
+
+type threshold_observation
+
+val threshold_observation :
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  threshold_observation
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_sentinel_alert_rule_anomaly_duplicate
+
+val azurerm_sentinel_alert_rule_anomaly_duplicate :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  built_in_rule_id:string prop ->
+  display_name:string prop ->
+  enabled:bool prop ->
+  log_analytics_workspace_id:string prop ->
+  mode:string prop ->
+  multi_select_observation:multi_select_observation list ->
+  prioritized_exclude_observation:
+    prioritized_exclude_observation list ->
+  single_select_observation:single_select_observation list ->
+  threshold_observation:threshold_observation list ->
+  unit ->
+  azurerm_sentinel_alert_rule_anomaly_duplicate
+
+val yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate :
+  azurerm_sentinel_alert_rule_anomaly_duplicate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   anomaly_settings_version : float prop;
@@ -32,34 +88,25 @@ type t = private {
   log_analytics_workspace_id : string prop;
   mode : string prop;
   name : string prop;
-  required_data_connector :
-    azurerm_sentinel_alert_rule_anomaly_duplicate__required_data_connector
-    list
-    prop;
+  required_data_connector : required_data_connector list prop;
   settings_definition_id : string prop;
   tactics : string list prop;
   techniques : string list prop;
 }
 
-val azurerm_sentinel_alert_rule_anomaly_duplicate :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_sentinel_alert_rule_anomaly_duplicate__timeouts ->
+  ?timeouts:timeouts ->
   built_in_rule_id:string prop ->
   display_name:string prop ->
   enabled:bool prop ->
   log_analytics_workspace_id:string prop ->
   mode:string prop ->
-  multi_select_observation:
-    azurerm_sentinel_alert_rule_anomaly_duplicate__multi_select_observation
-    list ->
+  multi_select_observation:multi_select_observation list ->
   prioritized_exclude_observation:
-    azurerm_sentinel_alert_rule_anomaly_duplicate__prioritized_exclude_observation
-    list ->
-  single_select_observation:
-    azurerm_sentinel_alert_rule_anomaly_duplicate__single_select_observation
-    list ->
-  threshold_observation:
-    azurerm_sentinel_alert_rule_anomaly_duplicate__threshold_observation
-    list ->
+    prioritized_exclude_observation list ->
+  single_select_observation:single_select_observation list ->
+  threshold_observation:threshold_observation list ->
   string ->
   t

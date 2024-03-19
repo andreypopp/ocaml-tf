@@ -4,15 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_secretsmanager_secret__replica = {
+type replica = {
   kms_key_id : string prop option; [@option]  (** kms_key_id *)
-  last_accessed_date : string prop;  (** last_accessed_date *)
   region : string prop;  (** region *)
-  status : string prop;  (** status *)
-  status_message : string prop;  (** status_message *)
 }
 [@@deriving yojson_of]
-(** aws_secretsmanager_secret__replica *)
+(** replica *)
 
 type aws_secretsmanager_secret = {
   description : string prop option; [@option]  (** description *)
@@ -28,10 +25,30 @@ type aws_secretsmanager_secret = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  replica : aws_secretsmanager_secret__replica list;
+  replica : replica list;
 }
 [@@deriving yojson_of]
 (** aws_secretsmanager_secret *)
+
+let replica ?kms_key_id ~region () : replica = { kms_key_id; region }
+
+let aws_secretsmanager_secret ?description
+    ?force_overwrite_replica_secret ?id ?kms_key_id ?name
+    ?name_prefix ?policy ?recovery_window_in_days ?tags ?tags_all
+    ~replica () : aws_secretsmanager_secret =
+  {
+    description;
+    force_overwrite_replica_secret;
+    id;
+    kms_key_id;
+    name;
+    name_prefix;
+    policy;
+    recovery_window_in_days;
+    tags;
+    tags_all;
+    replica;
+  }
 
 type t = {
   arn : string prop;
@@ -47,28 +64,17 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_secretsmanager_secret ?description
-    ?force_overwrite_replica_secret ?id ?kms_key_id ?name
-    ?name_prefix ?policy ?recovery_window_in_days ?tags ?tags_all
-    ~replica __resource_id =
+let register ?tf_module ?description ?force_overwrite_replica_secret
+    ?id ?kms_key_id ?name ?name_prefix ?policy
+    ?recovery_window_in_days ?tags ?tags_all ~replica __resource_id =
   let __resource_type = "aws_secretsmanager_secret" in
   let __resource =
-    ({
-       description;
-       force_overwrite_replica_secret;
-       id;
-       kms_key_id;
-       name;
-       name_prefix;
-       policy;
-       recovery_window_in_days;
-       tags;
-       tags_all;
-       replica;
-     }
-      : aws_secretsmanager_secret)
+    aws_secretsmanager_secret ?description
+      ?force_overwrite_replica_secret ?id ?kms_key_id ?name
+      ?name_prefix ?policy ?recovery_window_in_days ?tags ?tags_all
+      ~replica ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_secretsmanager_secret __resource);
   let __resource_attributes =
     ({

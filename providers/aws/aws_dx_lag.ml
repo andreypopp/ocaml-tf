@@ -19,6 +19,21 @@ type aws_dx_lag = {
 [@@deriving yojson_of]
 (** aws_dx_lag *)
 
+let aws_dx_lag ?connection_id ?force_destroy ?id ?provider_name ?tags
+    ?tags_all ~connections_bandwidth ~location ~name () : aws_dx_lag
+    =
+  {
+    connection_id;
+    connections_bandwidth;
+    force_destroy;
+    id;
+    location;
+    name;
+    provider_name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   connection_id : string prop;
@@ -35,24 +50,15 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_dx_lag ?connection_id ?force_destroy ?id ?provider_name ?tags
-    ?tags_all ~connections_bandwidth ~location ~name __resource_id =
+let register ?tf_module ?connection_id ?force_destroy ?id
+    ?provider_name ?tags ?tags_all ~connections_bandwidth ~location
+    ~name __resource_id =
   let __resource_type = "aws_dx_lag" in
   let __resource =
-    ({
-       connection_id;
-       connections_bandwidth;
-       force_destroy;
-       id;
-       location;
-       name;
-       provider_name;
-       tags;
-       tags_all;
-     }
-      : aws_dx_lag)
+    aws_dx_lag ?connection_id ?force_destroy ?id ?provider_name ?tags
+      ?tags_all ~connections_bandwidth ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_lag __resource);
   let __resource_attributes =
     ({

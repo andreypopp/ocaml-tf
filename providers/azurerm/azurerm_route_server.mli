@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_route_server__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_route_server
+
+val azurerm_route_server :
+  ?branch_to_branch_traffic_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  public_ip_address_id:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  subnet_id:string prop ->
+  unit ->
+  azurerm_route_server
+
+val yojson_of_azurerm_route_server : azurerm_route_server -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   branch_to_branch_traffic_enabled : bool prop;
@@ -20,11 +49,12 @@ type t = private {
   virtual_router_ips : string list prop;
 }
 
-val azurerm_route_server :
+val register :
+  ?tf_module:tf_module ->
   ?branch_to_branch_traffic_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_route_server__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   public_ip_address_id:string prop ->

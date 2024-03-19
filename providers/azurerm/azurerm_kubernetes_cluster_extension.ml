@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_kubernetes_cluster_extension__plan = {
+type plan = {
   name : string prop;  (** name *)
   product : string prop;  (** product *)
   promotion_code : string prop option; [@option]
@@ -13,18 +13,18 @@ type azurerm_kubernetes_cluster_extension__plan = {
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_extension__plan *)
+(** plan *)
 
-type azurerm_kubernetes_cluster_extension__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_extension__timeouts *)
+(** timeouts *)
 
-type azurerm_kubernetes_cluster_extension__aks_assigned_identity = {
+type aks_assigned_identity = {
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -49,16 +49,41 @@ type azurerm_kubernetes_cluster_extension = {
   target_namespace : string prop option; [@option]
       (** target_namespace *)
   version : string prop option; [@option]  (** version *)
-  plan : azurerm_kubernetes_cluster_extension__plan list;
-  timeouts : azurerm_kubernetes_cluster_extension__timeouts option;
+  plan : plan list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_extension *)
 
+let plan ?promotion_code ?version ~name ~product ~publisher () : plan
+    =
+  { name; product; promotion_code; publisher; version }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_kubernetes_cluster_extension
+    ?configuration_protected_settings ?configuration_settings ?id
+    ?release_namespace ?release_train ?target_namespace ?version
+    ?timeouts ~cluster_id ~extension_type ~name ~plan () :
+    azurerm_kubernetes_cluster_extension =
+  {
+    cluster_id;
+    configuration_protected_settings;
+    configuration_settings;
+    extension_type;
+    id;
+    name;
+    release_namespace;
+    release_train;
+    target_namespace;
+    version;
+    plan;
+    timeouts;
+  }
+
 type t = {
-  aks_assigned_identity :
-    azurerm_kubernetes_cluster_extension__aks_assigned_identity list
-    prop;
+  aks_assigned_identity : aks_assigned_identity list prop;
   cluster_id : string prop;
   configuration_protected_settings : (string * string) list prop;
   configuration_settings : (string * string) list prop;
@@ -72,29 +97,18 @@ type t = {
   version : string prop;
 }
 
-let azurerm_kubernetes_cluster_extension
-    ?configuration_protected_settings ?configuration_settings ?id
-    ?release_namespace ?release_train ?target_namespace ?version
-    ?timeouts ~cluster_id ~extension_type ~name ~plan __resource_id =
+let register ?tf_module ?configuration_protected_settings
+    ?configuration_settings ?id ?release_namespace ?release_train
+    ?target_namespace ?version ?timeouts ~cluster_id ~extension_type
+    ~name ~plan __resource_id =
   let __resource_type = "azurerm_kubernetes_cluster_extension" in
   let __resource =
-    ({
-       cluster_id;
-       configuration_protected_settings;
-       configuration_settings;
-       extension_type;
-       id;
-       name;
-       release_namespace;
-       release_train;
-       target_namespace;
-       version;
-       plan;
-       timeouts;
-     }
-      : azurerm_kubernetes_cluster_extension)
+    azurerm_kubernetes_cluster_extension
+      ?configuration_protected_settings ?configuration_settings ?id
+      ?release_namespace ?release_train ?target_namespace ?version
+      ?timeouts ~cluster_id ~extension_type ~name ~plan ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_cluster_extension __resource);
   let __resource_attributes =
     ({

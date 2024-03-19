@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type cloudflare_notification_policy__email_integration = {
+type email_integration = {
   id : string prop;  (** id *)
   name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** The email ID to which the notification should be dispatched. *)
 
-type cloudflare_notification_policy__filters = {
+type filters = {
   actions : string prop list option; [@option]
       (** Targeted actions for alert. *)
   affected_components : string prop list option; [@option]
@@ -77,14 +77,14 @@ type cloudflare_notification_policy__filters = {
 [@@deriving yojson_of]
 (** An optional nested block of filters that applies to the selected `alert_type`. A key-value map that specifies the type of filter and the values to match against (refer to the alert type block for available fields). *)
 
-type cloudflare_notification_policy__pagerduty_integration = {
+type pagerduty_integration = {
   id : string prop;  (** id *)
   name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** The unique ID of a configured pagerduty endpoint to which the notification should be dispatched. *)
 
-type cloudflare_notification_policy__webhooks_integration = {
+type webhooks_integration = {
   id : string prop;  (** id *)
   name : string prop option; [@option]  (** name *)
 }
@@ -101,19 +101,82 @@ type cloudflare_notification_policy = {
   enabled : bool prop;  (** The status of the notification policy. *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** The name of the notification policy. *)
-  email_integration :
-    cloudflare_notification_policy__email_integration list;
-  filters : cloudflare_notification_policy__filters list;
-  pagerduty_integration :
-    cloudflare_notification_policy__pagerduty_integration list;
-  webhooks_integration :
-    cloudflare_notification_policy__webhooks_integration list;
+  email_integration : email_integration list;
+  filters : filters list;
+  pagerduty_integration : pagerduty_integration list;
+  webhooks_integration : webhooks_integration list;
 }
 [@@deriving yojson_of]
 (** Provides a resource, that manages a notification policy for
 Cloudflare's products. The delivery mechanisms supported are email,
 webhooks, and PagerDuty.
  *)
+
+let email_integration ?name ~id () : email_integration = { id; name }
+
+let filters ?actions ?affected_components ?alert_trigger_preferences
+    ?enabled ?environment ?event ?event_source ?event_type ?group_by
+    ?health_check_id ?incident_impact ?input_id ?limit
+    ?megabits_per_second ?new_health ?new_status ?packets_per_second
+    ?pool_id ?product ?project_id ?protocol ?requests_per_second
+    ?selectors ?services ?slo ?status ?target_hostname
+    ?target_zone_name ?tunnel_id ?where ?zones () : filters =
+  {
+    actions;
+    affected_components;
+    alert_trigger_preferences;
+    enabled;
+    environment;
+    event;
+    event_source;
+    event_type;
+    group_by;
+    health_check_id;
+    incident_impact;
+    input_id;
+    limit;
+    megabits_per_second;
+    new_health;
+    new_status;
+    packets_per_second;
+    pool_id;
+    product;
+    project_id;
+    protocol;
+    requests_per_second;
+    selectors;
+    services;
+    slo;
+    status;
+    target_hostname;
+    target_zone_name;
+    tunnel_id;
+    where;
+    zones;
+  }
+
+let pagerduty_integration ?name ~id () : pagerduty_integration =
+  { id; name }
+
+let webhooks_integration ?name ~id () : webhooks_integration =
+  { id; name }
+
+let cloudflare_notification_policy ?description ?id ~account_id
+    ~alert_type ~enabled ~name ~email_integration ~filters
+    ~pagerduty_integration ~webhooks_integration () :
+    cloudflare_notification_policy =
+  {
+    account_id;
+    alert_type;
+    description;
+    enabled;
+    id;
+    name;
+    email_integration;
+    filters;
+    pagerduty_integration;
+    webhooks_integration;
+  }
 
 type t = {
   account_id : string prop;
@@ -126,26 +189,16 @@ type t = {
   name : string prop;
 }
 
-let cloudflare_notification_policy ?description ?id ~account_id
-    ~alert_type ~enabled ~name ~email_integration ~filters
-    ~pagerduty_integration ~webhooks_integration __resource_id =
+let register ?tf_module ?description ?id ~account_id ~alert_type
+    ~enabled ~name ~email_integration ~filters ~pagerduty_integration
+    ~webhooks_integration __resource_id =
   let __resource_type = "cloudflare_notification_policy" in
   let __resource =
-    ({
-       account_id;
-       alert_type;
-       description;
-       enabled;
-       id;
-       name;
-       email_integration;
-       filters;
-       pagerduty_integration;
-       webhooks_integration;
-     }
-      : cloudflare_notification_policy)
+    cloudflare_notification_policy ?description ?id ~account_id
+      ~alert_type ~enabled ~name ~email_integration ~filters
+      ~pagerduty_integration ~webhooks_integration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_notification_policy __resource);
   let __resource_attributes =
     ({

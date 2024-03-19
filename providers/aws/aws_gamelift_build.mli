@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_gamelift_build__storage_location
+(** RESOURCE SERIALIZATION *)
+
+type storage_location
+
+val storage_location :
+  ?object_version:string prop ->
+  bucket:string prop ->
+  key:string prop ->
+  role_arn:string prop ->
+  unit ->
+  storage_location
+
 type aws_gamelift_build
+
+val aws_gamelift_build :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?version:string prop ->
+  name:string prop ->
+  operating_system:string prop ->
+  storage_location:storage_location list ->
+  unit ->
+  aws_gamelift_build
+
+val yojson_of_aws_gamelift_build : aws_gamelift_build -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,13 +41,14 @@ type t = private {
   version : string prop;
 }
 
-val aws_gamelift_build :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
   name:string prop ->
   operating_system:string prop ->
-  storage_location:aws_gamelift_build__storage_location list ->
+  storage_location:storage_location list ->
   string ->
   t

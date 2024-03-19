@@ -19,6 +19,19 @@ type aws_cognito_identity_provider = {
 [@@deriving yojson_of]
 (** aws_cognito_identity_provider *)
 
+let aws_cognito_identity_provider ?attribute_mapping ?id
+    ?idp_identifiers ~provider_details ~provider_name ~provider_type
+    ~user_pool_id () : aws_cognito_identity_provider =
+  {
+    attribute_mapping;
+    id;
+    idp_identifiers;
+    provider_details;
+    provider_name;
+    provider_type;
+    user_pool_id;
+  }
+
 type t = {
   attribute_mapping : (string * string) list prop;
   id : string prop;
@@ -29,23 +42,16 @@ type t = {
   user_pool_id : string prop;
 }
 
-let aws_cognito_identity_provider ?attribute_mapping ?id
-    ?idp_identifiers ~provider_details ~provider_name ~provider_type
-    ~user_pool_id __resource_id =
+let register ?tf_module ?attribute_mapping ?id ?idp_identifiers
+    ~provider_details ~provider_name ~provider_type ~user_pool_id
+    __resource_id =
   let __resource_type = "aws_cognito_identity_provider" in
   let __resource =
-    ({
-       attribute_mapping;
-       id;
-       idp_identifiers;
-       provider_details;
-       provider_name;
-       provider_type;
-       user_pool_id;
-     }
-      : aws_cognito_identity_provider)
+    aws_cognito_identity_provider ?attribute_mapping ?id
+      ?idp_identifiers ~provider_details ~provider_name
+      ~provider_type ~user_pool_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_identity_provider __resource);
   let __resource_attributes =
     ({

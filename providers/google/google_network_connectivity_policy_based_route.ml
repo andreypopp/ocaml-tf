@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_network_connectivity_policy_based_route__filter = {
+type filter = {
   dest_range : string prop option; [@option]
       (** The destination IP range of outgoing packets that this policy-based route applies to. Default is 0.0.0.0/0 if protocol version is IPv4. *)
   ip_protocol : string prop option; [@option]
@@ -17,29 +17,29 @@ type google_network_connectivity_policy_based_route__filter = {
 [@@deriving yojson_of]
 (** The filter to match L4 traffic. *)
 
-type google_network_connectivity_policy_based_route__interconnect_attachment = {
+type interconnect_attachment = {
   region : string prop;
       (** Cloud region to install this policy-based route on for Interconnect attachments. Use 'all' to install it on all Interconnect attachments. *)
 }
 [@@deriving yojson_of]
 (** The interconnect attachments that this policy-based route applies to. *)
 
-type google_network_connectivity_policy_based_route__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_connectivity_policy_based_route__timeouts *)
+(** timeouts *)
 
-type google_network_connectivity_policy_based_route__virtual_machine = {
+type virtual_machine = {
   tags : string prop list;
       (** A list of VM instance tags that this policy-based route applies to. VM instances that have ANY of tags specified here will install this PBR. *)
 }
 [@@deriving yojson_of]
 (** VM instances to which this policy-based route applies to. *)
 
-type google_network_connectivity_policy_based_route__warnings = {
+type warnings = {
   code : string prop;  (** code *)
   data : (string * string prop) list;  (** data *)
   warning_message : string prop;  (** warning_message *)
@@ -66,19 +66,46 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   priority : float prop option; [@option]
       (** The priority of this policy-based route. Priority is used to break ties in cases where there are more than one matching policy-based routes found. In cases where multiple policy-based routes are matched, the one with the lowest-numbered priority value wins. The default value is 1000. The priority value must be from 1 to 65535, inclusive. *)
   project : string prop option; [@option]  (** project *)
-  filter :
-    google_network_connectivity_policy_based_route__filter list;
-  interconnect_attachment :
-    google_network_connectivity_policy_based_route__interconnect_attachment
-    list;
-  timeouts :
-    google_network_connectivity_policy_based_route__timeouts option;
-  virtual_machine :
-    google_network_connectivity_policy_based_route__virtual_machine
-    list;
+  filter : filter list;
+  interconnect_attachment : interconnect_attachment list;
+  timeouts : timeouts option;
+  virtual_machine : virtual_machine list;
 }
 [@@deriving yojson_of]
 (** google_network_connectivity_policy_based_route *)
+
+let filter ?dest_range ?ip_protocol ?src_range ~protocol_version () :
+    filter =
+  { dest_range; ip_protocol; protocol_version; src_range }
+
+let interconnect_attachment ~region () : interconnect_attachment =
+  { region }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let virtual_machine ~tags () : virtual_machine = { tags }
+
+let google_network_connectivity_policy_based_route ?description ?id
+    ?labels ?next_hop_ilb_ip ?next_hop_other_routes ?priority
+    ?project ?timeouts ~name ~network ~filter
+    ~interconnect_attachment ~virtual_machine () :
+    google_network_connectivity_policy_based_route =
+  {
+    description;
+    id;
+    labels;
+    name;
+    network;
+    next_hop_ilb_ip;
+    next_hop_other_routes;
+    priority;
+    project;
+    filter;
+    interconnect_attachment;
+    timeouts;
+    virtual_machine;
+  }
 
 type t = {
   create_time : string prop;
@@ -95,37 +122,23 @@ type t = {
   project : string prop;
   terraform_labels : (string * string) list prop;
   update_time : string prop;
-  warnings :
-    google_network_connectivity_policy_based_route__warnings list
-    prop;
+  warnings : warnings list prop;
 }
 
-let google_network_connectivity_policy_based_route ?description ?id
-    ?labels ?next_hop_ilb_ip ?next_hop_other_routes ?priority
-    ?project ?timeouts ~name ~network ~filter
-    ~interconnect_attachment ~virtual_machine __resource_id =
+let register ?tf_module ?description ?id ?labels ?next_hop_ilb_ip
+    ?next_hop_other_routes ?priority ?project ?timeouts ~name
+    ~network ~filter ~interconnect_attachment ~virtual_machine
+    __resource_id =
   let __resource_type =
     "google_network_connectivity_policy_based_route"
   in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       name;
-       network;
-       next_hop_ilb_ip;
-       next_hop_other_routes;
-       priority;
-       project;
-       filter;
-       interconnect_attachment;
-       timeouts;
-       virtual_machine;
-     }
-      : google_network_connectivity_policy_based_route)
+    google_network_connectivity_policy_based_route ?description ?id
+      ?labels ?next_hop_ilb_ip ?next_hop_other_routes ?priority
+      ?project ?timeouts ~name ~network ~filter
+      ~interconnect_attachment ~virtual_machine ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_connectivity_policy_based_route
        __resource);
   let __resource_attributes =

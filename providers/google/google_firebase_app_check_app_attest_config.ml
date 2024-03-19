@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_firebase_app_check_app_attest_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_firebase_app_check_app_attest_config__timeouts *)
+(** timeouts *)
 
 type google_firebase_app_check_app_attest_config = {
   app_id : string prop;
@@ -23,11 +23,18 @@ type google_firebase_app_check_app_attest_config = {
 If unset, a default value of 1 hour is assumed. Must be between 30 minutes and 7 days, inclusive.
 
 A duration in seconds with up to nine fractional digits, ending with 's'. Example: 3.5s. *)
-  timeouts :
-    google_firebase_app_check_app_attest_config__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_firebase_app_check_app_attest_config *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_firebase_app_check_app_attest_config ?id ?project
+    ?token_ttl ?timeouts ~app_id () :
+    google_firebase_app_check_app_attest_config =
+  { app_id; id; project; token_ttl; timeouts }
 
 type t = {
   app_id : string prop;
@@ -37,16 +44,16 @@ type t = {
   token_ttl : string prop;
 }
 
-let google_firebase_app_check_app_attest_config ?id ?project
-    ?token_ttl ?timeouts ~app_id __resource_id =
+let register ?tf_module ?id ?project ?token_ttl ?timeouts ~app_id
+    __resource_id =
   let __resource_type =
     "google_firebase_app_check_app_attest_config"
   in
   let __resource =
-    ({ app_id; id; project; token_ttl; timeouts }
-      : google_firebase_app_check_app_attest_config)
+    google_firebase_app_check_app_attest_config ?id ?project
+      ?token_ttl ?timeouts ~app_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebase_app_check_app_attest_config __resource);
   let __resource_attributes =
     ({

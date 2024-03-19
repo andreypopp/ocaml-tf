@@ -4,38 +4,34 @@
 
 open! Tf.Prelude
 
-type aws_codedeploy_deployment_config__minimum_healthy_hosts = {
+type minimum_healthy_hosts = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
   value : float prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_codedeploy_deployment_config__minimum_healthy_hosts *)
+(** minimum_healthy_hosts *)
 
-type aws_codedeploy_deployment_config__traffic_routing_config__time_based_canary = {
+type traffic_routing_config__time_based_canary = {
   interval : float prop option; [@option]  (** interval *)
   percentage : float prop option; [@option]  (** percentage *)
 }
 [@@deriving yojson_of]
-(** aws_codedeploy_deployment_config__traffic_routing_config__time_based_canary *)
+(** traffic_routing_config__time_based_canary *)
 
-type aws_codedeploy_deployment_config__traffic_routing_config__time_based_linear = {
+type traffic_routing_config__time_based_linear = {
   interval : float prop option; [@option]  (** interval *)
   percentage : float prop option; [@option]  (** percentage *)
 }
 [@@deriving yojson_of]
-(** aws_codedeploy_deployment_config__traffic_routing_config__time_based_linear *)
+(** traffic_routing_config__time_based_linear *)
 
-type aws_codedeploy_deployment_config__traffic_routing_config = {
+type traffic_routing_config = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  time_based_canary :
-    aws_codedeploy_deployment_config__traffic_routing_config__time_based_canary
-    list;
-  time_based_linear :
-    aws_codedeploy_deployment_config__traffic_routing_config__time_based_linear
-    list;
+  time_based_canary : traffic_routing_config__time_based_canary list;
+  time_based_linear : traffic_routing_config__time_based_linear list;
 }
 [@@deriving yojson_of]
-(** aws_codedeploy_deployment_config__traffic_routing_config *)
+(** traffic_routing_config *)
 
 type aws_codedeploy_deployment_config = {
   compute_platform : string prop option; [@option]
@@ -43,13 +39,37 @@ type aws_codedeploy_deployment_config = {
   deployment_config_name : string prop;
       (** deployment_config_name *)
   id : string prop option; [@option]  (** id *)
-  minimum_healthy_hosts :
-    aws_codedeploy_deployment_config__minimum_healthy_hosts list;
-  traffic_routing_config :
-    aws_codedeploy_deployment_config__traffic_routing_config list;
+  minimum_healthy_hosts : minimum_healthy_hosts list;
+  traffic_routing_config : traffic_routing_config list;
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_config *)
+
+let minimum_healthy_hosts ?type_ ?value () : minimum_healthy_hosts =
+  { type_; value }
+
+let traffic_routing_config__time_based_canary ?interval ?percentage
+    () : traffic_routing_config__time_based_canary =
+  { interval; percentage }
+
+let traffic_routing_config__time_based_linear ?interval ?percentage
+    () : traffic_routing_config__time_based_linear =
+  { interval; percentage }
+
+let traffic_routing_config ?type_ ~time_based_canary
+    ~time_based_linear () : traffic_routing_config =
+  { type_; time_based_canary; time_based_linear }
+
+let aws_codedeploy_deployment_config ?compute_platform ?id
+    ~deployment_config_name ~minimum_healthy_hosts
+    ~traffic_routing_config () : aws_codedeploy_deployment_config =
+  {
+    compute_platform;
+    deployment_config_name;
+    id;
+    minimum_healthy_hosts;
+    traffic_routing_config;
+  }
 
 type t = {
   arn : string prop;
@@ -59,21 +79,15 @@ type t = {
   id : string prop;
 }
 
-let aws_codedeploy_deployment_config ?compute_platform ?id
-    ~deployment_config_name ~minimum_healthy_hosts
-    ~traffic_routing_config __resource_id =
+let register ?tf_module ?compute_platform ?id ~deployment_config_name
+    ~minimum_healthy_hosts ~traffic_routing_config __resource_id =
   let __resource_type = "aws_codedeploy_deployment_config" in
   let __resource =
-    ({
-       compute_platform;
-       deployment_config_name;
-       id;
-       minimum_healthy_hosts;
-       traffic_routing_config;
-     }
-      : aws_codedeploy_deployment_config)
+    aws_codedeploy_deployment_config ?compute_platform ?id
+      ~deployment_config_name ~minimum_healthy_hosts
+      ~traffic_routing_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codedeploy_deployment_config __resource);
   let __resource_attributes =
     ({

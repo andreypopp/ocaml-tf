@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type aws_vpclattice_service_network_vpc_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_vpclattice_service_network_vpc_association
+
+val aws_vpclattice_service_network_vpc_association :
+  ?id:string prop ->
+  ?security_group_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  service_network_identifier:string prop ->
+  vpc_identifier:string prop ->
+  unit ->
+  aws_vpclattice_service_network_vpc_association
+
+val yojson_of_aws_vpclattice_service_network_vpc_association :
+  aws_vpclattice_service_network_vpc_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,12 +43,13 @@ type t = private {
   vpc_identifier : string prop;
 }
 
-val aws_vpclattice_service_network_vpc_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?security_group_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_vpclattice_service_network_vpc_association__timeouts ->
+  ?timeouts:timeouts ->
   service_network_identifier:string prop ->
   vpc_identifier:string prop ->
   string ->

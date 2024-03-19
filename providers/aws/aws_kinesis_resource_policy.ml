@@ -11,18 +11,22 @@ type aws_kinesis_resource_policy = {
 [@@deriving yojson_of]
 (** aws_kinesis_resource_policy *)
 
+let aws_kinesis_resource_policy ~policy ~resource_arn () :
+    aws_kinesis_resource_policy =
+  { policy; resource_arn }
+
 type t = {
   id : string prop;
   policy : string prop;
   resource_arn : string prop;
 }
 
-let aws_kinesis_resource_policy ~policy ~resource_arn __resource_id =
+let register ?tf_module ~policy ~resource_arn __resource_id =
   let __resource_type = "aws_kinesis_resource_policy" in
   let __resource =
-    ({ policy; resource_arn } : aws_kinesis_resource_policy)
+    aws_kinesis_resource_policy ~policy ~resource_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kinesis_resource_policy __resource);
   let __resource_attributes =
     ({

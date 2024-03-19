@@ -14,6 +14,11 @@ type google_dataplex_datascan_iam_policy = {
 [@@deriving yojson_of]
 (** google_dataplex_datascan_iam_policy *)
 
+let google_dataplex_datascan_iam_policy ?id ?location ?project
+    ~data_scan_id ~policy_data () :
+    google_dataplex_datascan_iam_policy =
+  { data_scan_id; id; location; policy_data; project }
+
 type t = {
   data_scan_id : string prop;
   etag : string prop;
@@ -23,14 +28,14 @@ type t = {
   project : string prop;
 }
 
-let google_dataplex_datascan_iam_policy ?id ?location ?project
-    ~data_scan_id ~policy_data __resource_id =
+let register ?tf_module ?id ?location ?project ~data_scan_id
+    ~policy_data __resource_id =
   let __resource_type = "google_dataplex_datascan_iam_policy" in
   let __resource =
-    ({ data_scan_id; id; location; policy_data; project }
-      : google_dataplex_datascan_iam_policy)
+    google_dataplex_datascan_iam_policy ?id ?location ?project
+      ~data_scan_id ~policy_data ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataplex_datascan_iam_policy __resource);
   let __resource_attributes =
     ({

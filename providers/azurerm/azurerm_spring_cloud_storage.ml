@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_storage__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_storage__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_storage = {
   id : string prop option; [@option]  (** id *)
@@ -20,10 +20,25 @@ type azurerm_spring_cloud_storage = {
       (** spring_cloud_service_id *)
   storage_account_key : string prop;  (** storage_account_key *)
   storage_account_name : string prop;  (** storage_account_name *)
-  timeouts : azurerm_spring_cloud_storage__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_storage *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_storage ?id ?timeouts ~name
+    ~spring_cloud_service_id ~storage_account_key
+    ~storage_account_name () : azurerm_spring_cloud_storage =
+  {
+    id;
+    name;
+    spring_cloud_service_id;
+    storage_account_key;
+    storage_account_name;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -33,22 +48,15 @@ type t = {
   storage_account_name : string prop;
 }
 
-let azurerm_spring_cloud_storage ?id ?timeouts ~name
-    ~spring_cloud_service_id ~storage_account_key
-    ~storage_account_name __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~spring_cloud_service_id
+    ~storage_account_key ~storage_account_name __resource_id =
   let __resource_type = "azurerm_spring_cloud_storage" in
   let __resource =
-    ({
-       id;
-       name;
-       spring_cloud_service_id;
-       storage_account_key;
-       storage_account_name;
-       timeouts;
-     }
-      : azurerm_spring_cloud_storage)
+    azurerm_spring_cloud_storage ?id ?timeouts ~name
+      ~spring_cloud_service_id ~storage_account_key
+      ~storage_account_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_storage __resource);
   let __resource_attributes =
     ({

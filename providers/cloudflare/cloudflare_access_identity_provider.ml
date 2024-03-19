@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_access_identity_provider__config = {
+type config = {
   api_token : string prop option; [@option]  (** api_token *)
   apps_domain : string prop option; [@option]  (** apps_domain *)
   attributes : string prop list option; [@option]  (** attributes *)
@@ -34,7 +34,6 @@ type cloudflare_access_identity_provider__config = {
       (** onelogin_account *)
   ping_env_id : string prop option; [@option]  (** ping_env_id *)
   pkce_enabled : bool prop option; [@option]  (** pkce_enabled *)
-  redirect_url : string prop;  (** redirect_url *)
   scopes : string prop list option; [@option]  (** scopes *)
   sign_request : bool prop option; [@option]  (** sign_request *)
   sso_target_url : string prop option; [@option]
@@ -45,7 +44,7 @@ type cloudflare_access_identity_provider__config = {
 [@@deriving yojson_of]
 (** Provider configuration from the [developer documentation](https://developers.cloudflare.com/access/configuring-identity-providers/). *)
 
-type cloudflare_access_identity_provider__scim_config = {
+type scim_config = {
   enabled : bool prop option; [@option]  (** enabled *)
   group_member_deprovision : bool prop option; [@option]
       (** group_member_deprovision *)
@@ -68,14 +67,66 @@ type cloudflare_access_identity_provider = {
       (** The provider type to use. Available values: `azureAD`, `centrify`, `facebook`, `github`, `google`, `google-apps`, `linkedin`, `oidc`, `okta`, `onelogin`, `onetimepin`, `pingone`, `saml`, `yandex`. *)
   zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. **Modifying this attribute will force creation of a new resource.** *)
-  config : cloudflare_access_identity_provider__config list;
-  scim_config : cloudflare_access_identity_provider__scim_config list;
+  config : config list;
+  scim_config : scim_config list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Access Identity Provider resource. Identity
 Providers are used as an authentication or authorisation source
 within Access.
  *)
+
+let config ?api_token ?apps_domain ?attributes ?auth_url
+    ?authorization_server_id ?centrify_account ?centrify_app_id
+    ?certs_url ?claims ?client_id ?client_secret
+    ?conditional_access_enabled ?directory_id ?email_attribute_name
+    ?email_claim_name ?idp_public_cert ?issuer_url ?okta_account
+    ?onelogin_account ?ping_env_id ?pkce_enabled ?scopes
+    ?sign_request ?sso_target_url ?support_groups ?token_url () :
+    config =
+  {
+    api_token;
+    apps_domain;
+    attributes;
+    auth_url;
+    authorization_server_id;
+    centrify_account;
+    centrify_app_id;
+    certs_url;
+    claims;
+    client_id;
+    client_secret;
+    conditional_access_enabled;
+    directory_id;
+    email_attribute_name;
+    email_claim_name;
+    idp_public_cert;
+    issuer_url;
+    okta_account;
+    onelogin_account;
+    ping_env_id;
+    pkce_enabled;
+    scopes;
+    sign_request;
+    sso_target_url;
+    support_groups;
+    token_url;
+  }
+
+let scim_config ?enabled ?group_member_deprovision ?seat_deprovision
+    ?secret ?user_deprovision () : scim_config =
+  {
+    enabled;
+    group_member_deprovision;
+    seat_deprovision;
+    secret;
+    user_deprovision;
+  }
+
+let cloudflare_access_identity_provider ?account_id ?id ?zone_id
+    ~name ~type_ ~config ~scim_config () :
+    cloudflare_access_identity_provider =
+  { account_id; id; name; type_; zone_id; config; scim_config }
 
 type t = {
   account_id : string prop;
@@ -85,14 +136,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_access_identity_provider ?account_id ?id ?zone_id
-    ~name ~type_ ~config ~scim_config __resource_id =
+let register ?tf_module ?account_id ?id ?zone_id ~name ~type_ ~config
+    ~scim_config __resource_id =
   let __resource_type = "cloudflare_access_identity_provider" in
   let __resource =
-    ({ account_id; id; name; type_; zone_id; config; scim_config }
-      : cloudflare_access_identity_provider)
+    cloudflare_access_identity_provider ?account_id ?id ?zone_id
+      ~name ~type_ ~config ~scim_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_identity_provider __resource);
   let __resource_attributes =
     ({

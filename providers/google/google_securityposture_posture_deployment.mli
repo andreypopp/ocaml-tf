@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type google_securityposture_posture_deployment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_securityposture_posture_deployment
+
+val google_securityposture_posture_deployment :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  parent:string prop ->
+  posture_deployment_id:string prop ->
+  posture_id:string prop ->
+  posture_revision_id:string prop ->
+  target_resource:string prop ->
+  unit ->
+  google_securityposture_posture_deployment
+
+val yojson_of_google_securityposture_posture_deployment :
+  google_securityposture_posture_deployment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -25,10 +53,11 @@ type t = private {
   update_time : string prop;
 }
 
-val google_securityposture_posture_deployment :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:google_securityposture_posture_deployment__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   parent:string prop ->
   posture_deployment_id:string prop ->

@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type azurerm_cdn_frontdoor_custom_domain__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_custom_domain__timeouts *)
+(** timeouts *)
 
-type azurerm_cdn_frontdoor_custom_domain__tls = {
+type tls = {
   cdn_frontdoor_secret_id : string prop option; [@option]
       (** cdn_frontdoor_secret_id *)
   certificate_type : string prop option; [@option]
@@ -22,7 +22,7 @@ type azurerm_cdn_frontdoor_custom_domain__tls = {
       (** minimum_tls_version *)
 }
 [@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_custom_domain__tls *)
+(** tls *)
 
 type azurerm_cdn_frontdoor_custom_domain = {
   cdn_frontdoor_profile_id : string prop;
@@ -31,11 +31,31 @@ type azurerm_cdn_frontdoor_custom_domain = {
   host_name : string prop;  (** host_name *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  timeouts : azurerm_cdn_frontdoor_custom_domain__timeouts option;
-  tls : azurerm_cdn_frontdoor_custom_domain__tls list;
+  timeouts : timeouts option;
+  tls : tls list;
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_custom_domain *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let tls ?cdn_frontdoor_secret_id ?certificate_type
+    ?minimum_tls_version () : tls =
+  { cdn_frontdoor_secret_id; certificate_type; minimum_tls_version }
+
+let azurerm_cdn_frontdoor_custom_domain ?dns_zone_id ?id ?timeouts
+    ~cdn_frontdoor_profile_id ~host_name ~name ~tls () :
+    azurerm_cdn_frontdoor_custom_domain =
+  {
+    cdn_frontdoor_profile_id;
+    dns_zone_id;
+    host_name;
+    id;
+    name;
+    timeouts;
+    tls;
+  }
 
 type t = {
   cdn_frontdoor_profile_id : string prop;
@@ -47,22 +67,14 @@ type t = {
   validation_token : string prop;
 }
 
-let azurerm_cdn_frontdoor_custom_domain ?dns_zone_id ?id ?timeouts
+let register ?tf_module ?dns_zone_id ?id ?timeouts
     ~cdn_frontdoor_profile_id ~host_name ~name ~tls __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_custom_domain" in
   let __resource =
-    ({
-       cdn_frontdoor_profile_id;
-       dns_zone_id;
-       host_name;
-       id;
-       name;
-       timeouts;
-       tls;
-     }
-      : azurerm_cdn_frontdoor_custom_domain)
+    azurerm_cdn_frontdoor_custom_domain ?dns_zone_id ?id ?timeouts
+      ~cdn_frontdoor_profile_id ~host_name ~name ~tls ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_custom_domain __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_voice_services_communications_gateway_test_line__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_voice_services_communications_gateway_test_line__timeouts *)
+(** timeouts *)
 
 type azurerm_voice_services_communications_gateway_test_line = {
   id : string prop option; [@option]  (** id *)
@@ -22,12 +22,28 @@ type azurerm_voice_services_communications_gateway_test_line = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   voice_services_communications_gateway_id : string prop;
       (** voice_services_communications_gateway_id *)
-  timeouts :
-    azurerm_voice_services_communications_gateway_test_line__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_voice_services_communications_gateway_test_line *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_voice_services_communications_gateway_test_line ?id ?tags
+    ?timeouts ~location ~name ~phone_number ~purpose
+    ~voice_services_communications_gateway_id () :
+    azurerm_voice_services_communications_gateway_test_line =
+  {
+    id;
+    location;
+    name;
+    phone_number;
+    purpose;
+    tags;
+    voice_services_communications_gateway_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -39,26 +55,18 @@ type t = {
   voice_services_communications_gateway_id : string prop;
 }
 
-let azurerm_voice_services_communications_gateway_test_line ?id ?tags
-    ?timeouts ~location ~name ~phone_number ~purpose
-    ~voice_services_communications_gateway_id __resource_id =
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~phone_number ~purpose ~voice_services_communications_gateway_id
+    __resource_id =
   let __resource_type =
     "azurerm_voice_services_communications_gateway_test_line"
   in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       phone_number;
-       purpose;
-       tags;
-       voice_services_communications_gateway_id;
-       timeouts;
-     }
-      : azurerm_voice_services_communications_gateway_test_line)
+    azurerm_voice_services_communications_gateway_test_line ?id ?tags
+      ?timeouts ~location ~name ~phone_number ~purpose
+      ~voice_services_communications_gateway_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_voice_services_communications_gateway_test_line
        __resource);
   let __resource_attributes =

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_project__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_project__timeouts *)
+(** timeouts *)
 
 type google_project = {
   auto_create_network : bool prop option; [@option]
@@ -33,10 +33,29 @@ type google_project = {
       (** The project ID. Changing this forces a new project to be created. *)
   skip_delete : bool prop option; [@option]
       (** If true, the Terraform resource can be deleted without deleting the Project via the Google API. *)
-  timeouts : google_project__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_project *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let google_project ?auto_create_network ?billing_account ?folder_id
+    ?id ?labels ?org_id ?skip_delete ?timeouts ~name ~project_id () :
+    google_project =
+  {
+    auto_create_network;
+    billing_account;
+    folder_id;
+    id;
+    labels;
+    name;
+    org_id;
+    project_id;
+    skip_delete;
+    timeouts;
+  }
 
 type t = {
   auto_create_network : bool prop;
@@ -53,26 +72,15 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_project ?auto_create_network ?billing_account ?folder_id
-    ?id ?labels ?org_id ?skip_delete ?timeouts ~name ~project_id
-    __resource_id =
+let register ?tf_module ?auto_create_network ?billing_account
+    ?folder_id ?id ?labels ?org_id ?skip_delete ?timeouts ~name
+    ~project_id __resource_id =
   let __resource_type = "google_project" in
   let __resource =
-    ({
-       auto_create_network;
-       billing_account;
-       folder_id;
-       id;
-       labels;
-       name;
-       org_id;
-       project_id;
-       skip_delete;
-       timeouts;
-     }
-      : google_project)
+    google_project ?auto_create_network ?billing_account ?folder_id
+      ?id ?labels ?org_id ?skip_delete ?timeouts ~name ~project_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_security_admin_configuration__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_manager_security_admin_configuration__timeouts *)
+(** timeouts *)
 
 type azurerm_network_manager_security_admin_configuration = {
   apply_on_network_intent_policy_based_services :
@@ -22,12 +22,26 @@ type azurerm_network_manager_security_admin_configuration = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   network_manager_id : string prop;  (** network_manager_id *)
-  timeouts :
-    azurerm_network_manager_security_admin_configuration__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_security_admin_configuration *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_manager_security_admin_configuration
+    ?apply_on_network_intent_policy_based_services ?description ?id
+    ?timeouts ~name ~network_manager_id () :
+    azurerm_network_manager_security_admin_configuration =
+  {
+    apply_on_network_intent_policy_based_services;
+    description;
+    id;
+    name;
+    network_manager_id;
+    timeouts;
+  }
 
 type t = {
   apply_on_network_intent_policy_based_services : string list prop;
@@ -37,24 +51,18 @@ type t = {
   network_manager_id : string prop;
 }
 
-let azurerm_network_manager_security_admin_configuration
+let register ?tf_module
     ?apply_on_network_intent_policy_based_services ?description ?id
     ?timeouts ~name ~network_manager_id __resource_id =
   let __resource_type =
     "azurerm_network_manager_security_admin_configuration"
   in
   let __resource =
-    ({
-       apply_on_network_intent_policy_based_services;
-       description;
-       id;
-       name;
-       network_manager_id;
-       timeouts;
-     }
-      : azurerm_network_manager_security_admin_configuration)
+    azurerm_network_manager_security_admin_configuration
+      ?apply_on_network_intent_policy_based_services ?description ?id
+      ?timeouts ~name ~network_manager_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_security_admin_configuration
        __resource);
   let __resource_attributes =

@@ -2,51 +2,89 @@
 
 open! Tf.Prelude
 
-type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self_managed_active_directory_configuration
+(** RESOURCE SERIALIZATION *)
 
-type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration
-
-type aws_fsx_ontap_storage_virtual_machine__timeouts
-
-type aws_fsx_ontap_storage_virtual_machine__endpoints__smb = {
+type endpoints__smb = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints__nfs = {
+type endpoints__nfs = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints__management = {
+type endpoints__management = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints__iscsi = {
+type endpoints__iscsi = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints = {
-  iscsi :
-    aws_fsx_ontap_storage_virtual_machine__endpoints__iscsi list;
-      (** iscsi *)
-  management :
-    aws_fsx_ontap_storage_virtual_machine__endpoints__management list;
-      (** management *)
-  nfs : aws_fsx_ontap_storage_virtual_machine__endpoints__nfs list;
-      (** nfs *)
-  smb : aws_fsx_ontap_storage_virtual_machine__endpoints__smb list;
-      (** smb *)
+type endpoints = {
+  iscsi : endpoints__iscsi list;  (** iscsi *)
+  management : endpoints__management list;  (** management *)
+  nfs : endpoints__nfs list;  (** nfs *)
+  smb : endpoints__smb list;  (** smb *)
 }
+
+type active_directory_configuration__self_managed_active_directory_configuration
+
+val active_directory_configuration__self_managed_active_directory_configuration :
+  ?file_system_administrators_group:string prop ->
+  ?organizational_unit_distinguished_name:string prop ->
+  dns_ips:string prop list ->
+  domain_name:string prop ->
+  password:string prop ->
+  username:string prop ->
+  unit ->
+  active_directory_configuration__self_managed_active_directory_configuration
+
+type active_directory_configuration
+
+val active_directory_configuration :
+  ?netbios_name:string prop ->
+  self_managed_active_directory_configuration:
+    active_directory_configuration__self_managed_active_directory_configuration
+    list ->
+  unit ->
+  active_directory_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type aws_fsx_ontap_storage_virtual_machine
 
+val aws_fsx_ontap_storage_virtual_machine :
+  ?id:string prop ->
+  ?root_volume_security_style:string prop ->
+  ?svm_admin_password:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  file_system_id:string prop ->
+  name:string prop ->
+  active_directory_configuration:active_directory_configuration list ->
+  unit ->
+  aws_fsx_ontap_storage_virtual_machine
+
+val yojson_of_aws_fsx_ontap_storage_virtual_machine :
+  aws_fsx_ontap_storage_virtual_machine -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   arn : string prop;
-  endpoints :
-    aws_fsx_ontap_storage_virtual_machine__endpoints list prop;
+  endpoints : endpoints list prop;
   file_system_id : string prop;
   id : string prop;
   name : string prop;
@@ -58,17 +96,16 @@ type t = private {
   uuid : string prop;
 }
 
-val aws_fsx_ontap_storage_virtual_machine :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?root_volume_security_style:string prop ->
   ?svm_admin_password:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_fsx_ontap_storage_virtual_machine__timeouts ->
+  ?timeouts:timeouts ->
   file_system_id:string prop ->
   name:string prop ->
-  active_directory_configuration:
-    aws_fsx_ontap_storage_virtual_machine__active_directory_configuration
-    list ->
+  active_directory_configuration:active_directory_configuration list ->
   string ->
   t

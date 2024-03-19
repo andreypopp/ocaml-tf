@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_dms_event_subscription__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_dms_event_subscription
+
+val aws_dms_event_subscription :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?source_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  event_categories:string prop list ->
+  name:string prop ->
+  sns_topic_arn:string prop ->
+  source_type:string prop ->
+  unit ->
+  aws_dms_event_subscription
+
+val yojson_of_aws_dms_event_subscription :
+  aws_dms_event_subscription -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,13 +47,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_dms_event_subscription :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?source_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_dms_event_subscription__timeouts ->
+  ?timeouts:timeouts ->
   event_categories:string prop list ->
   name:string prop ->
   sns_topic_arn:string prop ->

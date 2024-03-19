@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_lex_slot_type__enumeration_value = {
+type enumeration_value = {
   synonyms : string prop list option; [@option]  (** synonyms *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_lex_slot_type__enumeration_value *)
+(** enumeration_value *)
 
-type aws_lex_slot_type__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lex_slot_type__timeouts *)
+(** timeouts *)
 
 type aws_lex_slot_type = {
   create_version : bool prop option; [@option]  (** create_version *)
@@ -26,11 +26,30 @@ type aws_lex_slot_type = {
   name : string prop;  (** name *)
   value_selection_strategy : string prop option; [@option]
       (** value_selection_strategy *)
-  enumeration_value : aws_lex_slot_type__enumeration_value list;
-  timeouts : aws_lex_slot_type__timeouts option;
+  enumeration_value : enumeration_value list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lex_slot_type *)
+
+let enumeration_value ?synonyms ~value () : enumeration_value =
+  { synonyms; value }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_lex_slot_type ?create_version ?description ?id
+    ?value_selection_strategy ?timeouts ~name ~enumeration_value () :
+    aws_lex_slot_type =
+  {
+    create_version;
+    description;
+    id;
+    name;
+    value_selection_strategy;
+    enumeration_value;
+    timeouts;
+  }
 
 type t = {
   checksum : string prop;
@@ -44,23 +63,15 @@ type t = {
   version : string prop;
 }
 
-let aws_lex_slot_type ?create_version ?description ?id
+let register ?tf_module ?create_version ?description ?id
     ?value_selection_strategy ?timeouts ~name ~enumeration_value
     __resource_id =
   let __resource_type = "aws_lex_slot_type" in
   let __resource =
-    ({
-       create_version;
-       description;
-       id;
-       name;
-       value_selection_strategy;
-       enumeration_value;
-       timeouts;
-     }
-      : aws_lex_slot_type)
+    aws_lex_slot_type ?create_version ?description ?id
+      ?value_selection_strategy ?timeouts ~name ~enumeration_value ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lex_slot_type __resource);
   let __resource_attributes =
     ({

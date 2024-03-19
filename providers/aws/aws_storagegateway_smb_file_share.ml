@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type aws_storagegateway_smb_file_share__cache_attributes = {
+type cache_attributes = {
   cache_stale_timeout_in_seconds : float prop option; [@option]
       (** cache_stale_timeout_in_seconds *)
 }
 [@@deriving yojson_of]
-(** aws_storagegateway_smb_file_share__cache_attributes *)
+(** cache_attributes *)
 
-type aws_storagegateway_smb_file_share__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_storagegateway_smb_file_share__timeouts *)
+(** timeouts *)
 
 type aws_storagegateway_smb_file_share = {
   access_based_enumeration : bool prop option; [@option]
@@ -61,12 +61,58 @@ type aws_storagegateway_smb_file_share = {
       (** valid_user_list *)
   vpc_endpoint_dns_name : string prop option; [@option]
       (** vpc_endpoint_dns_name *)
-  cache_attributes :
-    aws_storagegateway_smb_file_share__cache_attributes list;
-  timeouts : aws_storagegateway_smb_file_share__timeouts option;
+  cache_attributes : cache_attributes list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_storagegateway_smb_file_share *)
+
+let cache_attributes ?cache_stale_timeout_in_seconds () :
+    cache_attributes =
+  { cache_stale_timeout_in_seconds }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_storagegateway_smb_file_share ?access_based_enumeration
+    ?admin_user_list ?audit_destination_arn ?authentication
+    ?bucket_region ?case_sensitivity ?default_storage_class
+    ?file_share_name ?guess_mime_type_enabled ?id ?invalid_user_list
+    ?kms_encrypted ?kms_key_arn ?notification_policy ?object_acl
+    ?oplocks_enabled ?read_only ?requester_pays ?smb_acl_enabled
+    ?tags ?tags_all ?valid_user_list ?vpc_endpoint_dns_name ?timeouts
+    ~gateway_arn ~location_arn ~role_arn ~cache_attributes () :
+    aws_storagegateway_smb_file_share =
+  {
+    access_based_enumeration;
+    admin_user_list;
+    audit_destination_arn;
+    authentication;
+    bucket_region;
+    case_sensitivity;
+    default_storage_class;
+    file_share_name;
+    gateway_arn;
+    guess_mime_type_enabled;
+    id;
+    invalid_user_list;
+    kms_encrypted;
+    kms_key_arn;
+    location_arn;
+    notification_policy;
+    object_acl;
+    oplocks_enabled;
+    read_only;
+    requester_pays;
+    role_arn;
+    smb_acl_enabled;
+    tags;
+    tags_all;
+    valid_user_list;
+    vpc_endpoint_dns_name;
+    cache_attributes;
+    timeouts;
+  }
 
 type t = {
   access_based_enumeration : bool prop;
@@ -100,50 +146,27 @@ type t = {
   vpc_endpoint_dns_name : string prop;
 }
 
-let aws_storagegateway_smb_file_share ?access_based_enumeration
-    ?admin_user_list ?audit_destination_arn ?authentication
-    ?bucket_region ?case_sensitivity ?default_storage_class
-    ?file_share_name ?guess_mime_type_enabled ?id ?invalid_user_list
-    ?kms_encrypted ?kms_key_arn ?notification_policy ?object_acl
-    ?oplocks_enabled ?read_only ?requester_pays ?smb_acl_enabled
-    ?tags ?tags_all ?valid_user_list ?vpc_endpoint_dns_name ?timeouts
-    ~gateway_arn ~location_arn ~role_arn ~cache_attributes
-    __resource_id =
+let register ?tf_module ?access_based_enumeration ?admin_user_list
+    ?audit_destination_arn ?authentication ?bucket_region
+    ?case_sensitivity ?default_storage_class ?file_share_name
+    ?guess_mime_type_enabled ?id ?invalid_user_list ?kms_encrypted
+    ?kms_key_arn ?notification_policy ?object_acl ?oplocks_enabled
+    ?read_only ?requester_pays ?smb_acl_enabled ?tags ?tags_all
+    ?valid_user_list ?vpc_endpoint_dns_name ?timeouts ~gateway_arn
+    ~location_arn ~role_arn ~cache_attributes __resource_id =
   let __resource_type = "aws_storagegateway_smb_file_share" in
   let __resource =
-    ({
-       access_based_enumeration;
-       admin_user_list;
-       audit_destination_arn;
-       authentication;
-       bucket_region;
-       case_sensitivity;
-       default_storage_class;
-       file_share_name;
-       gateway_arn;
-       guess_mime_type_enabled;
-       id;
-       invalid_user_list;
-       kms_encrypted;
-       kms_key_arn;
-       location_arn;
-       notification_policy;
-       object_acl;
-       oplocks_enabled;
-       read_only;
-       requester_pays;
-       role_arn;
-       smb_acl_enabled;
-       tags;
-       tags_all;
-       valid_user_list;
-       vpc_endpoint_dns_name;
-       cache_attributes;
-       timeouts;
-     }
-      : aws_storagegateway_smb_file_share)
+    aws_storagegateway_smb_file_share ?access_based_enumeration
+      ?admin_user_list ?audit_destination_arn ?authentication
+      ?bucket_region ?case_sensitivity ?default_storage_class
+      ?file_share_name ?guess_mime_type_enabled ?id
+      ?invalid_user_list ?kms_encrypted ?kms_key_arn
+      ?notification_policy ?object_acl ?oplocks_enabled ?read_only
+      ?requester_pays ?smb_acl_enabled ?tags ?tags_all
+      ?valid_user_list ?vpc_endpoint_dns_name ?timeouts ~gateway_arn
+      ~location_arn ~role_arn ~cache_attributes ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_storagegateway_smb_file_share __resource);
   let __resource_attributes =
     ({

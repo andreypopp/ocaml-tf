@@ -2,10 +2,67 @@
 
 open! Tf.Prelude
 
-type aws_storagegateway_nfs_file_share__cache_attributes
-type aws_storagegateway_nfs_file_share__nfs_file_share_defaults
-type aws_storagegateway_nfs_file_share__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type cache_attributes
+
+val cache_attributes :
+  ?cache_stale_timeout_in_seconds:float prop ->
+  unit ->
+  cache_attributes
+
+type nfs_file_share_defaults
+
+val nfs_file_share_defaults :
+  ?directory_mode:string prop ->
+  ?file_mode:string prop ->
+  ?group_id:string prop ->
+  ?owner_id:string prop ->
+  unit ->
+  nfs_file_share_defaults
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_storagegateway_nfs_file_share
+
+val aws_storagegateway_nfs_file_share :
+  ?audit_destination_arn:string prop ->
+  ?bucket_region:string prop ->
+  ?default_storage_class:string prop ->
+  ?file_share_name:string prop ->
+  ?guess_mime_type_enabled:bool prop ->
+  ?id:string prop ->
+  ?kms_encrypted:bool prop ->
+  ?kms_key_arn:string prop ->
+  ?notification_policy:string prop ->
+  ?object_acl:string prop ->
+  ?read_only:bool prop ->
+  ?requester_pays:bool prop ->
+  ?squash:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_endpoint_dns_name:string prop ->
+  ?timeouts:timeouts ->
+  client_list:string prop list ->
+  gateway_arn:string prop ->
+  location_arn:string prop ->
+  role_arn:string prop ->
+  cache_attributes:cache_attributes list ->
+  nfs_file_share_defaults:nfs_file_share_defaults list ->
+  unit ->
+  aws_storagegateway_nfs_file_share
+
+val yojson_of_aws_storagegateway_nfs_file_share :
+  aws_storagegateway_nfs_file_share -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -33,7 +90,8 @@ type t = private {
   vpc_endpoint_dns_name : string prop;
 }
 
-val aws_storagegateway_nfs_file_share :
+val register :
+  ?tf_module:tf_module ->
   ?audit_destination_arn:string prop ->
   ?bucket_region:string prop ->
   ?default_storage_class:string prop ->
@@ -50,14 +108,12 @@ val aws_storagegateway_nfs_file_share :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_endpoint_dns_name:string prop ->
-  ?timeouts:aws_storagegateway_nfs_file_share__timeouts ->
+  ?timeouts:timeouts ->
   client_list:string prop list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   role_arn:string prop ->
-  cache_attributes:
-    aws_storagegateway_nfs_file_share__cache_attributes list ->
-  nfs_file_share_defaults:
-    aws_storagegateway_nfs_file_share__nfs_file_share_defaults list ->
+  cache_attributes:cache_attributes list ->
+  nfs_file_share_defaults:nfs_file_share_defaults list ->
   string ->
   t

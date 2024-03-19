@@ -11,19 +11,22 @@ type aws_ses_active_receipt_rule_set = {
 [@@deriving yojson_of]
 (** aws_ses_active_receipt_rule_set *)
 
+let aws_ses_active_receipt_rule_set ?id ~rule_set_name () :
+    aws_ses_active_receipt_rule_set =
+  { id; rule_set_name }
+
 type t = {
   arn : string prop;
   id : string prop;
   rule_set_name : string prop;
 }
 
-let aws_ses_active_receipt_rule_set ?id ~rule_set_name __resource_id
-    =
+let register ?tf_module ?id ~rule_set_name __resource_id =
   let __resource_type = "aws_ses_active_receipt_rule_set" in
   let __resource =
-    ({ id; rule_set_name } : aws_ses_active_receipt_rule_set)
+    aws_ses_active_receipt_rule_set ?id ~rule_set_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_active_receipt_rule_set __resource);
   let __resource_attributes =
     ({

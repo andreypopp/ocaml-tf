@@ -13,6 +13,10 @@ type aws_securityhub_member = {
 [@@deriving yojson_of]
 (** aws_securityhub_member *)
 
+let aws_securityhub_member ?email ?id ?invite ~account_id () :
+    aws_securityhub_member =
+  { account_id; email; id; invite }
+
 type t = {
   account_id : string prop;
   email : string prop;
@@ -22,13 +26,13 @@ type t = {
   member_status : string prop;
 }
 
-let aws_securityhub_member ?email ?id ?invite ~account_id
-    __resource_id =
+let register ?tf_module ?email ?id ?invite ~account_id __resource_id
+    =
   let __resource_type = "aws_securityhub_member" in
   let __resource =
-    ({ account_id; email; id; invite } : aws_securityhub_member)
+    aws_securityhub_member ?email ?id ?invite ~account_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_member __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,41 @@
 
 open! Tf.Prelude
 
-type azurerm_custom_ip_prefix__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_custom_ip_prefix
+
+val azurerm_custom_ip_prefix :
+  ?commissioning_enabled:bool prop ->
+  ?id:string prop ->
+  ?internet_advertising_disabled:bool prop ->
+  ?parent_custom_ip_prefix_id:string prop ->
+  ?roa_validity_end_date:string prop ->
+  ?tags:(string * string prop) list ->
+  ?wan_validation_signed_message:string prop ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  cidr:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_custom_ip_prefix
+
+val yojson_of_azurerm_custom_ip_prefix :
+  azurerm_custom_ip_prefix -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cidr : string prop;
@@ -20,7 +53,8 @@ type t = private {
   zones : string list prop;
 }
 
-val azurerm_custom_ip_prefix :
+val register :
+  ?tf_module:tf_module ->
   ?commissioning_enabled:bool prop ->
   ?id:string prop ->
   ?internet_advertising_disabled:bool prop ->
@@ -29,7 +63,7 @@ val azurerm_custom_ip_prefix :
   ?tags:(string * string prop) list ->
   ?wan_validation_signed_message:string prop ->
   ?zones:string prop list ->
-  ?timeouts:azurerm_custom_ip_prefix__timeouts ->
+  ?timeouts:timeouts ->
   cidr:string prop ->
   location:string prop ->
   name:string prop ->

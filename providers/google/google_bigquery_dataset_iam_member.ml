@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_bigquery_dataset_iam_member__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_bigquery_dataset_iam_member__condition *)
+(** condition *)
 
 type google_bigquery_dataset_iam_member = {
   dataset_id : string prop;  (** dataset_id *)
@@ -18,10 +18,18 @@ type google_bigquery_dataset_iam_member = {
   member : string prop;  (** member *)
   project : string prop option; [@option]  (** project *)
   role : string prop;  (** role *)
-  condition : google_bigquery_dataset_iam_member__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_bigquery_dataset_iam_member *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_bigquery_dataset_iam_member ?id ?project ~dataset_id
+    ~member ~role ~condition () : google_bigquery_dataset_iam_member
+    =
+  { dataset_id; id; member; project; role; condition }
 
 type t = {
   dataset_id : string prop;
@@ -32,14 +40,14 @@ type t = {
   role : string prop;
 }
 
-let google_bigquery_dataset_iam_member ?id ?project ~dataset_id
-    ~member ~role ~condition __resource_id =
+let register ?tf_module ?id ?project ~dataset_id ~member ~role
+    ~condition __resource_id =
   let __resource_type = "google_bigquery_dataset_iam_member" in
   let __resource =
-    ({ dataset_id; id; member; project; role; condition }
-      : google_bigquery_dataset_iam_member)
+    google_bigquery_dataset_iam_member ?id ?project ~dataset_id
+      ~member ~role ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_dataset_iam_member __resource);
   let __resource_attributes =
     ({

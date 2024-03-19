@@ -2,21 +2,78 @@
 
 open! Tf.Prelude
 
-type aws_securitylake_data_lake__configuration__lifecycle_configuration__expiration
+(** RESOURCE SERIALIZATION *)
 
-type aws_securitylake_data_lake__configuration__lifecycle_configuration__transition
-
-type aws_securitylake_data_lake__configuration__lifecycle_configuration
-
-type aws_securitylake_data_lake__configuration__replication_configuration
-
-type aws_securitylake_data_lake__configuration__encryption_configuration = {
+type configuration__encryption_configuration = {
   kms_key_id : string prop;  (** kms_key_id *)
 }
 
-type aws_securitylake_data_lake__configuration
-type aws_securitylake_data_lake__timeouts
+type configuration__lifecycle_configuration__expiration
+
+val configuration__lifecycle_configuration__expiration :
+  ?days:float prop ->
+  unit ->
+  configuration__lifecycle_configuration__expiration
+
+type configuration__lifecycle_configuration__transition
+
+val configuration__lifecycle_configuration__transition :
+  ?days:float prop ->
+  ?storage_class:string prop ->
+  unit ->
+  configuration__lifecycle_configuration__transition
+
+type configuration__lifecycle_configuration
+
+val configuration__lifecycle_configuration :
+  expiration:configuration__lifecycle_configuration__expiration list ->
+  transition:configuration__lifecycle_configuration__transition list ->
+  unit ->
+  configuration__lifecycle_configuration
+
+type configuration__replication_configuration
+
+val configuration__replication_configuration :
+  ?regions:string prop list ->
+  ?role_arn:string prop ->
+  unit ->
+  configuration__replication_configuration
+
+type configuration
+
+val configuration :
+  ?encryption_configuration:
+    configuration__encryption_configuration list ->
+  region:string prop ->
+  lifecycle_configuration:configuration__lifecycle_configuration list ->
+  replication_configuration:
+    configuration__replication_configuration list ->
+  unit ->
+  configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_securitylake_data_lake
+
+val aws_securitylake_data_lake :
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  meta_store_manager_role_arn:string prop ->
+  configuration:configuration list ->
+  unit ->
+  aws_securitylake_data_lake
+
+val yojson_of_aws_securitylake_data_lake :
+  aws_securitylake_data_lake -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -27,10 +84,11 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_securitylake_data_lake :
+val register :
+  ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_securitylake_data_lake__timeouts ->
+  ?timeouts:timeouts ->
   meta_store_manager_role_arn:string prop ->
-  configuration:aws_securitylake_data_lake__configuration list ->
+  configuration:configuration list ->
   string ->
   t

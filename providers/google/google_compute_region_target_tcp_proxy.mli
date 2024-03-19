@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type google_compute_region_target_tcp_proxy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_region_target_tcp_proxy
+
+val google_compute_region_target_tcp_proxy :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?proxy_bind:bool prop ->
+  ?proxy_header:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  backend_service:string prop ->
+  name:string prop ->
+  unit ->
+  google_compute_region_target_tcp_proxy
+
+val yojson_of_google_compute_region_target_tcp_proxy :
+  google_compute_region_target_tcp_proxy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   backend_service : string prop;
@@ -19,14 +43,15 @@ type t = private {
   self_link : string prop;
 }
 
-val google_compute_region_target_tcp_proxy :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
   ?proxy_bind:bool prop ->
   ?proxy_header:string prop ->
   ?region:string prop ->
-  ?timeouts:google_compute_region_target_tcp_proxy__timeouts ->
+  ?timeouts:timeouts ->
   backend_service:string prop ->
   name:string prop ->
   string ->

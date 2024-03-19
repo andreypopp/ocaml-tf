@@ -2,24 +2,77 @@
 
 open! Tf.Prelude
 
-type aws_securitylake_subscriber__source__aws_log_source_resource
+(** RESOURCE SERIALIZATION *)
 
-type aws_securitylake_subscriber__source__custom_log_source_resource__attributes = {
+type source__aws_log_source_resource
+
+val source__aws_log_source_resource :
+  ?source_name:string prop ->
+  ?source_version:string prop ->
+  unit ->
+  source__aws_log_source_resource
+
+type source__custom_log_source_resource__attributes = {
   crawler_arn : string prop;  (** crawler_arn *)
   database_arn : string prop;  (** database_arn *)
   table_arn : string prop;  (** table_arn *)
 }
 
-type aws_securitylake_subscriber__source__custom_log_source_resource__provider = {
+type source__custom_log_source_resource__provider = {
   location : string prop;  (** location *)
   role_arn : string prop;  (** role_arn *)
 }
 
-type aws_securitylake_subscriber__source__custom_log_source_resource
-type aws_securitylake_subscriber__source
-type aws_securitylake_subscriber__subscriber_identity
-type aws_securitylake_subscriber__timeouts
+type source__custom_log_source_resource
+
+val source__custom_log_source_resource :
+  ?source_name:string prop ->
+  ?source_version:string prop ->
+  unit ->
+  source__custom_log_source_resource
+
+type source
+
+val source :
+  aws_log_source_resource:source__aws_log_source_resource list ->
+  custom_log_source_resource:source__custom_log_source_resource list ->
+  unit ->
+  source
+
+type subscriber_identity
+
+val subscriber_identity :
+  external_id:string prop ->
+  principal:string prop ->
+  unit ->
+  subscriber_identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_securitylake_subscriber
+
+val aws_securitylake_subscriber :
+  ?access_type:string prop ->
+  ?subscriber_description:string prop ->
+  ?subscriber_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  source:source list ->
+  subscriber_identity:subscriber_identity list ->
+  unit ->
+  aws_securitylake_subscriber
+
+val yojson_of_aws_securitylake_subscriber :
+  aws_securitylake_subscriber -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_type : string prop;
@@ -37,14 +90,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_securitylake_subscriber :
+val register :
+  ?tf_module:tf_module ->
   ?access_type:string prop ->
   ?subscriber_description:string prop ->
   ?subscriber_name:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_securitylake_subscriber__timeouts ->
-  source:aws_securitylake_subscriber__source list ->
-  subscriber_identity:
-    aws_securitylake_subscriber__subscriber_identity list ->
+  ?timeouts:timeouts ->
+  source:source list ->
+  subscriber_identity:subscriber_identity list ->
   string ->
   t

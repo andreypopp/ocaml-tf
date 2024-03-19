@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_dev_test_global_vm_shutdown_schedule__notification_settings = {
+type notification_settings = {
   email : string prop option; [@option]  (** email *)
   enabled : bool prop;  (** enabled *)
   time_in_minutes : float prop option; [@option]
@@ -12,16 +12,16 @@ type azurerm_dev_test_global_vm_shutdown_schedule__notification_settings = {
   webhook_url : string prop option; [@option]  (** webhook_url *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_global_vm_shutdown_schedule__notification_settings *)
+(** notification_settings *)
 
-type azurerm_dev_test_global_vm_shutdown_schedule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_dev_test_global_vm_shutdown_schedule__timeouts *)
+(** timeouts *)
 
 type azurerm_dev_test_global_vm_shutdown_schedule = {
   daily_recurrence_time : string prop;  (** daily_recurrence_time *)
@@ -31,14 +31,34 @@ type azurerm_dev_test_global_vm_shutdown_schedule = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   timezone : string prop;  (** timezone *)
   virtual_machine_id : string prop;  (** virtual_machine_id *)
-  notification_settings :
-    azurerm_dev_test_global_vm_shutdown_schedule__notification_settings
-    list;
-  timeouts :
-    azurerm_dev_test_global_vm_shutdown_schedule__timeouts option;
+  notification_settings : notification_settings list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_global_vm_shutdown_schedule *)
+
+let notification_settings ?email ?time_in_minutes ?webhook_url
+    ~enabled () : notification_settings =
+  { email; enabled; time_in_minutes; webhook_url }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?id ?tags
+    ?timeouts ~daily_recurrence_time ~location ~timezone
+    ~virtual_machine_id ~notification_settings () :
+    azurerm_dev_test_global_vm_shutdown_schedule =
+  {
+    daily_recurrence_time;
+    enabled;
+    id;
+    location;
+    tags;
+    timezone;
+    virtual_machine_id;
+    notification_settings;
+    timeouts;
+  }
 
 type t = {
   daily_recurrence_time : string prop;
@@ -50,27 +70,18 @@ type t = {
   virtual_machine_id : string prop;
 }
 
-let azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?id ?tags
-    ?timeouts ~daily_recurrence_time ~location ~timezone
-    ~virtual_machine_id ~notification_settings __resource_id =
+let register ?tf_module ?enabled ?id ?tags ?timeouts
+    ~daily_recurrence_time ~location ~timezone ~virtual_machine_id
+    ~notification_settings __resource_id =
   let __resource_type =
     "azurerm_dev_test_global_vm_shutdown_schedule"
   in
   let __resource =
-    ({
-       daily_recurrence_time;
-       enabled;
-       id;
-       location;
-       tags;
-       timezone;
-       virtual_machine_id;
-       notification_settings;
-       timeouts;
-     }
-      : azurerm_dev_test_global_vm_shutdown_schedule)
+    azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?id ?tags
+      ?timeouts ~daily_recurrence_time ~location ~timezone
+      ~virtual_machine_id ~notification_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_test_global_vm_shutdown_schedule
        __resource);
   let __resource_attributes =

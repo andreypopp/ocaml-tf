@@ -18,6 +18,19 @@ type aws_organizations_policy = {
 [@@deriving yojson_of]
 (** aws_organizations_policy *)
 
+let aws_organizations_policy ?description ?id ?skip_destroy ?tags
+    ?tags_all ?type_ ~content ~name () : aws_organizations_policy =
+  {
+    content;
+    description;
+    id;
+    name;
+    skip_destroy;
+    tags;
+    tags_all;
+    type_;
+  }
+
 type t = {
   arn : string prop;
   content : string prop;
@@ -30,23 +43,14 @@ type t = {
   type_ : string prop;
 }
 
-let aws_organizations_policy ?description ?id ?skip_destroy ?tags
+let register ?tf_module ?description ?id ?skip_destroy ?tags
     ?tags_all ?type_ ~content ~name __resource_id =
   let __resource_type = "aws_organizations_policy" in
   let __resource =
-    ({
-       content;
-       description;
-       id;
-       name;
-       skip_destroy;
-       tags;
-       tags_all;
-       type_;
-     }
-      : aws_organizations_policy)
+    aws_organizations_policy ?description ?id ?skip_destroy ?tags
+      ?tags_all ?type_ ~content ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_policy __resource);
   let __resource_attributes =
     ({

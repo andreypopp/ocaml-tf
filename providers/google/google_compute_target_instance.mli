@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type google_compute_target_instance__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_target_instance
+
+val google_compute_target_instance :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?nat_policy:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  instance:string prop ->
+  name:string prop ->
+  unit ->
+  google_compute_target_instance
+
+val yojson_of_google_compute_target_instance :
+  google_compute_target_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_timestamp : string prop;
@@ -17,13 +40,14 @@ type t = private {
   zone : string prop;
 }
 
-val google_compute_target_instance :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?nat_policy:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
-  ?timeouts:google_compute_target_instance__timeouts ->
+  ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
   string ->

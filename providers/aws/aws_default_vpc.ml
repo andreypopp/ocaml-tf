@@ -31,6 +31,27 @@ type aws_default_vpc = {
 [@@deriving yojson_of]
 (** aws_default_vpc *)
 
+let aws_default_vpc ?assign_generated_ipv6_cidr_block
+    ?enable_dns_hostnames ?enable_dns_support
+    ?enable_network_address_usage_metrics ?force_destroy ?id
+    ?ipv6_cidr_block ?ipv6_cidr_block_network_border_group
+    ?ipv6_ipam_pool_id ?ipv6_netmask_length ?tags ?tags_all () :
+    aws_default_vpc =
+  {
+    assign_generated_ipv6_cidr_block;
+    enable_dns_hostnames;
+    enable_dns_support;
+    enable_network_address_usage_metrics;
+    force_destroy;
+    id;
+    ipv6_cidr_block;
+    ipv6_cidr_block_network_border_group;
+    ipv6_ipam_pool_id;
+    ipv6_netmask_length;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   assign_generated_ipv6_cidr_block : bool prop;
@@ -57,7 +78,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_default_vpc ?assign_generated_ipv6_cidr_block
+let register ?tf_module ?assign_generated_ipv6_cidr_block
     ?enable_dns_hostnames ?enable_dns_support
     ?enable_network_address_usage_metrics ?force_destroy ?id
     ?ipv6_cidr_block ?ipv6_cidr_block_network_border_group
@@ -65,23 +86,13 @@ let aws_default_vpc ?assign_generated_ipv6_cidr_block
     __resource_id =
   let __resource_type = "aws_default_vpc" in
   let __resource =
-    ({
-       assign_generated_ipv6_cidr_block;
-       enable_dns_hostnames;
-       enable_dns_support;
-       enable_network_address_usage_metrics;
-       force_destroy;
-       id;
-       ipv6_cidr_block;
-       ipv6_cidr_block_network_border_group;
-       ipv6_ipam_pool_id;
-       ipv6_netmask_length;
-       tags;
-       tags_all;
-     }
-      : aws_default_vpc)
+    aws_default_vpc ?assign_generated_ipv6_cidr_block
+      ?enable_dns_hostnames ?enable_dns_support
+      ?enable_network_address_usage_metrics ?force_destroy ?id
+      ?ipv6_cidr_block ?ipv6_cidr_block_network_border_group
+      ?ipv6_ipam_pool_id ?ipv6_netmask_length ?tags ?tags_all ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_vpc __resource);
   let __resource_attributes =
     ({

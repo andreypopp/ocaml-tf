@@ -34,6 +34,25 @@ type cloudflare_zone_cache_variants = {
 [@@deriving yojson_of]
 (** Provides a resource which customizes Cloudflare zone cache variants. *)
 
+let cloudflare_zone_cache_variants ?avif ?bmp ?gif ?id ?jp2 ?jpeg
+    ?jpg ?jpg2 ?png ?tif ?tiff ?webp ~zone_id () :
+    cloudflare_zone_cache_variants =
+  {
+    avif;
+    bmp;
+    gif;
+    id;
+    jp2;
+    jpeg;
+    jpg;
+    jpg2;
+    png;
+    tif;
+    tiff;
+    webp;
+    zone_id;
+  }
+
 type t = {
   avif : string list prop;
   bmp : string list prop;
@@ -50,28 +69,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_zone_cache_variants ?avif ?bmp ?gif ?id ?jp2 ?jpeg
-    ?jpg ?jpg2 ?png ?tif ?tiff ?webp ~zone_id __resource_id =
+let register ?tf_module ?avif ?bmp ?gif ?id ?jp2 ?jpeg ?jpg ?jpg2
+    ?png ?tif ?tiff ?webp ~zone_id __resource_id =
   let __resource_type = "cloudflare_zone_cache_variants" in
   let __resource =
-    ({
-       avif;
-       bmp;
-       gif;
-       id;
-       jp2;
-       jpeg;
-       jpg;
-       jpg2;
-       png;
-       tif;
-       tiff;
-       webp;
-       zone_id;
-     }
-      : cloudflare_zone_cache_variants)
+    cloudflare_zone_cache_variants ?avif ?bmp ?gif ?id ?jp2 ?jpeg
+      ?jpg ?jpg2 ?png ?tif ?tiff ?webp ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_cache_variants __resource);
   let __resource_attributes =
     ({

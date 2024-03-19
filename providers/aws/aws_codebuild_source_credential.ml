@@ -14,6 +14,10 @@ type aws_codebuild_source_credential = {
 [@@deriving yojson_of]
 (** aws_codebuild_source_credential *)
 
+let aws_codebuild_source_credential ?id ?user_name ~auth_type
+    ~server_type ~token () : aws_codebuild_source_credential =
+  { auth_type; id; server_type; token; user_name }
+
 type t = {
   arn : string prop;
   auth_type : string prop;
@@ -23,14 +27,14 @@ type t = {
   user_name : string prop;
 }
 
-let aws_codebuild_source_credential ?id ?user_name ~auth_type
-    ~server_type ~token __resource_id =
+let register ?tf_module ?id ?user_name ~auth_type ~server_type ~token
+    __resource_id =
   let __resource_type = "aws_codebuild_source_credential" in
   let __resource =
-    ({ auth_type; id; server_type; token; user_name }
-      : aws_codebuild_source_credential)
+    aws_codebuild_source_credential ?id ?user_name ~auth_type
+      ~server_type ~token ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codebuild_source_credential __resource);
   let __resource_attributes =
     ({

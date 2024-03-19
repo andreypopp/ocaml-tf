@@ -14,6 +14,10 @@ type aws_organizations_resource_policy = {
 [@@deriving yojson_of]
 (** aws_organizations_resource_policy *)
 
+let aws_organizations_resource_policy ?id ?tags ?tags_all ~content ()
+    : aws_organizations_resource_policy =
+  { content; id; tags; tags_all }
+
 type t = {
   arn : string prop;
   content : string prop;
@@ -22,14 +26,12 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_organizations_resource_policy ?id ?tags ?tags_all ~content
-    __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~content __resource_id =
   let __resource_type = "aws_organizations_resource_policy" in
   let __resource =
-    ({ content; id; tags; tags_all }
-      : aws_organizations_resource_policy)
+    aws_organizations_resource_policy ?id ?tags ?tags_all ~content ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_resource_policy __resource);
   let __resource_attributes =
     ({

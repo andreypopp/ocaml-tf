@@ -2,31 +2,47 @@
 
 open! Tf.Prelude
 
-type aws_media_package_channel__hls_ingest__ingest_endpoints = {
+(** RESOURCE SERIALIZATION *)
+
+type hls_ingest__ingest_endpoints = {
   password : string prop;  (** password *)
   url : string prop;  (** url *)
   username : string prop;  (** username *)
 }
 
-type aws_media_package_channel__hls_ingest = {
-  ingest_endpoints :
-    aws_media_package_channel__hls_ingest__ingest_endpoints list;
+type hls_ingest = {
+  ingest_endpoints : hls_ingest__ingest_endpoints list;
       (** ingest_endpoints *)
 }
 
 type aws_media_package_channel
 
+val aws_media_package_channel :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  channel_id:string prop ->
+  unit ->
+  aws_media_package_channel
+
+val yojson_of_aws_media_package_channel :
+  aws_media_package_channel -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   arn : string prop;
   channel_id : string prop;
   description : string prop;
-  hls_ingest : aws_media_package_channel__hls_ingest list prop;
+  hls_ingest : hls_ingest list prop;
   id : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
 }
 
-val aws_media_package_channel :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

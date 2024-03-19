@@ -2,19 +2,43 @@
 
 open! Tf.Prelude
 
-type aws_vpc_peering_connection_options__accepter
-type aws_vpc_peering_connection_options__requester
+(** RESOURCE SERIALIZATION *)
+
+type accepter
+
+val accepter :
+  ?allow_remote_vpc_dns_resolution:bool prop -> unit -> accepter
+
+type requester
+
+val requester :
+  ?allow_remote_vpc_dns_resolution:bool prop -> unit -> requester
+
 type aws_vpc_peering_connection_options
+
+val aws_vpc_peering_connection_options :
+  ?id:string prop ->
+  vpc_peering_connection_id:string prop ->
+  accepter:accepter list ->
+  requester:requester list ->
+  unit ->
+  aws_vpc_peering_connection_options
+
+val yojson_of_aws_vpc_peering_connection_options :
+  aws_vpc_peering_connection_options -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
   vpc_peering_connection_id : string prop;
 }
 
-val aws_vpc_peering_connection_options :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   vpc_peering_connection_id:string prop ->
-  accepter:aws_vpc_peering_connection_options__accepter list ->
-  requester:aws_vpc_peering_connection_options__requester list ->
+  accepter:accepter list ->
+  requester:requester list ->
   string ->
   t

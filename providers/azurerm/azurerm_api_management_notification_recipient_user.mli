@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_notification_recipient_user__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_api_management_notification_recipient_user
+
+val azurerm_api_management_notification_recipient_user :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  api_management_id:string prop ->
+  notification_type:string prop ->
+  user_id:string prop ->
+  unit ->
+  azurerm_api_management_notification_recipient_user
+
+val yojson_of_azurerm_api_management_notification_recipient_user :
+  azurerm_api_management_notification_recipient_user -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_management_id : string prop;
@@ -12,10 +36,10 @@ type t = private {
   user_id : string prop;
 }
 
-val azurerm_api_management_notification_recipient_user :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    azurerm_api_management_notification_recipient_user__timeouts ->
+  ?timeouts:timeouts ->
   api_management_id:string prop ->
   notification_type:string prop ->
   user_id:string prop ->

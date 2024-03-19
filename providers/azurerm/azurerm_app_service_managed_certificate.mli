@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_managed_certificate__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_app_service_managed_certificate
+
+val azurerm_app_service_managed_certificate :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  custom_hostname_binding_id:string prop ->
+  unit ->
+  azurerm_app_service_managed_certificate
+
+val yojson_of_azurerm_app_service_managed_certificate :
+  azurerm_app_service_managed_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   canonical_name : string prop;
@@ -19,10 +43,11 @@ type t = private {
   thumbprint : string prop;
 }
 
-val azurerm_app_service_managed_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_app_service_managed_certificate__timeouts ->
+  ?timeouts:timeouts ->
   custom_hostname_binding_id:string prop ->
   string ->
   t

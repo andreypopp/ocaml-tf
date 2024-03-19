@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_comprehend_document_classifier__input_data_config__augmented_manifests = {
+type input_data_config__augmented_manifests = {
   annotation_data_s3_uri : string prop option; [@option]
       (** annotation_data_s3_uri *)
   attribute_names : string prop list;  (** attribute_names *)
@@ -15,43 +15,40 @@ type aws_comprehend_document_classifier__input_data_config__augmented_manifests 
   split : string prop option; [@option]  (** split *)
 }
 [@@deriving yojson_of]
-(** aws_comprehend_document_classifier__input_data_config__augmented_manifests *)
+(** input_data_config__augmented_manifests *)
 
-type aws_comprehend_document_classifier__input_data_config = {
+type input_data_config = {
   data_format : string prop option; [@option]  (** data_format *)
   label_delimiter : string prop option; [@option]
       (** label_delimiter *)
   s3_uri : string prop option; [@option]  (** s3_uri *)
   test_s3_uri : string prop option; [@option]  (** test_s3_uri *)
-  augmented_manifests :
-    aws_comprehend_document_classifier__input_data_config__augmented_manifests
-    list;
+  augmented_manifests : input_data_config__augmented_manifests list;
 }
 [@@deriving yojson_of]
-(** aws_comprehend_document_classifier__input_data_config *)
+(** input_data_config *)
 
-type aws_comprehend_document_classifier__output_data_config = {
+type output_data_config = {
   kms_key_id : string prop option; [@option]  (** kms_key_id *)
-  output_s3_uri : string prop;  (** output_s3_uri *)
   s3_uri : string prop;  (** s3_uri *)
 }
 [@@deriving yojson_of]
-(** aws_comprehend_document_classifier__output_data_config *)
+(** output_data_config *)
 
-type aws_comprehend_document_classifier__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_comprehend_document_classifier__timeouts *)
+(** timeouts *)
 
-type aws_comprehend_document_classifier__vpc_config = {
+type vpc_config = {
   security_group_ids : string prop list;  (** security_group_ids *)
   subnets : string prop list;  (** subnets *)
 }
 [@@deriving yojson_of]
-(** aws_comprehend_document_classifier__vpc_config *)
+(** vpc_config *)
 
 type aws_comprehend_document_classifier = {
   data_access_role_arn : string prop;  (** data_access_role_arn *)
@@ -69,15 +66,67 @@ type aws_comprehend_document_classifier = {
       (** version_name_prefix *)
   volume_kms_key_id : string prop option; [@option]
       (** volume_kms_key_id *)
-  input_data_config :
-    aws_comprehend_document_classifier__input_data_config list;
-  output_data_config :
-    aws_comprehend_document_classifier__output_data_config list;
-  timeouts : aws_comprehend_document_classifier__timeouts option;
-  vpc_config : aws_comprehend_document_classifier__vpc_config list;
+  input_data_config : input_data_config list;
+  output_data_config : output_data_config list;
+  timeouts : timeouts option;
+  vpc_config : vpc_config list;
 }
 [@@deriving yojson_of]
 (** aws_comprehend_document_classifier *)
+
+let input_data_config__augmented_manifests ?annotation_data_s3_uri
+    ?document_type ?source_documents_s3_uri ?split ~attribute_names
+    ~s3_uri () : input_data_config__augmented_manifests =
+  {
+    annotation_data_s3_uri;
+    attribute_names;
+    document_type;
+    s3_uri;
+    source_documents_s3_uri;
+    split;
+  }
+
+let input_data_config ?data_format ?label_delimiter ?s3_uri
+    ?test_s3_uri ~augmented_manifests () : input_data_config =
+  {
+    data_format;
+    label_delimiter;
+    s3_uri;
+    test_s3_uri;
+    augmented_manifests;
+  }
+
+let output_data_config ?kms_key_id ~s3_uri () : output_data_config =
+  { kms_key_id; s3_uri }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc_config ~security_group_ids ~subnets () : vpc_config =
+  { security_group_ids; subnets }
+
+let aws_comprehend_document_classifier ?id ?mode ?model_kms_key_id
+    ?tags ?tags_all ?version_name ?version_name_prefix
+    ?volume_kms_key_id ?timeouts ~data_access_role_arn ~language_code
+    ~name ~input_data_config ~output_data_config ~vpc_config () :
+    aws_comprehend_document_classifier =
+  {
+    data_access_role_arn;
+    id;
+    language_code;
+    mode;
+    model_kms_key_id;
+    name;
+    tags;
+    tags_all;
+    version_name;
+    version_name_prefix;
+    volume_kms_key_id;
+    input_data_config;
+    output_data_config;
+    timeouts;
+    vpc_config;
+  }
 
 type t = {
   arn : string prop;
@@ -94,33 +143,19 @@ type t = {
   volume_kms_key_id : string prop;
 }
 
-let aws_comprehend_document_classifier ?id ?mode ?model_kms_key_id
-    ?tags ?tags_all ?version_name ?version_name_prefix
-    ?volume_kms_key_id ?timeouts ~data_access_role_arn ~language_code
-    ~name ~input_data_config ~output_data_config ~vpc_config
-    __resource_id =
+let register ?tf_module ?id ?mode ?model_kms_key_id ?tags ?tags_all
+    ?version_name ?version_name_prefix ?volume_kms_key_id ?timeouts
+    ~data_access_role_arn ~language_code ~name ~input_data_config
+    ~output_data_config ~vpc_config __resource_id =
   let __resource_type = "aws_comprehend_document_classifier" in
   let __resource =
-    ({
-       data_access_role_arn;
-       id;
-       language_code;
-       mode;
-       model_kms_key_id;
-       name;
-       tags;
-       tags_all;
-       version_name;
-       version_name_prefix;
-       volume_kms_key_id;
-       input_data_config;
-       output_data_config;
-       timeouts;
-       vpc_config;
-     }
-      : aws_comprehend_document_classifier)
+    aws_comprehend_document_classifier ?id ?mode ?model_kms_key_id
+      ?tags ?tags_all ?version_name ?version_name_prefix
+      ?volume_kms_key_id ?timeouts ~data_access_role_arn
+      ~language_code ~name ~input_data_config ~output_data_config
+      ~vpc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_comprehend_document_classifier __resource);
   let __resource_attributes =
     ({

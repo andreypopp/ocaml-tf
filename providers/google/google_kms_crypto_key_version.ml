@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type google_kms_crypto_key_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_kms_crypto_key_version__timeouts *)
+(** timeouts *)
 
-type google_kms_crypto_key_version__attestation__external_protection_level_options = {
+type attestation__external_protection_level_options = {
   ekm_connection_key_path : string prop;
       (** ekm_connection_key_path *)
   external_key_uri : string prop;  (** external_key_uri *)
 }
 [@@deriving yojson_of]
 
-type google_kms_crypto_key_version__attestation__cert_chains = {
+type attestation__cert_chains = {
   cavium_certs : string prop list;  (** cavium_certs *)
   google_card_certs : string prop list;  (** google_card_certs *)
   google_partition_certs : string prop list;
@@ -27,14 +27,11 @@ type google_kms_crypto_key_version__attestation__cert_chains = {
 }
 [@@deriving yojson_of]
 
-type google_kms_crypto_key_version__attestation = {
-  cert_chains :
-    google_kms_crypto_key_version__attestation__cert_chains list;
-      (** cert_chains *)
+type attestation = {
+  cert_chains : attestation__cert_chains list;  (** cert_chains *)
   content : string prop;  (** content *)
   external_protection_level_options :
-    google_kms_crypto_key_version__attestation__external_protection_level_options
-    list;
+    attestation__external_protection_level_options list;
       (** external_protection_level_options *)
   format : string prop;  (** format *)
 }
@@ -47,14 +44,21 @@ Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyring}}/crypt
   id : string prop option; [@option]  (** id *)
   state : string prop option; [@option]
       (** The current state of the CryptoKeyVersion. Possible values: [PENDING_GENERATION, ENABLED, DISABLED, DESTROYED, DESTROY_SCHEDULED, PENDING_IMPORT, IMPORT_FAILED] *)
-  timeouts : google_kms_crypto_key_version__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_kms_crypto_key_version *)
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_kms_crypto_key_version ?id ?state ?timeouts ~crypto_key ()
+    : google_kms_crypto_key_version =
+  { crypto_key; id; state; timeouts }
+
 type t = {
   algorithm : string prop;
-  attestation : google_kms_crypto_key_version__attestation list prop;
+  attestation : attestation list prop;
   crypto_key : string prop;
   generate_time : string prop;
   id : string prop;
@@ -63,14 +67,13 @@ type t = {
   state : string prop;
 }
 
-let google_kms_crypto_key_version ?id ?state ?timeouts ~crypto_key
+let register ?tf_module ?id ?state ?timeouts ~crypto_key
     __resource_id =
   let __resource_type = "google_kms_crypto_key_version" in
   let __resource =
-    ({ crypto_key; id; state; timeouts }
-      : google_kms_crypto_key_version)
+    google_kms_crypto_key_version ?id ?state ?timeouts ~crypto_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_crypto_key_version __resource);
   let __resource_attributes =
     ({

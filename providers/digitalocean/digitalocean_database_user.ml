@@ -4,19 +4,15 @@
 
 open! Tf.Prelude
 
-type digitalocean_database_user__settings__acl = {
-  id : string prop;  (** id *)
+type settings__acl = {
   permission : string prop;  (** permission *)
   topic : string prop;  (** topic *)
 }
 [@@deriving yojson_of]
-(** digitalocean_database_user__settings__acl *)
+(** settings__acl *)
 
-type digitalocean_database_user__settings = {
-  acl : digitalocean_database_user__settings__acl list;
-}
-[@@deriving yojson_of]
-(** digitalocean_database_user__settings *)
+type settings = { acl : settings__acl list } [@@deriving yojson_of]
+(** settings *)
 
 type digitalocean_database_user = {
   cluster_id : string prop;  (** cluster_id *)
@@ -24,10 +20,19 @@ type digitalocean_database_user = {
   mysql_auth_plugin : string prop option; [@option]
       (** mysql_auth_plugin *)
   name : string prop;  (** name *)
-  settings : digitalocean_database_user__settings list;
+  settings : settings list;
 }
 [@@deriving yojson_of]
 (** digitalocean_database_user *)
+
+let settings__acl ~permission ~topic () : settings__acl =
+  { permission; topic }
+
+let settings ~acl () : settings = { acl }
+
+let digitalocean_database_user ?id ?mysql_auth_plugin ~cluster_id
+    ~name ~settings () : digitalocean_database_user =
+  { cluster_id; id; mysql_auth_plugin; name; settings }
 
 type t = {
   access_cert : string prop;
@@ -40,14 +45,14 @@ type t = {
   role : string prop;
 }
 
-let digitalocean_database_user ?id ?mysql_auth_plugin ~cluster_id
-    ~name ~settings __resource_id =
+let register ?tf_module ?id ?mysql_auth_plugin ~cluster_id ~name
+    ~settings __resource_id =
   let __resource_type = "digitalocean_database_user" in
   let __resource =
-    ({ cluster_id; id; mysql_auth_plugin; name; settings }
-      : digitalocean_database_user)
+    digitalocean_database_user ?id ?mysql_auth_plugin ~cluster_id
+      ~name ~settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_user __resource);
   let __resource_attributes =
     ({

@@ -2,15 +2,54 @@
 
 open! Tf.Prelude
 
-type kubernetes_limit_range__metadata
-type kubernetes_limit_range__spec__limit
-type kubernetes_limit_range__spec
+(** RESOURCE SERIALIZATION *)
+
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?namespace:string prop ->
+  unit ->
+  metadata
+
+type spec__limit
+
+val spec__limit :
+  ?default:(string * string prop) list ->
+  ?default_request:(string * string prop) list ->
+  ?max:(string * string prop) list ->
+  ?max_limit_request_ratio:(string * string prop) list ->
+  ?min:(string * string prop) list ->
+  ?type_:string prop ->
+  unit ->
+  spec__limit
+
+type spec
+
+val spec : limit:spec__limit list -> unit -> spec
+
 type kubernetes_limit_range
-type t = private { id : string prop }
 
 val kubernetes_limit_range :
   ?id:string prop ->
-  metadata:kubernetes_limit_range__metadata list ->
-  spec:kubernetes_limit_range__spec list ->
+  metadata:metadata list ->
+  spec:spec list ->
+  unit ->
+  kubernetes_limit_range
+
+val yojson_of_kubernetes_limit_range : kubernetes_limit_range -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  metadata:metadata list ->
+  spec:spec list ->
   string ->
   t

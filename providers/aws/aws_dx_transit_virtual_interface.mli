@@ -2,8 +2,42 @@
 
 open! Tf.Prelude
 
-type aws_dx_transit_virtual_interface__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_dx_transit_virtual_interface
+
+val aws_dx_transit_virtual_interface :
+  ?amazon_address:string prop ->
+  ?bgp_auth_key:string prop ->
+  ?customer_address:string prop ->
+  ?id:string prop ->
+  ?mtu:float prop ->
+  ?sitelink_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  address_family:string prop ->
+  bgp_asn:float prop ->
+  connection_id:string prop ->
+  dx_gateway_id:string prop ->
+  name:string prop ->
+  vlan:float prop ->
+  unit ->
+  aws_dx_transit_virtual_interface
+
+val yojson_of_aws_dx_transit_virtual_interface :
+  aws_dx_transit_virtual_interface -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   address_family : string prop;
@@ -26,7 +60,8 @@ type t = private {
   vlan : float prop;
 }
 
-val aws_dx_transit_virtual_interface :
+val register :
+  ?tf_module:tf_module ->
   ?amazon_address:string prop ->
   ?bgp_auth_key:string prop ->
   ?customer_address:string prop ->
@@ -35,7 +70,7 @@ val aws_dx_transit_virtual_interface :
   ?sitelink_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_dx_transit_virtual_interface__timeouts ->
+  ?timeouts:timeouts ->
   address_family:string prop ->
   bgp_asn:float prop ->
   connection_id:string prop ->

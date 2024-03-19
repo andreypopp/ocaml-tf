@@ -2,13 +2,49 @@
 
 open! Tf.Prelude
 
-type google_compute_interconnect_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_compute_interconnect_attachment__private_interconnect_info = {
+type private_interconnect_info = {
   tag8021q : float prop;  (** tag8021q *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_interconnect_attachment
+
+val google_compute_interconnect_attachment :
+  ?admin_enabled:bool prop ->
+  ?bandwidth:string prop ->
+  ?candidate_subnets:string prop list ->
+  ?description:string prop ->
+  ?edge_availability_domain:string prop ->
+  ?encryption:string prop ->
+  ?id:string prop ->
+  ?interconnect:string prop ->
+  ?ipsec_internal_addresses:string prop list ->
+  ?mtu:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?stack_type:string prop ->
+  ?type_:string prop ->
+  ?vlan_tag8021q:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  router:string prop ->
+  unit ->
+  google_compute_interconnect_attachment
+
+val yojson_of_google_compute_interconnect_attachment :
+  google_compute_interconnect_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   admin_enabled : bool prop;
@@ -28,10 +64,7 @@ type t = private {
   name : string prop;
   pairing_key : string prop;
   partner_asn : string prop;
-  private_interconnect_info :
-    google_compute_interconnect_attachment__private_interconnect_info
-    list
-    prop;
+  private_interconnect_info : private_interconnect_info list prop;
   project : string prop;
   region : string prop;
   router : string prop;
@@ -42,7 +75,8 @@ type t = private {
   vlan_tag8021q : float prop;
 }
 
-val google_compute_interconnect_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?admin_enabled:bool prop ->
   ?bandwidth:string prop ->
   ?candidate_subnets:string prop list ->
@@ -58,7 +92,7 @@ val google_compute_interconnect_attachment :
   ?stack_type:string prop ->
   ?type_:string prop ->
   ?vlan_tag8021q:float prop ->
-  ?timeouts:google_compute_interconnect_attachment__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   router:string prop ->
   string ->

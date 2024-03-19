@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_container_analysis_occurrence__attestation__signatures = {
+type attestation__signatures = {
   public_key_id : string prop;
       (** The identifier for the public key that verifies this
 signature. MUST be an RFC3986 conformant
@@ -33,13 +33,11 @@ message verified if at least one signature verifies
 serializedPayload. See Signature in common.proto for more
 details on signature structure and verification. *)
 
-type google_container_analysis_occurrence__attestation = {
+type attestation = {
   serialized_payload : string prop;
       (** The serialized payload that is verified by one or
 more signatures. A base64-encoded string. *)
-  signatures :
-    google_container_analysis_occurrence__attestation__signatures
-    list;
+  signatures : attestation__signatures list;
 }
 [@@deriving yojson_of]
 (** Occurrence that represents a single attestation. The authenticity
@@ -51,13 +49,13 @@ useful for lookup (how to find this attestation if you already
 know the authority and artifact to be verified) and intent (for
 which authority this attestation was intended to sign. *)
 
-type google_container_analysis_occurrence__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_container_analysis_occurrence__timeouts *)
+(** timeouts *)
 
 type google_container_analysis_occurrence = {
   id : string prop option; [@option]  (** id *)
@@ -72,12 +70,34 @@ filter in list requests. *)
       (** Required. Immutable. A URI that represents the resource for which
 the occurrence applies. For example,
 https://gcr.io/project/image@sha256:123abc for a Docker image. *)
-  attestation :
-    google_container_analysis_occurrence__attestation list;
-  timeouts : google_container_analysis_occurrence__timeouts option;
+  attestation : attestation list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_container_analysis_occurrence *)
+
+let attestation__signatures ?signature ~public_key_id () :
+    attestation__signatures =
+  { public_key_id; signature }
+
+let attestation ~serialized_payload ~signatures () : attestation =
+  { serialized_payload; signatures }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_container_analysis_occurrence ?id ?project ?remediation
+    ?timeouts ~note_name ~resource_uri ~attestation () :
+    google_container_analysis_occurrence =
+  {
+    id;
+    note_name;
+    project;
+    remediation;
+    resource_uri;
+    attestation;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -91,22 +111,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_container_analysis_occurrence ?id ?project ?remediation
-    ?timeouts ~note_name ~resource_uri ~attestation __resource_id =
+let register ?tf_module ?id ?project ?remediation ?timeouts
+    ~note_name ~resource_uri ~attestation __resource_id =
   let __resource_type = "google_container_analysis_occurrence" in
   let __resource =
-    ({
-       id;
-       note_name;
-       project;
-       remediation;
-       resource_uri;
-       attestation;
-       timeouts;
-     }
-      : google_container_analysis_occurrence)
+    google_container_analysis_occurrence ?id ?project ?remediation
+      ?timeouts ~note_name ~resource_uri ~attestation ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_analysis_occurrence __resource);
   let __resource_attributes =
     ({

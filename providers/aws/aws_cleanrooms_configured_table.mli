@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type aws_cleanrooms_configured_table__table_reference
-type aws_cleanrooms_configured_table__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type table_reference
+
+val table_reference :
+  database_name:string prop ->
+  table_name:string prop ->
+  unit ->
+  table_reference
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_cleanrooms_configured_table
+
+val aws_cleanrooms_configured_table :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  allowed_columns:string prop list ->
+  analysis_method:string prop ->
+  name:string prop ->
+  table_reference:table_reference list ->
+  unit ->
+  aws_cleanrooms_configured_table
+
+val yojson_of_aws_cleanrooms_configured_table :
+  aws_cleanrooms_configured_table -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allowed_columns : string list prop;
@@ -19,16 +54,16 @@ type t = private {
   update_time : string prop;
 }
 
-val aws_cleanrooms_configured_table :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_cleanrooms_configured_table__timeouts ->
+  ?timeouts:timeouts ->
   allowed_columns:string prop list ->
   analysis_method:string prop ->
   name:string prop ->
-  table_reference:
-    aws_cleanrooms_configured_table__table_reference list ->
+  table_reference:table_reference list ->
   string ->
   t

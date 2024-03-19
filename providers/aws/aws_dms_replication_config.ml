@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_dms_replication_config__compute_config = {
+type compute_config = {
   availability_zone : string prop option; [@option]
       (** availability_zone *)
   dns_name_servers : string prop option; [@option]
@@ -23,15 +23,15 @@ type aws_dms_replication_config__compute_config = {
       (** vpc_security_group_ids *)
 }
 [@@deriving yojson_of]
-(** aws_dms_replication_config__compute_config *)
+(** compute_config *)
 
-type aws_dms_replication_config__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_dms_replication_config__timeouts *)
+(** timeouts *)
 
 type aws_dms_replication_config = {
   id : string prop option; [@option]  (** id *)
@@ -52,11 +52,53 @@ type aws_dms_replication_config = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   target_endpoint_arn : string prop;  (** target_endpoint_arn *)
-  compute_config : aws_dms_replication_config__compute_config list;
-  timeouts : aws_dms_replication_config__timeouts option;
+  compute_config : compute_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dms_replication_config *)
+
+let compute_config ?availability_zone ?dns_name_servers ?kms_key_id
+    ?max_capacity_units ?min_capacity_units ?multi_az
+    ?preferred_maintenance_window ?vpc_security_group_ids
+    ~replication_subnet_group_id () : compute_config =
+  {
+    availability_zone;
+    dns_name_servers;
+    kms_key_id;
+    max_capacity_units;
+    min_capacity_units;
+    multi_az;
+    preferred_maintenance_window;
+    replication_subnet_group_id;
+    vpc_security_group_ids;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_dms_replication_config ?id ?replication_settings
+    ?resource_identifier ?start_replication ?supplemental_settings
+    ?tags ?tags_all ?timeouts ~replication_config_identifier
+    ~replication_type ~source_endpoint_arn ~table_mappings
+    ~target_endpoint_arn ~compute_config () :
+    aws_dms_replication_config =
+  {
+    id;
+    replication_config_identifier;
+    replication_settings;
+    replication_type;
+    resource_identifier;
+    source_endpoint_arn;
+    start_replication;
+    supplemental_settings;
+    table_mappings;
+    tags;
+    tags_all;
+    target_endpoint_arn;
+    compute_config;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -74,32 +116,20 @@ type t = {
   target_endpoint_arn : string prop;
 }
 
-let aws_dms_replication_config ?id ?replication_settings
+let register ?tf_module ?id ?replication_settings
     ?resource_identifier ?start_replication ?supplemental_settings
     ?tags ?tags_all ?timeouts ~replication_config_identifier
     ~replication_type ~source_endpoint_arn ~table_mappings
     ~target_endpoint_arn ~compute_config __resource_id =
   let __resource_type = "aws_dms_replication_config" in
   let __resource =
-    ({
-       id;
-       replication_config_identifier;
-       replication_settings;
-       replication_type;
-       resource_identifier;
-       source_endpoint_arn;
-       start_replication;
-       supplemental_settings;
-       table_mappings;
-       tags;
-       tags_all;
-       target_endpoint_arn;
-       compute_config;
-       timeouts;
-     }
-      : aws_dms_replication_config)
+    aws_dms_replication_config ?id ?replication_settings
+      ?resource_identifier ?start_replication ?supplemental_settings
+      ?tags ?tags_all ?timeouts ~replication_config_identifier
+      ~replication_type ~source_endpoint_arn ~table_mappings
+      ~target_endpoint_arn ~compute_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dms_replication_config __resource);
   let __resource_attributes =
     ({

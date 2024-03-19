@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_imagebuilder_image_recipe__block_device_mapping__ebs = {
+type block_device_mapping__ebs = {
   delete_on_termination : string prop option; [@option]
       (** delete_on_termination *)
   encrypted : string prop option; [@option]  (** encrypted *)
@@ -16,37 +16,36 @@ type aws_imagebuilder_image_recipe__block_device_mapping__ebs = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image_recipe__block_device_mapping__ebs *)
+(** block_device_mapping__ebs *)
 
-type aws_imagebuilder_image_recipe__block_device_mapping = {
+type block_device_mapping = {
   device_name : string prop option; [@option]  (** device_name *)
   no_device : bool prop option; [@option]  (** no_device *)
   virtual_name : string prop option; [@option]  (** virtual_name *)
-  ebs : aws_imagebuilder_image_recipe__block_device_mapping__ebs list;
+  ebs : block_device_mapping__ebs list;
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image_recipe__block_device_mapping *)
+(** block_device_mapping *)
 
-type aws_imagebuilder_image_recipe__component__parameter = {
+type component__parameter = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image_recipe__component__parameter *)
+(** component__parameter *)
 
-type aws_imagebuilder_image_recipe__component = {
+type component = {
   component_arn : string prop;  (** component_arn *)
-  parameter :
-    aws_imagebuilder_image_recipe__component__parameter list;
+  parameter : component__parameter list;
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image_recipe__component *)
+(** component *)
 
-type aws_imagebuilder_image_recipe__systems_manager_agent = {
+type systems_manager_agent = {
   uninstall_after_build : bool prop;  (** uninstall_after_build *)
 }
 [@@deriving yojson_of]
-(** aws_imagebuilder_image_recipe__systems_manager_agent *)
+(** systems_manager_agent *)
 
 type aws_imagebuilder_image_recipe = {
   description : string prop option; [@option]  (** description *)
@@ -61,14 +60,59 @@ type aws_imagebuilder_image_recipe = {
   version : string prop;  (** version *)
   working_directory : string prop option; [@option]
       (** working_directory *)
-  block_device_mapping :
-    aws_imagebuilder_image_recipe__block_device_mapping list;
-  component : aws_imagebuilder_image_recipe__component list;
-  systems_manager_agent :
-    aws_imagebuilder_image_recipe__systems_manager_agent list;
+  block_device_mapping : block_device_mapping list;
+  component : component list;
+  systems_manager_agent : systems_manager_agent list;
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_image_recipe *)
+
+let block_device_mapping__ebs ?delete_on_termination ?encrypted ?iops
+    ?kms_key_id ?snapshot_id ?throughput ?volume_size ?volume_type ()
+    : block_device_mapping__ebs =
+  {
+    delete_on_termination;
+    encrypted;
+    iops;
+    kms_key_id;
+    snapshot_id;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let block_device_mapping ?device_name ?no_device ?virtual_name ~ebs
+    () : block_device_mapping =
+  { device_name; no_device; virtual_name; ebs }
+
+let component__parameter ~name ~value () : component__parameter =
+  { name; value }
+
+let component ~component_arn ~parameter () : component =
+  { component_arn; parameter }
+
+let systems_manager_agent ~uninstall_after_build () :
+    systems_manager_agent =
+  { uninstall_after_build }
+
+let aws_imagebuilder_image_recipe ?description ?id ?tags ?tags_all
+    ?user_data_base64 ?working_directory ~name ~parent_image ~version
+    ~block_device_mapping ~component ~systems_manager_agent () :
+    aws_imagebuilder_image_recipe =
+  {
+    description;
+    id;
+    name;
+    parent_image;
+    tags;
+    tags_all;
+    user_data_base64;
+    version;
+    working_directory;
+    block_device_mapping;
+    component;
+    systems_manager_agent;
+  }
 
 type t = {
   arn : string prop;
@@ -86,29 +130,18 @@ type t = {
   working_directory : string prop;
 }
 
-let aws_imagebuilder_image_recipe ?description ?id ?tags ?tags_all
+let register ?tf_module ?description ?id ?tags ?tags_all
     ?user_data_base64 ?working_directory ~name ~parent_image ~version
     ~block_device_mapping ~component ~systems_manager_agent
     __resource_id =
   let __resource_type = "aws_imagebuilder_image_recipe" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       parent_image;
-       tags;
-       tags_all;
-       user_data_base64;
-       version;
-       working_directory;
-       block_device_mapping;
-       component;
-       systems_manager_agent;
-     }
-      : aws_imagebuilder_image_recipe)
+    aws_imagebuilder_image_recipe ?description ?id ?tags ?tags_all
+      ?user_data_base64 ?working_directory ~name ~parent_image
+      ~version ~block_device_mapping ~component
+      ~systems_manager_agent ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_image_recipe __resource);
   let __resource_attributes =
     ({

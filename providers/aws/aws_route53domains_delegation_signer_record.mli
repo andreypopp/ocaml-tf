@@ -2,9 +2,35 @@
 
 open! Tf.Prelude
 
-type aws_route53domains_delegation_signer_record__signing_attributes
-type aws_route53domains_delegation_signer_record__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type signing_attributes
+
+val signing_attributes :
+  algorithm:float prop ->
+  flags:float prop ->
+  public_key:string prop ->
+  unit ->
+  signing_attributes
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_route53domains_delegation_signer_record
+
+val aws_route53domains_delegation_signer_record :
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  signing_attributes:signing_attributes list ->
+  unit ->
+  aws_route53domains_delegation_signer_record
+
+val yojson_of_aws_route53domains_delegation_signer_record :
+  aws_route53domains_delegation_signer_record -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   dnssec_key_id : string prop;
@@ -12,11 +38,10 @@ type t = private {
   id : string prop;
 }
 
-val aws_route53domains_delegation_signer_record :
-  ?timeouts:aws_route53domains_delegation_signer_record__timeouts ->
+val register :
+  ?tf_module:tf_module ->
+  ?timeouts:timeouts ->
   domain_name:string prop ->
-  signing_attributes:
-    aws_route53domains_delegation_signer_record__signing_attributes
-    list ->
+  signing_attributes:signing_attributes list ->
   string ->
   t

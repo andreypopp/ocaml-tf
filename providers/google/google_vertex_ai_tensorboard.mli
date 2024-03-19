@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_tensorboard__encryption_spec
-type google_vertex_ai_tensorboard__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type encryption_spec
+
+val encryption_spec :
+  kms_key_name:string prop -> unit -> encryption_spec
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vertex_ai_tensorboard
+
+val google_vertex_ai_tensorboard :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  encryption_spec:encryption_spec list ->
+  unit ->
+  google_vertex_ai_tensorboard
+
+val yojson_of_google_vertex_ai_tensorboard :
+  google_vertex_ai_tensorboard -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   blob_storage_path_prefix : string prop;
@@ -22,14 +53,15 @@ type t = private {
   update_time : string prop;
 }
 
-val google_vertex_ai_tensorboard :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
-  ?timeouts:google_vertex_ai_tensorboard__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
-  encryption_spec:google_vertex_ai_tensorboard__encryption_spec list ->
+  encryption_spec:encryption_spec list ->
   string ->
   t

@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type aws_security_group_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_security_group_rule
+
+val aws_security_group_rule :
+  ?cidr_blocks:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ipv6_cidr_blocks:string prop list ->
+  ?prefix_list_ids:string prop list ->
+  ?self:bool prop ->
+  ?source_security_group_id:string prop ->
+  ?timeouts:timeouts ->
+  from_port:float prop ->
+  protocol:string prop ->
+  security_group_id:string prop ->
+  to_port:float prop ->
+  type_:string prop ->
+  unit ->
+  aws_security_group_rule
+
+val yojson_of_aws_security_group_rule :
+  aws_security_group_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cidr_blocks : string list prop;
@@ -21,7 +48,8 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_security_group_rule :
+val register :
+  ?tf_module:tf_module ->
   ?cidr_blocks:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
@@ -29,7 +57,7 @@ val aws_security_group_rule :
   ?prefix_list_ids:string prop list ->
   ?self:bool prop ->
   ?source_security_group_id:string prop ->
-  ?timeouts:aws_security_group_rule__timeouts ->
+  ?timeouts:timeouts ->
   from_port:float prop ->
   protocol:string prop ->
   security_group_id:string prop ->

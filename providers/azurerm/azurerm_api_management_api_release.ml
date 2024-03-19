@@ -4,24 +4,31 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_api_release__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_api_release__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_api_release = {
   api_id : string prop;  (** api_id *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   notes : string prop option; [@option]  (** notes *)
-  timeouts : azurerm_api_management_api_release__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_release *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_api_management_api_release ?id ?notes ?timeouts ~api_id
+    ~name () : azurerm_api_management_api_release =
+  { api_id; id; name; notes; timeouts }
 
 type t = {
   api_id : string prop;
@@ -30,14 +37,14 @@ type t = {
   notes : string prop;
 }
 
-let azurerm_api_management_api_release ?id ?notes ?timeouts ~api_id
-    ~name __resource_id =
+let register ?tf_module ?id ?notes ?timeouts ~api_id ~name
+    __resource_id =
   let __resource_type = "azurerm_api_management_api_release" in
   let __resource =
-    ({ api_id; id; name; notes; timeouts }
-      : azurerm_api_management_api_release)
+    azurerm_api_management_api_release ?id ?notes ?timeouts ~api_id
+      ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_api_release __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_codeartifact_repository_permissions_policy
+
+val aws_codeartifact_repository_permissions_policy :
+  ?domain_owner:string prop ->
+  ?id:string prop ->
+  ?policy_revision:string prop ->
+  domain:string prop ->
+  policy_document:string prop ->
+  repository:string prop ->
+  unit ->
+  aws_codeartifact_repository_permissions_policy
+
+val yojson_of_aws_codeartifact_repository_permissions_policy :
+  aws_codeartifact_repository_permissions_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   domain : string prop;
@@ -14,7 +31,8 @@ type t = private {
   resource_arn : string prop;
 }
 
-val aws_codeartifact_repository_permissions_policy :
+val register :
+  ?tf_module:tf_module ->
   ?domain_owner:string prop ->
   ?id:string prop ->
   ?policy_revision:string prop ->

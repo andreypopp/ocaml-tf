@@ -2,8 +2,24 @@
 
 open! Tf.Prelude
 
-type aws_verifiedpermissions_schema__definition
+(** RESOURCE SERIALIZATION *)
+
+type definition
+
+val definition : value:string prop -> unit -> definition
+
 type aws_verifiedpermissions_schema
+
+val aws_verifiedpermissions_schema :
+  policy_store_id:string prop ->
+  definition:definition ->
+  unit ->
+  aws_verifiedpermissions_schema
+
+val yojson_of_aws_verifiedpermissions_schema :
+  aws_verifiedpermissions_schema -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,8 +27,9 @@ type t = private {
   policy_store_id : string prop;
 }
 
-val aws_verifiedpermissions_schema :
+val register :
+  ?tf_module:tf_module ->
   policy_store_id:string prop ->
-  definition:aws_verifiedpermissions_schema__definition ->
+  definition:definition ->
   string ->
   t

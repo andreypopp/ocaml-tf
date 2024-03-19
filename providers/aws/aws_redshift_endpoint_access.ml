@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_redshift_endpoint_access__vpc_endpoint__network_interface = {
+type vpc_endpoint__network_interface = {
   availability_zone : string prop;  (** availability_zone *)
   network_interface_id : string prop;  (** network_interface_id *)
   private_ip_address : string prop;  (** private_ip_address *)
@@ -12,10 +12,8 @@ type aws_redshift_endpoint_access__vpc_endpoint__network_interface = {
 }
 [@@deriving yojson_of]
 
-type aws_redshift_endpoint_access__vpc_endpoint = {
-  network_interface :
-    aws_redshift_endpoint_access__vpc_endpoint__network_interface
-    list;
+type vpc_endpoint = {
+  network_interface : vpc_endpoint__network_interface list;
       (** network_interface *)
   vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   vpc_id : string prop;  (** vpc_id *)
@@ -35,6 +33,18 @@ type aws_redshift_endpoint_access = {
 [@@deriving yojson_of]
 (** aws_redshift_endpoint_access *)
 
+let aws_redshift_endpoint_access ?id ?resource_owner
+    ?vpc_security_group_ids ~cluster_identifier ~endpoint_name
+    ~subnet_group_name () : aws_redshift_endpoint_access =
+  {
+    cluster_identifier;
+    endpoint_name;
+    id;
+    resource_owner;
+    subnet_group_name;
+    vpc_security_group_ids;
+  }
+
 type t = {
   address : string prop;
   cluster_identifier : string prop;
@@ -43,27 +53,20 @@ type t = {
   port : float prop;
   resource_owner : string prop;
   subnet_group_name : string prop;
-  vpc_endpoint :
-    aws_redshift_endpoint_access__vpc_endpoint list prop;
+  vpc_endpoint : vpc_endpoint list prop;
   vpc_security_group_ids : string list prop;
 }
 
-let aws_redshift_endpoint_access ?id ?resource_owner
-    ?vpc_security_group_ids ~cluster_identifier ~endpoint_name
-    ~subnet_group_name __resource_id =
+let register ?tf_module ?id ?resource_owner ?vpc_security_group_ids
+    ~cluster_identifier ~endpoint_name ~subnet_group_name
+    __resource_id =
   let __resource_type = "aws_redshift_endpoint_access" in
   let __resource =
-    ({
-       cluster_identifier;
-       endpoint_name;
-       id;
-       resource_owner;
-       subnet_group_name;
-       vpc_security_group_ids;
-     }
-      : aws_redshift_endpoint_access)
+    aws_redshift_endpoint_access ?id ?resource_owner
+      ?vpc_security_group_ids ~cluster_identifier ~endpoint_name
+      ~subnet_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_endpoint_access __resource);
   let __resource_attributes =
     ({

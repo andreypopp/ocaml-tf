@@ -2,11 +2,64 @@
 
 open! Tf.Prelude
 
-type azurerm_datadog_monitor__datadog_organization
-type azurerm_datadog_monitor__identity
-type azurerm_datadog_monitor__timeouts
-type azurerm_datadog_monitor__user
+(** RESOURCE SERIALIZATION *)
+
+type datadog_organization
+
+val datadog_organization :
+  ?enterprise_app_id:string prop ->
+  ?linking_auth_code:string prop ->
+  ?linking_client_id:string prop ->
+  ?redirect_uri:string prop ->
+  api_key:string prop ->
+  application_key:string prop ->
+  unit ->
+  datadog_organization
+
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type user
+
+val user :
+  ?phone_number:string prop ->
+  email:string prop ->
+  name:string prop ->
+  unit ->
+  user
+
 type azurerm_datadog_monitor
+
+val azurerm_datadog_monitor :
+  ?id:string prop ->
+  ?monitoring_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  datadog_organization:datadog_organization list ->
+  identity:identity list ->
+  user:user list ->
+  unit ->
+  azurerm_datadog_monitor
+
+val yojson_of_azurerm_datadog_monitor :
+  azurerm_datadog_monitor -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -19,18 +72,18 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_datadog_monitor :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_datadog_monitor__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  datadog_organization:
-    azurerm_datadog_monitor__datadog_organization list ->
-  identity:azurerm_datadog_monitor__identity list ->
-  user:azurerm_datadog_monitor__user list ->
+  datadog_organization:datadog_organization list ->
+  identity:identity list ->
+  user:user list ->
   string ->
   t

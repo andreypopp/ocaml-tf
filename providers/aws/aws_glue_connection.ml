@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_glue_connection__physical_connection_requirements = {
+type physical_connection_requirements = {
   availability_zone : string prop option; [@option]
       (** availability_zone *)
   security_group_id_list : string prop list option; [@option]
@@ -12,7 +12,7 @@ type aws_glue_connection__physical_connection_requirements = {
   subnet_id : string prop option; [@option]  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** aws_glue_connection__physical_connection_requirements *)
+(** physical_connection_requirements *)
 
 type aws_glue_connection = {
   catalog_id : string prop option; [@option]  (** catalog_id *)
@@ -30,10 +30,32 @@ type aws_glue_connection = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   physical_connection_requirements :
-    aws_glue_connection__physical_connection_requirements list;
+    physical_connection_requirements list;
 }
 [@@deriving yojson_of]
 (** aws_glue_connection *)
+
+let physical_connection_requirements ?availability_zone
+    ?security_group_id_list ?subnet_id () :
+    physical_connection_requirements =
+  { availability_zone; security_group_id_list; subnet_id }
+
+let aws_glue_connection ?catalog_id ?connection_properties
+    ?connection_type ?description ?id ?match_criteria ?tags ?tags_all
+    ~name ~physical_connection_requirements () : aws_glue_connection
+    =
+  {
+    catalog_id;
+    connection_properties;
+    connection_type;
+    description;
+    id;
+    match_criteria;
+    name;
+    tags;
+    tags_all;
+    physical_connection_requirements;
+  }
 
 type t = {
   arn : string prop;
@@ -48,26 +70,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_glue_connection ?catalog_id ?connection_properties
+let register ?tf_module ?catalog_id ?connection_properties
     ?connection_type ?description ?id ?match_criteria ?tags ?tags_all
     ~name ~physical_connection_requirements __resource_id =
   let __resource_type = "aws_glue_connection" in
   let __resource =
-    ({
-       catalog_id;
-       connection_properties;
-       connection_type;
-       description;
-       id;
-       match_criteria;
-       name;
-       tags;
-       tags_all;
-       physical_connection_requirements;
-     }
-      : aws_glue_connection)
+    aws_glue_connection ?catalog_id ?connection_properties
+      ?connection_type ?description ?id ?match_criteria ?tags
+      ?tags_all ~name ~physical_connection_requirements ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_connection __resource);
   let __resource_attributes =
     ({

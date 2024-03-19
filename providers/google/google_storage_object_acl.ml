@@ -15,6 +15,10 @@ type google_storage_object_acl = {
 [@@deriving yojson_of]
 (** google_storage_object_acl *)
 
+let google_storage_object_acl ?id ?predefined_acl ?role_entity
+    ~bucket ~object_ () : google_storage_object_acl =
+  { bucket; id; object_; predefined_acl; role_entity }
+
 type t = {
   bucket : string prop;
   id : string prop;
@@ -23,14 +27,14 @@ type t = {
   role_entity : string list prop;
 }
 
-let google_storage_object_acl ?id ?predefined_acl ?role_entity
-    ~bucket ~object_ __resource_id =
+let register ?tf_module ?id ?predefined_acl ?role_entity ~bucket
+    ~object_ __resource_id =
   let __resource_type = "google_storage_object_acl" in
   let __resource =
-    ({ bucket; id; object_; predefined_acl; role_entity }
-      : google_storage_object_acl)
+    google_storage_object_acl ?id ?predefined_acl ?role_entity
+      ~bucket ~object_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_object_acl __resource);
   let __resource_attributes =
     ({

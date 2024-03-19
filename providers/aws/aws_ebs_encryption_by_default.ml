@@ -11,14 +11,16 @@ type aws_ebs_encryption_by_default = {
 [@@deriving yojson_of]
 (** aws_ebs_encryption_by_default *)
 
+let aws_ebs_encryption_by_default ?enabled ?id () :
+    aws_ebs_encryption_by_default =
+  { enabled; id }
+
 type t = { enabled : bool prop; id : string prop }
 
-let aws_ebs_encryption_by_default ?enabled ?id __resource_id =
+let register ?tf_module ?enabled ?id __resource_id =
   let __resource_type = "aws_ebs_encryption_by_default" in
-  let __resource =
-    ({ enabled; id } : aws_ebs_encryption_by_default)
-  in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_ebs_encryption_by_default ?enabled ?id () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ebs_encryption_by_default __resource);
   let __resource_attributes =
     ({

@@ -2,11 +2,53 @@
 
 open! Tf.Prelude
 
-type aws_imagebuilder_infrastructure_configuration__instance_metadata_options
+(** RESOURCE SERIALIZATION *)
 
-type aws_imagebuilder_infrastructure_configuration__logging__s3_logs
-type aws_imagebuilder_infrastructure_configuration__logging
+type instance_metadata_options
+
+val instance_metadata_options :
+  ?http_put_response_hop_limit:float prop ->
+  ?http_tokens:string prop ->
+  unit ->
+  instance_metadata_options
+
+type logging__s3_logs
+
+val logging__s3_logs :
+  ?s3_key_prefix:string prop ->
+  s3_bucket_name:string prop ->
+  unit ->
+  logging__s3_logs
+
+type logging
+
+val logging : s3_logs:logging__s3_logs list -> unit -> logging
+
 type aws_imagebuilder_infrastructure_configuration
+
+val aws_imagebuilder_infrastructure_configuration :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?instance_types:string prop list ->
+  ?key_pair:string prop ->
+  ?resource_tags:(string * string prop) list ->
+  ?security_group_ids:string prop list ->
+  ?sns_topic_arn:string prop ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?terminate_instance_on_failure:bool prop ->
+  instance_profile_name:string prop ->
+  name:string prop ->
+  instance_metadata_options:instance_metadata_options list ->
+  logging:logging list ->
+  unit ->
+  aws_imagebuilder_infrastructure_configuration
+
+val yojson_of_aws_imagebuilder_infrastructure_configuration :
+  aws_imagebuilder_infrastructure_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -27,7 +69,8 @@ type t = private {
   terminate_instance_on_failure : bool prop;
 }
 
-val aws_imagebuilder_infrastructure_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?instance_types:string prop list ->
@@ -41,9 +84,7 @@ val aws_imagebuilder_infrastructure_configuration :
   ?terminate_instance_on_failure:bool prop ->
   instance_profile_name:string prop ->
   name:string prop ->
-  instance_metadata_options:
-    aws_imagebuilder_infrastructure_configuration__instance_metadata_options
-    list ->
-  logging:aws_imagebuilder_infrastructure_configuration__logging list ->
+  instance_metadata_options:instance_metadata_options list ->
+  logging:logging list ->
   string ->
   t

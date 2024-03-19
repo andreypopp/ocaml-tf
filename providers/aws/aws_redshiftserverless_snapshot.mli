@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_redshiftserverless_snapshot
+
+val aws_redshiftserverless_snapshot :
+  ?id:string prop ->
+  ?retention_period:float prop ->
+  namespace_name:string prop ->
+  snapshot_name:string prop ->
+  unit ->
+  aws_redshiftserverless_snapshot
+
+val yojson_of_aws_redshiftserverless_snapshot :
+  aws_redshiftserverless_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   accounts_with_provisioned_restore_access : string list prop;
@@ -18,7 +33,8 @@ type t = private {
   snapshot_name : string prop;
 }
 
-val aws_redshiftserverless_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?retention_period:float prop ->
   namespace_name:string prop ->

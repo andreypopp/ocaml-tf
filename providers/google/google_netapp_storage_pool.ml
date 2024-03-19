@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_netapp_storage_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_netapp_storage_pool__timeouts *)
+(** timeouts *)
 
 type google_netapp_storage_pool = {
   active_directory : string prop option; [@option]
@@ -42,10 +42,33 @@ using security identifiers for NFSv4.1 or principal names for kerberized NFSv4.1
   project : string prop option; [@option]  (** project *)
   service_level : string prop;
       (** Service level of the storage pool. Possible values: [PREMIUM, EXTREME, STANDARD] *)
-  timeouts : google_netapp_storage_pool__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_storage_pool *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_netapp_storage_pool ?active_directory ?description ?id
+    ?kms_config ?labels ?ldap_enabled ?project ?timeouts
+    ~capacity_gib ~location ~name ~network ~service_level () :
+    google_netapp_storage_pool =
+  {
+    active_directory;
+    capacity_gib;
+    description;
+    id;
+    kms_config;
+    labels;
+    ldap_enabled;
+    location;
+    name;
+    network;
+    project;
+    service_level;
+    timeouts;
+  }
 
 type t = {
   active_directory : string prop;
@@ -67,30 +90,17 @@ type t = {
   volume_count : float prop;
 }
 
-let google_netapp_storage_pool ?active_directory ?description ?id
+let register ?tf_module ?active_directory ?description ?id
     ?kms_config ?labels ?ldap_enabled ?project ?timeouts
     ~capacity_gib ~location ~name ~network ~service_level
     __resource_id =
   let __resource_type = "google_netapp_storage_pool" in
   let __resource =
-    ({
-       active_directory;
-       capacity_gib;
-       description;
-       id;
-       kms_config;
-       labels;
-       ldap_enabled;
-       location;
-       name;
-       network;
-       project;
-       service_level;
-       timeouts;
-     }
-      : google_netapp_storage_pool)
+    google_netapp_storage_pool ?active_directory ?description ?id
+      ?kms_config ?labels ?ldap_enabled ?project ?timeouts
+      ~capacity_gib ~location ~name ~network ~service_level ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_storage_pool __resource);
   let __resource_attributes =
     ({

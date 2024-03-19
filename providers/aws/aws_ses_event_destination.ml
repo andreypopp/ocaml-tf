@@ -4,26 +4,24 @@
 
 open! Tf.Prelude
 
-type aws_ses_event_destination__cloudwatch_destination = {
+type cloudwatch_destination = {
   default_value : string prop;  (** default_value *)
   dimension_name : string prop;  (** dimension_name *)
   value_source : string prop;  (** value_source *)
 }
 [@@deriving yojson_of]
-(** aws_ses_event_destination__cloudwatch_destination *)
+(** cloudwatch_destination *)
 
-type aws_ses_event_destination__kinesis_destination = {
+type kinesis_destination = {
   role_arn : string prop;  (** role_arn *)
   stream_arn : string prop;  (** stream_arn *)
 }
 [@@deriving yojson_of]
-(** aws_ses_event_destination__kinesis_destination *)
+(** kinesis_destination *)
 
-type aws_ses_event_destination__sns_destination = {
-  topic_arn : string prop;  (** topic_arn *)
-}
+type sns_destination = { topic_arn : string prop  (** topic_arn *) }
 [@@deriving yojson_of]
-(** aws_ses_event_destination__sns_destination *)
+(** sns_destination *)
 
 type aws_ses_event_destination = {
   configuration_set_name : string prop;
@@ -32,14 +30,37 @@ type aws_ses_event_destination = {
   id : string prop option; [@option]  (** id *)
   matching_types : string prop list;  (** matching_types *)
   name : string prop;  (** name *)
-  cloudwatch_destination :
-    aws_ses_event_destination__cloudwatch_destination list;
-  kinesis_destination :
-    aws_ses_event_destination__kinesis_destination list;
-  sns_destination : aws_ses_event_destination__sns_destination list;
+  cloudwatch_destination : cloudwatch_destination list;
+  kinesis_destination : kinesis_destination list;
+  sns_destination : sns_destination list;
 }
 [@@deriving yojson_of]
 (** aws_ses_event_destination *)
+
+let cloudwatch_destination ~default_value ~dimension_name
+    ~value_source () : cloudwatch_destination =
+  { default_value; dimension_name; value_source }
+
+let kinesis_destination ~role_arn ~stream_arn () :
+    kinesis_destination =
+  { role_arn; stream_arn }
+
+let sns_destination ~topic_arn () : sns_destination = { topic_arn }
+
+let aws_ses_event_destination ?enabled ?id ~configuration_set_name
+    ~matching_types ~name ~cloudwatch_destination
+    ~kinesis_destination ~sns_destination () :
+    aws_ses_event_destination =
+  {
+    configuration_set_name;
+    enabled;
+    id;
+    matching_types;
+    name;
+    cloudwatch_destination;
+    kinesis_destination;
+    sns_destination;
+  }
 
 type t = {
   arn : string prop;
@@ -50,24 +71,16 @@ type t = {
   name : string prop;
 }
 
-let aws_ses_event_destination ?enabled ?id ~configuration_set_name
+let register ?tf_module ?enabled ?id ~configuration_set_name
     ~matching_types ~name ~cloudwatch_destination
     ~kinesis_destination ~sns_destination __resource_id =
   let __resource_type = "aws_ses_event_destination" in
   let __resource =
-    ({
-       configuration_set_name;
-       enabled;
-       id;
-       matching_types;
-       name;
-       cloudwatch_destination;
-       kinesis_destination;
-       sns_destination;
-     }
-      : aws_ses_event_destination)
+    aws_ses_event_destination ?enabled ?id ~configuration_set_name
+      ~matching_types ~name ~cloudwatch_destination
+      ~kinesis_destination ~sns_destination ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_event_destination __resource);
   let __resource_attributes =
     ({

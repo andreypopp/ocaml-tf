@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_kusto_cosmosdb_data_connection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_kusto_cosmosdb_data_connection__timeouts *)
+(** timeouts *)
 
 type azurerm_kusto_cosmosdb_data_connection = {
   cosmosdb_container_id : string prop;  (** cosmosdb_container_id *)
@@ -24,10 +24,30 @@ type azurerm_kusto_cosmosdb_data_connection = {
   retrieval_start_date : string prop option; [@option]
       (** retrieval_start_date *)
   table_name : string prop;  (** table_name *)
-  timeouts : azurerm_kusto_cosmosdb_data_connection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_cosmosdb_data_connection *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_kusto_cosmosdb_data_connection ?id ?mapping_rule_name
+    ?retrieval_start_date ?timeouts ~cosmosdb_container_id
+    ~kusto_database_id ~location ~managed_identity_id ~name
+    ~table_name () : azurerm_kusto_cosmosdb_data_connection =
+  {
+    cosmosdb_container_id;
+    id;
+    kusto_database_id;
+    location;
+    managed_identity_id;
+    mapping_rule_name;
+    name;
+    retrieval_start_date;
+    table_name;
+    timeouts;
+  }
 
 type t = {
   cosmosdb_container_id : string prop;
@@ -41,27 +61,17 @@ type t = {
   table_name : string prop;
 }
 
-let azurerm_kusto_cosmosdb_data_connection ?id ?mapping_rule_name
-    ?retrieval_start_date ?timeouts ~cosmosdb_container_id
-    ~kusto_database_id ~location ~managed_identity_id ~name
-    ~table_name __resource_id =
+let register ?tf_module ?id ?mapping_rule_name ?retrieval_start_date
+    ?timeouts ~cosmosdb_container_id ~kusto_database_id ~location
+    ~managed_identity_id ~name ~table_name __resource_id =
   let __resource_type = "azurerm_kusto_cosmosdb_data_connection" in
   let __resource =
-    ({
-       cosmosdb_container_id;
-       id;
-       kusto_database_id;
-       location;
-       managed_identity_id;
-       mapping_rule_name;
-       name;
-       retrieval_start_date;
-       table_name;
-       timeouts;
-     }
-      : azurerm_kusto_cosmosdb_data_connection)
+    azurerm_kusto_cosmosdb_data_connection ?id ?mapping_rule_name
+      ?retrieval_start_date ?timeouts ~cosmosdb_container_id
+      ~kusto_database_id ~location ~managed_identity_id ~name
+      ~table_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_cosmosdb_data_connection __resource);
   let __resource_attributes =
     ({

@@ -4,30 +4,30 @@
 
 open! Tf.Prelude
 
-type azurerm_shared_image__identifier = {
+type identifier = {
   offer : string prop;  (** offer *)
   publisher : string prop;  (** publisher *)
   sku : string prop;  (** sku *)
 }
 [@@deriving yojson_of]
-(** azurerm_shared_image__identifier *)
+(** identifier *)
 
-type azurerm_shared_image__purchase_plan = {
+type purchase_plan = {
   name : string prop;  (** name *)
   product : string prop option; [@option]  (** product *)
   publisher : string prop option; [@option]  (** publisher *)
 }
 [@@deriving yojson_of]
-(** azurerm_shared_image__purchase_plan *)
+(** purchase_plan *)
 
-type azurerm_shared_image__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_shared_image__timeouts *)
+(** timeouts *)
 
 type azurerm_shared_image = {
   accelerated_network_support_enabled : bool prop option; [@option]
@@ -69,12 +69,62 @@ type azurerm_shared_image = {
       (** trusted_launch_enabled *)
   trusted_launch_supported : bool prop option; [@option]
       (** trusted_launch_supported *)
-  identifier : azurerm_shared_image__identifier list;
-  purchase_plan : azurerm_shared_image__purchase_plan list;
-  timeouts : azurerm_shared_image__timeouts option;
+  identifier : identifier list;
+  purchase_plan : purchase_plan list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_shared_image *)
+
+let identifier ~offer ~publisher ~sku () : identifier =
+  { offer; publisher; sku }
+
+let purchase_plan ?product ?publisher ~name () : purchase_plan =
+  { name; product; publisher }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_shared_image ?accelerated_network_support_enabled
+    ?architecture ?confidential_vm_enabled ?confidential_vm_supported
+    ?description ?disk_types_not_allowed ?end_of_life_date ?eula
+    ?hyper_v_generation ?id ?max_recommended_memory_in_gb
+    ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
+    ?min_recommended_vcpu_count ?privacy_statement_uri
+    ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
+    ?trusted_launch_supported ?timeouts ~gallery_name ~location ~name
+    ~os_type ~resource_group_name ~identifier ~purchase_plan () :
+    azurerm_shared_image =
+  {
+    accelerated_network_support_enabled;
+    architecture;
+    confidential_vm_enabled;
+    confidential_vm_supported;
+    description;
+    disk_types_not_allowed;
+    end_of_life_date;
+    eula;
+    gallery_name;
+    hyper_v_generation;
+    id;
+    location;
+    max_recommended_memory_in_gb;
+    max_recommended_vcpu_count;
+    min_recommended_memory_in_gb;
+    min_recommended_vcpu_count;
+    name;
+    os_type;
+    privacy_statement_uri;
+    release_note_uri;
+    resource_group_name;
+    specialized;
+    tags;
+    trusted_launch_enabled;
+    trusted_launch_supported;
+    identifier;
+    purchase_plan;
+    timeouts;
+  }
 
 type t = {
   accelerated_network_support_enabled : bool prop;
@@ -104,7 +154,7 @@ type t = {
   trusted_launch_supported : bool prop;
 }
 
-let azurerm_shared_image ?accelerated_network_support_enabled
+let register ?tf_module ?accelerated_network_support_enabled
     ?architecture ?confidential_vm_enabled ?confidential_vm_supported
     ?description ?disk_types_not_allowed ?end_of_life_date ?eula
     ?hyper_v_generation ?id ?max_recommended_memory_in_gb
@@ -116,39 +166,18 @@ let azurerm_shared_image ?accelerated_network_support_enabled
     __resource_id =
   let __resource_type = "azurerm_shared_image" in
   let __resource =
-    ({
-       accelerated_network_support_enabled;
-       architecture;
-       confidential_vm_enabled;
-       confidential_vm_supported;
-       description;
-       disk_types_not_allowed;
-       end_of_life_date;
-       eula;
-       gallery_name;
-       hyper_v_generation;
-       id;
-       location;
-       max_recommended_memory_in_gb;
-       max_recommended_vcpu_count;
-       min_recommended_memory_in_gb;
-       min_recommended_vcpu_count;
-       name;
-       os_type;
-       privacy_statement_uri;
-       release_note_uri;
-       resource_group_name;
-       specialized;
-       tags;
-       trusted_launch_enabled;
-       trusted_launch_supported;
-       identifier;
-       purchase_plan;
-       timeouts;
-     }
-      : azurerm_shared_image)
+    azurerm_shared_image ?accelerated_network_support_enabled
+      ?architecture ?confidential_vm_enabled
+      ?confidential_vm_supported ?description ?disk_types_not_allowed
+      ?end_of_life_date ?eula ?hyper_v_generation ?id
+      ?max_recommended_memory_in_gb ?max_recommended_vcpu_count
+      ?min_recommended_memory_in_gb ?min_recommended_vcpu_count
+      ?privacy_statement_uri ?release_note_uri ?specialized ?tags
+      ?trusted_launch_enabled ?trusted_launch_supported ?timeouts
+      ~gallery_name ~location ~name ~os_type ~resource_group_name
+      ~identifier ~purchase_plan ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_shared_image __resource);
   let __resource_attributes =
     ({

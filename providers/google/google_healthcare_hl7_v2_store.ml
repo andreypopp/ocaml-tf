@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_healthcare_hl7_v2_store__notification_config = {
+type notification_config = {
   pubsub_topic : string prop;
       (** The Cloud Pub/Sub topic that notifications of changes are published on. Supplied by the client.
 PubsubMessage.Data will contain the resource name. PubsubMessage.MessageId is the ID of this message.
@@ -16,7 +16,7 @@ Cloud Pub/Sub topic. Not having adequate permissions will cause the calls that s
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_healthcare_hl7_v2_store__notification_configs = {
+type notification_configs = {
   filter : string prop option; [@option]
       (** Restricts notifications sent for messages matching a filter. If this is empty, all messages
 are matched. Syntax: https://cloud.google.com/appengine/docs/standard/python/search/query_strings
@@ -44,7 +44,7 @@ If a notification cannot be published to Cloud Pub/Sub, errors will be logged to
 message (both Ingest & Create) on the corresponding notification destination. Only the message name
 is sent as part of the notification. Supplied by the client. *)
 
-type google_healthcare_hl7_v2_store__parser_config = {
+type parser_config = {
   allow_null_header : bool prop option; [@option]
       (** Determines whether messages with no header are allowed. *)
   schema : string prop option; [@option]
@@ -60,13 +60,13 @@ A base64-encoded string. *)
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_healthcare_hl7_v2_store__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_healthcare_hl7_v2_store__timeouts *)
+(** timeouts *)
 
 type google_healthcare_hl7_v2_store = {
   dataset : string prop;
@@ -96,15 +96,43 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 ** Changing this property may recreate the Hl7v2 store (removing all data) ** *)
   reject_duplicate_message : bool prop option; [@option]
       (** Determines whether duplicate messages are allowed. *)
-  notification_config :
-    google_healthcare_hl7_v2_store__notification_config list;
-  notification_configs :
-    google_healthcare_hl7_v2_store__notification_configs list;
-  parser_config : google_healthcare_hl7_v2_store__parser_config list;
-  timeouts : google_healthcare_hl7_v2_store__timeouts option;
+  notification_config : notification_config list;
+  notification_configs : notification_configs list;
+  parser_config : parser_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_healthcare_hl7_v2_store *)
+
+let notification_config ~pubsub_topic () : notification_config =
+  { pubsub_topic }
+
+let notification_configs ?filter ~pubsub_topic () :
+    notification_configs =
+  { filter; pubsub_topic }
+
+let parser_config ?allow_null_header ?schema ?segment_terminator
+    ?version () : parser_config =
+  { allow_null_header; schema; segment_terminator; version }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_healthcare_hl7_v2_store ?id ?labels
+    ?reject_duplicate_message ?timeouts ~dataset ~name
+    ~notification_config ~notification_configs ~parser_config () :
+    google_healthcare_hl7_v2_store =
+  {
+    dataset;
+    id;
+    labels;
+    name;
+    reject_duplicate_message;
+    notification_config;
+    notification_configs;
+    parser_config;
+    timeouts;
+  }
 
 type t = {
   dataset : string prop;
@@ -117,26 +145,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_healthcare_hl7_v2_store ?id ?labels
-    ?reject_duplicate_message ?timeouts ~dataset ~name
-    ~notification_config ~notification_configs ~parser_config
-    __resource_id =
+let register ?tf_module ?id ?labels ?reject_duplicate_message
+    ?timeouts ~dataset ~name ~notification_config
+    ~notification_configs ~parser_config __resource_id =
   let __resource_type = "google_healthcare_hl7_v2_store" in
   let __resource =
-    ({
-       dataset;
-       id;
-       labels;
-       name;
-       reject_duplicate_message;
-       notification_config;
-       notification_configs;
-       parser_config;
-       timeouts;
-     }
-      : google_healthcare_hl7_v2_store)
+    google_healthcare_hl7_v2_store ?id ?labels
+      ?reject_duplicate_message ?timeouts ~dataset ~name
+      ~notification_config ~notification_configs ~parser_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_hl7_v2_store __resource);
   let __resource_attributes =
     ({

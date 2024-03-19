@@ -2,10 +2,51 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_azure_file_storage__key_vault_password
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_data_factory_linked_service_azure_file_storage__timeouts
+type key_vault_password
+
+val key_vault_password :
+  linked_service_name:string prop ->
+  secret_name:string prop ->
+  unit ->
+  key_vault_password
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_data_factory_linked_service_azure_file_storage
+
+val azurerm_data_factory_linked_service_azure_file_storage :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?file_share:string prop ->
+  ?host:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?password:string prop ->
+  ?user_id:string prop ->
+  ?timeouts:timeouts ->
+  connection_string:string prop ->
+  data_factory_id:string prop ->
+  name:string prop ->
+  key_vault_password:key_vault_password list ->
+  unit ->
+  azurerm_data_factory_linked_service_azure_file_storage
+
+val yojson_of_azurerm_data_factory_linked_service_azure_file_storage :
+  azurerm_data_factory_linked_service_azure_file_storage -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   additional_properties : (string * string) list prop;
@@ -23,7 +64,8 @@ type t = private {
   user_id : string prop;
 }
 
-val azurerm_data_factory_linked_service_azure_file_storage :
+val register :
+  ?tf_module:tf_module ->
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
   ?description:string prop ->
@@ -34,13 +76,10 @@ val azurerm_data_factory_linked_service_azure_file_storage :
   ?parameters:(string * string prop) list ->
   ?password:string prop ->
   ?user_id:string prop ->
-  ?timeouts:
-    azurerm_data_factory_linked_service_azure_file_storage__timeouts ->
+  ?timeouts:timeouts ->
   connection_string:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_password:
-    azurerm_data_factory_linked_service_azure_file_storage__key_vault_password
-    list ->
+  key_vault_password:key_vault_password list ->
   string ->
   t

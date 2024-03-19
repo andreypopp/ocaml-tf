@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_macie2_member__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_macie2_member
+
+val aws_macie2_member :
+  ?id:string prop ->
+  ?invitation_disable_email_notification:bool prop ->
+  ?invitation_message:string prop ->
+  ?invite:bool prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  account_id:string prop ->
+  email:string prop ->
+  unit ->
+  aws_macie2_member
+
+val yojson_of_aws_macie2_member : aws_macie2_member -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -23,7 +47,8 @@ type t = private {
   updated_at : string prop;
 }
 
-val aws_macie2_member :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?invitation_disable_email_notification:bool prop ->
   ?invitation_message:string prop ->
@@ -31,7 +56,7 @@ val aws_macie2_member :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_macie2_member__timeouts ->
+  ?timeouts:timeouts ->
   account_id:string prop ->
   email:string prop ->
   string ->

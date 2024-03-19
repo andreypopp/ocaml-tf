@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_healthcare_fhir_store__notification_config = {
+type notification_config = {
   pubsub_topic : string prop;
       (** The Cloud Pub/Sub topic that notifications of changes are published on. Supplied by the client.
 PubsubMessage.Data will contain the resource name. PubsubMessage.MessageId is the ID of this message.
@@ -16,7 +16,7 @@ Cloud Pub/Sub topic. Not having adequate permissions will cause the calls that s
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_healthcare_fhir_store__stream_configs__bigquery_destination__schema_config__last_updated_partition_config = {
+type stream_configs__bigquery_destination__schema_config__last_updated_partition_config = {
   expiration_ms : string prop option; [@option]
       (** Number of milliseconds for which to keep the storage for a partition. *)
   type_ : string prop; [@key "type"]
@@ -25,7 +25,7 @@ type google_healthcare_fhir_store__stream_configs__bigquery_destination__schema_
 [@@deriving yojson_of]
 (** The configuration for exported BigQuery tables to be partitioned by FHIR resource's last updated time column. *)
 
-type google_healthcare_fhir_store__stream_configs__bigquery_destination__schema_config = {
+type stream_configs__bigquery_destination__schema_config = {
   recursive_structure_depth : float prop;
       (** The depth for all recursive structures in the output analytics schema. For example, concept in the CodeSystem
 resource is a recursive structure; when the depth is 2, the CodeSystem table will have a column called
@@ -38,18 +38,17 @@ value 2. The maximum depth allowed is 5. *)
  * ANALYTICS_V2: Analytics V2, similar to schema defined by the FHIR community, with added support for extensions with one or more occurrences and contained resources in stringified JSON.
  * LOSSLESS: A data-driven schema generated from the fields present in the FHIR data being exported, with no additional simplification. Default value: ANALYTICS Possible values: [ANALYTICS, ANALYTICS_V2, LOSSLESS] *)
   last_updated_partition_config :
-    google_healthcare_fhir_store__stream_configs__bigquery_destination__schema_config__last_updated_partition_config
+    stream_configs__bigquery_destination__schema_config__last_updated_partition_config
     list;
 }
 [@@deriving yojson_of]
 (** The configuration for the exported BigQuery schema. *)
 
-type google_healthcare_fhir_store__stream_configs__bigquery_destination = {
+type stream_configs__bigquery_destination = {
   dataset_uri : string prop;
       (** BigQuery URI to a dataset, up to 2000 characters long, in the format bq://projectId.bqDatasetId *)
   schema_config :
-    google_healthcare_fhir_store__stream_configs__bigquery_destination__schema_config
-    list;
+    stream_configs__bigquery_destination__schema_config list;
 }
 [@@deriving yojson_of]
 (** The destination BigQuery structure that contains both the dataset location and corresponding schema config.
@@ -58,14 +57,12 @@ are named after the resource types, e.g. Patient, Observation. When there is no 
 resource type, the server attempts to create one.
 See the [streaming config reference](https://cloud.google.com/healthcare/docs/reference/rest/v1beta1/projects.locations.datasets.fhirStores#streamconfig) for more details. *)
 
-type google_healthcare_fhir_store__stream_configs = {
+type stream_configs = {
   resource_types : string prop list option; [@option]
       (** Supply a FHIR resource type (such as Patient or Observation). See
 https://www.hl7.org/fhir/valueset-resource-types.html for a list of all FHIR resource types. The server treats
 an empty list as an intent to stream all the supported resource types in this FHIR store. *)
-  bigquery_destination :
-    google_healthcare_fhir_store__stream_configs__bigquery_destination
-    list;
+  bigquery_destination : stream_configs__bigquery_destination list;
 }
 [@@deriving yojson_of]
 (** A list of streaming configs that configure the destinations of streaming export for every resource mutation in
@@ -75,13 +72,13 @@ from the list, the server stops streaming to that location. Before adding a new 
 bigquery.dataEditor role to your project's Cloud Healthcare Service Agent service account. Some lag (typically on
 the order of dozens of seconds) is expected before the results show up in the streaming destination. *)
 
-type google_healthcare_fhir_store__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_healthcare_fhir_store__timeouts *)
+(** timeouts *)
 
 type google_healthcare_fhir_store = {
   complex_data_type_reference_parsing : string prop option; [@option]
@@ -149,13 +146,64 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 ** Changing this property may recreate the FHIR store (removing all data) ** *)
   version : string prop;
       (** The FHIR specification version. Possible values: [DSTU2, STU3, R4] *)
-  notification_config :
-    google_healthcare_fhir_store__notification_config list;
-  stream_configs : google_healthcare_fhir_store__stream_configs list;
-  timeouts : google_healthcare_fhir_store__timeouts option;
+  notification_config : notification_config list;
+  stream_configs : stream_configs list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_healthcare_fhir_store *)
+
+let notification_config ~pubsub_topic () : notification_config =
+  { pubsub_topic }
+
+let stream_configs__bigquery_destination__schema_config__last_updated_partition_config
+    ?expiration_ms ~type_ () :
+    stream_configs__bigquery_destination__schema_config__last_updated_partition_config
+    =
+  { expiration_ms; type_ }
+
+let stream_configs__bigquery_destination__schema_config ?schema_type
+    ~recursive_structure_depth ~last_updated_partition_config () :
+    stream_configs__bigquery_destination__schema_config =
+  {
+    recursive_structure_depth;
+    schema_type;
+    last_updated_partition_config;
+  }
+
+let stream_configs__bigquery_destination ~dataset_uri ~schema_config
+    () : stream_configs__bigquery_destination =
+  { dataset_uri; schema_config }
+
+let stream_configs ?resource_types ~bigquery_destination () :
+    stream_configs =
+  { resource_types; bigquery_destination }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_healthcare_fhir_store ?complex_data_type_reference_parsing
+    ?default_search_handling_strict ?disable_referential_integrity
+    ?disable_resource_versioning ?enable_history_import
+    ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
+    ~version ~notification_config ~stream_configs () :
+    google_healthcare_fhir_store =
+  {
+    complex_data_type_reference_parsing;
+    dataset;
+    default_search_handling_strict;
+    disable_referential_integrity;
+    disable_resource_versioning;
+    enable_history_import;
+    enable_update_create;
+    id;
+    labels;
+    name;
+    version;
+    notification_config;
+    stream_configs;
+    timeouts;
+  }
 
 type t = {
   complex_data_type_reference_parsing : string prop;
@@ -174,32 +222,20 @@ type t = {
   version : string prop;
 }
 
-let google_healthcare_fhir_store ?complex_data_type_reference_parsing
+let register ?tf_module ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
     ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
     ~version ~notification_config ~stream_configs __resource_id =
   let __resource_type = "google_healthcare_fhir_store" in
   let __resource =
-    ({
-       complex_data_type_reference_parsing;
-       dataset;
-       default_search_handling_strict;
-       disable_referential_integrity;
-       disable_resource_versioning;
-       enable_history_import;
-       enable_update_create;
-       id;
-       labels;
-       name;
-       version;
-       notification_config;
-       stream_configs;
-       timeouts;
-     }
-      : google_healthcare_fhir_store)
+    google_healthcare_fhir_store ?complex_data_type_reference_parsing
+      ?default_search_handling_strict ?disable_referential_integrity
+      ?disable_resource_versioning ?enable_history_import
+      ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
+      ~version ~notification_config ~stream_configs ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_fhir_store __resource);
   let __resource_attributes =
     ({

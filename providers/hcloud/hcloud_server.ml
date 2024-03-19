@@ -4,29 +4,28 @@
 
 open! Tf.Prelude
 
-type hcloud_server__network = {
+type network = {
   alias_ips : string prop list option; [@option]  (** alias_ips *)
   ip : string prop option; [@option]  (** ip *)
-  mac_address : string prop;  (** mac_address *)
   network_id : float prop;  (** network_id *)
 }
 [@@deriving yojson_of]
-(** hcloud_server__network *)
+(** network *)
 
-type hcloud_server__public_net = {
+type public_net = {
   ipv4 : float prop option; [@option]  (** ipv4 *)
   ipv4_enabled : bool prop option; [@option]  (** ipv4_enabled *)
   ipv6 : float prop option; [@option]  (** ipv6 *)
   ipv6_enabled : bool prop option; [@option]  (** ipv6_enabled *)
 }
 [@@deriving yojson_of]
-(** hcloud_server__public_net *)
+(** public_net *)
 
-type hcloud_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** hcloud_server__timeouts *)
+(** timeouts *)
 
 type hcloud_server = {
   allow_deprecated_images : bool prop option; [@option]
@@ -57,12 +56,53 @@ type hcloud_server = {
       (** shutdown_before_deletion *)
   ssh_keys : string prop list option; [@option]  (** ssh_keys *)
   user_data : string prop option; [@option]  (** user_data *)
-  network : hcloud_server__network list;
-  public_net : hcloud_server__public_net list;
-  timeouts : hcloud_server__timeouts option;
+  network : network list;
+  public_net : public_net list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** hcloud_server *)
+
+let network ?alias_ips ?ip ~network_id () : network =
+  { alias_ips; ip; network_id }
+
+let public_net ?ipv4 ?ipv4_enabled ?ipv6 ?ipv6_enabled () :
+    public_net =
+  { ipv4; ipv4_enabled; ipv6; ipv6_enabled }
+
+let timeouts ?create () : timeouts = { create }
+
+let hcloud_server ?allow_deprecated_images ?backups ?datacenter
+    ?delete_protection ?firewall_ids ?id ?ignore_remote_firewall_ids
+    ?image ?iso ?keep_disk ?labels ?location ?placement_group_id
+    ?rebuild_protection ?rescue ?shutdown_before_deletion ?ssh_keys
+    ?user_data ?timeouts ~name ~server_type ~network ~public_net () :
+    hcloud_server =
+  {
+    allow_deprecated_images;
+    backups;
+    datacenter;
+    delete_protection;
+    firewall_ids;
+    id;
+    ignore_remote_firewall_ids;
+    image;
+    iso;
+    keep_disk;
+    labels;
+    location;
+    name;
+    placement_group_id;
+    rebuild_protection;
+    rescue;
+    server_type;
+    shutdown_before_deletion;
+    ssh_keys;
+    user_data;
+    network;
+    public_net;
+    timeouts;
+  }
 
 type t = {
   allow_deprecated_images : bool prop;
@@ -93,7 +133,7 @@ type t = {
   user_data : string prop;
 }
 
-let hcloud_server ?allow_deprecated_images ?backups ?datacenter
+let register ?tf_module ?allow_deprecated_images ?backups ?datacenter
     ?delete_protection ?firewall_ids ?id ?ignore_remote_firewall_ids
     ?image ?iso ?keep_disk ?labels ?location ?placement_group_id
     ?rebuild_protection ?rescue ?shutdown_before_deletion ?ssh_keys
@@ -101,34 +141,14 @@ let hcloud_server ?allow_deprecated_images ?backups ?datacenter
     __resource_id =
   let __resource_type = "hcloud_server" in
   let __resource =
-    ({
-       allow_deprecated_images;
-       backups;
-       datacenter;
-       delete_protection;
-       firewall_ids;
-       id;
-       ignore_remote_firewall_ids;
-       image;
-       iso;
-       keep_disk;
-       labels;
-       location;
-       name;
-       placement_group_id;
-       rebuild_protection;
-       rescue;
-       server_type;
-       shutdown_before_deletion;
-       ssh_keys;
-       user_data;
-       network;
-       public_net;
-       timeouts;
-     }
-      : hcloud_server)
+    hcloud_server ?allow_deprecated_images ?backups ?datacenter
+      ?delete_protection ?firewall_ids ?id
+      ?ignore_remote_firewall_ids ?image ?iso ?keep_disk ?labels
+      ?location ?placement_group_id ?rebuild_protection ?rescue
+      ?shutdown_before_deletion ?ssh_keys ?user_data ?timeouts ~name
+      ~server_type ~network ~public_net ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_server __resource);
   let __resource_attributes =
     ({

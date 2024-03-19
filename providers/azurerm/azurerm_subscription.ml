@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_subscription__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_subscription__timeouts *)
+(** timeouts *)
 
 type azurerm_subscription = {
   alias : string prop option; [@option]
@@ -26,10 +26,27 @@ type azurerm_subscription = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   workload : string prop option; [@option]
       (** The workload type for the Subscription. Possible values are `Production` (default) and `DevTest`. *)
-  timeouts : azurerm_subscription__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_subscription *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_subscription ?alias ?billing_scope_id ?id
+    ?subscription_id ?tags ?workload ?timeouts ~subscription_name ()
+    : azurerm_subscription =
+  {
+    alias;
+    billing_scope_id;
+    id;
+    subscription_id;
+    subscription_name;
+    tags;
+    workload;
+    timeouts;
+  }
 
 type t = {
   alias : string prop;
@@ -42,24 +59,15 @@ type t = {
   workload : string prop;
 }
 
-let azurerm_subscription ?alias ?billing_scope_id ?id
-    ?subscription_id ?tags ?workload ?timeouts ~subscription_name
-    __resource_id =
+let register ?tf_module ?alias ?billing_scope_id ?id ?subscription_id
+    ?tags ?workload ?timeouts ~subscription_name __resource_id =
   let __resource_type = "azurerm_subscription" in
   let __resource =
-    ({
-       alias;
-       billing_scope_id;
-       id;
-       subscription_id;
-       subscription_name;
-       tags;
-       workload;
-       timeouts;
-     }
-      : azurerm_subscription)
+    azurerm_subscription ?alias ?billing_scope_id ?id
+      ?subscription_id ?tags ?workload ?timeouts ~subscription_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_subscription __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_volume_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_volume_attachment
+
+val aws_volume_attachment :
+  ?force_detach:bool prop ->
+  ?id:string prop ->
+  ?skip_destroy:bool prop ->
+  ?stop_instance_before_detaching:bool prop ->
+  ?timeouts:timeouts ->
+  device_name:string prop ->
+  instance_id:string prop ->
+  volume_id:string prop ->
+  unit ->
+  aws_volume_attachment
+
+val yojson_of_aws_volume_attachment : aws_volume_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   device_name : string prop;
@@ -15,12 +37,13 @@ type t = private {
   volume_id : string prop;
 }
 
-val aws_volume_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?force_detach:bool prop ->
   ?id:string prop ->
   ?skip_destroy:bool prop ->
   ?stop_instance_before_detaching:bool prop ->
-  ?timeouts:aws_volume_attachment__timeouts ->
+  ?timeouts:timeouts ->
   device_name:string prop ->
   instance_id:string prop ->
   volume_id:string prop ->

@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type aws_servicecatalog_principal_portfolio_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type aws_servicecatalog_principal_portfolio_association
+
+val aws_servicecatalog_principal_portfolio_association :
+  ?accept_language:string prop ->
+  ?id:string prop ->
+  ?principal_type:string prop ->
+  ?timeouts:timeouts ->
+  portfolio_id:string prop ->
+  principal_arn:string prop ->
+  unit ->
+  aws_servicecatalog_principal_portfolio_association
+
+val yojson_of_aws_servicecatalog_principal_portfolio_association :
+  aws_servicecatalog_principal_portfolio_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   accept_language : string prop;
@@ -13,12 +38,12 @@ type t = private {
   principal_type : string prop;
 }
 
-val aws_servicecatalog_principal_portfolio_association :
+val register :
+  ?tf_module:tf_module ->
   ?accept_language:string prop ->
   ?id:string prop ->
   ?principal_type:string prop ->
-  ?timeouts:
-    aws_servicecatalog_principal_portfolio_association__timeouts ->
+  ?timeouts:timeouts ->
   portfolio_id:string prop ->
   principal_arn:string prop ->
   string ->

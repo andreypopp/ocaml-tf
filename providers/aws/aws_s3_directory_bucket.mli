@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_s3_directory_bucket__location
+(** RESOURCE SERIALIZATION *)
+
+type location
+
+val location :
+  ?type_:string prop -> name:string prop -> unit -> location
+
 type aws_s3_directory_bucket
+
+val aws_s3_directory_bucket :
+  ?data_redundancy:string prop ->
+  ?force_destroy:bool prop ->
+  ?type_:string prop ->
+  bucket:string prop ->
+  location:location list ->
+  unit ->
+  aws_s3_directory_bucket
+
+val yojson_of_aws_s3_directory_bucket :
+  aws_s3_directory_bucket -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,11 +34,12 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_s3_directory_bucket :
+val register :
+  ?tf_module:tf_module ->
   ?data_redundancy:string prop ->
   ?force_destroy:bool prop ->
   ?type_:string prop ->
   bucket:string prop ->
-  location:aws_s3_directory_bucket__location list ->
+  location:location list ->
   string ->
   t

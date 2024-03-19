@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_kms_custom_key_store__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_kms_custom_key_store__timeouts *)
+(** timeouts *)
 
 type aws_kms_custom_key_store = {
   cloud_hsm_cluster_id : string prop;  (** cloud_hsm_cluster_id *)
@@ -19,10 +19,25 @@ type aws_kms_custom_key_store = {
   key_store_password : string prop;  (** key_store_password *)
   trust_anchor_certificate : string prop;
       (** trust_anchor_certificate *)
-  timeouts : aws_kms_custom_key_store__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_kms_custom_key_store *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_kms_custom_key_store ?id ?timeouts ~cloud_hsm_cluster_id
+    ~custom_key_store_name ~key_store_password
+    ~trust_anchor_certificate () : aws_kms_custom_key_store =
+  {
+    cloud_hsm_cluster_id;
+    custom_key_store_name;
+    id;
+    key_store_password;
+    trust_anchor_certificate;
+    timeouts;
+  }
 
 type t = {
   cloud_hsm_cluster_id : string prop;
@@ -32,22 +47,16 @@ type t = {
   trust_anchor_certificate : string prop;
 }
 
-let aws_kms_custom_key_store ?id ?timeouts ~cloud_hsm_cluster_id
+let register ?tf_module ?id ?timeouts ~cloud_hsm_cluster_id
     ~custom_key_store_name ~key_store_password
     ~trust_anchor_certificate __resource_id =
   let __resource_type = "aws_kms_custom_key_store" in
   let __resource =
-    ({
-       cloud_hsm_cluster_id;
-       custom_key_store_name;
-       id;
-       key_store_password;
-       trust_anchor_certificate;
-       timeouts;
-     }
-      : aws_kms_custom_key_store)
+    aws_kms_custom_key_store ?id ?timeouts ~cloud_hsm_cluster_id
+      ~custom_key_store_name ~key_store_password
+      ~trust_anchor_certificate ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kms_custom_key_store __resource);
   let __resource_attributes =
     ({

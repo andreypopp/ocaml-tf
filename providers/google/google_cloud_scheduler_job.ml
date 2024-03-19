@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_cloud_scheduler_job__app_engine_http_target__app_engine_routing = {
+type app_engine_http_target__app_engine_routing = {
   instance : string prop option; [@option]
       (** App instance.
 By default, the job is sent to an instance which is available when the job is attempted. *)
@@ -18,7 +18,7 @@ By default, the job is sent to the version which is the default version when the
 [@@deriving yojson_of]
 (** App Engine Routing setting for the job. *)
 
-type google_cloud_scheduler_job__app_engine_http_target = {
+type app_engine_http_target = {
   body : string prop option; [@option]
       (** HTTP request body.
 A request body is allowed only if the HTTP method is POST or PUT.
@@ -38,15 +38,14 @@ It can contain a path, query string arguments, and \# fragments.
 If the relative URL is empty, then the root path / will be used.
 No spaces are allowed, and the maximum length allowed is 2083 characters *)
   app_engine_routing :
-    google_cloud_scheduler_job__app_engine_http_target__app_engine_routing
-    list;
+    app_engine_http_target__app_engine_routing list;
 }
 [@@deriving yojson_of]
 (** App Engine HTTP target.
 If the job providers a App Engine HTTP target the cron will
 send a request to the service instance *)
 
-type google_cloud_scheduler_job__http_target__oauth_token = {
+type http_target__oauth_token = {
   scope : string prop option; [@option]
       (** OAuth scope to be used for generating OAuth access token. If not specified,
 https://www.googleapis.com/auth/cloud-platform will be used. *)
@@ -58,7 +57,7 @@ The service account must be within the same project as the job. *)
 (** Contains information needed for generating an OAuth token.
 This type of authorization should be used when sending requests to a GCP endpoint. *)
 
-type google_cloud_scheduler_job__http_target__oidc_token = {
+type http_target__oidc_token = {
   audience : string prop option; [@option]
       (** Audience to be used when generating OIDC token. If not specified,
 the URI specified in target will be used. *)
@@ -70,7 +69,7 @@ The service account must be within the same project as the job. *)
 (** Contains information needed for generating an OpenID Connect token.
 This type of authorization should be used when sending requests to third party endpoints or Cloud Run. *)
 
-type google_cloud_scheduler_job__http_target = {
+type http_target = {
   body : string prop option; [@option]
       (** HTTP request body.
 A request body is allowed only if the HTTP method is POST, PUT, or PATCH.
@@ -84,17 +83,15 @@ Repeated headers are not supported, but a header value can contain commas. *)
       (** Which HTTP method to use for the request. *)
   uri : string prop;
       (** The full URI path that the request will be sent to. *)
-  oauth_token :
-    google_cloud_scheduler_job__http_target__oauth_token list;
-  oidc_token :
-    google_cloud_scheduler_job__http_target__oidc_token list;
+  oauth_token : http_target__oauth_token list;
+  oidc_token : http_target__oidc_token list;
 }
 [@@deriving yojson_of]
 (** HTTP target.
 If the job providers a http_target the cron will
 send a request to the targeted url *)
 
-type google_cloud_scheduler_job__pubsub_target = {
+type pubsub_target = {
   attributes : (string * string prop) list option; [@option]
       (** Attributes for PubsubMessage.
 Pubsub message must contain either non-empty data, or at least one attribute. *)
@@ -114,7 +111,7 @@ PublishRequest.name, e.g. 'projects/my-project/topics/my-topic'. *)
 If the job providers a Pub/Sub target the cron will publish
 a message to the provided topic *)
 
-type google_cloud_scheduler_job__retry_config = {
+type retry_config = {
   max_backoff_duration : string prop option; [@option]
       (** The maximum amount of time to wait before retrying a job after it fails.
 A duration in seconds with up to nine fractional digits, terminated by 's'. *)
@@ -140,13 +137,13 @@ Values greater than 5 and negative values are not allowed. *)
 meaning that an acknowledgement is not received from the handler,
 then it will be retried with exponential backoff according to the settings *)
 
-type google_cloud_scheduler_job__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_cloud_scheduler_job__timeouts *)
+(** timeouts *)
 
 type google_cloud_scheduler_job = {
   attempt_deadline : string prop option; [@option]
@@ -173,15 +170,72 @@ This string must not contain more than 500 characters. *)
   time_zone : string prop option; [@option]
       (** Specifies the time zone to be used in interpreting schedule.
 The value of this field must be a time zone name from the tz database. *)
-  app_engine_http_target :
-    google_cloud_scheduler_job__app_engine_http_target list;
-  http_target : google_cloud_scheduler_job__http_target list;
-  pubsub_target : google_cloud_scheduler_job__pubsub_target list;
-  retry_config : google_cloud_scheduler_job__retry_config list;
-  timeouts : google_cloud_scheduler_job__timeouts option;
+  app_engine_http_target : app_engine_http_target list;
+  http_target : http_target list;
+  pubsub_target : pubsub_target list;
+  retry_config : retry_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_cloud_scheduler_job *)
+
+let app_engine_http_target__app_engine_routing ?instance ?service
+    ?version () : app_engine_http_target__app_engine_routing =
+  { instance; service; version }
+
+let app_engine_http_target ?body ?headers ?http_method ~relative_uri
+    ~app_engine_routing () : app_engine_http_target =
+  { body; headers; http_method; relative_uri; app_engine_routing }
+
+let http_target__oauth_token ?scope ~service_account_email () :
+    http_target__oauth_token =
+  { scope; service_account_email }
+
+let http_target__oidc_token ?audience ~service_account_email () :
+    http_target__oidc_token =
+  { audience; service_account_email }
+
+let http_target ?body ?headers ?http_method ~uri ~oauth_token
+    ~oidc_token () : http_target =
+  { body; headers; http_method; uri; oauth_token; oidc_token }
+
+let pubsub_target ?attributes ?data ~topic_name () : pubsub_target =
+  { attributes; data; topic_name }
+
+let retry_config ?max_backoff_duration ?max_doublings
+    ?max_retry_duration ?min_backoff_duration ?retry_count () :
+    retry_config =
+  {
+    max_backoff_duration;
+    max_doublings;
+    max_retry_duration;
+    min_backoff_duration;
+    retry_count;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_cloud_scheduler_job ?attempt_deadline ?description ?id
+    ?paused ?project ?region ?schedule ?time_zone ?timeouts ~name
+    ~app_engine_http_target ~http_target ~pubsub_target ~retry_config
+    () : google_cloud_scheduler_job =
+  {
+    attempt_deadline;
+    description;
+    id;
+    name;
+    paused;
+    project;
+    region;
+    schedule;
+    time_zone;
+    app_engine_http_target;
+    http_target;
+    pubsub_target;
+    retry_config;
+    timeouts;
+  }
 
 type t = {
   attempt_deadline : string prop;
@@ -196,31 +250,18 @@ type t = {
   time_zone : string prop;
 }
 
-let google_cloud_scheduler_job ?attempt_deadline ?description ?id
-    ?paused ?project ?region ?schedule ?time_zone ?timeouts ~name
+let register ?tf_module ?attempt_deadline ?description ?id ?paused
+    ?project ?region ?schedule ?time_zone ?timeouts ~name
     ~app_engine_http_target ~http_target ~pubsub_target ~retry_config
     __resource_id =
   let __resource_type = "google_cloud_scheduler_job" in
   let __resource =
-    ({
-       attempt_deadline;
-       description;
-       id;
-       name;
-       paused;
-       project;
-       region;
-       schedule;
-       time_zone;
-       app_engine_http_target;
-       http_target;
-       pubsub_target;
-       retry_config;
-       timeouts;
-     }
-      : google_cloud_scheduler_job)
+    google_cloud_scheduler_job ?attempt_deadline ?description ?id
+      ?paused ?project ?region ?schedule ?time_zone ?timeouts ~name
+      ~app_engine_http_target ~http_target ~pubsub_target
+      ~retry_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_scheduler_job __resource);
   let __resource_attributes =
     ({

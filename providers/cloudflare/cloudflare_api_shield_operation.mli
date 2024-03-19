@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_api_shield_operation
+
+val cloudflare_api_shield_operation :
+  ?id:string prop ->
+  endpoint:string prop ->
+  host:string prop ->
+  method_:string prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_api_shield_operation
+
+val yojson_of_cloudflare_api_shield_operation :
+  cloudflare_api_shield_operation -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   endpoint : string prop;
@@ -12,7 +28,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_api_shield_operation :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   endpoint:string prop ->
   host:string prop ->

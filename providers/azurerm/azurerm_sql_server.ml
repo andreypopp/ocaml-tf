@@ -4,15 +4,11 @@
 
 open! Tf.Prelude
 
-type azurerm_sql_server__identity = {
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
-  type_ : string prop; [@key "type"]  (** type *)
-}
+type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
-(** azurerm_sql_server__identity *)
+(** identity *)
 
-type azurerm_sql_server__threat_detection_policy = {
+type threat_detection_policy = {
   disabled_alerts : string prop list option; [@option]
       (** disabled_alerts *)
   email_account_admins : bool prop option; [@option]
@@ -28,16 +24,16 @@ type azurerm_sql_server__threat_detection_policy = {
       (** storage_endpoint *)
 }
 [@@deriving yojson_of]
-(** azurerm_sql_server__threat_detection_policy *)
+(** threat_detection_policy *)
 
-type azurerm_sql_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sql_server__timeouts *)
+(** timeouts *)
 
 type azurerm_sql_server = {
   administrator_login : string prop;  (** administrator_login *)
@@ -51,13 +47,50 @@ type azurerm_sql_server = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   version : string prop;  (** version *)
-  identity : azurerm_sql_server__identity list;
-  threat_detection_policy :
-    azurerm_sql_server__threat_detection_policy list;
-  timeouts : azurerm_sql_server__timeouts option;
+  identity : identity list;
+  threat_detection_policy : threat_detection_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sql_server *)
+
+let identity ~type_ () : identity = { type_ }
+
+let threat_detection_policy ?disabled_alerts ?email_account_admins
+    ?email_addresses ?retention_days ?state
+    ?storage_account_access_key ?storage_endpoint () :
+    threat_detection_policy =
+  {
+    disabled_alerts;
+    email_account_admins;
+    email_addresses;
+    retention_days;
+    state;
+    storage_account_access_key;
+    storage_endpoint;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
+    ~administrator_login ~administrator_login_password ~location
+    ~name ~resource_group_name ~version ~identity
+    ~threat_detection_policy () : azurerm_sql_server =
+  {
+    administrator_login;
+    administrator_login_password;
+    connection_policy;
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    version;
+    identity;
+    threat_detection_policy;
+    timeouts;
+  }
 
 type t = {
   administrator_login : string prop;
@@ -72,29 +105,18 @@ type t = {
   version : string prop;
 }
 
-let azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
+let register ?tf_module ?connection_policy ?id ?tags ?timeouts
     ~administrator_login ~administrator_login_password ~location
     ~name ~resource_group_name ~version ~identity
     ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_sql_server" in
   let __resource =
-    ({
-       administrator_login;
-       administrator_login_password;
-       connection_policy;
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       version;
-       identity;
-       threat_detection_policy;
-       timeouts;
-     }
-      : azurerm_sql_server)
+    azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
+      ~administrator_login ~administrator_login_password ~location
+      ~name ~resource_group_name ~version ~identity
+      ~threat_detection_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sql_server __resource);
   let __resource_attributes =
     ({

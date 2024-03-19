@@ -17,6 +17,20 @@ type aws_chime_voice_connector_termination = {
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_termination *)
 
+let aws_chime_voice_connector_termination ?cps_limit
+    ?default_phone_number ?disabled ?id ~calling_regions
+    ~cidr_allow_list ~voice_connector_id () :
+    aws_chime_voice_connector_termination =
+  {
+    calling_regions;
+    cidr_allow_list;
+    cps_limit;
+    default_phone_number;
+    disabled;
+    id;
+    voice_connector_id;
+  }
+
 type t = {
   calling_regions : string list prop;
   cidr_allow_list : string list prop;
@@ -27,23 +41,16 @@ type t = {
   voice_connector_id : string prop;
 }
 
-let aws_chime_voice_connector_termination ?cps_limit
-    ?default_phone_number ?disabled ?id ~calling_regions
-    ~cidr_allow_list ~voice_connector_id __resource_id =
+let register ?tf_module ?cps_limit ?default_phone_number ?disabled
+    ?id ~calling_regions ~cidr_allow_list ~voice_connector_id
+    __resource_id =
   let __resource_type = "aws_chime_voice_connector_termination" in
   let __resource =
-    ({
-       calling_regions;
-       cidr_allow_list;
-       cps_limit;
-       default_phone_number;
-       disabled;
-       id;
-       voice_connector_id;
-     }
-      : aws_chime_voice_connector_termination)
+    aws_chime_voice_connector_termination ?cps_limit
+      ?default_phone_number ?disabled ?id ~calling_regions
+      ~cidr_allow_list ~voice_connector_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chime_voice_connector_termination __resource);
   let __resource_attributes =
     ({

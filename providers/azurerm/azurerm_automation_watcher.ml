@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_watcher__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_watcher__timeouts *)
+(** timeouts *)
 
 type azurerm_automation_watcher = {
   automation_account_id : string prop;  (** automation_account_id *)
@@ -27,10 +27,32 @@ type azurerm_automation_watcher = {
       (** script_parameters *)
   script_run_on : string prop;  (** script_run_on *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_automation_watcher__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_watcher *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_automation_watcher ?description ?etag ?id
+    ?script_parameters ?tags ?timeouts ~automation_account_id
+    ~execution_frequency_in_seconds ~location ~name ~script_name
+    ~script_run_on () : azurerm_automation_watcher =
+  {
+    automation_account_id;
+    description;
+    etag;
+    execution_frequency_in_seconds;
+    id;
+    location;
+    name;
+    script_name;
+    script_parameters;
+    script_run_on;
+    tags;
+    timeouts;
+  }
 
 type t = {
   automation_account_id : string prop;
@@ -47,29 +69,18 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_automation_watcher ?description ?etag ?id
-    ?script_parameters ?tags ?timeouts ~automation_account_id
+let register ?tf_module ?description ?etag ?id ?script_parameters
+    ?tags ?timeouts ~automation_account_id
     ~execution_frequency_in_seconds ~location ~name ~script_name
     ~script_run_on __resource_id =
   let __resource_type = "azurerm_automation_watcher" in
   let __resource =
-    ({
-       automation_account_id;
-       description;
-       etag;
-       execution_frequency_in_seconds;
-       id;
-       location;
-       name;
-       script_name;
-       script_parameters;
-       script_run_on;
-       tags;
-       timeouts;
-     }
-      : azurerm_automation_watcher)
+    azurerm_automation_watcher ?description ?etag ?id
+      ?script_parameters ?tags ?timeouts ~automation_account_id
+      ~execution_frequency_in_seconds ~location ~name ~script_name
+      ~script_run_on ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_watcher __resource);
   let __resource_attributes =
     ({

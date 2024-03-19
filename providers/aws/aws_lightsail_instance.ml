@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_instance__add_on = {
+type add_on = {
   snapshot_time : string prop;  (** snapshot_time *)
   status : string prop;  (** status *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_lightsail_instance__add_on *)
+(** add_on *)
 
 type aws_lightsail_instance = {
   availability_zone : string prop;  (** availability_zone *)
@@ -25,10 +25,30 @@ type aws_lightsail_instance = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   user_data : string prop option; [@option]  (** user_data *)
-  add_on : aws_lightsail_instance__add_on list;
+  add_on : add_on list;
 }
 [@@deriving yojson_of]
 (** aws_lightsail_instance *)
+
+let add_on ~snapshot_time ~status ~type_ () : add_on =
+  { snapshot_time; status; type_ }
+
+let aws_lightsail_instance ?id ?ip_address_type ?key_pair_name ?tags
+    ?tags_all ?user_data ~availability_zone ~blueprint_id ~bundle_id
+    ~name ~add_on () : aws_lightsail_instance =
+  {
+    availability_zone;
+    blueprint_id;
+    bundle_id;
+    id;
+    ip_address_type;
+    key_pair_name;
+    name;
+    tags;
+    tags_all;
+    user_data;
+    add_on;
+  }
 
 type t = {
   arn : string prop;
@@ -52,27 +72,16 @@ type t = {
   username : string prop;
 }
 
-let aws_lightsail_instance ?id ?ip_address_type ?key_pair_name ?tags
+let register ?tf_module ?id ?ip_address_type ?key_pair_name ?tags
     ?tags_all ?user_data ~availability_zone ~blueprint_id ~bundle_id
     ~name ~add_on __resource_id =
   let __resource_type = "aws_lightsail_instance" in
   let __resource =
-    ({
-       availability_zone;
-       blueprint_id;
-       bundle_id;
-       id;
-       ip_address_type;
-       key_pair_name;
-       name;
-       tags;
-       tags_all;
-       user_data;
-       add_on;
-     }
-      : aws_lightsail_instance)
+    aws_lightsail_instance ?id ?ip_address_type ?key_pair_name ?tags
+      ?tags_all ?user_data ~availability_zone ~blueprint_id
+      ~bundle_id ~name ~add_on ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_instance __resource);
   let __resource_attributes =
     ({

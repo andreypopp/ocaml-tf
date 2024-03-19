@@ -2,27 +2,108 @@
 
 open! Tf.Prelude
 
-type google_identity_platform_config__blocking_functions__forward_inbound_credentials
+(** RESOURCE SERIALIZATION *)
 
-type google_identity_platform_config__blocking_functions__triggers
-type google_identity_platform_config__blocking_functions
-type google_identity_platform_config__client__permissions
-type google_identity_platform_config__client
+type blocking_functions__forward_inbound_credentials
 
-type google_identity_platform_config__mfa__provider_configs__totp_provider_config
+val blocking_functions__forward_inbound_credentials :
+  ?access_token:bool prop ->
+  ?id_token:bool prop ->
+  ?refresh_token:bool prop ->
+  unit ->
+  blocking_functions__forward_inbound_credentials
 
-type google_identity_platform_config__mfa__provider_configs
-type google_identity_platform_config__mfa
-type google_identity_platform_config__monitoring__request_logging
-type google_identity_platform_config__monitoring
-type google_identity_platform_config__multi_tenant
-type google_identity_platform_config__quota__sign_up_quota_config
-type google_identity_platform_config__quota
-type google_identity_platform_config__sign_in__anonymous
-type google_identity_platform_config__sign_in__email
-type google_identity_platform_config__sign_in__phone_number
+type blocking_functions__triggers
 
-type google_identity_platform_config__sign_in__hash_config = {
+val blocking_functions__triggers :
+  event_type:string prop ->
+  function_uri:string prop ->
+  unit ->
+  blocking_functions__triggers
+
+type blocking_functions
+
+val blocking_functions :
+  forward_inbound_credentials:
+    blocking_functions__forward_inbound_credentials list ->
+  triggers:blocking_functions__triggers list ->
+  unit ->
+  blocking_functions
+
+type client__permissions
+
+val client__permissions :
+  ?disabled_user_deletion:bool prop ->
+  ?disabled_user_signup:bool prop ->
+  unit ->
+  client__permissions
+
+type client
+
+val client : permissions:client__permissions list -> unit -> client
+
+type mfa__provider_configs__totp_provider_config
+
+val mfa__provider_configs__totp_provider_config :
+  ?adjacent_intervals:float prop ->
+  unit ->
+  mfa__provider_configs__totp_provider_config
+
+type mfa__provider_configs
+
+val mfa__provider_configs :
+  ?state:string prop ->
+  totp_provider_config:
+    mfa__provider_configs__totp_provider_config list ->
+  unit ->
+  mfa__provider_configs
+
+type mfa
+
+val mfa :
+  ?enabled_providers:string prop list ->
+  ?state:string prop ->
+  provider_configs:mfa__provider_configs list ->
+  unit ->
+  mfa
+
+type monitoring__request_logging
+
+val monitoring__request_logging :
+  ?enabled:bool prop -> unit -> monitoring__request_logging
+
+type monitoring
+
+val monitoring :
+  request_logging:monitoring__request_logging list ->
+  unit ->
+  monitoring
+
+type multi_tenant
+
+val multi_tenant :
+  ?allow_tenants:bool prop ->
+  ?default_tenant_location:string prop ->
+  unit ->
+  multi_tenant
+
+type quota__sign_up_quota_config
+
+val quota__sign_up_quota_config :
+  ?quota:float prop ->
+  ?quota_duration:string prop ->
+  ?start_time:string prop ->
+  unit ->
+  quota__sign_up_quota_config
+
+type quota
+
+val quota :
+  sign_up_quota_config:quota__sign_up_quota_config list ->
+  unit ->
+  quota
+
+type sign_in__hash_config = {
   algorithm : string prop;  (** algorithm *)
   memory_cost : float prop;  (** memory_cost *)
   rounds : float prop;  (** rounds *)
@@ -30,15 +111,91 @@ type google_identity_platform_config__sign_in__hash_config = {
   signer_key : string prop;  (** signer_key *)
 }
 
-type google_identity_platform_config__sign_in
+type sign_in__anonymous
 
-type google_identity_platform_config__sms_region_config__allow_by_default
+val sign_in__anonymous :
+  enabled:bool prop -> unit -> sign_in__anonymous
 
-type google_identity_platform_config__sms_region_config__allowlist_only
+type sign_in__email
 
-type google_identity_platform_config__sms_region_config
-type google_identity_platform_config__timeouts
+val sign_in__email :
+  ?password_required:bool prop ->
+  enabled:bool prop ->
+  unit ->
+  sign_in__email
+
+type sign_in__phone_number
+
+val sign_in__phone_number :
+  ?test_phone_numbers:(string * string prop) list ->
+  enabled:bool prop ->
+  unit ->
+  sign_in__phone_number
+
+type sign_in
+
+val sign_in :
+  ?allow_duplicate_emails:bool prop ->
+  anonymous:sign_in__anonymous list ->
+  email:sign_in__email list ->
+  phone_number:sign_in__phone_number list ->
+  unit ->
+  sign_in
+
+type sms_region_config__allow_by_default
+
+val sms_region_config__allow_by_default :
+  ?disallowed_regions:string prop list ->
+  unit ->
+  sms_region_config__allow_by_default
+
+type sms_region_config__allowlist_only
+
+val sms_region_config__allowlist_only :
+  ?allowed_regions:string prop list ->
+  unit ->
+  sms_region_config__allowlist_only
+
+type sms_region_config
+
+val sms_region_config :
+  allow_by_default:sms_region_config__allow_by_default list ->
+  allowlist_only:sms_region_config__allowlist_only list ->
+  unit ->
+  sms_region_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_identity_platform_config
+
+val google_identity_platform_config :
+  ?authorized_domains:string prop list ->
+  ?autodelete_anonymous_users:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  blocking_functions:blocking_functions list ->
+  client:client list ->
+  mfa:mfa list ->
+  monitoring:monitoring list ->
+  multi_tenant:multi_tenant list ->
+  quota:quota list ->
+  sign_in:sign_in list ->
+  sms_region_config:sms_region_config list ->
+  unit ->
+  google_identity_platform_config
+
+val yojson_of_google_identity_platform_config :
+  google_identity_platform_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   authorized_domains : string list prop;
@@ -48,21 +205,20 @@ type t = private {
   project : string prop;
 }
 
-val google_identity_platform_config :
+val register :
+  ?tf_module:tf_module ->
   ?authorized_domains:string prop list ->
   ?autodelete_anonymous_users:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_identity_platform_config__timeouts ->
-  blocking_functions:
-    google_identity_platform_config__blocking_functions list ->
-  client:google_identity_platform_config__client list ->
-  mfa:google_identity_platform_config__mfa list ->
-  monitoring:google_identity_platform_config__monitoring list ->
-  multi_tenant:google_identity_platform_config__multi_tenant list ->
-  quota:google_identity_platform_config__quota list ->
-  sign_in:google_identity_platform_config__sign_in list ->
-  sms_region_config:
-    google_identity_platform_config__sms_region_config list ->
+  ?timeouts:timeouts ->
+  blocking_functions:blocking_functions list ->
+  client:client list ->
+  mfa:mfa list ->
+  monitoring:monitoring list ->
+  multi_tenant:multi_tenant list ->
+  quota:quota list ->
+  sign_in:sign_in list ->
+  sms_region_config:sms_region_config list ->
   string ->
   t

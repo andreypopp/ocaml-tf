@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_network_function_azure_traffic_collector__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_function_azure_traffic_collector__timeouts *)
+(** timeouts *)
 
 type azurerm_network_function_azure_traffic_collector = {
   id : string prop option; [@option]  (** id *)
@@ -19,11 +19,18 @@ type azurerm_network_function_azure_traffic_collector = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts :
-    azurerm_network_function_azure_traffic_collector__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_function_azure_traffic_collector *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_function_azure_traffic_collector ?id ?tags
+    ?timeouts ~location ~name ~resource_group_name () :
+    azurerm_network_function_azure_traffic_collector =
+  { id; location; name; resource_group_name; tags; timeouts }
 
 type t = {
   collector_policy_ids : string list prop;
@@ -35,16 +42,16 @@ type t = {
   virtual_hub_id : string list prop;
 }
 
-let azurerm_network_function_azure_traffic_collector ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name __resource_id =
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_network_function_azure_traffic_collector"
   in
   let __resource =
-    ({ id; location; name; resource_group_name; tags; timeouts }
-      : azurerm_network_function_azure_traffic_collector)
+    azurerm_network_function_azure_traffic_collector ?id ?tags
+      ?timeouts ~location ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_function_azure_traffic_collector
        __resource);
   let __resource_attributes =

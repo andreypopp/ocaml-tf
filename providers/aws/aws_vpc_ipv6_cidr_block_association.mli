@@ -2,8 +2,29 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipv6_cidr_block_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_vpc_ipv6_cidr_block_association
+
+val aws_vpc_ipv6_cidr_block_association :
+  ?id:string prop ->
+  ?ipv6_cidr_block:string prop ->
+  ?ipv6_netmask_length:float prop ->
+  ?timeouts:timeouts ->
+  ipv6_ipam_pool_id:string prop ->
+  vpc_id:string prop ->
+  unit ->
+  aws_vpc_ipv6_cidr_block_association
+
+val yojson_of_aws_vpc_ipv6_cidr_block_association :
+  aws_vpc_ipv6_cidr_block_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,11 +34,12 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_vpc_ipv6_cidr_block_association :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ipv6_cidr_block:string prop ->
   ?ipv6_netmask_length:float prop ->
-  ?timeouts:aws_vpc_ipv6_cidr_block_association__timeouts ->
+  ?timeouts:timeouts ->
   ipv6_ipam_pool_id:string prop ->
   vpc_id:string prop ->
   string ->

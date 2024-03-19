@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_router_interface__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_router_interface__timeouts *)
+(** timeouts *)
 
 type google_compute_router_interface = {
   id : string prop option; [@option]  (** id *)
@@ -33,10 +33,31 @@ type google_compute_router_interface = {
       (** The URI of the subnetwork resource that this interface belongs to, which must be in the same region as the Cloud Router. Changing this forces a new interface to be created. Only one of subnetwork, interconnect_attachment or vpn_tunnel can be specified. *)
   vpn_tunnel : string prop option; [@option]
       (** The name or resource link to the VPN tunnel this interface will be linked to. Changing this forces a new interface to be created. Only one of vpn_tunnel, interconnect_attachment or subnetwork can be specified. *)
-  timeouts : google_compute_router_interface__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_router_interface *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_router_interface ?id ?interconnect_attachment
+    ?ip_range ?private_ip_address ?project ?redundant_interface
+    ?region ?subnetwork ?vpn_tunnel ?timeouts ~name ~router () :
+    google_compute_router_interface =
+  {
+    id;
+    interconnect_attachment;
+    ip_range;
+    name;
+    private_ip_address;
+    project;
+    redundant_interface;
+    region;
+    router;
+    subnetwork;
+    vpn_tunnel;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -52,29 +73,16 @@ type t = {
   vpn_tunnel : string prop;
 }
 
-let google_compute_router_interface ?id ?interconnect_attachment
-    ?ip_range ?private_ip_address ?project ?redundant_interface
-    ?region ?subnetwork ?vpn_tunnel ?timeouts ~name ~router
-    __resource_id =
+let register ?tf_module ?id ?interconnect_attachment ?ip_range
+    ?private_ip_address ?project ?redundant_interface ?region
+    ?subnetwork ?vpn_tunnel ?timeouts ~name ~router __resource_id =
   let __resource_type = "google_compute_router_interface" in
   let __resource =
-    ({
-       id;
-       interconnect_attachment;
-       ip_range;
-       name;
-       private_ip_address;
-       project;
-       redundant_interface;
-       region;
-       router;
-       subnetwork;
-       vpn_tunnel;
-       timeouts;
-     }
-      : google_compute_router_interface)
+    google_compute_router_interface ?id ?interconnect_attachment
+      ?ip_range ?private_ip_address ?project ?redundant_interface
+      ?region ?subnetwork ?vpn_tunnel ?timeouts ~name ~router ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_router_interface __resource);
   let __resource_attributes =
     ({

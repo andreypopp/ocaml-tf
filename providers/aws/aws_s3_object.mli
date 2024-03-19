@@ -2,9 +2,59 @@
 
 open! Tf.Prelude
 
-type aws_s3_object__override_provider__default_tags
-type aws_s3_object__override_provider
+(** RESOURCE SERIALIZATION *)
+
+type override_provider__default_tags
+
+val override_provider__default_tags :
+  ?tags:(string * string prop) list ->
+  unit ->
+  override_provider__default_tags
+
+type override_provider
+
+val override_provider :
+  default_tags:override_provider__default_tags list ->
+  unit ->
+  override_provider
+
 type aws_s3_object
+
+val aws_s3_object :
+  ?acl:string prop ->
+  ?bucket_key_enabled:bool prop ->
+  ?cache_control:string prop ->
+  ?checksum_algorithm:string prop ->
+  ?content:string prop ->
+  ?content_base64:string prop ->
+  ?content_disposition:string prop ->
+  ?content_encoding:string prop ->
+  ?content_language:string prop ->
+  ?content_type:string prop ->
+  ?etag:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?object_lock_legal_hold_status:string prop ->
+  ?object_lock_mode:string prop ->
+  ?object_lock_retain_until_date:string prop ->
+  ?server_side_encryption:string prop ->
+  ?source:string prop ->
+  ?source_hash:string prop ->
+  ?storage_class:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?website_redirect:string prop ->
+  bucket:string prop ->
+  key:string prop ->
+  override_provider:override_provider list ->
+  unit ->
+  aws_s3_object
+
+val yojson_of_aws_s3_object : aws_s3_object -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   acl : string prop;
@@ -42,7 +92,8 @@ type t = private {
   website_redirect : string prop;
 }
 
-val aws_s3_object :
+val register :
+  ?tf_module:tf_module ->
   ?acl:string prop ->
   ?bucket_key_enabled:bool prop ->
   ?cache_control:string prop ->
@@ -70,6 +121,6 @@ val aws_s3_object :
   ?website_redirect:string prop ->
   bucket:string prop ->
   key:string prop ->
-  override_provider:aws_s3_object__override_provider list ->
+  override_provider:override_provider list ->
   string ->
   t

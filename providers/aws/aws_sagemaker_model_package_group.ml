@@ -17,6 +17,18 @@ type aws_sagemaker_model_package_group = {
 [@@deriving yojson_of]
 (** aws_sagemaker_model_package_group *)
 
+let aws_sagemaker_model_package_group ?id
+    ?model_package_group_description ?tags ?tags_all
+    ~model_package_group_name () : aws_sagemaker_model_package_group
+    =
+  {
+    id;
+    model_package_group_description;
+    model_package_group_name;
+    tags;
+    tags_all;
+  }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -26,21 +38,15 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_sagemaker_model_package_group ?id
-    ?model_package_group_description ?tags ?tags_all
-    ~model_package_group_name __resource_id =
+let register ?tf_module ?id ?model_package_group_description ?tags
+    ?tags_all ~model_package_group_name __resource_id =
   let __resource_type = "aws_sagemaker_model_package_group" in
   let __resource =
-    ({
-       id;
-       model_package_group_description;
-       model_package_group_name;
-       tags;
-       tags_all;
-     }
-      : aws_sagemaker_model_package_group)
+    aws_sagemaker_model_package_group ?id
+      ?model_package_group_description ?tags ?tags_all
+      ~model_package_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_model_package_group __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_managed_disk_sas_token__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_managed_disk_sas_token
+
+val azurerm_managed_disk_sas_token :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  access_level:string prop ->
+  duration_in_seconds:float prop ->
+  managed_disk_id:string prop ->
+  unit ->
+  azurerm_managed_disk_sas_token
+
+val yojson_of_azurerm_managed_disk_sas_token :
+  azurerm_managed_disk_sas_token -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_level : string prop;
@@ -13,9 +37,10 @@ type t = private {
   sas_url : string prop;
 }
 
-val azurerm_managed_disk_sas_token :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_managed_disk_sas_token__timeouts ->
+  ?timeouts:timeouts ->
   access_level:string prop ->
   duration_in_seconds:float prop ->
   managed_disk_id:string prop ->

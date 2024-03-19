@@ -2,17 +2,17 @@
 
 open! Tf.Prelude
 
-type aws_servicequotas_service_quota__usage_metric__metric_dimensions = {
+(** RESOURCE SERIALIZATION *)
+
+type usage_metric__metric_dimensions = {
   class_ : string prop; [@key "class"]  (** class *)
   resource : string prop;  (** resource *)
   service : string prop;  (** service *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-type aws_servicequotas_service_quota__usage_metric = {
-  metric_dimensions :
-    aws_servicequotas_service_quota__usage_metric__metric_dimensions
-    list;
+type usage_metric = {
+  metric_dimensions : usage_metric__metric_dimensions list;
       (** metric_dimensions *)
   metric_name : string prop;  (** metric_name *)
   metric_namespace : string prop;  (** metric_namespace *)
@@ -21,6 +21,19 @@ type aws_servicequotas_service_quota__usage_metric = {
 }
 
 type aws_servicequotas_service_quota
+
+val aws_servicequotas_service_quota :
+  ?id:string prop ->
+  quota_code:string prop ->
+  service_code:string prop ->
+  value:float prop ->
+  unit ->
+  aws_servicequotas_service_quota
+
+val yojson_of_aws_servicequotas_service_quota :
+  aws_servicequotas_service_quota -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   adjustable : bool prop;
@@ -33,12 +46,12 @@ type t = private {
   request_status : string prop;
   service_code : string prop;
   service_name : string prop;
-  usage_metric :
-    aws_servicequotas_service_quota__usage_metric list prop;
+  usage_metric : usage_metric list prop;
   value : float prop;
 }
 
-val aws_servicequotas_service_quota :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   quota_code:string prop ->
   service_code:string prop ->

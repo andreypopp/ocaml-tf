@@ -13,20 +13,24 @@ type aws_securityhub_finding_aggregator = {
 [@@deriving yojson_of]
 (** aws_securityhub_finding_aggregator *)
 
+let aws_securityhub_finding_aggregator ?id ?specified_regions
+    ~linking_mode () : aws_securityhub_finding_aggregator =
+  { id; linking_mode; specified_regions }
+
 type t = {
   id : string prop;
   linking_mode : string prop;
   specified_regions : string list prop;
 }
 
-let aws_securityhub_finding_aggregator ?id ?specified_regions
-    ~linking_mode __resource_id =
+let register ?tf_module ?id ?specified_regions ~linking_mode
+    __resource_id =
   let __resource_type = "aws_securityhub_finding_aggregator" in
   let __resource =
-    ({ id; linking_mode; specified_regions }
-      : aws_securityhub_finding_aggregator)
+    aws_securityhub_finding_aggregator ?id ?specified_regions
+      ~linking_mode ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_finding_aggregator __resource);
   let __resource_attributes =
     ({

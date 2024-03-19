@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_healthcheck__header = {
+type header = {
   header : string prop;  (** The header name. *)
   values : string prop list;
       (** A list of string values for the header. *)
@@ -12,11 +12,11 @@ type cloudflare_healthcheck__header = {
 [@@deriving yojson_of]
 (** The HTTP request headers to send in the health check. It is recommended you set a Host header by default. The User-Agent header cannot be overridden. *)
 
-type cloudflare_healthcheck__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** cloudflare_healthcheck__timeouts *)
+(** timeouts *)
 
 type cloudflare_healthcheck = {
   address : string prop;
@@ -58,13 +58,47 @@ type cloudflare_healthcheck = {
       (** The protocol to use for the health check. Available values: `TCP`, `HTTP`, `HTTPS`. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  header : cloudflare_healthcheck__header list;
-  timeouts : cloudflare_healthcheck__timeouts option;
+  header : header list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** Standalone Health Checks provide a way to monitor origin servers
 without needing a Cloudflare Load Balancer.
  *)
+
+let header ~header ~values () : header = { header; values }
+let timeouts ?create () : timeouts = { create }
+
+let cloudflare_healthcheck ?allow_insecure ?check_regions
+    ?consecutive_fails ?consecutive_successes ?description
+    ?expected_body ?expected_codes ?follow_redirects ?id ?interval
+    ?method_ ?path ?port ?retries ?suspended ?timeout ?timeouts
+    ~address ~name ~type_ ~zone_id ~header () :
+    cloudflare_healthcheck =
+  {
+    address;
+    allow_insecure;
+    check_regions;
+    consecutive_fails;
+    consecutive_successes;
+    description;
+    expected_body;
+    expected_codes;
+    follow_redirects;
+    id;
+    interval;
+    method_;
+    name;
+    path;
+    port;
+    retries;
+    suspended;
+    timeout;
+    type_;
+    zone_id;
+    header;
+    timeouts;
+  }
 
 type t = {
   address : string prop;
@@ -91,40 +125,20 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_healthcheck ?allow_insecure ?check_regions
+let register ?tf_module ?allow_insecure ?check_regions
     ?consecutive_fails ?consecutive_successes ?description
     ?expected_body ?expected_codes ?follow_redirects ?id ?interval
     ?method_ ?path ?port ?retries ?suspended ?timeout ?timeouts
     ~address ~name ~type_ ~zone_id ~header __resource_id =
   let __resource_type = "cloudflare_healthcheck" in
   let __resource =
-    ({
-       address;
-       allow_insecure;
-       check_regions;
-       consecutive_fails;
-       consecutive_successes;
-       description;
-       expected_body;
-       expected_codes;
-       follow_redirects;
-       id;
-       interval;
-       method_;
-       name;
-       path;
-       port;
-       retries;
-       suspended;
-       timeout;
-       type_;
-       zone_id;
-       header;
-       timeouts;
-     }
-      : cloudflare_healthcheck)
+    cloudflare_healthcheck ?allow_insecure ?check_regions
+      ?consecutive_fails ?consecutive_successes ?description
+      ?expected_body ?expected_codes ?follow_redirects ?id ?interval
+      ?method_ ?path ?port ?retries ?suspended ?timeout ?timeouts
+      ~address ~name ~type_ ~zone_id ~header ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_healthcheck __resource);
   let __resource_attributes =
     ({

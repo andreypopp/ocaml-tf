@@ -4,16 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_appstream_fleet__compute_capacity = {
-  available : float prop;  (** available *)
+type compute_capacity = {
   desired_instances : float prop;  (** desired_instances *)
-  in_use : float prop;  (** in_use *)
-  running : float prop;  (** running *)
 }
 [@@deriving yojson_of]
-(** aws_appstream_fleet__compute_capacity *)
+(** compute_capacity *)
 
-type aws_appstream_fleet__domain_join_info = {
+type domain_join_info = {
   directory_name : string prop option; [@option]
       (** directory_name *)
   organizational_unit_distinguished_name : string prop option;
@@ -21,15 +18,15 @@ type aws_appstream_fleet__domain_join_info = {
       (** organizational_unit_distinguished_name *)
 }
 [@@deriving yojson_of]
-(** aws_appstream_fleet__domain_join_info *)
+(** domain_join_info *)
 
-type aws_appstream_fleet__vpc_config = {
+type vpc_config = {
   security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
   subnet_ids : string prop list option; [@option]  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_appstream_fleet__vpc_config *)
+(** vpc_config *)
 
 type aws_appstream_fleet = {
   description : string prop option; [@option]  (** description *)
@@ -53,12 +50,50 @@ type aws_appstream_fleet = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  compute_capacity : aws_appstream_fleet__compute_capacity list;
-  domain_join_info : aws_appstream_fleet__domain_join_info list;
-  vpc_config : aws_appstream_fleet__vpc_config list;
+  compute_capacity : compute_capacity list;
+  domain_join_info : domain_join_info list;
+  vpc_config : vpc_config list;
 }
 [@@deriving yojson_of]
 (** aws_appstream_fleet *)
+
+let compute_capacity ~desired_instances () : compute_capacity =
+  { desired_instances }
+
+let domain_join_info ?directory_name
+    ?organizational_unit_distinguished_name () : domain_join_info =
+  { directory_name; organizational_unit_distinguished_name }
+
+let vpc_config ?security_group_ids ?subnet_ids () : vpc_config =
+  { security_group_ids; subnet_ids }
+
+let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
+    ?display_name ?enable_default_internet_access ?fleet_type
+    ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds ?image_arn
+    ?image_name ?max_user_duration_in_seconds ?stream_view ?tags
+    ?tags_all ~instance_type ~name ~compute_capacity
+    ~domain_join_info ~vpc_config () : aws_appstream_fleet =
+  {
+    description;
+    disconnect_timeout_in_seconds;
+    display_name;
+    enable_default_internet_access;
+    fleet_type;
+    iam_role_arn;
+    id;
+    idle_disconnect_timeout_in_seconds;
+    image_arn;
+    image_name;
+    instance_type;
+    max_user_duration_in_seconds;
+    name;
+    stream_view;
+    tags;
+    tags_all;
+    compute_capacity;
+    domain_join_info;
+    vpc_config;
+  }
 
 type t = {
   arn : string prop;
@@ -82,7 +117,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
+let register ?tf_module ?description ?disconnect_timeout_in_seconds
     ?display_name ?enable_default_internet_access ?fleet_type
     ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds ?image_arn
     ?image_name ?max_user_duration_in_seconds ?stream_view ?tags
@@ -90,30 +125,14 @@ let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
     ~domain_join_info ~vpc_config __resource_id =
   let __resource_type = "aws_appstream_fleet" in
   let __resource =
-    ({
-       description;
-       disconnect_timeout_in_seconds;
-       display_name;
-       enable_default_internet_access;
-       fleet_type;
-       iam_role_arn;
-       id;
-       idle_disconnect_timeout_in_seconds;
-       image_arn;
-       image_name;
-       instance_type;
-       max_user_duration_in_seconds;
-       name;
-       stream_view;
-       tags;
-       tags_all;
-       compute_capacity;
-       domain_join_info;
-       vpc_config;
-     }
-      : aws_appstream_fleet)
+    aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
+      ?display_name ?enable_default_internet_access ?fleet_type
+      ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds
+      ?image_arn ?image_name ?max_user_duration_in_seconds
+      ?stream_view ?tags ?tags_all ~instance_type ~name
+      ~compute_capacity ~domain_join_info ~vpc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_fleet __resource);
   let __resource_attributes =
     ({

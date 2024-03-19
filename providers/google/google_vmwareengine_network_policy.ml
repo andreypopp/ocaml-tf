@@ -4,32 +4,28 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_network_policy__external_ip = {
+type external_ip = {
   enabled : bool prop option; [@option]
       (** True if the service is enabled; false otherwise. *)
-  state : string prop;
-      (** State of the service. New values may be added to this enum when appropriate. *)
 }
 [@@deriving yojson_of]
 (** Network service that allows External IP addresses to be assigned to VMware workloads.
 This service can only be enabled when internetAccess is also enabled. *)
 
-type google_vmwareengine_network_policy__internet_access = {
+type internet_access = {
   enabled : bool prop option; [@option]
       (** True if the service is enabled; false otherwise. *)
-  state : string prop;
-      (** State of the service. New values may be added to this enum when appropriate. *)
 }
 [@@deriving yojson_of]
 (** Network service that allows VMware workloads to access the internet. *)
 
-type google_vmwareengine_network_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vmwareengine_network_policy__timeouts *)
+(** timeouts *)
 
 type google_vmwareengine_network_policy = {
   description : string prop option; [@option]
@@ -49,13 +45,35 @@ For example: projects/my-project/locations/us-central1 *)
       (** The relative resource name of the VMware Engine network. Specify the name in the following form:
 projects/{project}/locations/{location}/vmwareEngineNetworks/{vmwareEngineNetworkId} where {project}
 can either be a project number or a project ID. *)
-  external_ip : google_vmwareengine_network_policy__external_ip list;
-  internet_access :
-    google_vmwareengine_network_policy__internet_access list;
-  timeouts : google_vmwareengine_network_policy__timeouts option;
+  external_ip : external_ip list;
+  internet_access : internet_access list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_network_policy *)
+
+let external_ip ?enabled () : external_ip = { enabled }
+let internet_access ?enabled () : internet_access = { enabled }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vmwareengine_network_policy ?description ?id ?project
+    ?timeouts ~edge_services_cidr ~location ~name
+    ~vmware_engine_network ~external_ip ~internet_access () :
+    google_vmwareengine_network_policy =
+  {
+    description;
+    edge_services_cidr;
+    id;
+    location;
+    name;
+    project;
+    vmware_engine_network;
+    external_ip;
+    internet_access;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -71,27 +89,16 @@ type t = {
   vmware_engine_network_canonical : string prop;
 }
 
-let google_vmwareengine_network_policy ?description ?id ?project
-    ?timeouts ~edge_services_cidr ~location ~name
-    ~vmware_engine_network ~external_ip ~internet_access
-    __resource_id =
+let register ?tf_module ?description ?id ?project ?timeouts
+    ~edge_services_cidr ~location ~name ~vmware_engine_network
+    ~external_ip ~internet_access __resource_id =
   let __resource_type = "google_vmwareengine_network_policy" in
   let __resource =
-    ({
-       description;
-       edge_services_cidr;
-       id;
-       location;
-       name;
-       project;
-       vmware_engine_network;
-       external_ip;
-       internet_access;
-       timeouts;
-     }
-      : google_vmwareengine_network_policy)
+    google_vmwareengine_network_policy ?description ?id ?project
+      ?timeouts ~edge_services_cidr ~location ~name
+      ~vmware_engine_network ~external_ip ~internet_access ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_network_policy __resource);
   let __resource_attributes =
     ({

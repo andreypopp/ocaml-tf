@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iam_virtual_mfa_device
+
+val aws_iam_virtual_mfa_device :
+  ?id:string prop ->
+  ?path:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  virtual_mfa_device_name:string prop ->
+  unit ->
+  aws_iam_virtual_mfa_device
+
+val yojson_of_aws_iam_virtual_mfa_device :
+  aws_iam_virtual_mfa_device -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +33,8 @@ type t = private {
   virtual_mfa_device_name : string prop;
 }
 
-val aws_iam_virtual_mfa_device :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?path:string prop ->
   ?tags:(string * string prop) list ->

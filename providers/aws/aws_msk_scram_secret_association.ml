@@ -12,20 +12,24 @@ type aws_msk_scram_secret_association = {
 [@@deriving yojson_of]
 (** aws_msk_scram_secret_association *)
 
+let aws_msk_scram_secret_association ?id ~cluster_arn
+    ~secret_arn_list () : aws_msk_scram_secret_association =
+  { cluster_arn; id; secret_arn_list }
+
 type t = {
   cluster_arn : string prop;
   id : string prop;
   secret_arn_list : string list prop;
 }
 
-let aws_msk_scram_secret_association ?id ~cluster_arn
-    ~secret_arn_list __resource_id =
+let register ?tf_module ?id ~cluster_arn ~secret_arn_list
+    __resource_id =
   let __resource_type = "aws_msk_scram_secret_association" in
   let __resource =
-    ({ cluster_arn; id; secret_arn_list }
-      : aws_msk_scram_secret_association)
+    aws_msk_scram_secret_association ?id ~cluster_arn
+      ~secret_arn_list ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_msk_scram_secret_association __resource);
   let __resource_attributes =
     ({

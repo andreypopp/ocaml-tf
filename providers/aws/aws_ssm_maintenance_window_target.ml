@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ssm_maintenance_window_target__targets = {
+type targets = {
   key : string prop;  (** key *)
   values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
-(** aws_ssm_maintenance_window_target__targets *)
+(** targets *)
 
 type aws_ssm_maintenance_window_target = {
   description : string prop option; [@option]  (** description *)
@@ -19,10 +19,25 @@ type aws_ssm_maintenance_window_target = {
       (** owner_information *)
   resource_type : string prop;  (** resource_type *)
   window_id : string prop;  (** window_id *)
-  targets : aws_ssm_maintenance_window_target__targets list;
+  targets : targets list;
 }
 [@@deriving yojson_of]
 (** aws_ssm_maintenance_window_target *)
+
+let targets ~key ~values () : targets = { key; values }
+
+let aws_ssm_maintenance_window_target ?description ?id ?name
+    ?owner_information ~resource_type ~window_id ~targets () :
+    aws_ssm_maintenance_window_target =
+  {
+    description;
+    id;
+    name;
+    owner_information;
+    resource_type;
+    window_id;
+    targets;
+  }
 
 type t = {
   description : string prop;
@@ -33,23 +48,14 @@ type t = {
   window_id : string prop;
 }
 
-let aws_ssm_maintenance_window_target ?description ?id ?name
-    ?owner_information ~resource_type ~window_id ~targets
-    __resource_id =
+let register ?tf_module ?description ?id ?name ?owner_information
+    ~resource_type ~window_id ~targets __resource_id =
   let __resource_type = "aws_ssm_maintenance_window_target" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       owner_information;
-       resource_type;
-       window_id;
-       targets;
-     }
-      : aws_ssm_maintenance_window_target)
+    aws_ssm_maintenance_window_target ?description ?id ?name
+      ?owner_information ~resource_type ~window_id ~targets ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_maintenance_window_target __resource);
   let __resource_attributes =
     ({

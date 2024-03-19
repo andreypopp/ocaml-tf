@@ -12,19 +12,22 @@ type aws_schemas_registry_policy = {
 [@@deriving yojson_of]
 (** aws_schemas_registry_policy *)
 
+let aws_schemas_registry_policy ?id ~policy ~registry_name () :
+    aws_schemas_registry_policy =
+  { id; policy; registry_name }
+
 type t = {
   id : string prop;
   policy : string prop;
   registry_name : string prop;
 }
 
-let aws_schemas_registry_policy ?id ~policy ~registry_name
-    __resource_id =
+let register ?tf_module ?id ~policy ~registry_name __resource_id =
   let __resource_type = "aws_schemas_registry_policy" in
   let __resource =
-    ({ id; policy; registry_name } : aws_schemas_registry_policy)
+    aws_schemas_registry_policy ?id ~policy ~registry_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_schemas_registry_policy __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_iot_time_series_insights_event_source_eventhub__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iot_time_series_insights_event_source_eventhub__timeouts *)
+(** timeouts *)
 
 type azurerm_iot_time_series_insights_event_source_eventhub = {
   consumer_group_name : string prop;  (** consumer_group_name *)
@@ -29,12 +29,35 @@ type azurerm_iot_time_series_insights_event_source_eventhub = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   timestamp_property_name : string prop option; [@option]
       (** timestamp_property_name *)
-  timeouts :
-    azurerm_iot_time_series_insights_event_source_eventhub__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_event_source_eventhub *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iot_time_series_insights_event_source_eventhub ?id ?tags
+    ?timestamp_property_name ?timeouts ~consumer_group_name
+    ~environment_id ~event_source_resource_id ~eventhub_name
+    ~location ~name ~namespace_name ~shared_access_key
+    ~shared_access_key_name () :
+    azurerm_iot_time_series_insights_event_source_eventhub =
+  {
+    consumer_group_name;
+    environment_id;
+    event_source_resource_id;
+    eventhub_name;
+    id;
+    location;
+    name;
+    namespace_name;
+    shared_access_key;
+    shared_access_key_name;
+    tags;
+    timestamp_property_name;
+    timeouts;
+  }
 
 type t = {
   consumer_group_name : string prop;
@@ -51,33 +74,21 @@ type t = {
   timestamp_property_name : string prop;
 }
 
-let azurerm_iot_time_series_insights_event_source_eventhub ?id ?tags
-    ?timestamp_property_name ?timeouts ~consumer_group_name
-    ~environment_id ~event_source_resource_id ~eventhub_name
-    ~location ~name ~namespace_name ~shared_access_key
+let register ?tf_module ?id ?tags ?timestamp_property_name ?timeouts
+    ~consumer_group_name ~environment_id ~event_source_resource_id
+    ~eventhub_name ~location ~name ~namespace_name ~shared_access_key
     ~shared_access_key_name __resource_id =
   let __resource_type =
     "azurerm_iot_time_series_insights_event_source_eventhub"
   in
   let __resource =
-    ({
-       consumer_group_name;
-       environment_id;
-       event_source_resource_id;
-       eventhub_name;
-       id;
-       location;
-       name;
-       namespace_name;
-       shared_access_key;
-       shared_access_key_name;
-       tags;
-       timestamp_property_name;
-       timeouts;
-     }
-      : azurerm_iot_time_series_insights_event_source_eventhub)
+    azurerm_iot_time_series_insights_event_source_eventhub ?id ?tags
+      ?timestamp_property_name ?timeouts ~consumer_group_name
+      ~environment_id ~event_source_resource_id ~eventhub_name
+      ~location ~name ~namespace_name ~shared_access_key
+      ~shared_access_key_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iot_time_series_insights_event_source_eventhub
        __resource);
   let __resource_attributes =

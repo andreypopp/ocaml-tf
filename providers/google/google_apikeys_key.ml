@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_apikeys_key__restrictions__android_key_restrictions__allowed_applications = {
+type restrictions__android_key_restrictions__allowed_applications = {
   package_name : string prop;
       (** The package name of the application. *)
   sha1_fingerprint : string prop;
@@ -13,15 +13,14 @@ type google_apikeys_key__restrictions__android_key_restrictions__allowed_applica
 [@@deriving yojson_of]
 (** A list of Android applications that are allowed to make API calls with this key. *)
 
-type google_apikeys_key__restrictions__android_key_restrictions = {
+type restrictions__android_key_restrictions = {
   allowed_applications :
-    google_apikeys_key__restrictions__android_key_restrictions__allowed_applications
-    list;
+    restrictions__android_key_restrictions__allowed_applications list;
 }
 [@@deriving yojson_of]
 (** The Android apps that are allowed to use the key. *)
 
-type google_apikeys_key__restrictions__api_targets = {
+type restrictions__api_targets = {
   methods : string prop list option; [@option]
       (** Optional. List of one or more methods that can be called. If empty, all methods for the service are allowed. A wildcard (\*\) can be used as the last symbol. Valid examples: `google.cloud.translate.v2.TranslateService.GetSupportedLanguage` `TranslateText` `Get*` `translate.googleapis.com.Get*` *)
   service : string prop;
@@ -30,48 +29,47 @@ type google_apikeys_key__restrictions__api_targets = {
 [@@deriving yojson_of]
 (** A restriction for a specific service and optionally one or more specific methods. Requests are allowed if they match any of these restrictions. If no restrictions are specified, all targets are allowed. *)
 
-type google_apikeys_key__restrictions__browser_key_restrictions = {
+type restrictions__browser_key_restrictions = {
   allowed_referrers : string prop list;
       (** A list of regular expressions for the referrer URLs that are allowed to make API calls with this key. *)
 }
 [@@deriving yojson_of]
 (** The HTTP referrers (websites) that are allowed to use the key. *)
 
-type google_apikeys_key__restrictions__ios_key_restrictions = {
+type restrictions__ios_key_restrictions = {
   allowed_bundle_ids : string prop list;
       (** A list of bundle IDs that are allowed when making API calls with this key. *)
 }
 [@@deriving yojson_of]
 (** The iOS apps that are allowed to use the key. *)
 
-type google_apikeys_key__restrictions__server_key_restrictions = {
+type restrictions__server_key_restrictions = {
   allowed_ips : string prop list;
       (** A list of the caller IP addresses that are allowed to make API calls with this key. *)
 }
 [@@deriving yojson_of]
 (** The IP addresses of callers that are allowed to use the key. *)
 
-type google_apikeys_key__restrictions = {
+type restrictions = {
   android_key_restrictions :
-    google_apikeys_key__restrictions__android_key_restrictions list;
-  api_targets : google_apikeys_key__restrictions__api_targets list;
+    restrictions__android_key_restrictions list;
+  api_targets : restrictions__api_targets list;
   browser_key_restrictions :
-    google_apikeys_key__restrictions__browser_key_restrictions list;
-  ios_key_restrictions :
-    google_apikeys_key__restrictions__ios_key_restrictions list;
+    restrictions__browser_key_restrictions list;
+  ios_key_restrictions : restrictions__ios_key_restrictions list;
   server_key_restrictions :
-    google_apikeys_key__restrictions__server_key_restrictions list;
+    restrictions__server_key_restrictions list;
 }
 [@@deriving yojson_of]
 (** Key restrictions. *)
 
-type google_apikeys_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_apikeys_key__timeouts *)
+(** timeouts *)
 
 type google_apikeys_key = {
   display_name : string prop option; [@option]
@@ -81,11 +79,54 @@ type google_apikeys_key = {
       (** The resource name of the key. The name must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. In another word, the name must match the regular expression: `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`. *)
   project : string prop option; [@option]
       (** The project for the resource *)
-  restrictions : google_apikeys_key__restrictions list;
-  timeouts : google_apikeys_key__timeouts option;
+  restrictions : restrictions list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apikeys_key *)
+
+let restrictions__android_key_restrictions__allowed_applications
+    ~package_name ~sha1_fingerprint () :
+    restrictions__android_key_restrictions__allowed_applications =
+  { package_name; sha1_fingerprint }
+
+let restrictions__android_key_restrictions ~allowed_applications () :
+    restrictions__android_key_restrictions =
+  { allowed_applications }
+
+let restrictions__api_targets ?methods ~service () :
+    restrictions__api_targets =
+  { methods; service }
+
+let restrictions__browser_key_restrictions ~allowed_referrers () :
+    restrictions__browser_key_restrictions =
+  { allowed_referrers }
+
+let restrictions__ios_key_restrictions ~allowed_bundle_ids () :
+    restrictions__ios_key_restrictions =
+  { allowed_bundle_ids }
+
+let restrictions__server_key_restrictions ~allowed_ips () :
+    restrictions__server_key_restrictions =
+  { allowed_ips }
+
+let restrictions ~android_key_restrictions ~api_targets
+    ~browser_key_restrictions ~ios_key_restrictions
+    ~server_key_restrictions () : restrictions =
+  {
+    android_key_restrictions;
+    api_targets;
+    browser_key_restrictions;
+    ios_key_restrictions;
+    server_key_restrictions;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_apikeys_key ?display_name ?id ?project ?timeouts ~name
+    ~restrictions () : google_apikeys_key =
+  { display_name; id; name; project; restrictions; timeouts }
 
 type t = {
   display_name : string prop;
@@ -96,14 +137,14 @@ type t = {
   uid : string prop;
 }
 
-let google_apikeys_key ?display_name ?id ?project ?timeouts ~name
+let register ?tf_module ?display_name ?id ?project ?timeouts ~name
     ~restrictions __resource_id =
   let __resource_type = "google_apikeys_key" in
   let __resource =
-    ({ display_name; id; name; project; restrictions; timeouts }
-      : google_apikeys_key)
+    google_apikeys_key ?display_name ?id ?project ?timeouts ~name
+      ~restrictions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apikeys_key __resource);
   let __resource_attributes =
     ({

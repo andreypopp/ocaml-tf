@@ -13,6 +13,11 @@ type aws_worklink_website_certificate_authority_association = {
 [@@deriving yojson_of]
 (** aws_worklink_website_certificate_authority_association *)
 
+let aws_worklink_website_certificate_authority_association
+    ?display_name ?id ~certificate ~fleet_arn () :
+    aws_worklink_website_certificate_authority_association =
+  { certificate; display_name; fleet_arn; id }
+
 type t = {
   certificate : string prop;
   display_name : string prop;
@@ -21,16 +26,16 @@ type t = {
   website_ca_id : string prop;
 }
 
-let aws_worklink_website_certificate_authority_association
-    ?display_name ?id ~certificate ~fleet_arn __resource_id =
+let register ?tf_module ?display_name ?id ~certificate ~fleet_arn
+    __resource_id =
   let __resource_type =
     "aws_worklink_website_certificate_authority_association"
   in
   let __resource =
-    ({ certificate; display_name; fleet_arn; id }
-      : aws_worklink_website_certificate_authority_association)
+    aws_worklink_website_certificate_authority_association
+      ?display_name ?id ~certificate ~fleet_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_worklink_website_certificate_authority_association
        __resource);
   let __resource_attributes =

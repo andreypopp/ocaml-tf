@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type google_folder__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_folder
+
+val google_folder :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  parent:string prop ->
+  unit ->
+  google_folder
+
+val yojson_of_google_folder : google_folder -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -15,9 +38,10 @@ type t = private {
   parent : string prop;
 }
 
-val google_folder :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:google_folder__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   parent:string prop ->
   string ->

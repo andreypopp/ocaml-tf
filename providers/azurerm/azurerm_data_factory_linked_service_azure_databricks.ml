@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_azure_databricks__instance_pool = {
+type instance_pool = {
   cluster_version : string prop;  (** cluster_version *)
   instance_pool_id : string prop;  (** instance_pool_id *)
   max_number_of_workers : float prop option; [@option]
@@ -13,16 +13,16 @@ type azurerm_data_factory_linked_service_azure_databricks__instance_pool = {
       (** min_number_of_workers *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_databricks__instance_pool *)
+(** instance_pool *)
 
-type azurerm_data_factory_linked_service_azure_databricks__key_vault_password = {
+type key_vault_password = {
   linked_service_name : string prop;  (** linked_service_name *)
   secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_databricks__key_vault_password *)
+(** key_vault_password *)
 
-type azurerm_data_factory_linked_service_azure_databricks__new_cluster_config = {
+type new_cluster_config = {
   cluster_version : string prop;  (** cluster_version *)
   custom_tags : (string * string prop) list option; [@option]
       (** custom_tags *)
@@ -44,16 +44,16 @@ type azurerm_data_factory_linked_service_azure_databricks__new_cluster_config = 
       (** spark_environment_variables *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_databricks__new_cluster_config *)
+(** new_cluster_config *)
 
-type azurerm_data_factory_linked_service_azure_databricks__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_databricks__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_azure_databricks = {
   access_token : string prop option; [@option]  (** access_token *)
@@ -75,21 +75,72 @@ type azurerm_data_factory_linked_service_azure_databricks = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  instance_pool :
-    azurerm_data_factory_linked_service_azure_databricks__instance_pool
-    list;
-  key_vault_password :
-    azurerm_data_factory_linked_service_azure_databricks__key_vault_password
-    list;
-  new_cluster_config :
-    azurerm_data_factory_linked_service_azure_databricks__new_cluster_config
-    list;
-  timeouts :
-    azurerm_data_factory_linked_service_azure_databricks__timeouts
-    option;
+  instance_pool : instance_pool list;
+  key_vault_password : key_vault_password list;
+  new_cluster_config : new_cluster_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_databricks *)
+
+let instance_pool ?max_number_of_workers ?min_number_of_workers
+    ~cluster_version ~instance_pool_id () : instance_pool =
+  {
+    cluster_version;
+    instance_pool_id;
+    max_number_of_workers;
+    min_number_of_workers;
+  }
+
+let key_vault_password ~linked_service_name ~secret_name () :
+    key_vault_password =
+  { linked_service_name; secret_name }
+
+let new_cluster_config ?custom_tags ?driver_node_type ?init_scripts
+    ?log_destination ?max_number_of_workers ?min_number_of_workers
+    ?spark_config ?spark_environment_variables ~cluster_version
+    ~node_type () : new_cluster_config =
+  {
+    cluster_version;
+    custom_tags;
+    driver_node_type;
+    init_scripts;
+    log_destination;
+    max_number_of_workers;
+    min_number_of_workers;
+    node_type;
+    spark_config;
+    spark_environment_variables;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_azure_databricks
+    ?access_token ?additional_properties ?annotations ?description
+    ?existing_cluster_id ?id ?integration_runtime_name
+    ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
+    ~data_factory_id ~name ~instance_pool ~key_vault_password
+    ~new_cluster_config () :
+    azurerm_data_factory_linked_service_azure_databricks =
+  {
+    access_token;
+    adb_domain;
+    additional_properties;
+    annotations;
+    data_factory_id;
+    description;
+    existing_cluster_id;
+    id;
+    integration_runtime_name;
+    msi_work_space_resource_id;
+    name;
+    parameters;
+    instance_pool;
+    key_vault_password;
+    new_cluster_config;
+    timeouts;
+  }
 
 type t = {
   access_token : string prop;
@@ -106,37 +157,23 @@ type t = {
   parameters : (string * string) list prop;
 }
 
-let azurerm_data_factory_linked_service_azure_databricks
-    ?access_token ?additional_properties ?annotations ?description
-    ?existing_cluster_id ?id ?integration_runtime_name
-    ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
-    ~data_factory_id ~name ~instance_pool ~key_vault_password
-    ~new_cluster_config __resource_id =
+let register ?tf_module ?access_token ?additional_properties
+    ?annotations ?description ?existing_cluster_id ?id
+    ?integration_runtime_name ?msi_work_space_resource_id ?parameters
+    ?timeouts ~adb_domain ~data_factory_id ~name ~instance_pool
+    ~key_vault_password ~new_cluster_config __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_azure_databricks"
   in
   let __resource =
-    ({
-       access_token;
-       adb_domain;
-       additional_properties;
-       annotations;
-       data_factory_id;
-       description;
-       existing_cluster_id;
-       id;
-       integration_runtime_name;
-       msi_work_space_resource_id;
-       name;
-       parameters;
-       instance_pool;
-       key_vault_password;
-       new_cluster_config;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_azure_databricks)
+    azurerm_data_factory_linked_service_azure_databricks
+      ?access_token ?additional_properties ?annotations ?description
+      ?existing_cluster_id ?id ?integration_runtime_name
+      ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
+      ~data_factory_id ~name ~instance_pool ~key_vault_password
+      ~new_cluster_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_azure_databricks
        __resource);
   let __resource_attributes =

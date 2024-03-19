@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_linked_service_cosmosdb_mongoapi__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_cosmosdb_mongoapi__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_linked_service_cosmosdb_mongoapi = {
   additional_properties : (string * string prop) list option;
@@ -32,12 +32,33 @@ type azurerm_data_factory_linked_service_cosmosdb_mongoapi = {
       (** parameters *)
   server_version_is_32_or_higher : bool prop option; [@option]
       (** server_version_is_32_or_higher *)
-  timeouts :
-    azurerm_data_factory_linked_service_cosmosdb_mongoapi__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_cosmosdb_mongoapi *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_linked_service_cosmosdb_mongoapi
+    ?additional_properties ?annotations ?connection_string ?database
+    ?description ?id ?integration_runtime_name ?parameters
+    ?server_version_is_32_or_higher ?timeouts ~data_factory_id ~name
+    () : azurerm_data_factory_linked_service_cosmosdb_mongoapi =
+  {
+    additional_properties;
+    annotations;
+    connection_string;
+    data_factory_id;
+    database;
+    description;
+    id;
+    integration_runtime_name;
+    name;
+    parameters;
+    server_version_is_32_or_higher;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -53,32 +74,22 @@ type t = {
   server_version_is_32_or_higher : bool prop;
 }
 
-let azurerm_data_factory_linked_service_cosmosdb_mongoapi
-    ?additional_properties ?annotations ?connection_string ?database
-    ?description ?id ?integration_runtime_name ?parameters
+let register ?tf_module ?additional_properties ?annotations
+    ?connection_string ?database ?description ?id
+    ?integration_runtime_name ?parameters
     ?server_version_is_32_or_higher ?timeouts ~data_factory_id ~name
     __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_cosmosdb_mongoapi"
   in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       connection_string;
-       data_factory_id;
-       database;
-       description;
-       id;
-       integration_runtime_name;
-       name;
-       parameters;
-       server_version_is_32_or_higher;
-       timeouts;
-     }
-      : azurerm_data_factory_linked_service_cosmosdb_mongoapi)
+    azurerm_data_factory_linked_service_cosmosdb_mongoapi
+      ?additional_properties ?annotations ?connection_string
+      ?database ?description ?id ?integration_runtime_name
+      ?parameters ?server_version_is_32_or_higher ?timeouts
+      ~data_factory_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_cosmosdb_mongoapi
        __resource);
   let __resource_attributes =

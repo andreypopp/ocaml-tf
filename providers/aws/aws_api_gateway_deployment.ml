@@ -19,6 +19,19 @@ type aws_api_gateway_deployment = {
 [@@deriving yojson_of]
 (** aws_api_gateway_deployment *)
 
+let aws_api_gateway_deployment ?description ?id ?stage_description
+    ?stage_name ?triggers ?variables ~rest_api_id () :
+    aws_api_gateway_deployment =
+  {
+    description;
+    id;
+    rest_api_id;
+    stage_description;
+    stage_name;
+    triggers;
+    variables;
+  }
+
 type t = {
   created_date : string prop;
   description : string prop;
@@ -32,22 +45,14 @@ type t = {
   variables : (string * string) list prop;
 }
 
-let aws_api_gateway_deployment ?description ?id ?stage_description
+let register ?tf_module ?description ?id ?stage_description
     ?stage_name ?triggers ?variables ~rest_api_id __resource_id =
   let __resource_type = "aws_api_gateway_deployment" in
   let __resource =
-    ({
-       description;
-       id;
-       rest_api_id;
-       stage_description;
-       stage_name;
-       triggers;
-       variables;
-     }
-      : aws_api_gateway_deployment)
+    aws_api_gateway_deployment ?description ?id ?stage_description
+      ?stage_name ?triggers ?variables ~rest_api_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_deployment __resource);
   let __resource_attributes =
     ({

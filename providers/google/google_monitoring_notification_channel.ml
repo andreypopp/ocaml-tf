@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_monitoring_notification_channel__sensitive_labels = {
+type sensitive_labels = {
   auth_token : string prop option; [@option]
       (** An authorization token for a notification channel. Channel types that support this field include: slack *)
   password : string prop option; [@option]
@@ -21,13 +21,13 @@ in the 'labels' map in the api request.
 Credentials may not be specified in both locations and will cause an error. Changing from one location
 to a different credential configuration in the config will require an apply to update state. *)
 
-type google_monitoring_notification_channel__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_monitoring_notification_channel__timeouts *)
+(** timeouts *)
 
 type google_monitoring_notification_channel = {
   description : string prop option; [@option]
@@ -56,12 +56,36 @@ the sensitive_labels block, but cannot be configured in both places. *)
       (** The type of the notification channel. This field matches the value of the NotificationChannelDescriptor.type field. See https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.notificationChannelDescriptors/list to get the list of valid values such as email, slack, etc... *)
   user_labels : (string * string prop) list option; [@option]
       (** User-supplied key/value data that does not need to conform to the corresponding NotificationChannelDescriptor's schema, unlike the labels field. This field is intended to be used for organizing and identifying the NotificationChannel objects.The field can contain up to 64 entries. Each key and value is limited to 63 Unicode characters or 128 bytes, whichever is smaller. Labels and values can contain only lowercase letters, numerals, underscores, and dashes. Keys must begin with a letter. *)
-  sensitive_labels :
-    google_monitoring_notification_channel__sensitive_labels list;
-  timeouts : google_monitoring_notification_channel__timeouts option;
+  sensitive_labels : sensitive_labels list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_monitoring_notification_channel *)
+
+let sensitive_labels ?auth_token ?password ?service_key () :
+    sensitive_labels =
+  { auth_token; password; service_key }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_monitoring_notification_channel ?description ?display_name
+    ?enabled ?force_delete ?id ?labels ?project ?user_labels
+    ?timeouts ~type_ ~sensitive_labels () :
+    google_monitoring_notification_channel =
+  {
+    description;
+    display_name;
+    enabled;
+    force_delete;
+    id;
+    labels;
+    project;
+    type_;
+    user_labels;
+    sensitive_labels;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -77,27 +101,16 @@ type t = {
   verification_status : string prop;
 }
 
-let google_monitoring_notification_channel ?description ?display_name
-    ?enabled ?force_delete ?id ?labels ?project ?user_labels
-    ?timeouts ~type_ ~sensitive_labels __resource_id =
+let register ?tf_module ?description ?display_name ?enabled
+    ?force_delete ?id ?labels ?project ?user_labels ?timeouts ~type_
+    ~sensitive_labels __resource_id =
   let __resource_type = "google_monitoring_notification_channel" in
   let __resource =
-    ({
-       description;
-       display_name;
-       enabled;
-       force_delete;
-       id;
-       labels;
-       project;
-       type_;
-       user_labels;
-       sensitive_labels;
-       timeouts;
-     }
-      : google_monitoring_notification_channel)
+    google_monitoring_notification_channel ?description ?display_name
+      ?enabled ?force_delete ?id ?labels ?project ?user_labels
+      ?timeouts ~type_ ~sensitive_labels ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_notification_channel __resource);
   let __resource_attributes =
     ({

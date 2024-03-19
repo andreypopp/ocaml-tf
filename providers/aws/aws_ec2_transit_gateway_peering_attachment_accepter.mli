@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_ec2_transit_gateway_peering_attachment_accepter
+
+val aws_ec2_transit_gateway_peering_attachment_accepter :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  transit_gateway_attachment_id:string prop ->
+  unit ->
+  aws_ec2_transit_gateway_peering_attachment_accepter
+
+val yojson_of_aws_ec2_transit_gateway_peering_attachment_accepter :
+  aws_ec2_transit_gateway_peering_attachment_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,7 +30,8 @@ type t = private {
   transit_gateway_id : string prop;
 }
 
-val aws_ec2_transit_gateway_peering_attachment_accepter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

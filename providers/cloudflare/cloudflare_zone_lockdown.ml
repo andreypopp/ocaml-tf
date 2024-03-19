@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_zone_lockdown__configurations = {
+type configurations = {
   target : string prop;
       (** The request property to target. Available values: `ip`, `ip_range`. *)
   value : string prop;
@@ -24,7 +24,7 @@ type cloudflare_zone_lockdown = {
       (** A list of simple wildcard patterns to match requests against. The order of the urls is unimportant. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  configurations : cloudflare_zone_lockdown__configurations list;
+  configurations : configurations list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Zone Lockdown resource. Zone Lockdown allows
@@ -33,6 +33,21 @@ or path) that will only permit access if the request originates
 from an IP address that matches a safelist of one or more IP
 addresses and/or IP ranges.
  *)
+
+let configurations ~target ~value () : configurations =
+  { target; value }
+
+let cloudflare_zone_lockdown ?description ?id ?paused ?priority ~urls
+    ~zone_id ~configurations () : cloudflare_zone_lockdown =
+  {
+    description;
+    id;
+    paused;
+    priority;
+    urls;
+    zone_id;
+    configurations;
+  }
 
 type t = {
   description : string prop;
@@ -43,22 +58,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_zone_lockdown ?description ?id ?paused ?priority ~urls
+let register ?tf_module ?description ?id ?paused ?priority ~urls
     ~zone_id ~configurations __resource_id =
   let __resource_type = "cloudflare_zone_lockdown" in
   let __resource =
-    ({
-       description;
-       id;
-       paused;
-       priority;
-       urls;
-       zone_id;
-       configurations;
-     }
-      : cloudflare_zone_lockdown)
+    cloudflare_zone_lockdown ?description ?id ?paused ?priority ~urls
+      ~zone_id ~configurations ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_lockdown __resource);
   let __resource_attributes =
     ({

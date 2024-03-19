@@ -2,8 +2,37 @@
 
 open! Tf.Prelude
 
-type azurerm_key_vault_secret__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_key_vault_secret
+
+val azurerm_key_vault_secret :
+  ?content_type:string prop ->
+  ?expiration_date:string prop ->
+  ?id:string prop ->
+  ?not_before_date:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  key_vault_id:string prop ->
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  azurerm_key_vault_secret
+
+val yojson_of_azurerm_key_vault_secret :
+  azurerm_key_vault_secret -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   content_type : string prop;
@@ -20,13 +49,14 @@ type t = private {
   versionless_id : string prop;
 }
 
-val azurerm_key_vault_secret :
+val register :
+  ?tf_module:tf_module ->
   ?content_type:string prop ->
   ?expiration_date:string prop ->
   ?id:string prop ->
   ?not_before_date:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_key_vault_secret__timeouts ->
+  ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
   value:string prop ->

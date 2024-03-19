@@ -4,43 +4,39 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_container_service__private_registry_access__ecr_image_puller_role = {
+type private_registry_access__ecr_image_puller_role = {
   is_active : bool prop option; [@option]  (** is_active *)
-  principal_arn : string prop;  (** principal_arn *)
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service__private_registry_access__ecr_image_puller_role *)
+(** private_registry_access__ecr_image_puller_role *)
 
-type aws_lightsail_container_service__private_registry_access = {
+type private_registry_access = {
   ecr_image_puller_role :
-    aws_lightsail_container_service__private_registry_access__ecr_image_puller_role
-    list;
+    private_registry_access__ecr_image_puller_role list;
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service__private_registry_access *)
+(** private_registry_access *)
 
-type aws_lightsail_container_service__public_domain_names__certificate = {
+type public_domain_names__certificate = {
   certificate_name : string prop;  (** certificate_name *)
   domain_names : string prop list;  (** domain_names *)
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service__public_domain_names__certificate *)
+(** public_domain_names__certificate *)
 
-type aws_lightsail_container_service__public_domain_names = {
-  certificate :
-    aws_lightsail_container_service__public_domain_names__certificate
-    list;
+type public_domain_names = {
+  certificate : public_domain_names__certificate list;
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service__public_domain_names *)
+(** public_domain_names *)
 
-type aws_lightsail_container_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service__timeouts *)
+(** timeouts *)
 
 type aws_lightsail_container_service = {
   id : string prop option; [@option]  (** id *)
@@ -51,14 +47,46 @@ type aws_lightsail_container_service = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  private_registry_access :
-    aws_lightsail_container_service__private_registry_access list;
-  public_domain_names :
-    aws_lightsail_container_service__public_domain_names list;
-  timeouts : aws_lightsail_container_service__timeouts option;
+  private_registry_access : private_registry_access list;
+  public_domain_names : public_domain_names list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lightsail_container_service *)
+
+let private_registry_access__ecr_image_puller_role ?is_active () :
+    private_registry_access__ecr_image_puller_role =
+  { is_active }
+
+let private_registry_access ~ecr_image_puller_role () :
+    private_registry_access =
+  { ecr_image_puller_role }
+
+let public_domain_names__certificate ~certificate_name ~domain_names
+    () : public_domain_names__certificate =
+  { certificate_name; domain_names }
+
+let public_domain_names ~certificate () : public_domain_names =
+  { certificate }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_lightsail_container_service ?id ?is_disabled ?tags ?tags_all
+    ?timeouts ~name ~power ~scale ~private_registry_access
+    ~public_domain_names () : aws_lightsail_container_service =
+  {
+    id;
+    is_disabled;
+    name;
+    power;
+    scale;
+    tags;
+    tags_all;
+    private_registry_access;
+    public_domain_names;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -79,26 +107,16 @@ type t = {
   url : string prop;
 }
 
-let aws_lightsail_container_service ?id ?is_disabled ?tags ?tags_all
-    ?timeouts ~name ~power ~scale ~private_registry_access
-    ~public_domain_names __resource_id =
+let register ?tf_module ?id ?is_disabled ?tags ?tags_all ?timeouts
+    ~name ~power ~scale ~private_registry_access ~public_domain_names
+    __resource_id =
   let __resource_type = "aws_lightsail_container_service" in
   let __resource =
-    ({
-       id;
-       is_disabled;
-       name;
-       power;
-       scale;
-       tags;
-       tags_all;
-       private_registry_access;
-       public_domain_names;
-       timeouts;
-     }
-      : aws_lightsail_container_service)
+    aws_lightsail_container_service ?id ?is_disabled ?tags ?tags_all
+      ?timeouts ~name ~power ~scale ~private_registry_access
+      ~public_domain_names ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_container_service __resource);
   let __resource_attributes =
     ({

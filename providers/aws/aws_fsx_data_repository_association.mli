@@ -2,11 +2,56 @@
 
 open! Tf.Prelude
 
-type aws_fsx_data_repository_association__s3__auto_export_policy
-type aws_fsx_data_repository_association__s3__auto_import_policy
-type aws_fsx_data_repository_association__s3
-type aws_fsx_data_repository_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type s3__auto_export_policy
+
+val s3__auto_export_policy :
+  ?events:string prop list -> unit -> s3__auto_export_policy
+
+type s3__auto_import_policy
+
+val s3__auto_import_policy :
+  ?events:string prop list -> unit -> s3__auto_import_policy
+
+type s3
+
+val s3 :
+  auto_export_policy:s3__auto_export_policy list ->
+  auto_import_policy:s3__auto_import_policy list ->
+  unit ->
+  s3
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_fsx_data_repository_association
+
+val aws_fsx_data_repository_association :
+  ?batch_import_meta_data_on_create:bool prop ->
+  ?delete_data_in_filesystem:bool prop ->
+  ?id:string prop ->
+  ?imported_file_chunk_size:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  data_repository_path:string prop ->
+  file_system_id:string prop ->
+  file_system_path:string prop ->
+  s3:s3 list ->
+  unit ->
+  aws_fsx_data_repository_association
+
+val yojson_of_aws_fsx_data_repository_association :
+  aws_fsx_data_repository_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -22,17 +67,18 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_fsx_data_repository_association :
+val register :
+  ?tf_module:tf_module ->
   ?batch_import_meta_data_on_create:bool prop ->
   ?delete_data_in_filesystem:bool prop ->
   ?id:string prop ->
   ?imported_file_chunk_size:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_fsx_data_repository_association__timeouts ->
+  ?timeouts:timeouts ->
   data_repository_path:string prop ->
   file_system_id:string prop ->
   file_system_path:string prop ->
-  s3:aws_fsx_data_repository_association__s3 list ->
+  s3:s3 list ->
   string ->
   t

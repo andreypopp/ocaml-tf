@@ -18,6 +18,10 @@ type cloudflare_hostname_tls_setting_ciphers = {
 (** Provides a Cloudflare per-hostname TLS setting resource, specifically for ciphers suites. Used to set ciphers suites for hostnames under the specified zone.
  *)
 
+let cloudflare_hostname_tls_setting_ciphers ?id ?ports ~hostname
+    ~value ~zone_id () : cloudflare_hostname_tls_setting_ciphers =
+  { hostname; id; ports; value; zone_id }
+
 type t = {
   created_at : string prop;
   hostname : string prop;
@@ -28,14 +32,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_hostname_tls_setting_ciphers ?id ?ports ~hostname
-    ~value ~zone_id __resource_id =
+let register ?tf_module ?id ?ports ~hostname ~value ~zone_id
+    __resource_id =
   let __resource_type = "cloudflare_hostname_tls_setting_ciphers" in
   let __resource =
-    ({ hostname; id; ports; value; zone_id }
-      : cloudflare_hostname_tls_setting_ciphers)
+    cloudflare_hostname_tls_setting_ciphers ?id ?ports ~hostname
+      ~value ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_hostname_tls_setting_ciphers __resource);
   let __resource_attributes =
     ({

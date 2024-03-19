@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_hpc_cache__default_access_policy__access_rule = {
+type default_access_policy__access_rule = {
   access : string prop;  (** access *)
   anonymous_gid : float prop option; [@option]  (** anonymous_gid *)
   anonymous_uid : float prop option; [@option]  (** anonymous_uid *)
@@ -17,16 +17,15 @@ type azurerm_hpc_cache__default_access_policy__access_rule = {
   suid_enabled : bool prop option; [@option]  (** suid_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__default_access_policy__access_rule *)
+(** default_access_policy__access_rule *)
 
-type azurerm_hpc_cache__default_access_policy = {
-  access_rule :
-    azurerm_hpc_cache__default_access_policy__access_rule list;
+type default_access_policy = {
+  access_rule : default_access_policy__access_rule list;
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__default_access_policy *)
+(** default_access_policy *)
 
-type azurerm_hpc_cache__directory_active_directory = {
+type directory_active_directory = {
   cache_netbios_name : string prop;  (** cache_netbios_name *)
   dns_primary_ip : string prop;  (** dns_primary_ip *)
   dns_secondary_ip : string prop option; [@option]
@@ -37,23 +36,23 @@ type azurerm_hpc_cache__directory_active_directory = {
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__directory_active_directory *)
+(** directory_active_directory *)
 
-type azurerm_hpc_cache__directory_flat_file = {
+type directory_flat_file = {
   group_file_uri : string prop;  (** group_file_uri *)
   password_file_uri : string prop;  (** password_file_uri *)
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__directory_flat_file *)
+(** directory_flat_file *)
 
-type azurerm_hpc_cache__directory_ldap__bind = {
+type directory_ldap__bind = {
   dn : string prop;  (** dn *)
   password : string prop;  (** password *)
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__directory_ldap__bind *)
+(** directory_ldap__bind *)
 
-type azurerm_hpc_cache__directory_ldap = {
+type directory_ldap = {
   base_dn : string prop;  (** base_dn *)
   certificate_validation_uri : string prop option; [@option]
       (** certificate_validation_uri *)
@@ -61,36 +60,34 @@ type azurerm_hpc_cache__directory_ldap = {
       (** download_certificate_automatically *)
   encrypted : bool prop option; [@option]  (** encrypted *)
   server : string prop;  (** server *)
-  bind : azurerm_hpc_cache__directory_ldap__bind list;
+  bind : directory_ldap__bind list;
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__directory_ldap *)
+(** directory_ldap *)
 
-type azurerm_hpc_cache__dns = {
+type dns = {
   search_domain : string prop option; [@option]  (** search_domain *)
   servers : string prop list;  (** servers *)
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__dns *)
+(** dns *)
 
-type azurerm_hpc_cache__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__identity *)
+(** identity *)
 
-type azurerm_hpc_cache__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_hpc_cache__timeouts *)
+(** timeouts *)
 
 type azurerm_hpc_cache = {
   automatically_rotate_key_to_latest_enabled : bool prop option;
@@ -108,18 +105,102 @@ type azurerm_hpc_cache = {
   sku_name : string prop;  (** sku_name *)
   subnet_id : string prop;  (** subnet_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  default_access_policy :
-    azurerm_hpc_cache__default_access_policy list;
-  directory_active_directory :
-    azurerm_hpc_cache__directory_active_directory list;
-  directory_flat_file : azurerm_hpc_cache__directory_flat_file list;
-  directory_ldap : azurerm_hpc_cache__directory_ldap list;
-  dns : azurerm_hpc_cache__dns list;
-  identity : azurerm_hpc_cache__identity list;
-  timeouts : azurerm_hpc_cache__timeouts option;
+  default_access_policy : default_access_policy list;
+  directory_active_directory : directory_active_directory list;
+  directory_flat_file : directory_flat_file list;
+  directory_ldap : directory_ldap list;
+  dns : dns list;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_hpc_cache *)
+
+let default_access_policy__access_rule ?anonymous_gid ?anonymous_uid
+    ?filter ?root_squash_enabled ?submount_access_enabled
+    ?suid_enabled ~access ~scope () :
+    default_access_policy__access_rule =
+  {
+    access;
+    anonymous_gid;
+    anonymous_uid;
+    filter;
+    root_squash_enabled;
+    scope;
+    submount_access_enabled;
+    suid_enabled;
+  }
+
+let default_access_policy ~access_rule () : default_access_policy =
+  { access_rule }
+
+let directory_active_directory ?dns_secondary_ip ~cache_netbios_name
+    ~dns_primary_ip ~domain_name ~domain_netbios_name ~password
+    ~username () : directory_active_directory =
+  {
+    cache_netbios_name;
+    dns_primary_ip;
+    dns_secondary_ip;
+    domain_name;
+    domain_netbios_name;
+    password;
+    username;
+  }
+
+let directory_flat_file ~group_file_uri ~password_file_uri () :
+    directory_flat_file =
+  { group_file_uri; password_file_uri }
+
+let directory_ldap__bind ~dn ~password () : directory_ldap__bind =
+  { dn; password }
+
+let directory_ldap ?certificate_validation_uri
+    ?download_certificate_automatically ?encrypted ~base_dn ~server
+    ~bind () : directory_ldap =
+  {
+    base_dn;
+    certificate_validation_uri;
+    download_certificate_automatically;
+    encrypted;
+    server;
+    bind;
+  }
+
+let dns ?search_domain ~servers () : dns = { search_domain; servers }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
+    ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
+    ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
+    ~subnet_id ~default_access_policy ~directory_active_directory
+    ~directory_flat_file ~directory_ldap ~dns ~identity () :
+    azurerm_hpc_cache =
+  {
+    automatically_rotate_key_to_latest_enabled;
+    cache_size_in_gb;
+    id;
+    key_vault_key_id;
+    location;
+    mtu;
+    name;
+    ntp_server;
+    resource_group_name;
+    sku_name;
+    subnet_id;
+    tags;
+    default_access_policy;
+    directory_active_directory;
+    directory_flat_file;
+    directory_ldap;
+    dns;
+    identity;
+    timeouts;
+  }
 
 type t = {
   automatically_rotate_key_to_latest_enabled : bool prop;
@@ -137,38 +218,22 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
-    ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
+let register ?tf_module ?automatically_rotate_key_to_latest_enabled
+    ?id ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
     ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
     ~subnet_id ~default_access_policy ~directory_active_directory
     ~directory_flat_file ~directory_ldap ~dns ~identity __resource_id
     =
   let __resource_type = "azurerm_hpc_cache" in
   let __resource =
-    ({
-       automatically_rotate_key_to_latest_enabled;
-       cache_size_in_gb;
-       id;
-       key_vault_key_id;
-       location;
-       mtu;
-       name;
-       ntp_server;
-       resource_group_name;
-       sku_name;
-       subnet_id;
-       tags;
-       default_access_policy;
-       directory_active_directory;
-       directory_flat_file;
-       directory_ldap;
-       dns;
-       identity;
-       timeouts;
-     }
-      : azurerm_hpc_cache)
+    azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
+      ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
+      ~cache_size_in_gb ~location ~name ~resource_group_name
+      ~sku_name ~subnet_id ~default_access_policy
+      ~directory_active_directory ~directory_flat_file
+      ~directory_ldap ~dns ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_hpc_cache __resource);
   let __resource_attributes =
     ({

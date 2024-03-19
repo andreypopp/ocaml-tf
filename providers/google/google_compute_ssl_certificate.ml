@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_ssl_certificate__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_ssl_certificate__timeouts *)
+(** timeouts *)
 
 type google_compute_ssl_certificate = {
   certificate : string prop;
@@ -35,10 +35,26 @@ These are in the same namespace as the managed SSL certificates. *)
   private_key : string prop;
       (** The write-only private key in PEM format. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_compute_ssl_certificate__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_ssl_certificate *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_ssl_certificate ?description ?id ?name
+    ?name_prefix ?project ?timeouts ~certificate ~private_key () :
+    google_compute_ssl_certificate =
+  {
+    certificate;
+    description;
+    id;
+    name;
+    name_prefix;
+    private_key;
+    project;
+    timeouts;
+  }
 
 type t = {
   certificate : string prop;
@@ -54,24 +70,14 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_ssl_certificate ?description ?id ?name
-    ?name_prefix ?project ?timeouts ~certificate ~private_key
-    __resource_id =
+let register ?tf_module ?description ?id ?name ?name_prefix ?project
+    ?timeouts ~certificate ~private_key __resource_id =
   let __resource_type = "google_compute_ssl_certificate" in
   let __resource =
-    ({
-       certificate;
-       description;
-       id;
-       name;
-       name_prefix;
-       private_key;
-       project;
-       timeouts;
-     }
-      : google_compute_ssl_certificate)
+    google_compute_ssl_certificate ?description ?id ?name
+      ?name_prefix ?project ?timeouts ~certificate ~private_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_ssl_certificate __resource);
   let __resource_attributes =
     ({

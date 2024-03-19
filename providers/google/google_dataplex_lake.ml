@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type google_dataplex_lake__metastore = {
+type metastore = {
   service : string prop option; [@option]
       (** Optional. A relative reference to the Dataproc Metastore (https://cloud.google.com/dataproc-metastore/docs) service associated with the lake: `projects/{project_id}/locations/{location_id}/services/{service_id}` *)
 }
 [@@deriving yojson_of]
 (** Optional. Settings to manage lake and Dataproc Metastore service instance association. *)
 
-type google_dataplex_lake__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dataplex_lake__timeouts *)
+(** timeouts *)
 
-type google_dataplex_lake__asset_status = {
+type asset_status = {
   active_assets : float prop;  (** active_assets *)
   security_policy_applying_assets : float prop;
       (** security_policy_applying_assets *)
@@ -27,7 +27,7 @@ type google_dataplex_lake__asset_status = {
 }
 [@@deriving yojson_of]
 
-type google_dataplex_lake__metastore_status = {
+type metastore_status = {
   endpoint : string prop;  (** endpoint *)
   message : string prop;  (** message *)
   state : string prop;  (** state *)
@@ -50,14 +50,34 @@ Please refer to the field `effective_labels` for all of the labels present on th
   name : string prop;  (** The name of the lake. *)
   project : string prop option; [@option]
       (** The project for the resource *)
-  metastore : google_dataplex_lake__metastore list;
-  timeouts : google_dataplex_lake__timeouts option;
+  metastore : metastore list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dataplex_lake *)
 
+let metastore ?service () : metastore = { service }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dataplex_lake ?description ?display_name ?id ?labels
+    ?project ?timeouts ~location ~name ~metastore () :
+    google_dataplex_lake =
+  {
+    description;
+    display_name;
+    id;
+    labels;
+    location;
+    name;
+    project;
+    metastore;
+    timeouts;
+  }
+
 type t = {
-  asset_status : google_dataplex_lake__asset_status list prop;
+  asset_status : asset_status list prop;
   create_time : string prop;
   description : string prop;
   display_name : string prop;
@@ -65,8 +85,7 @@ type t = {
   id : string prop;
   labels : (string * string) list prop;
   location : string prop;
-  metastore_status :
-    google_dataplex_lake__metastore_status list prop;
+  metastore_status : metastore_status list prop;
   name : string prop;
   project : string prop;
   service_account : string prop;
@@ -76,24 +95,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_dataplex_lake ?description ?display_name ?id ?labels
+let register ?tf_module ?description ?display_name ?id ?labels
     ?project ?timeouts ~location ~name ~metastore __resource_id =
   let __resource_type = "google_dataplex_lake" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       labels;
-       location;
-       name;
-       project;
-       metastore;
-       timeouts;
-     }
-      : google_dataplex_lake)
+    google_dataplex_lake ?description ?display_name ?id ?labels
+      ?project ?timeouts ~location ~name ~metastore ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataplex_lake __resource);
   let __resource_attributes =
     ({

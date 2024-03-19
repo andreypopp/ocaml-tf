@@ -4,23 +4,30 @@
 
 open! Tf.Prelude
 
-type aws_guardduty_detector_feature__additional_configuration = {
+type additional_configuration = {
   name : string prop;  (** name *)
   status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
-(** aws_guardduty_detector_feature__additional_configuration *)
+(** additional_configuration *)
 
 type aws_guardduty_detector_feature = {
   detector_id : string prop;  (** detector_id *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   status : string prop;  (** status *)
-  additional_configuration :
-    aws_guardduty_detector_feature__additional_configuration list;
+  additional_configuration : additional_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_guardduty_detector_feature *)
+
+let additional_configuration ~name ~status () :
+    additional_configuration =
+  { name; status }
+
+let aws_guardduty_detector_feature ?id ~detector_id ~name ~status
+    ~additional_configuration () : aws_guardduty_detector_feature =
+  { detector_id; id; name; status; additional_configuration }
 
 type t = {
   detector_id : string prop;
@@ -29,14 +36,14 @@ type t = {
   status : string prop;
 }
 
-let aws_guardduty_detector_feature ?id ~detector_id ~name ~status
+let register ?tf_module ?id ~detector_id ~name ~status
     ~additional_configuration __resource_id =
   let __resource_type = "aws_guardduty_detector_feature" in
   let __resource =
-    ({ detector_id; id; name; status; additional_configuration }
-      : aws_guardduty_detector_feature)
+    aws_guardduty_detector_feature ?id ~detector_id ~name ~status
+      ~additional_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_detector_feature __resource);
   let __resource_attributes =
     ({

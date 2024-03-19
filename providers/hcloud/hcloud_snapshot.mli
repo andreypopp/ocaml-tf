@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type hcloud_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type hcloud_snapshot
+
+val hcloud_snapshot :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  server_id:float prop ->
+  unit ->
+  hcloud_snapshot
+
+val yojson_of_hcloud_snapshot : hcloud_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -12,11 +30,12 @@ type t = private {
   server_id : float prop;
 }
 
-val hcloud_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
-  ?timeouts:hcloud_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   server_id:float prop ->
   string ->
   t

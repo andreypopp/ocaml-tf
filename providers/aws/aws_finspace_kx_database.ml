@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_finspace_kx_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_finspace_kx_database__timeouts *)
+(** timeouts *)
 
 type aws_finspace_kx_database = {
   description : string prop option; [@option]  (** description *)
@@ -20,10 +20,17 @@ type aws_finspace_kx_database = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_finspace_kx_database__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_database *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_finspace_kx_database ?description ?id ?tags ?tags_all
+    ?timeouts ~environment_id ~name () : aws_finspace_kx_database =
+  { description; environment_id; id; name; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -37,22 +44,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_finspace_kx_database ?description ?id ?tags ?tags_all
-    ?timeouts ~environment_id ~name __resource_id =
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~environment_id ~name __resource_id =
   let __resource_type = "aws_finspace_kx_database" in
   let __resource =
-    ({
-       description;
-       environment_id;
-       id;
-       name;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_finspace_kx_database)
+    aws_finspace_kx_database ?description ?id ?tags ?tags_all
+      ?timeouts ~environment_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_finspace_kx_database __resource);
   let __resource_attributes =
     ({

@@ -4,23 +4,21 @@
 
 open! Tf.Prelude
 
-type google_bigquery_table__encryption_configuration = {
+type encryption_configuration = {
   kms_key_name : string prop;
       (** The self link or full name of a key which should be used to encrypt this table. Note that the default bigquery service account will need to have encrypt/decrypt permissions on this key - you may want to see the google_bigquery_default_service_account datasource and the google_kms_crypto_key_iam_binding resource. *)
-  kms_key_version : string prop;
-      (** The self link or full name of the kms key version used to encrypt this table. *)
 }
 [@@deriving yojson_of]
 (** Specifies how the table should be encrypted. If left blank, the table will be encrypted with a Google-managed key; that process is transparent to the user. *)
 
-type google_bigquery_table__external_data_configuration__avro_options = {
+type external_data_configuration__avro_options = {
   use_avro_logical_types : bool prop;
       (** If sourceFormat is set to AVRO, indicates whether to interpret logical types as the corresponding BigQuery data type (for example, TIMESTAMP), instead of using the raw type (for example, INTEGER). *)
 }
 [@@deriving yojson_of]
 (** Additional options if source_format is set to AVRO *)
 
-type google_bigquery_table__external_data_configuration__csv_options = {
+type external_data_configuration__csv_options = {
   allow_jagged_rows : bool prop option; [@option]
       (** Indicates if BigQuery should accept rows that are missing trailing optional columns. *)
   allow_quoted_newlines : bool prop option; [@option]
@@ -37,7 +35,7 @@ type google_bigquery_table__external_data_configuration__csv_options = {
 [@@deriving yojson_of]
 (** Additional properties to set if source_format is set to CSV. *)
 
-type google_bigquery_table__external_data_configuration__google_sheets_options = {
+type external_data_configuration__google_sheets_options = {
   range : string prop option; [@option]
       (** Range of a sheet to query from. Only used when non-empty. At least one of range or skip_leading_rows must be set. Typical format: sheet_name!top_left_cell_id:bottom_right_cell_id For example: sheet1!A1:B20 *)
   skip_leading_rows : float prop option; [@option]
@@ -46,7 +44,7 @@ type google_bigquery_table__external_data_configuration__google_sheets_options =
 [@@deriving yojson_of]
 (** Additional options if source_format is set to GOOGLE_SHEETS. *)
 
-type google_bigquery_table__external_data_configuration__hive_partitioning_options = {
+type external_data_configuration__hive_partitioning_options = {
   mode : string prop option; [@option]
       (** When set, what mode of hive partitioning to use when reading data. *)
   require_partition_filter : bool prop option; [@option]
@@ -57,14 +55,14 @@ type google_bigquery_table__external_data_configuration__hive_partitioning_optio
 [@@deriving yojson_of]
 (** When set, configures hive partitioning support. Not all storage formats support hive partitioning -- requesting hive partitioning on an unsupported format will lead to an error, as will providing an invalid specification. *)
 
-type google_bigquery_table__external_data_configuration__json_options = {
+type external_data_configuration__json_options = {
   encoding : string prop option; [@option]
       (** The character encoding of the data. The supported values are UTF-8, UTF-16BE, UTF-16LE, UTF-32BE, and UTF-32LE. The default value is UTF-8. *)
 }
 [@@deriving yojson_of]
 (** Additional properties to set if sourceFormat is set to JSON. *)
 
-type google_bigquery_table__external_data_configuration__parquet_options = {
+type external_data_configuration__parquet_options = {
   enable_list_inference : bool prop option; [@option]
       (** Indicates whether to use schema inference specifically for Parquet LIST logical type. *)
   enum_as_string : bool prop option; [@option]
@@ -73,7 +71,7 @@ type google_bigquery_table__external_data_configuration__parquet_options = {
 [@@deriving yojson_of]
 (** Additional properties to set if sourceFormat is set to PARQUET. *)
 
-type google_bigquery_table__external_data_configuration = {
+type external_data_configuration = {
   autodetect : bool prop;
       (** Let BigQuery try to autodetect the schema and format of the table. *)
   compression : string prop option; [@option]
@@ -98,29 +96,19 @@ type google_bigquery_table__external_data_configuration = {
       (**  Please see sourceFormat under ExternalDataConfiguration in Bigquery's public API documentation (https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#externaldataconfiguration) for supported formats. To use GOOGLE_SHEETS the scopes must include googleapis.com/auth/drive.readonly. *)
   source_uris : string prop list;
       (** A list of the fully-qualified URIs that point to your data in Google Cloud. *)
-  avro_options :
-    google_bigquery_table__external_data_configuration__avro_options
-    list;
-  csv_options :
-    google_bigquery_table__external_data_configuration__csv_options
-    list;
+  avro_options : external_data_configuration__avro_options list;
+  csv_options : external_data_configuration__csv_options list;
   google_sheets_options :
-    google_bigquery_table__external_data_configuration__google_sheets_options
-    list;
+    external_data_configuration__google_sheets_options list;
   hive_partitioning_options :
-    google_bigquery_table__external_data_configuration__hive_partitioning_options
-    list;
-  json_options :
-    google_bigquery_table__external_data_configuration__json_options
-    list;
-  parquet_options :
-    google_bigquery_table__external_data_configuration__parquet_options
-    list;
+    external_data_configuration__hive_partitioning_options list;
+  json_options : external_data_configuration__json_options list;
+  parquet_options : external_data_configuration__parquet_options list;
 }
 [@@deriving yojson_of]
 (** Describes the data format, location, and other properties of a table stored outside of BigQuery. By defining these properties, the data source can then be queried as if it were a standard BigQuery table. *)
 
-type google_bigquery_table__materialized_view = {
+type materialized_view = {
   allow_non_incremental_definition : bool prop option; [@option]
       (** Allow non incremental materialized view definition. The default value is false. *)
   enable_refresh : bool prop option; [@option]
@@ -132,7 +120,7 @@ type google_bigquery_table__materialized_view = {
 [@@deriving yojson_of]
 (** If specified, configures this table as a materialized view. *)
 
-type google_bigquery_table__range_partitioning__range = {
+type range_partitioning__range = {
   end_ : float prop; [@key "end"]
       (** End of the range partitioning, exclusive. *)
   interval : float prop;
@@ -143,15 +131,15 @@ type google_bigquery_table__range_partitioning__range = {
 [@@deriving yojson_of]
 (** Information required to partition based on ranges. Structure is documented below. *)
 
-type google_bigquery_table__range_partitioning = {
+type range_partitioning = {
   field : string prop;
       (** The field used to determine how to create a range-based partition. *)
-  range : google_bigquery_table__range_partitioning__range list;
+  range : range_partitioning__range list;
 }
 [@@deriving yojson_of]
 (** If specified, configures range-based partitioning for this table. *)
 
-type google_bigquery_table__table_constraints__foreign_keys__column_references = {
+type table_constraints__foreign_keys__column_references = {
   referenced_column : string prop;
       (** The column in the primary key that are referenced by the referencingColumn. *)
   referencing_column : string prop;
@@ -160,7 +148,7 @@ type google_bigquery_table__table_constraints__foreign_keys__column_references =
 [@@deriving yojson_of]
 (** The pair of the foreign key column and primary key column. *)
 
-type google_bigquery_table__table_constraints__foreign_keys__referenced_table = {
+type table_constraints__foreign_keys__referenced_table = {
   dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
   project_id : string prop;
@@ -171,36 +159,32 @@ type google_bigquery_table__table_constraints__foreign_keys__referenced_table = 
 [@@deriving yojson_of]
 (** The table that holds the primary key and is referenced by this foreign key. *)
 
-type google_bigquery_table__table_constraints__foreign_keys = {
+type table_constraints__foreign_keys = {
   name : string prop option; [@option]
       (** Set only if the foreign key constraint is named. *)
   column_references :
-    google_bigquery_table__table_constraints__foreign_keys__column_references
-    list;
+    table_constraints__foreign_keys__column_references list;
   referenced_table :
-    google_bigquery_table__table_constraints__foreign_keys__referenced_table
-    list;
+    table_constraints__foreign_keys__referenced_table list;
 }
 [@@deriving yojson_of]
 (** Present only if the table has a foreign key. The foreign key is not enforced. *)
 
-type google_bigquery_table__table_constraints__primary_key = {
+type table_constraints__primary_key = {
   columns : string prop list;
       (** The columns that are composed of the primary key constraint. *)
 }
 [@@deriving yojson_of]
 (** Represents a primary key constraint on a table's columns. Present only if the table has a primary key. The primary key is not enforced. *)
 
-type google_bigquery_table__table_constraints = {
-  foreign_keys :
-    google_bigquery_table__table_constraints__foreign_keys list;
-  primary_key :
-    google_bigquery_table__table_constraints__primary_key list;
+type table_constraints = {
+  foreign_keys : table_constraints__foreign_keys list;
+  primary_key : table_constraints__primary_key list;
 }
 [@@deriving yojson_of]
 (** Defines the primary key and foreign keys. *)
 
-type google_bigquery_table__table_replication_info = {
+type table_replication_info = {
   replication_interval_ms : float prop option; [@option]
       (** The interval at which the source materialized view is polled for updates. The default is 300000. *)
   source_dataset_id : string prop;
@@ -213,7 +197,7 @@ type google_bigquery_table__table_replication_info = {
 [@@deriving yojson_of]
 (** Replication info of a table created using AS REPLICA DDL like: CREATE MATERIALIZED VIEW mv1 AS REPLICA OF src_mv. *)
 
-type google_bigquery_table__time_partitioning = {
+type time_partitioning = {
   expiration_ms : float prop option; [@option]
       (** Number of milliseconds for which to keep the storage for a partition. *)
   field : string prop option; [@option]
@@ -226,7 +210,7 @@ type google_bigquery_table__time_partitioning = {
 [@@deriving yojson_of]
 (** If specified, configures time-based partitioning for this table. *)
 
-type google_bigquery_table__view = {
+type view = {
   query : string prop;
       (** A query that BigQuery executes when the view is referenced. *)
   use_legacy_sql : bool prop option; [@option]
@@ -264,21 +248,170 @@ type google_bigquery_table = {
       (** A JSON schema for the table. *)
   table_id : string prop;
       (** A unique ID for the resource. Changing this forces a new resource to be created. *)
-  encryption_configuration :
-    google_bigquery_table__encryption_configuration list;
-  external_data_configuration :
-    google_bigquery_table__external_data_configuration list;
-  materialized_view : google_bigquery_table__materialized_view list;
-  range_partitioning :
-    google_bigquery_table__range_partitioning list;
-  table_constraints : google_bigquery_table__table_constraints list;
-  table_replication_info :
-    google_bigquery_table__table_replication_info list;
-  time_partitioning : google_bigquery_table__time_partitioning list;
-  view : google_bigquery_table__view list;
+  encryption_configuration : encryption_configuration list;
+  external_data_configuration : external_data_configuration list;
+  materialized_view : materialized_view list;
+  range_partitioning : range_partitioning list;
+  table_constraints : table_constraints list;
+  table_replication_info : table_replication_info list;
+  time_partitioning : time_partitioning list;
+  view : view list;
 }
 [@@deriving yojson_of]
 (** google_bigquery_table *)
+
+let encryption_configuration ~kms_key_name () :
+    encryption_configuration =
+  { kms_key_name }
+
+let external_data_configuration__avro_options ~use_avro_logical_types
+    () : external_data_configuration__avro_options =
+  { use_avro_logical_types }
+
+let external_data_configuration__csv_options ?allow_jagged_rows
+    ?allow_quoted_newlines ?encoding ?field_delimiter
+    ?skip_leading_rows ~quote () :
+    external_data_configuration__csv_options =
+  {
+    allow_jagged_rows;
+    allow_quoted_newlines;
+    encoding;
+    field_delimiter;
+    quote;
+    skip_leading_rows;
+  }
+
+let external_data_configuration__google_sheets_options ?range
+    ?skip_leading_rows () :
+    external_data_configuration__google_sheets_options =
+  { range; skip_leading_rows }
+
+let external_data_configuration__hive_partitioning_options ?mode
+    ?require_partition_filter ?source_uri_prefix () :
+    external_data_configuration__hive_partitioning_options =
+  { mode; require_partition_filter; source_uri_prefix }
+
+let external_data_configuration__json_options ?encoding () :
+    external_data_configuration__json_options =
+  { encoding }
+
+let external_data_configuration__parquet_options
+    ?enable_list_inference ?enum_as_string () :
+    external_data_configuration__parquet_options =
+  { enable_list_inference; enum_as_string }
+
+let external_data_configuration ?compression ?connection_id
+    ?file_set_spec_type ?ignore_unknown_values ?max_bad_records
+    ?metadata_cache_mode ?object_metadata ?reference_file_schema_uri
+    ?schema ?source_format ~autodetect ~source_uris ~avro_options
+    ~csv_options ~google_sheets_options ~hive_partitioning_options
+    ~json_options ~parquet_options () : external_data_configuration =
+  {
+    autodetect;
+    compression;
+    connection_id;
+    file_set_spec_type;
+    ignore_unknown_values;
+    max_bad_records;
+    metadata_cache_mode;
+    object_metadata;
+    reference_file_schema_uri;
+    schema;
+    source_format;
+    source_uris;
+    avro_options;
+    csv_options;
+    google_sheets_options;
+    hive_partitioning_options;
+    json_options;
+    parquet_options;
+  }
+
+let materialized_view ?allow_non_incremental_definition
+    ?enable_refresh ?refresh_interval_ms ~query () :
+    materialized_view =
+  {
+    allow_non_incremental_definition;
+    enable_refresh;
+    query;
+    refresh_interval_ms;
+  }
+
+let range_partitioning__range ~end_ ~interval ~start () :
+    range_partitioning__range =
+  { end_; interval; start }
+
+let range_partitioning ~field ~range () : range_partitioning =
+  { field; range }
+
+let table_constraints__foreign_keys__column_references
+    ~referenced_column ~referencing_column () :
+    table_constraints__foreign_keys__column_references =
+  { referenced_column; referencing_column }
+
+let table_constraints__foreign_keys__referenced_table ~dataset_id
+    ~project_id ~table_id () :
+    table_constraints__foreign_keys__referenced_table =
+  { dataset_id; project_id; table_id }
+
+let table_constraints__foreign_keys ?name ~column_references
+    ~referenced_table () : table_constraints__foreign_keys =
+  { name; column_references; referenced_table }
+
+let table_constraints__primary_key ~columns () :
+    table_constraints__primary_key =
+  { columns }
+
+let table_constraints ~foreign_keys ~primary_key () :
+    table_constraints =
+  { foreign_keys; primary_key }
+
+let table_replication_info ?replication_interval_ms
+    ~source_dataset_id ~source_project_id ~source_table_id () :
+    table_replication_info =
+  {
+    replication_interval_ms;
+    source_dataset_id;
+    source_project_id;
+    source_table_id;
+  }
+
+let time_partitioning ?expiration_ms ?field ?require_partition_filter
+    ~type_ () : time_partitioning =
+  { expiration_ms; field; require_partition_filter; type_ }
+
+let view ?use_legacy_sql ~query () : view = { query; use_legacy_sql }
+
+let google_bigquery_table ?clustering ?deletion_protection
+    ?description ?expiration_time ?friendly_name ?id ?labels
+    ?max_staleness ?project ?require_partition_filter ?schema
+    ~dataset_id ~table_id ~encryption_configuration
+    ~external_data_configuration ~materialized_view
+    ~range_partitioning ~table_constraints ~table_replication_info
+    ~time_partitioning ~view () : google_bigquery_table =
+  {
+    clustering;
+    dataset_id;
+    deletion_protection;
+    description;
+    expiration_time;
+    friendly_name;
+    id;
+    labels;
+    max_staleness;
+    project;
+    require_partition_filter;
+    schema;
+    table_id;
+    encryption_configuration;
+    external_data_configuration;
+    materialized_view;
+    range_partitioning;
+    table_constraints;
+    table_replication_info;
+    time_partitioning;
+    view;
+  }
 
 type t = {
   clustering : string list prop;
@@ -307,41 +440,23 @@ type t = {
   type_ : string prop;
 }
 
-let google_bigquery_table ?clustering ?deletion_protection
-    ?description ?expiration_time ?friendly_name ?id ?labels
-    ?max_staleness ?project ?require_partition_filter ?schema
-    ~dataset_id ~table_id ~encryption_configuration
-    ~external_data_configuration ~materialized_view
-    ~range_partitioning ~table_constraints ~table_replication_info
-    ~time_partitioning ~view __resource_id =
+let register ?tf_module ?clustering ?deletion_protection ?description
+    ?expiration_time ?friendly_name ?id ?labels ?max_staleness
+    ?project ?require_partition_filter ?schema ~dataset_id ~table_id
+    ~encryption_configuration ~external_data_configuration
+    ~materialized_view ~range_partitioning ~table_constraints
+    ~table_replication_info ~time_partitioning ~view __resource_id =
   let __resource_type = "google_bigquery_table" in
   let __resource =
-    ({
-       clustering;
-       dataset_id;
-       deletion_protection;
-       description;
-       expiration_time;
-       friendly_name;
-       id;
-       labels;
-       max_staleness;
-       project;
-       require_partition_filter;
-       schema;
-       table_id;
-       encryption_configuration;
-       external_data_configuration;
-       materialized_view;
-       range_partitioning;
-       table_constraints;
-       table_replication_info;
-       time_partitioning;
-       view;
-     }
-      : google_bigquery_table)
+    google_bigquery_table ?clustering ?deletion_protection
+      ?description ?expiration_time ?friendly_name ?id ?labels
+      ?max_staleness ?project ?require_partition_filter ?schema
+      ~dataset_id ~table_id ~encryption_configuration
+      ~external_data_configuration ~materialized_view
+      ~range_partitioning ~table_constraints ~table_replication_info
+      ~time_partitioning ~view ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_table __resource);
   let __resource_attributes =
     ({

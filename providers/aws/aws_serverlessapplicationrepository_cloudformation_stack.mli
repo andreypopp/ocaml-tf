@@ -2,9 +2,36 @@
 
 open! Tf.Prelude
 
-type aws_serverlessapplicationrepository_cloudformation_stack__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type aws_serverlessapplicationrepository_cloudformation_stack
+
+val aws_serverlessapplicationrepository_cloudformation_stack :
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?semantic_version:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  application_id:string prop ->
+  capabilities:string prop list ->
+  name:string prop ->
+  unit ->
+  aws_serverlessapplicationrepository_cloudformation_stack
+
+val yojson_of_aws_serverlessapplicationrepository_cloudformation_stack :
+  aws_serverlessapplicationrepository_cloudformation_stack -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -18,14 +45,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_serverlessapplicationrepository_cloudformation_stack :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
   ?semantic_version:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:
-    aws_serverlessapplicationrepository_cloudformation_stack__timeouts ->
+  ?timeouts:timeouts ->
   application_id:string prop ->
   capabilities:string prop list ->
   name:string prop ->

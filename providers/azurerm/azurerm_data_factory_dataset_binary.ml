@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_dataset_binary__azure_blob_storage_location = {
+type azure_blob_storage_location = {
   container : string prop;  (** container *)
   dynamic_container_enabled : bool prop option; [@option]
       (** dynamic_container_enabled *)
@@ -16,16 +16,16 @@ type azurerm_data_factory_dataset_binary__azure_blob_storage_location = {
   path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_dataset_binary__azure_blob_storage_location *)
+(** azure_blob_storage_location *)
 
-type azurerm_data_factory_dataset_binary__compression = {
+type compression = {
   level : string prop option; [@option]  (** level *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_dataset_binary__compression *)
+(** compression *)
 
-type azurerm_data_factory_dataset_binary__http_server_location = {
+type http_server_location = {
   dynamic_filename_enabled : bool prop option; [@option]
       (** dynamic_filename_enabled *)
   dynamic_path_enabled : bool prop option; [@option]
@@ -35,9 +35,9 @@ type azurerm_data_factory_dataset_binary__http_server_location = {
   relative_url : string prop;  (** relative_url *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_dataset_binary__http_server_location *)
+(** http_server_location *)
 
-type azurerm_data_factory_dataset_binary__sftp_server_location = {
+type sftp_server_location = {
   dynamic_filename_enabled : bool prop option; [@option]
       (** dynamic_filename_enabled *)
   dynamic_path_enabled : bool prop option; [@option]
@@ -46,16 +46,16 @@ type azurerm_data_factory_dataset_binary__sftp_server_location = {
   path : string prop;  (** path *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_dataset_binary__sftp_server_location *)
+(** sftp_server_location *)
 
-type azurerm_data_factory_dataset_binary__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_dataset_binary__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_dataset_binary = {
   additional_properties : (string * string prop) list option;
@@ -71,19 +71,68 @@ type azurerm_data_factory_dataset_binary = {
   name : string prop;  (** name *)
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  azure_blob_storage_location :
-    azurerm_data_factory_dataset_binary__azure_blob_storage_location
-    list;
-  compression :
-    azurerm_data_factory_dataset_binary__compression list;
-  http_server_location :
-    azurerm_data_factory_dataset_binary__http_server_location list;
-  sftp_server_location :
-    azurerm_data_factory_dataset_binary__sftp_server_location list;
-  timeouts : azurerm_data_factory_dataset_binary__timeouts option;
+  azure_blob_storage_location : azure_blob_storage_location list;
+  compression : compression list;
+  http_server_location : http_server_location list;
+  sftp_server_location : sftp_server_location list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_dataset_binary *)
+
+let azure_blob_storage_location ?dynamic_container_enabled
+    ?dynamic_filename_enabled ?dynamic_path_enabled ?filename ?path
+    ~container () : azure_blob_storage_location =
+  {
+    container;
+    dynamic_container_enabled;
+    dynamic_filename_enabled;
+    dynamic_path_enabled;
+    filename;
+    path;
+  }
+
+let compression ?level ~type_ () : compression = { level; type_ }
+
+let http_server_location ?dynamic_filename_enabled
+    ?dynamic_path_enabled ~filename ~path ~relative_url () :
+    http_server_location =
+  {
+    dynamic_filename_enabled;
+    dynamic_path_enabled;
+    filename;
+    path;
+    relative_url;
+  }
+
+let sftp_server_location ?dynamic_filename_enabled
+    ?dynamic_path_enabled ~filename ~path () : sftp_server_location =
+  { dynamic_filename_enabled; dynamic_path_enabled; filename; path }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_dataset_binary ?additional_properties
+    ?annotations ?description ?folder ?id ?parameters ?timeouts
+    ~data_factory_id ~linked_service_name ~name
+    ~azure_blob_storage_location ~compression ~http_server_location
+    ~sftp_server_location () : azurerm_data_factory_dataset_binary =
+  {
+    additional_properties;
+    annotations;
+    data_factory_id;
+    description;
+    folder;
+    id;
+    linked_service_name;
+    name;
+    parameters;
+    azure_blob_storage_location;
+    compression;
+    http_server_location;
+    sftp_server_location;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -97,32 +146,20 @@ type t = {
   parameters : (string * string) list prop;
 }
 
-let azurerm_data_factory_dataset_binary ?additional_properties
-    ?annotations ?description ?folder ?id ?parameters ?timeouts
-    ~data_factory_id ~linked_service_name ~name
-    ~azure_blob_storage_location ~compression ~http_server_location
-    ~sftp_server_location __resource_id =
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?folder ?id ?parameters ?timeouts ~data_factory_id
+    ~linked_service_name ~name ~azure_blob_storage_location
+    ~compression ~http_server_location ~sftp_server_location
+    __resource_id =
   let __resource_type = "azurerm_data_factory_dataset_binary" in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       data_factory_id;
-       description;
-       folder;
-       id;
-       linked_service_name;
-       name;
-       parameters;
-       azure_blob_storage_location;
-       compression;
-       http_server_location;
-       sftp_server_location;
-       timeouts;
-     }
-      : azurerm_data_factory_dataset_binary)
+    azurerm_data_factory_dataset_binary ?additional_properties
+      ?annotations ?description ?folder ?id ?parameters ?timeouts
+      ~data_factory_id ~linked_service_name ~name
+      ~azure_blob_storage_location ~compression ~http_server_location
+      ~sftp_server_location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_dataset_binary __resource);
   let __resource_attributes =
     ({

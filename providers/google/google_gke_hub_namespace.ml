@@ -4,17 +4,15 @@
 
 open! Tf.Prelude
 
-type google_gke_hub_namespace__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_gke_hub_namespace__timeouts *)
+(** timeouts *)
 
-type google_gke_hub_namespace__state = {
-  code : string prop;  (** code *)
-}
+type state = { code : string prop  (** code *) }
 [@@deriving yojson_of]
 
 type google_gke_hub_namespace = {
@@ -36,10 +34,27 @@ a key. Keys and values must be Kubernetes-conformant. *)
   scope_id : string prop;  (** Id of the scope *)
   scope_namespace_id : string prop;
       (** The client-provided identifier of the namespace. *)
-  timeouts : google_gke_hub_namespace__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_gke_hub_namespace *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_gke_hub_namespace ?id ?labels ?namespace_labels ?project
+    ?timeouts ~scope ~scope_id ~scope_namespace_id () :
+    google_gke_hub_namespace =
+  {
+    id;
+    labels;
+    namespace_labels;
+    project;
+    scope;
+    scope_id;
+    scope_namespace_id;
+    timeouts;
+  }
 
 type t = {
   create_time : string prop;
@@ -53,29 +68,20 @@ type t = {
   scope : string prop;
   scope_id : string prop;
   scope_namespace_id : string prop;
-  state : google_gke_hub_namespace__state list prop;
+  state : state list prop;
   terraform_labels : (string * string) list prop;
   uid : string prop;
   update_time : string prop;
 }
 
-let google_gke_hub_namespace ?id ?labels ?namespace_labels ?project
+let register ?tf_module ?id ?labels ?namespace_labels ?project
     ?timeouts ~scope ~scope_id ~scope_namespace_id __resource_id =
   let __resource_type = "google_gke_hub_namespace" in
   let __resource =
-    ({
-       id;
-       labels;
-       namespace_labels;
-       project;
-       scope;
-       scope_id;
-       scope_namespace_id;
-       timeouts;
-     }
-      : google_gke_hub_namespace)
+    google_gke_hub_namespace ?id ?labels ?namespace_labels ?project
+      ?timeouts ~scope ~scope_id ~scope_namespace_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_namespace __resource);
   let __resource_attributes =
     ({

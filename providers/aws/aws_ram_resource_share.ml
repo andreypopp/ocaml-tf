@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ram_resource_share__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ram_resource_share__timeouts *)
+(** timeouts *)
 
 type aws_ram_resource_share = {
   allow_external_principals : bool prop option; [@option]
@@ -21,10 +21,25 @@ type aws_ram_resource_share = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_ram_resource_share__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ram_resource_share *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ram_resource_share ?allow_external_principals ?id
+    ?permission_arns ?tags ?tags_all ?timeouts ~name () :
+    aws_ram_resource_share =
+  {
+    allow_external_principals;
+    id;
+    name;
+    permission_arns;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   allow_external_principals : bool prop;
@@ -36,22 +51,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ram_resource_share ?allow_external_principals ?id
+let register ?tf_module ?allow_external_principals ?id
     ?permission_arns ?tags ?tags_all ?timeouts ~name __resource_id =
   let __resource_type = "aws_ram_resource_share" in
   let __resource =
-    ({
-       allow_external_principals;
-       id;
-       name;
-       permission_arns;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_ram_resource_share)
+    aws_ram_resource_share ?allow_external_principals ?id
+      ?permission_arns ?tags ?tags_all ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ram_resource_share __resource);
   let __resource_attributes =
     ({

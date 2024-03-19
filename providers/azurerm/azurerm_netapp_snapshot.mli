@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_snapshot__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_netapp_snapshot
+
+val azurerm_netapp_snapshot :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  account_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  pool_name:string prop ->
+  resource_group_name:string prop ->
+  volume_name:string prop ->
+  unit ->
+  azurerm_netapp_snapshot
+
+val yojson_of_azurerm_netapp_snapshot :
+  azurerm_netapp_snapshot -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_name : string prop;
@@ -15,9 +42,10 @@ type t = private {
   volume_name : string prop;
 }
 
-val azurerm_netapp_snapshot :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_netapp_snapshot__timeouts ->
+  ?timeouts:timeouts ->
   account_name:string prop ->
   location:string prop ->
   name:string prop ->

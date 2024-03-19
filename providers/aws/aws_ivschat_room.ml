@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_ivschat_room__message_review_handler = {
+type message_review_handler = {
   fallback_result : string prop option; [@option]
       (** fallback_result *)
   uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
-(** aws_ivschat_room__message_review_handler *)
+(** message_review_handler *)
 
-type aws_ivschat_room__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ivschat_room__timeouts *)
+(** timeouts *)
 
 type aws_ivschat_room = {
   id : string prop option; [@option]  (** id *)
@@ -33,12 +33,34 @@ type aws_ivschat_room = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  message_review_handler :
-    aws_ivschat_room__message_review_handler list;
-  timeouts : aws_ivschat_room__timeouts option;
+  message_review_handler : message_review_handler list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ivschat_room *)
+
+let message_review_handler ?fallback_result ?uri () :
+    message_review_handler =
+  { fallback_result; uri }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_ivschat_room ?id ?logging_configuration_identifiers
+    ?maximum_message_length ?maximum_message_rate_per_second ?name
+    ?tags ?tags_all ?timeouts ~message_review_handler () :
+    aws_ivschat_room =
+  {
+    id;
+    logging_configuration_identifiers;
+    maximum_message_length;
+    maximum_message_rate_per_second;
+    name;
+    tags;
+    tags_all;
+    message_review_handler;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -51,25 +73,16 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_ivschat_room ?id ?logging_configuration_identifiers
+let register ?tf_module ?id ?logging_configuration_identifiers
     ?maximum_message_length ?maximum_message_rate_per_second ?name
     ?tags ?tags_all ?timeouts ~message_review_handler __resource_id =
   let __resource_type = "aws_ivschat_room" in
   let __resource =
-    ({
-       id;
-       logging_configuration_identifiers;
-       maximum_message_length;
-       maximum_message_rate_per_second;
-       name;
-       tags;
-       tags_all;
-       message_review_handler;
-       timeouts;
-     }
-      : aws_ivschat_room)
+    aws_ivschat_room ?id ?logging_configuration_identifiers
+      ?maximum_message_length ?maximum_message_rate_per_second ?name
+      ?tags ?tags_all ?timeouts ~message_review_handler ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ivschat_room __resource);
   let __resource_attributes =
     ({

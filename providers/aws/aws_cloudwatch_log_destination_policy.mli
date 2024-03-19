@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_cloudwatch_log_destination_policy
+
+val aws_cloudwatch_log_destination_policy :
+  ?force_update:bool prop ->
+  ?id:string prop ->
+  access_policy:string prop ->
+  destination_name:string prop ->
+  unit ->
+  aws_cloudwatch_log_destination_policy
+
+val yojson_of_aws_cloudwatch_log_destination_policy :
+  aws_cloudwatch_log_destination_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_policy : string prop;
@@ -11,7 +26,8 @@ type t = private {
   id : string prop;
 }
 
-val aws_cloudwatch_log_destination_policy :
+val register :
+  ?tf_module:tf_module ->
   ?force_update:bool prop ->
   ?id:string prop ->
   access_policy:string prop ->

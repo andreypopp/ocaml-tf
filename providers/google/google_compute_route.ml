@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_route__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_route__timeouts *)
+(** timeouts *)
 
 type google_compute_route = {
   description : string prop option; [@option]
@@ -78,10 +78,34 @@ Default value is 1000. Valid range is 0 through 65535. *)
   project : string prop option; [@option]  (** project *)
   tags : string prop list option; [@option]
       (** A list of instance tags to which this route applies. *)
-  timeouts : google_compute_route__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_route *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_route ?description ?id ?next_hop_gateway
+    ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
+    ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
+    ?timeouts ~dest_range ~name ~network () : google_compute_route =
+  {
+    description;
+    dest_range;
+    id;
+    name;
+    network;
+    next_hop_gateway;
+    next_hop_ilb;
+    next_hop_instance;
+    next_hop_instance_zone;
+    next_hop_ip;
+    next_hop_vpn_tunnel;
+    priority;
+    project;
+    tags;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -102,32 +126,18 @@ type t = {
   tags : string list prop;
 }
 
-let google_compute_route ?description ?id ?next_hop_gateway
+let register ?tf_module ?description ?id ?next_hop_gateway
     ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
     ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
     ?timeouts ~dest_range ~name ~network __resource_id =
   let __resource_type = "google_compute_route" in
   let __resource =
-    ({
-       description;
-       dest_range;
-       id;
-       name;
-       network;
-       next_hop_gateway;
-       next_hop_ilb;
-       next_hop_instance;
-       next_hop_instance_zone;
-       next_hop_ip;
-       next_hop_vpn_tunnel;
-       priority;
-       project;
-       tags;
-       timeouts;
-     }
-      : google_compute_route)
+    google_compute_route ?description ?id ?next_hop_gateway
+      ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
+      ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
+      ?timeouts ~dest_range ~name ~network ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_route __resource);
   let __resource_attributes =
     ({

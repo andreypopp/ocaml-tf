@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_acmpca_certificate_authority_certificate
+
+val aws_acmpca_certificate_authority_certificate :
+  ?certificate_chain:string prop ->
+  ?id:string prop ->
+  certificate:string prop ->
+  certificate_authority_arn:string prop ->
+  unit ->
+  aws_acmpca_certificate_authority_certificate
+
+val yojson_of_aws_acmpca_certificate_authority_certificate :
+  aws_acmpca_certificate_authority_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate : string prop;
@@ -11,7 +26,8 @@ type t = private {
   id : string prop;
 }
 
-val aws_acmpca_certificate_authority_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?certificate_chain:string prop ->
   ?id:string prop ->
   certificate:string prop ->

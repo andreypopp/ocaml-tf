@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_eks_addon__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_eks_addon__timeouts *)
+(** timeouts *)
 
 type aws_eks_addon = {
   addon_name : string prop;  (** addon_name *)
@@ -31,10 +31,34 @@ type aws_eks_addon = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_eks_addon__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_eks_addon *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_eks_addon ?addon_version ?configuration_values ?id ?preserve
+    ?resolve_conflicts ?resolve_conflicts_on_create
+    ?resolve_conflicts_on_update ?service_account_role_arn ?tags
+    ?tags_all ?timeouts ~addon_name ~cluster_name () : aws_eks_addon
+    =
+  {
+    addon_name;
+    addon_version;
+    cluster_name;
+    configuration_values;
+    id;
+    preserve;
+    resolve_conflicts;
+    resolve_conflicts_on_create;
+    resolve_conflicts_on_update;
+    service_account_role_arn;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   addon_name : string prop;
@@ -54,30 +78,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_eks_addon ?addon_version ?configuration_values ?id ?preserve
-    ?resolve_conflicts ?resolve_conflicts_on_create
+let register ?tf_module ?addon_version ?configuration_values ?id
+    ?preserve ?resolve_conflicts ?resolve_conflicts_on_create
     ?resolve_conflicts_on_update ?service_account_role_arn ?tags
     ?tags_all ?timeouts ~addon_name ~cluster_name __resource_id =
   let __resource_type = "aws_eks_addon" in
   let __resource =
-    ({
-       addon_name;
-       addon_version;
-       cluster_name;
-       configuration_values;
-       id;
-       preserve;
-       resolve_conflicts;
-       resolve_conflicts_on_create;
-       resolve_conflicts_on_update;
-       service_account_role_arn;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_eks_addon)
+    aws_eks_addon ?addon_version ?configuration_values ?id ?preserve
+      ?resolve_conflicts ?resolve_conflicts_on_create
+      ?resolve_conflicts_on_update ?service_account_role_arn ?tags
+      ?tags_all ?timeouts ~addon_name ~cluster_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_addon __resource);
   let __resource_attributes =
     ({

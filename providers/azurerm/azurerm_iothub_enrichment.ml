@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_enrichment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_enrichment__timeouts *)
+(** timeouts *)
 
 type azurerm_iothub_enrichment = {
   endpoint_names : string prop list;  (** endpoint_names *)
@@ -20,10 +20,26 @@ type azurerm_iothub_enrichment = {
   key : string prop;  (** key *)
   resource_group_name : string prop;  (** resource_group_name *)
   value : string prop;  (** value *)
-  timeouts : azurerm_iothub_enrichment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_enrichment *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iothub_enrichment ?id ?timeouts ~endpoint_names
+    ~iothub_name ~key ~resource_group_name ~value () :
+    azurerm_iothub_enrichment =
+  {
+    endpoint_names;
+    id;
+    iothub_name;
+    key;
+    resource_group_name;
+    value;
+    timeouts;
+  }
 
 type t = {
   endpoint_names : string list prop;
@@ -34,22 +50,14 @@ type t = {
   value : string prop;
 }
 
-let azurerm_iothub_enrichment ?id ?timeouts ~endpoint_names
-    ~iothub_name ~key ~resource_group_name ~value __resource_id =
+let register ?tf_module ?id ?timeouts ~endpoint_names ~iothub_name
+    ~key ~resource_group_name ~value __resource_id =
   let __resource_type = "azurerm_iothub_enrichment" in
   let __resource =
-    ({
-       endpoint_names;
-       id;
-       iothub_name;
-       key;
-       resource_group_name;
-       value;
-       timeouts;
-     }
-      : azurerm_iothub_enrichment)
+    azurerm_iothub_enrichment ?id ?timeouts ~endpoint_names
+      ~iothub_name ~key ~resource_group_name ~value ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_enrichment __resource);
   let __resource_attributes =
     ({

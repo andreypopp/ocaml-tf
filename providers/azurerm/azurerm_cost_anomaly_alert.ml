@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_cost_anomaly_alert__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cost_anomaly_alert__timeouts *)
+(** timeouts *)
 
 type azurerm_cost_anomaly_alert = {
   display_name : string prop;  (** display_name *)
@@ -22,10 +22,27 @@ type azurerm_cost_anomaly_alert = {
   name : string prop;  (** name *)
   subscription_id : string prop option; [@option]
       (** subscription_id *)
-  timeouts : azurerm_cost_anomaly_alert__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cost_anomaly_alert *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cost_anomaly_alert ?id ?message ?subscription_id
+    ?timeouts ~display_name ~email_addresses ~email_subject ~name ()
+    : azurerm_cost_anomaly_alert =
+  {
+    display_name;
+    email_addresses;
+    email_subject;
+    id;
+    message;
+    name;
+    subscription_id;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -37,24 +54,16 @@ type t = {
   subscription_id : string prop;
 }
 
-let azurerm_cost_anomaly_alert ?id ?message ?subscription_id
-    ?timeouts ~display_name ~email_addresses ~email_subject ~name
-    __resource_id =
+let register ?tf_module ?id ?message ?subscription_id ?timeouts
+    ~display_name ~email_addresses ~email_subject ~name __resource_id
+    =
   let __resource_type = "azurerm_cost_anomaly_alert" in
   let __resource =
-    ({
-       display_name;
-       email_addresses;
-       email_subject;
-       id;
-       message;
-       name;
-       subscription_id;
-       timeouts;
-     }
-      : azurerm_cost_anomaly_alert)
+    azurerm_cost_anomaly_alert ?id ?message ?subscription_id
+      ?timeouts ~display_name ~email_addresses ~email_subject ~name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cost_anomaly_alert __resource);
   let __resource_attributes =
     ({

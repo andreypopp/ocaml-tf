@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_s3control_multi_region_access_point__details__public_access_block = {
+type details__public_access_block = {
   block_public_acls : bool prop option; [@option]
       (** block_public_acls *)
   block_public_policy : bool prop option; [@option]
@@ -15,43 +15,61 @@ type aws_s3control_multi_region_access_point__details__public_access_block = {
       (** restrict_public_buckets *)
 }
 [@@deriving yojson_of]
-(** aws_s3control_multi_region_access_point__details__public_access_block *)
+(** details__public_access_block *)
 
-type aws_s3control_multi_region_access_point__details__region = {
+type details__region = {
   bucket : string prop;  (** bucket *)
   bucket_account_id : string prop option; [@option]
       (** bucket_account_id *)
-  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
-(** aws_s3control_multi_region_access_point__details__region *)
+(** details__region *)
 
-type aws_s3control_multi_region_access_point__details = {
+type details = {
   name : string prop;  (** name *)
-  public_access_block :
-    aws_s3control_multi_region_access_point__details__public_access_block
-    list;
-  region :
-    aws_s3control_multi_region_access_point__details__region list;
+  public_access_block : details__public_access_block list;
+  region : details__region list;
 }
 [@@deriving yojson_of]
-(** aws_s3control_multi_region_access_point__details *)
+(** details *)
 
-type aws_s3control_multi_region_access_point__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_s3control_multi_region_access_point__timeouts *)
+(** timeouts *)
 
 type aws_s3control_multi_region_access_point = {
   account_id : string prop option; [@option]  (** account_id *)
   id : string prop option; [@option]  (** id *)
-  details : aws_s3control_multi_region_access_point__details list;
-  timeouts : aws_s3control_multi_region_access_point__timeouts option;
+  details : details list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_s3control_multi_region_access_point *)
+
+let details__public_access_block ?block_public_acls
+    ?block_public_policy ?ignore_public_acls ?restrict_public_buckets
+    () : details__public_access_block =
+  {
+    block_public_acls;
+    block_public_policy;
+    ignore_public_acls;
+    restrict_public_buckets;
+  }
+
+let details__region ?bucket_account_id ~bucket () : details__region =
+  { bucket; bucket_account_id }
+
+let details ~name ~public_access_block ~region () : details =
+  { name; public_access_block; region }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_s3control_multi_region_access_point ?account_id ?id ?timeouts
+    ~details () : aws_s3control_multi_region_access_point =
+  { account_id; id; details; timeouts }
 
 type t = {
   account_id : string prop;
@@ -62,14 +80,14 @@ type t = {
   status : string prop;
 }
 
-let aws_s3control_multi_region_access_point ?account_id ?id ?timeouts
-    ~details __resource_id =
+let register ?tf_module ?account_id ?id ?timeouts ~details
+    __resource_id =
   let __resource_type = "aws_s3control_multi_region_access_point" in
   let __resource =
-    ({ account_id; id; details; timeouts }
-      : aws_s3control_multi_region_access_point)
+    aws_s3control_multi_region_access_point ?account_id ?id ?timeouts
+      ~details ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_multi_region_access_point __resource);
   let __resource_attributes =
     ({

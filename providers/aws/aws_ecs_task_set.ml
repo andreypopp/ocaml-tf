@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_ecs_task_set__capacity_provider_strategy = {
+type capacity_provider_strategy = {
   base : float prop option; [@option]  (** base *)
   capacity_provider : string prop;  (** capacity_provider *)
   weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
-(** aws_ecs_task_set__capacity_provider_strategy *)
+(** capacity_provider_strategy *)
 
-type aws_ecs_task_set__load_balancer = {
+type load_balancer = {
   container_name : string prop;  (** container_name *)
   container_port : float prop option; [@option]
       (** container_port *)
@@ -22,9 +22,9 @@ type aws_ecs_task_set__load_balancer = {
       (** target_group_arn *)
 }
 [@@deriving yojson_of]
-(** aws_ecs_task_set__load_balancer *)
+(** load_balancer *)
 
-type aws_ecs_task_set__network_configuration = {
+type network_configuration = {
   assign_public_ip : bool prop option; [@option]
       (** assign_public_ip *)
   security_groups : string prop list option; [@option]
@@ -32,16 +32,16 @@ type aws_ecs_task_set__network_configuration = {
   subnets : string prop list;  (** subnets *)
 }
 [@@deriving yojson_of]
-(** aws_ecs_task_set__network_configuration *)
+(** network_configuration *)
 
-type aws_ecs_task_set__scale = {
+type scale = {
   unit : string prop option; [@option]  (** unit *)
   value : float prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_ecs_task_set__scale *)
+(** scale *)
 
-type aws_ecs_task_set__service_registries = {
+type service_registries = {
   container_name : string prop option; [@option]
       (** container_name *)
   container_port : float prop option; [@option]
@@ -50,7 +50,7 @@ type aws_ecs_task_set__service_registries = {
   registry_arn : string prop;  (** registry_arn *)
 }
 [@@deriving yojson_of]
-(** aws_ecs_task_set__service_registries *)
+(** service_registries *)
 
 type aws_ecs_task_set = {
   cluster : string prop;  (** cluster *)
@@ -69,16 +69,62 @@ type aws_ecs_task_set = {
       (** wait_until_stable *)
   wait_until_stable_timeout : string prop option; [@option]
       (** wait_until_stable_timeout *)
-  capacity_provider_strategy :
-    aws_ecs_task_set__capacity_provider_strategy list;
-  load_balancer : aws_ecs_task_set__load_balancer list;
-  network_configuration :
-    aws_ecs_task_set__network_configuration list;
-  scale : aws_ecs_task_set__scale list;
-  service_registries : aws_ecs_task_set__service_registries list;
+  capacity_provider_strategy : capacity_provider_strategy list;
+  load_balancer : load_balancer list;
+  network_configuration : network_configuration list;
+  scale : scale list;
+  service_registries : service_registries list;
 }
 [@@deriving yojson_of]
 (** aws_ecs_task_set *)
+
+let capacity_provider_strategy ?base ~capacity_provider ~weight () :
+    capacity_provider_strategy =
+  { base; capacity_provider; weight }
+
+let load_balancer ?container_port ?load_balancer_name
+    ?target_group_arn ~container_name () : load_balancer =
+  {
+    container_name;
+    container_port;
+    load_balancer_name;
+    target_group_arn;
+  }
+
+let network_configuration ?assign_public_ip ?security_groups ~subnets
+    () : network_configuration =
+  { assign_public_ip; security_groups; subnets }
+
+let scale ?unit ?value () : scale = { unit; value }
+
+let service_registries ?container_name ?container_port ?port
+    ~registry_arn () : service_registries =
+  { container_name; container_port; port; registry_arn }
+
+let aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
+    ?platform_version ?tags ?tags_all ?wait_until_stable
+    ?wait_until_stable_timeout ~cluster ~service ~task_definition
+    ~capacity_provider_strategy ~load_balancer ~network_configuration
+    ~scale ~service_registries () : aws_ecs_task_set =
+  {
+    cluster;
+    external_id;
+    force_delete;
+    id;
+    launch_type;
+    platform_version;
+    service;
+    tags;
+    tags_all;
+    task_definition;
+    wait_until_stable;
+    wait_until_stable_timeout;
+    capacity_provider_strategy;
+    load_balancer;
+    network_configuration;
+    scale;
+    service_registries;
+  }
 
 type t = {
   arn : string prop;
@@ -99,35 +145,20 @@ type t = {
   wait_until_stable_timeout : string prop;
 }
 
-let aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
+let register ?tf_module ?external_id ?force_delete ?id ?launch_type
     ?platform_version ?tags ?tags_all ?wait_until_stable
     ?wait_until_stable_timeout ~cluster ~service ~task_definition
     ~capacity_provider_strategy ~load_balancer ~network_configuration
     ~scale ~service_registries __resource_id =
   let __resource_type = "aws_ecs_task_set" in
   let __resource =
-    ({
-       cluster;
-       external_id;
-       force_delete;
-       id;
-       launch_type;
-       platform_version;
-       service;
-       tags;
-       tags_all;
-       task_definition;
-       wait_until_stable;
-       wait_until_stable_timeout;
-       capacity_provider_strategy;
-       load_balancer;
-       network_configuration;
-       scale;
-       service_registries;
-     }
-      : aws_ecs_task_set)
+    aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
+      ?platform_version ?tags ?tags_all ?wait_until_stable
+      ?wait_until_stable_timeout ~cluster ~service ~task_definition
+      ~capacity_provider_strategy ~load_balancer
+      ~network_configuration ~scale ~service_registries ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_task_set __resource);
   let __resource_attributes =
     ({

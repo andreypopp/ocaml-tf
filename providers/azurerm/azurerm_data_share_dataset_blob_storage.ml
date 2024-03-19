@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_data_share_dataset_blob_storage__storage_account = {
+type storage_account = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   subscription_id : string prop;  (** subscription_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_share_dataset_blob_storage__storage_account *)
+(** storage_account *)
 
-type azurerm_data_share_dataset_blob_storage__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_share_dataset_blob_storage__timeouts *)
+(** timeouts *)
 
 type azurerm_data_share_dataset_blob_storage = {
   container_name : string prop;  (** container_name *)
@@ -27,12 +27,32 @@ type azurerm_data_share_dataset_blob_storage = {
   folder_path : string prop option; [@option]  (** folder_path *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  storage_account :
-    azurerm_data_share_dataset_blob_storage__storage_account list;
-  timeouts : azurerm_data_share_dataset_blob_storage__timeouts option;
+  storage_account : storage_account list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_share_dataset_blob_storage *)
+
+let storage_account ~name ~resource_group_name ~subscription_id () :
+    storage_account =
+  { name; resource_group_name; subscription_id }
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_data_share_dataset_blob_storage ?file_path ?folder_path
+    ?id ?timeouts ~container_name ~data_share_id ~name
+    ~storage_account () : azurerm_data_share_dataset_blob_storage =
+  {
+    container_name;
+    data_share_id;
+    file_path;
+    folder_path;
+    id;
+    name;
+    storage_account;
+    timeouts;
+  }
 
 type t = {
   container_name : string prop;
@@ -44,24 +64,16 @@ type t = {
   name : string prop;
 }
 
-let azurerm_data_share_dataset_blob_storage ?file_path ?folder_path
-    ?id ?timeouts ~container_name ~data_share_id ~name
-    ~storage_account __resource_id =
+let register ?tf_module ?file_path ?folder_path ?id ?timeouts
+    ~container_name ~data_share_id ~name ~storage_account
+    __resource_id =
   let __resource_type = "azurerm_data_share_dataset_blob_storage" in
   let __resource =
-    ({
-       container_name;
-       data_share_id;
-       file_path;
-       folder_path;
-       id;
-       name;
-       storage_account;
-       timeouts;
-     }
-      : azurerm_data_share_dataset_blob_storage)
+    azurerm_data_share_dataset_blob_storage ?file_path ?folder_path
+      ?id ?timeouts ~container_name ~data_share_id ~name
+      ~storage_account ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_share_dataset_blob_storage __resource);
   let __resource_attributes =
     ({

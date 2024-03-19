@@ -12,6 +12,10 @@ type aws_route53_delegation_set = {
 [@@deriving yojson_of]
 (** aws_route53_delegation_set *)
 
+let aws_route53_delegation_set ?id ?reference_name () :
+    aws_route53_delegation_set =
+  { id; reference_name }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -19,12 +23,12 @@ type t = {
   reference_name : string prop;
 }
 
-let aws_route53_delegation_set ?id ?reference_name __resource_id =
+let register ?tf_module ?id ?reference_name __resource_id =
   let __resource_type = "aws_route53_delegation_set" in
   let __resource =
-    ({ id; reference_name } : aws_route53_delegation_set)
+    aws_route53_delegation_set ?id ?reference_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_delegation_set __resource);
   let __resource_attributes =
     ({

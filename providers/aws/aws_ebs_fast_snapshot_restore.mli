@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_ebs_fast_snapshot_restore__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_ebs_fast_snapshot_restore
+
+val aws_ebs_fast_snapshot_restore :
+  ?timeouts:timeouts ->
+  availability_zone:string prop ->
+  snapshot_id:string prop ->
+  unit ->
+  aws_ebs_fast_snapshot_restore
+
+val yojson_of_aws_ebs_fast_snapshot_restore :
+  aws_ebs_fast_snapshot_restore -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   availability_zone : string prop;
@@ -12,8 +30,9 @@ type t = private {
   state : string prop;
 }
 
-val aws_ebs_fast_snapshot_restore :
-  ?timeouts:aws_ebs_fast_snapshot_restore__timeouts ->
+val register :
+  ?tf_module:tf_module ->
+  ?timeouts:timeouts ->
   availability_zone:string prop ->
   snapshot_id:string prop ->
   string ->

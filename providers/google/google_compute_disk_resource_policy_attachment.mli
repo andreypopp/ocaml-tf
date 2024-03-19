@@ -2,8 +2,29 @@
 
 open! Tf.Prelude
 
-type google_compute_disk_resource_policy_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_disk_resource_policy_attachment
+
+val google_compute_disk_resource_policy_attachment :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  disk:string prop ->
+  name:string prop ->
+  unit ->
+  google_compute_disk_resource_policy_attachment
+
+val yojson_of_google_compute_disk_resource_policy_attachment :
+  google_compute_disk_resource_policy_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   disk : string prop;
@@ -13,11 +34,12 @@ type t = private {
   zone : string prop;
 }
 
-val google_compute_disk_resource_policy_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
-  ?timeouts:google_compute_disk_resource_policy_attachment__timeouts ->
+  ?timeouts:timeouts ->
   disk:string prop ->
   name:string prop ->
   string ->

@@ -4,31 +4,41 @@
 
 open! Tf.Prelude
 
-type aws_cloudfront_realtime_log_config__endpoint__kinesis_stream_config = {
+type endpoint__kinesis_stream_config = {
   role_arn : string prop;  (** role_arn *)
   stream_arn : string prop;  (** stream_arn *)
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_realtime_log_config__endpoint__kinesis_stream_config *)
+(** endpoint__kinesis_stream_config *)
 
-type aws_cloudfront_realtime_log_config__endpoint = {
+type endpoint = {
   stream_type : string prop;  (** stream_type *)
-  kinesis_stream_config :
-    aws_cloudfront_realtime_log_config__endpoint__kinesis_stream_config
-    list;
+  kinesis_stream_config : endpoint__kinesis_stream_config list;
 }
 [@@deriving yojson_of]
-(** aws_cloudfront_realtime_log_config__endpoint *)
+(** endpoint *)
 
 type aws_cloudfront_realtime_log_config = {
   fields : string prop list;  (** fields *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
   sampling_rate : float prop;  (** sampling_rate *)
-  endpoint : aws_cloudfront_realtime_log_config__endpoint list;
+  endpoint : endpoint list;
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_realtime_log_config *)
+
+let endpoint__kinesis_stream_config ~role_arn ~stream_arn () :
+    endpoint__kinesis_stream_config =
+  { role_arn; stream_arn }
+
+let endpoint ~stream_type ~kinesis_stream_config () : endpoint =
+  { stream_type; kinesis_stream_config }
+
+let aws_cloudfront_realtime_log_config ?id ~fields ~name
+    ~sampling_rate ~endpoint () : aws_cloudfront_realtime_log_config
+    =
+  { fields; id; name; sampling_rate; endpoint }
 
 type t = {
   arn : string prop;
@@ -38,14 +48,14 @@ type t = {
   sampling_rate : float prop;
 }
 
-let aws_cloudfront_realtime_log_config ?id ~fields ~name
-    ~sampling_rate ~endpoint __resource_id =
+let register ?tf_module ?id ~fields ~name ~sampling_rate ~endpoint
+    __resource_id =
   let __resource_type = "aws_cloudfront_realtime_log_config" in
   let __resource =
-    ({ fields; id; name; sampling_rate; endpoint }
-      : aws_cloudfront_realtime_log_config)
+    aws_cloudfront_realtime_log_config ?id ~fields ~name
+      ~sampling_rate ~endpoint ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_realtime_log_config __resource);
   let __resource_attributes =
     ({

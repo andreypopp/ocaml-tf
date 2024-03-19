@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_workspaces_connection_alias__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_workspaces_connection_alias
+
+val aws_workspaces_connection_alias :
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  connection_string:string prop ->
+  unit ->
+  aws_workspaces_connection_alias
+
+val yojson_of_aws_workspaces_connection_alias :
+  aws_workspaces_connection_alias -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   connection_string : string prop;
@@ -14,9 +36,10 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_workspaces_connection_alias :
+val register :
+  ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_workspaces_connection_alias__timeouts ->
+  ?timeouts:timeouts ->
   connection_string:string prop ->
   string ->
   t

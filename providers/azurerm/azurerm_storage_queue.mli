@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_queue__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_storage_queue
+
+val azurerm_storage_queue :
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  storage_account_name:string prop ->
+  unit ->
+  azurerm_storage_queue
+
+val yojson_of_azurerm_storage_queue : azurerm_storage_queue -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,10 +37,11 @@ type t = private {
   storage_account_name : string prop;
 }
 
-val azurerm_storage_queue :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
-  ?timeouts:azurerm_storage_queue__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
   string ->

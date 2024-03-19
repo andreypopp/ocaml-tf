@@ -4,39 +4,38 @@
 
 open! Tf.Prelude
 
-type aws_msk_serverless_cluster__client_authentication__sasl__iam = {
+type client_authentication__sasl__iam = {
   enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_msk_serverless_cluster__client_authentication__sasl__iam *)
+(** client_authentication__sasl__iam *)
 
-type aws_msk_serverless_cluster__client_authentication__sasl = {
-  iam :
-    aws_msk_serverless_cluster__client_authentication__sasl__iam list;
+type client_authentication__sasl = {
+  iam : client_authentication__sasl__iam list;
 }
 [@@deriving yojson_of]
-(** aws_msk_serverless_cluster__client_authentication__sasl *)
+(** client_authentication__sasl *)
 
-type aws_msk_serverless_cluster__client_authentication = {
-  sasl : aws_msk_serverless_cluster__client_authentication__sasl list;
+type client_authentication = {
+  sasl : client_authentication__sasl list;
 }
 [@@deriving yojson_of]
-(** aws_msk_serverless_cluster__client_authentication *)
+(** client_authentication *)
 
-type aws_msk_serverless_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_msk_serverless_cluster__timeouts *)
+(** timeouts *)
 
-type aws_msk_serverless_cluster__vpc_config = {
+type vpc_config = {
   security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
   subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
-(** aws_msk_serverless_cluster__vpc_config *)
+(** vpc_config *)
 
 type aws_msk_serverless_cluster = {
   cluster_name : string prop;  (** cluster_name *)
@@ -44,13 +43,39 @@ type aws_msk_serverless_cluster = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  client_authentication :
-    aws_msk_serverless_cluster__client_authentication list;
-  timeouts : aws_msk_serverless_cluster__timeouts option;
-  vpc_config : aws_msk_serverless_cluster__vpc_config list;
+  client_authentication : client_authentication list;
+  timeouts : timeouts option;
+  vpc_config : vpc_config list;
 }
 [@@deriving yojson_of]
 (** aws_msk_serverless_cluster *)
+
+let client_authentication__sasl__iam ~enabled () :
+    client_authentication__sasl__iam =
+  { enabled }
+
+let client_authentication__sasl ~iam () : client_authentication__sasl
+    =
+  { iam }
+
+let client_authentication ~sasl () : client_authentication = { sasl }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let vpc_config ?security_group_ids ~subnet_ids () : vpc_config =
+  { security_group_ids; subnet_ids }
+
+let aws_msk_serverless_cluster ?id ?tags ?tags_all ?timeouts
+    ~cluster_name ~client_authentication ~vpc_config () :
+    aws_msk_serverless_cluster =
+  {
+    cluster_name;
+    id;
+    tags;
+    tags_all;
+    client_authentication;
+    timeouts;
+    vpc_config;
+  }
 
 type t = {
   arn : string prop;
@@ -61,22 +86,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_msk_serverless_cluster ?id ?tags ?tags_all ?timeouts
-    ~cluster_name ~client_authentication ~vpc_config __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~cluster_name
+    ~client_authentication ~vpc_config __resource_id =
   let __resource_type = "aws_msk_serverless_cluster" in
   let __resource =
-    ({
-       cluster_name;
-       id;
-       tags;
-       tags_all;
-       client_authentication;
-       timeouts;
-       vpc_config;
-     }
-      : aws_msk_serverless_cluster)
+    aws_msk_serverless_cluster ?id ?tags ?tags_all ?timeouts
+      ~cluster_name ~client_authentication ~vpc_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_msk_serverless_cluster __resource);
   let __resource_attributes =
     ({

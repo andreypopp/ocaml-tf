@@ -2,9 +2,56 @@
 
 open! Tf.Prelude
 
-type azurerm_network_interface__ip_configuration
-type azurerm_network_interface__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type ip_configuration
+
+val ip_configuration :
+  ?gateway_load_balancer_frontend_ip_configuration_id:string prop ->
+  ?primary:bool prop ->
+  ?private_ip_address:string prop ->
+  ?private_ip_address_version:string prop ->
+  ?public_ip_address_id:string prop ->
+  ?subnet_id:string prop ->
+  name:string prop ->
+  private_ip_address_allocation:string prop ->
+  unit ->
+  ip_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_network_interface
+
+val azurerm_network_interface :
+  ?auxiliary_mode:string prop ->
+  ?auxiliary_sku:string prop ->
+  ?dns_servers:string prop list ->
+  ?edge_zone:string prop ->
+  ?enable_accelerated_networking:bool prop ->
+  ?enable_ip_forwarding:bool prop ->
+  ?id:string prop ->
+  ?internal_dns_name_label:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  ip_configuration:ip_configuration list ->
+  unit ->
+  azurerm_network_interface
+
+val yojson_of_azurerm_network_interface :
+  azurerm_network_interface -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   applied_dns_servers : string list prop;
@@ -27,7 +74,8 @@ type t = private {
   virtual_machine_id : string prop;
 }
 
-val azurerm_network_interface :
+val register :
+  ?tf_module:tf_module ->
   ?auxiliary_mode:string prop ->
   ?auxiliary_sku:string prop ->
   ?dns_servers:string prop list ->
@@ -37,10 +85,10 @@ val azurerm_network_interface :
   ?id:string prop ->
   ?internal_dns_name_label:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_network_interface__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  ip_configuration:azurerm_network_interface__ip_configuration list ->
+  ip_configuration:ip_configuration list ->
   string ->
   t

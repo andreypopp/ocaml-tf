@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_access_rule__configuration = {
+type configuration = {
   target : string prop;
       (** The request property to target. Available values: `ip`, `ip6`, `ip_range`, `asn`, `country`. **Modifying this attribute will force creation of a new resource.** *)
   value : string prop;
@@ -23,13 +23,20 @@ type cloudflare_access_rule = {
       (** A personal note about the rule. Typically used as a reminder or explanation for the rule. *)
   zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
-  configuration : cloudflare_access_rule__configuration list;
+  configuration : configuration list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare IP Firewall Access Rule resource. Access
 control can be applied on basis of IP addresses, IP ranges, AS
 numbers or countries.
  *)
+
+let configuration ~target ~value () : configuration =
+  { target; value }
+
+let cloudflare_access_rule ?account_id ?id ?notes ?zone_id ~mode
+    ~configuration () : cloudflare_access_rule =
+  { account_id; id; mode; notes; zone_id; configuration }
 
 type t = {
   account_id : string prop;
@@ -39,14 +46,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_access_rule ?account_id ?id ?notes ?zone_id ~mode
+let register ?tf_module ?account_id ?id ?notes ?zone_id ~mode
     ~configuration __resource_id =
   let __resource_type = "cloudflare_access_rule" in
   let __resource =
-    ({ account_id; id; mode; notes; zone_id; configuration }
-      : cloudflare_access_rule)
+    cloudflare_access_rule ?account_id ?id ?notes ?zone_id ~mode
+      ~configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_rule __resource);
   let __resource_attributes =
     ({

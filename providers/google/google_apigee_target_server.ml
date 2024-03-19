@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_apigee_target_server__s_sl_info__common_name = {
+type s_sl_info__common_name = {
   value : string prop option; [@option]
       (** The TLS Common Name string of the certificate. *)
   wildcard_match : bool prop option; [@option]
@@ -13,7 +13,7 @@ type google_apigee_target_server__s_sl_info__common_name = {
 [@@deriving yojson_of]
 (** The TLS Common Name of the certificate. *)
 
-type google_apigee_target_server__s_sl_info = {
+type s_sl_info = {
   ciphers : string prop list option; [@option]
       (** The SSL/TLS cipher suites to be used. For programmable proxies, it must be one of the cipher suite names listed in: http://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#ciphersuites. For configurable proxies, it must follow the configuration specified in: https://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#Cipher-suite-configuration. This setting has no effect for configurable proxies when negotiating TLS 1.3. *)
   client_auth_enabled : bool prop option; [@option]
@@ -30,19 +30,18 @@ type google_apigee_target_server__s_sl_info = {
       (** The TLS versioins to be used. *)
   trust_store : string prop option; [@option]
       (** The resource ID of the truststore. *)
-  common_name :
-    google_apigee_target_server__s_sl_info__common_name list;
+  common_name : s_sl_info__common_name list;
 }
 [@@deriving yojson_of]
 (** Specifies TLS configuration info for this TargetServer. The JSON name is sSLInfo for legacy/backwards compatibility reasons -- Edge originally supported SSL, and the name is still used for TLS configuration. *)
 
-type google_apigee_target_server__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_apigee_target_server__timeouts *)
+(** timeouts *)
 
 type google_apigee_target_server = {
   description : string prop option; [@option]
@@ -61,11 +60,49 @@ in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
       (** The port number this target connects to on the given host. Value must be between 1 and 65535, inclusive. *)
   protocol : string prop option; [@option]
       (** Immutable. The protocol used by this TargetServer. Possible values: [HTTP, HTTP2, GRPC_TARGET, GRPC, EXTERNAL_CALLOUT] *)
-  s_sl_info : google_apigee_target_server__s_sl_info list;
-  timeouts : google_apigee_target_server__timeouts option;
+  s_sl_info : s_sl_info list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_target_server *)
+
+let s_sl_info__common_name ?value ?wildcard_match () :
+    s_sl_info__common_name =
+  { value; wildcard_match }
+
+let s_sl_info ?ciphers ?client_auth_enabled ?ignore_validation_errors
+    ?key_alias ?key_store ?protocols ?trust_store ~enabled
+    ~common_name () : s_sl_info =
+  {
+    ciphers;
+    client_auth_enabled;
+    enabled;
+    ignore_validation_errors;
+    key_alias;
+    key_store;
+    protocols;
+    trust_store;
+    common_name;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_apigee_target_server ?description ?id ?is_enabled
+    ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info () :
+    google_apigee_target_server =
+  {
+    description;
+    env_id;
+    host;
+    id;
+    is_enabled;
+    name;
+    port;
+    protocol;
+    s_sl_info;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -78,26 +115,14 @@ type t = {
   protocol : string prop;
 }
 
-let google_apigee_target_server ?description ?id ?is_enabled
-    ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info
-    __resource_id =
+let register ?tf_module ?description ?id ?is_enabled ?protocol
+    ?timeouts ~env_id ~host ~name ~port ~s_sl_info __resource_id =
   let __resource_type = "google_apigee_target_server" in
   let __resource =
-    ({
-       description;
-       env_id;
-       host;
-       id;
-       is_enabled;
-       name;
-       port;
-       protocol;
-       s_sl_info;
-       timeouts;
-     }
-      : google_apigee_target_server)
+    google_apigee_target_server ?description ?id ?is_enabled
+      ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_target_server __resource);
   let __resource_attributes =
     ({

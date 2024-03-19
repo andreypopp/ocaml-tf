@@ -2,31 +2,57 @@
 
 open! Tf.Prelude
 
-type azurerm_route_filter__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_route_filter__rule = {
+type rule = {
   access : string prop;  (** access *)
   communities : string prop list;  (** communities *)
   name : string prop;  (** name *)
   rule_type : string prop;  (** rule_type *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_route_filter
+
+val azurerm_route_filter :
+  ?id:string prop ->
+  ?rule:rule list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_route_filter
+
+val yojson_of_azurerm_route_filter : azurerm_route_filter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  rule : azurerm_route_filter__rule list prop;
+  rule : rule list prop;
   tags : (string * string) list prop;
 }
 
-val azurerm_route_filter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?rule:azurerm_route_filter__rule list ->
+  ?rule:rule list ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_route_filter__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

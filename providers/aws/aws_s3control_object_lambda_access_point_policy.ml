@@ -13,6 +13,11 @@ type aws_s3control_object_lambda_access_point_policy = {
 [@@deriving yojson_of]
 (** aws_s3control_object_lambda_access_point_policy *)
 
+let aws_s3control_object_lambda_access_point_policy ?account_id ?id
+    ~name ~policy () :
+    aws_s3control_object_lambda_access_point_policy =
+  { account_id; id; name; policy }
+
 type t = {
   account_id : string prop;
   has_public_access_policy : bool prop;
@@ -21,16 +26,15 @@ type t = {
   policy : string prop;
 }
 
-let aws_s3control_object_lambda_access_point_policy ?account_id ?id
-    ~name ~policy __resource_id =
+let register ?tf_module ?account_id ?id ~name ~policy __resource_id =
   let __resource_type =
     "aws_s3control_object_lambda_access_point_policy"
   in
   let __resource =
-    ({ account_id; id; name; policy }
-      : aws_s3control_object_lambda_access_point_policy)
+    aws_s3control_object_lambda_access_point_policy ?account_id ?id
+      ~name ~policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_object_lambda_access_point_policy
        __resource);
   let __resource_attributes =

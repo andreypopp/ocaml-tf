@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_endpoint__encryption_spec = {
+type encryption_spec = {
   kms_key_name : string prop;
       (** Required. The Cloud KMS resource identifier of the customer managed encryption key used to protect a resource. Has the form: 'projects/my-project/locations/my-region/keyRings/my-kr/cryptoKeys/my-key'. The key needs to be in the same region as where the compute resource is created. *)
 }
 [@@deriving yojson_of]
 (** Customer-managed encryption key spec for an Endpoint. If set, this Endpoint and all sub-resources of this Endpoint will be secured by this key. *)
 
-type google_vertex_ai_endpoint__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vertex_ai_endpoint__timeouts *)
+(** timeouts *)
 
-type google_vertex_ai_endpoint__deployed_models__private_endpoints = {
+type deployed_models__private_endpoints = {
   explain_http_uri : string prop;  (** explain_http_uri *)
   health_http_uri : string prop;  (** health_http_uri *)
   predict_http_uri : string prop;  (** predict_http_uri *)
@@ -27,48 +27,43 @@ type google_vertex_ai_endpoint__deployed_models__private_endpoints = {
 }
 [@@deriving yojson_of]
 
-type google_vertex_ai_endpoint__deployed_models__dedicated_resources__machine_spec = {
+type deployed_models__dedicated_resources__machine_spec = {
   accelerator_count : float prop;  (** accelerator_count *)
   accelerator_type : string prop;  (** accelerator_type *)
   machine_type : string prop;  (** machine_type *)
 }
 [@@deriving yojson_of]
 
-type google_vertex_ai_endpoint__deployed_models__dedicated_resources__autoscaling_metric_specs = {
+type deployed_models__dedicated_resources__autoscaling_metric_specs = {
   metric_name : string prop;  (** metric_name *)
   target : float prop;  (** target *)
 }
 [@@deriving yojson_of]
 
-type google_vertex_ai_endpoint__deployed_models__dedicated_resources = {
+type deployed_models__dedicated_resources = {
   autoscaling_metric_specs :
-    google_vertex_ai_endpoint__deployed_models__dedicated_resources__autoscaling_metric_specs
+    deployed_models__dedicated_resources__autoscaling_metric_specs
     list;
       (** autoscaling_metric_specs *)
   machine_spec :
-    google_vertex_ai_endpoint__deployed_models__dedicated_resources__machine_spec
-    list;
+    deployed_models__dedicated_resources__machine_spec list;
       (** machine_spec *)
   max_replica_count : float prop;  (** max_replica_count *)
   min_replica_count : float prop;  (** min_replica_count *)
 }
 [@@deriving yojson_of]
 
-type google_vertex_ai_endpoint__deployed_models__automatic_resources = {
+type deployed_models__automatic_resources = {
   max_replica_count : float prop;  (** max_replica_count *)
   min_replica_count : float prop;  (** min_replica_count *)
 }
 [@@deriving yojson_of]
 
-type google_vertex_ai_endpoint__deployed_models = {
-  automatic_resources :
-    google_vertex_ai_endpoint__deployed_models__automatic_resources
-    list;
+type deployed_models = {
+  automatic_resources : deployed_models__automatic_resources list;
       (** automatic_resources *)
   create_time : string prop;  (** create_time *)
-  dedicated_resources :
-    google_vertex_ai_endpoint__deployed_models__dedicated_resources
-    list;
+  dedicated_resources : deployed_models__dedicated_resources list;
       (** dedicated_resources *)
   display_name : string prop;  (** display_name *)
   enable_access_logging : bool prop;  (** enable_access_logging *)
@@ -77,9 +72,7 @@ type google_vertex_ai_endpoint__deployed_models = {
   id : string prop;  (** id *)
   model : string prop;  (** model *)
   model_version_id : string prop;  (** model_version_id *)
-  private_endpoints :
-    google_vertex_ai_endpoint__deployed_models__private_endpoints
-    list;
+  private_endpoints : deployed_models__private_endpoints list;
       (** private_endpoints *)
   service_account : string prop;  (** service_account *)
   shared_resources : string prop;  (** shared_resources *)
@@ -105,16 +98,38 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** The region for the resource *)
-  encryption_spec : google_vertex_ai_endpoint__encryption_spec list;
-  timeouts : google_vertex_ai_endpoint__timeouts option;
+  encryption_spec : encryption_spec list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_endpoint *)
 
+let encryption_spec ~kms_key_name () : encryption_spec =
+  { kms_key_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vertex_ai_endpoint ?description ?id ?labels ?network
+    ?project ?region ?timeouts ~display_name ~location ~name
+    ~encryption_spec () : google_vertex_ai_endpoint =
+  {
+    description;
+    display_name;
+    id;
+    labels;
+    location;
+    name;
+    network;
+    project;
+    region;
+    encryption_spec;
+    timeouts;
+  }
+
 type t = {
   create_time : string prop;
-  deployed_models :
-    google_vertex_ai_endpoint__deployed_models list prop;
+  deployed_models : deployed_models list prop;
   description : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
@@ -131,27 +146,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_vertex_ai_endpoint ?description ?id ?labels ?network
-    ?project ?region ?timeouts ~display_name ~location ~name
-    ~encryption_spec __resource_id =
+let register ?tf_module ?description ?id ?labels ?network ?project
+    ?region ?timeouts ~display_name ~location ~name ~encryption_spec
+    __resource_id =
   let __resource_type = "google_vertex_ai_endpoint" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       labels;
-       location;
-       name;
-       network;
-       project;
-       region;
-       encryption_spec;
-       timeouts;
-     }
-      : google_vertex_ai_endpoint)
+    google_vertex_ai_endpoint ?description ?id ?labels ?network
+      ?project ?region ?timeouts ~display_name ~location ~name
+      ~encryption_spec ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_endpoint __resource);
   let __resource_attributes =
     ({

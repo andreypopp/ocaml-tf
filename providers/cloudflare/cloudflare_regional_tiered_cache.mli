@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_regional_tiered_cache
+
+val cloudflare_regional_tiered_cache :
+  ?id:string prop ->
+  value:string prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_regional_tiered_cache
+
+val yojson_of_cloudflare_regional_tiered_cache :
+  cloudflare_regional_tiered_cache -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_regional_tiered_cache :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   value:string prop ->
   zone_id:string prop ->

@@ -2,9 +2,46 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_trigger_recurrence__schedule
-type azurerm_logic_app_trigger_recurrence__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type schedule
+
+val schedule :
+  ?at_these_hours:float prop list ->
+  ?at_these_minutes:float prop list ->
+  ?on_these_days:string prop list ->
+  unit ->
+  schedule
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_logic_app_trigger_recurrence
+
+val azurerm_logic_app_trigger_recurrence :
+  ?id:string prop ->
+  ?start_time:string prop ->
+  ?time_zone:string prop ->
+  ?timeouts:timeouts ->
+  frequency:string prop ->
+  interval:float prop ->
+  logic_app_id:string prop ->
+  name:string prop ->
+  schedule:schedule list ->
+  unit ->
+  azurerm_logic_app_trigger_recurrence
+
+val yojson_of_azurerm_logic_app_trigger_recurrence :
+  azurerm_logic_app_trigger_recurrence -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   frequency : string prop;
@@ -16,15 +53,16 @@ type t = private {
   time_zone : string prop;
 }
 
-val azurerm_logic_app_trigger_recurrence :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
-  ?timeouts:azurerm_logic_app_trigger_recurrence__timeouts ->
+  ?timeouts:timeouts ->
   frequency:string prop ->
   interval:float prop ->
   logic_app_id:string prop ->
   name:string prop ->
-  schedule:azurerm_logic_app_trigger_recurrence__schedule list ->
+  schedule:schedule list ->
   string ->
   t

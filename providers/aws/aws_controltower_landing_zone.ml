@@ -4,17 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_controltower_landing_zone__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_controltower_landing_zone__timeouts *)
+(** timeouts *)
 
-type aws_controltower_landing_zone__drift_status = {
-  status : string prop;  (** status *)
-}
+type drift_status = { status : string prop  (** status *) }
 [@@deriving yojson_of]
 
 type aws_controltower_landing_zone = {
@@ -24,15 +22,21 @@ type aws_controltower_landing_zone = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   version : string prop;  (** version *)
-  timeouts : aws_controltower_landing_zone__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_controltower_landing_zone *)
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_controltower_landing_zone ?id ?tags ?tags_all ?timeouts
+    ~manifest_json ~version () : aws_controltower_landing_zone =
+  { id; manifest_json; tags; tags_all; version; timeouts }
+
 type t = {
   arn : string prop;
-  drift_status :
-    aws_controltower_landing_zone__drift_status list prop;
+  drift_status : drift_status list prop;
   id : string prop;
   latest_available_version : string prop;
   manifest_json : string prop;
@@ -41,14 +45,14 @@ type t = {
   version : string prop;
 }
 
-let aws_controltower_landing_zone ?id ?tags ?tags_all ?timeouts
-    ~manifest_json ~version __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~manifest_json
+    ~version __resource_id =
   let __resource_type = "aws_controltower_landing_zone" in
   let __resource =
-    ({ id; manifest_json; tags; tags_all; version; timeouts }
-      : aws_controltower_landing_zone)
+    aws_controltower_landing_zone ?id ?tags ?tags_all ?timeouts
+      ~manifest_json ~version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_controltower_landing_zone __resource);
   let __resource_attributes =
     ({

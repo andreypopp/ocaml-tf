@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_network_interface__ip_configuration = {
+type ip_configuration = {
   gateway_load_balancer_frontend_ip_configuration_id :
     string prop option;
       [@option]
@@ -22,16 +22,16 @@ type azurerm_network_interface__ip_configuration = {
   subnet_id : string prop option; [@option]  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_interface__ip_configuration *)
+(** ip_configuration *)
 
-type azurerm_network_interface__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_interface__timeouts *)
+(** timeouts *)
 
 type azurerm_network_interface = {
   auxiliary_mode : string prop option; [@option]
@@ -51,12 +51,52 @@ type azurerm_network_interface = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  ip_configuration :
-    azurerm_network_interface__ip_configuration list;
-  timeouts : azurerm_network_interface__timeouts option;
+  ip_configuration : ip_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_network_interface *)
+
+let ip_configuration
+    ?gateway_load_balancer_frontend_ip_configuration_id ?primary
+    ?private_ip_address ?private_ip_address_version
+    ?public_ip_address_id ?subnet_id ~name
+    ~private_ip_address_allocation () : ip_configuration =
+  {
+    gateway_load_balancer_frontend_ip_configuration_id;
+    name;
+    primary;
+    private_ip_address;
+    private_ip_address_allocation;
+    private_ip_address_version;
+    public_ip_address_id;
+    subnet_id;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
+    ?dns_servers ?edge_zone ?enable_accelerated_networking
+    ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
+    ?timeouts ~location ~name ~resource_group_name ~ip_configuration
+    () : azurerm_network_interface =
+  {
+    auxiliary_mode;
+    auxiliary_sku;
+    dns_servers;
+    edge_zone;
+    enable_accelerated_networking;
+    enable_ip_forwarding;
+    id;
+    internal_dns_name_label;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    ip_configuration;
+    timeouts;
+  }
 
 type t = {
   applied_dns_servers : string list prop;
@@ -79,32 +119,19 @@ type t = {
   virtual_machine_id : string prop;
 }
 
-let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
-    ?dns_servers ?edge_zone ?enable_accelerated_networking
-    ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
-    ?timeouts ~location ~name ~resource_group_name ~ip_configuration
-    __resource_id =
+let register ?tf_module ?auxiliary_mode ?auxiliary_sku ?dns_servers
+    ?edge_zone ?enable_accelerated_networking ?enable_ip_forwarding
+    ?id ?internal_dns_name_label ?tags ?timeouts ~location ~name
+    ~resource_group_name ~ip_configuration __resource_id =
   let __resource_type = "azurerm_network_interface" in
   let __resource =
-    ({
-       auxiliary_mode;
-       auxiliary_sku;
-       dns_servers;
-       edge_zone;
-       enable_accelerated_networking;
-       enable_ip_forwarding;
-       id;
-       internal_dns_name_label;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       ip_configuration;
-       timeouts;
-     }
-      : azurerm_network_interface)
+    azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
+      ?dns_servers ?edge_zone ?enable_accelerated_networking
+      ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
+      ?timeouts ~location ~name ~resource_group_name
+      ~ip_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_interface __resource);
   let __resource_attributes =
     ({

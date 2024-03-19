@@ -4,37 +4,35 @@
 
 open! Tf.Prelude
 
-type google_container_aws_cluster__authorization__admin_groups = {
+type authorization__admin_groups = {
   group : string prop;
       (** The name of the group, e.g. `my-group@domain.com`. *)
 }
 [@@deriving yojson_of]
 (** Groups of users that can perform operations as a cluster admin. A managed ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole to the groups. Up to ten admin groups can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
 
-type google_container_aws_cluster__authorization__admin_users = {
+type authorization__admin_users = {
   username : string prop;
       (** The name of the user, e.g. `my-gcp-id@gmail.com`. *)
 }
 [@@deriving yojson_of]
 (** Users to perform operations as a cluster admin. A managed ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole to the users. Up to ten admin users can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
 
-type google_container_aws_cluster__authorization = {
-  admin_groups :
-    google_container_aws_cluster__authorization__admin_groups list;
-  admin_users :
-    google_container_aws_cluster__authorization__admin_users list;
+type authorization = {
+  admin_groups : authorization__admin_groups list;
+  admin_users : authorization__admin_users list;
 }
 [@@deriving yojson_of]
 (** Configuration related to the cluster RBAC settings. *)
 
-type google_container_aws_cluster__binary_authorization = {
+type binary_authorization = {
   evaluation_mode : string prop option; [@option]
       (** Mode of operation for Binary Authorization policy evaluation. Possible values: DISABLED, PROJECT_SINGLETON_POLICY_ENFORCE *)
 }
 [@@deriving yojson_of]
 (** Configuration options for the Binary Authorization feature. *)
 
-type google_container_aws_cluster__control_plane__aws_services_authentication = {
+type control_plane__aws_services_authentication = {
   role_arn : string prop;
       (** The Amazon Resource Name (ARN) of the role that the Anthos Multi-Cloud API will assume when managing AWS resources on your account. *)
   role_session_name : string prop option; [@option]
@@ -43,21 +41,21 @@ type google_container_aws_cluster__control_plane__aws_services_authentication = 
 [@@deriving yojson_of]
 (** Authentication configuration for management of AWS resources. *)
 
-type google_container_aws_cluster__control_plane__config_encryption = {
+type control_plane__config_encryption = {
   kms_key_arn : string prop;
       (** The ARN of the AWS KMS key used to encrypt cluster configuration. *)
 }
 [@@deriving yojson_of]
 (** The ARN of the AWS KMS key used to encrypt cluster configuration. *)
 
-type google_container_aws_cluster__control_plane__database_encryption = {
+type control_plane__database_encryption = {
   kms_key_arn : string prop;
       (** The ARN of the AWS KMS key used to encrypt cluster secrets. *)
 }
 [@@deriving yojson_of]
 (** The ARN of the AWS KMS key used to encrypt cluster secrets. *)
 
-type google_container_aws_cluster__control_plane__main_volume = {
+type control_plane__main_volume = {
   iops : float prop option; [@option]
       (** Optional. The number of I/O operations per second (IOPS) to provision for GP3 volume. *)
   kms_key_arn : string prop option; [@option]
@@ -72,7 +70,7 @@ type google_container_aws_cluster__control_plane__main_volume = {
 [@@deriving yojson_of]
 (** Optional. Configuration related to the main volume provisioned for each control plane replica. The main volume is in charge of storing all of the cluster's etcd state. Volumes will be provisioned in the availability zone associated with the corresponding subnet. When unspecified, it defaults to 8 GiB with the GP2 volume type. *)
 
-type google_container_aws_cluster__control_plane__proxy_config = {
+type control_plane__proxy_config = {
   secret_arn : string prop;
       (** The ARN of the AWS Secret Manager secret that contains the HTTP(S) proxy configuration. *)
   secret_version : string prop;
@@ -81,7 +79,7 @@ type google_container_aws_cluster__control_plane__proxy_config = {
 [@@deriving yojson_of]
 (** Proxy configuration for outbound HTTP(S) traffic. *)
 
-type google_container_aws_cluster__control_plane__root_volume = {
+type control_plane__root_volume = {
   iops : float prop option; [@option]
       (** Optional. The number of I/O operations per second (IOPS) to provision for GP3 volume. *)
   kms_key_arn : string prop option; [@option]
@@ -96,14 +94,14 @@ type google_container_aws_cluster__control_plane__root_volume = {
 [@@deriving yojson_of]
 (** Optional. Configuration related to the root volume provisioned for each control plane replica. Volumes will be provisioned in the availability zone associated with the corresponding subnet. When unspecified, it defaults to 32 GiB with the GP2 volume type. *)
 
-type google_container_aws_cluster__control_plane__ssh_config = {
+type control_plane__ssh_config = {
   ec2_key_pair : string prop;
       (** The name of the EC2 key pair used to login into cluster machines. *)
 }
 [@@deriving yojson_of]
 (** Optional. SSH configuration for how to access the underlying control plane machines. *)
 
-type google_container_aws_cluster__control_plane = {
+type control_plane = {
   iam_instance_profile : string prop;
       (** The name of the AWS IAM instance pofile to assign to each control plane replica. *)
   instance_type : string prop option; [@option]
@@ -117,36 +115,25 @@ type google_container_aws_cluster__control_plane = {
   version : string prop;
       (** The Kubernetes version to run on control plane replicas (e.g. `1.19.10-gke.1000`). You can list all supported versions on a given Google Cloud region by calling . *)
   aws_services_authentication :
-    google_container_aws_cluster__control_plane__aws_services_authentication
-    list;
-  config_encryption :
-    google_container_aws_cluster__control_plane__config_encryption
-    list;
-  database_encryption :
-    google_container_aws_cluster__control_plane__database_encryption
-    list;
-  main_volume :
-    google_container_aws_cluster__control_plane__main_volume list;
-  proxy_config :
-    google_container_aws_cluster__control_plane__proxy_config list;
-  root_volume :
-    google_container_aws_cluster__control_plane__root_volume list;
-  ssh_config :
-    google_container_aws_cluster__control_plane__ssh_config list;
+    control_plane__aws_services_authentication list;
+  config_encryption : control_plane__config_encryption list;
+  database_encryption : control_plane__database_encryption list;
+  main_volume : control_plane__main_volume list;
+  proxy_config : control_plane__proxy_config list;
+  root_volume : control_plane__root_volume list;
+  ssh_config : control_plane__ssh_config list;
 }
 [@@deriving yojson_of]
 (** Configuration related to the cluster control plane. *)
 
-type google_container_aws_cluster__fleet = {
-  membership : string prop;
-      (** The name of the managed Hub Membership resource associated to this cluster. Membership names are formatted as projects/<project-number>/locations/global/membership/<cluster-id>. *)
+type fleet = {
   project : string prop option; [@option]
       (** The number of the Fleet host project where this cluster will be registered. *)
 }
 [@@deriving yojson_of]
 (** Fleet configuration. *)
 
-type google_container_aws_cluster__networking = {
+type networking = {
   per_node_pool_sg_rules_disabled : bool prop option; [@option]
       (** Disable the per node pool subnet security group rules on the control plane security group. When set to true, you must also provide one or more security groups that ensure node pools are able to send requests to the control plane on TCP/443 and TCP/8132. Failure to do so may result in unavailable node pools. *)
   pod_address_cidr_blocks : string prop list;
@@ -159,15 +146,15 @@ type google_container_aws_cluster__networking = {
 [@@deriving yojson_of]
 (** Cluster-wide networking configuration. *)
 
-type google_container_aws_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_container_aws_cluster__timeouts *)
+(** timeouts *)
 
-type google_container_aws_cluster__workload_identity_config = {
+type workload_identity_config = {
   identity_provider : string prop;  (** identity_provider *)
   issuer_uri : string prop;  (** issuer_uri *)
   workload_pool : string prop;  (** workload_pool *)
@@ -189,16 +176,113 @@ Please refer to the field `effective_annotations` for all of the annotations pre
   name : string prop;  (** The name of this resource. *)
   project : string prop option; [@option]
       (** The project for the resource *)
-  authorization : google_container_aws_cluster__authorization list;
-  binary_authorization :
-    google_container_aws_cluster__binary_authorization list;
-  control_plane : google_container_aws_cluster__control_plane list;
-  fleet : google_container_aws_cluster__fleet list;
-  networking : google_container_aws_cluster__networking list;
-  timeouts : google_container_aws_cluster__timeouts option;
+  authorization : authorization list;
+  binary_authorization : binary_authorization list;
+  control_plane : control_plane list;
+  fleet : fleet list;
+  networking : networking list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_container_aws_cluster *)
+
+let authorization__admin_groups ~group () :
+    authorization__admin_groups =
+  { group }
+
+let authorization__admin_users ~username () :
+    authorization__admin_users =
+  { username }
+
+let authorization ~admin_groups ~admin_users () : authorization =
+  { admin_groups; admin_users }
+
+let binary_authorization ?evaluation_mode () : binary_authorization =
+  { evaluation_mode }
+
+let control_plane__aws_services_authentication ?role_session_name
+    ~role_arn () : control_plane__aws_services_authentication =
+  { role_arn; role_session_name }
+
+let control_plane__config_encryption ~kms_key_arn () :
+    control_plane__config_encryption =
+  { kms_key_arn }
+
+let control_plane__database_encryption ~kms_key_arn () :
+    control_plane__database_encryption =
+  { kms_key_arn }
+
+let control_plane__main_volume ?iops ?kms_key_arn ?size_gib
+    ?throughput ?volume_type () : control_plane__main_volume =
+  { iops; kms_key_arn; size_gib; throughput; volume_type }
+
+let control_plane__proxy_config ~secret_arn ~secret_version () :
+    control_plane__proxy_config =
+  { secret_arn; secret_version }
+
+let control_plane__root_volume ?iops ?kms_key_arn ?size_gib
+    ?throughput ?volume_type () : control_plane__root_volume =
+  { iops; kms_key_arn; size_gib; throughput; volume_type }
+
+let control_plane__ssh_config ~ec2_key_pair () :
+    control_plane__ssh_config =
+  { ec2_key_pair }
+
+let control_plane ?instance_type ?security_group_ids ?tags
+    ~iam_instance_profile ~subnet_ids ~version
+    ~aws_services_authentication ~config_encryption
+    ~database_encryption ~main_volume ~proxy_config ~root_volume
+    ~ssh_config () : control_plane =
+  {
+    iam_instance_profile;
+    instance_type;
+    security_group_ids;
+    subnet_ids;
+    tags;
+    version;
+    aws_services_authentication;
+    config_encryption;
+    database_encryption;
+    main_volume;
+    proxy_config;
+    root_volume;
+    ssh_config;
+  }
+
+let fleet ?project () : fleet = { project }
+
+let networking ?per_node_pool_sg_rules_disabled
+    ~pod_address_cidr_blocks ~service_address_cidr_blocks ~vpc_id ()
+    : networking =
+  {
+    per_node_pool_sg_rules_disabled;
+    pod_address_cidr_blocks;
+    service_address_cidr_blocks;
+    vpc_id;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_container_aws_cluster ?annotations ?description ?id
+    ?project ?timeouts ~aws_region ~location ~name ~authorization
+    ~binary_authorization ~control_plane ~fleet ~networking () :
+    google_container_aws_cluster =
+  {
+    annotations;
+    aws_region;
+    description;
+    id;
+    location;
+    name;
+    project;
+    authorization;
+    binary_authorization;
+    control_plane;
+    fleet;
+    networking;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -216,34 +300,20 @@ type t = {
   state : string prop;
   uid : string prop;
   update_time : string prop;
-  workload_identity_config :
-    google_container_aws_cluster__workload_identity_config list prop;
+  workload_identity_config : workload_identity_config list prop;
 }
 
-let google_container_aws_cluster ?annotations ?description ?id
-    ?project ?timeouts ~aws_region ~location ~name ~authorization
+let register ?tf_module ?annotations ?description ?id ?project
+    ?timeouts ~aws_region ~location ~name ~authorization
     ~binary_authorization ~control_plane ~fleet ~networking
     __resource_id =
   let __resource_type = "google_container_aws_cluster" in
   let __resource =
-    ({
-       annotations;
-       aws_region;
-       description;
-       id;
-       location;
-       name;
-       project;
-       authorization;
-       binary_authorization;
-       control_plane;
-       fleet;
-       networking;
-       timeouts;
-     }
-      : google_container_aws_cluster)
+    google_container_aws_cluster ?annotations ?description ?id
+      ?project ?timeouts ~aws_region ~location ~name ~authorization
+      ~binary_authorization ~control_plane ~fleet ~networking ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_aws_cluster __resource);
   let __resource_attributes =
     ({

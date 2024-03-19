@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_route53_zone__vpc = {
+type vpc = {
   vpc_id : string prop;  (** vpc_id *)
   vpc_region : string prop option; [@option]  (** vpc_region *)
 }
 [@@deriving yojson_of]
-(** aws_route53_zone__vpc *)
+(** vpc *)
 
 type aws_route53_zone = {
   comment : string prop option; [@option]  (** comment *)
@@ -21,10 +21,25 @@ type aws_route53_zone = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc : aws_route53_zone__vpc list;
+  vpc : vpc list;
 }
 [@@deriving yojson_of]
 (** aws_route53_zone *)
+
+let vpc ?vpc_region ~vpc_id () : vpc = { vpc_id; vpc_region }
+
+let aws_route53_zone ?comment ?delegation_set_id ?force_destroy ?id
+    ?tags ?tags_all ~name ~vpc () : aws_route53_zone =
+  {
+    comment;
+    delegation_set_id;
+    force_destroy;
+    id;
+    name;
+    tags;
+    tags_all;
+    vpc;
+  }
 
 type t = {
   arn : string prop;
@@ -40,23 +55,14 @@ type t = {
   zone_id : string prop;
 }
 
-let aws_route53_zone ?comment ?delegation_set_id ?force_destroy ?id
-    ?tags ?tags_all ~name ~vpc __resource_id =
+let register ?tf_module ?comment ?delegation_set_id ?force_destroy
+    ?id ?tags ?tags_all ~name ~vpc __resource_id =
   let __resource_type = "aws_route53_zone" in
   let __resource =
-    ({
-       comment;
-       delegation_set_id;
-       force_destroy;
-       id;
-       name;
-       tags;
-       tags_all;
-       vpc;
-     }
-      : aws_route53_zone)
+    aws_route53_zone ?comment ?delegation_set_id ?force_destroy ?id
+      ?tags ?tags_all ~name ~vpc ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_zone __resource);
   let __resource_attributes =
     ({

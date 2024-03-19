@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_data_catalog_policy_tag__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_data_catalog_policy_tag__timeouts *)
+(** timeouts *)
 
 type google_data_catalog_policy_tag = {
   description : string prop option; [@option]
@@ -29,10 +29,25 @@ If empty, it means this policy tag is a top level policy tag.
 If not set, defaults to an empty string. *)
   taxonomy : string prop;
       (** Taxonomy the policy tag is associated with *)
-  timeouts : google_data_catalog_policy_tag__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_data_catalog_policy_tag *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_data_catalog_policy_tag ?description ?id
+    ?parent_policy_tag ?timeouts ~display_name ~taxonomy () :
+    google_data_catalog_policy_tag =
+  {
+    description;
+    display_name;
+    id;
+    parent_policy_tag;
+    taxonomy;
+    timeouts;
+  }
 
 type t = {
   child_policy_tags : string list prop;
@@ -44,22 +59,14 @@ type t = {
   taxonomy : string prop;
 }
 
-let google_data_catalog_policy_tag ?description ?id
-    ?parent_policy_tag ?timeouts ~display_name ~taxonomy
-    __resource_id =
+let register ?tf_module ?description ?id ?parent_policy_tag ?timeouts
+    ~display_name ~taxonomy __resource_id =
   let __resource_type = "google_data_catalog_policy_tag" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       parent_policy_tag;
-       taxonomy;
-       timeouts;
-     }
-      : google_data_catalog_policy_tag)
+    google_data_catalog_policy_tag ?description ?id
+      ?parent_policy_tag ?timeouts ~display_name ~taxonomy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_policy_tag __resource);
   let __resource_attributes =
     ({

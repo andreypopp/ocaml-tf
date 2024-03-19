@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_kusto_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_kusto_database__timeouts *)
+(** timeouts *)
 
 type azurerm_kusto_database = {
   cluster_name : string prop;  (** cluster_name *)
@@ -23,10 +23,27 @@ type azurerm_kusto_database = {
   resource_group_name : string prop;  (** resource_group_name *)
   soft_delete_period : string prop option; [@option]
       (** soft_delete_period *)
-  timeouts : azurerm_kusto_database__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_database *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_kusto_database ?hot_cache_period ?id ?soft_delete_period
+    ?timeouts ~cluster_name ~location ~name ~resource_group_name () :
+    azurerm_kusto_database =
+  {
+    cluster_name;
+    hot_cache_period;
+    id;
+    location;
+    name;
+    resource_group_name;
+    soft_delete_period;
+    timeouts;
+  }
 
 type t = {
   cluster_name : string prop;
@@ -39,24 +56,15 @@ type t = {
   soft_delete_period : string prop;
 }
 
-let azurerm_kusto_database ?hot_cache_period ?id ?soft_delete_period
+let register ?tf_module ?hot_cache_period ?id ?soft_delete_period
     ?timeouts ~cluster_name ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_kusto_database" in
   let __resource =
-    ({
-       cluster_name;
-       hot_cache_period;
-       id;
-       location;
-       name;
-       resource_group_name;
-       soft_delete_period;
-       timeouts;
-     }
-      : azurerm_kusto_database)
+    azurerm_kusto_database ?hot_cache_period ?id ?soft_delete_period
+      ?timeouts ~cluster_name ~location ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_database __resource);
   let __resource_attributes =
     ({

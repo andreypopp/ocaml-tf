@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type digitalocean_certificate
+
+val digitalocean_certificate :
+  ?certificate_chain:string prop ->
+  ?domains:string prop list ->
+  ?id:string prop ->
+  ?leaf_certificate:string prop ->
+  ?private_key:string prop ->
+  ?type_:string prop ->
+  name:string prop ->
+  unit ->
+  digitalocean_certificate
+
+val yojson_of_digitalocean_certificate :
+  digitalocean_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate_chain : string prop;
@@ -18,7 +36,8 @@ type t = private {
   uuid : string prop;
 }
 
-val digitalocean_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?certificate_chain:string prop ->
   ?domains:string prop list ->
   ?id:string prop ->

@@ -2,13 +2,80 @@
 
 open! Tf.Prelude
 
-type google_recaptcha_enterprise_key__android_settings
-type google_recaptcha_enterprise_key__ios_settings
-type google_recaptcha_enterprise_key__testing_options
-type google_recaptcha_enterprise_key__timeouts
-type google_recaptcha_enterprise_key__waf_settings
-type google_recaptcha_enterprise_key__web_settings
+(** RESOURCE SERIALIZATION *)
+
+type android_settings
+
+val android_settings :
+  ?allow_all_package_names:bool prop ->
+  ?allowed_package_names:string prop list ->
+  unit ->
+  android_settings
+
+type ios_settings
+
+val ios_settings :
+  ?allow_all_bundle_ids:bool prop ->
+  ?allowed_bundle_ids:string prop list ->
+  unit ->
+  ios_settings
+
+type testing_options
+
+val testing_options :
+  ?testing_challenge:string prop ->
+  ?testing_score:float prop ->
+  unit ->
+  testing_options
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type waf_settings
+
+val waf_settings :
+  waf_feature:string prop ->
+  waf_service:string prop ->
+  unit ->
+  waf_settings
+
+type web_settings
+
+val web_settings :
+  ?allow_all_domains:bool prop ->
+  ?allow_amp_traffic:bool prop ->
+  ?allowed_domains:string prop list ->
+  ?challenge_security_preference:string prop ->
+  integration_type:string prop ->
+  unit ->
+  web_settings
+
 type google_recaptcha_enterprise_key
+
+val google_recaptcha_enterprise_key :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  android_settings:android_settings list ->
+  ios_settings:ios_settings list ->
+  testing_options:testing_options list ->
+  waf_settings:waf_settings list ->
+  web_settings:web_settings list ->
+  unit ->
+  google_recaptcha_enterprise_key
+
+val yojson_of_google_recaptcha_enterprise_key :
+  google_recaptcha_enterprise_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -21,18 +88,17 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_recaptcha_enterprise_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_recaptcha_enterprise_key__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
-  android_settings:
-    google_recaptcha_enterprise_key__android_settings list ->
-  ios_settings:google_recaptcha_enterprise_key__ios_settings list ->
-  testing_options:
-    google_recaptcha_enterprise_key__testing_options list ->
-  waf_settings:google_recaptcha_enterprise_key__waf_settings list ->
-  web_settings:google_recaptcha_enterprise_key__web_settings list ->
+  android_settings:android_settings list ->
+  ios_settings:ios_settings list ->
+  testing_options:testing_options list ->
+  waf_settings:waf_settings list ->
+  web_settings:web_settings list ->
   string ->
   t

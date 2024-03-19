@@ -2,9 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_appmesh_mesh__spec__egress_filter
-type aws_appmesh_mesh__spec
+(** RESOURCE SERIALIZATION *)
+
+type spec__egress_filter
+
+val spec__egress_filter :
+  ?type_:string prop -> unit -> spec__egress_filter
+
+type spec
+
+val spec : egress_filter:spec__egress_filter list -> unit -> spec
+
 type aws_appmesh_mesh
+
+val aws_appmesh_mesh :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  spec:spec list ->
+  unit ->
+  aws_appmesh_mesh
+
+val yojson_of_aws_appmesh_mesh : aws_appmesh_mesh -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,11 +40,12 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_appmesh_mesh :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   name:string prop ->
-  spec:aws_appmesh_mesh__spec list ->
+  spec:spec list ->
   string ->
   t

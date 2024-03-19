@@ -18,6 +18,10 @@ type cloudflare_argo = {
 caching options to speed up your website browsing experience.
  *)
 
+let cloudflare_argo ?id ?smart_routing ?tiered_caching ~zone_id () :
+    cloudflare_argo =
+  { id; smart_routing; tiered_caching; zone_id }
+
 type t = {
   id : string prop;
   smart_routing : string prop;
@@ -25,14 +29,13 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_argo ?id ?smart_routing ?tiered_caching ~zone_id
+let register ?tf_module ?id ?smart_routing ?tiered_caching ~zone_id
     __resource_id =
   let __resource_type = "cloudflare_argo" in
   let __resource =
-    ({ id; smart_routing; tiered_caching; zone_id }
-      : cloudflare_argo)
+    cloudflare_argo ?id ?smart_routing ?tiered_caching ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_argo __resource);
   let __resource_attributes =
     ({

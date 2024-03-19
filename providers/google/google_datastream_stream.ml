@@ -4,13 +4,12 @@
 
 open! Tf.Prelude
 
-type google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns = {
+type backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns = {
   collation : string prop option; [@option]  (** Column collation. *)
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The MySQL data type. Full data types list can be found here:
 https://dev.mysql.com/doc/refman/8.0/en/data-types.html *)
-  length : float prop;  (** Column length. *)
   nullable : bool prop option; [@option]
       (** Whether or not the column can accept a null value. *)
   ordinal_position : float prop option; [@option]
@@ -21,139 +20,119 @@ https://dev.mysql.com/doc/refman/8.0/en/data-types.html *)
 [@@deriving yojson_of]
 (** MySQL columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables = {
+type backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables = {
   table : string prop;  (** Table name. *)
   mysql_columns :
-    google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
+    backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the database. *)
 
-type google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases = {
+type backfill_all__mysql_excluded_objects__mysql_databases = {
   database : string prop;  (** Database name. *)
   mysql_tables :
-    google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
+    backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
     list;
 }
 [@@deriving yojson_of]
 (** MySQL databases on the server *)
 
-type google_datastream_stream__backfill_all__mysql_excluded_objects = {
+type backfill_all__mysql_excluded_objects = {
   mysql_databases :
-    google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases
-    list;
+    backfill_all__mysql_excluded_objects__mysql_databases list;
 }
 [@@deriving yojson_of]
 (** MySQL data source objects to avoid backfilling. *)
 
-type google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns = {
+type backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns = {
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The Oracle data type. Full data types list can be found here:
 https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/Data-Types.html *)
-  encoding : string prop;  (** Column encoding. *)
-  length : float prop;  (** Column length. *)
-  nullable : bool prop;
-      (** Whether or not the column can accept a null value. *)
-  ordinal_position : float prop;
-      (** The ordinal position of the column in the table. *)
-  precision : float prop;  (** Column precision. *)
-  primary_key : bool prop;
-      (** Whether or not the column represents a primary key. *)
-  scale : float prop;  (** Column scale. *)
 }
 [@@deriving yojson_of]
 (** Oracle columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables = {
+type backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables = {
   table : string prop;  (** Table name. *)
   oracle_columns :
-    google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
+    backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the database. *)
 
-type google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas = {
+type backfill_all__oracle_excluded_objects__oracle_schemas = {
   schema : string prop;  (** Schema name. *)
   oracle_tables :
-    google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
+    backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
     list;
 }
 [@@deriving yojson_of]
 (** Oracle schemas/databases in the database server *)
 
-type google_datastream_stream__backfill_all__oracle_excluded_objects = {
+type backfill_all__oracle_excluded_objects = {
   oracle_schemas :
-    google_datastream_stream__backfill_all__oracle_excluded_objects__oracle_schemas
-    list;
+    backfill_all__oracle_excluded_objects__oracle_schemas list;
 }
 [@@deriving yojson_of]
 (** PostgreSQL data source objects to avoid backfilling. *)
 
-type google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns = {
+type backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns = {
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The PostgreSQL data type. Full data types list can be found here:
 https://www.postgresql.org/docs/current/datatype.html *)
-  length : float prop;  (** Column length. *)
   nullable : bool prop option; [@option]
       (** Whether or not the column can accept a null value. *)
   ordinal_position : float prop option; [@option]
       (** The ordinal position of the column in the table. *)
-  precision : float prop;  (** Column precision. *)
   primary_key : bool prop option; [@option]
       (** Whether or not the column represents a primary key. *)
-  scale : float prop;  (** Column scale. *)
 }
 [@@deriving yojson_of]
 (** PostgreSQL columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables = {
+type backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables = {
   table : string prop;  (** Table name. *)
   postgresql_columns :
-    google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the schema. *)
 
-type google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas = {
+type backfill_all__postgresql_excluded_objects__postgresql_schemas = {
   schema : string prop;  (** Database name. *)
   postgresql_tables :
-    google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
+    backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
     list;
 }
 [@@deriving yojson_of]
 (** PostgreSQL schemas on the server *)
 
-type google_datastream_stream__backfill_all__postgresql_excluded_objects = {
+type backfill_all__postgresql_excluded_objects = {
   postgresql_schemas :
-    google_datastream_stream__backfill_all__postgresql_excluded_objects__postgresql_schemas
+    backfill_all__postgresql_excluded_objects__postgresql_schemas
     list;
 }
 [@@deriving yojson_of]
 (** PostgreSQL data source objects to avoid backfilling. *)
 
-type google_datastream_stream__backfill_all = {
-  mysql_excluded_objects :
-    google_datastream_stream__backfill_all__mysql_excluded_objects
-    list;
+type backfill_all = {
+  mysql_excluded_objects : backfill_all__mysql_excluded_objects list;
   oracle_excluded_objects :
-    google_datastream_stream__backfill_all__oracle_excluded_objects
-    list;
+    backfill_all__oracle_excluded_objects list;
   postgresql_excluded_objects :
-    google_datastream_stream__backfill_all__postgresql_excluded_objects
-    list;
+    backfill_all__postgresql_excluded_objects list;
 }
 [@@deriving yojson_of]
 (** Backfill strategy to automatically backfill the Stream's objects. Specific objects can be excluded. *)
 
-type google_datastream_stream__backfill_none = unit
-[@@deriving yojson_of]
+type backfill_none = unit [@@deriving yojson_of]
 
-type google_datastream_stream__destination_config__bigquery_destination_config__single_target_dataset = {
+type destination_config__bigquery_destination_config__single_target_dataset = {
   dataset_id : string prop;
       (** Dataset ID in the format projects/{project}/datasets/{dataset_id} or
 {project}:{dataset_id} *)
@@ -161,7 +140,7 @@ type google_datastream_stream__destination_config__bigquery_destination_config__
 [@@deriving yojson_of]
 (** A single target dataset to which all data will be streamed. *)
 
-type google_datastream_stream__destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template = {
+type destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template = {
   dataset_id_prefix : string prop option; [@option]
       (** If supplied, every created dataset will have its name prefixed by the provided value.
 The prefix and name will be separated by an underscore. i.e. _. *)
@@ -177,35 +156,35 @@ See https://cloud.google.com/bigquery/docs/locations for supported locations. *)
 [@@deriving yojson_of]
 (** Dataset template used for dynamic dataset creation. *)
 
-type google_datastream_stream__destination_config__bigquery_destination_config__source_hierarchy_datasets = {
+type destination_config__bigquery_destination_config__source_hierarchy_datasets = {
   dataset_template :
-    google_datastream_stream__destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
+    destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
     list;
 }
 [@@deriving yojson_of]
 (** Destination datasets are created so that hierarchy of the destination data objects matches the source hierarchy. *)
 
-type google_datastream_stream__destination_config__bigquery_destination_config = {
+type destination_config__bigquery_destination_config = {
   data_freshness : string prop option; [@option]
       (** The guaranteed data freshness (in seconds) when querying tables created by the stream.
 Editing this field will only affect new tables created in the future, but existing tables
 will not be impacted. Lower values mean that queries will return fresher data, but may result in higher cost.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. Defaults to 900s. *)
   single_target_dataset :
-    google_datastream_stream__destination_config__bigquery_destination_config__single_target_dataset
+    destination_config__bigquery_destination_config__single_target_dataset
     list;
   source_hierarchy_datasets :
-    google_datastream_stream__destination_config__bigquery_destination_config__source_hierarchy_datasets
+    destination_config__bigquery_destination_config__source_hierarchy_datasets
     list;
 }
 [@@deriving yojson_of]
 (** A configuration for how data should be loaded to Cloud Storage. *)
 
-type google_datastream_stream__destination_config__gcs_destination_config__avro_file_format =
+type destination_config__gcs_destination_config__avro_file_format =
   unit
 [@@deriving yojson_of]
 
-type google_datastream_stream__destination_config__gcs_destination_config__json_file_format = {
+type destination_config__gcs_destination_config__json_file_format = {
   compression : string prop option; [@option]
       (** Compression of the loaded JSON file. Possible values: [NO_COMPRESSION, GZIP] *)
   schema_file_format : string prop option; [@option]
@@ -214,7 +193,7 @@ type google_datastream_stream__destination_config__gcs_destination_config__json_
 [@@deriving yojson_of]
 (** JSON file format configuration. *)
 
-type google_datastream_stream__destination_config__gcs_destination_config = {
+type destination_config__gcs_destination_config = {
   file_rotation_interval : string prop option; [@option]
       (** The maximum duration for which new events are added before a file is closed and a new file is created.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. Defaults to 900s. *)
@@ -223,35 +202,30 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
   path : string prop option; [@option]
       (** Path inside the Cloud Storage bucket to write data to. *)
   avro_file_format :
-    google_datastream_stream__destination_config__gcs_destination_config__avro_file_format
-    list;
+    destination_config__gcs_destination_config__avro_file_format list;
   json_file_format :
-    google_datastream_stream__destination_config__gcs_destination_config__json_file_format
-    list;
+    destination_config__gcs_destination_config__json_file_format list;
 }
 [@@deriving yojson_of]
 (** A configuration for how data should be loaded to Cloud Storage. *)
 
-type google_datastream_stream__destination_config = {
+type destination_config = {
   destination_connection_profile : string prop;
       (** Destination connection profile resource. Format: projects/{project}/locations/{location}/connectionProfiles/{name} *)
   bigquery_destination_config :
-    google_datastream_stream__destination_config__bigquery_destination_config
-    list;
+    destination_config__bigquery_destination_config list;
   gcs_destination_config :
-    google_datastream_stream__destination_config__gcs_destination_config
-    list;
+    destination_config__gcs_destination_config list;
 }
 [@@deriving yojson_of]
 (** Destination connection profile configuration. *)
 
-type google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns = {
+type source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns = {
   collation : string prop option; [@option]  (** Column collation. *)
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The MySQL data type. Full data types list can be found here:
 https://dev.mysql.com/doc/refman/8.0/en/data-types.html *)
-  length : float prop;  (** Column length. *)
   nullable : bool prop option; [@option]
       (** Whether or not the column can accept a null value. *)
   ordinal_position : float prop option; [@option]
@@ -262,39 +236,38 @@ https://dev.mysql.com/doc/refman/8.0/en/data-types.html *)
 [@@deriving yojson_of]
 (** MySQL columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables = {
+type source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables = {
   table : string prop;  (** Table name. *)
   mysql_columns :
-    google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
+    source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the database. *)
 
-type google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases = {
+type source_config__mysql_source_config__exclude_objects__mysql_databases = {
   database : string prop;  (** Database name. *)
   mysql_tables :
-    google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
+    source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
     list;
 }
 [@@deriving yojson_of]
 (** MySQL databases on the server *)
 
-type google_datastream_stream__source_config__mysql_source_config__exclude_objects = {
+type source_config__mysql_source_config__exclude_objects = {
   mysql_databases :
-    google_datastream_stream__source_config__mysql_source_config__exclude_objects__mysql_databases
+    source_config__mysql_source_config__exclude_objects__mysql_databases
     list;
 }
 [@@deriving yojson_of]
 (** MySQL objects to exclude from the stream. *)
 
-type google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns = {
+type source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns = {
   collation : string prop option; [@option]  (** Column collation. *)
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The MySQL data type. Full data types list can be found here:
 https://dev.mysql.com/doc/refman/8.0/en/data-types.html *)
-  length : float prop;  (** Column length. *)
   nullable : bool prop option; [@option]
       (** Whether or not the column can accept a null value. *)
   ordinal_position : float prop option; [@option]
@@ -305,33 +278,33 @@ https://dev.mysql.com/doc/refman/8.0/en/data-types.html *)
 [@@deriving yojson_of]
 (** MySQL columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables = {
+type source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables = {
   table : string prop;  (** Table name. *)
   mysql_columns :
-    google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
+    source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the database. *)
 
-type google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases = {
+type source_config__mysql_source_config__include_objects__mysql_databases = {
   database : string prop;  (** Database name. *)
   mysql_tables :
-    google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
+    source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
     list;
 }
 [@@deriving yojson_of]
 (** MySQL databases on the server *)
 
-type google_datastream_stream__source_config__mysql_source_config__include_objects = {
+type source_config__mysql_source_config__include_objects = {
   mysql_databases :
-    google_datastream_stream__source_config__mysql_source_config__include_objects__mysql_databases
+    source_config__mysql_source_config__include_objects__mysql_databases
     list;
 }
 [@@deriving yojson_of]
 (** MySQL objects to retrieve from the source. *)
 
-type google_datastream_stream__source_config__mysql_source_config = {
+type source_config__mysql_source_config = {
   max_concurrent_backfill_tasks : float prop option; [@option]
       (** Maximum number of concurrent backfill tasks. The number should be non negative.
 If not set (or set to 0), the system's default value will be used. *)
@@ -339,114 +312,90 @@ If not set (or set to 0), the system's default value will be used. *)
       (** Maximum number of concurrent CDC tasks. The number should be non negative.
 If not set (or set to 0), the system's default value will be used. *)
   exclude_objects :
-    google_datastream_stream__source_config__mysql_source_config__exclude_objects
-    list;
+    source_config__mysql_source_config__exclude_objects list;
   include_objects :
-    google_datastream_stream__source_config__mysql_source_config__include_objects
-    list;
+    source_config__mysql_source_config__include_objects list;
 }
 [@@deriving yojson_of]
 (** MySQL data source configuration. *)
 
-type google_datastream_stream__source_config__oracle_source_config__drop_large_objects =
-  unit
+type source_config__oracle_source_config__drop_large_objects = unit
 [@@deriving yojson_of]
 
-type google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns = {
+type source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns = {
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The Oracle data type. Full data types list can be found here:
 https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/Data-Types.html *)
-  encoding : string prop;  (** Column encoding. *)
-  length : float prop;  (** Column length. *)
-  nullable : bool prop;
-      (** Whether or not the column can accept a null value. *)
-  ordinal_position : float prop;
-      (** The ordinal position of the column in the table. *)
-  precision : float prop;  (** Column precision. *)
-  primary_key : bool prop;
-      (** Whether or not the column represents a primary key. *)
-  scale : float prop;  (** Column scale. *)
 }
 [@@deriving yojson_of]
 (** Oracle columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables = {
+type source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables = {
   table : string prop;  (** Table name. *)
   oracle_columns :
-    google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
+    source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the database. *)
 
-type google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas = {
+type source_config__oracle_source_config__exclude_objects__oracle_schemas = {
   schema : string prop;  (** Schema name. *)
   oracle_tables :
-    google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
+    source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
     list;
 }
 [@@deriving yojson_of]
 (** Oracle schemas/databases in the database server *)
 
-type google_datastream_stream__source_config__oracle_source_config__exclude_objects = {
+type source_config__oracle_source_config__exclude_objects = {
   oracle_schemas :
-    google_datastream_stream__source_config__oracle_source_config__exclude_objects__oracle_schemas
+    source_config__oracle_source_config__exclude_objects__oracle_schemas
     list;
 }
 [@@deriving yojson_of]
 (** Oracle objects to exclude from the stream. *)
 
-type google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns = {
+type source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns = {
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The Oracle data type. Full data types list can be found here:
 https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/Data-Types.html *)
-  encoding : string prop;  (** Column encoding. *)
-  length : float prop;  (** Column length. *)
-  nullable : bool prop;
-      (** Whether or not the column can accept a null value. *)
-  ordinal_position : float prop;
-      (** The ordinal position of the column in the table. *)
-  precision : float prop;  (** Column precision. *)
-  primary_key : bool prop;
-      (** Whether or not the column represents a primary key. *)
-  scale : float prop;  (** Column scale. *)
 }
 [@@deriving yojson_of]
 (** Oracle columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables = {
+type source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables = {
   table : string prop;  (** Table name. *)
   oracle_columns :
-    google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
+    source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the database. *)
 
-type google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas = {
+type source_config__oracle_source_config__include_objects__oracle_schemas = {
   schema : string prop;  (** Schema name. *)
   oracle_tables :
-    google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
+    source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
     list;
 }
 [@@deriving yojson_of]
 (** Oracle schemas/databases in the database server *)
 
-type google_datastream_stream__source_config__oracle_source_config__include_objects = {
+type source_config__oracle_source_config__include_objects = {
   oracle_schemas :
-    google_datastream_stream__source_config__oracle_source_config__include_objects__oracle_schemas
+    source_config__oracle_source_config__include_objects__oracle_schemas
     list;
 }
 [@@deriving yojson_of]
 (** Oracle objects to retrieve from the source. *)
 
-type google_datastream_stream__source_config__oracle_source_config__stream_large_objects =
-  unit
+type source_config__oracle_source_config__stream_large_objects = unit
 [@@deriving yojson_of]
 
-type google_datastream_stream__source_config__oracle_source_config = {
+type source_config__oracle_source_config = {
   max_concurrent_backfill_tasks : float prop option; [@option]
       (** Maximum number of concurrent backfill tasks. The number should be non negative.
 If not set (or set to 0), the system's default value will be used. *)
@@ -454,110 +403,100 @@ If not set (or set to 0), the system's default value will be used. *)
       (** Maximum number of concurrent CDC tasks. The number should be non negative.
 If not set (or set to 0), the system's default value will be used. *)
   drop_large_objects :
-    google_datastream_stream__source_config__oracle_source_config__drop_large_objects
-    list;
+    source_config__oracle_source_config__drop_large_objects list;
   exclude_objects :
-    google_datastream_stream__source_config__oracle_source_config__exclude_objects
-    list;
+    source_config__oracle_source_config__exclude_objects list;
   include_objects :
-    google_datastream_stream__source_config__oracle_source_config__include_objects
-    list;
+    source_config__oracle_source_config__include_objects list;
   stream_large_objects :
-    google_datastream_stream__source_config__oracle_source_config__stream_large_objects
-    list;
+    source_config__oracle_source_config__stream_large_objects list;
 }
 [@@deriving yojson_of]
 (** MySQL data source configuration. *)
 
-type google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns = {
+type source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns = {
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The PostgreSQL data type. Full data types list can be found here:
 https://www.postgresql.org/docs/current/datatype.html *)
-  length : float prop;  (** Column length. *)
   nullable : bool prop option; [@option]
       (** Whether or not the column can accept a null value. *)
   ordinal_position : float prop option; [@option]
       (** The ordinal position of the column in the table. *)
-  precision : float prop;  (** Column precision. *)
   primary_key : bool prop option; [@option]
       (** Whether or not the column represents a primary key. *)
-  scale : float prop;  (** Column scale. *)
 }
 [@@deriving yojson_of]
 (** PostgreSQL columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables = {
+type source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables = {
   table : string prop;  (** Table name. *)
   postgresql_columns :
-    google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the schema. *)
 
-type google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas = {
+type source_config__postgresql_source_config__exclude_objects__postgresql_schemas = {
   schema : string prop;  (** Database name. *)
   postgresql_tables :
-    google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
     list;
 }
 [@@deriving yojson_of]
 (** PostgreSQL schemas on the server *)
 
-type google_datastream_stream__source_config__postgresql_source_config__exclude_objects = {
+type source_config__postgresql_source_config__exclude_objects = {
   postgresql_schemas :
-    google_datastream_stream__source_config__postgresql_source_config__exclude_objects__postgresql_schemas
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas
     list;
 }
 [@@deriving yojson_of]
 (** PostgreSQL objects to exclude from the stream. *)
 
-type google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns = {
+type source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns = {
   column : string prop option; [@option]  (** Column name. *)
   data_type : string prop option; [@option]
       (** The PostgreSQL data type. Full data types list can be found here:
 https://www.postgresql.org/docs/current/datatype.html *)
-  length : float prop;  (** Column length. *)
   nullable : bool prop option; [@option]
       (** Whether or not the column can accept a null value. *)
   ordinal_position : float prop option; [@option]
       (** The ordinal position of the column in the table. *)
-  precision : float prop;  (** Column precision. *)
   primary_key : bool prop option; [@option]
       (** Whether or not the column represents a primary key. *)
-  scale : float prop;  (** Column scale. *)
 }
 [@@deriving yojson_of]
 (** PostgreSQL columns in the schema. When unspecified as part of include/exclude objects, includes/excludes everything. *)
 
-type google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables = {
+type source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables = {
   table : string prop;  (** Table name. *)
   postgresql_columns :
-    google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list;
 }
 [@@deriving yojson_of]
 (** Tables in the schema. *)
 
-type google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas = {
+type source_config__postgresql_source_config__include_objects__postgresql_schemas = {
   schema : string prop;  (** Database name. *)
   postgresql_tables :
-    google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
+    source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
     list;
 }
 [@@deriving yojson_of]
 (** PostgreSQL schemas on the server *)
 
-type google_datastream_stream__source_config__postgresql_source_config__include_objects = {
+type source_config__postgresql_source_config__include_objects = {
   postgresql_schemas :
-    google_datastream_stream__source_config__postgresql_source_config__include_objects__postgresql_schemas
+    source_config__postgresql_source_config__include_objects__postgresql_schemas
     list;
 }
 [@@deriving yojson_of]
 (** PostgreSQL objects to retrieve from the source. *)
 
-type google_datastream_stream__source_config__postgresql_source_config = {
+type source_config__postgresql_source_config = {
   max_concurrent_backfill_tasks : float prop option; [@option]
       (** Maximum number of concurrent backfill tasks. The number should be non
 negative. If not set (or set to 0), the system's default value will be used. *)
@@ -568,37 +507,31 @@ that are defined in the stream's include_objects. *)
       (** The name of the logical replication slot that's configured with
 the pgoutput plugin. *)
   exclude_objects :
-    google_datastream_stream__source_config__postgresql_source_config__exclude_objects
-    list;
+    source_config__postgresql_source_config__exclude_objects list;
   include_objects :
-    google_datastream_stream__source_config__postgresql_source_config__include_objects
-    list;
+    source_config__postgresql_source_config__include_objects list;
 }
 [@@deriving yojson_of]
 (** PostgreSQL data source configuration. *)
 
-type google_datastream_stream__source_config = {
+type source_config = {
   source_connection_profile : string prop;
       (** Source connection profile resource. Format: projects/{project}/locations/{location}/connectionProfiles/{name} *)
-  mysql_source_config :
-    google_datastream_stream__source_config__mysql_source_config list;
-  oracle_source_config :
-    google_datastream_stream__source_config__oracle_source_config
-    list;
+  mysql_source_config : source_config__mysql_source_config list;
+  oracle_source_config : source_config__oracle_source_config list;
   postgresql_source_config :
-    google_datastream_stream__source_config__postgresql_source_config
-    list;
+    source_config__postgresql_source_config list;
 }
 [@@deriving yojson_of]
 (** Source connection profile configuration. *)
 
-type google_datastream_stream__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_datastream_stream__timeouts *)
+(** timeouts *)
 
 type google_datastream_stream = {
   customer_managed_encryption_key : string prop option; [@option]
@@ -617,15 +550,378 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The name of the location this stream is located in. *)
   project : string prop option; [@option]  (** project *)
   stream_id : string prop;  (** The stream identifier. *)
-  backfill_all : google_datastream_stream__backfill_all list;
-  backfill_none : google_datastream_stream__backfill_none list;
-  destination_config :
-    google_datastream_stream__destination_config list;
-  source_config : google_datastream_stream__source_config list;
-  timeouts : google_datastream_stream__timeouts option;
+  backfill_all : backfill_all list;
+  backfill_none : backfill_none list;
+  destination_config : destination_config list;
+  source_config : source_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_datastream_stream *)
+
+let backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
+    ?collation ?column ?data_type ?nullable ?ordinal_position
+    ?primary_key () :
+    backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
+    =
+  {
+    collation;
+    column;
+    data_type;
+    nullable;
+    ordinal_position;
+    primary_key;
+  }
+
+let backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
+    ~table ~mysql_columns () :
+    backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
+    =
+  { table; mysql_columns }
+
+let backfill_all__mysql_excluded_objects__mysql_databases ~database
+    ~mysql_tables () :
+    backfill_all__mysql_excluded_objects__mysql_databases =
+  { database; mysql_tables }
+
+let backfill_all__mysql_excluded_objects ~mysql_databases () :
+    backfill_all__mysql_excluded_objects =
+  { mysql_databases }
+
+let backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
+    ?column ?data_type () :
+    backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
+    =
+  { column; data_type }
+
+let backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
+    ~table ~oracle_columns () :
+    backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
+    =
+  { table; oracle_columns }
+
+let backfill_all__oracle_excluded_objects__oracle_schemas ~schema
+    ~oracle_tables () :
+    backfill_all__oracle_excluded_objects__oracle_schemas =
+  { schema; oracle_tables }
+
+let backfill_all__oracle_excluded_objects ~oracle_schemas () :
+    backfill_all__oracle_excluded_objects =
+  { oracle_schemas }
+
+let backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    ?column ?data_type ?nullable ?ordinal_position ?primary_key () :
+    backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    =
+  { column; data_type; nullable; ordinal_position; primary_key }
+
+let backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
+    ~table ~postgresql_columns () :
+    backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
+    =
+  { table; postgresql_columns }
+
+let backfill_all__postgresql_excluded_objects__postgresql_schemas
+    ~schema ~postgresql_tables () :
+    backfill_all__postgresql_excluded_objects__postgresql_schemas =
+  { schema; postgresql_tables }
+
+let backfill_all__postgresql_excluded_objects ~postgresql_schemas ()
+    : backfill_all__postgresql_excluded_objects =
+  { postgresql_schemas }
+
+let backfill_all ~mysql_excluded_objects ~oracle_excluded_objects
+    ~postgresql_excluded_objects () : backfill_all =
+  {
+    mysql_excluded_objects;
+    oracle_excluded_objects;
+    postgresql_excluded_objects;
+  }
+
+let backfill_none () = ()
+
+let destination_config__bigquery_destination_config__single_target_dataset
+    ~dataset_id () :
+    destination_config__bigquery_destination_config__single_target_dataset
+    =
+  { dataset_id }
+
+let destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
+    ?dataset_id_prefix ?kms_key_name ~location () :
+    destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
+    =
+  { dataset_id_prefix; kms_key_name; location }
+
+let destination_config__bigquery_destination_config__source_hierarchy_datasets
+    ~dataset_template () :
+    destination_config__bigquery_destination_config__source_hierarchy_datasets
+    =
+  { dataset_template }
+
+let destination_config__bigquery_destination_config ?data_freshness
+    ~single_target_dataset ~source_hierarchy_datasets () :
+    destination_config__bigquery_destination_config =
+  {
+    data_freshness;
+    single_target_dataset;
+    source_hierarchy_datasets;
+  }
+
+let destination_config__gcs_destination_config__avro_file_format () =
+  ()
+
+let destination_config__gcs_destination_config__json_file_format
+    ?compression ?schema_file_format () :
+    destination_config__gcs_destination_config__json_file_format =
+  { compression; schema_file_format }
+
+let destination_config__gcs_destination_config
+    ?file_rotation_interval ?file_rotation_mb ?path ~avro_file_format
+    ~json_file_format () : destination_config__gcs_destination_config
+    =
+  {
+    file_rotation_interval;
+    file_rotation_mb;
+    path;
+    avro_file_format;
+    json_file_format;
+  }
+
+let destination_config ~destination_connection_profile
+    ~bigquery_destination_config ~gcs_destination_config () :
+    destination_config =
+  {
+    destination_connection_profile;
+    bigquery_destination_config;
+    gcs_destination_config;
+  }
+
+let source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
+    ?collation ?column ?data_type ?nullable ?ordinal_position
+    ?primary_key () :
+    source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
+    =
+  {
+    collation;
+    column;
+    data_type;
+    nullable;
+    ordinal_position;
+    primary_key;
+  }
+
+let source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
+    ~table ~mysql_columns () :
+    source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
+    =
+  { table; mysql_columns }
+
+let source_config__mysql_source_config__exclude_objects__mysql_databases
+    ~database ~mysql_tables () :
+    source_config__mysql_source_config__exclude_objects__mysql_databases
+    =
+  { database; mysql_tables }
+
+let source_config__mysql_source_config__exclude_objects
+    ~mysql_databases () :
+    source_config__mysql_source_config__exclude_objects =
+  { mysql_databases }
+
+let source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
+    ?collation ?column ?data_type ?nullable ?ordinal_position
+    ?primary_key () :
+    source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
+    =
+  {
+    collation;
+    column;
+    data_type;
+    nullable;
+    ordinal_position;
+    primary_key;
+  }
+
+let source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
+    ~table ~mysql_columns () :
+    source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
+    =
+  { table; mysql_columns }
+
+let source_config__mysql_source_config__include_objects__mysql_databases
+    ~database ~mysql_tables () :
+    source_config__mysql_source_config__include_objects__mysql_databases
+    =
+  { database; mysql_tables }
+
+let source_config__mysql_source_config__include_objects
+    ~mysql_databases () :
+    source_config__mysql_source_config__include_objects =
+  { mysql_databases }
+
+let source_config__mysql_source_config ?max_concurrent_backfill_tasks
+    ?max_concurrent_cdc_tasks ~exclude_objects ~include_objects () :
+    source_config__mysql_source_config =
+  {
+    max_concurrent_backfill_tasks;
+    max_concurrent_cdc_tasks;
+    exclude_objects;
+    include_objects;
+  }
+
+let source_config__oracle_source_config__drop_large_objects () = ()
+
+let source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
+    ?column ?data_type () :
+    source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
+    =
+  { column; data_type }
+
+let source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
+    ~table ~oracle_columns () :
+    source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
+    =
+  { table; oracle_columns }
+
+let source_config__oracle_source_config__exclude_objects__oracle_schemas
+    ~schema ~oracle_tables () :
+    source_config__oracle_source_config__exclude_objects__oracle_schemas
+    =
+  { schema; oracle_tables }
+
+let source_config__oracle_source_config__exclude_objects
+    ~oracle_schemas () :
+    source_config__oracle_source_config__exclude_objects =
+  { oracle_schemas }
+
+let source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
+    ?column ?data_type () :
+    source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
+    =
+  { column; data_type }
+
+let source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
+    ~table ~oracle_columns () :
+    source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
+    =
+  { table; oracle_columns }
+
+let source_config__oracle_source_config__include_objects__oracle_schemas
+    ~schema ~oracle_tables () :
+    source_config__oracle_source_config__include_objects__oracle_schemas
+    =
+  { schema; oracle_tables }
+
+let source_config__oracle_source_config__include_objects
+    ~oracle_schemas () :
+    source_config__oracle_source_config__include_objects =
+  { oracle_schemas }
+
+let source_config__oracle_source_config__stream_large_objects () = ()
+
+let source_config__oracle_source_config
+    ?max_concurrent_backfill_tasks ?max_concurrent_cdc_tasks
+    ~drop_large_objects ~exclude_objects ~include_objects
+    ~stream_large_objects () : source_config__oracle_source_config =
+  {
+    max_concurrent_backfill_tasks;
+    max_concurrent_cdc_tasks;
+    drop_large_objects;
+    exclude_objects;
+    include_objects;
+    stream_large_objects;
+  }
+
+let source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    ?column ?data_type ?nullable ?ordinal_position ?primary_key () :
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    =
+  { column; data_type; nullable; ordinal_position; primary_key }
+
+let source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
+    ~table ~postgresql_columns () :
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
+    =
+  { table; postgresql_columns }
+
+let source_config__postgresql_source_config__exclude_objects__postgresql_schemas
+    ~schema ~postgresql_tables () :
+    source_config__postgresql_source_config__exclude_objects__postgresql_schemas
+    =
+  { schema; postgresql_tables }
+
+let source_config__postgresql_source_config__exclude_objects
+    ~postgresql_schemas () :
+    source_config__postgresql_source_config__exclude_objects =
+  { postgresql_schemas }
+
+let source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    ?column ?data_type ?nullable ?ordinal_position ?primary_key () :
+    source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
+    =
+  { column; data_type; nullable; ordinal_position; primary_key }
+
+let source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
+    ~table ~postgresql_columns () :
+    source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
+    =
+  { table; postgresql_columns }
+
+let source_config__postgresql_source_config__include_objects__postgresql_schemas
+    ~schema ~postgresql_tables () :
+    source_config__postgresql_source_config__include_objects__postgresql_schemas
+    =
+  { schema; postgresql_tables }
+
+let source_config__postgresql_source_config__include_objects
+    ~postgresql_schemas () :
+    source_config__postgresql_source_config__include_objects =
+  { postgresql_schemas }
+
+let source_config__postgresql_source_config
+    ?max_concurrent_backfill_tasks ~publication ~replication_slot
+    ~exclude_objects ~include_objects () :
+    source_config__postgresql_source_config =
+  {
+    max_concurrent_backfill_tasks;
+    publication;
+    replication_slot;
+    exclude_objects;
+    include_objects;
+  }
+
+let source_config ~source_connection_profile ~mysql_source_config
+    ~oracle_source_config ~postgresql_source_config () :
+    source_config =
+  {
+    source_connection_profile;
+    mysql_source_config;
+    oracle_source_config;
+    postgresql_source_config;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_datastream_stream ?customer_managed_encryption_key
+    ?desired_state ?id ?labels ?project ?timeouts ~display_name
+    ~location ~stream_id ~backfill_all ~backfill_none
+    ~destination_config ~source_config () : google_datastream_stream
+    =
+  {
+    customer_managed_encryption_key;
+    desired_state;
+    display_name;
+    id;
+    labels;
+    location;
+    project;
+    stream_id;
+    backfill_all;
+    backfill_none;
+    destination_config;
+    source_config;
+    timeouts;
+  }
 
 type t = {
   customer_managed_encryption_key : string prop;
@@ -642,30 +938,18 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_datastream_stream ?customer_managed_encryption_key
+let register ?tf_module ?customer_managed_encryption_key
     ?desired_state ?id ?labels ?project ?timeouts ~display_name
     ~location ~stream_id ~backfill_all ~backfill_none
     ~destination_config ~source_config __resource_id =
   let __resource_type = "google_datastream_stream" in
   let __resource =
-    ({
-       customer_managed_encryption_key;
-       desired_state;
-       display_name;
-       id;
-       labels;
-       location;
-       project;
-       stream_id;
-       backfill_all;
-       backfill_none;
-       destination_config;
-       source_config;
-       timeouts;
-     }
-      : google_datastream_stream)
+    google_datastream_stream ?customer_managed_encryption_key
+      ?desired_state ?id ?labels ?project ?timeouts ~display_name
+      ~location ~stream_id ~backfill_all ~backfill_none
+      ~destination_config ~source_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_datastream_stream __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_data_fusion_instance__accelerators = {
+type accelerators = {
   accelerator_type : string prop;
       (** The type of an accelator for a CDF instance. Possible values: [CDC, HEALTHCARE, CCAI_INSIGHTS] *)
   state : string prop;
@@ -16,14 +16,14 @@ type google_data_fusion_instance__accelerators = {
 If accelerators are enabled it is possible a permadiff will be created with the Options field.
 Users will need to either manually update their state file to include these diffed options, or include the field in a [lifecycle ignore changes block](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle#ignore_changes). *)
 
-type google_data_fusion_instance__crypto_key_config = {
+type crypto_key_config = {
   key_reference : string prop;
       (** The name of the key which is used to encrypt/decrypt customer data. For key in Cloud KMS, the key should be in the format of projects/*/locations/*/keyRings/*/cryptoKeys/*. *)
 }
 [@@deriving yojson_of]
 (** The crypto key configuration. This field is used by the Customer-Managed Encryption Keys (CMEK) feature. *)
 
-type google_data_fusion_instance__event_publish_config = {
+type event_publish_config = {
   enabled : bool prop;  (** Option to enable Event Publishing. *)
   topic : string prop;
       (** The resource name of the Pub/Sub topic. Format: projects/{projectId}/topics/{topic_id} *)
@@ -31,7 +31,7 @@ type google_data_fusion_instance__event_publish_config = {
 [@@deriving yojson_of]
 (** Option to enable and pass metadata for event publishing. *)
 
-type google_data_fusion_instance__network_config = {
+type network_config = {
   ip_allocation : string prop;
       (** The IP range in CIDR notation to use for the managed Data Fusion instance
 nodes. This range must not overlap with any other ranges used in the Data Fusion instance network. *)
@@ -43,13 +43,13 @@ project the network should specified in the form of projects/{host-project-id}/g
 [@@deriving yojson_of]
 (** Network configuration options. These are required when a private Data Fusion instance is to be created. *)
 
-type google_data_fusion_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_data_fusion_instance__timeouts *)
+(** timeouts *)
 
 type google_data_fusion_instance = {
   dataproc_service_account : string prop option; [@option]
@@ -98,16 +98,60 @@ pipelines at low cost. Possible values: [BASIC, ENTERPRISE, DEVELOPER] *)
       (** Current version of the Data Fusion. *)
   zone : string prop option; [@option]
       (** Name of the zone in which the Data Fusion instance will be created. Only DEVELOPER instances use this field. *)
-  accelerators : google_data_fusion_instance__accelerators list;
-  crypto_key_config :
-    google_data_fusion_instance__crypto_key_config list;
-  event_publish_config :
-    google_data_fusion_instance__event_publish_config list;
-  network_config : google_data_fusion_instance__network_config list;
-  timeouts : google_data_fusion_instance__timeouts option;
+  accelerators : accelerators list;
+  crypto_key_config : crypto_key_config list;
+  event_publish_config : event_publish_config list;
+  network_config : network_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_data_fusion_instance *)
+
+let accelerators ~accelerator_type ~state () : accelerators =
+  { accelerator_type; state }
+
+let crypto_key_config ~key_reference () : crypto_key_config =
+  { key_reference }
+
+let event_publish_config ~enabled ~topic () : event_publish_config =
+  { enabled; topic }
+
+let network_config ~ip_allocation ~network () : network_config =
+  { ip_allocation; network }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_data_fusion_instance ?dataproc_service_account
+    ?description ?display_name ?enable_rbac
+    ?enable_stackdriver_logging ?enable_stackdriver_monitoring ?id
+    ?labels ?options ?private_instance ?project ?region ?version
+    ?zone ?timeouts ~name ~type_ ~accelerators ~crypto_key_config
+    ~event_publish_config ~network_config () :
+    google_data_fusion_instance =
+  {
+    dataproc_service_account;
+    description;
+    display_name;
+    enable_rbac;
+    enable_stackdriver_logging;
+    enable_stackdriver_monitoring;
+    id;
+    labels;
+    name;
+    options;
+    private_instance;
+    project;
+    region;
+    type_;
+    version;
+    zone;
+    accelerators;
+    crypto_key_config;
+    event_publish_config;
+    network_config;
+    timeouts;
+  }
 
 type t = {
   api_endpoint : string prop;
@@ -139,40 +183,22 @@ type t = {
   zone : string prop;
 }
 
-let google_data_fusion_instance ?dataproc_service_account
-    ?description ?display_name ?enable_rbac
-    ?enable_stackdriver_logging ?enable_stackdriver_monitoring ?id
-    ?labels ?options ?private_instance ?project ?region ?version
-    ?zone ?timeouts ~name ~type_ ~accelerators ~crypto_key_config
-    ~event_publish_config ~network_config __resource_id =
+let register ?tf_module ?dataproc_service_account ?description
+    ?display_name ?enable_rbac ?enable_stackdriver_logging
+    ?enable_stackdriver_monitoring ?id ?labels ?options
+    ?private_instance ?project ?region ?version ?zone ?timeouts ~name
+    ~type_ ~accelerators ~crypto_key_config ~event_publish_config
+    ~network_config __resource_id =
   let __resource_type = "google_data_fusion_instance" in
   let __resource =
-    ({
-       dataproc_service_account;
-       description;
-       display_name;
-       enable_rbac;
-       enable_stackdriver_logging;
-       enable_stackdriver_monitoring;
-       id;
-       labels;
-       name;
-       options;
-       private_instance;
-       project;
-       region;
-       type_;
-       version;
-       zone;
-       accelerators;
-       crypto_key_config;
-       event_publish_config;
-       network_config;
-       timeouts;
-     }
-      : google_data_fusion_instance)
+    google_data_fusion_instance ?dataproc_service_account
+      ?description ?display_name ?enable_rbac
+      ?enable_stackdriver_logging ?enable_stackdriver_monitoring ?id
+      ?labels ?options ?private_instance ?project ?region ?version
+      ?zone ?timeouts ~name ~type_ ~accelerators ~crypto_key_config
+      ~event_publish_config ~network_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_fusion_instance __resource);
   let __resource_attributes =
     ({

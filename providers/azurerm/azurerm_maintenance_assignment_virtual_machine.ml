@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_maintenance_assignment_virtual_machine__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_maintenance_assignment_virtual_machine__timeouts *)
+(** timeouts *)
 
 type azurerm_maintenance_assignment_virtual_machine = {
   id : string prop option; [@option]  (** id *)
@@ -18,11 +18,24 @@ type azurerm_maintenance_assignment_virtual_machine = {
   maintenance_configuration_id : string prop;
       (** maintenance_configuration_id *)
   virtual_machine_id : string prop;  (** virtual_machine_id *)
-  timeouts :
-    azurerm_maintenance_assignment_virtual_machine__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_assignment_virtual_machine *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_maintenance_assignment_virtual_machine ?id ?timeouts
+    ~location ~maintenance_configuration_id ~virtual_machine_id () :
+    azurerm_maintenance_assignment_virtual_machine =
+  {
+    id;
+    location;
+    maintenance_configuration_id;
+    virtual_machine_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -31,23 +44,16 @@ type t = {
   virtual_machine_id : string prop;
 }
 
-let azurerm_maintenance_assignment_virtual_machine ?id ?timeouts
-    ~location ~maintenance_configuration_id ~virtual_machine_id
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~location
+    ~maintenance_configuration_id ~virtual_machine_id __resource_id =
   let __resource_type =
     "azurerm_maintenance_assignment_virtual_machine"
   in
   let __resource =
-    ({
-       id;
-       location;
-       maintenance_configuration_id;
-       virtual_machine_id;
-       timeouts;
-     }
-      : azurerm_maintenance_assignment_virtual_machine)
+    azurerm_maintenance_assignment_virtual_machine ?id ?timeouts
+      ~location ~maintenance_configuration_id ~virtual_machine_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_maintenance_assignment_virtual_machine
        __resource);
   let __resource_attributes =

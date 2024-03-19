@@ -2,9 +2,48 @@
 
 open! Tf.Prelude
 
-type aws_macie2_findings_filter__finding_criteria__criterion
-type aws_macie2_findings_filter__finding_criteria
+(** RESOURCE SERIALIZATION *)
+
+type finding_criteria__criterion
+
+val finding_criteria__criterion :
+  ?eq:string prop list ->
+  ?eq_exact_match:string prop list ->
+  ?gt:string prop ->
+  ?gte:string prop ->
+  ?lt:string prop ->
+  ?lte:string prop ->
+  ?neq:string prop list ->
+  field:string prop ->
+  unit ->
+  finding_criteria__criterion
+
+type finding_criteria
+
+val finding_criteria :
+  criterion:finding_criteria__criterion list ->
+  unit ->
+  finding_criteria
+
 type aws_macie2_findings_filter
+
+val aws_macie2_findings_filter :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?position:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  action:string prop ->
+  finding_criteria:finding_criteria list ->
+  unit ->
+  aws_macie2_findings_filter
+
+val yojson_of_aws_macie2_findings_filter :
+  aws_macie2_findings_filter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   action : string prop;
@@ -18,7 +57,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_macie2_findings_filter :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?name:string prop ->
@@ -27,6 +67,6 @@ val aws_macie2_findings_filter :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   action:string prop ->
-  finding_criteria:aws_macie2_findings_filter__finding_criteria list ->
+  finding_criteria:finding_criteria list ->
   string ->
   t

@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type google_cloudbuildv2_repository__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_cloudbuildv2_repository
+
+val google_cloudbuildv2_repository :
+  ?annotations:(string * string prop) list ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  parent_connection:string prop ->
+  remote_uri:string prop ->
+  unit ->
+  google_cloudbuildv2_repository
+
+val yojson_of_google_cloudbuildv2_repository :
+  google_cloudbuildv2_repository -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   annotations : (string * string) list prop;
@@ -19,12 +42,13 @@ type t = private {
   update_time : string prop;
 }
 
-val google_cloudbuildv2_repository :
+val register :
+  ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
-  ?timeouts:google_cloudbuildv2_repository__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   parent_connection:string prop ->
   remote_uri:string prop ->

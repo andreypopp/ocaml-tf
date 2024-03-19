@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_volume_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_volume_attachment__timeouts *)
+(** timeouts *)
 
 type aws_volume_attachment = {
   device_name : string prop;  (** device_name *)
@@ -20,10 +20,26 @@ type aws_volume_attachment = {
   stop_instance_before_detaching : bool prop option; [@option]
       (** stop_instance_before_detaching *)
   volume_id : string prop;  (** volume_id *)
-  timeouts : aws_volume_attachment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_volume_attachment *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_volume_attachment ?force_detach ?id ?skip_destroy
+    ?stop_instance_before_detaching ?timeouts ~device_name
+    ~instance_id ~volume_id () : aws_volume_attachment =
+  {
+    device_name;
+    force_detach;
+    id;
+    instance_id;
+    skip_destroy;
+    stop_instance_before_detaching;
+    volume_id;
+    timeouts;
+  }
 
 type t = {
   device_name : string prop;
@@ -35,24 +51,16 @@ type t = {
   volume_id : string prop;
 }
 
-let aws_volume_attachment ?force_detach ?id ?skip_destroy
+let register ?tf_module ?force_detach ?id ?skip_destroy
     ?stop_instance_before_detaching ?timeouts ~device_name
     ~instance_id ~volume_id __resource_id =
   let __resource_type = "aws_volume_attachment" in
   let __resource =
-    ({
-       device_name;
-       force_detach;
-       id;
-       instance_id;
-       skip_destroy;
-       stop_instance_before_detaching;
-       volume_id;
-       timeouts;
-     }
-      : aws_volume_attachment)
+    aws_volume_attachment ?force_detach ?id ?skip_destroy
+      ?stop_instance_before_detaching ?timeouts ~device_name
+      ~instance_id ~volume_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_volume_attachment __resource);
   let __resource_attributes =
     ({

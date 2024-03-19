@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_compute_interconnect_attachment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_interconnect_attachment__timeouts *)
+(** timeouts *)
 
-type google_compute_interconnect_attachment__private_interconnect_info = {
+type private_interconnect_info = {
   tag8021q : float prop;  (** tag8021q *)
 }
 [@@deriving yojson_of]
@@ -112,10 +112,39 @@ DEDICATED. Possible values: [DEDICATED, PARTNER, PARTNER_PROVIDER] *)
   vlan_tag8021q : float prop option; [@option]
       (** The IEEE 802.1Q VLAN tag for this attachment, in the range 2-4094. When
 using PARTNER type this will be managed upstream. *)
-  timeouts : google_compute_interconnect_attachment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_interconnect_attachment *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_interconnect_attachment ?admin_enabled ?bandwidth
+    ?candidate_subnets ?description ?edge_availability_domain
+    ?encryption ?id ?interconnect ?ipsec_internal_addresses ?mtu
+    ?project ?region ?stack_type ?type_ ?vlan_tag8021q ?timeouts
+    ~name ~router () : google_compute_interconnect_attachment =
+  {
+    admin_enabled;
+    bandwidth;
+    candidate_subnets;
+    description;
+    edge_availability_domain;
+    encryption;
+    id;
+    interconnect;
+    ipsec_internal_addresses;
+    mtu;
+    name;
+    project;
+    region;
+    router;
+    stack_type;
+    type_;
+    vlan_tag8021q;
+    timeouts;
+  }
 
 type t = {
   admin_enabled : bool prop;
@@ -135,10 +164,7 @@ type t = {
   name : string prop;
   pairing_key : string prop;
   partner_asn : string prop;
-  private_interconnect_info :
-    google_compute_interconnect_attachment__private_interconnect_info
-    list
-    prop;
+  private_interconnect_info : private_interconnect_info list prop;
   project : string prop;
   region : string prop;
   router : string prop;
@@ -149,36 +175,20 @@ type t = {
   vlan_tag8021q : float prop;
 }
 
-let google_compute_interconnect_attachment ?admin_enabled ?bandwidth
-    ?candidate_subnets ?description ?edge_availability_domain
-    ?encryption ?id ?interconnect ?ipsec_internal_addresses ?mtu
-    ?project ?region ?stack_type ?type_ ?vlan_tag8021q ?timeouts
-    ~name ~router __resource_id =
+let register ?tf_module ?admin_enabled ?bandwidth ?candidate_subnets
+    ?description ?edge_availability_domain ?encryption ?id
+    ?interconnect ?ipsec_internal_addresses ?mtu ?project ?region
+    ?stack_type ?type_ ?vlan_tag8021q ?timeouts ~name ~router
+    __resource_id =
   let __resource_type = "google_compute_interconnect_attachment" in
   let __resource =
-    ({
-       admin_enabled;
-       bandwidth;
-       candidate_subnets;
-       description;
-       edge_availability_domain;
-       encryption;
-       id;
-       interconnect;
-       ipsec_internal_addresses;
-       mtu;
-       name;
-       project;
-       region;
-       router;
-       stack_type;
-       type_;
-       vlan_tag8021q;
-       timeouts;
-     }
-      : google_compute_interconnect_attachment)
+    google_compute_interconnect_attachment ?admin_enabled ?bandwidth
+      ?candidate_subnets ?description ?edge_availability_domain
+      ?encryption ?id ?interconnect ?ipsec_internal_addresses ?mtu
+      ?project ?region ?stack_type ?type_ ?vlan_tag8021q ?timeouts
+      ~name ~router ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_interconnect_attachment __resource);
   let __resource_attributes =
     ({

@@ -4,25 +4,37 @@
 
 open! Tf.Prelude
 
-type azurerm_private_endpoint_application_security_group_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_private_endpoint_application_security_group_association__timeouts *)
+(** timeouts *)
 
 type azurerm_private_endpoint_application_security_group_association = {
   application_security_group_id : string prop;
       (** application_security_group_id *)
   id : string prop option; [@option]  (** id *)
   private_endpoint_id : string prop;  (** private_endpoint_id *)
-  timeouts :
-    azurerm_private_endpoint_application_security_group_association__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_private_endpoint_application_security_group_association *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_private_endpoint_application_security_group_association
+    ?id ?timeouts ~application_security_group_id ~private_endpoint_id
+    () :
+    azurerm_private_endpoint_application_security_group_association =
+  {
+    application_security_group_id;
+    id;
+    private_endpoint_id;
+    timeouts;
+  }
 
 type t = {
   application_security_group_id : string prop;
@@ -30,22 +42,17 @@ type t = {
   private_endpoint_id : string prop;
 }
 
-let azurerm_private_endpoint_application_security_group_association
-    ?id ?timeouts ~application_security_group_id ~private_endpoint_id
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~application_security_group_id
+    ~private_endpoint_id __resource_id =
   let __resource_type =
     "azurerm_private_endpoint_application_security_group_association"
   in
   let __resource =
-    ({
-       application_security_group_id;
-       id;
-       private_endpoint_id;
-       timeouts;
-     }
-      : azurerm_private_endpoint_application_security_group_association)
+    azurerm_private_endpoint_application_security_group_association
+      ?id ?timeouts ~application_security_group_id
+      ~private_endpoint_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_endpoint_application_security_group_association
        __resource);
   let __resource_attributes =

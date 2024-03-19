@@ -16,6 +16,10 @@ type aws_api_gateway_vpc_link = {
 [@@deriving yojson_of]
 (** aws_api_gateway_vpc_link *)
 
+let aws_api_gateway_vpc_link ?description ?id ?tags ?tags_all ~name
+    ~target_arns () : aws_api_gateway_vpc_link =
+  { description; id; name; tags; tags_all; target_arns }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -26,14 +30,14 @@ type t = {
   target_arns : string list prop;
 }
 
-let aws_api_gateway_vpc_link ?description ?id ?tags ?tags_all ~name
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
     ~target_arns __resource_id =
   let __resource_type = "aws_api_gateway_vpc_link" in
   let __resource =
-    ({ description; id; name; tags; tags_all; target_arns }
-      : aws_api_gateway_vpc_link)
+    aws_api_gateway_vpc_link ?description ?id ?tags ?tags_all ~name
+      ~target_arns ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_vpc_link __resource);
   let __resource_attributes =
     ({

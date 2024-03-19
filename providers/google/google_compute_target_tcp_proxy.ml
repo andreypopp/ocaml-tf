@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_target_tcp_proxy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_target_tcp_proxy__timeouts *)
+(** timeouts *)
 
 type google_compute_target_tcp_proxy = {
   backend_service : string prop;
@@ -33,10 +33,27 @@ this target proxy has a loadBalancingScheme set to INTERNAL_SELF_MANAGED. *)
   proxy_header : string prop option; [@option]
       (** Specifies the type of proxy header to append before sending data to
 the backend. Default value: NONE Possible values: [NONE, PROXY_V1] *)
-  timeouts : google_compute_target_tcp_proxy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_target_tcp_proxy *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_target_tcp_proxy ?description ?id ?project
+    ?proxy_bind ?proxy_header ?timeouts ~backend_service ~name () :
+    google_compute_target_tcp_proxy =
+  {
+    backend_service;
+    description;
+    id;
+    name;
+    project;
+    proxy_bind;
+    proxy_header;
+    timeouts;
+  }
 
 type t = {
   backend_service : string prop;
@@ -51,24 +68,14 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_target_tcp_proxy ?description ?id ?project
-    ?proxy_bind ?proxy_header ?timeouts ~backend_service ~name
-    __resource_id =
+let register ?tf_module ?description ?id ?project ?proxy_bind
+    ?proxy_header ?timeouts ~backend_service ~name __resource_id =
   let __resource_type = "google_compute_target_tcp_proxy" in
   let __resource =
-    ({
-       backend_service;
-       description;
-       id;
-       name;
-       project;
-       proxy_bind;
-       proxy_header;
-       timeouts;
-     }
-      : google_compute_target_tcp_proxy)
+    google_compute_target_tcp_proxy ?description ?id ?project
+      ?proxy_bind ?proxy_header ?timeouts ~backend_service ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_tcp_proxy __resource);
   let __resource_attributes =
     ({

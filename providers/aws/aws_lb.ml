@@ -4,40 +4,39 @@
 
 open! Tf.Prelude
 
-type aws_lb__access_logs = {
+type access_logs = {
   bucket : string prop;  (** bucket *)
   enabled : bool prop option; [@option]  (** enabled *)
   prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
-(** aws_lb__access_logs *)
+(** access_logs *)
 
-type aws_lb__connection_logs = {
+type connection_logs = {
   bucket : string prop;  (** bucket *)
   enabled : bool prop option; [@option]  (** enabled *)
   prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
-(** aws_lb__connection_logs *)
+(** connection_logs *)
 
-type aws_lb__subnet_mapping = {
+type subnet_mapping = {
   allocation_id : string prop option; [@option]  (** allocation_id *)
   ipv6_address : string prop option; [@option]  (** ipv6_address *)
-  outpost_id : string prop;  (** outpost_id *)
   private_ipv4_address : string prop option; [@option]
       (** private_ipv4_address *)
   subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
-(** aws_lb__subnet_mapping *)
+(** subnet_mapping *)
 
-type aws_lb__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_lb__timeouts *)
+(** timeouts *)
 
 type aws_lb = {
   customer_owned_ipv4_pool : string prop option; [@option]
@@ -83,13 +82,67 @@ type aws_lb = {
       (** tags_all *)
   xff_header_processing_mode : string prop option; [@option]
       (** xff_header_processing_mode *)
-  access_logs : aws_lb__access_logs list;
-  connection_logs : aws_lb__connection_logs list;
-  subnet_mapping : aws_lb__subnet_mapping list;
-  timeouts : aws_lb__timeouts option;
+  access_logs : access_logs list;
+  connection_logs : connection_logs list;
+  subnet_mapping : subnet_mapping list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lb *)
+
+let access_logs ?enabled ?prefix ~bucket () : access_logs =
+  { bucket; enabled; prefix }
+
+let connection_logs ?enabled ?prefix ~bucket () : connection_logs =
+  { bucket; enabled; prefix }
+
+let subnet_mapping ?allocation_id ?ipv6_address ?private_ipv4_address
+    ~subnet_id () : subnet_mapping =
+  { allocation_id; ipv6_address; private_ipv4_address; subnet_id }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
+    ?dns_record_client_routing_policy ?drop_invalid_header_fields
+    ?enable_cross_zone_load_balancing ?enable_deletion_protection
+    ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
+    ?enable_waf_fail_open ?enable_xff_client_port
+    ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
+    ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
+    ?name ?name_prefix ?preserve_host_header ?security_groups
+    ?subnets ?tags ?tags_all ?xff_header_processing_mode ?timeouts
+    ~access_logs ~connection_logs ~subnet_mapping () : aws_lb =
+  {
+    customer_owned_ipv4_pool;
+    desync_mitigation_mode;
+    dns_record_client_routing_policy;
+    drop_invalid_header_fields;
+    enable_cross_zone_load_balancing;
+    enable_deletion_protection;
+    enable_http2;
+    enable_tls_version_and_cipher_suite_headers;
+    enable_waf_fail_open;
+    enable_xff_client_port;
+    enforce_security_group_inbound_rules_on_private_link_traffic;
+    id;
+    idle_timeout;
+    internal;
+    ip_address_type;
+    load_balancer_type;
+    name;
+    name_prefix;
+    preserve_host_header;
+    security_groups;
+    subnets;
+    tags;
+    tags_all;
+    xff_header_processing_mode;
+    access_logs;
+    connection_logs;
+    subnet_mapping;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -124,10 +177,11 @@ type t = {
   zone_id : string prop;
 }
 
-let aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
-    ?dns_record_client_routing_policy ?drop_invalid_header_fields
-    ?enable_cross_zone_load_balancing ?enable_deletion_protection
-    ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
+let register ?tf_module ?customer_owned_ipv4_pool
+    ?desync_mitigation_mode ?dns_record_client_routing_policy
+    ?drop_invalid_header_fields ?enable_cross_zone_load_balancing
+    ?enable_deletion_protection ?enable_http2
+    ?enable_tls_version_and_cipher_suite_headers
     ?enable_waf_fail_open ?enable_xff_client_port
     ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
     ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
@@ -136,39 +190,19 @@ let aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
     ~access_logs ~connection_logs ~subnet_mapping __resource_id =
   let __resource_type = "aws_lb" in
   let __resource =
-    ({
-       customer_owned_ipv4_pool;
-       desync_mitigation_mode;
-       dns_record_client_routing_policy;
-       drop_invalid_header_fields;
-       enable_cross_zone_load_balancing;
-       enable_deletion_protection;
-       enable_http2;
-       enable_tls_version_and_cipher_suite_headers;
-       enable_waf_fail_open;
-       enable_xff_client_port;
-       enforce_security_group_inbound_rules_on_private_link_traffic;
-       id;
-       idle_timeout;
-       internal;
-       ip_address_type;
-       load_balancer_type;
-       name;
-       name_prefix;
-       preserve_host_header;
-       security_groups;
-       subnets;
-       tags;
-       tags_all;
-       xff_header_processing_mode;
-       access_logs;
-       connection_logs;
-       subnet_mapping;
-       timeouts;
-     }
-      : aws_lb)
+    aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
+      ?dns_record_client_routing_policy ?drop_invalid_header_fields
+      ?enable_cross_zone_load_balancing ?enable_deletion_protection
+      ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
+      ?enable_waf_fail_open ?enable_xff_client_port
+      ?enforce_security_group_inbound_rules_on_private_link_traffic
+      ?id ?idle_timeout ?internal ?ip_address_type
+      ?load_balancer_type ?name ?name_prefix ?preserve_host_header
+      ?security_groups ?subnets ?tags ?tags_all
+      ?xff_header_processing_mode ?timeouts ~access_logs
+      ~connection_logs ~subnet_mapping ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lb __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_logging_project_sink__bigquery_options = {
+type bigquery_options = {
   use_partitioned_tables : bool prop;
       (** Whether to use BigQuery's partition tables. By default, Logging creates dated tables based on the log entries' timestamps, e.g. syslog_20170523. With partitioned tables the date suffix is no longer present and special query syntax has to be used instead. In both cases, tables are sharded based on UTC timezone. *)
 }
 [@@deriving yojson_of]
 (** Options that affect sinks exporting data to BigQuery. *)
 
-type google_logging_project_sink__exclusions = {
+type exclusions = {
   description : string prop option; [@option]
       (** A description of this exclusion. *)
   disabled : bool prop option; [@option]
@@ -41,12 +41,35 @@ type google_logging_project_sink = {
       (** The ID of the project to create the sink in. If omitted, the project associated with the provider is used. *)
   unique_writer_identity : bool prop option; [@option]
       (** Whether or not to create a unique identity associated with this sink. If false (the legacy behavior), then the writer_identity used is serviceAccount:cloud-logs@system.gserviceaccount.com. If true (default), then a unique service account is created and used for this sink. If you wish to publish logs across projects, you must set unique_writer_identity to true. *)
-  bigquery_options :
-    google_logging_project_sink__bigquery_options list;
-  exclusions : google_logging_project_sink__exclusions list;
+  bigquery_options : bigquery_options list;
+  exclusions : exclusions list;
 }
 [@@deriving yojson_of]
 (** google_logging_project_sink *)
+
+let bigquery_options ~use_partitioned_tables () : bigquery_options =
+  { use_partitioned_tables }
+
+let exclusions ?description ?disabled ~filter ~name () : exclusions =
+  { description; disabled; filter; name }
+
+let google_logging_project_sink ?custom_writer_identity ?description
+    ?disabled ?filter ?id ?project ?unique_writer_identity
+    ~destination ~name ~bigquery_options ~exclusions () :
+    google_logging_project_sink =
+  {
+    custom_writer_identity;
+    description;
+    destination;
+    disabled;
+    filter;
+    id;
+    name;
+    project;
+    unique_writer_identity;
+    bigquery_options;
+    exclusions;
+  }
 
 type t = {
   custom_writer_identity : string prop;
@@ -61,27 +84,16 @@ type t = {
   writer_identity : string prop;
 }
 
-let google_logging_project_sink ?custom_writer_identity ?description
+let register ?tf_module ?custom_writer_identity ?description
     ?disabled ?filter ?id ?project ?unique_writer_identity
     ~destination ~name ~bigquery_options ~exclusions __resource_id =
   let __resource_type = "google_logging_project_sink" in
   let __resource =
-    ({
-       custom_writer_identity;
-       description;
-       destination;
-       disabled;
-       filter;
-       id;
-       name;
-       project;
-       unique_writer_identity;
-       bigquery_options;
-       exclusions;
-     }
-      : google_logging_project_sink)
+    google_logging_project_sink ?custom_writer_identity ?description
+      ?disabled ?filter ?id ?project ?unique_writer_identity
+      ~destination ~name ~bigquery_options ~exclusions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_project_sink __resource);
   let __resource_attributes =
     ({

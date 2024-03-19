@@ -4,29 +4,34 @@
 
 open! Tf.Prelude
 
-type aws_ec2_image_block_public_access__timeouts = {
+type timeouts = {
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_ec2_image_block_public_access__timeouts *)
+(** timeouts *)
 
 type aws_ec2_image_block_public_access = {
   id : string prop option; [@option]  (** id *)
   state : string prop;  (** state *)
-  timeouts : aws_ec2_image_block_public_access__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_image_block_public_access *)
 
+let timeouts ?update () : timeouts = { update }
+
+let aws_ec2_image_block_public_access ?id ?timeouts ~state () :
+    aws_ec2_image_block_public_access =
+  { id; state; timeouts }
+
 type t = { id : string prop; state : string prop }
 
-let aws_ec2_image_block_public_access ?id ?timeouts ~state
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~state __resource_id =
   let __resource_type = "aws_ec2_image_block_public_access" in
   let __resource =
-    ({ id; state; timeouts } : aws_ec2_image_block_public_access)
+    aws_ec2_image_block_public_access ?id ?timeouts ~state ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_image_block_public_access __resource);
   let __resource_attributes =
     ({

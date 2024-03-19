@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_compute_network_endpoint_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_network_endpoint_group
+
+val google_compute_network_endpoint_group :
+  ?default_port:float prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?network_endpoint_type:string prop ->
+  ?project:string prop ->
+  ?subnetwork:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network:string prop ->
+  unit ->
+  google_compute_network_endpoint_group
+
+val yojson_of_google_compute_network_endpoint_group :
+  google_compute_network_endpoint_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   default_port : float prop;
@@ -19,7 +44,8 @@ type t = private {
   zone : string prop;
 }
 
-val google_compute_network_endpoint_group :
+val register :
+  ?tf_module:tf_module ->
   ?default_port:float prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -27,7 +53,7 @@ val google_compute_network_endpoint_group :
   ?project:string prop ->
   ?subnetwork:string prop ->
   ?zone:string prop ->
-  ?timeouts:google_compute_network_endpoint_group__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
   string ->

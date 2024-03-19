@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_memorydb_parameter_group__parameter
+(** RESOURCE SERIALIZATION *)
+
+type parameter
+
+val parameter :
+  name:string prop -> value:string prop -> unit -> parameter
+
 type aws_memorydb_parameter_group
+
+val aws_memorydb_parameter_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  family:string prop ->
+  parameter:parameter list ->
+  unit ->
+  aws_memorydb_parameter_group
+
+val yojson_of_aws_memorydb_parameter_group :
+  aws_memorydb_parameter_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,7 +39,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_memorydb_parameter_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?name:string prop ->
@@ -24,6 +48,6 @@ val aws_memorydb_parameter_group :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   family:string prop ->
-  parameter:aws_memorydb_parameter_group__parameter list ->
+  parameter:parameter list ->
   string ->
   t

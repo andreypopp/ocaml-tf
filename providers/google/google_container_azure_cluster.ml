@@ -4,30 +4,28 @@
 
 open! Tf.Prelude
 
-type google_container_azure_cluster__authorization__admin_groups = {
+type authorization__admin_groups = {
   group : string prop;
       (** The name of the group, e.g. `my-group@domain.com`. *)
 }
 [@@deriving yojson_of]
 (** Groups of users that can perform operations as a cluster admin. A managed ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole to the groups. Up to ten admin groups can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
 
-type google_container_azure_cluster__authorization__admin_users = {
+type authorization__admin_users = {
   username : string prop;
       (** The name of the user, e.g. `my-gcp-id@gmail.com`. *)
 }
 [@@deriving yojson_of]
 (** Users that can perform operations as a cluster admin. A new ClusterRoleBinding will be created to grant the cluster-admin ClusterRole to the users. Up to ten admin users can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
 
-type google_container_azure_cluster__authorization = {
-  admin_groups :
-    google_container_azure_cluster__authorization__admin_groups list;
-  admin_users :
-    google_container_azure_cluster__authorization__admin_users list;
+type authorization = {
+  admin_groups : authorization__admin_groups list;
+  admin_users : authorization__admin_users list;
 }
 [@@deriving yojson_of]
 (** Configuration related to the cluster RBAC settings. *)
 
-type google_container_azure_cluster__azure_services_authentication = {
+type azure_services_authentication = {
   application_id : string prop;
       (** The Azure Active Directory Application ID for Authentication configuration. *)
   tenant_id : string prop;
@@ -36,21 +34,21 @@ type google_container_azure_cluster__azure_services_authentication = {
 [@@deriving yojson_of]
 (** Azure authentication configuration for management of Azure resources *)
 
-type google_container_azure_cluster__control_plane__database_encryption = {
+type control_plane__database_encryption = {
   key_id : string prop;
       (** The ARM ID of the Azure Key Vault key to encrypt / decrypt data. For example: `/subscriptions/<subscription-id>/resourceGroups/<resource-group-id>/providers/Microsoft.KeyVault/vaults/<key-vault-id>/keys/<key-name>` Encryption will always take the latest version of the key and hence specific version is not supported. *)
 }
 [@@deriving yojson_of]
 (** Optional. Configuration related to application-layer secrets encryption. *)
 
-type google_container_azure_cluster__control_plane__main_volume = {
+type control_plane__main_volume = {
   size_gib : float prop option; [@option]
       (** Optional. The size of the disk, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
 }
 [@@deriving yojson_of]
 (** Optional. Configuration related to the main volume provisioned for each control plane replica. The main volume is in charge of storing all of the cluster's etcd state. When unspecified, it defaults to a 8-GiB Azure Disk. *)
 
-type google_container_azure_cluster__control_plane__proxy_config = {
+type control_plane__proxy_config = {
   resource_group_id : string prop;
       (** The ARM ID the of the resource group containing proxy keyvault. Resource group ids are formatted as `/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>` *)
   secret_id : string prop;
@@ -59,7 +57,7 @@ type google_container_azure_cluster__control_plane__proxy_config = {
 [@@deriving yojson_of]
 (** Proxy configuration for outbound HTTP(S) traffic. *)
 
-type google_container_azure_cluster__control_plane__replica_placements = {
+type control_plane__replica_placements = {
   azure_availability_zone : string prop;
       (** For a given replica, the Azure availability zone where to provision the control plane VM and the ETCD disk. *)
   subnet_id : string prop;
@@ -68,21 +66,21 @@ type google_container_azure_cluster__control_plane__replica_placements = {
 [@@deriving yojson_of]
 (** Configuration for where to place the control plane replicas. Up to three replica placement instances can be specified. If replica_placements is set, the replica placement instances will be applied to the three control plane replicas as evenly as possible. *)
 
-type google_container_azure_cluster__control_plane__root_volume = {
+type control_plane__root_volume = {
   size_gib : float prop option; [@option]
       (** Optional. The size of the disk, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
 }
 [@@deriving yojson_of]
 (** Optional. Configuration related to the root volume provisioned for each control plane replica. When unspecified, it defaults to 32-GiB Azure Disk. *)
 
-type google_container_azure_cluster__control_plane__ssh_config = {
+type control_plane__ssh_config = {
   authorized_key : string prop;
       (** The SSH public key data for VMs managed by Anthos. This accepts the authorized_keys file format used in OpenSSH according to the sshd(8) manual page. *)
 }
 [@@deriving yojson_of]
 (** SSH configuration for how to access the underlying control plane machines. *)
 
-type google_container_azure_cluster__control_plane = {
+type control_plane = {
   subnet_id : string prop;
       (** The ARM ID of the subnet where the control plane VMs are deployed. Example: `/subscriptions//resourceGroups//providers/Microsoft.Network/virtualNetworks//subnets/default`. *)
   tags : (string * string prop) list option; [@option]
@@ -91,34 +89,24 @@ type google_container_azure_cluster__control_plane = {
       (** The Kubernetes version to run on control plane replicas (e.g. `1.19.10-gke.1000`). You can list all supported versions on a given Google Cloud region by calling GetAzureServerConfig. *)
   vm_size : string prop option; [@option]
       (** Optional. The Azure VM size name. Example: `Standard_DS2_v2`. For available VM sizes, see https://docs.microsoft.com/en-us/azure/virtual-machines/vm-naming-conventions. When unspecified, it defaults to `Standard_DS2_v2`. *)
-  database_encryption :
-    google_container_azure_cluster__control_plane__database_encryption
-    list;
-  main_volume :
-    google_container_azure_cluster__control_plane__main_volume list;
-  proxy_config :
-    google_container_azure_cluster__control_plane__proxy_config list;
-  replica_placements :
-    google_container_azure_cluster__control_plane__replica_placements
-    list;
-  root_volume :
-    google_container_azure_cluster__control_plane__root_volume list;
-  ssh_config :
-    google_container_azure_cluster__control_plane__ssh_config list;
+  database_encryption : control_plane__database_encryption list;
+  main_volume : control_plane__main_volume list;
+  proxy_config : control_plane__proxy_config list;
+  replica_placements : control_plane__replica_placements list;
+  root_volume : control_plane__root_volume list;
+  ssh_config : control_plane__ssh_config list;
 }
 [@@deriving yojson_of]
 (** Configuration related to the cluster control plane. *)
 
-type google_container_azure_cluster__fleet = {
-  membership : string prop;
-      (** The name of the managed Hub Membership resource associated to this cluster. Membership names are formatted as projects/<project-number>/locations/global/membership/<cluster-id>. *)
+type fleet = {
   project : string prop option; [@option]
       (** The number of the Fleet host project where this cluster will be registered. *)
 }
 [@@deriving yojson_of]
 (** Fleet configuration. *)
 
-type google_container_azure_cluster__networking = {
+type networking = {
   pod_address_cidr_blocks : string prop list;
       (** The IP address range of the pods in this cluster, in CIDR notation (e.g. `10.96.0.0/14`). All pods in the cluster get assigned a unique RFC1918 IPv4 address from these ranges. Only a single range is supported. This field cannot be changed after creation. *)
   service_address_cidr_blocks : string prop list;
@@ -129,15 +117,15 @@ type google_container_azure_cluster__networking = {
 [@@deriving yojson_of]
 (** Cluster-wide networking configuration. *)
 
-type google_container_azure_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_container_azure_cluster__timeouts *)
+(** timeouts *)
 
-type google_container_azure_cluster__workload_identity_config = {
+type workload_identity_config = {
   identity_provider : string prop;  (** identity_provider *)
   issuer_uri : string prop;  (** issuer_uri *)
   workload_pool : string prop;  (** workload_pool *)
@@ -163,17 +151,106 @@ Please refer to the field `effective_annotations` for all of the annotations pre
       (** The project for the resource *)
   resource_group_id : string prop;
       (** The ARM ID of the resource group where the cluster resources are deployed. For example: `/subscriptions/*/resourceGroups/*` *)
-  authorization : google_container_azure_cluster__authorization list;
-  azure_services_authentication :
-    google_container_azure_cluster__azure_services_authentication
-    list;
-  control_plane : google_container_azure_cluster__control_plane list;
-  fleet : google_container_azure_cluster__fleet list;
-  networking : google_container_azure_cluster__networking list;
-  timeouts : google_container_azure_cluster__timeouts option;
+  authorization : authorization list;
+  azure_services_authentication : azure_services_authentication list;
+  control_plane : control_plane list;
+  fleet : fleet list;
+  networking : networking list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_container_azure_cluster *)
+
+let authorization__admin_groups ~group () :
+    authorization__admin_groups =
+  { group }
+
+let authorization__admin_users ~username () :
+    authorization__admin_users =
+  { username }
+
+let authorization ~admin_groups ~admin_users () : authorization =
+  { admin_groups; admin_users }
+
+let azure_services_authentication ~application_id ~tenant_id () :
+    azure_services_authentication =
+  { application_id; tenant_id }
+
+let control_plane__database_encryption ~key_id () :
+    control_plane__database_encryption =
+  { key_id }
+
+let control_plane__main_volume ?size_gib () :
+    control_plane__main_volume =
+  { size_gib }
+
+let control_plane__proxy_config ~resource_group_id ~secret_id () :
+    control_plane__proxy_config =
+  { resource_group_id; secret_id }
+
+let control_plane__replica_placements ~azure_availability_zone
+    ~subnet_id () : control_plane__replica_placements =
+  { azure_availability_zone; subnet_id }
+
+let control_plane__root_volume ?size_gib () :
+    control_plane__root_volume =
+  { size_gib }
+
+let control_plane__ssh_config ~authorized_key () :
+    control_plane__ssh_config =
+  { authorized_key }
+
+let control_plane ?tags ?vm_size ~subnet_id ~version
+    ~database_encryption ~main_volume ~proxy_config
+    ~replica_placements ~root_volume ~ssh_config () : control_plane =
+  {
+    subnet_id;
+    tags;
+    version;
+    vm_size;
+    database_encryption;
+    main_volume;
+    proxy_config;
+    replica_placements;
+    root_volume;
+    ssh_config;
+  }
+
+let fleet ?project () : fleet = { project }
+
+let networking ~pod_address_cidr_blocks ~service_address_cidr_blocks
+    ~virtual_network_id () : networking =
+  {
+    pod_address_cidr_blocks;
+    service_address_cidr_blocks;
+    virtual_network_id;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_container_azure_cluster ?annotations ?client ?description
+    ?id ?project ?timeouts ~azure_region ~location ~name
+    ~resource_group_id ~authorization ~azure_services_authentication
+    ~control_plane ~fleet ~networking () :
+    google_container_azure_cluster =
+  {
+    annotations;
+    azure_region;
+    client;
+    description;
+    id;
+    location;
+    name;
+    project;
+    resource_group_id;
+    authorization;
+    azure_services_authentication;
+    control_plane;
+    fleet;
+    networking;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -193,37 +270,22 @@ type t = {
   state : string prop;
   uid : string prop;
   update_time : string prop;
-  workload_identity_config :
-    google_container_azure_cluster__workload_identity_config list
-    prop;
+  workload_identity_config : workload_identity_config list prop;
 }
 
-let google_container_azure_cluster ?annotations ?client ?description
-    ?id ?project ?timeouts ~azure_region ~location ~name
+let register ?tf_module ?annotations ?client ?description ?id
+    ?project ?timeouts ~azure_region ~location ~name
     ~resource_group_id ~authorization ~azure_services_authentication
     ~control_plane ~fleet ~networking __resource_id =
   let __resource_type = "google_container_azure_cluster" in
   let __resource =
-    ({
-       annotations;
-       azure_region;
-       client;
-       description;
-       id;
-       location;
-       name;
-       project;
-       resource_group_id;
-       authorization;
-       azure_services_authentication;
-       control_plane;
-       fleet;
-       networking;
-       timeouts;
-     }
-      : google_container_azure_cluster)
+    google_container_azure_cluster ?annotations ?client ?description
+      ?id ?project ?timeouts ~azure_region ~location ~name
+      ~resource_group_id ~authorization
+      ~azure_services_authentication ~control_plane ~fleet
+      ~networking ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_azure_cluster __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_static_web_app_custom_domain__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_static_web_app_custom_domain
+
+val azurerm_static_web_app_custom_domain :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  static_web_app_id:string prop ->
+  validation_type:string prop ->
+  unit ->
+  azurerm_static_web_app_custom_domain
+
+val yojson_of_azurerm_static_web_app_custom_domain :
+  azurerm_static_web_app_custom_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   domain_name : string prop;
@@ -13,9 +37,10 @@ type t = private {
   validation_type : string prop;
 }
 
-val azurerm_static_web_app_custom_domain :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_static_web_app_custom_domain__timeouts ->
+  ?timeouts:timeouts ->
   domain_name:string prop ->
   static_web_app_id:string prop ->
   validation_type:string prop ->

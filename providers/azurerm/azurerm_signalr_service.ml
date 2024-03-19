@@ -4,23 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_signalr_service__cors = {
+type cors = {
   allowed_origins : string prop list;  (** allowed_origins *)
 }
 [@@deriving yojson_of]
-(** azurerm_signalr_service__cors *)
+(** cors *)
 
-type azurerm_signalr_service__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_signalr_service__identity *)
+(** identity *)
 
-type azurerm_signalr_service__live_trace = {
+type live_trace = {
   connectivity_logs_enabled : bool prop option; [@option]
       (** connectivity_logs_enabled *)
   enabled : bool prop option; [@option]  (** enabled *)
@@ -30,25 +28,25 @@ type azurerm_signalr_service__live_trace = {
       (** messaging_logs_enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_signalr_service__live_trace *)
+(** live_trace *)
 
-type azurerm_signalr_service__sku = {
+type sku = {
   capacity : float prop;  (** capacity *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_signalr_service__sku *)
+(** sku *)
 
-type azurerm_signalr_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_signalr_service__timeouts *)
+(** timeouts *)
 
-type azurerm_signalr_service__upstream_endpoint = {
+type upstream_endpoint = {
   category_pattern : string prop list;  (** category_pattern *)
   event_pattern : string prop list;  (** event_pattern *)
   hub_pattern : string prop list;  (** hub_pattern *)
@@ -57,7 +55,7 @@ type azurerm_signalr_service__upstream_endpoint = {
       (** user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_signalr_service__upstream_endpoint *)
+(** upstream_endpoint *)
 
 type azurerm_signalr_service = {
   aad_auth_enabled : bool prop option; [@option]
@@ -85,15 +83,78 @@ type azurerm_signalr_service = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tls_client_cert_enabled : bool prop option; [@option]
       (** tls_client_cert_enabled *)
-  cors : azurerm_signalr_service__cors list;
-  identity : azurerm_signalr_service__identity list;
-  live_trace : azurerm_signalr_service__live_trace list;
-  sku : azurerm_signalr_service__sku list;
-  timeouts : azurerm_signalr_service__timeouts option;
-  upstream_endpoint : azurerm_signalr_service__upstream_endpoint list;
+  cors : cors list;
+  identity : identity list;
+  live_trace : live_trace list;
+  sku : sku list;
+  timeouts : timeouts option;
+  upstream_endpoint : upstream_endpoint list;
 }
 [@@deriving yojson_of]
 (** azurerm_signalr_service *)
+
+let cors ~allowed_origins () : cors = { allowed_origins }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let live_trace ?connectivity_logs_enabled ?enabled
+    ?http_request_logs_enabled ?messaging_logs_enabled () :
+    live_trace =
+  {
+    connectivity_logs_enabled;
+    enabled;
+    http_request_logs_enabled;
+    messaging_logs_enabled;
+  }
+
+let sku ~capacity ~name () : sku = { capacity; name }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let upstream_endpoint ?user_assigned_identity_id ~category_pattern
+    ~event_pattern ~hub_pattern ~url_template () : upstream_endpoint
+    =
+  {
+    category_pattern;
+    event_pattern;
+    hub_pattern;
+    url_template;
+    user_assigned_identity_id;
+  }
+
+let azurerm_signalr_service ?aad_auth_enabled
+    ?connectivity_logs_enabled ?http_request_logs_enabled ?id
+    ?live_trace_enabled ?local_auth_enabled ?messaging_logs_enabled
+    ?public_network_access_enabled
+    ?serverless_connection_timeout_in_seconds ?service_mode ?tags
+    ?tls_client_cert_enabled ?timeouts ~location ~name
+    ~resource_group_name ~cors ~identity ~live_trace ~sku
+    ~upstream_endpoint () : azurerm_signalr_service =
+  {
+    aad_auth_enabled;
+    connectivity_logs_enabled;
+    http_request_logs_enabled;
+    id;
+    live_trace_enabled;
+    local_auth_enabled;
+    location;
+    messaging_logs_enabled;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    serverless_connection_timeout_in_seconds;
+    service_mode;
+    tags;
+    tls_client_cert_enabled;
+    cors;
+    identity;
+    live_trace;
+    sku;
+    timeouts;
+    upstream_endpoint;
+  }
 
 type t = {
   aad_auth_enabled : bool prop;
@@ -121,9 +182,9 @@ type t = {
   tls_client_cert_enabled : bool prop;
 }
 
-let azurerm_signalr_service ?aad_auth_enabled
-    ?connectivity_logs_enabled ?http_request_logs_enabled ?id
-    ?live_trace_enabled ?local_auth_enabled ?messaging_logs_enabled
+let register ?tf_module ?aad_auth_enabled ?connectivity_logs_enabled
+    ?http_request_logs_enabled ?id ?live_trace_enabled
+    ?local_auth_enabled ?messaging_logs_enabled
     ?public_network_access_enabled
     ?serverless_connection_timeout_in_seconds ?service_mode ?tags
     ?tls_client_cert_enabled ?timeouts ~location ~name
@@ -131,32 +192,16 @@ let azurerm_signalr_service ?aad_auth_enabled
     ~upstream_endpoint __resource_id =
   let __resource_type = "azurerm_signalr_service" in
   let __resource =
-    ({
-       aad_auth_enabled;
-       connectivity_logs_enabled;
-       http_request_logs_enabled;
-       id;
-       live_trace_enabled;
-       local_auth_enabled;
-       location;
-       messaging_logs_enabled;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       serverless_connection_timeout_in_seconds;
-       service_mode;
-       tags;
-       tls_client_cert_enabled;
-       cors;
-       identity;
-       live_trace;
-       sku;
-       timeouts;
-       upstream_endpoint;
-     }
-      : azurerm_signalr_service)
+    azurerm_signalr_service ?aad_auth_enabled
+      ?connectivity_logs_enabled ?http_request_logs_enabled ?id
+      ?live_trace_enabled ?local_auth_enabled ?messaging_logs_enabled
+      ?public_network_access_enabled
+      ?serverless_connection_timeout_in_seconds ?service_mode ?tags
+      ?tls_client_cert_enabled ?timeouts ~location ~name
+      ~resource_group_name ~cors ~identity ~live_trace ~sku
+      ~upstream_endpoint ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_signalr_service __resource);
   let __resource_attributes =
     ({

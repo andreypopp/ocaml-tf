@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_netapp_backup_vault__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_netapp_backup_vault__timeouts *)
+(** timeouts *)
 
 type google_netapp_backup_vault = {
   description : string prop option; [@option]
@@ -27,10 +27,17 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string prop;
       (** The resource name of the backup vault. Needs to be unique per location. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_netapp_backup_vault__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_backup_vault *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_netapp_backup_vault ?description ?id ?labels ?project
+    ?timeouts ~location ~name () : google_netapp_backup_vault =
+  { description; id; labels; location; name; project; timeouts }
 
 type t = {
   create_time : string prop;
@@ -45,14 +52,14 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_netapp_backup_vault ?description ?id ?labels ?project
-    ?timeouts ~location ~name __resource_id =
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~location ~name __resource_id =
   let __resource_type = "google_netapp_backup_vault" in
   let __resource =
-    ({ description; id; labels; location; name; project; timeouts }
-      : google_netapp_backup_vault)
+    google_netapp_backup_vault ?description ?id ?labels ?project
+      ?timeouts ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_backup_vault __resource);
   let __resource_attributes =
     ({

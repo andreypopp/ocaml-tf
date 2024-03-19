@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_global_address__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_global_address__timeouts *)
+(** timeouts *)
 
 type google_compute_global_address = {
   address : string prop option; [@option]
@@ -53,10 +53,29 @@ when purpose=PRIVATE_SERVICE_CONNECT *)
 * VPC_PEERING - for peer networks
 
 * PRIVATE_SERVICE_CONNECT - for ([Beta](https://terraform.io/docs/providers/google/guides/provider_versions.html) only) Private Service Connect networks *)
-  timeouts : google_compute_global_address__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_global_address *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_global_address ?address ?address_type ?description
+    ?id ?ip_version ?network ?prefix_length ?project ?purpose
+    ?timeouts ~name () : google_compute_global_address =
+  {
+    address;
+    address_type;
+    description;
+    id;
+    ip_version;
+    name;
+    network;
+    prefix_length;
+    project;
+    purpose;
+    timeouts;
+  }
 
 type t = {
   address : string prop;
@@ -73,27 +92,16 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_global_address ?address ?address_type ?description
-    ?id ?ip_version ?network ?prefix_length ?project ?purpose
-    ?timeouts ~name __resource_id =
+let register ?tf_module ?address ?address_type ?description ?id
+    ?ip_version ?network ?prefix_length ?project ?purpose ?timeouts
+    ~name __resource_id =
   let __resource_type = "google_compute_global_address" in
   let __resource =
-    ({
-       address;
-       address_type;
-       description;
-       id;
-       ip_version;
-       name;
-       network;
-       prefix_length;
-       project;
-       purpose;
-       timeouts;
-     }
-      : google_compute_global_address)
+    google_compute_global_address ?address ?address_type ?description
+      ?id ?ip_version ?network ?prefix_length ?project ?purpose
+      ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_global_address __resource);
   let __resource_attributes =
     ({

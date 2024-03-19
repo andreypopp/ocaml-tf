@@ -2,9 +2,39 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_entity_type__entities
-type google_dialogflow_entity_type__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type entities
+
+val entities :
+  synonyms:string prop list -> value:string prop -> unit -> entities
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_dialogflow_entity_type
+
+val google_dialogflow_entity_type :
+  ?enable_fuzzy_extraction:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  kind:string prop ->
+  entities:entities list ->
+  unit ->
+  google_dialogflow_entity_type
+
+val yojson_of_google_dialogflow_entity_type :
+  google_dialogflow_entity_type -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   display_name : string prop;
@@ -15,13 +45,14 @@ type t = private {
   project : string prop;
 }
 
-val google_dialogflow_entity_type :
+val register :
+  ?tf_module:tf_module ->
   ?enable_fuzzy_extraction:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_dialogflow_entity_type__timeouts ->
+  ?timeouts:timeouts ->
   display_name:string prop ->
   kind:string prop ->
-  entities:google_dialogflow_entity_type__entities list ->
+  entities:entities list ->
   string ->
   t

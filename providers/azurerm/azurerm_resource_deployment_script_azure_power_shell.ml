@@ -4,43 +4,43 @@
 
 open! Tf.Prelude
 
-type azurerm_resource_deployment_script_azure_power_shell__container = {
+type container = {
   container_group_name : string prop option; [@option]
       (** container_group_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_deployment_script_azure_power_shell__container *)
+(** container *)
 
-type azurerm_resource_deployment_script_azure_power_shell__environment_variable = {
+type environment_variable = {
   name : string prop;  (** name *)
   secure_value : string prop option; [@option]  (** secure_value *)
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_deployment_script_azure_power_shell__environment_variable *)
+(** environment_variable *)
 
-type azurerm_resource_deployment_script_azure_power_shell__identity = {
+type identity = {
   identity_ids : string prop list;  (** identity_ids *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_deployment_script_azure_power_shell__identity *)
+(** identity *)
 
-type azurerm_resource_deployment_script_azure_power_shell__storage_account = {
+type storage_account = {
   key : string prop;  (** key *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_deployment_script_azure_power_shell__storage_account *)
+(** storage_account *)
 
-type azurerm_resource_deployment_script_azure_power_shell__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_resource_deployment_script_azure_power_shell__timeouts *)
+(** timeouts *)
 
 type azurerm_resource_deployment_script_azure_power_shell = {
   cleanup_preference : string prop option; [@option]
@@ -62,24 +62,58 @@ type azurerm_resource_deployment_script_azure_power_shell = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   timeout : string prop option; [@option]  (** timeout *)
   version : string prop;  (** version *)
-  container :
-    azurerm_resource_deployment_script_azure_power_shell__container
-    list;
-  environment_variable :
-    azurerm_resource_deployment_script_azure_power_shell__environment_variable
-    list;
-  identity :
-    azurerm_resource_deployment_script_azure_power_shell__identity
-    list;
-  storage_account :
-    azurerm_resource_deployment_script_azure_power_shell__storage_account
-    list;
-  timeouts :
-    azurerm_resource_deployment_script_azure_power_shell__timeouts
-    option;
+  container : container list;
+  environment_variable : environment_variable list;
+  identity : identity list;
+  storage_account : storage_account list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_resource_deployment_script_azure_power_shell *)
+
+let container ?container_group_name () : container =
+  { container_group_name }
+
+let environment_variable ?secure_value ?value ~name () :
+    environment_variable =
+  { name; secure_value; value }
+
+let identity ~identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let storage_account ~key ~name () : storage_account = { key; name }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_resource_deployment_script_azure_power_shell
+    ?cleanup_preference ?command_line ?force_update_tag ?id
+    ?primary_script_uri ?script_content ?supporting_script_uris ?tags
+    ?timeout ?timeouts ~location ~name ~resource_group_name
+    ~retention_interval ~version ~container ~environment_variable
+    ~identity ~storage_account () :
+    azurerm_resource_deployment_script_azure_power_shell =
+  {
+    cleanup_preference;
+    command_line;
+    force_update_tag;
+    id;
+    location;
+    name;
+    primary_script_uri;
+    resource_group_name;
+    retention_interval;
+    script_content;
+    supporting_script_uris;
+    tags;
+    timeout;
+    version;
+    container;
+    environment_variable;
+    identity;
+    storage_account;
+    timeouts;
+  }
 
 type t = {
   cleanup_preference : string prop;
@@ -99,40 +133,23 @@ type t = {
   version : string prop;
 }
 
-let azurerm_resource_deployment_script_azure_power_shell
-    ?cleanup_preference ?command_line ?force_update_tag ?id
-    ?primary_script_uri ?script_content ?supporting_script_uris ?tags
-    ?timeout ?timeouts ~location ~name ~resource_group_name
-    ~retention_interval ~version ~container ~environment_variable
-    ~identity ~storage_account __resource_id =
+let register ?tf_module ?cleanup_preference ?command_line
+    ?force_update_tag ?id ?primary_script_uri ?script_content
+    ?supporting_script_uris ?tags ?timeout ?timeouts ~location ~name
+    ~resource_group_name ~retention_interval ~version ~container
+    ~environment_variable ~identity ~storage_account __resource_id =
   let __resource_type =
     "azurerm_resource_deployment_script_azure_power_shell"
   in
   let __resource =
-    ({
-       cleanup_preference;
-       command_line;
-       force_update_tag;
-       id;
-       location;
-       name;
-       primary_script_uri;
-       resource_group_name;
-       retention_interval;
-       script_content;
-       supporting_script_uris;
-       tags;
-       timeout;
-       version;
-       container;
-       environment_variable;
-       identity;
-       storage_account;
-       timeouts;
-     }
-      : azurerm_resource_deployment_script_azure_power_shell)
+    azurerm_resource_deployment_script_azure_power_shell
+      ?cleanup_preference ?command_line ?force_update_tag ?id
+      ?primary_script_uri ?script_content ?supporting_script_uris
+      ?tags ?timeout ?timeouts ~location ~name ~resource_group_name
+      ~retention_interval ~version ~container ~environment_variable
+      ~identity ~storage_account ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_resource_deployment_script_azure_power_shell
        __resource);
   let __resource_attributes =

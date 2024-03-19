@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager_static_member__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_network_manager_static_member
+
+val azurerm_network_manager_static_member :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network_group_id:string prop ->
+  target_virtual_network_id:string prop ->
+  unit ->
+  azurerm_network_manager_static_member
+
+val yojson_of_azurerm_network_manager_static_member :
+  azurerm_network_manager_static_member -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,9 +37,10 @@ type t = private {
   target_virtual_network_id : string prop;
 }
 
-val azurerm_network_manager_static_member :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_network_manager_static_member__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   network_group_id:string prop ->
   target_virtual_network_id:string prop ->

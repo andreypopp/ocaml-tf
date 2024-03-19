@@ -4,59 +4,59 @@
 
 open! Tf.Prelude
 
-type azurerm_workloads_sap_single_node_virtual_instance__identity = {
+type identity = {
   identity_ids : string prop list;  (** identity_ids *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__identity *)
+(** identity *)
 
-type azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__disk_volume_configuration = {
+type single_server_configuration__disk_volume_configuration = {
   number_of_disks : float prop;  (** number_of_disks *)
   size_in_gb : float prop;  (** size_in_gb *)
   sku_name : string prop;  (** sku_name *)
   volume_name : string prop;  (** volume_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__disk_volume_configuration *)
+(** single_server_configuration__disk_volume_configuration *)
 
-type azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration__image = {
+type single_server_configuration__virtual_machine_configuration__image = {
   offer : string prop;  (** offer *)
   publisher : string prop;  (** publisher *)
   sku : string prop;  (** sku *)
   version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration__image *)
+(** single_server_configuration__virtual_machine_configuration__image *)
 
-type azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration__os_profile = {
+type single_server_configuration__virtual_machine_configuration__os_profile = {
   admin_username : string prop;  (** admin_username *)
   ssh_private_key : string prop;  (** ssh_private_key *)
   ssh_public_key : string prop;  (** ssh_public_key *)
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration__os_profile *)
+(** single_server_configuration__virtual_machine_configuration__os_profile *)
 
-type azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration = {
+type single_server_configuration__virtual_machine_configuration = {
   virtual_machine_size : string prop;  (** virtual_machine_size *)
   image :
-    azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration__image
+    single_server_configuration__virtual_machine_configuration__image
     list;
   os_profile :
-    azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration__os_profile
+    single_server_configuration__virtual_machine_configuration__os_profile
     list;
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration *)
+(** single_server_configuration__virtual_machine_configuration *)
 
-type azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_resource_names__data_disk = {
+type single_server_configuration__virtual_machine_resource_names__data_disk = {
   names : string prop list;  (** names *)
   volume_name : string prop;  (** volume_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_resource_names__data_disk *)
+(** single_server_configuration__virtual_machine_resource_names__data_disk *)
 
-type azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_resource_names = {
+type single_server_configuration__virtual_machine_resource_names = {
   host_name : string prop option; [@option]  (** host_name *)
   network_interface_names : string prop list option; [@option]
       (** network_interface_names *)
@@ -64,13 +64,13 @@ type azurerm_workloads_sap_single_node_virtual_instance__single_server_configura
   virtual_machine_name : string prop option; [@option]
       (** virtual_machine_name *)
   data_disk :
-    azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_resource_names__data_disk
+    single_server_configuration__virtual_machine_resource_names__data_disk
     list;
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_resource_names *)
+(** single_server_configuration__virtual_machine_resource_names *)
 
-type azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration = {
+type single_server_configuration = {
   app_resource_group_name : string prop;
       (** app_resource_group_name *)
   database_type : string prop option; [@option]  (** database_type *)
@@ -78,26 +78,23 @@ type azurerm_workloads_sap_single_node_virtual_instance__single_server_configura
       (** secondary_ip_enabled *)
   subnet_id : string prop;  (** subnet_id *)
   disk_volume_configuration :
-    azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__disk_volume_configuration
-    list;
+    single_server_configuration__disk_volume_configuration list;
   virtual_machine_configuration :
-    azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_configuration
-    list;
+    single_server_configuration__virtual_machine_configuration list;
   virtual_machine_resource_names :
-    azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration__virtual_machine_resource_names
-    list;
+    single_server_configuration__virtual_machine_resource_names list;
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration *)
+(** single_server_configuration *)
 
-type azurerm_workloads_sap_single_node_virtual_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_workloads_sap_single_node_virtual_instance__timeouts *)
+(** timeouts *)
 
 type azurerm_workloads_sap_single_node_virtual_instance = {
   app_location : string prop;  (** app_location *)
@@ -111,17 +108,93 @@ type azurerm_workloads_sap_single_node_virtual_instance = {
   sap_fqdn : string prop;  (** sap_fqdn *)
   sap_product : string prop;  (** sap_product *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity :
-    azurerm_workloads_sap_single_node_virtual_instance__identity list;
-  single_server_configuration :
-    azurerm_workloads_sap_single_node_virtual_instance__single_server_configuration
-    list;
-  timeouts :
-    azurerm_workloads_sap_single_node_virtual_instance__timeouts
-    option;
+  identity : identity list;
+  single_server_configuration : single_server_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_workloads_sap_single_node_virtual_instance *)
+
+let identity ~identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let single_server_configuration__disk_volume_configuration
+    ~number_of_disks ~size_in_gb ~sku_name ~volume_name () :
+    single_server_configuration__disk_volume_configuration =
+  { number_of_disks; size_in_gb; sku_name; volume_name }
+
+let single_server_configuration__virtual_machine_configuration__image
+    ~offer ~publisher ~sku ~version () :
+    single_server_configuration__virtual_machine_configuration__image
+    =
+  { offer; publisher; sku; version }
+
+let single_server_configuration__virtual_machine_configuration__os_profile
+    ~admin_username ~ssh_private_key ~ssh_public_key () :
+    single_server_configuration__virtual_machine_configuration__os_profile
+    =
+  { admin_username; ssh_private_key; ssh_public_key }
+
+let single_server_configuration__virtual_machine_configuration
+    ~virtual_machine_size ~image ~os_profile () :
+    single_server_configuration__virtual_machine_configuration =
+  { virtual_machine_size; image; os_profile }
+
+let single_server_configuration__virtual_machine_resource_names__data_disk
+    ~names ~volume_name () :
+    single_server_configuration__virtual_machine_resource_names__data_disk
+    =
+  { names; volume_name }
+
+let single_server_configuration__virtual_machine_resource_names
+    ?host_name ?network_interface_names ?os_disk_name
+    ?virtual_machine_name ~data_disk () :
+    single_server_configuration__virtual_machine_resource_names =
+  {
+    host_name;
+    network_interface_names;
+    os_disk_name;
+    virtual_machine_name;
+    data_disk;
+  }
+
+let single_server_configuration ?database_type ?secondary_ip_enabled
+    ~app_resource_group_name ~subnet_id ~disk_volume_configuration
+    ~virtual_machine_configuration ~virtual_machine_resource_names ()
+    : single_server_configuration =
+  {
+    app_resource_group_name;
+    database_type;
+    secondary_ip_enabled;
+    subnet_id;
+    disk_volume_configuration;
+    virtual_machine_configuration;
+    virtual_machine_resource_names;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_workloads_sap_single_node_virtual_instance ?id
+    ?managed_resource_group_name ?tags ?timeouts ~app_location
+    ~environment ~location ~name ~resource_group_name ~sap_fqdn
+    ~sap_product ~identity ~single_server_configuration () :
+    azurerm_workloads_sap_single_node_virtual_instance =
+  {
+    app_location;
+    environment;
+    id;
+    location;
+    managed_resource_group_name;
+    name;
+    resource_group_name;
+    sap_fqdn;
+    sap_product;
+    tags;
+    identity;
+    single_server_configuration;
+    timeouts;
+  }
 
 type t = {
   app_location : string prop;
@@ -136,33 +209,20 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_workloads_sap_single_node_virtual_instance ?id
-    ?managed_resource_group_name ?tags ?timeouts ~app_location
-    ~environment ~location ~name ~resource_group_name ~sap_fqdn
-    ~sap_product ~identity ~single_server_configuration __resource_id
-    =
+let register ?tf_module ?id ?managed_resource_group_name ?tags
+    ?timeouts ~app_location ~environment ~location ~name
+    ~resource_group_name ~sap_fqdn ~sap_product ~identity
+    ~single_server_configuration __resource_id =
   let __resource_type =
     "azurerm_workloads_sap_single_node_virtual_instance"
   in
   let __resource =
-    ({
-       app_location;
-       environment;
-       id;
-       location;
-       managed_resource_group_name;
-       name;
-       resource_group_name;
-       sap_fqdn;
-       sap_product;
-       tags;
-       identity;
-       single_server_configuration;
-       timeouts;
-     }
-      : azurerm_workloads_sap_single_node_virtual_instance)
+    azurerm_workloads_sap_single_node_virtual_instance ?id
+      ?managed_resource_group_name ?tags ?timeouts ~app_location
+      ~environment ~location ~name ~resource_group_name ~sap_fqdn
+      ~sap_product ~identity ~single_server_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_workloads_sap_single_node_virtual_instance
        __resource);
   let __resource_attributes =

@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_cx_version__timeouts *)
+(** timeouts *)
 
-type google_dialogflow_cx_version__nlu_settings = {
+type nlu_settings = {
   classification_threshold : float prop;
       (** classification_threshold *)
   model_training_mode : string prop;  (** model_training_mode *)
@@ -29,10 +29,17 @@ type google_dialogflow_cx_version = {
   parent : string prop option; [@option]
       (** The Flow to create an Version for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>. *)
-  timeouts : google_dialogflow_cx_version__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_version *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_cx_version ?description ?id ?parent ?timeouts
+    ~display_name () : google_dialogflow_cx_version =
+  { description; display_name; id; parent; timeouts }
 
 type t = {
   create_time : string prop;
@@ -40,20 +47,19 @@ type t = {
   display_name : string prop;
   id : string prop;
   name : string prop;
-  nlu_settings :
-    google_dialogflow_cx_version__nlu_settings list prop;
+  nlu_settings : nlu_settings list prop;
   parent : string prop;
   state : string prop;
 }
 
-let google_dialogflow_cx_version ?description ?id ?parent ?timeouts
+let register ?tf_module ?description ?id ?parent ?timeouts
     ~display_name __resource_id =
   let __resource_type = "google_dialogflow_cx_version" in
   let __resource =
-    ({ description; display_name; id; parent; timeouts }
-      : google_dialogflow_cx_version)
+    google_dialogflow_cx_version ?description ?id ?parent ?timeouts
+      ~display_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_version __resource);
   let __resource_attributes =
     ({

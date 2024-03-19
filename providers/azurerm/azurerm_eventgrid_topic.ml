@@ -4,25 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_eventgrid_topic__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventgrid_topic__identity *)
+(** identity *)
 
-type azurerm_eventgrid_topic__input_mapping_default_values = {
+type input_mapping_default_values = {
   data_version : string prop option; [@option]  (** data_version *)
   event_type : string prop option; [@option]  (** event_type *)
   subject : string prop option; [@option]  (** subject *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventgrid_topic__input_mapping_default_values *)
+(** input_mapping_default_values *)
 
-type azurerm_eventgrid_topic__input_mapping_fields = {
+type input_mapping_fields = {
   data_version : string prop option; [@option]  (** data_version *)
   event_time : string prop option; [@option]  (** event_time *)
   event_type : string prop option; [@option]  (** event_type *)
@@ -31,18 +29,18 @@ type azurerm_eventgrid_topic__input_mapping_fields = {
   topic : string prop option; [@option]  (** topic *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventgrid_topic__input_mapping_fields *)
+(** input_mapping_fields *)
 
-type azurerm_eventgrid_topic__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_eventgrid_topic__timeouts *)
+(** timeouts *)
 
-type azurerm_eventgrid_topic__inbound_ip_rule = {
+type inbound_ip_rule = {
   action : string prop;  (** action *)
   ip_mask : string prop;  (** ip_mask *)
 }
@@ -50,9 +48,7 @@ type azurerm_eventgrid_topic__inbound_ip_rule = {
 
 type azurerm_eventgrid_topic = {
   id : string prop option; [@option]  (** id *)
-  inbound_ip_rule :
-    azurerm_eventgrid_topic__inbound_ip_rule list option;
-      [@option]
+  inbound_ip_rule : inbound_ip_rule list option; [@option]
       (** inbound_ip_rule *)
   input_schema : string prop option; [@option]  (** input_schema *)
   local_auth_enabled : bool prop option; [@option]
@@ -63,21 +59,53 @@ type azurerm_eventgrid_topic = {
       (** public_network_access_enabled *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  identity : azurerm_eventgrid_topic__identity list;
-  input_mapping_default_values :
-    azurerm_eventgrid_topic__input_mapping_default_values list;
-  input_mapping_fields :
-    azurerm_eventgrid_topic__input_mapping_fields list;
-  timeouts : azurerm_eventgrid_topic__timeouts option;
+  identity : identity list;
+  input_mapping_default_values : input_mapping_default_values list;
+  input_mapping_fields : input_mapping_fields list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_topic *)
 
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let input_mapping_default_values ?data_version ?event_type ?subject
+    () : input_mapping_default_values =
+  { data_version; event_type; subject }
+
+let input_mapping_fields ?data_version ?event_time ?event_type ?id
+    ?subject ?topic () : input_mapping_fields =
+  { data_version; event_time; event_type; id; subject; topic }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
+    ?local_auth_enabled ?public_network_access_enabled ?tags
+    ?timeouts ~location ~name ~resource_group_name ~identity
+    ~input_mapping_default_values ~input_mapping_fields () :
+    azurerm_eventgrid_topic =
+  {
+    id;
+    inbound_ip_rule;
+    input_schema;
+    local_auth_enabled;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    tags;
+    identity;
+    input_mapping_default_values;
+    input_mapping_fields;
+    timeouts;
+  }
+
 type t = {
   endpoint : string prop;
   id : string prop;
-  inbound_ip_rule :
-    azurerm_eventgrid_topic__inbound_ip_rule list prop;
+  inbound_ip_rule : inbound_ip_rule list prop;
   input_schema : string prop;
   local_auth_enabled : bool prop;
   location : string prop;
@@ -89,31 +117,19 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
+let register ?tf_module ?id ?inbound_ip_rule ?input_schema
     ?local_auth_enabled ?public_network_access_enabled ?tags
     ?timeouts ~location ~name ~resource_group_name ~identity
     ~input_mapping_default_values ~input_mapping_fields __resource_id
     =
   let __resource_type = "azurerm_eventgrid_topic" in
   let __resource =
-    ({
-       id;
-       inbound_ip_rule;
-       input_schema;
-       local_auth_enabled;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       tags;
-       identity;
-       input_mapping_default_values;
-       input_mapping_fields;
-       timeouts;
-     }
-      : azurerm_eventgrid_topic)
+    azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
+      ?local_auth_enabled ?public_network_access_enabled ?tags
+      ?timeouts ~location ~name ~resource_group_name ~identity
+      ~input_mapping_default_values ~input_mapping_fields ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventgrid_topic __resource);
   let __resource_attributes =
     ({

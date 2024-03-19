@@ -2,19 +2,85 @@
 
 open! Tf.Prelude
 
-type kubernetes_endpoint_slice_v1__endpoint__condition
-type kubernetes_endpoint_slice_v1__endpoint__target_ref
-type kubernetes_endpoint_slice_v1__endpoint
-type kubernetes_endpoint_slice_v1__metadata
-type kubernetes_endpoint_slice_v1__port
+(** RESOURCE SERIALIZATION *)
+
+type endpoint__condition
+
+val endpoint__condition :
+  ?ready:bool prop ->
+  ?serving:bool prop ->
+  ?terminating:bool prop ->
+  unit ->
+  endpoint__condition
+
+type endpoint__target_ref
+
+val endpoint__target_ref :
+  ?field_path:string prop ->
+  ?namespace:string prop ->
+  ?resource_version:string prop ->
+  ?uid:string prop ->
+  name:string prop ->
+  unit ->
+  endpoint__target_ref
+
+type endpoint
+
+val endpoint :
+  ?hostname:string prop ->
+  ?node_name:string prop ->
+  ?zone:string prop ->
+  addresses:string prop list ->
+  condition:endpoint__condition list ->
+  target_ref:endpoint__target_ref list ->
+  unit ->
+  endpoint
+
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?namespace:string prop ->
+  unit ->
+  metadata
+
+type port
+
+val port :
+  ?name:string prop ->
+  ?protocol:string prop ->
+  app_protocol:string prop ->
+  port:string prop ->
+  unit ->
+  port
+
 type kubernetes_endpoint_slice_v1
-type t = private { address_type : string prop; id : string prop }
 
 val kubernetes_endpoint_slice_v1 :
   ?id:string prop ->
   address_type:string prop ->
-  endpoint:kubernetes_endpoint_slice_v1__endpoint list ->
-  metadata:kubernetes_endpoint_slice_v1__metadata list ->
-  port:kubernetes_endpoint_slice_v1__port list ->
+  endpoint:endpoint list ->
+  metadata:metadata list ->
+  port:port list ->
+  unit ->
+  kubernetes_endpoint_slice_v1
+
+val yojson_of_kubernetes_endpoint_slice_v1 :
+  kubernetes_endpoint_slice_v1 -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { address_type : string prop; id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  address_type:string prop ->
+  endpoint:endpoint list ->
+  metadata:metadata list ->
+  port:port list ->
   string ->
   t

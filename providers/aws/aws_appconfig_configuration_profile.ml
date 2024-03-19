@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_appconfig_configuration_profile__validator = {
+type validator = {
   content : string prop option; [@option]  (** content *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_appconfig_configuration_profile__validator *)
+(** validator *)
 
 type aws_appconfig_configuration_profile = {
   application_id : string prop;  (** application_id *)
@@ -25,10 +25,30 @@ type aws_appconfig_configuration_profile = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  validator : aws_appconfig_configuration_profile__validator list;
+  validator : validator list;
 }
 [@@deriving yojson_of]
 (** aws_appconfig_configuration_profile *)
+
+let validator ?content ~type_ () : validator = { content; type_ }
+
+let aws_appconfig_configuration_profile ?description ?id
+    ?kms_key_identifier ?retrieval_role_arn ?tags ?tags_all ?type_
+    ~application_id ~location_uri ~name ~validator () :
+    aws_appconfig_configuration_profile =
+  {
+    application_id;
+    description;
+    id;
+    kms_key_identifier;
+    location_uri;
+    name;
+    retrieval_role_arn;
+    tags;
+    tags_all;
+    type_;
+    validator;
+  }
 
 type t = {
   application_id : string prop;
@@ -45,27 +65,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_appconfig_configuration_profile ?description ?id
-    ?kms_key_identifier ?retrieval_role_arn ?tags ?tags_all ?type_
-    ~application_id ~location_uri ~name ~validator __resource_id =
+let register ?tf_module ?description ?id ?kms_key_identifier
+    ?retrieval_role_arn ?tags ?tags_all ?type_ ~application_id
+    ~location_uri ~name ~validator __resource_id =
   let __resource_type = "aws_appconfig_configuration_profile" in
   let __resource =
-    ({
-       application_id;
-       description;
-       id;
-       kms_key_identifier;
-       location_uri;
-       name;
-       retrieval_role_arn;
-       tags;
-       tags_all;
-       type_;
-       validator;
-     }
-      : aws_appconfig_configuration_profile)
+    aws_appconfig_configuration_profile ?description ?id
+      ?kms_key_identifier ?retrieval_role_arn ?tags ?tags_all ?type_
+      ~application_id ~location_uri ~name ~validator ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_configuration_profile __resource);
   let __resource_attributes =
     ({

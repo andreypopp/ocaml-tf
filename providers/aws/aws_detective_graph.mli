@@ -2,7 +2,20 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_detective_graph
+
+val aws_detective_graph :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  unit ->
+  aws_detective_graph
+
+val yojson_of_aws_detective_graph : aws_detective_graph -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   created_time : string prop;
@@ -12,7 +25,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_detective_graph :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

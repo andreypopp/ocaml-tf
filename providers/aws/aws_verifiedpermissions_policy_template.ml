@@ -12,6 +12,11 @@ type aws_verifiedpermissions_policy_template = {
 [@@deriving yojson_of]
 (** aws_verifiedpermissions_policy_template *)
 
+let aws_verifiedpermissions_policy_template ?description
+    ~policy_store_id ~statement () :
+    aws_verifiedpermissions_policy_template =
+  { description; policy_store_id; statement }
+
 type t = {
   created_date : string prop;
   description : string prop;
@@ -21,14 +26,14 @@ type t = {
   statement : string prop;
 }
 
-let aws_verifiedpermissions_policy_template ?description
-    ~policy_store_id ~statement __resource_id =
+let register ?tf_module ?description ~policy_store_id ~statement
+    __resource_id =
   let __resource_type = "aws_verifiedpermissions_policy_template" in
   let __resource =
-    ({ description; policy_store_id; statement }
-      : aws_verifiedpermissions_policy_template)
+    aws_verifiedpermissions_policy_template ?description
+      ~policy_store_id ~statement ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedpermissions_policy_template __resource);
   let __resource_attributes =
     ({

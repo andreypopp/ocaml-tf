@@ -2,10 +2,51 @@
 
 open! Tf.Prelude
 
-type azurerm_video_analyzer__identity
-type azurerm_video_analyzer__storage_account
-type azurerm_video_analyzer__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type storage_account
+
+val storage_account :
+  id:string prop ->
+  user_assigned_identity_id:string prop ->
+  unit ->
+  storage_account
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_video_analyzer
+
+val azurerm_video_analyzer :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  storage_account:storage_account list ->
+  unit ->
+  azurerm_video_analyzer
+
+val yojson_of_azurerm_video_analyzer : azurerm_video_analyzer -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,14 +56,15 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_video_analyzer :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_video_analyzer__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_video_analyzer__identity list ->
-  storage_account:azurerm_video_analyzer__storage_account list ->
+  identity:identity list ->
+  storage_account:storage_account list ->
   string ->
   t

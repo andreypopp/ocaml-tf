@@ -16,6 +16,17 @@ type aws_db_proxy_target = {
 [@@deriving yojson_of]
 (** aws_db_proxy_target *)
 
+let aws_db_proxy_target ?db_cluster_identifier
+    ?db_instance_identifier ?id ~db_proxy_name ~target_group_name ()
+    : aws_db_proxy_target =
+  {
+    db_cluster_identifier;
+    db_instance_identifier;
+    db_proxy_name;
+    id;
+    target_group_name;
+  }
+
 type t = {
   db_cluster_identifier : string prop;
   db_instance_identifier : string prop;
@@ -30,21 +41,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_db_proxy_target ?db_cluster_identifier
+let register ?tf_module ?db_cluster_identifier
     ?db_instance_identifier ?id ~db_proxy_name ~target_group_name
     __resource_id =
   let __resource_type = "aws_db_proxy_target" in
   let __resource =
-    ({
-       db_cluster_identifier;
-       db_instance_identifier;
-       db_proxy_name;
-       id;
-       target_group_name;
-     }
-      : aws_db_proxy_target)
+    aws_db_proxy_target ?db_cluster_identifier
+      ?db_instance_identifier ?id ~db_proxy_name ~target_group_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_proxy_target __resource);
   let __resource_attributes =
     ({

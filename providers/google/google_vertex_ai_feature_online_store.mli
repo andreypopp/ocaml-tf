@@ -2,10 +2,49 @@
 
 open! Tf.Prelude
 
-type google_vertex_ai_feature_online_store__bigtable__auto_scaling
-type google_vertex_ai_feature_online_store__bigtable
-type google_vertex_ai_feature_online_store__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type bigtable__auto_scaling
+
+val bigtable__auto_scaling :
+  ?cpu_utilization_target:float prop ->
+  max_node_count:float prop ->
+  min_node_count:float prop ->
+  unit ->
+  bigtable__auto_scaling
+
+type bigtable
+
+val bigtable :
+  auto_scaling:bigtable__auto_scaling list -> unit -> bigtable
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_vertex_ai_feature_online_store
+
+val google_vertex_ai_feature_online_store :
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  bigtable:bigtable list ->
+  unit ->
+  google_vertex_ai_feature_online_store
+
+val yojson_of_google_vertex_ai_feature_online_store :
+  google_vertex_ai_feature_online_store -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -22,14 +61,15 @@ type t = private {
   update_time : string prop;
 }
 
-val google_vertex_ai_feature_online_store :
+val register :
+  ?tf_module:tf_module ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
-  ?timeouts:google_vertex_ai_feature_online_store__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  bigtable:google_vertex_ai_feature_online_store__bigtable list ->
+  bigtable:bigtable list ->
   string ->
   t

@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type kubernetes_config_map__metadata
+(** RESOURCE SERIALIZATION *)
+
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?namespace:string prop ->
+  unit ->
+  metadata
+
 type kubernetes_config_map
+
+val kubernetes_config_map :
+  ?binary_data:(string * string prop) list ->
+  ?data:(string * string prop) list ->
+  ?id:string prop ->
+  ?immutable:bool prop ->
+  metadata:metadata list ->
+  unit ->
+  kubernetes_config_map
+
+val yojson_of_kubernetes_config_map : kubernetes_config_map -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   binary_data : (string * string) list prop;
@@ -12,11 +37,12 @@ type t = private {
   immutable : bool prop;
 }
 
-val kubernetes_config_map :
+val register :
+  ?tf_module:tf_module ->
   ?binary_data:(string * string prop) list ->
   ?data:(string * string prop) list ->
   ?id:string prop ->
   ?immutable:bool prop ->
-  metadata:kubernetes_config_map__metadata list ->
+  metadata:metadata list ->
   string ->
   t

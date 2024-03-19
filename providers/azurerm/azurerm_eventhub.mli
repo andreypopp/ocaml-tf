@@ -2,10 +2,58 @@
 
 open! Tf.Prelude
 
-type azurerm_eventhub__capture_description__destination
-type azurerm_eventhub__capture_description
-type azurerm_eventhub__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type capture_description__destination
+
+val capture_description__destination :
+  archive_name_format:string prop ->
+  blob_container_name:string prop ->
+  name:string prop ->
+  storage_account_id:string prop ->
+  unit ->
+  capture_description__destination
+
+type capture_description
+
+val capture_description :
+  ?interval_in_seconds:float prop ->
+  ?size_limit_in_bytes:float prop ->
+  ?skip_empty_archives:bool prop ->
+  enabled:bool prop ->
+  encoding:string prop ->
+  destination:capture_description__destination list ->
+  unit ->
+  capture_description
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_eventhub
+
+val azurerm_eventhub :
+  ?id:string prop ->
+  ?status:string prop ->
+  ?timeouts:timeouts ->
+  message_retention:float prop ->
+  name:string prop ->
+  namespace_name:string prop ->
+  partition_count:float prop ->
+  resource_group_name:string prop ->
+  capture_description:capture_description list ->
+  unit ->
+  azurerm_eventhub
+
+val yojson_of_azurerm_eventhub : azurerm_eventhub -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -18,15 +66,16 @@ type t = private {
   status : string prop;
 }
 
-val azurerm_eventhub :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?status:string prop ->
-  ?timeouts:azurerm_eventhub__timeouts ->
+  ?timeouts:timeouts ->
   message_retention:float prop ->
   name:string prop ->
   namespace_name:string prop ->
   partition_count:float prop ->
   resource_group_name:string prop ->
-  capture_description:azurerm_eventhub__capture_description list ->
+  capture_description:capture_description list ->
   string ->
   t

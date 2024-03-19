@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_codestarconnections_connection
+
+val aws_codestarconnections_connection :
+  ?host_arn:string prop ->
+  ?id:string prop ->
+  ?provider_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  aws_codestarconnections_connection
+
+val yojson_of_aws_codestarconnections_connection :
+  aws_codestarconnections_connection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,7 +32,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_codestarconnections_connection :
+val register :
+  ?tf_module:tf_module ->
   ?host_arn:string prop ->
   ?id:string prop ->
   ?provider_type:string prop ->

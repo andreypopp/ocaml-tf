@@ -2,11 +2,70 @@
 
 open! Tf.Prelude
 
-type aws_verifiedaccess_endpoint__load_balancer_options
-type aws_verifiedaccess_endpoint__network_interface_options
-type aws_verifiedaccess_endpoint__sse_specification
-type aws_verifiedaccess_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type load_balancer_options
+
+val load_balancer_options :
+  ?load_balancer_arn:string prop ->
+  ?port:float prop ->
+  ?protocol:string prop ->
+  ?subnet_ids:string prop list ->
+  unit ->
+  load_balancer_options
+
+type network_interface_options
+
+val network_interface_options :
+  ?network_interface_id:string prop ->
+  ?port:float prop ->
+  ?protocol:string prop ->
+  unit ->
+  network_interface_options
+
+type sse_specification
+
+val sse_specification :
+  ?customer_managed_key_enabled:bool prop ->
+  ?kms_key_arn:string prop ->
+  unit ->
+  sse_specification
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_verifiedaccess_endpoint
+
+val aws_verifiedaccess_endpoint :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?policy_document:string prop ->
+  ?security_group_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  application_domain:string prop ->
+  attachment_type:string prop ->
+  domain_certificate_arn:string prop ->
+  endpoint_domain_prefix:string prop ->
+  endpoint_type:string prop ->
+  verified_access_group_id:string prop ->
+  load_balancer_options:load_balancer_options list ->
+  network_interface_options:network_interface_options list ->
+  sse_specification:sse_specification list ->
+  unit ->
+  aws_verifiedaccess_endpoint
+
+val yojson_of_aws_verifiedaccess_endpoint :
+  aws_verifiedaccess_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_domain : string prop;
@@ -26,25 +85,23 @@ type t = private {
   verified_access_instance_id : string prop;
 }
 
-val aws_verifiedaccess_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?policy_document:string prop ->
   ?security_group_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_verifiedaccess_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   application_domain:string prop ->
   attachment_type:string prop ->
   domain_certificate_arn:string prop ->
   endpoint_domain_prefix:string prop ->
   endpoint_type:string prop ->
   verified_access_group_id:string prop ->
-  load_balancer_options:
-    aws_verifiedaccess_endpoint__load_balancer_options list ->
-  network_interface_options:
-    aws_verifiedaccess_endpoint__network_interface_options list ->
-  sse_specification:
-    aws_verifiedaccess_endpoint__sse_specification list ->
+  load_balancer_options:load_balancer_options list ->
+  network_interface_options:network_interface_options list ->
+  sse_specification:sse_specification list ->
   string ->
   t

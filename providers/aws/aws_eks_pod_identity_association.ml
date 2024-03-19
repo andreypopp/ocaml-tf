@@ -14,6 +14,11 @@ type aws_eks_pod_identity_association = {
 [@@deriving yojson_of]
 (** aws_eks_pod_identity_association *)
 
+let aws_eks_pod_identity_association ?tags ~cluster_name ~namespace
+    ~role_arn ~service_account () : aws_eks_pod_identity_association
+    =
+  { cluster_name; namespace; role_arn; service_account; tags }
+
 type t = {
   association_arn : string prop;
   association_id : string prop;
@@ -26,14 +31,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_eks_pod_identity_association ?tags ~cluster_name ~namespace
-    ~role_arn ~service_account __resource_id =
+let register ?tf_module ?tags ~cluster_name ~namespace ~role_arn
+    ~service_account __resource_id =
   let __resource_type = "aws_eks_pod_identity_association" in
   let __resource =
-    ({ cluster_name; namespace; role_arn; service_account; tags }
-      : aws_eks_pod_identity_association)
+    aws_eks_pod_identity_association ?tags ~cluster_name ~namespace
+      ~role_arn ~service_account ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_pod_identity_association __resource);
   let __resource_attributes =
     ({

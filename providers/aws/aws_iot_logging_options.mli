@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_iot_logging_options
+
+val aws_iot_logging_options :
+  ?disable_all_logs:bool prop ->
+  ?id:string prop ->
+  default_log_level:string prop ->
+  role_arn:string prop ->
+  unit ->
+  aws_iot_logging_options
+
+val yojson_of_aws_iot_logging_options :
+  aws_iot_logging_options -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   default_log_level : string prop;
@@ -11,7 +26,8 @@ type t = private {
   role_arn : string prop;
 }
 
-val aws_iot_logging_options :
+val register :
+  ?tf_module:tf_module ->
   ?disable_all_logs:bool prop ->
   ?id:string prop ->
   default_log_level:string prop ->

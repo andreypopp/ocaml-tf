@@ -2,8 +2,38 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_connection_service_principal__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_automation_connection_service_principal
+
+val azurerm_automation_connection_service_principal :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  application_id:string prop ->
+  automation_account_name:string prop ->
+  certificate_thumbprint:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  subscription_id:string prop ->
+  tenant_id:string prop ->
+  unit ->
+  azurerm_automation_connection_service_principal
+
+val yojson_of_azurerm_automation_connection_service_principal :
+  azurerm_automation_connection_service_principal -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -17,10 +47,11 @@ type t = private {
   tenant_id : string prop;
 }
 
-val azurerm_automation_connection_service_principal :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_automation_connection_service_principal__timeouts ->
+  ?timeouts:timeouts ->
   application_id:string prop ->
   automation_account_name:string prop ->
   certificate_thumbprint:string prop ->

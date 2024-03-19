@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_ssoadmin_account_assignment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_ssoadmin_account_assignment
+
+val aws_ssoadmin_account_assignment :
+  ?id:string prop ->
+  ?target_type:string prop ->
+  ?timeouts:timeouts ->
+  instance_arn:string prop ->
+  permission_set_arn:string prop ->
+  principal_id:string prop ->
+  principal_type:string prop ->
+  target_id:string prop ->
+  unit ->
+  aws_ssoadmin_account_assignment
+
+val yojson_of_aws_ssoadmin_account_assignment :
+  aws_ssoadmin_account_assignment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,10 +38,11 @@ type t = private {
   target_type : string prop;
 }
 
-val aws_ssoadmin_account_assignment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?target_type:string prop ->
-  ?timeouts:aws_ssoadmin_account_assignment__timeouts ->
+  ?timeouts:timeouts ->
   instance_arn:string prop ->
   permission_set_arn:string prop ->
   principal_id:string prop ->

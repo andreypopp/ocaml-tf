@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_application_insights_api_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_application_insights_api_key__timeouts *)
+(** timeouts *)
 
 type azurerm_application_insights_api_key = {
   application_insights_id : string prop;
@@ -21,10 +21,25 @@ type azurerm_application_insights_api_key = {
       (** read_permissions *)
   write_permissions : string prop list option; [@option]
       (** write_permissions *)
-  timeouts : azurerm_application_insights_api_key__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_api_key *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_application_insights_api_key ?id ?read_permissions
+    ?write_permissions ?timeouts ~application_insights_id ~name () :
+    azurerm_application_insights_api_key =
+  {
+    application_insights_id;
+    id;
+    name;
+    read_permissions;
+    write_permissions;
+    timeouts;
+  }
 
 type t = {
   api_key : string prop;
@@ -35,22 +50,14 @@ type t = {
   write_permissions : string list prop;
 }
 
-let azurerm_application_insights_api_key ?id ?read_permissions
-    ?write_permissions ?timeouts ~application_insights_id ~name
-    __resource_id =
+let register ?tf_module ?id ?read_permissions ?write_permissions
+    ?timeouts ~application_insights_id ~name __resource_id =
   let __resource_type = "azurerm_application_insights_api_key" in
   let __resource =
-    ({
-       application_insights_id;
-       id;
-       name;
-       read_permissions;
-       write_permissions;
-       timeouts;
-     }
-      : azurerm_application_insights_api_key)
+    azurerm_application_insights_api_key ?id ?read_permissions
+      ?write_permissions ?timeouts ~application_insights_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_insights_api_key __resource);
   let __resource_attributes =
     ({

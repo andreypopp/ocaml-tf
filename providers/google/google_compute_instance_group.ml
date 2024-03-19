@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_instance_group__named_port = {
+type named_port = {
   name : string prop;
       (** The name which the port will be mapped to. *)
   port : float prop;  (** The port number to map the name to. *)
@@ -12,13 +12,13 @@ type google_compute_instance_group__named_port = {
 [@@deriving yojson_of]
 (** The named port configuration. *)
 
-type google_compute_instance_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_instance_group__timeouts *)
+(** timeouts *)
 
 type google_compute_instance_group = {
   description : string prop option; [@option]
@@ -34,11 +34,31 @@ type google_compute_instance_group = {
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   zone : string prop option; [@option]
       (** The zone that this instance group should be created in. *)
-  named_port : google_compute_instance_group__named_port list;
-  timeouts : google_compute_instance_group__timeouts option;
+  named_port : named_port list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_instance_group *)
+
+let named_port ~name ~port () : named_port = { name; port }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_instance_group ?description ?id ?instances
+    ?network ?project ?zone ?timeouts ~name ~named_port () :
+    google_compute_instance_group =
+  {
+    description;
+    id;
+    instances;
+    name;
+    network;
+    project;
+    zone;
+    named_port;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -52,25 +72,14 @@ type t = {
   zone : string prop;
 }
 
-let google_compute_instance_group ?description ?id ?instances
-    ?network ?project ?zone ?timeouts ~name ~named_port __resource_id
-    =
+let register ?tf_module ?description ?id ?instances ?network ?project
+    ?zone ?timeouts ~name ~named_port __resource_id =
   let __resource_type = "google_compute_instance_group" in
   let __resource =
-    ({
-       description;
-       id;
-       instances;
-       name;
-       network;
-       project;
-       zone;
-       named_port;
-       timeouts;
-     }
-      : google_compute_instance_group)
+    google_compute_instance_group ?description ?id ?instances
+      ?network ?project ?zone ?timeouts ~name ~named_port ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_instance_group __resource);
   let __resource_attributes =
     ({

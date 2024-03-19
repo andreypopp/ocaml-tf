@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_opensearchserverless_collection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
 [@@deriving yojson_of]
-(** aws_opensearchserverless_collection__timeouts *)
+(** timeouts *)
 
 type aws_opensearchserverless_collection = {
   description : string prop option; [@option]  (** description *)
@@ -20,10 +20,17 @@ type aws_opensearchserverless_collection = {
       (** standby_replicas *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  timeouts : aws_opensearchserverless_collection__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_opensearchserverless_collection *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_opensearchserverless_collection ?description
+    ?standby_replicas ?tags ?type_ ?timeouts ~name () :
+    aws_opensearchserverless_collection =
+  { description; name; standby_replicas; tags; type_; timeouts }
 
 type t = {
   arn : string prop;
@@ -39,14 +46,14 @@ type t = {
   type_ : string prop;
 }
 
-let aws_opensearchserverless_collection ?description
-    ?standby_replicas ?tags ?type_ ?timeouts ~name __resource_id =
+let register ?tf_module ?description ?standby_replicas ?tags ?type_
+    ?timeouts ~name __resource_id =
   let __resource_type = "aws_opensearchserverless_collection" in
   let __resource =
-    ({ description; name; standby_replicas; tags; type_; timeouts }
-      : aws_opensearchserverless_collection)
+    aws_opensearchserverless_collection ?description
+      ?standby_replicas ?tags ?type_ ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearchserverless_collection __resource);
   let __resource_attributes =
     ({

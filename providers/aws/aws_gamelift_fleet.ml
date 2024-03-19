@@ -4,58 +4,57 @@
 
 open! Tf.Prelude
 
-type aws_gamelift_fleet__certificate_configuration = {
+type certificate_configuration = {
   certificate_type : string prop option; [@option]
       (** certificate_type *)
 }
 [@@deriving yojson_of]
-(** aws_gamelift_fleet__certificate_configuration *)
+(** certificate_configuration *)
 
-type aws_gamelift_fleet__ec2_inbound_permission = {
+type ec2_inbound_permission = {
   from_port : float prop;  (** from_port *)
   ip_range : string prop;  (** ip_range *)
   protocol : string prop;  (** protocol *)
   to_port : float prop;  (** to_port *)
 }
 [@@deriving yojson_of]
-(** aws_gamelift_fleet__ec2_inbound_permission *)
+(** ec2_inbound_permission *)
 
-type aws_gamelift_fleet__resource_creation_limit_policy = {
+type resource_creation_limit_policy = {
   new_game_sessions_per_creator : float prop option; [@option]
       (** new_game_sessions_per_creator *)
   policy_period_in_minutes : float prop option; [@option]
       (** policy_period_in_minutes *)
 }
 [@@deriving yojson_of]
-(** aws_gamelift_fleet__resource_creation_limit_policy *)
+(** resource_creation_limit_policy *)
 
-type aws_gamelift_fleet__runtime_configuration__server_process = {
+type runtime_configuration__server_process = {
   concurrent_executions : float prop;  (** concurrent_executions *)
   launch_path : string prop;  (** launch_path *)
   parameters : string prop option; [@option]  (** parameters *)
 }
 [@@deriving yojson_of]
-(** aws_gamelift_fleet__runtime_configuration__server_process *)
+(** runtime_configuration__server_process *)
 
-type aws_gamelift_fleet__runtime_configuration = {
+type runtime_configuration = {
   game_session_activation_timeout_seconds : float prop option;
       [@option]
       (** game_session_activation_timeout_seconds *)
   max_concurrent_game_session_activations : float prop option;
       [@option]
       (** max_concurrent_game_session_activations *)
-  server_process :
-    aws_gamelift_fleet__runtime_configuration__server_process list;
+  server_process : runtime_configuration__server_process list;
 }
 [@@deriving yojson_of]
-(** aws_gamelift_fleet__runtime_configuration *)
+(** runtime_configuration *)
 
-type aws_gamelift_fleet__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_gamelift_fleet__timeouts *)
+(** timeouts *)
 
 type aws_gamelift_fleet = {
   build_id : string prop option; [@option]  (** build_id *)
@@ -74,18 +73,69 @@ type aws_gamelift_fleet = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  certificate_configuration :
-    aws_gamelift_fleet__certificate_configuration list;
-  ec2_inbound_permission :
-    aws_gamelift_fleet__ec2_inbound_permission list;
+  certificate_configuration : certificate_configuration list;
+  ec2_inbound_permission : ec2_inbound_permission list;
   resource_creation_limit_policy :
-    aws_gamelift_fleet__resource_creation_limit_policy list;
-  runtime_configuration :
-    aws_gamelift_fleet__runtime_configuration list;
-  timeouts : aws_gamelift_fleet__timeouts option;
+    resource_creation_limit_policy list;
+  runtime_configuration : runtime_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_gamelift_fleet *)
+
+let certificate_configuration ?certificate_type () :
+    certificate_configuration =
+  { certificate_type }
+
+let ec2_inbound_permission ~from_port ~ip_range ~protocol ~to_port ()
+    : ec2_inbound_permission =
+  { from_port; ip_range; protocol; to_port }
+
+let resource_creation_limit_policy ?new_game_sessions_per_creator
+    ?policy_period_in_minutes () : resource_creation_limit_policy =
+  { new_game_sessions_per_creator; policy_period_in_minutes }
+
+let runtime_configuration__server_process ?parameters
+    ~concurrent_executions ~launch_path () :
+    runtime_configuration__server_process =
+  { concurrent_executions; launch_path; parameters }
+
+let runtime_configuration ?game_session_activation_timeout_seconds
+    ?max_concurrent_game_session_activations ~server_process () :
+    runtime_configuration =
+  {
+    game_session_activation_timeout_seconds;
+    max_concurrent_game_session_activations;
+    server_process;
+  }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
+    ?instance_role_arn ?metric_groups
+    ?new_game_session_protection_policy ?script_id ?tags ?tags_all
+    ?timeouts ~ec2_instance_type ~name ~certificate_configuration
+    ~ec2_inbound_permission ~resource_creation_limit_policy
+    ~runtime_configuration () : aws_gamelift_fleet =
+  {
+    build_id;
+    description;
+    ec2_instance_type;
+    fleet_type;
+    id;
+    instance_role_arn;
+    metric_groups;
+    name;
+    new_game_session_protection_policy;
+    script_id;
+    tags;
+    tags_all;
+    certificate_configuration;
+    ec2_inbound_permission;
+    resource_creation_limit_policy;
+    runtime_configuration;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -107,7 +157,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
+let register ?tf_module ?build_id ?description ?fleet_type ?id
     ?instance_role_arn ?metric_groups
     ?new_game_session_protection_policy ?script_id ?tags ?tags_all
     ?timeouts ~ec2_instance_type ~name ~certificate_configuration
@@ -115,28 +165,14 @@ let aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
     ~runtime_configuration __resource_id =
   let __resource_type = "aws_gamelift_fleet" in
   let __resource =
-    ({
-       build_id;
-       description;
-       ec2_instance_type;
-       fleet_type;
-       id;
-       instance_role_arn;
-       metric_groups;
-       name;
-       new_game_session_protection_policy;
-       script_id;
-       tags;
-       tags_all;
-       certificate_configuration;
-       ec2_inbound_permission;
-       resource_creation_limit_policy;
-       runtime_configuration;
-       timeouts;
-     }
-      : aws_gamelift_fleet)
+    aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
+      ?instance_role_arn ?metric_groups
+      ?new_game_session_protection_policy ?script_id ?tags ?tags_all
+      ?timeouts ~ec2_instance_type ~name ~certificate_configuration
+      ~ec2_inbound_permission ~resource_creation_limit_policy
+      ~runtime_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_fleet __resource);
   let __resource_attributes =
     ({

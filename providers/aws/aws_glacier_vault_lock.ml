@@ -15,6 +15,10 @@ type aws_glacier_vault_lock = {
 [@@deriving yojson_of]
 (** aws_glacier_vault_lock *)
 
+let aws_glacier_vault_lock ?id ?ignore_deletion_error ~complete_lock
+    ~policy ~vault_name () : aws_glacier_vault_lock =
+  { complete_lock; id; ignore_deletion_error; policy; vault_name }
+
 type t = {
   complete_lock : bool prop;
   id : string prop;
@@ -23,14 +27,14 @@ type t = {
   vault_name : string prop;
 }
 
-let aws_glacier_vault_lock ?id ?ignore_deletion_error ~complete_lock
+let register ?tf_module ?id ?ignore_deletion_error ~complete_lock
     ~policy ~vault_name __resource_id =
   let __resource_type = "aws_glacier_vault_lock" in
   let __resource =
-    ({ complete_lock; id; ignore_deletion_error; policy; vault_name }
-      : aws_glacier_vault_lock)
+    aws_glacier_vault_lock ?id ?ignore_deletion_error ~complete_lock
+      ~policy ~vault_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glacier_vault_lock __resource);
   let __resource_attributes =
     ({

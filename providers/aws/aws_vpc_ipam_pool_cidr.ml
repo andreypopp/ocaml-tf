@@ -4,19 +4,19 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipam_pool_cidr__cidr_authorization_context = {
+type cidr_authorization_context = {
   message : string prop option; [@option]  (** message *)
   signature : string prop option; [@option]  (** signature *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_ipam_pool_cidr__cidr_authorization_context *)
+(** cidr_authorization_context *)
 
-type aws_vpc_ipam_pool_cidr__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_ipam_pool_cidr__timeouts *)
+(** timeouts *)
 
 type aws_vpc_ipam_pool_cidr = {
   cidr : string prop option; [@option]  (** cidr *)
@@ -24,12 +24,29 @@ type aws_vpc_ipam_pool_cidr = {
   ipam_pool_id : string prop;  (** ipam_pool_id *)
   netmask_length : float prop option; [@option]
       (** netmask_length *)
-  cidr_authorization_context :
-    aws_vpc_ipam_pool_cidr__cidr_authorization_context list;
-  timeouts : aws_vpc_ipam_pool_cidr__timeouts option;
+  cidr_authorization_context : cidr_authorization_context list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipam_pool_cidr *)
+
+let cidr_authorization_context ?message ?signature () :
+    cidr_authorization_context =
+  { message; signature }
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length ?timeouts
+    ~ipam_pool_id ~cidr_authorization_context () :
+    aws_vpc_ipam_pool_cidr =
+  {
+    cidr;
+    id;
+    ipam_pool_id;
+    netmask_length;
+    cidr_authorization_context;
+    timeouts;
+  }
 
 type t = {
   cidr : string prop;
@@ -39,21 +56,14 @@ type t = {
   netmask_length : float prop;
 }
 
-let aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length ?timeouts
+let register ?tf_module ?cidr ?id ?netmask_length ?timeouts
     ~ipam_pool_id ~cidr_authorization_context __resource_id =
   let __resource_type = "aws_vpc_ipam_pool_cidr" in
   let __resource =
-    ({
-       cidr;
-       id;
-       ipam_pool_id;
-       netmask_length;
-       cidr_authorization_context;
-       timeouts;
-     }
-      : aws_vpc_ipam_pool_cidr)
+    aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length ?timeouts
+      ~ipam_pool_id ~cidr_authorization_context ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipam_pool_cidr __resource);
   let __resource_attributes =
     ({

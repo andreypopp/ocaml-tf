@@ -4,23 +4,22 @@
 
 open! Tf.Prelude
 
-type digitalocean_kubernetes_cluster__maintenance_policy = {
+type maintenance_policy = {
   day : string prop option; [@option]  (** day *)
-  duration : string prop;  (** duration *)
   start_time : string prop option; [@option]  (** start_time *)
 }
 [@@deriving yojson_of]
-(** digitalocean_kubernetes_cluster__maintenance_policy *)
+(** maintenance_policy *)
 
-type digitalocean_kubernetes_cluster__node_pool__taint = {
+type node_pool__taint = {
   effect : string prop;  (** effect *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** digitalocean_kubernetes_cluster__node_pool__taint *)
+(** node_pool__taint *)
 
-type digitalocean_kubernetes_cluster__node_pool__nodes = {
+type node_pool__nodes = {
   created_at : string prop;  (** created_at *)
   droplet_id : string prop;  (** droplet_id *)
   id : string prop;  (** id *)
@@ -30,32 +29,28 @@ type digitalocean_kubernetes_cluster__node_pool__nodes = {
 }
 [@@deriving yojson_of]
 
-type digitalocean_kubernetes_cluster__node_pool = {
-  actual_node_count : float prop;  (** actual_node_count *)
+type node_pool = {
   auto_scale : bool prop option; [@option]  (** auto_scale *)
-  id : string prop;  (** id *)
   labels : (string * string prop) list option; [@option]
       (** labels *)
   max_nodes : float prop option; [@option]  (** max_nodes *)
   min_nodes : float prop option; [@option]  (** min_nodes *)
   name : string prop;  (** name *)
   node_count : float prop option; [@option]  (** node_count *)
-  nodes : digitalocean_kubernetes_cluster__node_pool__nodes list;
-      (** nodes *)
   size : string prop;  (** size *)
   tags : string prop list option; [@option]  (** tags *)
-  taint : digitalocean_kubernetes_cluster__node_pool__taint list;
+  taint : node_pool__taint list;
 }
 [@@deriving yojson_of]
-(** digitalocean_kubernetes_cluster__node_pool *)
+(** node_pool *)
 
-type digitalocean_kubernetes_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** digitalocean_kubernetes_cluster__timeouts *)
+(** timeouts *)
 
-type digitalocean_kubernetes_cluster__kube_config = {
+type kube_config = {
   client_certificate : string prop;  (** client_certificate *)
   client_key : string prop;  (** client_key *)
   cluster_ca_certificate : string prop;
@@ -81,13 +76,56 @@ type digitalocean_kubernetes_cluster = {
   tags : string prop list option; [@option]  (** tags *)
   version : string prop;  (** version *)
   vpc_uuid : string prop option; [@option]  (** vpc_uuid *)
-  maintenance_policy :
-    digitalocean_kubernetes_cluster__maintenance_policy list;
-  node_pool : digitalocean_kubernetes_cluster__node_pool list;
-  timeouts : digitalocean_kubernetes_cluster__timeouts option;
+  maintenance_policy : maintenance_policy list;
+  node_pool : node_pool list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** digitalocean_kubernetes_cluster *)
+
+let maintenance_policy ?day ?start_time () : maintenance_policy =
+  { day; start_time }
+
+let node_pool__taint ~effect ~key ~value () : node_pool__taint =
+  { effect; key; value }
+
+let node_pool ?auto_scale ?labels ?max_nodes ?min_nodes ?node_count
+    ?tags ~name ~size ~taint () : node_pool =
+  {
+    auto_scale;
+    labels;
+    max_nodes;
+    min_nodes;
+    name;
+    node_count;
+    size;
+    tags;
+    taint;
+  }
+
+let timeouts ?create () : timeouts = { create }
+
+let digitalocean_kubernetes_cluster ?auto_upgrade
+    ?destroy_all_associated_resources ?ha ?id ?registry_integration
+    ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
+    ~maintenance_policy ~node_pool () :
+    digitalocean_kubernetes_cluster =
+  {
+    auto_upgrade;
+    destroy_all_associated_resources;
+    ha;
+    id;
+    name;
+    region;
+    registry_integration;
+    surge_upgrade;
+    tags;
+    version;
+    vpc_uuid;
+    maintenance_policy;
+    node_pool;
+    timeouts;
+  }
 
 type t = {
   auto_upgrade : bool prop;
@@ -98,8 +136,7 @@ type t = {
   ha : bool prop;
   id : string prop;
   ipv4_address : string prop;
-  kube_config :
-    digitalocean_kubernetes_cluster__kube_config list prop;
+  kube_config : kube_config list prop;
   name : string prop;
   region : string prop;
   registry_integration : bool prop;
@@ -113,31 +150,18 @@ type t = {
   vpc_uuid : string prop;
 }
 
-let digitalocean_kubernetes_cluster ?auto_upgrade
+let register ?tf_module ?auto_upgrade
     ?destroy_all_associated_resources ?ha ?id ?registry_integration
     ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
     ~maintenance_policy ~node_pool __resource_id =
   let __resource_type = "digitalocean_kubernetes_cluster" in
   let __resource =
-    ({
-       auto_upgrade;
-       destroy_all_associated_resources;
-       ha;
-       id;
-       name;
-       region;
-       registry_integration;
-       surge_upgrade;
-       tags;
-       version;
-       vpc_uuid;
-       maintenance_policy;
-       node_pool;
-       timeouts;
-     }
-      : digitalocean_kubernetes_cluster)
+    digitalocean_kubernetes_cluster ?auto_upgrade
+      ?destroy_all_associated_resources ?ha ?id ?registry_integration
+      ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
+      ~maintenance_policy ~node_pool ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_kubernetes_cluster __resource);
   let __resource_attributes =
     ({

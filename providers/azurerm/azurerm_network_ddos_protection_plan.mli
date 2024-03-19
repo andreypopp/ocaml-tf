@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_network_ddos_protection_plan__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_network_ddos_protection_plan
+
+val azurerm_network_ddos_protection_plan :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_network_ddos_protection_plan
+
+val yojson_of_azurerm_network_ddos_protection_plan :
+  azurerm_network_ddos_protection_plan -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,10 +40,11 @@ type t = private {
   virtual_network_ids : string list prop;
 }
 
-val azurerm_network_ddos_protection_plan :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_network_ddos_protection_plan__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

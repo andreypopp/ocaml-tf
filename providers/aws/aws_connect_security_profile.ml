@@ -18,6 +18,10 @@ type aws_connect_security_profile = {
 [@@deriving yojson_of]
 (** aws_connect_security_profile *)
 
+let aws_connect_security_profile ?description ?id ?permissions ?tags
+    ?tags_all ~instance_id ~name () : aws_connect_security_profile =
+  { description; id; instance_id; name; permissions; tags; tags_all }
+
 type t = {
   arn : string prop;
   description : string prop;
@@ -31,22 +35,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_connect_security_profile ?description ?id ?permissions ?tags
-    ?tags_all ~instance_id ~name __resource_id =
+let register ?tf_module ?description ?id ?permissions ?tags ?tags_all
+    ~instance_id ~name __resource_id =
   let __resource_type = "aws_connect_security_profile" in
   let __resource =
-    ({
-       description;
-       id;
-       instance_id;
-       name;
-       permissions;
-       tags;
-       tags_all;
-     }
-      : aws_connect_security_profile)
+    aws_connect_security_profile ?description ?id ?permissions ?tags
+      ?tags_all ~instance_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_security_profile __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_route__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_route__timeouts *)
+(** timeouts *)
 
 type azurerm_iothub_route = {
   condition : string prop option; [@option]  (** condition *)
@@ -22,10 +22,28 @@ type azurerm_iothub_route = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   source : string prop;  (** source *)
-  timeouts : azurerm_iothub_route__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_route *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iothub_route ?condition ?id ?timeouts ~enabled
+    ~endpoint_names ~iothub_name ~name ~resource_group_name ~source
+    () : azurerm_iothub_route =
+  {
+    condition;
+    enabled;
+    endpoint_names;
+    id;
+    iothub_name;
+    name;
+    resource_group_name;
+    source;
+    timeouts;
+  }
 
 type t = {
   condition : string prop;
@@ -38,25 +56,16 @@ type t = {
   source : string prop;
 }
 
-let azurerm_iothub_route ?condition ?id ?timeouts ~enabled
+let register ?tf_module ?condition ?id ?timeouts ~enabled
     ~endpoint_names ~iothub_name ~name ~resource_group_name ~source
     __resource_id =
   let __resource_type = "azurerm_iothub_route" in
   let __resource =
-    ({
-       condition;
-       enabled;
-       endpoint_names;
-       id;
-       iothub_name;
-       name;
-       resource_group_name;
-       source;
-       timeouts;
-     }
-      : azurerm_iothub_route)
+    azurerm_iothub_route ?condition ?id ?timeouts ~enabled
+      ~endpoint_names ~iothub_name ~name ~resource_group_name ~source
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_route __resource);
   let __resource_attributes =
     ({

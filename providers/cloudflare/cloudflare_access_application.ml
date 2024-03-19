@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_access_application__cors_headers = {
+type cors_headers = {
   allow_all_headers : bool prop option; [@option]
       (** Value to determine whether all HTTP headers are exposed. *)
   allow_all_methods : bool prop option; [@option]
@@ -25,7 +25,7 @@ type cloudflare_access_application__cors_headers = {
 [@@deriving yojson_of]
 (** CORS configuration for the Access Application. See below for reference structure. *)
 
-type cloudflare_access_application__footer_links = {
+type footer_links = {
   name : string prop option; [@option]
       (** The name of the footer link. *)
   url : string prop option; [@option]
@@ -34,7 +34,7 @@ type cloudflare_access_application__footer_links = {
 [@@deriving yojson_of]
 (** The footer links of the app launcher. *)
 
-type cloudflare_access_application__landing_page_design = {
+type landing_page_design = {
   button_color : string prop option; [@option]
       (** The button color of the landing page. *)
   button_text_color : string prop option; [@option]
@@ -49,14 +49,14 @@ type cloudflare_access_application__landing_page_design = {
 [@@deriving yojson_of]
 (** The landing page design of the app launcher. *)
 
-type cloudflare_access_application__saas_app__custom_attribute__source = {
+type saas_app__custom_attribute__source = {
   name : string prop;
       (** The name of the attribute as provided by the IDP. *)
 }
 [@@deriving yojson_of]
-(** cloudflare_access_application__saas_app__custom_attribute__source *)
+(** saas_app__custom_attribute__source *)
 
-type cloudflare_access_application__saas_app__custom_attribute = {
+type saas_app__custom_attribute = {
   friendly_name : string prop option; [@option]
       (** A friendly name for the attribute as provided to the SaaS app. *)
   name : string prop option; [@option]
@@ -65,20 +65,15 @@ type cloudflare_access_application__saas_app__custom_attribute = {
       (** A globally unique name for an identity or service provider. *)
   required : bool prop option; [@option]
       (** True if the attribute must be always present. *)
-  source :
-    cloudflare_access_application__saas_app__custom_attribute__source
-    list;
+  source : saas_app__custom_attribute__source list;
 }
 [@@deriving yojson_of]
 (** Custom attribute mapped from IDPs. *)
 
-type cloudflare_access_application__saas_app = {
+type saas_app = {
   app_launcher_url : string prop option; [@option]
       (** The URL where this applications tile redirects users. *)
   auth_type : string prop option; [@option]  (** auth_type *)
-  client_id : string prop;  (** The application client id. *)
-  client_secret : string prop;
-      (** The application client secret, only returned on initial apply. *)
   consumer_service_url : string prop option; [@option]
       (** The service provider's endpoint that is responsible for receiving and parsing a SAML assertion. *)
   default_relay_state : string prop option; [@option]
@@ -87,24 +82,17 @@ type cloudflare_access_application__saas_app = {
       (** The OIDC flows supported by this application. *)
   group_filter_regex : string prop option; [@option]
       (** A regex to filter Cloudflare groups returned in ID token and userinfo endpoint. *)
-  idp_entity_id : string prop;
-      (** The unique identifier for the SaaS application. *)
   name_id_format : string prop option; [@option]
       (** The format of the name identifier sent to the SaaS application. *)
   name_id_transform_jsonata : string prop option; [@option]
       (** A [JSONata](https://jsonata.org/) expression that transforms an application's user identities into a NameID value for its SAML assertion. This expression should evaluate to a singular string. The output of this expression can override the `name_id_format` setting. *)
-  public_key : string prop;
-      (** The public certificate that will be used to verify identities. *)
   redirect_uris : string prop list option; [@option]
       (** The permitted URL's for Cloudflare to return Authorization codes and Access/ID tokens. *)
   scopes : string prop list option; [@option]
       (** Define the user information shared with access. *)
   sp_entity_id : string prop option; [@option]
       (** A globally unique name for an identity or service provider. *)
-  sso_endpoint : string prop;
-      (** The endpoint where the SaaS application will send login requests. *)
-  custom_attribute :
-    cloudflare_access_application__saas_app__custom_attribute list;
+  custom_attribute : saas_app__custom_attribute list;
 }
 [@@deriving yojson_of]
 (** SaaS configuration for the Access Application. *)
@@ -161,17 +149,108 @@ type cloudflare_access_application = {
       (** The application type. Available values: `app_launcher`, `bookmark`, `biso`, `dash_sso`, `saas`, `self_hosted`, `ssh`, `vnc`, `warp`. Defaults to `self_hosted`. *)
   zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
-  cors_headers : cloudflare_access_application__cors_headers list;
-  footer_links : cloudflare_access_application__footer_links list;
-  landing_page_design :
-    cloudflare_access_application__landing_page_design list;
-  saas_app : cloudflare_access_application__saas_app list;
+  cors_headers : cors_headers list;
+  footer_links : footer_links list;
+  landing_page_design : landing_page_design list;
+  saas_app : saas_app list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Access Application resource. Access
 Applications are used to restrict access to a whole application using an
 authorisation gateway managed by Cloudflare.
  *)
+
+let cors_headers ?allow_all_headers ?allow_all_methods
+    ?allow_all_origins ?allow_credentials ?allowed_headers
+    ?allowed_methods ?allowed_origins ?max_age () : cors_headers =
+  {
+    allow_all_headers;
+    allow_all_methods;
+    allow_all_origins;
+    allow_credentials;
+    allowed_headers;
+    allowed_methods;
+    allowed_origins;
+    max_age;
+  }
+
+let footer_links ?name ?url () : footer_links = { name; url }
+
+let landing_page_design ?button_color ?button_text_color ?image_url
+    ?message ?title () : landing_page_design =
+  { button_color; button_text_color; image_url; message; title }
+
+let saas_app__custom_attribute__source ~name () :
+    saas_app__custom_attribute__source =
+  { name }
+
+let saas_app__custom_attribute ?friendly_name ?name ?name_format
+    ?required ~source () : saas_app__custom_attribute =
+  { friendly_name; name; name_format; required; source }
+
+let saas_app ?app_launcher_url ?auth_type ?consumer_service_url
+    ?default_relay_state ?grant_types ?group_filter_regex
+    ?name_id_format ?name_id_transform_jsonata ?redirect_uris ?scopes
+    ?sp_entity_id ~custom_attribute () : saas_app =
+  {
+    app_launcher_url;
+    auth_type;
+    consumer_service_url;
+    default_relay_state;
+    grant_types;
+    group_filter_regex;
+    name_id_format;
+    name_id_transform_jsonata;
+    redirect_uris;
+    scopes;
+    sp_entity_id;
+    custom_attribute;
+  }
+
+let cloudflare_access_application ?account_id
+    ?allow_authenticate_via_warp ?allowed_idps ?app_launcher_logo_url
+    ?app_launcher_visible ?auto_redirect_to_identity ?bg_color
+    ?custom_deny_message ?custom_deny_url
+    ?custom_non_identity_deny_url ?custom_pages ?domain
+    ?enable_binding_cookie ?header_bg_color
+    ?http_only_cookie_attribute ?id ?logo_url ?name
+    ?same_site_cookie_attribute ?self_hosted_domains
+    ?service_auth_401_redirect ?session_duration ?skip_interstitial
+    ?tags ?type_ ?zone_id ~cors_headers ~footer_links
+    ~landing_page_design ~saas_app () : cloudflare_access_application
+    =
+  {
+    account_id;
+    allow_authenticate_via_warp;
+    allowed_idps;
+    app_launcher_logo_url;
+    app_launcher_visible;
+    auto_redirect_to_identity;
+    bg_color;
+    custom_deny_message;
+    custom_deny_url;
+    custom_non_identity_deny_url;
+    custom_pages;
+    domain;
+    enable_binding_cookie;
+    header_bg_color;
+    http_only_cookie_attribute;
+    id;
+    logo_url;
+    name;
+    same_site_cookie_attribute;
+    self_hosted_domains;
+    service_auth_401_redirect;
+    session_duration;
+    skip_interstitial;
+    tags;
+    type_;
+    zone_id;
+    cors_headers;
+    footer_links;
+    landing_page_design;
+    saas_app;
+  }
 
 type t = {
   account_id : string prop;
@@ -203,12 +282,11 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_access_application ?account_id
-    ?allow_authenticate_via_warp ?allowed_idps ?app_launcher_logo_url
-    ?app_launcher_visible ?auto_redirect_to_identity ?bg_color
-    ?custom_deny_message ?custom_deny_url
-    ?custom_non_identity_deny_url ?custom_pages ?domain
-    ?enable_binding_cookie ?header_bg_color
+let register ?tf_module ?account_id ?allow_authenticate_via_warp
+    ?allowed_idps ?app_launcher_logo_url ?app_launcher_visible
+    ?auto_redirect_to_identity ?bg_color ?custom_deny_message
+    ?custom_deny_url ?custom_non_identity_deny_url ?custom_pages
+    ?domain ?enable_binding_cookie ?header_bg_color
     ?http_only_cookie_attribute ?id ?logo_url ?name
     ?same_site_cookie_attribute ?self_hosted_domains
     ?service_auth_401_redirect ?session_duration ?skip_interstitial
@@ -216,41 +294,19 @@ let cloudflare_access_application ?account_id
     ~landing_page_design ~saas_app __resource_id =
   let __resource_type = "cloudflare_access_application" in
   let __resource =
-    ({
-       account_id;
-       allow_authenticate_via_warp;
-       allowed_idps;
-       app_launcher_logo_url;
-       app_launcher_visible;
-       auto_redirect_to_identity;
-       bg_color;
-       custom_deny_message;
-       custom_deny_url;
-       custom_non_identity_deny_url;
-       custom_pages;
-       domain;
-       enable_binding_cookie;
-       header_bg_color;
-       http_only_cookie_attribute;
-       id;
-       logo_url;
-       name;
-       same_site_cookie_attribute;
-       self_hosted_domains;
-       service_auth_401_redirect;
-       session_duration;
-       skip_interstitial;
-       tags;
-       type_;
-       zone_id;
-       cors_headers;
-       footer_links;
-       landing_page_design;
-       saas_app;
-     }
-      : cloudflare_access_application)
+    cloudflare_access_application ?account_id
+      ?allow_authenticate_via_warp ?allowed_idps
+      ?app_launcher_logo_url ?app_launcher_visible
+      ?auto_redirect_to_identity ?bg_color ?custom_deny_message
+      ?custom_deny_url ?custom_non_identity_deny_url ?custom_pages
+      ?domain ?enable_binding_cookie ?header_bg_color
+      ?http_only_cookie_attribute ?id ?logo_url ?name
+      ?same_site_cookie_attribute ?self_hosted_domains
+      ?service_auth_401_redirect ?session_duration ?skip_interstitial
+      ?tags ?type_ ?zone_id ~cors_headers ~footer_links
+      ~landing_page_design ~saas_app ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_application __resource);
   let __resource_attributes =
     ({

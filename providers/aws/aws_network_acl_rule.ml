@@ -22,6 +22,24 @@ type aws_network_acl_rule = {
 [@@deriving yojson_of]
 (** aws_network_acl_rule *)
 
+let aws_network_acl_rule ?cidr_block ?egress ?from_port ?icmp_code
+    ?icmp_type ?id ?ipv6_cidr_block ?to_port ~network_acl_id
+    ~protocol ~rule_action ~rule_number () : aws_network_acl_rule =
+  {
+    cidr_block;
+    egress;
+    from_port;
+    icmp_code;
+    icmp_type;
+    id;
+    ipv6_cidr_block;
+    network_acl_id;
+    protocol;
+    rule_action;
+    rule_number;
+    to_port;
+  }
+
 type t = {
   cidr_block : string prop;
   egress : bool prop;
@@ -37,28 +55,16 @@ type t = {
   to_port : float prop;
 }
 
-let aws_network_acl_rule ?cidr_block ?egress ?from_port ?icmp_code
+let register ?tf_module ?cidr_block ?egress ?from_port ?icmp_code
     ?icmp_type ?id ?ipv6_cidr_block ?to_port ~network_acl_id
     ~protocol ~rule_action ~rule_number __resource_id =
   let __resource_type = "aws_network_acl_rule" in
   let __resource =
-    ({
-       cidr_block;
-       egress;
-       from_port;
-       icmp_code;
-       icmp_type;
-       id;
-       ipv6_cidr_block;
-       network_acl_id;
-       protocol;
-       rule_action;
-       rule_number;
-       to_port;
-     }
-      : aws_network_acl_rule)
+    aws_network_acl_rule ?cidr_block ?egress ?from_port ?icmp_code
+      ?icmp_type ?id ?ipv6_cidr_block ?to_port ~network_acl_id
+      ~protocol ~rule_action ~rule_number ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_network_acl_rule __resource);
   let __resource_attributes =
     ({

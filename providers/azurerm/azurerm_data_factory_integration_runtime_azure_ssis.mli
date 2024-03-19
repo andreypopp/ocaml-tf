@@ -2,30 +2,150 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_integration_runtime_azure_ssis__catalog_info
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_data_factory_integration_runtime_azure_ssis__custom_setup_script
+type catalog_info
 
-type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__command_key__key_vault_password
+val catalog_info :
+  ?administrator_login:string prop ->
+  ?administrator_password:string prop ->
+  ?dual_standby_pair_name:string prop ->
+  ?elastic_pool_name:string prop ->
+  ?pricing_tier:string prop ->
+  server_endpoint:string prop ->
+  unit ->
+  catalog_info
 
-type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__command_key
+type custom_setup_script
 
-type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__component__key_vault_license
+val custom_setup_script :
+  blob_container_uri:string prop ->
+  sas_token:string prop ->
+  unit ->
+  custom_setup_script
 
-type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__component
+type express_custom_setup__command_key__key_vault_password
 
-type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup
+val express_custom_setup__command_key__key_vault_password :
+  ?parameters:(string * string prop) list ->
+  ?secret_version:string prop ->
+  linked_service_name:string prop ->
+  secret_name:string prop ->
+  unit ->
+  express_custom_setup__command_key__key_vault_password
 
-type azurerm_data_factory_integration_runtime_azure_ssis__express_vnet_integration
+type express_custom_setup__command_key
 
-type azurerm_data_factory_integration_runtime_azure_ssis__package_store
+val express_custom_setup__command_key :
+  ?password:string prop ->
+  target_name:string prop ->
+  user_name:string prop ->
+  key_vault_password:
+    express_custom_setup__command_key__key_vault_password list ->
+  unit ->
+  express_custom_setup__command_key
 
-type azurerm_data_factory_integration_runtime_azure_ssis__proxy
-type azurerm_data_factory_integration_runtime_azure_ssis__timeouts
+type express_custom_setup__component__key_vault_license
 
-type azurerm_data_factory_integration_runtime_azure_ssis__vnet_integration
+val express_custom_setup__component__key_vault_license :
+  ?parameters:(string * string prop) list ->
+  ?secret_version:string prop ->
+  linked_service_name:string prop ->
+  secret_name:string prop ->
+  unit ->
+  express_custom_setup__component__key_vault_license
+
+type express_custom_setup__component
+
+val express_custom_setup__component :
+  ?license:string prop ->
+  name:string prop ->
+  key_vault_license:
+    express_custom_setup__component__key_vault_license list ->
+  unit ->
+  express_custom_setup__component
+
+type express_custom_setup
+
+val express_custom_setup :
+  ?environment:(string * string prop) list ->
+  ?powershell_version:string prop ->
+  command_key:express_custom_setup__command_key list ->
+  component:express_custom_setup__component list ->
+  unit ->
+  express_custom_setup
+
+type express_vnet_integration
+
+val express_vnet_integration :
+  subnet_id:string prop -> unit -> express_vnet_integration
+
+type package_store
+
+val package_store :
+  linked_service_name:string prop ->
+  name:string prop ->
+  unit ->
+  package_store
+
+type proxy
+
+val proxy :
+  ?path:string prop ->
+  self_hosted_integration_runtime_name:string prop ->
+  staging_storage_linked_service_name:string prop ->
+  unit ->
+  proxy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type vnet_integration
+
+val vnet_integration :
+  ?public_ips:string prop list ->
+  ?subnet_id:string prop ->
+  ?subnet_name:string prop ->
+  ?vnet_id:string prop ->
+  unit ->
+  vnet_integration
 
 type azurerm_data_factory_integration_runtime_azure_ssis
+
+val azurerm_data_factory_integration_runtime_azure_ssis :
+  ?credential_name:string prop ->
+  ?description:string prop ->
+  ?edition:string prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?max_parallel_executions_per_node:float prop ->
+  ?number_of_nodes:float prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  node_size:string prop ->
+  catalog_info:catalog_info list ->
+  custom_setup_script:custom_setup_script list ->
+  express_custom_setup:express_custom_setup list ->
+  express_vnet_integration:express_vnet_integration list ->
+  package_store:package_store list ->
+  proxy:proxy list ->
+  vnet_integration:vnet_integration list ->
+  unit ->
+  azurerm_data_factory_integration_runtime_azure_ssis
+
+val yojson_of_azurerm_data_factory_integration_runtime_azure_ssis :
+  azurerm_data_factory_integration_runtime_azure_ssis -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   credential_name : string prop;
@@ -41,7 +161,8 @@ type t = private {
   number_of_nodes : float prop;
 }
 
-val azurerm_data_factory_integration_runtime_azure_ssis :
+val register :
+  ?tf_module:tf_module ->
   ?credential_name:string prop ->
   ?description:string prop ->
   ?edition:string prop ->
@@ -49,31 +170,17 @@ val azurerm_data_factory_integration_runtime_azure_ssis :
   ?license_type:string prop ->
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
-  ?timeouts:
-    azurerm_data_factory_integration_runtime_azure_ssis__timeouts ->
+  ?timeouts:timeouts ->
   data_factory_id:string prop ->
   location:string prop ->
   name:string prop ->
   node_size:string prop ->
-  catalog_info:
-    azurerm_data_factory_integration_runtime_azure_ssis__catalog_info
-    list ->
-  custom_setup_script:
-    azurerm_data_factory_integration_runtime_azure_ssis__custom_setup_script
-    list ->
-  express_custom_setup:
-    azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup
-    list ->
-  express_vnet_integration:
-    azurerm_data_factory_integration_runtime_azure_ssis__express_vnet_integration
-    list ->
-  package_store:
-    azurerm_data_factory_integration_runtime_azure_ssis__package_store
-    list ->
-  proxy:
-    azurerm_data_factory_integration_runtime_azure_ssis__proxy list ->
-  vnet_integration:
-    azurerm_data_factory_integration_runtime_azure_ssis__vnet_integration
-    list ->
+  catalog_info:catalog_info list ->
+  custom_setup_script:custom_setup_script list ->
+  express_custom_setup:express_custom_setup list ->
+  express_vnet_integration:express_vnet_integration list ->
+  package_store:package_store list ->
+  proxy:proxy list ->
+  vnet_integration:vnet_integration list ->
   string ->
   t

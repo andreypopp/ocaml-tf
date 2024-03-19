@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_lexv2models_bot_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
 [@@deriving yojson_of]
-(** aws_lexv2models_bot_version__timeouts *)
+(** timeouts *)
 
-type aws_lexv2models_bot_version__locale_specification = {
+type locale_specification = {
   source_bot_version : string prop;  (** source_bot_version *)
 }
 [@@deriving yojson_of]
@@ -22,38 +22,41 @@ type aws_lexv2models_bot_version = {
   bot_id : string prop;  (** bot_id *)
   bot_version : string prop option; [@option]  (** bot_version *)
   description : string prop option; [@option]  (** description *)
-  locale_specification :
-    (string * aws_lexv2models_bot_version__locale_specification) list;
+  locale_specification : (string * locale_specification) list;
       (** locale_specification *)
-  timeouts : aws_lexv2models_bot_version__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_bot_version *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_lexv2models_bot_version ?bot_version ?description ?timeouts
+    ~bot_id ~locale_specification () : aws_lexv2models_bot_version =
+  {
+    bot_id;
+    bot_version;
+    description;
+    locale_specification;
+    timeouts;
+  }
 
 type t = {
   bot_id : string prop;
   bot_version : string prop;
   description : string prop;
   id : string prop;
-  locale_specification :
-    (string * aws_lexv2models_bot_version__locale_specification) list
-    prop;
+  locale_specification : (string * locale_specification) list prop;
 }
 
-let aws_lexv2models_bot_version ?bot_version ?description ?timeouts
-    ~bot_id ~locale_specification __resource_id =
+let register ?tf_module ?bot_version ?description ?timeouts ~bot_id
+    ~locale_specification __resource_id =
   let __resource_type = "aws_lexv2models_bot_version" in
   let __resource =
-    ({
-       bot_id;
-       bot_version;
-       description;
-       locale_specification;
-       timeouts;
-     }
-      : aws_lexv2models_bot_version)
+    aws_lexv2models_bot_version ?bot_version ?description ?timeouts
+      ~bot_id ~locale_specification ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_bot_version __resource);
   let __resource_attributes =
     ({

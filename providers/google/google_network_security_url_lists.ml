@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_network_security_url_lists__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_network_security_url_lists__timeouts *)
+(** timeouts *)
 
 type google_network_security_url_lists = {
   description : string prop option; [@option]
@@ -22,10 +22,18 @@ type google_network_security_url_lists = {
 This value should be 1-63 characters long, containing only letters, numbers, hyphens, and underscores, and should not start with a number. E.g. 'urlList'. *)
   project : string prop option; [@option]  (** project *)
   values : string prop list;  (** FQDNs and URLs. *)
-  timeouts : google_network_security_url_lists__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_network_security_url_lists *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_network_security_url_lists ?description ?id ?project
+    ?timeouts ~location ~name ~values () :
+    google_network_security_url_lists =
+  { description; id; location; name; project; values; timeouts }
 
 type t = {
   create_time : string prop;
@@ -38,14 +46,14 @@ type t = {
   values : string list prop;
 }
 
-let google_network_security_url_lists ?description ?id ?project
-    ?timeouts ~location ~name ~values __resource_id =
+let register ?tf_module ?description ?id ?project ?timeouts ~location
+    ~name ~values __resource_id =
   let __resource_type = "google_network_security_url_lists" in
   let __resource =
-    ({ description; id; location; name; project; values; timeouts }
-      : google_network_security_url_lists)
+    google_network_security_url_lists ?description ?id ?project
+      ?timeouts ~location ~name ~values ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_security_url_lists __resource);
   let __resource_attributes =
     ({

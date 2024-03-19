@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_dax_parameter_group__parameters
+(** RESOURCE SERIALIZATION *)
+
+type parameters
+
+val parameters :
+  name:string prop -> value:string prop -> unit -> parameters
+
 type aws_dax_parameter_group
+
+val aws_dax_parameter_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  parameters:parameters list ->
+  unit ->
+  aws_dax_parameter_group
+
+val yojson_of_aws_dax_parameter_group :
+  aws_dax_parameter_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -11,10 +30,11 @@ type t = private {
   name : string prop;
 }
 
-val aws_dax_parameter_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   name:string prop ->
-  parameters:aws_dax_parameter_group__parameters list ->
+  parameters:parameters list ->
   string ->
   t

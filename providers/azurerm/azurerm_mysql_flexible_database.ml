@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_mysql_flexible_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_mysql_flexible_database__timeouts *)
+(** timeouts *)
 
 type azurerm_mysql_flexible_database = {
   charset : string prop;  (** charset *)
@@ -19,10 +19,26 @@ type azurerm_mysql_flexible_database = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   server_name : string prop;  (** server_name *)
-  timeouts : azurerm_mysql_flexible_database__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_database *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_mysql_flexible_database ?id ?timeouts ~charset ~collation
+    ~name ~resource_group_name ~server_name () :
+    azurerm_mysql_flexible_database =
+  {
+    charset;
+    collation;
+    id;
+    name;
+    resource_group_name;
+    server_name;
+    timeouts;
+  }
 
 type t = {
   charset : string prop;
@@ -33,22 +49,14 @@ type t = {
   server_name : string prop;
 }
 
-let azurerm_mysql_flexible_database ?id ?timeouts ~charset ~collation
-    ~name ~resource_group_name ~server_name __resource_id =
+let register ?tf_module ?id ?timeouts ~charset ~collation ~name
+    ~resource_group_name ~server_name __resource_id =
   let __resource_type = "azurerm_mysql_flexible_database" in
   let __resource =
-    ({
-       charset;
-       collation;
-       id;
-       name;
-       resource_group_name;
-       server_name;
-       timeouts;
-     }
-      : azurerm_mysql_flexible_database)
+    azurerm_mysql_flexible_database ?id ?timeouts ~charset ~collation
+      ~name ~resource_group_name ~server_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mysql_flexible_database __resource);
   let __resource_attributes =
     ({

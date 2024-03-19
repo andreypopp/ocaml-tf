@@ -10,6 +10,10 @@ type aws_route53_cidr_collection = {
 [@@deriving yojson_of]
 (** aws_route53_cidr_collection *)
 
+let aws_route53_cidr_collection ~name () :
+    aws_route53_cidr_collection =
+  { name }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -17,10 +21,10 @@ type t = {
   version : float prop;
 }
 
-let aws_route53_cidr_collection ~name __resource_id =
+let register ?tf_module ~name __resource_id =
   let __resource_type = "aws_route53_cidr_collection" in
-  let __resource = ({ name } : aws_route53_cidr_collection) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = aws_route53_cidr_collection ~name () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_cidr_collection __resource);
   let __resource_attributes =
     ({

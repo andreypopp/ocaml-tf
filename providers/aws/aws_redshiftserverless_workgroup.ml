@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type aws_redshiftserverless_workgroup__config_parameter = {
+type config_parameter = {
   parameter_key : string prop;  (** parameter_key *)
   parameter_value : string prop;  (** parameter_value *)
 }
 [@@deriving yojson_of]
-(** aws_redshiftserverless_workgroup__config_parameter *)
+(** config_parameter *)
 
-type aws_redshiftserverless_workgroup__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_redshiftserverless_workgroup__timeouts *)
+(** timeouts *)
 
-type aws_redshiftserverless_workgroup__endpoint__vpc_endpoint__network_interface = {
+type endpoint__vpc_endpoint__network_interface = {
   availability_zone : string prop;  (** availability_zone *)
   network_interface_id : string prop;  (** network_interface_id *)
   private_ip_address : string prop;  (** private_ip_address *)
@@ -27,22 +27,18 @@ type aws_redshiftserverless_workgroup__endpoint__vpc_endpoint__network_interface
 }
 [@@deriving yojson_of]
 
-type aws_redshiftserverless_workgroup__endpoint__vpc_endpoint = {
-  network_interface :
-    aws_redshiftserverless_workgroup__endpoint__vpc_endpoint__network_interface
-    list;
+type endpoint__vpc_endpoint = {
+  network_interface : endpoint__vpc_endpoint__network_interface list;
       (** network_interface *)
   vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 
-type aws_redshiftserverless_workgroup__endpoint = {
+type endpoint = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
-  vpc_endpoint :
-    aws_redshiftserverless_workgroup__endpoint__vpc_endpoint list;
-      (** vpc_endpoint *)
+  vpc_endpoint : endpoint__vpc_endpoint list;  (** vpc_endpoint *)
 }
 [@@deriving yojson_of]
 
@@ -63,17 +59,45 @@ type aws_redshiftserverless_workgroup = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   workgroup_name : string prop;  (** workgroup_name *)
-  config_parameter :
-    aws_redshiftserverless_workgroup__config_parameter list;
-  timeouts : aws_redshiftserverless_workgroup__timeouts option;
+  config_parameter : config_parameter list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_redshiftserverless_workgroup *)
 
+let config_parameter ~parameter_key ~parameter_value () :
+    config_parameter =
+  { parameter_key; parameter_value }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_redshiftserverless_workgroup ?base_capacity
+    ?enhanced_vpc_routing ?id ?max_capacity ?port
+    ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
+    ?tags_all ?timeouts ~namespace_name ~workgroup_name
+    ~config_parameter () : aws_redshiftserverless_workgroup =
+  {
+    base_capacity;
+    enhanced_vpc_routing;
+    id;
+    max_capacity;
+    namespace_name;
+    port;
+    publicly_accessible;
+    security_group_ids;
+    subnet_ids;
+    tags;
+    tags_all;
+    workgroup_name;
+    config_parameter;
+    timeouts;
+  }
+
 type t = {
   arn : string prop;
   base_capacity : float prop;
-  endpoint : aws_redshiftserverless_workgroup__endpoint list prop;
+  endpoint : endpoint list prop;
   enhanced_vpc_routing : bool prop;
   id : string prop;
   max_capacity : float prop;
@@ -88,32 +112,19 @@ type t = {
   workgroup_name : string prop;
 }
 
-let aws_redshiftserverless_workgroup ?base_capacity
-    ?enhanced_vpc_routing ?id ?max_capacity ?port
-    ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
-    ?tags_all ?timeouts ~namespace_name ~workgroup_name
-    ~config_parameter __resource_id =
+let register ?tf_module ?base_capacity ?enhanced_vpc_routing ?id
+    ?max_capacity ?port ?publicly_accessible ?security_group_ids
+    ?subnet_ids ?tags ?tags_all ?timeouts ~namespace_name
+    ~workgroup_name ~config_parameter __resource_id =
   let __resource_type = "aws_redshiftserverless_workgroup" in
   let __resource =
-    ({
-       base_capacity;
-       enhanced_vpc_routing;
-       id;
-       max_capacity;
-       namespace_name;
-       port;
-       publicly_accessible;
-       security_group_ids;
-       subnet_ids;
-       tags;
-       tags_all;
-       workgroup_name;
-       config_parameter;
-       timeouts;
-     }
-      : aws_redshiftserverless_workgroup)
+    aws_redshiftserverless_workgroup ?base_capacity
+      ?enhanced_vpc_routing ?id ?max_capacity ?port
+      ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
+      ?tags_all ?timeouts ~namespace_name ~workgroup_name
+      ~config_parameter ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshiftserverless_workgroup __resource);
   let __resource_attributes =
     ({

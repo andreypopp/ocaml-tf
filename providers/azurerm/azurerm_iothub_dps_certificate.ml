@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_iothub_dps_certificate__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_iothub_dps_certificate__timeouts *)
+(** timeouts *)
 
 type azurerm_iothub_dps_certificate = {
   certificate_content : string prop;  (** certificate_content *)
@@ -20,10 +20,26 @@ type azurerm_iothub_dps_certificate = {
   is_verified : bool prop option; [@option]  (** is_verified *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  timeouts : azurerm_iothub_dps_certificate__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_dps_certificate *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_iothub_dps_certificate ?id ?is_verified ?timeouts
+    ~certificate_content ~iot_dps_name ~name ~resource_group_name ()
+    : azurerm_iothub_dps_certificate =
+  {
+    certificate_content;
+    id;
+    iot_dps_name;
+    is_verified;
+    name;
+    resource_group_name;
+    timeouts;
+  }
 
 type t = {
   certificate_content : string prop;
@@ -34,23 +50,16 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_iothub_dps_certificate ?id ?is_verified ?timeouts
+let register ?tf_module ?id ?is_verified ?timeouts
     ~certificate_content ~iot_dps_name ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_iothub_dps_certificate" in
   let __resource =
-    ({
-       certificate_content;
-       id;
-       iot_dps_name;
-       is_verified;
-       name;
-       resource_group_name;
-       timeouts;
-     }
-      : azurerm_iothub_dps_certificate)
+    azurerm_iothub_dps_certificate ?id ?is_verified ?timeouts
+      ~certificate_content ~iot_dps_name ~name ~resource_group_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_dps_certificate __resource);
   let __resource_attributes =
     ({

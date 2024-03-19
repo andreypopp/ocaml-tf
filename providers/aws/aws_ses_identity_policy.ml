@@ -13,6 +13,10 @@ type aws_ses_identity_policy = {
 [@@deriving yojson_of]
 (** aws_ses_identity_policy *)
 
+let aws_ses_identity_policy ?id ~identity ~name ~policy () :
+    aws_ses_identity_policy =
+  { id; identity; name; policy }
+
 type t = {
   id : string prop;
   identity : string prop;
@@ -20,13 +24,12 @@ type t = {
   policy : string prop;
 }
 
-let aws_ses_identity_policy ?id ~identity ~name ~policy __resource_id
-    =
+let register ?tf_module ?id ~identity ~name ~policy __resource_id =
   let __resource_type = "aws_ses_identity_policy" in
   let __resource =
-    ({ id; identity; name; policy } : aws_ses_identity_policy)
+    aws_ses_identity_policy ?id ~identity ~name ~policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_identity_policy __resource);
   let __resource_attributes =
     ({

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_hub_route_table_route__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_hub_route_table_route__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_hub_route_table_route = {
   destinations : string prop list;  (** destinations *)
@@ -21,10 +21,27 @@ type azurerm_virtual_hub_route_table_route = {
   next_hop : string prop;  (** next_hop *)
   next_hop_type : string prop option; [@option]  (** next_hop_type *)
   route_table_id : string prop;  (** route_table_id *)
-  timeouts : azurerm_virtual_hub_route_table_route__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_route_table_route *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_hub_route_table_route ?id ?next_hop_type
+    ?timeouts ~destinations ~destinations_type ~name ~next_hop
+    ~route_table_id () : azurerm_virtual_hub_route_table_route =
+  {
+    destinations;
+    destinations_type;
+    id;
+    name;
+    next_hop;
+    next_hop_type;
+    route_table_id;
+    timeouts;
+  }
 
 type t = {
   destinations : string list prop;
@@ -36,24 +53,16 @@ type t = {
   route_table_id : string prop;
 }
 
-let azurerm_virtual_hub_route_table_route ?id ?next_hop_type
-    ?timeouts ~destinations ~destinations_type ~name ~next_hop
-    ~route_table_id __resource_id =
+let register ?tf_module ?id ?next_hop_type ?timeouts ~destinations
+    ~destinations_type ~name ~next_hop ~route_table_id __resource_id
+    =
   let __resource_type = "azurerm_virtual_hub_route_table_route" in
   let __resource =
-    ({
-       destinations;
-       destinations_type;
-       id;
-       name;
-       next_hop;
-       next_hop_type;
-       route_table_id;
-       timeouts;
-     }
-      : azurerm_virtual_hub_route_table_route)
+    azurerm_virtual_hub_route_table_route ?id ?next_hop_type
+      ?timeouts ~destinations ~destinations_type ~name ~next_hop
+      ~route_table_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_hub_route_table_route __resource);
   let __resource_attributes =
     ({

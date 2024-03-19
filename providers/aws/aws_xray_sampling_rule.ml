@@ -26,6 +26,28 @@ type aws_xray_sampling_rule = {
 [@@deriving yojson_of]
 (** aws_xray_sampling_rule *)
 
+let aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags ?tags_all
+    ~fixed_rate ~host ~http_method ~priority ~reservoir_size
+    ~resource_arn ~service_name ~service_type ~url_path ~version () :
+    aws_xray_sampling_rule =
+  {
+    attributes;
+    fixed_rate;
+    host;
+    http_method;
+    id;
+    priority;
+    reservoir_size;
+    resource_arn;
+    rule_name;
+    service_name;
+    service_type;
+    tags;
+    tags_all;
+    url_path;
+    version;
+  }
+
 type t = {
   arn : string prop;
   attributes : (string * string) list prop;
@@ -45,32 +67,17 @@ type t = {
   version : float prop;
 }
 
-let aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags ?tags_all
+let register ?tf_module ?attributes ?id ?rule_name ?tags ?tags_all
     ~fixed_rate ~host ~http_method ~priority ~reservoir_size
     ~resource_arn ~service_name ~service_type ~url_path ~version
     __resource_id =
   let __resource_type = "aws_xray_sampling_rule" in
   let __resource =
-    ({
-       attributes;
-       fixed_rate;
-       host;
-       http_method;
-       id;
-       priority;
-       reservoir_size;
-       resource_arn;
-       rule_name;
-       service_name;
-       service_type;
-       tags;
-       tags_all;
-       url_path;
-       version;
-     }
-      : aws_xray_sampling_rule)
+    aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags ?tags_all
+      ~fixed_rate ~host ~http_method ~priority ~reservoir_size
+      ~resource_arn ~service_name ~service_type ~url_path ~version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_xray_sampling_rule __resource);
   let __resource_attributes =
     ({

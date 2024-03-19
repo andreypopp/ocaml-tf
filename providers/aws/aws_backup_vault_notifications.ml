@@ -13,6 +13,11 @@ type aws_backup_vault_notifications = {
 [@@deriving yojson_of]
 (** aws_backup_vault_notifications *)
 
+let aws_backup_vault_notifications ?id ~backup_vault_events
+    ~backup_vault_name ~sns_topic_arn () :
+    aws_backup_vault_notifications =
+  { backup_vault_events; backup_vault_name; id; sns_topic_arn }
+
 type t = {
   backup_vault_arn : string prop;
   backup_vault_events : string list prop;
@@ -21,14 +26,14 @@ type t = {
   sns_topic_arn : string prop;
 }
 
-let aws_backup_vault_notifications ?id ~backup_vault_events
-    ~backup_vault_name ~sns_topic_arn __resource_id =
+let register ?tf_module ?id ~backup_vault_events ~backup_vault_name
+    ~sns_topic_arn __resource_id =
   let __resource_type = "aws_backup_vault_notifications" in
   let __resource =
-    ({ backup_vault_events; backup_vault_name; id; sns_topic_arn }
-      : aws_backup_vault_notifications)
+    aws_backup_vault_notifications ?id ~backup_vault_events
+      ~backup_vault_name ~sns_topic_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_vault_notifications __resource);
   let __resource_attributes =
     ({

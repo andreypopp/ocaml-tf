@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_launch_configuration__ebs_block_device = {
+type ebs_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   device_name : string prop;  (** device_name *)
@@ -17,26 +17,26 @@ type aws_launch_configuration__ebs_block_device = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_launch_configuration__ebs_block_device *)
+(** ebs_block_device *)
 
-type aws_launch_configuration__ephemeral_block_device = {
+type ephemeral_block_device = {
   device_name : string prop;  (** device_name *)
   no_device : bool prop option; [@option]  (** no_device *)
   virtual_name : string prop option; [@option]  (** virtual_name *)
 }
 [@@deriving yojson_of]
-(** aws_launch_configuration__ephemeral_block_device *)
+(** ephemeral_block_device *)
 
-type aws_launch_configuration__metadata_options = {
+type metadata_options = {
   http_endpoint : string prop option; [@option]  (** http_endpoint *)
   http_put_response_hop_limit : float prop option; [@option]
       (** http_put_response_hop_limit *)
   http_tokens : string prop option; [@option]  (** http_tokens *)
 }
 [@@deriving yojson_of]
-(** aws_launch_configuration__metadata_options *)
+(** metadata_options *)
 
-type aws_launch_configuration__root_block_device = {
+type root_block_device = {
   delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
   encrypted : bool prop option; [@option]  (** encrypted *)
@@ -46,7 +46,7 @@ type aws_launch_configuration__root_block_device = {
   volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
-(** aws_launch_configuration__root_block_device *)
+(** root_block_device *)
 
 type aws_launch_configuration = {
   associate_public_ip_address : bool prop option; [@option]
@@ -70,15 +70,75 @@ type aws_launch_configuration = {
   user_data : string prop option; [@option]  (** user_data *)
   user_data_base64 : string prop option; [@option]
       (** user_data_base64 *)
-  ebs_block_device : aws_launch_configuration__ebs_block_device list;
-  ephemeral_block_device :
-    aws_launch_configuration__ephemeral_block_device list;
-  metadata_options : aws_launch_configuration__metadata_options list;
-  root_block_device :
-    aws_launch_configuration__root_block_device list;
+  ebs_block_device : ebs_block_device list;
+  ephemeral_block_device : ephemeral_block_device list;
+  metadata_options : metadata_options list;
+  root_block_device : root_block_device list;
 }
 [@@deriving yojson_of]
 (** aws_launch_configuration *)
+
+let ebs_block_device ?delete_on_termination ?encrypted ?iops
+    ?no_device ?snapshot_id ?throughput ?volume_size ?volume_type
+    ~device_name () : ebs_block_device =
+  {
+    delete_on_termination;
+    device_name;
+    encrypted;
+    iops;
+    no_device;
+    snapshot_id;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let ephemeral_block_device ?no_device ?virtual_name ~device_name () :
+    ephemeral_block_device =
+  { device_name; no_device; virtual_name }
+
+let metadata_options ?http_endpoint ?http_put_response_hop_limit
+    ?http_tokens () : metadata_options =
+  { http_endpoint; http_put_response_hop_limit; http_tokens }
+
+let root_block_device ?delete_on_termination ?encrypted ?iops
+    ?throughput ?volume_size ?volume_type () : root_block_device =
+  {
+    delete_on_termination;
+    encrypted;
+    iops;
+    throughput;
+    volume_size;
+    volume_type;
+  }
+
+let aws_launch_configuration ?associate_public_ip_address
+    ?ebs_optimized ?enable_monitoring ?iam_instance_profile ?id
+    ?key_name ?name ?name_prefix ?placement_tenancy ?security_groups
+    ?spot_price ?user_data ?user_data_base64 ~image_id ~instance_type
+    ~ebs_block_device ~ephemeral_block_device ~metadata_options
+    ~root_block_device () : aws_launch_configuration =
+  {
+    associate_public_ip_address;
+    ebs_optimized;
+    enable_monitoring;
+    iam_instance_profile;
+    id;
+    image_id;
+    instance_type;
+    key_name;
+    name;
+    name_prefix;
+    placement_tenancy;
+    security_groups;
+    spot_price;
+    user_data;
+    user_data_base64;
+    ebs_block_device;
+    ephemeral_block_device;
+    metadata_options;
+    root_block_device;
+  }
 
 type t = {
   arn : string prop;
@@ -99,38 +159,22 @@ type t = {
   user_data_base64 : string prop;
 }
 
-let aws_launch_configuration ?associate_public_ip_address
-    ?ebs_optimized ?enable_monitoring ?iam_instance_profile ?id
-    ?key_name ?name ?name_prefix ?placement_tenancy ?security_groups
-    ?spot_price ?user_data ?user_data_base64 ~image_id ~instance_type
+let register ?tf_module ?associate_public_ip_address ?ebs_optimized
+    ?enable_monitoring ?iam_instance_profile ?id ?key_name ?name
+    ?name_prefix ?placement_tenancy ?security_groups ?spot_price
+    ?user_data ?user_data_base64 ~image_id ~instance_type
     ~ebs_block_device ~ephemeral_block_device ~metadata_options
     ~root_block_device __resource_id =
   let __resource_type = "aws_launch_configuration" in
   let __resource =
-    ({
-       associate_public_ip_address;
-       ebs_optimized;
-       enable_monitoring;
-       iam_instance_profile;
-       id;
-       image_id;
-       instance_type;
-       key_name;
-       name;
-       name_prefix;
-       placement_tenancy;
-       security_groups;
-       spot_price;
-       user_data;
-       user_data_base64;
-       ebs_block_device;
-       ephemeral_block_device;
-       metadata_options;
-       root_block_device;
-     }
-      : aws_launch_configuration)
+    aws_launch_configuration ?associate_public_ip_address
+      ?ebs_optimized ?enable_monitoring ?iam_instance_profile ?id
+      ?key_name ?name ?name_prefix ?placement_tenancy
+      ?security_groups ?spot_price ?user_data ?user_data_base64
+      ~image_id ~instance_type ~ebs_block_device
+      ~ephemeral_block_device ~metadata_options ~root_block_device ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_launch_configuration __resource);
   let __resource_attributes =
     ({

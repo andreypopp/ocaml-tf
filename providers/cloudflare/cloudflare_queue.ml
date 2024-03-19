@@ -13,16 +13,19 @@ type cloudflare_queue = {
 [@@deriving yojson_of]
 (** Provides the ability to manage Cloudflare Workers Queue features. *)
 
+let cloudflare_queue ?id ~account_id ~name () : cloudflare_queue =
+  { account_id; id; name }
+
 type t = {
   account_id : string prop;
   id : string prop;
   name : string prop;
 }
 
-let cloudflare_queue ?id ~account_id ~name __resource_id =
+let register ?tf_module ?id ~account_id ~name __resource_id =
   let __resource_type = "cloudflare_queue" in
-  let __resource = ({ account_id; id; name } : cloudflare_queue) in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = cloudflare_queue ?id ~account_id ~name () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_queue __resource);
   let __resource_attributes =
     ({

@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_datasync_task__excludes = {
+type excludes = {
   filter_type : string prop option; [@option]  (** filter_type *)
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_task__excludes *)
+(** excludes *)
 
-type aws_datasync_task__includes = {
+type includes = {
   filter_type : string prop option; [@option]  (** filter_type *)
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_task__includes *)
+(** includes *)
 
-type aws_datasync_task__options = {
+type options = {
   atime : string prop option; [@option]  (** atime *)
   bytes_per_second : float prop option; [@option]
       (** bytes_per_second *)
@@ -42,15 +42,15 @@ type aws_datasync_task__options = {
   verify_mode : string prop option; [@option]  (** verify_mode *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_task__options *)
+(** options *)
 
-type aws_datasync_task__schedule = {
+type schedule = {
   schedule_expression : string prop;  (** schedule_expression *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_task__schedule *)
+(** schedule *)
 
-type aws_datasync_task__task_report_config__report_overrides = {
+type task_report_config__report_overrides = {
   deleted_override : string prop option; [@option]
       (** deleted_override *)
   skipped_override : string prop option; [@option]
@@ -61,35 +61,33 @@ type aws_datasync_task__task_report_config__report_overrides = {
       (** verified_override *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_task__task_report_config__report_overrides *)
+(** task_report_config__report_overrides *)
 
-type aws_datasync_task__task_report_config__s3_destination = {
+type task_report_config__s3_destination = {
   bucket_access_role_arn : string prop;
       (** bucket_access_role_arn *)
   s3_bucket_arn : string prop;  (** s3_bucket_arn *)
   subdirectory : string prop option; [@option]  (** subdirectory *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_task__task_report_config__s3_destination *)
+(** task_report_config__s3_destination *)
 
-type aws_datasync_task__task_report_config = {
+type task_report_config = {
   output_type : string prop option; [@option]  (** output_type *)
   report_level : string prop option; [@option]  (** report_level *)
   s3_object_versioning : string prop option; [@option]
       (** s3_object_versioning *)
-  report_overrides :
-    aws_datasync_task__task_report_config__report_overrides list;
-  s3_destination :
-    aws_datasync_task__task_report_config__s3_destination list;
+  report_overrides : task_report_config__report_overrides list;
+  s3_destination : task_report_config__s3_destination list;
 }
 [@@deriving yojson_of]
-(** aws_datasync_task__task_report_config *)
+(** task_report_config *)
 
-type aws_datasync_task__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_task__timeouts *)
+(** timeouts *)
 
 type aws_datasync_task = {
   cloudwatch_log_group_arn : string prop option; [@option]
@@ -102,15 +100,95 @@ type aws_datasync_task = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  excludes : aws_datasync_task__excludes list;
-  includes : aws_datasync_task__includes list;
-  options : aws_datasync_task__options list;
-  schedule : aws_datasync_task__schedule list;
-  task_report_config : aws_datasync_task__task_report_config list;
-  timeouts : aws_datasync_task__timeouts option;
+  excludes : excludes list;
+  includes : includes list;
+  options : options list;
+  schedule : schedule list;
+  task_report_config : task_report_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_datasync_task *)
+
+let excludes ?filter_type ?value () : excludes =
+  { filter_type; value }
+
+let includes ?filter_type ?value () : includes =
+  { filter_type; value }
+
+let options ?atime ?bytes_per_second ?gid ?log_level ?mtime
+    ?object_tags ?overwrite_mode ?posix_permissions
+    ?preserve_deleted_files ?preserve_devices
+    ?security_descriptor_copy_flags ?task_queueing ?transfer_mode
+    ?uid ?verify_mode () : options =
+  {
+    atime;
+    bytes_per_second;
+    gid;
+    log_level;
+    mtime;
+    object_tags;
+    overwrite_mode;
+    posix_permissions;
+    preserve_deleted_files;
+    preserve_devices;
+    security_descriptor_copy_flags;
+    task_queueing;
+    transfer_mode;
+    uid;
+    verify_mode;
+  }
+
+let schedule ~schedule_expression () : schedule =
+  { schedule_expression }
+
+let task_report_config__report_overrides ?deleted_override
+    ?skipped_override ?transferred_override ?verified_override () :
+    task_report_config__report_overrides =
+  {
+    deleted_override;
+    skipped_override;
+    transferred_override;
+    verified_override;
+  }
+
+let task_report_config__s3_destination ?subdirectory
+    ~bucket_access_role_arn ~s3_bucket_arn () :
+    task_report_config__s3_destination =
+  { bucket_access_role_arn; s3_bucket_arn; subdirectory }
+
+let task_report_config ?output_type ?report_level
+    ?s3_object_versioning ~report_overrides ~s3_destination () :
+    task_report_config =
+  {
+    output_type;
+    report_level;
+    s3_object_versioning;
+    report_overrides;
+    s3_destination;
+  }
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_datasync_task ?cloudwatch_log_group_arn ?id ?name ?tags
+    ?tags_all ?timeouts ~destination_location_arn
+    ~source_location_arn ~excludes ~includes ~options ~schedule
+    ~task_report_config () : aws_datasync_task =
+  {
+    cloudwatch_log_group_arn;
+    destination_location_arn;
+    id;
+    name;
+    source_location_arn;
+    tags;
+    tags_all;
+    excludes;
+    includes;
+    options;
+    schedule;
+    task_report_config;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -123,30 +201,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_datasync_task ?cloudwatch_log_group_arn ?id ?name ?tags
+let register ?tf_module ?cloudwatch_log_group_arn ?id ?name ?tags
     ?tags_all ?timeouts ~destination_location_arn
     ~source_location_arn ~excludes ~includes ~options ~schedule
     ~task_report_config __resource_id =
   let __resource_type = "aws_datasync_task" in
   let __resource =
-    ({
-       cloudwatch_log_group_arn;
-       destination_location_arn;
-       id;
-       name;
-       source_location_arn;
-       tags;
-       tags_all;
-       excludes;
-       includes;
-       options;
-       schedule;
-       task_report_config;
-       timeouts;
-     }
-      : aws_datasync_task)
+    aws_datasync_task ?cloudwatch_log_group_arn ?id ?name ?tags
+      ?tags_all ?timeouts ~destination_location_arn
+      ~source_location_arn ~excludes ~includes ~options ~schedule
+      ~task_report_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_task __resource);
   let __resource_attributes =
     ({

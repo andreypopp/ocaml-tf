@@ -4,8 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_teams_location__networks = {
-  id : string prop;  (** id *)
+type networks = {
   network : string prop;
       (** CIDR notation representation of the network IP. *)
 }
@@ -19,12 +18,18 @@ type cloudflare_teams_location = {
       (** Indicator that this is the default location. *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** Name of the teams location. *)
-  networks : cloudflare_teams_location__networks list;
+  networks : networks list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Teams Location resource. Teams Locations are
 referenced when creating secure web gateway policies.
  *)
+
+let networks ~network () : networks = { network }
+
+let cloudflare_teams_location ?client_default ?id ~account_id ~name
+    ~networks () : cloudflare_teams_location =
+  { account_id; client_default; id; name; networks }
 
 type t = {
   account_id : string prop;
@@ -38,14 +43,14 @@ type t = {
   policy_ids : string list prop;
 }
 
-let cloudflare_teams_location ?client_default ?id ~account_id ~name
+let register ?tf_module ?client_default ?id ~account_id ~name
     ~networks __resource_id =
   let __resource_type = "cloudflare_teams_location" in
   let __resource =
-    ({ account_id; client_default; id; name; networks }
-      : cloudflare_teams_location)
+    cloudflare_teams_location ?client_default ?id ~account_id ~name
+      ~networks ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_location __resource);
   let __resource_attributes =
     ({

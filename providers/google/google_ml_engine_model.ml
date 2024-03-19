@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_ml_engine_model__default_version = {
+type default_version = {
   name : string prop;
       (** The name specified for the version when it was created. *)
 }
@@ -12,13 +12,13 @@ type google_ml_engine_model__default_version = {
 (** The default version of the model. This version will be used to handle
 prediction requests that do not specify a version. *)
 
-type google_ml_engine_model__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_ml_engine_model__timeouts *)
+(** timeouts *)
 
 type google_ml_engine_model = {
   description : string prop option; [@option]
@@ -38,11 +38,33 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   regions : string prop list option; [@option]
       (** The list of regions where the model is going to be deployed.
 Currently only one region per model is supported *)
-  default_version : google_ml_engine_model__default_version list;
-  timeouts : google_ml_engine_model__timeouts option;
+  default_version : default_version list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_ml_engine_model *)
+
+let default_version ~name () : default_version = { name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_ml_engine_model ?description ?id ?labels
+    ?online_prediction_console_logging ?online_prediction_logging
+    ?project ?regions ?timeouts ~name ~default_version () :
+    google_ml_engine_model =
+  {
+    description;
+    id;
+    labels;
+    name;
+    online_prediction_console_logging;
+    online_prediction_logging;
+    project;
+    regions;
+    default_version;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -57,27 +79,17 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_ml_engine_model ?description ?id ?labels
+let register ?tf_module ?description ?id ?labels
     ?online_prediction_console_logging ?online_prediction_logging
     ?project ?regions ?timeouts ~name ~default_version __resource_id
     =
   let __resource_type = "google_ml_engine_model" in
   let __resource =
-    ({
-       description;
-       id;
-       labels;
-       name;
-       online_prediction_console_logging;
-       online_prediction_logging;
-       project;
-       regions;
-       default_version;
-       timeouts;
-     }
-      : google_ml_engine_model)
+    google_ml_engine_model ?description ?id ?labels
+      ?online_prediction_console_logging ?online_prediction_logging
+      ?project ?regions ?timeouts ~name ~default_version ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_ml_engine_model __resource);
   let __resource_attributes =
     ({

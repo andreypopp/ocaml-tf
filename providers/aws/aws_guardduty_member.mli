@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_guardduty_member__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_guardduty_member
+
+val aws_guardduty_member :
+  ?disable_email_notification:bool prop ->
+  ?id:string prop ->
+  ?invitation_message:string prop ->
+  ?invite:bool prop ->
+  ?timeouts:timeouts ->
+  account_id:string prop ->
+  detector_id:string prop ->
+  email:string prop ->
+  unit ->
+  aws_guardduty_member
+
+val yojson_of_aws_guardduty_member : aws_guardduty_member -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   account_id : string prop;
@@ -16,12 +38,13 @@ type t = private {
   relationship_status : string prop;
 }
 
-val aws_guardduty_member :
+val register :
+  ?tf_module:tf_module ->
   ?disable_email_notification:bool prop ->
   ?id:string prop ->
   ?invitation_message:string prop ->
   ?invite:bool prop ->
-  ?timeouts:aws_guardduty_member__timeouts ->
+  ?timeouts:timeouts ->
   account_id:string prop ->
   detector_id:string prop ->
   email:string prop ->

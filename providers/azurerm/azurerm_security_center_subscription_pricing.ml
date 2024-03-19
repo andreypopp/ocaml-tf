@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_security_center_subscription_pricing__extension = {
+type extension = {
   additional_extension_properties :
     (string * string prop) list option;
       [@option]
@@ -12,29 +12,38 @@ type azurerm_security_center_subscription_pricing__extension = {
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_security_center_subscription_pricing__extension *)
+(** extension *)
 
-type azurerm_security_center_subscription_pricing__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_security_center_subscription_pricing__timeouts *)
+(** timeouts *)
 
 type azurerm_security_center_subscription_pricing = {
   id : string prop option; [@option]  (** id *)
   resource_type : string prop option; [@option]  (** resource_type *)
   subplan : string prop option; [@option]  (** subplan *)
   tier : string prop;  (** tier *)
-  extension :
-    azurerm_security_center_subscription_pricing__extension list;
-  timeouts :
-    azurerm_security_center_subscription_pricing__timeouts option;
+  extension : extension list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_subscription_pricing *)
+
+let extension ?additional_extension_properties ~name () : extension =
+  { additional_extension_properties; name }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_security_center_subscription_pricing ?id ?resource_type
+    ?subplan ?timeouts ~tier ~extension () :
+    azurerm_security_center_subscription_pricing =
+  { id; resource_type; subplan; tier; extension; timeouts }
 
 type t = {
   id : string prop;
@@ -43,16 +52,16 @@ type t = {
   tier : string prop;
 }
 
-let azurerm_security_center_subscription_pricing ?id ?resource_type
-    ?subplan ?timeouts ~tier ~extension __resource_id =
+let register ?tf_module ?id ?resource_type ?subplan ?timeouts ~tier
+    ~extension __resource_id =
   let __resource_type =
     "azurerm_security_center_subscription_pricing"
   in
   let __resource =
-    ({ id; resource_type; subplan; tier; extension; timeouts }
-      : azurerm_security_center_subscription_pricing)
+    azurerm_security_center_subscription_pricing ?id ?resource_type
+      ?subplan ?timeouts ~tier ~extension ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_subscription_pricing
        __resource);
   let __resource_attributes =

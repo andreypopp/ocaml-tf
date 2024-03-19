@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_spring_cloud_app_redis_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_spring_cloud_app_redis_association__timeouts *)
+(** timeouts *)
 
 type azurerm_spring_cloud_app_redis_association = {
   id : string prop option; [@option]  (** id *)
@@ -20,11 +20,27 @@ type azurerm_spring_cloud_app_redis_association = {
   redis_cache_id : string prop;  (** redis_cache_id *)
   spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
   ssl_enabled : bool prop option; [@option]  (** ssl_enabled *)
-  timeouts :
-    azurerm_spring_cloud_app_redis_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_redis_association *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_spring_cloud_app_redis_association ?id ?ssl_enabled
+    ?timeouts ~name ~redis_access_key ~redis_cache_id
+    ~spring_cloud_app_id () :
+    azurerm_spring_cloud_app_redis_association =
+  {
+    id;
+    name;
+    redis_access_key;
+    redis_cache_id;
+    spring_cloud_app_id;
+    ssl_enabled;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -35,25 +51,18 @@ type t = {
   ssl_enabled : bool prop;
 }
 
-let azurerm_spring_cloud_app_redis_association ?id ?ssl_enabled
-    ?timeouts ~name ~redis_access_key ~redis_cache_id
-    ~spring_cloud_app_id __resource_id =
+let register ?tf_module ?id ?ssl_enabled ?timeouts ~name
+    ~redis_access_key ~redis_cache_id ~spring_cloud_app_id
+    __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_app_redis_association"
   in
   let __resource =
-    ({
-       id;
-       name;
-       redis_access_key;
-       redis_cache_id;
-       spring_cloud_app_id;
-       ssl_enabled;
-       timeouts;
-     }
-      : azurerm_spring_cloud_app_redis_association)
+    azurerm_spring_cloud_app_redis_association ?id ?ssl_enabled
+      ?timeouts ~name ~redis_access_key ~redis_cache_id
+      ~spring_cloud_app_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_app_redis_association __resource);
   let __resource_attributes =
     ({

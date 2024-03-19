@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type aws_verifiedaccess_group__sse_configuration
+(** RESOURCE SERIALIZATION *)
+
+type sse_configuration
+
+val sse_configuration :
+  ?customer_managed_key_enabled:bool prop ->
+  ?kms_key_arn:string prop ->
+  unit ->
+  sse_configuration
+
 type aws_verifiedaccess_group
+
+val aws_verifiedaccess_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?policy_document:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  verifiedaccess_instance_id:string prop ->
+  sse_configuration:sse_configuration list ->
+  unit ->
+  aws_verifiedaccess_group
+
+val yojson_of_aws_verifiedaccess_group :
+  aws_verifiedaccess_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_time : string prop;
@@ -20,13 +45,14 @@ type t = private {
   verifiedaccess_instance_id : string prop;
 }
 
-val aws_verifiedaccess_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?policy_document:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   verifiedaccess_instance_id:string prop ->
-  sse_configuration:aws_verifiedaccess_group__sse_configuration list ->
+  sse_configuration:sse_configuration list ->
   string ->
   t

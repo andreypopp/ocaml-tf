@@ -2,18 +2,38 @@
 
 open! Tf.Prelude
 
-type aws_controltower_landing_zone__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type aws_controltower_landing_zone__drift_status = {
-  status : string prop;  (** status *)
-}
+type drift_status = { status : string prop  (** status *) }
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type aws_controltower_landing_zone
 
+val aws_controltower_landing_zone :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  manifest_json:string prop ->
+  version:string prop ->
+  unit ->
+  aws_controltower_landing_zone
+
+val yojson_of_aws_controltower_landing_zone :
+  aws_controltower_landing_zone -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   arn : string prop;
-  drift_status :
-    aws_controltower_landing_zone__drift_status list prop;
+  drift_status : drift_status list prop;
   id : string prop;
   latest_available_version : string prop;
   manifest_json : string prop;
@@ -22,11 +42,12 @@ type t = private {
   version : string prop;
 }
 
-val aws_controltower_landing_zone :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_controltower_landing_zone__timeouts ->
+  ?timeouts:timeouts ->
   manifest_json:string prop ->
   version:string prop ->
   string ->

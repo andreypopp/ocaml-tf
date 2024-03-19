@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type aws_datasync_location_hdfs__name_node = {
+type name_node = {
   hostname : string prop;  (** hostname *)
   port : float prop;  (** port *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_hdfs__name_node *)
+(** name_node *)
 
-type aws_datasync_location_hdfs__qop_configuration = {
+type qop_configuration = {
   data_transfer_protection : string prop option; [@option]
       (** data_transfer_protection *)
   rpc_protection : string prop option; [@option]
       (** rpc_protection *)
 }
 [@@deriving yojson_of]
-(** aws_datasync_location_hdfs__qop_configuration *)
+(** qop_configuration *)
 
 type aws_datasync_location_hdfs = {
   agent_arns : string prop list;  (** agent_arns *)
@@ -41,12 +41,40 @@ type aws_datasync_location_hdfs = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  name_node : aws_datasync_location_hdfs__name_node list;
-  qop_configuration :
-    aws_datasync_location_hdfs__qop_configuration list;
+  name_node : name_node list;
+  qop_configuration : qop_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_hdfs *)
+
+let name_node ~hostname ~port () : name_node = { hostname; port }
+
+let qop_configuration ?data_transfer_protection ?rpc_protection () :
+    qop_configuration =
+  { data_transfer_protection; rpc_protection }
+
+let aws_datasync_location_hdfs ?authentication_type ?block_size ?id
+    ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
+    ?kms_key_provider_uri ?replication_factor ?simple_user
+    ?subdirectory ?tags ?tags_all ~agent_arns ~name_node
+    ~qop_configuration () : aws_datasync_location_hdfs =
+  {
+    agent_arns;
+    authentication_type;
+    block_size;
+    id;
+    kerberos_keytab;
+    kerberos_krb5_conf;
+    kerberos_principal;
+    kms_key_provider_uri;
+    replication_factor;
+    simple_user;
+    subdirectory;
+    tags;
+    tags_all;
+    name_node;
+    qop_configuration;
+  }
 
 type t = {
   agent_arns : string list prop;
@@ -66,33 +94,20 @@ type t = {
   uri : string prop;
 }
 
-let aws_datasync_location_hdfs ?authentication_type ?block_size ?id
+let register ?tf_module ?authentication_type ?block_size ?id
     ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
     ?kms_key_provider_uri ?replication_factor ?simple_user
     ?subdirectory ?tags ?tags_all ~agent_arns ~name_node
     ~qop_configuration __resource_id =
   let __resource_type = "aws_datasync_location_hdfs" in
   let __resource =
-    ({
-       agent_arns;
-       authentication_type;
-       block_size;
-       id;
-       kerberos_keytab;
-       kerberos_krb5_conf;
-       kerberos_principal;
-       kms_key_provider_uri;
-       replication_factor;
-       simple_user;
-       subdirectory;
-       tags;
-       tags_all;
-       name_node;
-       qop_configuration;
-     }
-      : aws_datasync_location_hdfs)
+    aws_datasync_location_hdfs ?authentication_type ?block_size ?id
+      ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
+      ?kms_key_provider_uri ?replication_factor ?simple_user
+      ?subdirectory ?tags ?tags_all ~agent_arns ~name_node
+      ~qop_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_hdfs __resource);
   let __resource_attributes =
     ({

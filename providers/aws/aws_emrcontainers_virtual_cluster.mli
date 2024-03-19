@@ -2,12 +2,51 @@
 
 open! Tf.Prelude
 
-type aws_emrcontainers_virtual_cluster__container_provider__info__eks_info
+(** RESOURCE SERIALIZATION *)
 
-type aws_emrcontainers_virtual_cluster__container_provider__info
-type aws_emrcontainers_virtual_cluster__container_provider
-type aws_emrcontainers_virtual_cluster__timeouts
+type container_provider__info__eks_info
+
+val container_provider__info__eks_info :
+  ?namespace:string prop ->
+  unit ->
+  container_provider__info__eks_info
+
+type container_provider__info
+
+val container_provider__info :
+  eks_info:container_provider__info__eks_info list ->
+  unit ->
+  container_provider__info
+
+type container_provider
+
+val container_provider :
+  id:string prop ->
+  type_:string prop ->
+  info:container_provider__info list ->
+  unit ->
+  container_provider
+
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_emrcontainers_virtual_cluster
+
+val aws_emrcontainers_virtual_cluster :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  container_provider:container_provider list ->
+  unit ->
+  aws_emrcontainers_virtual_cluster
+
+val yojson_of_aws_emrcontainers_virtual_cluster :
+  aws_emrcontainers_virtual_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,13 +56,13 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_emrcontainers_virtual_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_emrcontainers_virtual_cluster__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  container_provider:
-    aws_emrcontainers_virtual_cluster__container_provider list ->
+  container_provider:container_provider list ->
   string ->
   t

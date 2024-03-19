@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_sagemaker_image_version
+
+val aws_sagemaker_image_version :
+  ?id:string prop ->
+  base_image:string prop ->
+  image_name:string prop ->
+  unit ->
+  aws_sagemaker_image_version
+
+val yojson_of_aws_sagemaker_image_version :
+  aws_sagemaker_image_version -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +28,8 @@ type t = private {
   version : float prop;
 }
 
-val aws_sagemaker_image_version :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   base_image:string prop ->
   image_name:string prop ->

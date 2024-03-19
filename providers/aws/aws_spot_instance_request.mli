@@ -2,22 +2,205 @@
 
 open! Tf.Prelude
 
-type aws_spot_instance_request__capacity_reservation_specification__capacity_reservation_target
+(** RESOURCE SERIALIZATION *)
 
-type aws_spot_instance_request__capacity_reservation_specification
-type aws_spot_instance_request__cpu_options
-type aws_spot_instance_request__credit_specification
-type aws_spot_instance_request__ebs_block_device
-type aws_spot_instance_request__enclave_options
-type aws_spot_instance_request__ephemeral_block_device
-type aws_spot_instance_request__launch_template
-type aws_spot_instance_request__maintenance_options
-type aws_spot_instance_request__metadata_options
-type aws_spot_instance_request__network_interface
-type aws_spot_instance_request__private_dns_name_options
-type aws_spot_instance_request__root_block_device
-type aws_spot_instance_request__timeouts
+type capacity_reservation_specification__capacity_reservation_target
+
+val capacity_reservation_specification__capacity_reservation_target :
+  ?capacity_reservation_id:string prop ->
+  ?capacity_reservation_resource_group_arn:string prop ->
+  unit ->
+  capacity_reservation_specification__capacity_reservation_target
+
+type capacity_reservation_specification
+
+val capacity_reservation_specification :
+  ?capacity_reservation_preference:string prop ->
+  capacity_reservation_target:
+    capacity_reservation_specification__capacity_reservation_target
+    list ->
+  unit ->
+  capacity_reservation_specification
+
+type cpu_options
+
+val cpu_options :
+  ?amd_sev_snp:string prop ->
+  ?core_count:float prop ->
+  ?threads_per_core:float prop ->
+  unit ->
+  cpu_options
+
+type credit_specification
+
+val credit_specification :
+  ?cpu_credits:string prop -> unit -> credit_specification
+
+type ebs_block_device
+
+val ebs_block_device :
+  ?delete_on_termination:bool prop ->
+  ?encrypted:bool prop ->
+  ?iops:float prop ->
+  ?kms_key_id:string prop ->
+  ?snapshot_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?throughput:float prop ->
+  ?volume_size:float prop ->
+  ?volume_type:string prop ->
+  device_name:string prop ->
+  unit ->
+  ebs_block_device
+
+type enclave_options
+
+val enclave_options : ?enabled:bool prop -> unit -> enclave_options
+
+type ephemeral_block_device
+
+val ephemeral_block_device :
+  ?no_device:bool prop ->
+  ?virtual_name:string prop ->
+  device_name:string prop ->
+  unit ->
+  ephemeral_block_device
+
+type launch_template
+
+val launch_template :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?version:string prop ->
+  unit ->
+  launch_template
+
+type maintenance_options
+
+val maintenance_options :
+  ?auto_recovery:string prop -> unit -> maintenance_options
+
+type metadata_options
+
+val metadata_options :
+  ?http_endpoint:string prop ->
+  ?http_protocol_ipv6:string prop ->
+  ?http_put_response_hop_limit:float prop ->
+  ?http_tokens:string prop ->
+  ?instance_metadata_tags:string prop ->
+  unit ->
+  metadata_options
+
+type network_interface
+
+val network_interface :
+  ?delete_on_termination:bool prop ->
+  ?network_card_index:float prop ->
+  device_index:float prop ->
+  network_interface_id:string prop ->
+  unit ->
+  network_interface
+
+type private_dns_name_options
+
+val private_dns_name_options :
+  ?enable_resource_name_dns_a_record:bool prop ->
+  ?enable_resource_name_dns_aaaa_record:bool prop ->
+  ?hostname_type:string prop ->
+  unit ->
+  private_dns_name_options
+
+type root_block_device
+
+val root_block_device :
+  ?delete_on_termination:bool prop ->
+  ?encrypted:bool prop ->
+  ?iops:float prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?throughput:float prop ->
+  ?volume_size:float prop ->
+  ?volume_type:string prop ->
+  unit ->
+  root_block_device
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type aws_spot_instance_request
+
+val aws_spot_instance_request :
+  ?ami:string prop ->
+  ?associate_public_ip_address:bool prop ->
+  ?availability_zone:string prop ->
+  ?block_duration_minutes:float prop ->
+  ?cpu_core_count:float prop ->
+  ?cpu_threads_per_core:float prop ->
+  ?disable_api_stop:bool prop ->
+  ?disable_api_termination:bool prop ->
+  ?ebs_optimized:bool prop ->
+  ?get_password_data:bool prop ->
+  ?hibernation:bool prop ->
+  ?host_id:string prop ->
+  ?host_resource_group_arn:string prop ->
+  ?iam_instance_profile:string prop ->
+  ?id:string prop ->
+  ?instance_initiated_shutdown_behavior:string prop ->
+  ?instance_interruption_behavior:string prop ->
+  ?instance_type:string prop ->
+  ?ipv6_address_count:float prop ->
+  ?ipv6_addresses:string prop list ->
+  ?key_name:string prop ->
+  ?launch_group:string prop ->
+  ?monitoring:bool prop ->
+  ?placement_group:string prop ->
+  ?placement_partition_number:float prop ->
+  ?private_ip:string prop ->
+  ?secondary_private_ips:string prop list ->
+  ?security_groups:string prop list ->
+  ?source_dest_check:bool prop ->
+  ?spot_price:string prop ->
+  ?spot_type:string prop ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tenancy:string prop ->
+  ?user_data:string prop ->
+  ?user_data_base64:string prop ->
+  ?user_data_replace_on_change:bool prop ->
+  ?valid_from:string prop ->
+  ?valid_until:string prop ->
+  ?volume_tags:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
+  ?wait_for_fulfillment:bool prop ->
+  ?timeouts:timeouts ->
+  capacity_reservation_specification:
+    capacity_reservation_specification list ->
+  cpu_options:cpu_options list ->
+  credit_specification:credit_specification list ->
+  ebs_block_device:ebs_block_device list ->
+  enclave_options:enclave_options list ->
+  ephemeral_block_device:ephemeral_block_device list ->
+  launch_template:launch_template list ->
+  maintenance_options:maintenance_options list ->
+  metadata_options:metadata_options list ->
+  network_interface:network_interface list ->
+  private_dns_name_options:private_dns_name_options list ->
+  root_block_device:root_block_device list ->
+  unit ->
+  aws_spot_instance_request
+
+val yojson_of_aws_spot_instance_request :
+  aws_spot_instance_request -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   ami : string prop;
@@ -76,7 +259,8 @@ type t = private {
   wait_for_fulfillment : bool prop;
 }
 
-val aws_spot_instance_request :
+val register :
+  ?tf_module:tf_module ->
   ?ami:string prop ->
   ?associate_public_ip_address:bool prop ->
   ?availability_zone:string prop ->
@@ -120,24 +304,19 @@ val aws_spot_instance_request :
   ?volume_tags:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
   ?wait_for_fulfillment:bool prop ->
-  ?timeouts:aws_spot_instance_request__timeouts ->
+  ?timeouts:timeouts ->
   capacity_reservation_specification:
-    aws_spot_instance_request__capacity_reservation_specification
-    list ->
-  cpu_options:aws_spot_instance_request__cpu_options list ->
-  credit_specification:
-    aws_spot_instance_request__credit_specification list ->
-  ebs_block_device:aws_spot_instance_request__ebs_block_device list ->
-  enclave_options:aws_spot_instance_request__enclave_options list ->
-  ephemeral_block_device:
-    aws_spot_instance_request__ephemeral_block_device list ->
-  launch_template:aws_spot_instance_request__launch_template list ->
-  maintenance_options:
-    aws_spot_instance_request__maintenance_options list ->
-  metadata_options:aws_spot_instance_request__metadata_options list ->
-  network_interface:aws_spot_instance_request__network_interface list ->
-  private_dns_name_options:
-    aws_spot_instance_request__private_dns_name_options list ->
-  root_block_device:aws_spot_instance_request__root_block_device list ->
+    capacity_reservation_specification list ->
+  cpu_options:cpu_options list ->
+  credit_specification:credit_specification list ->
+  ebs_block_device:ebs_block_device list ->
+  enclave_options:enclave_options list ->
+  ephemeral_block_device:ephemeral_block_device list ->
+  launch_template:launch_template list ->
+  maintenance_options:maintenance_options list ->
+  metadata_options:metadata_options list ->
+  network_interface:network_interface list ->
+  private_dns_name_options:private_dns_name_options list ->
+  root_block_device:root_block_device list ->
   string ->
   t

@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_logz_tag_rule__tag_filter = {
+type tag_filter = {
   action : string prop;  (** action *)
   name : string prop;  (** name *)
   value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
-(** azurerm_logz_tag_rule__tag_filter *)
+(** tag_filter *)
 
-type azurerm_logz_tag_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logz_tag_rule__timeouts *)
+(** timeouts *)
 
 type azurerm_logz_tag_rule = {
   id : string prop option; [@option]  (** id *)
@@ -29,11 +29,30 @@ type azurerm_logz_tag_rule = {
       (** send_activity_logs *)
   send_subscription_logs : bool prop option; [@option]
       (** send_subscription_logs *)
-  tag_filter : azurerm_logz_tag_rule__tag_filter list;
-  timeouts : azurerm_logz_tag_rule__timeouts option;
+  tag_filter : tag_filter list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logz_tag_rule *)
+
+let tag_filter ?value ~action ~name () : tag_filter =
+  { action; name; value }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logz_tag_rule ?id ?send_aad_logs ?send_activity_logs
+    ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter ()
+    : azurerm_logz_tag_rule =
+  {
+    id;
+    logz_monitor_id;
+    send_aad_logs;
+    send_activity_logs;
+    send_subscription_logs;
+    tag_filter;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -43,23 +62,16 @@ type t = {
   send_subscription_logs : bool prop;
 }
 
-let azurerm_logz_tag_rule ?id ?send_aad_logs ?send_activity_logs
+let register ?tf_module ?id ?send_aad_logs ?send_activity_logs
     ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter
     __resource_id =
   let __resource_type = "azurerm_logz_tag_rule" in
   let __resource =
-    ({
-       id;
-       logz_monitor_id;
-       send_aad_logs;
-       send_activity_logs;
-       send_subscription_logs;
-       tag_filter;
-       timeouts;
-     }
-      : azurerm_logz_tag_rule)
+    azurerm_logz_tag_rule ?id ?send_aad_logs ?send_activity_logs
+      ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logz_tag_rule __resource);
   let __resource_attributes =
     ({

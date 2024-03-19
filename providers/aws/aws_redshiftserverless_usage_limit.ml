@@ -15,6 +15,11 @@ type aws_redshiftserverless_usage_limit = {
 [@@deriving yojson_of]
 (** aws_redshiftserverless_usage_limit *)
 
+let aws_redshiftserverless_usage_limit ?breach_action ?id ?period
+    ~amount ~resource_arn ~usage_type () :
+    aws_redshiftserverless_usage_limit =
+  { amount; breach_action; id; period; resource_arn; usage_type }
+
 type t = {
   amount : float prop;
   arn : string prop;
@@ -25,14 +30,14 @@ type t = {
   usage_type : string prop;
 }
 
-let aws_redshiftserverless_usage_limit ?breach_action ?id ?period
-    ~amount ~resource_arn ~usage_type __resource_id =
+let register ?tf_module ?breach_action ?id ?period ~amount
+    ~resource_arn ~usage_type __resource_id =
   let __resource_type = "aws_redshiftserverless_usage_limit" in
   let __resource =
-    ({ amount; breach_action; id; period; resource_arn; usage_type }
-      : aws_redshiftserverless_usage_limit)
+    aws_redshiftserverless_usage_limit ?breach_action ?id ?period
+      ~amount ~resource_arn ~usage_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshiftserverless_usage_limit __resource);
   let __resource_attributes =
     ({

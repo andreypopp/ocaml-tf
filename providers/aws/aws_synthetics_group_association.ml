@@ -12,6 +12,10 @@ type aws_synthetics_group_association = {
 [@@deriving yojson_of]
 (** aws_synthetics_group_association *)
 
+let aws_synthetics_group_association ?id ~canary_arn ~group_name () :
+    aws_synthetics_group_association =
+  { canary_arn; group_name; id }
+
 type t = {
   canary_arn : string prop;
   group_arn : string prop;
@@ -20,14 +24,12 @@ type t = {
   id : string prop;
 }
 
-let aws_synthetics_group_association ?id ~canary_arn ~group_name
-    __resource_id =
+let register ?tf_module ?id ~canary_arn ~group_name __resource_id =
   let __resource_type = "aws_synthetics_group_association" in
   let __resource =
-    ({ canary_arn; group_name; id }
-      : aws_synthetics_group_association)
+    aws_synthetics_group_association ?id ~canary_arn ~group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_synthetics_group_association __resource);
   let __resource_attributes =
     ({

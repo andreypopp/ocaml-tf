@@ -2,10 +2,46 @@
 
 open! Tf.Prelude
 
-type azurerm_network_function_collector_policy__ipfx_emission
-type azurerm_network_function_collector_policy__ipfx_ingestion
-type azurerm_network_function_collector_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type ipfx_emission
+
+val ipfx_emission :
+  destination_types:string prop list -> unit -> ipfx_emission
+
+type ipfx_ingestion
+
+val ipfx_ingestion :
+  source_resource_ids:string prop list -> unit -> ipfx_ingestion
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_network_function_collector_policy
+
+val azurerm_network_function_collector_policy :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  traffic_collector_id:string prop ->
+  ipfx_emission:ipfx_emission list ->
+  ipfx_ingestion:ipfx_ingestion list ->
+  unit ->
+  azurerm_network_function_collector_policy
+
+val yojson_of_azurerm_network_function_collector_policy :
+  azurerm_network_function_collector_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,16 +51,15 @@ type t = private {
   traffic_collector_id : string prop;
 }
 
-val azurerm_network_function_collector_policy :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_network_function_collector_policy__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   traffic_collector_id:string prop ->
-  ipfx_emission:
-    azurerm_network_function_collector_policy__ipfx_emission list ->
-  ipfx_ingestion:
-    azurerm_network_function_collector_policy__ipfx_ingestion list ->
+  ipfx_emission:ipfx_emission list ->
+  ipfx_ingestion:ipfx_ingestion list ->
   string ->
   t

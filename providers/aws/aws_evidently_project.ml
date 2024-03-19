@@ -4,35 +4,33 @@
 
 open! Tf.Prelude
 
-type aws_evidently_project__data_delivery__cloudwatch_logs = {
+type data_delivery__cloudwatch_logs = {
   log_group : string prop option; [@option]  (** log_group *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_project__data_delivery__cloudwatch_logs *)
+(** data_delivery__cloudwatch_logs *)
 
-type aws_evidently_project__data_delivery__s3_destination = {
+type data_delivery__s3_destination = {
   bucket : string prop option; [@option]  (** bucket *)
   prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_project__data_delivery__s3_destination *)
+(** data_delivery__s3_destination *)
 
-type aws_evidently_project__data_delivery = {
-  cloudwatch_logs :
-    aws_evidently_project__data_delivery__cloudwatch_logs list;
-  s3_destination :
-    aws_evidently_project__data_delivery__s3_destination list;
+type data_delivery = {
+  cloudwatch_logs : data_delivery__cloudwatch_logs list;
+  s3_destination : data_delivery__s3_destination list;
 }
 [@@deriving yojson_of]
-(** aws_evidently_project__data_delivery *)
+(** data_delivery *)
 
-type aws_evidently_project__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_evidently_project__timeouts *)
+(** timeouts *)
 
 type aws_evidently_project = {
   description : string prop option; [@option]  (** description *)
@@ -41,11 +39,30 @@ type aws_evidently_project = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  data_delivery : aws_evidently_project__data_delivery list;
-  timeouts : aws_evidently_project__timeouts option;
+  data_delivery : data_delivery list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_evidently_project *)
+
+let data_delivery__cloudwatch_logs ?log_group () :
+    data_delivery__cloudwatch_logs =
+  { log_group }
+
+let data_delivery__s3_destination ?bucket ?prefix () :
+    data_delivery__s3_destination =
+  { bucket; prefix }
+
+let data_delivery ~cloudwatch_logs ~s3_destination () : data_delivery
+    =
+  { cloudwatch_logs; s3_destination }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_evidently_project ?description ?id ?tags ?tags_all ?timeouts
+    ~name ~data_delivery () : aws_evidently_project =
+  { description; id; name; tags; tags_all; data_delivery; timeouts }
 
 type t = {
   active_experiment_count : float prop;
@@ -64,22 +81,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_evidently_project ?description ?id ?tags ?tags_all ?timeouts
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
     ~name ~data_delivery __resource_id =
   let __resource_type = "aws_evidently_project" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       tags;
-       tags_all;
-       data_delivery;
-       timeouts;
-     }
-      : aws_evidently_project)
+    aws_evidently_project ?description ?id ?tags ?tags_all ?timeouts
+      ~name ~data_delivery ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_evidently_project __resource);
   let __resource_attributes =
     ({

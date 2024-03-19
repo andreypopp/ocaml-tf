@@ -2,16 +2,39 @@
 
 open! Tf.Prelude
 
-type google_compute_disk_async_replication__secondary_disk
-type google_compute_disk_async_replication__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type secondary_disk
+
+val secondary_disk : disk:string prop -> unit -> secondary_disk
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_disk_async_replication
-type t = private { id : string prop; primary_disk : string prop }
 
 val google_compute_disk_async_replication :
   ?id:string prop ->
-  ?timeouts:google_compute_disk_async_replication__timeouts ->
+  ?timeouts:timeouts ->
   primary_disk:string prop ->
-  secondary_disk:
-    google_compute_disk_async_replication__secondary_disk list ->
+  secondary_disk:secondary_disk list ->
+  unit ->
+  google_compute_disk_async_replication
+
+val yojson_of_google_compute_disk_async_replication :
+  google_compute_disk_async_replication -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; primary_disk : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  primary_disk:string prop ->
+  secondary_disk:secondary_disk list ->
   string ->
   t

@@ -4,42 +4,40 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_scheduled_query_rules_alert__action = {
+type action = {
   action_group : string prop list;  (** action_group *)
   custom_webhook_payload : string prop option; [@option]
       (** custom_webhook_payload *)
   email_subject : string prop option; [@option]  (** email_subject *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert__action *)
+(** action *)
 
-type azurerm_monitor_scheduled_query_rules_alert__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert__timeouts *)
+(** timeouts *)
 
-type azurerm_monitor_scheduled_query_rules_alert__trigger__metric_trigger = {
+type trigger__metric_trigger = {
   metric_column : string prop option; [@option]  (** metric_column *)
   metric_trigger_type : string prop;  (** metric_trigger_type *)
   operator : string prop;  (** operator *)
   threshold : float prop;  (** threshold *)
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert__trigger__metric_trigger *)
+(** trigger__metric_trigger *)
 
-type azurerm_monitor_scheduled_query_rules_alert__trigger = {
+type trigger = {
   operator : string prop;  (** operator *)
   threshold : float prop;  (** threshold *)
-  metric_trigger :
-    azurerm_monitor_scheduled_query_rules_alert__trigger__metric_trigger
-    list;
+  metric_trigger : trigger__metric_trigger list;
 }
 [@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert__trigger *)
+(** trigger *)
 
 type azurerm_monitor_scheduled_query_rules_alert = {
   authorized_resource_ids : string prop list option; [@option]
@@ -60,13 +58,54 @@ type azurerm_monitor_scheduled_query_rules_alert = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   throttling : float prop option; [@option]  (** throttling *)
   time_window : float prop;  (** time_window *)
-  action : azurerm_monitor_scheduled_query_rules_alert__action list;
-  timeouts :
-    azurerm_monitor_scheduled_query_rules_alert__timeouts option;
-  trigger : azurerm_monitor_scheduled_query_rules_alert__trigger list;
+  action : action list;
+  timeouts : timeouts option;
+  trigger : trigger list;
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_scheduled_query_rules_alert *)
+
+let action ?custom_webhook_payload ?email_subject ~action_group () :
+    action =
+  { action_group; custom_webhook_payload; email_subject }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let trigger__metric_trigger ?metric_column ~metric_trigger_type
+    ~operator ~threshold () : trigger__metric_trigger =
+  { metric_column; metric_trigger_type; operator; threshold }
+
+let trigger ~operator ~threshold ~metric_trigger () : trigger =
+  { operator; threshold; metric_trigger }
+
+let azurerm_monitor_scheduled_query_rules_alert
+    ?authorized_resource_ids ?auto_mitigation_enabled ?description
+    ?enabled ?id ?query_type ?severity ?tags ?throttling ?timeouts
+    ~data_source_id ~frequency ~location ~name ~query
+    ~resource_group_name ~time_window ~action ~trigger () :
+    azurerm_monitor_scheduled_query_rules_alert =
+  {
+    authorized_resource_ids;
+    auto_mitigation_enabled;
+    data_source_id;
+    description;
+    enabled;
+    frequency;
+    id;
+    location;
+    name;
+    query;
+    query_type;
+    resource_group_name;
+    severity;
+    tags;
+    throttling;
+    time_window;
+    action;
+    timeouts;
+    trigger;
+  }
 
 type t = {
   authorized_resource_ids : string list prop;
@@ -87,40 +126,22 @@ type t = {
   time_window : float prop;
 }
 
-let azurerm_monitor_scheduled_query_rules_alert
-    ?authorized_resource_ids ?auto_mitigation_enabled ?description
-    ?enabled ?id ?query_type ?severity ?tags ?throttling ?timeouts
-    ~data_source_id ~frequency ~location ~name ~query
-    ~resource_group_name ~time_window ~action ~trigger __resource_id
-    =
+let register ?tf_module ?authorized_resource_ids
+    ?auto_mitigation_enabled ?description ?enabled ?id ?query_type
+    ?severity ?tags ?throttling ?timeouts ~data_source_id ~frequency
+    ~location ~name ~query ~resource_group_name ~time_window ~action
+    ~trigger __resource_id =
   let __resource_type =
     "azurerm_monitor_scheduled_query_rules_alert"
   in
   let __resource =
-    ({
-       authorized_resource_ids;
-       auto_mitigation_enabled;
-       data_source_id;
-       description;
-       enabled;
-       frequency;
-       id;
-       location;
-       name;
-       query;
-       query_type;
-       resource_group_name;
-       severity;
-       tags;
-       throttling;
-       time_window;
-       action;
-       timeouts;
-       trigger;
-     }
-      : azurerm_monitor_scheduled_query_rules_alert)
+    azurerm_monitor_scheduled_query_rules_alert
+      ?authorized_resource_ids ?auto_mitigation_enabled ?description
+      ?enabled ?id ?query_type ?severity ?tags ?throttling ?timeouts
+      ~data_source_id ~frequency ~location ~name ~query
+      ~resource_group_name ~time_window ~action ~trigger ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_scheduled_query_rules_alert __resource);
   let __resource_attributes =
     ({

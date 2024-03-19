@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_discovery_engine_chat_engine__chat_engine_config__agent_creation_config = {
+type chat_engine_config__agent_creation_config = {
   business : string prop option; [@option]
       (** Name of the company, organization or other entity that the agent represents. Used for knowledge connector LLM prompt and for knowledge search. *)
   default_language_code : string prop;
@@ -17,30 +17,29 @@ type google_discovery_engine_chat_engine__chat_engine_config__agent_creation_con
 [@@deriving yojson_of]
 (** The configuration to generate the Dialogflow agent that is associated to this Engine. *)
 
-type google_discovery_engine_chat_engine__chat_engine_config = {
+type chat_engine_config = {
   agent_creation_config :
-    google_discovery_engine_chat_engine__chat_engine_config__agent_creation_config
-    list;
+    chat_engine_config__agent_creation_config list;
 }
 [@@deriving yojson_of]
 (** Configurations for a chat Engine. *)
 
-type google_discovery_engine_chat_engine__common_config = {
+type common_config = {
   company_name : string prop option; [@option]
       (** The name of the company, business or entity that is associated with the engine. Setting this may help improve LLM related features. *)
 }
 [@@deriving yojson_of]
 (** Common config spec that specifies the metadata of the engine. *)
 
-type google_discovery_engine_chat_engine__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_discovery_engine_chat_engine__timeouts *)
+(** timeouts *)
 
-type google_discovery_engine_chat_engine__chat_engine_metadata = {
+type chat_engine_metadata = {
   dialogflow_agent : string prop;  (** dialogflow_agent *)
 }
 [@@deriving yojson_of]
@@ -57,19 +56,47 @@ type google_discovery_engine_chat_engine = {
       (** The industry vertical that the chat engine registers. Vertical on Engine has to match vertical of the DataStore linked to the engine. Default value: GENERIC Possible values: [GENERIC] *)
   location : string prop;  (** Location. *)
   project : string prop option; [@option]  (** project *)
-  chat_engine_config :
-    google_discovery_engine_chat_engine__chat_engine_config list;
-  common_config :
-    google_discovery_engine_chat_engine__common_config list;
-  timeouts : google_discovery_engine_chat_engine__timeouts option;
+  chat_engine_config : chat_engine_config list;
+  common_config : common_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_discovery_engine_chat_engine *)
 
+let chat_engine_config__agent_creation_config ?business ?location
+    ~default_language_code ~time_zone () :
+    chat_engine_config__agent_creation_config =
+  { business; default_language_code; location; time_zone }
+
+let chat_engine_config ~agent_creation_config () : chat_engine_config
+    =
+  { agent_creation_config }
+
+let common_config ?company_name () : common_config = { company_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_discovery_engine_chat_engine ?id ?industry_vertical
+    ?project ?timeouts ~collection_id ~data_store_ids ~display_name
+    ~engine_id ~location ~chat_engine_config ~common_config () :
+    google_discovery_engine_chat_engine =
+  {
+    collection_id;
+    data_store_ids;
+    display_name;
+    engine_id;
+    id;
+    industry_vertical;
+    location;
+    project;
+    chat_engine_config;
+    common_config;
+    timeouts;
+  }
+
 type t = {
-  chat_engine_metadata :
-    google_discovery_engine_chat_engine__chat_engine_metadata list
-    prop;
+  chat_engine_metadata : chat_engine_metadata list prop;
   collection_id : string prop;
   create_time : string prop;
   data_store_ids : string list prop;
@@ -83,28 +110,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_discovery_engine_chat_engine ?id ?industry_vertical
-    ?project ?timeouts ~collection_id ~data_store_ids ~display_name
-    ~engine_id ~location ~chat_engine_config ~common_config
-    __resource_id =
+let register ?tf_module ?id ?industry_vertical ?project ?timeouts
+    ~collection_id ~data_store_ids ~display_name ~engine_id ~location
+    ~chat_engine_config ~common_config __resource_id =
   let __resource_type = "google_discovery_engine_chat_engine" in
   let __resource =
-    ({
-       collection_id;
-       data_store_ids;
-       display_name;
-       engine_id;
-       id;
-       industry_vertical;
-       location;
-       project;
-       chat_engine_config;
-       common_config;
-       timeouts;
-     }
-      : google_discovery_engine_chat_engine)
+    google_discovery_engine_chat_engine ?id ?industry_vertical
+      ?project ?timeouts ~collection_id ~data_store_ids ~display_name
+      ~engine_id ~location ~chat_engine_config ~common_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_discovery_engine_chat_engine __resource);
   let __resource_attributes =
     ({

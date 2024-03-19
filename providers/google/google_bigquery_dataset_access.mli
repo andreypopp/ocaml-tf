@@ -2,12 +2,70 @@
 
 open! Tf.Prelude
 
-type google_bigquery_dataset_access__dataset__dataset
-type google_bigquery_dataset_access__dataset
-type google_bigquery_dataset_access__routine
-type google_bigquery_dataset_access__timeouts
-type google_bigquery_dataset_access__view
+(** RESOURCE SERIALIZATION *)
+
+type dataset__dataset
+
+val dataset__dataset :
+  dataset_id:string prop ->
+  project_id:string prop ->
+  unit ->
+  dataset__dataset
+
+type dataset
+
+val dataset :
+  target_types:string prop list ->
+  dataset:dataset__dataset list ->
+  unit ->
+  dataset
+
+type routine
+
+val routine :
+  dataset_id:string prop ->
+  project_id:string prop ->
+  routine_id:string prop ->
+  unit ->
+  routine
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
+type view
+
+val view :
+  dataset_id:string prop ->
+  project_id:string prop ->
+  table_id:string prop ->
+  unit ->
+  view
+
 type google_bigquery_dataset_access
+
+val google_bigquery_dataset_access :
+  ?domain:string prop ->
+  ?group_by_email:string prop ->
+  ?iam_member:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?role:string prop ->
+  ?special_group:string prop ->
+  ?user_by_email:string prop ->
+  ?timeouts:timeouts ->
+  dataset_id:string prop ->
+  dataset:dataset list ->
+  routine:routine list ->
+  view:view list ->
+  unit ->
+  google_bigquery_dataset_access
+
+val yojson_of_google_bigquery_dataset_access :
+  google_bigquery_dataset_access -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   api_updated_member : bool prop;
@@ -22,7 +80,8 @@ type t = private {
   user_by_email : string prop;
 }
 
-val google_bigquery_dataset_access :
+val register :
+  ?tf_module:tf_module ->
   ?domain:string prop ->
   ?group_by_email:string prop ->
   ?iam_member:string prop ->
@@ -31,10 +90,10 @@ val google_bigquery_dataset_access :
   ?role:string prop ->
   ?special_group:string prop ->
   ?user_by_email:string prop ->
-  ?timeouts:google_bigquery_dataset_access__timeouts ->
+  ?timeouts:timeouts ->
   dataset_id:string prop ->
-  dataset:google_bigquery_dataset_access__dataset list ->
-  routine:google_bigquery_dataset_access__routine list ->
-  view:google_bigquery_dataset_access__view list ->
+  dataset:dataset list ->
+  routine:routine list ->
+  view:view list ->
   string ->
   t

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_sagemaker_app__resource_spec = {
+type resource_spec = {
   instance_type : string prop option; [@option]  (** instance_type *)
   lifecycle_config_arn : string prop option; [@option]
       (** lifecycle_config_arn *)
@@ -16,7 +16,7 @@ type aws_sagemaker_app__resource_spec = {
       (** sagemaker_image_version_arn *)
 }
 [@@deriving yojson_of]
-(** aws_sagemaker_app__resource_spec *)
+(** resource_spec *)
 
 type aws_sagemaker_app = {
   app_name : string prop;  (** app_name *)
@@ -29,10 +29,36 @@ type aws_sagemaker_app = {
       (** tags_all *)
   user_profile_name : string prop option; [@option]
       (** user_profile_name *)
-  resource_spec : aws_sagemaker_app__resource_spec list;
+  resource_spec : resource_spec list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_app *)
+
+let resource_spec ?instance_type ?lifecycle_config_arn
+    ?sagemaker_image_arn ?sagemaker_image_version_alias
+    ?sagemaker_image_version_arn () : resource_spec =
+  {
+    instance_type;
+    lifecycle_config_arn;
+    sagemaker_image_arn;
+    sagemaker_image_version_alias;
+    sagemaker_image_version_arn;
+  }
+
+let aws_sagemaker_app ?id ?space_name ?tags ?tags_all
+    ?user_profile_name ~app_name ~app_type ~domain_id ~resource_spec
+    () : aws_sagemaker_app =
+  {
+    app_name;
+    app_type;
+    domain_id;
+    id;
+    space_name;
+    tags;
+    tags_all;
+    user_profile_name;
+    resource_spec;
+  }
 
 type t = {
   app_name : string prop;
@@ -46,25 +72,16 @@ type t = {
   user_profile_name : string prop;
 }
 
-let aws_sagemaker_app ?id ?space_name ?tags ?tags_all
+let register ?tf_module ?id ?space_name ?tags ?tags_all
     ?user_profile_name ~app_name ~app_type ~domain_id ~resource_spec
     __resource_id =
   let __resource_type = "aws_sagemaker_app" in
   let __resource =
-    ({
-       app_name;
-       app_type;
-       domain_id;
-       id;
-       space_name;
-       tags;
-       tags_all;
-       user_profile_name;
-       resource_spec;
-     }
-      : aws_sagemaker_app)
+    aws_sagemaker_app ?id ?space_name ?tags ?tags_all
+      ?user_profile_name ~app_name ~app_type ~domain_id
+      ~resource_spec ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_app __resource);
   let __resource_attributes =
     ({

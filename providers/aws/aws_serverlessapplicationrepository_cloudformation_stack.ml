@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_serverlessapplicationrepository_cloudformation_stack__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_serverlessapplicationrepository_cloudformation_stack__timeouts *)
+(** timeouts *)
 
 type aws_serverlessapplicationrepository_cloudformation_stack = {
   application_id : string prop;  (** application_id *)
@@ -24,12 +24,29 @@ type aws_serverlessapplicationrepository_cloudformation_stack = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts :
-    aws_serverlessapplicationrepository_cloudformation_stack__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_serverlessapplicationrepository_cloudformation_stack *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_serverlessapplicationrepository_cloudformation_stack ?id
+    ?parameters ?semantic_version ?tags ?tags_all ?timeouts
+    ~application_id ~capabilities ~name () :
+    aws_serverlessapplicationrepository_cloudformation_stack =
+  {
+    application_id;
+    capabilities;
+    id;
+    name;
+    parameters;
+    semantic_version;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   application_id : string prop;
@@ -43,27 +60,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_serverlessapplicationrepository_cloudformation_stack ?id
-    ?parameters ?semantic_version ?tags ?tags_all ?timeouts
-    ~application_id ~capabilities ~name __resource_id =
+let register ?tf_module ?id ?parameters ?semantic_version ?tags
+    ?tags_all ?timeouts ~application_id ~capabilities ~name
+    __resource_id =
   let __resource_type =
     "aws_serverlessapplicationrepository_cloudformation_stack"
   in
   let __resource =
-    ({
-       application_id;
-       capabilities;
-       id;
-       name;
-       parameters;
-       semantic_version;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_serverlessapplicationrepository_cloudformation_stack)
+    aws_serverlessapplicationrepository_cloudformation_stack ?id
+      ?parameters ?semantic_version ?tags ?tags_all ?timeouts
+      ~application_id ~capabilities ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_serverlessapplicationrepository_cloudformation_stack
        __resource);
   let __resource_attributes =

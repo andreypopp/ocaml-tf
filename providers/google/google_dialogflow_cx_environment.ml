@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_environment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_cx_environment__timeouts *)
+(** timeouts *)
 
-type google_dialogflow_cx_environment__version_configs = {
+type version_configs = {
   version : string prop;
       (** Format: projects/{{project}}/locations/{{location}}/agents/{{agent}}/flows/{{flow}}/versions/{{version}}. *)
 }
@@ -28,12 +28,28 @@ type google_dialogflow_cx_environment = {
   parent : string prop option; [@option]
       (** The Agent to create an Environment for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
-  timeouts : google_dialogflow_cx_environment__timeouts option;
-  version_configs :
-    google_dialogflow_cx_environment__version_configs list;
+  timeouts : timeouts option;
+  version_configs : version_configs list;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_environment *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let version_configs ~version () : version_configs = { version }
+
+let google_dialogflow_cx_environment ?description ?id ?parent
+    ?timeouts ~display_name ~version_configs () :
+    google_dialogflow_cx_environment =
+  {
+    description;
+    display_name;
+    id;
+    parent;
+    timeouts;
+    version_configs;
+  }
 
 type t = {
   description : string prop;
@@ -44,21 +60,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_dialogflow_cx_environment ?description ?id ?parent
-    ?timeouts ~display_name ~version_configs __resource_id =
+let register ?tf_module ?description ?id ?parent ?timeouts
+    ~display_name ~version_configs __resource_id =
   let __resource_type = "google_dialogflow_cx_environment" in
   let __resource =
-    ({
-       description;
-       display_name;
-       id;
-       parent;
-       timeouts;
-       version_configs;
-     }
-      : google_dialogflow_cx_environment)
+    google_dialogflow_cx_environment ?description ?id ?parent
+      ?timeouts ~display_name ~version_configs ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_environment __resource);
   let __resource_attributes =
     ({

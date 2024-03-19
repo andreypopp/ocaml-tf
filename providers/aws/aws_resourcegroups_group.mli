@@ -2,11 +2,52 @@
 
 open! Tf.Prelude
 
-type aws_resourcegroups_group__configuration__parameters
-type aws_resourcegroups_group__configuration
-type aws_resourcegroups_group__resource_query
-type aws_resourcegroups_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type configuration__parameters
+
+val configuration__parameters :
+  name:string prop ->
+  values:string prop list ->
+  unit ->
+  configuration__parameters
+
+type configuration
+
+val configuration :
+  type_:string prop ->
+  parameters:configuration__parameters list ->
+  unit ->
+  configuration
+
+type resource_query
+
+val resource_query :
+  ?type_:string prop -> query:string prop -> unit -> resource_query
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?update:string prop -> unit -> timeouts
+
 type aws_resourcegroups_group
+
+val aws_resourcegroups_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  configuration:configuration list ->
+  resource_query:resource_query list ->
+  unit ->
+  aws_resourcegroups_group
+
+val yojson_of_aws_resourcegroups_group :
+  aws_resourcegroups_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,14 +58,15 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_resourcegroups_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_resourcegroups_group__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  configuration:aws_resourcegroups_group__configuration list ->
-  resource_query:aws_resourcegroups_group__resource_query list ->
+  configuration:configuration list ->
+  resource_query:resource_query list ->
   string ->
   t

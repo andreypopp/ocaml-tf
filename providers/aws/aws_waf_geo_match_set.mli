@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_waf_geo_match_set__geo_match_constraint
+(** RESOURCE SERIALIZATION *)
+
+type geo_match_constraint
+
+val geo_match_constraint :
+  type_:string prop ->
+  value:string prop ->
+  unit ->
+  geo_match_constraint
+
 type aws_waf_geo_match_set
+
+val aws_waf_geo_match_set :
+  ?id:string prop ->
+  name:string prop ->
+  geo_match_constraint:geo_match_constraint list ->
+  unit ->
+  aws_waf_geo_match_set
+
+val yojson_of_aws_waf_geo_match_set : aws_waf_geo_match_set -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -11,10 +31,10 @@ type t = private {
   name : string prop;
 }
 
-val aws_waf_geo_match_set :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   name:string prop ->
-  geo_match_constraint:
-    aws_waf_geo_match_set__geo_match_constraint list ->
+  geo_match_constraint:geo_match_constraint list ->
   string ->
   t

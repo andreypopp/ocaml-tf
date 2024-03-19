@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_container_registry_agent_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_container_registry_agent_pool__timeouts *)
+(** timeouts *)
 
 type azurerm_container_registry_agent_pool = {
   container_registry_name : string prop;
@@ -26,10 +26,30 @@ type azurerm_container_registry_agent_pool = {
   tier : string prop option; [@option]  (** tier *)
   virtual_network_subnet_id : string prop option; [@option]
       (** virtual_network_subnet_id *)
-  timeouts : azurerm_container_registry_agent_pool__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_container_registry_agent_pool *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_container_registry_agent_pool ?id ?instance_count ?tags
+    ?tier ?virtual_network_subnet_id ?timeouts
+    ~container_registry_name ~location ~name ~resource_group_name ()
+    : azurerm_container_registry_agent_pool =
+  {
+    container_registry_name;
+    id;
+    instance_count;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    tier;
+    virtual_network_subnet_id;
+    timeouts;
+  }
 
 type t = {
   container_registry_name : string prop;
@@ -43,27 +63,17 @@ type t = {
   virtual_network_subnet_id : string prop;
 }
 
-let azurerm_container_registry_agent_pool ?id ?instance_count ?tags
-    ?tier ?virtual_network_subnet_id ?timeouts
-    ~container_registry_name ~location ~name ~resource_group_name
-    __resource_id =
+let register ?tf_module ?id ?instance_count ?tags ?tier
+    ?virtual_network_subnet_id ?timeouts ~container_registry_name
+    ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_container_registry_agent_pool" in
   let __resource =
-    ({
-       container_registry_name;
-       id;
-       instance_count;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       tier;
-       virtual_network_subnet_id;
-       timeouts;
-     }
-      : azurerm_container_registry_agent_pool)
+    azurerm_container_registry_agent_pool ?id ?instance_count ?tags
+      ?tier ?virtual_network_subnet_id ?timeouts
+      ~container_registry_name ~location ~name ~resource_group_name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry_agent_pool __resource);
   let __resource_attributes =
     ({

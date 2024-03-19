@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_attachment_accepter__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_networkmanager_attachment_accepter
+
+val aws_networkmanager_attachment_accepter :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  attachment_id:string prop ->
+  attachment_type:string prop ->
+  unit ->
+  aws_networkmanager_attachment_accepter
+
+val yojson_of_aws_networkmanager_attachment_accepter :
+  aws_networkmanager_attachment_accepter -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   attachment_id : string prop;
@@ -19,9 +37,10 @@ type t = private {
   state : string prop;
 }
 
-val aws_networkmanager_attachment_accepter :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_networkmanager_attachment_accepter__timeouts ->
+  ?timeouts:timeouts ->
   attachment_id:string prop ->
   attachment_type:string prop ->
   string ->

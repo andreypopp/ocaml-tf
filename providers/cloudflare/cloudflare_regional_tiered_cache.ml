@@ -16,19 +16,22 @@ type cloudflare_regional_tiered_cache = {
 This can help improve performance for smart and custom tiered cache topologies.
  *)
 
+let cloudflare_regional_tiered_cache ?id ~value ~zone_id () :
+    cloudflare_regional_tiered_cache =
+  { id; value; zone_id }
+
 type t = {
   id : string prop;
   value : string prop;
   zone_id : string prop;
 }
 
-let cloudflare_regional_tiered_cache ?id ~value ~zone_id
-    __resource_id =
+let register ?tf_module ?id ~value ~zone_id __resource_id =
   let __resource_type = "cloudflare_regional_tiered_cache" in
   let __resource =
-    ({ id; value; zone_id } : cloudflare_regional_tiered_cache)
+    cloudflare_regional_tiered_cache ?id ~value ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_regional_tiered_cache __resource);
   let __resource_attributes =
     ({

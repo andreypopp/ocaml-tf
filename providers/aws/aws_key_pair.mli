@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_key_pair
+
+val aws_key_pair :
+  ?id:string prop ->
+  ?key_name:string prop ->
+  ?key_name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  public_key:string prop ->
+  unit ->
+  aws_key_pair
+
+val yojson_of_aws_key_pair : aws_key_pair -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +33,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_key_pair :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?key_name:string prop ->
   ?key_name_prefix:string prop ->

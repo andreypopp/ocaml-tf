@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_storagegateway_tape_pool
+
+val aws_storagegateway_tape_pool :
+  ?id:string prop ->
+  ?retention_lock_time_in_days:float prop ->
+  ?retention_lock_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  pool_name:string prop ->
+  storage_class:string prop ->
+  unit ->
+  aws_storagegateway_tape_pool
+
+val yojson_of_aws_storagegateway_tape_pool :
+  aws_storagegateway_tape_pool -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,7 +33,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_storagegateway_tape_pool :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?retention_lock_time_in_days:float prop ->
   ?retention_lock_type:string prop ->

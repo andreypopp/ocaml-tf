@@ -17,6 +17,19 @@ type aws_pinpoint_email_channel = {
 [@@deriving yojson_of]
 (** aws_pinpoint_email_channel *)
 
+let aws_pinpoint_email_channel ?configuration_set ?enabled ?id
+    ?role_arn ~application_id ~from_address ~identity () :
+    aws_pinpoint_email_channel =
+  {
+    application_id;
+    configuration_set;
+    enabled;
+    from_address;
+    id;
+    identity;
+    role_arn;
+  }
+
 type t = {
   application_id : string prop;
   configuration_set : string prop;
@@ -28,22 +41,14 @@ type t = {
   role_arn : string prop;
 }
 
-let aws_pinpoint_email_channel ?configuration_set ?enabled ?id
-    ?role_arn ~application_id ~from_address ~identity __resource_id =
+let register ?tf_module ?configuration_set ?enabled ?id ?role_arn
+    ~application_id ~from_address ~identity __resource_id =
   let __resource_type = "aws_pinpoint_email_channel" in
   let __resource =
-    ({
-       application_id;
-       configuration_set;
-       enabled;
-       from_address;
-       id;
-       identity;
-       role_arn;
-     }
-      : aws_pinpoint_email_channel)
+    aws_pinpoint_email_channel ?configuration_set ?enabled ?id
+      ?role_arn ~application_id ~from_address ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pinpoint_email_channel __resource);
   let __resource_attributes =
     ({

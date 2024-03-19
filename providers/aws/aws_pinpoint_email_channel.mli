@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_pinpoint_email_channel
+
+val aws_pinpoint_email_channel :
+  ?configuration_set:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?role_arn:string prop ->
+  application_id:string prop ->
+  from_address:string prop ->
+  identity:string prop ->
+  unit ->
+  aws_pinpoint_email_channel
+
+val yojson_of_aws_pinpoint_email_channel :
+  aws_pinpoint_email_channel -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   application_id : string prop;
@@ -15,7 +33,8 @@ type t = private {
   role_arn : string prop;
 }
 
-val aws_pinpoint_email_channel :
+val register :
+  ?tf_module:tf_module ->
   ?configuration_set:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->

@@ -2,7 +2,27 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type digitalocean_volume
+
+val digitalocean_volume :
+  ?description:string prop ->
+  ?filesystem_type:string prop ->
+  ?id:string prop ->
+  ?initial_filesystem_label:string prop ->
+  ?initial_filesystem_type:string prop ->
+  ?snapshot_id:string prop ->
+  ?tags:string prop list ->
+  name:string prop ->
+  region:string prop ->
+  size:float prop ->
+  unit ->
+  digitalocean_volume
+
+val yojson_of_digitalocean_volume : digitalocean_volume -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -20,7 +40,8 @@ type t = private {
   urn : string prop;
 }
 
-val digitalocean_volume :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?filesystem_type:string prop ->
   ?id:string prop ->

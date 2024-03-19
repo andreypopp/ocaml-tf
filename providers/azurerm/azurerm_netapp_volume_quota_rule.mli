@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_netapp_volume_quota_rule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_netapp_volume_quota_rule
+
+val azurerm_netapp_volume_quota_rule :
+  ?id:string prop ->
+  ?quota_target:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  quota_size_in_kib:float prop ->
+  quota_type:string prop ->
+  volume_id:string prop ->
+  unit ->
+  azurerm_netapp_volume_quota_rule
+
+val yojson_of_azurerm_netapp_volume_quota_rule :
+  azurerm_netapp_volume_quota_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -15,10 +43,11 @@ type t = private {
   volume_id : string prop;
 }
 
-val azurerm_netapp_volume_quota_rule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?quota_target:string prop ->
-  ?timeouts:azurerm_netapp_volume_quota_rule__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   quota_size_in_kib:float prop ->

@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type cloudflare_zone_settings_override__settings__minify = {
+type settings__minify = {
   css : string prop;  (** css *)
   html : string prop;  (** html *)
   js : string prop;  (** js *)
 }
 [@@deriving yojson_of]
-(** cloudflare_zone_settings_override__settings__minify *)
+(** settings__minify *)
 
-type cloudflare_zone_settings_override__settings__mobile_redirect = {
+type settings__mobile_redirect = {
   mobile_subdomain : string prop;  (** mobile_subdomain *)
   status : string prop;  (** status *)
   strip_uri : bool prop;  (** strip_uri *)
 }
 [@@deriving yojson_of]
-(** cloudflare_zone_settings_override__settings__mobile_redirect *)
+(** settings__mobile_redirect *)
 
-type cloudflare_zone_settings_override__settings__security_header = {
+type settings__security_header = {
   enabled : bool prop option; [@option]  (** enabled *)
   include_subdomains : bool prop option; [@option]
       (** include_subdomains *)
@@ -29,9 +29,9 @@ type cloudflare_zone_settings_override__settings__security_header = {
   preload : bool prop option; [@option]  (** preload *)
 }
 [@@deriving yojson_of]
-(** cloudflare_zone_settings_override__settings__security_header *)
+(** settings__security_header *)
 
-type cloudflare_zone_settings_override__settings = {
+type settings = {
   always_online : string prop option; [@option]  (** always_online *)
   always_use_https : string prop option; [@option]
       (** always_use_https *)
@@ -111,16 +111,14 @@ type cloudflare_zone_settings_override__settings = {
   webp : string prop option; [@option]  (** webp *)
   websockets : string prop option; [@option]  (** websockets *)
   zero_rtt : string prop option; [@option]  (** zero_rtt *)
-  minify : cloudflare_zone_settings_override__settings__minify list;
-  mobile_redirect :
-    cloudflare_zone_settings_override__settings__mobile_redirect list;
-  security_header :
-    cloudflare_zone_settings_override__settings__security_header list;
+  minify : settings__minify list;
+  mobile_redirect : settings__mobile_redirect list;
+  security_header : settings__security_header list;
 }
 [@@deriving yojson_of]
-(** cloudflare_zone_settings_override__settings *)
+(** settings *)
 
-type cloudflare_zone_settings_override__initial_settings__security_header = {
+type initial_settings__security_header = {
   enabled : bool prop;  (** enabled *)
   include_subdomains : bool prop;  (** include_subdomains *)
   max_age : float prop;  (** max_age *)
@@ -129,21 +127,21 @@ type cloudflare_zone_settings_override__initial_settings__security_header = {
 }
 [@@deriving yojson_of]
 
-type cloudflare_zone_settings_override__initial_settings__mobile_redirect = {
+type initial_settings__mobile_redirect = {
   mobile_subdomain : string prop;  (** mobile_subdomain *)
   status : string prop;  (** status *)
   strip_uri : bool prop;  (** strip_uri *)
 }
 [@@deriving yojson_of]
 
-type cloudflare_zone_settings_override__initial_settings__minify = {
+type initial_settings__minify = {
   css : string prop;  (** css *)
   html : string prop;  (** html *)
   js : string prop;  (** js *)
 }
 [@@deriving yojson_of]
 
-type cloudflare_zone_settings_override__initial_settings = {
+type initial_settings = {
   always_online : string prop;  (** always_online *)
   always_use_https : string prop;  (** always_use_https *)
   automatic_https_rewrites : string prop;
@@ -172,13 +170,9 @@ type cloudflare_zone_settings_override__initial_settings = {
   log_to_cloudflare : string prop;  (** log_to_cloudflare *)
   max_upload : float prop;  (** max_upload *)
   min_tls_version : string prop;  (** min_tls_version *)
-  minify :
-    cloudflare_zone_settings_override__initial_settings__minify list;
-      (** minify *)
+  minify : initial_settings__minify list;  (** minify *)
   mirage : string prop;  (** mirage *)
-  mobile_redirect :
-    cloudflare_zone_settings_override__initial_settings__mobile_redirect
-    list;
+  mobile_redirect : initial_settings__mobile_redirect list;
       (** mobile_redirect *)
   opportunistic_encryption : string prop;
       (** opportunistic_encryption *)
@@ -195,9 +189,7 @@ type cloudflare_zone_settings_override__initial_settings = {
   pseudo_ipv4 : string prop;  (** pseudo_ipv4 *)
   response_buffering : string prop;  (** response_buffering *)
   rocket_loader : string prop;  (** rocket_loader *)
-  security_header :
-    cloudflare_zone_settings_override__initial_settings__security_header
-    list;
+  security_header : initial_settings__security_header list;
       (** security_header *)
   security_level : string prop;  (** security_level *)
   server_side_exclude : string prop;  (** server_side_exclude *)
@@ -221,15 +213,104 @@ type cloudflare_zone_settings_override = {
   id : string prop option; [@option]  (** id *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  settings : cloudflare_zone_settings_override__settings list;
+  settings : settings list;
 }
 [@@deriving yojson_of]
 (** Provides a resource which customizes Cloudflare zone settings. *)
 
+let settings__minify ~css ~html ~js () : settings__minify =
+  { css; html; js }
+
+let settings__mobile_redirect ~mobile_subdomain ~status ~strip_uri ()
+    : settings__mobile_redirect =
+  { mobile_subdomain; status; strip_uri }
+
+let settings__security_header ?enabled ?include_subdomains ?max_age
+    ?nosniff ?preload () : settings__security_header =
+  { enabled; include_subdomains; max_age; nosniff; preload }
+
+let settings ?always_online ?always_use_https
+    ?automatic_https_rewrites ?binary_ast ?brotli ?browser_cache_ttl
+    ?browser_check ?cache_level ?challenge_ttl ?ciphers
+    ?cname_flattening ?development_mode ?early_hints
+    ?email_obfuscation ?filter_logs_to_cloudflare ?fonts
+    ?h2_prioritization ?hotlink_protection ?http2 ?http3
+    ?image_resizing ?ip_geolocation ?ipv6 ?log_to_cloudflare
+    ?max_upload ?min_tls_version ?mirage ?opportunistic_encryption
+    ?opportunistic_onion ?orange_to_orange
+    ?origin_error_page_pass_thru ?origin_max_http_version ?polish
+    ?prefetch_preload ?privacy_pass ?proxy_read_timeout ?pseudo_ipv4
+    ?response_buffering ?rocket_loader ?security_level
+    ?server_side_exclude ?sort_query_string_for_cache ?ssl
+    ?tls_1_2_only ?tls_1_3 ?tls_client_auth ?true_client_ip_header
+    ?universal_ssl ?visitor_ip ?waf ?webp ?websockets ?zero_rtt
+    ~minify ~mobile_redirect ~security_header () : settings =
+  {
+    always_online;
+    always_use_https;
+    automatic_https_rewrites;
+    binary_ast;
+    brotli;
+    browser_cache_ttl;
+    browser_check;
+    cache_level;
+    challenge_ttl;
+    ciphers;
+    cname_flattening;
+    development_mode;
+    early_hints;
+    email_obfuscation;
+    filter_logs_to_cloudflare;
+    fonts;
+    h2_prioritization;
+    hotlink_protection;
+    http2;
+    http3;
+    image_resizing;
+    ip_geolocation;
+    ipv6;
+    log_to_cloudflare;
+    max_upload;
+    min_tls_version;
+    mirage;
+    opportunistic_encryption;
+    opportunistic_onion;
+    orange_to_orange;
+    origin_error_page_pass_thru;
+    origin_max_http_version;
+    polish;
+    prefetch_preload;
+    privacy_pass;
+    proxy_read_timeout;
+    pseudo_ipv4;
+    response_buffering;
+    rocket_loader;
+    security_level;
+    server_side_exclude;
+    sort_query_string_for_cache;
+    ssl;
+    tls_1_2_only;
+    tls_1_3;
+    tls_client_auth;
+    true_client_ip_header;
+    universal_ssl;
+    visitor_ip;
+    waf;
+    webp;
+    websockets;
+    zero_rtt;
+    minify;
+    mobile_redirect;
+    security_header;
+  }
+
+let cloudflare_zone_settings_override ?id ~zone_id ~settings () :
+    cloudflare_zone_settings_override =
+  { id; zone_id; settings }
+
 type t = {
   id : string prop;
-  initial_settings :
-    cloudflare_zone_settings_override__initial_settings list prop;
+  initial_settings : initial_settings list prop;
   initial_settings_read_at : string prop;
   readonly_settings : string list prop;
   zone_id : string prop;
@@ -237,13 +318,12 @@ type t = {
   zone_type : string prop;
 }
 
-let cloudflare_zone_settings_override ?id ~zone_id ~settings
-    __resource_id =
+let register ?tf_module ?id ~zone_id ~settings __resource_id =
   let __resource_type = "cloudflare_zone_settings_override" in
   let __resource =
-    ({ id; zone_id; settings } : cloudflare_zone_settings_override)
+    cloudflare_zone_settings_override ?id ~zone_id ~settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_settings_override __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,45 @@
 
 open! Tf.Prelude
 
-type aws_docdb_cluster_instance__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_docdb_cluster_instance
+
+val aws_docdb_cluster_instance :
+  ?apply_immediately:bool prop ->
+  ?auto_minor_version_upgrade:bool prop ->
+  ?availability_zone:string prop ->
+  ?ca_cert_identifier:string prop ->
+  ?copy_tags_to_snapshot:bool prop ->
+  ?enable_performance_insights:bool prop ->
+  ?engine:string prop ->
+  ?id:string prop ->
+  ?identifier:string prop ->
+  ?identifier_prefix:string prop ->
+  ?performance_insights_kms_key_id:string prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?promotion_tier:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster_identifier:string prop ->
+  instance_class:string prop ->
+  unit ->
+  aws_docdb_cluster_instance
+
+val yojson_of_aws_docdb_cluster_instance :
+  aws_docdb_cluster_instance -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   apply_immediately : bool prop;
@@ -36,7 +73,8 @@ type t = private {
   writer : bool prop;
 }
 
-val aws_docdb_cluster_instance :
+val register :
+  ?tf_module:tf_module ->
   ?apply_immediately:bool prop ->
   ?auto_minor_version_upgrade:bool prop ->
   ?availability_zone:string prop ->
@@ -52,7 +90,7 @@ val aws_docdb_cluster_instance :
   ?promotion_tier:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_docdb_cluster_instance__timeouts ->
+  ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   instance_class:string prop ->
   string ->

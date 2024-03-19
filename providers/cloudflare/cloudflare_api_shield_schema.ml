@@ -21,6 +21,10 @@ type cloudflare_api_shield_schema = {
 (** Provides a resource to manage a schema in API Shield Schema Validation 2.0.
  *)
 
+let cloudflare_api_shield_schema ?id ?kind ?validation_enabled ~name
+    ~source ~zone_id () : cloudflare_api_shield_schema =
+  { id; kind; name; source; validation_enabled; zone_id }
+
 type t = {
   id : string prop;
   kind : string prop;
@@ -30,14 +34,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_api_shield_schema ?id ?kind ?validation_enabled ~name
-    ~source ~zone_id __resource_id =
+let register ?tf_module ?id ?kind ?validation_enabled ~name ~source
+    ~zone_id __resource_id =
   let __resource_type = "cloudflare_api_shield_schema" in
   let __resource =
-    ({ id; kind; name; source; validation_enabled; zone_id }
-      : cloudflare_api_shield_schema)
+    cloudflare_api_shield_schema ?id ?kind ?validation_enabled ~name
+      ~source ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_shield_schema __resource);
   let __resource_attributes =
     ({

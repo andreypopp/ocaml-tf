@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_mobile_network_sim_group__identity
-type azurerm_mobile_network_sim_group__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mobile_network_sim_group
+
+val azurerm_mobile_network_sim_group :
+  ?encryption_key_url:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  mobile_network_id:string prop ->
+  name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_mobile_network_sim_group
+
+val yojson_of_azurerm_mobile_network_sim_group :
+  azurerm_mobile_network_sim_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   encryption_key_url : string prop;
@@ -15,14 +50,15 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_mobile_network_sim_group :
+val register :
+  ?tf_module:tf_module ->
   ?encryption_key_url:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_mobile_network_sim_group__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
   name:string prop ->
-  identity:azurerm_mobile_network_sim_group__identity list ->
+  identity:identity list ->
   string ->
   t

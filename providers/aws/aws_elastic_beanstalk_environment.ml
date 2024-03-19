@@ -4,16 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_elastic_beanstalk_environment__setting = {
+type setting = {
   name : string prop;  (** name *)
   namespace : string prop;  (** namespace *)
   resource : string prop option; [@option]  (** resource *)
   value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
-(** aws_elastic_beanstalk_environment__setting *)
+(** setting *)
 
-type aws_elastic_beanstalk_environment__all_settings = {
+type all_settings = {
   name : string prop;  (** name *)
   namespace : string prop;  (** namespace *)
   resource : string prop;  (** resource *)
@@ -39,14 +39,39 @@ type aws_elastic_beanstalk_environment = {
   version_label : string prop option; [@option]  (** version_label *)
   wait_for_ready_timeout : string prop option; [@option]
       (** wait_for_ready_timeout *)
-  setting : aws_elastic_beanstalk_environment__setting list;
+  setting : setting list;
 }
 [@@deriving yojson_of]
 (** aws_elastic_beanstalk_environment *)
 
+let setting ?resource ~name ~namespace ~value () : setting =
+  { name; namespace; resource; value }
+
+let aws_elastic_beanstalk_environment ?cname_prefix ?description ?id
+    ?platform_arn ?poll_interval ?solution_stack_name ?tags ?tags_all
+    ?template_name ?tier ?version_label ?wait_for_ready_timeout
+    ~application ~name ~setting () :
+    aws_elastic_beanstalk_environment =
+  {
+    application;
+    cname_prefix;
+    description;
+    id;
+    name;
+    platform_arn;
+    poll_interval;
+    solution_stack_name;
+    tags;
+    tags_all;
+    template_name;
+    tier;
+    version_label;
+    wait_for_ready_timeout;
+    setting;
+  }
+
 type t = {
-  all_settings :
-    aws_elastic_beanstalk_environment__all_settings list prop;
+  all_settings : all_settings list prop;
   application : string prop;
   arn : string prop;
   autoscaling_groups : string list prop;
@@ -72,32 +97,18 @@ type t = {
   wait_for_ready_timeout : string prop;
 }
 
-let aws_elastic_beanstalk_environment ?cname_prefix ?description ?id
-    ?platform_arn ?poll_interval ?solution_stack_name ?tags ?tags_all
+let register ?tf_module ?cname_prefix ?description ?id ?platform_arn
+    ?poll_interval ?solution_stack_name ?tags ?tags_all
     ?template_name ?tier ?version_label ?wait_for_ready_timeout
     ~application ~name ~setting __resource_id =
   let __resource_type = "aws_elastic_beanstalk_environment" in
   let __resource =
-    ({
-       application;
-       cname_prefix;
-       description;
-       id;
-       name;
-       platform_arn;
-       poll_interval;
-       solution_stack_name;
-       tags;
-       tags_all;
-       template_name;
-       tier;
-       version_label;
-       wait_for_ready_timeout;
-       setting;
-     }
-      : aws_elastic_beanstalk_environment)
+    aws_elastic_beanstalk_environment ?cname_prefix ?description ?id
+      ?platform_arn ?poll_interval ?solution_stack_name ?tags
+      ?tags_all ?template_name ?tier ?version_label
+      ?wait_for_ready_timeout ~application ~name ~setting ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elastic_beanstalk_environment __resource);
   let __resource_attributes =
     ({

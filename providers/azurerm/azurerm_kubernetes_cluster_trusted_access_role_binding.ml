@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts *)
+(** timeouts *)
 
 type azurerm_kubernetes_cluster_trusted_access_role_binding = {
   id : string prop option; [@option]  (** id *)
@@ -19,12 +19,25 @@ type azurerm_kubernetes_cluster_trusted_access_role_binding = {
   name : string prop;  (** name *)
   roles : string prop list;  (** roles *)
   source_resource_id : string prop;  (** source_resource_id *)
-  timeouts :
-    azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts
-    option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_trusted_access_role_binding *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_kubernetes_cluster_trusted_access_role_binding ?id
+    ?timeouts ~kubernetes_cluster_id ~name ~roles ~source_resource_id
+    () : azurerm_kubernetes_cluster_trusted_access_role_binding =
+  {
+    id;
+    kubernetes_cluster_id;
+    name;
+    roles;
+    source_resource_id;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -34,24 +47,17 @@ type t = {
   source_resource_id : string prop;
 }
 
-let azurerm_kubernetes_cluster_trusted_access_role_binding ?id
-    ?timeouts ~kubernetes_cluster_id ~name ~roles ~source_resource_id
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~kubernetes_cluster_id ~name
+    ~roles ~source_resource_id __resource_id =
   let __resource_type =
     "azurerm_kubernetes_cluster_trusted_access_role_binding"
   in
   let __resource =
-    ({
-       id;
-       kubernetes_cluster_id;
-       name;
-       roles;
-       source_resource_id;
-       timeouts;
-     }
-      : azurerm_kubernetes_cluster_trusted_access_role_binding)
+    azurerm_kubernetes_cluster_trusted_access_role_binding ?id
+      ?timeouts ~kubernetes_cluster_id ~name ~roles
+      ~source_resource_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_cluster_trusted_access_role_binding
        __resource);
   let __resource_attributes =

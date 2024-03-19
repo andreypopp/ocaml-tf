@@ -16,6 +16,16 @@ type aws_securityhub_account = {
 [@@deriving yojson_of]
 (** aws_securityhub_account *)
 
+let aws_securityhub_account ?auto_enable_controls
+    ?control_finding_generator ?enable_default_standards ?id () :
+    aws_securityhub_account =
+  {
+    auto_enable_controls;
+    control_finding_generator;
+    enable_default_standards;
+    id;
+  }
+
 type t = {
   arn : string prop;
   auto_enable_controls : bool prop;
@@ -24,20 +34,15 @@ type t = {
   id : string prop;
 }
 
-let aws_securityhub_account ?auto_enable_controls
+let register ?tf_module ?auto_enable_controls
     ?control_finding_generator ?enable_default_standards ?id
     __resource_id =
   let __resource_type = "aws_securityhub_account" in
   let __resource =
-    ({
-       auto_enable_controls;
-       control_finding_generator;
-       enable_default_standards;
-       id;
-     }
-      : aws_securityhub_account)
+    aws_securityhub_account ?auto_enable_controls
+      ?control_finding_generator ?enable_default_standards ?id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_account __resource);
   let __resource_attributes =
     ({

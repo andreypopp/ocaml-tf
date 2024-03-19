@@ -4,15 +4,15 @@
 
 open! Tf.Prelude
 
-type google_beyondcorp_app_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_beyondcorp_app_gateway__timeouts *)
+(** timeouts *)
 
-type google_beyondcorp_app_gateway__allocated_connections = {
+type allocated_connections = {
   ingress_port : float prop;  (** ingress_port *)
   psc_uri : string prop;  (** psc_uri *)
 }
@@ -36,14 +36,31 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The region of the AppGateway. *)
   type_ : string prop option; [@option] [@key "type"]
       (** The type of network connectivity used by the AppGateway. Default value: TYPE_UNSPECIFIED Possible values: [TYPE_UNSPECIFIED, TCP_PROXY] *)
-  timeouts : google_beyondcorp_app_gateway__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_beyondcorp_app_gateway *)
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_beyondcorp_app_gateway ?display_name ?host_type ?id
+    ?labels ?project ?region ?type_ ?timeouts ~name () :
+    google_beyondcorp_app_gateway =
+  {
+    display_name;
+    host_type;
+    id;
+    labels;
+    name;
+    project;
+    region;
+    type_;
+    timeouts;
+  }
+
 type t = {
-  allocated_connections :
-    google_beyondcorp_app_gateway__allocated_connections list prop;
+  allocated_connections : allocated_connections list prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
   host_type : string prop;
@@ -58,24 +75,14 @@ type t = {
   uri : string prop;
 }
 
-let google_beyondcorp_app_gateway ?display_name ?host_type ?id
-    ?labels ?project ?region ?type_ ?timeouts ~name __resource_id =
+let register ?tf_module ?display_name ?host_type ?id ?labels ?project
+    ?region ?type_ ?timeouts ~name __resource_id =
   let __resource_type = "google_beyondcorp_app_gateway" in
   let __resource =
-    ({
-       display_name;
-       host_type;
-       id;
-       labels;
-       name;
-       project;
-       region;
-       type_;
-       timeouts;
-     }
-      : google_beyondcorp_app_gateway)
+    google_beyondcorp_app_gateway ?display_name ?host_type ?id
+      ?labels ?project ?region ?type_ ?timeouts ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_beyondcorp_app_gateway __resource);
   let __resource_attributes =
     ({

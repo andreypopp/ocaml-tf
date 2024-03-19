@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_tags_tag_value__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_tags_tag_value__timeouts *)
+(** timeouts *)
 
 type google_tags_tag_value = {
   description : string prop option; [@option]
@@ -22,10 +22,17 @@ type google_tags_tag_value = {
       (** Input only. User-assigned short name for TagValue. The short name should be unique for TagValues within the same parent TagKey.
 
 The short name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_), dots (.), and alphanumerics between. *)
-  timeouts : google_tags_tag_value__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_tags_tag_value *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_tags_tag_value ?description ?id ?timeouts ~parent
+    ~short_name () : google_tags_tag_value =
+  { description; id; parent; short_name; timeouts }
 
 type t = {
   create_time : string prop;
@@ -38,14 +45,14 @@ type t = {
   update_time : string prop;
 }
 
-let google_tags_tag_value ?description ?id ?timeouts ~parent
+let register ?tf_module ?description ?id ?timeouts ~parent
     ~short_name __resource_id =
   let __resource_type = "google_tags_tag_value" in
   let __resource =
-    ({ description; id; parent; short_name; timeouts }
-      : google_tags_tag_value)
+    google_tags_tag_value ?description ?id ?timeouts ~parent
+      ~short_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_value __resource);
   let __resource_attributes =
     ({

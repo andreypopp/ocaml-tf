@@ -2,12 +2,62 @@
 
 open! Tf.Prelude
 
-type aws_glue_catalog_database__create_table_default_permission__principal
+(** RESOURCE SERIALIZATION *)
 
-type aws_glue_catalog_database__create_table_default_permission
-type aws_glue_catalog_database__federated_database
-type aws_glue_catalog_database__target_database
+type create_table_default_permission__principal
+
+val create_table_default_permission__principal :
+  ?data_lake_principal_identifier:string prop ->
+  unit ->
+  create_table_default_permission__principal
+
+type create_table_default_permission
+
+val create_table_default_permission :
+  ?permissions:string prop list ->
+  principal:create_table_default_permission__principal list ->
+  unit ->
+  create_table_default_permission
+
+type federated_database
+
+val federated_database :
+  ?connection_name:string prop ->
+  ?identifier:string prop ->
+  unit ->
+  federated_database
+
+type target_database
+
+val target_database :
+  ?region:string prop ->
+  catalog_id:string prop ->
+  database_name:string prop ->
+  unit ->
+  target_database
+
 type aws_glue_catalog_database
+
+val aws_glue_catalog_database :
+  ?catalog_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?location_uri:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  create_table_default_permission:
+    create_table_default_permission list ->
+  federated_database:federated_database list ->
+  target_database:target_database list ->
+  unit ->
+  aws_glue_catalog_database
+
+val yojson_of_aws_glue_catalog_database :
+  aws_glue_catalog_database -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,7 +71,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_glue_catalog_database :
+val register :
+  ?tf_module:tf_module ->
   ?catalog_id:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -31,9 +82,8 @@ val aws_glue_catalog_database :
   ?tags_all:(string * string prop) list ->
   name:string prop ->
   create_table_default_permission:
-    aws_glue_catalog_database__create_table_default_permission list ->
-  federated_database:
-    aws_glue_catalog_database__federated_database list ->
-  target_database:aws_glue_catalog_database__target_database list ->
+    create_table_default_permission list ->
+  federated_database:federated_database list ->
+  target_database:target_database list ->
   string ->
   t

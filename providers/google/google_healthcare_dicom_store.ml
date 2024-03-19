@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_healthcare_dicom_store__notification_config = {
+type notification_config = {
   pubsub_topic : string prop;
       (** The Cloud Pub/Sub topic that notifications of changes are published on. Supplied by the client.
 PubsubMessage.Data will contain the resource name. PubsubMessage.MessageId is the ID of this message.
@@ -16,13 +16,13 @@ Cloud Pub/Sub topic. Not having adequate permissions will cause the calls that s
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_healthcare_dicom_store__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_healthcare_dicom_store__timeouts *)
+(** timeouts *)
 
 type google_healthcare_dicom_store = {
   dataset : string prop;
@@ -50,12 +50,21 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The resource name for the DicomStore.
 
 ** Changing this property may recreate the Dicom store (removing all data) ** *)
-  notification_config :
-    google_healthcare_dicom_store__notification_config list;
-  timeouts : google_healthcare_dicom_store__timeouts option;
+  notification_config : notification_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_healthcare_dicom_store *)
+
+let notification_config ~pubsub_topic () : notification_config =
+  { pubsub_topic }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
+    ~name ~notification_config () : google_healthcare_dicom_store =
+  { dataset; id; labels; name; notification_config; timeouts }
 
 type t = {
   dataset : string prop;
@@ -67,14 +76,14 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
-    ~name ~notification_config __resource_id =
+let register ?tf_module ?id ?labels ?timeouts ~dataset ~name
+    ~notification_config __resource_id =
   let __resource_type = "google_healthcare_dicom_store" in
   let __resource =
-    ({ dataset; id; labels; name; notification_config; timeouts }
-      : google_healthcare_dicom_store)
+    google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
+      ~name ~notification_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_dicom_store __resource);
   let __resource_attributes =
     ({

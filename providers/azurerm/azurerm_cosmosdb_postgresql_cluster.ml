@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_postgresql_cluster__maintenance_window = {
+type maintenance_window = {
   day_of_week : float prop option; [@option]  (** day_of_week *)
   start_hour : float prop option; [@option]  (** start_hour *)
   start_minute : float prop option; [@option]  (** start_minute *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_postgresql_cluster__maintenance_window *)
+(** maintenance_window *)
 
-type azurerm_cosmosdb_postgresql_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_postgresql_cluster__timeouts *)
+(** timeouts *)
 
 type azurerm_cosmosdb_postgresql_cluster = {
   administrator_login_password : string prop option; [@option]
@@ -58,12 +58,56 @@ type azurerm_cosmosdb_postgresql_cluster = {
       (** source_resource_id *)
   sql_version : string prop option; [@option]  (** sql_version *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  maintenance_window :
-    azurerm_cosmosdb_postgresql_cluster__maintenance_window list;
-  timeouts : azurerm_cosmosdb_postgresql_cluster__timeouts option;
+  maintenance_window : maintenance_window list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_postgresql_cluster *)
+
+let maintenance_window ?day_of_week ?start_hour ?start_minute () :
+    maintenance_window =
+  { day_of_week; start_hour; start_minute }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cosmosdb_postgresql_cluster ?administrator_login_password
+    ?citus_version ?coordinator_public_ip_access_enabled
+    ?coordinator_server_edition ?coordinator_storage_quota_in_mb
+    ?coordinator_vcore_count ?ha_enabled ?id
+    ?node_public_ip_access_enabled ?node_server_edition
+    ?node_storage_quota_in_mb ?node_vcores ?point_in_time_in_utc
+    ?preferred_primary_zone ?shards_on_coordinator_enabled
+    ?source_location ?source_resource_id ?sql_version ?tags ?timeouts
+    ~location ~name ~node_count ~resource_group_name
+    ~maintenance_window () : azurerm_cosmosdb_postgresql_cluster =
+  {
+    administrator_login_password;
+    citus_version;
+    coordinator_public_ip_access_enabled;
+    coordinator_server_edition;
+    coordinator_storage_quota_in_mb;
+    coordinator_vcore_count;
+    ha_enabled;
+    id;
+    location;
+    name;
+    node_count;
+    node_public_ip_access_enabled;
+    node_server_edition;
+    node_storage_quota_in_mb;
+    node_vcores;
+    point_in_time_in_utc;
+    preferred_primary_zone;
+    resource_group_name;
+    shards_on_coordinator_enabled;
+    source_location;
+    source_resource_id;
+    sql_version;
+    tags;
+    maintenance_window;
+    timeouts;
+  }
 
 type t = {
   administrator_login_password : string prop;
@@ -92,48 +136,30 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_cosmosdb_postgresql_cluster ?administrator_login_password
-    ?citus_version ?coordinator_public_ip_access_enabled
-    ?coordinator_server_edition ?coordinator_storage_quota_in_mb
-    ?coordinator_vcore_count ?ha_enabled ?id
-    ?node_public_ip_access_enabled ?node_server_edition
-    ?node_storage_quota_in_mb ?node_vcores ?point_in_time_in_utc
-    ?preferred_primary_zone ?shards_on_coordinator_enabled
-    ?source_location ?source_resource_id ?sql_version ?tags ?timeouts
-    ~location ~name ~node_count ~resource_group_name
-    ~maintenance_window __resource_id =
+let register ?tf_module ?administrator_login_password ?citus_version
+    ?coordinator_public_ip_access_enabled ?coordinator_server_edition
+    ?coordinator_storage_quota_in_mb ?coordinator_vcore_count
+    ?ha_enabled ?id ?node_public_ip_access_enabled
+    ?node_server_edition ?node_storage_quota_in_mb ?node_vcores
+    ?point_in_time_in_utc ?preferred_primary_zone
+    ?shards_on_coordinator_enabled ?source_location
+    ?source_resource_id ?sql_version ?tags ?timeouts ~location ~name
+    ~node_count ~resource_group_name ~maintenance_window
+    __resource_id =
   let __resource_type = "azurerm_cosmosdb_postgresql_cluster" in
   let __resource =
-    ({
-       administrator_login_password;
-       citus_version;
-       coordinator_public_ip_access_enabled;
-       coordinator_server_edition;
-       coordinator_storage_quota_in_mb;
-       coordinator_vcore_count;
-       ha_enabled;
-       id;
-       location;
-       name;
-       node_count;
-       node_public_ip_access_enabled;
-       node_server_edition;
-       node_storage_quota_in_mb;
-       node_vcores;
-       point_in_time_in_utc;
-       preferred_primary_zone;
-       resource_group_name;
-       shards_on_coordinator_enabled;
-       source_location;
-       source_resource_id;
-       sql_version;
-       tags;
-       maintenance_window;
-       timeouts;
-     }
-      : azurerm_cosmosdb_postgresql_cluster)
+    azurerm_cosmosdb_postgresql_cluster ?administrator_login_password
+      ?citus_version ?coordinator_public_ip_access_enabled
+      ?coordinator_server_edition ?coordinator_storage_quota_in_mb
+      ?coordinator_vcore_count ?ha_enabled ?id
+      ?node_public_ip_access_enabled ?node_server_edition
+      ?node_storage_quota_in_mb ?node_vcores ?point_in_time_in_utc
+      ?preferred_primary_zone ?shards_on_coordinator_enabled
+      ?source_location ?source_resource_id ?sql_version ?tags
+      ?timeouts ~location ~name ~node_count ~resource_group_name
+      ~maintenance_window ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_postgresql_cluster __resource);
   let __resource_attributes =
     ({

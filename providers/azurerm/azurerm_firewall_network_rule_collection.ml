@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type azurerm_firewall_network_rule_collection__rule = {
+type rule = {
   description : string prop option; [@option]  (** description *)
   destination_addresses : string prop list option; [@option]
       (** destination_addresses *)
@@ -21,16 +21,16 @@ type azurerm_firewall_network_rule_collection__rule = {
       (** source_ip_groups *)
 }
 [@@deriving yojson_of]
-(** azurerm_firewall_network_rule_collection__rule *)
+(** rule *)
 
-type azurerm_firewall_network_rule_collection__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_firewall_network_rule_collection__timeouts *)
+(** timeouts *)
 
 type azurerm_firewall_network_rule_collection = {
   action : string prop;  (** action *)
@@ -39,12 +39,43 @@ type azurerm_firewall_network_rule_collection = {
   name : string prop;  (** name *)
   priority : float prop;  (** priority *)
   resource_group_name : string prop;  (** resource_group_name *)
-  rule : azurerm_firewall_network_rule_collection__rule list;
-  timeouts :
-    azurerm_firewall_network_rule_collection__timeouts option;
+  rule : rule list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_network_rule_collection *)
+
+let rule ?description ?destination_addresses ?destination_fqdns
+    ?destination_ip_groups ?source_addresses ?source_ip_groups
+    ~destination_ports ~name ~protocols () : rule =
+  {
+    description;
+    destination_addresses;
+    destination_fqdns;
+    destination_ip_groups;
+    destination_ports;
+    name;
+    protocols;
+    source_addresses;
+    source_ip_groups;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_firewall_network_rule_collection ?id ?timeouts ~action
+    ~azure_firewall_name ~name ~priority ~resource_group_name ~rule
+    () : azurerm_firewall_network_rule_collection =
+  {
+    action;
+    azure_firewall_name;
+    id;
+    name;
+    priority;
+    resource_group_name;
+    rule;
+    timeouts;
+  }
 
 type t = {
   action : string prop;
@@ -55,24 +86,15 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_firewall_network_rule_collection ?id ?timeouts ~action
-    ~azure_firewall_name ~name ~priority ~resource_group_name ~rule
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~action ~azure_firewall_name
+    ~name ~priority ~resource_group_name ~rule __resource_id =
   let __resource_type = "azurerm_firewall_network_rule_collection" in
   let __resource =
-    ({
-       action;
-       azure_firewall_name;
-       id;
-       name;
-       priority;
-       resource_group_name;
-       rule;
-       timeouts;
-     }
-      : azurerm_firewall_network_rule_collection)
+    azurerm_firewall_network_rule_collection ?id ?timeouts ~action
+      ~azure_firewall_name ~name ~priority ~resource_group_name ~rule
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_firewall_network_rule_collection __resource);
   let __resource_attributes =
     ({

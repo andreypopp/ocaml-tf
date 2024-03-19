@@ -13,6 +13,10 @@ type aws_cloud9_environment_membership = {
 [@@deriving yojson_of]
 (** aws_cloud9_environment_membership *)
 
+let aws_cloud9_environment_membership ?id ~environment_id
+    ~permissions ~user_arn () : aws_cloud9_environment_membership =
+  { environment_id; id; permissions; user_arn }
+
 type t = {
   environment_id : string prop;
   id : string prop;
@@ -21,14 +25,14 @@ type t = {
   user_id : string prop;
 }
 
-let aws_cloud9_environment_membership ?id ~environment_id
-    ~permissions ~user_arn __resource_id =
+let register ?tf_module ?id ~environment_id ~permissions ~user_arn
+    __resource_id =
   let __resource_type = "aws_cloud9_environment_membership" in
   let __resource =
-    ({ environment_id; id; permissions; user_arn }
-      : aws_cloud9_environment_membership)
+    aws_cloud9_environment_membership ?id ~environment_id
+      ~permissions ~user_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloud9_environment_membership __resource);
   let __resource_attributes =
     ({

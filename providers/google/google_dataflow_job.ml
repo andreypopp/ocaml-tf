@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type google_dataflow_job__timeouts = {
+type timeouts = {
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dataflow_job__timeouts *)
+(** timeouts *)
 
 type google_dataflow_job = {
   additional_experiments : string prop list option; [@option]
@@ -54,10 +54,44 @@ type google_dataflow_job = {
       (** Only applicable when updating a pipeline. Map of transform name prefixes of the job to be replaced with the corresponding name prefixes of the new job. *)
   zone : string prop option; [@option]
       (** The zone in which the created job should run. If it is not provided, the provider zone is used. *)
-  timeouts : google_dataflow_job__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dataflow_job *)
+
+let timeouts ?update () : timeouts = { update }
+
+let google_dataflow_job ?additional_experiments
+    ?enable_streaming_engine ?id ?ip_configuration ?kms_key_name
+    ?labels ?machine_type ?max_workers ?network ?on_delete
+    ?parameters ?project ?region ?service_account_email
+    ?skip_wait_on_job_termination ?subnetwork ?transform_name_mapping
+    ?zone ?timeouts ~name ~temp_gcs_location ~template_gcs_path () :
+    google_dataflow_job =
+  {
+    additional_experiments;
+    enable_streaming_engine;
+    id;
+    ip_configuration;
+    kms_key_name;
+    labels;
+    machine_type;
+    max_workers;
+    name;
+    network;
+    on_delete;
+    parameters;
+    project;
+    region;
+    service_account_email;
+    skip_wait_on_job_termination;
+    subnetwork;
+    temp_gcs_location;
+    template_gcs_path;
+    transform_name_mapping;
+    zone;
+    timeouts;
+  }
 
 type t = {
   additional_experiments : string list prop;
@@ -88,7 +122,7 @@ type t = {
   zone : string prop;
 }
 
-let google_dataflow_job ?additional_experiments
+let register ?tf_module ?additional_experiments
     ?enable_streaming_engine ?id ?ip_configuration ?kms_key_name
     ?labels ?machine_type ?max_workers ?network ?on_delete
     ?parameters ?project ?region ?service_account_email
@@ -97,33 +131,15 @@ let google_dataflow_job ?additional_experiments
     __resource_id =
   let __resource_type = "google_dataflow_job" in
   let __resource =
-    ({
-       additional_experiments;
-       enable_streaming_engine;
-       id;
-       ip_configuration;
-       kms_key_name;
-       labels;
-       machine_type;
-       max_workers;
-       name;
-       network;
-       on_delete;
-       parameters;
-       project;
-       region;
-       service_account_email;
-       skip_wait_on_job_termination;
-       subnetwork;
-       temp_gcs_location;
-       template_gcs_path;
-       transform_name_mapping;
-       zone;
-       timeouts;
-     }
-      : google_dataflow_job)
+    google_dataflow_job ?additional_experiments
+      ?enable_streaming_engine ?id ?ip_configuration ?kms_key_name
+      ?labels ?machine_type ?max_workers ?network ?on_delete
+      ?parameters ?project ?region ?service_account_email
+      ?skip_wait_on_job_termination ?subnetwork
+      ?transform_name_mapping ?zone ?timeouts ~name
+      ~temp_gcs_location ~template_gcs_path ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataflow_job __resource);
   let __resource_attributes =
     ({

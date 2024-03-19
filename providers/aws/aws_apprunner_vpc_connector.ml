@@ -16,6 +16,17 @@ type aws_apprunner_vpc_connector = {
 [@@deriving yojson_of]
 (** aws_apprunner_vpc_connector *)
 
+let aws_apprunner_vpc_connector ?id ?tags ?tags_all ~security_groups
+    ~subnets ~vpc_connector_name () : aws_apprunner_vpc_connector =
+  {
+    id;
+    security_groups;
+    subnets;
+    tags;
+    tags_all;
+    vpc_connector_name;
+  }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -28,21 +39,14 @@ type t = {
   vpc_connector_revision : float prop;
 }
 
-let aws_apprunner_vpc_connector ?id ?tags ?tags_all ~security_groups
-    ~subnets ~vpc_connector_name __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~security_groups ~subnets
+    ~vpc_connector_name __resource_id =
   let __resource_type = "aws_apprunner_vpc_connector" in
   let __resource =
-    ({
-       id;
-       security_groups;
-       subnets;
-       tags;
-       tags_all;
-       vpc_connector_name;
-     }
-      : aws_apprunner_vpc_connector)
+    aws_apprunner_vpc_connector ?id ?tags ?tags_all ~security_groups
+      ~subnets ~vpc_connector_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apprunner_vpc_connector __resource);
   let __resource_attributes =
     ({

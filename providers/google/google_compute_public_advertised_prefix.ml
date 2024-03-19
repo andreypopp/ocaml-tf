@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_public_advertised_prefix__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_public_advertised_prefix__timeouts *)
+(** timeouts *)
 
 type google_compute_public_advertised_prefix = {
   description : string prop option; [@option]
@@ -27,10 +27,25 @@ which means the first character must be a lowercase letter, and all
 following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_compute_public_advertised_prefix__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_public_advertised_prefix *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_public_advertised_prefix ?description ?id ?project
+    ?timeouts ~dns_verification_ip ~ip_cidr_range ~name () :
+    google_compute_public_advertised_prefix =
+  {
+    description;
+    dns_verification_ip;
+    id;
+    ip_cidr_range;
+    name;
+    project;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -42,23 +57,14 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_public_advertised_prefix ?description ?id ?project
-    ?timeouts ~dns_verification_ip ~ip_cidr_range ~name __resource_id
-    =
+let register ?tf_module ?description ?id ?project ?timeouts
+    ~dns_verification_ip ~ip_cidr_range ~name __resource_id =
   let __resource_type = "google_compute_public_advertised_prefix" in
   let __resource =
-    ({
-       description;
-       dns_verification_ip;
-       id;
-       ip_cidr_range;
-       name;
-       project;
-       timeouts;
-     }
-      : google_compute_public_advertised_prefix)
+    google_compute_public_advertised_prefix ?description ?id ?project
+      ?timeouts ~dns_verification_ip ~ip_cidr_range ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_public_advertised_prefix __resource);
   let __resource_attributes =
     ({

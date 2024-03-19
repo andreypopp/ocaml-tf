@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_redis_cluster__psc_configs = {
+type psc_configs = {
   network : string prop;
       (** Required. The consumer network where the network address of
 the discovery endpoint will be reserved, in the form of
@@ -15,29 +15,28 @@ projects/{network_project_id_or_number}/global/networks/{network_id}. *)
 network addresses will be designated to the cluster for client access.
 Currently, only one PscConfig is supported. *)
 
-type google_redis_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_redis_cluster__timeouts *)
+(** timeouts *)
 
-type google_redis_cluster__discovery_endpoints__psc_config = {
+type discovery_endpoints__psc_config = {
   network : string prop;  (** network *)
 }
 [@@deriving yojson_of]
 
-type google_redis_cluster__discovery_endpoints = {
+type discovery_endpoints = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
-  psc_config :
-    google_redis_cluster__discovery_endpoints__psc_config list;
+  psc_config : discovery_endpoints__psc_config list;
       (** psc_config *)
 }
 [@@deriving yojson_of]
 
-type google_redis_cluster__psc_connections = {
+type psc_connections = {
   address : string prop;  (** address *)
   forwarding_rule : string prop;  (** forwarding_rule *)
   network : string prop;  (** network *)
@@ -46,15 +45,14 @@ type google_redis_cluster__psc_connections = {
 }
 [@@deriving yojson_of]
 
-type google_redis_cluster__state_info__update_info = {
+type state_info__update_info = {
   target_replica_count : float prop;  (** target_replica_count *)
   target_shard_count : float prop;  (** target_shard_count *)
 }
 [@@deriving yojson_of]
 
-type google_redis_cluster__state_info = {
-  update_info : google_redis_cluster__state_info__update_info list;
-      (** update_info *)
+type state_info = {
+  update_info : state_info__update_info list;  (** update_info *)
 }
 [@@deriving yojson_of]
 
@@ -75,51 +73,61 @@ projects/{projectId}/locations/{locationId}/clusters/{clusterId} *)
   transit_encryption_mode : string prop option; [@option]
       (** Optional. The in-transit encryption for the Redis cluster.
 If not provided, encryption is disabled for the cluster. Default value: TRANSIT_ENCRYPTION_MODE_DISABLED Possible values: [TRANSIT_ENCRYPTION_MODE_UNSPECIFIED, TRANSIT_ENCRYPTION_MODE_DISABLED, TRANSIT_ENCRYPTION_MODE_SERVER_AUTHENTICATION] *)
-  psc_configs : google_redis_cluster__psc_configs list;
-  timeouts : google_redis_cluster__timeouts option;
+  psc_configs : psc_configs list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_redis_cluster *)
 
+let psc_configs ~network () : psc_configs = { network }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_redis_cluster ?authorization_mode ?id ?name ?project
+    ?region ?replica_count ?transit_encryption_mode ?timeouts
+    ~shard_count ~psc_configs () : google_redis_cluster =
+  {
+    authorization_mode;
+    id;
+    name;
+    project;
+    region;
+    replica_count;
+    shard_count;
+    transit_encryption_mode;
+    psc_configs;
+    timeouts;
+  }
+
 type t = {
   authorization_mode : string prop;
   create_time : string prop;
-  discovery_endpoints :
-    google_redis_cluster__discovery_endpoints list prop;
+  discovery_endpoints : discovery_endpoints list prop;
   id : string prop;
   name : string prop;
   project : string prop;
-  psc_connections : google_redis_cluster__psc_connections list prop;
+  psc_connections : psc_connections list prop;
   region : string prop;
   replica_count : float prop;
   shard_count : float prop;
   size_gb : float prop;
   state : string prop;
-  state_info : google_redis_cluster__state_info list prop;
+  state_info : state_info list prop;
   transit_encryption_mode : string prop;
   uid : string prop;
 }
 
-let google_redis_cluster ?authorization_mode ?id ?name ?project
+let register ?tf_module ?authorization_mode ?id ?name ?project
     ?region ?replica_count ?transit_encryption_mode ?timeouts
     ~shard_count ~psc_configs __resource_id =
   let __resource_type = "google_redis_cluster" in
   let __resource =
-    ({
-       authorization_mode;
-       id;
-       name;
-       project;
-       region;
-       replica_count;
-       shard_count;
-       transit_encryption_mode;
-       psc_configs;
-       timeouts;
-     }
-      : google_redis_cluster)
+    google_redis_cluster ?authorization_mode ?id ?name ?project
+      ?region ?replica_count ?transit_encryption_mode ?timeouts
+      ~shard_count ~psc_configs ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_redis_cluster __resource);
   let __resource_attributes =
     ({

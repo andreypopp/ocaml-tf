@@ -2,7 +2,28 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_vpc_security_group_ingress_rule
+
+val aws_vpc_security_group_ingress_rule :
+  ?cidr_ipv4:string prop ->
+  ?cidr_ipv6:string prop ->
+  ?description:string prop ->
+  ?from_port:float prop ->
+  ?prefix_list_id:string prop ->
+  ?referenced_security_group_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?to_port:float prop ->
+  ip_protocol:string prop ->
+  security_group_id:string prop ->
+  unit ->
+  aws_vpc_security_group_ingress_rule
+
+val yojson_of_aws_vpc_security_group_ingress_rule :
+  aws_vpc_security_group_ingress_rule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,7 +42,8 @@ type t = private {
   to_port : float prop;
 }
 
-val aws_vpc_security_group_ingress_rule :
+val register :
+  ?tf_module:tf_module ->
   ?cidr_ipv4:string prop ->
   ?cidr_ipv6:string prop ->
   ?description:string prop ->

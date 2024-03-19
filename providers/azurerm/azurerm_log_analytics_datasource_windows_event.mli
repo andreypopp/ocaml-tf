@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_datasource_windows_event__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_log_analytics_datasource_windows_event
+
+val azurerm_log_analytics_datasource_windows_event :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  event_log_name:string prop ->
+  event_types:string prop list ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  workspace_name:string prop ->
+  unit ->
+  azurerm_log_analytics_datasource_windows_event
+
+val yojson_of_azurerm_log_analytics_datasource_windows_event :
+  azurerm_log_analytics_datasource_windows_event -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   event_log_name : string prop;
@@ -14,9 +41,10 @@ type t = private {
   workspace_name : string prop;
 }
 
-val azurerm_log_analytics_datasource_windows_event :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:azurerm_log_analytics_datasource_windows_event__timeouts ->
+  ?timeouts:timeouts ->
   event_log_name:string prop ->
   event_types:string prop list ->
   name:string prop ->

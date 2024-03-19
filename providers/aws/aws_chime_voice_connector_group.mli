@@ -2,13 +2,36 @@
 
 open! Tf.Prelude
 
-type aws_chime_voice_connector_group__connector
+(** RESOURCE SERIALIZATION *)
+
+type connector
+
+val connector :
+  priority:float prop ->
+  voice_connector_id:string prop ->
+  unit ->
+  connector
+
 type aws_chime_voice_connector_group
-type t = private { id : string prop; name : string prop }
 
 val aws_chime_voice_connector_group :
   ?id:string prop ->
   name:string prop ->
-  connector:aws_chime_voice_connector_group__connector list ->
+  connector:connector list ->
+  unit ->
+  aws_chime_voice_connector_group
+
+val yojson_of_aws_chime_voice_connector_group :
+  aws_chime_voice_connector_group -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { id : string prop; name : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  name:string prop ->
+  connector:connector list ->
   string ->
   t

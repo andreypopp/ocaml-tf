@@ -4,19 +4,22 @@
 
 open! Tf.Prelude
 
-type aws_verifiedpermissions_policy_store__validation_settings = {
-  mode : string prop;  (** mode *)
-}
+type validation_settings = { mode : string prop  (** mode *) }
 [@@deriving yojson_of]
-(** aws_verifiedpermissions_policy_store__validation_settings *)
+(** validation_settings *)
 
 type aws_verifiedpermissions_policy_store = {
   description : string prop option; [@option]  (** description *)
-  validation_settings :
-    aws_verifiedpermissions_policy_store__validation_settings list;
+  validation_settings : validation_settings list;
 }
 [@@deriving yojson_of]
 (** aws_verifiedpermissions_policy_store *)
+
+let validation_settings ~mode () : validation_settings = { mode }
+
+let aws_verifiedpermissions_policy_store ?description
+    ~validation_settings () : aws_verifiedpermissions_policy_store =
+  { description; validation_settings }
 
 type t = {
   arn : string prop;
@@ -25,14 +28,14 @@ type t = {
   policy_store_id : string prop;
 }
 
-let aws_verifiedpermissions_policy_store ?description
-    ~validation_settings __resource_id =
+let register ?tf_module ?description ~validation_settings
+    __resource_id =
   let __resource_type = "aws_verifiedpermissions_policy_store" in
   let __resource =
-    ({ description; validation_settings }
-      : aws_verifiedpermissions_policy_store)
+    aws_verifiedpermissions_policy_store ?description
+      ~validation_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedpermissions_policy_store __resource);
   let __resource_attributes =
     ({

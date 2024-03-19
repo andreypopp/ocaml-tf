@@ -4,61 +4,53 @@
 
 open! Tf.Prelude
 
-type aws_guardduty_organization_configuration__datasources__kubernetes__audit_logs = {
+type datasources__kubernetes__audit_logs = {
   enable : bool prop;  (** enable *)
 }
 [@@deriving yojson_of]
-(** aws_guardduty_organization_configuration__datasources__kubernetes__audit_logs *)
+(** datasources__kubernetes__audit_logs *)
 
-type aws_guardduty_organization_configuration__datasources__kubernetes = {
-  audit_logs :
-    aws_guardduty_organization_configuration__datasources__kubernetes__audit_logs
-    list;
+type datasources__kubernetes = {
+  audit_logs : datasources__kubernetes__audit_logs list;
 }
 [@@deriving yojson_of]
-(** aws_guardduty_organization_configuration__datasources__kubernetes *)
+(** datasources__kubernetes *)
 
-type aws_guardduty_organization_configuration__datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes = {
+type datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes = {
   auto_enable : bool prop;  (** auto_enable *)
 }
 [@@deriving yojson_of]
-(** aws_guardduty_organization_configuration__datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes *)
+(** datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes *)
 
-type aws_guardduty_organization_configuration__datasources__malware_protection__scan_ec2_instance_with_findings = {
+type datasources__malware_protection__scan_ec2_instance_with_findings = {
   ebs_volumes :
-    aws_guardduty_organization_configuration__datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes
+    datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes
     list;
 }
 [@@deriving yojson_of]
-(** aws_guardduty_organization_configuration__datasources__malware_protection__scan_ec2_instance_with_findings *)
+(** datasources__malware_protection__scan_ec2_instance_with_findings *)
 
-type aws_guardduty_organization_configuration__datasources__malware_protection = {
+type datasources__malware_protection = {
   scan_ec2_instance_with_findings :
-    aws_guardduty_organization_configuration__datasources__malware_protection__scan_ec2_instance_with_findings
+    datasources__malware_protection__scan_ec2_instance_with_findings
     list;
 }
 [@@deriving yojson_of]
-(** aws_guardduty_organization_configuration__datasources__malware_protection *)
+(** datasources__malware_protection *)
 
-type aws_guardduty_organization_configuration__datasources__s3_logs = {
+type datasources__s3_logs = {
   auto_enable : bool prop;  (** auto_enable *)
 }
 [@@deriving yojson_of]
-(** aws_guardduty_organization_configuration__datasources__s3_logs *)
+(** datasources__s3_logs *)
 
-type aws_guardduty_organization_configuration__datasources = {
-  kubernetes :
-    aws_guardduty_organization_configuration__datasources__kubernetes
-    list;
-  malware_protection :
-    aws_guardduty_organization_configuration__datasources__malware_protection
-    list;
-  s3_logs :
-    aws_guardduty_organization_configuration__datasources__s3_logs
-    list;
+type datasources = {
+  kubernetes : datasources__kubernetes list;
+  malware_protection : datasources__malware_protection list;
+  s3_logs : datasources__s3_logs list;
 }
 [@@deriving yojson_of]
-(** aws_guardduty_organization_configuration__datasources *)
+(** datasources *)
 
 type aws_guardduty_organization_configuration = {
   auto_enable : bool prop option; [@option]  (** auto_enable *)
@@ -66,11 +58,52 @@ type aws_guardduty_organization_configuration = {
       (** auto_enable_organization_members *)
   detector_id : string prop;  (** detector_id *)
   id : string prop option; [@option]  (** id *)
-  datasources :
-    aws_guardduty_organization_configuration__datasources list;
+  datasources : datasources list;
 }
 [@@deriving yojson_of]
 (** aws_guardduty_organization_configuration *)
+
+let datasources__kubernetes__audit_logs ~enable () :
+    datasources__kubernetes__audit_logs =
+  { enable }
+
+let datasources__kubernetes ~audit_logs () : datasources__kubernetes
+    =
+  { audit_logs }
+
+let datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes
+    ~auto_enable () :
+    datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes
+    =
+  { auto_enable }
+
+let datasources__malware_protection__scan_ec2_instance_with_findings
+    ~ebs_volumes () :
+    datasources__malware_protection__scan_ec2_instance_with_findings
+    =
+  { ebs_volumes }
+
+let datasources__malware_protection ~scan_ec2_instance_with_findings
+    () : datasources__malware_protection =
+  { scan_ec2_instance_with_findings }
+
+let datasources__s3_logs ~auto_enable () : datasources__s3_logs =
+  { auto_enable }
+
+let datasources ~kubernetes ~malware_protection ~s3_logs () :
+    datasources =
+  { kubernetes; malware_protection; s3_logs }
+
+let aws_guardduty_organization_configuration ?auto_enable
+    ?auto_enable_organization_members ?id ~detector_id ~datasources
+    () : aws_guardduty_organization_configuration =
+  {
+    auto_enable;
+    auto_enable_organization_members;
+    detector_id;
+    id;
+    datasources;
+  }
 
 type t = {
   auto_enable : bool prop;
@@ -79,21 +112,16 @@ type t = {
   id : string prop;
 }
 
-let aws_guardduty_organization_configuration ?auto_enable
+let register ?tf_module ?auto_enable
     ?auto_enable_organization_members ?id ~detector_id ~datasources
     __resource_id =
   let __resource_type = "aws_guardduty_organization_configuration" in
   let __resource =
-    ({
-       auto_enable;
-       auto_enable_organization_members;
-       detector_id;
-       id;
-       datasources;
-     }
-      : aws_guardduty_organization_configuration)
+    aws_guardduty_organization_configuration ?auto_enable
+      ?auto_enable_organization_members ?id ~detector_id ~datasources
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_organization_configuration __resource);
   let __resource_attributes =
     ({

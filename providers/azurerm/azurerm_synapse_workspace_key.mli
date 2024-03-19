@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_synapse_workspace_key__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_synapse_workspace_key
+
+val azurerm_synapse_workspace_key :
+  ?customer_managed_key_versionless_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  active:bool prop ->
+  customer_managed_key_name:string prop ->
+  synapse_workspace_id:string prop ->
+  unit ->
+  azurerm_synapse_workspace_key
+
+val yojson_of_azurerm_synapse_workspace_key :
+  azurerm_synapse_workspace_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   active : bool prop;
@@ -13,10 +39,11 @@ type t = private {
   synapse_workspace_id : string prop;
 }
 
-val azurerm_synapse_workspace_key :
+val register :
+  ?tf_module:tf_module ->
   ?customer_managed_key_versionless_id:string prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_synapse_workspace_key__timeouts ->
+  ?timeouts:timeouts ->
   active:bool prop ->
   customer_managed_key_name:string prop ->
   synapse_workspace_id:string prop ->

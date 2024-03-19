@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_wan__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_wan__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_wan = {
   allow_branch_to_branch_traffic : bool prop option; [@option]
@@ -26,10 +26,30 @@ type azurerm_virtual_wan = {
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  timeouts : azurerm_virtual_wan__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_wan *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_wan ?allow_branch_to_branch_traffic
+    ?disable_vpn_encryption ?id ?office365_local_breakout_category
+    ?tags ?type_ ?timeouts ~location ~name ~resource_group_name () :
+    azurerm_virtual_wan =
+  {
+    allow_branch_to_branch_traffic;
+    disable_vpn_encryption;
+    id;
+    location;
+    name;
+    office365_local_breakout_category;
+    resource_group_name;
+    tags;
+    type_;
+    timeouts;
+  }
 
 type t = {
   allow_branch_to_branch_traffic : bool prop;
@@ -43,27 +63,17 @@ type t = {
   type_ : string prop;
 }
 
-let azurerm_virtual_wan ?allow_branch_to_branch_traffic
+let register ?tf_module ?allow_branch_to_branch_traffic
     ?disable_vpn_encryption ?id ?office365_local_breakout_category
     ?tags ?type_ ?timeouts ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_virtual_wan" in
   let __resource =
-    ({
-       allow_branch_to_branch_traffic;
-       disable_vpn_encryption;
-       id;
-       location;
-       name;
-       office365_local_breakout_category;
-       resource_group_name;
-       tags;
-       type_;
-       timeouts;
-     }
-      : azurerm_virtual_wan)
+    azurerm_virtual_wan ?allow_branch_to_branch_traffic
+      ?disable_vpn_encryption ?id ?office365_local_breakout_category
+      ?tags ?type_ ?timeouts ~location ~name ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_wan __resource);
   let __resource_attributes =
     ({

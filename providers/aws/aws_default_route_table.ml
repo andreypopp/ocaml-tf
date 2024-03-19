@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type aws_default_route_table__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_default_route_table__timeouts *)
+(** timeouts *)
 
-type aws_default_route_table__route = {
+type route = {
   cidr_block : string prop;  (** cidr_block *)
   core_network_arn : string prop;  (** core_network_arn *)
   destination_prefix_list_id : string prop;
@@ -36,15 +36,29 @@ type aws_default_route_table = {
   id : string prop option; [@option]  (** id *)
   propagating_vgws : string prop list option; [@option]
       (** propagating_vgws *)
-  route : aws_default_route_table__route list option; [@option]
-      (** route *)
+  route : route list option; [@option]  (** route *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_default_route_table__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_default_route_table *)
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_default_route_table ?id ?propagating_vgws ?route ?tags
+    ?tags_all ?timeouts ~default_route_table_id () :
+    aws_default_route_table =
+  {
+    default_route_table_id;
+    id;
+    propagating_vgws;
+    route;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -52,28 +66,20 @@ type t = {
   id : string prop;
   owner_id : string prop;
   propagating_vgws : string list prop;
-  route : aws_default_route_table__route list prop;
+  route : route list prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   vpc_id : string prop;
 }
 
-let aws_default_route_table ?id ?propagating_vgws ?route ?tags
-    ?tags_all ?timeouts ~default_route_table_id __resource_id =
+let register ?tf_module ?id ?propagating_vgws ?route ?tags ?tags_all
+    ?timeouts ~default_route_table_id __resource_id =
   let __resource_type = "aws_default_route_table" in
   let __resource =
-    ({
-       default_route_table_id;
-       id;
-       propagating_vgws;
-       route;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_default_route_table)
+    aws_default_route_table ?id ?propagating_vgws ?route ?tags
+      ?tags_all ?timeouts ~default_route_table_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_route_table __resource);
   let __resource_attributes =
     ({

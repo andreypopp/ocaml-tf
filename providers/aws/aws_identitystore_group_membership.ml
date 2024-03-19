@@ -13,6 +13,11 @@ type aws_identitystore_group_membership = {
 [@@deriving yojson_of]
 (** aws_identitystore_group_membership *)
 
+let aws_identitystore_group_membership ?id ~group_id
+    ~identity_store_id ~member_id () :
+    aws_identitystore_group_membership =
+  { group_id; id; identity_store_id; member_id }
+
 type t = {
   group_id : string prop;
   id : string prop;
@@ -21,14 +26,14 @@ type t = {
   membership_id : string prop;
 }
 
-let aws_identitystore_group_membership ?id ~group_id
-    ~identity_store_id ~member_id __resource_id =
+let register ?tf_module ?id ~group_id ~identity_store_id ~member_id
+    __resource_id =
   let __resource_type = "aws_identitystore_group_membership" in
   let __resource =
-    ({ group_id; id; identity_store_id; member_id }
-      : aws_identitystore_group_membership)
+    aws_identitystore_group_membership ?id ~group_id
+      ~identity_store_id ~member_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_identitystore_group_membership __resource);
   let __resource_attributes =
     ({

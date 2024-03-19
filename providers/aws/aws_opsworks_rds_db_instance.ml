@@ -14,6 +14,11 @@ type aws_opsworks_rds_db_instance = {
 [@@deriving yojson_of]
 (** aws_opsworks_rds_db_instance *)
 
+let aws_opsworks_rds_db_instance ?id ~db_password ~db_user
+    ~rds_db_instance_arn ~stack_id () : aws_opsworks_rds_db_instance
+    =
+  { db_password; db_user; id; rds_db_instance_arn; stack_id }
+
 type t = {
   db_password : string prop;
   db_user : string prop;
@@ -22,14 +27,14 @@ type t = {
   stack_id : string prop;
 }
 
-let aws_opsworks_rds_db_instance ?id ~db_password ~db_user
+let register ?tf_module ?id ~db_password ~db_user
     ~rds_db_instance_arn ~stack_id __resource_id =
   let __resource_type = "aws_opsworks_rds_db_instance" in
   let __resource =
-    ({ db_password; db_user; id; rds_db_instance_arn; stack_id }
-      : aws_opsworks_rds_db_instance)
+    aws_opsworks_rds_db_instance ?id ~db_password ~db_user
+      ~rds_db_instance_arn ~stack_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_rds_db_instance __resource);
   let __resource_attributes =
     ({

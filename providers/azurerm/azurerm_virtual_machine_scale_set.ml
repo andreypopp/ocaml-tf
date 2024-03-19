@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_machine_scale_set__boot_diagnostics = {
+type boot_diagnostics = {
   enabled : bool prop option; [@option]  (** enabled *)
   storage_uri : string prop;  (** storage_uri *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__boot_diagnostics *)
+(** boot_diagnostics *)
 
-type azurerm_virtual_machine_scale_set__extension = {
+type extension = {
   auto_upgrade_minor_version : bool prop option; [@option]
       (** auto_upgrade_minor_version *)
   name : string prop;  (** name *)
@@ -25,32 +25,31 @@ type azurerm_virtual_machine_scale_set__extension = {
   type_handler_version : string prop;  (** type_handler_version *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__extension *)
+(** extension *)
 
-type azurerm_virtual_machine_scale_set__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__identity *)
+(** identity *)
 
-type azurerm_virtual_machine_scale_set__network_profile__dns_settings = {
+type network_profile__dns_settings = {
   dns_servers : string prop list;  (** dns_servers *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__network_profile__dns_settings *)
+(** network_profile__dns_settings *)
 
-type azurerm_virtual_machine_scale_set__network_profile__ip_configuration__public_ip_address_configuration = {
+type network_profile__ip_configuration__public_ip_address_configuration = {
   domain_name_label : string prop;  (** domain_name_label *)
   idle_timeout : float prop;  (** idle_timeout *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__network_profile__ip_configuration__public_ip_address_configuration *)
+(** network_profile__ip_configuration__public_ip_address_configuration *)
 
-type azurerm_virtual_machine_scale_set__network_profile__ip_configuration = {
+type network_profile__ip_configuration = {
   application_gateway_backend_address_pool_ids :
     string prop list option;
       [@option]
@@ -67,13 +66,13 @@ type azurerm_virtual_machine_scale_set__network_profile__ip_configuration = {
   primary : bool prop;  (** primary *)
   subnet_id : string prop;  (** subnet_id *)
   public_ip_address_configuration :
-    azurerm_virtual_machine_scale_set__network_profile__ip_configuration__public_ip_address_configuration
+    network_profile__ip_configuration__public_ip_address_configuration
     list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__network_profile__ip_configuration *)
+(** network_profile__ip_configuration *)
 
-type azurerm_virtual_machine_scale_set__network_profile = {
+type network_profile = {
   accelerated_networking : bool prop option; [@option]
       (** accelerated_networking *)
   ip_forwarding : bool prop option; [@option]  (** ip_forwarding *)
@@ -81,17 +80,13 @@ type azurerm_virtual_machine_scale_set__network_profile = {
   network_security_group_id : string prop option; [@option]
       (** network_security_group_id *)
   primary : bool prop;  (** primary *)
-  dns_settings :
-    azurerm_virtual_machine_scale_set__network_profile__dns_settings
-    list;
-  ip_configuration :
-    azurerm_virtual_machine_scale_set__network_profile__ip_configuration
-    list;
+  dns_settings : network_profile__dns_settings list;
+  ip_configuration : network_profile__ip_configuration list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__network_profile *)
+(** network_profile *)
 
-type azurerm_virtual_machine_scale_set__os_profile = {
+type os_profile = {
   admin_password : string prop option; [@option]
       (** admin_password *)
   admin_username : string prop;  (** admin_username *)
@@ -99,83 +94,76 @@ type azurerm_virtual_machine_scale_set__os_profile = {
   custom_data : string prop option; [@option]  (** custom_data *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__os_profile *)
+(** os_profile *)
 
-type azurerm_virtual_machine_scale_set__os_profile_linux_config__ssh_keys = {
+type os_profile_linux_config__ssh_keys = {
   key_data : string prop option; [@option]  (** key_data *)
   path : string prop;  (** path *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__os_profile_linux_config__ssh_keys *)
+(** os_profile_linux_config__ssh_keys *)
 
-type azurerm_virtual_machine_scale_set__os_profile_linux_config = {
+type os_profile_linux_config = {
   disable_password_authentication : bool prop option; [@option]
       (** disable_password_authentication *)
-  ssh_keys :
-    azurerm_virtual_machine_scale_set__os_profile_linux_config__ssh_keys
-    list;
+  ssh_keys : os_profile_linux_config__ssh_keys list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__os_profile_linux_config *)
+(** os_profile_linux_config *)
 
-type azurerm_virtual_machine_scale_set__os_profile_secrets__vault_certificates = {
+type os_profile_secrets__vault_certificates = {
   certificate_store : string prop option; [@option]
       (** certificate_store *)
   certificate_url : string prop;  (** certificate_url *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__os_profile_secrets__vault_certificates *)
+(** os_profile_secrets__vault_certificates *)
 
-type azurerm_virtual_machine_scale_set__os_profile_secrets = {
+type os_profile_secrets = {
   source_vault_id : string prop;  (** source_vault_id *)
-  vault_certificates :
-    azurerm_virtual_machine_scale_set__os_profile_secrets__vault_certificates
-    list;
+  vault_certificates : os_profile_secrets__vault_certificates list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__os_profile_secrets *)
+(** os_profile_secrets *)
 
-type azurerm_virtual_machine_scale_set__os_profile_windows_config__additional_unattend_config = {
+type os_profile_windows_config__additional_unattend_config = {
   component : string prop;  (** component *)
   content : string prop;  (** content *)
   pass : string prop;  (** pass *)
   setting_name : string prop;  (** setting_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__os_profile_windows_config__additional_unattend_config *)
+(** os_profile_windows_config__additional_unattend_config *)
 
-type azurerm_virtual_machine_scale_set__os_profile_windows_config__winrm = {
+type os_profile_windows_config__winrm = {
   certificate_url : string prop option; [@option]
       (** certificate_url *)
   protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__os_profile_windows_config__winrm *)
+(** os_profile_windows_config__winrm *)
 
-type azurerm_virtual_machine_scale_set__os_profile_windows_config = {
+type os_profile_windows_config = {
   enable_automatic_upgrades : bool prop option; [@option]
       (** enable_automatic_upgrades *)
   provision_vm_agent : bool prop option; [@option]
       (** provision_vm_agent *)
   additional_unattend_config :
-    azurerm_virtual_machine_scale_set__os_profile_windows_config__additional_unattend_config
-    list;
-  winrm :
-    azurerm_virtual_machine_scale_set__os_profile_windows_config__winrm
-    list;
+    os_profile_windows_config__additional_unattend_config list;
+  winrm : os_profile_windows_config__winrm list;
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__os_profile_windows_config *)
+(** os_profile_windows_config *)
 
-type azurerm_virtual_machine_scale_set__plan = {
+type plan = {
   name : string prop;  (** name *)
   product : string prop;  (** product *)
   publisher : string prop;  (** publisher *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__plan *)
+(** plan *)
 
-type azurerm_virtual_machine_scale_set__rolling_upgrade_policy = {
+type rolling_upgrade_policy = {
   max_batch_instance_percent : float prop option; [@option]
       (** max_batch_instance_percent *)
   max_unhealthy_instance_percent : float prop option; [@option]
@@ -187,17 +175,17 @@ type azurerm_virtual_machine_scale_set__rolling_upgrade_policy = {
       (** pause_time_between_batches *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__rolling_upgrade_policy *)
+(** rolling_upgrade_policy *)
 
-type azurerm_virtual_machine_scale_set__sku = {
+type sku = {
   capacity : float prop;  (** capacity *)
   name : string prop;  (** name *)
   tier : string prop option; [@option]  (** tier *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__sku *)
+(** sku *)
 
-type azurerm_virtual_machine_scale_set__storage_profile_data_disk = {
+type storage_profile_data_disk = {
   caching : string prop option; [@option]  (** caching *)
   create_option : string prop;  (** create_option *)
   disk_size_gb : float prop option; [@option]  (** disk_size_gb *)
@@ -206,9 +194,9 @@ type azurerm_virtual_machine_scale_set__storage_profile_data_disk = {
       (** managed_disk_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__storage_profile_data_disk *)
+(** storage_profile_data_disk *)
 
-type azurerm_virtual_machine_scale_set__storage_profile_image_reference = {
+type storage_profile_image_reference = {
   id : string prop option; [@option]  (** id *)
   offer : string prop option; [@option]  (** offer *)
   publisher : string prop option; [@option]  (** publisher *)
@@ -216,9 +204,9 @@ type azurerm_virtual_machine_scale_set__storage_profile_image_reference = {
   version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__storage_profile_image_reference *)
+(** storage_profile_image_reference *)
 
-type azurerm_virtual_machine_scale_set__storage_profile_os_disk = {
+type storage_profile_os_disk = {
   caching : string prop option; [@option]  (** caching *)
   create_option : string prop;  (** create_option *)
   image : string prop option; [@option]  (** image *)
@@ -230,16 +218,16 @@ type azurerm_virtual_machine_scale_set__storage_profile_os_disk = {
       (** vhd_containers *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__storage_profile_os_disk *)
+(** storage_profile_os_disk *)
 
-type azurerm_virtual_machine_scale_set__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_machine_scale_set__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_machine_scale_set = {
   automatic_os_upgrade : bool prop option; [@option]
@@ -262,34 +250,214 @@ type azurerm_virtual_machine_scale_set = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   upgrade_policy_mode : string prop;  (** upgrade_policy_mode *)
   zones : string prop list option; [@option]  (** zones *)
-  boot_diagnostics :
-    azurerm_virtual_machine_scale_set__boot_diagnostics list;
-  extension : azurerm_virtual_machine_scale_set__extension list;
-  identity : azurerm_virtual_machine_scale_set__identity list;
-  network_profile :
-    azurerm_virtual_machine_scale_set__network_profile list;
-  os_profile : azurerm_virtual_machine_scale_set__os_profile list;
-  os_profile_linux_config :
-    azurerm_virtual_machine_scale_set__os_profile_linux_config list;
-  os_profile_secrets :
-    azurerm_virtual_machine_scale_set__os_profile_secrets list;
-  os_profile_windows_config :
-    azurerm_virtual_machine_scale_set__os_profile_windows_config list;
-  plan : azurerm_virtual_machine_scale_set__plan list;
-  rolling_upgrade_policy :
-    azurerm_virtual_machine_scale_set__rolling_upgrade_policy list;
-  sku : azurerm_virtual_machine_scale_set__sku list;
-  storage_profile_data_disk :
-    azurerm_virtual_machine_scale_set__storage_profile_data_disk list;
+  boot_diagnostics : boot_diagnostics list;
+  extension : extension list;
+  identity : identity list;
+  network_profile : network_profile list;
+  os_profile : os_profile list;
+  os_profile_linux_config : os_profile_linux_config list;
+  os_profile_secrets : os_profile_secrets list;
+  os_profile_windows_config : os_profile_windows_config list;
+  plan : plan list;
+  rolling_upgrade_policy : rolling_upgrade_policy list;
+  sku : sku list;
+  storage_profile_data_disk : storage_profile_data_disk list;
   storage_profile_image_reference :
-    azurerm_virtual_machine_scale_set__storage_profile_image_reference
-    list;
-  storage_profile_os_disk :
-    azurerm_virtual_machine_scale_set__storage_profile_os_disk list;
-  timeouts : azurerm_virtual_machine_scale_set__timeouts option;
+    storage_profile_image_reference list;
+  storage_profile_os_disk : storage_profile_os_disk list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set *)
+
+let boot_diagnostics ?enabled ~storage_uri () : boot_diagnostics =
+  { enabled; storage_uri }
+
+let extension ?auto_upgrade_minor_version ?protected_settings
+    ?provision_after_extensions ?settings ~name ~publisher ~type_
+    ~type_handler_version () : extension =
+  {
+    auto_upgrade_minor_version;
+    name;
+    protected_settings;
+    provision_after_extensions;
+    publisher;
+    settings;
+    type_;
+    type_handler_version;
+  }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let network_profile__dns_settings ~dns_servers () :
+    network_profile__dns_settings =
+  { dns_servers }
+
+let network_profile__ip_configuration__public_ip_address_configuration
+    ~domain_name_label ~idle_timeout ~name () :
+    network_profile__ip_configuration__public_ip_address_configuration
+    =
+  { domain_name_label; idle_timeout; name }
+
+let network_profile__ip_configuration
+    ?application_gateway_backend_address_pool_ids
+    ?application_security_group_ids
+    ?load_balancer_backend_address_pool_ids
+    ?load_balancer_inbound_nat_rules_ids ~name ~primary ~subnet_id
+    ~public_ip_address_configuration () :
+    network_profile__ip_configuration =
+  {
+    application_gateway_backend_address_pool_ids;
+    application_security_group_ids;
+    load_balancer_backend_address_pool_ids;
+    load_balancer_inbound_nat_rules_ids;
+    name;
+    primary;
+    subnet_id;
+    public_ip_address_configuration;
+  }
+
+let network_profile ?accelerated_networking ?ip_forwarding
+    ?network_security_group_id ~name ~primary ~dns_settings
+    ~ip_configuration () : network_profile =
+  {
+    accelerated_networking;
+    ip_forwarding;
+    name;
+    network_security_group_id;
+    primary;
+    dns_settings;
+    ip_configuration;
+  }
+
+let os_profile ?admin_password ?custom_data ~admin_username
+    ~computer_name_prefix () : os_profile =
+  {
+    admin_password;
+    admin_username;
+    computer_name_prefix;
+    custom_data;
+  }
+
+let os_profile_linux_config__ssh_keys ?key_data ~path () :
+    os_profile_linux_config__ssh_keys =
+  { key_data; path }
+
+let os_profile_linux_config ?disable_password_authentication
+    ~ssh_keys () : os_profile_linux_config =
+  { disable_password_authentication; ssh_keys }
+
+let os_profile_secrets__vault_certificates ?certificate_store
+    ~certificate_url () : os_profile_secrets__vault_certificates =
+  { certificate_store; certificate_url }
+
+let os_profile_secrets ~source_vault_id ~vault_certificates () :
+    os_profile_secrets =
+  { source_vault_id; vault_certificates }
+
+let os_profile_windows_config__additional_unattend_config ~component
+    ~content ~pass ~setting_name () :
+    os_profile_windows_config__additional_unattend_config =
+  { component; content; pass; setting_name }
+
+let os_profile_windows_config__winrm ?certificate_url ~protocol () :
+    os_profile_windows_config__winrm =
+  { certificate_url; protocol }
+
+let os_profile_windows_config ?enable_automatic_upgrades
+    ?provision_vm_agent ~additional_unattend_config ~winrm () :
+    os_profile_windows_config =
+  {
+    enable_automatic_upgrades;
+    provision_vm_agent;
+    additional_unattend_config;
+    winrm;
+  }
+
+let plan ~name ~product ~publisher () : plan =
+  { name; product; publisher }
+
+let rolling_upgrade_policy ?max_batch_instance_percent
+    ?max_unhealthy_instance_percent
+    ?max_unhealthy_upgraded_instance_percent
+    ?pause_time_between_batches () : rolling_upgrade_policy =
+  {
+    max_batch_instance_percent;
+    max_unhealthy_instance_percent;
+    max_unhealthy_upgraded_instance_percent;
+    pause_time_between_batches;
+  }
+
+let sku ?tier ~capacity ~name () : sku = { capacity; name; tier }
+
+let storage_profile_data_disk ?caching ?disk_size_gb
+    ?managed_disk_type ~create_option ~lun () :
+    storage_profile_data_disk =
+  { caching; create_option; disk_size_gb; lun; managed_disk_type }
+
+let storage_profile_image_reference ?id ?offer ?publisher ?sku
+    ?version () : storage_profile_image_reference =
+  { id; offer; publisher; sku; version }
+
+let storage_profile_os_disk ?caching ?image ?managed_disk_type ?name
+    ?os_type ?vhd_containers ~create_option () :
+    storage_profile_os_disk =
+  {
+    caching;
+    create_option;
+    image;
+    managed_disk_type;
+    name;
+    os_type;
+    vhd_containers;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_machine_scale_set ?automatic_os_upgrade
+    ?eviction_policy ?health_probe_id ?id ?license_type
+    ?overprovision ?priority ?proximity_placement_group_id
+    ?single_placement_group ?tags ?zones ?timeouts ~location ~name
+    ~resource_group_name ~upgrade_policy_mode ~boot_diagnostics
+    ~extension ~identity ~network_profile ~os_profile
+    ~os_profile_linux_config ~os_profile_secrets
+    ~os_profile_windows_config ~plan ~rolling_upgrade_policy ~sku
+    ~storage_profile_data_disk ~storage_profile_image_reference
+    ~storage_profile_os_disk () : azurerm_virtual_machine_scale_set =
+  {
+    automatic_os_upgrade;
+    eviction_policy;
+    health_probe_id;
+    id;
+    license_type;
+    location;
+    name;
+    overprovision;
+    priority;
+    proximity_placement_group_id;
+    resource_group_name;
+    single_placement_group;
+    tags;
+    upgrade_policy_mode;
+    zones;
+    boot_diagnostics;
+    extension;
+    identity;
+    network_profile;
+    os_profile;
+    os_profile_linux_config;
+    os_profile_secrets;
+    os_profile_windows_config;
+    plan;
+    rolling_upgrade_policy;
+    sku;
+    storage_profile_data_disk;
+    storage_profile_image_reference;
+    storage_profile_os_disk;
+    timeouts;
+  }
 
 type t = {
   automatic_os_upgrade : bool prop;
@@ -309,53 +477,30 @@ type t = {
   zones : string list prop;
 }
 
-let azurerm_virtual_machine_scale_set ?automatic_os_upgrade
-    ?eviction_policy ?health_probe_id ?id ?license_type
-    ?overprovision ?priority ?proximity_placement_group_id
-    ?single_placement_group ?tags ?zones ?timeouts ~location ~name
-    ~resource_group_name ~upgrade_policy_mode ~boot_diagnostics
-    ~extension ~identity ~network_profile ~os_profile
-    ~os_profile_linux_config ~os_profile_secrets
-    ~os_profile_windows_config ~plan ~rolling_upgrade_policy ~sku
-    ~storage_profile_data_disk ~storage_profile_image_reference
-    ~storage_profile_os_disk __resource_id =
+let register ?tf_module ?automatic_os_upgrade ?eviction_policy
+    ?health_probe_id ?id ?license_type ?overprovision ?priority
+    ?proximity_placement_group_id ?single_placement_group ?tags
+    ?zones ?timeouts ~location ~name ~resource_group_name
+    ~upgrade_policy_mode ~boot_diagnostics ~extension ~identity
+    ~network_profile ~os_profile ~os_profile_linux_config
+    ~os_profile_secrets ~os_profile_windows_config ~plan
+    ~rolling_upgrade_policy ~sku ~storage_profile_data_disk
+    ~storage_profile_image_reference ~storage_profile_os_disk
+    __resource_id =
   let __resource_type = "azurerm_virtual_machine_scale_set" in
   let __resource =
-    ({
-       automatic_os_upgrade;
-       eviction_policy;
-       health_probe_id;
-       id;
-       license_type;
-       location;
-       name;
-       overprovision;
-       priority;
-       proximity_placement_group_id;
-       resource_group_name;
-       single_placement_group;
-       tags;
-       upgrade_policy_mode;
-       zones;
-       boot_diagnostics;
-       extension;
-       identity;
-       network_profile;
-       os_profile;
-       os_profile_linux_config;
-       os_profile_secrets;
-       os_profile_windows_config;
-       plan;
-       rolling_upgrade_policy;
-       sku;
-       storage_profile_data_disk;
-       storage_profile_image_reference;
-       storage_profile_os_disk;
-       timeouts;
-     }
-      : azurerm_virtual_machine_scale_set)
+    azurerm_virtual_machine_scale_set ?automatic_os_upgrade
+      ?eviction_policy ?health_probe_id ?id ?license_type
+      ?overprovision ?priority ?proximity_placement_group_id
+      ?single_placement_group ?tags ?zones ?timeouts ~location ~name
+      ~resource_group_name ~upgrade_policy_mode ~boot_diagnostics
+      ~extension ~identity ~network_profile ~os_profile
+      ~os_profile_linux_config ~os_profile_secrets
+      ~os_profile_windows_config ~plan ~rolling_upgrade_policy ~sku
+      ~storage_profile_data_disk ~storage_profile_image_reference
+      ~storage_profile_os_disk ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_machine_scale_set __resource);
   let __resource_attributes =
     ({

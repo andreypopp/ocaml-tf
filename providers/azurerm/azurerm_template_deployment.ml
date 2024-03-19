@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_template_deployment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_template_deployment__timeouts *)
+(** timeouts *)
 
 type azurerm_template_deployment = {
   deployment_mode : string prop;  (** deployment_mode *)
@@ -23,10 +23,27 @@ type azurerm_template_deployment = {
       (** parameters_body *)
   resource_group_name : string prop;  (** resource_group_name *)
   template_body : string prop option; [@option]  (** template_body *)
-  timeouts : azurerm_template_deployment__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_template_deployment *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_template_deployment ?id ?parameters ?parameters_body
+    ?template_body ?timeouts ~deployment_mode ~name
+    ~resource_group_name () : azurerm_template_deployment =
+  {
+    deployment_mode;
+    id;
+    name;
+    parameters;
+    parameters_body;
+    resource_group_name;
+    template_body;
+    timeouts;
+  }
 
 type t = {
   deployment_mode : string prop;
@@ -39,24 +56,16 @@ type t = {
   template_body : string prop;
 }
 
-let azurerm_template_deployment ?id ?parameters ?parameters_body
+let register ?tf_module ?id ?parameters ?parameters_body
     ?template_body ?timeouts ~deployment_mode ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_template_deployment" in
   let __resource =
-    ({
-       deployment_mode;
-       id;
-       name;
-       parameters;
-       parameters_body;
-       resource_group_name;
-       template_body;
-       timeouts;
-     }
-      : azurerm_template_deployment)
+    azurerm_template_deployment ?id ?parameters ?parameters_body
+      ?template_body ?timeouts ~deployment_mode ~name
+      ~resource_group_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_template_deployment __resource);
   let __resource_attributes =
     ({

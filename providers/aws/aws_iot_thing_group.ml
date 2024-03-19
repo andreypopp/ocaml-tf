@@ -4,32 +4,30 @@
 
 open! Tf.Prelude
 
-type aws_iot_thing_group__properties__attribute_payload = {
+type properties__attribute_payload = {
   attributes : (string * string prop) list option; [@option]
       (** attributes *)
 }
 [@@deriving yojson_of]
-(** aws_iot_thing_group__properties__attribute_payload *)
+(** properties__attribute_payload *)
 
-type aws_iot_thing_group__properties = {
+type properties = {
   description : string prop option; [@option]  (** description *)
-  attribute_payload :
-    aws_iot_thing_group__properties__attribute_payload list;
+  attribute_payload : properties__attribute_payload list;
 }
 [@@deriving yojson_of]
-(** aws_iot_thing_group__properties *)
+(** properties *)
 
-type aws_iot_thing_group__metadata__root_to_parent_groups = {
+type metadata__root_to_parent_groups = {
   group_arn : string prop;  (** group_arn *)
   group_name : string prop;  (** group_name *)
 }
 [@@deriving yojson_of]
 
-type aws_iot_thing_group__metadata = {
+type metadata = {
   creation_date : string prop;  (** creation_date *)
   parent_group_name : string prop;  (** parent_group_name *)
-  root_to_parent_groups :
-    aws_iot_thing_group__metadata__root_to_parent_groups list;
+  root_to_parent_groups : metadata__root_to_parent_groups list;
       (** root_to_parent_groups *)
 }
 [@@deriving yojson_of]
@@ -42,15 +40,26 @@ type aws_iot_thing_group = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  properties : aws_iot_thing_group__properties list;
+  properties : properties list;
 }
 [@@deriving yojson_of]
 (** aws_iot_thing_group *)
 
+let properties__attribute_payload ?attributes () :
+    properties__attribute_payload =
+  { attributes }
+
+let properties ?description ~attribute_payload () : properties =
+  { description; attribute_payload }
+
+let aws_iot_thing_group ?id ?parent_group_name ?tags ?tags_all ~name
+    ~properties () : aws_iot_thing_group =
+  { id; name; parent_group_name; tags; tags_all; properties }
+
 type t = {
   arn : string prop;
   id : string prop;
-  metadata : aws_iot_thing_group__metadata list prop;
+  metadata : metadata list prop;
   name : string prop;
   parent_group_name : string prop;
   tags : (string * string) list prop;
@@ -58,14 +67,14 @@ type t = {
   version : float prop;
 }
 
-let aws_iot_thing_group ?id ?parent_group_name ?tags ?tags_all ~name
+let register ?tf_module ?id ?parent_group_name ?tags ?tags_all ~name
     ~properties __resource_id =
   let __resource_type = "aws_iot_thing_group" in
   let __resource =
-    ({ id; name; parent_group_name; tags; tags_all; properties }
-      : aws_iot_thing_group)
+    aws_iot_thing_group ?id ?parent_group_name ?tags ?tags_all ~name
+      ~properties ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_thing_group __resource);
   let __resource_attributes =
     ({

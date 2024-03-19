@@ -2,19 +2,48 @@
 
 open! Tf.Prelude
 
-type google_cloud_identity_group__group_key
-type google_cloud_identity_group__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_cloud_identity_group__additional_group_keys = {
+type additional_group_keys = {
   id : string prop;  (** id *)
   namespace : string prop;  (** namespace *)
 }
 
+type group_key
+
+val group_key :
+  ?namespace:string prop -> id:string prop -> unit -> group_key
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_cloud_identity_group
 
+val google_cloud_identity_group :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?initial_group_config:string prop ->
+  ?timeouts:timeouts ->
+  labels:(string * string prop) list ->
+  parent:string prop ->
+  group_key:group_key list ->
+  unit ->
+  google_cloud_identity_group
+
+val yojson_of_google_cloud_identity_group :
+  google_cloud_identity_group -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  additional_group_keys :
-    google_cloud_identity_group__additional_group_keys list prop;
+  additional_group_keys : additional_group_keys list prop;
   create_time : string prop;
   description : string prop;
   display_name : string prop;
@@ -26,14 +55,15 @@ type t = private {
   update_time : string prop;
 }
 
-val google_cloud_identity_group :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?initial_group_config:string prop ->
-  ?timeouts:google_cloud_identity_group__timeouts ->
+  ?timeouts:timeouts ->
   labels:(string * string prop) list ->
   parent:string prop ->
-  group_key:google_cloud_identity_group__group_key list ->
+  group_key:group_key list ->
   string ->
   t

@@ -4,26 +4,20 @@
 
 open! Tf.Prelude
 
-type kubernetes_validating_webhook_configuration__metadata = {
+type metadata = {
   annotations : (string * string prop) list option; [@option]
       (** An unstructured key value map stored with the validating webhook configuration that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
       (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
-  generation : float prop;
-      (** A sequence number representing a specific generation of the desired state. *)
   labels : (string * string prop) list option; [@option]
       (** Map of string keys and values that can be used to organize and categorize (scope and select) the validating webhook configuration. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
       (** Name of the validating webhook configuration, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
-  resource_version : string prop;
-      (** An opaque value that represents the internal version of this validating webhook configuration that can be used by clients to determine when validating webhook configuration has changed. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency *)
-  uid : string prop;
-      (** The unique in time and space value for this validating webhook configuration. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids *)
 }
 [@@deriving yojson_of]
 (** Standard validating webhook configuration's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
 
-type kubernetes_validating_webhook_configuration__webhook__client_config__service = {
+type webhook__client_config__service = {
   name : string prop;
       (** `name` is the name of the service. Required *)
   namespace : string prop;
@@ -38,7 +32,7 @@ type kubernetes_validating_webhook_configuration__webhook__client_config__servic
 
 If the webhook is running within the cluster, then you should use `service`. *)
 
-type kubernetes_validating_webhook_configuration__webhook__client_config = {
+type webhook__client_config = {
   ca_bundle : string prop option; [@option]
       (** `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used. *)
   url : string prop option; [@option]
@@ -53,14 +47,12 @@ The scheme must be https; the URL must begin with https://.
 A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
 
 Attempting to use a user or basic auth e.g. user:password@ is not allowed. Fragments (#...) and query parameters (?...) are not allowed, either. *)
-  service :
-    kubernetes_validating_webhook_configuration__webhook__client_config__service
-    list;
+  service : webhook__client_config__service list;
 }
 [@@deriving yojson_of]
 (** ClientConfig defines how to communicate with the hook. Required *)
 
-type kubernetes_validating_webhook_configuration__webhook__namespace_selector__match_expressions = {
+type webhook__namespace_selector__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -71,12 +63,11 @@ type kubernetes_validating_webhook_configuration__webhook__namespace_selector__m
 [@@deriving yojson_of]
 (** A list of label selector requirements. The requirements are ANDed. *)
 
-type kubernetes_validating_webhook_configuration__webhook__namespace_selector = {
+type webhook__namespace_selector = {
   match_labels : (string * string prop) list option; [@option]
       (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
-    kubernetes_validating_webhook_configuration__webhook__namespace_selector__match_expressions
-    list;
+    webhook__namespace_selector__match_expressions list;
 }
 [@@deriving yojson_of]
 (** NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
@@ -111,7 +102,7 @@ See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for
 
 Default to the empty LabelSelector, which matches everything. *)
 
-type kubernetes_validating_webhook_configuration__webhook__object_selector__match_expressions = {
+type webhook__object_selector__match_expressions = {
   key : string prop option; [@option]
       (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
@@ -122,17 +113,16 @@ type kubernetes_validating_webhook_configuration__webhook__object_selector__matc
 [@@deriving yojson_of]
 (** A list of label selector requirements. The requirements are ANDed. *)
 
-type kubernetes_validating_webhook_configuration__webhook__object_selector = {
+type webhook__object_selector = {
   match_labels : (string * string prop) list option; [@option]
       (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
-    kubernetes_validating_webhook_configuration__webhook__object_selector__match_expressions
-    list;
+    webhook__object_selector__match_expressions list;
 }
 [@@deriving yojson_of]
 (** ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything. *)
 
-type kubernetes_validating_webhook_configuration__webhook__rule = {
+type webhook__rule = {
   api_groups : string prop list;  (** api_groups *)
   api_versions : string prop list;  (** api_versions *)
   operations : string prop list;
@@ -143,7 +133,7 @@ type kubernetes_validating_webhook_configuration__webhook__rule = {
 [@@deriving yojson_of]
 (** Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects. *)
 
-type kubernetes_validating_webhook_configuration__webhook = {
+type webhook = {
   admission_review_versions : string prop list option; [@option]
       (** AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. *)
   failure_policy : string prop option; [@option]
@@ -162,42 +152,85 @@ Defaults to Equivalent *)
       (** SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. *)
   timeout_seconds : float prop option; [@option]
       (** TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds. *)
-  client_config :
-    kubernetes_validating_webhook_configuration__webhook__client_config
-    list;
-  namespace_selector :
-    kubernetes_validating_webhook_configuration__webhook__namespace_selector
-    list;
-  object_selector :
-    kubernetes_validating_webhook_configuration__webhook__object_selector
-    list;
-  rule :
-    kubernetes_validating_webhook_configuration__webhook__rule list;
+  client_config : webhook__client_config list;
+  namespace_selector : webhook__namespace_selector list;
+  object_selector : webhook__object_selector list;
+  rule : webhook__rule list;
 }
 [@@deriving yojson_of]
 (** Webhooks is a list of webhooks and the affected resources and operations. *)
 
 type kubernetes_validating_webhook_configuration = {
   id : string prop option; [@option]  (** id *)
-  metadata :
-    kubernetes_validating_webhook_configuration__metadata list;
-  webhook : kubernetes_validating_webhook_configuration__webhook list;
+  metadata : metadata list;
+  webhook : webhook list;
 }
 [@@deriving yojson_of]
 (** kubernetes_validating_webhook_configuration *)
 
-type t = { id : string prop }
+let metadata ?annotations ?generate_name ?labels ?name () : metadata
+    =
+  { annotations; generate_name; labels; name }
+
+let webhook__client_config__service ?path ?port ~name ~namespace () :
+    webhook__client_config__service =
+  { name; namespace; path; port }
+
+let webhook__client_config ?ca_bundle ?url ~service () :
+    webhook__client_config =
+  { ca_bundle; url; service }
+
+let webhook__namespace_selector__match_expressions ?key ?operator
+    ?values () : webhook__namespace_selector__match_expressions =
+  { key; operator; values }
+
+let webhook__namespace_selector ?match_labels ~match_expressions () :
+    webhook__namespace_selector =
+  { match_labels; match_expressions }
+
+let webhook__object_selector__match_expressions ?key ?operator
+    ?values () : webhook__object_selector__match_expressions =
+  { key; operator; values }
+
+let webhook__object_selector ?match_labels ~match_expressions () :
+    webhook__object_selector =
+  { match_labels; match_expressions }
+
+let webhook__rule ?scope ~api_groups ~api_versions ~operations
+    ~resources () : webhook__rule =
+  { api_groups; api_versions; operations; resources; scope }
+
+let webhook ?admission_review_versions ?failure_policy ?match_policy
+    ?side_effects ?timeout_seconds ~name ~client_config
+    ~namespace_selector ~object_selector ~rule () : webhook =
+  {
+    admission_review_versions;
+    failure_policy;
+    match_policy;
+    name;
+    side_effects;
+    timeout_seconds;
+    client_config;
+    namespace_selector;
+    object_selector;
+    rule;
+  }
 
 let kubernetes_validating_webhook_configuration ?id ~metadata
-    ~webhook __resource_id =
+    ~webhook () : kubernetes_validating_webhook_configuration =
+  { id; metadata; webhook }
+
+type t = { id : string prop }
+
+let register ?tf_module ?id ~metadata ~webhook __resource_id =
   let __resource_type =
     "kubernetes_validating_webhook_configuration"
   in
   let __resource =
-    ({ id; metadata; webhook }
-      : kubernetes_validating_webhook_configuration)
+    kubernetes_validating_webhook_configuration ?id ~metadata
+      ~webhook ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_validating_webhook_configuration __resource);
   let __resource_attributes =
     ({ id = Prop.computed __resource_type __resource_id "id" } : t)

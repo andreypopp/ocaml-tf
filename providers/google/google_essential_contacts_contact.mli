@@ -2,8 +2,33 @@
 
 open! Tf.Prelude
 
-type google_essential_contacts_contact__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_essential_contacts_contact
+
+val google_essential_contacts_contact :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  email:string prop ->
+  language_tag:string prop ->
+  notification_category_subscriptions:string prop list ->
+  parent:string prop ->
+  unit ->
+  google_essential_contacts_contact
+
+val yojson_of_google_essential_contacts_contact :
+  google_essential_contacts_contact -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   email : string prop;
@@ -14,9 +39,10 @@ type t = private {
   parent : string prop;
 }
 
-val google_essential_contacts_contact :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:google_essential_contacts_contact__timeouts ->
+  ?timeouts:timeouts ->
   email:string prop ->
   language_tag:string prop ->
   notification_category_subscriptions:string prop list ->

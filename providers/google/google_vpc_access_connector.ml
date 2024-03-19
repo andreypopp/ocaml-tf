@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_vpc_access_connector__subnet = {
+type subnet = {
   name : string prop option; [@option]
       (** Subnet name (relative, not fully qualified). E.g. if the full subnet selfLink is
 https://compute.googleapis.com/compute/v1/projects/{project}/regions/{region}/subnetworks/{subnetName} the correct input for this field would be {subnetName} *)
@@ -14,12 +14,12 @@ https://compute.googleapis.com/compute/v1/projects/{project}/regions/{region}/su
 [@@deriving yojson_of]
 (** The subnet in which to house the connector *)
 
-type google_vpc_access_connector__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_vpc_access_connector__timeouts *)
+(** timeouts *)
 
 type google_vpc_access_connector = {
   id : string prop option; [@option]  (** id *)
@@ -42,11 +42,34 @@ type google_vpc_access_connector = {
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** Region where the VPC Access connector resides. If it is not provided, the provider region is used. *)
-  subnet : google_vpc_access_connector__subnet list;
-  timeouts : google_vpc_access_connector__timeouts option;
+  subnet : subnet list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vpc_access_connector *)
+
+let subnet ?name ?project_id () : subnet = { name; project_id }
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
+    ?max_instances ?max_throughput ?min_instances ?min_throughput
+    ?network ?project ?region ?timeouts ~name ~subnet () :
+    google_vpc_access_connector =
+  {
+    id;
+    ip_cidr_range;
+    machine_type;
+    max_instances;
+    max_throughput;
+    min_instances;
+    min_throughput;
+    name;
+    network;
+    project;
+    region;
+    subnet;
+    timeouts;
+  }
 
 type t = {
   connected_projects : string list prop;
@@ -65,29 +88,16 @@ type t = {
   state : string prop;
 }
 
-let google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
+let register ?tf_module ?id ?ip_cidr_range ?machine_type
     ?max_instances ?max_throughput ?min_instances ?min_throughput
     ?network ?project ?region ?timeouts ~name ~subnet __resource_id =
   let __resource_type = "google_vpc_access_connector" in
   let __resource =
-    ({
-       id;
-       ip_cidr_range;
-       machine_type;
-       max_instances;
-       max_throughput;
-       min_instances;
-       min_throughput;
-       name;
-       network;
-       project;
-       region;
-       subnet;
-       timeouts;
-     }
-      : google_vpc_access_connector)
+    google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
+      ?max_instances ?max_throughput ?min_instances ?min_throughput
+      ?network ?project ?region ?timeouts ~name ~subnet ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vpc_access_connector __resource);
   let __resource_attributes =
     ({

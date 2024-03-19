@@ -2,9 +2,43 @@
 
 open! Tf.Prelude
 
-type azurerm_load_test__identity
-type azurerm_load_test__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_load_test
+
+val azurerm_load_test :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_load_test
+
+val yojson_of_azurerm_load_test : azurerm_load_test -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   data_plane_uri : string prop;
@@ -16,14 +50,15 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_load_test :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_load_test__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_load_test__identity list ->
+  identity:identity list ->
   string ->
   t

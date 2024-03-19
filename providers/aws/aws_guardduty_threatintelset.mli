@@ -2,7 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_guardduty_threatintelset
+
+val aws_guardduty_threatintelset :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  activate:bool prop ->
+  detector_id:string prop ->
+  format:string prop ->
+  location:string prop ->
+  name:string prop ->
+  unit ->
+  aws_guardduty_threatintelset
+
+val yojson_of_aws_guardduty_threatintelset :
+  aws_guardduty_threatintelset -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   activate : bool prop;
@@ -16,7 +35,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_guardduty_threatintelset :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

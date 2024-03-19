@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type google_compute_ssl_certificate__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_compute_ssl_certificate
+
+val google_compute_ssl_certificate :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  certificate:string prop ->
+  private_key:string prop ->
+  unit ->
+  google_compute_ssl_certificate
+
+val yojson_of_google_compute_ssl_certificate :
+  google_compute_ssl_certificate -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   certificate : string prop;
@@ -19,13 +42,14 @@ type t = private {
   self_link : string prop;
 }
 
-val google_compute_ssl_certificate :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?project:string prop ->
-  ?timeouts:google_compute_ssl_certificate__timeouts ->
+  ?timeouts:timeouts ->
   certificate:string prop ->
   private_key:string prop ->
   string ->

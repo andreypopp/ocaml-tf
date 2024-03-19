@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type aws_opensearchserverless_vpc_endpoint__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_opensearchserverless_vpc_endpoint
+
+val aws_opensearchserverless_vpc_endpoint :
+  ?security_group_ids:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  subnet_ids:string prop list ->
+  vpc_id:string prop ->
+  unit ->
+  aws_opensearchserverless_vpc_endpoint
+
+val yojson_of_aws_opensearchserverless_vpc_endpoint :
+  aws_opensearchserverless_vpc_endpoint -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -13,9 +37,10 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_opensearchserverless_vpc_endpoint :
+val register :
+  ?tf_module:tf_module ->
   ?security_group_ids:string prop list ->
-  ?timeouts:aws_opensearchserverless_vpc_endpoint__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   subnet_ids:string prop list ->
   vpc_id:string prop ->

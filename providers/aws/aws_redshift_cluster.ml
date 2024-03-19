@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_redshift_cluster__logging = {
+type logging = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
   enable : bool prop;  (** enable *)
   log_destination_type : string prop option; [@option]
@@ -14,26 +14,26 @@ type aws_redshift_cluster__logging = {
   s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
 }
 [@@deriving yojson_of]
-(** aws_redshift_cluster__logging *)
+(** logging *)
 
-type aws_redshift_cluster__snapshot_copy = {
+type snapshot_copy = {
   destination_region : string prop;  (** destination_region *)
   grant_name : string prop option; [@option]  (** grant_name *)
   retention_period : float prop option; [@option]
       (** retention_period *)
 }
 [@@deriving yojson_of]
-(** aws_redshift_cluster__snapshot_copy *)
+(** snapshot_copy *)
 
-type aws_redshift_cluster__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_redshift_cluster__timeouts *)
+(** timeouts *)
 
-type aws_redshift_cluster__cluster_nodes = {
+type cluster_nodes = {
   node_role : string prop;  (** node_role *)
   private_ip_address : string prop;  (** private_ip_address *)
   public_ip_address : string prop;  (** public_ip_address *)
@@ -112,12 +112,95 @@ type aws_redshift_cluster = {
       (** tags_all *)
   vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  logging : aws_redshift_cluster__logging list;
-  snapshot_copy : aws_redshift_cluster__snapshot_copy list;
-  timeouts : aws_redshift_cluster__timeouts option;
+  logging : logging list;
+  snapshot_copy : snapshot_copy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_redshift_cluster *)
+
+let logging ?bucket_name ?log_destination_type ?log_exports
+    ?s3_key_prefix ~enable () : logging =
+  {
+    bucket_name;
+    enable;
+    log_destination_type;
+    log_exports;
+    s3_key_prefix;
+  }
+
+let snapshot_copy ?grant_name ?retention_period ~destination_region
+    () : snapshot_copy =
+  { destination_region; grant_name; retention_period }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
+    ?aqua_configuration_status ?automated_snapshot_retention_period
+    ?availability_zone ?availability_zone_relocation_enabled
+    ?cluster_parameter_group_name ?cluster_public_key
+    ?cluster_revision_number ?cluster_subnet_group_name ?cluster_type
+    ?cluster_version ?database_name ?default_iam_role_arn ?elastic_ip
+    ?encrypted ?endpoint ?enhanced_vpc_routing
+    ?final_snapshot_identifier ?iam_roles ?id ?kms_key_id
+    ?maintenance_track_name ?manage_master_password
+    ?manual_snapshot_retention_period ?master_password
+    ?master_password_secret_kms_key_id ?master_username ?multi_az
+    ?number_of_nodes ?owner_account ?port
+    ?preferred_maintenance_window ?publicly_accessible
+    ?skip_final_snapshot ?snapshot_arn ?snapshot_cluster_identifier
+    ?snapshot_identifier ?tags ?tags_all ?vpc_security_group_ids
+    ?timeouts ~cluster_identifier ~node_type ~logging ~snapshot_copy
+    () : aws_redshift_cluster =
+  {
+    allow_version_upgrade;
+    apply_immediately;
+    aqua_configuration_status;
+    automated_snapshot_retention_period;
+    availability_zone;
+    availability_zone_relocation_enabled;
+    cluster_identifier;
+    cluster_parameter_group_name;
+    cluster_public_key;
+    cluster_revision_number;
+    cluster_subnet_group_name;
+    cluster_type;
+    cluster_version;
+    database_name;
+    default_iam_role_arn;
+    elastic_ip;
+    encrypted;
+    endpoint;
+    enhanced_vpc_routing;
+    final_snapshot_identifier;
+    iam_roles;
+    id;
+    kms_key_id;
+    maintenance_track_name;
+    manage_master_password;
+    manual_snapshot_retention_period;
+    master_password;
+    master_password_secret_kms_key_id;
+    master_username;
+    multi_az;
+    node_type;
+    number_of_nodes;
+    owner_account;
+    port;
+    preferred_maintenance_window;
+    publicly_accessible;
+    skip_final_snapshot;
+    snapshot_arn;
+    snapshot_cluster_identifier;
+    snapshot_identifier;
+    tags;
+    tags_all;
+    vpc_security_group_ids;
+    logging;
+    snapshot_copy;
+    timeouts;
+  }
 
 type t = {
   allow_version_upgrade : bool prop;
@@ -129,7 +212,7 @@ type t = {
   availability_zone_relocation_enabled : bool prop;
   cluster_identifier : string prop;
   cluster_namespace_arn : string prop;
-  cluster_nodes : aws_redshift_cluster__cluster_nodes list prop;
+  cluster_nodes : cluster_nodes list prop;
   cluster_parameter_group_name : string prop;
   cluster_public_key : string prop;
   cluster_revision_number : string prop;
@@ -170,7 +253,7 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
-let aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
+let register ?tf_module ?allow_version_upgrade ?apply_immediately
     ?aqua_configuration_status ?automated_snapshot_retention_period
     ?availability_zone ?availability_zone_relocation_enabled
     ?cluster_parameter_group_name ?cluster_public_key
@@ -189,57 +272,25 @@ let aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
     __resource_id =
   let __resource_type = "aws_redshift_cluster" in
   let __resource =
-    ({
-       allow_version_upgrade;
-       apply_immediately;
-       aqua_configuration_status;
-       automated_snapshot_retention_period;
-       availability_zone;
-       availability_zone_relocation_enabled;
-       cluster_identifier;
-       cluster_parameter_group_name;
-       cluster_public_key;
-       cluster_revision_number;
-       cluster_subnet_group_name;
-       cluster_type;
-       cluster_version;
-       database_name;
-       default_iam_role_arn;
-       elastic_ip;
-       encrypted;
-       endpoint;
-       enhanced_vpc_routing;
-       final_snapshot_identifier;
-       iam_roles;
-       id;
-       kms_key_id;
-       maintenance_track_name;
-       manage_master_password;
-       manual_snapshot_retention_period;
-       master_password;
-       master_password_secret_kms_key_id;
-       master_username;
-       multi_az;
-       node_type;
-       number_of_nodes;
-       owner_account;
-       port;
-       preferred_maintenance_window;
-       publicly_accessible;
-       skip_final_snapshot;
-       snapshot_arn;
-       snapshot_cluster_identifier;
-       snapshot_identifier;
-       tags;
-       tags_all;
-       vpc_security_group_ids;
-       logging;
-       snapshot_copy;
-       timeouts;
-     }
-      : aws_redshift_cluster)
+    aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
+      ?aqua_configuration_status ?automated_snapshot_retention_period
+      ?availability_zone ?availability_zone_relocation_enabled
+      ?cluster_parameter_group_name ?cluster_public_key
+      ?cluster_revision_number ?cluster_subnet_group_name
+      ?cluster_type ?cluster_version ?database_name
+      ?default_iam_role_arn ?elastic_ip ?encrypted ?endpoint
+      ?enhanced_vpc_routing ?final_snapshot_identifier ?iam_roles ?id
+      ?kms_key_id ?maintenance_track_name ?manage_master_password
+      ?manual_snapshot_retention_period ?master_password
+      ?master_password_secret_kms_key_id ?master_username ?multi_az
+      ?number_of_nodes ?owner_account ?port
+      ?preferred_maintenance_window ?publicly_accessible
+      ?skip_final_snapshot ?snapshot_arn ?snapshot_cluster_identifier
+      ?snapshot_identifier ?tags ?tags_all ?vpc_security_group_ids
+      ?timeouts ~cluster_identifier ~node_type ~logging
+      ~snapshot_copy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_cluster __resource);
   let __resource_attributes =
     ({

@@ -4,17 +4,15 @@
 
 open! Tf.Prelude
 
-type aws_appmesh_mesh__spec__egress_filter = {
+type spec__egress_filter = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_appmesh_mesh__spec__egress_filter *)
+(** spec__egress_filter *)
 
-type aws_appmesh_mesh__spec = {
-  egress_filter : aws_appmesh_mesh__spec__egress_filter list;
-}
+type spec = { egress_filter : spec__egress_filter list }
 [@@deriving yojson_of]
-(** aws_appmesh_mesh__spec *)
+(** spec *)
 
 type aws_appmesh_mesh = {
   id : string prop option; [@option]  (** id *)
@@ -22,10 +20,17 @@ type aws_appmesh_mesh = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  spec : aws_appmesh_mesh__spec list;
+  spec : spec list;
 }
 [@@deriving yojson_of]
 (** aws_appmesh_mesh *)
+
+let spec__egress_filter ?type_ () : spec__egress_filter = { type_ }
+let spec ~egress_filter () : spec = { egress_filter }
+
+let aws_appmesh_mesh ?id ?tags ?tags_all ~name ~spec () :
+    aws_appmesh_mesh =
+  { id; name; tags; tags_all; spec }
 
 type t = {
   arn : string prop;
@@ -39,12 +44,13 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_appmesh_mesh ?id ?tags ?tags_all ~name ~spec __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~name ~spec __resource_id
+    =
   let __resource_type = "aws_appmesh_mesh" in
   let __resource =
-    ({ id; name; tags; tags_all; spec } : aws_appmesh_mesh)
+    aws_appmesh_mesh ?id ?tags ?tags_all ~name ~spec ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appmesh_mesh __resource);
   let __resource_attributes =
     ({

@@ -2,12 +2,80 @@
 
 open! Tf.Prelude
 
-type azurerm_kusto_cluster__identity
-type azurerm_kusto_cluster__optimized_auto_scale
-type azurerm_kusto_cluster__sku
-type azurerm_kusto_cluster__timeouts
-type azurerm_kusto_cluster__virtual_network_configuration
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type optimized_auto_scale
+
+val optimized_auto_scale :
+  maximum_instances:float prop ->
+  minimum_instances:float prop ->
+  unit ->
+  optimized_auto_scale
+
+type sku
+
+val sku : ?capacity:float prop -> name:string prop -> unit -> sku
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type virtual_network_configuration
+
+val virtual_network_configuration :
+  data_management_public_ip_id:string prop ->
+  engine_public_ip_id:string prop ->
+  subnet_id:string prop ->
+  unit ->
+  virtual_network_configuration
+
 type azurerm_kusto_cluster
+
+val azurerm_kusto_cluster :
+  ?allowed_fqdns:string prop list ->
+  ?allowed_ip_ranges:string prop list ->
+  ?auto_stop_enabled:bool prop ->
+  ?disk_encryption_enabled:bool prop ->
+  ?double_encryption_enabled:bool prop ->
+  ?engine:string prop ->
+  ?id:string prop ->
+  ?language_extensions:string prop list ->
+  ?outbound_network_access_restricted:bool prop ->
+  ?public_ip_type:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?purge_enabled:bool prop ->
+  ?streaming_ingestion_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?trusted_external_tenants:string prop list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  optimized_auto_scale:optimized_auto_scale list ->
+  sku:sku list ->
+  virtual_network_configuration:virtual_network_configuration list ->
+  unit ->
+  azurerm_kusto_cluster
+
+val yojson_of_azurerm_kusto_cluster : azurerm_kusto_cluster -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allowed_fqdns : string list prop;
@@ -33,7 +101,8 @@ type t = private {
   zones : string list prop;
 }
 
-val azurerm_kusto_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?allowed_fqdns:string prop list ->
   ?allowed_ip_ranges:string prop list ->
   ?auto_stop_enabled:bool prop ->
@@ -50,15 +119,13 @@ val azurerm_kusto_cluster :
   ?tags:(string * string prop) list ->
   ?trusted_external_tenants:string prop list ->
   ?zones:string prop list ->
-  ?timeouts:azurerm_kusto_cluster__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:azurerm_kusto_cluster__identity list ->
-  optimized_auto_scale:
-    azurerm_kusto_cluster__optimized_auto_scale list ->
-  sku:azurerm_kusto_cluster__sku list ->
-  virtual_network_configuration:
-    azurerm_kusto_cluster__virtual_network_configuration list ->
+  identity:identity list ->
+  optimized_auto_scale:optimized_auto_scale list ->
+  sku:sku list ->
+  virtual_network_configuration:virtual_network_configuration list ->
   string ->
   t

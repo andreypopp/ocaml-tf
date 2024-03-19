@@ -21,6 +21,10 @@ network with an internet connection without manually adding DNS
 records or configuring a firewall or router.
  *)
 
+let cloudflare_tunnel ?config_src ?id ~account_id ~name ~secret () :
+    cloudflare_tunnel =
+  { account_id; config_src; id; name; secret }
+
 type t = {
   account_id : string prop;
   cname : string prop;
@@ -31,14 +35,13 @@ type t = {
   tunnel_token : string prop;
 }
 
-let cloudflare_tunnel ?config_src ?id ~account_id ~name ~secret
+let register ?tf_module ?config_src ?id ~account_id ~name ~secret
     __resource_id =
   let __resource_type = "cloudflare_tunnel" in
   let __resource =
-    ({ account_id; config_src; id; name; secret }
-      : cloudflare_tunnel)
+    cloudflare_tunnel ?config_src ?id ~account_id ~name ~secret ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_tunnel __resource);
   let __resource_attributes =
     ({

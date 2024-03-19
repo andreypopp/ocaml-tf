@@ -4,35 +4,33 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_account__encryption = {
+type encryption = {
   key_source : string prop option; [@option]  (** key_source *)
   key_vault_key_id : string prop;  (** key_vault_key_id *)
   user_assigned_identity_id : string prop option; [@option]
       (** user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_account__encryption *)
+(** encryption *)
 
-type azurerm_automation_account__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_account__identity *)
+(** identity *)
 
-type azurerm_automation_account__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_automation_account__timeouts *)
+(** timeouts *)
 
-type azurerm_automation_account__private_endpoint_connection = {
+type private_endpoint_connection = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
@@ -49,12 +47,40 @@ type azurerm_automation_account = {
   resource_group_name : string prop;  (** resource_group_name *)
   sku_name : string prop;  (** sku_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  encryption : azurerm_automation_account__encryption list;
-  identity : azurerm_automation_account__identity list;
-  timeouts : azurerm_automation_account__timeouts option;
+  encryption : encryption list;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_account *)
+
+let encryption ?key_source ?user_assigned_identity_id
+    ~key_vault_key_id () : encryption =
+  { key_source; key_vault_key_id; user_assigned_identity_id }
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_automation_account ?id ?local_authentication_enabled
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~encryption ~identity () :
+    azurerm_automation_account =
+  {
+    id;
+    local_authentication_enabled;
+    location;
+    name;
+    public_network_access_enabled;
+    resource_group_name;
+    sku_name;
+    tags;
+    encryption;
+    identity;
+    timeouts;
+  }
 
 type t = {
   dsc_primary_access_key : string prop;
@@ -66,35 +92,24 @@ type t = {
   location : string prop;
   name : string prop;
   private_endpoint_connection :
-    azurerm_automation_account__private_endpoint_connection list prop;
+    private_endpoint_connection list prop;
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   sku_name : string prop;
   tags : (string * string) list prop;
 }
 
-let azurerm_automation_account ?id ?local_authentication_enabled
+let register ?tf_module ?id ?local_authentication_enabled
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name ~encryption ~identity
     __resource_id =
   let __resource_type = "azurerm_automation_account" in
   let __resource =
-    ({
-       id;
-       local_authentication_enabled;
-       location;
-       name;
-       public_network_access_enabled;
-       resource_group_name;
-       sku_name;
-       tags;
-       encryption;
-       identity;
-       timeouts;
-     }
-      : azurerm_automation_account)
+    azurerm_automation_account ?id ?local_authentication_enabled
+      ?public_network_access_enabled ?tags ?timeouts ~location ~name
+      ~resource_group_name ~sku_name ~encryption ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_account __resource);
   let __resource_attributes =
     ({

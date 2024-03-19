@@ -2,11 +2,66 @@
 
 open! Tf.Prelude
 
-type aws_cloudsearch_domain__endpoint_options
-type aws_cloudsearch_domain__index_field
-type aws_cloudsearch_domain__scaling_parameters
-type aws_cloudsearch_domain__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type endpoint_options
+
+val endpoint_options :
+  ?enforce_https:bool prop ->
+  ?tls_security_policy:string prop ->
+  unit ->
+  endpoint_options
+
+type index_field
+
+val index_field :
+  ?analysis_scheme:string prop ->
+  ?default_value:string prop ->
+  ?facet:bool prop ->
+  ?highlight:bool prop ->
+  ?return:bool prop ->
+  ?search:bool prop ->
+  ?sort:bool prop ->
+  ?source_fields:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  unit ->
+  index_field
+
+type scaling_parameters
+
+val scaling_parameters :
+  ?desired_instance_type:string prop ->
+  ?desired_partition_count:float prop ->
+  ?desired_replication_count:float prop ->
+  unit ->
+  scaling_parameters
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_cloudsearch_domain
+
+val aws_cloudsearch_domain :
+  ?id:string prop ->
+  ?multi_az:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  endpoint_options:endpoint_options list ->
+  index_field:index_field list ->
+  scaling_parameters:scaling_parameters list ->
+  unit ->
+  aws_cloudsearch_domain
+
+val yojson_of_aws_cloudsearch_domain : aws_cloudsearch_domain -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,13 +73,14 @@ type t = private {
   search_service_endpoint : string prop;
 }
 
-val aws_cloudsearch_domain :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?multi_az:bool prop ->
-  ?timeouts:aws_cloudsearch_domain__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
-  endpoint_options:aws_cloudsearch_domain__endpoint_options list ->
-  index_field:aws_cloudsearch_domain__index_field list ->
-  scaling_parameters:aws_cloudsearch_domain__scaling_parameters list ->
+  endpoint_options:endpoint_options list ->
+  index_field:index_field list ->
+  scaling_parameters:scaling_parameters list ->
   string ->
   t

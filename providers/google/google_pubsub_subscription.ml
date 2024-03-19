@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_pubsub_subscription__bigquery_config = {
+type bigquery_config = {
   drop_unknown_fields : bool prop option; [@option]
       (** When true and use_topic_schema or use_table_schema is true, any fields that are a part of the topic schema or message schema that
 are not part of the BigQuery table schema are dropped when writing to BigQuery. Otherwise, the schemas must be kept in sync
@@ -26,14 +26,14 @@ The subscription name, messageId, and publishTime fields are put in their own co
 Either pushConfig, bigQueryConfig or cloudStorageConfig can be set, but not combined.
 If all three are empty, then the subscriber will pull and ack messages using API methods. *)
 
-type google_pubsub_subscription__cloud_storage_config__avro_config = {
+type cloud_storage_config__avro_config = {
   write_metadata : bool prop option; [@option]
       (** When true, write the subscription name, messageId, publishTime, attributes, and orderingKey as additional fields in the output. *)
 }
 [@@deriving yojson_of]
 (** If set, message data will be written to Cloud Storage in Avro format. *)
 
-type google_pubsub_subscription__cloud_storage_config = {
+type cloud_storage_config = {
   bucket : string prop;
       (** User-provided name for the Cloud Storage bucket. The bucket must be created by the user. The bucket name must be without any prefix like gs://. *)
   filename_prefix : string prop option; [@option]
@@ -47,18 +47,14 @@ The maxBytes limit may be exceeded in cases where messages are larger than the l
       (** The maximum duration that can elapse before a new Cloud Storage file is created. Min 1 minute, max 10 minutes, default 5 minutes.
 May not exceed the subscription's acknowledgement deadline.
 A duration in seconds with up to nine fractional digits, ending with 's'. Example: 3.5s. *)
-  state : string prop;
-      (** An output-only field that indicates whether or not the subscription can receive messages. *)
-  avro_config :
-    google_pubsub_subscription__cloud_storage_config__avro_config
-    list;
+  avro_config : cloud_storage_config__avro_config list;
 }
 [@@deriving yojson_of]
 (** If delivery to Cloud Storage is used with this subscription, this field is used to configure it.
 Either pushConfig, bigQueryConfig or cloudStorageConfig can be set, but not combined.
 If all three are empty, then the subscriber will pull and ack messages using API methods. *)
 
-type google_pubsub_subscription__dead_letter_policy = {
+type dead_letter_policy = {
   dead_letter_topic : string prop option; [@option]
       (** The name of the topic to which dead letter messages should be published.
 Format is 'projects/{project}/topics/{topic}'.
@@ -95,7 +91,7 @@ parent project (i.e.,
 service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com) must have
 permission to Acknowledge() messages on this subscription. *)
 
-type google_pubsub_subscription__expiration_policy = {
+type expiration_policy = {
   ttl : string prop;
       (** Specifies the time-to-live duration for an associated resource. The
 resource expires if it is not active for a period of ttl.
@@ -112,7 +108,7 @@ policy with ttl of 31 days will be used.  If it is set but ttl is , the
 resource never expires.  The minimum allowed value for expirationPolicy.ttl
 is 1 day. *)
 
-type google_pubsub_subscription__push_config__no_wrapper = {
+type push_config__no_wrapper = {
   write_metadata : bool prop;
       (** When true, writes the Pub/Sub message metadata to
 'x-goog-pubsub-<KEY>:<VAL>' headers of the HTTP request. Writes the
@@ -122,7 +118,7 @@ Pub/Sub message attributes to '<KEY>:<VAL>' headers of the HTTP request. *)
 (** When set, the payload to the push endpoint is not wrapped.Sets the
 'data' field as the HTTP body for delivery. *)
 
-type google_pubsub_subscription__push_config__oidc_token = {
+type push_config__oidc_token = {
   audience : string prop option; [@option]
       (** Audience to be used when generating OIDC token. The audience claim
 identifies the recipients that the JWT is intended for. The audience
@@ -140,7 +136,7 @@ iam.serviceAccounts.actAs permission for the service account. *)
 (** If specified, Pub/Sub will generate and attach an OIDC JWT token as
 an Authorization header in the HTTP request for every pushed message. *)
 
-type google_pubsub_subscription__push_config = {
+type push_config = {
   attributes : (string * string prop) list option; [@option]
       (** Endpoint configuration attributes.
 
@@ -169,17 +165,15 @@ The possible values for this attribute are:
       (** A URL locating the endpoint to which messages should be pushed.
 For example, a Webhook endpoint might use
 https://example.com/push. *)
-  no_wrapper :
-    google_pubsub_subscription__push_config__no_wrapper list;
-  oidc_token :
-    google_pubsub_subscription__push_config__oidc_token list;
+  no_wrapper : push_config__no_wrapper list;
+  oidc_token : push_config__oidc_token list;
 }
 [@@deriving yojson_of]
 (** If push delivery is used with this subscription, this field is used to
 configure it. An empty pushConfig signifies that the subscriber will
 pull and ack messages using API methods. *)
 
-type google_pubsub_subscription__retry_policy = {
+type retry_policy = {
   maximum_backoff : string prop option; [@option]
       (** The maximum delay between consecutive deliveries of a given message. Value should be between 0 and 600 seconds. Defaults to 600 seconds.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
@@ -193,13 +187,13 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 If not set, the default retry policy is applied. This generally implies that messages will be retried as soon as possible for healthy subscribers.
 RetryPolicy will be triggered on NACKs or acknowledgement deadline exceeded events for a given message *)
 
-type google_pubsub_subscription__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_pubsub_subscription__timeouts *)
+(** timeouts *)
 
 type google_pubsub_subscription = {
   ack_deadline_seconds : float prop option; [@option]
@@ -268,19 +262,93 @@ messageRetentionDuration window. *)
       (** A reference to a Topic resource, of the form projects/{project}/topics/{{name}}
 (as in the id property of a google_pubsub_topic), or just a topic name if
 the topic is in the same project as the subscription. *)
-  bigquery_config : google_pubsub_subscription__bigquery_config list;
-  cloud_storage_config :
-    google_pubsub_subscription__cloud_storage_config list;
-  dead_letter_policy :
-    google_pubsub_subscription__dead_letter_policy list;
-  expiration_policy :
-    google_pubsub_subscription__expiration_policy list;
-  push_config : google_pubsub_subscription__push_config list;
-  retry_policy : google_pubsub_subscription__retry_policy list;
-  timeouts : google_pubsub_subscription__timeouts option;
+  bigquery_config : bigquery_config list;
+  cloud_storage_config : cloud_storage_config list;
+  dead_letter_policy : dead_letter_policy list;
+  expiration_policy : expiration_policy list;
+  push_config : push_config list;
+  retry_policy : retry_policy list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_pubsub_subscription *)
+
+let bigquery_config ?drop_unknown_fields ?use_table_schema
+    ?use_topic_schema ?write_metadata ~table () : bigquery_config =
+  {
+    drop_unknown_fields;
+    table;
+    use_table_schema;
+    use_topic_schema;
+    write_metadata;
+  }
+
+let cloud_storage_config__avro_config ?write_metadata () :
+    cloud_storage_config__avro_config =
+  { write_metadata }
+
+let cloud_storage_config ?filename_prefix ?filename_suffix ?max_bytes
+    ?max_duration ~bucket ~avro_config () : cloud_storage_config =
+  {
+    bucket;
+    filename_prefix;
+    filename_suffix;
+    max_bytes;
+    max_duration;
+    avro_config;
+  }
+
+let dead_letter_policy ?dead_letter_topic ?max_delivery_attempts () :
+    dead_letter_policy =
+  { dead_letter_topic; max_delivery_attempts }
+
+let expiration_policy ~ttl () : expiration_policy = { ttl }
+
+let push_config__no_wrapper ~write_metadata () :
+    push_config__no_wrapper =
+  { write_metadata }
+
+let push_config__oidc_token ?audience ~service_account_email () :
+    push_config__oidc_token =
+  { audience; service_account_email }
+
+let push_config ?attributes ~push_endpoint ~no_wrapper ~oidc_token ()
+    : push_config =
+  { attributes; push_endpoint; no_wrapper; oidc_token }
+
+let retry_policy ?maximum_backoff ?minimum_backoff () : retry_policy
+    =
+  { maximum_backoff; minimum_backoff }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_pubsub_subscription ?ack_deadline_seconds
+    ?enable_exactly_once_delivery ?enable_message_ordering ?filter
+    ?id ?labels ?message_retention_duration ?project
+    ?retain_acked_messages ?timeouts ~name ~topic ~bigquery_config
+    ~cloud_storage_config ~dead_letter_policy ~expiration_policy
+    ~push_config ~retry_policy () : google_pubsub_subscription =
+  {
+    ack_deadline_seconds;
+    enable_exactly_once_delivery;
+    enable_message_ordering;
+    filter;
+    id;
+    labels;
+    message_retention_duration;
+    name;
+    project;
+    retain_acked_messages;
+    topic;
+    bigquery_config;
+    cloud_storage_config;
+    dead_letter_policy;
+    expiration_policy;
+    push_config;
+    retry_policy;
+    timeouts;
+  }
 
 type t = {
   ack_deadline_seconds : float prop;
@@ -298,7 +366,7 @@ type t = {
   topic : string prop;
 }
 
-let google_pubsub_subscription ?ack_deadline_seconds
+let register ?tf_module ?ack_deadline_seconds
     ?enable_exactly_once_delivery ?enable_message_ordering ?filter
     ?id ?labels ?message_retention_duration ?project
     ?retain_acked_messages ?timeouts ~name ~topic ~bigquery_config
@@ -306,29 +374,14 @@ let google_pubsub_subscription ?ack_deadline_seconds
     ~push_config ~retry_policy __resource_id =
   let __resource_type = "google_pubsub_subscription" in
   let __resource =
-    ({
-       ack_deadline_seconds;
-       enable_exactly_once_delivery;
-       enable_message_ordering;
-       filter;
-       id;
-       labels;
-       message_retention_duration;
-       name;
-       project;
-       retain_acked_messages;
-       topic;
-       bigquery_config;
-       cloud_storage_config;
-       dead_letter_policy;
-       expiration_policy;
-       push_config;
-       retry_policy;
-       timeouts;
-     }
-      : google_pubsub_subscription)
+    google_pubsub_subscription ?ack_deadline_seconds
+      ?enable_exactly_once_delivery ?enable_message_ordering ?filter
+      ?id ?labels ?message_retention_duration ?project
+      ?retain_acked_messages ?timeouts ~name ~topic ~bigquery_config
+      ~cloud_storage_config ~dead_letter_policy ~expiration_policy
+      ~push_config ~retry_policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_subscription __resource);
   let __resource_attributes =
     ({

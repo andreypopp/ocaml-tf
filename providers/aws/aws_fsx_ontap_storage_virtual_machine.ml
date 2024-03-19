@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self_managed_active_directory_configuration = {
+type active_directory_configuration__self_managed_active_directory_configuration = {
   dns_ips : string prop list;  (** dns_ips *)
   domain_name : string prop;  (** domain_name *)
   file_system_administrators_group : string prop option; [@option]
@@ -16,60 +16,54 @@ type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self
   username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self_managed_active_directory_configuration *)
+(** active_directory_configuration__self_managed_active_directory_configuration *)
 
-type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration = {
+type active_directory_configuration = {
   netbios_name : string prop option; [@option]  (** netbios_name *)
   self_managed_active_directory_configuration :
-    aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self_managed_active_directory_configuration
+    active_directory_configuration__self_managed_active_directory_configuration
     list;
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_storage_virtual_machine__active_directory_configuration *)
+(** active_directory_configuration *)
 
-type aws_fsx_ontap_storage_virtual_machine__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_fsx_ontap_storage_virtual_machine__timeouts *)
+(** timeouts *)
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints__smb = {
+type endpoints__smb = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 [@@deriving yojson_of]
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints__nfs = {
+type endpoints__nfs = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 [@@deriving yojson_of]
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints__management = {
+type endpoints__management = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 [@@deriving yojson_of]
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints__iscsi = {
+type endpoints__iscsi = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 [@@deriving yojson_of]
 
-type aws_fsx_ontap_storage_virtual_machine__endpoints = {
-  iscsi :
-    aws_fsx_ontap_storage_virtual_machine__endpoints__iscsi list;
-      (** iscsi *)
-  management :
-    aws_fsx_ontap_storage_virtual_machine__endpoints__management list;
-      (** management *)
-  nfs : aws_fsx_ontap_storage_virtual_machine__endpoints__nfs list;
-      (** nfs *)
-  smb : aws_fsx_ontap_storage_virtual_machine__endpoints__smb list;
-      (** smb *)
+type endpoints = {
+  iscsi : endpoints__iscsi list;  (** iscsi *)
+  management : endpoints__management list;  (** management *)
+  nfs : endpoints__nfs list;  (** nfs *)
+  smb : endpoints__smb list;  (** smb *)
 }
 [@@deriving yojson_of]
 
@@ -85,17 +79,54 @@ type aws_fsx_ontap_storage_virtual_machine = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   active_directory_configuration :
-    aws_fsx_ontap_storage_virtual_machine__active_directory_configuration
-    list;
-  timeouts : aws_fsx_ontap_storage_virtual_machine__timeouts option;
+    active_directory_configuration list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_fsx_ontap_storage_virtual_machine *)
 
+let active_directory_configuration__self_managed_active_directory_configuration
+    ?file_system_administrators_group
+    ?organizational_unit_distinguished_name ~dns_ips ~domain_name
+    ~password ~username () :
+    active_directory_configuration__self_managed_active_directory_configuration
+    =
+  {
+    dns_ips;
+    domain_name;
+    file_system_administrators_group;
+    organizational_unit_distinguished_name;
+    password;
+    username;
+  }
+
+let active_directory_configuration ?netbios_name
+    ~self_managed_active_directory_configuration () :
+    active_directory_configuration =
+  { netbios_name; self_managed_active_directory_configuration }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_fsx_ontap_storage_virtual_machine ?id
+    ?root_volume_security_style ?svm_admin_password ?tags ?tags_all
+    ?timeouts ~file_system_id ~name ~active_directory_configuration
+    () : aws_fsx_ontap_storage_virtual_machine =
+  {
+    file_system_id;
+    id;
+    name;
+    root_volume_security_style;
+    svm_admin_password;
+    tags;
+    tags_all;
+    active_directory_configuration;
+    timeouts;
+  }
+
 type t = {
   arn : string prop;
-  endpoints :
-    aws_fsx_ontap_storage_virtual_machine__endpoints list prop;
+  endpoints : endpoints list prop;
   file_system_id : string prop;
   id : string prop;
   name : string prop;
@@ -107,26 +138,17 @@ type t = {
   uuid : string prop;
 }
 
-let aws_fsx_ontap_storage_virtual_machine ?id
-    ?root_volume_security_style ?svm_admin_password ?tags ?tags_all
-    ?timeouts ~file_system_id ~name ~active_directory_configuration
-    __resource_id =
+let register ?tf_module ?id ?root_volume_security_style
+    ?svm_admin_password ?tags ?tags_all ?timeouts ~file_system_id
+    ~name ~active_directory_configuration __resource_id =
   let __resource_type = "aws_fsx_ontap_storage_virtual_machine" in
   let __resource =
-    ({
-       file_system_id;
-       id;
-       name;
-       root_volume_security_style;
-       svm_admin_password;
-       tags;
-       tags_all;
-       active_directory_configuration;
-       timeouts;
-     }
-      : aws_fsx_ontap_storage_virtual_machine)
+    aws_fsx_ontap_storage_virtual_machine ?id
+      ?root_volume_security_style ?svm_admin_password ?tags ?tags_all
+      ?timeouts ~file_system_id ~name ~active_directory_configuration
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_ontap_storage_virtual_machine __resource);
   let __resource_attributes =
     ({

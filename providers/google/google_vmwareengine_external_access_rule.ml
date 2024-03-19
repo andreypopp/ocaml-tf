@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_vmwareengine_external_access_rule__destination_ip_ranges = {
+type destination_ip_ranges = {
   external_address : string prop option; [@option]
       (** The name of an 'ExternalAddress' resource. *)
   ip_address_range : string prop option; [@option]
@@ -14,7 +14,7 @@ type google_vmwareengine_external_access_rule__destination_ip_ranges = {
 (** If destination ranges are specified, the external access rule applies only to
 traffic that has a destination IP address in these ranges. *)
 
-type google_vmwareengine_external_access_rule__source_ip_ranges = {
+type source_ip_ranges = {
   ip_address : string prop option; [@option]
       (** A single IP address. *)
   ip_address_range : string prop option; [@option]
@@ -24,13 +24,13 @@ type google_vmwareengine_external_access_rule__source_ip_ranges = {
 (** If source ranges are specified, the external access rule applies only to
 traffic that has a source IP address in these ranges. *)
 
-type google_vmwareengine_external_access_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_vmwareengine_external_access_rule__timeouts *)
+(** timeouts *)
 
 type google_vmwareengine_external_access_rule = {
   action : string prop;
@@ -51,16 +51,42 @@ For example: projects/my-project/locations/us-west1-a/networkPolicies/my-policy 
       (** External access rule priority, which determines the external access rule to use when multiple rules apply. *)
   source_ports : string prop list;
       (** A list of source ports to which the external access rule applies. *)
-  destination_ip_ranges :
-    google_vmwareengine_external_access_rule__destination_ip_ranges
-    list;
-  source_ip_ranges :
-    google_vmwareengine_external_access_rule__source_ip_ranges list;
-  timeouts :
-    google_vmwareengine_external_access_rule__timeouts option;
+  destination_ip_ranges : destination_ip_ranges list;
+  source_ip_ranges : source_ip_ranges list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_external_access_rule *)
+
+let destination_ip_ranges ?external_address ?ip_address_range () :
+    destination_ip_ranges =
+  { external_address; ip_address_range }
+
+let source_ip_ranges ?ip_address ?ip_address_range () :
+    source_ip_ranges =
+  { ip_address; ip_address_range }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_vmwareengine_external_access_rule ?description ?id
+    ?timeouts ~action ~destination_ports ~ip_protocol ~name ~parent
+    ~priority ~source_ports ~destination_ip_ranges ~source_ip_ranges
+    () : google_vmwareengine_external_access_rule =
+  {
+    action;
+    description;
+    destination_ports;
+    id;
+    ip_protocol;
+    name;
+    parent;
+    priority;
+    source_ports;
+    destination_ip_ranges;
+    source_ip_ranges;
+    timeouts;
+  }
 
 type t = {
   action : string prop;
@@ -78,29 +104,18 @@ type t = {
   update_time : string prop;
 }
 
-let google_vmwareengine_external_access_rule ?description ?id
-    ?timeouts ~action ~destination_ports ~ip_protocol ~name ~parent
-    ~priority ~source_ports ~destination_ip_ranges ~source_ip_ranges
+let register ?tf_module ?description ?id ?timeouts ~action
+    ~destination_ports ~ip_protocol ~name ~parent ~priority
+    ~source_ports ~destination_ip_ranges ~source_ip_ranges
     __resource_id =
   let __resource_type = "google_vmwareengine_external_access_rule" in
   let __resource =
-    ({
-       action;
-       description;
-       destination_ports;
-       id;
-       ip_protocol;
-       name;
-       parent;
-       priority;
-       source_ports;
-       destination_ip_ranges;
-       source_ip_ranges;
-       timeouts;
-     }
-      : google_vmwareengine_external_access_rule)
+    google_vmwareengine_external_access_rule ?description ?id
+      ?timeouts ~action ~destination_ports ~ip_protocol ~name ~parent
+      ~priority ~source_ports ~destination_ip_ranges
+      ~source_ip_ranges ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_external_access_rule __resource);
   let __resource_attributes =
     ({

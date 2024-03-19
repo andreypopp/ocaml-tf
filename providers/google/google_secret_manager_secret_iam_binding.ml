@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_secret_manager_secret_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_secret_manager_secret_iam_binding__condition *)
+(** condition *)
 
 type google_secret_manager_secret_iam_binding = {
   id : string prop option; [@option]  (** id *)
@@ -18,11 +18,18 @@ type google_secret_manager_secret_iam_binding = {
   project : string prop option; [@option]  (** project *)
   role : string prop;  (** role *)
   secret_id : string prop;  (** secret_id *)
-  condition :
-    google_secret_manager_secret_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_secret_manager_secret_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_secret_manager_secret_iam_binding ?id ?project ~members
+    ~role ~secret_id ~condition () :
+    google_secret_manager_secret_iam_binding =
+  { id; members; project; role; secret_id; condition }
 
 type t = {
   etag : string prop;
@@ -33,14 +40,14 @@ type t = {
   secret_id : string prop;
 }
 
-let google_secret_manager_secret_iam_binding ?id ?project ~members
-    ~role ~secret_id ~condition __resource_id =
+let register ?tf_module ?id ?project ~members ~role ~secret_id
+    ~condition __resource_id =
   let __resource_type = "google_secret_manager_secret_iam_binding" in
   let __resource =
-    ({ id; members; project; role; secret_id; condition }
-      : google_secret_manager_secret_iam_binding)
+    google_secret_manager_secret_iam_binding ?id ?project ~members
+      ~role ~secret_id ~condition ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_secret_manager_secret_iam_binding __resource);
   let __resource_attributes =
     ({

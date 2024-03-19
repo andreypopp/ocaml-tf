@@ -12,6 +12,10 @@ type aws_route53_cidr_location = {
 [@@deriving yojson_of]
 (** aws_route53_cidr_location *)
 
+let aws_route53_cidr_location ~cidr_blocks ~cidr_collection_id ~name
+    () : aws_route53_cidr_location =
+  { cidr_blocks; cidr_collection_id; name }
+
 type t = {
   cidr_blocks : string list prop;
   cidr_collection_id : string prop;
@@ -19,14 +23,14 @@ type t = {
   name : string prop;
 }
 
-let aws_route53_cidr_location ~cidr_blocks ~cidr_collection_id ~name
+let register ?tf_module ~cidr_blocks ~cidr_collection_id ~name
     __resource_id =
   let __resource_type = "aws_route53_cidr_location" in
   let __resource =
-    ({ cidr_blocks; cidr_collection_id; name }
-      : aws_route53_cidr_location)
+    aws_route53_cidr_location ~cidr_blocks ~cidr_collection_id ~name
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_cidr_location __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_spanner_database__encryption_config = {
+type encryption_config = {
   kms_key_name : string prop;
       (** Fully qualified name of the KMS key to use to encrypt this database. This key must exist
 in the same location as the Spanner Database. *)
@@ -12,13 +12,13 @@ in the same location as the Spanner Database. *)
 [@@deriving yojson_of]
 (** Encryption configuration for the database *)
 
-type google_spanner_database__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_spanner_database__timeouts *)
+(** timeouts *)
 
 type google_spanner_database = {
   database_dialect : string prop option; [@option]
@@ -53,12 +53,35 @@ and 7 days, and can be specified in days, hours, minutes, or seconds. For exampl
 the values 1d, 24h, 1440m, and 86400s are equivalent. Default value is 1h.
 If this property is used, you must avoid adding new DDL statements to 'ddl' that
 update the database's version_retention_period. *)
-  encryption_config :
-    google_spanner_database__encryption_config list;
-  timeouts : google_spanner_database__timeouts option;
+  encryption_config : encryption_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_spanner_database *)
+
+let encryption_config ~kms_key_name () : encryption_config =
+  { kms_key_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_spanner_database ?database_dialect ?ddl
+    ?deletion_protection ?enable_drop_protection ?id ?project
+    ?version_retention_period ?timeouts ~instance ~name
+    ~encryption_config () : google_spanner_database =
+  {
+    database_dialect;
+    ddl;
+    deletion_protection;
+    enable_drop_protection;
+    id;
+    instance;
+    name;
+    project;
+    version_retention_period;
+    encryption_config;
+    timeouts;
+  }
 
 type t = {
   database_dialect : string prop;
@@ -73,28 +96,17 @@ type t = {
   version_retention_period : string prop;
 }
 
-let google_spanner_database ?database_dialect ?ddl
-    ?deletion_protection ?enable_drop_protection ?id ?project
-    ?version_retention_period ?timeouts ~instance ~name
-    ~encryption_config __resource_id =
+let register ?tf_module ?database_dialect ?ddl ?deletion_protection
+    ?enable_drop_protection ?id ?project ?version_retention_period
+    ?timeouts ~instance ~name ~encryption_config __resource_id =
   let __resource_type = "google_spanner_database" in
   let __resource =
-    ({
-       database_dialect;
-       ddl;
-       deletion_protection;
-       enable_drop_protection;
-       id;
-       instance;
-       name;
-       project;
-       version_retention_period;
-       encryption_config;
-       timeouts;
-     }
-      : google_spanner_database)
+    google_spanner_database ?database_dialect ?ddl
+      ?deletion_protection ?enable_drop_protection ?id ?project
+      ?version_retention_period ?timeouts ~instance ~name
+      ~encryption_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_spanner_database __resource);
   let __resource_attributes =
     ({

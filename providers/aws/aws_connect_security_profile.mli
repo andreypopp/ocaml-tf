@@ -2,7 +2,25 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_connect_security_profile
+
+val aws_connect_security_profile :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?permissions:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  instance_id:string prop ->
+  name:string prop ->
+  unit ->
+  aws_connect_security_profile
+
+val yojson_of_aws_connect_security_profile :
+  aws_connect_security_profile -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +35,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_connect_security_profile :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?permissions:string prop list ->

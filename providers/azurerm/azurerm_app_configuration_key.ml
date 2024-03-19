@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_app_configuration_key__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_app_configuration_key__timeouts *)
+(** timeouts *)
 
 type azurerm_app_configuration_key = {
   configuration_store_id : string prop;
@@ -27,10 +27,31 @@ type azurerm_app_configuration_key = {
   value : string prop option; [@option]  (** value *)
   vault_key_reference : string prop option; [@option]
       (** vault_key_reference *)
-  timeouts : azurerm_app_configuration_key__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_configuration_key *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_app_configuration_key ?content_type ?etag ?id ?label
+    ?locked ?tags ?type_ ?value ?vault_key_reference ?timeouts
+    ~configuration_store_id ~key () : azurerm_app_configuration_key =
+  {
+    configuration_store_id;
+    content_type;
+    etag;
+    id;
+    key;
+    label;
+    locked;
+    tags;
+    type_;
+    value;
+    vault_key_reference;
+    timeouts;
+  }
 
 type t = {
   configuration_store_id : string prop;
@@ -46,28 +67,16 @@ type t = {
   vault_key_reference : string prop;
 }
 
-let azurerm_app_configuration_key ?content_type ?etag ?id ?label
-    ?locked ?tags ?type_ ?value ?vault_key_reference ?timeouts
+let register ?tf_module ?content_type ?etag ?id ?label ?locked ?tags
+    ?type_ ?value ?vault_key_reference ?timeouts
     ~configuration_store_id ~key __resource_id =
   let __resource_type = "azurerm_app_configuration_key" in
   let __resource =
-    ({
-       configuration_store_id;
-       content_type;
-       etag;
-       id;
-       key;
-       label;
-       locked;
-       tags;
-       type_;
-       value;
-       vault_key_reference;
-       timeouts;
-     }
-      : azurerm_app_configuration_key)
+    azurerm_app_configuration_key ?content_type ?etag ?id ?label
+      ?locked ?tags ?type_ ?value ?vault_key_reference ?timeouts
+      ~configuration_store_id ~key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_configuration_key __resource);
   let __resource_attributes =
     ({

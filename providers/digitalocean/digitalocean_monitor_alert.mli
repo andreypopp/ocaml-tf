@@ -2,9 +2,41 @@
 
 open! Tf.Prelude
 
-type digitalocean_monitor_alert__alerts__slack
-type digitalocean_monitor_alert__alerts
+(** RESOURCE SERIALIZATION *)
+
+type alerts__slack
+
+val alerts__slack :
+  channel:string prop -> url:string prop -> unit -> alerts__slack
+
+type alerts
+
+val alerts :
+  ?email:string prop list ->
+  slack:alerts__slack list ->
+  unit ->
+  alerts
+
 type digitalocean_monitor_alert
+
+val digitalocean_monitor_alert :
+  ?enabled:bool prop ->
+  ?entities:string prop list ->
+  ?id:string prop ->
+  ?tags:string prop list ->
+  compare:string prop ->
+  description:string prop ->
+  type_:string prop ->
+  value:float prop ->
+  window:string prop ->
+  alerts:alerts list ->
+  unit ->
+  digitalocean_monitor_alert
+
+val yojson_of_digitalocean_monitor_alert :
+  digitalocean_monitor_alert -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   compare : string prop;
@@ -19,7 +51,8 @@ type t = private {
   window : string prop;
 }
 
-val digitalocean_monitor_alert :
+val register :
+  ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?entities:string prop list ->
   ?id:string prop ->
@@ -29,6 +62,6 @@ val digitalocean_monitor_alert :
   type_:string prop ->
   value:float prop ->
   window:string prop ->
-  alerts:digitalocean_monitor_alert__alerts list ->
+  alerts:alerts list ->
   string ->
   t

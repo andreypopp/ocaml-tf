@@ -2,9 +2,27 @@
 
 open! Tf.Prelude
 
-type google_access_context_manager_service_perimeter_resource__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
 
 type google_access_context_manager_service_perimeter_resource
+
+val google_access_context_manager_service_perimeter_resource :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  perimeter_name:string prop ->
+  resource:string prop ->
+  unit ->
+  google_access_context_manager_service_perimeter_resource
+
+val yojson_of_google_access_context_manager_service_perimeter_resource :
+  google_access_context_manager_service_perimeter_resource -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -12,10 +30,10 @@ type t = private {
   resource : string prop;
 }
 
-val google_access_context_manager_service_perimeter_resource :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:
-    google_access_context_manager_service_perimeter_resource__timeouts ->
+  ?timeouts:timeouts ->
   perimeter_name:string prop ->
   resource:string prop ->
   string ->

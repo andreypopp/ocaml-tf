@@ -16,6 +16,17 @@ type aws_acmpca_permission = {
 [@@deriving yojson_of]
 (** aws_acmpca_permission *)
 
+let aws_acmpca_permission ?id ?source_account ~actions
+    ~certificate_authority_arn ~principal () : aws_acmpca_permission
+    =
+  {
+    actions;
+    certificate_authority_arn;
+    id;
+    principal;
+    source_account;
+  }
+
 type t = {
   actions : string list prop;
   certificate_authority_arn : string prop;
@@ -25,20 +36,14 @@ type t = {
   source_account : string prop;
 }
 
-let aws_acmpca_permission ?id ?source_account ~actions
+let register ?tf_module ?id ?source_account ~actions
     ~certificate_authority_arn ~principal __resource_id =
   let __resource_type = "aws_acmpca_permission" in
   let __resource =
-    ({
-       actions;
-       certificate_authority_arn;
-       id;
-       principal;
-       source_account;
-     }
-      : aws_acmpca_permission)
+    aws_acmpca_permission ?id ?source_account ~actions
+      ~certificate_authority_arn ~principal ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_acmpca_permission __resource);
   let __resource_attributes =
     ({

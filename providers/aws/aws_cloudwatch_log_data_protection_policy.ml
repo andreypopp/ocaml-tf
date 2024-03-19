@@ -12,22 +12,26 @@ type aws_cloudwatch_log_data_protection_policy = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_data_protection_policy *)
 
+let aws_cloudwatch_log_data_protection_policy ?id ~log_group_name
+    ~policy_document () : aws_cloudwatch_log_data_protection_policy =
+  { id; log_group_name; policy_document }
+
 type t = {
   id : string prop;
   log_group_name : string prop;
   policy_document : string prop;
 }
 
-let aws_cloudwatch_log_data_protection_policy ?id ~log_group_name
-    ~policy_document __resource_id =
+let register ?tf_module ?id ~log_group_name ~policy_document
+    __resource_id =
   let __resource_type =
     "aws_cloudwatch_log_data_protection_policy"
   in
   let __resource =
-    ({ id; log_group_name; policy_document }
-      : aws_cloudwatch_log_data_protection_policy)
+    aws_cloudwatch_log_data_protection_policy ?id ~log_group_name
+      ~policy_document ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_log_data_protection_policy __resource);
   let __resource_attributes =
     ({

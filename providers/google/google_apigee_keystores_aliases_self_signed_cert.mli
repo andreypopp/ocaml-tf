@@ -2,13 +2,9 @@
 
 open! Tf.Prelude
 
-type google_apigee_keystores_aliases_self_signed_cert__subject
+(** RESOURCE SERIALIZATION *)
 
-type google_apigee_keystores_aliases_self_signed_cert__subject_alternative_dns_names
-
-type google_apigee_keystores_aliases_self_signed_cert__timeouts
-
-type google_apigee_keystores_aliases_self_signed_cert__certs_info__cert_info = {
+type certs_info__cert_info = {
   basic_constraints : string prop;  (** basic_constraints *)
   expiry_date : string prop;  (** expiry_date *)
   is_valid : string prop;  (** is_valid *)
@@ -23,21 +19,61 @@ type google_apigee_keystores_aliases_self_signed_cert__certs_info__cert_info = {
   version : float prop;  (** version *)
 }
 
-type google_apigee_keystores_aliases_self_signed_cert__certs_info = {
-  cert_info :
-    google_apigee_keystores_aliases_self_signed_cert__certs_info__cert_info
-    list;
-      (** cert_info *)
+type certs_info = {
+  cert_info : certs_info__cert_info list;  (** cert_info *)
 }
 
+type subject
+
+val subject :
+  ?common_name:string prop ->
+  ?country_code:string prop ->
+  ?email:string prop ->
+  ?locality:string prop ->
+  ?org:string prop ->
+  ?org_unit:string prop ->
+  ?state:string prop ->
+  unit ->
+  subject
+
+type subject_alternative_dns_names
+
+val subject_alternative_dns_names :
+  ?subject_alternative_name:string prop ->
+  unit ->
+  subject_alternative_dns_names
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_apigee_keystores_aliases_self_signed_cert
+
+val google_apigee_keystores_aliases_self_signed_cert :
+  ?cert_validity_in_days:float prop ->
+  ?id:string prop ->
+  ?key_size:string prop ->
+  ?timeouts:timeouts ->
+  alias:string prop ->
+  environment:string prop ->
+  keystore:string prop ->
+  org_id:string prop ->
+  sig_alg:string prop ->
+  subject:subject list ->
+  subject_alternative_dns_names:subject_alternative_dns_names list ->
+  unit ->
+  google_apigee_keystores_aliases_self_signed_cert
+
+val yojson_of_google_apigee_keystores_aliases_self_signed_cert :
+  google_apigee_keystores_aliases_self_signed_cert -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   alias : string prop;
   cert_validity_in_days : float prop;
-  certs_info :
-    google_apigee_keystores_aliases_self_signed_cert__certs_info list
-    prop;
+  certs_info : certs_info list prop;
   environment : string prop;
   id : string prop;
   key_size : string prop;
@@ -47,21 +83,18 @@ type t = private {
   type_ : string prop;
 }
 
-val google_apigee_keystores_aliases_self_signed_cert :
+val register :
+  ?tf_module:tf_module ->
   ?cert_validity_in_days:float prop ->
   ?id:string prop ->
   ?key_size:string prop ->
-  ?timeouts:
-    google_apigee_keystores_aliases_self_signed_cert__timeouts ->
+  ?timeouts:timeouts ->
   alias:string prop ->
   environment:string prop ->
   keystore:string prop ->
   org_id:string prop ->
   sig_alg:string prop ->
-  subject:
-    google_apigee_keystores_aliases_self_signed_cert__subject list ->
-  subject_alternative_dns_names:
-    google_apigee_keystores_aliases_self_signed_cert__subject_alternative_dns_names
-    list ->
+  subject:subject list ->
+  subject_alternative_dns_names:subject_alternative_dns_names list ->
   string ->
   t

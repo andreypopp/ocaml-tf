@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_apprunner_observability_configuration__trace_configuration
+(** RESOURCE SERIALIZATION *)
+
+type trace_configuration
+
+val trace_configuration :
+  ?vendor:string prop -> unit -> trace_configuration
+
 type aws_apprunner_observability_configuration
+
+val aws_apprunner_observability_configuration :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  observability_configuration_name:string prop ->
+  trace_configuration:trace_configuration list ->
+  unit ->
+  aws_apprunner_observability_configuration
+
+val yojson_of_aws_apprunner_observability_configuration :
+  aws_apprunner_observability_configuration -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,13 +36,12 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_apprunner_observability_configuration :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   observability_configuration_name:string prop ->
-  trace_configuration:
-    aws_apprunner_observability_configuration__trace_configuration
-    list ->
+  trace_configuration:trace_configuration list ->
   string ->
   t

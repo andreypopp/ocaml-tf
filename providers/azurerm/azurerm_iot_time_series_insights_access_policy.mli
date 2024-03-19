@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_iot_time_series_insights_access_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_iot_time_series_insights_access_policy
+
+val azurerm_iot_time_series_insights_access_policy :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  principal_object_id:string prop ->
+  roles:string prop list ->
+  time_series_insights_environment_id:string prop ->
+  unit ->
+  azurerm_iot_time_series_insights_access_policy
+
+val yojson_of_azurerm_iot_time_series_insights_access_policy :
+  azurerm_iot_time_series_insights_access_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -14,10 +41,11 @@ type t = private {
   time_series_insights_environment_id : string prop;
 }
 
-val azurerm_iot_time_series_insights_access_policy :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:azurerm_iot_time_series_insights_access_policy__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   principal_object_id:string prop ->
   roles:string prop list ->

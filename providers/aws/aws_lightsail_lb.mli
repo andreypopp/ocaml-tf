@@ -2,7 +2,24 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_lightsail_lb
+
+val aws_lightsail_lb :
+  ?health_check_path:string prop ->
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  instance_port:float prop ->
+  name:string prop ->
+  unit ->
+  aws_lightsail_lb
+
+val yojson_of_aws_lightsail_lb : aws_lightsail_lb -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -20,7 +37,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_lightsail_lb :
+val register :
+  ?tf_module:tf_module ->
   ?health_check_path:string prop ->
   ?id:string prop ->
   ?ip_address_type:string prop ->

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_dialogflow_cx_entity_type__entities = {
+type entities = {
   synonyms : string prop list option; [@option]
       (** A collection of value synonyms. For example, if the entity type is vegetable, and value is scallions, a synonym could be green onions.
 For KIND_LIST entity types: This collection must contain exactly one synonym equal to value. *)
@@ -16,7 +16,7 @@ For KIND_LIST entity types: A string that can contain references to other entity
 [@@deriving yojson_of]
 (** The collection of entity entries associated with the entity type. *)
 
-type google_dialogflow_cx_entity_type__excluded_phrases = {
+type excluded_phrases = {
   value : string prop option; [@option]
       (** The word or phrase to be excluded. *)
 }
@@ -24,13 +24,13 @@ type google_dialogflow_cx_entity_type__excluded_phrases = {
 (** Collection of exceptional words and phrases that shouldn't be matched. For example, if you have a size entity type with entry giant(an adjective), you might consider adding giants(a noun) as an exclusion.
 If the kind of entity type is KIND_MAP, then the phrases specified by entities and excluded phrases should be mutually exclusive. *)
 
-type google_dialogflow_cx_entity_type__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_dialogflow_cx_entity_type__timeouts *)
+(** timeouts *)
 
 type google_dialogflow_cx_entity_type = {
   auto_expansion_mode : string prop option; [@option]
@@ -58,13 +58,36 @@ If not specified, the agent's default language is used. Many languages are suppo
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
   redact : bool prop option; [@option]
       (** Indicates whether parameters of the entity type should be redacted in log. If redaction is enabled, page parameters and intent parameters referring to the entity type will be replaced by parameter name when logging. *)
-  entities : google_dialogflow_cx_entity_type__entities list;
-  excluded_phrases :
-    google_dialogflow_cx_entity_type__excluded_phrases list;
-  timeouts : google_dialogflow_cx_entity_type__timeouts option;
+  entities : entities list;
+  excluded_phrases : excluded_phrases list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_entity_type *)
+
+let entities ?synonyms ?value () : entities = { synonyms; value }
+let excluded_phrases ?value () : excluded_phrases = { value }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_dialogflow_cx_entity_type ?auto_expansion_mode
+    ?enable_fuzzy_extraction ?id ?language_code ?parent ?redact
+    ?timeouts ~display_name ~kind ~entities ~excluded_phrases () :
+    google_dialogflow_cx_entity_type =
+  {
+    auto_expansion_mode;
+    display_name;
+    enable_fuzzy_extraction;
+    id;
+    kind;
+    language_code;
+    parent;
+    redact;
+    entities;
+    excluded_phrases;
+    timeouts;
+  }
 
 type t = {
   auto_expansion_mode : string prop;
@@ -78,28 +101,16 @@ type t = {
   redact : bool prop;
 }
 
-let google_dialogflow_cx_entity_type ?auto_expansion_mode
-    ?enable_fuzzy_extraction ?id ?language_code ?parent ?redact
-    ?timeouts ~display_name ~kind ~entities ~excluded_phrases
-    __resource_id =
+let register ?tf_module ?auto_expansion_mode ?enable_fuzzy_extraction
+    ?id ?language_code ?parent ?redact ?timeouts ~display_name ~kind
+    ~entities ~excluded_phrases __resource_id =
   let __resource_type = "google_dialogflow_cx_entity_type" in
   let __resource =
-    ({
-       auto_expansion_mode;
-       display_name;
-       enable_fuzzy_extraction;
-       id;
-       kind;
-       language_code;
-       parent;
-       redact;
-       entities;
-       excluded_phrases;
-       timeouts;
-     }
-      : google_dialogflow_cx_entity_type)
+    google_dialogflow_cx_entity_type ?auto_expansion_mode
+      ?enable_fuzzy_extraction ?id ?language_code ?parent ?redact
+      ?timeouts ~display_name ~kind ~entities ~excluded_phrases ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_entity_type __resource);
   let __resource_attributes =
     ({

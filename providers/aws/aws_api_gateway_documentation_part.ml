@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_api_gateway_documentation_part__location = {
+type location = {
   method_ : string prop option; [@option] [@key "method"]
       (** method *)
   name : string prop option; [@option]  (** name *)
@@ -13,16 +13,23 @@ type aws_api_gateway_documentation_part__location = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_documentation_part__location *)
+(** location *)
 
 type aws_api_gateway_documentation_part = {
   id : string prop option; [@option]  (** id *)
   properties : string prop;  (** properties *)
   rest_api_id : string prop;  (** rest_api_id *)
-  location : aws_api_gateway_documentation_part__location list;
+  location : location list;
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_documentation_part *)
+
+let location ?method_ ?name ?path ?status_code ~type_ () : location =
+  { method_; name; path; status_code; type_ }
+
+let aws_api_gateway_documentation_part ?id ~properties ~rest_api_id
+    ~location () : aws_api_gateway_documentation_part =
+  { id; properties; rest_api_id; location }
 
 type t = {
   id : string prop;
@@ -30,14 +37,14 @@ type t = {
   rest_api_id : string prop;
 }
 
-let aws_api_gateway_documentation_part ?id ~properties ~rest_api_id
-    ~location __resource_id =
+let register ?tf_module ?id ~properties ~rest_api_id ~location
+    __resource_id =
   let __resource_type = "aws_api_gateway_documentation_part" in
   let __resource =
-    ({ id; properties; rest_api_id; location }
-      : aws_api_gateway_documentation_part)
+    aws_api_gateway_documentation_part ?id ~properties ~rest_api_id
+      ~location ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_documentation_part __resource);
   let __resource_attributes =
     ({

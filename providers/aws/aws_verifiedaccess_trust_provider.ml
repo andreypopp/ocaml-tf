@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_verifiedaccess_trust_provider__device_options = {
+type device_options = {
   tenant_id : string prop option; [@option]  (** tenant_id *)
 }
 [@@deriving yojson_of]
-(** aws_verifiedaccess_trust_provider__device_options *)
+(** device_options *)
 
-type aws_verifiedaccess_trust_provider__oidc_options = {
+type oidc_options = {
   authorization_endpoint : string prop option; [@option]
       (** authorization_endpoint *)
   client_id : string prop option; [@option]  (** client_id *)
@@ -23,15 +23,15 @@ type aws_verifiedaccess_trust_provider__oidc_options = {
       (** user_info_endpoint *)
 }
 [@@deriving yojson_of]
-(** aws_verifiedaccess_trust_provider__oidc_options *)
+(** oidc_options *)
 
-type aws_verifiedaccess_trust_provider__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_verifiedaccess_trust_provider__timeouts *)
+(** timeouts *)
 
 type aws_verifiedaccess_trust_provider = {
   description : string prop option; [@option]  (** description *)
@@ -45,14 +45,49 @@ type aws_verifiedaccess_trust_provider = {
   trust_provider_type : string prop;  (** trust_provider_type *)
   user_trust_provider_type : string prop option; [@option]
       (** user_trust_provider_type *)
-  device_options :
-    aws_verifiedaccess_trust_provider__device_options list;
-  oidc_options :
-    aws_verifiedaccess_trust_provider__oidc_options list;
-  timeouts : aws_verifiedaccess_trust_provider__timeouts option;
+  device_options : device_options list;
+  oidc_options : oidc_options list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_trust_provider *)
+
+let device_options ?tenant_id () : device_options = { tenant_id }
+
+let oidc_options ?authorization_endpoint ?client_id ?issuer ?scope
+    ?token_endpoint ?user_info_endpoint ~client_secret () :
+    oidc_options =
+  {
+    authorization_endpoint;
+    client_id;
+    client_secret;
+    issuer;
+    scope;
+    token_endpoint;
+    user_info_endpoint;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_verifiedaccess_trust_provider ?description
+    ?device_trust_provider_type ?id ?tags ?tags_all
+    ?user_trust_provider_type ?timeouts ~policy_reference_name
+    ~trust_provider_type ~device_options ~oidc_options () :
+    aws_verifiedaccess_trust_provider =
+  {
+    description;
+    device_trust_provider_type;
+    id;
+    policy_reference_name;
+    tags;
+    tags_all;
+    trust_provider_type;
+    user_trust_provider_type;
+    device_options;
+    oidc_options;
+    timeouts;
+  }
 
 type t = {
   description : string prop;
@@ -65,29 +100,18 @@ type t = {
   user_trust_provider_type : string prop;
 }
 
-let aws_verifiedaccess_trust_provider ?description
-    ?device_trust_provider_type ?id ?tags ?tags_all
-    ?user_trust_provider_type ?timeouts ~policy_reference_name
-    ~trust_provider_type ~device_options ~oidc_options __resource_id
-    =
+let register ?tf_module ?description ?device_trust_provider_type ?id
+    ?tags ?tags_all ?user_trust_provider_type ?timeouts
+    ~policy_reference_name ~trust_provider_type ~device_options
+    ~oidc_options __resource_id =
   let __resource_type = "aws_verifiedaccess_trust_provider" in
   let __resource =
-    ({
-       description;
-       device_trust_provider_type;
-       id;
-       policy_reference_name;
-       tags;
-       tags_all;
-       trust_provider_type;
-       user_trust_provider_type;
-       device_options;
-       oidc_options;
-       timeouts;
-     }
-      : aws_verifiedaccess_trust_provider)
+    aws_verifiedaccess_trust_provider ?description
+      ?device_trust_provider_type ?id ?tags ?tags_all
+      ?user_trust_provider_type ?timeouts ~policy_reference_name
+      ~trust_provider_type ~device_options ~oidc_options ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedaccess_trust_provider __resource);
   let __resource_attributes =
     ({

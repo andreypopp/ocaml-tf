@@ -4,23 +4,23 @@
 
 open! Tf.Prelude
 
-type azurerm_network_watcher_flow_log__retention_policy = {
+type retention_policy = {
   days : float prop;  (** days *)
   enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_watcher_flow_log__retention_policy *)
+(** retention_policy *)
 
-type azurerm_network_watcher_flow_log__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_watcher_flow_log__timeouts *)
+(** timeouts *)
 
-type azurerm_network_watcher_flow_log__traffic_analytics = {
+type traffic_analytics = {
   enabled : bool prop;  (** enabled *)
   interval_in_minutes : float prop option; [@option]
       (** interval_in_minutes *)
@@ -29,7 +29,7 @@ type azurerm_network_watcher_flow_log__traffic_analytics = {
   workspace_resource_id : string prop;  (** workspace_resource_id *)
 }
 [@@deriving yojson_of]
-(** azurerm_network_watcher_flow_log__traffic_analytics *)
+(** traffic_analytics *)
 
 type azurerm_network_watcher_flow_log = {
   enabled : bool prop;  (** enabled *)
@@ -43,14 +43,49 @@ type azurerm_network_watcher_flow_log = {
   storage_account_id : string prop;  (** storage_account_id *)
   tags : (string * string prop) list option; [@option]  (** tags *)
   version : float prop option; [@option]  (** version *)
-  retention_policy :
-    azurerm_network_watcher_flow_log__retention_policy list;
-  timeouts : azurerm_network_watcher_flow_log__timeouts option;
-  traffic_analytics :
-    azurerm_network_watcher_flow_log__traffic_analytics list;
+  retention_policy : retention_policy list;
+  timeouts : timeouts option;
+  traffic_analytics : traffic_analytics list;
 }
 [@@deriving yojson_of]
 (** azurerm_network_watcher_flow_log *)
+
+let retention_policy ~days ~enabled () : retention_policy =
+  { days; enabled }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let traffic_analytics ?interval_in_minutes ~enabled ~workspace_id
+    ~workspace_region ~workspace_resource_id () : traffic_analytics =
+  {
+    enabled;
+    interval_in_minutes;
+    workspace_id;
+    workspace_region;
+    workspace_resource_id;
+  }
+
+let azurerm_network_watcher_flow_log ?id ?location ?tags ?version
+    ?timeouts ~enabled ~name ~network_security_group_id
+    ~network_watcher_name ~resource_group_name ~storage_account_id
+    ~retention_policy ~traffic_analytics () :
+    azurerm_network_watcher_flow_log =
+  {
+    enabled;
+    id;
+    location;
+    name;
+    network_security_group_id;
+    network_watcher_name;
+    resource_group_name;
+    storage_account_id;
+    tags;
+    version;
+    retention_policy;
+    timeouts;
+    traffic_analytics;
+  }
 
 type t = {
   enabled : bool prop;
@@ -65,30 +100,18 @@ type t = {
   version : float prop;
 }
 
-let azurerm_network_watcher_flow_log ?id ?location ?tags ?version
-    ?timeouts ~enabled ~name ~network_security_group_id
-    ~network_watcher_name ~resource_group_name ~storage_account_id
-    ~retention_policy ~traffic_analytics __resource_id =
+let register ?tf_module ?id ?location ?tags ?version ?timeouts
+    ~enabled ~name ~network_security_group_id ~network_watcher_name
+    ~resource_group_name ~storage_account_id ~retention_policy
+    ~traffic_analytics __resource_id =
   let __resource_type = "azurerm_network_watcher_flow_log" in
   let __resource =
-    ({
-       enabled;
-       id;
-       location;
-       name;
-       network_security_group_id;
-       network_watcher_name;
-       resource_group_name;
-       storage_account_id;
-       tags;
-       version;
-       retention_policy;
-       timeouts;
-       traffic_analytics;
-     }
-      : azurerm_network_watcher_flow_log)
+    azurerm_network_watcher_flow_log ?id ?location ?tags ?version
+      ?timeouts ~enabled ~name ~network_security_group_id
+      ~network_watcher_name ~resource_group_name ~storage_account_id
+      ~retention_policy ~traffic_analytics ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_watcher_flow_log __resource);
   let __resource_attributes =
     ({

@@ -12,6 +12,10 @@ type aws_msk_cluster_policy = {
 [@@deriving yojson_of]
 (** aws_msk_cluster_policy *)
 
+let aws_msk_cluster_policy ?id ~cluster_arn ~policy () :
+    aws_msk_cluster_policy =
+  { cluster_arn; id; policy }
+
 type t = {
   cluster_arn : string prop;
   current_version : string prop;
@@ -19,12 +23,12 @@ type t = {
   policy : string prop;
 }
 
-let aws_msk_cluster_policy ?id ~cluster_arn ~policy __resource_id =
+let register ?tf_module ?id ~cluster_arn ~policy __resource_id =
   let __resource_type = "aws_msk_cluster_policy" in
   let __resource =
-    ({ cluster_arn; id; policy } : aws_msk_cluster_policy)
+    aws_msk_cluster_policy ?id ~cluster_arn ~policy ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_msk_cluster_policy __resource);
   let __resource_attributes =
     ({

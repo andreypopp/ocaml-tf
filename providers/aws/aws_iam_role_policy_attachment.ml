@@ -12,19 +12,22 @@ type aws_iam_role_policy_attachment = {
 [@@deriving yojson_of]
 (** aws_iam_role_policy_attachment *)
 
+let aws_iam_role_policy_attachment ?id ~policy_arn ~role () :
+    aws_iam_role_policy_attachment =
+  { id; policy_arn; role }
+
 type t = {
   id : string prop;
   policy_arn : string prop;
   role : string prop;
 }
 
-let aws_iam_role_policy_attachment ?id ~policy_arn ~role
-    __resource_id =
+let register ?tf_module ?id ~policy_arn ~role __resource_id =
   let __resource_type = "aws_iam_role_policy_attachment" in
   let __resource =
-    ({ id; policy_arn; role } : aws_iam_role_policy_attachment)
+    aws_iam_role_policy_attachment ?id ~policy_arn ~role ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_role_policy_attachment __resource);
   let __resource_attributes =
     ({

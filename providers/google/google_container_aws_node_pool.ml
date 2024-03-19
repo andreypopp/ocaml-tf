@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_container_aws_node_pool__autoscaling = {
+type autoscaling = {
   max_node_count : float prop;
       (** Maximum number of nodes in the NodePool. Must be >= min_node_count. *)
   min_node_count : float prop;
@@ -13,7 +13,7 @@ type google_container_aws_node_pool__autoscaling = {
 [@@deriving yojson_of]
 (** Autoscaler configuration for this node pool. *)
 
-type google_container_aws_node_pool__config__autoscaling_metrics_collection = {
+type config__autoscaling_metrics_collection = {
   granularity : string prop;
       (** The frequency at which EC2 Auto Scaling sends aggregated data to AWS CloudWatch. The only valid value is 1Minute. *)
   metrics : string prop list option; [@option]
@@ -22,14 +22,14 @@ type google_container_aws_node_pool__config__autoscaling_metrics_collection = {
 [@@deriving yojson_of]
 (** Optional. Configuration related to CloudWatch metrics collection on the Auto Scaling group of the node pool. When unspecified, metrics collection is disabled. *)
 
-type google_container_aws_node_pool__config__config_encryption = {
+type config__config_encryption = {
   kms_key_arn : string prop;
       (** The ARN of the AWS KMS key used to encrypt node pool configuration. *)
 }
 [@@deriving yojson_of]
 (** The ARN of the AWS KMS key used to encrypt node pool configuration. *)
 
-type google_container_aws_node_pool__config__proxy_config = {
+type config__proxy_config = {
   secret_arn : string prop;
       (** The ARN of the AWS Secret Manager secret that contains the HTTP(S) proxy configuration. *)
   secret_version : string prop;
@@ -38,7 +38,7 @@ type google_container_aws_node_pool__config__proxy_config = {
 [@@deriving yojson_of]
 (** Proxy configuration for outbound HTTP(S) traffic. *)
 
-type google_container_aws_node_pool__config__root_volume = {
+type config__root_volume = {
   iops : float prop option; [@option]
       (** Optional. The number of I/O operations per second (IOPS) to provision for GP3 volume. *)
   kms_key_arn : string prop option; [@option]
@@ -53,14 +53,14 @@ type google_container_aws_node_pool__config__root_volume = {
 [@@deriving yojson_of]
 (** Optional. Template for the root volume provisioned for node pool nodes. Volumes will be provisioned in the availability zone assigned to the node pool subnet. When unspecified, it defaults to 32 GiB with the GP2 volume type. *)
 
-type google_container_aws_node_pool__config__ssh_config = {
+type config__ssh_config = {
   ec2_key_pair : string prop;
       (** The name of the EC2 key pair used to login into cluster machines. *)
 }
 [@@deriving yojson_of]
 (** Optional. The SSH configuration. *)
 
-type google_container_aws_node_pool__config__taints = {
+type config__taints = {
   effect : string prop;
       (** The taint effect. Possible values: EFFECT_UNSPECIFIED, NO_SCHEDULE, PREFER_NO_SCHEDULE, NO_EXECUTE *)
   key : string prop;  (** Key for the taint. *)
@@ -69,7 +69,7 @@ type google_container_aws_node_pool__config__taints = {
 [@@deriving yojson_of]
 (** Optional. The initial taints assigned to nodes of this node pool. *)
 
-type google_container_aws_node_pool__config = {
+type config = {
   iam_instance_profile : string prop;
       (** The name of the AWS IAM role assigned to nodes in the pool. *)
   instance_type : string prop option; [@option]
@@ -81,44 +81,39 @@ type google_container_aws_node_pool__config = {
   tags : (string * string prop) list option; [@option]
       (** Optional. Key/value metadata to assign to each underlying AWS resource. Specify at most 50 pairs containing alphanumerics, spaces, and symbols (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to 255 Unicode characters. *)
   autoscaling_metrics_collection :
-    google_container_aws_node_pool__config__autoscaling_metrics_collection
-    list;
-  config_encryption :
-    google_container_aws_node_pool__config__config_encryption list;
-  proxy_config :
-    google_container_aws_node_pool__config__proxy_config list;
-  root_volume :
-    google_container_aws_node_pool__config__root_volume list;
-  ssh_config :
-    google_container_aws_node_pool__config__ssh_config list;
-  taints : google_container_aws_node_pool__config__taints list;
+    config__autoscaling_metrics_collection list;
+  config_encryption : config__config_encryption list;
+  proxy_config : config__proxy_config list;
+  root_volume : config__root_volume list;
+  ssh_config : config__ssh_config list;
+  taints : config__taints list;
 }
 [@@deriving yojson_of]
 (** The configuration of the node pool. *)
 
-type google_container_aws_node_pool__management = {
+type management = {
   auto_repair : bool prop option; [@option]
       (** Optional. Whether or not the nodes will be automatically repaired. *)
 }
 [@@deriving yojson_of]
 (** The Management configuration for this node pool. *)
 
-type google_container_aws_node_pool__max_pods_constraint = {
+type max_pods_constraint = {
   max_pods_per_node : float prop;
       (** The maximum number of pods to schedule on a single node. *)
 }
 [@@deriving yojson_of]
 (** The constraint on the maximum number of pods that can be run simultaneously on a node in the node pool. *)
 
-type google_container_aws_node_pool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_container_aws_node_pool__timeouts *)
+(** timeouts *)
 
-type google_container_aws_node_pool__update_settings__surge_settings = {
+type update_settings__surge_settings = {
   max_surge : float prop option; [@option]
       (** Optional. The maximum number of nodes that can be created beyond the current size of the node pool during the update process. *)
   max_unavailable : float prop option; [@option]
@@ -127,10 +122,8 @@ type google_container_aws_node_pool__update_settings__surge_settings = {
 [@@deriving yojson_of]
 (** Optional. Settings for surge update. *)
 
-type google_container_aws_node_pool__update_settings = {
-  surge_settings :
-    google_container_aws_node_pool__update_settings__surge_settings
-    list;
+type update_settings = {
+  surge_settings : update_settings__surge_settings list;
 }
 [@@deriving yojson_of]
 (** Optional. Update settings control the speed and disruption of the node pool update. *)
@@ -151,17 +144,94 @@ Please refer to the field `effective_annotations` for all of the annotations pre
       (** The subnet where the node pool node run. *)
   version : string prop;
       (** The Kubernetes version to run on this node pool (e.g. `1.19.10-gke.1000`). You can list all supported versions on a given Google Cloud region by calling GetAwsServerConfig. *)
-  autoscaling : google_container_aws_node_pool__autoscaling list;
-  config : google_container_aws_node_pool__config list;
-  management : google_container_aws_node_pool__management list;
-  max_pods_constraint :
-    google_container_aws_node_pool__max_pods_constraint list;
-  timeouts : google_container_aws_node_pool__timeouts option;
-  update_settings :
-    google_container_aws_node_pool__update_settings list;
+  autoscaling : autoscaling list;
+  config : config list;
+  management : management list;
+  max_pods_constraint : max_pods_constraint list;
+  timeouts : timeouts option;
+  update_settings : update_settings list;
 }
 [@@deriving yojson_of]
 (** google_container_aws_node_pool *)
+
+let autoscaling ~max_node_count ~min_node_count () : autoscaling =
+  { max_node_count; min_node_count }
+
+let config__autoscaling_metrics_collection ?metrics ~granularity () :
+    config__autoscaling_metrics_collection =
+  { granularity; metrics }
+
+let config__config_encryption ~kms_key_arn () :
+    config__config_encryption =
+  { kms_key_arn }
+
+let config__proxy_config ~secret_arn ~secret_version () :
+    config__proxy_config =
+  { secret_arn; secret_version }
+
+let config__root_volume ?iops ?kms_key_arn ?size_gib ?throughput
+    ?volume_type () : config__root_volume =
+  { iops; kms_key_arn; size_gib; throughput; volume_type }
+
+let config__ssh_config ~ec2_key_pair () : config__ssh_config =
+  { ec2_key_pair }
+
+let config__taints ~effect ~key ~value () : config__taints =
+  { effect; key; value }
+
+let config ?instance_type ?labels ?security_group_ids ?tags
+    ~iam_instance_profile ~autoscaling_metrics_collection
+    ~config_encryption ~proxy_config ~root_volume ~ssh_config ~taints
+    () : config =
+  {
+    iam_instance_profile;
+    instance_type;
+    labels;
+    security_group_ids;
+    tags;
+    autoscaling_metrics_collection;
+    config_encryption;
+    proxy_config;
+    root_volume;
+    ssh_config;
+    taints;
+  }
+
+let management ?auto_repair () : management = { auto_repair }
+
+let max_pods_constraint ~max_pods_per_node () : max_pods_constraint =
+  { max_pods_per_node }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let update_settings__surge_settings ?max_surge ?max_unavailable () :
+    update_settings__surge_settings =
+  { max_surge; max_unavailable }
+
+let update_settings ~surge_settings () : update_settings =
+  { surge_settings }
+
+let google_container_aws_node_pool ?annotations ?id ?project
+    ?timeouts ~cluster ~location ~name ~subnet_id ~version
+    ~autoscaling ~config ~management ~max_pods_constraint
+    ~update_settings () : google_container_aws_node_pool =
+  {
+    annotations;
+    cluster;
+    id;
+    location;
+    name;
+    project;
+    subnet_id;
+    version;
+    autoscaling;
+    config;
+    management;
+    max_pods_constraint;
+    timeouts;
+    update_settings;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -181,31 +251,17 @@ type t = {
   version : string prop;
 }
 
-let google_container_aws_node_pool ?annotations ?id ?project
-    ?timeouts ~cluster ~location ~name ~subnet_id ~version
-    ~autoscaling ~config ~management ~max_pods_constraint
-    ~update_settings __resource_id =
+let register ?tf_module ?annotations ?id ?project ?timeouts ~cluster
+    ~location ~name ~subnet_id ~version ~autoscaling ~config
+    ~management ~max_pods_constraint ~update_settings __resource_id =
   let __resource_type = "google_container_aws_node_pool" in
   let __resource =
-    ({
-       annotations;
-       cluster;
-       id;
-       location;
-       name;
-       project;
-       subnet_id;
-       version;
-       autoscaling;
-       config;
-       management;
-       max_pods_constraint;
-       timeouts;
-       update_settings;
-     }
-      : google_container_aws_node_pool)
+    google_container_aws_node_pool ?annotations ?id ?project
+      ?timeouts ~cluster ~location ~name ~subnet_id ~version
+      ~autoscaling ~config ~management ~max_pods_constraint
+      ~update_settings ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_aws_node_pool __resource);
   let __resource_attributes =
     ({

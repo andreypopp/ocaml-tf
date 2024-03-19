@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_access_organization__custom_pages = {
+type custom_pages = {
   forbidden : string prop option; [@option]
       (** The id of the forbidden page. *)
   identity_denied : string prop option; [@option]
@@ -13,7 +13,7 @@ type cloudflare_access_organization__custom_pages = {
 [@@deriving yojson_of]
 (** Custom pages for your Zero Trust organization. *)
 
-type cloudflare_access_organization__login_design = {
+type login_design = {
   background_color : string prop option; [@option]
       (** The background color on the login page. *)
   footer_text : string prop option; [@option]
@@ -26,7 +26,7 @@ type cloudflare_access_organization__login_design = {
       (** The text color on the login page. *)
 }
 [@@deriving yojson_of]
-(** cloudflare_access_organization__login_design *)
+(** login_design *)
 
 type cloudflare_access_organization = {
   account_id : string prop option; [@option]
@@ -52,12 +52,48 @@ type cloudflare_access_organization = {
       (** The amount of time that tokens issued for applications will be valid. Must be in the format 30m or 2h45m. Valid time units are: m, h. *)
   zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
-  custom_pages : cloudflare_access_organization__custom_pages list;
-  login_design : cloudflare_access_organization__login_design list;
+  custom_pages : custom_pages list;
+  login_design : login_design list;
 }
 [@@deriving yojson_of]
 (** A Zero Trust organization defines the user login experience.
  *)
+
+let custom_pages ?forbidden ?identity_denied () : custom_pages =
+  { forbidden; identity_denied }
+
+let login_design ?background_color ?footer_text ?header_text
+    ?logo_path ?text_color () : login_design =
+  {
+    background_color;
+    footer_text;
+    header_text;
+    logo_path;
+    text_color;
+  }
+
+let cloudflare_access_organization ?account_id
+    ?allow_authenticate_via_warp ?auto_redirect_to_identity ?id
+    ?is_ui_read_only ?name ?session_duration
+    ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
+    ?warp_auth_session_duration ?zone_id ~auth_domain ~custom_pages
+    ~login_design () : cloudflare_access_organization =
+  {
+    account_id;
+    allow_authenticate_via_warp;
+    auth_domain;
+    auto_redirect_to_identity;
+    id;
+    is_ui_read_only;
+    name;
+    session_duration;
+    ui_read_only_toggle_reason;
+    user_seat_expiration_inactive_time;
+    warp_auth_session_duration;
+    zone_id;
+    custom_pages;
+    login_design;
+  }
 
 type t = {
   account_id : string prop;
@@ -74,33 +110,21 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_access_organization ?account_id
-    ?allow_authenticate_via_warp ?auto_redirect_to_identity ?id
-    ?is_ui_read_only ?name ?session_duration
-    ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
-    ?warp_auth_session_duration ?zone_id ~auth_domain ~custom_pages
-    ~login_design __resource_id =
+let register ?tf_module ?account_id ?allow_authenticate_via_warp
+    ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
+    ?session_duration ?ui_read_only_toggle_reason
+    ?user_seat_expiration_inactive_time ?warp_auth_session_duration
+    ?zone_id ~auth_domain ~custom_pages ~login_design __resource_id =
   let __resource_type = "cloudflare_access_organization" in
   let __resource =
-    ({
-       account_id;
-       allow_authenticate_via_warp;
-       auth_domain;
-       auto_redirect_to_identity;
-       id;
-       is_ui_read_only;
-       name;
-       session_duration;
-       ui_read_only_toggle_reason;
-       user_seat_expiration_inactive_time;
-       warp_auth_session_duration;
-       zone_id;
-       custom_pages;
-       login_design;
-     }
-      : cloudflare_access_organization)
+    cloudflare_access_organization ?account_id
+      ?allow_authenticate_via_warp ?auto_redirect_to_identity ?id
+      ?is_ui_read_only ?name ?session_duration
+      ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
+      ?warp_auth_session_duration ?zone_id ~auth_domain ~custom_pages
+      ~login_design ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_organization __resource);
   let __resource_attributes =
     ({

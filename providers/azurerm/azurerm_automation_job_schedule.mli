@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_automation_job_schedule__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_automation_job_schedule
+
+val azurerm_automation_job_schedule :
+  ?id:string prop ->
+  ?job_schedule_id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?run_on:string prop ->
+  ?timeouts:timeouts ->
+  automation_account_name:string prop ->
+  resource_group_name:string prop ->
+  runbook_name:string prop ->
+  schedule_name:string prop ->
+  unit ->
+  azurerm_automation_job_schedule
+
+val yojson_of_azurerm_automation_job_schedule :
+  azurerm_automation_job_schedule -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   automation_account_name : string prop;
@@ -16,12 +44,13 @@ type t = private {
   schedule_name : string prop;
 }
 
-val azurerm_automation_job_schedule :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?job_schedule_id:string prop ->
   ?parameters:(string * string prop) list ->
   ?run_on:string prop ->
-  ?timeouts:azurerm_automation_job_schedule__timeouts ->
+  ?timeouts:timeouts ->
   automation_account_name:string prop ->
   resource_group_name:string prop ->
   runbook_name:string prop ->

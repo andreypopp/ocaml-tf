@@ -2,22 +2,37 @@
 
 open! Tf.Prelude
 
-type aws_route53recoverycontrolconfig_cluster__cluster_endpoints = {
+(** RESOURCE SERIALIZATION *)
+
+type cluster_endpoints = {
   endpoint : string prop;  (** endpoint *)
   region : string prop;  (** region *)
 }
 
 type aws_route53recoverycontrolconfig_cluster
 
+val aws_route53recoverycontrolconfig_cluster :
+  ?id:string prop ->
+  name:string prop ->
+  unit ->
+  aws_route53recoverycontrolconfig_cluster
+
+val yojson_of_aws_route53recoverycontrolconfig_cluster :
+  aws_route53recoverycontrolconfig_cluster -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
   arn : string prop;
-  cluster_endpoints :
-    aws_route53recoverycontrolconfig_cluster__cluster_endpoints list
-    prop;
+  cluster_endpoints : cluster_endpoints list prop;
   id : string prop;
   name : string prop;
   status : string prop;
 }
 
-val aws_route53recoverycontrolconfig_cluster :
-  ?id:string prop -> name:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  name:string prop ->
+  string ->
+  t

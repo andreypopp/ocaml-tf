@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_macie2_member__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_macie2_member__timeouts *)
+(** timeouts *)
 
 type aws_macie2_member = {
   account_id : string prop;  (** account_id *)
@@ -24,10 +24,28 @@ type aws_macie2_member = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_macie2_member__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_macie2_member *)
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let aws_macie2_member ?id ?invitation_disable_email_notification
+    ?invitation_message ?invite ?status ?tags ?tags_all ?timeouts
+    ~account_id ~email () : aws_macie2_member =
+  {
+    account_id;
+    email;
+    id;
+    invitation_disable_email_notification;
+    invitation_message;
+    invite;
+    status;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   account_id : string prop;
@@ -47,26 +65,16 @@ type t = {
   updated_at : string prop;
 }
 
-let aws_macie2_member ?id ?invitation_disable_email_notification
+let register ?tf_module ?id ?invitation_disable_email_notification
     ?invitation_message ?invite ?status ?tags ?tags_all ?timeouts
     ~account_id ~email __resource_id =
   let __resource_type = "aws_macie2_member" in
   let __resource =
-    ({
-       account_id;
-       email;
-       id;
-       invitation_disable_email_notification;
-       invitation_message;
-       invite;
-       status;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_macie2_member)
+    aws_macie2_member ?id ?invitation_disable_email_notification
+      ?invitation_message ?invite ?status ?tags ?tags_all ?timeouts
+      ~account_id ~email ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_macie2_member __resource);
   let __resource_attributes =
     ({

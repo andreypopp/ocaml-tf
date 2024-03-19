@@ -4,24 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_blueprint_assignment__identity = {
+type identity = {
   identity_ids : string prop list option; [@option]
       (** identity_ids *)
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_blueprint_assignment__identity *)
+(** identity *)
 
-type azurerm_blueprint_assignment__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_blueprint_assignment__timeouts *)
+(** timeouts *)
 
 type azurerm_blueprint_assignment = {
   id : string prop option; [@option]  (** id *)
@@ -39,11 +37,37 @@ type azurerm_blueprint_assignment = {
   target_subscription_id : string prop;
       (** target_subscription_id *)
   version_id : string prop;  (** version_id *)
-  identity : azurerm_blueprint_assignment__identity list;
-  timeouts : azurerm_blueprint_assignment__timeouts option;
+  identity : identity list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_blueprint_assignment *)
+
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_blueprint_assignment ?id ?lock_exclude_actions
+    ?lock_exclude_principals ?lock_mode ?parameter_values
+    ?resource_groups ?timeouts ~location ~name
+    ~target_subscription_id ~version_id ~identity () :
+    azurerm_blueprint_assignment =
+  {
+    id;
+    location;
+    lock_exclude_actions;
+    lock_exclude_principals;
+    lock_mode;
+    name;
+    parameter_values;
+    resource_groups;
+    target_subscription_id;
+    version_id;
+    identity;
+    timeouts;
+  }
 
 type t = {
   blueprint_name : string prop;
@@ -62,29 +86,18 @@ type t = {
   version_id : string prop;
 }
 
-let azurerm_blueprint_assignment ?id ?lock_exclude_actions
+let register ?tf_module ?id ?lock_exclude_actions
     ?lock_exclude_principals ?lock_mode ?parameter_values
     ?resource_groups ?timeouts ~location ~name
     ~target_subscription_id ~version_id ~identity __resource_id =
   let __resource_type = "azurerm_blueprint_assignment" in
   let __resource =
-    ({
-       id;
-       location;
-       lock_exclude_actions;
-       lock_exclude_principals;
-       lock_mode;
-       name;
-       parameter_values;
-       resource_groups;
-       target_subscription_id;
-       version_id;
-       identity;
-       timeouts;
-     }
-      : azurerm_blueprint_assignment)
+    azurerm_blueprint_assignment ?id ?lock_exclude_actions
+      ?lock_exclude_principals ?lock_mode ?parameter_values
+      ?resource_groups ?timeouts ~location ~name
+      ~target_subscription_id ~version_id ~identity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_blueprint_assignment __resource);
   let __resource_attributes =
     ({

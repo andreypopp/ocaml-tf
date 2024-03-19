@@ -19,19 +19,22 @@ files in Cloudflare's persistent object storage buckets.
 Note: Using Cache Reserve without Tiered Cache is not recommended.
  *)
 
+let cloudflare_zone_cache_reserve ?id ~enabled ~zone_id () :
+    cloudflare_zone_cache_reserve =
+  { enabled; id; zone_id }
+
 type t = {
   enabled : bool prop;
   id : string prop;
   zone_id : string prop;
 }
 
-let cloudflare_zone_cache_reserve ?id ~enabled ~zone_id __resource_id
-    =
+let register ?tf_module ?id ~enabled ~zone_id __resource_id =
   let __resource_type = "cloudflare_zone_cache_reserve" in
   let __resource =
-    ({ enabled; id; zone_id } : cloudflare_zone_cache_reserve)
+    cloudflare_zone_cache_reserve ?id ~enabled ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_cache_reserve __resource);
   let __resource_attributes =
     ({

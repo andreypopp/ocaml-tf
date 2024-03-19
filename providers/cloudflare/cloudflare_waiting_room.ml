@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_waiting_room__additional_routes = {
+type additional_routes = {
   host : string prop;
       (** The additional host name for which the waiting room to be applied on (no wildcards). *)
   path : string prop option; [@option]
@@ -13,12 +13,12 @@ type cloudflare_waiting_room__additional_routes = {
 [@@deriving yojson_of]
 (** A list of additional hostname and paths combination to be applied on the waiting room. *)
 
-type cloudflare_waiting_room__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** cloudflare_waiting_room__timeouts *)
+(** timeouts *)
 
 type cloudflare_waiting_room = {
   cookie_suffix : string prop option; [@option]
@@ -56,12 +56,45 @@ type cloudflare_waiting_room = {
       (** The total number of active user sessions on the route at a point in time. *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  additional_routes :
-    cloudflare_waiting_room__additional_routes list;
-  timeouts : cloudflare_waiting_room__timeouts option;
+  additional_routes : additional_routes list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Waiting Room resource. *)
+
+let additional_routes ?path ~host () : additional_routes =
+  { host; path }
+
+let timeouts ?create ?update () : timeouts = { create; update }
+
+let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
+    ?default_template_language ?description ?disable_session_renewal
+    ?id ?json_response_enabled ?path ?queue_all ?queueing_method
+    ?queueing_status_code ?session_duration ?suspended ?timeouts
+    ~host ~name ~new_users_per_minute ~total_active_users ~zone_id
+    ~additional_routes () : cloudflare_waiting_room =
+  {
+    cookie_suffix;
+    custom_page_html;
+    default_template_language;
+    description;
+    disable_session_renewal;
+    host;
+    id;
+    json_response_enabled;
+    name;
+    new_users_per_minute;
+    path;
+    queue_all;
+    queueing_method;
+    queueing_status_code;
+    session_duration;
+    suspended;
+    total_active_users;
+    zone_id;
+    additional_routes;
+    timeouts;
+  }
 
 type t = {
   cookie_suffix : string prop;
@@ -84,7 +117,7 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
+let register ?tf_module ?cookie_suffix ?custom_page_html
     ?default_template_language ?description ?disable_session_renewal
     ?id ?json_response_enabled ?path ?queue_all ?queueing_method
     ?queueing_status_code ?session_duration ?suspended ?timeouts
@@ -92,31 +125,15 @@ let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
     ~additional_routes __resource_id =
   let __resource_type = "cloudflare_waiting_room" in
   let __resource =
-    ({
-       cookie_suffix;
-       custom_page_html;
-       default_template_language;
-       description;
-       disable_session_renewal;
-       host;
-       id;
-       json_response_enabled;
-       name;
-       new_users_per_minute;
-       path;
-       queue_all;
-       queueing_method;
-       queueing_status_code;
-       session_duration;
-       suspended;
-       total_active_users;
-       zone_id;
-       additional_routes;
-       timeouts;
-     }
-      : cloudflare_waiting_room)
+    cloudflare_waiting_room ?cookie_suffix ?custom_page_html
+      ?default_template_language ?description
+      ?disable_session_renewal ?id ?json_response_enabled ?path
+      ?queue_all ?queueing_method ?queueing_status_code
+      ?session_duration ?suspended ?timeouts ~host ~name
+      ~new_users_per_minute ~total_active_users ~zone_id
+      ~additional_routes ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_waiting_room __resource);
   let __resource_attributes =
     ({

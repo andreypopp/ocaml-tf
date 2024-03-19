@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_router__bgp__advertised_ip_ranges = {
+type bgp__advertised_ip_ranges = {
   description : string prop option; [@option]
       (** User-specified description for the IP range. *)
   range : string prop;
@@ -18,7 +18,7 @@ is CUSTOM and is advertised to all peers of the router. These IP
 ranges will be advertised in addition to any specified groups.
 Leave this field blank to advertise no custom IP ranges. *)
 
-type google_compute_router__bgp = {
+type bgp = {
   advertise_mode : string prop option; [@option]
       (** User-specified flag to indicate which mode to use for advertisement. Default value: DEFAULT Possible values: [DEFAULT, CUSTOM] *)
   advertised_groups : string prop list option; [@option]
@@ -45,19 +45,18 @@ BGP will use the smaller of either the local hold time value or the
 peer's hold time value as the hold time for the BGP connection
 between the two peers. If set, this value must be between 20 and 60.
 The default is 20. *)
-  advertised_ip_ranges :
-    google_compute_router__bgp__advertised_ip_ranges list;
+  advertised_ip_ranges : bgp__advertised_ip_ranges list;
 }
 [@@deriving yojson_of]
 (** BGP information specific to this router. *)
 
-type google_compute_router__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_router__timeouts *)
+(** timeouts *)
 
 type google_compute_router = {
   description : string prop option; [@option]
@@ -78,11 +77,43 @@ except the last character, which cannot be a dash. *)
   project : string prop option; [@option]  (** project *)
   region : string prop option; [@option]
       (** Region where the router resides. *)
-  bgp : google_compute_router__bgp list;
-  timeouts : google_compute_router__timeouts option;
+  bgp : bgp list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_router *)
+
+let bgp__advertised_ip_ranges ?description ~range () :
+    bgp__advertised_ip_ranges =
+  { description; range }
+
+let bgp ?advertise_mode ?advertised_groups ?keepalive_interval ~asn
+    ~advertised_ip_ranges () : bgp =
+  {
+    advertise_mode;
+    advertised_groups;
+    asn;
+    keepalive_interval;
+    advertised_ip_ranges;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_router ?description ?encrypted_interconnect_router
+    ?id ?project ?region ?timeouts ~name ~network ~bgp () :
+    google_compute_router =
+  {
+    description;
+    encrypted_interconnect_router;
+    id;
+    name;
+    network;
+    project;
+    region;
+    bgp;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -96,25 +127,15 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_router ?description ?encrypted_interconnect_router
+let register ?tf_module ?description ?encrypted_interconnect_router
     ?id ?project ?region ?timeouts ~name ~network ~bgp __resource_id
     =
   let __resource_type = "google_compute_router" in
   let __resource =
-    ({
-       description;
-       encrypted_interconnect_router;
-       id;
-       name;
-       network;
-       project;
-       region;
-       bgp;
-       timeouts;
-     }
-      : google_compute_router)
+    google_compute_router ?description ?encrypted_interconnect_router
+      ?id ?project ?region ?timeouts ~name ~network ~bgp ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_router __resource);
   let __resource_attributes =
     ({

@@ -12,20 +12,24 @@ type aws_ssm_default_patch_baseline = {
 [@@deriving yojson_of]
 (** aws_ssm_default_patch_baseline *)
 
+let aws_ssm_default_patch_baseline ?id ~baseline_id ~operating_system
+    () : aws_ssm_default_patch_baseline =
+  { baseline_id; id; operating_system }
+
 type t = {
   baseline_id : string prop;
   id : string prop;
   operating_system : string prop;
 }
 
-let aws_ssm_default_patch_baseline ?id ~baseline_id ~operating_system
+let register ?tf_module ?id ~baseline_id ~operating_system
     __resource_id =
   let __resource_type = "aws_ssm_default_patch_baseline" in
   let __resource =
-    ({ baseline_id; id; operating_system }
-      : aws_ssm_default_patch_baseline)
+    aws_ssm_default_patch_baseline ?id ~baseline_id ~operating_system
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_default_patch_baseline __resource);
   let __resource_attributes =
     ({

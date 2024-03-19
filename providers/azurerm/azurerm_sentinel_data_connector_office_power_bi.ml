@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_sentinel_data_connector_office_power_bi__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_sentinel_data_connector_office_power_bi__timeouts *)
+(** timeouts *)
 
 type azurerm_sentinel_data_connector_office_power_bi = {
   id : string prop option; [@option]  (** id *)
@@ -18,11 +18,18 @@ type azurerm_sentinel_data_connector_office_power_bi = {
       (** log_analytics_workspace_id *)
   name : string prop;  (** name *)
   tenant_id : string prop option; [@option]  (** tenant_id *)
-  timeouts :
-    azurerm_sentinel_data_connector_office_power_bi__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_office_power_bi *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_sentinel_data_connector_office_power_bi ?id ?tenant_id
+    ?timeouts ~log_analytics_workspace_id ~name () :
+    azurerm_sentinel_data_connector_office_power_bi =
+  { id; log_analytics_workspace_id; name; tenant_id; timeouts }
 
 type t = {
   id : string prop;
@@ -31,16 +38,16 @@ type t = {
   tenant_id : string prop;
 }
 
-let azurerm_sentinel_data_connector_office_power_bi ?id ?tenant_id
-    ?timeouts ~log_analytics_workspace_id ~name __resource_id =
+let register ?tf_module ?id ?tenant_id ?timeouts
+    ~log_analytics_workspace_id ~name __resource_id =
   let __resource_type =
     "azurerm_sentinel_data_connector_office_power_bi"
   in
   let __resource =
-    ({ id; log_analytics_workspace_id; name; tenant_id; timeouts }
-      : azurerm_sentinel_data_connector_office_power_bi)
+    azurerm_sentinel_data_connector_office_power_bi ?id ?tenant_id
+      ?timeouts ~log_analytics_workspace_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_data_connector_office_power_bi
        __resource);
   let __resource_attributes =

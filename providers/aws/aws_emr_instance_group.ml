@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_emr_instance_group__ebs_config = {
+type ebs_config = {
   iops : float prop option; [@option]  (** iops *)
   size : float prop;  (** size *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -12,7 +12,7 @@ type aws_emr_instance_group__ebs_config = {
       (** volumes_per_instance *)
 }
 [@@deriving yojson_of]
-(** aws_emr_instance_group__ebs_config *)
+(** ebs_config *)
 
 type aws_emr_instance_group = {
   autoscaling_policy : string prop option; [@option]
@@ -27,10 +27,31 @@ type aws_emr_instance_group = {
       (** instance_count *)
   instance_type : string prop;  (** instance_type *)
   name : string prop option; [@option]  (** name *)
-  ebs_config : aws_emr_instance_group__ebs_config list;
+  ebs_config : ebs_config list;
 }
 [@@deriving yojson_of]
 (** aws_emr_instance_group *)
+
+let ebs_config ?iops ?volumes_per_instance ~size ~type_ () :
+    ebs_config =
+  { iops; size; type_; volumes_per_instance }
+
+let aws_emr_instance_group ?autoscaling_policy ?bid_price
+    ?configurations_json ?ebs_optimized ?id ?instance_count ?name
+    ~cluster_id ~instance_type ~ebs_config () :
+    aws_emr_instance_group =
+  {
+    autoscaling_policy;
+    bid_price;
+    cluster_id;
+    configurations_json;
+    ebs_optimized;
+    id;
+    instance_count;
+    instance_type;
+    name;
+    ebs_config;
+  }
 
 type t = {
   autoscaling_policy : string prop;
@@ -46,26 +67,16 @@ type t = {
   status : string prop;
 }
 
-let aws_emr_instance_group ?autoscaling_policy ?bid_price
+let register ?tf_module ?autoscaling_policy ?bid_price
     ?configurations_json ?ebs_optimized ?id ?instance_count ?name
     ~cluster_id ~instance_type ~ebs_config __resource_id =
   let __resource_type = "aws_emr_instance_group" in
   let __resource =
-    ({
-       autoscaling_policy;
-       bid_price;
-       cluster_id;
-       configurations_json;
-       ebs_optimized;
-       id;
-       instance_count;
-       instance_type;
-       name;
-       ebs_config;
-     }
-      : aws_emr_instance_group)
+    aws_emr_instance_group ?autoscaling_policy ?bid_price
+      ?configurations_json ?ebs_optimized ?id ?instance_count ?name
+      ~cluster_id ~instance_type ~ebs_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_instance_group __resource);
   let __resource_attributes =
     ({

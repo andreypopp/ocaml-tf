@@ -2,7 +2,28 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_rolesanywhere_profile
+
+val aws_rolesanywhere_profile :
+  ?duration_seconds:float prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?managed_policy_arns:string prop list ->
+  ?require_instance_properties:bool prop ->
+  ?session_policy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  role_arns:string prop list ->
+  unit ->
+  aws_rolesanywhere_profile
+
+val yojson_of_aws_rolesanywhere_profile :
+  aws_rolesanywhere_profile -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -18,7 +39,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_rolesanywhere_profile :
+val register :
+  ?tf_module:tf_module ->
   ?duration_seconds:float prop ->
   ?enabled:bool prop ->
   ?id:string prop ->

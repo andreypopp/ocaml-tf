@@ -13,6 +13,10 @@ type aws_pinpoint_gcm_channel = {
 [@@deriving yojson_of]
 (** aws_pinpoint_gcm_channel *)
 
+let aws_pinpoint_gcm_channel ?enabled ?id ~api_key ~application_id ()
+    : aws_pinpoint_gcm_channel =
+  { api_key; application_id; enabled; id }
+
 type t = {
   api_key : string prop;
   application_id : string prop;
@@ -20,14 +24,13 @@ type t = {
   id : string prop;
 }
 
-let aws_pinpoint_gcm_channel ?enabled ?id ~api_key ~application_id
+let register ?tf_module ?enabled ?id ~api_key ~application_id
     __resource_id =
   let __resource_type = "aws_pinpoint_gcm_channel" in
   let __resource =
-    ({ api_key; application_id; enabled; id }
-      : aws_pinpoint_gcm_channel)
+    aws_pinpoint_gcm_channel ?enabled ?id ~api_key ~application_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pinpoint_gcm_channel __resource);
   let __resource_attributes =
     ({

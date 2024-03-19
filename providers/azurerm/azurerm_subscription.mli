@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_subscription__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_subscription
+
+val azurerm_subscription :
+  ?alias:string prop ->
+  ?billing_scope_id:string prop ->
+  ?id:string prop ->
+  ?subscription_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?workload:string prop ->
+  ?timeouts:timeouts ->
+  subscription_name:string prop ->
+  unit ->
+  azurerm_subscription
+
+val yojson_of_azurerm_subscription : azurerm_subscription -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   alias : string prop;
@@ -16,14 +43,15 @@ type t = private {
   workload : string prop;
 }
 
-val azurerm_subscription :
+val register :
+  ?tf_module:tf_module ->
   ?alias:string prop ->
   ?billing_scope_id:string prop ->
   ?id:string prop ->
   ?subscription_id:string prop ->
   ?tags:(string * string prop) list ->
   ?workload:string prop ->
-  ?timeouts:azurerm_subscription__timeouts ->
+  ?timeouts:timeouts ->
   subscription_name:string prop ->
   string ->
   t

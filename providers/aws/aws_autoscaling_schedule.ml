@@ -21,6 +21,23 @@ type aws_autoscaling_schedule = {
 [@@deriving yojson_of]
 (** aws_autoscaling_schedule *)
 
+let aws_autoscaling_schedule ?desired_capacity ?end_time ?id
+    ?max_size ?min_size ?recurrence ?start_time ?time_zone
+    ~autoscaling_group_name ~scheduled_action_name () :
+    aws_autoscaling_schedule =
+  {
+    autoscaling_group_name;
+    desired_capacity;
+    end_time;
+    id;
+    max_size;
+    min_size;
+    recurrence;
+    scheduled_action_name;
+    start_time;
+    time_zone;
+  }
+
 type t = {
   arn : string prop;
   autoscaling_group_name : string prop;
@@ -35,26 +52,16 @@ type t = {
   time_zone : string prop;
 }
 
-let aws_autoscaling_schedule ?desired_capacity ?end_time ?id
-    ?max_size ?min_size ?recurrence ?start_time ?time_zone
+let register ?tf_module ?desired_capacity ?end_time ?id ?max_size
+    ?min_size ?recurrence ?start_time ?time_zone
     ~autoscaling_group_name ~scheduled_action_name __resource_id =
   let __resource_type = "aws_autoscaling_schedule" in
   let __resource =
-    ({
-       autoscaling_group_name;
-       desired_capacity;
-       end_time;
-       id;
-       max_size;
-       min_size;
-       recurrence;
-       scheduled_action_name;
-       start_time;
-       time_zone;
-     }
-      : aws_autoscaling_schedule)
+    aws_autoscaling_schedule ?desired_capacity ?end_time ?id
+      ?max_size ?min_size ?recurrence ?start_time ?time_zone
+      ~autoscaling_group_name ~scheduled_action_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_schedule __resource);
   let __resource_attributes =
     ({

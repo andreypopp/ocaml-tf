@@ -13,6 +13,10 @@ type digitalocean_spaces_bucket_policy = {
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket_policy *)
 
+let digitalocean_spaces_bucket_policy ?id ~bucket ~policy ~region ()
+    : digitalocean_spaces_bucket_policy =
+  { bucket; id; policy; region }
+
 type t = {
   bucket : string prop;
   id : string prop;
@@ -20,14 +24,12 @@ type t = {
   region : string prop;
 }
 
-let digitalocean_spaces_bucket_policy ?id ~bucket ~policy ~region
-    __resource_id =
+let register ?tf_module ?id ~bucket ~policy ~region __resource_id =
   let __resource_type = "digitalocean_spaces_bucket_policy" in
   let __resource =
-    ({ bucket; id; policy; region }
-      : digitalocean_spaces_bucket_policy)
+    digitalocean_spaces_bucket_policy ?id ~bucket ~policy ~region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_spaces_bucket_policy __resource);
   let __resource_attributes =
     ({

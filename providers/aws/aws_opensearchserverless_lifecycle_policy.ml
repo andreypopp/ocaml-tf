@@ -13,6 +13,10 @@ type aws_opensearchserverless_lifecycle_policy = {
 [@@deriving yojson_of]
 (** aws_opensearchserverless_lifecycle_policy *)
 
+let aws_opensearchserverless_lifecycle_policy ?description ~name
+    ~policy ~type_ () : aws_opensearchserverless_lifecycle_policy =
+  { description; name; policy; type_ }
+
 type t = {
   description : string prop;
   id : string prop;
@@ -22,16 +26,16 @@ type t = {
   type_ : string prop;
 }
 
-let aws_opensearchserverless_lifecycle_policy ?description ~name
-    ~policy ~type_ __resource_id =
+let register ?tf_module ?description ~name ~policy ~type_
+    __resource_id =
   let __resource_type =
     "aws_opensearchserverless_lifecycle_policy"
   in
   let __resource =
-    ({ description; name; policy; type_ }
-      : aws_opensearchserverless_lifecycle_policy)
+    aws_opensearchserverless_lifecycle_policy ?description ~name
+      ~policy ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearchserverless_lifecycle_policy __resource);
   let __resource_attributes =
     ({

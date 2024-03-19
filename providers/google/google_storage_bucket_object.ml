@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_storage_bucket_object__customer_encryption = {
+type customer_encryption = {
   encryption_algorithm : string prop option; [@option]
       (** The encryption algorithm. Default: AES256 *)
   encryption_key : string prop;
@@ -13,7 +13,7 @@ type google_storage_bucket_object__customer_encryption = {
 [@@deriving yojson_of]
 (** Encryption key; encoded using base64. *)
 
-type google_storage_bucket_object__retention = {
+type retention = {
   mode : string prop;
       (** The object retention mode. Supported values include: Unlocked, Locked. *)
   retain_until_time : string prop;
@@ -22,13 +22,13 @@ type google_storage_bucket_object__retention = {
 [@@deriving yojson_of]
 (** Object level retention configuration. *)
 
-type google_storage_bucket_object__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_storage_bucket_object__timeouts *)
+(** timeouts *)
 
 type google_storage_bucket_object = {
   bucket : string prop;  (** The name of the containing bucket. *)
@@ -61,13 +61,50 @@ type google_storage_bucket_object = {
       (** The StorageClass of the new bucket object. Supported values include: MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE. If not provided, this defaults to the bucket's default storage class or to a standard class. *)
   temporary_hold : bool prop option; [@option]
       (** Whether an object is under temporary hold. While this flag is set to true, the object is protected against deletion and overwrites. *)
-  customer_encryption :
-    google_storage_bucket_object__customer_encryption list;
-  retention : google_storage_bucket_object__retention list;
-  timeouts : google_storage_bucket_object__timeouts option;
+  customer_encryption : customer_encryption list;
+  retention : retention list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_storage_bucket_object *)
+
+let customer_encryption ?encryption_algorithm ~encryption_key () :
+    customer_encryption =
+  { encryption_algorithm; encryption_key }
+
+let retention ~mode ~retain_until_time () : retention =
+  { mode; retain_until_time }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_storage_bucket_object ?cache_control ?content
+    ?content_disposition ?content_encoding ?content_language
+    ?content_type ?detect_md5hash ?event_based_hold ?id ?kms_key_name
+    ?metadata ?source ?storage_class ?temporary_hold ?timeouts
+    ~bucket ~name ~customer_encryption ~retention () :
+    google_storage_bucket_object =
+  {
+    bucket;
+    cache_control;
+    content;
+    content_disposition;
+    content_encoding;
+    content_language;
+    content_type;
+    detect_md5hash;
+    event_based_hold;
+    id;
+    kms_key_name;
+    metadata;
+    name;
+    source;
+    storage_class;
+    temporary_hold;
+    customer_encryption;
+    retention;
+    timeouts;
+  }
 
 type t = {
   bucket : string prop;
@@ -93,37 +130,20 @@ type t = {
   temporary_hold : bool prop;
 }
 
-let google_storage_bucket_object ?cache_control ?content
-    ?content_disposition ?content_encoding ?content_language
-    ?content_type ?detect_md5hash ?event_based_hold ?id ?kms_key_name
-    ?metadata ?source ?storage_class ?temporary_hold ?timeouts
-    ~bucket ~name ~customer_encryption ~retention __resource_id =
+let register ?tf_module ?cache_control ?content ?content_disposition
+    ?content_encoding ?content_language ?content_type ?detect_md5hash
+    ?event_based_hold ?id ?kms_key_name ?metadata ?source
+    ?storage_class ?temporary_hold ?timeouts ~bucket ~name
+    ~customer_encryption ~retention __resource_id =
   let __resource_type = "google_storage_bucket_object" in
   let __resource =
-    ({
-       bucket;
-       cache_control;
-       content;
-       content_disposition;
-       content_encoding;
-       content_language;
-       content_type;
-       detect_md5hash;
-       event_based_hold;
-       id;
-       kms_key_name;
-       metadata;
-       name;
-       source;
-       storage_class;
-       temporary_hold;
-       customer_encryption;
-       retention;
-       timeouts;
-     }
-      : google_storage_bucket_object)
+    google_storage_bucket_object ?cache_control ?content
+      ?content_disposition ?content_encoding ?content_language
+      ?content_type ?detect_md5hash ?event_based_hold ?id
+      ?kms_key_name ?metadata ?source ?storage_class ?temporary_hold
+      ?timeouts ~bucket ~name ~customer_encryption ~retention ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_bucket_object __resource);
   let __resource_attributes =
     ({

@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_url_map__default_route_action__cors_policy = {
+type default_route_action__cors_policy = {
   allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the actual request can include user credentials.
 This translates to the Access-Control-Allow-Credentials header. *)
@@ -31,7 +31,7 @@ This translates to the Access-Control-Max-Age header. *)
 (** The specification for allowing client side cross-origin requests. Please see
 [W3C Recommendation for Cross Origin Resource Sharing](https://www.w3.org/TR/cors/) *)
 
-type google_compute_url_map__default_route_action__fault_injection_policy__abort = {
+type default_route_action__fault_injection_policy__abort = {
   http_status : float prop option; [@option]
       (** The HTTP status code used to abort the request.
 The value must be between 200 and 599 inclusive. *)
@@ -42,7 +42,7 @@ The value must be between 0.0 and 100.0 inclusive. *)
 [@@deriving yojson_of]
 (** The specification for how client requests are aborted as part of fault injection. *)
 
-type google_compute_url_map__default_route_action__fault_injection_policy__delay__fixed_delay = {
+type default_route_action__fault_injection_policy__delay__fixed_delay = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are
 represented with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
@@ -53,24 +53,20 @@ Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.2
 [@@deriving yojson_of]
 (** Specifies the value of the fixed delay interval. *)
 
-type google_compute_url_map__default_route_action__fault_injection_policy__delay = {
+type default_route_action__fault_injection_policy__delay = {
   percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) on which delay will be introduced as part of fault injection.
 The value must be between 0.0 and 100.0 inclusive. *)
   fixed_delay :
-    google_compute_url_map__default_route_action__fault_injection_policy__delay__fixed_delay
+    default_route_action__fault_injection_policy__delay__fixed_delay
     list;
 }
 [@@deriving yojson_of]
 (** The specification for how client requests are delayed as part of fault injection, before being sent to a backend service. *)
 
-type google_compute_url_map__default_route_action__fault_injection_policy = {
-  abort :
-    google_compute_url_map__default_route_action__fault_injection_policy__abort
-    list;
-  delay :
-    google_compute_url_map__default_route_action__fault_injection_policy__delay
-    list;
+type default_route_action__fault_injection_policy = {
+  abort : default_route_action__fault_injection_policy__abort list;
+  delay : default_route_action__fault_injection_policy__delay list;
 }
 [@@deriving yojson_of]
 (** The specification for fault injection introduced into traffic to test the resiliency of clients to backend service failure.
@@ -80,7 +76,7 @@ by the Loadbalancer for a percentage of requests.
 
 timeout and retryPolicy will be ignored by clients that are configured with a faultInjectionPolicy. *)
 
-type google_compute_url_map__default_route_action__request_mirror_policy = {
+type default_route_action__request_mirror_policy = {
   backend_service : string prop;
       (** The full or partial URL to the BackendService resource being mirrored to. *)
 }
@@ -89,7 +85,7 @@ type google_compute_url_map__default_route_action__request_mirror_policy = {
 Loadbalancer does not wait for responses from the shadow service. Prior to sending traffic to the shadow service,
 the host / authority header is suffixed with -shadow. *)
 
-type google_compute_url_map__default_route_action__retry_policy__per_try_timeout = {
+type default_route_action__retry_policy__per_try_timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are
 represented with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
@@ -103,7 +99,7 @@ Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.2
 If not specified, will use the timeout set in HttpRouteAction. If timeout in HttpRouteAction is not set,
 will use the largest timeout among all backend services associated with the route. *)
 
-type google_compute_url_map__default_route_action__retry_policy = {
+type default_route_action__retry_policy = {
   num_retries : float prop option; [@option]
       (** Specifies the allowed number retries. This number must be > 0. If not specified, defaults to 1. *)
   retry_conditions : string prop list option; [@option]
@@ -124,13 +120,12 @@ type google_compute_url_map__default_route_action__retry_policy = {
 * resource-exhausted: Loadbalancer will retry if the gRPC status code in the response header is set to resource-exhausted
 * unavailable: Loadbalancer will retry if the gRPC status code in the response header is set to unavailable *)
   per_try_timeout :
-    google_compute_url_map__default_route_action__retry_policy__per_try_timeout
-    list;
+    default_route_action__retry_policy__per_try_timeout list;
 }
 [@@deriving yojson_of]
 (** Specifies the retry policy associated with this route. *)
 
-type google_compute_url_map__default_route_action__timeout = {
+type default_route_action__timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are represented
 with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
@@ -144,7 +139,7 @@ fully processed (i.e. end-of-stream) up until the response has been completely p
 
 If not specified, will use the largest timeout among all backend services associated with the route. *)
 
-type google_compute_url_map__default_route_action__url_rewrite = {
+type default_route_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected service, the request's host header is replaced
 with contents of hostRewrite.
@@ -159,7 +154,7 @@ The value must be between 1 and 1024 characters. *)
 [@@deriving yojson_of]
 (** The spec to modify the URL of the request, prior to forwarding the request to the matched service. *)
 
-type google_compute_url_map__default_route_action__weighted_backend_services__header_action__request_headers_to_add = {
+type default_route_action__weighted_backend_services__header_action__request_headers_to_add = {
   header_name : string prop option; [@option]
       (** The name of the header to add. *)
   header_value : string prop option; [@option]
@@ -171,7 +166,7 @@ If true, headerValue is set for the header, discarding any values that were set 
 [@@deriving yojson_of]
 (** Headers to add to a matching request prior to forwarding the request to the backendService. *)
 
-type google_compute_url_map__default_route_action__weighted_backend_services__header_action__response_headers_to_add = {
+type default_route_action__weighted_backend_services__header_action__response_headers_to_add = {
   header_name : string prop option; [@option]
       (** The name of the header to add. *)
   header_value : string prop option; [@option]
@@ -183,7 +178,7 @@ If true, headerValue is set for the header, discarding any values that were set 
 [@@deriving yojson_of]
 (** Headers to add the response prior to sending the response back to the client. *)
 
-type google_compute_url_map__default_route_action__weighted_backend_services__header_action = {
+type default_route_action__weighted_backend_services__header_action = {
   request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request prior to
 forwarding the request to the backendService. *)
@@ -191,10 +186,10 @@ forwarding the request to the backendService. *)
       (** A list of header names for headers that need to be removed from the response prior to sending the
 response back to the client. *)
   request_headers_to_add :
-    google_compute_url_map__default_route_action__weighted_backend_services__header_action__request_headers_to_add
+    default_route_action__weighted_backend_services__header_action__request_headers_to_add
     list;
   response_headers_to_add :
-    google_compute_url_map__default_route_action__weighted_backend_services__header_action__response_headers_to_add
+    default_route_action__weighted_backend_services__header_action__response_headers_to_add
     list;
 }
 [@@deriving yojson_of]
@@ -204,7 +199,7 @@ the selected backendService.
 headerAction specified here take effect before headerAction in the enclosing
 HttpRouteRule, PathMatcher and UrlMap. *)
 
-type google_compute_url_map__default_route_action__weighted_backend_services = {
+type default_route_action__weighted_backend_services = {
   backend_service : string prop option; [@option]
       (** The full or partial URL to the default BackendService resource. Before forwarding the
 request to backendService, the loadbalancer applies any relevant headerActions
@@ -219,7 +214,7 @@ as determined by the BackendService's session affinity policy.
 
 The value must be between 0 and 1000 *)
   header_action :
-    google_compute_url_map__default_route_action__weighted_backend_services__header_action
+    default_route_action__weighted_backend_services__header_action
     list;
 }
 [@@deriving yojson_of]
@@ -232,24 +227,17 @@ Once a backendService is identified and before forwarding the request to the bac
 advanced routing actions like Url rewrites and header transformations are applied depending on
 additional settings specified in this HttpRouteAction. *)
 
-type google_compute_url_map__default_route_action = {
-  cors_policy :
-    google_compute_url_map__default_route_action__cors_policy list;
+type default_route_action = {
+  cors_policy : default_route_action__cors_policy list;
   fault_injection_policy :
-    google_compute_url_map__default_route_action__fault_injection_policy
-    list;
+    default_route_action__fault_injection_policy list;
   request_mirror_policy :
-    google_compute_url_map__default_route_action__request_mirror_policy
-    list;
-  retry_policy :
-    google_compute_url_map__default_route_action__retry_policy list;
-  timeout :
-    google_compute_url_map__default_route_action__timeout list;
-  url_rewrite :
-    google_compute_url_map__default_route_action__url_rewrite list;
+    default_route_action__request_mirror_policy list;
+  retry_policy : default_route_action__retry_policy list;
+  timeout : default_route_action__timeout list;
+  url_rewrite : default_route_action__url_rewrite list;
   weighted_backend_services :
-    google_compute_url_map__default_route_action__weighted_backend_services
-    list;
+    default_route_action__weighted_backend_services list;
 }
 [@@deriving yojson_of]
 (** defaultRouteAction takes effect when none of the hostRules match. The load balancer performs advanced routing actions
@@ -259,7 +247,7 @@ is set, defaultRouteAction cannot contain any weightedBackendServices.
 
 Only one of defaultRouteAction or defaultUrlRedirect must be set. *)
 
-type google_compute_url_map__default_url_redirect = {
+type default_url_redirect = {
   host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one that was
 supplied in the request. The value must be between 1 and 255 characters. *)
@@ -305,7 +293,7 @@ retained. The default is set to false.
 by defaultUrlRedirect. If defaultUrlRedirect is specified, defaultService or
 defaultRouteAction must not be set. *)
 
-type google_compute_url_map__header_action__request_headers_to_add = {
+type header_action__request_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -317,7 +305,7 @@ were set for that header. *)
 (** Headers to add to a matching request prior to forwarding the request to the
 backendService. *)
 
-type google_compute_url_map__header_action__response_headers_to_add = {
+type header_action__response_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -328,7 +316,7 @@ were set for that header. *)
 [@@deriving yojson_of]
 (** Headers to add the response prior to sending the response back to the client. *)
 
-type google_compute_url_map__header_action = {
+type header_action = {
   request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
@@ -336,18 +324,16 @@ prior to forwarding the request to the backendService. *)
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
-    google_compute_url_map__header_action__request_headers_to_add
-    list;
+    header_action__request_headers_to_add list;
   response_headers_to_add :
-    google_compute_url_map__header_action__response_headers_to_add
-    list;
+    header_action__response_headers_to_add list;
 }
 [@@deriving yojson_of]
 (** Specifies changes to request and response headers that need to take effect for
 the selected backendService. The headerAction specified here take effect after
 headerAction specified under pathMatcher. *)
 
-type google_compute_url_map__host_rule = {
+type host_rule = {
   description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when you create
 the resource. *)
@@ -362,7 +348,7 @@ hostRule matches the URL's host portion. *)
 [@@deriving yojson_of]
 (** The list of HostRules to use against the URL. *)
 
-type google_compute_url_map__path_matcher__default_route_action__cors_policy = {
+type path_matcher__default_route_action__cors_policy = {
   allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the actual request can include user credentials.
 This translates to the Access-Control-Allow-Credentials header. *)
@@ -389,7 +375,7 @@ This translates to the Access-Control-Max-Age header. *)
 (** The specification for allowing client side cross-origin requests. Please see
 [W3C Recommendation for Cross Origin Resource Sharing](https://www.w3.org/TR/cors/) *)
 
-type google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__abort = {
+type path_matcher__default_route_action__fault_injection_policy__abort = {
   http_status : float prop option; [@option]
       (** The HTTP status code used to abort the request.
 The value must be between 200 and 599 inclusive. *)
@@ -400,7 +386,7 @@ The value must be between 0.0 and 100.0 inclusive. *)
 [@@deriving yojson_of]
 (** The specification for how client requests are aborted as part of fault injection. *)
 
-type google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay = {
+type path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are
 represented with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
@@ -411,23 +397,23 @@ Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.2
 [@@deriving yojson_of]
 (** Specifies the value of the fixed delay interval. *)
 
-type google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__delay = {
+type path_matcher__default_route_action__fault_injection_policy__delay = {
   percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) on which delay will be introduced as part of fault injection.
 The value must be between 0.0 and 100.0 inclusive. *)
   fixed_delay :
-    google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay
+    path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay
     list;
 }
 [@@deriving yojson_of]
 (** The specification for how client requests are delayed as part of fault injection, before being sent to a backend service. *)
 
-type google_compute_url_map__path_matcher__default_route_action__fault_injection_policy = {
+type path_matcher__default_route_action__fault_injection_policy = {
   abort :
-    google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__abort
+    path_matcher__default_route_action__fault_injection_policy__abort
     list;
   delay :
-    google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__delay
+    path_matcher__default_route_action__fault_injection_policy__delay
     list;
 }
 [@@deriving yojson_of]
@@ -438,7 +424,7 @@ by the Loadbalancer for a percentage of requests.
 
 timeout and retryPolicy will be ignored by clients that are configured with a faultInjectionPolicy. *)
 
-type google_compute_url_map__path_matcher__default_route_action__request_mirror_policy = {
+type path_matcher__default_route_action__request_mirror_policy = {
   backend_service : string prop;
       (** The full or partial URL to the BackendService resource being mirrored to. *)
 }
@@ -447,7 +433,7 @@ type google_compute_url_map__path_matcher__default_route_action__request_mirror_
 Loadbalancer does not wait for responses from the shadow service. Prior to sending traffic to the shadow service,
 the host / authority header is suffixed with -shadow. *)
 
-type google_compute_url_map__path_matcher__default_route_action__retry_policy__per_try_timeout = {
+type path_matcher__default_route_action__retry_policy__per_try_timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are
 represented with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
@@ -461,7 +447,7 @@ Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.2
 If not specified, will use the timeout set in HttpRouteAction. If timeout in HttpRouteAction is not set,
 will use the largest timeout among all backend services associated with the route. *)
 
-type google_compute_url_map__path_matcher__default_route_action__retry_policy = {
+type path_matcher__default_route_action__retry_policy = {
   num_retries : float prop option; [@option]
       (** Specifies the allowed number retries. This number must be > 0. If not specified, defaults to 1. *)
   retry_conditions : string prop list option; [@option]
@@ -482,13 +468,13 @@ type google_compute_url_map__path_matcher__default_route_action__retry_policy = 
 * resource-exhausted: Loadbalancer will retry if the gRPC status code in the response header is set to resource-exhausted
 * unavailable: Loadbalancer will retry if the gRPC status code in the response header is set to unavailable *)
   per_try_timeout :
-    google_compute_url_map__path_matcher__default_route_action__retry_policy__per_try_timeout
+    path_matcher__default_route_action__retry_policy__per_try_timeout
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the retry policy associated with this route. *)
 
-type google_compute_url_map__path_matcher__default_route_action__timeout = {
+type path_matcher__default_route_action__timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are represented
 with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
@@ -502,7 +488,7 @@ fully processed (i.e. end-of-stream) up until the response has been completely p
 
 If not specified, will use the largest timeout among all backend services associated with the route. *)
 
-type google_compute_url_map__path_matcher__default_route_action__url_rewrite = {
+type path_matcher__default_route_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected service, the request's host header is replaced
 with contents of hostRewrite.
@@ -517,7 +503,7 @@ The value must be between 1 and 1024 characters. *)
 [@@deriving yojson_of]
 (** The spec to modify the URL of the request, prior to forwarding the request to the matched service. *)
 
-type google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add = {
+type path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add = {
   header_name : string prop option; [@option]
       (** The name of the header to add. *)
   header_value : string prop option; [@option]
@@ -529,7 +515,7 @@ If true, headerValue is set for the header, discarding any values that were set 
 [@@deriving yojson_of]
 (** Headers to add to a matching request prior to forwarding the request to the backendService. *)
 
-type google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add = {
+type path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add = {
   header_name : string prop option; [@option]
       (** The name of the header to add. *)
   header_value : string prop option; [@option]
@@ -541,7 +527,7 @@ If true, headerValue is set for the header, discarding any values that were set 
 [@@deriving yojson_of]
 (** Headers to add the response prior to sending the response back to the client. *)
 
-type google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action = {
+type path_matcher__default_route_action__weighted_backend_services__header_action = {
   request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request prior to
 forwarding the request to the backendService. *)
@@ -549,10 +535,10 @@ forwarding the request to the backendService. *)
       (** A list of header names for headers that need to be removed from the response prior to sending the
 response back to the client. *)
   request_headers_to_add :
-    google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add
+    path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add
     list;
   response_headers_to_add :
-    google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add
+    path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add
     list;
 }
 [@@deriving yojson_of]
@@ -562,7 +548,7 @@ the selected backendService.
 headerAction specified here take effect before headerAction in the enclosing
 HttpRouteRule, PathMatcher and UrlMap. *)
 
-type google_compute_url_map__path_matcher__default_route_action__weighted_backend_services = {
+type path_matcher__default_route_action__weighted_backend_services = {
   backend_service : string prop option; [@option]
       (** The full or partial URL to the default BackendService resource. Before forwarding the
 request to backendService, the loadbalancer applies any relevant headerActions
@@ -577,7 +563,7 @@ as determined by the BackendService's session affinity policy.
 
 The value must be between 0 and 1000 *)
   header_action :
-    google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action
+    path_matcher__default_route_action__weighted_backend_services__header_action
     list;
 }
 [@@deriving yojson_of]
@@ -590,27 +576,18 @@ Once a backendService is identified and before forwarding the request to the bac
 advanced routing actions like Url rewrites and header transformations are applied depending on
 additional settings specified in this HttpRouteAction. *)
 
-type google_compute_url_map__path_matcher__default_route_action = {
-  cors_policy :
-    google_compute_url_map__path_matcher__default_route_action__cors_policy
-    list;
+type path_matcher__default_route_action = {
+  cors_policy : path_matcher__default_route_action__cors_policy list;
   fault_injection_policy :
-    google_compute_url_map__path_matcher__default_route_action__fault_injection_policy
-    list;
+    path_matcher__default_route_action__fault_injection_policy list;
   request_mirror_policy :
-    google_compute_url_map__path_matcher__default_route_action__request_mirror_policy
-    list;
+    path_matcher__default_route_action__request_mirror_policy list;
   retry_policy :
-    google_compute_url_map__path_matcher__default_route_action__retry_policy
-    list;
-  timeout :
-    google_compute_url_map__path_matcher__default_route_action__timeout
-    list;
-  url_rewrite :
-    google_compute_url_map__path_matcher__default_route_action__url_rewrite
-    list;
+    path_matcher__default_route_action__retry_policy list;
+  timeout : path_matcher__default_route_action__timeout list;
+  url_rewrite : path_matcher__default_route_action__url_rewrite list;
   weighted_backend_services :
-    google_compute_url_map__path_matcher__default_route_action__weighted_backend_services
+    path_matcher__default_route_action__weighted_backend_services
     list;
 }
 [@@deriving yojson_of]
@@ -621,7 +598,7 @@ Conversely if defaultService is set, defaultRouteAction cannot contain any weigh
 
 Only one of defaultRouteAction or defaultUrlRedirect must be set. *)
 
-type google_compute_url_map__path_matcher__default_url_redirect = {
+type path_matcher__default_url_redirect = {
   host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one that was
 supplied in the request. The value must be between 1 and 255 characters. *)
@@ -667,7 +644,7 @@ retained.
 by defaultUrlRedirect. If defaultUrlRedirect is specified, defaultService or
 defaultRouteAction must not be set. *)
 
-type google_compute_url_map__path_matcher__header_action__request_headers_to_add = {
+type path_matcher__header_action__request_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -679,7 +656,7 @@ were set for that header. *)
 (** Headers to add to a matching request prior to forwarding the request to the
 backendService. *)
 
-type google_compute_url_map__path_matcher__header_action__response_headers_to_add = {
+type path_matcher__header_action__response_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -690,7 +667,7 @@ were set for that header. *)
 [@@deriving yojson_of]
 (** Headers to add the response prior to sending the response back to the client. *)
 
-type google_compute_url_map__path_matcher__header_action = {
+type path_matcher__header_action = {
   request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
@@ -698,18 +675,16 @@ prior to forwarding the request to the backendService. *)
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
-    google_compute_url_map__path_matcher__header_action__request_headers_to_add
-    list;
+    path_matcher__header_action__request_headers_to_add list;
   response_headers_to_add :
-    google_compute_url_map__path_matcher__header_action__response_headers_to_add
-    list;
+    path_matcher__header_action__response_headers_to_add list;
 }
 [@@deriving yojson_of]
 (** Specifies changes to request and response headers that need to take effect for
 the selected backendService. HeaderAction specified here are applied after the
 matching HttpRouteRule HeaderAction and before the HeaderAction in the UrlMap *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__cors_policy = {
+type path_matcher__path_rule__route_action__cors_policy = {
   allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the
 actual request can include user credentials. This translates to the Access-
@@ -737,7 +712,7 @@ translates to the content for the Access-Control-Max-Age header. *)
 (** The specification for allowing client side cross-origin requests. Please see W3C
 Recommendation for Cross Origin Resource Sharing *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__abort = {
+type path_matcher__path_rule__route_action__fault_injection_policy__abort = {
   http_status : float prop;
       (** The HTTP status code used to abort the request. The value must be between 200
 and 599 inclusive. *)
@@ -750,7 +725,7 @@ inclusive. *)
 (** The specification for how client requests are aborted as part of fault
 injection. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay = {
+type path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
@@ -762,25 +737,25 @@ inclusive. *)
 [@@deriving yojson_of]
 (** Specifies the value of the fixed delay interval. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__delay = {
+type path_matcher__path_rule__route_action__fault_injection_policy__delay = {
   percentage : float prop;
       (** The percentage of traffic (connections/operations/requests) on which delay will
 be introduced as part of fault injection. The value must be between 0.0 and
 100.0 inclusive. *)
   fixed_delay :
-    google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay
+    path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay
     list;
 }
 [@@deriving yojson_of]
 (** The specification for how client requests are delayed as part of fault
 injection, before being sent to a backend service. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy = {
+type path_matcher__path_rule__route_action__fault_injection_policy = {
   abort :
-    google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__abort
+    path_matcher__path_rule__route_action__fault_injection_policy__abort
     list;
   delay :
-    google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__delay
+    path_matcher__path_rule__route_action__fault_injection_policy__delay
     list;
 }
 [@@deriving yojson_of]
@@ -792,7 +767,7 @@ backend service. Similarly requests from clients can be aborted by the
 Loadbalancer for a percentage of requests. timeout and retry_policy will be
 ignored by clients that are configured with a fault_injection_policy. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__request_mirror_policy = {
+type path_matcher__path_rule__route_action__request_mirror_policy = {
   backend_service : string prop;
       (** The BackendService resource being mirrored to. *)
 }
@@ -802,7 +777,7 @@ shadowed to a separate mirrored backend service. Loadbalancer does not wait for
 responses from the shadow service. Prior to sending traffic to the shadow
 service, the host / authority header is suffixed with -shadow. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__retry_policy__per_try_timeout = {
+type path_matcher__path_rule__route_action__retry_policy__per_try_timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
@@ -814,7 +789,7 @@ inclusive. *)
 [@@deriving yojson_of]
 (** Specifies a non-zero timeout per retry attempt. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__retry_policy = {
+type path_matcher__path_rule__route_action__retry_policy = {
   num_retries : float prop option; [@option]
       (** Specifies the allowed number retries. This number must be > 0. *)
   retry_conditions : string prop list option; [@option]
@@ -841,13 +816,13 @@ header is set to resource-exhausted
 * unavailable: Loadbalancer will retry if
 the gRPC status code in the response header is set to unavailable *)
   per_try_timeout :
-    google_compute_url_map__path_matcher__path_rule__route_action__retry_policy__per_try_timeout
+    path_matcher__path_rule__route_action__retry_policy__per_try_timeout
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the retry policy associated with this route. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__timeout = {
+type path_matcher__path_rule__route_action__timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
@@ -862,7 +837,7 @@ the request is has been fully processed (i.e. end-of-stream) up until the
 response has been completely processed. Timeout includes all retries. If not
 specified, the default value is 15 seconds. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__url_rewrite = {
+type path_matcher__path_rule__route_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected service, the request's host
 header is replaced with contents of hostRewrite. The value must be between 1 and
@@ -876,7 +851,7 @@ be between 1 and 1024 characters. *)
 (** The spec to modify the URL of the request, prior to forwarding the request to
 the matched service *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add = {
+type path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -888,7 +863,7 @@ were set for that header. *)
 (** Headers to add to a matching request prior to forwarding the request to the
 backendService. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add = {
+type path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -899,7 +874,7 @@ were set for that header. *)
 [@@deriving yojson_of]
 (** Headers to add the response prior to sending the response back to the client. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action = {
+type path_matcher__path_rule__route_action__weighted_backend_services__header_action = {
   request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
@@ -907,10 +882,10 @@ prior to forwarding the request to the backendService. *)
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
-    google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add
+    path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add
     list;
   response_headers_to_add :
-    google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add
+    path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add
     list;
 }
 [@@deriving yojson_of]
@@ -918,7 +893,7 @@ prior to sending the response back to the client. *)
 the selected backendService. headerAction specified here take effect before
 headerAction in the enclosing HttpRouteRule, PathMatcher and UrlMap. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services = {
+type path_matcher__path_rule__route_action__weighted_backend_services = {
   backend_service : string prop;
       (** The default BackendService resource. Before
 forwarding the request to backendService, the loadbalancer applies any relevant
@@ -931,7 +906,7 @@ been directed to a backendService, subsequent requests will be sent to the same
 backendService as determined by the BackendService's session affinity policy.
 The value must be between 0 and 1000 *)
   header_action :
-    google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action
+    path_matcher__path_rule__route_action__weighted_backend_services__header_action
     list;
 }
 [@@deriving yojson_of]
@@ -944,27 +919,21 @@ the backend service, advanced routing actions like Url rewrites and header
 transformations are applied depending on additional settings specified in this
 HttpRouteAction. *)
 
-type google_compute_url_map__path_matcher__path_rule__route_action = {
+type path_matcher__path_rule__route_action = {
   cors_policy :
-    google_compute_url_map__path_matcher__path_rule__route_action__cors_policy
-    list;
+    path_matcher__path_rule__route_action__cors_policy list;
   fault_injection_policy :
-    google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy
+    path_matcher__path_rule__route_action__fault_injection_policy
     list;
   request_mirror_policy :
-    google_compute_url_map__path_matcher__path_rule__route_action__request_mirror_policy
-    list;
+    path_matcher__path_rule__route_action__request_mirror_policy list;
   retry_policy :
-    google_compute_url_map__path_matcher__path_rule__route_action__retry_policy
-    list;
-  timeout :
-    google_compute_url_map__path_matcher__path_rule__route_action__timeout
-    list;
+    path_matcher__path_rule__route_action__retry_policy list;
+  timeout : path_matcher__path_rule__route_action__timeout list;
   url_rewrite :
-    google_compute_url_map__path_matcher__path_rule__route_action__url_rewrite
-    list;
+    path_matcher__path_rule__route_action__url_rewrite list;
   weighted_backend_services :
-    google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services
+    path_matcher__path_rule__route_action__weighted_backend_services
     list;
 }
 [@@deriving yojson_of]
@@ -975,7 +944,7 @@ weightedBackendServices, service must not be set. Conversely if service is set,
 routeAction cannot contain any  weightedBackendServices. Only one of routeAction
 or urlRedirect must be set. *)
 
-type google_compute_url_map__path_matcher__path_rule__url_redirect = {
+type path_matcher__path_rule__url_redirect = {
   host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one
 that was supplied in the request. The value must be between 1 and 255
@@ -1024,7 +993,7 @@ portion of the original URL is retained.
 by urlRedirect. If urlRedirect is specified, service or routeAction must not
 be set. *)
 
-type google_compute_url_map__path_matcher__path_rule = {
+type path_matcher__path_rule = {
   paths : string prop list;
       (** The list of path patterns to match. Each must start with / and the only place a
 \* is allowed is at the end following a /. The string fed to the path matcher
@@ -1032,12 +1001,8 @@ does not include any text after the first ? or #, and those chars are not
 allowed here. *)
   service : string prop option; [@option]
       (** The backend service or backend bucket to use if any of the given paths match. *)
-  route_action :
-    google_compute_url_map__path_matcher__path_rule__route_action
-    list;
-  url_redirect :
-    google_compute_url_map__path_matcher__path_rule__url_redirect
-    list;
+  route_action : path_matcher__path_rule__route_action list;
+  url_redirect : path_matcher__path_rule__url_redirect list;
 }
 [@@deriving yojson_of]
 (** The list of path rules. Use this list instead of routeRules when routing based
@@ -1047,7 +1012,7 @@ basis. For example: a pathRule with a path /a/b/c/* will match before /a/b/*
 irrespective of the order in which those paths appear in this list. Within a
 given pathMatcher, only one of pathRules or routeRules must be set. *)
 
-type google_compute_url_map__path_matcher__route_rules__header_action__request_headers_to_add = {
+type path_matcher__route_rules__header_action__request_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -1059,7 +1024,7 @@ were set for that header. *)
 (** Headers to add to a matching request prior to forwarding the request to the
 backendService. *)
 
-type google_compute_url_map__path_matcher__route_rules__header_action__response_headers_to_add = {
+type path_matcher__route_rules__header_action__response_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -1070,7 +1035,7 @@ were set for that header. *)
 [@@deriving yojson_of]
 (** Headers to add the response prior to sending the response back to the client. *)
 
-type google_compute_url_map__path_matcher__route_rules__header_action = {
+type path_matcher__route_rules__header_action = {
   request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
@@ -1078,10 +1043,10 @@ prior to forwarding the request to the backendService. *)
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
-    google_compute_url_map__path_matcher__route_rules__header_action__request_headers_to_add
+    path_matcher__route_rules__header_action__request_headers_to_add
     list;
   response_headers_to_add :
-    google_compute_url_map__path_matcher__route_rules__header_action__response_headers_to_add
+    path_matcher__route_rules__header_action__response_headers_to_add
     list;
 }
 [@@deriving yojson_of]
@@ -1090,7 +1055,7 @@ the selected backendService. The headerAction specified here are applied before
 the matching pathMatchers[].headerAction and after pathMatchers[].routeRules[].r
 outeAction.weightedBackendService.backendServiceWeightAction[].headerAction *)
 
-type google_compute_url_map__path_matcher__route_rules__match_rules__header_matches__range_match = {
+type path_matcher__route_rules__match_rules__header_matches__range_match = {
   range_end : float prop;  (** The end of the range (exclusive). *)
   range_start : float prop;
       (** The start of the range (inclusive). *)
@@ -1103,7 +1068,7 @@ not match.  - 0.25 will not match.  - -3someString will not match.   Only one of
 exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch
 must be set. *)
 
-type google_compute_url_map__path_matcher__route_rules__match_rules__header_matches = {
+type path_matcher__route_rules__match_rules__header_matches = {
   exact_match : string prop option; [@option]
       (** The value should exactly match contents of exactMatch. Only one of exactMatch,
 prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch must be set. *)
@@ -1136,14 +1101,14 @@ rangeMatch must be set. *)
 exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch
 must be set. *)
   range_match :
-    google_compute_url_map__path_matcher__route_rules__match_rules__header_matches__range_match
+    path_matcher__route_rules__match_rules__header_matches__range_match
     list;
 }
 [@@deriving yojson_of]
 (** Specifies a list of header match criteria, all of which must match corresponding
 headers in the request. *)
 
-type google_compute_url_map__path_matcher__route_rules__match_rules__metadata_filters__filter_labels = {
+type path_matcher__route_rules__match_rules__metadata_filters__filter_labels = {
   name : string prop;
       (** Name of metadata label. The name can have a maximum length of 1024 characters
 and must be at least 1 character long. *)
@@ -1156,7 +1121,7 @@ length of 1024 characters. *)
 based on filterMatchCriteria  This list must not be empty and can have at the
 most 64 entries. *)
 
-type google_compute_url_map__path_matcher__route_rules__match_rules__metadata_filters = {
+type path_matcher__route_rules__match_rules__metadata_filters = {
   filter_match_criteria : string prop;
       (** Specifies how individual filterLabel matches within the list of filterLabels
 contribute towards the overall metadataFilter match. Supported values are:
@@ -1165,7 +1130,7 @@ provided metadata.
   - MATCH_ALL: All filterLabels must have matching labels in
 the provided metadata. Possible values: [MATCH_ALL, MATCH_ANY] *)
   filter_labels :
-    google_compute_url_map__path_matcher__route_rules__match_rules__metadata_filters__filter_labels
+    path_matcher__route_rules__match_rules__metadata_filters__filter_labels
     list;
 }
 [@@deriving yojson_of]
@@ -1181,7 +1146,7 @@ here can be overrides those specified in ForwardingRule that refers to this
 UrlMap. metadataFilters only applies to Loadbalancers that have their
 loadBalancingScheme set to INTERNAL_SELF_MANAGED. *)
 
-type google_compute_url_map__path_matcher__route_rules__match_rules__query_parameter_matches = {
+type path_matcher__route_rules__match_rules__query_parameter_matches = {
   exact_match : string prop option; [@option]
       (** The queryParameterMatch matches if the value of the parameter exactly matches
 the contents of exactMatch. Only one of presentMatch, exactMatch and regexMatch
@@ -1203,7 +1168,7 @@ exactMatch and regexMatch must be set. *)
 (** Specifies a list of query parameter match criteria, all of which must match
 corresponding query parameters in the request. *)
 
-type google_compute_url_map__path_matcher__route_rules__match_rules = {
+type path_matcher__route_rules__match_rules = {
   full_path_match : string prop option; [@option]
       (** For satisfying the matchRule condition, the path of the request must exactly
 match the value specified in fullPathMatch after removing any query parameters
@@ -1235,19 +1200,17 @@ and anchor supplied with the original URL. For regular expression grammar please
 see en.cppreference.com/w/cpp/regex/ecmascript  Only one of prefixMatch,
 fullPathMatch or regexMatch must be specified. *)
   header_matches :
-    google_compute_url_map__path_matcher__route_rules__match_rules__header_matches
-    list;
+    path_matcher__route_rules__match_rules__header_matches list;
   metadata_filters :
-    google_compute_url_map__path_matcher__route_rules__match_rules__metadata_filters
-    list;
+    path_matcher__route_rules__match_rules__metadata_filters list;
   query_parameter_matches :
-    google_compute_url_map__path_matcher__route_rules__match_rules__query_parameter_matches
+    path_matcher__route_rules__match_rules__query_parameter_matches
     list;
 }
 [@@deriving yojson_of]
 (** The rules for determining a match. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__cors_policy = {
+type path_matcher__route_rules__route_action__cors_policy = {
   allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the
 actual request can include user credentials. This translates to the Access-
@@ -1276,7 +1239,7 @@ translates to the content for the Access-Control-Max-Age header. *)
 (** The specification for allowing client side cross-origin requests. Please see W3C
 Recommendation for Cross Origin Resource Sharing *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__abort = {
+type path_matcher__route_rules__route_action__fault_injection_policy__abort = {
   http_status : float prop option; [@option]
       (** The HTTP status code used to abort the request. The value must be between 200
 and 599 inclusive. *)
@@ -1289,7 +1252,7 @@ inclusive. *)
 (** The specification for how client requests are aborted as part of fault
 injection. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay = {
+type path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
@@ -1301,25 +1264,25 @@ inclusive. *)
 [@@deriving yojson_of]
 (** Specifies the value of the fixed delay interval. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__delay = {
+type path_matcher__route_rules__route_action__fault_injection_policy__delay = {
   percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) on which delay will
 be introduced as part of fault injection. The value must be between 0.0 and
 100.0 inclusive. *)
   fixed_delay :
-    google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay
+    path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay
     list;
 }
 [@@deriving yojson_of]
 (** The specification for how client requests are delayed as part of fault
 injection, before being sent to a backend service. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy = {
+type path_matcher__route_rules__route_action__fault_injection_policy = {
   abort :
-    google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__abort
+    path_matcher__route_rules__route_action__fault_injection_policy__abort
     list;
   delay :
-    google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__delay
+    path_matcher__route_rules__route_action__fault_injection_policy__delay
     list;
 }
 [@@deriving yojson_of]
@@ -1331,7 +1294,7 @@ backend service. Similarly requests from clients can be aborted by the
 Loadbalancer for a percentage of requests. timeout and retry_policy will be
 ignored by clients that are configured with a fault_injection_policy. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__request_mirror_policy = {
+type path_matcher__route_rules__route_action__request_mirror_policy = {
   backend_service : string prop;
       (** The BackendService resource being mirrored to. *)
 }
@@ -1341,7 +1304,7 @@ shadowed to a separate mirrored backend service. Loadbalancer does not wait for
 responses from the shadow service. Prior to sending traffic to the shadow
 service, the host / authority header is suffixed with -shadow. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__retry_policy__per_try_timeout = {
+type path_matcher__route_rules__route_action__retry_policy__per_try_timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
@@ -1355,7 +1318,7 @@ inclusive. *)
 If not specified, will use the timeout set in HttpRouteAction. If timeout in HttpRouteAction
 is not set, will use the largest timeout among all backend services associated with the route. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__retry_policy = {
+type path_matcher__route_rules__route_action__retry_policy = {
   num_retries : float prop;
       (** Specifies the allowed number retries. This number must be > 0. *)
   retry_conditions : string prop list option; [@option]
@@ -1382,13 +1345,13 @@ type google_compute_url_map__path_matcher__route_rules__route_action__retry_poli
 * unavailable: Loadbalancer will retry if the gRPC status code in
   the response header is set to unavailable *)
   per_try_timeout :
-    google_compute_url_map__path_matcher__route_rules__route_action__retry_policy__per_try_timeout
+    path_matcher__route_rules__route_action__retry_policy__per_try_timeout
     list;
 }
 [@@deriving yojson_of]
 (** Specifies the retry policy associated with this route. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__timeout = {
+type path_matcher__route_rules__route_action__timeout = {
   nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
@@ -1403,7 +1366,7 @@ the request is has been fully processed (i.e. end-of-stream) up until the
 response has been completely processed. Timeout includes all retries. If not
 specified, the default value is 15 seconds. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__url_rewrite = {
+type path_matcher__route_rules__route_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected service, the request's host
 header is replaced with contents of hostRewrite. The value must be between 1 and
@@ -1432,7 +1395,7 @@ specified. *)
 (** The spec to modify the URL of the request, prior to forwarding the request to
 the matched service *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add = {
+type path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -1444,7 +1407,7 @@ were set for that header. *)
 (** Headers to add to a matching request prior to forwarding the request to the
 backendService. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add = {
+type path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add = {
   header_name : string prop;  (** The name of the header. *)
   header_value : string prop;  (** The value of the header to add. *)
   replace : bool prop;
@@ -1455,7 +1418,7 @@ were set for that header. *)
 [@@deriving yojson_of]
 (** Headers to add the response prior to sending the response back to the client. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action = {
+type path_matcher__route_rules__route_action__weighted_backend_services__header_action = {
   request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
@@ -1463,10 +1426,10 @@ prior to forwarding the request to the backendService. *)
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
-    google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add
+    path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add
     list;
   response_headers_to_add :
-    google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add
+    path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add
     list;
 }
 [@@deriving yojson_of]
@@ -1474,7 +1437,7 @@ prior to sending the response back to the client. *)
 the selected backendService. headerAction specified here take effect before
 headerAction in the enclosing HttpRouteRule, PathMatcher and UrlMap. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services = {
+type path_matcher__route_rules__route_action__weighted_backend_services = {
   backend_service : string prop;
       (** The default BackendService resource. Before
 forwarding the request to backendService, the loadbalancer applies any relevant
@@ -1487,7 +1450,7 @@ been directed to a backendService, subsequent requests will be sent to the same
 backendService as determined by the BackendService's session affinity policy.
 The value must be between 0 and 1000 *)
   header_action :
-    google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action
+    path_matcher__route_rules__route_action__weighted_backend_services__header_action
     list;
 }
 [@@deriving yojson_of]
@@ -1500,27 +1463,22 @@ the backend service, advanced routing actions like Url rewrites and header
 transformations are applied depending on additional settings specified in this
 HttpRouteAction. *)
 
-type google_compute_url_map__path_matcher__route_rules__route_action = {
+type path_matcher__route_rules__route_action = {
   cors_policy :
-    google_compute_url_map__path_matcher__route_rules__route_action__cors_policy
-    list;
+    path_matcher__route_rules__route_action__cors_policy list;
   fault_injection_policy :
-    google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy
+    path_matcher__route_rules__route_action__fault_injection_policy
     list;
   request_mirror_policy :
-    google_compute_url_map__path_matcher__route_rules__route_action__request_mirror_policy
+    path_matcher__route_rules__route_action__request_mirror_policy
     list;
   retry_policy :
-    google_compute_url_map__path_matcher__route_rules__route_action__retry_policy
-    list;
-  timeout :
-    google_compute_url_map__path_matcher__route_rules__route_action__timeout
-    list;
+    path_matcher__route_rules__route_action__retry_policy list;
+  timeout : path_matcher__route_rules__route_action__timeout list;
   url_rewrite :
-    google_compute_url_map__path_matcher__route_rules__route_action__url_rewrite
-    list;
+    path_matcher__route_rules__route_action__url_rewrite list;
   weighted_backend_services :
-    google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services
+    path_matcher__route_rules__route_action__weighted_backend_services
     list;
 }
 [@@deriving yojson_of]
@@ -1531,7 +1489,7 @@ weightedBackendServices, service must not be set. Conversely if service is set,
 routeAction cannot contain any  weightedBackendServices. Only one of routeAction
 or urlRedirect must be set. *)
 
-type google_compute_url_map__path_matcher__route_rules__url_redirect = {
+type path_matcher__route_rules__url_redirect = {
   host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one that was
 supplied in the request. The value must be between 1 and 255 characters. *)
@@ -1569,7 +1527,7 @@ original URL is retained. Defaults to false. *)
 urlRedirect. If urlRedirect is specified, service or routeAction must not be
 set. *)
 
-type google_compute_url_map__path_matcher__route_rules = {
+type path_matcher__route_rules = {
   priority : float prop;
       (** For routeRules within a given pathMatcher, priority determines the order
 in which load balancer will interpret routeRules. RouteRules are evaluated
@@ -1594,18 +1552,10 @@ the request to the backend. However, if service is specified, routeAction cannot
 contain any weightedBackendService s. Conversely, if routeAction specifies any
 weightedBackendServices, service must not be specified. Only one of urlRedirect,
 service or routeAction.weightedBackendService must be set. *)
-  header_action :
-    google_compute_url_map__path_matcher__route_rules__header_action
-    list;
-  match_rules :
-    google_compute_url_map__path_matcher__route_rules__match_rules
-    list;
-  route_action :
-    google_compute_url_map__path_matcher__route_rules__route_action
-    list;
-  url_redirect :
-    google_compute_url_map__path_matcher__route_rules__url_redirect
-    list;
+  header_action : path_matcher__route_rules__header_action list;
+  match_rules : path_matcher__route_rules__match_rules list;
+  route_action : path_matcher__route_rules__route_action list;
+  url_redirect : path_matcher__route_rules__url_redirect list;
 }
 [@@deriving yojson_of]
 (** The list of ordered HTTP route rules. Use this list instead of pathRules when
@@ -1615,7 +1565,7 @@ action to take effect. Within a given pathMatcher, only one of pathRules or
 routeRules must be set. routeRules are not supported in UrlMaps intended for
 External load balancers. *)
 
-type google_compute_url_map__path_matcher = {
+type path_matcher = {
   default_service : string prop option; [@option]
       (** The backend service or backend bucket to use when none of the given paths match. *)
   description : string prop option; [@option]
@@ -1623,20 +1573,16 @@ type google_compute_url_map__path_matcher = {
 the resource. *)
   name : string prop;
       (** The name to which this PathMatcher is referred by the HostRule. *)
-  default_route_action :
-    google_compute_url_map__path_matcher__default_route_action list;
-  default_url_redirect :
-    google_compute_url_map__path_matcher__default_url_redirect list;
-  header_action :
-    google_compute_url_map__path_matcher__header_action list;
-  path_rule : google_compute_url_map__path_matcher__path_rule list;
-  route_rules :
-    google_compute_url_map__path_matcher__route_rules list;
+  default_route_action : path_matcher__default_route_action list;
+  default_url_redirect : path_matcher__default_url_redirect list;
+  header_action : path_matcher__header_action list;
+  path_rule : path_matcher__path_rule list;
+  route_rules : path_matcher__route_rules list;
 }
 [@@deriving yojson_of]
 (** The list of named PathMatchers to use against the URL. *)
 
-type google_compute_url_map__test = {
+type test = {
   description : string prop option; [@option]
       (** Description of this test case. *)
   host : string prop;  (** Host portion of the URL. *)
@@ -1649,13 +1595,13 @@ type google_compute_url_map__test = {
 succeed only if all of the test cases pass. You can specify a maximum of 100
 tests per UrlMap. *)
 
-type google_compute_url_map__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_url_map__timeouts *)
+(** timeouts *)
 
 type google_compute_url_map = {
   default_service : string prop option; [@option]
@@ -1672,18 +1618,656 @@ name must be 1-63 characters long and match the regular expression
 letter, and all following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
   project : string prop option; [@option]  (** project *)
-  default_route_action :
-    google_compute_url_map__default_route_action list;
-  default_url_redirect :
-    google_compute_url_map__default_url_redirect list;
-  header_action : google_compute_url_map__header_action list;
-  host_rule : google_compute_url_map__host_rule list;
-  path_matcher : google_compute_url_map__path_matcher list;
-  test : google_compute_url_map__test list;
-  timeouts : google_compute_url_map__timeouts option;
+  default_route_action : default_route_action list;
+  default_url_redirect : default_url_redirect list;
+  header_action : header_action list;
+  host_rule : host_rule list;
+  path_matcher : path_matcher list;
+  test : test list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_url_map *)
+
+let default_route_action__cors_policy ?allow_credentials
+    ?allow_headers ?allow_methods ?allow_origin_regexes
+    ?allow_origins ?disabled ?expose_headers ?max_age () :
+    default_route_action__cors_policy =
+  {
+    allow_credentials;
+    allow_headers;
+    allow_methods;
+    allow_origin_regexes;
+    allow_origins;
+    disabled;
+    expose_headers;
+    max_age;
+  }
+
+let default_route_action__fault_injection_policy__abort ?http_status
+    ?percentage () :
+    default_route_action__fault_injection_policy__abort =
+  { http_status; percentage }
+
+let default_route_action__fault_injection_policy__delay__fixed_delay
+    ?nanos ?seconds () :
+    default_route_action__fault_injection_policy__delay__fixed_delay
+    =
+  { nanos; seconds }
+
+let default_route_action__fault_injection_policy__delay ?percentage
+    ~fixed_delay () :
+    default_route_action__fault_injection_policy__delay =
+  { percentage; fixed_delay }
+
+let default_route_action__fault_injection_policy ~abort ~delay () :
+    default_route_action__fault_injection_policy =
+  { abort; delay }
+
+let default_route_action__request_mirror_policy ~backend_service () :
+    default_route_action__request_mirror_policy =
+  { backend_service }
+
+let default_route_action__retry_policy__per_try_timeout ?nanos
+    ?seconds () : default_route_action__retry_policy__per_try_timeout
+    =
+  { nanos; seconds }
+
+let default_route_action__retry_policy ?num_retries ?retry_conditions
+    ~per_try_timeout () : default_route_action__retry_policy =
+  { num_retries; retry_conditions; per_try_timeout }
+
+let default_route_action__timeout ?nanos ?seconds () :
+    default_route_action__timeout =
+  { nanos; seconds }
+
+let default_route_action__url_rewrite ?host_rewrite
+    ?path_prefix_rewrite () : default_route_action__url_rewrite =
+  { host_rewrite; path_prefix_rewrite }
+
+let default_route_action__weighted_backend_services__header_action__request_headers_to_add
+    ?header_name ?header_value ?replace () :
+    default_route_action__weighted_backend_services__header_action__request_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let default_route_action__weighted_backend_services__header_action__response_headers_to_add
+    ?header_name ?header_value ?replace () :
+    default_route_action__weighted_backend_services__header_action__response_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let default_route_action__weighted_backend_services__header_action
+    ?request_headers_to_remove ?response_headers_to_remove
+    ~request_headers_to_add ~response_headers_to_add () :
+    default_route_action__weighted_backend_services__header_action =
+  {
+    request_headers_to_remove;
+    response_headers_to_remove;
+    request_headers_to_add;
+    response_headers_to_add;
+  }
+
+let default_route_action__weighted_backend_services ?backend_service
+    ?weight ~header_action () :
+    default_route_action__weighted_backend_services =
+  { backend_service; weight; header_action }
+
+let default_route_action ~cors_policy ~fault_injection_policy
+    ~request_mirror_policy ~retry_policy ~timeout ~url_rewrite
+    ~weighted_backend_services () : default_route_action =
+  {
+    cors_policy;
+    fault_injection_policy;
+    request_mirror_policy;
+    retry_policy;
+    timeout;
+    url_rewrite;
+    weighted_backend_services;
+  }
+
+let default_url_redirect ?host_redirect ?https_redirect
+    ?path_redirect ?prefix_redirect ?redirect_response_code
+    ~strip_query () : default_url_redirect =
+  {
+    host_redirect;
+    https_redirect;
+    path_redirect;
+    prefix_redirect;
+    redirect_response_code;
+    strip_query;
+  }
+
+let header_action__request_headers_to_add ~header_name ~header_value
+    ~replace () : header_action__request_headers_to_add =
+  { header_name; header_value; replace }
+
+let header_action__response_headers_to_add ~header_name ~header_value
+    ~replace () : header_action__response_headers_to_add =
+  { header_name; header_value; replace }
+
+let header_action ?request_headers_to_remove
+    ?response_headers_to_remove ~request_headers_to_add
+    ~response_headers_to_add () : header_action =
+  {
+    request_headers_to_remove;
+    response_headers_to_remove;
+    request_headers_to_add;
+    response_headers_to_add;
+  }
+
+let host_rule ?description ~hosts ~path_matcher () : host_rule =
+  { description; hosts; path_matcher }
+
+let path_matcher__default_route_action__cors_policy
+    ?allow_credentials ?allow_headers ?allow_methods
+    ?allow_origin_regexes ?allow_origins ?disabled ?expose_headers
+    ?max_age () : path_matcher__default_route_action__cors_policy =
+  {
+    allow_credentials;
+    allow_headers;
+    allow_methods;
+    allow_origin_regexes;
+    allow_origins;
+    disabled;
+    expose_headers;
+    max_age;
+  }
+
+let path_matcher__default_route_action__fault_injection_policy__abort
+    ?http_status ?percentage () :
+    path_matcher__default_route_action__fault_injection_policy__abort
+    =
+  { http_status; percentage }
+
+let path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay
+    ?nanos ?seconds () :
+    path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay
+    =
+  { nanos; seconds }
+
+let path_matcher__default_route_action__fault_injection_policy__delay
+    ?percentage ~fixed_delay () :
+    path_matcher__default_route_action__fault_injection_policy__delay
+    =
+  { percentage; fixed_delay }
+
+let path_matcher__default_route_action__fault_injection_policy ~abort
+    ~delay () :
+    path_matcher__default_route_action__fault_injection_policy =
+  { abort; delay }
+
+let path_matcher__default_route_action__request_mirror_policy
+    ~backend_service () :
+    path_matcher__default_route_action__request_mirror_policy =
+  { backend_service }
+
+let path_matcher__default_route_action__retry_policy__per_try_timeout
+    ?nanos ?seconds () :
+    path_matcher__default_route_action__retry_policy__per_try_timeout
+    =
+  { nanos; seconds }
+
+let path_matcher__default_route_action__retry_policy ?num_retries
+    ?retry_conditions ~per_try_timeout () :
+    path_matcher__default_route_action__retry_policy =
+  { num_retries; retry_conditions; per_try_timeout }
+
+let path_matcher__default_route_action__timeout ?nanos ?seconds () :
+    path_matcher__default_route_action__timeout =
+  { nanos; seconds }
+
+let path_matcher__default_route_action__url_rewrite ?host_rewrite
+    ?path_prefix_rewrite () :
+    path_matcher__default_route_action__url_rewrite =
+  { host_rewrite; path_prefix_rewrite }
+
+let path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add
+    ?header_name ?header_value ?replace () :
+    path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add
+    ?header_name ?header_value ?replace () :
+    path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let path_matcher__default_route_action__weighted_backend_services__header_action
+    ?request_headers_to_remove ?response_headers_to_remove
+    ~request_headers_to_add ~response_headers_to_add () :
+    path_matcher__default_route_action__weighted_backend_services__header_action
+    =
+  {
+    request_headers_to_remove;
+    response_headers_to_remove;
+    request_headers_to_add;
+    response_headers_to_add;
+  }
+
+let path_matcher__default_route_action__weighted_backend_services
+    ?backend_service ?weight ~header_action () :
+    path_matcher__default_route_action__weighted_backend_services =
+  { backend_service; weight; header_action }
+
+let path_matcher__default_route_action ~cors_policy
+    ~fault_injection_policy ~request_mirror_policy ~retry_policy
+    ~timeout ~url_rewrite ~weighted_backend_services () :
+    path_matcher__default_route_action =
+  {
+    cors_policy;
+    fault_injection_policy;
+    request_mirror_policy;
+    retry_policy;
+    timeout;
+    url_rewrite;
+    weighted_backend_services;
+  }
+
+let path_matcher__default_url_redirect ?host_redirect ?https_redirect
+    ?path_redirect ?prefix_redirect ?redirect_response_code
+    ~strip_query () : path_matcher__default_url_redirect =
+  {
+    host_redirect;
+    https_redirect;
+    path_redirect;
+    prefix_redirect;
+    redirect_response_code;
+    strip_query;
+  }
+
+let path_matcher__header_action__request_headers_to_add ~header_name
+    ~header_value ~replace () :
+    path_matcher__header_action__request_headers_to_add =
+  { header_name; header_value; replace }
+
+let path_matcher__header_action__response_headers_to_add ~header_name
+    ~header_value ~replace () :
+    path_matcher__header_action__response_headers_to_add =
+  { header_name; header_value; replace }
+
+let path_matcher__header_action ?request_headers_to_remove
+    ?response_headers_to_remove ~request_headers_to_add
+    ~response_headers_to_add () : path_matcher__header_action =
+  {
+    request_headers_to_remove;
+    response_headers_to_remove;
+    request_headers_to_add;
+    response_headers_to_add;
+  }
+
+let path_matcher__path_rule__route_action__cors_policy
+    ?allow_credentials ?allow_headers ?allow_methods
+    ?allow_origin_regexes ?allow_origins ?expose_headers ?max_age
+    ~disabled () : path_matcher__path_rule__route_action__cors_policy
+    =
+  {
+    allow_credentials;
+    allow_headers;
+    allow_methods;
+    allow_origin_regexes;
+    allow_origins;
+    disabled;
+    expose_headers;
+    max_age;
+  }
+
+let path_matcher__path_rule__route_action__fault_injection_policy__abort
+    ~http_status ~percentage () :
+    path_matcher__path_rule__route_action__fault_injection_policy__abort
+    =
+  { http_status; percentage }
+
+let path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay
+    ?nanos ~seconds () :
+    path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay
+    =
+  { nanos; seconds }
+
+let path_matcher__path_rule__route_action__fault_injection_policy__delay
+    ~percentage ~fixed_delay () :
+    path_matcher__path_rule__route_action__fault_injection_policy__delay
+    =
+  { percentage; fixed_delay }
+
+let path_matcher__path_rule__route_action__fault_injection_policy
+    ~abort ~delay () :
+    path_matcher__path_rule__route_action__fault_injection_policy =
+  { abort; delay }
+
+let path_matcher__path_rule__route_action__request_mirror_policy
+    ~backend_service () :
+    path_matcher__path_rule__route_action__request_mirror_policy =
+  { backend_service }
+
+let path_matcher__path_rule__route_action__retry_policy__per_try_timeout
+    ?nanos ~seconds () :
+    path_matcher__path_rule__route_action__retry_policy__per_try_timeout
+    =
+  { nanos; seconds }
+
+let path_matcher__path_rule__route_action__retry_policy ?num_retries
+    ?retry_conditions ~per_try_timeout () :
+    path_matcher__path_rule__route_action__retry_policy =
+  { num_retries; retry_conditions; per_try_timeout }
+
+let path_matcher__path_rule__route_action__timeout ?nanos ~seconds ()
+    : path_matcher__path_rule__route_action__timeout =
+  { nanos; seconds }
+
+let path_matcher__path_rule__route_action__url_rewrite ?host_rewrite
+    ?path_prefix_rewrite () :
+    path_matcher__path_rule__route_action__url_rewrite =
+  { host_rewrite; path_prefix_rewrite }
+
+let path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add
+    ~header_name ~header_value ~replace () :
+    path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add
+    ~header_name ~header_value ~replace () :
+    path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let path_matcher__path_rule__route_action__weighted_backend_services__header_action
+    ?request_headers_to_remove ?response_headers_to_remove
+    ~request_headers_to_add ~response_headers_to_add () :
+    path_matcher__path_rule__route_action__weighted_backend_services__header_action
+    =
+  {
+    request_headers_to_remove;
+    response_headers_to_remove;
+    request_headers_to_add;
+    response_headers_to_add;
+  }
+
+let path_matcher__path_rule__route_action__weighted_backend_services
+    ~backend_service ~weight ~header_action () :
+    path_matcher__path_rule__route_action__weighted_backend_services
+    =
+  { backend_service; weight; header_action }
+
+let path_matcher__path_rule__route_action ~cors_policy
+    ~fault_injection_policy ~request_mirror_policy ~retry_policy
+    ~timeout ~url_rewrite ~weighted_backend_services () :
+    path_matcher__path_rule__route_action =
+  {
+    cors_policy;
+    fault_injection_policy;
+    request_mirror_policy;
+    retry_policy;
+    timeout;
+    url_rewrite;
+    weighted_backend_services;
+  }
+
+let path_matcher__path_rule__url_redirect ?host_redirect
+    ?https_redirect ?path_redirect ?prefix_redirect
+    ?redirect_response_code ~strip_query () :
+    path_matcher__path_rule__url_redirect =
+  {
+    host_redirect;
+    https_redirect;
+    path_redirect;
+    prefix_redirect;
+    redirect_response_code;
+    strip_query;
+  }
+
+let path_matcher__path_rule ?service ~paths ~route_action
+    ~url_redirect () : path_matcher__path_rule =
+  { paths; service; route_action; url_redirect }
+
+let path_matcher__route_rules__header_action__request_headers_to_add
+    ~header_name ~header_value ~replace () :
+    path_matcher__route_rules__header_action__request_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let path_matcher__route_rules__header_action__response_headers_to_add
+    ~header_name ~header_value ~replace () :
+    path_matcher__route_rules__header_action__response_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let path_matcher__route_rules__header_action
+    ?request_headers_to_remove ?response_headers_to_remove
+    ~request_headers_to_add ~response_headers_to_add () :
+    path_matcher__route_rules__header_action =
+  {
+    request_headers_to_remove;
+    response_headers_to_remove;
+    request_headers_to_add;
+    response_headers_to_add;
+  }
+
+let path_matcher__route_rules__match_rules__header_matches__range_match
+    ~range_end ~range_start () :
+    path_matcher__route_rules__match_rules__header_matches__range_match
+    =
+  { range_end; range_start }
+
+let path_matcher__route_rules__match_rules__header_matches
+    ?exact_match ?invert_match ?prefix_match ?present_match
+    ?regex_match ?suffix_match ~header_name ~range_match () :
+    path_matcher__route_rules__match_rules__header_matches =
+  {
+    exact_match;
+    header_name;
+    invert_match;
+    prefix_match;
+    present_match;
+    regex_match;
+    suffix_match;
+    range_match;
+  }
+
+let path_matcher__route_rules__match_rules__metadata_filters__filter_labels
+    ~name ~value () :
+    path_matcher__route_rules__match_rules__metadata_filters__filter_labels
+    =
+  { name; value }
+
+let path_matcher__route_rules__match_rules__metadata_filters
+    ~filter_match_criteria ~filter_labels () :
+    path_matcher__route_rules__match_rules__metadata_filters =
+  { filter_match_criteria; filter_labels }
+
+let path_matcher__route_rules__match_rules__query_parameter_matches
+    ?exact_match ?present_match ?regex_match ~name () :
+    path_matcher__route_rules__match_rules__query_parameter_matches =
+  { exact_match; name; present_match; regex_match }
+
+let path_matcher__route_rules__match_rules ?full_path_match
+    ?ignore_case ?path_template_match ?prefix_match ?regex_match
+    ~header_matches ~metadata_filters ~query_parameter_matches () :
+    path_matcher__route_rules__match_rules =
+  {
+    full_path_match;
+    ignore_case;
+    path_template_match;
+    prefix_match;
+    regex_match;
+    header_matches;
+    metadata_filters;
+    query_parameter_matches;
+  }
+
+let path_matcher__route_rules__route_action__cors_policy
+    ?allow_credentials ?allow_headers ?allow_methods
+    ?allow_origin_regexes ?allow_origins ?disabled ?expose_headers
+    ?max_age () :
+    path_matcher__route_rules__route_action__cors_policy =
+  {
+    allow_credentials;
+    allow_headers;
+    allow_methods;
+    allow_origin_regexes;
+    allow_origins;
+    disabled;
+    expose_headers;
+    max_age;
+  }
+
+let path_matcher__route_rules__route_action__fault_injection_policy__abort
+    ?http_status ?percentage () :
+    path_matcher__route_rules__route_action__fault_injection_policy__abort
+    =
+  { http_status; percentage }
+
+let path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay
+    ?nanos ~seconds () :
+    path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay
+    =
+  { nanos; seconds }
+
+let path_matcher__route_rules__route_action__fault_injection_policy__delay
+    ?percentage ~fixed_delay () :
+    path_matcher__route_rules__route_action__fault_injection_policy__delay
+    =
+  { percentage; fixed_delay }
+
+let path_matcher__route_rules__route_action__fault_injection_policy
+    ~abort ~delay () :
+    path_matcher__route_rules__route_action__fault_injection_policy =
+  { abort; delay }
+
+let path_matcher__route_rules__route_action__request_mirror_policy
+    ~backend_service () :
+    path_matcher__route_rules__route_action__request_mirror_policy =
+  { backend_service }
+
+let path_matcher__route_rules__route_action__retry_policy__per_try_timeout
+    ?nanos ~seconds () :
+    path_matcher__route_rules__route_action__retry_policy__per_try_timeout
+    =
+  { nanos; seconds }
+
+let path_matcher__route_rules__route_action__retry_policy
+    ?retry_conditions ~num_retries ~per_try_timeout () :
+    path_matcher__route_rules__route_action__retry_policy =
+  { num_retries; retry_conditions; per_try_timeout }
+
+let path_matcher__route_rules__route_action__timeout ?nanos ~seconds
+    () : path_matcher__route_rules__route_action__timeout =
+  { nanos; seconds }
+
+let path_matcher__route_rules__route_action__url_rewrite
+    ?host_rewrite ?path_prefix_rewrite ?path_template_rewrite () :
+    path_matcher__route_rules__route_action__url_rewrite =
+  { host_rewrite; path_prefix_rewrite; path_template_rewrite }
+
+let path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add
+    ~header_name ~header_value ~replace () :
+    path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add
+    ~header_name ~header_value ~replace () :
+    path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add
+    =
+  { header_name; header_value; replace }
+
+let path_matcher__route_rules__route_action__weighted_backend_services__header_action
+    ?request_headers_to_remove ?response_headers_to_remove
+    ~request_headers_to_add ~response_headers_to_add () :
+    path_matcher__route_rules__route_action__weighted_backend_services__header_action
+    =
+  {
+    request_headers_to_remove;
+    response_headers_to_remove;
+    request_headers_to_add;
+    response_headers_to_add;
+  }
+
+let path_matcher__route_rules__route_action__weighted_backend_services
+    ~backend_service ~weight ~header_action () :
+    path_matcher__route_rules__route_action__weighted_backend_services
+    =
+  { backend_service; weight; header_action }
+
+let path_matcher__route_rules__route_action ~cors_policy
+    ~fault_injection_policy ~request_mirror_policy ~retry_policy
+    ~timeout ~url_rewrite ~weighted_backend_services () :
+    path_matcher__route_rules__route_action =
+  {
+    cors_policy;
+    fault_injection_policy;
+    request_mirror_policy;
+    retry_policy;
+    timeout;
+    url_rewrite;
+    weighted_backend_services;
+  }
+
+let path_matcher__route_rules__url_redirect ?host_redirect
+    ?https_redirect ?path_redirect ?prefix_redirect
+    ?redirect_response_code ?strip_query () :
+    path_matcher__route_rules__url_redirect =
+  {
+    host_redirect;
+    https_redirect;
+    path_redirect;
+    prefix_redirect;
+    redirect_response_code;
+    strip_query;
+  }
+
+let path_matcher__route_rules ?service ~priority ~header_action
+    ~match_rules ~route_action ~url_redirect () :
+    path_matcher__route_rules =
+  {
+    priority;
+    service;
+    header_action;
+    match_rules;
+    route_action;
+    url_redirect;
+  }
+
+let path_matcher ?default_service ?description ~name
+    ~default_route_action ~default_url_redirect ~header_action
+    ~path_rule ~route_rules () : path_matcher =
+  {
+    default_service;
+    description;
+    name;
+    default_route_action;
+    default_url_redirect;
+    header_action;
+    path_rule;
+    route_rules;
+  }
+
+let test ?description ~host ~path ~service () : test =
+  { description; host; path; service }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_url_map ?default_service ?description ?id ?project
+    ?timeouts ~name ~default_route_action ~default_url_redirect
+    ~header_action ~host_rule ~path_matcher ~test () :
+    google_compute_url_map =
+  {
+    default_service;
+    description;
+    id;
+    name;
+    project;
+    default_route_action;
+    default_url_redirect;
+    header_action;
+    host_rule;
+    path_matcher;
+    test;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -1697,28 +2281,16 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_url_map ?default_service ?description ?id ?project
+let register ?tf_module ?default_service ?description ?id ?project
     ?timeouts ~name ~default_route_action ~default_url_redirect
     ~header_action ~host_rule ~path_matcher ~test __resource_id =
   let __resource_type = "google_compute_url_map" in
   let __resource =
-    ({
-       default_service;
-       description;
-       id;
-       name;
-       project;
-       default_route_action;
-       default_url_redirect;
-       header_action;
-       host_rule;
-       path_matcher;
-       test;
-       timeouts;
-     }
-      : google_compute_url_map)
+    google_compute_url_map ?default_service ?description ?id ?project
+      ?timeouts ~name ~default_route_action ~default_url_redirect
+      ~header_action ~host_rule ~path_matcher ~test ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_url_map __resource);
   let __resource_attributes =
     ({

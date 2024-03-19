@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_iap_web_region_backend_service_iam_binding__condition = {
+type condition = {
   description : string prop option; [@option]  (** description *)
   expression : string prop;  (** expression *)
   title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
-(** google_iap_web_region_backend_service_iam_binding__condition *)
+(** condition *)
 
 type google_iap_web_region_backend_service_iam_binding = {
   id : string prop option; [@option]  (** id *)
@@ -20,11 +20,26 @@ type google_iap_web_region_backend_service_iam_binding = {
   role : string prop;  (** role *)
   web_region_backend_service : string prop;
       (** web_region_backend_service *)
-  condition :
-    google_iap_web_region_backend_service_iam_binding__condition list;
+  condition : condition list;
 }
 [@@deriving yojson_of]
 (** google_iap_web_region_backend_service_iam_binding *)
+
+let condition ?description ~expression ~title () : condition =
+  { description; expression; title }
+
+let google_iap_web_region_backend_service_iam_binding ?id ?project
+    ?region ~members ~role ~web_region_backend_service ~condition ()
+    : google_iap_web_region_backend_service_iam_binding =
+  {
+    id;
+    members;
+    project;
+    region;
+    role;
+    web_region_backend_service;
+    condition;
+  }
 
 type t = {
   etag : string prop;
@@ -36,25 +51,17 @@ type t = {
   web_region_backend_service : string prop;
 }
 
-let google_iap_web_region_backend_service_iam_binding ?id ?project
-    ?region ~members ~role ~web_region_backend_service ~condition
-    __resource_id =
+let register ?tf_module ?id ?project ?region ~members ~role
+    ~web_region_backend_service ~condition __resource_id =
   let __resource_type =
     "google_iap_web_region_backend_service_iam_binding"
   in
   let __resource =
-    ({
-       id;
-       members;
-       project;
-       region;
-       role;
-       web_region_backend_service;
-       condition;
-     }
-      : google_iap_web_region_backend_service_iam_binding)
+    google_iap_web_region_backend_service_iam_binding ?id ?project
+      ?region ~members ~role ~web_region_backend_service ~condition
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_web_region_backend_service_iam_binding
        __resource);
   let __resource_attributes =

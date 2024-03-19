@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_waf_rule__predicates = {
+type predicates = {
   data_id : string prop;  (** data_id *)
   negated : bool prop;  (** negated *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** aws_waf_rule__predicates *)
+(** predicates *)
 
 type aws_waf_rule = {
   id : string prop option; [@option]  (** id *)
@@ -19,10 +19,17 @@ type aws_waf_rule = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  predicates : aws_waf_rule__predicates list;
+  predicates : predicates list;
 }
 [@@deriving yojson_of]
 (** aws_waf_rule *)
+
+let predicates ~data_id ~negated ~type_ () : predicates =
+  { data_id; negated; type_ }
+
+let aws_waf_rule ?id ?tags ?tags_all ~metric_name ~name ~predicates
+    () : aws_waf_rule =
+  { id; metric_name; name; tags; tags_all; predicates }
 
 type t = {
   arn : string prop;
@@ -33,14 +40,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_waf_rule ?id ?tags ?tags_all ~metric_name ~name ~predicates
-    __resource_id =
+let register ?tf_module ?id ?tags ?tags_all ~metric_name ~name
+    ~predicates __resource_id =
   let __resource_type = "aws_waf_rule" in
   let __resource =
-    ({ id; metric_name; name; tags; tags_all; predicates }
-      : aws_waf_rule)
+    aws_waf_rule ?id ?tags ?tags_all ~metric_name ~name ~predicates
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_waf_rule __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type google_logging_log_view__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_logging_log_view
+
+val google_logging_log_view :
+  ?description:string prop ->
+  ?filter:string prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?parent:string prop ->
+  ?timeouts:timeouts ->
+  bucket:string prop ->
+  name:string prop ->
+  unit ->
+  google_logging_log_view
+
+val yojson_of_google_logging_log_view :
+  google_logging_log_view -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bucket : string prop;
@@ -17,13 +44,14 @@ type t = private {
   update_time : string prop;
 }
 
-val google_logging_log_view :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?filter:string prop ->
   ?id:string prop ->
   ?location:string prop ->
   ?parent:string prop ->
-  ?timeouts:google_logging_log_view__timeouts ->
+  ?timeouts:timeouts ->
   bucket:string prop ->
   name:string prop ->
   string ->

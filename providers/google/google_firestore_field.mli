@@ -2,11 +2,52 @@
 
 open! Tf.Prelude
 
-type google_firestore_field__index_config__indexes
-type google_firestore_field__index_config
-type google_firestore_field__timeouts
-type google_firestore_field__ttl_config
+(** RESOURCE SERIALIZATION *)
+
+type index_config__indexes
+
+val index_config__indexes :
+  ?array_config:string prop ->
+  ?order:string prop ->
+  ?query_scope:string prop ->
+  unit ->
+  index_config__indexes
+
+type index_config
+
+val index_config :
+  indexes:index_config__indexes list -> unit -> index_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type ttl_config
+
+val ttl_config : unit -> ttl_config
+
 type google_firestore_field
+
+val google_firestore_field :
+  ?database:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  collection:string prop ->
+  field:string prop ->
+  index_config:index_config list ->
+  ttl_config:ttl_config list ->
+  unit ->
+  google_firestore_field
+
+val yojson_of_google_firestore_field : google_firestore_field -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   collection : string prop;
@@ -17,14 +58,15 @@ type t = private {
   project : string prop;
 }
 
-val google_firestore_field :
+val register :
+  ?tf_module:tf_module ->
   ?database:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_firestore_field__timeouts ->
+  ?timeouts:timeouts ->
   collection:string prop ->
   field:string prop ->
-  index_config:google_firestore_field__index_config list ->
-  ttl_config:google_firestore_field__ttl_config list ->
+  index_config:index_config list ->
+  ttl_config:ttl_config list ->
   string ->
   t

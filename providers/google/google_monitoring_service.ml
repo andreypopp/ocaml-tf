@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_monitoring_service__basic_service = {
+type basic_service = {
   service_labels : (string * string prop) list option; [@option]
       (** Labels that specify the resource that emits the monitoring data
 which is used for SLO reporting of this 'Service'. *)
@@ -17,15 +17,15 @@ APP_ENGINE service type *)
 Valid values of service types and services labels are described at
 https://cloud.google.com/stackdriver/docs/solutions/slo-monitoring/api/api-structures#basic-svc-w-basic-sli *)
 
-type google_monitoring_service__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_monitoring_service__timeouts *)
+(** timeouts *)
 
-type google_monitoring_service__telemetry = {
+type telemetry = {
   resource_name : string prop;  (** resource_name *)
 }
 [@@deriving yojson_of]
@@ -45,11 +45,30 @@ numbers, underscores, and dashes. Label keys and values have a maximum
 length of 63 characters, and must be less than 128 bytes in size. Up to 64
 label entries may be stored. For labels which do not have a semantic value,
 the empty string may be supplied for the label value. *)
-  basic_service : google_monitoring_service__basic_service list;
-  timeouts : google_monitoring_service__timeouts option;
+  basic_service : basic_service list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_monitoring_service *)
+
+let basic_service ?service_labels ?service_type () : basic_service =
+  { service_labels; service_type }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_monitoring_service ?display_name ?id ?project ?user_labels
+    ?timeouts ~service_id ~basic_service () :
+    google_monitoring_service =
+  {
+    display_name;
+    id;
+    project;
+    service_id;
+    user_labels;
+    basic_service;
+    timeouts;
+  }
 
 type t = {
   display_name : string prop;
@@ -57,26 +76,18 @@ type t = {
   name : string prop;
   project : string prop;
   service_id : string prop;
-  telemetry : google_monitoring_service__telemetry list prop;
+  telemetry : telemetry list prop;
   user_labels : (string * string) list prop;
 }
 
-let google_monitoring_service ?display_name ?id ?project ?user_labels
+let register ?tf_module ?display_name ?id ?project ?user_labels
     ?timeouts ~service_id ~basic_service __resource_id =
   let __resource_type = "google_monitoring_service" in
   let __resource =
-    ({
-       display_name;
-       id;
-       project;
-       service_id;
-       user_labels;
-       basic_service;
-       timeouts;
-     }
-      : google_monitoring_service)
+    google_monitoring_service ?display_name ?id ?project ?user_labels
+      ?timeouts ~service_id ~basic_service ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_service __resource);
   let __resource_attributes =
     ({

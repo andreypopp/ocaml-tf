@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_container_azure_client__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_container_azure_client__timeouts *)
+(** timeouts *)
 
 type google_container_azure_client = {
   application_id : string prop;
@@ -21,10 +21,25 @@ type google_container_azure_client = {
       (** The project for the resource *)
   tenant_id : string prop;
       (** The Azure Active Directory Tenant ID. *)
-  timeouts : google_container_azure_client__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_container_azure_client *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_container_azure_client ?id ?project ?timeouts
+    ~application_id ~location ~name ~tenant_id () :
+    google_container_azure_client =
+  {
+    application_id;
+    id;
+    location;
+    name;
+    project;
+    tenant_id;
+    timeouts;
+  }
 
 type t = {
   application_id : string prop;
@@ -38,22 +53,14 @@ type t = {
   uid : string prop;
 }
 
-let google_container_azure_client ?id ?project ?timeouts
-    ~application_id ~location ~name ~tenant_id __resource_id =
+let register ?tf_module ?id ?project ?timeouts ~application_id
+    ~location ~name ~tenant_id __resource_id =
   let __resource_type = "google_container_azure_client" in
   let __resource =
-    ({
-       application_id;
-       id;
-       location;
-       name;
-       project;
-       tenant_id;
-       timeouts;
-     }
-      : google_container_azure_client)
+    google_container_azure_client ?id ?project ?timeouts
+      ~application_id ~location ~name ~tenant_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_azure_client __resource);
   let __resource_attributes =
     ({

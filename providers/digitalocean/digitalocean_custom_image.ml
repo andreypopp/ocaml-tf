@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type digitalocean_custom_image__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** digitalocean_custom_image__timeouts *)
+(** timeouts *)
 
 type digitalocean_custom_image = {
   description : string prop option; [@option]  (** description *)
@@ -18,10 +18,25 @@ type digitalocean_custom_image = {
   regions : string prop list;  (** regions *)
   tags : string prop list option; [@option]  (** tags *)
   url : string prop;  (** url *)
-  timeouts : digitalocean_custom_image__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** digitalocean_custom_image *)
+
+let timeouts ?create () : timeouts = { create }
+
+let digitalocean_custom_image ?description ?distribution ?id ?tags
+    ?timeouts ~name ~regions ~url () : digitalocean_custom_image =
+  {
+    description;
+    distribution;
+    id;
+    name;
+    regions;
+    tags;
+    url;
+    timeouts;
+  }
 
 type t = {
   created_at : string prop;
@@ -41,23 +56,14 @@ type t = {
   url : string prop;
 }
 
-let digitalocean_custom_image ?description ?distribution ?id ?tags
+let register ?tf_module ?description ?distribution ?id ?tags
     ?timeouts ~name ~regions ~url __resource_id =
   let __resource_type = "digitalocean_custom_image" in
   let __resource =
-    ({
-       description;
-       distribution;
-       id;
-       name;
-       regions;
-       tags;
-       url;
-       timeouts;
-     }
-      : digitalocean_custom_image)
+    digitalocean_custom_image ?description ?distribution ?id ?tags
+      ?timeouts ~name ~regions ~url ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_custom_image __resource);
   let __resource_attributes =
     ({

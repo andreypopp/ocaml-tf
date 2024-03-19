@@ -2,7 +2,27 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_dx_connection
+
+val aws_dx_connection :
+  ?encryption_mode:string prop ->
+  ?id:string prop ->
+  ?provider_name:string prop ->
+  ?request_macsec:bool prop ->
+  ?skip_destroy:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  bandwidth:string prop ->
+  location:string prop ->
+  name:string prop ->
+  unit ->
+  aws_dx_connection
+
+val yojson_of_aws_dx_connection : aws_dx_connection -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -26,7 +46,8 @@ type t = private {
   vlan_id : float prop;
 }
 
-val aws_dx_connection :
+val register :
+  ?tf_module:tf_module ->
   ?encryption_mode:string prop ->
   ?id:string prop ->
   ?provider_name:string prop ->

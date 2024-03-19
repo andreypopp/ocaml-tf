@@ -11,6 +11,10 @@ type aws_route53_resolver_dnssec_config = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_dnssec_config *)
 
+let aws_route53_resolver_dnssec_config ?id ~resource_id () :
+    aws_route53_resolver_dnssec_config =
+  { id; resource_id }
+
 type t = {
   arn : string prop;
   id : string prop;
@@ -19,13 +23,12 @@ type t = {
   validation_status : string prop;
 }
 
-let aws_route53_resolver_dnssec_config ?id ~resource_id __resource_id
-    =
+let register ?tf_module ?id ~resource_id __resource_id =
   let __resource_type = "aws_route53_resolver_dnssec_config" in
   let __resource =
-    ({ id; resource_id } : aws_route53_resolver_dnssec_config)
+    aws_route53_resolver_dnssec_config ?id ~resource_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_dnssec_config __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_route53_key_signing_key
+
+val aws_route53_key_signing_key :
+  ?id:string prop ->
+  ?status:string prop ->
+  hosted_zone_id:string prop ->
+  key_management_service_arn:string prop ->
+  name:string prop ->
+  unit ->
+  aws_route53_key_signing_key
+
+val yojson_of_aws_route53_key_signing_key :
+  aws_route53_key_signing_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   digest_algorithm_mnemonic : string prop;
@@ -22,7 +38,8 @@ type t = private {
   status : string prop;
 }
 
-val aws_route53_key_signing_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?status:string prop ->
   hosted_zone_id:string prop ->

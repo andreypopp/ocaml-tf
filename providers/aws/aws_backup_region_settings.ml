@@ -16,25 +16,31 @@ type aws_backup_region_settings = {
 [@@deriving yojson_of]
 (** aws_backup_region_settings *)
 
+let aws_backup_region_settings ?id
+    ?resource_type_management_preference
+    ~resource_type_opt_in_preference () : aws_backup_region_settings
+    =
+  {
+    id;
+    resource_type_management_preference;
+    resource_type_opt_in_preference;
+  }
+
 type t = {
   id : string prop;
   resource_type_management_preference : (string * bool) list prop;
   resource_type_opt_in_preference : (string * bool) list prop;
 }
 
-let aws_backup_region_settings ?id
-    ?resource_type_management_preference
+let register ?tf_module ?id ?resource_type_management_preference
     ~resource_type_opt_in_preference __resource_id =
   let __resource_type = "aws_backup_region_settings" in
   let __resource =
-    ({
-       id;
-       resource_type_management_preference;
-       resource_type_opt_in_preference;
-     }
-      : aws_backup_region_settings)
+    aws_backup_region_settings ?id
+      ?resource_type_management_preference
+      ~resource_type_opt_in_preference ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_region_settings __resource);
   let __resource_attributes =
     ({

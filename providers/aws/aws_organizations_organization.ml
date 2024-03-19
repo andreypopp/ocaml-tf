@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_organizations_organization__accounts = {
+type accounts = {
   arn : string prop;  (** arn *)
   email : string prop;  (** email *)
   id : string prop;  (** id *)
@@ -13,7 +13,7 @@ type aws_organizations_organization__accounts = {
 }
 [@@deriving yojson_of]
 
-type aws_organizations_organization__non_master_accounts = {
+type non_master_accounts = {
   arn : string prop;  (** arn *)
   email : string prop;  (** email *)
   id : string prop;  (** id *)
@@ -22,19 +22,17 @@ type aws_organizations_organization__non_master_accounts = {
 }
 [@@deriving yojson_of]
 
-type aws_organizations_organization__roots__policy_types = {
+type roots__policy_types = {
   status : string prop;  (** status *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
-type aws_organizations_organization__roots = {
+type roots = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
-  policy_types :
-    aws_organizations_organization__roots__policy_types list;
-      (** policy_types *)
+  policy_types : roots__policy_types list;  (** policy_types *)
 }
 [@@deriving yojson_of]
 
@@ -49,8 +47,18 @@ type aws_organizations_organization = {
 [@@deriving yojson_of]
 (** aws_organizations_organization *)
 
+let aws_organizations_organization ?aws_service_access_principals
+    ?enabled_policy_types ?feature_set ?id () :
+    aws_organizations_organization =
+  {
+    aws_service_access_principals;
+    enabled_policy_types;
+    feature_set;
+    id;
+  }
+
 type t = {
-  accounts : aws_organizations_organization__accounts list prop;
+  accounts : accounts list prop;
   arn : string prop;
   aws_service_access_principals : string list prop;
   enabled_policy_types : string list prop;
@@ -59,24 +67,18 @@ type t = {
   master_account_arn : string prop;
   master_account_email : string prop;
   master_account_id : string prop;
-  non_master_accounts :
-    aws_organizations_organization__non_master_accounts list prop;
-  roots : aws_organizations_organization__roots list prop;
+  non_master_accounts : non_master_accounts list prop;
+  roots : roots list prop;
 }
 
-let aws_organizations_organization ?aws_service_access_principals
+let register ?tf_module ?aws_service_access_principals
     ?enabled_policy_types ?feature_set ?id __resource_id =
   let __resource_type = "aws_organizations_organization" in
   let __resource =
-    ({
-       aws_service_access_principals;
-       enabled_policy_types;
-       feature_set;
-       id;
-     }
-      : aws_organizations_organization)
+    aws_organizations_organization ?aws_service_access_principals
+      ?enabled_policy_types ?feature_set ?id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_organization __resource);
   let __resource_attributes =
     ({

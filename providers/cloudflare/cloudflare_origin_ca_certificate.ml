@@ -20,6 +20,18 @@ type cloudflare_origin_ca_certificate = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Origin CA certificate used to protect traffic to your origin without involving a third party Certificate Authority. *)
 
+let cloudflare_origin_ca_certificate ?id ?min_days_for_renewal
+    ?requested_validity ~csr ~hostnames ~request_type () :
+    cloudflare_origin_ca_certificate =
+  {
+    csr;
+    hostnames;
+    id;
+    min_days_for_renewal;
+    request_type;
+    requested_validity;
+  }
+
 type t = {
   certificate : string prop;
   csr : string prop;
@@ -31,21 +43,14 @@ type t = {
   requested_validity : float prop;
 }
 
-let cloudflare_origin_ca_certificate ?id ?min_days_for_renewal
-    ?requested_validity ~csr ~hostnames ~request_type __resource_id =
+let register ?tf_module ?id ?min_days_for_renewal ?requested_validity
+    ~csr ~hostnames ~request_type __resource_id =
   let __resource_type = "cloudflare_origin_ca_certificate" in
   let __resource =
-    ({
-       csr;
-       hostnames;
-       id;
-       min_days_for_renewal;
-       request_type;
-       requested_validity;
-     }
-      : cloudflare_origin_ca_certificate)
+    cloudflare_origin_ca_certificate ?id ?min_days_for_renewal
+      ?requested_validity ~csr ~hostnames ~request_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_origin_ca_certificate __resource);
   let __resource_attributes =
     ({

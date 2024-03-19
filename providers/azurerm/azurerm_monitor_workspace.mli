@@ -2,8 +2,35 @@
 
 open! Tf.Prelude
 
-type azurerm_monitor_workspace__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_monitor_workspace
+
+val azurerm_monitor_workspace :
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_monitor_workspace
+
+val yojson_of_azurerm_monitor_workspace :
+  azurerm_monitor_workspace -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   default_data_collection_endpoint_id : string prop;
@@ -17,11 +44,12 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_monitor_workspace :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_monitor_workspace__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

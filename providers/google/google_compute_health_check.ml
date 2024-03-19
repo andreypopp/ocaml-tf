@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_health_check__grpc_health_check = {
+type grpc_health_check = {
   grpc_service_name : string prop option; [@option]
       (** The gRPC service name for the health check.
 The value of grpcServiceName has the following meanings by convention:
@@ -37,7 +37,7 @@ If not specified, gRPC health check follows behavior specified in 'port' and
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_compute_health_check__http2_health_check = {
+type http2_health_check = {
   host : string prop option; [@option]
       (** The value of the host header in the HTTP2 health check request.
 If left empty (default value), the public IP on behalf of which this health
@@ -77,7 +77,7 @@ can only be ASCII. *)
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_compute_health_check__http_health_check = {
+type http_health_check = {
   host : string prop option; [@option]
       (** The value of the host header in the HTTP health check request.
 If left empty (default value), the public IP on behalf of which this health
@@ -117,7 +117,7 @@ can only be ASCII. *)
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_compute_health_check__https_health_check = {
+type https_health_check = {
   host : string prop option; [@option]
       (** The value of the host header in the HTTPS health check request.
 If left empty (default value), the public IP on behalf of which this health
@@ -157,7 +157,7 @@ can only be ASCII. *)
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_compute_health_check__log_config = {
+type log_config = {
   enable : bool prop option; [@option]
       (** Indicates whether or not to export logs. This is false by default,
 which means no health check logging will be done. *)
@@ -165,7 +165,7 @@ which means no health check logging will be done. *)
 [@@deriving yojson_of]
 (** Configure logging on this health check. *)
 
-type google_compute_health_check__ssl_health_check = {
+type ssl_health_check = {
   port : float prop option; [@option]
       (** The TCP port number for the SSL health check request.
 The default value is 443. *)
@@ -203,7 +203,7 @@ can only be ASCII. *)
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_compute_health_check__tcp_health_check = {
+type tcp_health_check = {
   port : float prop option; [@option]
       (** The TCP port number for the TCP health check request.
 The default value is 443. *)
@@ -241,13 +241,13 @@ can only be ASCII. *)
 [@@deriving yojson_of]
 (** A nested object resource *)
 
-type google_compute_health_check__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_health_check__timeouts *)
+(** timeouts *)
 
 type google_compute_health_check = {
   check_interval_sec : float prop option; [@option]
@@ -276,23 +276,109 @@ greater value than checkIntervalSec. *)
   unhealthy_threshold : float prop option; [@option]
       (** A so-far healthy instance will be marked unhealthy after this many
 consecutive failures. The default value is 2. *)
-  grpc_health_check :
-    google_compute_health_check__grpc_health_check list;
-  http2_health_check :
-    google_compute_health_check__http2_health_check list;
-  http_health_check :
-    google_compute_health_check__http_health_check list;
-  https_health_check :
-    google_compute_health_check__https_health_check list;
-  log_config : google_compute_health_check__log_config list;
-  ssl_health_check :
-    google_compute_health_check__ssl_health_check list;
-  tcp_health_check :
-    google_compute_health_check__tcp_health_check list;
-  timeouts : google_compute_health_check__timeouts option;
+  grpc_health_check : grpc_health_check list;
+  http2_health_check : http2_health_check list;
+  http_health_check : http_health_check list;
+  https_health_check : https_health_check list;
+  log_config : log_config list;
+  ssl_health_check : ssl_health_check list;
+  tcp_health_check : tcp_health_check list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_health_check *)
+
+let grpc_health_check ?grpc_service_name ?port ?port_name
+    ?port_specification () : grpc_health_check =
+  { grpc_service_name; port; port_name; port_specification }
+
+let http2_health_check ?host ?port ?port_name ?port_specification
+    ?proxy_header ?request_path ?response () : http2_health_check =
+  {
+    host;
+    port;
+    port_name;
+    port_specification;
+    proxy_header;
+    request_path;
+    response;
+  }
+
+let http_health_check ?host ?port ?port_name ?port_specification
+    ?proxy_header ?request_path ?response () : http_health_check =
+  {
+    host;
+    port;
+    port_name;
+    port_specification;
+    proxy_header;
+    request_path;
+    response;
+  }
+
+let https_health_check ?host ?port ?port_name ?port_specification
+    ?proxy_header ?request_path ?response () : https_health_check =
+  {
+    host;
+    port;
+    port_name;
+    port_specification;
+    proxy_header;
+    request_path;
+    response;
+  }
+
+let log_config ?enable () : log_config = { enable }
+
+let ssl_health_check ?port ?port_name ?port_specification
+    ?proxy_header ?request ?response () : ssl_health_check =
+  {
+    port;
+    port_name;
+    port_specification;
+    proxy_header;
+    request;
+    response;
+  }
+
+let tcp_health_check ?port ?port_name ?port_specification
+    ?proxy_header ?request ?response () : tcp_health_check =
+  {
+    port;
+    port_name;
+    port_specification;
+    proxy_header;
+    request;
+    response;
+  }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_health_check ?check_interval_sec ?description
+    ?healthy_threshold ?id ?project ?timeout_sec ?unhealthy_threshold
+    ?timeouts ~name ~grpc_health_check ~http2_health_check
+    ~http_health_check ~https_health_check ~log_config
+    ~ssl_health_check ~tcp_health_check () :
+    google_compute_health_check =
+  {
+    check_interval_sec;
+    description;
+    healthy_threshold;
+    id;
+    name;
+    project;
+    timeout_sec;
+    unhealthy_threshold;
+    grpc_health_check;
+    http2_health_check;
+    http_health_check;
+    https_health_check;
+    log_config;
+    ssl_health_check;
+    tcp_health_check;
+    timeouts;
+  }
 
 type t = {
   check_interval_sec : float prop;
@@ -308,34 +394,20 @@ type t = {
   unhealthy_threshold : float prop;
 }
 
-let google_compute_health_check ?check_interval_sec ?description
+let register ?tf_module ?check_interval_sec ?description
     ?healthy_threshold ?id ?project ?timeout_sec ?unhealthy_threshold
     ?timeouts ~name ~grpc_health_check ~http2_health_check
     ~http_health_check ~https_health_check ~log_config
     ~ssl_health_check ~tcp_health_check __resource_id =
   let __resource_type = "google_compute_health_check" in
   let __resource =
-    ({
-       check_interval_sec;
-       description;
-       healthy_threshold;
-       id;
-       name;
-       project;
-       timeout_sec;
-       unhealthy_threshold;
-       grpc_health_check;
-       http2_health_check;
-       http_health_check;
-       https_health_check;
-       log_config;
-       ssl_health_check;
-       tcp_health_check;
-       timeouts;
-     }
-      : google_compute_health_check)
+    google_compute_health_check ?check_interval_sec ?description
+      ?healthy_threshold ?id ?project ?timeout_sec
+      ?unhealthy_threshold ?timeouts ~name ~grpc_health_check
+      ~http2_health_check ~http_health_check ~https_health_check
+      ~log_config ~ssl_health_check ~tcp_health_check ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_health_check __resource);
   let __resource_attributes =
     ({

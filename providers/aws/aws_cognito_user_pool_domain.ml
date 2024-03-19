@@ -14,6 +14,10 @@ type aws_cognito_user_pool_domain = {
 [@@deriving yojson_of]
 (** aws_cognito_user_pool_domain *)
 
+let aws_cognito_user_pool_domain ?certificate_arn ?id ~domain
+    ~user_pool_id () : aws_cognito_user_pool_domain =
+  { certificate_arn; domain; id; user_pool_id }
+
 type t = {
   aws_account_id : string prop;
   certificate_arn : string prop;
@@ -27,14 +31,14 @@ type t = {
   version : string prop;
 }
 
-let aws_cognito_user_pool_domain ?certificate_arn ?id ~domain
-    ~user_pool_id __resource_id =
+let register ?tf_module ?certificate_arn ?id ~domain ~user_pool_id
+    __resource_id =
   let __resource_type = "aws_cognito_user_pool_domain" in
   let __resource =
-    ({ certificate_arn; domain; id; user_pool_id }
-      : aws_cognito_user_pool_domain)
+    aws_cognito_user_pool_domain ?certificate_arn ?id ~domain
+      ~user_pool_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_user_pool_domain __resource);
   let __resource_attributes =
     ({

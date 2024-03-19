@@ -2,20 +2,54 @@
 
 open! Tf.Prelude
 
-type azurerm_network_manager__scope
-type azurerm_network_manager__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type azurerm_network_manager__cross_tenant_scopes = {
+type cross_tenant_scopes = {
   management_groups : string prop list;  (** management_groups *)
   subscriptions : string prop list;  (** subscriptions *)
   tenant_id : string prop;  (** tenant_id *)
 }
 
+type scope
+
+val scope :
+  ?management_group_ids:string prop list ->
+  ?subscription_ids:string prop list ->
+  unit ->
+  scope
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_network_manager
 
+val azurerm_network_manager :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scope_accesses:string prop list ->
+  scope:scope list ->
+  unit ->
+  azurerm_network_manager
+
+val yojson_of_azurerm_network_manager :
+  azurerm_network_manager -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  cross_tenant_scopes :
-    azurerm_network_manager__cross_tenant_scopes list prop;
+  cross_tenant_scopes : cross_tenant_scopes list prop;
   description : string prop;
   id : string prop;
   location : string prop;
@@ -25,15 +59,16 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_network_manager :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_network_manager__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scope_accesses:string prop list ->
-  scope:azurerm_network_manager__scope list ->
+  scope:scope list ->
   string ->
   t

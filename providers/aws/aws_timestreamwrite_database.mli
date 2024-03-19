@@ -2,7 +2,23 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_timestreamwrite_database
+
+val aws_timestreamwrite_database :
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  database_name:string prop ->
+  unit ->
+  aws_timestreamwrite_database
+
+val yojson_of_aws_timestreamwrite_database :
+  aws_timestreamwrite_database -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -14,7 +30,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_timestreamwrite_database :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?tags:(string * string prop) list ->

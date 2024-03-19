@@ -2,8 +2,28 @@
 
 open! Tf.Prelude
 
-type aws_efs_mount_target__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_efs_mount_target
+
+val aws_efs_mount_target :
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?security_groups:string prop list ->
+  ?timeouts:timeouts ->
+  file_system_id:string prop ->
+  subnet_id:string prop ->
+  unit ->
+  aws_efs_mount_target
+
+val yojson_of_aws_efs_mount_target : aws_efs_mount_target -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   availability_zone_id : string prop;
@@ -20,11 +40,12 @@ type t = private {
   subnet_id : string prop;
 }
 
-val aws_efs_mount_target :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ip_address:string prop ->
   ?security_groups:string prop list ->
-  ?timeouts:aws_efs_mount_target__timeouts ->
+  ?timeouts:timeouts ->
   file_system_id:string prop ->
   subnet_id:string prop ->
   string ->

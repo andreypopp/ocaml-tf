@@ -2,7 +2,31 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_redshiftserverless_namespace
+
+val aws_redshiftserverless_namespace :
+  ?admin_password_secret_kms_key_id:string prop ->
+  ?admin_user_password:string prop ->
+  ?admin_username:string prop ->
+  ?db_name:string prop ->
+  ?default_iam_role_arn:string prop ->
+  ?iam_roles:string prop list ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?log_exports:string prop list ->
+  ?manage_admin_password:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  namespace_name:string prop ->
+  unit ->
+  aws_redshiftserverless_namespace
+
+val yojson_of_aws_redshiftserverless_namespace :
+  aws_redshiftserverless_namespace -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   admin_password_secret_arn : string prop;
@@ -23,7 +47,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_redshiftserverless_namespace :
+val register :
+  ?tf_module:tf_module ->
   ?admin_password_secret_kms_key_id:string prop ->
   ?admin_user_password:string prop ->
   ?admin_username:string prop ->

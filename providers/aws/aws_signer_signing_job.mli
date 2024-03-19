@@ -2,27 +2,59 @@
 
 open! Tf.Prelude
 
-type aws_signer_signing_job__destination__s3
-type aws_signer_signing_job__destination
-type aws_signer_signing_job__source__s3
-type aws_signer_signing_job__source
+(** RESOURCE SERIALIZATION *)
 
-type aws_signer_signing_job__revocation_record = {
+type revocation_record = {
   reason : string prop;  (** reason *)
   revoked_at : string prop;  (** revoked_at *)
   revoked_by : string prop;  (** revoked_by *)
 }
 
-type aws_signer_signing_job__signed_object__s3 = {
+type signed_object__s3 = {
   bucket : string prop;  (** bucket *)
   key : string prop;  (** key *)
 }
 
-type aws_signer_signing_job__signed_object = {
-  s3 : aws_signer_signing_job__signed_object__s3 list;  (** s3 *)
-}
+type signed_object = { s3 : signed_object__s3 list  (** s3 *) }
+type destination__s3
+
+val destination__s3 :
+  ?prefix:string prop ->
+  bucket:string prop ->
+  unit ->
+  destination__s3
+
+type destination
+
+val destination : s3:destination__s3 list -> unit -> destination
+
+type source__s3
+
+val source__s3 :
+  bucket:string prop ->
+  key:string prop ->
+  version:string prop ->
+  unit ->
+  source__s3
+
+type source
+
+val source : s3:source__s3 list -> unit -> source
 
 type aws_signer_signing_job
+
+val aws_signer_signing_job :
+  ?id:string prop ->
+  ?ignore_signing_job_failure:bool prop ->
+  profile_name:string prop ->
+  destination:destination list ->
+  source:source list ->
+  unit ->
+  aws_signer_signing_job
+
+val yojson_of_aws_signer_signing_job : aws_signer_signing_job -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   completed_at : string prop;
@@ -37,19 +69,19 @@ type t = private {
   profile_name : string prop;
   profile_version : string prop;
   requested_by : string prop;
-  revocation_record :
-    aws_signer_signing_job__revocation_record list prop;
+  revocation_record : revocation_record list prop;
   signature_expires_at : string prop;
-  signed_object : aws_signer_signing_job__signed_object list prop;
+  signed_object : signed_object list prop;
   status : string prop;
   status_reason : string prop;
 }
 
-val aws_signer_signing_job :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?ignore_signing_job_failure:bool prop ->
   profile_name:string prop ->
-  destination:aws_signer_signing_job__destination list ->
-  source:aws_signer_signing_job__source list ->
+  destination:destination list ->
+  source:source list ->
   string ->
   t

@@ -17,6 +17,10 @@ type cloudflare_email_routing_settings = {
 (** Provides a resource for managing Email Routing settings.
  *)
 
+let cloudflare_email_routing_settings ?id ?skip_wizard ~enabled
+    ~zone_id () : cloudflare_email_routing_settings =
+  { enabled; id; skip_wizard; zone_id }
+
 type t = {
   created : string prop;
   enabled : bool prop;
@@ -29,14 +33,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_email_routing_settings ?id ?skip_wizard ~enabled
-    ~zone_id __resource_id =
+let register ?tf_module ?id ?skip_wizard ~enabled ~zone_id
+    __resource_id =
   let __resource_type = "cloudflare_email_routing_settings" in
   let __resource =
-    ({ enabled; id; skip_wizard; zone_id }
-      : cloudflare_email_routing_settings)
+    cloudflare_email_routing_settings ?id ?skip_wizard ~enabled
+      ~zone_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_email_routing_settings __resource);
   let __resource_attributes =
     ({

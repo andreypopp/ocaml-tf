@@ -4,24 +4,20 @@
 
 open! Tf.Prelude
 
-type google_iam_workforce_pool_provider__oidc__client_secret__value = {
+type oidc__client_secret__value = {
   plain_text : string prop;
       (** The plain text of the client secret value. *)
-  thumbprint : string prop;
-      (** A thumbprint to represent the current client secret value. *)
 }
 [@@deriving yojson_of]
 (** The value of the client secret. *)
 
-type google_iam_workforce_pool_provider__oidc__client_secret = {
-  value :
-    google_iam_workforce_pool_provider__oidc__client_secret__value
-    list;
+type oidc__client_secret = {
+  value : oidc__client_secret__value list;
 }
 [@@deriving yojson_of]
 (** The optional client secret. Required to enable Authorization Code flow for web sign-in. *)
 
-type google_iam_workforce_pool_provider__oidc__web_sso_config = {
+type oidc__web_sso_config = {
   additional_scopes : string prop list option; [@option]
       (** Additional scopes to request for in the OIDC authentication request on top of scopes requested by default. By default, the 'openid', 'profile' and 'email' scopes that are supported by the identity provider are requested.
 Each additional scope may be at most 256 characters. A maximum of 10 additional scopes may be configured. *)
@@ -39,7 +35,7 @@ The 'CODE' Response Type is recommended to avoid the Implicit Flow, for security
 [@@deriving yojson_of]
 (** Configuration for web single sign-on for the OIDC provider. Here, web sign-in refers to console sign-in and gcloud sign-in through the browser. *)
 
-type google_iam_workforce_pool_provider__oidc = {
+type oidc = {
   client_id : string prop;
       (** The client ID. Must match the audience claim of the JWT issued by the identity provider. *)
   issuer_uri : string prop;
@@ -68,15 +64,13 @@ the following fields:
   ]
 }
 ''' *)
-  client_secret :
-    google_iam_workforce_pool_provider__oidc__client_secret list;
-  web_sso_config :
-    google_iam_workforce_pool_provider__oidc__web_sso_config list;
+  client_secret : oidc__client_secret list;
+  web_sso_config : oidc__web_sso_config list;
 }
 [@@deriving yojson_of]
 (** Represents an OpenId Connect 1.0 identity provider. *)
 
-type google_iam_workforce_pool_provider__saml = {
+type saml = {
   idp_metadata_xml : string prop;
       (** SAML Identity provider configuration metadata xml doc.
 The xml document should comply with [SAML 2.0 specification](https://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf).
@@ -97,13 +91,13 @@ no non-expired signing keys present in the existing metadata. *)
 [@@deriving yojson_of]
 (** Represents a SAML identity provider. *)
 
-type google_iam_workforce_pool_provider__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_iam_workforce_pool_provider__timeouts *)
+(** timeouts *)
 
 type google_iam_workforce_pool_provider = {
   attribute_condition : string prop option; [@option]
@@ -196,12 +190,51 @@ The prefix 'gcp-' is reserved for use by Google, and may not be specified. *)
 The IDs must be a globally unique string of 6 to 63 lowercase letters, digits, or hyphens.
 It must start with a letter, and cannot have a trailing hyphen.
 The prefix 'gcp-' is reserved for use by Google, and may not be specified. *)
-  oidc : google_iam_workforce_pool_provider__oidc list;
-  saml : google_iam_workforce_pool_provider__saml list;
-  timeouts : google_iam_workforce_pool_provider__timeouts option;
+  oidc : oidc list;
+  saml : saml list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_iam_workforce_pool_provider *)
+
+let oidc__client_secret__value ~plain_text () :
+    oidc__client_secret__value =
+  { plain_text }
+
+let oidc__client_secret ~value () : oidc__client_secret = { value }
+
+let oidc__web_sso_config ?additional_scopes
+    ~assertion_claims_behavior ~response_type () :
+    oidc__web_sso_config =
+  { additional_scopes; assertion_claims_behavior; response_type }
+
+let oidc ?jwks_json ~client_id ~issuer_uri ~client_secret
+    ~web_sso_config () : oidc =
+  { client_id; issuer_uri; jwks_json; client_secret; web_sso_config }
+
+let saml ~idp_metadata_xml () : saml = { idp_metadata_xml }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_iam_workforce_pool_provider ?attribute_condition
+    ?attribute_mapping ?description ?disabled ?display_name ?id
+    ?timeouts ~location ~provider_id ~workforce_pool_id ~oidc ~saml
+    () : google_iam_workforce_pool_provider =
+  {
+    attribute_condition;
+    attribute_mapping;
+    description;
+    disabled;
+    display_name;
+    id;
+    location;
+    provider_id;
+    workforce_pool_id;
+    oidc;
+    saml;
+    timeouts;
+  }
 
 type t = {
   attribute_condition : string prop;
@@ -217,29 +250,17 @@ type t = {
   workforce_pool_id : string prop;
 }
 
-let google_iam_workforce_pool_provider ?attribute_condition
-    ?attribute_mapping ?description ?disabled ?display_name ?id
-    ?timeouts ~location ~provider_id ~workforce_pool_id ~oidc ~saml
-    __resource_id =
+let register ?tf_module ?attribute_condition ?attribute_mapping
+    ?description ?disabled ?display_name ?id ?timeouts ~location
+    ~provider_id ~workforce_pool_id ~oidc ~saml __resource_id =
   let __resource_type = "google_iam_workforce_pool_provider" in
   let __resource =
-    ({
-       attribute_condition;
-       attribute_mapping;
-       description;
-       disabled;
-       display_name;
-       id;
-       location;
-       provider_id;
-       workforce_pool_id;
-       oidc;
-       saml;
-       timeouts;
-     }
-      : google_iam_workforce_pool_provider)
+    google_iam_workforce_pool_provider ?attribute_condition
+      ?attribute_mapping ?description ?disabled ?display_name ?id
+      ?timeouts ~location ~provider_id ~workforce_pool_id ~oidc ~saml
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_workforce_pool_provider __resource);
   let __resource_attributes =
     ({

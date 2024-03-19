@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type azurerm_api_management_group_user__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
-(** azurerm_api_management_group_user__timeouts *)
+(** timeouts *)
 
 type azurerm_api_management_group_user = {
   api_management_name : string prop;  (** api_management_name *)
@@ -18,10 +18,25 @@ type azurerm_api_management_group_user = {
   id : string prop option; [@option]  (** id *)
   resource_group_name : string prop;  (** resource_group_name *)
   user_id : string prop;  (** user_id *)
-  timeouts : azurerm_api_management_group_user__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_group_user *)
+
+let timeouts ?create ?delete ?read () : timeouts =
+  { create; delete; read }
+
+let azurerm_api_management_group_user ?id ?timeouts
+    ~api_management_name ~group_name ~resource_group_name ~user_id ()
+    : azurerm_api_management_group_user =
+  {
+    api_management_name;
+    group_name;
+    id;
+    resource_group_name;
+    user_id;
+    timeouts;
+  }
 
 type t = {
   api_management_name : string prop;
@@ -31,22 +46,15 @@ type t = {
   user_id : string prop;
 }
 
-let azurerm_api_management_group_user ?id ?timeouts
-    ~api_management_name ~group_name ~resource_group_name ~user_id
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~api_management_name
+    ~group_name ~resource_group_name ~user_id __resource_id =
   let __resource_type = "azurerm_api_management_group_user" in
   let __resource =
-    ({
-       api_management_name;
-       group_name;
-       id;
-       resource_group_name;
-       user_id;
-       timeouts;
-     }
-      : azurerm_api_management_group_user)
+    azurerm_api_management_group_user ?id ?timeouts
+      ~api_management_name ~group_name ~resource_group_name ~user_id
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_group_user __resource);
   let __resource_attributes =
     ({

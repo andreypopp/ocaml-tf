@@ -29,6 +29,27 @@ type aws_sns_topic_subscription = {
 [@@deriving yojson_of]
 (** aws_sns_topic_subscription *)
 
+let aws_sns_topic_subscription ?confirmation_timeout_in_minutes
+    ?delivery_policy ?endpoint_auto_confirms ?filter_policy
+    ?filter_policy_scope ?id ?raw_message_delivery ?redrive_policy
+    ?replay_policy ?subscription_role_arn ~endpoint ~protocol
+    ~topic_arn () : aws_sns_topic_subscription =
+  {
+    confirmation_timeout_in_minutes;
+    delivery_policy;
+    endpoint;
+    endpoint_auto_confirms;
+    filter_policy;
+    filter_policy_scope;
+    id;
+    protocol;
+    raw_message_delivery;
+    redrive_policy;
+    replay_policy;
+    subscription_role_arn;
+    topic_arn;
+  }
+
 type t = {
   arn : string prop;
   confirmation_timeout_in_minutes : float prop;
@@ -49,31 +70,20 @@ type t = {
   topic_arn : string prop;
 }
 
-let aws_sns_topic_subscription ?confirmation_timeout_in_minutes
+let register ?tf_module ?confirmation_timeout_in_minutes
     ?delivery_policy ?endpoint_auto_confirms ?filter_policy
     ?filter_policy_scope ?id ?raw_message_delivery ?redrive_policy
     ?replay_policy ?subscription_role_arn ~endpoint ~protocol
     ~topic_arn __resource_id =
   let __resource_type = "aws_sns_topic_subscription" in
   let __resource =
-    ({
-       confirmation_timeout_in_minutes;
-       delivery_policy;
-       endpoint;
-       endpoint_auto_confirms;
-       filter_policy;
-       filter_policy_scope;
-       id;
-       protocol;
-       raw_message_delivery;
-       redrive_policy;
-       replay_policy;
-       subscription_role_arn;
-       topic_arn;
-     }
-      : aws_sns_topic_subscription)
+    aws_sns_topic_subscription ?confirmation_timeout_in_minutes
+      ?delivery_policy ?endpoint_auto_confirms ?filter_policy
+      ?filter_policy_scope ?id ?raw_message_delivery ?redrive_policy
+      ?replay_policy ?subscription_role_arn ~endpoint ~protocol
+      ~topic_arn ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sns_topic_subscription __resource);
   let __resource_attributes =
     ({

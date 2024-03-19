@@ -2,9 +2,46 @@
 
 open! Tf.Prelude
 
-type aws_elasticache_user__authentication_mode
-type aws_elasticache_user__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type authentication_mode
+
+val authentication_mode :
+  ?passwords:string prop list ->
+  type_:string prop ->
+  unit ->
+  authentication_mode
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_elasticache_user
+
+val aws_elasticache_user :
+  ?id:string prop ->
+  ?no_password_required:bool prop ->
+  ?passwords:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  access_string:string prop ->
+  engine:string prop ->
+  user_id:string prop ->
+  user_name:string prop ->
+  authentication_mode:authentication_mode list ->
+  unit ->
+  aws_elasticache_user
+
+val yojson_of_aws_elasticache_user : aws_elasticache_user -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_string : string prop;
@@ -19,17 +56,18 @@ type t = private {
   user_name : string prop;
 }
 
-val aws_elasticache_user :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?no_password_required:bool prop ->
   ?passwords:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_elasticache_user__timeouts ->
+  ?timeouts:timeouts ->
   access_string:string prop ->
   engine:string prop ->
   user_id:string prop ->
   user_name:string prop ->
-  authentication_mode:aws_elasticache_user__authentication_mode list ->
+  authentication_mode:authentication_mode list ->
   string ->
   t

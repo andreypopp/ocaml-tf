@@ -2,7 +2,22 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_default_vpc_dhcp_options
+
+val aws_default_vpc_dhcp_options :
+  ?id:string prop ->
+  ?owner_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  unit ->
+  aws_default_vpc_dhcp_options
+
+val yojson_of_aws_default_vpc_dhcp_options :
+  aws_default_vpc_dhcp_options -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -17,7 +32,8 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_default_vpc_dhcp_options :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?owner_id:string prop ->
   ?tags:(string * string prop) list ->

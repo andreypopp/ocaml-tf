@@ -4,30 +4,29 @@
 
 open! Tf.Prelude
 
-type aws_efs_access_point__posix_user = {
+type posix_user = {
   gid : float prop;  (** gid *)
   secondary_gids : float prop list option; [@option]
       (** secondary_gids *)
   uid : float prop;  (** uid *)
 }
 [@@deriving yojson_of]
-(** aws_efs_access_point__posix_user *)
+(** posix_user *)
 
-type aws_efs_access_point__root_directory__creation_info = {
+type root_directory__creation_info = {
   owner_gid : float prop;  (** owner_gid *)
   owner_uid : float prop;  (** owner_uid *)
   permissions : string prop;  (** permissions *)
 }
 [@@deriving yojson_of]
-(** aws_efs_access_point__root_directory__creation_info *)
+(** root_directory__creation_info *)
 
-type aws_efs_access_point__root_directory = {
+type root_directory = {
   path : string prop option; [@option]  (** path *)
-  creation_info :
-    aws_efs_access_point__root_directory__creation_info list;
+  creation_info : root_directory__creation_info list;
 }
 [@@deriving yojson_of]
-(** aws_efs_access_point__root_directory *)
+(** root_directory *)
 
 type aws_efs_access_point = {
   file_system_id : string prop;  (** file_system_id *)
@@ -35,11 +34,25 @@ type aws_efs_access_point = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  posix_user : aws_efs_access_point__posix_user list;
-  root_directory : aws_efs_access_point__root_directory list;
+  posix_user : posix_user list;
+  root_directory : root_directory list;
 }
 [@@deriving yojson_of]
 (** aws_efs_access_point *)
+
+let posix_user ?secondary_gids ~gid ~uid () : posix_user =
+  { gid; secondary_gids; uid }
+
+let root_directory__creation_info ~owner_gid ~owner_uid ~permissions
+    () : root_directory__creation_info =
+  { owner_gid; owner_uid; permissions }
+
+let root_directory ?path ~creation_info () : root_directory =
+  { path; creation_info }
+
+let aws_efs_access_point ?id ?tags ?tags_all ~file_system_id
+    ~posix_user ~root_directory () : aws_efs_access_point =
+  { file_system_id; id; tags; tags_all; posix_user; root_directory }
 
 type t = {
   arn : string prop;
@@ -51,21 +64,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_efs_access_point ?id ?tags ?tags_all ~file_system_id
+let register ?tf_module ?id ?tags ?tags_all ~file_system_id
     ~posix_user ~root_directory __resource_id =
   let __resource_type = "aws_efs_access_point" in
   let __resource =
-    ({
-       file_system_id;
-       id;
-       tags;
-       tags_all;
-       posix_user;
-       root_directory;
-     }
-      : aws_efs_access_point)
+    aws_efs_access_point ?id ?tags ?tags_all ~file_system_id
+      ~posix_user ~root_directory ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_efs_access_point __resource);
   let __resource_attributes =
     ({

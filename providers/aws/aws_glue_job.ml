@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_glue_job__command = {
+type command = {
   name : string prop option; [@option]  (** name *)
   python_version : string prop option; [@option]
       (** python_version *)
@@ -12,21 +12,21 @@ type aws_glue_job__command = {
   script_location : string prop;  (** script_location *)
 }
 [@@deriving yojson_of]
-(** aws_glue_job__command *)
+(** command *)
 
-type aws_glue_job__execution_property = {
+type execution_property = {
   max_concurrent_runs : float prop option; [@option]
       (** max_concurrent_runs *)
 }
 [@@deriving yojson_of]
-(** aws_glue_job__execution_property *)
+(** execution_property *)
 
-type aws_glue_job__notification_property = {
+type notification_property = {
   notify_delay_after : float prop option; [@option]
       (** notify_delay_after *)
 }
 [@@deriving yojson_of]
-(** aws_glue_job__notification_property *)
+(** notification_property *)
 
 type aws_glue_job = {
   connections : string prop list option; [@option]
@@ -54,12 +54,52 @@ type aws_glue_job = {
       (** tags_all *)
   timeout : float prop option; [@option]  (** timeout *)
   worker_type : string prop option; [@option]  (** worker_type *)
-  command : aws_glue_job__command list;
-  execution_property : aws_glue_job__execution_property list;
-  notification_property : aws_glue_job__notification_property list;
+  command : command list;
+  execution_property : execution_property list;
+  notification_property : notification_property list;
 }
 [@@deriving yojson_of]
 (** aws_glue_job *)
+
+let command ?name ?python_version ?runtime ~script_location () :
+    command =
+  { name; python_version; runtime; script_location }
+
+let execution_property ?max_concurrent_runs () : execution_property =
+  { max_concurrent_runs }
+
+let notification_property ?notify_delay_after () :
+    notification_property =
+  { notify_delay_after }
+
+let aws_glue_job ?connections ?default_arguments ?description
+    ?execution_class ?glue_version ?id ?max_capacity ?max_retries
+    ?non_overridable_arguments ?number_of_workers
+    ?security_configuration ?tags ?tags_all ?timeout ?worker_type
+    ~name ~role_arn ~command ~execution_property
+    ~notification_property () : aws_glue_job =
+  {
+    connections;
+    default_arguments;
+    description;
+    execution_class;
+    glue_version;
+    id;
+    max_capacity;
+    max_retries;
+    name;
+    non_overridable_arguments;
+    number_of_workers;
+    role_arn;
+    security_configuration;
+    tags;
+    tags_all;
+    timeout;
+    worker_type;
+    command;
+    execution_property;
+    notification_property;
+  }
 
 type t = {
   arn : string prop;
@@ -82,7 +122,7 @@ type t = {
   worker_type : string prop;
 }
 
-let aws_glue_job ?connections ?default_arguments ?description
+let register ?tf_module ?connections ?default_arguments ?description
     ?execution_class ?glue_version ?id ?max_capacity ?max_retries
     ?non_overridable_arguments ?number_of_workers
     ?security_configuration ?tags ?tags_all ?timeout ?worker_type
@@ -90,31 +130,14 @@ let aws_glue_job ?connections ?default_arguments ?description
     ~notification_property __resource_id =
   let __resource_type = "aws_glue_job" in
   let __resource =
-    ({
-       connections;
-       default_arguments;
-       description;
-       execution_class;
-       glue_version;
-       id;
-       max_capacity;
-       max_retries;
-       name;
-       non_overridable_arguments;
-       number_of_workers;
-       role_arn;
-       security_configuration;
-       tags;
-       tags_all;
-       timeout;
-       worker_type;
-       command;
-       execution_property;
-       notification_property;
-     }
-      : aws_glue_job)
+    aws_glue_job ?connections ?default_arguments ?description
+      ?execution_class ?glue_version ?id ?max_capacity ?max_retries
+      ?non_overridable_arguments ?number_of_workers
+      ?security_configuration ?tags ?tags_all ?timeout ?worker_type
+      ~name ~role_arn ~command ~execution_property
+      ~notification_property ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_job __resource);
   let __resource_attributes =
     ({

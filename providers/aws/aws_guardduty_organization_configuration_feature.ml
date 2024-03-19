@@ -4,24 +4,31 @@
 
 open! Tf.Prelude
 
-type aws_guardduty_organization_configuration_feature__additional_configuration = {
+type additional_configuration = {
   auto_enable : string prop;  (** auto_enable *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** aws_guardduty_organization_configuration_feature__additional_configuration *)
+(** additional_configuration *)
 
 type aws_guardduty_organization_configuration_feature = {
   auto_enable : string prop;  (** auto_enable *)
   detector_id : string prop;  (** detector_id *)
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  additional_configuration :
-    aws_guardduty_organization_configuration_feature__additional_configuration
-    list;
+  additional_configuration : additional_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_guardduty_organization_configuration_feature *)
+
+let additional_configuration ~auto_enable ~name () :
+    additional_configuration =
+  { auto_enable; name }
+
+let aws_guardduty_organization_configuration_feature ?id ~auto_enable
+    ~detector_id ~name ~additional_configuration () :
+    aws_guardduty_organization_configuration_feature =
+  { auto_enable; detector_id; id; name; additional_configuration }
 
 type t = {
   auto_enable : string prop;
@@ -30,16 +37,16 @@ type t = {
   name : string prop;
 }
 
-let aws_guardduty_organization_configuration_feature ?id ~auto_enable
-    ~detector_id ~name ~additional_configuration __resource_id =
+let register ?tf_module ?id ~auto_enable ~detector_id ~name
+    ~additional_configuration __resource_id =
   let __resource_type =
     "aws_guardduty_organization_configuration_feature"
   in
   let __resource =
-    ({ auto_enable; detector_id; id; name; additional_configuration }
-      : aws_guardduty_organization_configuration_feature)
+    aws_guardduty_organization_configuration_feature ?id ~auto_enable
+      ~detector_id ~name ~additional_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_organization_configuration_feature
        __resource);
   let __resource_attributes =

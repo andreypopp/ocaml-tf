@@ -2,9 +2,39 @@
 
 open! Tf.Prelude
 
-type hcloud_load_balancer__algorithm
-type hcloud_load_balancer__target
+(** RESOURCE SERIALIZATION *)
+
+type algorithm
+
+val algorithm : ?type_:string prop -> unit -> algorithm
+
+type target
+
+val target :
+  ?server_id:float prop ->
+  ?use_private_ip:bool prop ->
+  type_:string prop ->
+  unit ->
+  target
+
 type hcloud_load_balancer
+
+val hcloud_load_balancer :
+  ?delete_protection:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?network_zone:string prop ->
+  load_balancer_type:string prop ->
+  name:string prop ->
+  algorithm:algorithm list ->
+  target:target list ->
+  unit ->
+  hcloud_load_balancer
+
+val yojson_of_hcloud_load_balancer : hcloud_load_balancer -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   delete_protection : bool prop;
@@ -20,7 +50,8 @@ type t = private {
   network_zone : string prop;
 }
 
-val hcloud_load_balancer :
+val register :
+  ?tf_module:tf_module ->
   ?delete_protection:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -28,7 +59,7 @@ val hcloud_load_balancer :
   ?network_zone:string prop ->
   load_balancer_type:string prop ->
   name:string prop ->
-  algorithm:hcloud_load_balancer__algorithm list ->
-  target:hcloud_load_balancer__target list ->
+  algorithm:algorithm list ->
+  target:target list ->
   string ->
   t

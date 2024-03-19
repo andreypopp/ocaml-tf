@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_data_factory_dataset_azure_blob__schema_column = {
+type schema_column = {
   description : string prop option; [@option]  (** description *)
   name : string prop;  (** name *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_dataset_azure_blob__schema_column *)
+(** schema_column *)
 
-type azurerm_data_factory_dataset_azure_blob__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_data_factory_dataset_azure_blob__timeouts *)
+(** timeouts *)
 
 type azurerm_data_factory_dataset_azure_blob = {
   additional_properties : (string * string prop) list option;
@@ -41,12 +41,40 @@ type azurerm_data_factory_dataset_azure_blob = {
   parameters : (string * string prop) list option; [@option]
       (** parameters *)
   path : string prop option; [@option]  (** path *)
-  schema_column :
-    azurerm_data_factory_dataset_azure_blob__schema_column list;
-  timeouts : azurerm_data_factory_dataset_azure_blob__timeouts option;
+  schema_column : schema_column list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_dataset_azure_blob *)
+
+let schema_column ?description ?type_ ~name () : schema_column =
+  { description; name; type_ }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_data_factory_dataset_azure_blob ?additional_properties
+    ?annotations ?description ?dynamic_filename_enabled
+    ?dynamic_path_enabled ?filename ?folder ?id ?parameters ?path
+    ?timeouts ~data_factory_id ~linked_service_name ~name
+    ~schema_column () : azurerm_data_factory_dataset_azure_blob =
+  {
+    additional_properties;
+    annotations;
+    data_factory_id;
+    description;
+    dynamic_filename_enabled;
+    dynamic_path_enabled;
+    filename;
+    folder;
+    id;
+    linked_service_name;
+    name;
+    parameters;
+    path;
+    schema_column;
+    timeouts;
+  }
 
 type t = {
   additional_properties : (string * string) list prop;
@@ -64,33 +92,20 @@ type t = {
   path : string prop;
 }
 
-let azurerm_data_factory_dataset_azure_blob ?additional_properties
-    ?annotations ?description ?dynamic_filename_enabled
-    ?dynamic_path_enabled ?filename ?folder ?id ?parameters ?path
-    ?timeouts ~data_factory_id ~linked_service_name ~name
-    ~schema_column __resource_id =
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?dynamic_filename_enabled ?dynamic_path_enabled
+    ?filename ?folder ?id ?parameters ?path ?timeouts
+    ~data_factory_id ~linked_service_name ~name ~schema_column
+    __resource_id =
   let __resource_type = "azurerm_data_factory_dataset_azure_blob" in
   let __resource =
-    ({
-       additional_properties;
-       annotations;
-       data_factory_id;
-       description;
-       dynamic_filename_enabled;
-       dynamic_path_enabled;
-       filename;
-       folder;
-       id;
-       linked_service_name;
-       name;
-       parameters;
-       path;
-       schema_column;
-       timeouts;
-     }
-      : azurerm_data_factory_dataset_azure_blob)
+    azurerm_data_factory_dataset_azure_blob ?additional_properties
+      ?annotations ?description ?dynamic_filename_enabled
+      ?dynamic_path_enabled ?filename ?folder ?id ?parameters ?path
+      ?timeouts ~data_factory_id ~linked_service_name ~name
+      ~schema_column ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_dataset_azure_blob __resource);
   let __resource_attributes =
     ({

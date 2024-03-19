@@ -17,6 +17,10 @@ type cloudflare_pages_domain = {
 (** Provides a resource for managing Cloudflare Pages domains.
  *)
 
+let cloudflare_pages_domain ?id ~account_id ~domain ~project_name ()
+    : cloudflare_pages_domain =
+  { account_id; domain; id; project_name }
+
 type t = {
   account_id : string prop;
   domain : string prop;
@@ -25,14 +29,13 @@ type t = {
   status : string prop;
 }
 
-let cloudflare_pages_domain ?id ~account_id ~domain ~project_name
+let register ?tf_module ?id ~account_id ~domain ~project_name
     __resource_id =
   let __resource_type = "cloudflare_pages_domain" in
   let __resource =
-    ({ account_id; domain; id; project_name }
-      : cloudflare_pages_domain)
+    cloudflare_pages_domain ?id ~account_id ~domain ~project_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_pages_domain __resource);
   let __resource_attributes =
     ({

@@ -15,6 +15,10 @@ type aws_apigatewayv2_api_mapping = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_api_mapping *)
 
+let aws_apigatewayv2_api_mapping ?api_mapping_key ?id ~api_id
+    ~domain_name ~stage () : aws_apigatewayv2_api_mapping =
+  { api_id; api_mapping_key; domain_name; id; stage }
+
 type t = {
   api_id : string prop;
   api_mapping_key : string prop;
@@ -23,14 +27,14 @@ type t = {
   stage : string prop;
 }
 
-let aws_apigatewayv2_api_mapping ?api_mapping_key ?id ~api_id
-    ~domain_name ~stage __resource_id =
+let register ?tf_module ?api_mapping_key ?id ~api_id ~domain_name
+    ~stage __resource_id =
   let __resource_type = "aws_apigatewayv2_api_mapping" in
   let __resource =
-    ({ api_id; api_mapping_key; domain_name; id; stage }
-      : aws_apigatewayv2_api_mapping)
+    aws_apigatewayv2_api_mapping ?api_mapping_key ?id ~api_id
+      ~domain_name ~stage ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_api_mapping __resource);
   let __resource_attributes =
     ({

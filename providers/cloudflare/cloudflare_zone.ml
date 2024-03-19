@@ -25,6 +25,10 @@ working with Cloudflare and is roughly equivalent to a domain name
 that the user purchases.
  *)
 
+let cloudflare_zone ?id ?jump_start ?paused ?plan ?type_ ~account_id
+    ~zone () : cloudflare_zone =
+  { account_id; id; jump_start; paused; plan; type_; zone }
+
 type t = {
   account_id : string prop;
   id : string prop;
@@ -40,14 +44,14 @@ type t = {
   zone : string prop;
 }
 
-let cloudflare_zone ?id ?jump_start ?paused ?plan ?type_ ~account_id
-    ~zone __resource_id =
+let register ?tf_module ?id ?jump_start ?paused ?plan ?type_
+    ~account_id ~zone __resource_id =
   let __resource_type = "cloudflare_zone" in
   let __resource =
-    ({ account_id; id; jump_start; paused; plan; type_; zone }
-      : cloudflare_zone)
+    cloudflare_zone ?id ?jump_start ?paused ?plan ?type_ ~account_id
+      ~zone ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone __resource);
   let __resource_attributes =
     ({

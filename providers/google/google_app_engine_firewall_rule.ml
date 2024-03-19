@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_app_engine_firewall_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_app_engine_firewall_rule__timeouts *)
+(** timeouts *)
 
 type google_app_engine_firewall_rule = {
   action : string prop;
@@ -28,10 +28,26 @@ this rule can be modified by the user. *)
   project : string prop option; [@option]  (** project *)
   source_range : string prop;
       (** IP address or range, defined using CIDR notation, of requests that this rule applies to. *)
-  timeouts : google_app_engine_firewall_rule__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_app_engine_firewall_rule *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_app_engine_firewall_rule ?description ?id ?priority
+    ?project ?timeouts ~action ~source_range () :
+    google_app_engine_firewall_rule =
+  {
+    action;
+    description;
+    id;
+    priority;
+    project;
+    source_range;
+    timeouts;
+  }
 
 type t = {
   action : string prop;
@@ -42,22 +58,14 @@ type t = {
   source_range : string prop;
 }
 
-let google_app_engine_firewall_rule ?description ?id ?priority
-    ?project ?timeouts ~action ~source_range __resource_id =
+let register ?tf_module ?description ?id ?priority ?project ?timeouts
+    ~action ~source_range __resource_id =
   let __resource_type = "google_app_engine_firewall_rule" in
   let __resource =
-    ({
-       action;
-       description;
-       id;
-       priority;
-       project;
-       source_range;
-       timeouts;
-     }
-      : google_app_engine_firewall_rule)
+    google_app_engine_firewall_rule ?description ?id ?priority
+      ?project ?timeouts ~action ~source_range ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_firewall_rule __resource);
   let __resource_attributes =
     ({

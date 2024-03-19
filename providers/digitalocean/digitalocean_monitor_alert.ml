@@ -4,17 +4,17 @@
 
 open! Tf.Prelude
 
-type digitalocean_monitor_alert__alerts__slack = {
+type alerts__slack = {
   channel : string prop;  (** The Slack channel to send alerts to *)
   url : string prop;  (** The webhook URL for Slack *)
 }
 [@@deriving yojson_of]
-(** digitalocean_monitor_alert__alerts__slack *)
+(** alerts__slack *)
 
-type digitalocean_monitor_alert__alerts = {
+type alerts = {
   email : string prop list option; [@option]
       (** List of email addresses to sent notifications to *)
-  slack : digitalocean_monitor_alert__alerts__slack list;
+  slack : alerts__slack list;
 }
 [@@deriving yojson_of]
 (** List with details how to notify about the alert. Support for Slack or email. *)
@@ -31,10 +31,29 @@ type digitalocean_monitor_alert = {
   type_ : string prop; [@key "type"]  (** type *)
   value : float prop;  (** value *)
   window : string prop;  (** window *)
-  alerts : digitalocean_monitor_alert__alerts list;
+  alerts : alerts list;
 }
 [@@deriving yojson_of]
 (** digitalocean_monitor_alert *)
+
+let alerts__slack ~channel ~url () : alerts__slack = { channel; url }
+let alerts ?email ~slack () : alerts = { email; slack }
+
+let digitalocean_monitor_alert ?enabled ?entities ?id ?tags ~compare
+    ~description ~type_ ~value ~window ~alerts () :
+    digitalocean_monitor_alert =
+  {
+    compare;
+    description;
+    enabled;
+    entities;
+    id;
+    tags;
+    type_;
+    value;
+    window;
+    alerts;
+  }
 
 type t = {
   compare : string prop;
@@ -49,25 +68,14 @@ type t = {
   window : string prop;
 }
 
-let digitalocean_monitor_alert ?enabled ?entities ?id ?tags ~compare
+let register ?tf_module ?enabled ?entities ?id ?tags ~compare
     ~description ~type_ ~value ~window ~alerts __resource_id =
   let __resource_type = "digitalocean_monitor_alert" in
   let __resource =
-    ({
-       compare;
-       description;
-       enabled;
-       entities;
-       id;
-       tags;
-       type_;
-       value;
-       window;
-       alerts;
-     }
-      : digitalocean_monitor_alert)
+    digitalocean_monitor_alert ?enabled ?entities ?id ?tags ~compare
+      ~description ~type_ ~value ~window ~alerts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_monitor_alert __resource);
   let __resource_attributes =
     ({

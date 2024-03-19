@@ -16,6 +16,10 @@ type aws_chime_voice_connector = {
 [@@deriving yojson_of]
 (** aws_chime_voice_connector *)
 
+let aws_chime_voice_connector ?aws_region ?id ?tags ?tags_all ~name
+    ~require_encryption () : aws_chime_voice_connector =
+  { aws_region; id; name; require_encryption; tags; tags_all }
+
 type t = {
   arn : string prop;
   aws_region : string prop;
@@ -27,14 +31,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_chime_voice_connector ?aws_region ?id ?tags ?tags_all ~name
+let register ?tf_module ?aws_region ?id ?tags ?tags_all ~name
     ~require_encryption __resource_id =
   let __resource_type = "aws_chime_voice_connector" in
   let __resource =
-    ({ aws_region; id; name; require_encryption; tags; tags_all }
-      : aws_chime_voice_connector)
+    aws_chime_voice_connector ?aws_region ?id ?tags ?tags_all ~name
+      ~require_encryption ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chime_voice_connector __resource);
   let __resource_attributes =
     ({

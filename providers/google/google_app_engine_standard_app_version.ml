@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_app_engine_standard_app_version__automatic_scaling__standard_scheduler_settings = {
+type automatic_scaling__standard_scheduler_settings = {
   max_instances : float prop option; [@option]
       (** Maximum number of instances to run for this version. Set to zero to disable maxInstances configuration. *)
   min_instances : float prop option; [@option]
@@ -17,7 +17,7 @@ type google_app_engine_standard_app_version__automatic_scaling__standard_schedul
 [@@deriving yojson_of]
 (** Scheduler settings for standard environment. *)
 
-type google_app_engine_standard_app_version__automatic_scaling = {
+type automatic_scaling = {
   max_concurrent_requests : float prop option; [@option]
       (** Number of concurrent requests an automatic scaling instance can accept before the scheduler spawns a new instance.
 
@@ -33,13 +33,12 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
       (** Minimum amount of time a request should wait in the pending queue before starting a new instance to handle it.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
   standard_scheduler_settings :
-    google_app_engine_standard_app_version__automatic_scaling__standard_scheduler_settings
-    list;
+    automatic_scaling__standard_scheduler_settings list;
 }
 [@@deriving yojson_of]
 (** Automatic scaling is based on request rate, response latencies, and other application metrics. *)
 
-type google_app_engine_standard_app_version__basic_scaling = {
+type basic_scaling = {
   idle_timeout : string prop option; [@option]
       (** Duration of time after the last request that an instance must wait before the instance is shut down.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. Defaults to 900s. *)
@@ -49,7 +48,7 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 [@@deriving yojson_of]
 (** Basic scaling creates instances when your application receives requests. Each instance will be shut down when the application becomes idle. Basic scaling is ideal for work that is intermittent or driven by user activity. *)
 
-type google_app_engine_standard_app_version__deployment__files = {
+type deployment__files = {
   name : string prop;  (** name *)
   sha1_sum : string prop option; [@option]
       (** SHA1 checksum of the file *)
@@ -59,29 +58,28 @@ type google_app_engine_standard_app_version__deployment__files = {
 (** Manifest of the files stored in Google Cloud Storage that are included as part of this version.
 All files must be readable using the credentials supplied with this call. *)
 
-type google_app_engine_standard_app_version__deployment__zip = {
+type deployment__zip = {
   files_count : float prop option; [@option]  (** files count *)
   source_url : string prop;  (** Source URL *)
 }
 [@@deriving yojson_of]
 (** Zip File *)
 
-type google_app_engine_standard_app_version__deployment = {
-  files :
-    google_app_engine_standard_app_version__deployment__files list;
-  zip : google_app_engine_standard_app_version__deployment__zip list;
+type deployment = {
+  files : deployment__files list;
+  zip : deployment__zip list;
 }
 [@@deriving yojson_of]
 (** Code and application artifacts that make up this version. *)
 
-type google_app_engine_standard_app_version__entrypoint = {
+type entrypoint = {
   shell : string prop;
       (** The format should be a shell command that can be fed to bash -c. *)
 }
 [@@deriving yojson_of]
 (** The entrypoint for the application. *)
 
-type google_app_engine_standard_app_version__handlers__script = {
+type handlers__script = {
   script_path : string prop;
       (** Path to the script from the application root directory. *)
 }
@@ -89,7 +87,7 @@ type google_app_engine_standard_app_version__handlers__script = {
 (** Executes a script to handle the requests that match this URL pattern.
 Only the auto value is supported for Node.js in the App Engine standard environment, for example script: auto. *)
 
-type google_app_engine_standard_app_version__handlers__static_files = {
+type handlers__static_files = {
   application_readable : bool prop option; [@option]
       (** Whether files should also be uploaded as code data. By default, files declared in static file handlers are uploaded as
 static data and are only served to end users; they cannot be read by the application. If enabled, uploads are charged
@@ -113,7 +111,7 @@ Defaults to file-specific MIME types, which are derived from each file's filenam
 [@@deriving yojson_of]
 (** Files served directly to the user for a given URL, such as images, CSS stylesheets, or JavaScript source files. Static file handlers describe which files in the application directory are static files, and which URLs serve them. *)
 
-type google_app_engine_standard_app_version__handlers = {
+type handlers = {
   auth_fail_action : string prop option; [@option]
       (** Actions to take when the user is not logged in. Possible values: [AUTH_FAIL_ACTION_REDIRECT, AUTH_FAIL_ACTION_UNAUTHORIZED] *)
   login : string prop option; [@option]
@@ -125,17 +123,14 @@ type google_app_engine_standard_app_version__handlers = {
   url_regex : string prop option; [@option]
       (** URL prefix. Uses regular expression syntax, which means regexp special characters must be escaped, but should not contain groupings.
 All URLs that begin with this prefix are handled by this handler, using the portion of the URL after the prefix as part of the file path. *)
-  script :
-    google_app_engine_standard_app_version__handlers__script list;
-  static_files :
-    google_app_engine_standard_app_version__handlers__static_files
-    list;
+  script : handlers__script list;
+  static_files : handlers__static_files list;
 }
 [@@deriving yojson_of]
 (** An ordered list of URL-matching patterns that should be applied to incoming requests.
 The first matching URL handles the request and other request handlers are not attempted. *)
 
-type google_app_engine_standard_app_version__libraries = {
+type libraries = {
   name : string prop option; [@option]
       (** Name of the library. Example django. *)
   version : string prop option; [@option]
@@ -144,7 +139,7 @@ type google_app_engine_standard_app_version__libraries = {
 [@@deriving yojson_of]
 (** Configuration for third-party Python runtime libraries that are required by the application. *)
 
-type google_app_engine_standard_app_version__manual_scaling = {
+type manual_scaling = {
   instances : float prop;
       (** Number of instances to assign to the service at the start.
 
@@ -154,15 +149,15 @@ Modules API set_num_instances() you must use 'lifecycle.ignore_changes = [manual
 [@@deriving yojson_of]
 (** A service with manual scaling runs continuously, allowing you to perform complex initialization and rely on the state of its memory over time. *)
 
-type google_app_engine_standard_app_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_app_engine_standard_app_version__timeouts *)
+(** timeouts *)
 
-type google_app_engine_standard_app_version__vpc_access_connector = {
+type vpc_access_connector = {
   egress_setting : string prop option; [@option]
       (** The egress setting for the connector, controlling what traffic is diverted through it. *)
   name : string prop;
@@ -201,24 +196,126 @@ Substitute '<language>' with 'python', 'java', 'php', 'ruby', 'go' or 'nodejs'. 
       (** Whether multiple requests can be dispatched to this version at once. *)
   version_id : string prop option; [@option]
       (** Relative name of the version within the service. For example, 'v1'. Version names can contain only lowercase letters, numbers, or hyphens. Reserved names,default, latest, and any name with the prefix ah-. *)
-  automatic_scaling :
-    google_app_engine_standard_app_version__automatic_scaling list;
-  basic_scaling :
-    google_app_engine_standard_app_version__basic_scaling list;
-  deployment :
-    google_app_engine_standard_app_version__deployment list;
-  entrypoint :
-    google_app_engine_standard_app_version__entrypoint list;
-  handlers : google_app_engine_standard_app_version__handlers list;
-  libraries : google_app_engine_standard_app_version__libraries list;
-  manual_scaling :
-    google_app_engine_standard_app_version__manual_scaling list;
-  timeouts : google_app_engine_standard_app_version__timeouts option;
-  vpc_access_connector :
-    google_app_engine_standard_app_version__vpc_access_connector list;
+  automatic_scaling : automatic_scaling list;
+  basic_scaling : basic_scaling list;
+  deployment : deployment list;
+  entrypoint : entrypoint list;
+  handlers : handlers list;
+  libraries : libraries list;
+  manual_scaling : manual_scaling list;
+  timeouts : timeouts option;
+  vpc_access_connector : vpc_access_connector list;
 }
 [@@deriving yojson_of]
 (** google_app_engine_standard_app_version *)
+
+let automatic_scaling__standard_scheduler_settings ?max_instances
+    ?min_instances ?target_cpu_utilization
+    ?target_throughput_utilization () :
+    automatic_scaling__standard_scheduler_settings =
+  {
+    max_instances;
+    min_instances;
+    target_cpu_utilization;
+    target_throughput_utilization;
+  }
+
+let automatic_scaling ?max_concurrent_requests ?max_idle_instances
+    ?max_pending_latency ?min_idle_instances ?min_pending_latency
+    ~standard_scheduler_settings () : automatic_scaling =
+  {
+    max_concurrent_requests;
+    max_idle_instances;
+    max_pending_latency;
+    min_idle_instances;
+    min_pending_latency;
+    standard_scheduler_settings;
+  }
+
+let basic_scaling ?idle_timeout ~max_instances () : basic_scaling =
+  { idle_timeout; max_instances }
+
+let deployment__files ?sha1_sum ~name ~source_url () :
+    deployment__files =
+  { name; sha1_sum; source_url }
+
+let deployment__zip ?files_count ~source_url () : deployment__zip =
+  { files_count; source_url }
+
+let deployment ~files ~zip () : deployment = { files; zip }
+let entrypoint ~shell () : entrypoint = { shell }
+
+let handlers__script ~script_path () : handlers__script =
+  { script_path }
+
+let handlers__static_files ?application_readable ?expiration
+    ?http_headers ?mime_type ?path ?require_matching_file
+    ?upload_path_regex () : handlers__static_files =
+  {
+    application_readable;
+    expiration;
+    http_headers;
+    mime_type;
+    path;
+    require_matching_file;
+    upload_path_regex;
+  }
+
+let handlers ?auth_fail_action ?login ?redirect_http_response_code
+    ?security_level ?url_regex ~script ~static_files () : handlers =
+  {
+    auth_fail_action;
+    login;
+    redirect_http_response_code;
+    security_level;
+    url_regex;
+    script;
+    static_files;
+  }
+
+let libraries ?name ?version () : libraries = { name; version }
+let manual_scaling ~instances () : manual_scaling = { instances }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let vpc_access_connector ?egress_setting ~name () :
+    vpc_access_connector =
+  { egress_setting; name }
+
+let google_app_engine_standard_app_version ?app_engine_apis
+    ?delete_service_on_destroy ?env_variables ?id ?inbound_services
+    ?instance_class ?noop_on_destroy ?project ?runtime_api_version
+    ?service_account ?threadsafe ?version_id ?timeouts ~runtime
+    ~service ~automatic_scaling ~basic_scaling ~deployment
+    ~entrypoint ~handlers ~libraries ~manual_scaling
+    ~vpc_access_connector () : google_app_engine_standard_app_version
+    =
+  {
+    app_engine_apis;
+    delete_service_on_destroy;
+    env_variables;
+    id;
+    inbound_services;
+    instance_class;
+    noop_on_destroy;
+    project;
+    runtime;
+    runtime_api_version;
+    service;
+    service_account;
+    threadsafe;
+    version_id;
+    automatic_scaling;
+    basic_scaling;
+    deployment;
+    entrypoint;
+    handlers;
+    libraries;
+    manual_scaling;
+    timeouts;
+    vpc_access_connector;
+  }
 
 type t = {
   app_engine_apis : bool prop;
@@ -238,43 +335,24 @@ type t = {
   version_id : string prop;
 }
 
-let google_app_engine_standard_app_version ?app_engine_apis
-    ?delete_service_on_destroy ?env_variables ?id ?inbound_services
-    ?instance_class ?noop_on_destroy ?project ?runtime_api_version
-    ?service_account ?threadsafe ?version_id ?timeouts ~runtime
-    ~service ~automatic_scaling ~basic_scaling ~deployment
-    ~entrypoint ~handlers ~libraries ~manual_scaling
-    ~vpc_access_connector __resource_id =
+let register ?tf_module ?app_engine_apis ?delete_service_on_destroy
+    ?env_variables ?id ?inbound_services ?instance_class
+    ?noop_on_destroy ?project ?runtime_api_version ?service_account
+    ?threadsafe ?version_id ?timeouts ~runtime ~service
+    ~automatic_scaling ~basic_scaling ~deployment ~entrypoint
+    ~handlers ~libraries ~manual_scaling ~vpc_access_connector
+    __resource_id =
   let __resource_type = "google_app_engine_standard_app_version" in
   let __resource =
-    ({
-       app_engine_apis;
-       delete_service_on_destroy;
-       env_variables;
-       id;
-       inbound_services;
-       instance_class;
-       noop_on_destroy;
-       project;
-       runtime;
-       runtime_api_version;
-       service;
-       service_account;
-       threadsafe;
-       version_id;
-       automatic_scaling;
-       basic_scaling;
-       deployment;
-       entrypoint;
-       handlers;
-       libraries;
-       manual_scaling;
-       timeouts;
-       vpc_access_connector;
-     }
-      : google_app_engine_standard_app_version)
+    google_app_engine_standard_app_version ?app_engine_apis
+      ?delete_service_on_destroy ?env_variables ?id ?inbound_services
+      ?instance_class ?noop_on_destroy ?project ?runtime_api_version
+      ?service_account ?threadsafe ?version_id ?timeouts ~runtime
+      ~service ~automatic_scaling ~basic_scaling ~deployment
+      ~entrypoint ~handlers ~libraries ~manual_scaling
+      ~vpc_access_connector ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_standard_app_version __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,19 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_servicequotas_template_association
+
+val aws_servicequotas_template_association :
+  ?skip_destroy:bool prop ->
+  unit ->
+  aws_servicequotas_template_association
+
+val yojson_of_aws_servicequotas_template_association :
+  aws_servicequotas_template_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,5 +22,5 @@ type t = private {
   status : string prop;
 }
 
-val aws_servicequotas_template_association :
-  ?skip_destroy:bool prop -> string -> t
+val register :
+  ?tf_module:tf_module -> ?skip_destroy:bool prop -> string -> t

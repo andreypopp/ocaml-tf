@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type google_compute_network_firewall_policy__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_compute_network_firewall_policy
+
+val google_compute_network_firewall_policy :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  unit ->
+  google_compute_network_firewall_policy
+
+val yojson_of_google_compute_network_firewall_policy :
+  google_compute_network_firewall_policy -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   creation_timestamp : string prop;
@@ -18,11 +42,12 @@ type t = private {
   self_link_with_id : string prop;
 }
 
-val google_compute_network_firewall_policy :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?timeouts:google_compute_network_firewall_policy__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   string ->
   t

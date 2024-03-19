@@ -2,9 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_resourceexplorer2_view__filters
-type aws_resourceexplorer2_view__included_property
+(** RESOURCE SERIALIZATION *)
+
+type filters
+
+val filters : filter_string:string prop -> unit -> filters
+
+type included_property
+
+val included_property : name:string prop -> unit -> included_property
+
 type aws_resourceexplorer2_view
+
+val aws_resourceexplorer2_view :
+  ?default_view:bool prop ->
+  ?tags:(string * string prop) list ->
+  name:string prop ->
+  filters:filters list ->
+  included_property:included_property list ->
+  unit ->
+  aws_resourceexplorer2_view
+
+val yojson_of_aws_resourceexplorer2_view :
+  aws_resourceexplorer2_view -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -15,12 +37,12 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_resourceexplorer2_view :
+val register :
+  ?tf_module:tf_module ->
   ?default_view:bool prop ->
   ?tags:(string * string prop) list ->
   name:string prop ->
-  filters:aws_resourceexplorer2_view__filters list ->
-  included_property:
-    aws_resourceexplorer2_view__included_property list ->
+  filters:filters list ->
+  included_property:included_property list ->
   string ->
   t

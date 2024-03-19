@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
-type aws_dx_gateway__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_dx_gateway
+
+val aws_dx_gateway :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  amazon_side_asn:string prop ->
+  name:string prop ->
+  unit ->
+  aws_dx_gateway
+
+val yojson_of_aws_dx_gateway : aws_dx_gateway -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   amazon_side_asn : string prop;
@@ -12,9 +30,10 @@ type t = private {
   owner_account_id : string prop;
 }
 
-val aws_dx_gateway :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_dx_gateway__timeouts ->
+  ?timeouts:timeouts ->
   amazon_side_asn:string prop ->
   name:string prop ->
   string ->

@@ -2,8 +2,32 @@
 
 open! Tf.Prelude
 
-type google_scc_mute_config__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_scc_mute_config
+
+val google_scc_mute_config :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  filter:string prop ->
+  mute_config_id:string prop ->
+  parent:string prop ->
+  unit ->
+  google_scc_mute_config
+
+val yojson_of_google_scc_mute_config : google_scc_mute_config -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   create_time : string prop;
@@ -17,10 +41,11 @@ type t = private {
   update_time : string prop;
 }
 
-val google_scc_mute_config :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?timeouts:google_scc_mute_config__timeouts ->
+  ?timeouts:timeouts ->
   filter:string prop ->
   mute_config_id:string prop ->
   parent:string prop ->

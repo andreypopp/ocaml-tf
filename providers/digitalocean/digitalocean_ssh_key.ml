@@ -12,6 +12,10 @@ type digitalocean_ssh_key = {
 [@@deriving yojson_of]
 (** digitalocean_ssh_key *)
 
+let digitalocean_ssh_key ?id ~name ~public_key () :
+    digitalocean_ssh_key =
+  { id; name; public_key }
+
 type t = {
   fingerprint : string prop;
   id : string prop;
@@ -19,12 +23,10 @@ type t = {
   public_key : string prop;
 }
 
-let digitalocean_ssh_key ?id ~name ~public_key __resource_id =
+let register ?tf_module ?id ~name ~public_key __resource_id =
   let __resource_type = "digitalocean_ssh_key" in
-  let __resource =
-    ({ id; name; public_key } : digitalocean_ssh_key)
-  in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  let __resource = digitalocean_ssh_key ?id ~name ~public_key () in
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_ssh_key __resource);
   let __resource_attributes =
     ({

@@ -2,13 +2,86 @@
 
 open! Tf.Prelude
 
-type azurerm_signalr_service__cors
-type azurerm_signalr_service__identity
-type azurerm_signalr_service__live_trace
-type azurerm_signalr_service__sku
-type azurerm_signalr_service__timeouts
-type azurerm_signalr_service__upstream_endpoint
+(** RESOURCE SERIALIZATION *)
+
+type cors
+
+val cors : allowed_origins:string prop list -> unit -> cors
+
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
+type live_trace
+
+val live_trace :
+  ?connectivity_logs_enabled:bool prop ->
+  ?enabled:bool prop ->
+  ?http_request_logs_enabled:bool prop ->
+  ?messaging_logs_enabled:bool prop ->
+  unit ->
+  live_trace
+
+type sku
+
+val sku : capacity:float prop -> name:string prop -> unit -> sku
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type upstream_endpoint
+
+val upstream_endpoint :
+  ?user_assigned_identity_id:string prop ->
+  category_pattern:string prop list ->
+  event_pattern:string prop list ->
+  hub_pattern:string prop list ->
+  url_template:string prop ->
+  unit ->
+  upstream_endpoint
+
 type azurerm_signalr_service
+
+val azurerm_signalr_service :
+  ?aad_auth_enabled:bool prop ->
+  ?connectivity_logs_enabled:bool prop ->
+  ?http_request_logs_enabled:bool prop ->
+  ?id:string prop ->
+  ?live_trace_enabled:bool prop ->
+  ?local_auth_enabled:bool prop ->
+  ?messaging_logs_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?serverless_connection_timeout_in_seconds:float prop ->
+  ?service_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_client_cert_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  cors:cors list ->
+  identity:identity list ->
+  live_trace:live_trace list ->
+  sku:sku list ->
+  upstream_endpoint:upstream_endpoint list ->
+  unit ->
+  azurerm_signalr_service
+
+val yojson_of_azurerm_signalr_service :
+  azurerm_signalr_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   aad_auth_enabled : bool prop;
@@ -36,7 +109,8 @@ type t = private {
   tls_client_cert_enabled : bool prop;
 }
 
-val azurerm_signalr_service :
+val register :
+  ?tf_module:tf_module ->
   ?aad_auth_enabled:bool prop ->
   ?connectivity_logs_enabled:bool prop ->
   ?http_request_logs_enabled:bool prop ->
@@ -49,14 +123,14 @@ val azurerm_signalr_service :
   ?service_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_client_cert_enabled:bool prop ->
-  ?timeouts:azurerm_signalr_service__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cors:azurerm_signalr_service__cors list ->
-  identity:azurerm_signalr_service__identity list ->
-  live_trace:azurerm_signalr_service__live_trace list ->
-  sku:azurerm_signalr_service__sku list ->
-  upstream_endpoint:azurerm_signalr_service__upstream_endpoint list ->
+  cors:cors list ->
+  identity:identity list ->
+  live_trace:live_trace list ->
+  sku:sku list ->
+  upstream_endpoint:upstream_endpoint list ->
   string ->
   t

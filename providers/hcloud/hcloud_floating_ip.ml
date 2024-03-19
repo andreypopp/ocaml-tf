@@ -19,6 +19,19 @@ type hcloud_floating_ip = {
 [@@deriving yojson_of]
 (** hcloud_floating_ip *)
 
+let hcloud_floating_ip ?delete_protection ?description ?home_location
+    ?id ?labels ?name ?server_id ~type_ () : hcloud_floating_ip =
+  {
+    delete_protection;
+    description;
+    home_location;
+    id;
+    labels;
+    name;
+    server_id;
+    type_;
+  }
+
 type t = {
   delete_protection : bool prop;
   description : string prop;
@@ -32,23 +45,15 @@ type t = {
   type_ : string prop;
 }
 
-let hcloud_floating_ip ?delete_protection ?description ?home_location
-    ?id ?labels ?name ?server_id ~type_ __resource_id =
+let register ?tf_module ?delete_protection ?description
+    ?home_location ?id ?labels ?name ?server_id ~type_ __resource_id
+    =
   let __resource_type = "hcloud_floating_ip" in
   let __resource =
-    ({
-       delete_protection;
-       description;
-       home_location;
-       id;
-       labels;
-       name;
-       server_id;
-       type_;
-     }
-      : hcloud_floating_ip)
+    hcloud_floating_ip ?delete_protection ?description ?home_location
+      ?id ?labels ?name ?server_id ~type_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_floating_ip __resource);
   let __resource_attributes =
     ({

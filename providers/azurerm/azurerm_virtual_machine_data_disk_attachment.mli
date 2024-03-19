@@ -2,8 +2,36 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_machine_data_disk_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_virtual_machine_data_disk_attachment
+
+val azurerm_virtual_machine_data_disk_attachment :
+  ?create_option:string prop ->
+  ?id:string prop ->
+  ?write_accelerator_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  caching:string prop ->
+  lun:float prop ->
+  managed_disk_id:string prop ->
+  virtual_machine_id:string prop ->
+  unit ->
+  azurerm_virtual_machine_data_disk_attachment
+
+val yojson_of_azurerm_virtual_machine_data_disk_attachment :
+  azurerm_virtual_machine_data_disk_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   caching : string prop;
@@ -15,11 +43,12 @@ type t = private {
   write_accelerator_enabled : bool prop;
 }
 
-val azurerm_virtual_machine_data_disk_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?create_option:string prop ->
   ?id:string prop ->
   ?write_accelerator_enabled:bool prop ->
-  ?timeouts:azurerm_virtual_machine_data_disk_attachment__timeouts ->
+  ?timeouts:timeouts ->
   caching:string prop ->
   lun:float prop ->
   managed_disk_id:string prop ->

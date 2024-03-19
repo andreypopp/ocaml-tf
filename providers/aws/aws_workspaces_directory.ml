@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_workspaces_directory__self_service_permissions = {
+type self_service_permissions = {
   change_compute_type : bool prop option; [@option]
       (** change_compute_type *)
   increase_volume_size : bool prop option; [@option]
@@ -17,9 +17,9 @@ type aws_workspaces_directory__self_service_permissions = {
       (** switch_running_mode *)
 }
 [@@deriving yojson_of]
-(** aws_workspaces_directory__self_service_permissions *)
+(** self_service_permissions *)
 
-type aws_workspaces_directory__workspace_access_properties = {
+type workspace_access_properties = {
   device_type_android : string prop option; [@option]
       (** device_type_android *)
   device_type_chromeos : string prop option; [@option]
@@ -38,9 +38,9 @@ type aws_workspaces_directory__workspace_access_properties = {
       (** device_type_zeroclient *)
 }
 [@@deriving yojson_of]
-(** aws_workspaces_directory__workspace_access_properties *)
+(** workspace_access_properties *)
 
-type aws_workspaces_directory__workspace_creation_properties = {
+type workspace_creation_properties = {
   custom_security_group_id : string prop option; [@option]
       (** custom_security_group_id *)
   default_ou : string prop option; [@option]  (** default_ou *)
@@ -52,7 +52,7 @@ type aws_workspaces_directory__workspace_creation_properties = {
       (** user_enabled_as_local_administrator *)
 }
 [@@deriving yojson_of]
-(** aws_workspaces_directory__workspace_creation_properties *)
+(** workspace_creation_properties *)
 
 type aws_workspaces_directory = {
   directory_id : string prop;  (** directory_id *)
@@ -63,15 +63,66 @@ type aws_workspaces_directory = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  self_service_permissions :
-    aws_workspaces_directory__self_service_permissions list;
-  workspace_access_properties :
-    aws_workspaces_directory__workspace_access_properties list;
-  workspace_creation_properties :
-    aws_workspaces_directory__workspace_creation_properties list;
+  self_service_permissions : self_service_permissions list;
+  workspace_access_properties : workspace_access_properties list;
+  workspace_creation_properties : workspace_creation_properties list;
 }
 [@@deriving yojson_of]
 (** aws_workspaces_directory *)
+
+let self_service_permissions ?change_compute_type
+    ?increase_volume_size ?rebuild_workspace ?restart_workspace
+    ?switch_running_mode () : self_service_permissions =
+  {
+    change_compute_type;
+    increase_volume_size;
+    rebuild_workspace;
+    restart_workspace;
+    switch_running_mode;
+  }
+
+let workspace_access_properties ?device_type_android
+    ?device_type_chromeos ?device_type_ios ?device_type_linux
+    ?device_type_osx ?device_type_web ?device_type_windows
+    ?device_type_zeroclient () : workspace_access_properties =
+  {
+    device_type_android;
+    device_type_chromeos;
+    device_type_ios;
+    device_type_linux;
+    device_type_osx;
+    device_type_web;
+    device_type_windows;
+    device_type_zeroclient;
+  }
+
+let workspace_creation_properties ?custom_security_group_id
+    ?default_ou ?enable_internet_access ?enable_maintenance_mode
+    ?user_enabled_as_local_administrator () :
+    workspace_creation_properties =
+  {
+    custom_security_group_id;
+    default_ou;
+    enable_internet_access;
+    enable_maintenance_mode;
+    user_enabled_as_local_administrator;
+  }
+
+let aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
+    ?tags_all ~directory_id ~self_service_permissions
+    ~workspace_access_properties ~workspace_creation_properties () :
+    aws_workspaces_directory =
+  {
+    directory_id;
+    id;
+    ip_group_ids;
+    subnet_ids;
+    tags;
+    tags_all;
+    self_service_permissions;
+    workspace_access_properties;
+    workspace_creation_properties;
+  }
 
 type t = {
   alias : string prop;
@@ -90,26 +141,17 @@ type t = {
   workspace_security_group_id : string prop;
 }
 
-let aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
-    ?tags_all ~directory_id ~self_service_permissions
+let register ?tf_module ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all
+    ~directory_id ~self_service_permissions
     ~workspace_access_properties ~workspace_creation_properties
     __resource_id =
   let __resource_type = "aws_workspaces_directory" in
   let __resource =
-    ({
-       directory_id;
-       id;
-       ip_group_ids;
-       subnet_ids;
-       tags;
-       tags_all;
-       self_service_permissions;
-       workspace_access_properties;
-       workspace_creation_properties;
-     }
-      : aws_workspaces_directory)
+    aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
+      ?tags_all ~directory_id ~self_service_permissions
+      ~workspace_access_properties ~workspace_creation_properties ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_workspaces_directory __resource);
   let __resource_attributes =
     ({

@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_backup_region_settings
+
+val aws_backup_region_settings :
+  ?id:string prop ->
+  ?resource_type_management_preference:(string * bool prop) list ->
+  resource_type_opt_in_preference:(string * bool prop) list ->
+  unit ->
+  aws_backup_region_settings
+
+val yojson_of_aws_backup_region_settings :
+  aws_backup_region_settings -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   resource_type_opt_in_preference : (string * bool) list prop;
 }
 
-val aws_backup_region_settings :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?resource_type_management_preference:(string * bool prop) list ->
   resource_type_opt_in_preference:(string * bool prop) list ->

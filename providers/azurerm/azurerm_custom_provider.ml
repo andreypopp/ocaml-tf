@@ -4,35 +4,35 @@
 
 open! Tf.Prelude
 
-type azurerm_custom_provider__action = {
+type action = {
   endpoint : string prop;  (** endpoint *)
   name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
-(** azurerm_custom_provider__action *)
+(** action *)
 
-type azurerm_custom_provider__resource_type = {
+type resource_type = {
   endpoint : string prop;  (** endpoint *)
   name : string prop;  (** name *)
   routing_type : string prop option; [@option]  (** routing_type *)
 }
 [@@deriving yojson_of]
-(** azurerm_custom_provider__resource_type *)
+(** resource_type *)
 
-type azurerm_custom_provider__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_custom_provider__timeouts *)
+(** timeouts *)
 
-type azurerm_custom_provider__validation = {
+type validation = {
   specification : string prop;  (** specification *)
 }
 [@@deriving yojson_of]
-(** azurerm_custom_provider__validation *)
+(** validation *)
 
 type azurerm_custom_provider = {
   id : string prop option; [@option]  (** id *)
@@ -40,13 +40,38 @@ type azurerm_custom_provider = {
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  action : azurerm_custom_provider__action list;
-  resource_type : azurerm_custom_provider__resource_type list;
-  timeouts : azurerm_custom_provider__timeouts option;
-  validation : azurerm_custom_provider__validation list;
+  action : action list;
+  resource_type : resource_type list;
+  timeouts : timeouts option;
+  validation : validation list;
 }
 [@@deriving yojson_of]
 (** azurerm_custom_provider *)
+
+let action ~endpoint ~name () : action = { endpoint; name }
+
+let resource_type ?routing_type ~endpoint ~name () : resource_type =
+  { endpoint; name; routing_type }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let validation ~specification () : validation = { specification }
+
+let azurerm_custom_provider ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~action ~resource_type ~validation () :
+    azurerm_custom_provider =
+  {
+    id;
+    location;
+    name;
+    resource_group_name;
+    tags;
+    action;
+    resource_type;
+    timeouts;
+    validation;
+  }
 
 type t = {
   id : string prop;
@@ -56,25 +81,15 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_custom_provider ?id ?tags ?timeouts ~location ~name
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~action ~resource_type ~validation
     __resource_id =
   let __resource_type = "azurerm_custom_provider" in
   let __resource =
-    ({
-       id;
-       location;
-       name;
-       resource_group_name;
-       tags;
-       action;
-       resource_type;
-       timeouts;
-       validation;
-     }
-      : azurerm_custom_provider)
+    azurerm_custom_provider ?id ?tags ?timeouts ~location ~name
+      ~resource_group_name ~action ~resource_type ~validation ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_custom_provider __resource);
   let __resource_attributes =
     ({

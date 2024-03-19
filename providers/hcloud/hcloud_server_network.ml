@@ -15,6 +15,10 @@ type hcloud_server_network = {
 [@@deriving yojson_of]
 (** hcloud_server_network *)
 
+let hcloud_server_network ?alias_ips ?id ?ip ?network_id ?subnet_id
+    ~server_id () : hcloud_server_network =
+  { alias_ips; id; ip; network_id; server_id; subnet_id }
+
 type t = {
   alias_ips : string list prop;
   id : string prop;
@@ -25,14 +29,14 @@ type t = {
   subnet_id : string prop;
 }
 
-let hcloud_server_network ?alias_ips ?id ?ip ?network_id ?subnet_id
+let register ?tf_module ?alias_ips ?id ?ip ?network_id ?subnet_id
     ~server_id __resource_id =
   let __resource_type = "hcloud_server_network" in
   let __resource =
-    ({ alias_ips; id; ip; network_id; server_id; subnet_id }
-      : hcloud_server_network)
+    hcloud_server_network ?alias_ips ?id ?ip ?network_id ?subnet_id
+      ~server_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_server_network __resource);
   let __resource_attributes =
     ({

@@ -2,12 +2,43 @@
 
 open! Tf.Prelude
 
-type aws_globalaccelerator_custom_routing_endpoint_group__destination_configuration
+(** RESOURCE SERIALIZATION *)
 
-type aws_globalaccelerator_custom_routing_endpoint_group__endpoint_configuration
+type destination_configuration
 
-type aws_globalaccelerator_custom_routing_endpoint_group__timeouts
+val destination_configuration :
+  from_port:float prop ->
+  protocols:string prop list ->
+  to_port:float prop ->
+  unit ->
+  destination_configuration
+
+type endpoint_configuration
+
+val endpoint_configuration :
+  ?endpoint_id:string prop -> unit -> endpoint_configuration
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_globalaccelerator_custom_routing_endpoint_group
+
+val aws_globalaccelerator_custom_routing_endpoint_group :
+  ?endpoint_group_region:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  listener_arn:string prop ->
+  destination_configuration:destination_configuration list ->
+  endpoint_configuration:endpoint_configuration list ->
+  unit ->
+  aws_globalaccelerator_custom_routing_endpoint_group
+
+val yojson_of_aws_globalaccelerator_custom_routing_endpoint_group :
+  aws_globalaccelerator_custom_routing_endpoint_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -16,17 +47,13 @@ type t = private {
   listener_arn : string prop;
 }
 
-val aws_globalaccelerator_custom_routing_endpoint_group :
+val register :
+  ?tf_module:tf_module ->
   ?endpoint_group_region:string prop ->
   ?id:string prop ->
-  ?timeouts:
-    aws_globalaccelerator_custom_routing_endpoint_group__timeouts ->
+  ?timeouts:timeouts ->
   listener_arn:string prop ->
-  destination_configuration:
-    aws_globalaccelerator_custom_routing_endpoint_group__destination_configuration
-    list ->
-  endpoint_configuration:
-    aws_globalaccelerator_custom_routing_endpoint_group__endpoint_configuration
-    list ->
+  destination_configuration:destination_configuration list ->
+  endpoint_configuration:endpoint_configuration list ->
   string ->
   t

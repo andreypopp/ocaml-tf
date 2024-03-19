@@ -2,9 +2,49 @@
 
 open! Tf.Prelude
 
-type aws_workspaces_workspace__timeouts
-type aws_workspaces_workspace__workspace_properties
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
+type workspace_properties
+
+val workspace_properties :
+  ?compute_type_name:string prop ->
+  ?root_volume_size_gib:float prop ->
+  ?running_mode:string prop ->
+  ?running_mode_auto_stop_timeout_in_minutes:float prop ->
+  ?user_volume_size_gib:float prop ->
+  unit ->
+  workspace_properties
+
 type aws_workspaces_workspace
+
+val aws_workspaces_workspace :
+  ?id:string prop ->
+  ?root_volume_encryption_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_volume_encryption_enabled:bool prop ->
+  ?volume_encryption_key:string prop ->
+  ?timeouts:timeouts ->
+  bundle_id:string prop ->
+  directory_id:string prop ->
+  user_name:string prop ->
+  workspace_properties:workspace_properties list ->
+  unit ->
+  aws_workspaces_workspace
+
+val yojson_of_aws_workspaces_workspace :
+  aws_workspaces_workspace -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   bundle_id : string prop;
@@ -21,18 +61,18 @@ type t = private {
   volume_encryption_key : string prop;
 }
 
-val aws_workspaces_workspace :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?root_volume_encryption_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_volume_encryption_enabled:bool prop ->
   ?volume_encryption_key:string prop ->
-  ?timeouts:aws_workspaces_workspace__timeouts ->
+  ?timeouts:timeouts ->
   bundle_id:string prop ->
   directory_id:string prop ->
   user_name:string prop ->
-  workspace_properties:
-    aws_workspaces_workspace__workspace_properties list ->
+  workspace_properties:workspace_properties list ->
   string ->
   t

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_compute_global_network_endpoint_group__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_global_network_endpoint_group__timeouts *)
+(** timeouts *)
 
 type google_compute_global_network_endpoint_group = {
   default_port : float prop option; [@option]
@@ -30,11 +30,25 @@ character, which cannot be a dash. *)
   network_endpoint_type : string prop;
       (** Type of network endpoints in this network endpoint group. Possible values: [INTERNET_IP_PORT, INTERNET_FQDN_PORT] *)
   project : string prop option; [@option]  (** project *)
-  timeouts :
-    google_compute_global_network_endpoint_group__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_global_network_endpoint_group *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_compute_global_network_endpoint_group ?default_port
+    ?description ?id ?project ?timeouts ~name ~network_endpoint_type
+    () : google_compute_global_network_endpoint_group =
+  {
+    default_port;
+    description;
+    id;
+    name;
+    network_endpoint_type;
+    project;
+    timeouts;
+  }
 
 type t = {
   default_port : float prop;
@@ -46,25 +60,17 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_global_network_endpoint_group ?default_port
-    ?description ?id ?project ?timeouts ~name ~network_endpoint_type
-    __resource_id =
+let register ?tf_module ?default_port ?description ?id ?project
+    ?timeouts ~name ~network_endpoint_type __resource_id =
   let __resource_type =
     "google_compute_global_network_endpoint_group"
   in
   let __resource =
-    ({
-       default_port;
-       description;
-       id;
-       name;
-       network_endpoint_type;
-       project;
-       timeouts;
-     }
-      : google_compute_global_network_endpoint_group)
+    google_compute_global_network_endpoint_group ?default_port
+      ?description ?id ?project ?timeouts ~name
+      ~network_endpoint_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_global_network_endpoint_group
        __resource);
   let __resource_attributes =

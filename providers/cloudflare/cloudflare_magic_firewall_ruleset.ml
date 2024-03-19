@@ -17,6 +17,10 @@ type cloudflare_magic_firewall_ruleset = {
 [@@deriving yojson_of]
 (** cloudflare_magic_firewall_ruleset *)
 
+let cloudflare_magic_firewall_ruleset ?description ?id ?rules
+    ~account_id ~name () : cloudflare_magic_firewall_ruleset =
+  { account_id; description; id; name; rules }
+
 type t = {
   account_id : string prop;
   description : string prop;
@@ -25,14 +29,14 @@ type t = {
   rules : (string * string) list list prop;
 }
 
-let cloudflare_magic_firewall_ruleset ?description ?id ?rules
-    ~account_id ~name __resource_id =
+let register ?tf_module ?description ?id ?rules ~account_id ~name
+    __resource_id =
   let __resource_type = "cloudflare_magic_firewall_ruleset" in
   let __resource =
-    ({ account_id; description; id; name; rules }
-      : cloudflare_magic_firewall_ruleset)
+    cloudflare_magic_firewall_ruleset ?description ?id ?rules
+      ~account_id ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_magic_firewall_ruleset __resource);
   let __resource_attributes =
     ({

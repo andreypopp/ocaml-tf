@@ -2,9 +2,40 @@
 
 open! Tf.Prelude
 
-type kubernetes_secret_v1__metadata
-type kubernetes_secret_v1__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type metadata
+
+val metadata :
+  ?annotations:(string * string prop) list ->
+  ?generate_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?namespace:string prop ->
+  unit ->
+  metadata
+
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type kubernetes_secret_v1
+
+val kubernetes_secret_v1 :
+  ?binary_data:(string * string prop) list ->
+  ?data:(string * string prop) list ->
+  ?id:string prop ->
+  ?immutable:bool prop ->
+  ?type_:string prop ->
+  ?wait_for_service_account_token:bool prop ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  unit ->
+  kubernetes_secret_v1
+
+val yojson_of_kubernetes_secret_v1 : kubernetes_secret_v1 -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   binary_data : (string * string) list prop;
@@ -15,14 +46,15 @@ type t = private {
   wait_for_service_account_token : bool prop;
 }
 
-val kubernetes_secret_v1 :
+val register :
+  ?tf_module:tf_module ->
   ?binary_data:(string * string prop) list ->
   ?data:(string * string prop) list ->
   ?id:string prop ->
   ?immutable:bool prop ->
   ?type_:string prop ->
   ?wait_for_service_account_token:bool prop ->
-  ?timeouts:kubernetes_secret_v1__timeouts ->
-  metadata:kubernetes_secret_v1__metadata list ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
   string ->
   t

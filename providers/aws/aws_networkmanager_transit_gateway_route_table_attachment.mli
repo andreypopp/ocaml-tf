@@ -2,9 +2,29 @@
 
 open! Tf.Prelude
 
-type aws_networkmanager_transit_gateway_route_table_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
 
 type aws_networkmanager_transit_gateway_route_table_attachment
+
+val aws_networkmanager_transit_gateway_route_table_attachment :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  peering_id:string prop ->
+  transit_gateway_route_table_arn:string prop ->
+  unit ->
+  aws_networkmanager_transit_gateway_route_table_attachment
+
+val yojson_of_aws_networkmanager_transit_gateway_route_table_attachment :
+  aws_networkmanager_transit_gateway_route_table_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -24,12 +44,12 @@ type t = private {
   transit_gateway_route_table_arn : string prop;
 }
 
-val aws_networkmanager_transit_gateway_route_table_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:
-    aws_networkmanager_transit_gateway_route_table_attachment__timeouts ->
+  ?timeouts:timeouts ->
   peering_id:string prop ->
   transit_gateway_route_table_arn:string prop ->
   string ->

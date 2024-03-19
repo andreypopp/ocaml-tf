@@ -13,6 +13,11 @@ type google_endpoints_service_consumers_iam_policy = {
 [@@deriving yojson_of]
 (** google_endpoints_service_consumers_iam_policy *)
 
+let google_endpoints_service_consumers_iam_policy ?id
+    ~consumer_project ~policy_data ~service_name () :
+    google_endpoints_service_consumers_iam_policy =
+  { consumer_project; id; policy_data; service_name }
+
 type t = {
   consumer_project : string prop;
   etag : string prop;
@@ -21,16 +26,16 @@ type t = {
   service_name : string prop;
 }
 
-let google_endpoints_service_consumers_iam_policy ?id
-    ~consumer_project ~policy_data ~service_name __resource_id =
+let register ?tf_module ?id ~consumer_project ~policy_data
+    ~service_name __resource_id =
   let __resource_type =
     "google_endpoints_service_consumers_iam_policy"
   in
   let __resource =
-    ({ consumer_project; id; policy_data; service_name }
-      : google_endpoints_service_consumers_iam_policy)
+    google_endpoints_service_consumers_iam_policy ?id
+      ~consumer_project ~policy_data ~service_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_endpoints_service_consumers_iam_policy
        __resource);
   let __resource_attributes =

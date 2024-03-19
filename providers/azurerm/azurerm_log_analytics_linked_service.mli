@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type azurerm_log_analytics_linked_service__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_log_analytics_linked_service
+
+val azurerm_log_analytics_linked_service :
+  ?id:string prop ->
+  ?read_access_id:string prop ->
+  ?write_access_id:string prop ->
+  ?timeouts:timeouts ->
+  resource_group_name:string prop ->
+  workspace_id:string prop ->
+  unit ->
+  azurerm_log_analytics_linked_service
+
+val yojson_of_azurerm_log_analytics_linked_service :
+  azurerm_log_analytics_linked_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -14,11 +40,12 @@ type t = private {
   write_access_id : string prop;
 }
 
-val azurerm_log_analytics_linked_service :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?read_access_id:string prop ->
   ?write_access_id:string prop ->
-  ?timeouts:azurerm_log_analytics_linked_service__timeouts ->
+  ?timeouts:timeouts ->
   resource_group_name:string prop ->
   workspace_id:string prop ->
   string ->

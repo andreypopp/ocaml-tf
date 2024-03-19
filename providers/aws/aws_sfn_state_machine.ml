@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_sfn_state_machine__logging_configuration = {
+type logging_configuration = {
   include_execution_data : bool prop option; [@option]
       (** include_execution_data *)
   level : string prop option; [@option]  (** level *)
@@ -12,21 +12,21 @@ type aws_sfn_state_machine__logging_configuration = {
       (** log_destination *)
 }
 [@@deriving yojson_of]
-(** aws_sfn_state_machine__logging_configuration *)
+(** logging_configuration *)
 
-type aws_sfn_state_machine__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_sfn_state_machine__timeouts *)
+(** timeouts *)
 
-type aws_sfn_state_machine__tracing_configuration = {
+type tracing_configuration = {
   enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
-(** aws_sfn_state_machine__tracing_configuration *)
+(** tracing_configuration *)
 
 type aws_sfn_state_machine = {
   definition : string prop;  (** definition *)
@@ -39,14 +39,41 @@ type aws_sfn_state_machine = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  logging_configuration :
-    aws_sfn_state_machine__logging_configuration list;
-  timeouts : aws_sfn_state_machine__timeouts option;
-  tracing_configuration :
-    aws_sfn_state_machine__tracing_configuration list;
+  logging_configuration : logging_configuration list;
+  timeouts : timeouts option;
+  tracing_configuration : tracing_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_sfn_state_machine *)
+
+let logging_configuration ?include_execution_data ?level
+    ?log_destination () : logging_configuration =
+  { include_execution_data; level; log_destination }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let tracing_configuration ?enabled () : tracing_configuration =
+  { enabled }
+
+let aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
+    ?tags_all ?type_ ?timeouts ~definition ~role_arn
+    ~logging_configuration ~tracing_configuration () :
+    aws_sfn_state_machine =
+  {
+    definition;
+    id;
+    name;
+    name_prefix;
+    publish;
+    role_arn;
+    tags;
+    tags_all;
+    type_;
+    logging_configuration;
+    timeouts;
+    tracing_configuration;
+  }
 
 type t = {
   arn : string prop;
@@ -67,28 +94,16 @@ type t = {
   version_description : string prop;
 }
 
-let aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
+let register ?tf_module ?id ?name ?name_prefix ?publish ?tags
     ?tags_all ?type_ ?timeouts ~definition ~role_arn
     ~logging_configuration ~tracing_configuration __resource_id =
   let __resource_type = "aws_sfn_state_machine" in
   let __resource =
-    ({
-       definition;
-       id;
-       name;
-       name_prefix;
-       publish;
-       role_arn;
-       tags;
-       tags_all;
-       type_;
-       logging_configuration;
-       timeouts;
-       tracing_configuration;
-     }
-      : aws_sfn_state_machine)
+    aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
+      ?tags_all ?type_ ?timeouts ~definition ~role_arn
+      ~logging_configuration ~tracing_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sfn_state_machine __resource);
   let __resource_attributes =
     ({

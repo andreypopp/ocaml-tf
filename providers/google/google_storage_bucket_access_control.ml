@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_storage_bucket_access_control__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_storage_bucket_access_control__timeouts *)
+(** timeouts *)
 
 type google_storage_bucket_access_control = {
   bucket : string prop;  (** The name of the bucket. *)
@@ -33,10 +33,17 @@ Examples:
   id : string prop option; [@option]  (** id *)
   role : string prop option; [@option]
       (** The access permission for the entity. Possible values: [OWNER, READER, WRITER] *)
-  timeouts : google_storage_bucket_access_control__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_storage_bucket_access_control *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_storage_bucket_access_control ?id ?role ?timeouts ~bucket
+    ~entity () : google_storage_bucket_access_control =
+  { bucket; entity; id; role; timeouts }
 
 type t = {
   bucket : string prop;
@@ -47,14 +54,14 @@ type t = {
   role : string prop;
 }
 
-let google_storage_bucket_access_control ?id ?role ?timeouts ~bucket
-    ~entity __resource_id =
+let register ?tf_module ?id ?role ?timeouts ~bucket ~entity
+    __resource_id =
   let __resource_type = "google_storage_bucket_access_control" in
   let __resource =
-    ({ bucket; entity; id; role; timeouts }
-      : google_storage_bucket_access_control)
+    google_storage_bucket_access_control ?id ?role ?timeouts ~bucket
+      ~entity ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_bucket_access_control __resource);
   let __resource_attributes =
     ({

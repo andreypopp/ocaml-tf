@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_apigee_instance__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_apigee_instance__timeouts *)
+(** timeouts *)
 
 type google_apigee_instance = {
   consumer_accept_list : string prop list option; [@option]
@@ -42,10 +42,30 @@ in the format 'organizations/{{org_name}}'. *)
   peering_cidr_range : string prop option; [@option]
       (** The size of the CIDR block range that will be reserved by the instance. For valid values,
 see [CidrRange](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.instances#CidrRange) on the documentation. *)
-  timeouts : google_apigee_instance__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_instance *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_apigee_instance ?consumer_accept_list ?description
+    ?disk_encryption_key_name ?display_name ?id ?ip_range
+    ?peering_cidr_range ?timeouts ~location ~name ~org_id () :
+    google_apigee_instance =
+  {
+    consumer_accept_list;
+    description;
+    disk_encryption_key_name;
+    display_name;
+    id;
+    ip_range;
+    location;
+    name;
+    org_id;
+    peering_cidr_range;
+    timeouts;
+  }
 
 type t = {
   consumer_accept_list : string list prop;
@@ -63,28 +83,17 @@ type t = {
   service_attachment : string prop;
 }
 
-let google_apigee_instance ?consumer_accept_list ?description
+let register ?tf_module ?consumer_accept_list ?description
     ?disk_encryption_key_name ?display_name ?id ?ip_range
     ?peering_cidr_range ?timeouts ~location ~name ~org_id
     __resource_id =
   let __resource_type = "google_apigee_instance" in
   let __resource =
-    ({
-       consumer_accept_list;
-       description;
-       disk_encryption_key_name;
-       display_name;
-       id;
-       ip_range;
-       location;
-       name;
-       org_id;
-       peering_cidr_range;
-       timeouts;
-     }
-      : google_apigee_instance)
+    google_apigee_instance ?consumer_accept_list ?description
+      ?disk_encryption_key_name ?display_name ?id ?ip_range
+      ?peering_cidr_range ?timeouts ~location ~name ~org_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_instance __resource);
   let __resource_attributes =
     ({

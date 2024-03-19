@@ -14,6 +14,11 @@ type aws_s3_bucket_request_payment_configuration = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_request_payment_configuration *)
 
+let aws_s3_bucket_request_payment_configuration
+    ?expected_bucket_owner ?id ~bucket ~payer () :
+    aws_s3_bucket_request_payment_configuration =
+  { bucket; expected_bucket_owner; id; payer }
+
 type t = {
   bucket : string prop;
   expected_bucket_owner : string prop;
@@ -21,16 +26,16 @@ type t = {
   payer : string prop;
 }
 
-let aws_s3_bucket_request_payment_configuration
-    ?expected_bucket_owner ?id ~bucket ~payer __resource_id =
+let register ?tf_module ?expected_bucket_owner ?id ~bucket ~payer
+    __resource_id =
   let __resource_type =
     "aws_s3_bucket_request_payment_configuration"
   in
   let __resource =
-    ({ bucket; expected_bucket_owner; id; payer }
-      : aws_s3_bucket_request_payment_configuration)
+    aws_s3_bucket_request_payment_configuration
+      ?expected_bucket_owner ?id ~bucket ~payer ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_request_payment_configuration __resource);
   let __resource_attributes =
     ({

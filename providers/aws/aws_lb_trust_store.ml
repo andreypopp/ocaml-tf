@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_lb_trust_store__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_lb_trust_store__timeouts *)
+(** timeouts *)
 
 type aws_lb_trust_store = {
   ca_certificates_bundle_s3_bucket : string prop;
@@ -25,10 +25,28 @@ type aws_lb_trust_store = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_lb_trust_store__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lb_trust_store *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_lb_trust_store ?ca_certificates_bundle_s3_object_version ?id
+    ?name ?name_prefix ?tags ?tags_all ?timeouts
+    ~ca_certificates_bundle_s3_bucket ~ca_certificates_bundle_s3_key
+    () : aws_lb_trust_store =
+  {
+    ca_certificates_bundle_s3_bucket;
+    ca_certificates_bundle_s3_key;
+    ca_certificates_bundle_s3_object_version;
+    id;
+    name;
+    name_prefix;
+    tags;
+    tags_all;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -43,26 +61,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_lb_trust_store ?ca_certificates_bundle_s3_object_version ?id
+let register ?tf_module ?ca_certificates_bundle_s3_object_version ?id
     ?name ?name_prefix ?tags ?tags_all ?timeouts
     ~ca_certificates_bundle_s3_bucket ~ca_certificates_bundle_s3_key
     __resource_id =
   let __resource_type = "aws_lb_trust_store" in
   let __resource =
-    ({
-       ca_certificates_bundle_s3_bucket;
-       ca_certificates_bundle_s3_key;
-       ca_certificates_bundle_s3_object_version;
-       id;
-       name;
-       name_prefix;
-       tags;
-       tags_all;
-       timeouts;
-     }
-      : aws_lb_trust_store)
+    aws_lb_trust_store ?ca_certificates_bundle_s3_object_version ?id
+      ?name ?name_prefix ?tags ?tags_all ?timeouts
+      ~ca_certificates_bundle_s3_bucket
+      ~ca_certificates_bundle_s3_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lb_trust_store __resource);
   let __resource_attributes =
     ({

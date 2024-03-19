@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type cloudflare_list_item__hostname = {
+type hostname = {
   url_hostname : string prop;  (** The FQDN to match on. *)
 }
 [@@deriving yojson_of]
 (** Hostname to store in the list. Must provide only one of: `ip`, `asn`, `redirect`, `hostname`. *)
 
-type cloudflare_list_item__redirect = {
+type redirect = {
   include_subdomains : bool prop option; [@option]
       (** Whether the redirect also matches subdomains of the source url. *)
   preserve_path_suffix : bool prop option; [@option]
@@ -38,13 +38,32 @@ type cloudflare_list_item = {
       (** IP address to include in the list. Must provide only one of: `ip`, `asn`, `redirect`, `hostname`. *)
   list_id : string prop;
       (** The list identifier to target for the resource. *)
-  hostname : cloudflare_list_item__hostname list;
-  redirect : cloudflare_list_item__redirect list;
+  hostname : hostname list;
+  redirect : redirect list;
 }
 [@@deriving yojson_of]
 (** Provides individual list items (IPs, Redirects, ASNs, Hostnames) to be used in Edge Rules Engine
 across all zones within the same account.
  *)
+
+let hostname ~url_hostname () : hostname = { url_hostname }
+
+let redirect ?include_subdomains ?preserve_path_suffix
+    ?preserve_query_string ?status_code ?subpath_matching ~source_url
+    ~target_url () : redirect =
+  {
+    include_subdomains;
+    preserve_path_suffix;
+    preserve_query_string;
+    source_url;
+    status_code;
+    subpath_matching;
+    target_url;
+  }
+
+let cloudflare_list_item ?asn ?comment ?ip ~account_id ~list_id
+    ~hostname ~redirect () : cloudflare_list_item =
+  { account_id; asn; comment; ip; list_id; hostname; redirect }
 
 type t = {
   account_id : string prop;
@@ -55,14 +74,14 @@ type t = {
   list_id : string prop;
 }
 
-let cloudflare_list_item ?asn ?comment ?ip ~account_id ~list_id
+let register ?tf_module ?asn ?comment ?ip ~account_id ~list_id
     ~hostname ~redirect __resource_id =
   let __resource_type = "cloudflare_list_item" in
   let __resource =
-    ({ account_id; asn; comment; ip; list_id; hostname; redirect }
-      : cloudflare_list_item)
+    cloudflare_list_item ?asn ?comment ?ip ~account_id ~list_id
+      ~hostname ~redirect ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_list_item __resource);
   let __resource_attributes =
     ({

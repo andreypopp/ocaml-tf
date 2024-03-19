@@ -13,6 +13,10 @@ type aws_dynamodb_tag = {
 [@@deriving yojson_of]
 (** aws_dynamodb_tag *)
 
+let aws_dynamodb_tag ?id ~key ~resource_arn ~value () :
+    aws_dynamodb_tag =
+  { id; key; resource_arn; value }
+
 type t = {
   id : string prop;
   key : string prop;
@@ -20,12 +24,12 @@ type t = {
   value : string prop;
 }
 
-let aws_dynamodb_tag ?id ~key ~resource_arn ~value __resource_id =
+let register ?tf_module ?id ~key ~resource_arn ~value __resource_id =
   let __resource_type = "aws_dynamodb_tag" in
   let __resource =
-    ({ id; key; resource_arn; value } : aws_dynamodb_tag)
+    aws_dynamodb_tag ?id ~key ~resource_arn ~value ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_tag __resource);
   let __resource_attributes =
     ({

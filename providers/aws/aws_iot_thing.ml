@@ -15,6 +15,10 @@ type aws_iot_thing = {
 [@@deriving yojson_of]
 (** aws_iot_thing *)
 
+let aws_iot_thing ?attributes ?id ?thing_type_name ~name () :
+    aws_iot_thing =
+  { attributes; id; name; thing_type_name }
+
 type t = {
   arn : string prop;
   attributes : (string * string) list prop;
@@ -25,13 +29,13 @@ type t = {
   version : float prop;
 }
 
-let aws_iot_thing ?attributes ?id ?thing_type_name ~name
+let register ?tf_module ?attributes ?id ?thing_type_name ~name
     __resource_id =
   let __resource_type = "aws_iot_thing" in
   let __resource =
-    ({ attributes; id; name; thing_type_name } : aws_iot_thing)
+    aws_iot_thing ?attributes ?id ?thing_type_name ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_thing __resource);
   let __resource_attributes =
     ({

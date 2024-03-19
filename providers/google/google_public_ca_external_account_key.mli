@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type google_public_ca_external_account_key__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type google_public_ca_external_account_key
+
+val google_public_ca_external_account_key :
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  unit ->
+  google_public_ca_external_account_key
+
+val yojson_of_google_public_ca_external_account_key :
+  google_public_ca_external_account_key -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   b64_mac_key : string prop;
@@ -14,10 +33,11 @@ type t = private {
   project : string prop;
 }
 
-val google_public_ca_external_account_key :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
-  ?timeouts:google_public_ca_external_account_key__timeouts ->
+  ?timeouts:timeouts ->
   string ->
   t

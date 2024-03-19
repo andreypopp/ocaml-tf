@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_bot_channel_sms__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_bot_channel_sms__timeouts *)
+(** timeouts *)
 
 type azurerm_bot_channel_sms = {
   bot_name : string prop;  (** bot_name *)
@@ -23,10 +23,28 @@ type azurerm_bot_channel_sms = {
       (** sms_channel_account_security_id *)
   sms_channel_auth_token : string prop;
       (** sms_channel_auth_token *)
-  timeouts : azurerm_bot_channel_sms__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_sms *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_bot_channel_sms ?id ?timeouts ~bot_name ~location
+    ~phone_number ~resource_group_name
+    ~sms_channel_account_security_id ~sms_channel_auth_token () :
+    azurerm_bot_channel_sms =
+  {
+    bot_name;
+    id;
+    location;
+    phone_number;
+    resource_group_name;
+    sms_channel_account_security_id;
+    sms_channel_auth_token;
+    timeouts;
+  }
 
 type t = {
   bot_name : string prop;
@@ -38,25 +56,17 @@ type t = {
   sms_channel_auth_token : string prop;
 }
 
-let azurerm_bot_channel_sms ?id ?timeouts ~bot_name ~location
+let register ?tf_module ?id ?timeouts ~bot_name ~location
     ~phone_number ~resource_group_name
     ~sms_channel_account_security_id ~sms_channel_auth_token
     __resource_id =
   let __resource_type = "azurerm_bot_channel_sms" in
   let __resource =
-    ({
-       bot_name;
-       id;
-       location;
-       phone_number;
-       resource_group_name;
-       sms_channel_account_security_id;
-       sms_channel_auth_token;
-       timeouts;
-     }
-      : azurerm_bot_channel_sms)
+    azurerm_bot_channel_sms ?id ?timeouts ~bot_name ~location
+      ~phone_number ~resource_group_name
+      ~sms_channel_account_security_id ~sms_channel_auth_token ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_bot_channel_sms __resource);
   let __resource_attributes =
     ({

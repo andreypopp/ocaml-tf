@@ -2,8 +2,34 @@
 
 open! Tf.Prelude
 
-type google_spanner_database_iam_member__condition
+(** RESOURCE SERIALIZATION *)
+
+type condition
+
+val condition :
+  ?description:string prop ->
+  expression:string prop ->
+  title:string prop ->
+  unit ->
+  condition
+
 type google_spanner_database_iam_member
+
+val google_spanner_database_iam_member :
+  ?id:string prop ->
+  ?project:string prop ->
+  database:string prop ->
+  instance:string prop ->
+  member:string prop ->
+  role:string prop ->
+  condition:condition list ->
+  unit ->
+  google_spanner_database_iam_member
+
+val yojson_of_google_spanner_database_iam_member :
+  google_spanner_database_iam_member -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   database : string prop;
@@ -15,13 +41,14 @@ type t = private {
   role : string prop;
 }
 
-val google_spanner_database_iam_member :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
   database:string prop ->
   instance:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:google_spanner_database_iam_member__condition list ->
+  condition:condition list ->
   string ->
   t

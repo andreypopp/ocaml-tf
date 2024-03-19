@@ -2,24 +2,132 @@
 
 open! Tf.Prelude
 
-type google_netapp_volume__export_policy__rules
-type google_netapp_volume__export_policy
-type google_netapp_volume__restore_parameters
-type google_netapp_volume__snapshot_policy__daily_schedule
-type google_netapp_volume__snapshot_policy__hourly_schedule
-type google_netapp_volume__snapshot_policy__monthly_schedule
-type google_netapp_volume__snapshot_policy__weekly_schedule
-type google_netapp_volume__snapshot_policy
-type google_netapp_volume__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type google_netapp_volume__mount_options = {
+type mount_options = {
   export : string prop;  (** export *)
   export_full : string prop;  (** export_full *)
   instructions : string prop;  (** instructions *)
   protocol : string prop;  (** protocol *)
 }
 
+type export_policy__rules
+
+val export_policy__rules :
+  ?access_type:string prop ->
+  ?allowed_clients:string prop ->
+  ?has_root_access:string prop ->
+  ?kerberos5_read_only:bool prop ->
+  ?kerberos5_read_write:bool prop ->
+  ?kerberos5i_read_only:bool prop ->
+  ?kerberos5i_read_write:bool prop ->
+  ?kerberos5p_read_only:bool prop ->
+  ?kerberos5p_read_write:bool prop ->
+  ?nfsv3:bool prop ->
+  ?nfsv4:bool prop ->
+  unit ->
+  export_policy__rules
+
+type export_policy
+
+val export_policy :
+  rules:export_policy__rules list -> unit -> export_policy
+
+type restore_parameters
+
+val restore_parameters :
+  ?source_backup:string prop ->
+  ?source_snapshot:string prop ->
+  unit ->
+  restore_parameters
+
+type snapshot_policy__daily_schedule
+
+val snapshot_policy__daily_schedule :
+  ?hour:float prop ->
+  ?minute:float prop ->
+  snapshots_to_keep:float prop ->
+  unit ->
+  snapshot_policy__daily_schedule
+
+type snapshot_policy__hourly_schedule
+
+val snapshot_policy__hourly_schedule :
+  ?minute:float prop ->
+  snapshots_to_keep:float prop ->
+  unit ->
+  snapshot_policy__hourly_schedule
+
+type snapshot_policy__monthly_schedule
+
+val snapshot_policy__monthly_schedule :
+  ?days_of_month:string prop ->
+  ?hour:float prop ->
+  ?minute:float prop ->
+  snapshots_to_keep:float prop ->
+  unit ->
+  snapshot_policy__monthly_schedule
+
+type snapshot_policy__weekly_schedule
+
+val snapshot_policy__weekly_schedule :
+  ?day:string prop ->
+  ?hour:float prop ->
+  ?minute:float prop ->
+  snapshots_to_keep:float prop ->
+  unit ->
+  snapshot_policy__weekly_schedule
+
+type snapshot_policy
+
+val snapshot_policy :
+  ?enabled:bool prop ->
+  daily_schedule:snapshot_policy__daily_schedule list ->
+  hourly_schedule:snapshot_policy__hourly_schedule list ->
+  monthly_schedule:snapshot_policy__monthly_schedule list ->
+  weekly_schedule:snapshot_policy__weekly_schedule list ->
+  unit ->
+  snapshot_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_netapp_volume
+
+val google_netapp_volume :
+  ?deletion_policy:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kerberos_enabled:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?restricted_actions:string prop list ->
+  ?security_style:string prop ->
+  ?smb_settings:string prop list ->
+  ?snapshot_directory:bool prop ->
+  ?unix_permissions:string prop ->
+  ?timeouts:timeouts ->
+  capacity_gib:string prop ->
+  location:string prop ->
+  name:string prop ->
+  protocols:string prop list ->
+  share_name:string prop ->
+  storage_pool:string prop ->
+  export_policy:export_policy list ->
+  restore_parameters:restore_parameters list ->
+  snapshot_policy:snapshot_policy list ->
+  unit ->
+  google_netapp_volume
+
+val yojson_of_google_netapp_volume : google_netapp_volume -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   active_directory : string prop;
@@ -36,7 +144,7 @@ type t = private {
   labels : (string * string) list prop;
   ldap_enabled : bool prop;
   location : string prop;
-  mount_options : google_netapp_volume__mount_options list prop;
+  mount_options : mount_options list prop;
   name : string prop;
   network : string prop;
   project : string prop;
@@ -56,7 +164,8 @@ type t = private {
   used_gib : string prop;
 }
 
-val google_netapp_volume :
+val register :
+  ?tf_module:tf_module ->
   ?deletion_policy:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -68,15 +177,15 @@ val google_netapp_volume :
   ?smb_settings:string prop list ->
   ?snapshot_directory:bool prop ->
   ?unix_permissions:string prop ->
-  ?timeouts:google_netapp_volume__timeouts ->
+  ?timeouts:timeouts ->
   capacity_gib:string prop ->
   location:string prop ->
   name:string prop ->
   protocols:string prop list ->
   share_name:string prop ->
   storage_pool:string prop ->
-  export_policy:google_netapp_volume__export_policy list ->
-  restore_parameters:google_netapp_volume__restore_parameters list ->
-  snapshot_policy:google_netapp_volume__snapshot_policy list ->
+  export_policy:export_policy list ->
+  restore_parameters:restore_parameters list ->
+  snapshot_policy:snapshot_policy list ->
   string ->
   t

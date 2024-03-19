@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_workflows_workflow__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_workflows_workflow__timeouts *)
+(** timeouts *)
 
 type google_workflows_workflow = {
   call_log_level : string prop option; [@option]
@@ -47,10 +47,33 @@ Modifying this field for an existing workflow results in a new workflow revision
       (** Workflow code to be executed. The size limit is 128KB. *)
   user_env_vars : (string * string prop) list option; [@option]
       (** User-defined environment variables associated with this workflow revision. This map has a maximum length of 20. Each string can take up to 4KiB. Keys cannot be empty strings and cannot start with “GOOGLE” or “WORKFLOWS. *)
-  timeouts : google_workflows_workflow__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_workflows_workflow *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_workflows_workflow ?call_log_level ?crypto_key_name
+    ?description ?id ?labels ?name ?name_prefix ?project ?region
+    ?service_account ?source_contents ?user_env_vars ?timeouts () :
+    google_workflows_workflow =
+  {
+    call_log_level;
+    crypto_key_name;
+    description;
+    id;
+    labels;
+    name;
+    name_prefix;
+    project;
+    region;
+    service_account;
+    source_contents;
+    user_env_vars;
+    timeouts;
+  }
 
 type t = {
   call_log_level : string prop;
@@ -73,30 +96,16 @@ type t = {
   user_env_vars : (string * string) list prop;
 }
 
-let google_workflows_workflow ?call_log_level ?crypto_key_name
-    ?description ?id ?labels ?name ?name_prefix ?project ?region
-    ?service_account ?source_contents ?user_env_vars ?timeouts
-    __resource_id =
+let register ?tf_module ?call_log_level ?crypto_key_name ?description
+    ?id ?labels ?name ?name_prefix ?project ?region ?service_account
+    ?source_contents ?user_env_vars ?timeouts __resource_id =
   let __resource_type = "google_workflows_workflow" in
   let __resource =
-    ({
-       call_log_level;
-       crypto_key_name;
-       description;
-       id;
-       labels;
-       name;
-       name_prefix;
-       project;
-       region;
-       service_account;
-       source_contents;
-       user_env_vars;
-       timeouts;
-     }
-      : google_workflows_workflow)
+    google_workflows_workflow ?call_log_level ?crypto_key_name
+      ?description ?id ?labels ?name ?name_prefix ?project ?region
+      ?service_account ?source_contents ?user_env_vars ?timeouts ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_workflows_workflow __resource);
   let __resource_attributes =
     ({

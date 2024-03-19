@@ -2,19 +2,100 @@
 
 open! Tf.Prelude
 
-type google_network_services_edge_cache_origin__aws_v4_authentication
+(** RESOURCE SERIALIZATION *)
 
-type google_network_services_edge_cache_origin__origin_override_action__header_action__request_headers_to_add
+type aws_v4_authentication
 
-type google_network_services_edge_cache_origin__origin_override_action__header_action
+val aws_v4_authentication :
+  access_key_id:string prop ->
+  origin_region:string prop ->
+  secret_access_key_version:string prop ->
+  unit ->
+  aws_v4_authentication
 
-type google_network_services_edge_cache_origin__origin_override_action__url_rewrite
+type origin_override_action__header_action__request_headers_to_add
 
-type google_network_services_edge_cache_origin__origin_override_action
-type google_network_services_edge_cache_origin__origin_redirect
-type google_network_services_edge_cache_origin__timeout
-type google_network_services_edge_cache_origin__timeouts
+val origin_override_action__header_action__request_headers_to_add :
+  ?replace:bool prop ->
+  header_name:string prop ->
+  header_value:string prop ->
+  unit ->
+  origin_override_action__header_action__request_headers_to_add
+
+type origin_override_action__header_action
+
+val origin_override_action__header_action :
+  request_headers_to_add:
+    origin_override_action__header_action__request_headers_to_add
+    list ->
+  unit ->
+  origin_override_action__header_action
+
+type origin_override_action__url_rewrite
+
+val origin_override_action__url_rewrite :
+  ?host_rewrite:string prop ->
+  unit ->
+  origin_override_action__url_rewrite
+
+type origin_override_action
+
+val origin_override_action :
+  header_action:origin_override_action__header_action list ->
+  url_rewrite:origin_override_action__url_rewrite list ->
+  unit ->
+  origin_override_action
+
+type origin_redirect
+
+val origin_redirect :
+  ?redirect_conditions:string prop list -> unit -> origin_redirect
+
+type timeout
+
+val timeout :
+  ?connect_timeout:string prop ->
+  ?max_attempts_timeout:string prop ->
+  ?read_timeout:string prop ->
+  ?response_timeout:string prop ->
+  unit ->
+  timeout
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_network_services_edge_cache_origin
+
+val google_network_services_edge_cache_origin :
+  ?description:string prop ->
+  ?failover_origin:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?max_attempts:float prop ->
+  ?port:float prop ->
+  ?project:string prop ->
+  ?protocol:string prop ->
+  ?retry_conditions:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  origin_address:string prop ->
+  aws_v4_authentication:aws_v4_authentication list ->
+  origin_override_action:origin_override_action list ->
+  origin_redirect:origin_redirect list ->
+  timeout:timeout list ->
+  unit ->
+  google_network_services_edge_cache_origin
+
+val yojson_of_google_network_services_edge_cache_origin :
+  google_network_services_edge_cache_origin -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   description : string prop;
@@ -32,7 +113,8 @@ type t = private {
   terraform_labels : (string * string) list prop;
 }
 
-val google_network_services_edge_cache_origin :
+val register :
+  ?tf_module:tf_module ->
   ?description:string prop ->
   ?failover_origin:string prop ->
   ?id:string prop ->
@@ -42,17 +124,12 @@ val google_network_services_edge_cache_origin :
   ?project:string prop ->
   ?protocol:string prop ->
   ?retry_conditions:string prop list ->
-  ?timeouts:google_network_services_edge_cache_origin__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   origin_address:string prop ->
-  aws_v4_authentication:
-    google_network_services_edge_cache_origin__aws_v4_authentication
-    list ->
-  origin_override_action:
-    google_network_services_edge_cache_origin__origin_override_action
-    list ->
-  origin_redirect:
-    google_network_services_edge_cache_origin__origin_redirect list ->
-  timeout:google_network_services_edge_cache_origin__timeout list ->
+  aws_v4_authentication:aws_v4_authentication list ->
+  origin_override_action:origin_override_action list ->
+  origin_redirect:origin_redirect list ->
+  timeout:timeout list ->
   string ->
   t

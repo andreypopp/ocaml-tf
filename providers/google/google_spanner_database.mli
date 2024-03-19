@@ -2,9 +2,43 @@
 
 open! Tf.Prelude
 
-type google_spanner_database__encryption_config
-type google_spanner_database__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type encryption_config
+
+val encryption_config :
+  kms_key_name:string prop -> unit -> encryption_config
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_spanner_database
+
+val google_spanner_database :
+  ?database_dialect:string prop ->
+  ?ddl:string prop list ->
+  ?deletion_protection:bool prop ->
+  ?enable_drop_protection:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?version_retention_period:string prop ->
+  ?timeouts:timeouts ->
+  instance:string prop ->
+  name:string prop ->
+  encryption_config:encryption_config list ->
+  unit ->
+  google_spanner_database
+
+val yojson_of_google_spanner_database :
+  google_spanner_database -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   database_dialect : string prop;
@@ -19,7 +53,8 @@ type t = private {
   version_retention_period : string prop;
 }
 
-val google_spanner_database :
+val register :
+  ?tf_module:tf_module ->
   ?database_dialect:string prop ->
   ?ddl:string prop list ->
   ?deletion_protection:bool prop ->
@@ -27,9 +62,9 @@ val google_spanner_database :
   ?id:string prop ->
   ?project:string prop ->
   ?version_retention_period:string prop ->
-  ?timeouts:google_spanner_database__timeouts ->
+  ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
-  encryption_config:google_spanner_database__encryption_config list ->
+  encryption_config:encryption_config list ->
   string ->
   t

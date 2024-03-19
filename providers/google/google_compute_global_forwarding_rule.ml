@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_compute_global_forwarding_rule__metadata_filters__filter_labels = {
+type metadata_filters__filter_labels = {
   name : string prop;
       (** Name of the metadata label. The length must be between
 1 and 1024 characters, inclusive. *)
@@ -18,7 +18,7 @@ provided metadata based on filterMatchCriteria
 
 This list must not be empty and can have at the most 64 entries. *)
 
-type google_compute_global_forwarding_rule__metadata_filters = {
+type metadata_filters = {
   filter_match_criteria : string prop;
       (** Specifies how individual filterLabel matches within the list of
 filterLabels contribute towards the overall metadataFilter match.
@@ -27,9 +27,7 @@ MATCH_ANY - At least one of the filterLabels must have a matching
 label in the provided metadata.
 MATCH_ALL - All filterLabels must have matching labels in the
 provided metadata. Possible values: [MATCH_ANY, MATCH_ALL] *)
-  filter_labels :
-    google_compute_global_forwarding_rule__metadata_filters__filter_labels
-    list;
+  filter_labels : metadata_filters__filter_labels list;
 }
 [@@deriving yojson_of]
 (** Opaque filter criteria used by Loadbalancer to restrict routing
@@ -50,7 +48,7 @@ the UrlMap that this ForwardingRule references.
 metadataFilters only applies to Loadbalancers that have their
 loadBalancingScheme set to INTERNAL_SELF_MANAGED. *)
 
-type google_compute_global_forwarding_rule__service_directory_registrations = {
+type service_directory_registrations = {
   namespace : string prop option; [@option]
       (** Service Directory namespace to register the forwarding rule under. *)
   service_directory_region : string prop option; [@option]
@@ -64,13 +62,13 @@ Directory region. *)
 
 Currently, only supports a single Service Directory resource. *)
 
-type google_compute_global_forwarding_rule__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_global_forwarding_rule__timeouts *)
+(** timeouts *)
 
 type google_compute_global_forwarding_rule = {
   description : string prop option; [@option]
@@ -215,15 +213,55 @@ The forwarded traffic must be of a type appropriate to the target object.
 
 
 For Private Service Connect forwarding rules that forward traffic to managed services, the target must be a service attachment. *)
-  metadata_filters :
-    google_compute_global_forwarding_rule__metadata_filters list;
+  metadata_filters : metadata_filters list;
   service_directory_registrations :
-    google_compute_global_forwarding_rule__service_directory_registrations
-    list;
-  timeouts : google_compute_global_forwarding_rule__timeouts option;
+    service_directory_registrations list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_global_forwarding_rule *)
+
+let metadata_filters__filter_labels ~name ~value () :
+    metadata_filters__filter_labels =
+  { name; value }
+
+let metadata_filters ~filter_match_criteria ~filter_labels () :
+    metadata_filters =
+  { filter_match_criteria; filter_labels }
+
+let service_directory_registrations ?namespace
+    ?service_directory_region () : service_directory_registrations =
+  { namespace; service_directory_region }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_global_forwarding_rule ?description ?id
+    ?ip_address ?ip_protocol ?ip_version ?labels
+    ?load_balancing_scheme ?network ?no_automate_dns_zone ?port_range
+    ?project ?source_ip_ranges ?subnetwork ?timeouts ~name ~target
+    ~metadata_filters ~service_directory_registrations () :
+    google_compute_global_forwarding_rule =
+  {
+    description;
+    id;
+    ip_address;
+    ip_protocol;
+    ip_version;
+    labels;
+    load_balancing_scheme;
+    name;
+    network;
+    no_automate_dns_zone;
+    port_range;
+    project;
+    source_ip_ranges;
+    subnetwork;
+    target;
+    metadata_filters;
+    service_directory_registrations;
+    timeouts;
+  }
 
 type t = {
   base_forwarding_rule : string prop;
@@ -250,37 +288,21 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let google_compute_global_forwarding_rule ?description ?id
-    ?ip_address ?ip_protocol ?ip_version ?labels
-    ?load_balancing_scheme ?network ?no_automate_dns_zone ?port_range
-    ?project ?source_ip_ranges ?subnetwork ?timeouts ~name ~target
-    ~metadata_filters ~service_directory_registrations __resource_id
-    =
+let register ?tf_module ?description ?id ?ip_address ?ip_protocol
+    ?ip_version ?labels ?load_balancing_scheme ?network
+    ?no_automate_dns_zone ?port_range ?project ?source_ip_ranges
+    ?subnetwork ?timeouts ~name ~target ~metadata_filters
+    ~service_directory_registrations __resource_id =
   let __resource_type = "google_compute_global_forwarding_rule" in
   let __resource =
-    ({
-       description;
-       id;
-       ip_address;
-       ip_protocol;
-       ip_version;
-       labels;
-       load_balancing_scheme;
-       name;
-       network;
-       no_automate_dns_zone;
-       port_range;
-       project;
-       source_ip_ranges;
-       subnetwork;
-       target;
-       metadata_filters;
-       service_directory_registrations;
-       timeouts;
-     }
-      : google_compute_global_forwarding_rule)
+    google_compute_global_forwarding_rule ?description ?id
+      ?ip_address ?ip_protocol ?ip_version ?labels
+      ?load_balancing_scheme ?network ?no_automate_dns_zone
+      ?port_range ?project ?source_ip_ranges ?subnetwork ?timeouts
+      ~name ~target ~metadata_filters
+      ~service_directory_registrations ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_global_forwarding_rule __resource);
   let __resource_attributes =
     ({

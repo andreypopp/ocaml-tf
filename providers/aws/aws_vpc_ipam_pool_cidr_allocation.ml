@@ -16,6 +16,18 @@ type aws_vpc_ipam_pool_cidr_allocation = {
 [@@deriving yojson_of]
 (** aws_vpc_ipam_pool_cidr_allocation *)
 
+let aws_vpc_ipam_pool_cidr_allocation ?cidr ?description
+    ?disallowed_cidrs ?id ?netmask_length ~ipam_pool_id () :
+    aws_vpc_ipam_pool_cidr_allocation =
+  {
+    cidr;
+    description;
+    disallowed_cidrs;
+    id;
+    ipam_pool_id;
+    netmask_length;
+  }
+
 type t = {
   cidr : string prop;
   description : string prop;
@@ -29,22 +41,14 @@ type t = {
   resource_type : string prop;
 }
 
-let aws_vpc_ipam_pool_cidr_allocation ?cidr ?description
-    ?disallowed_cidrs ?id ?netmask_length ~ipam_pool_id __resource_id
-    =
+let register ?tf_module ?cidr ?description ?disallowed_cidrs ?id
+    ?netmask_length ~ipam_pool_id __resource_id =
   let __resource_type = "aws_vpc_ipam_pool_cidr_allocation" in
   let __resource =
-    ({
-       cidr;
-       description;
-       disallowed_cidrs;
-       id;
-       ipam_pool_id;
-       netmask_length;
-     }
-      : aws_vpc_ipam_pool_cidr_allocation)
+    aws_vpc_ipam_pool_cidr_allocation ?cidr ?description
+      ?disallowed_cidrs ?id ?netmask_length ~ipam_pool_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipam_pool_cidr_allocation __resource);
   let __resource_attributes =
     ({

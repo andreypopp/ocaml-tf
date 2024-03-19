@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_custom_ssl__custom_ssl_options = {
+type custom_ssl_options = {
   bundle_method : string prop option; [@option]
       (** Method of building intermediate certificate chain. A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`. *)
   certificate : string prop option; [@option]
@@ -19,24 +19,39 @@ type cloudflare_custom_ssl__custom_ssl_options = {
 [@@deriving yojson_of]
 (** The certificate associated parameters. **Modifying this attribute will force creation of a new resource.** *)
 
-type cloudflare_custom_ssl__custom_ssl_priority = {
+type custom_ssl_priority = {
   id : string prop option; [@option]  (** id *)
   priority : float prop option; [@option]  (** priority *)
 }
 [@@deriving yojson_of]
-(** cloudflare_custom_ssl__custom_ssl_priority *)
+(** custom_ssl_priority *)
 
 type cloudflare_custom_ssl = {
   id : string prop option; [@option]  (** id *)
   zone_id : string prop;
       (** The zone identifier to target for the resource. *)
-  custom_ssl_options :
-    cloudflare_custom_ssl__custom_ssl_options list;
-  custom_ssl_priority :
-    cloudflare_custom_ssl__custom_ssl_priority list;
+  custom_ssl_options : custom_ssl_options list;
+  custom_ssl_priority : custom_ssl_priority list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare custom SSL resource. *)
+
+let custom_ssl_options ?bundle_method ?certificate ?geo_restrictions
+    ?private_key ?type_ () : custom_ssl_options =
+  {
+    bundle_method;
+    certificate;
+    geo_restrictions;
+    private_key;
+    type_;
+  }
+
+let custom_ssl_priority ?id ?priority () : custom_ssl_priority =
+  { id; priority }
+
+let cloudflare_custom_ssl ?id ~zone_id ~custom_ssl_options
+    ~custom_ssl_priority () : cloudflare_custom_ssl =
+  { id; zone_id; custom_ssl_options; custom_ssl_priority }
 
 type t = {
   expires_on : string prop;
@@ -51,14 +66,14 @@ type t = {
   zone_id : string prop;
 }
 
-let cloudflare_custom_ssl ?id ~zone_id ~custom_ssl_options
+let register ?tf_module ?id ~zone_id ~custom_ssl_options
     ~custom_ssl_priority __resource_id =
   let __resource_type = "cloudflare_custom_ssl" in
   let __resource =
-    ({ id; zone_id; custom_ssl_options; custom_ssl_priority }
-      : cloudflare_custom_ssl)
+    cloudflare_custom_ssl ?id ~zone_id ~custom_ssl_options
+      ~custom_ssl_priority ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_custom_ssl __resource);
   let __resource_attributes =
     ({

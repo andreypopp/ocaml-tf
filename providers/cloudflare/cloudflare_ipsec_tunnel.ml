@@ -40,6 +40,30 @@ type cloudflare_ipsec_tunnel = {
 (** Provides a resource, that manages IPsec tunnels for Magic Transit.
  *)
 
+let cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
+    ?description ?fqdn_id ?health_check_enabled ?health_check_target
+    ?health_check_type ?hex_id ?id ?psk ?remote_id ?user_id
+    ~cloudflare_endpoint ~customer_endpoint ~interface_address ~name
+    () : cloudflare_ipsec_tunnel =
+  {
+    account_id;
+    allow_null_cipher;
+    cloudflare_endpoint;
+    customer_endpoint;
+    description;
+    fqdn_id;
+    health_check_enabled;
+    health_check_target;
+    health_check_type;
+    hex_id;
+    id;
+    interface_address;
+    name;
+    psk;
+    remote_id;
+    user_id;
+  }
+
 type t = {
   account_id : string prop;
   allow_null_cipher : bool prop;
@@ -59,34 +83,20 @@ type t = {
   user_id : string prop;
 }
 
-let cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
-    ?description ?fqdn_id ?health_check_enabled ?health_check_target
+let register ?tf_module ?account_id ?allow_null_cipher ?description
+    ?fqdn_id ?health_check_enabled ?health_check_target
     ?health_check_type ?hex_id ?id ?psk ?remote_id ?user_id
     ~cloudflare_endpoint ~customer_endpoint ~interface_address ~name
     __resource_id =
   let __resource_type = "cloudflare_ipsec_tunnel" in
   let __resource =
-    ({
-       account_id;
-       allow_null_cipher;
-       cloudflare_endpoint;
-       customer_endpoint;
-       description;
-       fqdn_id;
-       health_check_enabled;
-       health_check_target;
-       health_check_type;
-       hex_id;
-       id;
-       interface_address;
-       name;
-       psk;
-       remote_id;
-       user_id;
-     }
-      : cloudflare_ipsec_tunnel)
+    cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
+      ?description ?fqdn_id ?health_check_enabled
+      ?health_check_target ?health_check_type ?hex_id ?id ?psk
+      ?remote_id ?user_id ~cloudflare_endpoint ~customer_endpoint
+      ~interface_address ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_ipsec_tunnel __resource);
   let __resource_attributes =
     ({

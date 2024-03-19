@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type google_compute_ha_vpn_gateway__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_compute_ha_vpn_gateway__timeouts *)
+(** timeouts *)
 
-type google_compute_ha_vpn_gateway__vpn_interfaces = {
+type vpn_interfaces = {
   id : float prop option; [@option]
       (** The numeric ID of this VPN gateway interface. *)
   interconnect_attachment : string prop option; [@option]
@@ -22,8 +22,6 @@ traffic for this VPN Gateway interface will go through the
 specified interconnect attachment resource.
 
 Not currently available publicly. *)
-  ip_address : string prop;
-      (** The external IP address for this VPN gateway interface. *)
 }
 [@@deriving yojson_of]
 (** A list of interfaces on this VPN gateway. *)
@@ -48,11 +46,31 @@ character, which cannot be a dash. *)
   stack_type : string prop option; [@option]
       (** The stack type for this VPN gateway to identify the IP protocols that are enabled.
 If not specified, IPV4_ONLY will be used. Default value: IPV4_ONLY Possible values: [IPV4_ONLY, IPV4_IPV6] *)
-  timeouts : google_compute_ha_vpn_gateway__timeouts option;
-  vpn_interfaces : google_compute_ha_vpn_gateway__vpn_interfaces list;
+  timeouts : timeouts option;
+  vpn_interfaces : vpn_interfaces list;
 }
 [@@deriving yojson_of]
 (** google_compute_ha_vpn_gateway *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let vpn_interfaces ?id ?interconnect_attachment () : vpn_interfaces =
+  { id; interconnect_attachment }
+
+let google_compute_ha_vpn_gateway ?description ?id ?project ?region
+    ?stack_type ?timeouts ~name ~network ~vpn_interfaces () :
+    google_compute_ha_vpn_gateway =
+  {
+    description;
+    id;
+    name;
+    network;
+    project;
+    region;
+    stack_type;
+    timeouts;
+    vpn_interfaces;
+  }
 
 type t = {
   description : string prop;
@@ -65,25 +83,14 @@ type t = {
   stack_type : string prop;
 }
 
-let google_compute_ha_vpn_gateway ?description ?id ?project ?region
-    ?stack_type ?timeouts ~name ~network ~vpn_interfaces
-    __resource_id =
+let register ?tf_module ?description ?id ?project ?region ?stack_type
+    ?timeouts ~name ~network ~vpn_interfaces __resource_id =
   let __resource_type = "google_compute_ha_vpn_gateway" in
   let __resource =
-    ({
-       description;
-       id;
-       name;
-       network;
-       project;
-       region;
-       stack_type;
-       timeouts;
-       vpn_interfaces;
-     }
-      : google_compute_ha_vpn_gateway)
+    google_compute_ha_vpn_gateway ?description ?id ?project ?region
+      ?stack_type ?timeouts ~name ~network ~vpn_interfaces ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_ha_vpn_gateway __resource);
   let __resource_attributes =
     ({

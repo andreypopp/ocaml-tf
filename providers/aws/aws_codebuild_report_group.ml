@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_codebuild_report_group__export_config__s3_destination = {
+type export_config__s3_destination = {
   bucket : string prop;  (** bucket *)
   encryption_disabled : bool prop option; [@option]
       (** encryption_disabled *)
@@ -13,15 +13,14 @@ type aws_codebuild_report_group__export_config__s3_destination = {
   path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
-(** aws_codebuild_report_group__export_config__s3_destination *)
+(** export_config__s3_destination *)
 
-type aws_codebuild_report_group__export_config = {
+type export_config = {
   type_ : string prop; [@key "type"]  (** type *)
-  s3_destination :
-    aws_codebuild_report_group__export_config__s3_destination list;
+  s3_destination : export_config__s3_destination list;
 }
 [@@deriving yojson_of]
-(** aws_codebuild_report_group__export_config *)
+(** export_config *)
 
 type aws_codebuild_report_group = {
   delete_reports : bool prop option; [@option]  (** delete_reports *)
@@ -31,10 +30,22 @@ type aws_codebuild_report_group = {
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   type_ : string prop; [@key "type"]  (** type *)
-  export_config : aws_codebuild_report_group__export_config list;
+  export_config : export_config list;
 }
 [@@deriving yojson_of]
 (** aws_codebuild_report_group *)
+
+let export_config__s3_destination ?encryption_disabled ?packaging
+    ?path ~bucket ~encryption_key () : export_config__s3_destination
+    =
+  { bucket; encryption_disabled; encryption_key; packaging; path }
+
+let export_config ~type_ ~s3_destination () : export_config =
+  { type_; s3_destination }
+
+let aws_codebuild_report_group ?delete_reports ?id ?tags ?tags_all
+    ~name ~type_ ~export_config () : aws_codebuild_report_group =
+  { delete_reports; id; name; tags; tags_all; type_; export_config }
 
 type t = {
   arn : string prop;
@@ -47,22 +58,14 @@ type t = {
   type_ : string prop;
 }
 
-let aws_codebuild_report_group ?delete_reports ?id ?tags ?tags_all
-    ~name ~type_ ~export_config __resource_id =
+let register ?tf_module ?delete_reports ?id ?tags ?tags_all ~name
+    ~type_ ~export_config __resource_id =
   let __resource_type = "aws_codebuild_report_group" in
   let __resource =
-    ({
-       delete_reports;
-       id;
-       name;
-       tags;
-       tags_all;
-       type_;
-       export_config;
-     }
-      : aws_codebuild_report_group)
+    aws_codebuild_report_group ?delete_reports ?id ?tags ?tags_all
+      ~name ~type_ ~export_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codebuild_report_group __resource);
   let __resource_attributes =
     ({

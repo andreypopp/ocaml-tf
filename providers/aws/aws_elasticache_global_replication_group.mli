@@ -2,14 +2,42 @@
 
 open! Tf.Prelude
 
-type aws_elasticache_global_replication_group__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type aws_elasticache_global_replication_group__global_node_groups = {
+type global_node_groups = {
   global_node_group_id : string prop;  (** global_node_group_id *)
   slots : string prop;  (** slots *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_elasticache_global_replication_group
+
+val aws_elasticache_global_replication_group :
+  ?automatic_failover_enabled:bool prop ->
+  ?cache_node_type:string prop ->
+  ?engine_version:string prop ->
+  ?global_replication_group_description:string prop ->
+  ?id:string prop ->
+  ?num_node_groups:float prop ->
+  ?parameter_group_name:string prop ->
+  ?timeouts:timeouts ->
+  global_replication_group_id_suffix:string prop ->
+  primary_replication_group_id:string prop ->
+  unit ->
+  aws_elasticache_global_replication_group
+
+val yojson_of_aws_elasticache_global_replication_group :
+  aws_elasticache_global_replication_group -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,9 +49,7 @@ type t = private {
   engine : string prop;
   engine_version : string prop;
   engine_version_actual : string prop;
-  global_node_groups :
-    aws_elasticache_global_replication_group__global_node_groups list
-    prop;
+  global_node_groups : global_node_groups list prop;
   global_replication_group_description : string prop;
   global_replication_group_id : string prop;
   global_replication_group_id_suffix : string prop;
@@ -34,7 +60,8 @@ type t = private {
   transit_encryption_enabled : bool prop;
 }
 
-val aws_elasticache_global_replication_group :
+val register :
+  ?tf_module:tf_module ->
   ?automatic_failover_enabled:bool prop ->
   ?cache_node_type:string prop ->
   ?engine_version:string prop ->
@@ -42,7 +69,7 @@ val aws_elasticache_global_replication_group :
   ?id:string prop ->
   ?num_node_groups:float prop ->
   ?parameter_group_name:string prop ->
-  ?timeouts:aws_elasticache_global_replication_group__timeouts ->
+  ?timeouts:timeouts ->
   global_replication_group_id_suffix:string prop ->
   primary_replication_group_id:string prop ->
   string ->

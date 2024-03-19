@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_connect_vocabulary__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_connect_vocabulary
+
+val aws_connect_vocabulary :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  content:string prop ->
+  instance_id:string prop ->
+  language_code:string prop ->
+  name:string prop ->
+  unit ->
+  aws_connect_vocabulary
+
+val yojson_of_aws_connect_vocabulary : aws_connect_vocabulary -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -20,11 +42,12 @@ type t = private {
   vocabulary_id : string prop;
 }
 
-val aws_connect_vocabulary :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_connect_vocabulary__timeouts ->
+  ?timeouts:timeouts ->
   content:string prop ->
   instance_id:string prop ->
   language_code:string prop ->

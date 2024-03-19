@@ -2,18 +2,98 @@
 
 open! Tf.Prelude
 
-type google_gke_backup_backup_plan__backup_config__encryption_key
+(** RESOURCE SERIALIZATION *)
 
-type google_gke_backup_backup_plan__backup_config__selected_applications__namespaced_names
+type backup_config__encryption_key
 
-type google_gke_backup_backup_plan__backup_config__selected_applications
+val backup_config__encryption_key :
+  gcp_kms_encryption_key:string prop ->
+  unit ->
+  backup_config__encryption_key
 
-type google_gke_backup_backup_plan__backup_config__selected_namespaces
-type google_gke_backup_backup_plan__backup_config
-type google_gke_backup_backup_plan__backup_schedule
-type google_gke_backup_backup_plan__retention_policy
-type google_gke_backup_backup_plan__timeouts
+type backup_config__selected_applications__namespaced_names
+
+val backup_config__selected_applications__namespaced_names :
+  name:string prop ->
+  namespace:string prop ->
+  unit ->
+  backup_config__selected_applications__namespaced_names
+
+type backup_config__selected_applications
+
+val backup_config__selected_applications :
+  namespaced_names:
+    backup_config__selected_applications__namespaced_names list ->
+  unit ->
+  backup_config__selected_applications
+
+type backup_config__selected_namespaces
+
+val backup_config__selected_namespaces :
+  namespaces:string prop list ->
+  unit ->
+  backup_config__selected_namespaces
+
+type backup_config
+
+val backup_config :
+  ?all_namespaces:bool prop ->
+  ?include_secrets:bool prop ->
+  ?include_volume_data:bool prop ->
+  encryption_key:backup_config__encryption_key list ->
+  selected_applications:backup_config__selected_applications list ->
+  selected_namespaces:backup_config__selected_namespaces list ->
+  unit ->
+  backup_config
+
+type backup_schedule
+
+val backup_schedule :
+  ?cron_schedule:string prop ->
+  ?paused:bool prop ->
+  unit ->
+  backup_schedule
+
+type retention_policy
+
+val retention_policy :
+  ?backup_delete_lock_days:float prop ->
+  ?backup_retain_days:float prop ->
+  ?locked:bool prop ->
+  unit ->
+  retention_policy
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type google_gke_backup_backup_plan
+
+val google_gke_backup_backup_plan :
+  ?deactivated:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  location:string prop ->
+  name:string prop ->
+  backup_config:backup_config list ->
+  backup_schedule:backup_schedule list ->
+  retention_policy:retention_policy list ->
+  unit ->
+  google_gke_backup_backup_plan
+
+val yojson_of_google_gke_backup_backup_plan :
+  google_gke_backup_backup_plan -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   cluster : string prop;
@@ -33,19 +113,19 @@ type t = private {
   uid : string prop;
 }
 
-val google_gke_backup_backup_plan :
+val register :
+  ?tf_module:tf_module ->
   ?deactivated:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
-  ?timeouts:google_gke_backup_backup_plan__timeouts ->
+  ?timeouts:timeouts ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
-  backup_config:google_gke_backup_backup_plan__backup_config list ->
-  backup_schedule:google_gke_backup_backup_plan__backup_schedule list ->
-  retention_policy:
-    google_gke_backup_backup_plan__retention_policy list ->
+  backup_config:backup_config list ->
+  backup_schedule:backup_schedule list ->
+  retention_policy:retention_policy list ->
   string ->
   t

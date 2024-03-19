@@ -4,20 +4,20 @@
 
 open! Tf.Prelude
 
-type azurerm_cosmosdb_sql_role_definition__permissions = {
+type permissions = {
   data_actions : string prop list;  (** data_actions *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_sql_role_definition__permissions *)
+(** permissions *)
 
-type azurerm_cosmosdb_sql_role_definition__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_cosmosdb_sql_role_definition__timeouts *)
+(** timeouts *)
 
 type azurerm_cosmosdb_sql_role_definition = {
   account_name : string prop;  (** account_name *)
@@ -28,12 +28,32 @@ type azurerm_cosmosdb_sql_role_definition = {
   role_definition_id : string prop option; [@option]
       (** role_definition_id *)
   type_ : string prop option; [@option] [@key "type"]  (** type *)
-  permissions :
-    azurerm_cosmosdb_sql_role_definition__permissions list;
-  timeouts : azurerm_cosmosdb_sql_role_definition__timeouts option;
+  permissions : permissions list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_role_definition *)
+
+let permissions ~data_actions () : permissions = { data_actions }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_cosmosdb_sql_role_definition ?id ?role_definition_id
+    ?type_ ?timeouts ~account_name ~assignable_scopes ~name
+    ~resource_group_name ~permissions () :
+    azurerm_cosmosdb_sql_role_definition =
+  {
+    account_name;
+    assignable_scopes;
+    id;
+    name;
+    resource_group_name;
+    role_definition_id;
+    type_;
+    permissions;
+    timeouts;
+  }
 
 type t = {
   account_name : string prop;
@@ -45,25 +65,16 @@ type t = {
   type_ : string prop;
 }
 
-let azurerm_cosmosdb_sql_role_definition ?id ?role_definition_id
-    ?type_ ?timeouts ~account_name ~assignable_scopes ~name
-    ~resource_group_name ~permissions __resource_id =
+let register ?tf_module ?id ?role_definition_id ?type_ ?timeouts
+    ~account_name ~assignable_scopes ~name ~resource_group_name
+    ~permissions __resource_id =
   let __resource_type = "azurerm_cosmosdb_sql_role_definition" in
   let __resource =
-    ({
-       account_name;
-       assignable_scopes;
-       id;
-       name;
-       resource_group_name;
-       role_definition_id;
-       type_;
-       permissions;
-       timeouts;
-     }
-      : azurerm_cosmosdb_sql_role_definition)
+    azurerm_cosmosdb_sql_role_definition ?id ?role_definition_id
+      ?type_ ?timeouts ~account_name ~assignable_scopes ~name
+      ~resource_group_name ~permissions ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_sql_role_definition __resource);
   let __resource_attributes =
     ({

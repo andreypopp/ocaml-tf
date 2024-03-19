@@ -19,6 +19,10 @@ type digitalocean_uptime_check = {
 [@@deriving yojson_of]
 (** digitalocean_uptime_check *)
 
+let digitalocean_uptime_check ?enabled ?regions ?type_ ~name ~target
+    () : digitalocean_uptime_check =
+  { enabled; name; regions; target; type_ }
+
 type t = {
   enabled : bool prop;
   id : string prop;
@@ -28,14 +32,14 @@ type t = {
   type_ : string prop;
 }
 
-let digitalocean_uptime_check ?enabled ?regions ?type_ ~name ~target
+let register ?tf_module ?enabled ?regions ?type_ ~name ~target
     __resource_id =
   let __resource_type = "digitalocean_uptime_check" in
   let __resource =
-    ({ enabled; name; regions; target; type_ }
-      : digitalocean_uptime_check)
+    digitalocean_uptime_check ?enabled ?regions ?type_ ~name ~target
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_uptime_check __resource);
   let __resource_attributes =
     ({

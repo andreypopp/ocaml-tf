@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_target_https_proxy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_target_https_proxy__timeouts *)
+(** timeouts *)
 
 type google_compute_target_https_proxy = {
   certificate_manager_certificates : string prop list option;
@@ -71,10 +71,35 @@ resource will not have any SSL policy configured. *)
   url_map : string prop;
       (** A reference to the UrlMap resource that defines the mapping from URL
 to the BackendService. *)
-  timeouts : google_compute_target_https_proxy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_target_https_proxy *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_target_https_proxy
+    ?certificate_manager_certificates ?certificate_map ?description
+    ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind
+    ?quic_override ?server_tls_policy ?ssl_certificates ?ssl_policy
+    ?timeouts ~name ~url_map () : google_compute_target_https_proxy =
+  {
+    certificate_manager_certificates;
+    certificate_map;
+    description;
+    http_keep_alive_timeout_sec;
+    id;
+    name;
+    project;
+    proxy_bind;
+    quic_override;
+    server_tls_policy;
+    ssl_certificates;
+    ssl_policy;
+    url_map;
+    timeouts;
+  }
 
 type t = {
   certificate_manager_certificates : string list prop;
@@ -95,32 +120,20 @@ type t = {
   url_map : string prop;
 }
 
-let google_compute_target_https_proxy
-    ?certificate_manager_certificates ?certificate_map ?description
-    ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind
-    ?quic_override ?server_tls_policy ?ssl_certificates ?ssl_policy
-    ?timeouts ~name ~url_map __resource_id =
+let register ?tf_module ?certificate_manager_certificates
+    ?certificate_map ?description ?http_keep_alive_timeout_sec ?id
+    ?project ?proxy_bind ?quic_override ?server_tls_policy
+    ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map
+    __resource_id =
   let __resource_type = "google_compute_target_https_proxy" in
   let __resource =
-    ({
-       certificate_manager_certificates;
-       certificate_map;
-       description;
-       http_keep_alive_timeout_sec;
-       id;
-       name;
-       project;
-       proxy_bind;
-       quic_override;
-       server_tls_policy;
-       ssl_certificates;
-       ssl_policy;
-       url_map;
-       timeouts;
-     }
-      : google_compute_target_https_proxy)
+    google_compute_target_https_proxy
+      ?certificate_manager_certificates ?certificate_map ?description
+      ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind
+      ?quic_override ?server_tls_policy ?ssl_certificates ?ssl_policy
+      ?timeouts ~name ~url_map ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_https_proxy __resource);
   let __resource_attributes =
     ({

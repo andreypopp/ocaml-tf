@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_ebs_snapshot_copy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_ebs_snapshot_copy__timeouts *)
+(** timeouts *)
 
 type aws_ebs_snapshot_copy = {
   description : string prop option; [@option]  (** description *)
@@ -26,10 +26,31 @@ type aws_ebs_snapshot_copy = {
       (** tags_all *)
   temporary_restore_days : float prop option; [@option]
       (** temporary_restore_days *)
-  timeouts : aws_ebs_snapshot_copy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ebs_snapshot_copy *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_ebs_snapshot_copy ?description ?encrypted ?id ?kms_key_id
+    ?permanent_restore ?storage_tier ?tags ?tags_all
+    ?temporary_restore_days ?timeouts ~source_region
+    ~source_snapshot_id () : aws_ebs_snapshot_copy =
+  {
+    description;
+    encrypted;
+    id;
+    kms_key_id;
+    permanent_restore;
+    source_region;
+    source_snapshot_id;
+    storage_tier;
+    tags;
+    tags_all;
+    temporary_restore_days;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -52,29 +73,18 @@ type t = {
   volume_size : float prop;
 }
 
-let aws_ebs_snapshot_copy ?description ?encrypted ?id ?kms_key_id
+let register ?tf_module ?description ?encrypted ?id ?kms_key_id
     ?permanent_restore ?storage_tier ?tags ?tags_all
     ?temporary_restore_days ?timeouts ~source_region
     ~source_snapshot_id __resource_id =
   let __resource_type = "aws_ebs_snapshot_copy" in
   let __resource =
-    ({
-       description;
-       encrypted;
-       id;
-       kms_key_id;
-       permanent_restore;
-       source_region;
-       source_snapshot_id;
-       storage_tier;
-       tags;
-       tags_all;
-       temporary_restore_days;
-       timeouts;
-     }
-      : aws_ebs_snapshot_copy)
+    aws_ebs_snapshot_copy ?description ?encrypted ?id ?kms_key_id
+      ?permanent_restore ?storage_tier ?tags ?tags_all
+      ?temporary_restore_days ?timeouts ~source_region
+      ~source_snapshot_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ebs_snapshot_copy __resource);
   let __resource_attributes =
     ({

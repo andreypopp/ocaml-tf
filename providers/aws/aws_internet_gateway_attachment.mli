@@ -2,8 +2,27 @@
 
 open! Tf.Prelude
 
-type aws_internet_gateway_attachment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_internet_gateway_attachment
+
+val aws_internet_gateway_attachment :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  internet_gateway_id:string prop ->
+  vpc_id:string prop ->
+  unit ->
+  aws_internet_gateway_attachment
+
+val yojson_of_aws_internet_gateway_attachment :
+  aws_internet_gateway_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -11,9 +30,10 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_internet_gateway_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
-  ?timeouts:aws_internet_gateway_attachment__timeouts ->
+  ?timeouts:timeouts ->
   internet_gateway_id:string prop ->
   vpc_id:string prop ->
   string ->

@@ -4,22 +4,22 @@
 
 open! Tf.Prelude
 
-type azurerm_logic_app_integration_account_certificate__key_vault_key = {
+type key_vault_key = {
   key_name : string prop;  (** key_name *)
   key_vault_id : string prop;  (** key_vault_id *)
   key_version : string prop option; [@option]  (** key_version *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_certificate__key_vault_key *)
+(** key_vault_key *)
 
-type azurerm_logic_app_integration_account_certificate__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_certificate__timeouts *)
+(** timeouts *)
 
 type azurerm_logic_app_integration_account_certificate = {
   id : string prop option; [@option]  (** id *)
@@ -30,15 +30,33 @@ type azurerm_logic_app_integration_account_certificate = {
   public_certificate : string prop option; [@option]
       (** public_certificate *)
   resource_group_name : string prop;  (** resource_group_name *)
-  key_vault_key :
-    azurerm_logic_app_integration_account_certificate__key_vault_key
-    list;
-  timeouts :
-    azurerm_logic_app_integration_account_certificate__timeouts
-    option;
+  key_vault_key : key_vault_key list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_certificate *)
+
+let key_vault_key ?key_version ~key_name ~key_vault_id () :
+    key_vault_key =
+  { key_name; key_vault_id; key_version }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_logic_app_integration_account_certificate ?id ?metadata
+    ?public_certificate ?timeouts ~integration_account_name ~name
+    ~resource_group_name ~key_vault_key () :
+    azurerm_logic_app_integration_account_certificate =
+  {
+    id;
+    integration_account_name;
+    metadata;
+    name;
+    public_certificate;
+    resource_group_name;
+    key_vault_key;
+    timeouts;
+  }
 
 type t = {
   id : string prop;
@@ -49,26 +67,18 @@ type t = {
   resource_group_name : string prop;
 }
 
-let azurerm_logic_app_integration_account_certificate ?id ?metadata
-    ?public_certificate ?timeouts ~integration_account_name ~name
-    ~resource_group_name ~key_vault_key __resource_id =
+let register ?tf_module ?id ?metadata ?public_certificate ?timeouts
+    ~integration_account_name ~name ~resource_group_name
+    ~key_vault_key __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_certificate"
   in
   let __resource =
-    ({
-       id;
-       integration_account_name;
-       metadata;
-       name;
-       public_certificate;
-       resource_group_name;
-       key_vault_key;
-       timeouts;
-     }
-      : azurerm_logic_app_integration_account_certificate)
+    azurerm_logic_app_integration_account_certificate ?id ?metadata
+      ?public_certificate ?timeouts ~integration_account_name ~name
+      ~resource_group_name ~key_vault_key ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_certificate
        __resource);
   let __resource_attributes =

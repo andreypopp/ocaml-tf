@@ -2,9 +2,9 @@
 
 open! Tf.Prelude
 
-type aws_cloudhsm_v2_cluster__timeouts
+(** RESOURCE SERIALIZATION *)
 
-type aws_cloudhsm_v2_cluster__cluster_certificates = {
+type cluster_certificates = {
   aws_hardware_certificate : string prop;
       (** aws_hardware_certificate *)
   cluster_certificate : string prop;  (** cluster_certificate *)
@@ -14,11 +14,35 @@ type aws_cloudhsm_v2_cluster__cluster_certificates = {
       (** manufacturer_hardware_certificate *)
 }
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_cloudhsm_v2_cluster
 
+val aws_cloudhsm_v2_cluster :
+  ?id:string prop ->
+  ?source_backup_identifier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  hsm_type:string prop ->
+  subnet_ids:string prop list ->
+  unit ->
+  aws_cloudhsm_v2_cluster
+
+val yojson_of_aws_cloudhsm_v2_cluster :
+  aws_cloudhsm_v2_cluster -> json
+
+(** RESOURCE REGISTRATION *)
+
 type t = private {
-  cluster_certificates :
-    aws_cloudhsm_v2_cluster__cluster_certificates list prop;
+  cluster_certificates : cluster_certificates list prop;
   cluster_id : string prop;
   cluster_state : string prop;
   hsm_type : string prop;
@@ -31,12 +55,13 @@ type t = private {
   vpc_id : string prop;
 }
 
-val aws_cloudhsm_v2_cluster :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?source_backup_identifier:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:aws_cloudhsm_v2_cluster__timeouts ->
+  ?timeouts:timeouts ->
   hsm_type:string prop ->
   subnet_ids:string prop list ->
   string ->

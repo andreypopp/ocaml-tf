@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type google_compute_region_ssl_policy__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_compute_region_ssl_policy__timeouts *)
+(** timeouts *)
 
 type google_compute_region_ssl_policy = {
   custom_features : string prop list option; [@option]
@@ -48,10 +48,28 @@ for information on what cipher suites each profile provides. If
   project : string prop option; [@option]  (** project *)
   region : string prop;
       (** The region where the regional SSL policy resides. *)
-  timeouts : google_compute_region_ssl_policy__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_region_ssl_policy *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_compute_region_ssl_policy ?custom_features ?description
+    ?id ?min_tls_version ?profile ?project ?timeouts ~name ~region ()
+    : google_compute_region_ssl_policy =
+  {
+    custom_features;
+    description;
+    id;
+    min_tls_version;
+    name;
+    profile;
+    project;
+    region;
+    timeouts;
+  }
 
 type t = {
   creation_timestamp : string prop;
@@ -68,25 +86,16 @@ type t = {
   self_link : string prop;
 }
 
-let google_compute_region_ssl_policy ?custom_features ?description
-    ?id ?min_tls_version ?profile ?project ?timeouts ~name ~region
+let register ?tf_module ?custom_features ?description ?id
+    ?min_tls_version ?profile ?project ?timeouts ~name ~region
     __resource_id =
   let __resource_type = "google_compute_region_ssl_policy" in
   let __resource =
-    ({
-       custom_features;
-       description;
-       id;
-       min_tls_version;
-       name;
-       profile;
-       project;
-       region;
-       timeouts;
-     }
-      : google_compute_region_ssl_policy)
+    google_compute_region_ssl_policy ?custom_features ?description
+      ?id ?min_tls_version ?profile ?project ?timeouts ~name ~region
+      ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_ssl_policy __resource);
   let __resource_attributes =
     ({

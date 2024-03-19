@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_iotcentral_application__identity
-type azurerm_iotcentral_application__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_iotcentral_application
+
+val azurerm_iotcentral_application :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?template:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sub_domain:string prop ->
+  identity:identity list ->
+  unit ->
+  azurerm_iotcentral_application
+
+val yojson_of_azurerm_iotcentral_application :
+  azurerm_iotcentral_application -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   display_name : string prop;
@@ -19,18 +54,19 @@ type t = private {
   template : string prop;
 }
 
-val azurerm_iotcentral_application :
+val register :
+  ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?template:string prop ->
-  ?timeouts:azurerm_iotcentral_application__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sub_domain:string prop ->
-  identity:azurerm_iotcentral_application__identity list ->
+  identity:identity list ->
   string ->
   t

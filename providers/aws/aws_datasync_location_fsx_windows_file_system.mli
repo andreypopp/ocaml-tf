@@ -2,7 +2,27 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_datasync_location_fsx_windows_file_system
+
+val aws_datasync_location_fsx_windows_file_system :
+  ?domain:string prop ->
+  ?id:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  fsx_filesystem_arn:string prop ->
+  password:string prop ->
+  security_group_arns:string prop list ->
+  user:string prop ->
+  unit ->
+  aws_datasync_location_fsx_windows_file_system
+
+val yojson_of_aws_datasync_location_fsx_windows_file_system :
+  aws_datasync_location_fsx_windows_file_system -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -19,7 +39,8 @@ type t = private {
   user : string prop;
 }
 
-val aws_datasync_location_fsx_windows_file_system :
+val register :
+  ?tf_module:tf_module ->
   ?domain:string prop ->
   ?id:string prop ->
   ?subdirectory:string prop ->

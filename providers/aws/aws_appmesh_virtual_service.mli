@@ -2,11 +2,51 @@
 
 open! Tf.Prelude
 
-type aws_appmesh_virtual_service__spec__provider__virtual_node
-type aws_appmesh_virtual_service__spec__provider__virtual_router
-type aws_appmesh_virtual_service__spec__provider
-type aws_appmesh_virtual_service__spec
+(** RESOURCE SERIALIZATION *)
+
+type spec__provider__virtual_node
+
+val spec__provider__virtual_node :
+  virtual_node_name:string prop ->
+  unit ->
+  spec__provider__virtual_node
+
+type spec__provider__virtual_router
+
+val spec__provider__virtual_router :
+  virtual_router_name:string prop ->
+  unit ->
+  spec__provider__virtual_router
+
+type spec__provider
+
+val spec__provider :
+  virtual_node:spec__provider__virtual_node list ->
+  virtual_router:spec__provider__virtual_router list ->
+  unit ->
+  spec__provider
+
+type spec
+
+val spec : provider:spec__provider list -> unit -> spec
+
 type aws_appmesh_virtual_service
+
+val aws_appmesh_virtual_service :
+  ?id:string prop ->
+  ?mesh_owner:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  mesh_name:string prop ->
+  name:string prop ->
+  spec:spec list ->
+  unit ->
+  aws_appmesh_virtual_service
+
+val yojson_of_aws_appmesh_virtual_service :
+  aws_appmesh_virtual_service -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -21,13 +61,14 @@ type t = private {
   tags_all : (string * string) list prop;
 }
 
-val aws_appmesh_virtual_service :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?mesh_owner:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   mesh_name:string prop ->
   name:string prop ->
-  spec:aws_appmesh_virtual_service__spec list ->
+  spec:spec list ->
   string ->
   t

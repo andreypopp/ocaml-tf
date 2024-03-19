@@ -64,6 +64,53 @@ type aws_sns_topic = {
 [@@deriving yojson_of]
 (** aws_sns_topic *)
 
+let aws_sns_topic ?application_failure_feedback_role_arn
+    ?application_success_feedback_role_arn
+    ?application_success_feedback_sample_rate ?archive_policy
+    ?content_based_deduplication ?delivery_policy ?display_name
+    ?fifo_topic ?firehose_failure_feedback_role_arn
+    ?firehose_success_feedback_role_arn
+    ?firehose_success_feedback_sample_rate
+    ?http_failure_feedback_role_arn ?http_success_feedback_role_arn
+    ?http_success_feedback_sample_rate ?id ?kms_master_key_id
+    ?lambda_failure_feedback_role_arn
+    ?lambda_success_feedback_role_arn
+    ?lambda_success_feedback_sample_rate ?name ?name_prefix ?policy
+    ?signature_version ?sqs_failure_feedback_role_arn
+    ?sqs_success_feedback_role_arn ?sqs_success_feedback_sample_rate
+    ?tags ?tags_all ?tracing_config () : aws_sns_topic =
+  {
+    application_failure_feedback_role_arn;
+    application_success_feedback_role_arn;
+    application_success_feedback_sample_rate;
+    archive_policy;
+    content_based_deduplication;
+    delivery_policy;
+    display_name;
+    fifo_topic;
+    firehose_failure_feedback_role_arn;
+    firehose_success_feedback_role_arn;
+    firehose_success_feedback_sample_rate;
+    http_failure_feedback_role_arn;
+    http_success_feedback_role_arn;
+    http_success_feedback_sample_rate;
+    id;
+    kms_master_key_id;
+    lambda_failure_feedback_role_arn;
+    lambda_success_feedback_role_arn;
+    lambda_success_feedback_sample_rate;
+    name;
+    name_prefix;
+    policy;
+    signature_version;
+    sqs_failure_feedback_role_arn;
+    sqs_success_feedback_role_arn;
+    sqs_success_feedback_sample_rate;
+    tags;
+    tags_all;
+    tracing_config;
+  }
+
 type t = {
   application_failure_feedback_role_arn : string prop;
   application_success_feedback_role_arn : string prop;
@@ -99,7 +146,7 @@ type t = {
   tracing_config : string prop;
 }
 
-let aws_sns_topic ?application_failure_feedback_role_arn
+let register ?tf_module ?application_failure_feedback_role_arn
     ?application_success_feedback_role_arn
     ?application_success_feedback_sample_rate ?archive_policy
     ?content_based_deduplication ?delivery_policy ?display_name
@@ -116,40 +163,24 @@ let aws_sns_topic ?application_failure_feedback_role_arn
     ?tags ?tags_all ?tracing_config __resource_id =
   let __resource_type = "aws_sns_topic" in
   let __resource =
-    ({
-       application_failure_feedback_role_arn;
-       application_success_feedback_role_arn;
-       application_success_feedback_sample_rate;
-       archive_policy;
-       content_based_deduplication;
-       delivery_policy;
-       display_name;
-       fifo_topic;
-       firehose_failure_feedback_role_arn;
-       firehose_success_feedback_role_arn;
-       firehose_success_feedback_sample_rate;
-       http_failure_feedback_role_arn;
-       http_success_feedback_role_arn;
-       http_success_feedback_sample_rate;
-       id;
-       kms_master_key_id;
-       lambda_failure_feedback_role_arn;
-       lambda_success_feedback_role_arn;
-       lambda_success_feedback_sample_rate;
-       name;
-       name_prefix;
-       policy;
-       signature_version;
-       sqs_failure_feedback_role_arn;
-       sqs_success_feedback_role_arn;
-       sqs_success_feedback_sample_rate;
-       tags;
-       tags_all;
-       tracing_config;
-     }
-      : aws_sns_topic)
+    aws_sns_topic ?application_failure_feedback_role_arn
+      ?application_success_feedback_role_arn
+      ?application_success_feedback_sample_rate ?archive_policy
+      ?content_based_deduplication ?delivery_policy ?display_name
+      ?fifo_topic ?firehose_failure_feedback_role_arn
+      ?firehose_success_feedback_role_arn
+      ?firehose_success_feedback_sample_rate
+      ?http_failure_feedback_role_arn ?http_success_feedback_role_arn
+      ?http_success_feedback_sample_rate ?id ?kms_master_key_id
+      ?lambda_failure_feedback_role_arn
+      ?lambda_success_feedback_role_arn
+      ?lambda_success_feedback_sample_rate ?name ?name_prefix ?policy
+      ?signature_version ?sqs_failure_feedback_role_arn
+      ?sqs_success_feedback_role_arn
+      ?sqs_success_feedback_sample_rate ?tags ?tags_all
+      ?tracing_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sns_topic __resource);
   let __resource_attributes =
     ({

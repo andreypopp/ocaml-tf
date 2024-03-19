@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type google_folder_access_approval_settings__enrolled_services = {
+type enrolled_services = {
   cloud_product : string prop;
       (** The product for which Access Approval will be enrolled. Allowed values are listed (case-sensitive):
   * all
@@ -40,13 +40,13 @@ to have explicit approval. Enrollment can only be done on an all or nothing basi
 
 A maximum of 10 enrolled services will be enforced, to be expanded as the set of supported services is expanded. *)
 
-type google_folder_access_approval_settings__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_folder_access_approval_settings__timeouts *)
+(** timeouts *)
 
 type google_folder_access_approval_settings = {
   active_key_version : string prop option; [@option]
@@ -60,12 +60,30 @@ This property will be ignored if set by an ancestor of the resource, and new non
       (** A list of email addresses to which notifications relating to approval requests should be sent.
 Notifications relating to a resource will be sent to all emails in the settings of ancestor
 resources of that resource. A maximum of 50 email addresses are allowed. *)
-  enrolled_services :
-    google_folder_access_approval_settings__enrolled_services list;
-  timeouts : google_folder_access_approval_settings__timeouts option;
+  enrolled_services : enrolled_services list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_folder_access_approval_settings *)
+
+let enrolled_services ?enrollment_level ~cloud_product () :
+    enrolled_services =
+  { cloud_product; enrollment_level }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_folder_access_approval_settings ?active_key_version ?id
+    ?notification_emails ?timeouts ~folder_id ~enrolled_services () :
+    google_folder_access_approval_settings =
+  {
+    active_key_version;
+    folder_id;
+    id;
+    notification_emails;
+    enrolled_services;
+    timeouts;
+  }
 
 type t = {
   active_key_version : string prop;
@@ -78,22 +96,14 @@ type t = {
   notification_emails : string list prop;
 }
 
-let google_folder_access_approval_settings ?active_key_version ?id
-    ?notification_emails ?timeouts ~folder_id ~enrolled_services
-    __resource_id =
+let register ?tf_module ?active_key_version ?id ?notification_emails
+    ?timeouts ~folder_id ~enrolled_services __resource_id =
   let __resource_type = "google_folder_access_approval_settings" in
   let __resource =
-    ({
-       active_key_version;
-       folder_id;
-       id;
-       notification_emails;
-       enrolled_services;
-       timeouts;
-     }
-      : google_folder_access_approval_settings)
+    google_folder_access_approval_settings ?active_key_version ?id
+      ?notification_emails ?timeouts ~folder_id ~enrolled_services ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder_access_approval_settings __resource);
   let __resource_attributes =
     ({

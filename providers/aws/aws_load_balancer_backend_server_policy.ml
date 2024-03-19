@@ -14,6 +14,11 @@ type aws_load_balancer_backend_server_policy = {
 [@@deriving yojson_of]
 (** aws_load_balancer_backend_server_policy *)
 
+let aws_load_balancer_backend_server_policy ?id ?policy_names
+    ~instance_port ~load_balancer_name () :
+    aws_load_balancer_backend_server_policy =
+  { id; instance_port; load_balancer_name; policy_names }
+
 type t = {
   id : string prop;
   instance_port : float prop;
@@ -21,14 +26,14 @@ type t = {
   policy_names : string list prop;
 }
 
-let aws_load_balancer_backend_server_policy ?id ?policy_names
-    ~instance_port ~load_balancer_name __resource_id =
+let register ?tf_module ?id ?policy_names ~instance_port
+    ~load_balancer_name __resource_id =
   let __resource_type = "aws_load_balancer_backend_server_policy" in
   let __resource =
-    ({ id; instance_port; load_balancer_name; policy_names }
-      : aws_load_balancer_backend_server_policy)
+    aws_load_balancer_backend_server_policy ?id ?policy_names
+      ~instance_port ~load_balancer_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_load_balancer_backend_server_policy __resource);
   let __resource_attributes =
     ({

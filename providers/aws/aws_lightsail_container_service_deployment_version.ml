@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_lightsail_container_service_deployment_version__container = {
+type container = {
   command : string prop list option; [@option]  (** command *)
   container_name : string prop;  (** container_name *)
   environment : (string * string prop) list option; [@option]
@@ -13,9 +13,9 @@ type aws_lightsail_container_service_deployment_version__container = {
   ports : (string * string prop) list option; [@option]  (** ports *)
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service_deployment_version__container *)
+(** container *)
 
-type aws_lightsail_container_service_deployment_version__public_endpoint__health_check = {
+type public_endpoint__health_check = {
   healthy_threshold : float prop option; [@option]
       (** healthy_threshold *)
   interval_seconds : float prop option; [@option]
@@ -28,39 +28,58 @@ type aws_lightsail_container_service_deployment_version__public_endpoint__health
       (** unhealthy_threshold *)
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service_deployment_version__public_endpoint__health_check *)
+(** public_endpoint__health_check *)
 
-type aws_lightsail_container_service_deployment_version__public_endpoint = {
+type public_endpoint = {
   container_name : string prop;  (** container_name *)
   container_port : float prop;  (** container_port *)
-  health_check :
-    aws_lightsail_container_service_deployment_version__public_endpoint__health_check
-    list;
+  health_check : public_endpoint__health_check list;
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service_deployment_version__public_endpoint *)
+(** public_endpoint *)
 
-type aws_lightsail_container_service_deployment_version__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
-(** aws_lightsail_container_service_deployment_version__timeouts *)
+(** timeouts *)
 
 type aws_lightsail_container_service_deployment_version = {
   id : string prop option; [@option]  (** id *)
   service_name : string prop;  (** service_name *)
-  container :
-    aws_lightsail_container_service_deployment_version__container
-    list;
-  public_endpoint :
-    aws_lightsail_container_service_deployment_version__public_endpoint
-    list;
-  timeouts :
-    aws_lightsail_container_service_deployment_version__timeouts
-    option;
+  container : container list;
+  public_endpoint : public_endpoint list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lightsail_container_service_deployment_version *)
+
+let container ?command ?environment ?ports ~container_name ~image ()
+    : container =
+  { command; container_name; environment; image; ports }
+
+let public_endpoint__health_check ?healthy_threshold
+    ?interval_seconds ?path ?success_codes ?timeout_seconds
+    ?unhealthy_threshold () : public_endpoint__health_check =
+  {
+    healthy_threshold;
+    interval_seconds;
+    path;
+    success_codes;
+    timeout_seconds;
+    unhealthy_threshold;
+  }
+
+let public_endpoint ~container_name ~container_port ~health_check ()
+    : public_endpoint =
+  { container_name; container_port; health_check }
+
+let timeouts ?create () : timeouts = { create }
+
+let aws_lightsail_container_service_deployment_version ?id ?timeouts
+    ~service_name ~container ~public_endpoint () :
+    aws_lightsail_container_service_deployment_version =
+  { id; service_name; container; public_endpoint; timeouts }
 
 type t = {
   created_at : string prop;
@@ -70,16 +89,16 @@ type t = {
   version : float prop;
 }
 
-let aws_lightsail_container_service_deployment_version ?id ?timeouts
-    ~service_name ~container ~public_endpoint __resource_id =
+let register ?tf_module ?id ?timeouts ~service_name ~container
+    ~public_endpoint __resource_id =
   let __resource_type =
     "aws_lightsail_container_service_deployment_version"
   in
   let __resource =
-    ({ id; service_name; container; public_endpoint; timeouts }
-      : aws_lightsail_container_service_deployment_version)
+    aws_lightsail_container_service_deployment_version ?id ?timeouts
+      ~service_name ~container ~public_endpoint ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_container_service_deployment_version
        __resource);
   let __resource_attributes =

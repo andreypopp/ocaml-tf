@@ -2,8 +2,38 @@
 
 open! Tf.Prelude
 
-type azurerm_mobile_network_packet_core_data_plane__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_mobile_network_packet_core_data_plane
+
+val azurerm_mobile_network_packet_core_data_plane :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?user_plane_access_ipv4_address:string prop ->
+  ?user_plane_access_ipv4_gateway:string prop ->
+  ?user_plane_access_ipv4_subnet:string prop ->
+  ?user_plane_access_name:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  mobile_network_packet_core_control_plane_id:string prop ->
+  name:string prop ->
+  unit ->
+  azurerm_mobile_network_packet_core_data_plane
+
+val yojson_of_azurerm_mobile_network_packet_core_data_plane :
+  azurerm_mobile_network_packet_core_data_plane -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -17,14 +47,15 @@ type t = private {
   user_plane_access_name : string prop;
 }
 
-val azurerm_mobile_network_packet_core_data_plane :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?user_plane_access_ipv4_address:string prop ->
   ?user_plane_access_ipv4_gateway:string prop ->
   ?user_plane_access_ipv4_subnet:string prop ->
   ?user_plane_access_name:string prop ->
-  ?timeouts:azurerm_mobile_network_packet_core_data_plane__timeouts ->
+  ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_packet_core_control_plane_id:string prop ->
   name:string prop ->

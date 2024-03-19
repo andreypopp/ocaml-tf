@@ -2,8 +2,29 @@
 
 open! Tf.Prelude
 
-type aws_grafana_role_association__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_grafana_role_association
+
+val aws_grafana_role_association :
+  ?group_ids:string prop list ->
+  ?id:string prop ->
+  ?user_ids:string prop list ->
+  ?timeouts:timeouts ->
+  role:string prop ->
+  workspace_id:string prop ->
+  unit ->
+  aws_grafana_role_association
+
+val yojson_of_aws_grafana_role_association :
+  aws_grafana_role_association -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   group_ids : string list prop;
@@ -13,11 +34,12 @@ type t = private {
   workspace_id : string prop;
 }
 
-val aws_grafana_role_association :
+val register :
+  ?tf_module:tf_module ->
   ?group_ids:string prop list ->
   ?id:string prop ->
   ?user_ids:string prop list ->
-  ?timeouts:aws_grafana_role_association__timeouts ->
+  ?timeouts:timeouts ->
   role:string prop ->
   workspace_id:string prop ->
   string ->

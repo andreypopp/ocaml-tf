@@ -2,7 +2,16 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type digitalocean_tag
+
+val digitalocean_tag :
+  ?id:string prop -> name:string prop -> unit -> digitalocean_tag
+
+val yojson_of_digitalocean_tag : digitalocean_tag -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   databases_count : float prop;
@@ -15,5 +24,9 @@ type t = private {
   volumes_count : float prop;
 }
 
-val digitalocean_tag :
-  ?id:string prop -> name:string prop -> string -> t
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  name:string prop ->
+  string ->
+  t

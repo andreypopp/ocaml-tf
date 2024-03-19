@@ -2,8 +2,31 @@
 
 open! Tf.Prelude
 
-type aws_eks_access_entry__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+
 type aws_eks_access_entry
+
+val aws_eks_access_entry :
+  ?id:string prop ->
+  ?kubernetes_groups:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  ?user_name:string prop ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  principal_arn:string prop ->
+  unit ->
+  aws_eks_access_entry
+
+val yojson_of_aws_eks_access_entry : aws_eks_access_entry -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   access_entry_arn : string prop;
@@ -19,14 +42,15 @@ type t = private {
   user_name : string prop;
 }
 
-val aws_eks_access_entry :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   ?kubernetes_groups:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
   ?user_name:string prop ->
-  ?timeouts:aws_eks_access_entry__timeouts ->
+  ?timeouts:timeouts ->
   cluster_name:string prop ->
   principal_arn:string prop ->
   string ->

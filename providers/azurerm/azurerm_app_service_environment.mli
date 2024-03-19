@@ -2,9 +2,44 @@
 
 open! Tf.Prelude
 
-type azurerm_app_service_environment__cluster_setting
-type azurerm_app_service_environment__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type cluster_setting
+
+val cluster_setting :
+  name:string prop -> value:string prop -> unit -> cluster_setting
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?read:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type azurerm_app_service_environment
+
+val azurerm_app_service_environment :
+  ?allowed_user_ip_cidrs:string prop list ->
+  ?front_end_scale_factor:float prop ->
+  ?id:string prop ->
+  ?internal_load_balancing_mode:string prop ->
+  ?pricing_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  subnet_id:string prop ->
+  cluster_setting:cluster_setting list ->
+  unit ->
+  azurerm_app_service_environment
+
+val yojson_of_azurerm_app_service_environment :
+  azurerm_app_service_environment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   allowed_user_ip_cidrs : string list prop;
@@ -22,18 +57,18 @@ type t = private {
   tags : (string * string) list prop;
 }
 
-val azurerm_app_service_environment :
+val register :
+  ?tf_module:tf_module ->
   ?allowed_user_ip_cidrs:string prop list ->
   ?front_end_scale_factor:float prop ->
   ?id:string prop ->
   ?internal_load_balancing_mode:string prop ->
   ?pricing_tier:string prop ->
   ?tags:(string * string prop) list ->
-  ?timeouts:azurerm_app_service_environment__timeouts ->
+  ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  cluster_setting:
-    azurerm_app_service_environment__cluster_setting list ->
+  cluster_setting:cluster_setting list ->
   string ->
   t

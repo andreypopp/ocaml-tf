@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type cloudflare_device_posture_rule__input = {
+type input = {
   active_threats : float prop option; [@option]
       (** The number of active threats from SentinelOne. *)
   certificate_id : string prop option; [@option]
@@ -70,7 +70,7 @@ type cloudflare_device_posture_rule__input = {
 [@@deriving yojson_of]
 (** Required for all rule types except `warp`, `gateway`, and `tanium`. *)
 
-type cloudflare_device_posture_rule__match = {
+type match_ = {
   platform : string prop option; [@option]
       (** The platform of the device. Available values: `windows`, `mac`, `linux`, `android`, `ios`, `chromeos`. *)
 }
@@ -90,12 +90,70 @@ type cloudflare_device_posture_rule = {
       (** Tells the client when to run the device posture check. Must be in the format `1h` or `30m`. Valid units are `h` and `m`. *)
   type_ : string prop; [@key "type"]
       (** The device posture rule type. Available values: `serial_number`, `file`, `application`, `gateway`, `warp`, `domain_joined`, `os_version`, `disk_encryption`, `firewall`, `client_certificate`, `workspace_one`, `unique_client_id`, `crowdstrike_s2s`, `sentinelone`, `kolide`, `tanium_s2s`, `intune`, `sentinelone_s2s`. *)
-  input : cloudflare_device_posture_rule__input list;
-  match_ : cloudflare_device_posture_rule__match list;
+  input : input list;
+  match_ : match_ list;
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Device Posture Rule resource. Device posture rules configure security policies for device posture checks.
  *)
+
+let input ?active_threats ?certificate_id ?check_disks ?cn
+    ?compliance_status ?connection_id ?count_operator ?domain
+    ?eid_last_seen ?enabled ?exists ?id ?infected ?is_active
+    ?issue_count ?network_status ?operator ?os ?os_distro_name
+    ?os_distro_revision ?overall ?path ?require_all ?risk_level
+    ?running ?sensor_config ?sha256 ?thumbprint ?total_score ?version
+    ?version_operator () : input =
+  {
+    active_threats;
+    certificate_id;
+    check_disks;
+    cn;
+    compliance_status;
+    connection_id;
+    count_operator;
+    domain;
+    eid_last_seen;
+    enabled;
+    exists;
+    id;
+    infected;
+    is_active;
+    issue_count;
+    network_status;
+    operator;
+    os;
+    os_distro_name;
+    os_distro_revision;
+    overall;
+    path;
+    require_all;
+    risk_level;
+    running;
+    sensor_config;
+    sha256;
+    thumbprint;
+    total_score;
+    version;
+    version_operator;
+  }
+
+let match_ ?platform () : match_ = { platform }
+
+let cloudflare_device_posture_rule ?description ?expiration ?id ?name
+    ?schedule ~account_id ~type_ ~input ~match_ () :
+    cloudflare_device_posture_rule =
+  {
+    account_id;
+    description;
+    expiration;
+    id;
+    name;
+    schedule;
+    type_;
+    input;
+    match_;
+  }
 
 type t = {
   account_id : string prop;
@@ -107,24 +165,14 @@ type t = {
   type_ : string prop;
 }
 
-let cloudflare_device_posture_rule ?description ?expiration ?id ?name
-    ?schedule ~account_id ~type_ ~input ~match_ __resource_id =
+let register ?tf_module ?description ?expiration ?id ?name ?schedule
+    ~account_id ~type_ ~input ~match_ __resource_id =
   let __resource_type = "cloudflare_device_posture_rule" in
   let __resource =
-    ({
-       account_id;
-       description;
-       expiration;
-       id;
-       name;
-       schedule;
-       type_;
-       input;
-       match_;
-     }
-      : cloudflare_device_posture_rule)
+    cloudflare_device_posture_rule ?description ?expiration ?id ?name
+      ?schedule ~account_id ~type_ ~input ~match_ ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_posture_rule __resource);
   let __resource_attributes =
     ({

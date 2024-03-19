@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipv4_cidr_block_association__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_ipv4_cidr_block_association__timeouts *)
+(** timeouts *)
 
 type aws_vpc_ipv4_cidr_block_association = {
   cidr_block : string prop option; [@option]  (** cidr_block *)
@@ -19,10 +19,24 @@ type aws_vpc_ipv4_cidr_block_association = {
   ipv4_netmask_length : float prop option; [@option]
       (** ipv4_netmask_length *)
   vpc_id : string prop;  (** vpc_id *)
-  timeouts : aws_vpc_ipv4_cidr_block_association__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipv4_cidr_block_association *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let aws_vpc_ipv4_cidr_block_association ?cidr_block ?id
+    ?ipv4_ipam_pool_id ?ipv4_netmask_length ?timeouts ~vpc_id () :
+    aws_vpc_ipv4_cidr_block_association =
+  {
+    cidr_block;
+    id;
+    ipv4_ipam_pool_id;
+    ipv4_netmask_length;
+    vpc_id;
+    timeouts;
+  }
 
 type t = {
   cidr_block : string prop;
@@ -32,22 +46,14 @@ type t = {
   vpc_id : string prop;
 }
 
-let aws_vpc_ipv4_cidr_block_association ?cidr_block ?id
-    ?ipv4_ipam_pool_id ?ipv4_netmask_length ?timeouts ~vpc_id
-    __resource_id =
+let register ?tf_module ?cidr_block ?id ?ipv4_ipam_pool_id
+    ?ipv4_netmask_length ?timeouts ~vpc_id __resource_id =
   let __resource_type = "aws_vpc_ipv4_cidr_block_association" in
   let __resource =
-    ({
-       cidr_block;
-       id;
-       ipv4_ipam_pool_id;
-       ipv4_netmask_length;
-       vpc_id;
-       timeouts;
-     }
-      : aws_vpc_ipv4_cidr_block_association)
+    aws_vpc_ipv4_cidr_block_association ?cidr_block ?id
+      ?ipv4_ipam_pool_id ?ipv4_netmask_length ?timeouts ~vpc_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipv4_cidr_block_association __resource);
   let __resource_attributes =
     ({

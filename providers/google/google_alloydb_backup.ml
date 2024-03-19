@@ -4,28 +4,28 @@
 
 open! Tf.Prelude
 
-type google_alloydb_backup__encryption_config = {
+type encryption_config = {
   kms_key_name : string prop option; [@option]
       (** The fully-qualified resource name of the KMS key. Each Cloud KMS key is regionalized and has the following format: projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME]. *)
 }
 [@@deriving yojson_of]
 (** EncryptionConfig describes the encryption config of a cluster or a backup that is encrypted with a CMEK (customer-managed encryption key). *)
 
-type google_alloydb_backup__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** google_alloydb_backup__timeouts *)
+(** timeouts *)
 
-type google_alloydb_backup__encryption_info = {
+type encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
   kms_key_versions : string prop list;  (** kms_key_versions *)
 }
 [@@deriving yojson_of]
 
-type google_alloydb_backup__expiry_quantity = {
+type expiry_quantity = {
   retention_count : float prop;  (** retention_count *)
   total_retention_count : float prop;  (** total_retention_count *)
 }
@@ -58,11 +58,35 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   project : string prop option; [@option]  (** project *)
   type_ : string prop option; [@option] [@key "type"]
       (** The backup type, which suggests the trigger for the backup. Possible values: [TYPE_UNSPECIFIED, ON_DEMAND, AUTOMATED, CONTINUOUS] *)
-  encryption_config : google_alloydb_backup__encryption_config list;
-  timeouts : google_alloydb_backup__timeouts option;
+  encryption_config : encryption_config list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_alloydb_backup *)
+
+let encryption_config ?kms_key_name () : encryption_config =
+  { kms_key_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let google_alloydb_backup ?annotations ?description ?display_name ?id
+    ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
+    ~location ~encryption_config () : google_alloydb_backup =
+  {
+    annotations;
+    backup_id;
+    cluster_name;
+    description;
+    display_name;
+    id;
+    labels;
+    location;
+    project;
+    type_;
+    encryption_config;
+    timeouts;
+  }
 
 type t = {
   annotations : (string * string) list prop;
@@ -75,9 +99,9 @@ type t = {
   display_name : string prop;
   effective_annotations : (string * string) list prop;
   effective_labels : (string * string) list prop;
-  encryption_info : google_alloydb_backup__encryption_info list prop;
+  encryption_info : encryption_info list prop;
   etag : string prop;
-  expiry_quantity : google_alloydb_backup__expiry_quantity list prop;
+  expiry_quantity : expiry_quantity list prop;
   expiry_time : string prop;
   id : string prop;
   labels : (string * string) list prop;
@@ -93,28 +117,16 @@ type t = {
   update_time : string prop;
 }
 
-let google_alloydb_backup ?annotations ?description ?display_name ?id
+let register ?tf_module ?annotations ?description ?display_name ?id
     ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
     ~location ~encryption_config __resource_id =
   let __resource_type = "google_alloydb_backup" in
   let __resource =
-    ({
-       annotations;
-       backup_id;
-       cluster_name;
-       description;
-       display_name;
-       id;
-       labels;
-       location;
-       project;
-       type_;
-       encryption_config;
-       timeouts;
-     }
-      : google_alloydb_backup)
+    google_alloydb_backup ?annotations ?description ?display_name ?id
+      ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
+      ~location ~encryption_config ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_alloydb_backup __resource);
   let __resource_attributes =
     ({

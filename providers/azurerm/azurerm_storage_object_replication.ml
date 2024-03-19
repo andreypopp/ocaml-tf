@@ -4,27 +4,26 @@
 
 open! Tf.Prelude
 
-type azurerm_storage_object_replication__rules = {
+type rules = {
   copy_blobs_created_after : string prop option; [@option]
       (** copy_blobs_created_after *)
   destination_container_name : string prop;
       (** destination_container_name *)
   filter_out_blobs_with_prefix : string prop list option; [@option]
       (** filter_out_blobs_with_prefix *)
-  name : string prop;  (** name *)
   source_container_name : string prop;  (** source_container_name *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_object_replication__rules *)
+(** rules *)
 
-type azurerm_storage_object_replication__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_storage_object_replication__timeouts *)
+(** timeouts *)
 
 type azurerm_storage_object_replication = {
   destination_storage_account_id : string prop;
@@ -32,11 +31,34 @@ type azurerm_storage_object_replication = {
   id : string prop option; [@option]  (** id *)
   source_storage_account_id : string prop;
       (** source_storage_account_id *)
-  rules : azurerm_storage_object_replication__rules list;
-  timeouts : azurerm_storage_object_replication__timeouts option;
+  rules : rules list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_object_replication *)
+
+let rules ?copy_blobs_created_after ?filter_out_blobs_with_prefix
+    ~destination_container_name ~source_container_name () : rules =
+  {
+    copy_blobs_created_after;
+    destination_container_name;
+    filter_out_blobs_with_prefix;
+    source_container_name;
+  }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_storage_object_replication ?id ?timeouts
+    ~destination_storage_account_id ~source_storage_account_id ~rules
+    () : azurerm_storage_object_replication =
+  {
+    destination_storage_account_id;
+    id;
+    source_storage_account_id;
+    rules;
+    timeouts;
+  }
 
 type t = {
   destination_object_replication_id : string prop;
@@ -46,21 +68,15 @@ type t = {
   source_storage_account_id : string prop;
 }
 
-let azurerm_storage_object_replication ?id ?timeouts
-    ~destination_storage_account_id ~source_storage_account_id ~rules
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~destination_storage_account_id
+    ~source_storage_account_id ~rules __resource_id =
   let __resource_type = "azurerm_storage_object_replication" in
   let __resource =
-    ({
-       destination_storage_account_id;
-       id;
-       source_storage_account_id;
-       rules;
-       timeouts;
-     }
-      : azurerm_storage_object_replication)
+    azurerm_storage_object_replication ?id ?timeouts
+      ~destination_storage_account_id ~source_storage_account_id
+      ~rules ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_object_replication __resource);
   let __resource_attributes =
     ({

@@ -4,12 +4,12 @@
 
 open! Tf.Prelude
 
-type google_kms_key_ring__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** google_kms_key_ring__timeouts *)
+(** timeouts *)
 
 type google_kms_key_ring = {
   id : string prop option; [@option]  (** id *)
@@ -18,10 +18,16 @@ type google_kms_key_ring = {
 A full list of valid locations can be found by running 'gcloud kms locations list'. *)
   name : string prop;  (** The resource name for the KeyRing. *)
   project : string prop option; [@option]  (** project *)
-  timeouts : google_kms_key_ring__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** google_kms_key_ring *)
+
+let timeouts ?create ?delete () : timeouts = { create; delete }
+
+let google_kms_key_ring ?id ?project ?timeouts ~location ~name () :
+    google_kms_key_ring =
+  { id; location; name; project; timeouts }
 
 type t = {
   id : string prop;
@@ -30,13 +36,13 @@ type t = {
   project : string prop;
 }
 
-let google_kms_key_ring ?id ?project ?timeouts ~location ~name
+let register ?tf_module ?id ?project ?timeouts ~location ~name
     __resource_id =
   let __resource_type = "google_kms_key_ring" in
   let __resource =
-    ({ id; location; name; project; timeouts } : google_kms_key_ring)
+    google_kms_key_ring ?id ?project ?timeouts ~location ~name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_key_ring __resource);
   let __resource_attributes =
     ({

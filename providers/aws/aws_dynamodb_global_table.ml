@@ -4,38 +4,44 @@
 
 open! Tf.Prelude
 
-type aws_dynamodb_global_table__replica = {
-  region_name : string prop;  (** region_name *)
-}
+type replica = { region_name : string prop  (** region_name *) }
 [@@deriving yojson_of]
-(** aws_dynamodb_global_table__replica *)
+(** replica *)
 
-type aws_dynamodb_global_table__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_dynamodb_global_table__timeouts *)
+(** timeouts *)
 
 type aws_dynamodb_global_table = {
   id : string prop option; [@option]  (** id *)
   name : string prop;  (** name *)
-  replica : aws_dynamodb_global_table__replica list;
-  timeouts : aws_dynamodb_global_table__timeouts option;
+  replica : replica list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_global_table *)
 
+let replica ~region_name () : replica = { region_name }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_dynamodb_global_table ?id ?timeouts ~name ~replica () :
+    aws_dynamodb_global_table =
+  { id; name; replica; timeouts }
+
 type t = { arn : string prop; id : string prop; name : string prop }
 
-let aws_dynamodb_global_table ?id ?timeouts ~name ~replica
-    __resource_id =
+let register ?tf_module ?id ?timeouts ~name ~replica __resource_id =
   let __resource_type = "aws_dynamodb_global_table" in
   let __resource =
-    ({ id; name; replica; timeouts } : aws_dynamodb_global_table)
+    aws_dynamodb_global_table ?id ?timeouts ~name ~replica ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_global_table __resource);
   let __resource_attributes =
     ({

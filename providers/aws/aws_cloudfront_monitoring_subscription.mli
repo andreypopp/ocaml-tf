@@ -2,17 +2,44 @@
 
 open! Tf.Prelude
 
-type aws_cloudfront_monitoring_subscription__monitoring_subscription__realtime_metrics_subscription_config
+(** RESOURCE SERIALIZATION *)
 
-type aws_cloudfront_monitoring_subscription__monitoring_subscription
+type monitoring_subscription__realtime_metrics_subscription_config
+
+val monitoring_subscription__realtime_metrics_subscription_config :
+  realtime_metrics_subscription_status:string prop ->
+  unit ->
+  monitoring_subscription__realtime_metrics_subscription_config
+
+type monitoring_subscription
+
+val monitoring_subscription :
+  realtime_metrics_subscription_config:
+    monitoring_subscription__realtime_metrics_subscription_config
+    list ->
+  unit ->
+  monitoring_subscription
+
 type aws_cloudfront_monitoring_subscription
-type t = private { distribution_id : string prop; id : string prop }
 
 val aws_cloudfront_monitoring_subscription :
   ?id:string prop ->
   distribution_id:string prop ->
-  monitoring_subscription:
-    aws_cloudfront_monitoring_subscription__monitoring_subscription
-    list ->
+  monitoring_subscription:monitoring_subscription list ->
+  unit ->
+  aws_cloudfront_monitoring_subscription
+
+val yojson_of_aws_cloudfront_monitoring_subscription :
+  aws_cloudfront_monitoring_subscription -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { distribution_id : string prop; id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  distribution_id:string prop ->
+  monitoring_subscription:monitoring_subscription list ->
   string ->
   t

@@ -4,14 +4,14 @@
 
 open! Tf.Prelude
 
-type azurerm_sql_elasticpool__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_sql_elasticpool__timeouts *)
+(** timeouts *)
 
 type azurerm_sql_elasticpool = {
   db_dtu_max : float prop option; [@option]  (** db_dtu_max *)
@@ -25,10 +25,31 @@ type azurerm_sql_elasticpool = {
   resource_group_name : string prop;  (** resource_group_name *)
   server_name : string prop;  (** server_name *)
   tags : (string * string prop) list option; [@option]  (** tags *)
-  timeouts : azurerm_sql_elasticpool__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sql_elasticpool *)
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_sql_elasticpool ?db_dtu_max ?db_dtu_min ?id ?pool_size
+    ?tags ?timeouts ~dtu ~edition ~location ~name
+    ~resource_group_name ~server_name () : azurerm_sql_elasticpool =
+  {
+    db_dtu_max;
+    db_dtu_min;
+    dtu;
+    edition;
+    id;
+    location;
+    name;
+    pool_size;
+    resource_group_name;
+    server_name;
+    tags;
+    timeouts;
+  }
 
 type t = {
   creation_date : string prop;
@@ -45,28 +66,16 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let azurerm_sql_elasticpool ?db_dtu_max ?db_dtu_min ?id ?pool_size
-    ?tags ?timeouts ~dtu ~edition ~location ~name
-    ~resource_group_name ~server_name __resource_id =
+let register ?tf_module ?db_dtu_max ?db_dtu_min ?id ?pool_size ?tags
+    ?timeouts ~dtu ~edition ~location ~name ~resource_group_name
+    ~server_name __resource_id =
   let __resource_type = "azurerm_sql_elasticpool" in
   let __resource =
-    ({
-       db_dtu_max;
-       db_dtu_min;
-       dtu;
-       edition;
-       id;
-       location;
-       name;
-       pool_size;
-       resource_group_name;
-       server_name;
-       tags;
-       timeouts;
-     }
-      : azurerm_sql_elasticpool)
+    azurerm_sql_elasticpool ?db_dtu_max ?db_dtu_min ?id ?pool_size
+      ?tags ?timeouts ~dtu ~edition ~location ~name
+      ~resource_group_name ~server_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sql_elasticpool __resource);
   let __resource_attributes =
     ({

@@ -4,19 +4,19 @@
 
 open! Tf.Prelude
 
-type aws_api_gateway_domain_name__endpoint_configuration = {
+type endpoint_configuration = {
   types : string prop list;  (** types *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_domain_name__endpoint_configuration *)
+(** endpoint_configuration *)
 
-type aws_api_gateway_domain_name__mutual_tls_authentication = {
+type mutual_tls_authentication = {
   truststore_uri : string prop;  (** truststore_uri *)
   truststore_version : string prop option; [@option]
       (** truststore_version *)
 }
 [@@deriving yojson_of]
-(** aws_api_gateway_domain_name__mutual_tls_authentication *)
+(** mutual_tls_authentication *)
 
 type aws_api_gateway_domain_name = {
   certificate_arn : string prop option; [@option]
@@ -43,13 +43,42 @@ type aws_api_gateway_domain_name = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  endpoint_configuration :
-    aws_api_gateway_domain_name__endpoint_configuration list;
-  mutual_tls_authentication :
-    aws_api_gateway_domain_name__mutual_tls_authentication list;
+  endpoint_configuration : endpoint_configuration list;
+  mutual_tls_authentication : mutual_tls_authentication list;
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_domain_name *)
+
+let endpoint_configuration ~types () : endpoint_configuration =
+  { types }
+
+let mutual_tls_authentication ?truststore_version ~truststore_uri ()
+    : mutual_tls_authentication =
+  { truststore_uri; truststore_version }
+
+let aws_api_gateway_domain_name ?certificate_arn ?certificate_body
+    ?certificate_chain ?certificate_name ?certificate_private_key ?id
+    ?ownership_verification_certificate_arn ?regional_certificate_arn
+    ?regional_certificate_name ?security_policy ?tags ?tags_all
+    ~domain_name ~endpoint_configuration ~mutual_tls_authentication
+    () : aws_api_gateway_domain_name =
+  {
+    certificate_arn;
+    certificate_body;
+    certificate_chain;
+    certificate_name;
+    certificate_private_key;
+    domain_name;
+    id;
+    ownership_verification_certificate_arn;
+    regional_certificate_arn;
+    regional_certificate_name;
+    security_policy;
+    tags;
+    tags_all;
+    endpoint_configuration;
+    mutual_tls_authentication;
+  }
 
 type t = {
   arn : string prop;
@@ -73,7 +102,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_api_gateway_domain_name ?certificate_arn ?certificate_body
+let register ?tf_module ?certificate_arn ?certificate_body
     ?certificate_chain ?certificate_name ?certificate_private_key ?id
     ?ownership_verification_certificate_arn ?regional_certificate_arn
     ?regional_certificate_name ?security_policy ?tags ?tags_all
@@ -81,26 +110,14 @@ let aws_api_gateway_domain_name ?certificate_arn ?certificate_body
     __resource_id =
   let __resource_type = "aws_api_gateway_domain_name" in
   let __resource =
-    ({
-       certificate_arn;
-       certificate_body;
-       certificate_chain;
-       certificate_name;
-       certificate_private_key;
-       domain_name;
-       id;
-       ownership_verification_certificate_arn;
-       regional_certificate_arn;
-       regional_certificate_name;
-       security_policy;
-       tags;
-       tags_all;
-       endpoint_configuration;
-       mutual_tls_authentication;
-     }
-      : aws_api_gateway_domain_name)
+    aws_api_gateway_domain_name ?certificate_arn ?certificate_body
+      ?certificate_chain ?certificate_name ?certificate_private_key
+      ?id ?ownership_verification_certificate_arn
+      ?regional_certificate_arn ?regional_certificate_name
+      ?security_policy ?tags ?tags_all ~domain_name
+      ~endpoint_configuration ~mutual_tls_authentication ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_domain_name __resource);
   let __resource_attributes =
     ({

@@ -2,8 +2,26 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_detective_invitation_accepter
-type t = private { graph_arn : string prop; id : string prop }
 
 val aws_detective_invitation_accepter :
-  ?id:string prop -> graph_arn:string prop -> string -> t
+  ?id:string prop ->
+  graph_arn:string prop ->
+  unit ->
+  aws_detective_invitation_accepter
+
+val yojson_of_aws_detective_invitation_accepter :
+  aws_detective_invitation_accepter -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private { graph_arn : string prop; id : string prop }
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  graph_arn:string prop ->
+  string ->
+  t

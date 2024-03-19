@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_resourceexplorer2_index__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_resourceexplorer2_index
+
+val aws_resourceexplorer2_index :
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  type_:string prop ->
+  unit ->
+  aws_resourceexplorer2_index
+
+val yojson_of_aws_resourceexplorer2_index :
+  aws_resourceexplorer2_index -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   arn : string prop;
@@ -13,9 +35,10 @@ type t = private {
   type_ : string prop;
 }
 
-val aws_resourceexplorer2_index :
+val register :
+  ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
-  ?timeouts:aws_resourceexplorer2_index__timeouts ->
+  ?timeouts:timeouts ->
   type_:string prop ->
   string ->
   t

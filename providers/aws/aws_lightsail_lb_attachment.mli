@@ -2,7 +2,21 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type aws_lightsail_lb_attachment
+
+val aws_lightsail_lb_attachment :
+  ?id:string prop ->
+  instance_name:string prop ->
+  lb_name:string prop ->
+  unit ->
+  aws_lightsail_lb_attachment
+
+val yojson_of_aws_lightsail_lb_attachment :
+  aws_lightsail_lb_attachment -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   id : string prop;
@@ -10,7 +24,8 @@ type t = private {
   lb_name : string prop;
 }
 
-val aws_lightsail_lb_attachment :
+val register :
+  ?tf_module:tf_module ->
   ?id:string prop ->
   instance_name:string prop ->
   lb_name:string prop ->

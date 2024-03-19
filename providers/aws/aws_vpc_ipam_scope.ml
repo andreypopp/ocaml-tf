@@ -4,13 +4,13 @@
 
 open! Tf.Prelude
 
-type aws_vpc_ipam_scope__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_vpc_ipam_scope__timeouts *)
+(** timeouts *)
 
 type aws_vpc_ipam_scope = {
   description : string prop option; [@option]  (** description *)
@@ -19,10 +19,17 @@ type aws_vpc_ipam_scope = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeouts : aws_vpc_ipam_scope__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipam_scope *)
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_vpc_ipam_scope ?description ?id ?tags ?tags_all ?timeouts
+    ~ipam_id () : aws_vpc_ipam_scope =
+  { description; id; ipam_id; tags; tags_all; timeouts }
 
 type t = {
   arn : string prop;
@@ -37,14 +44,14 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_vpc_ipam_scope ?description ?id ?tags ?tags_all ?timeouts
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
     ~ipam_id __resource_id =
   let __resource_type = "aws_vpc_ipam_scope" in
   let __resource =
-    ({ description; id; ipam_id; tags; tags_all; timeouts }
-      : aws_vpc_ipam_scope)
+    aws_vpc_ipam_scope ?description ?id ?tags ?tags_all ?timeouts
+      ~ipam_id ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipam_scope __resource);
   let __resource_attributes =
     ({

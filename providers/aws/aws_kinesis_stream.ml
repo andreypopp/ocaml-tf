@@ -4,19 +4,19 @@
 
 open! Tf.Prelude
 
-type aws_kinesis_stream__stream_mode_details = {
+type stream_mode_details = {
   stream_mode : string prop;  (** stream_mode *)
 }
 [@@deriving yojson_of]
-(** aws_kinesis_stream__stream_mode_details *)
+(** stream_mode_details *)
 
-type aws_kinesis_stream__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** aws_kinesis_stream__timeouts *)
+(** timeouts *)
 
 type aws_kinesis_stream = {
   arn : string prop option; [@option]  (** arn *)
@@ -35,11 +35,37 @@ type aws_kinesis_stream = {
   tags : (string * string prop) list option; [@option]  (** tags *)
   tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  stream_mode_details : aws_kinesis_stream__stream_mode_details list;
-  timeouts : aws_kinesis_stream__timeouts option;
+  stream_mode_details : stream_mode_details list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_kinesis_stream *)
+
+let stream_mode_details ~stream_mode () : stream_mode_details =
+  { stream_mode }
+
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
+let aws_kinesis_stream ?arn ?encryption_type
+    ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
+    ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts ~name
+    ~stream_mode_details () : aws_kinesis_stream =
+  {
+    arn;
+    encryption_type;
+    enforce_consumer_deletion;
+    id;
+    kms_key_id;
+    name;
+    retention_period;
+    shard_count;
+    shard_level_metrics;
+    tags;
+    tags_all;
+    stream_mode_details;
+    timeouts;
+  }
 
 type t = {
   arn : string prop;
@@ -55,30 +81,18 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let aws_kinesis_stream ?arn ?encryption_type
+let register ?tf_module ?arn ?encryption_type
     ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
     ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts ~name
     ~stream_mode_details __resource_id =
   let __resource_type = "aws_kinesis_stream" in
   let __resource =
-    ({
-       arn;
-       encryption_type;
-       enforce_consumer_deletion;
-       id;
-       kms_key_id;
-       name;
-       retention_period;
-       shard_count;
-       shard_level_metrics;
-       tags;
-       tags_all;
-       stream_mode_details;
-       timeouts;
-     }
-      : aws_kinesis_stream)
+    aws_kinesis_stream ?arn ?encryption_type
+      ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
+      ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts
+      ~name ~stream_mode_details ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kinesis_stream __resource);
   let __resource_attributes =
     ({

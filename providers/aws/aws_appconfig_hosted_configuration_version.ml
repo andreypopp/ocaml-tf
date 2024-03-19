@@ -16,6 +16,18 @@ type aws_appconfig_hosted_configuration_version = {
 [@@deriving yojson_of]
 (** aws_appconfig_hosted_configuration_version *)
 
+let aws_appconfig_hosted_configuration_version ?description ?id
+    ~application_id ~configuration_profile_id ~content ~content_type
+    () : aws_appconfig_hosted_configuration_version =
+  {
+    application_id;
+    configuration_profile_id;
+    content;
+    content_type;
+    description;
+    id;
+  }
+
 type t = {
   application_id : string prop;
   arn : string prop;
@@ -27,24 +39,17 @@ type t = {
   version_number : float prop;
 }
 
-let aws_appconfig_hosted_configuration_version ?description ?id
-    ~application_id ~configuration_profile_id ~content ~content_type
-    __resource_id =
+let register ?tf_module ?description ?id ~application_id
+    ~configuration_profile_id ~content ~content_type __resource_id =
   let __resource_type =
     "aws_appconfig_hosted_configuration_version"
   in
   let __resource =
-    ({
-       application_id;
-       configuration_profile_id;
-       content;
-       content_type;
-       description;
-       id;
-     }
-      : aws_appconfig_hosted_configuration_version)
+    aws_appconfig_hosted_configuration_version ?description ?id
+      ~application_id ~configuration_profile_id ~content
+      ~content_type ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_hosted_configuration_version __resource);
   let __resource_attributes =
     ({

@@ -4,11 +4,11 @@
 
 open! Tf.Prelude
 
-type digitalocean_vpc__timeouts = {
+type timeouts = {
   delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
-(** digitalocean_vpc__timeouts *)
+(** timeouts *)
 
 type digitalocean_vpc = {
   description : string prop option; [@option]
@@ -19,10 +19,16 @@ type digitalocean_vpc = {
   name : string prop;  (** The name of the VPC *)
   region : string prop;
       (** DigitalOcean region slug for the VPC's location *)
-  timeouts : digitalocean_vpc__timeouts option;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** digitalocean_vpc *)
+
+let timeouts ?delete () : timeouts = { delete }
+
+let digitalocean_vpc ?description ?id ?ip_range ?timeouts ~name
+    ~region () : digitalocean_vpc =
+  { description; id; ip_range; name; region; timeouts }
 
 type t = {
   created_at : string prop;
@@ -35,14 +41,14 @@ type t = {
   urn : string prop;
 }
 
-let digitalocean_vpc ?description ?id ?ip_range ?timeouts ~name
+let register ?tf_module ?description ?id ?ip_range ?timeouts ~name
     ~region __resource_id =
   let __resource_type = "digitalocean_vpc" in
   let __resource =
-    ({ description; id; ip_range; name; region; timeouts }
-      : digitalocean_vpc)
+    digitalocean_vpc ?description ?id ?ip_range ?timeouts ~name
+      ~region ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_vpc __resource);
   let __resource_attributes =
     ({

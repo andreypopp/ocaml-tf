@@ -2,8 +2,30 @@
 
 open! Tf.Prelude
 
-type aws_shield_application_layer_automatic_response__timeouts
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_shield_application_layer_automatic_response
+
+val aws_shield_application_layer_automatic_response :
+  ?timeouts:timeouts ->
+  action:string prop ->
+  resource_arn:string prop ->
+  unit ->
+  aws_shield_application_layer_automatic_response
+
+val yojson_of_aws_shield_application_layer_automatic_response :
+  aws_shield_application_layer_automatic_response -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   action : string prop;
@@ -11,8 +33,9 @@ type t = private {
   resource_arn : string prop;
 }
 
-val aws_shield_application_layer_automatic_response :
-  ?timeouts:aws_shield_application_layer_automatic_response__timeouts ->
+val register :
+  ?tf_module:tf_module ->
+  ?timeouts:timeouts ->
   action:string prop ->
   resource_arn:string prop ->
   string ->

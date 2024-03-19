@@ -13,6 +13,11 @@ type aws_cloudwatch_log_destination_policy = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_destination_policy *)
 
+let aws_cloudwatch_log_destination_policy ?force_update ?id
+    ~access_policy ~destination_name () :
+    aws_cloudwatch_log_destination_policy =
+  { access_policy; destination_name; force_update; id }
+
 type t = {
   access_policy : string prop;
   destination_name : string prop;
@@ -20,14 +25,14 @@ type t = {
   id : string prop;
 }
 
-let aws_cloudwatch_log_destination_policy ?force_update ?id
-    ~access_policy ~destination_name __resource_id =
+let register ?tf_module ?force_update ?id ~access_policy
+    ~destination_name __resource_id =
   let __resource_type = "aws_cloudwatch_log_destination_policy" in
   let __resource =
-    ({ access_policy; destination_name; force_update; id }
-      : aws_cloudwatch_log_destination_policy)
+    aws_cloudwatch_log_destination_policy ?force_update ?id
+      ~access_policy ~destination_name ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_log_destination_policy __resource);
   let __resource_attributes =
     ({

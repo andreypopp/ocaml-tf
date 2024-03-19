@@ -2,7 +2,31 @@
 
 open! Tf.Prelude
 
+(** RESOURCE SERIALIZATION *)
+
 type cloudflare_zone_cache_variants
+
+val cloudflare_zone_cache_variants :
+  ?avif:string prop list ->
+  ?bmp:string prop list ->
+  ?gif:string prop list ->
+  ?id:string prop ->
+  ?jp2:string prop list ->
+  ?jpeg:string prop list ->
+  ?jpg:string prop list ->
+  ?jpg2:string prop list ->
+  ?png:string prop list ->
+  ?tif:string prop list ->
+  ?tiff:string prop list ->
+  ?webp:string prop list ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_zone_cache_variants
+
+val yojson_of_cloudflare_zone_cache_variants :
+  cloudflare_zone_cache_variants -> json
+
+(** RESOURCE REGISTRATION *)
 
 type t = private {
   avif : string list prop;
@@ -20,7 +44,8 @@ type t = private {
   zone_id : string prop;
 }
 
-val cloudflare_zone_cache_variants :
+val register :
+  ?tf_module:tf_module ->
   ?avif:string prop list ->
   ?bmp:string prop list ->
   ?gif:string prop list ->

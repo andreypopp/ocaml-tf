@@ -18,6 +18,20 @@ type aws_lambda_layer_version_permission = {
 [@@deriving yojson_of]
 (** aws_lambda_layer_version_permission *)
 
+let aws_lambda_layer_version_permission ?id ?organization_id
+    ?skip_destroy ~action ~layer_name ~principal ~statement_id
+    ~version_number () : aws_lambda_layer_version_permission =
+  {
+    action;
+    id;
+    layer_name;
+    organization_id;
+    principal;
+    skip_destroy;
+    statement_id;
+    version_number;
+  }
+
 type t = {
   action : string prop;
   id : string prop;
@@ -31,24 +45,16 @@ type t = {
   version_number : float prop;
 }
 
-let aws_lambda_layer_version_permission ?id ?organization_id
-    ?skip_destroy ~action ~layer_name ~principal ~statement_id
-    ~version_number __resource_id =
+let register ?tf_module ?id ?organization_id ?skip_destroy ~action
+    ~layer_name ~principal ~statement_id ~version_number
+    __resource_id =
   let __resource_type = "aws_lambda_layer_version_permission" in
   let __resource =
-    ({
-       action;
-       id;
-       layer_name;
-       organization_id;
-       principal;
-       skip_destroy;
-       statement_id;
-       version_number;
-     }
-      : aws_lambda_layer_version_permission)
+    aws_lambda_layer_version_permission ?id ?organization_id
+      ?skip_destroy ~action ~layer_name ~principal ~statement_id
+      ~version_number ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_layer_version_permission __resource);
   let __resource_attributes =
     ({

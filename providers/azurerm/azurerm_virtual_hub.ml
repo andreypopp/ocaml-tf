@@ -4,21 +4,21 @@
 
 open! Tf.Prelude
 
-type azurerm_virtual_hub__route = {
+type route = {
   address_prefixes : string prop list;  (** address_prefixes *)
   next_hop_ip_address : string prop;  (** next_hop_ip_address *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_hub__route *)
+(** route *)
 
-type azurerm_virtual_hub__timeouts = {
+type timeouts = {
   create : string prop option; [@option]  (** create *)
   delete : string prop option; [@option]  (** delete *)
   read : string prop option; [@option]  (** read *)
   update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
-(** azurerm_virtual_hub__timeouts *)
+(** timeouts *)
 
 type azurerm_virtual_hub = {
   address_prefix : string prop option; [@option]
@@ -36,11 +36,36 @@ type azurerm_virtual_hub = {
       (** virtual_router_auto_scale_min_capacity *)
   virtual_wan_id : string prop option; [@option]
       (** virtual_wan_id *)
-  route : azurerm_virtual_hub__route list;
-  timeouts : azurerm_virtual_hub__timeouts option;
+  route : route list;
+  timeouts : timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub *)
+
+let route ~address_prefixes ~next_hop_ip_address () : route =
+  { address_prefixes; next_hop_ip_address }
+
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
+
+let azurerm_virtual_hub ?address_prefix ?hub_routing_preference ?id
+    ?sku ?tags ?virtual_router_auto_scale_min_capacity
+    ?virtual_wan_id ?timeouts ~location ~name ~resource_group_name
+    ~route () : azurerm_virtual_hub =
+  {
+    address_prefix;
+    hub_routing_preference;
+    id;
+    location;
+    name;
+    resource_group_name;
+    sku;
+    tags;
+    virtual_router_auto_scale_min_capacity;
+    virtual_wan_id;
+    route;
+    timeouts;
+  }
 
 type t = {
   address_prefix : string prop;
@@ -58,29 +83,18 @@ type t = {
   virtual_wan_id : string prop;
 }
 
-let azurerm_virtual_hub ?address_prefix ?hub_routing_preference ?id
+let register ?tf_module ?address_prefix ?hub_routing_preference ?id
     ?sku ?tags ?virtual_router_auto_scale_min_capacity
     ?virtual_wan_id ?timeouts ~location ~name ~resource_group_name
     ~route __resource_id =
   let __resource_type = "azurerm_virtual_hub" in
   let __resource =
-    ({
-       address_prefix;
-       hub_routing_preference;
-       id;
-       location;
-       name;
-       resource_group_name;
-       sku;
-       tags;
-       virtual_router_auto_scale_min_capacity;
-       virtual_wan_id;
-       route;
-       timeouts;
-     }
-      : azurerm_virtual_hub)
+    azurerm_virtual_hub ?address_prefix ?hub_routing_preference ?id
+      ?sku ?tags ?virtual_router_auto_scale_min_capacity
+      ?virtual_wan_id ?timeouts ~location ~name ~resource_group_name
+      ~route ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_hub __resource);
   let __resource_attributes =
     ({

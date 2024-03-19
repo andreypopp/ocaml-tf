@@ -4,75 +4,70 @@
 
 open! Tf.Prelude
 
-type aws_lambda_event_source_mapping__amazon_managed_kafka_event_source_config = {
+type amazon_managed_kafka_event_source_config = {
   consumer_group_id : string prop option; [@option]
       (** consumer_group_id *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__amazon_managed_kafka_event_source_config *)
+(** amazon_managed_kafka_event_source_config *)
 
-type aws_lambda_event_source_mapping__destination_config__on_failure = {
+type destination_config__on_failure = {
   destination_arn : string prop;  (** destination_arn *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__destination_config__on_failure *)
+(** destination_config__on_failure *)
 
-type aws_lambda_event_source_mapping__destination_config = {
-  on_failure :
-    aws_lambda_event_source_mapping__destination_config__on_failure
-    list;
+type destination_config = {
+  on_failure : destination_config__on_failure list;
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__destination_config *)
+(** destination_config *)
 
-type aws_lambda_event_source_mapping__document_db_event_source_config = {
+type document_db_event_source_config = {
   collection_name : string prop option; [@option]
       (** collection_name *)
   database_name : string prop;  (** database_name *)
   full_document : string prop option; [@option]  (** full_document *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__document_db_event_source_config *)
+(** document_db_event_source_config *)
 
-type aws_lambda_event_source_mapping__filter_criteria__filter = {
+type filter_criteria__filter = {
   pattern : string prop option; [@option]  (** pattern *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__filter_criteria__filter *)
+(** filter_criteria__filter *)
 
-type aws_lambda_event_source_mapping__filter_criteria = {
-  filter :
-    aws_lambda_event_source_mapping__filter_criteria__filter list;
-}
+type filter_criteria = { filter : filter_criteria__filter list }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__filter_criteria *)
+(** filter_criteria *)
 
-type aws_lambda_event_source_mapping__scaling_config = {
+type scaling_config = {
   maximum_concurrency : float prop option; [@option]
       (** maximum_concurrency *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__scaling_config *)
+(** scaling_config *)
 
-type aws_lambda_event_source_mapping__self_managed_event_source = {
+type self_managed_event_source = {
   endpoints : (string * string prop) list;  (** endpoints *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__self_managed_event_source *)
+(** self_managed_event_source *)
 
-type aws_lambda_event_source_mapping__self_managed_kafka_event_source_config = {
+type self_managed_kafka_event_source_config = {
   consumer_group_id : string prop option; [@option]
       (** consumer_group_id *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__self_managed_kafka_event_source_config *)
+(** self_managed_kafka_event_source_config *)
 
-type aws_lambda_event_source_mapping__source_access_configuration = {
+type source_access_configuration = {
   type_ : string prop; [@key "type"]  (** type *)
   uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
-(** aws_lambda_event_source_mapping__source_access_configuration *)
+(** source_access_configuration *)
 
 type aws_lambda_event_source_mapping = {
   batch_size : float prop option; [@option]  (** batch_size *)
@@ -102,27 +97,93 @@ type aws_lambda_event_source_mapping = {
   tumbling_window_in_seconds : float prop option; [@option]
       (** tumbling_window_in_seconds *)
   amazon_managed_kafka_event_source_config :
-    aws_lambda_event_source_mapping__amazon_managed_kafka_event_source_config
-    list;
-  destination_config :
-    aws_lambda_event_source_mapping__destination_config list;
+    amazon_managed_kafka_event_source_config list;
+  destination_config : destination_config list;
   document_db_event_source_config :
-    aws_lambda_event_source_mapping__document_db_event_source_config
-    list;
-  filter_criteria :
-    aws_lambda_event_source_mapping__filter_criteria list;
-  scaling_config :
-    aws_lambda_event_source_mapping__scaling_config list;
-  self_managed_event_source :
-    aws_lambda_event_source_mapping__self_managed_event_source list;
+    document_db_event_source_config list;
+  filter_criteria : filter_criteria list;
+  scaling_config : scaling_config list;
+  self_managed_event_source : self_managed_event_source list;
   self_managed_kafka_event_source_config :
-    aws_lambda_event_source_mapping__self_managed_kafka_event_source_config
-    list;
-  source_access_configuration :
-    aws_lambda_event_source_mapping__source_access_configuration list;
+    self_managed_kafka_event_source_config list;
+  source_access_configuration : source_access_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping *)
+
+let amazon_managed_kafka_event_source_config ?consumer_group_id () :
+    amazon_managed_kafka_event_source_config =
+  { consumer_group_id }
+
+let destination_config__on_failure ~destination_arn () :
+    destination_config__on_failure =
+  { destination_arn }
+
+let destination_config ~on_failure () : destination_config =
+  { on_failure }
+
+let document_db_event_source_config ?collection_name ?full_document
+    ~database_name () : document_db_event_source_config =
+  { collection_name; database_name; full_document }
+
+let filter_criteria__filter ?pattern () : filter_criteria__filter =
+  { pattern }
+
+let filter_criteria ~filter () : filter_criteria = { filter }
+
+let scaling_config ?maximum_concurrency () : scaling_config =
+  { maximum_concurrency }
+
+let self_managed_event_source ~endpoints () :
+    self_managed_event_source =
+  { endpoints }
+
+let self_managed_kafka_event_source_config ?consumer_group_id () :
+    self_managed_kafka_event_source_config =
+  { consumer_group_id }
+
+let source_access_configuration ~type_ ~uri () :
+    source_access_configuration =
+  { type_; uri }
+
+let aws_lambda_event_source_mapping ?batch_size
+    ?bisect_batch_on_function_error ?enabled ?event_source_arn
+    ?function_response_types ?id ?maximum_batching_window_in_seconds
+    ?maximum_record_age_in_seconds ?maximum_retry_attempts
+    ?parallelization_factor ?queues ?starting_position
+    ?starting_position_timestamp ?topics ?tumbling_window_in_seconds
+    ~function_name ~amazon_managed_kafka_event_source_config
+    ~destination_config ~document_db_event_source_config
+    ~filter_criteria ~scaling_config ~self_managed_event_source
+    ~self_managed_kafka_event_source_config
+    ~source_access_configuration () : aws_lambda_event_source_mapping
+    =
+  {
+    batch_size;
+    bisect_batch_on_function_error;
+    enabled;
+    event_source_arn;
+    function_name;
+    function_response_types;
+    id;
+    maximum_batching_window_in_seconds;
+    maximum_record_age_in_seconds;
+    maximum_retry_attempts;
+    parallelization_factor;
+    queues;
+    starting_position;
+    starting_position_timestamp;
+    topics;
+    tumbling_window_in_seconds;
+    amazon_managed_kafka_event_source_config;
+    destination_config;
+    document_db_event_source_config;
+    filter_criteria;
+    scaling_config;
+    self_managed_event_source;
+    self_managed_kafka_event_source_config;
+    source_access_configuration;
+  }
 
 type t = {
   batch_size : float prop;
@@ -149,9 +210,9 @@ type t = {
   uuid : string prop;
 }
 
-let aws_lambda_event_source_mapping ?batch_size
-    ?bisect_batch_on_function_error ?enabled ?event_source_arn
-    ?function_response_types ?id ?maximum_batching_window_in_seconds
+let register ?tf_module ?batch_size ?bisect_batch_on_function_error
+    ?enabled ?event_source_arn ?function_response_types ?id
+    ?maximum_batching_window_in_seconds
     ?maximum_record_age_in_seconds ?maximum_retry_attempts
     ?parallelization_factor ?queues ?starting_position
     ?starting_position_timestamp ?topics ?tumbling_window_in_seconds
@@ -162,35 +223,21 @@ let aws_lambda_event_source_mapping ?batch_size
     ~source_access_configuration __resource_id =
   let __resource_type = "aws_lambda_event_source_mapping" in
   let __resource =
-    ({
-       batch_size;
-       bisect_batch_on_function_error;
-       enabled;
-       event_source_arn;
-       function_name;
-       function_response_types;
-       id;
-       maximum_batching_window_in_seconds;
-       maximum_record_age_in_seconds;
-       maximum_retry_attempts;
-       parallelization_factor;
-       queues;
-       starting_position;
-       starting_position_timestamp;
-       topics;
-       tumbling_window_in_seconds;
-       amazon_managed_kafka_event_source_config;
-       destination_config;
-       document_db_event_source_config;
-       filter_criteria;
-       scaling_config;
-       self_managed_event_source;
-       self_managed_kafka_event_source_config;
-       source_access_configuration;
-     }
-      : aws_lambda_event_source_mapping)
+    aws_lambda_event_source_mapping ?batch_size
+      ?bisect_batch_on_function_error ?enabled ?event_source_arn
+      ?function_response_types ?id
+      ?maximum_batching_window_in_seconds
+      ?maximum_record_age_in_seconds ?maximum_retry_attempts
+      ?parallelization_factor ?queues ?starting_position
+      ?starting_position_timestamp ?topics
+      ?tumbling_window_in_seconds ~function_name
+      ~amazon_managed_kafka_event_source_config ~destination_config
+      ~document_db_event_source_config ~filter_criteria
+      ~scaling_config ~self_managed_event_source
+      ~self_managed_kafka_event_source_config
+      ~source_access_configuration ()
   in
-  Resource.add ~type_:__resource_type ~id:__resource_id
+  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_event_source_mapping __resource);
   let __resource_attributes =
     ({
