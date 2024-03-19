@@ -4,14 +4,22 @@ end
 
 module Prelude : sig
   type json = Yojson.Safe.t
+  type tf_module = ..
+  type tf_module += Tf_default
 
   val yojson_of_json : json -> json
 
   module type COLLECTION = sig
     type t
 
-    val add : type_:string -> id:string -> json -> unit
-    val yojson_of : unit -> json
+    val add :
+      ?tf_module:tf_module ->
+      type_:string ->
+      id:string ->
+      json ->
+      unit
+
+    val yojson_of : ?tf_module:tf_module -> unit -> json
   end
 
   module Resource : COLLECTION

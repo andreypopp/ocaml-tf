@@ -170,6 +170,8 @@ let to_ocaml_name = function
   | "external" -> "external_"
   | "open" -> "open_"
   | "constraint" -> "constraint_"
+  | "option" -> "option_"
+  | "list" -> "list_"
   | x -> x
 
 let to_ocaml_doc doc =
@@ -193,7 +195,12 @@ let gen_attribute_types name ppf attributes =
   List.iter attributes
     ~f:(fun (attr_name, (attribute : attribute)) ->
       let ty = attribute.type_ in
-      let pp_ty = gen_attribute_type_name [ attr_name; name ] in
+      let pp_ty =
+        gen_attribute_type_name
+          (match name with
+          | None -> [ attr_name ]
+          | Some name -> [ attr_name; name ])
+      in
       let doc =
         match attribute.description with
         | None -> Printf.sprintf " (** %s *)" attr_name
@@ -220,7 +227,11 @@ let gen_object_types_ml ~is_mli ~input_only ppf
     (name, (block : block)) =
   List.iter block.attributes ~f:(fun (attr_name, attribute) ->
       List.iter
-        (find_object_types [] [ attr_name; name ] attribute.type_)
+        (find_object_types []
+           (match name with
+           | None -> [ attr_name ]
+           | Some name -> [ attr_name; name ])
+           attribute.type_)
         ~f:(fun (path, tys) ->
           let attributes =
             List.map tys ~f:(fun (name, ty) ->
@@ -239,7 +250,7 @@ let gen_object_types_ml ~is_mli ~input_only ppf
           in
           let ty_name = List.rev path |> String.concat ~sep:"__" in
           Format.fprintf ppf "type %s = {@." (to_ocaml_name ty_name);
-          gen_attribute_types ty_name ppf
+          gen_attribute_types (Some ty_name) ppf
             (get_attributes ~input_only attributes);
           if is_mli then Format.fprintf ppf "}@."
           else Format.fprintf ppf "} [%@%@deriving yojson_of]@."))
@@ -247,7 +258,10 @@ let gen_object_types_ml ~is_mli ~input_only ppf
 let gen_block_type_name ~kind basename
     ((block_name, block) : string * block_type) =
   let ty_name =
-    to_ocaml_name (Printf.sprintf "%s__%s" basename block_name)
+    match basename with
+    | None -> to_ocaml_name block_name
+    | Some basename ->
+        to_ocaml_name (Printf.sprintf "%s__%s" basename block_name)
   in
   let ty_mod =
     match block_name, block.nesting_mode, kind with
@@ -260,12 +274,14 @@ let gen_block_type_name ~kind basename
   in
   Printf.sprintf "%s%s" ty_name ty_mod
 
-let rec gen_block_type_ml ~is_mli ~input_only ppf
-    (name, (block : block)) =
-  gen_block_types_ml ~is_mli ppf (name, block);
-  gen_object_types_ml ~is_mli ~input_only ppf (name, block);
+let rec gen_block_type_ml ?(is_resource = false) ~is_mli ~input_only
+    ppf (name, (block : block)) =
+  let basename = if is_resource then None else Some name in
+  gen_block_types_ml ~is_mli ppf
+    ((if is_resource then None else Some name), block);
+  gen_object_types_ml ~is_mli ~input_only ppf (basename, block);
   match is_mli with
-  | true -> Format.fprintf ppf "type %s@.@." name
+  | true -> Format.fprintf ppf "type %s@.@." (to_ocaml_name name)
   | false ->
       let attributes = get_attributes ~input_only block.attributes in
       let is_unit =
@@ -275,15 +291,16 @@ let rec gen_block_type_ml ~is_mli ~input_only ppf
       in
       if is_unit then
         Format.fprintf ppf
-          "type %s = unit [%@%@deriving yojson_of]@.@." name
+          "type %s = unit [%@%@deriving yojson_of]@.@."
+          (to_ocaml_name name)
       else (
         Format.fprintf ppf "type %s = %s{@." (to_ocaml_name name)
           (if is_mli then "private " else "");
-        gen_attribute_types name ppf attributes;
+        gen_attribute_types basename ppf attributes;
         List.iter block.block_types ~f:(fun (block_name, block) ->
             let ocaml_name = to_ocaml_name block_name in
             let ty =
-              gen_block_type_name ~kind:`record name
+              gen_block_type_name ~kind:`record basename
                 (block_name, block)
             in
             Format.fprintf ppf "  %s: %s;@." ocaml_name ty);
@@ -297,14 +314,17 @@ let rec gen_block_type_ml ~is_mli ~input_only ppf
 and gen_block_types_ml ~is_mli ppf (name, (block : block)) =
   List.iter block.block_types
     ~f:(fun (block_type_name, (block_type : block_type)) ->
-      let name = Printf.sprintf "%s__%s" name block_type_name in
-      gen_block_type_ml ~input_only:false ~is_mli ppf
+      let name =
+        match name with
+        | None -> block_type_name
+        | Some name -> Printf.sprintf "%s__%s" name block_type_name
+      in
+      gen_block_type_ml ~input_only:true ~is_mli ppf
         (name, block_type.block))
 
-let gen_resource_constructor ppf (name, (schema : schema)) =
+let gen_block_args (block : block) =
   let collect_args f =
-    List.filter_map schema.block.attributes
-      ~f:(fun (attr_name, attr) ->
+    List.filter_map block.attributes ~f:(fun (attr_name, attr) ->
         match f attr_name attr with
         | false -> None
         | true -> Some (to_ocaml_name attr_name))
@@ -315,8 +335,7 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
     |> List.map ~f:(fun x -> Printf.sprintf "?%s" x)
   in
   let opt_block_args =
-    List.filter_map schema.block.block_types
-      ~f:(fun (block_name, block) ->
+    List.filter_map block.block_types ~f:(fun (block_name, block) ->
         match block_name, block.nesting_mode with
         | "timeouts", Single -> Some (to_ocaml_name block_name)
         | _ -> None)
@@ -328,31 +347,61 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
     |> List.map ~f:(fun x -> Printf.sprintf "~%s" x)
   in
   let block_args =
-    List.filter_map schema.block.block_types
-      ~f:(fun (block_name, block) ->
+    List.filter_map block.block_types ~f:(fun (block_name, block) ->
         match block_name, block.nesting_mode with
         | "timeouts", Single -> None
         | _ -> Some (to_ocaml_name block_name))
     |> List.map ~f:(fun x -> Printf.sprintf "~%s" x)
   in
-  Format.fprintf ppf "let %s %s %s %s %s __resource_id =@." name
-    (concat_space opt_args)
-    (concat_space opt_block_args)
-    (concat_space args)
-    (concat_space block_args);
-  Format.fprintf ppf "  let __resource_type = %S in@." name;
-  Format.fprintf ppf "  let __resource = ({@.";
-  List.iter schema.block.attributes ~f:(fun (attr_name, attr) ->
-      if not (is_input_attribute attr) then ()
-      else
-        let ocaml_name = to_ocaml_name attr_name in
+  List.flatten [ opt_args; opt_block_args; args; block_args ]
+
+let rec gen_block_constructor ?(is_resource = false) ppf
+    (name, (block : block)) =
+  gen_block_constructors ppf
+    ((if is_resource then None else Some name), block);
+  let args = concat_space (gen_block_args block) in
+  Format.fprintf ppf "let %s %s () =@." (to_ocaml_name name) args;
+  let attributes =
+    get_attributes ~input_only:true block.attributes
+  in
+  let is_unit =
+    match attributes, block.block_types with
+    | [], [] -> true
+    | _ -> false
+  in
+  if is_unit then Format.fprintf ppf "  ();;@.@."
+  else (
+    Format.fprintf ppf "  ({@.";
+    List.iter block.attributes ~f:(fun (attr_name, attr) ->
+        if not (is_input_attribute attr) then ()
+        else
+          let ocaml_name = to_ocaml_name attr_name in
+          Format.fprintf ppf "    %s;@." ocaml_name);
+    List.iter block.block_types ~f:(fun (block_name, _) ->
+        let ocaml_name = to_ocaml_name block_name in
         Format.fprintf ppf "    %s;@." ocaml_name);
-  List.iter schema.block.block_types ~f:(fun (block_name, _) ->
-      let ocaml_name = to_ocaml_name block_name in
-      Format.fprintf ppf "    %s;@." ocaml_name);
-  Format.fprintf ppf "  } : %s) in@." (to_ocaml_name name);
+    Format.fprintf ppf "  } : %s);;@.@." (to_ocaml_name name))
+
+and gen_block_constructors ppf (name, (block : block)) =
+  List.iter block.block_types
+    ~f:(fun (block_type_name, (block_type : block_type)) ->
+      let name =
+        match name with
+        | None -> block_type_name
+        | Some name -> Printf.sprintf "%s__%s" name block_type_name
+      in
+      gen_block_constructor ppf (name, block_type.block))
+
+let gen_resource_constructor ppf (name, (schema : schema)) =
+  let args = concat_space (gen_block_args schema.block) in
+  Format.fprintf ppf "let register ?tf_module %s __resource_id =@."
+    args;
+  Format.fprintf ppf "  let __resource_type = %S in@." name;
+  Format.fprintf ppf "  let __resource = %s %s () in@."
+    (to_ocaml_name name) args;
   Format.fprintf ppf
-    "  Resource.add ~type_:__resource_type ~id:__resource_id@.";
+    "  Resource.add ?tf_module ~type_:__resource_type \
+     ~id:__resource_id@.";
   Format.fprintf ppf "    (yojson_of_%s __resource);@." name;
   Format.fprintf ppf "  let __resource_attributes = ({@.";
   List.iter schema.block.attributes ~f:(fun (attr_name, _attr) ->
@@ -365,20 +414,19 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
   Format.fprintf ppf "  } : t) in@.";
   Format.fprintf ppf "  __resource_attributes;;@.@."
 
-let gen_resource_attributes_ty ~is_mli ppf (name, (schema : schema))
+let gen_resource_attributes_ty ~is_mli ppf (_name, (schema : schema))
     =
   Format.fprintf ppf "type t = %s{@."
     (if is_mli then "private " else "");
   List.iter schema.block.attributes ~f:(fun (attr_name, attr) ->
       let ocaml_name = to_ocaml_name attr_name in
-      let ty = gen_attribute_type_name' "" [ attr_name; name ] in
+      let ty = gen_attribute_type_name' "" [ attr_name ] in
       Format.fprintf ppf "  %s: %a prop;@." ocaml_name ty attr.type_);
   Format.fprintf ppf "}@.@."
 
-let gen_resource_constructor_sig ppf (name, (schema : schema)) =
+let gen_block_args_sig basename block =
   let collect_args f =
-    List.filter_map schema.block.attributes
-      ~f:(fun (attr_name, attr) ->
+    List.filter_map block.attributes ~f:(fun (attr_name, attr) ->
         match f attr_name attr with
         | false -> None
         | true -> Some (to_ocaml_name attr_name, attr))
@@ -388,19 +436,22 @@ let gen_resource_constructor_sig ppf (name, (schema : schema)) =
         is_input_attribute attr && attr.optional)
     |> List.map ~f:(fun (attr_name, attr) ->
            Format.asprintf "?%s:%a" attr_name
-             (gen_attribute_type_name [ attr_name; name ])
+             (gen_attribute_type_name
+                (match basename with
+                | None -> [ attr_name ]
+                | Some name -> [ attr_name; name ]))
              attr.type_)
   in
   let opt_block_args =
-    List.filter schema.block.block_types
-      ~f:(fun (block_name, block) ->
+    List.filter block.block_types ~f:(fun (block_name, block) ->
         match block_name, block.nesting_mode with
         | "timeouts", Single -> true
         | _ -> false)
     |> List.map ~f:(fun (block_name, block) ->
            let arg = to_ocaml_name block_name in
            let ty =
-             gen_block_type_name ~kind:`arg name (block_name, block)
+             gen_block_type_name ~kind:`arg basename
+               (block_name, block)
            in
            Printf.sprintf "?%s:%s" arg ty)
   in
@@ -409,33 +460,67 @@ let gen_resource_constructor_sig ppf (name, (schema : schema)) =
         is_input_attribute attr && attr.required)
     |> List.map ~f:(fun (attr_name, attr) ->
            Format.asprintf "%s:%a" attr_name
-             (gen_attribute_type_name [ attr_name; name ])
+             (gen_attribute_type_name
+                (match basename with
+                | None -> [ attr_name ]
+                | Some name -> [ attr_name; name ]))
              attr.type_)
   in
   let block_args =
-    List.filter schema.block.block_types
-      ~f:(fun (block_name, block) ->
-        match block_name, block.nesting_mode with
-        | "timeouts", Single -> false
+    List.filter block.block_types ~f:(fun (block_name, block) ->
+        match block_name, block.nesting_mode, basename with
+        | "timeouts", Single, None -> false
         | _ -> true)
     |> List.map ~f:(fun (block_name, block) ->
            let arg = to_ocaml_name block_name in
            let ty =
-             gen_block_type_name ~kind:`arg name (block_name, block)
+             gen_block_type_name ~kind:`arg basename
+               (block_name, block)
            in
            Printf.sprintf "%s:%s" arg ty)
   in
+  List.flatten [ opt_args; opt_block_args; args; block_args ]
+
+let rec gen_block_constructor_sig ?(is_resource = false) ppf
+    (name, (block : block)) =
+  let basename = if is_resource then None else Some name in
+  gen_object_types_ml ~is_mli:true ~input_only:true ppf
+    (basename, block);
+  gen_block_constructors_sig ppf (basename, block);
+  let args = gen_block_args_sig basename block in
   let ty =
-    opt_args @ opt_block_args @ args @ block_args @ [ "string"; "t" ]
+    args @ [ "unit"; to_ocaml_name name ]
     |> String.concat ~sep:" ->\n    "
   in
-  Format.fprintf ppf "val %s :@.    %s@.@." name ty
+  Format.fprintf ppf "type %s@.@." (to_ocaml_name name);
+  Format.fprintf ppf "val %s :@.    %s@.@." (to_ocaml_name name) ty
+
+and gen_block_constructors_sig ppf (name, (block : block)) =
+  List.iter block.block_types
+    ~f:(fun (block_type_name, (block_type : block_type)) ->
+      let name =
+        match name with
+        | None -> block_type_name
+        | Some name -> Printf.sprintf "%s__%s" name block_type_name
+      in
+      gen_block_constructor_sig ppf (name, block_type.block))
+
+let gen_resource_constructor_sig ppf (_name, (schema : schema)) =
+  let args = gen_block_args_sig None schema.block in
+  let ty =
+    ("?tf_module:tf_module" :: args) @ [ "string"; "t" ]
+    |> String.concat ~sep:" ->\n    "
+  in
+  Format.fprintf ppf "val register :@.    %s@.@." ty
 
 let gen_resource_impl ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
   Format.fprintf ppf "[%@%@%@ocaml.warning \"-33-27-26\"]@.@.";
   Format.fprintf ppf "open! Tf.Prelude@.@.";
-  gen_block_type_ml ~input_only:true ~is_mli:false ppf
+  gen_block_type_ml ~is_resource:true ~input_only:true ~is_mli:false
+    ppf
+    (resource_name, resource.block);
+  gen_block_constructor ~is_resource:true ppf
     (resource_name, resource.block);
   gen_resource_attributes_ty ~is_mli:false ppf
     (resource_name, resource);
@@ -444,8 +529,13 @@ let gen_resource_impl ppf (resource_name, (resource : schema)) =
 let gen_resource_iface ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
   Format.fprintf ppf "open! Tf.Prelude@.@.";
-  gen_block_type_ml ~input_only:true ~is_mli:true ppf
+  Format.fprintf ppf "(** RESOURCE SERIALIZATION *)@.@.";
+  gen_block_constructor_sig ~is_resource:true ppf
     (resource_name, resource.block);
+  Format.fprintf ppf "val yojson_of_%s : %s -> json@.@."
+    (to_ocaml_name resource_name)
+    (to_ocaml_name resource_name);
+  Format.fprintf ppf "(** RESOURCE REGISTRATION *)@.@.";
   gen_resource_attributes_ty ~is_mli:true ppf
     (resource_name, resource);
   gen_resource_constructor_sig ppf (resource_name, resource)

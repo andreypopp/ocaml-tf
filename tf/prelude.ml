@@ -2,28 +2,53 @@ type json = Yojson.Safe.t
 
 let yojson_of_json json = json
 
+type tf_module = ..
+type tf_module += Tf_default
+
 module type COLLECTION = sig
   type t
 
-  val add : type_:string -> id:string -> json -> unit
-  val yojson_of : unit -> json
+  val add :
+    ?tf_module:tf_module -> type_:string -> id:string -> json -> unit
+
+  val yojson_of : ?tf_module:tf_module -> unit -> json
 end
 
 module Make_collection () : COLLECTION = struct
-  type t = (string * (string * json) list) list ref
+  module Key = struct
+    type t = tf_module * string * string
 
-  let t : t = ref []
+    let hash = Hash.triple Hash.poly Hash.string Hash.string
+    let equal = Equal.triple Equal.poly Equal.string Equal.string
+  end
 
-  let add ~type_ ~id resource =
-    t :=
-      List.Assoc.update ~eq:String.equal type_ !t ~f:(function
-        | None -> Some [ id, resource ]
-        | Some xs -> Some ((id, resource) :: xs))
+  module T = Hashtbl.Make (Key)
 
-  let yojson_of () : json =
+  type t = json T.t
+
+  let t : t = T.create 100
+
+  let add ?(tf_module = Tf_default) ~type_ ~id resource =
+    let key = tf_module, type_, id in
+    match T.find_opt t key with
+    | None -> T.replace t key resource
+    | Some _ -> failwith "duplicate resource"
+
+  let yojson_of ?tf_module () : json =
     `Assoc
-      (List.map !t ~f:(fun (resource_type, resources) ->
-           resource_type, `Assoc resources))
+      (T.to_seq t
+      |> Seq.filter_map (fun ((m, t, id), resource) ->
+             match tf_module with
+             | Some m' when Equal.poly m m' ->
+                 Some (t, (id, resource))
+             | None -> Some (t, (id, resource))
+             | Some _ -> None)
+      |> Seq.group (Equal.map ~f:fst String.equal)
+      |> Seq.map (fun resources ->
+             let ts, resources = Seq.split resources in
+             let t = Seq.head_exn ts in
+             t, `Assoc (Seq.to_list resources))
+      |> Seq.to_list)
 end
 
 module Resource = Make_collection ()
