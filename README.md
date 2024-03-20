@@ -70,7 +70,7 @@ dune:
 (executable
  (name main)
  (modules main)
- (libraries tf tf.digitalocean))
+ (libraries tf tf_digitalocean))
 ```
 
 main.ml
