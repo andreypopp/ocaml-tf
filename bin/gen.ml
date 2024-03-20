@@ -1,4 +1,4 @@
-[@@@ocaml.warning "-69"]
+[@@@ocaml.warning "-69-30"]
 
 open Printf
 

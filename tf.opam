@@ -8,7 +8,7 @@ homepage: "https://github.com/andreypopp/ocaml-tf"
 bug-reports: "https://github.com/andreypopp/ocaml-tf/issues"
 depends: [
   "ocaml"
-  "dune" {>= "3.14"}
+  "dune" {>= "3.0"}
   "containers"
   "yojson"
   "odoc" {with-doc}
