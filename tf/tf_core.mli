@@ -25,13 +25,17 @@ module Data : COLLECTION
 
 module Prop : sig
   type 'a t
-  (** terraform value which might or might not be computed but can be
-        referenced by other resources *)
+  (** configuration value which might or might not be computed but can be
+      referenced by other resources *)
 
   val string : string -> string t
   val int : int -> float t
   val float : float -> float t
   val bool : bool -> bool t
+  val string_opt : string option -> string t option
+  val int_opt : int option -> float t option
+  val float_opt : float option -> float t option
+  val bool_opt : bool option -> bool t option
   val dynamic : json -> json t
   val list : 'a t list -> 'a list t
 

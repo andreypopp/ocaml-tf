@@ -88,6 +88,10 @@ module Prop = struct
   let bool b = B b
   let dynamic j = D j
   let list xs = L xs
+  let string_opt = Option.map string
+  let int_opt = Option.map int
+  let float_opt = Option.map float
+  let bool_opt = Option.map bool
 
   let magic (type a) (x : a t) =
     match x with
